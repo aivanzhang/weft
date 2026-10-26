@@ -1,14 +1,14 @@
-# Loom EnvForge — project identity and working rules
+# Weft — project identity and working rules
 
 ## Identity
 
-Loom EnvForge is the reinforcement-learning environment generation and repair component of Loom, prepared for the Meta Global AI Developer Hackathon. Display name: **Loom EnvForge**. Repository: `kintsugi-software/loom-envforge`. It is separate from `../loom`, which contains the operating corpora pipeline. Never describe that existing infrastructure as newly built hackathon work.
+Weft is a distinct Loom-adjacent project for reinforcement-learning environment generation and repair, prepared for the Meta Global AI Developer Hackathon. Display name: **Weft**. Repository: `kintsugi-software/weft`. It is separate from `../loom`, which contains the operating corpora pipeline. Never describe that existing infrastructure as newly built hackathon work.
 
 Core promise: turn task specifications, demonstrations, and observations into an executable environment; use discrepancies to propose bounded repairs; independently test every change.
 
 Use direct, plain language. Distinguish simulation, recorded physical observations, live physical trials, proposals, and verified results. Do not market plans as implemented capabilities. Reserve fabric metaphors for the brand mark, not technical prose.
 
-Preserve Loom's existing product palette if a UI is built: canvas `#F4F4F0`, ink `#2B2B2B`, interaction gold `#C5A059`, borders `#E5E5E0`. This is Loom identity, not a requirement to copy the Kintsugi holding-company website.
+The initial visual reference is the existing Loom palette: canvas `#F4F4F0`, ink `#2B2B2B`, interaction gold `#C5A059`, borders `#E5E5E0`. Weft has its own name and identity; this reference is not a requirement to copy the Kintsugi holding-company website.
 
 ## Scope and authorization
 

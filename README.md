@@ -1,8 +1,10 @@
-# Loom EnvForge
+# Weft
 
 Generate executable training environments from evidence. Test them against observed outcomes. Repair the environment when the evidence disagrees.
 
-Loom EnvForge is Loom's evidence-grounded reinforcement-learning environment generation and repair component. This **separate hackathon repository** is adjacent to, not a fork of, the existing `../loom` data-ingestion product.
+Weft generates and repairs reinforcement-learning environments using real-world evidence. It is a Loom-adjacent project with its own identity. This **separate hackathon repository** is adjacent to, not a fork of, the existing `../loom` data-ingestion product.
+
+The original application used the name Loom. Historical application text and source snapshots retain that name; the project is now called **Weft**.
 
 ## Current state
 
@@ -23,7 +25,7 @@ The submission deadline is **November 4, 2026, at 6:00 p.m. PST**. Source snapsh
 
 ## Repository boundaries
 
-- Private GitHub repository: `kintsugi-software/loom-envforge`. No public release, deployment, or hackathon submission.
+- Private GitHub repository: `kintsugi-software/weft`. No public release, deployment, or hackathon submission.
 - `hackathon/sources/`: source snapshots and explicit unavailable-content records.
 - `hackathon/analysis/`: interpretation and proposed project direction, not official rules.
 - `scripts/`: deterministic read-only archival tooling.
