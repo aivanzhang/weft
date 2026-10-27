@@ -15,7 +15,7 @@ The initial visual reference is the existing Loom palette: canvas `#F4F4F0`, ink
 - Current user request: set up Weft so its physical-first video-to-RL A–E architecture can be iterated and improved. Local implementation, reproducible experiments, appropriate tests, and planning documentation are authorized. The rolling-ball profile is a technical fixture, not completion of the broader scope.
 - The user explicitly instructed: **Do not submit anything.** Do not submit applications, projects, credits forms, posts, or messages, or accept agreements on the user's behalf.
 - The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. No deployment, paid resource creation, account setup, or public-repository publication is currently authorized.
-- The user authorized committing this iteration setup and pushing `feat/weft-v1` to the existing `origin`. This is not merge approval or authorization for a public release.
+- Pull requests are optional, not a prerequisite to merging. An explicit user merge request authorizes merging and pushing the current work directly to the requested branch without a separate PR-review gate. Honor requested branch/worktree cleanup, preserve saved evidence, and respect actual repository protections.
 - Do not rename sessions or threads unless explicitly requested.
 - Never mention Codex in commit messages.
 - Do not use browser interaction unless the user requests it. Earlier hackathon research permitted tab inspection; the current iteration setup uses local tools only.

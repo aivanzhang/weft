@@ -2,11 +2,11 @@
 
 ## Session handoff
 
-- Workspace: `/Users/ivan/kintsugi/weft-v1`, branch `feat/weft-v1`; base revision `a35070c25ec3e00a063e711a0958497d14c6676f`.
+- Canonical workspace: `/Users/ivan/kintsugi/weft`, branch `main`. The setup originated in `weft-v1` on `feat/weft-v1`, from base revision `a35070c25ec3e00a063e711a0958497d14c6676f`; use the canonical checkout after integration.
 - Thread: `01a17bd5-caa3-76a0-ac47-89f4ebb0b005`.
 - Last verified: **October 27, 2026, 12:29 a.m. PDT**.
 - Status: local iteration foundation is verified; the full physical-video-to-world product is not complete.
-- Resume guard: implementation and documentation live on `feat/weft-v1`; check `git status` and remote tracking before resuming. Preserve local changes and all saved runs. The separate `/Users/ivan/kintsugi/weft` main checkout still contains the research archive; do not mistake it for this implementation branch.
+- Resume guard: check `git status` and remote tracking in the canonical checkout before resuming. Preserve local changes and all saved runs. The feature worktree and branch may be removed after integration; `artifacts/` and `.local/` evidence are preserved in the canonical checkout.
 - Both setup experiment processes completed with exit code 0. No service, cloud deployment, background trainer, or recurring job was started by this setup.
 - Next independent action: specify the general multi-object scene/evidence contract and its fixtures (A1). Final scene choice and physical validation evidence remain undecided; neither blocks contract work.
 
@@ -73,7 +73,7 @@ These are future product milestones, not claims that the iteration setup impleme
 - [ ] Select the first product interaction family (tabletop pushing/sorting or rigid-body collisions) and validation access. Keep the choice separate from the existing ball fixture.
 - [ ] Extend to articulated animals/humans, deformable objects, richer environments, and learned actor behavior only after the rigid-body milestone; each extension needs its own evidence and action-validity checks.
 - [ ] Explore website workflows later with explicit UI state/transitions/notifications and tasks, not physical-engine assumptions.
-- [ ] Prepare hackathon/public-release artifacts only when requested; preserve prior-work attribution and explicit scope. Public visibility, deployment, submissions, and merging remain separate authorization gates.
+- [ ] Prepare hackathon/public-release artifacts only when requested; preserve prior-work attribution and explicit scope. Public visibility, deployment, and submissions remain separate authorization gates. Follow explicit merge requests without requiring a PR.
 
 ## Completion gates
 
