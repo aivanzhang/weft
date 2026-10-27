@@ -1,5 +1,7 @@
 # Weft: one video to an interactive RL environment
 
+For the full product target and physics-grounded evaluation design, read [goal.md](../goal.md). For the first product milestone, read [v1.md](../v1.md). This document maps those targets to the current implementation contracts and limitations.
+
 ## Target and evidence boundary
 
 Input: a physical video, with optional task intent or calibration information clearly identified as additional input. Output: an executable shared world, an RL task interface, and evidence of what was reconstructed and tested. A rendered replay is an evaluation artifact, not the environment itself.

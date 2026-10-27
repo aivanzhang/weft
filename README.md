@@ -6,6 +6,16 @@ Weft generates and repairs reinforcement-learning environments using real-world 
 
 The original application used the name Loom. Historical application text and source snapshots retain that name; the project is now called **Weft**.
 
+## Product direction
+
+**One video → an object-based world model → an interactive simulator → a trainable RL environment.**
+
+- [Product goal](goal.md): the full A–E design, physics-grounded relationships, and independent evaluation informed by WorldBench.
+- [First-version scope](v1.md): the bounded product milestone, deliverables, build order, and completion criteria.
+- [Hackathon pitch](hackathon/pitch.md): polished vision and prototype copy, with evidence boundaries and a demo storyboard.
+
+These describe the target and its presentation. The implementation status below remains separate.
+
 ## Current state
 
 A local iteration foundation now runs a real video through evidence extraction, a shared simulator, bounded repair, independent checks, and RL training. **The implemented profile is one isolated yellow ball moving horizontally, not arbitrary-video or 3D reconstruction.** The controls and parking objective are authored extensions, not recovered from the source.
