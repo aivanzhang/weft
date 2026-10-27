@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "name": "rolling-ball-repaired",
+  "hypothesis": "Bounded generation-only parameter fitting reduces development replay error without violating the fixed physics gates. Audit and RL results are reported separately, not used for selection.",
+  "video": "../data/rolling-ball.mp4",
+  "source_sha256": "75621f8624ce677336f9bbd6c110b638063d0f75e1678460d85602026e4d3c86",
+  "run": {
+    "episodes": 15000,
+    "eval_episodes": 300,
+    "seed": 1729,
+    "eval_seed": 938401,
+    "provider": "local",
+    "repair_enabled": true
+  }
+}

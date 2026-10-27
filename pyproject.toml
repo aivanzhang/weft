@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools==84.2.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weft-rl"
+version = "0.1.0"
+description = "Evidence-grounded video-to-simulation and reinforcement learning"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.2,<3", "opencv-python-headless>=4.11,<5", "Pillow>=11,<13", "gymnasium>=1.1,<2"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+
+[project.scripts]
+weft = "weft.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+weft = ["assets/*.html", "assets/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
