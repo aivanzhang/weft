@@ -17,7 +17,7 @@
 
 - Use locally bundled Inter with optical sizing for page typography; preserve the approved Weft wordmark. Retain the font license and attribution.
 
-- Keep the footer theatre collapsed with no reserved height before its delayed reveal. Keep the woven endpoint hidden until the ribbons arrive, allow 12px below the footer row, and omit focus borders on the footer trigger/scene; retain keyboard operation and its subtle text-color focus cue.
+- Keep the footer theatre collapsed with no reserved height before its delayed reveal. Keep the woven endpoint hidden until the ribbons arrive, allow 24px below the footer row, and omit focus borders on the footer trigger/scene; retain keyboard operation and its subtle text-color focus cue.
 
 - Use a true hidden theatre before the delay, auto-scroll the expanded story into view after the hold, and keep mascot rotations in its own clipped SVG coordinate space.
 
