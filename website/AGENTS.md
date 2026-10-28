@@ -22,3 +22,5 @@
 - Use a true hidden theatre before the delay, auto-scroll the expanded story into view after the hold, and keep mascot rotations in its own clipped SVG coordinate space.
 
 - Keep reveal-mask caps flat and hidden before drawing. Reserve the complete scene height before auto-scrolling; resume playback only after scroll settlement. Do not restore nested height transitions or focus-driven scrolling during this handoff.
+
+- Match footer branding to the header’s approved lettering, not plain text. Keep the footer wordmark static and align it with the up-arrow; preserve 24px below the row.

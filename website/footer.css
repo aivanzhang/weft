@@ -323,3 +323,34 @@ html.weft-presenting body,
   stroke: #c7795d;
   stroke-width: 5;
 }
+
+#footer-secret .footer-brand {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+  transition: opacity 180ms ease;
+}
+#footer-secret .footer-wordmark {
+  display: block;
+  width: 70px;
+  height: 28px;
+}
+#footer-secret .footer-brand:hover {
+  opacity: 0.72;
+}
+#footer-secret .footer-bar .back-to-top {
+  width: 44px;
+  min-height: 44px;
+  margin-top: 0;
+  color: var(--ink);
+}
+#footer-secret .back-to-top svg {
+  transition: transform 200ms ease;
+}
+#footer-secret .back-to-top:hover {
+  color: var(--clay);
+}
+#footer-secret .back-to-top:hover svg {
+  transform: translateY(-2px);
+}
