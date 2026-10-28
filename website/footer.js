@@ -354,6 +354,7 @@
         [14.8, 0],
       ]);
     }
+    show(".woven-join", 10.8, 11.7);
     track(".arrival", "opacity", [
       [0, 0],
       [10.7, 0],

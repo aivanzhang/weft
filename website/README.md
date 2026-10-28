@@ -40,7 +40,7 @@ JavaScript syntax, HTML references, and retained local assets are checked. Stati
 
 Typography uses Inter’s optical sizing for readable small text and refined display headings, paired with the unchanged approved Weft wordmark. The single variable WOFF2 file covers all used weights without additional runtime requests to external services.
 
-The footer has no detached end-knot graphic or focus borders. Keyboard focus on the thread uses a text-color cue; the revealed scene remains programmatically focusable without an outline.
+The woven join stays invisible until the ribbons arrive, then fades in at their shared endpoint. The Weft/up-arrow row has 12px of bottom padding; the delayed theatre still occupies no space before reveal. Footer controls have no focus borders. Keyboard focus on the thread uses a text-color cue; the revealed scene remains programmatically focusable without an outline.
 
 The theatre uses the native `hidden` attribute and `display: none` before the ten-second reveal, not merely a collapsed visual container. Completing the hold opens the scene, centers it in the viewport, and resumes playback. The mascot has a local 640×640 clipped SVG viewport; limb/body rotations use native SVG transform animation instead of CSS rotation in a parent viewport. Both animation clocks pause offscreen/hidden.
 
