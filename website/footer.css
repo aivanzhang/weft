@@ -52,16 +52,19 @@
   display: none;
 }
 #footer-secret .film {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 1s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.8s ease;
+  display: none;
 }
 #footer-secret .film.open {
-  grid-template-rows: 1fr;
-  opacity: 1;
+  display: block;
+  animation: footer-film-in 700ms ease both;
+}
+@keyframes footer-film-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 #footer-secret .film-inner {
   min-height: 0;
@@ -141,8 +144,10 @@
 #footer-secret .branch-2 .future {
   stroke: #e8d9c5;
 }
-#footer-secret .thread-reveal {
+/* Mask caps must not inherit the rounded ends used by visible ribbons. */
+#footer-secret .stage .thread-reveal {
   stroke-linecap: butt;
+  opacity: 0;
 }
 #footer-secret #ribbon-tail path {
   fill: none;
@@ -264,14 +269,9 @@
 }
 
 #footer-secret .theatre {
-  display: grid;
-  grid-template-rows: 0fr;
+  display: block;
   min-height: 0;
   padding: 0;
-  transition: grid-template-rows 700ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-#footer-secret.thread-ready .theatre {
-  grid-template-rows: 1fr;
 }
 #footer-secret .theatre-inner {
   min-height: 0;
@@ -298,4 +298,10 @@
 }
 #footer-secret:not(.thread-ready) {
   padding-bottom: 0;
+}
+
+html.weft-presenting,
+html.weft-presenting body,
+#footer-secret {
+  overflow-anchor: none;
 }

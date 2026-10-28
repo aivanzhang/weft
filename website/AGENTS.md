@@ -20,3 +20,5 @@
 - Keep the footer theatre collapsed with no reserved height before its delayed reveal. Do not restore the detached end-knot artwork or focus borders on the footer trigger/scene; retain keyboard operation and its subtle text-color focus cue.
 
 - Use a true hidden theatre before the delay, auto-scroll the expanded story into view after the hold, and keep mascot rotations in its own clipped SVG coordinate space.
+
+- Keep reveal-mask caps flat and hidden before drawing. Reserve the complete scene height before auto-scrolling; resume playback only after scroll settlement. Do not restore nested height transitions or focus-driven scrolling during this handoff.

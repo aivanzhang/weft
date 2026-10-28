@@ -10,7 +10,7 @@
   const scene = $(".stage");
   const rotations = new Set();
   let presenting = false;
-  let presentationTimer = null;
+  let presentationFrame = null;
   let pendingScroll = false;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const animations = new Set();
@@ -287,16 +287,40 @@
     for (let i = 0; i < 3; i++) {
       $$(`#reveal-${i} .thread-reveal`).forEach((path) => {
         const start = 4.05 + i * 0.2;
+        const length = lengths[i];
+        path.removeAttribute("pathLength");
         const animation = path.animate(
           [
-            { strokeDasharray: "1", strokeDashoffset: 1, offset: 0 },
-            { strokeDasharray: "1", strokeDashoffset: 1, offset: start / 14.8 },
             {
-              strokeDasharray: "1",
+              strokeDasharray: `${length} ${length}`,
+              strokeDashoffset: length,
+              opacity: 0,
+              offset: 0,
+            },
+            {
+              strokeDasharray: `${length} ${length}`,
+              strokeDashoffset: length,
+              opacity: 0,
+              offset: start / 14.8,
+            },
+            {
+              strokeDasharray: `${length} ${length}`,
+              strokeDashoffset: length,
+              opacity: 1,
+              offset: (start + 0.02) / 14.8,
+            },
+            {
+              strokeDasharray: `${length} ${length}`,
               strokeDashoffset: 0,
+              opacity: 1,
               offset: (start + 2.35) / 14.8,
             },
-            { strokeDasharray: "1", strokeDashoffset: 0, offset: 1 },
+            {
+              strokeDasharray: `${length} ${length}`,
+              strokeDashoffset: 0,
+              opacity: 1,
+              offset: 1,
+            },
           ],
           {
             duration: reduced.matches ? 1 : duration,
@@ -354,30 +378,65 @@
   function reveal() {
     cancelHold();
     opened = true;
+    presenting = true;
+    document.documentElement.classList.add("weft-presenting");
     trigger.setAttribute("aria-expanded", "true");
     film.classList.add("open");
     film.setAttribute("aria-hidden", "false");
     film.inert = false;
-    presenting = true;
     play();
+    // Reserve the complete scene before measuring a single scroll destination.
+    presentationFrame = requestAnimationFrame(finishPresentation);
+  }
+  function completePresentation() {
+    presentationFrame = null;
+    pendingScroll = false;
+    presenting = false;
+    document.documentElement.classList.remove("weft-presenting");
     film.focus({ preventScroll: true });
-    if (reduced.matches) finishPresentation();
-    else presentationTimer = setTimeout(finishPresentation, 1050);
+    syncVisibility();
   }
   function finishPresentation() {
-    clearTimeout(presentationTimer);
-    presentationTimer = null;
+    presentationFrame = null;
     if (document.hidden) {
       pendingScroll = true;
       return;
     }
     pendingScroll = false;
-    film.scrollIntoView({
+    document.documentElement.classList.add("weft-presenting");
+    const rect = film.getBoundingClientRect();
+    const room = Math.max(16, (window.innerHeight - rect.height) / 2);
+    const maxScroll = Math.max(
+      0,
+      document.documentElement.scrollHeight - window.innerHeight,
+    );
+    const target = Math.max(
+      0,
+      Math.min(maxScroll, window.scrollY + rect.top - room),
+    );
+    window.scrollTo({
+      top: target,
       behavior: reduced.matches ? "instant" : "smooth",
-      block: "center",
     });
-    presenting = false;
-    syncVisibility();
+    if (reduced.matches) {
+      completePresentation();
+      return;
+    }
+    const started = performance.now();
+    function settle(now) {
+      if (document.hidden) {
+        presentationFrame = null;
+        pendingScroll = true;
+        return;
+      }
+      if (Math.abs(window.scrollY - target) < 2 || now - started > 1200) {
+        window.scrollTo({ top: target, behavior: "instant" });
+        completePresentation();
+        return;
+      }
+      presentationFrame = requestAnimationFrame(settle);
+    }
+    presentationFrame = requestAnimationFrame(settle);
   }
   function beginHold() {
     if (!hintReady || hold !== null || opened || document.hidden || !visible)
@@ -457,11 +516,12 @@
   window.addEventListener("pagehide", () => {
     cancelHintDelay();
     cancelHold();
-    if (presentationTimer !== null) {
-      clearTimeout(presentationTimer);
-      presentationTimer = null;
-      pendingScroll = true;
+    if (presentationFrame !== null) {
+      cancelAnimationFrame(presentationFrame);
+      presentationFrame = null;
     }
+    if (presenting) pendingScroll = true;
+    document.documentElement.classList.remove("weft-presenting");
     scene.pauseAnimations();
     animations.forEach((a) => {
       if (a.playState === "running") a.pause();
