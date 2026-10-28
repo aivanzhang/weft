@@ -20,6 +20,7 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 - The user explicitly instructed: **Do not submit anything.** Do not submit applications, projects, credits forms, posts, or messages, or accept agreements on the user's behalf.
 - The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. No deployment, paid resource creation, account setup, or public-repository publication is currently authorized.
 - Pull requests are optional, not a prerequisite to merging. An explicit user merge request authorizes merging and pushing the current work directly to the requested branch without a separate PR-review gate. Honor requested branch/worktree cleanup, preserve saved evidence, and respect actual repository protections.
+- Work directly on `main`. Do not create other branches unless the user explicitly requests one.
 - Do not rename sessions or threads unless explicitly requested.
 - Never mention Codex in commit messages.
 - Do not use browser interaction unless the user requests it. Earlier hackathon research permitted tab inspection; the current iteration setup uses local tools only.
