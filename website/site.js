@@ -238,155 +238,6 @@
   });
   window.addEventListener("pagehide", clearStageMotion);
 
-  const experiment = document.querySelector("#experiment");
-  const simulation = document.querySelector("#simulation");
-  const ball = document.querySelector("#simulation-ball");
-  const leftButton = document.querySelector("#push-left");
-  const rightButton = document.querySelector("#push-right");
-  const resetButton = document.querySelector("#reset");
-  const status = document.querySelector("#simulation-status");
-  const engineReady = typeof globalThis.WeftPhysics?.advance === "function";
-
-  // Illustration settings, not parameters fitted to the source clip.
-  const world = { drag: 0.3, max_acceleration: 2 };
-  let position = 0.5;
-  let velocity = 0;
-  let action = 0;
-  let pushRemaining = 0;
-  let elapsed = 0;
-  let running = false;
-  let visible = true;
-  let frame = null;
-  let previousTime = null;
-
-  function announce(message) {
-    if (status.textContent !== message) status.textContent = message;
-  }
-
-  function draw() {
-    ball.style.transform = "translateX(" + (position * 100).toFixed(3) + "%)";
-  }
-
-  function stop(message) {
-    running = false;
-    velocity = 0;
-    action = 0;
-    pushRemaining = 0;
-    previousTime = null;
-    if (frame !== null) cancelAnimationFrame(frame);
-    frame = null;
-    simulation.dataset.running = "false";
-    if (message) announce(message);
-  }
-
-  function schedule() {
-    if (
-      frame === null &&
-      running &&
-      experiment.open &&
-      visible &&
-      !document.hidden
-    ) {
-      frame = requestAnimationFrame(tick);
-    }
-  }
-
-  function tick(now) {
-    frame = null;
-    if (!running || !experiment.open || !visible || document.hidden) {
-      stop("Stopped. Give the ball another push to continue.");
-      return;
-    }
-    if (previousTime === null) previousTime = now;
-    const dt = Math.min((now - previousTime) / 1000, 0.05);
-    previousTime = now;
-    if (dt > 0) {
-      let remaining = dt;
-      // Finish the short push exactly, then let the shared engine handle coasting.
-      if (pushRemaining > 0) {
-        const poweredTime = Math.min(remaining, pushRemaining);
-        [position, velocity] = WeftPhysics.advance(
-          world,
-          position,
-          velocity,
-          action,
-          poweredTime,
-        );
-        pushRemaining -= poweredTime;
-        remaining -= poweredTime;
-      }
-      if (remaining > 0) {
-        action = 0;
-        [position, velocity] = WeftPhysics.advance(
-          world,
-          position,
-          velocity,
-          0,
-          remaining,
-        );
-      }
-      elapsed += dt;
-      if (position <= 0.02 || position >= 0.98) {
-        position = Math.max(0.02, Math.min(0.98, position));
-        stop("At the edge. Push the other way or reset.");
-      } else if (elapsed >= 8) {
-        stop("At rest. Give the ball another push.");
-      } else if (Math.abs(velocity) < 0.0001 && pushRemaining <= 0) {
-        stop("At rest. Give the ball another push.");
-      }
-      draw();
-    }
-    schedule();
-  }
-
-  function push(direction) {
-    if (!engineReady || !experiment.open || document.hidden || !visible) return;
-    action = direction;
-    pushRemaining = 0.18;
-    elapsed = 0;
-    velocity = Math.max(-1, Math.min(1, velocity));
-    if (!running) previousTime = null;
-    running = true;
-    simulation.dataset.running = "true";
-    announce(direction < 0 ? "Pushed left." : "Pushed right.");
-    schedule();
-  }
-
-  experiment.addEventListener("toggle", () => {
-    if (!experiment.open) stop();
-  });
-  document.querySelectorAll('a[href="#experiment"]').forEach((link) => {
-    link.addEventListener("click", () => {
-      experiment.open = true;
-    });
-  });
-  function openLinkedExperiment() {
-    if (location.hash === "#experiment") experiment.open = true;
-  }
-  window.addEventListener("hashchange", openLinkedExperiment);
-  openLinkedExperiment();
-
-  leftButton.addEventListener("click", () => push(-1));
-  rightButton.addEventListener("click", () => push(1));
-  resetButton.addEventListener("click", () => {
-    stop();
-    position = 0.5;
-    elapsed = 0;
-    draw();
-    announce("Reset. Choose a direction to begin.");
-  });
-
-  if (engineReady) {
-    [leftButton, rightButton, resetButton].forEach((control) => {
-      control.disabled = false;
-    });
-  } else {
-    status.className = "small muted";
-    announce(
-      "The simulation could not load. Reopen this page from the Weft repository.",
-    );
-  }
-
   const heroChart = document.querySelector(".hero-figure svg");
   const heroSlide = document.querySelector("#hero-ball-slide");
   function finishHeroMotion() {
@@ -400,7 +251,6 @@
   });
 
   function pauseHiddenMotion() {
-    if (document.hidden && running) stop("Stopped while this page was hidden.");
     document.documentElement.classList.toggle("page-hidden", document.hidden);
     // Keep SVG motion and the CSS line reveal on the same visibility clock.
     if (
@@ -413,16 +263,12 @@
     }
   }
   document.addEventListener("visibilitychange", pauseHiddenMotion);
-  window.addEventListener("pagehide", () => stop());
 
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
       (observations) => {
         observations.forEach((observation) => {
-          if (observation.target === simulation) {
-            visible = observation.isIntersecting;
-            if (!visible && running) stop("Stopped outside the viewport.");
-          } else if (observation.target === heroStageList) {
+          if (observation.target === heroStageList) {
             if (!observation.isIntersecting) dismissStages();
           } else {
             observation.target.classList.toggle(
@@ -434,12 +280,9 @@
       },
       { threshold: 0.05 },
     );
-    [simulation, heroStageList, ...entries].forEach((element) =>
-      observer.observe(element),
-    );
+    [heroStageList, ...entries].forEach((element) => observer.observe(element));
   } else {
     entries.forEach((entry) => entry.classList.add("in-view"));
   }
-  draw();
   pauseHiddenMotion();
 })();

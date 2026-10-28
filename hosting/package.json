@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "@cloudflare/containers": "0.3.7"
+  },
+  "name": "weft-hosting",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:assets": "node build-assets.mjs",
+    "types": "wrangler types --include-runtime=false",
+    "check": "tsc --noEmit",
+    "build": "npm run build:assets && wrangler deploy --dry-run --outdir .build/worker",
+    "deploy": "python3 deploy.py"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "5.20261028.1",
+    "@types/node": "22.20.5",
+    "typescript": "5.9.3",
+    "wrangler": "4.154.0"
+  }
+}

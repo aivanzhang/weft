@@ -1,13 +1,14 @@
 # Weft website
 
-Open [index.html](index.html) directly. No server, installation, account, network request, or build is needed. The site and all runtime dependencies live in the Weft repository; there is no dependency on the GTM workspace.
+Open [index.html](index.html) directly. No server, installation, account, network request, or build is needed for the gallery. Visitor video generation requires the hosted service described in [hosting](../hosting/README.md). The site and all runtime dependencies live in the Weft repository; there is no dependency on the GTM workspace.
 
 ## Files
 
 - `index.html`: page content and inline SVG artwork, including the approved mascot rig.
 - `fonts/`: self-hosted Inter 4.1 variable font, its SIL Open Font License, and source attribution.
 - `styles.css`: responsive layout, header entrance, hero animation, and research reveals.
-- `site.js`: accessible disclosures and bounded simulation playback.
+- `site.js`: research disclosures and hero motion.
+- `environments.js`, `environments.css`, `environments/`: source/simulation comparison, bounded interaction, upload lifecycle, and the verified sample export.
 - `footer.css`, `footer.js`: the hidden mascot story, scoped to `#footer-secret`.
 - `../assets/brand/source/weft-wordmark.png`: approved lettering.
 - `../assets/brand/exports/weft-mascot.png`: favicon.
@@ -20,19 +21,22 @@ The canonical editable mascot and other project brand assets remain in `../asset
 - The header mascot waves and fades; the wordmark glides left. Navigation stays fixed.
 - Hero lines draw left to right. The yellow ball appears after 0.5 seconds and slides gently down the contour; the sequence ends after 4.3 seconds.
 - Hero labels open illustrated cards on hover, keyboard focus, or tap. Research entries reveal their artwork with smooth height and opacity transitions.
-- The experiment starts collapsed. Its icon-only controls move and reset the ball. Simulation stops at rest, boundaries, after eight seconds, offscreen, on collapse, or when the page is hidden.
+- The environments gallery shows the recorded source beside a fitted model. Initial/reconstructed model selection, synchronized playback/scrubbing, and authored interaction use the shared engine. Motion stops offscreen, when hidden, at boundaries/rest, or after eight seconds.
+- The video upload disclosure starts closed. It validates a local clip, asks for processing permission, submits to the hosted API, follows real job status, and inserts the private result with a downloadable environment. Local file review never uploads or fabricates a result.
 - The footer thread bundle stays hidden until at least half the footer remains in view for ten continuous seconds. Scrolling away or hiding the tab resets the countdown. The hidden area occupies no space until it opens smoothly. Once it appears, hold it for five seconds with a pointer or Space/Enter to reveal the finite mascot story. Releasing early or leaving cancels the hold. Weft pulls the gathered threads into branching ribbon paths; small stitches trace the outcomes. There is no replay button; reload to reveal it again.
 - Decorative motion respects reduced motion and pauses when hidden. The footer also pauses offscreen. It uses native animation tracks and three one-time path-length reads, not a JavaScript frame loop.
 
 ## Evidence boundaries
 
-The experiment uses authored settings (`x = 0.5`, velocity `0`, resistance `0.30`, maximum acceleration `2`). It is not a fitted replay, recovered actions, model training, or general video reconstruction. The repository's unchanged CC0 source clip and provenance remain in `../data/`; the website does not embed the clip. Research graphics and the footer are authored illustrations, not measured results or live learning.
+The catalog is exported from a verified real run of the CC0 source clip in `../data/`. It contains one scene and two model stages, not multiple independently observed environments. The shared physical model supports a single isolated yellow ball moving horizontally. Push/brake controls and the parking task are authored additions. General video reconstruction and multi-object support are not implemented. Research graphics and the footer remain conceptual illustrations.
+
+Regenerate the catalog with `PYTHONPATH=src python scripts/export_website_environment.py <verified-run> --out website/environments`. The exporter verifies the full manifest and refuses to publish unknown source videos. Visitor results never enter the public catalog automatically.
 
 ## Maintenance
 
 Superseded design galleries, footer examples, temporary build copies, the old letter favicon, and the unused video poster were removed. Maintain this directory as the single website source; do not recreate copies in the GTM workspace.
 
-Inter is bundled locally; no font CDN, telemetry, polling, recurring services, or hosting are configured. A future deployment must bundle only the referenced runtime files, not the rest of the repository.
+Inter is bundled locally; no font CDN or analytics is used. The hosted submission client polls only its active job and pauses in hidden tabs. Cloudflare hosting bundles only an explicit allowlist; see `../hosting/build-assets.mjs`.
 
 ## Verification limits
 

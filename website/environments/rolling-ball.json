@@ -1,0 +1,25 @@
+{
+  "world": {
+    "drag": 0.012421798914258077,
+    "height_px": 360,
+    "max_acceleration": 2.0,
+    "radius": 0.08899467272143019,
+    "source_frame": 40,
+    "support_intercept": 0.37621259685688446,
+    "support_slope": 0.013621893592655577,
+    "v0": 0.897711066016222,
+    "width_px": 640,
+    "x0": 0.14934892648665393
+  },
+  "task": {
+    "dt": 0.05,
+    "max_steps": 100,
+    "name": "park_the_ball",
+    "position_tolerance": 0.04,
+    "provenance": "Authored push/brake actuator and parking objective; not inferred from the video",
+    "velocity_tolerance": 0.15
+  },
+  "source_sha256": "75621f8624ce677336f9bbd6c110b638063d0f75e1678460d85602026e4d3c86",
+  "manifest_sha256": "1e321169f3d1786b688863508dd1b8211a9c0024d96b58c68d5804e860ab803a",
+  "note": "Use world with Weft RollingEnv. Push controls and the parking goal are authored extensions."
+}

@@ -295,9 +295,6 @@ h1 {
 .section-rule {
   border-top: 1px solid var(--line);
 }
-.experiment {
-  padding: 0;
-}
 h2 {
   font-size: 26px;
   line-height: 1.2;
@@ -310,106 +307,6 @@ h2 {
 }
 .muted {
   color: var(--muted);
-}
-.experiment-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  padding: 25px 0;
-  list-style: none;
-}
-.experiment-toggle::-webkit-details-marker {
-  display: none;
-}
-.experiment-toggle h2 {
-  font-size: 20px;
-  letter-spacing: -0.4px;
-}
-.expand-mark {
-  color: var(--muted);
-  transition: transform 180ms ease;
-  flex-shrink: 0;
-}
-.experiment[open] > .experiment-toggle .expand-mark {
-  transform: rotate(45deg);
-}
-.experiment-content {
-  padding: 0 0 23px;
-}
-.simulation {
-  display: grid;
-  grid-template-columns: 40px minmax(0, 1fr) 80px;
-  align-items: end;
-  gap: 12px;
-  overflow: hidden;
-  padding: 0 0 14px;
-}
-.ball-track {
-  position: relative;
-  height: 90px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 19px;
-  margin-inline: 14px;
-}
-.ball-carriage {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.simulation[data-running="true"] .ball-carriage {
-  will-change: transform;
-}
-.trial-ball {
-  position: absolute;
-  left: -14px;
-  bottom: -1px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 24%, #ffe99a, #f2ce52 45%, #ba8f20);
-}
-.track-end {
-  display: flex;
-}
-.track-control {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  background: none;
-  border: 0;
-  transition: color 160ms ease;
-}
-.track-control:hover:not(:disabled) {
-  color: var(--clay);
-}
-.track-control:focus-visible {
-  outline-offset: -4px;
-}
-.track-reset {
-  color: var(--muted);
-}
-.experiment-notes {
-  max-width: 380px;
-  margin-left: auto;
-  font-size: 11px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-.experiment-notes summary {
-  list-style: none;
-  text-align: right;
-}
-.experiment-notes summary:hover {
-  color: var(--clay);
-}
-.experiment-notes summary::-webkit-details-marker {
-  display: none;
-}
-.experiment-notes p {
-  margin-top: 12px;
 }
 .research {
   padding: 30px 0 26px;
@@ -755,19 +652,6 @@ h2 {
   }
 }
 @media (max-width: 650px) {
-  .simulation {
-    gap: 3px;
-  }
-  .ball-track {
-    height: 72px;
-    margin-inline: 5px;
-  }
-  .trial-ball {
-    width: 22px;
-    height: 22px;
-    left: -11px;
-  }
-
   .page {
     width: calc(100% - 40px);
   }

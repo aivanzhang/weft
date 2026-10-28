@@ -1,0 +1,11 @@
+**
+!src/
+!src/**
+src/**/__pycache__/
+!pyproject.toml
+!requirements.lock
+!hosting/
+!hosting/requirements.lock
+!hosting/app.py
+!hosting/job.py
+!hosting/Dockerfile

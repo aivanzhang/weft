@@ -18,7 +18,7 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 
 - Current user request: set up Weft so its physical-first video-to-RL A–E architecture can be iterated and improved. Local implementation, reproducible experiments, appropriate tests, and planning documentation are authorized. The rolling-ball profile is a technical fixture, not completion of the broader scope.
 - The user explicitly instructed: **Do not submit anything.** Do not submit applications, projects, credits forms, posts, or messages, or accept agreements on the user's behalf.
-- The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. No deployment, paid resource creation, account setup, or public-repository publication is currently authorized.
+- The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. The current website request additionally authorizes hosted visitor submissions in Kintsugi Software’s Cloudflare account. Use the bounded Weft-specific deployment in `hosting/`; no account upgrade, unrelated paid resource, or public-repository publication is authorized.
 - Pull requests are optional, not a prerequisite to merging. An explicit user merge request authorizes merging and pushing the current work directly to the requested branch without a separate PR-review gate. Honor requested branch/worktree cleanup, preserve saved evidence, and respect actual repository protections.
 - Work directly on `main`. Do not create other branches unless the user explicitly requests one.
 - Do not rename sessions or threads unless explicitly requested.

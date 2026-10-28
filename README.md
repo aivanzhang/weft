@@ -22,7 +22,7 @@ The selected logo, deep-clay palette, and mascot animation sources are in [asset
 
 ## Website
 
-Open [website/index.html](website/index.html) directly for the product website, interactive experiment, and hidden animated footer. The website and its assets are maintained in this repository; no server or install is needed. See [website/README.md](website/README.md).
+Visit [Weft](https://weft.ivanzhangofficial.workers.dev/) for paired source-video/reconstructed-environment replay and private video submissions. Open [website/index.html](website/index.html) directly for the offline gallery and hidden animated footer; uploads require the hosted service. All website assets and Cloudflare deployment code live in this repository. See [website/README.md](website/README.md) and [hosting/README.md](hosting/README.md).
 
 ## Current state
 
@@ -90,7 +90,8 @@ The submission deadline is **November 4, 2026, at 6:00 p.m. PST**. Source snapsh
 - Private GitHub repository: `kintsugi-software/weft`. No public release, deployment, or hackathon submission.
 - `hackathon/sources/`: source snapshots and explicit unavailable-content records.
 - `hackathon/analysis/`: interpretation and proposed project direction, not official rules.
-- `website/`: canonical product site, styles, and interactive artwork.
+- `website/`: canonical product site, evidence-backed environment gallery, styles, and interactive artwork.
+- `hosting/`: Cloudflare Worker, private upload storage, bounded generation container, and release configuration.
 - `src/weft/`: local A–E profile, experiment runner, and comparison tools.
 - `experiments/`: versioned run configurations; input paths resolve relative to each config.
 - `tests/`: contract, physics, provenance, repair, and comparison checks.

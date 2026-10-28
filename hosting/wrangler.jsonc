@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "weft",
+  "account_id": "73c2bbd14f7b9025d9fd9eb56ad54609",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {"directory": ".build/public", "binding": "ASSETS", "run_worker_first": ["/", "/api/*", "/health"]},
+  "vars": {"PUBLIC_ORIGIN": "https://weft.ivanzhangofficial.workers.dev", "SUBMISSIONS_ENABLED": "true", "RELEASE": "video-environments-20261028"},
+  "r2_buckets": [{"binding": "UPLOADS", "bucket_name": "weft-private-submissions"}],
+  "durable_objects": {"bindings": [{"name": "GENERATOR", "class_name": "GenerationContainer"}, {"name": "SUBMISSIONS", "class_name": "SubmissionQueue"}]},
+  "migrations": [{"tag": "v1", "new_sqlite_classes": ["GenerationContainer", "SubmissionQueue"]}],
+  "containers": [{"class_name": "GenerationContainer", "image": "./Dockerfile", "image_build_context": "..", "instance_type": "standard-1", "max_instances": 1, "rollout_active_grace_period": 240}],
+  "limits": {"cpu_ms": 1000},
+  "observability": {"enabled": false}
+}

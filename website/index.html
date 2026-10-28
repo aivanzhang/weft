@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Weft studies how video evidence can become an environment you can inspect, test, and improve. Explore the research and a small interactive experiment."
+      content="Weft studies how video evidence can become an environment you can inspect, test, and improve. Compare recorded videos with reconstructed environments and try your own clip."
     />
     <meta name="theme-color" content="#FBF7F1" />
     <title>Weft — Worlds built from evidence</title>
@@ -15,9 +15,12 @@
       type="image/png"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="environments.css" />
     <link rel="stylesheet" href="footer.css?v=33ddafa53375" />
     <script src="../src/weft/assets/engine.js" defer></script>
     <script src="site.js" defer></script>
+    <script src="environments/catalog.js" defer></script>
+    <script src="environments.js" defer></script>
     <script src="footer.js?v=9a62647946b5" defer></script>
   </head>
   <body>
@@ -210,7 +213,7 @@
           </svg>
         </a>
         <nav aria-label="Main navigation">
-          <a href="#research">Research</a><a href="#experiment">Experiment</a
+          <a href="#research">Research</a><a href="#experiment">Environments</a
           ><a href="#about">About</a>
         </nav>
       </header>
@@ -223,7 +226,7 @@
             />
             you can inspect, test, and improve.
           </p>
-          <a class="text-link" href="#experiment">Try the experiment</a>
+          <a class="text-link" href="#experiment">Explore environments</a>
           <figure class="hero-figure">
             <svg
               viewBox="0 0 800 228"
@@ -652,119 +655,109 @@
             </div>
           </figure>
         </section>
-        <details class="experiment section-rule" id="experiment">
-          <summary class="experiment-toggle">
-            <h2>A small experiment.</h2>
-            <svg
-              class="expand-mark"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 8h10M8 3v10"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.2"
-              />
-            </svg>
-          </summary>
-          <div class="experiment-content">
-            <div
-              class="simulation"
-              id="simulation"
-              role="group"
-              aria-label="Ball experiment"
-            >
-              <button
-                class="track-control track-left"
-                id="push-left"
-                type="button"
-                aria-label="Push the ball left"
-                title="Push left"
-                disabled
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M15 9H3m5-5L3 9l5 5"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.2"
-                  />
-                </svg>
-              </button>
-              <div class="ball-track" aria-hidden="true">
-                <div
-                  class="ball-carriage"
-                  id="simulation-ball"
-                  style="transform: translateX(50%)"
-                >
-                  <span class="trial-ball"></span>
-                </div>
-              </div>
-              <div class="track-end">
-                <button
-                  class="track-control"
-                  id="push-right"
-                  type="button"
-                  aria-label="Push the ball right"
-                  title="Push right"
-                  disabled
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M3 9h12m-5-5 5 5-5 5"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.2"
-                    />
-                  </svg>
-                </button>
-                <button
-                  class="track-control track-reset"
-                  id="reset"
-                  type="button"
-                  aria-label="Reset the ball"
-                  title="Reset"
-                  disabled
-                >
-                  <svg
-                    width="15"
-                    height="15"
-                    viewBox="0 0 18 18"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M3.5 6.5a6 6 0 1 1-.3 4M3 2.5v4.5h4.5"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.2"
-                    />
-                  </svg>
-                </button>
-              </div>
+        <section
+          class="environment-lab section-rule"
+          id="experiment"
+          aria-labelledby="environments-heading"
+        >
+          <div class="lab-heading">
+            <div>
+              <p class="eyebrow">Environments</p>
+              <h2 id="environments-heading">
+                A video. A world you can change.
+              </h2>
             </div>
-            <p id="simulation-status" class="sr-only" role="status">
-              Use the arrows at either end to move the ball.
-            </p>
-            <noscript
-              ><p class="small muted">
-                Enable JavaScript to try the experiment.
-              </p></noscript
+            <a href="#create-environment" class="text-link" id="upload-link"
+              >Try your own video <span aria-hidden="true">+</span></a
             >
           </div>
-        </details>
+          <p class="lab-intro">
+            Watch the observation beside its reconstruction. Then change an
+            action and see what follows.
+          </p>
+          <div id="environment-gallery"></div>
+          <noscript
+            ><p>
+              Enable JavaScript to compare the recorded video and its
+              reconstructed environment.
+            </p></noscript
+          >
+          <details class="create-environment" id="create-environment">
+            <summary>
+              <span>Start with your own video</span
+              ><span class="upload-plus" aria-hidden="true">+</span>
+            </summary>
+            <div class="upload-content">
+              <p class="upload-intro">
+                An observation in. An environment to explore.
+              </p>
+              <p class="upload-guidance">
+                For now: one yellow ball rolling horizontally, a fixed camera,
+                and a clear view of the whole ball. MP4, up to 10 MB and 15
+                seconds.
+              </p>
+              <form id="video-submission">
+                <label class="video-drop" id="video-drop" for="video-file">
+                  <svg viewBox="0 0 120 64" aria-hidden="true">
+                    <rect x="12" y="12" width="44" height="34" rx="3" />
+                    <path
+                      d="M30 22l11 7-11 7zM67 29h24m-6-5 6 5-6 5M77 47h32"
+                    />
+                    <circle cx="98" cy="38" r="9" />
+                  </svg>
+                  <span id="file-label"
+                    >Drop a video here, or choose a file</span
+                  ><span class="file-hint">Small, clear clips work best.</span>
+                  <input
+                    id="video-file"
+                    name="video"
+                    type="file"
+                    accept="video/mp4,.mp4"
+                    aria-describedby="upload-status"
+                  />
+                </label>
+                <video
+                  id="upload-preview"
+                  controls
+                  muted
+                  playsinline
+                  preload="metadata"
+                  hidden
+                  aria-label="Your selected video"
+                ></video>
+                <label class="upload-consent"
+                  ><input id="upload-consent" type="checkbox" required /> I have
+                  permission to upload and process this video.</label
+                >
+                <div class="upload-submit-row">
+                  <button
+                    type="submit"
+                    class="generate-button"
+                    id="generate-environment"
+                    disabled
+                  >
+                    Generate environment
+                    <span aria-hidden="true">→</span></button
+                  ><span class="upload-private"
+                    >Private result · files expire after 24 hours</span
+                  >
+                </div>
+                <p
+                  id="upload-status"
+                  class="upload-status"
+                  role="status"
+                  aria-live="polite"
+                >
+                  Choose a video to begin.
+                </p>
+                <div id="upload-progress" class="upload-progress" hidden>
+                  <span></span>
+                </div>
+              </form>
+              <div id="submitted-environment" hidden></div>
+            </div>
+          </details>
+        </section>
         <section
           class="research section-rule"
           id="research"
