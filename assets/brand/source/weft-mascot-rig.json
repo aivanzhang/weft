@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source": "weft-mascot-rig.svg",
+  "view_box": [0, 0, 640, 640],
+  "status": "editable vector source; not a finished Rive or Lottie animation",
+  "coordinates": "SVG user units; x right, y down; left/right are viewer-relative",
+  "root": {"id": "mascot", "pivot": [320, 572]},
+  "layers": {
+    "foot-left": {"pivot": [216, 526]},
+    "foot-right": {"pivot": [398, 526]},
+    "arm-left": {"pivot": [121, 420]},
+    "arm-right": {"pivot": [523, 426]},
+    "body": {"pivot": [320, 535]},
+    "weave-rear": {"pivot": [320, 280]},
+    "weave-front": {"pivot": [320, 280]},
+    "mend-stitch": {"pivot": [478.5, 350.5]},
+    "cheeks": {"pivot": [308, 446]},
+    "eyes-open": {"opacity": 1},
+    "eyes-closed": {"opacity": 0},
+    "mouth": {"pivot": [310, 445]}
+  },
+  "suggested_motion": {
+    "blink": {"duration_ms": 120, "swap": ["eyes-open", "eyes-closed"]},
+    "wave": {"layer": "arm-left", "rotation_degrees": [0, 30, 20, 30, 0], "duration_ms": 1100},
+    "bounce": {"layer": "mascot", "translation_y": [0, -6, 0], "duration_ms": 900}
+  },
+  "constraints": [
+    "Keep weave and stitch attached to the body.",
+    "Keep arm and foot roots behind the body; preserve their overlap when rigging.",
+    "Use one-shot motion on meaningful events, not continuous UI animation.",
+    "Respect reduced motion and stop playback when hidden.",
+    "Check the imported result in the target editor; SVG group preservation varies by importer."
+  ]
+}

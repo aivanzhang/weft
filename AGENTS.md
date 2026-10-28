@@ -8,7 +8,11 @@ Core promise: turn task specifications, demonstrations, and observations into an
 
 Use direct, plain language. Distinguish simulation, recorded physical observations, live physical trials, proposals, and verified results. Do not market plans as implemented capabilities. Reserve fabric metaphors for the brand mark, not technical prose.
 
-The initial visual reference is the existing Loom palette: canvas `#F4F4F0`, ink `#2B2B2B`, interaction gold `#C5A059`, borders `#E5E5E0`. Weft has its own name and identity; this reference is not a requirement to copy the Kintsugi holding-company website.
+The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layout, with a vector-master mascot): a cute woven mascot above a prominent lowercase serif wordmark. Earlier logo alternatives were removed at the user's request. Use deep clay `#965644` for primary actions, soft terracotta `#C7795D` for small accents, warm cream `#F5EADC` for the canvas, and deep teal `#214F50` for ink and the approved logo. This supersedes the initial Loom/parent charcoal-and-gold reference. Keep recorded imagery and physical scene colors independent of brand colors.
+
+`assets/brand/source/palette.json` is the palette source. Run `python3 scripts/brand/sync_brand.py` after changing it or the approved logo; do not hand-edit generated resources in `src/weft/assets/`. Mascot animation source assets and usage notes live in `assets/brand/`.
+
+`scripts/brand/build_mascot_intro.py` generates the one-shot on-load weave formation from the layered mascot SVG. Keep reduced-motion and static fallbacks, cancel prior playback, and never block the interface or imply real processing progress with this decorative entrance.
 
 ## Scope and authorization
 
@@ -44,3 +48,5 @@ The initial visual reference is the existing Loom palette: canvas `#F4F4F0`, ink
 - Keep slow work off the UI thread, use bounded concurrency, cancel stale jobs, avoid overlapping polling, and measure representative end-to-end latency before claiming responsiveness.
 - Use minimum permissions and resource scope. Never mount another product's credentials into generated-code sandboxes.
 - Keep comments short and explain constraints rather than restating code.
+
+The layered SVG is the mascot master. Export the logo mascot, neutral PNG, and sprite poses using `scripts/brand/build_mascot_poses.py` and `scripts/brand/export_brand.swift`; do not generate independent raster variants. The on-load formation has a matching reverse/unweave asset.

@@ -1,10 +1,12 @@
 import json
 from pathlib import Path
+import shutil
 
 import cv2
 import numpy as np
 from PIL import Image, ImageDraw
 
+from weft.brand import COLORS
 from weft.world import passive_position
 
 
@@ -30,27 +32,28 @@ def replay_video(video, evidence, before, after, out):
                 ok, frame = cap.read()
                 if not ok:
                     raise ValueError("Replay frame missing")
-                image = Image.new("RGB", size, "#F4F4F0")
+                image = Image.new("RGB", size, COLORS["canvas"])
                 image.paste(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)), (0, 58))
                 draw = ImageDraw.Draw(image)
                 labels = ["RECORDED VIDEO", "INITIAL MODEL", "SELECTED MODEL"]
                 for k, label in enumerate(labels):
-                    draw.text((k * width + 12, 8), label, fill="#2B2B2B")
-                    draw.text((k * width + 12, 27), f"pass {episode_number + 1} | source frame {row['frame']} | {row['time_s']:.3f}s", fill="#2B2B2B")
+                    draw.text((k * width + 12, 8), label, fill=COLORS["ink"])
+                    draw.text((k * width + 12, 27), f"pass {episode_number + 1} | source frame {row['frame']} | {row['time_s']:.3f}s", fill=COLORS["ink"])
                 for panel, world in enumerate((before, after), start=1):
                     v0 = world.v0 if episode_number == 0 else raw_v0 + 0.5 * world.drag * dt
                     x = float(passive_position(world, [row["time_s"] - origin], x0=x0, v0=v0)[0])
                     y = world.center_y(x)
                     left = panel * width
                     draw.line((left, 58 + world.support_intercept * width,
-                               left + width, 58 + (world.support_intercept + world.support_slope) * width), fill="#2B2B2B", width=3)
+                               left + width, 58 + (world.support_intercept + world.support_slope) * width), fill=COLORS["ink"], width=3)
                     radius = world.radius * width
                     cx, cy = left + x * width, 58 + y * width
-                    draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill="#C5A059", outline="#2B2B2B", width=2)
+                    # The source ball stays yellow; scene colors are not brand accents.
+                    draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill="#C5A059", outline=COLORS["ink"], width=2)
                     ox, oy = left + row["x_px"], 58 + row["y_px"]
                     draw.line((ox - 8, oy, ox + 8, oy), fill="#B3261E", width=2)
                     draw.line((ox, oy - 8, ox, oy + 8), fill="#B3261E", width=2)
-                    draw.text((left + 12, height + 34), "red cross = recorded center; circle = simulation", fill="#2B2B2B")
+                    draw.text((left + 12, height + 34), "red cross = recorded center; circle = simulation", fill=COLORS["ink"])
                 writer.write(cv2.cvtColor(np.asarray(image), cv2.COLOR_RGB2BGR))
                 thumbnail = image.copy()
                 thumbnail.thumbnail((960, 240))
@@ -62,7 +65,7 @@ def replay_video(video, evidence, before, after, out):
         writer.release()
         cap.release()
     gif_frames[0].save(out / "replay-slow.gif", save_all=True, append_images=gif_frames[1:], duration=125, loop=0)
-    sheet = Image.new("RGB", (960, sum(i.height for i in thumbnails)), "white")
+    sheet = Image.new("RGB", (960, sum(i.height for i in thumbnails)), COLORS["canvas"])
     y = 0
     for thumbnail in thumbnails:
         sheet.paste(thumbnail, (0, y)); y += thumbnail.height
@@ -81,7 +84,9 @@ def replay_video(video, evidence, before, after, out):
 def write_viewer(out, report, world, graph, interventions):
     assets = Path(__file__).parent / "assets"
     data = json.dumps({"report": report, "world": world.to_dict(), "graph": graph,
-                       "interventions": interventions}, allow_nan=False).replace("<", "\\u003c")
+                       "interventions": interventions, "palette": dict(COLORS)}, allow_nan=False).replace("<", "\\u003c")
     template = (assets / "viewer.html").read_text()
     (out / "index.html").write_text(template.replace("__WEFT_DATA__", data))
     (out / "engine.js").write_text((assets / "engine.js").read_text())
+    for name in ("brand.css", "weft-logo.png"):
+        shutil.copyfile(assets / name, out / name)

@@ -5,6 +5,7 @@ import gymnasium as gym
 from gymnasium import spaces
 import numpy as np
 
+from weft.brand import COLORS
 from weft.world import advance
 
 
@@ -77,13 +78,13 @@ class RollingEnv(gym.Env):
 
     def render(self):
         from PIL import Image, ImageDraw
-        image = Image.new("RGB", (640, 240), "#F4F4F0")
+        image = Image.new("RGB", (640, 240), COLORS["canvas"])
         draw = ImageDraw.Draw(image)
-        draw.line((0, 180, 640, 180), fill="#2B2B2B", width=3)
+        draw.line((0, 180, 640, 180), fill=COLORS["ink"], width=3)
         target = int(self.target * 640)
-        draw.rectangle((target - 26, 90, target + 26, 185), outline="#C5A059", width=3)
+        draw.rectangle((target - 26, 90, target + 26, 185), outline=COLORS["primary"], width=3)
         r = int(self.world.radius * 640)
         x = int(self.x * 640)
-        draw.ellipse((x - r, 180 - 2 * r, x + r, 180), fill="#C5A059", outline="#2B2B2B", width=2)
-        draw.text((12, 12), f"SIMULATED CONTROL | x={self.x:.3f} v={self.velocity:.3f} target={self.target:.3f}", fill="#2B2B2B")
+        draw.ellipse((x - r, 180 - 2 * r, x + r, 180), fill="#C5A059", outline=COLORS["ink"], width=2)
+        draw.text((12, 12), f"SIMULATED CONTROL | x={self.x:.3f} v={self.velocity:.3f} target={self.target:.3f}", fill=COLORS["ink"])
         return np.asarray(image)

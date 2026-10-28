@@ -16,6 +16,10 @@ The original application used the name Loom. Historical application text and sou
 
 These describe the target and its presentation. The implementation status below remains separate.
 
+## Brand assets
+
+The selected logo, deep-clay palette, and mascot animation sources are in [assets/brand](assets/brand/README.md). Open [the mascot preview](assets/brand/preview.html) locally to watch the on-load weave formation and try the blink and wave sprites. The local evidence viewer uses the approved logo and palette; saved experiment folders remain unchanged.
+
 ## Current state
 
 A local iteration foundation now runs a real video through evidence extraction, a shared simulator, bounded repair, independent checks, and RL training. **The implemented profile is one isolated yellow ball moving horizontally, not arbitrary-video or 3D reconstruction.** The controls and parking objective are authored extensions, not recovered from the source.
