@@ -6,15 +6,16 @@
   const $$ = (s) => [...root.querySelectorAll(s)];
   const trigger = $(".thread");
   const film = $("#footer-film");
+  const theatre = $(".theatre");
+  const scene = $(".stage");
+  const rotations = new Set();
+  let presenting = false;
+  let presentationTimer = null;
+  let pendingScroll = false;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const animations = new Set();
   const duration = 14800;
-  const lengths = [0, 1, 2].map((index) => {
-    const stitch = $(`#stitch-${index}`);
-    const length = stitch.getTotalLength();
-    stitch.style.strokeDasharray = `${length * 0.045} ${length}`;
-    return length;
-  });
+  const lengths = [];
   let visible = false;
   let hintInView = false;
   let hintReady = false;
@@ -40,6 +41,7 @@
       hintTimer = null;
       if (document.hidden || !hintInView) return;
       hintReady = true;
+      theatre.hidden = false;
       root.classList.add("thread-ready");
       trigger.inert = false;
       trigger.removeAttribute("aria-hidden");
@@ -53,6 +55,48 @@
     easing = "cubic-bezier(.4,0,.2,1)",
   ) {
     $$(selector).forEach((element) => {
+      // SVG rotations stay in the rig's local coordinate system.
+      if (
+        property === "transform" &&
+        values.every(([, value]) => /^rotate\(-?[\d.]+deg\)$/.test(value))
+      ) {
+        if (reduced.matches) {
+          element.setAttribute(
+            "transform",
+            `rotate(${parseFloat(values.at(-1)[1].slice(7))})`,
+          );
+          return;
+        }
+        const motion = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "animateTransform",
+        );
+        motion.setAttribute("attributeName", "transform");
+        motion.setAttribute("type", "rotate");
+        motion.setAttribute(
+          "values",
+          values.map(([, value]) => parseFloat(value.slice(7))).join(";"),
+        );
+        motion.setAttribute(
+          "keyTimes",
+          values.map(([time]) => time / 14.8).join(";"),
+        );
+        motion.setAttribute("calcMode", "spline");
+        motion.setAttribute(
+          "keySplines",
+          values
+            .slice(1)
+            .map(() => ".4 0 .2 1")
+            .join(";"),
+        );
+        motion.setAttribute("dur", "14.8s");
+        motion.setAttribute("begin", "indefinite");
+        motion.setAttribute("fill", "freeze");
+        element.append(motion);
+        rotations.add(motion);
+        motion.beginElement();
+        return;
+      }
       const keyframes = values.map(([time, value]) => ({
         offset: time / 14.8,
         [property]: value,
@@ -64,7 +108,7 @@
         easing: "linear",
       });
       animations.add(animation);
-      if (document.hidden || !visible) animation.pause();
+      if (document.hidden || !visible || presenting) animation.pause();
     });
   }
 
@@ -78,8 +122,21 @@
   }
 
   function play() {
+    if (!lengths.length) {
+      for (let index = 0; index < 3; index++) {
+        const stitch = $(`#stitch-${index}`);
+        const length = stitch.getTotalLength();
+        stitch.style.strokeDasharray = `${length * 0.045} ${length}`;
+        lengths.push(length);
+      }
+    }
     animations.forEach((a) => a.cancel());
     animations.clear();
+    rotations.forEach((motion) => motion.remove());
+    rotations.clear();
+    scene.setCurrentTime(0);
+    if (presenting || document.hidden || !visible) scene.pauseAnimations();
+    else scene.unpauseAnimations();
     track("#actor-position", "transform", [
       [0, "translate(-145px,260px)"],
       [0.4, "translate(-100px,260px)"],
@@ -248,7 +305,7 @@
           },
         );
         animations.add(animation);
-        if (document.hidden || !visible) animation.pause();
+        if (document.hidden || !visible || presenting) animation.pause();
       });
       track(`.branch-${i}`, "opacity", [
         [0, 1],
@@ -301,8 +358,26 @@
     film.classList.add("open");
     film.setAttribute("aria-hidden", "false");
     film.inert = false;
+    presenting = true;
     play();
     film.focus({ preventScroll: true });
+    if (reduced.matches) finishPresentation();
+    else presentationTimer = setTimeout(finishPresentation, 1050);
+  }
+  function finishPresentation() {
+    clearTimeout(presentationTimer);
+    presentationTimer = null;
+    if (document.hidden) {
+      pendingScroll = true;
+      return;
+    }
+    pendingScroll = false;
+    film.scrollIntoView({
+      behavior: reduced.matches ? "instant" : "smooth",
+      block: "center",
+    });
+    presenting = false;
+    syncVisibility();
   }
   function beginHold() {
     if (!hintReady || hold !== null || opened || document.hidden || !visible)
@@ -352,15 +427,22 @@
   });
   function syncVisibility() {
     syncHintDelay();
-    if (document.hidden || !visible) {
+    if (pendingScroll && !document.hidden) {
+      finishPresentation();
+      return;
+    }
+    if (document.hidden || !visible || presenting) {
+      scene.pauseAnimations();
       cancelHold();
       animations.forEach((a) => {
         if (a.playState === "running") a.pause();
       });
-    } else
+    } else {
+      scene.unpauseAnimations();
       animations.forEach((a) => {
         if (a.playState === "paused") a.play();
       });
+    }
   }
   const observer = new IntersectionObserver(
     ([entry]) => {
@@ -375,6 +457,12 @@
   window.addEventListener("pagehide", () => {
     cancelHintDelay();
     cancelHold();
+    if (presentationTimer !== null) {
+      clearTimeout(presentationTimer);
+      presentationTimer = null;
+      pendingScroll = true;
+    }
+    scene.pauseAnimations();
     animations.forEach((a) => {
       if (a.playState === "running") a.pause();
     });

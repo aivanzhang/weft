@@ -292,3 +292,10 @@
     transition: none;
   }
 }
+
+#footer-secret .theatre[hidden] {
+  display: none !important;
+}
+#footer-secret:not(.thread-ready) {
+  padding-bottom: 0;
+}
