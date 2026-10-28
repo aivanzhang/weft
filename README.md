@@ -22,7 +22,7 @@ The selected logo, deep-clay palette, and mascot animation sources are in [asset
 
 ## Website
 
-Visit [Weft](https://weft.ivanzhangofficial.workers.dev/) for paired source-video/reconstructed-environment replay and private video submissions. Open [website/index.html](website/index.html) directly for the offline gallery and hidden animated footer; uploads require the hosted service. All website assets and Cloudflare deployment code live in this repository. See [website/README.md](website/README.md) and [hosting/README.md](hosting/README.md).
+The [hosted Weft site](https://weft.ivanzhangofficial.workers.dev/) is temporarily offline at the user’s request. Its paired source-video/reconstructed-environment replay and private submission service are preserved for later restoration. Open [website/index.html](website/index.html) directly for the offline gallery and hidden animated footer; uploads require the hosted service. All website assets and Cloudflare deployment code live in this repository. See [website/README.md](website/README.md) and [hosting/README.md](hosting/README.md).
 
 ## Current state
 
