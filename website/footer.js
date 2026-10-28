@@ -273,7 +273,6 @@
         [14.8, 0],
       ]);
     }
-    show(".woven-join", 10.8, 11.7);
     track(".arrival", "opacity", [
       [0, 0],
       [10.7, 0],
@@ -284,7 +283,7 @@
     ]);
     show(".closing p, .closing > span", 11.5, 12.6);
     $("#footer-story-status").textContent =
-      "Weft pulls three ribbon worlds from a thread. Small stitches trace different actions, finishing in a woven join. An illustrative animated story.";
+      "Weft pulls three ribbon worlds from a thread. Small stitches trace different actions along the ribbons. An illustrative animated story.";
   }
 
   function cancelHold() {

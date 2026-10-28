@@ -21,7 +21,7 @@ The canonical editable mascot and other project brand assets remain in `../asset
 - Hero lines draw left to right. The yellow ball appears after 0.5 seconds and slides gently down the contour; the sequence ends after 4.3 seconds.
 - Hero labels open illustrated cards on hover, keyboard focus, or tap. Research entries reveal their artwork with smooth height and opacity transitions.
 - The experiment starts collapsed. Its icon-only controls move and reset the ball. Simulation stops at rest, boundaries, after eight seconds, offscreen, on collapse, or when the page is hidden.
-- The footer thread bundle stays hidden until at least half the footer remains in view for ten continuous seconds. Scrolling away or hiding the tab resets the countdown. Once it appears, hold it for five seconds with a pointer or Space/Enter to reveal the finite mascot story. Releasing early or leaving cancels the hold. Weft pulls the gathered threads into branching ribbon paths; small stitches trace the outcomes. There is no replay button; reload to reveal it again.
+- The footer thread bundle stays hidden until at least half the footer remains in view for ten continuous seconds. Scrolling away or hiding the tab resets the countdown. The hidden area occupies no space until it opens smoothly. Once it appears, hold it for five seconds with a pointer or Space/Enter to reveal the finite mascot story. Releasing early or leaving cancels the hold. Weft pulls the gathered threads into branching ribbon paths; small stitches trace the outcomes. There is no replay button; reload to reveal it again.
 - Decorative motion respects reduced motion and pauses when hidden. The footer also pauses offscreen. It uses native animation tracks and three one-time path-length reads, not a JavaScript frame loop.
 
 ## Evidence boundaries
@@ -39,3 +39,5 @@ Inter is bundled locally; no font CDN, telemetry, polling, recurring services, o
 JavaScript syntax, HTML references, and retained local assets are checked. Static footer compositions were rendered and inspected during implementation. Browser playback, real-device interactions, and sustained performance remain unverified. No server or automated tests were started.
 
 Typography uses Inter’s optical sizing for readable small text and refined display headings, paired with the unchanged approved Weft wordmark. The single variable WOFF2 file covers all used weights without additional runtime requests to external services.
+
+The footer has no detached end-knot graphic or focus borders. Keyboard focus on the thread uses a text-color cue; the revealed scene remains programmatically focusable without an outline.

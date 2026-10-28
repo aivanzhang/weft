@@ -8,11 +8,6 @@
   align-items: center;
   color: var(--muted);
 }
-#footer-secret .theatre {
-  position: relative;
-  padding-top: 20px;
-  min-height: 240px;
-}
 #footer-secret .thread {
   display: flex;
   flex-direction: column;
@@ -76,7 +71,7 @@
   display: block;
   width: 100%;
   height: auto;
-  overflow: visible;
+  overflow: hidden;
 }
 #footer-secret .ground {
   fill: none;
@@ -174,21 +169,6 @@
 #footer-secret .branch-0 .travel-stitch {
   stroke: #f5eadc;
 }
-#footer-secret .woven-join {
-  fill: none;
-}
-#footer-secret .join-edge {
-  stroke: #214f50;
-  stroke-width: 10;
-}
-#footer-secret .join-warp {
-  stroke: #f5eadc;
-  stroke-width: 5;
-}
-#footer-secret .join-weft {
-  stroke: #c7795d;
-  stroke-width: 5;
-}
 #footer-secret .arrival {
   fill: none;
   stroke: #c7795d;
@@ -256,10 +236,6 @@
     transition: none;
   }
 }
-#footer-secret .theatre {
-  min-height: 160px;
-  padding-top: 0;
-}
 #footer-secret .thread {
   margin: 16px auto 22px;
   padding: 16px 30px;
@@ -284,5 +260,35 @@
   #footer-secret .thread {
     transition: none;
     transform: none;
+  }
+}
+
+#footer-secret .theatre {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  padding: 0;
+  transition: grid-template-rows 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+#footer-secret.thread-ready .theatre {
+  grid-template-rows: 1fr;
+}
+#footer-secret .theatre-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+#footer-secret .thread:focus,
+#footer-secret .thread:focus-visible,
+#footer-secret .film:focus,
+#footer-secret .film:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+#footer-secret .thread:focus-visible .hint {
+  color: var(--clay);
+}
+@media (prefers-reduced-motion: reduce) {
+  #footer-secret .theatre {
+    transition: none;
   }
 }
