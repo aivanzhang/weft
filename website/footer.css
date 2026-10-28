@@ -1,0 +1,288 @@
+#footer-secret {
+  display: block;
+  color: var(--ink);
+}
+#footer-secret .footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+}
+#footer-secret .theatre {
+  position: relative;
+  padding-top: 20px;
+  min-height: 240px;
+}
+#footer-secret .thread {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 0;
+  background: none;
+  margin: 35px auto 50px;
+  padding: 24px 35px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+#footer-secret .thread svg {
+  width: 210px;
+  height: 70px;
+  overflow: visible;
+}
+#footer-secret .thread path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+#footer-secret .thread-base {
+  stroke: #d8c9ba;
+}
+#footer-secret .thread-fill {
+  stroke: var(--clay);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+#footer-secret .thread circle {
+  fill: var(--clay);
+}
+#footer-secret .hint {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  margin-top: 7px;
+}
+#footer-secret .thread[aria-expanded="true"] {
+  display: none;
+}
+#footer-secret .film {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 1s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.8s ease;
+}
+#footer-secret .film.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+#footer-secret .film-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+#footer-secret .stage {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+#footer-secret .ground {
+  fill: none;
+  stroke: url(#floor-fade);
+  stroke-width: 1;
+}
+#footer-secret .stage path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+#footer-secret #actor-shadow {
+  fill: #214f50;
+  opacity: 0.065;
+}
+#footer-secret #actor-position {
+  transform: translate(102px, 260px);
+}
+#footer-secret #actor-bounce {
+  transform-origin: 0 0;
+  transform-box: view-box;
+}
+#footer-secret #actor-arm-left {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-arm-right {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-foot-left {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-foot-right {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-mascot {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-eyes-open {
+  transform-origin: 0 0;
+}
+#footer-secret #actor-eyes-closed {
+  opacity: 0;
+}
+#footer-secret #actor-arm-left,
+#footer-secret #actor-arm-right,
+#footer-secret #actor-foot-left,
+#footer-secret #actor-foot-right,
+#footer-secret #actor-mascot,
+#footer-secret #actor-eyes-open {
+  transform-box: view-box;
+}
+#footer-secret .ribbon-edge,
+#footer-secret .future,
+#footer-secret .thread-reveal {
+  fill: none;
+}
+#footer-secret .ribbon-edge {
+  stroke: #214f50;
+  stroke-width: 11;
+}
+#footer-secret .future {
+  stroke: #f5eadc;
+  stroke-width: 6.5;
+}
+#footer-secret .branch-0 .future {
+  stroke: #c7795d;
+}
+#footer-secret .branch-2 .future {
+  stroke: #e8d9c5;
+}
+#footer-secret .thread-reveal {
+  stroke-linecap: butt;
+}
+#footer-secret #ribbon-tail path {
+  fill: none;
+}
+#footer-secret .tail-edge {
+  stroke: #214f50;
+  stroke-width: 11;
+}
+#footer-secret .tail-core {
+  stroke: #f5eadc;
+  stroke-width: 6.5;
+}
+#footer-secret #ribbon-tail {
+  transform-origin: 0 0;
+  transform-box: view-box;
+}
+#footer-secret .travel-stitch {
+  fill: none;
+  stroke: #c7795d;
+  stroke-width: 6.5;
+  stroke-dasharray: 24 1000;
+  stroke-linecap: round;
+}
+#footer-secret .branch-0 .travel-stitch {
+  stroke: #f5eadc;
+}
+#footer-secret .woven-join {
+  fill: none;
+}
+#footer-secret .join-edge {
+  stroke: #214f50;
+  stroke-width: 10;
+}
+#footer-secret .join-warp {
+  stroke: #f5eadc;
+  stroke-width: 5;
+}
+#footer-secret .join-weft {
+  stroke: #c7795d;
+  stroke-width: 5;
+}
+#footer-secret .arrival {
+  fill: none;
+  stroke: #c7795d;
+  stroke-width: 2;
+}
+#footer-secret .closing {
+  text-align: center;
+  padding: 5px 0 44px;
+}
+#footer-secret .closing p {
+  font-size: clamp(20px, 3vw, 28px);
+  letter-spacing: -0.6px;
+  margin: 0 0 13px;
+}
+#footer-secret .closing > span {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+#footer-secret .tangle-edge,
+#footer-secret .tangle-core {
+  fill: none;
+}
+#footer-secret .tangle-edge {
+  stroke: #214f50;
+  stroke-width: 5;
+}
+#footer-secret .tangle-core {
+  stroke: #f5eadc;
+  stroke-width: 2.3;
+}
+#footer-secret .strand-clay .tangle-core {
+  stroke: #c7795d;
+}
+#footer-secret .strand-linen .tangle-core {
+  stroke: #e3cfb8;
+}
+#footer-secret .thread .bundle-0 {
+  stroke: #214f50;
+  stroke-width: 2;
+}
+#footer-secret .thread .bundle-1 {
+  stroke: #c7795d;
+  stroke-width: 2;
+}
+#footer-secret .thread .bundle-2 {
+  stroke: #cbb89f;
+  stroke-width: 1.6;
+}
+@media (max-width: 550px) {
+  #footer-secret .stage {
+    width: calc(100% + 24px);
+    margin-left: -12px;
+  }
+  #footer-secret .closing {
+    padding-top: 20px;
+  }
+  #footer-secret .closing p {
+    font-size: 21px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #footer-secret .film {
+    transition: none;
+  }
+}
+#footer-secret .theatre {
+  min-height: 160px;
+  padding-top: 0;
+}
+#footer-secret .thread {
+  margin: 16px auto 22px;
+  padding: 16px 30px;
+}
+
+#footer-secret .thread {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(5px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+#footer-secret.thread-ready .thread {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  #footer-secret .thread {
+    transition: none;
+    transform: none;
+  }
+}

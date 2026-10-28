@@ -20,6 +20,10 @@ These describe the target and its presentation. The implementation status below 
 
 The selected logo, deep-clay palette, and mascot animation sources are in [assets/brand](assets/brand/README.md). Open [the mascot preview](assets/brand/preview.html) locally to watch the on-load weave formation and try the blink and wave sprites. The local evidence viewer uses the approved logo and palette; saved experiment folders remain unchanged.
 
+## Website
+
+Open [website/index.html](website/index.html) directly for the product website, interactive experiment, and hidden animated footer. The website and its assets are maintained in this repository; no server or install is needed. See [website/README.md](website/README.md).
+
 ## Current state
 
 A local iteration foundation now runs a real video through evidence extraction, a shared simulator, bounded repair, independent checks, and RL training. **The implemented profile is one isolated yellow ball moving horizontally, not arbitrary-video or 3D reconstruction.** The controls and parking objective are authored extensions, not recovered from the source.
@@ -86,6 +90,7 @@ The submission deadline is **November 4, 2026, at 6:00 p.m. PST**. Source snapsh
 - Private GitHub repository: `kintsugi-software/weft`. No public release, deployment, or hackathon submission.
 - `hackathon/sources/`: source snapshots and explicit unavailable-content records.
 - `hackathon/analysis/`: interpretation and proposed project direction, not official rules.
+- `website/`: canonical product site, styles, and interactive artwork.
 - `src/weft/`: local A–E profile, experiment runner, and comparison tools.
 - `experiments/`: versioned run configurations; input paths resolve relative to each config.
 - `tests/`: contract, physics, provenance, repair, and comparison checks.

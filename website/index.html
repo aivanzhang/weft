@@ -1,0 +1,1578 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Weft studies how video evidence can become an environment you can inspect, test, and improve. Explore the research and a small interactive experiment."
+    />
+    <meta name="theme-color" content="#FBF7F1" />
+    <title>Weft — Worlds built from evidence</title>
+    <link
+      rel="icon"
+      href="../assets/brand/exports/weft-mascot.png"
+      type="image/png"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="footer.css" />
+    <script src="../src/weft/assets/engine.js" defer></script>
+    <script src="site.js" defer></script>
+    <script src="footer.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <svg class="svg-defs" width="0" height="0" aria-hidden="true">
+      <defs>
+        <radialGradient id="ball-shade" cx="30%" cy="24%" r="78%">
+          <stop stop-color="#FFE99A" />
+          <stop offset=".45" stop-color="#F2CE52" />
+          <stop offset="1" stop-color="#BA8F20" />
+        </radialGradient>
+        <linearGradient id="frame-shade" x2="1" y2="1">
+          <stop stop-color="#DDD6CB" stop-opacity=".78" />
+          <stop offset="1" stop-color="#EDE7DF" stop-opacity=".25" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="page">
+      <header class="site-header">
+        <a class="wordmark" href="#main" aria-label="Weft home">
+          <svg
+            class="wordmark-mascot"
+            viewBox="40 65 560 530"
+            width="44"
+            height="44"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g
+              id="header-mascot"
+              stroke="#214F50"
+              stroke-width="18"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <g id="header-foot-left">
+                <path
+                  d="M174 518 C171 550 184 571 210 571 C234 571 253 554 259 526 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-foot-right">
+                <path
+                  d="M354 526 C357 557 376 575 402 571 C425 569 441 552 443 525 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-left">
+                <path
+                  d="M110 392 C91 400 81 409 72 424 C60 443 68 461 85 466 C100 470 110 461 117 452 L143 423 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-arm-right">
+                <path
+                  d="M530 399 C548 406 561 416 569 430 C579 447 575 463 560 468 C544 473 535 463 530 455 L503 422 Z"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-body">
+                <path
+                  d="M122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 442 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L106 314 C100 268 100 241 122 222 Z"
+                  fill="#F5EADC"
+                  stroke="none"
+                />
+                <path
+                  d="M108 392 L106 314 C100 268 100 241 122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 399"
+                  fill="none"
+                />
+                <path
+                  d="M532 455 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L108 451"
+                  fill="none"
+                />
+              </g>
+              <g id="header-weave-rear">
+                <path
+                  d="M402 141 C405 119 425 110 448 114 C475 117 495 132 493 153 L471 171 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M478 164 C527 153 571 173 575 214 C579 250 565 298 548 407 L476 386 L473 244 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M487 164 C531 157 573 178 575 214 C578 238 575 254 566 263 L486 235 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M474 239 C530 244 567 265 569 292 C572 313 562 327 550 334 C533 322 504 315 477 311 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M476 311 C498 315 533 320 542 332 L539 403 L475 388 Z"
+                  fill="#C7795D"
+                />
+              </g>
+              <g id="header-weave-front">
+                <path
+                  d="M126 204 C114 160 127 130 161 116 C187 106 226 101 237 108 C251 116 255 132 251 152 L244 204 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M225 129 C234 121 244 121 260 125 L254 204 L211 203 C206 179 212 145 225 129 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M113 207 C156 198 204 198 251 205 L265 275 C218 267 165 263 129 277 C114 281 107 287 103 290 C87 275 86 247 94 226 C98 216 104 210 113 207 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M276 108 C295 98 335 99 354 105 C368 111 375 122 373 136 C356 147 356 179 359 210 L390 217 C396 240 395 270 386 284 C371 290 311 280 272 272 C260 263 251 218 251 185 C251 147 257 120 276 108 Z"
+                  fill="#F5EADC"
+                />
+                <path
+                  d="M363 144 C407 147 449 155 482 166 C495 180 498 207 487 223 C451 213 403 207 359 204 C352 187 352 158 363 144 Z"
+                  fill="#C7795D"
+                />
+                <path
+                  d="M391 217 C414 220 450 224 466 232 C473 271 470 328 470 389"
+                  fill="#F5EADC"
+                />
+              </g>
+              <g id="header-mend-stitch">
+                <rect
+                  x="449"
+                  y="339"
+                  width="59"
+                  height="23"
+                  rx="11.5"
+                  fill="#C7795D"
+                  stroke-width="7"
+                  transform="rotate(10 478.5 350.5)"
+                />
+              </g>
+              <g id="header-cheeks" fill="#C7795D" stroke="none">
+                <ellipse cx="183" cy="441" rx="20" ry="12" />
+                <ellipse cx="433" cy="451" rx="20" ry="12" />
+              </g>
+              <g id="header-eyes-open" stroke="none">
+                <g id="header-eye-left">
+                  <ellipse
+                    cx="218"
+                    cy="397"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 218 397)"
+                  />
+                  <circle cx="220" cy="383" r="9" fill="#F5EADC" />
+                </g>
+                <g id="header-eye-right">
+                  <ellipse
+                    cx="407"
+                    cy="408"
+                    rx="27"
+                    ry="35"
+                    fill="#214F50"
+                    transform="rotate(6 407 408)"
+                  />
+                  <circle cx="409" cy="394" r="9" fill="#F5EADC" />
+                </g>
+              </g>
+              <g
+                id="header-eyes-closed"
+                opacity="0"
+                fill="none"
+                stroke-width="13"
+              >
+                <path d="M196 401 Q218 379 240 403" />
+                <path d="M385 412 Q407 390 429 414" />
+              </g>
+              <g id="header-mouth" fill="none" stroke-width="18">
+                <path d="M281 432 C291 459 327 460 338 434" />
+              </g>
+            </g>
+          </svg>
+          <svg
+            class="wordmark-lettering"
+            viewBox="45 680 1165 455"
+            width="70"
+            height="28"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <image
+              href="../assets/brand/source/weft-wordmark.png"
+              width="1254"
+              height="1254"
+            />
+          </svg>
+        </a>
+        <nav aria-label="Main navigation">
+          <a href="#research">Research</a><a href="#experiment">Experiment</a
+          ><a href="#about">About</a>
+        </nav>
+      </header>
+      <main id="main">
+        <section class="intro" aria-labelledby="intro-heading">
+          <h1 id="intro-heading">Worlds built<br />from evidence.</h1>
+          <p class="intro-copy">
+            We study how video can become an environment<br
+              class="desktop-break"
+            />
+            you can inspect, test, and improve.
+          </p>
+          <a class="text-link" href="#experiment">Try the experiment</a>
+          <figure class="hero-figure">
+            <svg
+              viewBox="0 0 800 228"
+              role="img"
+              aria-label="From video evidence to an interactive environment"
+              aria-describedby="hero-description"
+            >
+              <desc id="hero-description">
+                Fine paths converge into a single yellow ball. A conceptual
+                illustration, not measured trajectories.
+              </desc>
+              <g fill="none" stroke-width=".8" class="hero-threads">
+                <path
+                  pathLength="1"
+                  d="M0 28C130 6 168 128 290 102S430 146 528 171S655 195 737 195"
+                  stroke="#D8C9BA"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 39C125 17 176 137 294 113S432 151 530 175S657 195 737 195"
+                  stroke="#965644"
+                  opacity=".25"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 50C128 30 173 143 292 121S431 155 533 178S660 195 737 195"
+                  stroke="#214F50"
+                  opacity=".22"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 62C132 39 171 148 288 128S430 161 534 181S665 195 737 195"
+                  stroke="#D8C9BA"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 74C126 52 175 156 291 136S432 164 537 184S665 195 737 195"
+                  stroke="#965644"
+                  opacity=".32"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 87C130 63 176 162 291 144S436 169 540 187S669 195 737 195"
+                  stroke="#214F50"
+                  opacity=".3"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 99C128 77 178 170 295 152S439 175 541 189S673 195 737 195"
+                  stroke="#D8C9BA"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 113C131 89 180 177 298 160S440 179 544 191S675 195 737 195"
+                  stroke="#965644"
+                  opacity=".3"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 126C130 100 178 184 299 167S443 183 548 193S680 195 737 195"
+                  stroke="#214F50"
+                  opacity=".25"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 140C130 114 183 190 305 175S449 187 550 194S680 195 737 195"
+                  stroke="#D8C9BA"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 154C131 129 187 197 307 184S452 191 554 196S681 195 737 195"
+                  stroke="#965644"
+                  opacity=".2"
+                />
+                <path
+                  pathLength="1"
+                  d="M0 169C132 145 188 205 313 193S457 197 558 198S684 195 737 195"
+                  stroke="#D8C9BA"
+                />
+              </g>
+              <path
+                class="hero-evidence"
+                d="M66 32C150 38 178 147 294 113S432 151 530 175S657 195 737 195"
+                fill="none"
+                stroke="#C7795D"
+                stroke-width="2.6"
+                stroke-linecap="round"
+                stroke-dasharray=".1 19"
+              />
+              <path
+                class="hero-baseline"
+                pathLength="1"
+                d="M20 215H789"
+                stroke="#D8C9BA"
+                stroke-width=".8"
+              />
+              <g
+                class="hero-markers"
+                stroke="#596562"
+                stroke-width=".65"
+                opacity=".5"
+                stroke-dasharray="3 3"
+              >
+                <path d="M88 143V222" />
+                <path d="M407 135V222" />
+                <path d="M696 163V222" />
+              </g>
+              <ellipse
+                class="hero-shadow"
+                cx="747"
+                cy="216"
+                rx="26"
+                ry="2"
+                fill="#214F50"
+                opacity=".07"
+              />
+              <circle
+                class="hero-static-ball"
+                cx="748"
+                cy="194"
+                r="21"
+                fill="url(#ball-shade)"
+              />
+              <g class="hero-moving-ball" aria-hidden="true">
+                <circle cx="0" cy="0" r="21" fill="url(#ball-shade)" />
+                <animateMotion
+                  id="hero-ball-slide"
+                  begin="0.5s"
+                  dur="3.8s"
+                  fill="freeze"
+                  calcMode="spline"
+                  keyTimes="0;.18;1"
+                  keyPoints="0;0;1"
+                  keySplines="0 0 1 1;.45 0 .35 1"
+                  path="M22 5 C130 -12 168 107 290 81 S430 125 528 150 C610 174 659 176 696 177 C721 178 727 194 748 194"
+                />
+              </g>
+            </svg>
+            <div class="hero-stages" aria-label="Explore the three stages">
+              <div class="hero-stage" data-stage="0">
+                <button
+                  class="stage-trigger"
+                  id="stage-trigger-evidence"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="stage-card-evidence"
+                >
+                  <span>Video evidence</span>
+                </button>
+                <div
+                  class="stage-card"
+                  id="stage-card-evidence"
+                  role="region"
+                  aria-labelledby="stage-trigger-evidence"
+                  aria-hidden="true"
+                  inert
+                >
+                  <div class="stage-card-kicker">
+                    <span>01</span><span>Video evidence</span>
+                  </div>
+                  <div class="stage-art">
+                    <svg viewBox="0 0 304 172" aria-hidden="true">
+                      <g transform="translate(14 40)">
+                        <g class="capture-frame capture-frame-1">
+                          <rect
+                            width="88"
+                            height="76"
+                            fill="#F2ECE3"
+                            stroke="#D8C9BA"
+                          />
+                          <path d="M0 55h88" stroke="#C9BCAE" />
+                          <circle
+                            cx="25"
+                            cy="46"
+                            r="9"
+                            fill="url(#ball-shade)"
+                          />
+                          <path
+                            d="M12 36v-3h4m18 0h4v3m0 20v3h-4m-18 0h-4v-3"
+                            fill="none"
+                            stroke="#965644"
+                            stroke-width=".8"
+                          />
+                          <text x="7" y="12" class="mini-mono">01</text>
+                        </g>
+                      </g>
+                      <g transform="translate(106 30)">
+                        <g class="capture-frame capture-frame-2">
+                          <rect
+                            width="88"
+                            height="76"
+                            fill="#F2ECE3"
+                            stroke="#D8C9BA"
+                          />
+                          <path d="M0 55h88" stroke="#C9BCAE" />
+                          <circle
+                            cx="45"
+                            cy="46"
+                            r="9"
+                            fill="url(#ball-shade)"
+                          />
+                          <path
+                            d="M32 36v-3h4m18 0h4v3m0 20v3h-4m-18 0h-4v-3"
+                            fill="none"
+                            stroke="#965644"
+                            stroke-width=".8"
+                          />
+                          <text x="7" y="12" class="mini-mono">02</text>
+                        </g>
+                      </g>
+                      <g transform="translate(198 20)">
+                        <g class="capture-frame capture-frame-3">
+                          <rect
+                            width="88"
+                            height="76"
+                            fill="#F2ECE3"
+                            stroke="#D8C9BA"
+                          />
+                          <path d="M0 55h88" stroke="#C9BCAE" />
+                          <circle
+                            cx="65"
+                            cy="46"
+                            r="9"
+                            fill="url(#ball-shade)"
+                          />
+                          <path
+                            d="M52 36v-3h4m18 0h4v3m0 20v3h-4m-18 0h-4v-3"
+                            fill="none"
+                            stroke="#965644"
+                            stroke-width=".8"
+                          />
+                          <text x="7" y="12" class="mini-mono">03</text>
+                        </g>
+                      </g>
+                      <path
+                        class="capture-scan"
+                        d="M22 22v99"
+                        stroke="#965644"
+                        stroke-width="1"
+                        opacity="0"
+                      />
+                      <path d="M30 145h244" stroke="#D8C9BA" />
+                      <g fill="#965644">
+                        <circle cx="42" cy="145" r="3" />
+                        <circle cx="152" cy="145" r="3" />
+                        <circle cx="262" cy="145" r="3" />
+                      </g>
+                      <g class="mini-mono" text-anchor="middle">
+                        <text x="42" y="164">FRAME</text>
+                        <text x="152" y="164">POSITION</text>
+                        <text x="262" y="164">TIME</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <h3>Start with what happened.</h3>
+                  <p>
+                    Track an object across frames. Keep each observation tied to
+                    its source.
+                  </p>
+                </div>
+              </div>
+              <div class="hero-stage" data-stage="1">
+                <button
+                  class="stage-trigger"
+                  id="stage-trigger-dynamics"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="stage-card-dynamics"
+                >
+                  <span>Reconstructed dynamics</span>
+                </button>
+                <div
+                  class="stage-card"
+                  id="stage-card-dynamics"
+                  role="region"
+                  aria-labelledby="stage-trigger-dynamics"
+                  aria-hidden="true"
+                  inert
+                >
+                  <div class="stage-card-kicker">
+                    <span>02</span><span>Reconstructed dynamics</span>
+                  </div>
+                  <div class="stage-art">
+                    <svg viewBox="0 0 304 172" aria-hidden="true">
+                      <g stroke="#D8C9BA" stroke-width=".6" opacity=".75">
+                        <path
+                          d="M24 36h256M24 72h256M24 108h256M24 144h256M24 36v108M88 36v108M152 36v108M216 36v108M280 36v108"
+                        />
+                      </g>
+                      <path
+                        d="M24 134C75 132 102 90 156 82S231 51 280 42"
+                        fill="none"
+                        stroke="#214F50"
+                        stroke-width="1"
+                        stroke-dasharray="3 5"
+                        opacity=".18"
+                      />
+                      <g class="measured-points" fill="#965644">
+                        <circle cx="24" cy="130" r="2.4" />
+                        <circle cx="51" cy="128" r="2.4" />
+                        <circle cx="79" cy="117" r="2.4" />
+                        <circle cx="104" cy="100" r="2.4" />
+                        <circle cx="130" cy="88" r="2.4" />
+                        <circle cx="156" cy="79" r="2.4" />
+                        <circle cx="181" cy="71" r="2.4" />
+                        <circle cx="205" cy="59" r="2.4" />
+                        <circle cx="230" cy="51" r="2.4" />
+                        <circle cx="255" cy="44" r="2.4" />
+                        <circle cx="280" cy="39" r="2.4" />
+                      </g>
+                      <path
+                        class="model-fit"
+                        pathLength="1"
+                        d="M24 130C75 128 102 87 156 79S231 48 280 39"
+                        fill="none"
+                        stroke="#214F50"
+                        stroke-width="1.5"
+                      />
+                      <g class="model-object">
+                        <circle
+                          cx="156"
+                          cy="79"
+                          r="10"
+                          fill="url(#ball-shade)"
+                        />
+                        <path
+                          d="m173 70 30-12m-7-2 7 2-4 6"
+                          fill="none"
+                          stroke="#214F50"
+                          stroke-width=".8"
+                        />
+                      </g>
+                      <g class="mini-mono">
+                        <text x="24" y="20">OBSERVATION → MODEL</text>
+                        <text x="24" y="165">POSITION</text>
+                        <text x="132" y="165">VELOCITY</text>
+                        <text x="251" y="165">DRAG</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <h3>From motion to a model.</h3>
+                  <p>
+                    Estimate the motion. Compare the model with what the video
+                    actually shows.
+                  </p>
+                </div>
+              </div>
+              <div class="hero-stage" data-stage="2">
+                <button
+                  class="stage-trigger"
+                  id="stage-trigger-environment"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="stage-card-environment"
+                >
+                  <span>Interactive environment</span>
+                </button>
+                <div
+                  class="stage-card"
+                  id="stage-card-environment"
+                  role="region"
+                  aria-labelledby="stage-trigger-environment"
+                  aria-hidden="true"
+                  inert
+                >
+                  <div class="stage-card-kicker">
+                    <span>03</span><span>Interactive environment</span>
+                  </div>
+                  <div class="stage-art">
+                    <svg viewBox="0 0 304 172" aria-hidden="true">
+                      <path d="M18 111h268" stroke="#C9BCAE" />
+                      <g fill="none" stroke="#D8C9BA" stroke-width=".6">
+                        <path
+                          d="m18 111 24 29h217l27-29M30 125h242M81 111l6 29m64-29v29m69-29-6 29"
+                        />
+                      </g>
+                      <g
+                        class="possible-actions"
+                        fill="none"
+                        stroke="#214F50"
+                        stroke-width="1"
+                        stroke-dasharray="3 5"
+                      >
+                        <path d="M69 96C142 52 197 15 276 29" />
+                        <path d="M69 96C144 75 205 58 278 64" />
+                        <path d="M69 96H278" />
+                      </g>
+                      <path
+                        class="chosen-action"
+                        pathLength="1"
+                        d="M69 96H235"
+                        stroke="#965644"
+                        stroke-width="1.3"
+                        fill="none"
+                      />
+                      <g class="action-ball">
+                        <ellipse
+                          cx="69"
+                          cy="112"
+                          rx="16"
+                          ry="2"
+                          fill="#214F50"
+                          opacity=".06"
+                        />
+                        <circle
+                          cx="69"
+                          cy="97"
+                          r="14"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                      <g class="mini-mono">
+                        <text x="18" y="20">CHANGE THE ACTION</text>
+                        <text x="18" y="165">SAME WORLD</text>
+                        <text x="192" y="165">NEW POSSIBILITIES</text>
+                      </g>
+                    </svg>
+                  </div>
+                  <h3>A world you can act on.</h3>
+                  <p>
+                    Change the action and explore what follows—not just a
+                    recorded replay.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </figure>
+        </section>
+        <details class="experiment section-rule" id="experiment">
+          <summary class="experiment-toggle">
+            <h2>A small experiment.</h2>
+            <svg
+              class="expand-mark"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h10M8 3v10"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.2"
+              />
+            </svg>
+          </summary>
+          <div class="experiment-content">
+            <div
+              class="simulation"
+              id="simulation"
+              role="group"
+              aria-label="Ball experiment"
+            >
+              <button
+                class="track-control track-left"
+                id="push-left"
+                type="button"
+                aria-label="Push the ball left"
+                title="Push left"
+                disabled
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M15 9H3m5-5L3 9l5 5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.2"
+                  />
+                </svg>
+              </button>
+              <div class="ball-track" aria-hidden="true">
+                <div
+                  class="ball-carriage"
+                  id="simulation-ball"
+                  style="transform: translateX(50%)"
+                >
+                  <span class="trial-ball"></span>
+                </div>
+              </div>
+              <div class="track-end">
+                <button
+                  class="track-control"
+                  id="push-right"
+                  type="button"
+                  aria-label="Push the ball right"
+                  title="Push right"
+                  disabled
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 9h12m-5-5 5 5-5 5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="track-control track-reset"
+                  id="reset"
+                  type="button"
+                  aria-label="Reset the ball"
+                  title="Reset"
+                  disabled
+                >
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 18 18"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3.5 6.5a6 6 0 1 1-.3 4M3 2.5v4.5h4.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <p id="simulation-status" class="sr-only" role="status">
+              Use the arrows at either end to move the ball.
+            </p>
+            <noscript
+              ><p class="small muted">
+                Enable JavaScript to try the experiment.
+              </p></noscript
+            >
+          </div>
+        </details>
+        <section
+          class="research section-rule"
+          id="research"
+          aria-labelledby="research-heading"
+        >
+          <div class="research-heading">
+            <h2 class="eyebrow" id="research-heading">Research</h2>
+          </div>
+          <div class="research-list">
+            <article class="research-entry" data-research="0">
+              <button
+                class="research-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="reconstruction-art"
+              >
+                <span class="research-number">01</span
+                ><span class="research-copy"
+                  ><span class="research-title">Reconstruction</span
+                  ><span class="research-description"
+                    >Build executable environments from observed evidence.</span
+                  ></span
+                ><span class="research-arrow" aria-hidden="true">↗</span>
+              </button>
+              <div
+                class="research-art"
+                id="reconstruction-art"
+                aria-hidden="true"
+              >
+                <div class="research-art-clip">
+                  <svg viewBox="0 0 370 174" focusable="false">
+                    <g transform="translate(4 13)">
+                      <g class="film-frame film-frame-1">
+                        <path
+                          d="M15 28 55 15V108L15 121Z"
+                          fill="url(#frame-shade)"
+                          stroke="#C9BCAE"
+                          stroke-width=".5"
+                        />
+                        <path
+                          d="m15 99 40-13"
+                          stroke="#9C968C"
+                          stroke-width=".6"
+                        />
+                        <circle
+                          cx="37"
+                          cy="89"
+                          r="5.5"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                      <g class="film-frame film-frame-2">
+                        <path
+                          d="m40 34 40-13v93l-40 13Z"
+                          fill="url(#frame-shade)"
+                          stroke="#C9BCAE"
+                          stroke-width=".5"
+                        />
+                        <path
+                          d="m40 105 40-13"
+                          stroke="#9C968C"
+                          stroke-width=".6"
+                        />
+                        <circle
+                          cx="61"
+                          cy="95"
+                          r="5.5"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                      <g class="film-frame film-frame-3">
+                        <path
+                          d="m65 40 40-13v93l-40 13Z"
+                          fill="url(#frame-shade)"
+                          stroke="#C9BCAE"
+                          stroke-width=".5"
+                        />
+                        <path
+                          d="m65 111 40-13"
+                          stroke="#9C968C"
+                          stroke-width=".6"
+                        />
+                        <circle
+                          cx="85"
+                          cy="101"
+                          r="5.5"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                      <g class="film-frame film-frame-4">
+                        <path
+                          d="m90 46 40-13v93l-40 13Z"
+                          fill="url(#frame-shade)"
+                          stroke="#C9BCAE"
+                          stroke-width=".5"
+                        />
+                        <path
+                          d="m90 117 40-13"
+                          stroke="#9C968C"
+                          stroke-width=".6"
+                        />
+                        <circle
+                          cx="111"
+                          cy="107"
+                          r="5.5"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                      <path
+                        class="draw-line"
+                        d="M151 83H183m-5-5 6 5-6 5"
+                        fill="none"
+                        stroke="#214F50"
+                        stroke-width="1"
+                        pathLength="1"
+                      />
+                      <g stroke="#D8C9BA" stroke-width=".65">
+                        <path d="m203 115 67-63 85 37-67 63Z" fill="none" />
+                        <path
+                          d="m221 99 85 36m-67-53 85 36m-67-52 85 36m-125 19 67-63m-46 72 67-63m-46 72 67-63"
+                        />
+                      </g>
+                      <path
+                        class="draw-line"
+                        d="m223 121 74-43"
+                        fill="none"
+                        stroke="#214F50"
+                        stroke-width="1"
+                        stroke-dasharray="3 5"
+                        pathLength="1"
+                      />
+                      <g class="reconstructed-ball">
+                        <ellipse
+                          cx="297"
+                          cy="82"
+                          rx="10"
+                          ry="2"
+                          fill="#214F50"
+                          opacity=".08"
+                        />
+                        <circle
+                          cx="297"
+                          cy="73"
+                          r="10"
+                          fill="url(#ball-shade)"
+                        />
+                      </g>
+                    </g>
+                    <g class="art-caption">
+                      <text x="26" y="169">Video evidence</text>
+                      <text x="227" y="169">Executable world</text>
+                    </g>
+                  </svg>
+                  <span class="sr-only"
+                    >Recorded frames resolve into a ball in an executable
+                    environment. Conceptual illustration.</span
+                  >
+                </div>
+              </div>
+            </article>
+            <article class="research-entry" data-research="1">
+              <button
+                class="research-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="repair-art"
+              >
+                <span class="research-number">02</span
+                ><span class="research-copy"
+                  ><span class="research-title">Repair</span
+                  ><span class="research-description"
+                    >Compare behavior with evidence and correct the model.</span
+                  ></span
+                ><span class="research-arrow" aria-hidden="true">↗</span>
+              </button>
+              <div class="research-art" id="repair-art" aria-hidden="true">
+                <div class="research-art-clip">
+                  <svg viewBox="0 0 370 174" focusable="false">
+                    <path
+                      class="comparison-observed"
+                      d="M20 114C84 74 145 33 214 57S297 108 352 77"
+                      fill="none"
+                      stroke="#965644"
+                      stroke-width="1.2"
+                    />
+                    <path
+                      class="comparison-initial"
+                      d="M20 123C84 101 148 86 214 92S299 109 352 111"
+                      fill="none"
+                      stroke="#214F50"
+                      stroke-width="1.1"
+                      stroke-dasharray="4 5"
+                    />
+                    <g
+                      class="error-gaps"
+                      fill="none"
+                      stroke="#214F50"
+                      stroke-width=".8"
+                      opacity=".6"
+                    >
+                      <path
+                        d="M100 75V98m-3-3 3 3 3-3M170 50V89m-3-3 3 3 3-3M251 75V98m-3-3 3 3 3-3"
+                      />
+                    </g>
+                    <g fill="#965644" stroke="#FBF7F1" stroke-width="1">
+                      <circle cx="20" cy="114" r="3.1" />
+                      <circle cx="61" cy="89.5" r="3.1" />
+                      <circle cx="100" cy="68" r="3.1" />
+                      <circle cx="140" cy="53.7" r="3.1" />
+                      <circle cx="178" cy="49" r="3.1" />
+                      <circle cx="214" cy="57" r="3.1" />
+                      <circle cx="251" cy="76.5" r="3.1" />
+                      <circle cx="289" cy="89" r="3.1" />
+                      <circle cx="325" cy="88.2" r="3.1" />
+                      <circle cx="352" cy="77" r="3.1" />
+                    </g>
+                    <path
+                      class="comparison-repaired draw-line"
+                      d="M20 118C84 79 145 38 214 61S297 112 352 82"
+                      fill="none"
+                      stroke="#214F50"
+                      stroke-width="1.2"
+                      pathLength="1"
+                    />
+                    <g class="art-caption">
+                      <circle cx="24" cy="162" r="2.5" fill="#965644" />
+                      <text x="35" y="166">Observed</text>
+                      <path
+                        d="M186 162h13"
+                        stroke="#214F50"
+                        stroke-dasharray="3 3"
+                      />
+                      <text x="208" y="166">Simulated</text>
+                    </g>
+                  </svg>
+                  <span class="sr-only"
+                    >A simulated curve approaches the observed curve as their
+                    differences shrink. A conceptual diagram, not measured
+                    results.</span
+                  >
+                </div>
+              </div>
+            </article>
+            <article class="research-entry" data-research="2">
+              <button
+                class="research-trigger"
+                type="button"
+                aria-expanded="false"
+                aria-controls="interaction-art"
+              >
+                <span class="research-number">03</span
+                ><span class="research-copy"
+                  ><span class="research-title">Interaction</span
+                  ><span class="research-description"
+                    >Change an action. Explore what follows.</span
+                  ></span
+                ><span class="research-arrow" aria-hidden="true">↗</span>
+              </button>
+              <div class="research-art" id="interaction-art" aria-hidden="true">
+                <div class="research-art-clip">
+                  <svg viewBox="0 0 370 174" focusable="false">
+                    <g fill="none" stroke="#D8C9BA" stroke-width=".65">
+                      <path d="m15 123 94-56 244 59-94 37Z" />
+                      <path
+                        d="m49 103 243 47M80 84l240 52M81 139l91-57m-27 73 91-57m-24 65 89-49"
+                      />
+                    </g>
+                    <g
+                      class="action-paths"
+                      fill="none"
+                      stroke="#214F50"
+                      stroke-width="1"
+                      stroke-dasharray="3 5"
+                    >
+                      <path
+                        class="action-path path-1"
+                        d="M101 110C171 63 244 19 335 30"
+                      />
+                      <path
+                        class="action-path path-2"
+                        d="M101 110C178 81 259 53 342 60"
+                      />
+                      <path
+                        class="action-path path-3"
+                        d="M101 110C182 99 263 92 348 100"
+                      />
+                      <path
+                        class="action-path path-4"
+                        d="M101 110C179 113 265 130 341 143"
+                      />
+                    </g>
+                    <g
+                      class="path-arrows"
+                      fill="none"
+                      stroke="#214F50"
+                      stroke-width=".9"
+                    >
+                      <path
+                        d="m331 25 5 5-6 4M338 55l5 5-6 4m7 31 5 5-6 4m-4 34 4 6-6 3"
+                      />
+                    </g>
+                    <g class="interaction-ball">
+                      <ellipse
+                        cx="98"
+                        cy="125"
+                        rx="18"
+                        ry="3"
+                        fill="#214F50"
+                        opacity=".08"
+                      />
+                      <circle cx="98" cy="108" r="17" fill="url(#ball-shade)" />
+                    </g>
+                    <circle
+                      class="future-ball"
+                      cx="98"
+                      cy="108"
+                      r="6"
+                      fill="#965644"
+                      opacity="0"
+                    />
+                    <g class="art-caption">
+                      <text x="26" y="169">One world</text>
+                      <text x="221" y="169">Different actions</text>
+                    </g>
+                  </svg>
+                  <span class="sr-only"
+                    >Several possible paths fan out from one ball, illustrating
+                    different actions in the same world.</span
+                  >
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+        <section
+          class="about section-rule"
+          id="about"
+          aria-labelledby="about-heading"
+        >
+          <h2 class="eyebrow" id="about-heading">
+            An environment, not just a replay.
+          </h2>
+          <p>
+            Weft connects observation, simulation, and learning. The aim is a
+            world we can inspect and challenge — and repair when the evidence
+            disagrees.
+          </p>
+          <p class="small muted">
+            The current model supports one isolated ball moving horizontally.
+            General video reconstruction and multi-object worlds remain research
+            goals.
+          </p>
+        </section>
+      </main>
+      <footer class="site-footer" id="footer-secret">
+        <div class="footer-bar">
+          <span>Weft</span
+          ><a href="#main" class="back-to-top" aria-label="Back to top"
+            ><span aria-hidden="true">↑</span></a
+          >
+        </div>
+        <div class="theatre">
+          <button
+            class="thread"
+            type="button"
+            aria-hidden="true"
+            inert
+            aria-controls="footer-film"
+            aria-expanded="false"
+            aria-label="Hold the loose thread for five seconds to reveal Weft’s secret world"
+          >
+            <svg viewBox="0 0 210 70" aria-hidden="true">
+              <path
+                class="thread-base bundle-0"
+                d="M8 35C44 35 57 19 85 23C114 27 122 57 103 55C78 53 79 16 112 19C146 22 155 38 201 35"
+              />
+              <path
+                class="thread-base bundle-1"
+                d="M8 35C39 35 66 54 92 42C120 29 105 12 91 21C68 36 111 56 137 39C160 24 173 35 201 35"
+              />
+              <path
+                class="thread-base bundle-2"
+                d="M8 35C49 35 66 26 97 35C126 44 128 21 146 27C162 33 179 35 201 35"
+              />
+              <path
+                class="thread-fill"
+                pathLength="1"
+                d="M8 35C44 35 57 19 85 23C114 27 122 57 103 55C78 53 79 16 112 19C146 22 155 38 201 35"
+              /></svg
+            ><span class="hint">Pull gently. Stay curious.</span>
+          </button>
+          <section
+            id="footer-film"
+            class="film"
+            tabindex="-1"
+            aria-label="Weft’s hidden world"
+            aria-hidden="true"
+            inert
+          >
+            <div class="film-inner">
+              <svg
+                class="stage"
+                viewBox="0 0 1000 460"
+                role="img"
+                aria-labelledby="scene-title scene-description"
+              >
+                <title id="scene-title">One thread, many possible worlds</title>
+                <desc id="scene-description">
+                  Weft walks up to a loose thread, pulls three possible worlds
+                  into shape, then watches stitches travel along the ribbons and
+                  celebrates.
+                </desc>
+                <defs>
+                  <linearGradient id="floor-fade">
+                    <stop stop-color="#d8c9ba" stop-opacity="0" />
+                    <stop offset=".2" stop-color="#d8c9ba" stop-opacity=".7" />
+                    <stop offset=".85" stop-color="#d8c9ba" stop-opacity=".7" />
+                    <stop offset="1" stop-color="#d8c9ba" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <path class="ground" d="M20 386H975" />
+                <ellipse id="actor-shadow" cx="173" cy="385" rx="41" ry="3" />
+                <g id="landscape">
+                  <defs>
+                    <mask
+                      id="reveal-0"
+                      maskUnits="userSpaceOnUse"
+                      x="310"
+                      y="140"
+                      width="605"
+                      height="250"
+                    >
+                      <path
+                        class="thread-reveal"
+                        d="M330 319 C390 319 390 166 455 166 S610 241 694 205 S820 170 888 262"
+                        pathLength="1"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="22"
+                      />
+                    </mask>
+                  </defs>
+                  <g class="branch branch-0" mask="url(#reveal-0)">
+                    <path
+                      class="ribbon-edge"
+                      d="M330 319 C390 319 390 166 455 166 S610 241 694 205 S820 170 888 262"
+                    />
+                    <path
+                      id="future-0"
+                      class="future"
+                      d="M330 319 C390 319 390 166 455 166 S610 241 694 205 S820 170 888 262"
+                    />
+                    <path
+                      id="stitch-0"
+                      class="travel-stitch"
+                      d="M330 319 C390 319 390 166 455 166 S610 241 694 205 S820 170 888 262"
+                    />
+                  </g>
+                  <defs>
+                    <mask
+                      id="reveal-1"
+                      maskUnits="userSpaceOnUse"
+                      x="310"
+                      y="140"
+                      width="605"
+                      height="250"
+                    >
+                      <path
+                        class="thread-reveal"
+                        d="M330 319 C390 319 390 244 464 244 S630 319 728 284 S836 257 888 262"
+                        pathLength="1"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="22"
+                      />
+                    </mask>
+                  </defs>
+                  <g class="branch branch-1" mask="url(#reveal-1)">
+                    <path
+                      class="ribbon-edge"
+                      d="M330 319 C390 319 390 244 464 244 S630 319 728 284 S836 257 888 262"
+                    />
+                    <path
+                      id="future-1"
+                      class="future"
+                      d="M330 319 C390 319 390 244 464 244 S630 319 728 284 S836 257 888 262"
+                    />
+                    <path
+                      id="stitch-1"
+                      class="travel-stitch"
+                      d="M330 319 C390 319 390 244 464 244 S630 319 728 284 S836 257 888 262"
+                    />
+                  </g>
+                  <defs>
+                    <mask
+                      id="reveal-2"
+                      maskUnits="userSpaceOnUse"
+                      x="310"
+                      y="140"
+                      width="605"
+                      height="250"
+                    >
+                      <path
+                        class="thread-reveal"
+                        d="M330 319 C390 319 400 363 472 363 S637 336 727 350 S844 314 888 262"
+                        pathLength="1"
+                        fill="none"
+                        stroke="white"
+                        stroke-width="22"
+                      />
+                    </mask>
+                  </defs>
+                  <g class="branch branch-2" mask="url(#reveal-2)">
+                    <path
+                      class="ribbon-edge"
+                      d="M330 319 C390 319 400 363 472 363 S637 336 727 350 S844 314 888 262"
+                    />
+                    <path
+                      id="future-2"
+                      class="future"
+                      d="M330 319 C390 319 400 363 472 363 S637 336 727 350 S844 314 888 262"
+                    />
+                    <path
+                      id="stitch-2"
+                      class="travel-stitch"
+                      d="M330 319 C390 319 400 363 472 363 S637 336 727 350 S844 314 888 262"
+                    />
+                  </g>
+                  <g
+                    class="woven-join"
+                    transform="translate(888 262) rotate(-14)"
+                  >
+                    <path class="join-edge" d="M-10-17V17M1-17V17M12-17V17" />
+                    <path class="join-warp" d="M-10-17V17M1-17V17M12-17V17" />
+                    <path
+                      class="join-edge"
+                      d="M-17-7Q0-2 20-7M-17 6Q0 11 20 6"
+                    />
+                    <path
+                      class="join-weft"
+                      d="M-17-7Q0-2 20-7M-17 6Q0 11 20 6"
+                    />
+                    <path class="join-edge" d="M1-17V0" />
+                    <path class="join-warp" d="M1-17V0" />
+                  </g>
+                </g>
+                <g transform="translate(330 319)">
+                  <g id="ribbon-tail">
+                    <g transform="translate(-330 -319)">
+                      <g class="tangle-strand strand-cream">
+                        <path
+                          class="tangle-edge"
+                          d="M218 350C242 350 244 328 263 328C287 328 293 360 275 362C251 365 247 339 269 322C290 307 312 322 330 319"
+                        />
+                        <path
+                          class="tangle-core"
+                          d="M218 350C242 350 244 328 263 328C287 328 293 360 275 362C251 365 247 339 269 322C290 307 312 322 330 319"
+                        />
+                      </g>
+                      <g class="tangle-strand strand-clay">
+                        <path
+                          class="tangle-edge"
+                          d="M218 350C242 350 252 364 274 352C294 341 278 312 261 324C246 335 267 354 288 339C307 326 312 319 330 319"
+                        />
+                        <path
+                          class="tangle-core"
+                          d="M218 350C242 350 252 364 274 352C294 341 278 312 261 324C246 335 267 354 288 339C307 326 312 319 330 319"
+                        />
+                      </g>
+                      <g class="tangle-strand strand-linen">
+                        <path
+                          class="tangle-edge"
+                          d="M218 350C238 350 254 337 274 338C297 339 289 367 270 352C252 337 280 316 299 322C311 325 320 319 330 319"
+                        />
+                        <path
+                          class="tangle-core"
+                          d="M218 350C238 350 254 337 274 338C297 339 289 367 270 352C252 337 280 316 299 322C311 325 320 319 330 319"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g id="actor-position">
+                  <g transform="translate(70 126)">
+                    <g id="actor-bounce">
+                      <g transform="translate(-70 -126)">
+                        <g transform="scale(.22)">
+                          <g>
+                            <g transform="translate(320 572)">
+                              <g
+                                id="actor-mascot"
+                                stroke="#214F50"
+                                stroke-width="18"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              >
+                                <g transform="translate(-320 -572)">
+                                  <g transform="translate(216 526)">
+                                    <g id="actor-foot-left">
+                                      <g transform="translate(-216 -526)">
+                                        <path
+                                          d="M174 518 C171 550 184 571 210 571 C234 571 253 554 259 526 Z"
+                                          fill="#F5EADC"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                  <g transform="translate(398 526)">
+                                    <g id="actor-foot-right">
+                                      <g transform="translate(-398 -526)">
+                                        <path
+                                          d="M354 526 C357 557 376 575 402 571 C425 569 441 552 443 525 Z"
+                                          fill="#F5EADC"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                  <g transform="translate(121 420)">
+                                    <g id="actor-arm-left">
+                                      <g transform="translate(-121 -420)">
+                                        <path
+                                          d="M110 392 C91 400 81 409 72 424 C60 443 68 461 85 466 C100 470 110 461 117 452 L143 423 Z"
+                                          fill="#F5EADC"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                  <g transform="translate(523 426)">
+                                    <g id="actor-arm-right">
+                                      <g transform="translate(-523 -426)">
+                                        <path
+                                          d="M530 399 C548 406 561 416 569 430 C579 447 575 463 560 468 C544 473 535 463 530 455 L503 422 Z"
+                                          fill="#F5EADC"
+                                        />
+                                      </g>
+                                    </g>
+                                  </g>
+                                  <g id="actor-body">
+                                    <path
+                                      d="M122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 442 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L106 314 C100 268 100 241 122 222 Z"
+                                      fill="#F5EADC"
+                                      stroke="none"
+                                    />
+                                    <path
+                                      d="M108 392 L106 314 C100 268 100 241 122 222 C154 204 430 213 501 237 C530 246 536 280 532 322 L532 399"
+                                      fill="none"
+                                    />
+                                    <path
+                                      d="M532 455 C533 490 531 520 491 530 C433 543 222 540 163 534 C121 529 111 508 108 462 L108 451"
+                                      fill="none"
+                                    />
+                                  </g>
+                                  <g id="actor-weave-rear">
+                                    <path
+                                      d="M402 141 C405 119 425 110 448 114 C475 117 495 132 493 153 L471 171 Z"
+                                      fill="#F5EADC"
+                                    />
+                                    <path
+                                      d="M478 164 C527 153 571 173 575 214 C579 250 565 298 548 407 L476 386 L473 244 Z"
+                                      fill="#C7795D"
+                                    />
+                                    <path
+                                      d="M487 164 C531 157 573 178 575 214 C578 238 575 254 566 263 L486 235 Z"
+                                      fill="#F5EADC"
+                                    />
+                                    <path
+                                      d="M474 239 C530 244 567 265 569 292 C572 313 562 327 550 334 C533 322 504 315 477 311 Z"
+                                      fill="#C7795D"
+                                    />
+                                    <path
+                                      d="M476 311 C498 315 533 320 542 332 L539 403 L475 388 Z"
+                                      fill="#C7795D"
+                                    />
+                                  </g>
+                                  <g id="actor-weave-front">
+                                    <path
+                                      d="M126 204 C114 160 127 130 161 116 C187 106 226 101 237 108 C251 116 255 132 251 152 L244 204 Z"
+                                      fill="#F5EADC"
+                                    />
+                                    <path
+                                      d="M225 129 C234 121 244 121 260 125 L254 204 L211 203 C206 179 212 145 225 129 Z"
+                                      fill="#C7795D"
+                                    />
+                                    <path
+                                      d="M113 207 C156 198 204 198 251 205 L265 275 C218 267 165 263 129 277 C114 281 107 287 103 290 C87 275 86 247 94 226 C98 216 104 210 113 207 Z"
+                                      fill="#F5EADC"
+                                    />
+                                    <path
+                                      d="M276 108 C295 98 335 99 354 105 C368 111 375 122 373 136 C356 147 356 179 359 210 L390 217 C396 240 395 270 386 284 C371 290 311 280 272 272 C260 263 251 218 251 185 C251 147 257 120 276 108 Z"
+                                      fill="#F5EADC"
+                                    />
+                                    <path
+                                      d="M363 144 C407 147 449 155 482 166 C495 180 498 207 487 223 C451 213 403 207 359 204 C352 187 352 158 363 144 Z"
+                                      fill="#C7795D"
+                                    />
+                                    <path
+                                      d="M391 217 C414 220 450 224 466 232 C473 271 470 328 470 389"
+                                      fill="#F5EADC"
+                                    />
+                                  </g>
+                                  <g id="actor-mend-stitch">
+                                    <rect
+                                      x="449"
+                                      y="339"
+                                      width="59"
+                                      height="23"
+                                      rx="11.5"
+                                      fill="#C7795D"
+                                      stroke-width="7"
+                                      transform="rotate(10 478.5 350.5)"
+                                    />
+                                  </g>
+                                  <g
+                                    id="actor-cheeks"
+                                    fill="#C7795D"
+                                    stroke="none"
+                                  >
+                                    <ellipse
+                                      cx="183"
+                                      cy="441"
+                                      rx="20"
+                                      ry="12"
+                                    />
+                                    <ellipse
+                                      cx="433"
+                                      cy="451"
+                                      rx="20"
+                                      ry="12"
+                                    />
+                                  </g>
+                                  <g transform="translate(310 402)">
+                                    <g id="actor-eyes-open" stroke="none">
+                                      <g transform="translate(-310 -402)">
+                                        <g id="actor-eye-left">
+                                          <ellipse
+                                            cx="218"
+                                            cy="397"
+                                            rx="27"
+                                            ry="35"
+                                            fill="#214F50"
+                                            transform="rotate(6 218 397)"
+                                          />
+                                          <circle
+                                            cx="220"
+                                            cy="383"
+                                            r="9"
+                                            fill="#F5EADC"
+                                          />
+                                        </g>
+                                        <g id="actor-eye-right">
+                                          <ellipse
+                                            cx="407"
+                                            cy="408"
+                                            rx="27"
+                                            ry="35"
+                                            fill="#214F50"
+                                            transform="rotate(6 407 408)"
+                                          />
+                                          <circle
+                                            cx="409"
+                                            cy="394"
+                                            r="9"
+                                            fill="#F5EADC"
+                                          />
+                                        </g>
+                                      </g>
+                                    </g>
+                                  </g>
+                                  <g
+                                    id="actor-eyes-closed"
+                                    opacity="0"
+                                    fill="none"
+                                    stroke-width="13"
+                                  >
+                                    <path d="M196 401 Q218 379 240 403" />
+                                    <path d="M385 412 Q407 390 429 414" />
+                                  </g>
+                                  <g
+                                    id="actor-mouth"
+                                    fill="none"
+                                    stroke-width="18"
+                                  >
+                                    <path
+                                      d="M281 432 C291 459 327 460 338 434"
+                                    />
+                                  </g>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+                <g class="arrival">
+                  <path d="M872 241l-4-7m20 3v-8m16 12 5-7" />
+                </g>
+              </svg>
+              <div class="closing">
+                <p>One thread. Many possible worlds.</p>
+                <span>What happens if?</span>
+              </div>
+            </div>
+          </section>
+          <p class="sr-only" role="status" id="footer-story-status"></p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
