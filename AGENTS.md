@@ -16,7 +16,9 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 
 ## Scope and authorization
 
-- Current user request: set up Weft so its physical-first video-to-RL A–E architecture can be iterated and improved. Local implementation, reproducible experiments, appropriate tests, and planning documentation are authorized. The rolling-ball profile is a technical fixture, not completion of the broader scope.
+- Current user goal: continue balls, exercise and generalized-video development across diverse videos, with stepwise artifacts, interactive RL simulation and recording. Exercise videos with 3D bodies/joints/illustrative muscles remain a priority. Local implementation, bounded reproducible studies, source acquisition, tests and documentation are authorized. No current profile or development benchmark completes generalized reconstruction or independent physical accuracy.
+- The user approved **$5 total Meta API development spend**. Both Meta adapters must share the persistent project ledger; reserve before requests, preserve unknown charges and never reset history to obtain more spend. A project key and explicit execution are required; no provider account/key creation is implied. Local hidden-key configuration is supported.
+- Keep the hosted website intentionally offline until explicitly asked to restore it. This goal does not authorize a new deployment.
 - The user explicitly instructed: **Do not submit anything.** Do not submit applications, projects, credits forms, posts, or messages, or accept agreements on the user's behalf.
 - The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. The current website request additionally authorizes hosted visitor submissions in Kintsugi Software’s Cloudflare account. Use the bounded Weft-specific deployment in `hosting/`; no account upgrade, unrelated paid resource, or public-repository publication is authorized.
 - Pull requests are optional, not a prerequisite to merging. An explicit user merge request authorizes merging and pushing the current work directly to the requested branch without a separate PR-review gate. Honor requested branch/worktree cleanup, preserve saved evidence, and respect actual repository protections.
@@ -25,6 +27,13 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 - Never mention Codex in commit messages.
 - Do not use browser interaction unless the user requests it. Earlier hackathon research permitted tab inspection; the current iteration setup uses local tools only.
 - Never run `npm run dev`; the user manages development servers.
+
+## Parallel ownership and durable handoffs
+
+- Build one generalizable Weft pipeline, not separate exercise and object products. [Track A](docs/handoffs/track-a.md) is reserved for Codex: video understanding and scene reconstruction. [Track B](AGY_HANDOFF.md) is assigned to agy: simulation, RL and the unified lab. Follow [file ownership and interface coordination](docs/parallel-workstreams.md); do not duplicate the other track's work or race shared-file edits.
+- Each session must keep its handoff note current at meaningful milestones, before long-running work, when blocked and before ending. Record critical decisions, exact files/commands/settings, verified results and artifact identities, failures/limits, live handles and ownership, Git state and the next safe action. Do not leave resumable context only in chat or include secrets.
+- Checkpoint relevant completed/tested work periodically and before handoff; push only within the user's authorization and applicable review rules. Inspect stashes, preserve unique contents in a commit or verified backup, and clean only reviewed entries. Never discard evidence or unrelated work to make Git look clean.
+- All sessions share the existing $5 Meta budget and canonical ledger. A separate checkout is not permission to create another budget or copy the key. Track B's first integration milestone requires no paid call.
 
 ## References and provenance
 
@@ -49,5 +58,7 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 - Keep slow work off the UI thread, use bounded concurrency, cancel stale jobs, avoid overlapping polling, and measure representative end-to-end latency before claiming responsiveness.
 - Use minimum permissions and resource scope. Never mount another product's credentials into generated-code sandboxes.
 - Keep comments short and explain constraints rather than restating code.
+- Use `.venv-lab` / `requirements-lab.lock` for the full local lab. Preserve the original `.venv`. Keep source videos/pose confidence, kinematic pose replay, authored reference servo, learned policies, and illustrative muscle drive visibly distinct. Do not describe the anchored eight-joint body as recovered anatomy, full-body balance, measured muscle activation, or validated biomechanics.
+- Keep completed lab `run/` manifests separate from mutable lifecycle metadata and new `sessions/` recordings. A published terminal result must not be relabeled cancelled during worker cleanup. Record any lifecycle-metadata recovery without changing scored run artifacts.
 
 The layered SVG is the mascot master. Export the logo mascot, neutral PNG, and sprite poses using `scripts/brand/build_mascot_poses.py` and `scripts/brand/export_brand.swift`; do not generate independent raster variants. The on-load formation has a matching reverse/unweave asset.

@@ -1,0 +1,109 @@
+{
+  "annotation_method": "Assistant visual inspection of extracted original frames before running appearance tracker; no tracker coordinates used",
+  "annotation_uncertainty_px": 20,
+  "annotations": [
+    {
+      "center_xy": [
+        435,
+        1255
+      ],
+      "frame": 25,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        640,
+        1078
+      ],
+      "frame": 50,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        780,
+        1185
+      ],
+      "frame": 75,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        730,
+        1165
+      ],
+      "frame": 100,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        500,
+        1045
+      ],
+      "frame": 125,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        330,
+        1265
+      ],
+      "frame": 150,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        375,
+        1200
+      ],
+      "frame": 200,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        765,
+        1045
+      ],
+      "frame": 250,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        630,
+        1185
+      ],
+      "frame": 300,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        300,
+        1225
+      ],
+      "frame": 350,
+      "object_id": "weight",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        465,
+        1220
+      ],
+      "frame": 400,
+      "object_id": "weight",
+      "visible": true
+    }
+  ],
+  "coordinate_system": "original_source_pixels",
+  "schema_version": 1,
+  "scope": "Small development annotation set; not independent human ground truth or final holdout",
+  "source_sha256": "5231b0c52f7a1932db51b6386bf35cd1f1588e39d2f2e317ae7ffd6f95fb770f"
+}

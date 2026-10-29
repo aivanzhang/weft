@@ -1,0 +1,34 @@
+{
+  "end_frame": 420,
+  "objects": [
+    {
+      "box_xywh": [
+        748,
+        736,
+        72,
+        72
+      ],
+      "id": "small-left-ball",
+      "label": "Initially stationary smaller ball",
+      "provenance": "Source frame300 manual projected box, no tracker coordinates; smaller ball initially at rest",
+      "role": "passive",
+      "shape": "circle"
+    },
+    {
+      "box_xywh": [
+        1628,
+        672,
+        88,
+        88
+      ],
+      "id": "large-right-ball",
+      "label": "Larger released ball",
+      "provenance": "Source frame300 manual projected box; hand contact/partial occlusion remains, later motion and camera drift retained",
+      "role": "active",
+      "shape": "circle"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "b4f9f4a919f665cc94cd9a40c4bf085961304ca8f51eeda5a9710bd3611abe2e",
+  "start_frame": 300
+}

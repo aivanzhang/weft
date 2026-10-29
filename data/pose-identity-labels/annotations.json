@@ -1,0 +1,2218 @@
+{
+  "annotation_kind": "assistant_authored_visual_estimates_not_expert_ground_truth",
+  "authored_at": "2026-10-28T13:33:44.114334-07:00",
+  "benchmark_id": "pose-identity-source-development-v1",
+  "coordinate_system": "original_image_pixels_x_right_y_down_including_letterboxing",
+  "frames": [
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 40,
+      "height": 480,
+      "id": "jumping-jacks-burpees:40",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-40.png",
+      "image_sha256": "8b28d0f6f4ddb78f7d910e2710b6c0bc7e68e977b6bf2ce58fb60269c72bd26e",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 27.3,
+          "axis_xy": [
+            -31,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -51,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 51.0098029794274,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            324,
+            246
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            337,
+            169
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            293,
+            246
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            286,
+            170
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 1.3346680013346681,
+      "width": 640,
+      "window_id": "jacks-overhead-moving-arms"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 41,
+      "height": 480,
+      "id": "jumping-jacks-burpees:41",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-41.png",
+      "image_sha256": "79c056459e26fe2baf934a69a719f93f7297bf223d603b9e705c6ee028b88921",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 26.565,
+          "axis_xy": [
+            -32,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 32.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -51,
+            2
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 51.03920062069938,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            325,
+            249
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            338,
+            171
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            293,
+            249
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            287,
+            173
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 1.3680347013680347,
+      "width": 640,
+      "window_id": "jacks-overhead-moving-arms"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 42,
+      "height": 480,
+      "id": "jumping-jacks-burpees:42",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-42.png",
+      "image_sha256": "fb5ea9b5a2e1c05fed63c36a3f5d56a3acfe7b21e19e150ca2b8f2060223f734",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 26.565,
+          "axis_xy": [
+            -32,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 32.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -51,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 51.0098029794274,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            326,
+            253
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            337,
+            175
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            294,
+            253
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            286,
+            176
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 1.4014014014014013,
+      "width": 640,
+      "window_id": "jacks-overhead-moving-arms"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 328,
+      "height": 480,
+      "id": "jumping-jacks-burpees:328",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-328.png",
+      "image_sha256": "db523405ef207499010735fd8cee10dcc273a17f548a72bb8ef20bd344a828be",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 27.3,
+          "axis_xy": [
+            -31,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -52,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 52.009614495783374,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            320,
+            229
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            330,
+            174
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            289,
+            229
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            175
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 10.944277610944278,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 330,
+      "height": 480,
+      "id": "jumping-jacks-burpees:330",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-330.png",
+      "image_sha256": "398610338a1a1f90948df6e99cd5c8ee91c8c43fe3b98d00fbc53e4345f08932",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 25.866,
+          "axis_xy": [
+            -33,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 33.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -54,
+            2
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 54.037024344425184,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            318,
+            235
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            331,
+            168
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            285,
+            235
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            277,
+            170
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 11.01101101101101,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 331,
+      "height": 480,
+      "id": "jumping-jacks-burpees:331",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-331.png",
+      "image_sha256": "e2b4f95ecb716a5eab12f8b894f64cafaa1f631896a5df6b61995495dc88ecc0",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 25.866,
+          "axis_xy": [
+            -33,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 33.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -55,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 55.00909015790027,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            318,
+            239
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            331,
+            167
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            285,
+            239
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            276,
+            168
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 11.044377711044378,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 332,
+      "height": 480,
+      "id": "jumping-jacks-burpees:332",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-332.png",
+      "image_sha256": "0b83e23036179fbbf1cd43706ee62bd347334660a624a9cb5a7f5520befe939d",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 24.567,
+          "axis_xy": [
+            -35,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 35.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -53,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 53.0,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            319,
+            244
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            329,
+            168
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            284,
+            244
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            276,
+            168
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 11.077744411077745,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 334,
+      "height": 480,
+      "id": "jumping-jacks-burpees:334",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-334.png",
+      "image_sha256": "96380dfdba5b1782cc8a3806a958edde66eaaa54bd92d29c9e0c33cb8ebaab67",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 23.385,
+          "axis_xy": [
+            -37,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 37.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -53,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 53.009433122794285,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            319,
+            250
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            329,
+            172
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            282,
+            250
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            276,
+            173
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 11.144477811144478,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 336,
+      "height": 480,
+      "id": "jumping-jacks-burpees:336",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-336.png",
+      "image_sha256": "2f4f78e621e3952bc978627645bb802015beb468ac01698a27c131c78e25ef2d",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 24.567,
+          "axis_xy": [
+            -35,
+            0
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 35.0,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -50,
+            1
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 50.00999900019995,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            319,
+            251
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            328,
+            173
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            284,
+            251
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            174
+          ]
+        }
+      },
+      "source_facing_direction": "frontal_toward_camera",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 11.21121121121121,
+      "width": 640,
+      "window_id": "jacks-known-diagnostic"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 750,
+      "height": 480,
+      "id": "jumping-jacks-burpees:750",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-750.png",
+      "image_sha256": "18220e2764b3e71e5c0708f3604095d0f5e5ad407306b0e0554434291d416910",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            300,
+            268
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            307,
+            198
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 25.025025025025027,
+      "width": 640,
+      "window_id": "jacks-profile-low-separation"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 751,
+      "height": 480,
+      "id": "jumping-jacks-burpees:751",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-751.png",
+      "image_sha256": "d3939d73105f9273bccd55cee5c7da689d66a64814e226efd0e953d8f2ec5237",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            299,
+            267
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            307,
+            198
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 25.058391725058392,
+      "width": 640,
+      "window_id": "jacks-profile-low-separation"
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 752,
+      "height": 480,
+      "id": "jumping-jacks-burpees:752",
+      "image_path": "data/pose-identity-labels/jumping-jacks-burpees-752.png",
+      "image_sha256": "c74cd86bc015196b428a78127c4cf2d839cdd6e1ce7ef769c7e513932f231a97",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            298,
+            263
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            307,
+            194
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 25.091758425091758,
+      "width": 640,
+      "window_id": "jacks-profile-low-separation"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 200,
+      "height": 480,
+      "id": "lunge-twist:200",
+      "image_path": "data/pose-identity-labels/lunge-twist-200.png",
+      "image_sha256": "1ecf5b3375b284113a0279bc8d40d359fd717e88f87cdd74ac3cf3819c89c720",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -44,
+            -17
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.16990566028302,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            320
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            322,
+            255
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 6.666666666666667,
+      "width": 640,
+      "window_id": "lunge-pre-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 201,
+      "height": 480,
+      "id": "lunge-twist:201",
+      "image_path": "data/pose-identity-labels/lunge-twist-201.png",
+      "image_sha256": "24929504f9b15872e1de204cb904d4e3ebfe0f344f8ff7edd6c5f678d78ef717",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -44,
+            -17
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.16990566028302,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            320
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            322,
+            255
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 6.7,
+      "width": 640,
+      "window_id": "lunge-pre-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 202,
+      "height": 480,
+      "id": "lunge-twist:202",
+      "image_path": "data/pose-identity-labels/lunge-twist-202.png",
+      "image_sha256": "cd987b423e4c723b52fc94c5a33b9a3bb0b17ee430e9e0e8fada8561c105d115",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -44,
+            -17
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.16990566028302,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            320
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            322,
+            255
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 6.733333333333333,
+      "width": 640,
+      "window_id": "lunge-pre-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 300,
+      "height": 480,
+      "id": "lunge-twist:300",
+      "image_path": "data/pose-identity-labels/lunge-twist-300.png",
+      "image_sha256": "b92ec7321c5d0e9868bfbc471d65fdd8922b473c957304cd56fc8a7dafc8ac4f",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 35.264,
+          "axis_xy": [
+            -28,
+            4
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 28.284271247461902,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 23.743,
+          "axis_xy": [
+            -22,
+            -23
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.827660925679098,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            308,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            305,
+            261
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            280,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            283,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "profile_torso_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 10.0,
+      "width": 640,
+      "window_id": "lunge-real-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 301,
+      "height": 480,
+      "id": "lunge-twist:301",
+      "image_path": "data/pose-identity-labels/lunge-twist-301.png",
+      "image_sha256": "ca0ff03ef65d0e7a78f2420f14ff820011a85e15b9ac8db2731b018ab7d5839a",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 35.264,
+          "axis_xy": [
+            -28,
+            4
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 28.284271247461902,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 23.743,
+          "axis_xy": [
+            -22,
+            -23
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.827660925679098,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            308,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            305,
+            261
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            280,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            283,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "profile_torso_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 10.033333333333333,
+      "width": 640,
+      "window_id": "lunge-real-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 302,
+      "height": 480,
+      "id": "lunge-twist:302",
+      "image_path": "data/pose-identity-labels/lunge-twist-302.png",
+      "image_sha256": "85f367c80d0f602a92ff74026c6240a914150b7bf77635a23df555d8c4a92bff",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 35.264,
+          "axis_xy": [
+            -28,
+            4
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 28.284271247461902,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 23.743,
+          "axis_xy": [
+            -22,
+            -23
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.827660925679098,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            308,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            305,
+            261
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            280,
+            325
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            283,
+            238
+          ]
+        }
+      },
+      "source_facing_direction": "profile_torso_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 10.066666666666666,
+      "width": 640,
+      "window_id": "lunge-real-turn"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 450,
+      "height": 480,
+      "id": "lunge-twist:450",
+      "image_path": "data/pose-identity-labels/lunge-twist-450.png",
+      "image_sha256": "905a095de171ab5084068bfe9461f6aa9758680cf16c3651cd88b3015432ab76",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -45,
+            -14
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.12748667179272,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            323,
+            253
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            326
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            239
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 15.0,
+      "width": 640,
+      "window_id": "lunge-return-frontal"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 451,
+      "height": 480,
+      "id": "lunge-twist:451",
+      "image_path": "data/pose-identity-labels/lunge-twist-451.png",
+      "image_sha256": "090ce9463f116345167065f09f28fdddeaf5e8615b48ec8bea5c973e37af925b",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -45,
+            -14
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.12748667179272,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            323,
+            253
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            326
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            239
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 15.033333333333333,
+      "width": 640,
+      "window_id": "lunge-return-frontal"
+    },
+    {
+      "clip_id": "lunge-twist",
+      "frame_index": 452,
+      "height": 480,
+      "id": "lunge-twist:452",
+      "image_path": "data/pose-identity-labels/lunge-twist-452.png",
+      "image_sha256": "f0f2d20ce520443d3752aaf4e7935c96f75482b319bd101739a9e3ccc90eabb4",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": 32.494,
+          "axis_xy": [
+            -31,
+            5
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 31.400636936215164,
+          "x_order": "left_right_of_right"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20,
+          "axis_xy": [
+            -45,
+            -14
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 47.12748667179272,
+          "x_order": "left_right_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            309,
+            321
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            323,
+            253
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 10,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            326
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 7,
+          "visibility": "approximate_visible",
+          "xy": [
+            278,
+            239
+          ]
+        }
+      },
+      "source_facing_direction": "three_quarter_toward_image_right",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 15.066666666666666,
+      "width": 640,
+      "window_id": "lunge-return-frontal"
+    },
+    {
+      "clip_id": "single-leg-squat",
+      "frame_index": 100,
+      "height": 640,
+      "id": "single-leg-squat:100",
+      "image_path": "data/pose-identity-labels/single-leg-squat-100.png",
+      "image_sha256": "c35c3e33e3f037c676f59b992141751a6a3caeff8d3f46ba90b38c383d863c03",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            228,
+            317
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            195,
+            269
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 3.3333333333333335,
+      "width": 480,
+      "window_id": "single-leg-profile-low-separation"
+    },
+    {
+      "clip_id": "single-leg-squat",
+      "frame_index": 101,
+      "height": 640,
+      "id": "single-leg-squat:101",
+      "image_path": "data/pose-identity-labels/single-leg-squat-101.png",
+      "image_sha256": "39dde143a9d3ed80504aef63c72623318c0a78c18f016e8cd6a083e0c6542581",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            228,
+            315
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            196,
+            266
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 3.3666666666666667,
+      "width": 480,
+      "window_id": "single-leg-profile-low-separation"
+    },
+    {
+      "clip_id": "single-leg-squat",
+      "frame_index": 102,
+      "height": 640,
+      "id": "single-leg-squat:102",
+      "image_path": "data/pose-identity-labels/single-leg-squat-102.png",
+      "image_sha256": "058011f897ebeb59b7638615fdfb42f251481b54c9e616fd0231fda612b68e2b",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            229,
+            314
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            197,
+            264
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        }
+      },
+      "source_facing_direction": "profile_toward_image_left",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 3.4,
+      "width": 480,
+      "window_id": "single-leg-profile-low-separation"
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "frame_index": 120,
+      "height": 480,
+      "id": "kettlebell-pushup:120",
+      "image_path": "data/pose-identity-labels/kettlebell-pushup-120.png",
+      "image_sha256": "940aa629485856683ed16e7b7e778b9ddb1d1f7b6dfe302618220e22e27dd01c",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20.184,
+          "axis_xy": [
+            22,
+            16
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 27.202941017470888,
+          "x_order": "left_left_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            338,
+            329
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            247,
+            291
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            269,
+            307
+          ]
+        }
+      },
+      "source_facing_direction": "prone_profile_head_image_left",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 4.0,
+      "width": 640,
+      "window_id": "pushup-occlusion"
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "frame_index": 121,
+      "height": 480,
+      "id": "kettlebell-pushup:121",
+      "image_path": "data/pose-identity-labels/kettlebell-pushup-121.png",
+      "image_sha256": "61a034e733b888afe2cd2c41c989e30d7e1ab7f2e82a064adcb8dd0fc8a10ccc",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20.184,
+          "axis_xy": [
+            22,
+            16
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 27.202941017470888,
+          "x_order": "left_left_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            338,
+            329
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            247,
+            292
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            269,
+            308
+          ]
+        }
+      },
+      "source_facing_direction": "prone_profile_head_image_left",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 4.033333333333333,
+      "width": 640,
+      "window_id": "pushup-occlusion"
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "frame_index": 122,
+      "height": 480,
+      "id": "kettlebell-pushup:122",
+      "image_path": "data/pose-identity-labels/kettlebell-pushup-122.png",
+      "image_sha256": "7afe739985085a5a67ee4a8e031dd6754fae8d83c18d3239fc461fed5b653099",
+      "pairs": {
+        "hip": {
+          "angular_tolerance_degrees": null,
+          "axis_xy": null,
+          "direction": "anatomical_left_to_right",
+          "observable": false,
+          "reason": "Source occlusion/overlap prevents a reliable pair direction; do not score as correct or incorrect.",
+          "separation_pixels": null,
+          "x_order": "unresolved"
+        },
+        "shoulder": {
+          "angular_tolerance_degrees": 20.184,
+          "axis_xy": [
+            22,
+            16
+          ],
+          "direction": "anatomical_left_to_right",
+          "observable": true,
+          "reason": "Pair centers visually separable; uncertainty is heuristic, not expert confidence.",
+          "separation_pixels": 27.202941017470888,
+          "x_order": "left_left_of_right"
+        }
+      },
+      "points": {
+        "left_hip": {
+          "note": "Approximate clothed hip center.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate_visible",
+          "xy": [
+            338,
+            329
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            247,
+            294
+          ]
+        },
+        "right_hip": {
+          "note": "Far-side joint cannot be independently localized through overlap or occlusion.",
+          "uncertainty_pixels": null,
+          "visibility": "unobservable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Approximate visible shoulder center.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate_visible",
+          "xy": [
+            269,
+            310
+          ]
+        }
+      },
+      "source_facing_direction": "prone_profile_head_image_left",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "source_side_assignment_confidence": "approximate_not_expert",
+      "timestamp_seconds": 4.066666666666666,
+      "width": 640,
+      "window_id": "pushup-occlusion"
+    }
+  ],
+  "limitations": [
+    "No certified human-expert, clinical, or anatomical ground truth.",
+    "New windows were held out from this candidate inspection only; clips and some frames have prior development use.",
+    "Negative challenge means visible real motion/occlusion should not alone justify remapping; raw detector errors may still exist and were not pre-labelled away.",
+    "Unobservable source pairs cannot prove that correcting or leaving a detector unchanged is accurate.",
+    "Do not force profile-side identity, fit a camera, or choose side permutation from candidate scores."
+  ],
+  "pair_direction": "anatomical_left_to_right",
+  "protocol": "All 27 selected original frames visually inspected; points and tolerances frozen before new pose-identity candidate outputs. No raw detector outputs inspected for newly selected negative windows. Existing frame330 diagnosis is explicitly exposed development evidence.",
+  "schema_version": 1,
+  "sources": [
+    {
+      "attribution": {
+        "author": "Taco Fleur / Cavemantraining",
+        "bytes": 6544177,
+        "challenge": "Lateral limb motion, jumping and floor transitions",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "file": "jumping-jacks-burpees.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Jumping_jacks_and_burpees.webm",
+        "title": "Jumping jacks and burpees",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Jumping_jacks_and_burpees.webm",
+        "verified_at": "2026-10-28T12:29:54.110273-07:00"
+      },
+      "clip_id": "jumping-jacks-burpees",
+      "path": "data/exercise/jumping-jacks-burpees.webm",
+      "sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4"
+    },
+    {
+      "attribution": {
+        "author": "Taco Fleur / Cavemantraining",
+        "bytes": 3005172,
+        "challenge": "loaded lunge; torso twist; limb occlusion",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "file": "lunge-twist.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Kettlebell_Lunge_and_Twist.webm",
+        "title": "Kettlebell Lunge and Twist",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Kettlebell_Lunge_and_Twist.webm",
+        "verified_at": "2026-10-28T12:23:45.539117-07:00"
+      },
+      "clip_id": "lunge-twist",
+      "path": "data/exercise/lunge-twist.webm",
+      "sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34"
+    },
+    {
+      "attribution": {
+        "author": "RickyBennison",
+        "bytes": 349255,
+        "changes": "Original WebM retained unchanged; Weft creates separately labeled derived pose overlays.",
+        "file": "single-leg-squat.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human exercise; not measured muscle activation or force",
+        "sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Basic_single_leg_squat.webm",
+        "title": "Basic single leg squat",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+        "verified_at": "2026-10-28T11:31:14.401985-07:00"
+      },
+      "clip_id": "single-leg-squat",
+      "path": "data/exercise/single-leg-squat.webm",
+      "sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e"
+    },
+    {
+      "attribution": {
+        "author": "Taco Fleur / Cavemantraining",
+        "bytes": 1251790,
+        "challenge": "horizontal torso; loaded hands; fixed camera",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "file": "kettlebell-pushup.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Kettlebell_crush_grip_push-up.webm",
+        "title": "Kettlebell crush grip push-up",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Kettlebell_crush_grip_push-up.webm",
+        "verified_at": "2026-10-28T12:23:44.958911-07:00"
+      },
+      "clip_id": "kettlebell-pushup",
+      "path": "data/exercise/kettlebell-pushup.webm",
+      "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc"
+    }
+  ],
+  "split": "development_challenges_not_final_holdout",
+  "tolerance_rule": "Source-only heuristic: degrees(atan2(sum endpoint uncertainty, projected pair length)), clamped20\u201345. Unobservable pairs have no direction or tolerance.",
+  "windows": [
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "exposure": "Frame40 already source-labelled for limb study; no new identity candidate outputs inspected.",
+      "frames": [
+        40,
+        41,
+        42
+      ],
+      "id": "jacks-overhead-moving-arms",
+      "role": "development_negative_challenge",
+      "source_behavior": "Front-facing jumping jack; hands approach above head and arms move without a body turn."
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "exposure": "Frame330 failure diagnosis already exposed in parent context; not independent holdout. Original images were labelled without inspecting new identity candidate outputs.",
+      "frames": [
+        328,
+        330,
+        331,
+        332,
+        334,
+        336
+      ],
+      "id": "jacks-known-diagnostic",
+      "role": "exposed_development_diagnostic",
+      "source_behavior": "Front-facing jumping jack with continuous shoulder and hip side ordering."
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "exposure": "New source-only window; detector and identity-candidate outputs not inspected before freeze.",
+      "frames": [
+        750,
+        751,
+        752
+      ],
+      "id": "jacks-profile-low-separation",
+      "role": "development_negative_challenge",
+      "source_behavior": "Profile facing image-left; far shoulder and hip overlap or are obscured. Pair ordering cannot be certified from these source frames."
+    },
+    {
+      "clip_id": "lunge-twist",
+      "exposure": "New source-only window; detector and identity-candidate outputs not inspected before freeze.",
+      "frames": [
+        200,
+        201,
+        202
+      ],
+      "id": "lunge-pre-turn",
+      "role": "development_negative_challenge",
+      "source_behavior": "Frontal three-quarter lunge; anatomical right arm holds kettlebell overhead."
+    },
+    {
+      "clip_id": "lunge-twist",
+      "exposure": "New source-only window; detector and identity-candidate outputs not inspected before freeze.",
+      "frames": [
+        300,
+        301,
+        302
+      ],
+      "id": "lunge-real-turn",
+      "role": "development_negative_challenge",
+      "source_behavior": "Torso genuinely rotated toward image-right; loaded right arm provides source-visible side continuity. Shoulder pair becomes more diagonal and less separated."
+    },
+    {
+      "clip_id": "lunge-twist",
+      "exposure": "New source-only window; detector and identity-candidate outputs not inspected before freeze.",
+      "frames": [
+        450,
+        451,
+        452
+      ],
+      "id": "lunge-return-frontal",
+      "role": "development_negative_challenge",
+      "source_behavior": "Returns to frontal three-quarter view; right arm still overhead."
+    },
+    {
+      "clip_id": "single-leg-squat",
+      "exposure": "Frame100 previously source-labelled for torso only; no new identity candidate outputs inspected.",
+      "frames": [
+        100,
+        101,
+        102
+      ],
+      "id": "single-leg-profile-low-separation",
+      "role": "development_negative_challenge",
+      "source_behavior": "Profile facing image-left; far shoulder and hip obscured by near side and clothing."
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "exposure": "Frame120 previously source-labelled for limbs; no new identity candidate outputs inspected.",
+      "frames": [
+        120,
+        121,
+        122
+      ],
+      "id": "pushup-occlusion",
+      "role": "development_negative_challenge",
+      "source_behavior": "Prone facing image-left; shoulder pair partly visible, far hip hidden."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-28T14:49:58.880578-07:00",
+  "selection_sha256": "8705780c606182b8accbd71a976d9192934f5b0221fa4a620832294fe92c9240",
+  "label_count": 12,
+  "pelvis_non_null": 11,
+  "pelvis_null": 1,
+  "label_source": "assistant_visual_estimate_not_expert_ground_truth",
+  "files": [
+    {
+      "clip_id": "single-leg-squat",
+      "path": "data/root-motion-labels/single-leg-squat.json",
+      "sha256": "a084f01b881258ad329f13c50b65c77d7b1ad6f1e8ac2e65d53564ef44b4dd10",
+      "slots": 3,
+      "pelvis_non_null": 3
+    },
+    {
+      "clip_id": "squat",
+      "path": "data/root-motion-labels/squat.json",
+      "sha256": "1e61e70ff65231f0439f1985c3bd003750d3f2d15ca52c520f4a4497b58784a5",
+      "slots": 3,
+      "pelvis_non_null": 3
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "path": "data/root-motion-labels/kettlebell-pushup.json",
+      "sha256": "420556b2d5fccbf2ba7d8c005ec7db76583ba4a9beabd0e595635e0a107a6733",
+      "slots": 3,
+      "pelvis_non_null": 3
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "path": "data/root-motion-labels/jumping-jacks-burpees.json",
+      "sha256": "e645608901cbfc9c5e1cbc2646bf50c237080407415177012012c5eb5800356a",
+      "slots": 3,
+      "pelvis_non_null": 2
+    }
+  ]
+}

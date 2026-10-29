@@ -1,0 +1,27 @@
+{
+  "association_mode": "independent",
+  "decode_interval": [
+    2630,
+    2805
+  ],
+  "end_frame": 2805,
+  "initialization_frame": 2695,
+  "objects": [
+    {
+      "box_xywh": [
+        76,
+        99,
+        177,
+        16
+      ],
+      "id": "yellow-cylinder",
+      "label": "Yellow rolling cylinder",
+      "provenance": "Source-only frame2695 projected appearance rectangle; not a collision box. Depth motion, rotation, rails and hand forces unresolved.",
+      "role": "unknown",
+      "shape": "unknown"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "b50fa16f49425f7c2fc959f425bc008d978daa8c9472db616d82747c35fc941d",
+  "start_frame": 2630
+}

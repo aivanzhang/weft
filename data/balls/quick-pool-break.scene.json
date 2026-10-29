@@ -1,0 +1,37 @@
+{
+  "source_label": "MarkBuckawicki CC0 original real pool break. Whole clip0\u2013140 selected; strong perspective, rack occlusion, unmodeled other balls and later camera impact make physical reconstruction unsupported.",
+  "tracking": {
+    "end_frame": 140,
+    "objects": [
+      {
+        "box_xywh": [
+          145,
+          196,
+          52,
+          54
+        ],
+        "id": "front-yellow",
+        "label": "Front yellow billiard ball",
+        "provenance": "Source frame0 visible front yellow ball; authored approximate projected extent; other rack balls are unresolved context, not simulated objects",
+        "role": "active",
+        "shape": "circle"
+      }
+    ],
+    "schema_version": 1,
+    "source_sha256": "0f3520eb11d87ac39a3544e4e9082698a76b689abc9e830cdf4fdeb7903e4976",
+    "start_frame": 0
+  },
+  "world": {
+    "controlled_id": "front-yellow",
+    "damping": 0.9,
+    "gravity": [
+      0,
+      0
+    ],
+    "restitution": 0.8,
+    "target": [
+      0.7,
+      0.35
+    ]
+  }
+}

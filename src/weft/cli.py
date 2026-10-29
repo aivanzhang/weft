@@ -38,6 +38,118 @@ def main():
     commands.add_parser("meta-status", help="Report credential presence without making a request")
     interact = commands.add_parser("interact", help="Step the Python simulator manually")
     interact.add_argument("--world", required=True)
+    lab = commands.add_parser("lab", help="Watch video-to-RL stages, interact, and record in a local lab")
+    lab.add_argument("--video", help="Local video, at most 100 MB and 60 seconds")
+    lab.add_argument("--out", help="New lab directory (runs and recordings stay separate)")
+    lab.add_argument("--profile", choices=("planar", "appearance", "rolling", "exercise"), default="exercise")
+    lab.add_argument("--pose-model", help="Local pinned MediaPipe model for the exercise profile")
+    lab.add_argument("--pose-mode", choices=("video", "image"), default="video",
+                     help="Exercise inference: tracked video (default) or independent frames; no automatic fallback")
+    lab.add_argument("--pose-identity", choices=("raw", "temporal"), default="raw",
+                     help="Keep raw anatomy labels or explicitly repair strongly supported short identity swaps")
+    lab.add_argument("--body-model", choices=("hinge", "spatial", "mobile"), default="hinge",
+                     help="Exercise body: hinge, spatial, or mobile with explicit root/floor assumptions")
+    lab.add_argument("--config", help="Tracking/task JSON; required for appearance region tracking")
+    lab.add_argument("--episodes", type=int, default=1500)
+    lab.add_argument("--eval-episodes", type=int, default=100)
+    lab.add_argument("--seed", type=int, default=1729)
+    lab.add_argument("--source-note", default="User-provided local video; rights not independently verified")
+    lab.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
+    lab.add_argument("--no-serve", action="store_true", help="Run stages in the terminal without a web server")
+    lab.add_argument("--resume", help="Inspect a saved lab without rerunning its pipeline")
+    replay = commands.add_parser("replay", help="Verify or export an interaction recording")
+    replay.add_argument("directory")
+    replay.add_argument("--export", action="store_true", help="Create video and offline replay from a closed journal")
+    demo = commands.add_parser("demo", help="Create a clearly labeled synthetic tabletop test video")
+    demo.add_argument("--out", required=True, help="New directory for video, config, and provenance")
+    pose_model = commands.add_parser("fetch-pose-model", help="Download/verify the pinned local pose model (no inference upload)")
+    pose_model.add_argument("--out")
+    pose_model.add_argument("--variant", choices=("lite", "full", "heavy"), default="lite", help="Explicit model choice; existing lab default remains lite")
+    exercise_sample = commands.add_parser("fetch-exercise-sample", help="Download/verify an attributed exercise video")
+    exercise_sample.add_argument("--out", default="data/exercise")
+    exercise_sample.add_argument("--name", choices=("single-leg-squat", "squat", "kettlebell-pushup", "lunge-twist", "jumping-jacks-burpees"), default="single-leg-squat")
+    benchmark = commands.add_parser("benchmark", help="Run a pinned diverse-video suite with explicit evidence gates")
+    benchmark.add_argument("manifest")
+    benchmark.add_argument("--out", required=True)
+    benchmark.add_argument("--workers", type=int, default=2, choices=(1, 2))
+    advisor = commands.add_parser("advise", help="Prepare evidence-grounded Meta interaction questions; never apply suggestions automatically")
+    advisor.add_argument("--run", required=True, help="Completed lab run/ directory")
+    advisor.add_argument("--out", required=True, help="New directory outside the completed run")
+    advisor.add_argument("--question", action="append", help="Optional question; repeat up to four times")
+    advisor.add_argument("--execute", action="store_true", help="Explicitly send the prepared evidence to Meta")
+    advisor.add_argument("--meta-budget", type=float, help="Maximum estimated USD for this single request")
+    segment = commands.add_parser("segment", help="Prepare or explicitly execute bounded Meta video tracking, not physics")
+    segment.add_argument("--video", required=True, help="MP4, at most 500 frames and 37 MB")
+    segment.add_argument("--box", action="append", nargs=6, type=int, required=True,
+                         metavar=('ID','FRAME','X','Y','WIDTH','HEIGHT'), help="Source-pixel initialization; repeat for at most eight objects")
+    segment.add_argument("--out", required=True, help="New artifact directory")
+    segment.add_argument("--execute", action="store_true", help="Send one paid request; otherwise prepare offline")
+    segment.add_argument("--meta-budget", type=float, help="Per-request reservation allowance; aggregate budget also applies")
+    tracking_view = commands.add_parser("tracking-view", help="Create an offline viewer from sealed tracking; no API calls")
+    tracking_view.add_argument("--run", required=True, help="Sealed study containing call/call.json and call/segmentation.json")
+    tracking_view.add_argument("--video", required=True, help="Exact MP4 used for that request")
+    tracking_view.add_argument("--out", required=True)
+    tracking_masks = commands.add_parser("tracking-masks", help="Decode saved Meta silhouettes and inspect exact source frames; no API calls")
+    tracking_masks.add_argument("--run", required=True, help="Sealed original tracking-evidence export")
+    tracking_masks.add_argument("--video", required=True, help="Exact submitted MP4")
+    tracking_masks.add_argument("--out", required=True, help="New decoded-mask and frame-viewer directory")
+    tracking_evidence = commands.add_parser("tracking-evidence", help="Export saved model proposals as uncertain scene evidence; no API or physics")
+    tracking_evidence.add_argument("--run", required=True, help="Sealed segment tracking directory")
+    tracking_evidence.add_argument("--out", required=True, help="New sealed evidence directory")
+    tracking_evidence.add_argument("--source-mapping", help="Optional sealed, verified original-to-submitted video mapping bundle")
+    tracking_scene = commands.add_parser("tracking-scene", help="Test an explicitly authored planar hypothesis from saved tracking; no API calls")
+    tracking_scene.add_argument("--run", required=True, help="Sealed tracking-evidence export")
+    tracking_scene.add_argument("--config", required=True, help="Explicit physical, identity, task and partition assumptions JSON")
+    tracking_scene.add_argument("--out", required=True, help="New candidate/replay or rejection directory")
+    tracking_stabilize = commands.add_parser("tracking-stabilize", help="Test fixed-reference image registration without changing raw tracking or making API calls")
+    tracking_stabilize.add_argument("--run", required=True, help="Sealed original tracking-evidence export")
+    tracking_stabilize.add_argument("--video", required=True, help="Exact submitted MP4")
+    tracking_stabilize.add_argument("--reference-frame", required=True, type=int, help="Latest object initialization frame")
+    tracking_stabilize.add_argument("--out", required=True, help="New registration evidence directory")
+    scene_console = commands.add_parser("scene-sandbox", help="Control a saved planar or 3D rigid scene and record every action")
+    scene_console.add_argument("--run", required=True, help="Verified directory containing scene.json")
+    scene_console.add_argument("--record", required=True, help="New recording directory outside the source run")
+    scene_console.add_argument("--seed", type=int, default=1729)
+    meta_configure = commands.add_parser("meta-configure", help="Configure a persistent total Meta budget and optional hidden local key")
+    meta_configure.add_argument("--budget", required=True, type=float, help="Total USD budget; preserves all prior reservations and charges")
+    meta_configure.add_argument("--key", action="store_true", help="Read the Meta key through a hidden terminal prompt")
+    observations = commands.add_parser("observations", help="Export a validated shared scene-observation graph from an existing run")
+    observations.add_argument("--run", required=True)
+    observations.add_argument("--out", required=True, help="New JSON file outside the immutable run")
+    imitate = commands.add_parser("imitate", help="Learn explicit whole-body motor control from a verified mobile exercise run")
+    imitate.add_argument("--run", required=True, help="Existing verified exercise-v3 run directory")
+    imitate.add_argument("--out", required=True, help="New learning artifact directory")
+    imitate.add_argument("--seed", type=int, default=1729)
+    imitate.add_argument("--generations", type=int, default=8)
+    imitate.add_argument("--population", type=int, default=16)
+    imitate.add_argument("--horizon", type=int, default=60, help="Control steps per trial, at most 180")
+    body_console = commands.add_parser("body-sandbox", help="Control all body motors in a terminal and save a visual replay")
+    body_console.add_argument("--run", required=True, help="Completed imitate learning directory")
+    body_console.add_argument("--record", required=True, help="New recording directory outside the learning run")
+    body_console.add_argument("--seed", type=int, default=1729)
+    feet_console = commands.add_parser("feet-sandbox", help="Test an opt-in ankle/foot candidate and record explicit motor actions")
+    feet_console.add_argument("--body", required=True, help="Existing mobile human.json; kept unchanged")
+    feet_console.add_argument("--feet", required=True, help="Matching kinematic foot-reference.json")
+    feet_console.add_argument("--record", required=True, help="New recording directory outside the source artifacts")
+    feet_console.add_argument("--seed", type=int, default=1729)
+    feet_build = commands.add_parser("feet-build", help="Build an optional foot candidate from a completed mobile exercise run")
+    feet_build.add_argument("--run", required=True, help="Completed mobile exercise lab run/ directory")
+    feet_build.add_argument("--out", required=True, help="New candidate directory outside the source run")
+    feet_build.add_argument("--image-directions", action="store_true", help="Opt into bounded image-direction correction; remains unverified")
+    body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
+    body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
+    body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
+    body_lab.add_argument("--out", required=True, help="New lab directory; does not start a server")
+    camera_body = commands.add_parser('camera-body', help='Build a manual camera-aware body lab using supplied calibration; no model calls')
+    camera_body.add_argument('--run', required=True, help='Completed original mobile exercise run/ directory')
+    camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
+    camera_body.add_argument('--ground', help='Optional source/calibration-pinned horizontal ground JSON; no pose-based floor fit')
+    camera_body.add_argument('--root-view', help='Optional second-view config for hip-midpoint root; requires --ground, preserves monocular shape')
+    camera_body.add_argument('--body-view', choices=['directions', 'dimensions', 'both'],
+                             help='Optional partial two-view body geometry; requires --root-view, retains explicit priors for missing limbs')
+    camera_body.add_argument('--partial-segments', action='store_true',
+                             help='Use supported upper segments when wrists/ankles are missing; twist and distal bends remain explicit priors')
+    camera_body.add_argument('--out', required=True, help='New candidate lab; no server or training is started')
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -54,8 +166,88 @@ def main():
                 save_comparison(args.out, result)
         elif args.command == "verify":
             result = verify_artifacts(args.directory)
+        elif args.command == "benchmark":
+            from weft.benchmark import run_suite
+            result = run_suite(args.manifest, args.out, args.workers)
+        elif args.command == "advise":
+            from weft.scene_advisor import advise_run
+            result = advise_run(args.run, args.out, args.question,
+                                execute=args.execute, max_cost_usd=args.meta_budget)
+        elif args.command == "meta-configure":
+            from weft.meta_access import configure_access
+            result = configure_access(total_budget_usd=args.budget, prompt=args.key)
+        elif args.command == "segment":
+            from weft.segmentation_lab import track_video
+            result = track_video(args.video, args.out, args.box, execute=args.execute, max_cost_usd=args.meta_budget)
+        elif args.command == "tracking-view":
+            from weft.segmentation_lab import prepare_tracking_view
+            result = prepare_tracking_view(args.run, args.video, args.out)
+        elif args.command == "tracking-masks":
+            from weft.segmentation_masks import export_masks
+            result = export_masks(args.run, args.video, args.out)
+        elif args.command == "tracking-evidence":
+            from weft.segmentation_observations import export_tracking_evidence
+            result = export_tracking_evidence(args.run, args.out, source_mapping_bundle=args.source_mapping)
+        elif args.command == "tracking-scene":
+            from weft.segmentation_scene import export_candidate
+            path = Path(args.config)
+            if path.stat().st_size > 65536:
+                raise ValueError("Tracking scene assumptions must be at most 64 KiB")
+            result = export_candidate(args.run, json.loads(path.read_text()), args.out)
+        elif args.command == "scene-sandbox":
+            from weft.scene_console import console
+            result = console(args.run, args.record, seed=args.seed)
+        elif args.command == "tracking-stabilize":
+            from weft.stabilized_segmentation import stabilize_tracking
+            result = stabilize_tracking(args.run, args.video, args.out, reference_frame=args.reference_frame)
+        elif args.command == "observations":
+            from weft.io import write_json
+            from weft.observations import adapt_run
+            source, output = Path(args.run).resolve(), Path(args.out).resolve()
+            if output.exists() or output == source or source in output.parents:
+                raise ValueError("Use a new output file outside the source run")
+            document = adapt_run(source)
+            write_json(output, document)
+            result = {"path": str(output), "scope": "Shared observations and explicit unknowns; not generalized reconstruction"}
         elif args.command == "meta-status":
             result = status()
+        elif args.command == "imitate":
+            from weft.whole_body_learning import train_whole_body
+            verify_artifacts(args.run)
+            spec = json.loads((Path(args.run) / "human.json").read_text())
+            result = train_whole_body(spec, args.out, seed=args.seed, generations=args.generations,
+                                      population=args.population, horizon_steps=args.horizon)
+        elif args.command == "body-sandbox":
+            from weft.whole_body_console import console
+            result = console(args.run, args.record, seed=args.seed)
+        elif args.command == "feet-sandbox":
+            from weft.foot_sandbox import console
+            result = console(args.body, args.feet, args.record, seed=args.seed)
+        elif args.command == "feet-build":
+            from weft.foot_candidate import build_candidate
+            result = build_candidate(args.run, args.out, image_directions=args.image_directions)
+        elif args.command == "body-lab":
+            from weft.whole_body_lab import prepare_whole_body_lab
+            result = prepare_whole_body_lab(args.source_lab, args.learning, args.out)
+        elif args.command == 'camera-body':
+            from weft.camera_body_lab import prepare_camera_body_lab
+            result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
+                                             root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments)
+        elif args.command == "lab":
+            from weft.lab import launch_lab
+            result = launch_lab(args)
+        elif args.command == "replay":
+            from weft.recording import export_recording, verify_recording
+            result = export_recording(args.directory) if args.export else verify_recording(args.directory)
+        elif args.command == "demo":
+            from weft.demo import create_demo
+            result = create_demo(args.out)
+        elif args.command == "fetch-pose-model":
+            from weft.exercise_vision import fetch_pose_model
+            result = {"path": str(fetch_pose_model(args.out, variant=args.variant))}
+        elif args.command == "fetch-exercise-sample":
+            from weft.exercise_source import fetch_exercise_sample
+            result = fetch_exercise_sample(args.out, args.name)
         else:
             env = RollingEnv(World.from_dict(json.loads(Path(args.world).read_text())))
             print("l = left, c = coast, r = right, reset = new trial, q = quit")

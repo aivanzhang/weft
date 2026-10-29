@@ -1,0 +1,41 @@
+{
+  "source_label": "CC0 Ecole Science Rollender Ball, full 157-frame grayscale derivative; explicitly selected first fully visible pass frames 39\u201360. Second pass/empty intervals excluded from this development run. Authored planar controls, geometry and physics, not recovered physical properties.",
+  "tracking": {
+    "end_frame": 60,
+    "objects": [
+      {
+        "box_xywh": [
+          10,
+          130,
+          128,
+          112
+        ],
+        "id": "ball",
+        "label": "Grayscale rolling ball",
+        "provenance": "Assistant visual inspection of original frame 39 before appearance matching; authored circle from approximate projected extent",
+        "role": "active",
+        "shape": "circle"
+      }
+    ],
+    "schema_version": 1,
+    "source_sha256": "7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0",
+    "start_frame": 39,
+    "decode_interval": [
+      39,
+      60
+    ]
+  },
+  "world": {
+    "controlled_id": "ball",
+    "damping": 1.0,
+    "gravity": [
+      0,
+      0
+    ],
+    "restitution": 0.5,
+    "target": [
+      0.75,
+      0.3
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "source_label": "Julian11.08 CC0 original real rail-constrained ball collision; full source retained. Interval300\u2013420 selected from original frames before tracking: initialization/hand release, collision, both departures and camera drift retained. NOT a qualified fixed-camera case. Dynamics/target are authored placeholders, not calibrated properties.",
+  "tracking": {
+    "end_frame": 420,
+    "objects": [
+      {
+        "box_xywh": [
+          748,
+          736,
+          72,
+          72
+        ],
+        "id": "small-left-ball",
+        "label": "Initially stationary smaller ball",
+        "provenance": "Source frame300 manual projected box, no tracker coordinates; smaller ball initially at rest",
+        "role": "passive",
+        "shape": "circle"
+      },
+      {
+        "box_xywh": [
+          1628,
+          672,
+          88,
+          88
+        ],
+        "id": "large-right-ball",
+        "label": "Larger released ball",
+        "provenance": "Source frame300 manual projected box; hand contact/partial occlusion remains, later motion and camera drift retained",
+        "role": "active",
+        "shape": "circle"
+      }
+    ],
+    "schema_version": 1,
+    "source_sha256": "b4f9f4a919f665cc94cd9a40c4bf085961304ca8f51eeda5a9710bd3611abe2e",
+    "start_frame": 300
+  },
+  "world": {
+    "controlled_id": "large-right-ball",
+    "damping": 1.0,
+    "gravity": [
+      0,
+      0
+    ],
+    "restitution": 0.8,
+    "target": [
+      0.5,
+      0.7
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "end_frame": 12,
+  "objects": [
+    {
+      "box_xywh": [
+        240,
+        87,
+        75,
+        75
+      ],
+      "id": "black-disk",
+      "label": "Black air-table disk",
+      "provenance": "Source frame 5, first inspected frame with both disks clear of hands; authored approximate projected extent",
+      "role": "active",
+      "shape": "circle"
+    },
+    {
+      "box_xywh": [
+        257,
+        247,
+        77,
+        77
+      ],
+      "id": "red-disk",
+      "label": "Red air-table disk",
+      "provenance": "Source frame 5, first inspected frame with both disks clear of hands; authored approximate projected extent",
+      "role": "passive",
+      "shape": "circle"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "ac07aa0d3268273b1403f30ccaac2ce6e5bd4d95ae078198483fa49f29574950",
+  "start_frame": 5
+}

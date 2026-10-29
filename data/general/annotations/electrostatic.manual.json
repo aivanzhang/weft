@@ -1,0 +1,127 @@
+{
+  "annotation_method": "Assistant visual inspection of extracted original frames before running appearance tracker; no tracker coordinates used",
+  "annotation_uncertainty_px": 6,
+  "annotations": [
+    {
+      "center_xy": [
+        260,
+        216
+      ],
+      "frame": 500,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        149,
+        182
+      ],
+      "frame": 500,
+      "object_id": "handheld-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        260,
+        209
+      ],
+      "frame": 520,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": null,
+      "frame": 520,
+      "object_id": "handheld-sphere",
+      "visible": false
+    },
+    {
+      "center_xy": [
+        284,
+        205
+      ],
+      "frame": 540,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": null,
+      "frame": 540,
+      "object_id": "handheld-sphere",
+      "visible": false
+    },
+    {
+      "center_xy": [
+        278,
+        209
+      ],
+      "frame": 560,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": null,
+      "frame": 560,
+      "object_id": "handheld-sphere",
+      "visible": false
+    },
+    {
+      "center_xy": [
+        276,
+        210
+      ],
+      "frame": 580,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        126,
+        148
+      ],
+      "frame": 580,
+      "object_id": "handheld-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        284,
+        211
+      ],
+      "frame": 600,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        167,
+        178
+      ],
+      "frame": 600,
+      "object_id": "handheld-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        288,
+        207
+      ],
+      "frame": 620,
+      "object_id": "charging-sphere",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        53,
+        139
+      ],
+      "frame": 620,
+      "object_id": "handheld-sphere",
+      "visible": true
+    }
+  ],
+  "coordinate_system": "original_source_pixels",
+  "schema_version": 1,
+  "scope": "Small development annotation set; not independent human ground truth or final holdout",
+  "source_sha256": "0aed92a1d1fb670cd085eeeff73256c1462db76d2a77dffeddd3b8843e9e285c"
+}

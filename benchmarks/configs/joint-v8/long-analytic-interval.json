@@ -1,0 +1,43 @@
+{
+  "source_label": "Analytic grayscale rectangle, 130 frames/65 seconds; not a physical video. Explicit interval80\u2013119 retains four pre-initialization frames.",
+  "tracking": {
+    "association_mode": "joint",
+    "decode_interval": [
+      80,
+      119
+    ],
+    "end_frame": 119,
+    "initialization_frame": 84,
+    "objects": [
+      {
+        "box_xywh": [
+          124,
+          45,
+          24,
+          28
+        ],
+        "id": "rectangle",
+        "label": "Analytic textured rectangle",
+        "provenance": "Authored rectangle at frame84; known fixture identity, not a detector finding",
+        "role": "active",
+        "shape": "box"
+      }
+    ],
+    "schema_version": 1,
+    "source_sha256": "cdf6be75ced08304da442639188d1f27ea38187a6ac830f61d4717058d9f6891",
+    "start_frame": 80
+  },
+  "world": {
+    "controlled_id": "rectangle",
+    "damping": 1.0,
+    "gravity": [
+      0,
+      0
+    ],
+    "restitution": 0.5,
+    "target": [
+      0.75,
+      0.4
+    ]
+  }
+}

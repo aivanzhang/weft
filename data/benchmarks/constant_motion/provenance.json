@@ -1,0 +1,23 @@
+{
+  "authored_inputs": [
+    "Color identities, roles, target",
+    "Gravity/restitution for flight, bounce, and elastic contact"
+  ],
+  "case": "constant_motion",
+  "created_at": "2026-10-28T12:27:57.100621-07:00",
+  "expected": "supported",
+  "fps": 30,
+  "frames": 45,
+  "generator": "weft.ball_benchmark.create_analytic_probe",
+  "height": 288,
+  "independence": "Closed-form trajectories do not import or run the Pymunk environment",
+  "limits": [
+    "Development software probes, not real-world or held-out physical validation",
+    "Camera-shift truth remains in world coordinates; tracking comparison is not scored for this negative case"
+  ],
+  "physical_evidence": false,
+  "schema_version": 1,
+  "source_kind": "analytic_synthetic",
+  "source_sha256": "03e5aef61c86d0867d693dbdc6dbb27cb3b4e604d6f397d860d37cbf869e101a",
+  "width": 480
+}

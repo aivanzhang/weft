@@ -1,0 +1,221 @@
+{
+  "source_sha256": "f2d9f8125a197ec135dcc4d95e5b1b615c875f097c12ee272d83f8b97baa0887",
+  "frozen_at": "2026-10-28T13:58:43.048766-07:00",
+  "method": "Manual source-only inspection before any tracker; approximate integer pixel centers in 426x240 derivative.",
+  "center_tolerance_pixels": 5,
+  "frame_interval_inclusive": [
+    2580,
+    2760
+  ],
+  "selection_reason": "Entire first real-time physical shot, including hand release, contact, camera movement and objects exiting; not the slowed annotated replay.",
+  "time_units": "media seconds; 60 fps container, physical rate not independently calibrated",
+  "objects": [
+    "upper-passive",
+    "lower-passive",
+    "incoming-active"
+  ],
+  "observations": [
+    {
+      "frame": 2580,
+      "centers": [
+        [
+          191,
+          108
+        ],
+        [
+          193,
+          115
+        ],
+        null
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "occluded"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2620,
+      "centers": [
+        [
+          191,
+          108
+        ],
+        [
+          193,
+          115
+        ],
+        [
+          274,
+          117
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2640,
+      "centers": [
+        [
+          191,
+          109
+        ],
+        [
+          193,
+          116
+        ],
+        [
+          211,
+          119
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2650,
+      "centers": [
+        [
+          190,
+          102
+        ],
+        [
+          195,
+          125
+        ],
+        [
+          181,
+          118
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2670,
+      "centers": [
+        [
+          184,
+          82
+        ],
+        [
+          173,
+          145
+        ],
+        [
+          147,
+          124
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2700,
+      "centers": [
+        [
+          180,
+          57
+        ],
+        [
+          146,
+          173
+        ],
+        [
+          105,
+          133
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2720,
+      "centers": [
+        [
+          178,
+          41
+        ],
+        [
+          128,
+          192
+        ],
+        [
+          74,
+          139
+        ]
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    },
+    {
+      "frame": 2760,
+      "centers": [
+        [
+          178,
+          11
+        ],
+        [
+          100,
+          227
+        ],
+        null
+      ],
+      "visibility": [
+        "visible",
+        "visible",
+        "out_of_frame"
+      ],
+      "identity_status": "observed before contact; inferred continuity after contact"
+    }
+  ],
+  "relationships": [
+    {
+      "type": "contact",
+      "objects": [
+        "upper-passive",
+        "lower-passive",
+        "incoming-active"
+      ],
+      "interval_frames": [
+        2640,
+        2650
+      ],
+      "status": "inferred",
+      "note": "Candidate contact interval only; no force or exact contact-time measurements."
+    }
+  ],
+  "limitations": [
+    "Visible camera drift; not fixed-camera validated",
+    "Ball diameters about 6 pixels; \u00b15 pixel labels unsuitable for tight accuracy claims",
+    "Hand hides incoming ball initially",
+    "Same-color identity after contact is inferred",
+    "Source includes duplicated slowed annotated replay; do not treat media time there as real time",
+    "No masks, physical calibration, or validated restitution"
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "annotation_method": "Assistant visual inspection of original decoded source frames before invoking tracker/scorer; no predicted coordinates consulted",
+  "annotation_uncertainty_px": 4,
+  "annotations": [
+    {
+      "center_xy": [
+        309,
+        150
+      ],
+      "frame": 6,
+      "object_id": "black-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        332,
+        252
+      ],
+      "frame": 6,
+      "object_id": "red-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        337,
+        164
+      ],
+      "frame": 7,
+      "object_id": "black-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        373,
+        242
+      ],
+      "frame": 7,
+      "object_id": "red-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        360,
+        158
+      ],
+      "frame": 8,
+      "object_id": "black-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        425,
+        272
+      ],
+      "frame": 8,
+      "object_id": "red-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        401,
+        143
+      ],
+      "frame": 10,
+      "object_id": "black-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        523,
+        328
+      ],
+      "frame": 10,
+      "object_id": "red-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        445,
+        135
+      ],
+      "frame": 12,
+      "object_id": "black-disk",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        620,
+        382
+      ],
+      "frame": 12,
+      "object_id": "red-disk",
+      "visible": true
+    }
+  ],
+  "coordinate_system": "original_source_pixels",
+  "created_at": "2026-10-28T13:35:09.713956-07:00",
+  "events": [
+    {
+      "frame_interval": [
+        6,
+        7
+      ],
+      "status": "inferred_from_closest_approach_and_subsequent_direction_change",
+      "time_interval_s": [
+        0.24,
+        0.28
+      ],
+      "type": "projected_collision_candidate",
+      "uncertainty": "Physical contact occurs between sampled frames, not directly resolved; no force or restitution measurement"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Small source-only development labels; not independent human expert labels or a final holdout",
+  "source_dimensions": [
+    720,
+    576
+  ],
+  "source_geometry_note": "Commons page reports display width 768; OpenCV decoded pixel raster is 720\u00d7576. Labels refer to decoded pixels; no metric or perspective calibration.",
+  "source_sha256": "ac07aa0d3268273b1403f30ccaac2ce6e5bd4d95ae078198483fa49f29574950"
+}

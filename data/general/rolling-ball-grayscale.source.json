@@ -1,0 +1,28 @@
+{
+  "author": "Ecole Science (provider; individual author not listed)",
+  "bytes": 3686308,
+  "created_at": "2026-10-28T12:59:42.927445-07:00",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "parent_path": "data/rolling-ball.mp4",
+  "parent_sha256": "75621f8624ce677336f9bbd6c110b638063d0f75e1678460d85602026e4d3c86",
+  "scope": "Transformed existing real source, not a new independent video or holdout",
+  "sha256": "7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0",
+  "source_page": "https://hubbs.schule/mediathek/rollender-ball",
+  "title": "Rollender Ball \u2014 grayscale development derivative",
+  "transformation": {
+    "audio": "Video-only derivative; audio is not copied",
+    "conversion": "cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)",
+    "decoded_gray_stream_sha256": "6030d779e1d588984f311654d53feedf20452b397c59756f27cd6448523b15ed",
+    "decoder": "OpenCV 4.14.0",
+    "derivative_fps": 23.976,
+    "encoder": "FFV1 lossless grayscale video in AVI",
+    "frames": 157,
+    "height": 360,
+    "maximum_timing_rounding_seconds": 6.506506506909204e-06,
+    "source_fps": 23.976023976023978,
+    "trimmed_frames": 0,
+    "verification": "All 157 derivative decoded gray frames byte-match grayscale conversion of original decoded frames. AVI FPS rounds to 23.976: final-frame timing differs by under 7 microseconds.",
+    "width": 640
+  }
+}

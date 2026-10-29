@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "name": "Appearance evidence and camera guards v6",
+  "purpose": "Affected shared-camera and appearance paths, unchanged quality gates. Real collision clips remain desired cases, not relabelled successful negatives. No physical transfer claim.",
+  "cases": [
+    {
+      "conditions": [
+        "fixed camera texture",
+        "fixed-camera"
+      ],
+      "config": "../data/benchmarks/fixed_camera_texture/config.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "fixed-camera-texture",
+      "profile": "planar",
+      "rights": "Weft-authored independent analytic fixture; not a real recording",
+      "source_kind": "analytic_synthetic",
+      "source_sha256": "cbf57dd41cb66da696127335d4c4811a0ebcad6eaf3ac0ef2340bc196a664550",
+      "video": "../data/benchmarks/fixed_camera_texture/video.mp4"
+    },
+    {
+      "conditions": [
+        "elastic contact",
+        "fixed-camera"
+      ],
+      "config": "../data/benchmarks/elastic_contact/config.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "elastic-contact",
+      "profile": "planar",
+      "rights": "Weft-authored independent analytic fixture; not a real recording",
+      "source_kind": "analytic_synthetic",
+      "source_sha256": "3cd37e982b168e89fc52c900cba42c64c30409daacf5b7f8cd32a6f852f7805d",
+      "video": "../data/benchmarks/elastic_contact/video.mp4"
+    },
+    {
+      "conditions": [
+        "camera translation",
+        "moving-camera"
+      ],
+      "config": "../data/benchmarks/camera_translation/config.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "error_contains": "Moving camera or widespread background motion",
+        "status": "rejected"
+      },
+      "gates": [],
+      "id": "camera-translation",
+      "profile": "planar",
+      "rights": "Weft-authored independent analytic fixture; not a real recording",
+      "source_kind": "analytic_synthetic",
+      "source_sha256": "af602cf2ac64f8424324c8100a4f25350701760307977c39e0da2ce4b9e8bbe6",
+      "video": "../data/benchmarks/camera_translation/video.mp4"
+    },
+    {
+      "conditions": [
+        "grayscale appearance",
+        "authored region and first visible pass frames39-60",
+        "same existing source, not independent video",
+        "full source retained, second pass excluded"
+      ],
+      "config": "../data/general/annotations/rolling-grayscale.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "rolling-grayscale",
+      "profile": "appearance",
+      "rights": "CC0 Ecole Science; lossless grayscale derivative of existing real rolling source; data/general/rolling-ball-grayscale.source.json",
+      "source_kind": "physical_recording",
+      "source_sha256": "7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0",
+      "video": "../data/general/rolling-ball-grayscale.avi"
+    },
+    {
+      "id": "air-table-collision",
+      "profile": "appearance",
+      "video": "../data/balls/air-table-collision.webm",
+      "source_sha256": "ac07aa0d3268273b1403f30ccaac2ce6e5bd4d95ae078198483fa49f29574950",
+      "source_kind": "physical_recording",
+      "rights": "{\"author\": \"MikeRun\", \"license\": \"CC BY-SA 4.0\", \"title\": \"2d-collision-air-table\"}",
+      "conditions": [
+        "real collision",
+        "authored ROI",
+        "unverified camera and perspective",
+        "desired case retains reconstruction failures"
+      ],
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "config": "../data/balls/air-table-collision.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50
+    },
+    {
+      "id": "quick-pool-break",
+      "profile": "appearance",
+      "video": "../data/balls/quick-pool-break.webm",
+      "source_sha256": "0f3520eb11d87ac39a3544e4e9082698a76b689abc9e830cdf4fdeb7903e4976",
+      "source_kind": "physical_recording",
+      "rights": "{\"author\": \"MarkBuckawicki\", \"license\": \"CC0-1.0\", \"title\": \"Quick Pool Break\"}",
+      "conditions": [
+        "real collision",
+        "authored ROI",
+        "unverified camera and perspective",
+        "desired case retains reconstruction failures"
+      ],
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "config": "../data/balls/quick-pool-break.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50
+    },
+    {
+      "id": "elastic-table-experiment",
+      "profile": "appearance",
+      "video": "../data/balls/elastic-table-experiment.webm",
+      "source_sha256": "b4f9f4a919f665cc94cd9a40c4bf085961304ca8f51eeda5a9710bd3611abe2e",
+      "source_kind": "physical_recording",
+      "rights": "Julian11.08, Elastischer Sto\u00df, CC0-1.0, original Wikimedia Commons source; full file retained",
+      "conditions": [
+        "rail-constrained real collision",
+        "hand release",
+        "camera drift",
+        "out-of-frame departures",
+        "authored physical interval300-420; desired reconstruction remains unsupported"
+      ],
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "config": "../data/balls/elastic-table-experiment.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50
+    }
+  ]
+}

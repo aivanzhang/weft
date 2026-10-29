@@ -1,0 +1,28 @@
+{
+  "controlled_id": "yellow",
+  "damping": 1,
+  "objects": [
+    {
+      "hue_max": 40,
+      "hue_min": 20,
+      "id": "yellow",
+      "label": "Yellow ball",
+      "role": "active",
+      "shape": "circle"
+    },
+    {
+      "hue_max": 125,
+      "hue_min": 100,
+      "id": "blue",
+      "label": "Blue ball",
+      "role": "passive",
+      "shape": "circle"
+    }
+  ],
+  "restitution": 1,
+  "source_label": "SYNTHETIC analytic probe; no physical recording",
+  "target": [
+    0.82,
+    0.24
+  ]
+}

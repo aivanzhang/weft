@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "source_sha256": "caad84aeda62860cbd682caac2a8a1e21e6f12f715615c9c56193dc5926aebc8",
+  "frozen_at": "2026-10-28T15:12:46.611081-07:00",
+  "coordinate_system": "Original1920x1080 image pixels; origin top-left, x right, y down",
+  "object_id": "toy-van-body",
+  "center_definition": "Approximate center of visible main van body bounding envelope, excluding hand and crank; not physical center of mass",
+  "label_method": "Assistant source-only visual estimates before any tracker/model output; not expert ground truth",
+  "frame_interval_inclusive": [
+    0,
+    353
+  ],
+  "selected_frames": [
+    0,
+    70,
+    140,
+    210,
+    280,
+    353
+  ],
+  "center_uncertainty_radius_px": 16,
+  "observations": [
+    {
+      "frame": 0,
+      "center_px": [
+        1024,
+        572
+      ],
+      "visibility": "partially_occluded_readable",
+      "note": "Held between hands; main van body readable."
+    },
+    {
+      "frame": 70,
+      "center_px": [
+        1104,
+        538
+      ],
+      "visibility": "partially_occluded_readable",
+      "note": "Cranking; hand support occludes underside."
+    },
+    {
+      "frame": 140,
+      "center_px": null,
+      "visibility": "ambiguous_source_crossfade",
+      "note": "Two blended temporal views: no unique physical object center. Retained difficult slot, not dropped."
+    },
+    {
+      "frame": 210,
+      "center_px": [
+        760,
+        550
+      ],
+      "visibility": "partially_occluded_readable",
+      "note": "Van rotated toward camera; held in both hands."
+    },
+    {
+      "frame": 280,
+      "center_px": [
+        1029,
+        479
+      ],
+      "visibility": "partially_occluded_readable",
+      "note": "Different viewpoint; hands supporting and cranking."
+    },
+    {
+      "frame": 353,
+      "center_px": [
+        999,
+        875
+      ],
+      "visibility": "partially_occluded_readable",
+      "note": "Final lowering, rotated top view, scale change and hand overlap."
+    }
+  ],
+  "unknowns": [
+    "Unobserved underside and full shape",
+    "Physical center of mass",
+    "Camera motion/depth decomposition",
+    "True contact forces and motor/crank dynamics"
+  ],
+  "no_tracker_or_model_run": true
+}

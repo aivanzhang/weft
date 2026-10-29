@@ -1,0 +1,34 @@
+{
+  "end_frame": 650,
+  "objects": [
+    {
+      "box_xywh": [
+        166,
+        132,
+        183,
+        167
+      ],
+      "id": "charging-sphere",
+      "label": "Charging sphere",
+      "provenance": "Assistant-authored ROI from the selected initial frame; approximate visual extent, not recovered geometry",
+      "role": "unknown",
+      "shape": "circle"
+    },
+    {
+      "box_xywh": [
+        82,
+        130,
+        65,
+        63
+      ],
+      "id": "handheld-sphere",
+      "label": "Hand-held sphere",
+      "provenance": "Assistant-authored ROI from the selected initial frame; approximate visual extent, not recovered geometry",
+      "role": "unknown",
+      "shape": "circle"
+    }
+  ],
+  "schema_version": 1,
+  "source_sha256": "0aed92a1d1fb670cd085eeeff73256c1462db76d2a77dffeddd3b8843e9e285c",
+  "start_frame": 480
+}

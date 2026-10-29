@@ -1,0 +1,68 @@
+{
+  "annotations": [
+    {
+      "center_xy": [
+        164.5,
+        107.0
+      ],
+      "frame": 2695,
+      "object_id": "yellow-cylinder",
+      "phase": "initialization",
+      "reason": "visible yellow cylinder envelope",
+      "tolerance_px": 4.0,
+      "visible": true
+    },
+    {
+      "center_xy": [
+        165.5,
+        108.0
+      ],
+      "frame": 2720,
+      "object_id": "yellow-cylinder",
+      "phase": "evaluation",
+      "reason": "visible yellow cylinder envelope",
+      "tolerance_px": 4.0,
+      "visible": true
+    },
+    {
+      "center_xy": [
+        165.5,
+        111.5
+      ],
+      "frame": 2745,
+      "object_id": "yellow-cylinder",
+      "phase": "evaluation",
+      "reason": "visible yellow cylinder envelope",
+      "tolerance_px": 4.0,
+      "visible": true
+    },
+    {
+      "center_xy": [
+        166.5,
+        114.0
+      ],
+      "frame": 2770,
+      "object_id": "yellow-cylinder",
+      "phase": "evaluation",
+      "reason": "visible yellow cylinder envelope",
+      "tolerance_px": 4.0,
+      "visible": true
+    },
+    {
+      "center_xy": [
+        159.5,
+        96.5
+      ],
+      "frame": 2805,
+      "object_id": "yellow-cylinder",
+      "phase": "evaluation",
+      "reason": "hand overlap retained; visible envelope estimated",
+      "tolerance_px": 4.0,
+      "visible": true
+    }
+  ],
+  "coordinate_system": "original_source_pixels",
+  "schema_version": 1,
+  "scope": "Approximate assistant source-only body-envelope centers, not physical centers of mass or expert truth; \u00b14px radial uncertainty. First label initializes tracking and is excluded from scoring.",
+  "source_sha256": "b50fa16f49425f7c2fc959f425bc008d978daa8c9472db616d82747c35fc941d"
+}

@@ -1,0 +1,129 @@
+{
+  "acquisition": {
+    "cached_metadata_reads": 4,
+    "full_archive_downloaded": false,
+    "paid_calls": 0,
+    "range_requests": 12,
+    "received_bytes": 1758074
+  },
+  "archive_bytes": 4808836283,
+  "archive_etag": "\"11ea104bb-5454bd0a4b60e\"",
+  "archive_url": "https://phys101.csail.mit.edu/data/phys101_v1.0.zip",
+  "attribution": "Jiajun Wu, Joseph J. Lim, Hongyi Zhang, Joshua B. Tenenbaum and William T. Freeman, Physics 101: Learning Physical Object Properties from Unlabeled Videos, BMVC 2016.",
+  "clips": [
+    {
+      "bytes": 438262,
+      "file": "member-00-Camera_1.mp4",
+      "fps": 29.97002997002997,
+      "frames_decoded": 48,
+      "height": 1080,
+      "local_path": "artifacts/phys101-constraints-source-01/member-00-Camera_1.mp4",
+      "maximum_nominal_clock_error_s": 2.220446049250313e-16,
+      "member": "phys101/scenarios/fall/w_block_01/table/01/Camera_1.mp4",
+      "original_file_preserved": true,
+      "pixels_inspected": true,
+      "purpose": "freefall-construction",
+      "sha256": "eb3d75c858940768ae6c137c01c2a301cdbe8a54ef3a6ca956cc0a826873a925",
+      "width": 1920
+    },
+    {
+      "bytes": 344656,
+      "file": "member-01-Camera_1.mp4",
+      "fps": 29.97002997002997,
+      "frames_decoded": 50,
+      "height": 1080,
+      "local_path": "artifacts/phys101-constraints-source-01/member-01-Camera_1.mp4",
+      "maximum_nominal_clock_error_s": 2.220446049250313e-16,
+      "member": "phys101/scenarios/ramp/w_block_01/20_02/01/Camera_1.mp4",
+      "original_file_preserved": true,
+      "pixels_inspected": true,
+      "purpose": "different-target-construction",
+      "sha256": "a32f383239f07e4f6d4006739e28083b77d6a777a1300c4e0bd891d3f362e40c",
+      "width": 1920
+    },
+    {
+      "bytes": 643779,
+      "file": "member-02-Camera_2.mp4",
+      "fps": 25.0,
+      "frames_decoded": 37,
+      "height": 1080,
+      "local_path": "artifacts/phys101-constraints-source-01/member-02-Camera_2.mp4",
+      "maximum_nominal_clock_error_s": 2.220446049250313e-16,
+      "member": "phys101/scenarios/ramp/w_block_01/20_01/01/Camera_2.mp4",
+      "original_file_preserved": true,
+      "pixels_inspected": true,
+      "purpose": "side-view-geometry",
+      "sha256": "9e9df486cd9311000109ed4af50d1f28d71d8a910640e311903db20c4d00f70f",
+      "width": 1920
+    },
+    {
+      "bytes": 353153,
+      "file": "member-03-Camera_1.mp4",
+      "frames_decoded": 47,
+      "initial_inspection": {
+        "evidence": "artifacts/phys101-constraints-inspection-02",
+        "frame_read_calls": 0,
+        "pixels_inspected": false
+      },
+      "local_path": "artifacts/phys101-constraints-source-01/member-03-Camera_1.mp4",
+      "member": "phys101/scenarios/ramp/w_block_01/20_01/02/Camera_1.mp4",
+      "metadata": {
+        "fps": 29.97002997002997,
+        "frame_count": 47.0,
+        "height": 1080.0,
+        "width": 1920.0
+      },
+      "original_file_preserved": true,
+      "pixels_inspected": true,
+      "purpose": "reserved-repeat",
+      "sha256": "4d878a42ea3dbf09725e1ec5502605f4d4025b5b47ede3e51759c3116a10102a",
+      "subsequent_use": {
+        "evaluation": "artifacts/spatial-ramp-repeat-01",
+        "frozen_center_motion_gate_passed": false,
+        "meta_tracking": "artifacts/meta-phys101-repeat-live-01",
+        "protocol": "artifacts/phys101-repeat-protocol-01",
+        "source_only_labels": "artifacts/phys101-repeat-labels-01",
+        "status": "Exposed once under frozen protocol; not an untouched future holdout"
+      }
+    }
+  ],
+  "dataset": "Physics 101 v1.0, January 4, 2017",
+  "evidence": {
+    "geometry_diagnostic": "artifacts/spatial-material-geometry-01",
+    "inspection": "artifacts/phys101-constraints-inspection-02",
+    "inspection_views": "artifacts/spatial-ramp-views-01",
+    "material_fit": "artifacts/spatial-material-fit-01",
+    "repeat_evaluation": "artifacts/spatial-ramp-repeat-01",
+    "repeat_protocol": "artifacts/phys101-repeat-protocol-01",
+    "selection_plan": "artifacts/phys101-constraints-plan-01",
+    "source_bundle": "artifacts/phys101-constraints-source-01",
+    "spatial_study": "artifacts/spatial-ramp-sandbox-02"
+  },
+  "initial_reserve_rule": "Do not inspect, track, fit or select from reserved-repeat pixels until the construction method/settings and comparison labels protocol are frozen.",
+  "license": {
+    "explicit_redistribution_license_found": false,
+    "provider_statement": "Public research download with citation request in readme.txt",
+    "use": "Local/private development; no public redistribution or license acceptance"
+  },
+  "limitations": [
+    "Additional views have no camera extrinsics or metric calibration",
+    "Side view is 25 fps; front is 30000/1001 fps; provider time alignment remains assumed",
+    "Freefall framing differs; pixel gravity cannot be transferred without a verified mapping",
+    "Image edge rotation is not measured 3D yaw",
+    "Repeat initially had metadata only; it was subsequently exposed once under the separately frozen protocol and fails its center-motion gate"
+  ],
+  "object": {
+    "dimensions_m": null,
+    "friction": null,
+    "independently_measured_here": false,
+    "provider_category": "wooden block",
+    "provider_id": "w_block_01",
+    "source_reported_mass_g": 21.2,
+    "source_reported_volume_ml": 33.0
+  },
+  "recorded_at": "2026-10-29T09:27:21.291794-07:00",
+  "reserve_rule": "The repeat has now been exposed under the frozen protocol. Do not reuse it as an untouched future holdout.",
+  "schema_version": 1,
+  "source_url": "https://phys101.csail.mit.edu/",
+  "updated_at": "2026-10-29T10:25:02.736204-07:00"
+}

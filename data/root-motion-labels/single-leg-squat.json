@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "clip_id": "single-leg-squat",
+  "source_path": "data/exercise/single-leg-squat.webm",
+  "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+  "source_width": 480,
+  "source_height": 640,
+  "source_reported_frame_count": 236,
+  "source_fps": 30.0,
+  "selection_file": "artifacts/root-source-labels-01/frame-selection-frozen.json",
+  "selection_sha256": "8705780c606182b8accbd71a976d9192934f5b0221fa4a620832294fe92c9240",
+  "selection_rule": "zero-based floor(fraction * (reported_source_frame_count - 1)), fractions 0.1,0.5,0.9; metadata-only selection frozen before pixel viewing",
+  "frozen_at": "2026-10-28T14:49:58.880578-07:00",
+  "annotation_method": "Assistant visual estimates from the 12 preselected original source frames only; no pose model, candidate output, calibration or tracker inspected.",
+  "coordinate_system": "Original decoded image pixels, origin top-left, x right, y down; letterboxing retained.",
+  "landmark_definition": "Projected midpoint of estimated left/right hip joint centers and projected midpoint of estimated shoulder joints. Occluded side-view joints are approximate body-outline estimates, not directly observed anatomy.",
+  "uncertainty_definition": "Subjective radial pixel allowance, not a calibrated probability/confidence interval. Torso-length allowance is sum of endpoint allowances.",
+  "measurement_scope": "2D image-root proxy and projected torso segment only; not 3D position, physical scale, true torso length or anatomical ground truth.",
+  "do_not_fit_camera_or_scale_to_labels": true,
+  "annotations": [
+    {
+      "frame": 23,
+      "fraction": 0.1,
+      "nominal_time_s": 0.7666666666666667,
+      "image_path": "artifacts/root-source-labels-01/single-leg-squat-frame-23-original.png",
+      "image_png_sha256": "db26f0ee954cd2a32d4379ca06628930ba571603eec8a293c650e242adea3694",
+      "decoded_rgb_sha256": "765cf371429b5b976573c82640328bd7f54b642e2f42e5c525aadb425c2bec82",
+      "pelvis_midpoint_px": [
+        223,
+        305
+      ],
+      "pelvis_uncertainty_radius_px": 12,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        204,
+        249
+      ],
+      "shoulder_uncertainty_radius_px": 10,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 59.135,
+      "projected_torso_length_uncertainty_px": 22,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Side view, small subject and dark shorts: far hip/shoulder hidden; projected midpoint estimated from body outline, not exposed anatomical joint centers."
+    },
+    {
+      "frame": 117,
+      "fraction": 0.5,
+      "nominal_time_s": 3.9,
+      "image_path": "artifacts/root-source-labels-01/single-leg-squat-frame-117-original.png",
+      "image_png_sha256": "e41b532f94493ca297ba736554ba58eb1b087df1d775ac41e0d791c4d8b52b5d",
+      "decoded_rgb_sha256": "c32b2b1d3ab021b092a537537c2bb93fe76de7833d4850f27a7e07ff29ee82fd",
+      "pelvis_midpoint_px": [
+        219,
+        303
+      ],
+      "pelvis_uncertainty_radius_px": 12,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        204,
+        246
+      ],
+      "shoulder_uncertainty_radius_px": 10,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 58.941,
+      "projected_torso_length_uncertainty_px": 22,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Side view, small subject and dark shorts: far hip/shoulder hidden; projected midpoint estimated from body outline, not exposed anatomical joint centers."
+    },
+    {
+      "frame": 211,
+      "fraction": 0.9,
+      "nominal_time_s": 7.033333333333333,
+      "image_path": "artifacts/root-source-labels-01/single-leg-squat-frame-211-original.png",
+      "image_png_sha256": "52fd4d6de92c82e9d775e1d7724ee7c37d7d26c1ec2c7f382df8679f513e52b1",
+      "decoded_rgb_sha256": "ac6d7521833223460299a797092368e2fdd89fbaede81f91cb2d18afb8253030",
+      "pelvis_midpoint_px": [
+        219,
+        301
+      ],
+      "pelvis_uncertainty_radius_px": 12,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        205,
+        243
+      ],
+      "shoulder_uncertainty_radius_px": 10,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 59.666,
+      "projected_torso_length_uncertainty_px": 22,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Side view, small subject and dark shorts: far hip/shoulder hidden; projected midpoint estimated from body outline, not exposed anatomical joint centers."
+    }
+  ]
+}

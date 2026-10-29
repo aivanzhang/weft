@@ -1,0 +1,2208 @@
+{
+  "annotation_kind": "assistant_authored_source_visual_estimates",
+  "authored_at": "2026-10-28T13:08:00.397820-07:00",
+  "benchmark_id": "limb-orientation-development-v1",
+  "coordinate_system": "original_image_pixels_x_right_y_down_including_letterboxing",
+  "frames": [
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 20,
+      "height": 480,
+      "id": "jumping-jacks-burpees:20",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-20.png",
+      "image_sha256": "0133c7aa51548a2089e5c790bbf89d7da160bbdc83d7025c28fc02a4e057994d",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            363,
+            347
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            361,
+            170
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            325,
+            246
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            344,
+            292
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            338,
+            178
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            351,
+            139
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            262,
+            347
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            260,
+            169
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            294,
+            246
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            278,
+            294
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            287,
+            179
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            270,
+            138
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 17.067,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15.711,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 22.326,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 17.067,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15.467,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 19.153,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 0.6673340006673341,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 30,
+      "height": 480,
+      "id": "jumping-jacks-burpees:30",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-30.png",
+      "image_sha256": "bf22e21b180b07f004171a3d6af624a1675d9a5b07c03cf3f3f2a73e46aba5c9",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            328,
+            348
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            339,
+            221
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            326,
+            250
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            329,
+            300
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            335,
+            191
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            344,
+            247
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            303,
+            348
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            282,
+            218
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            298,
+            250
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            299,
+            300
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            288,
+            191
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            274,
+            240
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 20.691,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15.616,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 18.284,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 23.131,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15.639,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 19.877,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 1.001001001001001,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 40,
+      "height": 480,
+      "id": "jumping-jacks-burpees:40",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-40.png",
+      "image_sha256": "8b28d0f6f4ddb78f7d910e2710b6c0bc7e68e977b6bf2ce58fb60269c72bd26e",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            370,
+            347
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            356,
+            153
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            324,
+            246
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            347,
+            292
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            337,
+            169
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            333,
+            129
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            248,
+            348
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            268,
+            154
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            293,
+            246
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            273,
+            292
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            286,
+            170
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            285,
+            127
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 16.743,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15.228,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 21.929,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 17.402,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15.595,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 22.55,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 1.3346680013346681,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 60,
+      "height": 480,
+      "id": "jumping-jacks-burpees:60",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-60.png",
+      "image_sha256": "7c2bf70941697ee478d8b1c194bfa307573abf9e67e900a7677ff563b31f1b5a",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            344,
+            338
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            365,
+            177
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            325,
+            228
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            336,
+            284
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            337,
+            170
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            386,
+            148
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            285,
+            342
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            260,
+            177
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            298,
+            228
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            287,
+            285
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            286,
+            170
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            237,
+            150
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15.605,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 19.11,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15.745,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 20.375,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 2.002002002002002,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 169,
+      "height": 480,
+      "id": "jumping-jacks-burpees:169",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-169.png",
+      "image_sha256": "3780e29dd6004942342a37bd20cc4e35055f5d781a53309c3eee4e35cb2839ba",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            336,
+            349
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            337,
+            270
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            325,
+            270
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            339,
+            300
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            330,
+            232
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            336,
+            308
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            277,
+            350
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            277,
+            272
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            290,
+            270
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            278,
+            300
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            283,
+            233
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            273,
+            312
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 22.923,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 23.427,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 5.638972305638973,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 180,
+      "height": 480,
+      "id": "jumping-jacks-burpees:180",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-180.png",
+      "image_sha256": "5e0daadb994be0360598d47c89de97914cfd51d414d24c8dfb53deb2e2c43ee9",
+      "points": {
+        "left_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            338,
+            315
+          ]
+        },
+        "left_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            330,
+            274
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            337,
+            353
+          ]
+        },
+        "right_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            269,
+            315
+          ]
+        },
+        "right_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            278,
+            275
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            271,
+            353
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "left_ankle",
+          "scorable": false,
+          "start": "left_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "left_knee",
+          "scorable": false,
+          "start": "left_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "right_ankle",
+          "scorable": false,
+          "start": "right_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "right_knee",
+          "scorable": false,
+          "start": "right_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 6.0060060060060065,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 200,
+      "height": 480,
+      "id": "jumping-jacks-burpees:200",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-200.png",
+      "image_sha256": "e73c1babc9783a7c7b42a25902e780550deeaac380e1901d077b946d32aabd02",
+      "points": {
+        "left_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            337,
+            316
+          ]
+        },
+        "left_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            329,
+            275
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            338,
+            354
+          ]
+        },
+        "right_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            267,
+            317
+          ]
+        },
+        "right_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            277,
+            276
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            269,
+            354
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "left_ankle",
+          "scorable": false,
+          "start": "left_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "left_knee",
+          "scorable": false,
+          "start": "left_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15.103,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "right_ankle",
+          "scorable": false,
+          "start": "right_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "right_knee",
+          "scorable": false,
+          "start": "right_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 6.673340006673341,
+      "width": 640
+    },
+    {
+      "clip_id": "jumping-jacks-burpees",
+      "frame_index": 330,
+      "height": 480,
+      "id": "jumping-jacks-burpees:330",
+      "image_path": "data/limb-orientation/jumping-jacks-burpees-330.png",
+      "image_sha256": "398610338a1a1f90948df6e99cd5c8ee91c8c43fe3b98d00fbc53e4345f08932",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            359,
+            340
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            356,
+            170
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            318,
+            235
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            341,
+            291
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            331,
+            168
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            369,
+            133
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            248,
+            346
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            246,
+            172
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            285,
+            235
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            264,
+            292
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            277,
+            170
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            237,
+            138
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 21.738,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15.872,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 17.844,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "timestamp_seconds": 11.01101101101101,
+      "width": 640
+    },
+    {
+      "clip_id": "squat",
+      "frame_index": 10,
+      "height": 720,
+      "id": "squat:10",
+      "image_path": "data/limb-orientation/squat-10.png",
+      "image_sha256": "c30367211898618251e83282c0e3ac8d6dced184fcf90cfdf435beb705979787",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            443,
+            695
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            367,
+            195
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 20,
+          "visibility": "approximate",
+          "xy": [
+            464,
+            365
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            460,
+            500
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            435,
+            132
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            384,
+            110
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            567,
+            697
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            557,
+            201
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 20,
+          "visibility": "approximate",
+          "xy": [
+            547,
+            371
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            551,
+            500
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            555,
+            124
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            641,
+            107
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 19.09,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 17.933,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15.173,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 21.28,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "timestamp_seconds": 0.3333333333333333,
+      "width": 1280
+    },
+    {
+      "clip_id": "squat",
+      "frame_index": 50,
+      "height": 720,
+      "id": "squat:50",
+      "image_path": "data/limb-orientation/squat-50.png",
+      "image_sha256": "b43517d36949555a71e2f3f7b992279c03dd1a717f2e46ca8d020f4c44a996ce",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            443,
+            696
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            360,
+            329
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 20,
+          "visibility": "approximate",
+          "xy": [
+            421,
+            491
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            460,
+            557
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            425,
+            274
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            394,
+            259
+          ]
+        },
+        "right_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            565,
+            697
+          ]
+        },
+        "right_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            556,
+            347
+          ]
+        },
+        "right_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 20,
+          "visibility": "approximate",
+          "xy": [
+            515,
+            505
+          ]
+        },
+        "right_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            628,
+            567
+          ]
+        },
+        "right_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            558,
+            280
+          ]
+        },
+        "right_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 15,
+          "visibility": "approximate",
+          "xy": [
+            646,
+            278
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 21.082,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 24.539,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 19.409,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_ankle",
+          "scorable": true,
+          "start": "right_knee",
+          "unavailable_reason": null
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": 15.192,
+          "end": "right_knee",
+          "scorable": true,
+          "start": "right_hip",
+          "unavailable_reason": null
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 24.111,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "timestamp_seconds": 1.6666666666666667,
+      "width": 1280
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "frame_index": 30,
+      "height": 480,
+      "id": "kettlebell-pushup:30",
+      "image_path": "data/limb-orientation/kettlebell-pushup-30.png",
+      "image_sha256": "35e32627b62779b2e77d97d20eab3c0206cc1843836ce119751906353a42eb21",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            490,
+            388
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            250,
+            343
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            340,
+            322
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            420,
+            367
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            248,
+            295
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            239,
+            382
+          ]
+        },
+        "right_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_elbow": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            290,
+            344
+          ]
+        },
+        "right_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            275,
+            307
+          ]
+        },
+        "right_wrist": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            252,
+            383
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "right_ankle",
+          "scorable": false,
+          "start": "right_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "right_knee",
+          "scorable": false,
+          "start": "right_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "timestamp_seconds": 1.0,
+      "width": 640
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "frame_index": 120,
+      "height": 480,
+      "id": "kettlebell-pushup:120",
+      "image_path": "data/limb-orientation/kettlebell-pushup-120.png",
+      "image_sha256": "940aa629485856683ed16e7b7e778b9ddb1d1f7b6dfe302618220e22e27dd01c",
+      "points": {
+        "left_ankle": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            491,
+            389
+          ]
+        },
+        "left_elbow": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            246,
+            342
+          ]
+        },
+        "left_hip": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 8,
+          "visibility": "approximate",
+          "xy": [
+            338,
+            329
+          ]
+        },
+        "left_knee": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 6,
+          "visibility": "approximate",
+          "xy": [
+            421,
+            370
+          ]
+        },
+        "left_shoulder": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            247,
+            291
+          ]
+        },
+        "left_wrist": {
+          "note": "Approximate visible center; clothing or motion blur limits precision.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            237,
+            384
+          ]
+        },
+        "right_ankle": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_elbow": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            280,
+            340
+          ]
+        },
+        "right_hip": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_knee": {
+          "note": "Occluded or projected overlap prevents reliable source-only localization.",
+          "uncertainty_pixels": null,
+          "visibility": "unavailable",
+          "xy": null
+        },
+        "right_shoulder": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            269,
+            307
+          ]
+        },
+        "right_wrist": {
+          "note": "Far-side arm partially visible; shoulder center approximate.",
+          "uncertainty_pixels": 5,
+          "visibility": "approximate",
+          "xy": [
+            251,
+            383
+          ]
+        }
+      },
+      "segments": {
+        "left_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_wrist",
+          "scorable": true,
+          "start": "left_elbow",
+          "unavailable_reason": null
+        },
+        "left_shin": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_ankle",
+          "scorable": true,
+          "start": "left_knee",
+          "unavailable_reason": null
+        },
+        "left_thigh": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_knee",
+          "scorable": true,
+          "start": "left_hip",
+          "unavailable_reason": null
+        },
+        "left_upper_arm": {
+          "angular_tolerance_degrees": 15,
+          "end": "left_elbow",
+          "scorable": true,
+          "start": "left_shoulder",
+          "unavailable_reason": null
+        },
+        "right_forearm": {
+          "angular_tolerance_degrees": 15,
+          "end": "right_wrist",
+          "scorable": true,
+          "start": "right_elbow",
+          "unavailable_reason": null
+        },
+        "right_shin": {
+          "angular_tolerance_degrees": null,
+          "end": "right_ankle",
+          "scorable": false,
+          "start": "right_knee",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_thigh": {
+          "angular_tolerance_degrees": null,
+          "end": "right_knee",
+          "scorable": false,
+          "start": "right_hip",
+          "unavailable_reason": "One or both source endpoints are occluded/ambiguous."
+        },
+        "right_upper_arm": {
+          "angular_tolerance_degrees": 16.039,
+          "end": "right_elbow",
+          "scorable": true,
+          "start": "right_shoulder",
+          "unavailable_reason": null
+        }
+      },
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "timestamp_seconds": 4.0,
+      "width": 640
+    }
+  ],
+  "limitations": [
+    "Assistant estimates, not independent human-expert annotation or clinical ground truth.",
+    "Twelve purposively selected frames from familiar development clips; not statistical accuracy or a final holdout.",
+    "2D axis agreement does not prove anatomy, body scale, dynamic balance, 3D depth, force, or muscle activation.",
+    "Side assignments reflect source-only visual interpretation and are not certified anatomical labels."
+  ],
+  "protocol": "Original decoded frames visually inspected; endpoints and tolerances frozen before inspecting candidate limb predictions. All eight limb segments retained for every frame, with source occlusion explicit. No pose/model outputs used to author labels.",
+  "schema_version": 1,
+  "segment_definitions": {
+    "left_forearm": [
+      "left_elbow",
+      "left_wrist"
+    ],
+    "left_shin": [
+      "left_knee",
+      "left_ankle"
+    ],
+    "left_thigh": [
+      "left_hip",
+      "left_knee"
+    ],
+    "left_upper_arm": [
+      "left_shoulder",
+      "left_elbow"
+    ],
+    "right_forearm": [
+      "right_elbow",
+      "right_wrist"
+    ],
+    "right_shin": [
+      "right_knee",
+      "right_ankle"
+    ],
+    "right_thigh": [
+      "right_hip",
+      "right_knee"
+    ],
+    "right_upper_arm": [
+      "right_shoulder",
+      "right_elbow"
+    ]
+  },
+  "sides": "Anatomical left/right: frontal jumps left is image-right, rear squat left is image-left, pushup near side is left. No candidate-based side remapping.",
+  "sources": [
+    {
+      "attribution": {
+        "author": "Taco Fleur / Cavemantraining",
+        "bytes": 6544177,
+        "challenge": "Lateral limb motion, jumping and floor transitions",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "file": "jumping-jacks-burpees.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Jumping_jacks_and_burpees.webm",
+        "title": "Jumping jacks and burpees",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Jumping_jacks_and_burpees.webm",
+        "verified_at": "2026-10-28T12:29:54.110273-07:00"
+      },
+      "clip_id": "jumping-jacks-burpees",
+      "path": "data/exercise/jumping-jacks-burpees.webm",
+      "sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4"
+    },
+    {
+      "attribution": {
+        "author": "FitnessScape",
+        "bytes": 564942,
+        "changes": "Original WebM retained unchanged. Feet are cropped; use as a limited-input example.",
+        "file": "squat.webm",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/",
+        "scope": "Recorded human exercise; not measured muscle activation or force",
+        "sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Squat_-_exercise_demonstration_video.webm",
+        "title": "Squat - exercise demonstration video",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+        "verified_at": "2026-10-28T11:31:14.402402-07:00"
+      },
+      "clip_id": "squat",
+      "path": "data/exercise/squat.webm",
+      "sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9"
+    },
+    {
+      "attribution": {
+        "author": "Taco Fleur / Cavemantraining",
+        "bytes": 1251790,
+        "challenge": "horizontal torso; loaded hands; fixed camera",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "file": "kettlebell-pushup.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Kettlebell_crush_grip_push-up.webm",
+        "title": "Kettlebell crush grip push-up",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Kettlebell_crush_grip_push-up.webm",
+        "verified_at": "2026-10-28T12:23:44.958911-07:00"
+      },
+      "clip_id": "kettlebell-pushup",
+      "path": "data/exercise/kettlebell-pushup.webm",
+      "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc"
+    }
+  ],
+  "split": "development_not_final_holdout",
+  "tolerance_rule": "Before candidate inspection: degrees(atan2(sum(endpoint_uncertainty_pixels), segment_length_pixels)), clamped to [15,35]. Heuristic visual uncertainty, not a measured confidence interval."
+}

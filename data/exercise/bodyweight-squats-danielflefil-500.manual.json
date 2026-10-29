@@ -1,0 +1,328 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-10-28T16:41:47.879465-07:00",
+  "source_sha256": "14f1febdd9827951c0099ae2df6288fa5afb7b83c1fb99882f7505486982af85",
+  "source_file": "data/exercise/bodyweight-squats-danielflefil-500.gif",
+  "dimensions": [
+    500,
+    500
+  ],
+  "frame_count": 68,
+  "selected_interval_inclusive": [
+    0,
+    67
+  ],
+  "coordinate_system": "Native official500px GIF raster; xright, ydown; no source crop",
+  "label_method": "Assistant source-only visual estimates; not expert annotations or physical ground truth",
+  "selected_frames": [
+    0,
+    13,
+    33,
+    53,
+    67
+  ],
+  "pre_view_selection": "candidate-02/pre-view-selection.json",
+  "no_pose_or_model_outputs_seen": true,
+  "root_definition": "Approximate projected midpoint between hips, estimated under clothing; not bodyCOM",
+  "foot_definition": "Approximate midpoint of visible sole-to-mat lower boundary; not ankle landmark or measured contact",
+  "observations": [
+    {
+      "frame": 0,
+      "time_ms": 0,
+      "image_pelvis_midpoint_px": [
+        258,
+        250
+      ],
+      "pelvis_uncertainty_radius_px": 20,
+      "pelvis_confidence": "low: assistant estimate through clothing; far hip occluded",
+      "shoulder_midpoint_px": [
+        247,
+        106
+      ],
+      "shoulder_uncertainty_radius_px": 15,
+      "foot_contact_proxies": [
+        {
+          "image_identity": "near_larger_foot",
+          "point_px": [
+            272,
+            484
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        },
+        {
+          "image_identity": "far_smaller_foot",
+          "point_px": [
+            233,
+            450
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        }
+      ],
+      "floor_contact_status": "visually inferred planted soles; no pressure/contact measurement",
+      "full_body_in_frame": true,
+      "phase": "standing",
+      "coarse_limb_directions": {
+        "body_facing": "image-left",
+        "knees_from_pelvis": "image-down",
+        "arms": "image-down at sides"
+      },
+      "unknowns": [
+        "True3D pelvis location",
+        "Anatomical left/right identity of feet",
+        "Ground-plane metric height and normal",
+        "Joint rotation angles",
+        "Contact forces",
+        "Original camera frame rate versus GIF editing speed"
+      ]
+    },
+    {
+      "frame": 13,
+      "time_ms": 520,
+      "image_pelvis_midpoint_px": [
+        292,
+        321
+      ],
+      "pelvis_uncertainty_radius_px": 20,
+      "pelvis_confidence": "low: assistant estimate through clothing; far hip occluded",
+      "shoulder_midpoint_px": [
+        246,
+        201
+      ],
+      "shoulder_uncertainty_radius_px": 15,
+      "foot_contact_proxies": [
+        {
+          "image_identity": "near_larger_foot",
+          "point_px": [
+            272,
+            484
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        },
+        {
+          "image_identity": "far_smaller_foot",
+          "point_px": [
+            233,
+            450
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        }
+      ],
+      "floor_contact_status": "visually inferred planted soles; no pressure/contact measurement",
+      "full_body_in_frame": true,
+      "phase": "descending squat",
+      "coarse_limb_directions": {
+        "body_facing": "image-left",
+        "knees_from_pelvis": "image-left/down",
+        "arms": "hands image-left of torso; elbows bent"
+      },
+      "unknowns": [
+        "True3D pelvis location",
+        "Anatomical left/right identity of feet",
+        "Ground-plane metric height and normal",
+        "Joint rotation angles",
+        "Contact forces",
+        "Original camera frame rate versus GIF editing speed"
+      ]
+    },
+    {
+      "frame": 33,
+      "time_ms": 1320,
+      "image_pelvis_midpoint_px": [
+        292,
+        395
+      ],
+      "pelvis_uncertainty_radius_px": 20,
+      "pelvis_confidence": "low: assistant estimate through clothing; far hip occluded",
+      "shoulder_midpoint_px": [
+        242,
+        285
+      ],
+      "shoulder_uncertainty_radius_px": 15,
+      "foot_contact_proxies": [
+        {
+          "image_identity": "near_larger_foot",
+          "point_px": [
+            272,
+            484
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        },
+        {
+          "image_identity": "far_smaller_foot",
+          "point_px": [
+            233,
+            450
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        }
+      ],
+      "floor_contact_status": "visually inferred planted soles; no pressure/contact measurement",
+      "full_body_in_frame": true,
+      "phase": "deep squat near bottom",
+      "coarse_limb_directions": {
+        "body_facing": "image-left",
+        "knees_from_pelvis": "image-left/down",
+        "arms": "hands image-left of torso; elbows bent"
+      },
+      "unknowns": [
+        "True3D pelvis location",
+        "Anatomical left/right identity of feet",
+        "Ground-plane metric height and normal",
+        "Joint rotation angles",
+        "Contact forces",
+        "Original camera frame rate versus GIF editing speed"
+      ]
+    },
+    {
+      "frame": 53,
+      "time_ms": 2120,
+      "image_pelvis_midpoint_px": [
+        278,
+        288
+      ],
+      "pelvis_uncertainty_radius_px": 20,
+      "pelvis_confidence": "low: assistant estimate through clothing; far hip occluded",
+      "shoulder_midpoint_px": [
+        241,
+        154
+      ],
+      "shoulder_uncertainty_radius_px": 15,
+      "foot_contact_proxies": [
+        {
+          "image_identity": "near_larger_foot",
+          "point_px": [
+            272,
+            484
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        },
+        {
+          "image_identity": "far_smaller_foot",
+          "point_px": [
+            233,
+            450
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        }
+      ],
+      "floor_contact_status": "visually inferred planted soles; no pressure/contact measurement",
+      "full_body_in_frame": true,
+      "phase": "ascending squat",
+      "coarse_limb_directions": {
+        "body_facing": "image-left",
+        "knees_from_pelvis": "image-left/down",
+        "arms": "arms extending image-left/down"
+      },
+      "unknowns": [
+        "True3D pelvis location",
+        "Anatomical left/right identity of feet",
+        "Ground-plane metric height and normal",
+        "Joint rotation angles",
+        "Contact forces",
+        "Original camera frame rate versus GIF editing speed"
+      ]
+    },
+    {
+      "frame": 67,
+      "time_ms": 2680,
+      "image_pelvis_midpoint_px": [
+        258,
+        250
+      ],
+      "pelvis_uncertainty_radius_px": 20,
+      "pelvis_confidence": "low: assistant estimate through clothing; far hip occluded",
+      "shoulder_midpoint_px": [
+        247,
+        106
+      ],
+      "shoulder_uncertainty_radius_px": 15,
+      "foot_contact_proxies": [
+        {
+          "image_identity": "near_larger_foot",
+          "point_px": [
+            272,
+            484
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        },
+        {
+          "image_identity": "far_smaller_foot",
+          "point_px": [
+            233,
+            450
+          ],
+          "uncertainty_radius_px": 7,
+          "visible": true,
+          "anatomical_side": null
+        }
+      ],
+      "floor_contact_status": "visually inferred planted soles; no pressure/contact measurement",
+      "full_body_in_frame": true,
+      "phase": "standing",
+      "coarse_limb_directions": {
+        "body_facing": "image-left",
+        "knees_from_pelvis": "image-down",
+        "arms": "image-down at sides"
+      },
+      "unknowns": [
+        "True3D pelvis location",
+        "Anatomical left/right identity of feet",
+        "Ground-plane metric height and normal",
+        "Joint rotation angles",
+        "Contact forces",
+        "Original camera frame rate versus GIF editing speed"
+      ]
+    }
+  ],
+  "root_direction_intervals": [
+    {
+      "from_frame": 0,
+      "to_frame": 13,
+      "image_direction": "down/right",
+      "confidence": "medium"
+    },
+    {
+      "from_frame": 13,
+      "to_frame": 33,
+      "image_direction": "down",
+      "confidence": "medium"
+    },
+    {
+      "from_frame": 33,
+      "to_frame": 53,
+      "image_direction": "up/left",
+      "confidence": "medium"
+    },
+    {
+      "from_frame": 53,
+      "to_frame": 67,
+      "image_direction": "up/left",
+      "confidence": "medium"
+    }
+  ],
+  "camera_assessment": "Background appears stationary in sampled originals; fixed camera not independently verified",
+  "limitations": [
+    "Far hip and limb overlap create depth/identity uncertainty",
+    "Single edited looping animation cycle, not rawcamera recording",
+    "Visible soles do not establish physical contact or floorcalibration",
+    "Image-space directions are not calibrated worldaxes"
+  ]
+}

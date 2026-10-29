@@ -1,36 +1,45 @@
 import base64
 import json
-import os
+import math
 import time
 from urllib.error import HTTPError
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 import cv2
 
 from weft.io import canonical_hash, write_json
+from weft.meta_access import access_status, reserve_call, resolve_key, settle_call
 
 MODEL = "muse-spark-1.3"
 PRICING = {"input_per_million_usd": 1.25, "output_per_million_usd": 4.25,
            "source": "https://dev.meta.ai/docs/pricing-rate-limits",
-           "checked_on": "2026-10-26", "mode": "Standard; no Contributor data-sharing mode"}
+           "checked_on": "2026-10-28", "mode": "Standard; no Contributor data-sharing mode"}
 INPUT_TOKEN_ENVELOPE = 32768
 OUTPUT_TOKEN_LIMIT = 1024
-ESTIMATE = INPUT_TOKEN_ENVELOPE * 1.25 / 1e6 + OUTPUT_TOKEN_LIMIT * 4.25 / 1e6
+ESTIMATE = round(INPUT_TOKEN_ENVELOPE * 1.25 / 1e6 + OUTPUT_TOKEN_LIMIT * 4.25 / 1e6, 6)
 
 
-def status():
-    available = bool(os.environ.get("META_API_KEY") or os.environ.get("MODEL_API_KEY"))
-    return {"credential_present": available, "live_access_verified": False, "model": MODEL,
+def status(project_root=None):
+    return {**access_status(project_root), "model": MODEL,
             "estimated_one_call_envelope_usd": ESTIMATE, "pricing": PRICING,
             "note": "No request made; presence is not account access verification"}
 
 
-def propose_meta(video, rows, world, out, max_cost_usd):
-    key = os.environ.get("META_API_KEY") or os.environ.get("MODEL_API_KEY")
-    if not key:
-        raise ValueError("Meta mode requested, but META_API_KEY / MODEL_API_KEY is absent; no fallback was used")
-    if max_cost_usd is None or max_cost_usd < ESTIMATE:
+class _NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        raise ValueError("Meta endpoint redirected; request not forwarded")
+
+
+def _open(request):
+    return build_opener(_NoRedirect()).open(request, timeout=45)
+
+
+def propose_meta(video, rows, world, out, max_cost_usd, *, project_root=None):
+    key = resolve_key(project_root)
+    if type(max_cost_usd) not in (int, float) or not math.isfinite(max_cost_usd) or max_cost_usd < ESTIMATE:
         raise ValueError(f"One bounded call needs an explicit budget of at least ${ESTIMATE:.5f}; estimated, not a provider hard cap")
+    if not access_status(project_root)["budget_configured"]:
+        raise ValueError("No total Meta budget configured; explicit total budget is required")
     public_input = {"world": world.to_dict(), "generation_observations": rows}
     prompt = ("Fit a 1D passive rolling-body model to the attached generation evidence. "
               "Coordinates are image-width units; time is seconds. x(t)=x0+v0*t-sign(v0)*drag*t*t/2 "
@@ -64,20 +73,27 @@ def propose_meta(video, rows, world, out, max_cost_usd):
     record = {"provider": "Meta Model API", "model": MODEL, "request_sha256": canonical_hash(payload),
               "prompt": prompt, "frame_ids": [rows[i]["id"] for i in (0, len(rows) // 2, len(rows) - 1)],
               "estimated_cost_usd": ESTIMATE, "budget_usd": max_cost_usd, "pricing": PRICING,
-              "retries": 0, "request_count": 1}
+              "retries": 0, "request_count": 0, "cost_usd": None}
+    reservation = None
     try:
-        with urlopen(request, timeout=45) as response:
+        reservation = reserve_call(project_root, estimate_usd=ESTIMATE, request_sha256=record["request_sha256"])
+        record.update(status="requesting", request_count=1, budget_reservation=reservation)
+        write_json(out / "meta-call.json", record)
+        with _open(request) as response:
             body = response.read(131073)
         if len(body) > 131072:
             raise ValueError("Meta response exceeds 128 KiB")
         result = json.loads(body)
+        usage = result.get("usage")
+        counts = [usage.get("prompt_tokens"), usage.get("completion_tokens")] if isinstance(usage, dict) else []
+        cost = ((counts[0] * PRICING["input_per_million_usd"] + counts[1] * PRICING["output_per_million_usd"]) / 1e6
+                if len(counts) == 2 and all(type(count) is int and count >= 0 for count in counts) else None)
+        record.update(usage=usage, cost_usd=cost, model_returned=result.get("model"), response_id=result.get("id"))
         output = json.loads(result["choices"][0]["message"]["content"])
         if set(output) != {"v0", "drag", "reason"} or not isinstance(output["reason"], str):
             raise ValueError("Meta returned an invalid proposal schema")
         patch = {"v0": output["v0"], "drag": output["drag"]}
         world.patch(patch)
-        usage = result.get("usage")
-        cost = None if not usage else (usage.get("prompt_tokens", 0) * 1.25 + usage.get("completion_tokens", 0) * 4.25) / 1e6
         record.update(status="completed", response=output, usage=usage, cost_usd=cost)
         return {"method": MODEL, "patch": patch, "reason": output["reason"][:2000]}
     except HTTPError as error:
@@ -88,4 +104,9 @@ def propose_meta(video, rows, world, out, max_cost_usd):
         raise
     finally:
         record["seconds"] = time.perf_counter() - started
-        write_json(out / "meta-call.json", record)
+        try:
+            if reservation:
+                record["aggregate_budget"] = settle_call(project_root, reservation_id=reservation["reservation_id"],
+                    actual_cost_usd=record["cost_usd"], outcome="completed" if record["status"] == "completed" else "failed")
+        finally:
+            write_json(out / "meta-call.json", record)

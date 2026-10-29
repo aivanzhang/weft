@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "clip_id": "squat",
+  "source_path": "data/exercise/squat.webm",
+  "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+  "source_width": 1280,
+  "source_height": 720,
+  "source_reported_frame_count": 213,
+  "source_fps": 30.0,
+  "selection_file": "artifacts/root-source-labels-01/frame-selection-frozen.json",
+  "selection_sha256": "8705780c606182b8accbd71a976d9192934f5b0221fa4a620832294fe92c9240",
+  "selection_rule": "zero-based floor(fraction * (reported_source_frame_count - 1)), fractions 0.1,0.5,0.9; metadata-only selection frozen before pixel viewing",
+  "frozen_at": "2026-10-28T14:49:58.880578-07:00",
+  "annotation_method": "Assistant visual estimates from the 12 preselected original source frames only; no pose model, candidate output, calibration or tracker inspected.",
+  "coordinate_system": "Original decoded image pixels, origin top-left, x right, y down; letterboxing retained.",
+  "landmark_definition": "Projected midpoint of estimated left/right hip joint centers and projected midpoint of estimated shoulder joints. Occluded side-view joints are approximate body-outline estimates, not directly observed anatomy.",
+  "uncertainty_definition": "Subjective radial pixel allowance, not a calibrated probability/confidence interval. Torso-length allowance is sum of endpoint allowances.",
+  "measurement_scope": "2D image-root proxy and projected torso segment only; not 3D position, physical scale, true torso length or anatomical ground truth.",
+  "do_not_fit_camera_or_scale_to_labels": true,
+  "annotations": [
+    {
+      "frame": 21,
+      "fraction": 0.1,
+      "nominal_time_s": 0.7,
+      "image_path": "artifacts/root-source-labels-01/squat-frame-21-original.png",
+      "image_png_sha256": "1f3a8cfdc476833ff733bfbdacbc3a8a703025762dfdda11d61f7c0fbb834ecb",
+      "decoded_rgb_sha256": "4438ebc4929b8ad8a63270ec4221ca4dd05a5082187441186c613a07010445ae",
+      "pelvis_midpoint_px": [
+        505,
+        365
+      ],
+      "pelvis_uncertainty_radius_px": 30,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        497,
+        140
+      ],
+      "shoulder_uncertainty_radius_px": 25,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 225.142,
+      "projected_torso_length_uncertainty_px": 55,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Rear-oblique clothed view: hip joints hidden under shorts; shoulder midpoint estimated from visible shoulder line. Clothing, perspective and arm/bar occlusion limit precision."
+    },
+    {
+      "frame": 106,
+      "fraction": 0.5,
+      "nominal_time_s": 3.533333333333333,
+      "image_path": "artifacts/root-source-labels-01/squat-frame-106-original.png",
+      "image_png_sha256": "a07a227b455a142332db1723b08f80f010b8ba7aefadb28e50ac5f5906222e0e",
+      "decoded_rgb_sha256": "1f9b58beddacea00fda31acf8de8f475200d6cd107065cb0cb9ed9035dbc29c1",
+      "pelvis_midpoint_px": [
+        500,
+        360
+      ],
+      "pelvis_uncertainty_radius_px": 30,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        496,
+        138
+      ],
+      "shoulder_uncertainty_radius_px": 25,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 222.036,
+      "projected_torso_length_uncertainty_px": 55,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Rear-oblique clothed view: hip joints hidden under shorts; shoulder midpoint estimated from visible shoulder line. Clothing, perspective and arm/bar occlusion limit precision."
+    },
+    {
+      "frame": 190,
+      "fraction": 0.9,
+      "nominal_time_s": 6.333333333333333,
+      "image_path": "artifacts/root-source-labels-01/squat-frame-190-original.png",
+      "image_png_sha256": "e4d0036a451bfd538550fe61dc2a15942bb674e50a5093cd9dc8e873140e8499",
+      "decoded_rgb_sha256": "086e6307d4fa099998b235b291c29e6e15f6bc06b386dbab9e4e1d14c7838437",
+      "pelvis_midpoint_px": [
+        470,
+        390
+      ],
+      "pelvis_uncertainty_radius_px": 30,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        505,
+        180
+      ],
+      "shoulder_uncertainty_radius_px": 25,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 212.897,
+      "projected_torso_length_uncertainty_px": 55,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Rear-oblique clothed view: hip joints hidden under shorts; shoulder midpoint estimated from visible shoulder line. Clothing, perspective and arm/bar occlusion limit precision."
+    }
+  ]
+}

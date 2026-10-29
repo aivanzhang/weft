@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "scope": "construction",
+  "source": "artifacts/phys101-constraints-source-01/member-02-Camera_2.mp4",
+  "source_sha256": "9e9df486cd9311000109ed4af50d1f28d71d8a910640e311903db20c4d00f70f",
+  "frame": 0,
+  "time_s": 0.0,
+  "image_size": [1920, 1080],
+  "image": "artifacts/phys101-constraints-inspection-02/side-view-geometry-0000.png",
+  "image_sha256": "991cf4d38925e6bf8987d1222955d787257d0d782e1965e1d7334ee6ab16a348",
+  "annotation_method": "Approximate nonexpert source-image corner selections, before this camera fit; not automatic detection or measured geometry",
+  "coordinate_uncertainty_px_per_axis": 6,
+  "uncertainty_scope": "An authored annotation envelope, not a calibrated confidence interval",
+  "object_id": "green-box",
+  "image_points_px": [[521, 452], [593, 452], [638, 455], [638, 583], [593, 589], [521, 582]],
+  "point_names": ["left-upper", "shared-upper", "right-upper", "right-lower", "shared-lower", "left-lower"],
+  "local_corner_signs": [[-1, -1, 1], [1, -1, 1], [1, -1, -1], [1, 1, -1], [1, 1, 1], [-1, 1, 1]],
+  "face_hypothesis": "The wide bright face is the cuboid top and the narrow dark face is its +x side; positive x projects right. Both depth-axis signs are retained.",
+  "dimensions_source": "Unchanged selected-coast scene; width/height are conditional front-view fits and depth is authored",
+  "initial_pose_assumption": "The target has not moved between side frame 0 and front frame 8",
+  "limitations": [
+    "Corner identity and top/side assignments are explicit hypotheses, not independently verified 3D observations.",
+    "Rounded edges, shadows, lens distortion and perspective can change the selected apparent corners.",
+    "These points are not the four corners of a minimum-area silhouette rectangle.",
+    "This first trial is exposed development evidence; the separate repeat trial is not used."
+  ]
+}

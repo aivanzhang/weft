@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "name": "Bounded source intervals v7",
+  "purpose": "Verify selected-window decoding, absolute provenance, pre-initialization coverage and usable RL/recording where supported. Retain real three-ball failure; no whole-source completeness or physical transfer claim.",
+  "cases": [
+    {
+      "profile": "appearance",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 1
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "long-analytic-interval",
+      "source_kind": "analytic_synthetic",
+      "rights": "Repository-generated analytic fixture, not physical evidence",
+      "video": "../artifacts/interval-source-fixture-02/video.avi",
+      "config": "../artifacts/interval-source-fixture-02/config.json",
+      "source_sha256": "cdf6be75ced08304da442639188d1f27ea38187a6ac830f61d4717058d9f6891",
+      "conditions": [
+        "65-second full source",
+        "20-second explicit interval",
+        "four pre-initialization frames",
+        "known grayscale texture translation"
+      ]
+    },
+    {
+      "conditions": [
+        "grayscale appearance",
+        "authored region and first visible pass frames39-60",
+        "same existing source, not independent video",
+        "full source retained, second pass excluded"
+      ],
+      "config": "../data/general/annotations/rolling-grayscale.interval.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "rolling-grayscale-interval",
+      "profile": "appearance",
+      "rights": "CC0 Ecole Science; lossless grayscale derivative of existing real rolling source; data/general/rolling-ball-grayscale.source.json",
+      "source_kind": "physical_recording",
+      "source_sha256": "7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0",
+      "video": "../data/general/rolling-ball-grayscale.avi"
+    },
+    {
+      "profile": "appearance",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "triple-collision-interval",
+      "source_kind": "physical_recording",
+      "rights": "Rhetos, CC BY-SA4.0, complete official240p derivative of Dreifachsto\u00df; physical interval selected before inference",
+      "video": "../data/balls/triple-collision-240p.webm",
+      "config": "../data/balls/triple-collision-240p.scene.json",
+      "source_sha256": "f2d9f8125a197ec135dcc4d95e5b1b615c875f097c12ee272d83f8b97baa0887",
+      "conditions": [
+        "full source212.65seconds retained",
+        "real-time event2580-2760",
+        "initialization2620",
+        "pre-initialization hand occlusion",
+        "small objects",
+        "camera drift",
+        "exits retained"
+      ]
+    }
+  ]
+}

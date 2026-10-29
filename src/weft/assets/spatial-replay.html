@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weft · 3D recorded simulation</title>
+<style>
+body{margin:30px auto;padding:0 20px;max-width:1080px;background:#F5EADC;color:#214F50;font:16px system-ui;line-height:1.5}
+canvas{width:100%;background:#FBF7F1;border:1px solid #D8C9BA}button,input{font:inherit}button{padding:9px 16px;border:1px solid #965644;background:#965644;color:#F5EADC;cursor:pointer}input{width:60%;vertical-align:middle}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#FBF7F1;padding:16px;font-size:13px}a{color:#965644}
+</style>
+<h1>3D recorded simulation</h1>
+<p>One simulated world, seen from the front, above and at an angle. This is a saved replay, not live controls. Depth, materials and forces are assumptions, not verified physical measurements.</p>
+<p id="status" role="status">Loading recorded states…</p>
+<canvas id="view" width="1080" height="400" aria-label="Three views of the same recorded 3D world"></canvas>
+<p><button id="play" disabled>Play</button> <input id="scrub" aria-label="Recorded state" type="range" min="0" value="0" disabled> <output id="frame"></output></p>
+<label>3D view angle <input id="yaw" aria-label="3D view angle" type="range" min="-3.14" max="3.14" value="0.5" step="0.02"></label>
+<p><label>Zoom <input id="zoom" aria-label="View zoom" type="range" min="1" max="3" value="1" step="0.1"></label> <label><input id="follow" type="checkbox" style="width:auto"> Follow the moving objects</label></p>
+<p>Turning the view does not change the recording. Supports are wireframes so moving objects stay visible. Dots mark simulated contacts; the outlined circle is the authored target.</p>
+<p><a href="video.mp4" download>Download video</a> · <a href="events.jsonl" download>Actions and states</a> · <a href="scene.json" download>Scene assumptions</a></p>
+<details id="details"><summary>Selected state details</summary><pre id="detail"></pre></details>
+<script id="data" type="application/json">__WEFT_DATA__</script>
+<script>
+'use strict';
+const canvas=document.getElementById('view'),ctx=canvas.getContext('2d'),slider=document.getElementById('scrub'),play=document.getElementById('play'),yaw=document.getElementById('yaw'),status=document.getElementById('status');
+const details=document.getElementById('details'),detail=document.getElementById('detail');
+const zoom=document.getElementById('zoom'),follow=document.getElementById('follow');
+let scene=null,event=null,count=0,timer=null,busy=false,wanted=0,requested=0,closed=false;
+const faces=[[0,1,3,2],[4,6,7,5],[0,4,5,1],[2,3,7,6],[0,2,6,4],[1,5,7,3]];
+const workerSource=`let bundle;onmessage=({data})=>{try{if(data.type==='init'){bundle=JSON.parse(data.raw);postMessage({type:'ready',scene:bundle.scene,count:bundle.events.length});}else{postMessage({type:'frame',index:data.index,event:bundle.events[data.index]});}}catch(error){postMessage({type:'error',message:String(error)});}};`;
+const url=URL.createObjectURL(new Blob([workerSource],{type:'application/javascript'}));
+const worker=new Worker(url);
+function stop(){if(timer!==null)clearTimeout(timer);timer=null;play.textContent='Play';}
+function requestFrame(index){wanted=Math.max(0,Math.min(count-1,index));if(busy||closed||!scene)return;busy=true;requested=wanted;worker.postMessage({type:'frame',index:requested});}
+function rotate([x,y,z],[w,a,b,c]){return [(1-2*(b*b+c*c))*x+2*(a*b-w*c)*y+2*(a*c+w*b)*z,2*(a*b+w*c)*x+(1-2*(a*a+c*c))*y+2*(b*c-w*a)*z,2*(a*c-w*b)*x+2*(b*c+w*a)*y+(1-2*(a*a+b*b))*z];}
+function corners(o){const result=[];for(const x of [-1,1])for(const y of [-1,1])for(const z of [-1,1]){const r=rotate([x*o.size[0]/2,y*o.size[1]/2,z*o.size[2]/2],o.quaternion);result.push(r.map((v,i)=>v+o.position[i]));}return result;}
+function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3,scale=Number(zoom.value)*Math.min(pane*.85,canvas.height*.76/Math.max(...scene.bounds));
+const moving=state.objects.filter(o=>o.role!=='static'),center=follow.checked?[0,1,2].map(i=>moving.reduce((sum,o)=>sum+o.position[i],0)/moving.length):scene.bounds.map(v=>v/2);
+const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:'3D: same state',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
+const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0);
+views.forEach((view,index)=>{ctx.save();ctx.beginPath();ctx.rect(index*pane,0,pane,canvas.height);ctx.clip();const project=p=>{const q=p.map((v,i)=>v-center[i]);return [(index+.5)*pane+dot(q,view.matrix[0])*scale,canvas.height*.55+dot(q,view.matrix[1])*scale];};ctx.fillStyle='#214F50';ctx.font='15px system-ui';ctx.fillText(view.name,index*pane+10,22);const shapes=[];
+for(const o of state.objects){const moving=o.role!=='static';if(o.shape==='sphere'){shapes.push({moving,depth:dot(o.position,view.depth),object:o});continue;}const vertices=corners(o);for(const face of faces){const points=face.map(i=>vertices[i]);shapes.push({moving,depth:points.reduce((sum,p)=>sum+dot(p,view.depth),0)/4,points,color:o.color});}}
+for(const shape of shapes.sort((a,b)=>Number(a.moving)-Number(b.moving)||a.depth-b.depth)){ctx.beginPath();ctx.strokeStyle=shape.moving?'#214F50':'#AAA399';ctx.lineWidth=1;if(shape.object){const o=shape.object,[x,y]=project(o.position);ctx.fillStyle=o.color;ctx.arc(x,y,o.radius*scale,0,2*Math.PI);}else{ctx.fillStyle=shape.color;shape.points.forEach((p,i)=>{const [x,y]=project(p);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.closePath();}if(shape.moving)ctx.fill();ctx.stroke();}
+let [tx,ty]=project(state.target);ctx.beginPath();ctx.strokeStyle='#965644';ctx.lineWidth=2;ctx.arc(tx,ty,scene.task.position_tolerance*scale,0,2*Math.PI);ctx.stroke();for(const contact of state.contact_details){const [x,y]=project(contact.position);ctx.beginPath();ctx.fillStyle='#965644';ctx.arc(x,y,2.5,0,2*Math.PI);ctx.fill();}ctx.restore();});
+document.getElementById('frame').textContent=`${Number(slider.value)+1} / ${count}`;
+status.textContent=`${event.type} · ${state.time_s.toFixed(3)} simulated seconds · ${state.contact_count} contacts · ${state.substeps} integration substeps`;
+if(details.open)detail.textContent=JSON.stringify(event,null,2);}
+function tick(){if(document.hidden||closed){stop();return;}if(Number(slider.value)>=count-1){stop();return;}slider.value=Number(slider.value)+1;requestFrame(Number(slider.value));timer=setTimeout(tick,1000*scene.dt);}
+worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;count=data.count;slider.max=count-1;play.disabled=slider.disabled=false;requestFrame(0);return;}busy=false;if(data.index===wanted){event=data.event;draw();}else requestFrame(wanted);};
+worker.onerror=()=>{stop();status.textContent='Could not start the local recording reader.';};
+{const input=document.getElementById('data');worker.postMessage({type:'init',raw:input.textContent});input.remove();}
+play.addEventListener('click',()=>{if(timer!==null){stop();return;}if(Number(slider.value)>=count-1){slider.value=0;requestFrame(0);}play.textContent='Pause';timer=setTimeout(tick,1000*scene.dt);});
+slider.addEventListener('input',()=>{stop();requestFrame(Number(slider.value));});yaw.addEventListener('input',draw);details.addEventListener('toggle',()=>{if(details.open&&event)detail.textContent=JSON.stringify(event,null,2);else detail.textContent='';});
+zoom.addEventListener('input',draw);follow.addEventListener('change',draw);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',()=>{stop();closed=true;worker.terminate();URL.revokeObjectURL(url);});
+window.addEventListener('pageshow',event=>{if(event.persisted)location.reload();});
+</script></html>

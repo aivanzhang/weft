@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "clip_id": "jumping-jacks-burpees",
+  "source_path": "data/exercise/jumping-jacks-burpees.webm",
+  "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+  "source_width": 640,
+  "source_height": 480,
+  "source_reported_frame_count": 1357,
+  "source_fps": 29.97,
+  "selection_file": "artifacts/root-source-labels-01/frame-selection-frozen.json",
+  "selection_sha256": "8705780c606182b8accbd71a976d9192934f5b0221fa4a620832294fe92c9240",
+  "selection_rule": "zero-based floor(fraction * (reported_source_frame_count - 1)), fractions 0.1,0.5,0.9; metadata-only selection frozen before pixel viewing",
+  "frozen_at": "2026-10-28T14:49:58.880578-07:00",
+  "annotation_method": "Assistant visual estimates from the 12 preselected original source frames only; no pose model, candidate output, calibration or tracker inspected.",
+  "coordinate_system": "Original decoded image pixels, origin top-left, x right, y down; letterboxing retained.",
+  "landmark_definition": "Projected midpoint of estimated left/right hip joint centers and projected midpoint of estimated shoulder joints. Occluded side-view joints are approximate body-outline estimates, not directly observed anatomy.",
+  "uncertainty_definition": "Subjective radial pixel allowance, not a calibrated probability/confidence interval. Torso-length allowance is sum of endpoint allowances.",
+  "measurement_scope": "2D image-root proxy and projected torso segment only; not 3D position, physical scale, true torso length or anatomical ground truth.",
+  "do_not_fit_camera_or_scale_to_labels": true,
+  "annotations": [
+    {
+      "frame": 135,
+      "fraction": 0.1,
+      "nominal_time_s": 4.504504504504505,
+      "image_path": "artifacts/root-source-labels-01/jumping-jacks-burpees-frame-135-original.png",
+      "image_png_sha256": "db2d09515ef5266bb36ee3bda58af1d556a5c4c2e3f8c9f0f33cd8b6a6879cab",
+      "decoded_rgb_sha256": "1d8bb22d1d55a46d313338ff77d288f8360c0c0b43d3479d655e8107f06068be",
+      "pelvis_midpoint_px": null,
+      "pelvis_uncertainty_radius_px": null,
+      "pelvis_visibility": "occluded_not_observable",
+      "pelvis_confidence": "not_estimable",
+      "shoulder_midpoint_px": [
+        306,
+        262
+      ],
+      "shoulder_uncertainty_radius_px": 16,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": null,
+      "projected_torso_length_uncertainty_px": null,
+      "torso_measurement_status": "not_observable",
+      "notes": "Side view where available; far hip/shoulder hidden. Frame135 faces camera with torso foreshortened and hips hidden behind torso/head: pelvis and torso length intentionally null."
+    },
+    {
+      "frame": 678,
+      "fraction": 0.5,
+      "nominal_time_s": 22.622622622622625,
+      "image_path": "artifacts/root-source-labels-01/jumping-jacks-burpees-frame-678-original.png",
+      "image_png_sha256": "ee1809c14eed6054651b1ad2eefa2ecd222c31538b39d0db745f6373164c88d2",
+      "decoded_rgb_sha256": "30fbcc16d47cd922dd867c8ecf03658f35cc82a62a7a6cb0f1ff223d5f040650",
+      "pelvis_midpoint_px": [
+        311,
+        231
+      ],
+      "pelvis_uncertainty_radius_px": 14,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        307,
+        174
+      ],
+      "shoulder_uncertainty_radius_px": 12,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 57.14,
+      "projected_torso_length_uncertainty_px": 26,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Side view where available; far hip/shoulder hidden. Frame135 faces camera with torso foreshortened and hips hidden behind torso/head: pelvis and torso length intentionally null."
+    },
+    {
+      "frame": 1220,
+      "fraction": 0.9,
+      "nominal_time_s": 40.70737404070738,
+      "image_path": "artifacts/root-source-labels-01/jumping-jacks-burpees-frame-1220-original.png",
+      "image_png_sha256": "97f54ee5894fd2bb45723bfb34843247fca0b178eb6e98c13bcc78011edbf0a4",
+      "decoded_rgb_sha256": "551b2b3e85c6deb23f94e6b66e18059e8aa012d2776272789043b372934e16b0",
+      "pelvis_midpoint_px": [
+        304,
+        249
+      ],
+      "pelvis_uncertainty_radius_px": 16,
+      "pelvis_visibility": "partly_occluded_estimate",
+      "pelvis_confidence": "assistant_visual_estimate_low",
+      "shoulder_midpoint_px": [
+        247,
+        278
+      ],
+      "shoulder_uncertainty_radius_px": 14,
+      "shoulder_visibility": "partly_occluded_estimate",
+      "shoulder_confidence": "assistant_visual_estimate_low",
+      "projected_torso_length_px": 63.953,
+      "projected_torso_length_uncertainty_px": 30,
+      "torso_measurement_status": "derived_from_two_visual_estimates",
+      "notes": "Side view where available; far hip/shoulder hidden. Frame135 faces camera with torso foreshortened and hips hidden behind torso/head: pelvis and torso length intentionally null."
+    }
+  ]
+}

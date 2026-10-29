@@ -1,12 +1,16 @@
 # Weft — from observation to an executable world
 
+Current implementation and the user's exercise-video priority are documented in the [local lab guide](docs/local-lab.md). This file retains the broader product target; the original single-ball status descriptions are historical, not the current feature inventory.
+
+**Parallel execution:** Codex owns [Track A: video understanding and scene reconstruction](docs/handoffs/track-a-goal.md); agy owns [Track B: simulation, RL and the unified lab](AGY_GOAL_PROMPT.md). These are non-overlapping layers of the same system, not exercise/object forks. Follow [ownership and durable handoffs](docs/parallel-workstreams.md). Track A remains paused until the user resumes it; B can start independently on existing contracts and fixtures.
+
 **One video → an object-based world model → an interactive simulator → a trainable RL environment.**
 
 Weft's goal is to turn a physical demonstration into a world an agent can act in, test, and learn from. The world should explain the recording and remain coherent when an agent takes a different action.
 
 **The reconstructed video is evidence of the environment. It is not the environment itself.**
 
-Design updated October 27, 2026. This document defines the product target, not a claim that every capability is implemented. The current prototype remains a restricted single-ball profile; see [implementation architecture](docs/architecture.md) and [verified status](TODO.md).
+Design originated October 27, 2026; collaboration assignment updated October 29, 2026. This document defines the product target, not a claim that every capability is implemented. Several local rigid/human profiles now exist, but generalized reconstruction remains incomplete; see [implementation architecture](docs/architecture.md) and [verified status](TODO.md).
 
 [First-version scope](v1.md) · [Hackathon pitch](hackathon/pitch.md) · [Iteration workflow](docs/iteration.md)
 

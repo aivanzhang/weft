@@ -26,7 +26,7 @@ def test_manifest_rejects_paths_outside_run(tmp_path):
 def test_missing_meta_key_fails_explicitly_without_network(monkeypatch, tmp_path, world):
     monkeypatch.delenv("META_API_KEY", raising=False)
     monkeypatch.delenv("MODEL_API_KEY", raising=False)
-    assert not status()["credential_present"]
+    assert not status(tmp_path)["credential_present"]
     with pytest.raises(ValueError, match="absent"):
-        propose_meta("unused", [], world, tmp_path, 1)
+        propose_meta("unused", [], world, tmp_path, 1, project_root=tmp_path)
     assert list(tmp_path.iterdir()) == []

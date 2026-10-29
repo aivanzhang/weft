@@ -1,13 +1,16 @@
 # Resolved on Python 3.14 / macOS arm64; install before --no-deps -e .
 cloudpickle==3.1.2
+cffi==2.1.1
 Farama-Notifications==0.0.6
 gymnasium==1.4.0
 iniconfig==2.3.1
 numpy==2.5.4
-opencv-python-headless==4.14.0.94
+opencv-contrib-python==4.14.0.94
 packaging==26.3
 pillow==12.3.0
 pluggy==1.7.0
 Pygments==2.21.0
+pycparser==3.12
+pymunk==7.3.0
 pytest==9.1.1
 typing_extensions==4.16.0

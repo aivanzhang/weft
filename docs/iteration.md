@@ -1,5 +1,7 @@
 # Iterating on Weft
 
+For the new interactive exercise/tabletop workflow, start with the [local lab guide](local-lab.md). Commands below remain the original rolling-profile experiment/comparison contract. `weft compare` is intentionally restricted to that original format; it does not automatically rank exercise/planar lab runs. Keep their source/model/task identities and matched evaluation conditions explicit.
+
 ## One experiment, one hypothesis
 
 1. Read the current scope and choose a pending acceptance gate in [TODO](../TODO.md).

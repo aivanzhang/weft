@@ -1,0 +1,285 @@
+{
+  "cases": [
+    {
+      "body_model": "mobile",
+      "conditions": [
+        "side view",
+        "leg motion",
+        "far arm occluded",
+        "nineteen rotation axes and three translational slides; authored floor/support",
+        "fixed-camera and fixed weak-perspective scale assumptions; depth reference unobserved"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "mobile_reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        },
+        {
+          "metric": "root_reference_rmse_units",
+          "operator": "max",
+          "value": 0.15
+        },
+        {
+          "metric": "floor_penetration_units",
+          "operator": "max",
+          "value": 0.025
+        }
+      ],
+      "id": "single-leg-squat",
+      "pose_identity": "temporal",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"RickyBennison\", \"license\": \"CC BY-SA 4.0\", \"title\": \"Basic single leg squat\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "video": "../data/exercise/single-leg-squat.webm"
+    },
+    {
+      "body_model": "mobile",
+      "conditions": [
+        "cropped feet",
+        "squat",
+        "nineteen rotation axes and three translational slides; authored floor/support",
+        "fixed-camera and fixed weak-perspective scale assumptions; depth reference unobserved"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "mobile_reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        },
+        {
+          "metric": "root_reference_rmse_units",
+          "operator": "max",
+          "value": 0.15
+        },
+        {
+          "metric": "floor_penetration_units",
+          "operator": "max",
+          "value": 0.025
+        }
+      ],
+      "id": "squat",
+      "pose_identity": "temporal",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"FitnessScape\", \"license\": \"CC BY 3.0\", \"title\": \"Squat - exercise demonstration video\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "video": "../data/exercise/squat.webm"
+    },
+    {
+      "body_model": "mobile",
+      "conditions": [
+        "horizontal torso",
+        "arm motion",
+        "object support",
+        "nineteen rotation axes and three translational slides; authored floor/support",
+        "fixed-camera and fixed weak-perspective scale assumptions; depth reference unobserved"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "mobile_reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        },
+        {
+          "metric": "root_reference_rmse_units",
+          "operator": "max",
+          "value": 0.15
+        },
+        {
+          "metric": "floor_penetration_units",
+          "operator": "max",
+          "value": 0.025
+        }
+      ],
+      "id": "kettlebell-pushup",
+      "pose_identity": "temporal",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"title\": \"Kettlebell crush grip push-up\", \"author\": \"Taco Fleur / Cavemantraining\", \"license\": \"CC BY-SA 4.0\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "video": "../data/exercise/kettlebell-pushup.webm"
+    },
+    {
+      "body_model": "mobile",
+      "conditions": [
+        "lateral limbs",
+        "root translation",
+        "fast movement",
+        "detector ambiguity",
+        "nineteen rotation axes and three translational slides; authored floor/support",
+        "fixed-camera and fixed weak-perspective scale assumptions; depth reference unobserved"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "mobile_reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        },
+        {
+          "metric": "root_reference_rmse_units",
+          "operator": "max",
+          "value": 0.15
+        },
+        {
+          "metric": "floor_penetration_units",
+          "operator": "max",
+          "value": 0.025
+        }
+      ],
+      "id": "jumping-jacks-burpees",
+      "pose_identity": "temporal",
+      "pose_mode": "image",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"Taco Fleur / Cavemantraining\", \"license\": \"CC BY-SA 4.0\", \"title\": \"Jumping jacks and burpees\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "video": "../data/exercise/jumping-jacks-burpees.webm"
+    },
+    {
+      "body_model": "mobile",
+      "conditions": [
+        "twisting",
+        "leg motion",
+        "detector ambiguity",
+        "fixed-camera and fixed weak-perspective scale assumptions; depth reference unobserved"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        },
+        {
+          "metric": "root_reference_rmse_units",
+          "operator": "max",
+          "value": 0.15
+        },
+        {
+          "metric": "floor_penetration_units",
+          "operator": "max",
+          "value": 0.025
+        }
+      ],
+      "id": "lunge-twist",
+      "pose_identity": "temporal",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"title\": \"Kettlebell Lunge and Twist\", \"author\": \"Taco Fleur / Cavemantraining\", \"license\": \"CC BY-SA 4.0\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "video": "../data/exercise/lunge-twist.webm"
+    }
+  ],
+  "name": "Mobile exercise body v9",
+  "purpose": "Test explicit image-root translation, authored first-pose floor collisions and virtual support; preserve source gaps and pose ambiguity as desired-case failures. No measured physical balance or muscle claim.",
+  "schema_version": 1
+}

@@ -1,0 +1,104 @@
+{
+  "known_failure": "Both modes miss one visible person in jumping-jacks-burpees frame616 montage; single detected pose is not proof of one visible person",
+  "partition": "development negative controls, not final holdout",
+  "reviewed_at": "2026-10-28T12:55:41.314503-07:00",
+  "reviewer": "Assistant visual inspection of all five montage images",
+  "rows": [
+    {
+      "construction": "Two side-by-side copies of source crop x=30%-65%, full frame height; no person rescaling",
+      "image": "artifacts/pose-identity-review-01/two-person-controls/lunge-twist-0.png",
+      "image_mode_status": "multiple_people",
+      "image_sha256": "d2b411fa6c52ba39754ee59fcccb1dc18926d2aca582ec2a1be806b77a4f463a",
+      "label_scope": "Visually reviewed two separate visible human bodies; not a natural multi-person video or landmark truth",
+      "source": "data/exercise/lunge-twist.webm",
+      "source_frame": 0,
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "synthetic_montage": true,
+      "video_mode_statuses": [
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people"
+      ],
+      "visible_person_count": 2
+    },
+    {
+      "construction": "Two side-by-side copies of source crop x=30%-65%, full frame height; no person rescaling",
+      "image": "artifacts/pose-identity-review-01/two-person-controls/lunge-twist-604.png",
+      "image_mode_status": "multiple_people",
+      "image_sha256": "7e7fa1f5c6bbc73e57039fe1e6b60713732671f63488dac94ebc754093cdf463",
+      "label_scope": "Visually reviewed two separate visible human bodies; not a natural multi-person video or landmark truth",
+      "source": "data/exercise/lunge-twist.webm",
+      "source_frame": 604,
+      "source_sha256": "afe0c808e05c6b178c90295f9b9deeeda16322a5b6e1b10d8ebeac31c5eb8a34",
+      "synthetic_montage": true,
+      "video_mode_statuses": [
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people"
+      ],
+      "visible_person_count": 2
+    },
+    {
+      "construction": "Two side-by-side copies of source crop x=30%-65%, full frame height; no person rescaling",
+      "image": "artifacts/pose-identity-review-01/two-person-controls/jumping-jacks-burpees-0.png",
+      "image_mode_status": "multiple_people",
+      "image_sha256": "6e4906b9a212a9c009b2dbf6211a1e0176fc5a2ddc30edf3e1cb7db9eb348d35",
+      "label_scope": "Visually reviewed two separate visible human bodies; not a natural multi-person video or landmark truth",
+      "source": "data/exercise/jumping-jacks-burpees.webm",
+      "source_frame": 0,
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "synthetic_montage": true,
+      "video_mode_statuses": [
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people",
+        "multiple_people"
+      ],
+      "visible_person_count": 2
+    },
+    {
+      "construction": "Two side-by-side copies of source crop x=30%-65%, full frame height; no person rescaling",
+      "image": "artifacts/pose-identity-review-01/two-person-controls/jumping-jacks-burpees-106.png",
+      "image_mode_status": "low_confidence",
+      "image_sha256": "786b16d808a57185fe608e3e4824ef6839f5484d190e4c97ac123f76ffae2b80",
+      "label_scope": "Visually reviewed two separate visible human bodies; not a natural multi-person video or landmark truth",
+      "source": "data/exercise/jumping-jacks-burpees.webm",
+      "source_frame": 106,
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "synthetic_montage": true,
+      "video_mode_statuses": [
+        "low_confidence",
+        "low_confidence",
+        "low_confidence",
+        "low_confidence",
+        "low_confidence"
+      ],
+      "visible_person_count": 2
+    },
+    {
+      "construction": "Two side-by-side copies of source crop x=30%-65%, full frame height; no person rescaling",
+      "image": "artifacts/pose-identity-review-01/two-person-controls/jumping-jacks-burpees-616.png",
+      "image_mode_status": "tracked",
+      "image_sha256": "aee6b321475878da455f5e1e2043c298c6cc4237f24328240fe2a622cdabfb33",
+      "label_scope": "Visually reviewed two separate visible human bodies; not a natural multi-person video or landmark truth",
+      "source": "data/exercise/jumping-jacks-burpees.webm",
+      "source_frame": 616,
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "synthetic_montage": true,
+      "video_mode_statuses": [
+        "tracked",
+        "tracked",
+        "tracked",
+        "tracked",
+        "tracked"
+      ],
+      "visible_person_count": 2
+    }
+  ],
+  "schema_version": 1
+}

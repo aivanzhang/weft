@@ -1,0 +1,45 @@
+{
+  "status": "source-only candidate; unsupported fixed-camera claim",
+  "source_sha256": "f2d9f8125a197ec135dcc4d95e5b1b615c875f097c12ee272d83f8b97baa0887",
+  "start_frame": 2580,
+  "end_frame_inclusive": 2760,
+  "initialization_frame": 2620,
+  "initialization_note": "First inspected frame with all three centers visible; preserve preceding occlusion in scored full interval.",
+  "objects": [
+    {
+      "id": "upper-passive",
+      "role": "passive",
+      "bbox_xywh": [
+        187,
+        104,
+        8,
+        8
+      ]
+    },
+    {
+      "id": "lower-passive",
+      "role": "passive",
+      "bbox_xywh": [
+        189,
+        111,
+        8,
+        8
+      ]
+    },
+    {
+      "id": "incoming-active",
+      "role": "active",
+      "bbox_xywh": [
+        270,
+        113,
+        8,
+        8
+      ]
+    }
+  ],
+  "camera_model": "unknown; observed drift",
+  "meters_per_pixel": null,
+  "gravity": null,
+  "restitution": null,
+  "fit_or_tracker_run": false
+}

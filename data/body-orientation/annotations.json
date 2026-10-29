@@ -1,0 +1,293 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "body-orientation-development-v1",
+  "authored_at": "2026-10-28T12:48:48.161346-07:00",
+  "annotation_kind": "assistant_authored_visual_estimates",
+  "split": "development_not_final_holdout",
+  "coordinate_system": "original_image_pixels_x_right_y_down_including_letterboxing",
+  "label_protocol": "Approximate hip and shoulder midpoints selected by visually inspecting original decoded video frames before inspecting model pose outputs or candidate torso predictions. Coordinates and 15-degree tolerances frozen before candidate grading. No clinical or independent expert ground truth.",
+  "limitations": [
+    "Nine purposively selected frames from three familiar development clips; not representative statistical sampling.",
+    "Far-side occlusion and clothing make joint midpoints uncertain.",
+    "Torso-axis agreement does not establish recovered anatomy, 3D scale, joint correctness, dynamic balance, force, or measured muscle activation.",
+    "No annotation or tolerance tuning after viewing candidate results."
+  ],
+  "sources": [
+    {
+      "clip_id": "squat",
+      "path": "data/exercise/squat.webm",
+      "sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "width": 1280,
+      "height": 720,
+      "fps": 30.0,
+      "attribution": {
+        "author": "FitnessScape",
+        "bytes": 564942,
+        "changes": "Original WebM retained unchanged. Feet are cropped; use as a limited-input example.",
+        "file": "squat.webm",
+        "license": "CC BY 3.0",
+        "license_url": "https://creativecommons.org/licenses/by/3.0/",
+        "scope": "Recorded human exercise; not measured muscle activation or force",
+        "sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Squat_-_exercise_demonstration_video.webm",
+        "title": "Squat - exercise demonstration video",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Squat_-_exercise_demonstration_video.webm",
+        "verified_at": "2026-10-28T11:31:14.402402-07:00"
+      }
+    },
+    {
+      "clip_id": "single-leg-squat",
+      "path": "data/exercise/single-leg-squat.webm",
+      "sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "width": 480,
+      "height": 640,
+      "fps": 30.0,
+      "attribution": {
+        "author": "RickyBennison",
+        "bytes": 349255,
+        "changes": "Original WebM retained unchanged; Weft creates separately labeled derived pose overlays.",
+        "file": "single-leg-squat.webm",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "scope": "Recorded human exercise; not measured muscle activation or force",
+        "sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Basic_single_leg_squat.webm",
+        "title": "Basic single leg squat",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Basic_single_leg_squat.webm",
+        "verified_at": "2026-10-28T11:31:14.401985-07:00"
+      }
+    },
+    {
+      "clip_id": "kettlebell-pushup",
+      "path": "data/exercise/kettlebell-pushup.webm",
+      "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "width": 640,
+      "height": 480,
+      "fps": 30.0,
+      "attribution": {
+        "file": "kettlebell-pushup.webm",
+        "title": "Kettlebell crush grip push-up",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Kettlebell_crush_grip_push-up.webm",
+        "source_page": "https://commons.wikimedia.org/wiki/File:Kettlebell_crush_grip_push-up.webm",
+        "author": "Taco Fleur / Cavemantraining",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "bytes": 1251790,
+        "sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+        "verified_at": "2026-10-28T12:23:44.958911-07:00",
+        "changes": "Original WebM retained unchanged; derived pose previews are separate adaptations.",
+        "scope": "Recorded human development evidence; not measured biomechanics, force, or muscle activation",
+        "challenge": "horizontal torso; loaded hands; fixed camera"
+      }
+    }
+  ],
+  "frames": [
+    {
+      "id": "squat:10",
+      "clip_id": "squat",
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "frame_index": 10,
+      "timestamp_seconds": 0.3333333333333333,
+      "image_path": "data/body-orientation/squat-10.png",
+      "image_sha256": "c30367211898618251e83282c0e3ac8d6dced184fcf90cfdf435beb705979787",
+      "width": 1280,
+      "height": 720,
+      "hip_xy": [
+        502,
+        367
+      ],
+      "shoulder_xy": [
+        503,
+        120
+      ],
+      "endpoint_uncertainty_pixels": 25,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Three-quarter rear view; clothing and barbell obscure exact anatomical centers."
+    },
+    {
+      "id": "squat:50",
+      "clip_id": "squat",
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "frame_index": 50,
+      "timestamp_seconds": 1.6666666666666667,
+      "image_path": "data/body-orientation/squat-50.png",
+      "image_sha256": "b43517d36949555a71e2f3f7b992279c03dd1a717f2e46ca8d020f4c44a996ce",
+      "width": 1280,
+      "height": 720,
+      "hip_xy": [
+        456,
+        493
+      ],
+      "shoulder_xy": [
+        500,
+        274
+      ],
+      "endpoint_uncertainty_pixels": 25,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Three-quarter rear view; clothing and barbell obscure exact anatomical centers."
+    },
+    {
+      "id": "squat:90",
+      "clip_id": "squat",
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "frame_index": 90,
+      "timestamp_seconds": 3.0,
+      "image_path": "data/body-orientation/squat-90.png",
+      "image_sha256": "e624ec1fc3ee1aff3e6e605612b894d695de59d4e61861e315fe4b9bf4e7569f",
+      "width": 1280,
+      "height": 720,
+      "hip_xy": [
+        445,
+        482
+      ],
+      "shoulder_xy": [
+        495,
+        278
+      ],
+      "endpoint_uncertainty_pixels": 25,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Three-quarter rear view; clothing and barbell obscure exact anatomical centers."
+    },
+    {
+      "id": "single-leg-squat:20",
+      "clip_id": "single-leg-squat",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "frame_index": 20,
+      "timestamp_seconds": 0.6666666666666666,
+      "image_path": "data/body-orientation/single-leg-squat-20.png",
+      "image_sha256": "a1d4e441ab2bfd13de977deb4154fe48eaba2a2834cdfda12ba107c2f870c3c4",
+      "width": 480,
+      "height": 640,
+      "hip_xy": [
+        224,
+        311
+      ],
+      "shoulder_xy": [
+        201,
+        256
+      ],
+      "endpoint_uncertainty_pixels": 7,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    },
+    {
+      "id": "single-leg-squat:100",
+      "clip_id": "single-leg-squat",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "frame_index": 100,
+      "timestamp_seconds": 3.3333333333333335,
+      "image_path": "data/body-orientation/single-leg-squat-100.png",
+      "image_sha256": "c35c3e33e3f037c676f59b992141751a6a3caeff8d3f46ba90b38c383d863c03",
+      "width": 480,
+      "height": 640,
+      "hip_xy": [
+        228,
+        317
+      ],
+      "shoulder_xy": [
+        195,
+        269
+      ],
+      "endpoint_uncertainty_pixels": 7,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    },
+    {
+      "id": "single-leg-squat:180",
+      "clip_id": "single-leg-squat",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "frame_index": 180,
+      "timestamp_seconds": 6.0,
+      "image_path": "data/body-orientation/single-leg-squat-180.png",
+      "image_sha256": "f1872952be14f2e0346aa6671c0cbe0d8ac4af70db5f3b507b7910cec617f83c",
+      "width": 480,
+      "height": 640,
+      "hip_xy": [
+        235,
+        337
+      ],
+      "shoulder_xy": [
+        190,
+        301
+      ],
+      "endpoint_uncertainty_pixels": 7,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    },
+    {
+      "id": "kettlebell-pushup:30",
+      "clip_id": "kettlebell-pushup",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "frame_index": 30,
+      "timestamp_seconds": 1.0,
+      "image_path": "data/body-orientation/kettlebell-pushup-30.png",
+      "image_sha256": "35e32627b62779b2e77d97d20eab3c0206cc1843836ce119751906353a42eb21",
+      "width": 640,
+      "height": 480,
+      "hip_xy": [
+        344,
+        318
+      ],
+      "shoulder_xy": [
+        253,
+        289
+      ],
+      "endpoint_uncertainty_pixels": 10,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    },
+    {
+      "id": "kettlebell-pushup:120",
+      "clip_id": "kettlebell-pushup",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "frame_index": 120,
+      "timestamp_seconds": 4.0,
+      "image_path": "data/body-orientation/kettlebell-pushup-120.png",
+      "image_sha256": "940aa629485856683ed16e7b7e778b9ddb1d1f7b6dfe302618220e22e27dd01c",
+      "width": 640,
+      "height": 480,
+      "hip_xy": [
+        341,
+        327
+      ],
+      "shoulder_xy": [
+        250,
+        289
+      ],
+      "endpoint_uncertainty_pixels": 10,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    },
+    {
+      "id": "kettlebell-pushup:210",
+      "clip_id": "kettlebell-pushup",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "frame_index": 210,
+      "timestamp_seconds": 7.0,
+      "image_path": "data/body-orientation/kettlebell-pushup-210.png",
+      "image_sha256": "066562a9e6da1728917075f552750c79ff97fb4e407f32ce1b535e5d1874e580",
+      "width": 640,
+      "height": 480,
+      "hip_xy": [
+        337,
+        329
+      ],
+      "shoulder_xy": [
+        248,
+        291
+      ],
+      "endpoint_uncertainty_pixels": 10,
+      "angular_tolerance_degrees": 15,
+      "visibility": "approximate_clothing_or_near_side_landmarks",
+      "visibility_note": "Side view; far hip and shoulder are occluded; visible near-side centers approximate the midpoint."
+    }
+  ]
+}

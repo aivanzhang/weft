@@ -1,0 +1,212 @@
+{
+  "cases": [
+    {
+      "conditions": [
+        "side view",
+        "leg motion",
+        "far arm occluded"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "single-leg-squat",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"RickyBennison\", \"license\": \"CC BY-SA 4.0\", \"title\": \"Basic single leg squat\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e",
+      "video": "../data/exercise/single-leg-squat.webm"
+    },
+    {
+      "conditions": [
+        "cropped feet",
+        "squat"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "squat",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"FitnessScape\", \"license\": \"CC BY 3.0\", \"title\": \"Squat - exercise demonstration video\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "2440985661c3533a4ce78472b0f4577dbdf023aff3f8f9a225bbb5ff8071b1e9",
+      "video": "../data/exercise/squat.webm"
+    },
+    {
+      "conditions": [
+        "horizontal torso",
+        "arm motion",
+        "object support"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "kettlebell-pushup",
+      "pose_mode": "video",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"title\": \"Kettlebell crush grip push-up\", \"author\": \"Taco Fleur / Cavemantraining\", \"license\": \"CC BY-SA 4.0\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc",
+      "video": "../data/exercise/kettlebell-pushup.webm"
+    },
+    {
+      "conditions": [
+        "lateral limbs",
+        "root translation",
+        "fast movement",
+        "detector ambiguity"
+      ],
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "usable_pose_fraction",
+          "operator": "min",
+          "value": 0.65
+        },
+        {
+          "metric": "reference_rmse_rad",
+          "operator": "max",
+          "value": 0.35
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "jumping-jacks-burpees",
+      "pose_mode": "image",
+      "pose_model": "../.local/models/pose_landmarker_lite.task",
+      "profile": "exercise",
+      "rights": "{\"author\": \"Taco Fleur / Cavemantraining\", \"license\": \"CC BY-SA 4.0\", \"title\": \"Jumping jacks and burpees\"}",
+      "source_kind": "physical_recording",
+      "source_sha256": "1c8370a29c52b5b1538f03f8c63be6cdc9333dea3cbd77cc8f2af0dbe496d5b4",
+      "video": "../data/exercise/jumping-jacks-burpees.webm"
+    },
+    {
+      "conditions": [
+        "grayscale appearance",
+        "authored region and first visible pass frames39-60",
+        "same existing source, not independent video",
+        "full source retained, second pass excluded"
+      ],
+      "config": "../data/general/annotations/rolling-grayscale.scene.json",
+      "episodes": 1000,
+      "eval_episodes": 50,
+      "expected": {
+        "status": "ready"
+      },
+      "gates": [
+        {
+          "metric": "reconstruction_rmse_px",
+          "operator": "max",
+          "value": 10
+        },
+        {
+          "metric": "action_effect",
+          "operator": "min",
+          "value": 0.001
+        },
+        {
+          "metric": "recorded_transitions",
+          "operator": "min",
+          "value": 1
+        }
+      ],
+      "id": "rolling-grayscale",
+      "profile": "appearance",
+      "rights": "CC0 Ecole Science; lossless grayscale derivative of existing real rolling source; data/general/rolling-ball-grayscale.source.json",
+      "source_kind": "physical_recording",
+      "source_sha256": "7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0",
+      "video": "../data/general/rolling-ball-grayscale.avi"
+    }
+  ],
+  "name": "Explicit pose modes and grayscale region tracking v3",
+  "purpose": "Affected paths with frozen v1 gates. Mode is authored explicitly, not automatic fallback. Grayscale rolling is transformed existing evidence, not a new independent source. Prior lunge failure retained in v2.",
+  "schema_version": 1
+}

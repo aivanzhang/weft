@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft · Local lab</title><link rel="icon" href="/weft-logo.png"><link rel="stylesheet" href="/brand.css"><link rel="stylesheet" href="/lab.css"><script src="/lab.js" defer></script></head>
+<body>
+<header><img src="/weft-logo.png" alt="Weft" width="68" height="68"><div><p class="eyebrow">LOCAL EXPERIMENT LAB</p><h1>Your video, made interactive.</h1></div><span id="status" role="status">Connecting…</span></header>
+<main>
+<p class="intro">Watch the captured movement, try the simulation, and save what you do. Everything runs on your computer.</p>
+<p id="error" role="alert" hidden></p>
+<div id="reference-feasibility" class="boundary" role="status" hidden><p id="feasibility-notice"></p><button data-json="reference-feasibility.json">Inspect reference floor checks</button></div>
+<section class="start-guide" aria-labelledby="start-heading">
+<h2 id="start-heading">Start here</h2><p id="start-help">Preparing your video. These shortcuts unlock when the environment is ready.</p>
+<div class="quick-start"><button id="start-reference" disabled><strong>1. See the movement</strong><span>Inspect what was captured from the video.</span></button><button id="start-manual" disabled><strong>2. Try it yourself</strong><span>Move the simulation with simple controls.</span></button><button id="start-learned" disabled><strong>3. Watch the controller</strong><span>Watch the trained controller attempt its target.</span></button></div>
+</section>
+<nav aria-label="Explore the lab" id="stages">
+<button data-panel="evidence" class="selected">Video</button><button data-panel="world" id="world-tab">Generated world</button><button data-panel="play">Sandbox</button><button data-panel="results">Learning results</button><button data-panel="repair">Checks &amp; limits</button><button data-panel="artifacts">Files</button>
+</nav>
+<details class="progress" id="build-details" open><summary>How this was built <span id="build-status">· working</span></summary><div><strong id="stage-label">Waiting for the pipeline</strong><span id="stage-detail"></span></div><progress id="progress" max="7" value="0" aria-label="Pipeline progress"></progress><details><summary>Step-by-step event log</summary><ol id="events"></ol></details></details>
+<section id="evidence" class="panel">
+<h2>Start with what was recorded.</h2><p>Compare the original video with the detected movement. The simulation is an approximation, not a copy of reality.</p>
+<div class="two"><figure><figcaption>Original video</figcaption><video id="source" controls preload="metadata"></video><p id="source-selection" class="hint" hidden></p><p class="hint">If your browser cannot decode this file, download the source or inspect the tracked-frame preview.</p></figure><figure><figcaption>Measured tracks / reconstruction preview</figcaption><img id="tracks" alt="Tracked objects or recorded versus simulated motion" hidden><p id="tracks-empty">Preview appears after tracking completes.</p></figure></div>
+<div class="actions"><button data-json="evidence.json">Inspect frame measurements</button><button data-json="source.json">Source and provenance</button></div>
+<div id="coverage-details" class="boundary" hidden><p id="coverage-text"></p><button id="coverage-inspect" data-json="reconstruction-coverage.json">Inspect every frame</button></div>
+<div id="pose-coverage" class="boundary" hidden><h3>What got tracked?</h3><p id="pose-coverage-text" role="status"></p><canvas id="pose-timeline" width="960" height="64" aria-label="Pose coverage along the source video"></canvas><p id="pose-coverage-legend" class="hint">Each mark is one analyzed frame: tall marks are usable estimates, short marks are uncertain, and crosses are unusable. Unanalyzed frames stay blank. Visibility is not proof of correct anatomy.</p><button id="pose-next-issue" disabled>Next tracking issue</button><span id="pose-issue" role="status"></span></div>
+<p id="evidence-boundary" class="boundary">Supported: fixed-camera colored rigid objects in 2D, or the explicit rolling-ball profile. Not arbitrary-video understanding, 3D recovery, or proof of physical transfer.</p>
+</section>
+<section id="world" class="panel" hidden>
+<h2 id="world-heading">One world. Shared physics.</h2><p id="world-description">Objects share coordinates, time, and contacts. Dimensions use image widths, not calibrated meters.</p>
+<div id="human-reference-controls" hidden><button id="reference-play" disabled>Play captured movement</button><label>Video position <input id="reference-frame" type="range" min="0" max="0" value="0"></label><span id="reference-time"></span><label>Rotate view <input id="world-yaw" type="range" min="-3.14" max="3.14" step="0.02" value="0.5"></label><p class="hint">Source-derived joint poses, projected into the simplified body. This is kinematic replay, not a learned action sequence.</p></div>
+<canvas id="world-canvas" width="960" height="540" aria-label="Initial generated scene"></canvas>
+<details><summary>Body / object details and assumptions</summary><div class="table-wrap"><table><thead><tr><th>Object</th><th>Role</th><th>Geometry</th><th>Evidence and assumptions</th></tr></thead><tbody id="objects"></tbody></table></div>
+<h3>Assumptions you should inspect</h3><ul id="assumptions"></ul><button data-json="scene.json" id="scene-json">Inspect model data</button></details>
+</section>
+<section id="repair" class="panel" hidden>
+<h2>What was checked — and what was not.</h2><p id="repair-description">Only bounded dynamics parameters may change. The scorer and task-success definition do not change to make a proposal pass.</p>
+<div id="repair-summary" class="metrics"></div><div class="table-wrap"><table><thead><tr><th>Proposal</th><th>Decision</th><th>Reason</th></tr></thead><tbody id="repairs"></tbody></table></div>
+<div class="actions"><button data-json="repair-ledger.json">Full repair ledger</button><button data-json="reconstruction.json" id="reconstruction-json">Reconstruction measurements</button></div>
+<figure><figcaption>Source-fit preview · development evidence</figcaption><img id="reconstruction-preview" alt="Measured and predicted object positions" hidden></figure>
+<p class="boundary">Better fit to this source does not prove new physical behavior. Same-video checks are development evidence, not an untouched final test.</p>
+</section>
+<section id="results" class="panel" hidden>
+<h2>Learning, measured separately.</h2><p id="learning-description">The learned policy, random actions, and coasting are evaluated on the same generated world and matched starting conditions.</p>
+<div id="scores" class="metrics"></div><canvas id="learning-curve" width="960" height="240" aria-label="Training success over completed episodes"></canvas><p id="training-caption"></p>
+<div class="actions"><button data-json="training.json">Training history</button><button data-json="rl-evaluation.json">Every evaluation trial</button><button data-json="interventions.json">Changed-action tests</button><button data-json="report.json">Full report</button></div>
+<p id="learning-boundary" class="boundary">The parking goal and actuator are authored additions. Simulation success is not evidence that this controller works on a real object.</p>
+</section>
+<section id="play" class="panel" hidden>
+<div class="heading-row"><div><h2>Try the sandbox.</h2><p>Choose who controls the movement, then start. You can pause at any time.</p></div><span id="record-status" role="status">Not recording</span></div>
+<div class="mode-picker" role="group" aria-label="Who controls the movement?">
+<button id="mode-manual" aria-pressed="true" disabled>Move it yourself</button><button id="reference-servo" aria-pressed="false" hidden disabled>Follow video movement</button><button id="policy" aria-pressed="false" disabled>Learned controller</button></div>
+<p id="mode-description">You control the movement. Tap a direction for a small move, or start and hold a direction.</p>
+<div class="sandbox-layout"><div>
+<canvas id="live" width="960" height="640" tabindex="0" aria-label="Interactive simulation. Focus here to use arrow keys; Space slows movement; Escape pauses."></canvas>
+<div class="goal-card"><strong id="play-state" role="status">Preparing environment</strong><p id="goal-summary">The goal appears when the environment is ready.</p></div>
+</div><div class="control-panel">
+<div class="controls"><button id="toggle" class="primary" disabled>Start</button><button id="reset" disabled>Start over</button></div>
+<div id="human-controls" hidden><label><span id="joint-label">Joint to move</span> <select id="joint"></select></label><label>Rotate view <input id="camera-yaw" type="range" min="-3.14" max="3.14" step="0.02" value="0.5"></label><label><input id="show-muscles" type="checkbox" checked> Show illustrative muscles</label></div>
+<p id="control-help">Tap a direction to move. Or start, then hold a direction. Click the scene to use arrow keys or WASD; Space slows movement.</p>
+<div id="manual-directions" class="directions" aria-label="Manual controls"><button data-action="1" disabled>← Left</button><button data-action="3" disabled>↑ Up</button><button data-action="0" disabled>Release</button><button data-action="4" disabled>↓ Down</button><button data-action="2" disabled>Right →</button><button data-action="5" disabled>Slow down</button></div>
+<div id="mobile-controls" hidden><p>Body support is a virtual aid, not learned balance. Release it to let gravity and the assumed floor act on the body. Push while holding a button; restore support to stabilize the current pose.</p><div class="directions"><button data-action="6" hidden disabled>Release body support</button><button data-action="7" hidden disabled>Push body left</button><button data-action="8" hidden disabled>Push body right</button><button data-action="9" hidden disabled>Restore support</button></div><p id="mobile-status" role="status"></p></div>
+<p id="whole-body-status" class="hint" role="status" hidden></p>
+<details><summary>Fine controls &amp; live values</summary><button id="step" disabled>Advance one step</button><div id="readout" class="readout">Environment is not ready.</div><div id="muscle-readout" class="hint"></div></details>
+<div class="record-box"><h3>Save a trial</h3><p>Starts a fresh trial in the selected mode. Your actions and the resulting movement are saved.</p><button id="record" disabled>Record &amp; start</button><button id="stop-record" disabled>Stop &amp; save</button><p id="export-status" role="status"></p></div>
+</div></div>
+<p id="play-boundary" class="boundary">This is a simulation with an authored goal. Success here does not prove the controller works on a real object.</p>
+<p class="hint">Leaving this tab or window pauses movement. If recording, return here and choose Stop &amp; save to finish. Camera changes affect only your view.</p>
+<h3>Your recordings</h3><p>Download <strong>Interactive replay</strong> and open the saved HTML file to rotate and scrub through your trial. Or download the video.</p><ul id="recordings"></ul>
+</section>
+<section id="artifacts" class="panel" hidden><h2>Nothing hidden behind the result.</h2><p id="directory"></p><p>The completed run is preserved separately from your interactive recordings. Each run includes source copies and file hashes.</p><div class="table-wrap"><table><thead><tr><th>Artifact</th><th>Size</th><th>Inspect</th></tr></thead><tbody id="files"></tbody></table></div><a id="worker-log">Download worker log</a></section>
+<section id="inspector" hidden><div class="heading-row"><h2 id="inspect-title">Artifact</h2><button id="close-inspector">Close</button></div><pre id="json"></pre></section>
+</main><footer><span>Weft · Local development evidence</span><span>No cloud calls. No upload. No submission.</span></footer>
+</body></html>

@@ -1,0 +1,254 @@
+{
+  "annotation_method": "Assistant visual inspection of decoded original source frames/contact sheets before invoking any tracker or scorer; no predicted coordinates consulted",
+  "annotation_uncertainty_px": 16,
+  "annotations": [
+    {
+      "center_xy": [
+        784,
+        772
+      ],
+      "frame": 300,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        1672,
+        716
+      ],
+      "frame": 300,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        780,
+        792
+      ],
+      "frame": 324,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        1452,
+        768
+      ],
+      "frame": 324,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        783,
+        798
+      ],
+      "frame": 336,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        945,
+        792
+      ],
+      "frame": 336,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        777,
+        801
+      ],
+      "frame": 338,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        852,
+        795
+      ],
+      "frame": 338,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        717,
+        798
+      ],
+      "frame": 340,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        828,
+        801
+      ],
+      "frame": 340,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        642,
+        798
+      ],
+      "frame": 342,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        783,
+        801
+      ],
+      "frame": 342,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        606,
+        798
+      ],
+      "frame": 344,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        753,
+        801
+      ],
+      "frame": 344,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        516,
+        798
+      ],
+      "frame": 348,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        684,
+        798
+      ],
+      "frame": 348,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        260,
+        796
+      ],
+      "frame": 360,
+      "object_id": "small-left-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": [
+        476,
+        796
+      ],
+      "frame": 360,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": null,
+      "frame": 384,
+      "object_id": "small-left-ball",
+      "visibility_note": "Out of frame or clipped; no center fabricated",
+      "visible": false
+    },
+    {
+      "center_xy": [
+        244,
+        732
+      ],
+      "frame": 384,
+      "object_id": "large-right-ball",
+      "visibility_note": "Projected center visually estimated",
+      "visible": true
+    },
+    {
+      "center_xy": null,
+      "frame": 420,
+      "object_id": "small-left-ball",
+      "visibility_note": "Out of frame or clipped; no center fabricated",
+      "visible": false
+    },
+    {
+      "center_xy": null,
+      "frame": 420,
+      "object_id": "large-right-ball",
+      "visibility_note": "Out of frame or clipped; no center fabricated",
+      "visible": false
+    }
+  ],
+  "camera_observation": {
+    "frame_interval": [
+      300,
+      420
+    ],
+    "reason": "Table/rail orientation and framing drift across the full release/contact/exit interval",
+    "status": "visibly_nonfixed"
+  },
+  "coordinate_system": "original_source_pixels",
+  "created_at": "2026-10-28T13:52:40.172238-07:00",
+  "events": [
+    {
+      "frame_interval": [
+        337,
+        340
+      ],
+      "objects": [
+        "small-left-ball",
+        "large-right-ball"
+      ],
+      "status": "inferred_from_closest_approach_and_subsequent_direction_change",
+      "time_interval_s": [
+        14.041666666666666,
+        14.166666666666666
+      ],
+      "type": "projected_collision_candidate",
+      "uncertainty": "Contact not independently instrumented; no forces or restitution measured"
+    }
+  ],
+  "qualification": "Does not satisfy requested fixed-camera source condition; retained negative acquisition result",
+  "schema_version": 1,
+  "scope": "Source-only development annotations, not independent expert labels or final holdout",
+  "source_dimensions": [
+    1920,
+    1080
+  ],
+  "source_sha256": "b4f9f4a919f665cc94cd9a40c4bf085961304ca8f51eeda5a9710bd3611abe2e"
+}

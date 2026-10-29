@@ -1,0 +1,13 @@
+{
+  "objects": [
+    {"id": "puck", "label": "Yellow puck", "hue_min": 20, "hue_max": 40, "role": "active", "shape": "circle"},
+    {"id": "ball", "label": "Blue ball", "hue_min": 100, "hue_max": 125, "role": "passive", "shape": "circle"},
+    {"id": "obstacle", "label": "Red obstacle", "hue_min": 170, "hue_max": 10, "role": "static", "shape": "box"}
+  ],
+  "controlled_id": "puck",
+  "target": [0.78, 0.35],
+  "gravity": [0, 0],
+  "damping": 0.9,
+  "restitution": 0.65,
+  "source_label": "User-provided fixed-camera tabletop video; confirm source rights separately"
+}

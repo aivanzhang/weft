@@ -1,0 +1,39 @@
+{
+  "author": "Autelica (autelica.com)",
+  "calibration_status": "Supplied reconstructed moving cameras; no measured anatomical or physical accuracy claim",
+  "changes": "Original MP4 files retained unchanged; source-image overlays are separate derivative inspection artifacts",
+  "clock_status": "Equal packaged-frame alignment is assumed, not independently established for original MP4 files; source offsets retained but not applied",
+  "dataset_split": "Development construction uses drone1+drone2 image evidence; drone3 image evidence is comparison only, not an independent final holdout",
+  "decoded_frames_per_view": 240,
+  "fps": 29.97002997002997,
+  "height": 1080,
+  "license": "CC BY 4.0",
+  "license_scope": "autelica_sample_jogturn only; excludes separately licensed hands and pilot datasets",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "provider_body_or_uv_used_during_construction": false,
+  "registry_modified": false,
+  "source_license_url": "https://autelica.com/sample/files/LICENSE.txt",
+  "source_manifest_sha256": "4e7b973c003e373e0028e93a2a64c6d2d2de988d7b14ffee64151cef41e42d17",
+  "source_page": "https://autelica.com/sample/",
+  "sources": [
+    {
+      "bytes": 13877392,
+      "file": "artifacts/multiview-jog-extra-views-02/drone2.mp4",
+      "retrieved_at": "2026-10-28T23:01:28.655624-07:00",
+      "sha256": "b6dcf473632483d72f5cd449eeef6d36cfd5bc56d2f5c894dbc82fdf8074a7d7",
+      "url": "https://autelica.com/sample/files/drone2.mp4",
+      "view": "drone2"
+    },
+    {
+      "bytes": 16318970,
+      "file": "artifacts/multiview-jog-extra-views-02/drone3.mp4",
+      "retrieved_at": "2026-10-28T23:01:28.643961-07:00",
+      "sha256": "cc7d176f46bcfd172e2f310764d3266eebb9d944fe1ca075532decb8f091df9c",
+      "url": "https://autelica.com/sample/files/drone3.mp4",
+      "view": "drone3"
+    }
+  ],
+  "study": "docs/multiview-pose.md",
+  "title": "Autelica jogging-turn sample, additional drone2/drone3 views",
+  "width": 1920
+}

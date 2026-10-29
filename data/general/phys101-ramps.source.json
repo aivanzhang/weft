@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-29T02:16:05.480825-07:00",
+  "dataset": "Physics 101 v1.0, January 4, 2017",
+  "source_url": "https://phys101.csail.mit.edu/",
+  "archive_url": "https://phys101.csail.mit.edu/data/phys101_v1.0.zip",
+  "archive_bytes": 4808836283,
+  "archive_etag": "\"11ea104bb-5454bd0a4b60e\"",
+  "attribution": "Jiajun Wu, Joseph J. Lim, Hongyi Zhang, Joshua B. Tenenbaum and William T. Freeman, Physics 101: Learning Physical Object Properties from Unlabeled Videos, BMVC 2016.",
+  "license": {
+    "explicit_redistribution_license_found": false,
+    "provider_statement": "Public research download with citation request in readme.txt",
+    "use": "Local/private development; no public redistribution or license acceptance"
+  },
+  "object": {
+    "provider_id": "w_block_01",
+    "provider_category": "wooden block",
+    "source_reported_mass_g": 21.2,
+    "source_reported_volume_ml": 33.0,
+    "independently_measured_here": false,
+    "dimensions_m": null,
+    "friction": null
+  },
+  "clips": [
+    {
+      "bytes": 210721,
+      "file": "member-00-Camera_1.mp4",
+      "member": "phys101/scenarios/ramp/w_block_01/10_01/01/Camera_1.mp4",
+      "sha256": "0d45b96b59bc990f7c4c3b7150beeb6f74230089145f4bc42ed07047f4ff6282",
+      "local_path": "artifacts/phys101-ramp-source-01/member-00-Camera_1.mp4",
+      "ramp_degrees": 10,
+      "fps": 29.97002997002997,
+      "width": 1920,
+      "height": 1080,
+      "decoded_frames": 27,
+      "original_file_preserved": true
+    },
+    {
+      "bytes": 326575,
+      "file": "member-01-Camera_1.mp4",
+      "member": "phys101/scenarios/ramp/w_block_01/20_01/01/Camera_1.mp4",
+      "sha256": "a93fa02bf9c53c019ca8870a9532234cce6196c62efb5210a4105afffa44d710",
+      "local_path": "artifacts/phys101-ramp-source-01/member-01-Camera_1.mp4",
+      "ramp_degrees": 20,
+      "fps": 29.97002997002997,
+      "width": 1920,
+      "height": 1080,
+      "decoded_frames": 44,
+      "original_file_preserved": true
+    }
+  ],
+  "properties_files": [
+    {
+      "bytes": 1552,
+      "file": "member-02-mass",
+      "member": "phys101/objects/mass",
+      "sha256": "7c375f58a05d918dcdbf244ce7c096c1530bf3c135e8791358e88646eaf476d2"
+    },
+    {
+      "bytes": 1589,
+      "file": "member-03-vol",
+      "member": "phys101/objects/vol",
+      "sha256": "cad6e14d3dbb0d2b3097badd69cc8ef00e8f6d134c1d4bd38f58544d7c5b2675"
+    }
+  ],
+  "coverage": "Complete original clips; no trim, resize, retiming or transcode",
+  "limitations": [
+    "No camera calibration or independently measured trajectory",
+    "Green target mass unknown",
+    "Hand release remains in both clips",
+    "Two slopes of one object are not comprehensive object diversity"
+  ],
+  "evidence": {
+    "source_bundle": "artifacts/phys101-ramp-source-01",
+    "inspection": "artifacts/phys101-ramp-inspection-01",
+    "local_tracking": "artifacts/phys101-ramp-tracking-01",
+    "meta_result": "artifacts/meta-phys101-ramp-live-01",
+    "comparison": "artifacts/phys101-tracking-comparison-01"
+  }
+}

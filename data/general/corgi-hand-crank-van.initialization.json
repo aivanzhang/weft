@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source_sha256": "caad84aeda62860cbd682caac2a8a1e21e6f12f715615c9c56193dc5926aebc8",
+  "start_frame": 0,
+  "end_frame": 353,
+  "initialization_frame": 0,
+  "selection_reason": "Entire original source including source edits, rotation, hand occlusion and final lowering. No favorable trim.",
+  "objects": [
+    {
+      "id": "toy-van-body",
+      "label": "Hand-held toy van main body",
+      "box_xywh": [
+        970,
+        538,
+        108,
+        68
+      ],
+      "role": "active",
+      "shape": "box",
+      "provenance": "Source frame0 manually estimated body envelope; projected box is an appearance ROI, not recovered physical shape. Hands/crank excluded where practical."
+    }
+  ],
+  "physical_model_status": "Unsupported as continuous fixed-camera planar dynamics: camera moves, body rotates in3D, hands apply unmeasured forces, source crossfades."
+}

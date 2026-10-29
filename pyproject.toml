@@ -7,11 +7,14 @@ name = "weft-rl"
 version = "0.1.0"
 description = "Evidence-grounded video-to-simulation and reinforcement learning"
 requires-python = ">=3.11"
-dependencies = ["numpy>=2.2,<3", "opencv-python-headless>=4.11,<5", "Pillow>=11,<13", "gymnasium>=1.1,<2"]
+dependencies = ["numpy>=2.2,<3", "opencv-contrib-python>=4.14,<5", "Pillow>=11,<13", "gymnasium>=1.1,<2", "pymunk==7.3.0"]
 
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
 host = ["starlette==1.7.0", "uvicorn==0.54.0"]
+exercise = ["mediapipe==1.2.0", "mujoco==3.17.0"]
+video-tools = ["imageio-ffmpeg==0.7.0"]
+segmentation = ["meta-sam-parser==0.1.0"]
 
 [project.scripts]
 weft = "weft.cli:main"

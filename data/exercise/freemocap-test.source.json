@@ -1,0 +1,206 @@
+{
+  "archive_bytes": 37864781,
+  "archive_sha256": "543a38c86e591476975a8c3d8dd05c5243777a769c696e116c6aaea43f5170b1",
+  "archive_url": "https://github.com/freemocap/skellysamples/releases/download/test_data_v06_09_25/freemocap_test_data.zip",
+  "attribution": "FreeMoCap Foundation / freemocap/skellysamples, Test Data v06_09_25",
+  "body_built": false,
+  "calibration": {
+    "board_square_mm": 58,
+    "construction_board_check": "board_consistency_failed",
+    "cross_view_max_px": 33.3035656413597,
+    "cross_view_p95_px": 32.592556409658265,
+    "gravity_aligned": false,
+    "independently_measured_here": false,
+    "paired_board_poses": 4,
+    "path": "artifacts/freemocap-test-source-01/member-04-freemocap_test_data_camera_calibration.toml",
+    "sha256": "6de88f5968632c02272c7f99fdac4ffafd697a640f6f7de3f697475eb70fb12c",
+    "units": "mm in supplied translations, converted to m only for checks",
+    "world_origin": "camera 0"
+  },
+  "content": "Board calibration prefix, standing and knee-lift movement, person exits. Not a labeled complete exercise routine.",
+  "dataset": "FreeMoCap test data",
+  "evidence": {
+    "board_check": "artifacts/freemocap-board-check-01",
+    "board_diagnostics": "artifacts/freemocap-board-diagnostics-01",
+    "clock_diagnostic": "artifacts/freemocap-clock-diagnostic-01",
+    "inspection": "artifacts/freemocap-test-inspection-02",
+    "metadata": "artifacts/freemocap-source-discovery-02",
+    "source": "artifacts/freemocap-test-source-01"
+  },
+  "full_rate_followup": {
+    "board_check": "artifacts/freemocap-full-board-check-01",
+    "body_motion_evidence": {
+      "body_built": false,
+      "camera_space_joints": "artifacts/freemocap-camera-space-joints-01",
+      "comparison_panels": "artifacts/freemocap-camera-space-inspection-02",
+      "complete_major_joint_samples": 143,
+      "complete_pose_extraction": "artifacts/freemocap-full-pose-01",
+      "floor_candidate_rejected": "artifacts/freemocap-floor-proxy-02",
+      "full_source_model_inference_calls": 1108,
+      "guide": "docs/freemocap-body-evidence.md",
+      "original_monocular_check_still_failed": true,
+      "paid_calls": 0,
+      "recorded_at": "2026-10-29T12:49:51.701584-07:00",
+      "reserved_camera_opened": false,
+      "sampled_frames_each": 554,
+      "stereo_omitted_corner_check": "artifacts/freemocap-stereo-prediction-01",
+      "world_axes": "camera0 x right, y down, z forward; not gravity aligned"
+    },
+    "calibration_results": "Both supplied calibrations fail unchanged cross-camera limits.",
+    "construction_evidence": "artifacts/freemocap-full-evidence-01",
+    "fixed_length_and_third_view": {
+      "additional_board_reads": 18,
+      "board_stereo_to_third_passed": true,
+      "body_built": false,
+      "candidate_promoted": false,
+      "frozen_board_predictions": "artifacts/freemocap-third-board-predictions-01",
+      "frozen_human_predictions": "artifacts/freemocap-third-predictions-01",
+      "guide": "docs/freemocap-fixed-lengths.md",
+      "length_fits": "artifacts/freemocap-fixed-length-02",
+      "new_pose_inference_calls": 554,
+      "original_monocular_failure_preserved": true,
+      "paid_calls": 0,
+      "pose_frame_decodes": 1108,
+      "post_grading_inspection_reads": 4,
+      "recorded_at": "2026-10-29T14:52:27.435184-07:00",
+      "third_comparison": "artifacts/freemocap-third-comparison-01",
+      "third_comparison_manifest_sha256": "9a7b2a0aa0afa4f6e8dea6e1cb7f0b2743a6d5db17cb11cd6a5e115a91693d4d"
+    },
+    "fps": 30,
+    "frames_each": 1108,
+    "joint_ground_followup": {
+      "association_diagnostic": "artifacts/freemocap-joint-association-01",
+      "crop_diagnostic": "artifacts/freemocap-hip-crops-01",
+      "guide": "docs/freemocap-joint-ground-diagnosis.md",
+      "new_body_built": false,
+      "new_floor_admitted": false,
+      "new_pose_inference_calls": 6,
+      "new_video_frames_decoded": 4,
+      "paid_calls": 0,
+      "recorded_at": "2026-10-29T13:45:56.835084-07:00",
+      "rejected_room_verticals": [
+        "artifacts/freemocap-room-vertical-01",
+        "artifacts/freemocap-room-vertical-02"
+      ],
+      "repair_applied": false,
+      "reserved_camera_opened": false,
+      "source_inspection": "artifacts/freemocap-hip-inspection-01",
+      "torso_clock_diagnostic": "artifacts/freemocap-torso-clock-01",
+      "unmatched_carpet_searches": [
+        "artifacts/freemocap-carpet-plane-01",
+        "artifacts/freemocap-carpet-normalized-01",
+        "artifacts/freemocap-carpet-regional-01"
+      ],
+      "verification": ".local/freemocap-joint-ground-final-verification-01.json"
+    },
+    "multiray_followup": {
+      "candidate_promoted": false,
+      "completed_study": "artifacts/freemocap-three-view-02",
+      "completed_study_manifest_sha256": "28e7547c053abd3ef8c0c0f2db8abe87aba42731e2c0012485b574c4d5db6136",
+      "development_comparison": "artifacts/freemocap-multiray-comparison-02",
+      "failed_export": "artifacts/freemocap-three-view-01",
+      "guide": "docs/freemocap-three-view.md",
+      "joint_slots": 36564,
+      "new_body_built": false,
+      "new_floor_admitted": false,
+      "new_pose_inference_calls": 0,
+      "new_video_decodes": 0,
+      "paid_calls": 0,
+      "recorded_at": "2026-10-29T14:52:27.435225-07:00",
+      "source_frames": 1108,
+      "three_view_major_gains": 473,
+      "three_view_major_losses": 590,
+      "two_view_major_gains": 88,
+      "two_view_major_losses": 0
+    },
+    "new_body_built": false,
+    "recorded_at": "2026-10-29T14:52:27.435140-07:00",
+    "reservation_lifecycle": {
+      "downsampled_equivalent_is_not_a_fresh_holdout": true,
+      "first_comparison_completed_at": "2026-10-29T14:25:07.484330-07:00",
+      "historical_stage_flags": "Earlier dated records retain reserved_camera_opened:false as historical facts; immutable originals are unchanged.",
+      "status": "exposed_development_evidence",
+      "third_view_now_used_for_construction": true
+    },
+    "reserved_camera_opened": true,
+    "source": "artifacts/freemocap-full-source-01"
+  },
+  "license": {
+    "notice_path": "artifacts/freemocap-test-source-01/repository-LICENSE.txt",
+    "repository_notice": "AGPL-3.0",
+    "separate_archive_data_notice_found": false,
+    "use": "Local/private inspection; no publication, redistribution or agreement acceptance"
+  },
+  "limitations": [
+    "The full-rate third camera is now decoded and exposed development/construction evidence. Its downsampled equivalent is not a fresh final holdout.",
+    "Failed board coverage/projection requirements are unchanged.",
+    "No ground plane, measured anatomy, physical contact, actual muscle forces or independent changed-action evidence is recovered."
+  ],
+  "model_inference": false,
+  "paid_calls": 0,
+  "partition_path": "artifacts/freemocap-test-source-01/view-partition-before-pixels.json",
+  "recorded_at": "2026-10-29T11:41:46.532503-07:00",
+  "schema_version": 1,
+  "source_conflict": "The initial docs/release discrepancy is preserved in source_conflict_at_initial_inspection. The full public release has now been downloaded and hash-verified; complete construction-view image comparisons support full_frame=5*test_frame correspondence, not independently verified physical synchronization.",
+  "source_conflict_at_initial_inspection": "Official testing docs/fixture say no full-sample download source is known; the public sample_data_v06_12_25 release advertises a 166,958,457-byte ZIP. It was not downloaded or verified as the corresponding full recording.",
+  "source_url": "https://github.com/freemocap/skellysamples/releases/tag/test_data_v06_09_25",
+  "timing": {
+    "construction_encoded_clocks_equal": true,
+    "construction_encoded_fps": 6,
+    "construction_frames_each": 222,
+    "no_retiming_applied": true,
+    "physical_synchronization_independently_verified": false,
+    "provider_says_downsampled": true
+  },
+  "views": [
+    {
+      "bytes": 11979581,
+      "camera_id": "cam_0",
+      "decoded_complete_frames": 222,
+      "encoded_video": {
+        "fps": 6.0,
+        "frame_count_hint": 222.0,
+        "height": 1280,
+        "width": 720
+      },
+      "file": "member-00-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam1.mp4",
+      "local_path": "artifacts/freemocap-test-source-01/member-00-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam1.mp4",
+      "member": "freemocap_test_data/synchronized_videos/sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam1.mp4",
+      "pixels_inspected": true,
+      "role": "construction",
+      "sha256": "b28cfcc1bc6ac9bd6d8d5cba860be1f1113c554b14bb229f77c1a7f82cc9908d",
+      "video_frames_decoded": 0
+    },
+    {
+      "bytes": 13641673,
+      "camera_id": "cam_1",
+      "decoded_complete_frames": 222,
+      "encoded_video": {
+        "fps": 6.0,
+        "frame_count_hint": 222.0,
+        "height": 1280,
+        "width": 720
+      },
+      "file": "member-01-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam2.mp4",
+      "local_path": "artifacts/freemocap-test-source-01/member-01-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam2.mp4",
+      "member": "freemocap_test_data/synchronized_videos/sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam2.mp4",
+      "pixels_inspected": true,
+      "role": "construction",
+      "sha256": "17e988079f22c76b3f5c69715fc9e9d147ba6c12b1c81f0fd31a1ab1abb4047a",
+      "video_frames_decoded": 0
+    },
+    {
+      "bytes": 12364207,
+      "camera_id": "cam_2",
+      "decoded_complete_frames": 0,
+      "encoded_video": null,
+      "file": "member-02-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam3.mp4",
+      "local_path": "artifacts/freemocap-test-source-01/member-02-sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam3.mp4",
+      "member": "freemocap_test_data/synchronized_videos/sesh_2022-09-19_16_16_50_in_class_jsm_synced_Cam3.mp4",
+      "pixels_inspected": false,
+      "role": "reserved_comparison",
+      "sha256": "6d3e5d4b33fbb057df1733b1cfe60924dc0115ad1a688cd61c29fa886c2ff25d",
+      "video_frames_decoded": 0
+    }
+  ]
+}

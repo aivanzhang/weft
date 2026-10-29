@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weft — object silhouettes</title>
+<style>
+body{font:16px system-ui;max-width:1100px;margin:24px auto;padding:0 18px;background:#F5EADC;color:#214F50}
+h1{margin-bottom:8px}p{line-height:1.5}a{color:inherit}button{font:inherit;padding:9px 15px;border:1px solid #214F50;border-radius:7px;color:inherit;background:transparent;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #965644;outline-offset:3px}
+.controls,.layers{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0}.layers label{display:flex;gap:6px;align-items:center}
+#frame{width:100%}.stage{background:#132727;border-radius:10px;min-height:180px;display:flex;align-items:center;justify-content:center}
+canvas{width:100%;height:auto;display:block}canvas[hidden]{display:none}#position{font-variant-numeric:tabular-nums}pre{white-space:pre-wrap;font-size:13px;overflow-wrap:anywhere}
+.note{font-size:14px;opacity:.85}details{margin:16px 0}#summary{padding:12px;border:1px solid #214F5040;border-radius:8px}
+</style>
+<h1>Object silhouettes</h1>
+<p>Step through the video to see which pixels Meta assigned to each object. Colors identify model tracks, not verified physical identities.</p>
+<div class="controls"><button id="previous">Previous frame</button><button id="next">Next frame</button><span id="position" role="status" aria-live="polite"></span></div>
+<label for="frame">Source frame</label><input id="frame" type="range" min="0" step="1" value="0">
+<div class="layers"><label><input id="masks" type="checkbox" checked>Silhouettes</label><label><input id="boxes" type="checkbox" checked>Original boxes</label><label><input id="centers" type="checkbox" checked>Silhouette centers</label></div>
+<div class="stage" id="stage" aria-busy="true"><canvas id="canvas" role="img" aria-label="Selected source frame with optional model silhouettes" hidden>Source-frame visualization requires canvas.</canvas></div>
+<p class="note">Each preview comes from the selected decoded frame, not approximate browser video seeking. Previews are reduced-size JPEGs; use the original video for pixel-level review. Missing or invalid masks stay unavailable. Silhouette centers are not centers of mass. No API calls occur here.</p>
+<div id="summary" role="status"></div>
+<details><summary>Frame evidence and uncertainty</summary><pre id="details"></pre></details>
+<p><a href="source.mp4">Original submitted video</a> · <a href="mask-evidence.json">Decoded evidence</a> · <a href="original-evidence.json">Unchanged model proposals</a> · <a href="report.json">Run report</a></p>
+<script id="mask-data" type="application/json">MASK_DATA</script>
+<script src="mask-viewer.js"></script>
+</html>
