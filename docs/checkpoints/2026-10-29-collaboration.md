@@ -33,3 +33,11 @@ One stash contained earlier AGENTS/README/dependency changes. Its functional add
 - Required base: `7c330b790332895ce923b466660930f257ca01c2`, already in repository history.
 
 At the time this note was prepared, commit/push and removal of the reviewed stash were still pending. The session handoff and final publication receipt must record their observed outcome. Local evidence/recordings are preserved, not deleted to achieve clean Git status.
+
+## Publication outcome
+
+- Code and handoff checkpoint **`f819a931f1fc2859591f0497cce0dfda0f94f5aa`** was committed on `main`, pushed to the private origin and independently confirmed with `git ls-remote`. Local/remote ahead/behind counts were 0/0 and the worktree was clean before this receipt update.
+- The reviewed `stash@{0}` at `b7c02a4` was then removed under the user's explicit cleanup request. Its exact backup above remains intact; no source media, model cache or experiment directory was deleted.
+- `AGY_GOAL_PROMPT.txt` is byte-identical to the Markdown prompt and was opened in TextEdit at the user's request. Clipboard access was not used.
+- This final receipt is documentation-only and follows the code checkpoint. The repository history records its own publication revision; do not interpret the code checkpoint hash as a claim that no later documentation commit exists.
+- Track A remains paused. Its new scoped objective is recorded in the repository; the old paused runtime objective still needs replacement through the user's goal interface because the available tool cannot edit it.
