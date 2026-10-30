@@ -16,6 +16,7 @@ from PIL import Image, ImageDraw
 from weft.human import joint_contract, joint_segment, validate_human
 from weft.io import canonical_hash
 from weft.mobile_human import ROOT_AXES, ground_normal
+from weft.shared_world_evidence import validate_equivalence_bindings
 from weft.spatial_rigid import DIRECTIONS, FACES, corners, rotation
 from weft.whole_body import GROUP_NAMES, SUCCESS_LIMITS
 
@@ -376,16 +377,19 @@ def validate_shared_world(scene):
             )
 
     source_binding = result["source_binding"]
-    if not isinstance(source_binding, dict) or set(source_binding) != {
+    binding_fields = {
         "mode",
         "source_sha256",
         "total_source_frames",
         "entity_bindings",
         "evidence_documents",
-    }:
+    }
+    if (not isinstance(source_binding, dict) or not binding_fields <= set(source_binding)
+            or not set(source_binding) <= binding_fields | {"source_equivalences"}):
         raise ValueError("source_binding fields differ from contract")
     if source_binding["mode"] not in SOURCE_MODES:
         raise ValueError(f"Unsupported source_binding.mode: {source_binding['mode']!r}")
+    validate_equivalence_bindings(source_binding)
     documents = source_binding["evidence_documents"]
     if not isinstance(documents, dict) or len(documents) > 8:
         raise ValueError("source_binding.evidence_documents must map at most eight hashes to JSON paths")
@@ -553,7 +557,8 @@ def validate_shared_world(scene):
             raise ValueError("Supplied action_contract physical_limits differ from scene definition")
     result["action_contract"] = expected_contract
 
-    if len(json.dumps(result, allow_nan=False)) > 500_000:
+    # Formatting whitespace is not scene data; bound the compact UTF-8 representation.
+    if len(json.dumps(result, allow_nan=False, separators=(",", ":")).encode("utf-8")) > 500_000:
         raise ValueError("shared-world-v1 scene metadata exceeds the 500 KB bound")
     return result
 

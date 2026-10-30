@@ -25,6 +25,9 @@ from weft.shared_world import (
     validate_shared_world,
 )
 from weft.shared_world_learning import validate_shared_policy
+from weft.shared_world_packaging import (
+    collect_shared_source_files, copy_package_file, read_package_file, validate_package_layout, write_package_files,
+)
 from weft.spatial_pose import SPATIAL_JOINT_NAMES
 from weft.whole_body import SUCCESS_LIMITS
 
@@ -312,7 +315,7 @@ def _seal_directory(directory):
         "files": {
             str(path.relative_to(directory)): digest(path)
             for path in sorted(directory.rglob("*"))
-            if path.is_file() and path.name != "manifest.json"
+            if path.is_file() and path != directory / "manifest.json"
         },
     }
     write_json(directory / "manifest.json", manifest)
@@ -592,11 +595,19 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     if not (source_dir / "manifest.json").is_file() or not (source_dir / "scene.json").is_file():
         raise ValueError("Shared-world lab import requires a sealed directory containing scene.json and manifest.json")
     source_verified = verify_artifacts(source_dir)
-    source_manifest = json.loads((source_dir / "manifest.json").read_text())
-    for rel in source_manifest["files"]:
-        p = Path(rel)
-        if p.is_absolute() or ".." in p.parts or p.as_posix() != rel or rel == "manifest.json":
-            raise ValueError(f"Unsafe manifest path in source run: {rel!r}")
+    scene_raw = read_package_file(source_dir, "scene.json", max_bytes=64 * 1024 * 1024)
+    scene = validate_shared_world(json.loads(scene_raw))
+    source_files = collect_shared_source_files(
+        scene, source_dir, expected_manifest_sha256=source_verified["manifest_sha256"])
+    source_manifest = json.loads(source_files.manifest_bytes)
+    if source_files.manifest_files.get("scene.json") != hashlib.sha256(scene_raw).hexdigest():
+        raise ValueError("Lab scene must match its sealed source identity")
+    generated_paths = {"manifest.json", "source-input-manifest.json", "policy-input-manifest.json",
+                       "implementation", "lab-implementation", "policy-implementation", "scene.json", "human.json",
+                       "task.json", "reference-feasibility.json", "interventions.json", "human-reference.json",
+                       "repair-ledger.json", "reconstruction.json", "lab-provenance.json", "policy.json",
+                       "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"}
+    source_files.validate_layout(reserved_paths=generated_paths)
 
     for status_file in ("status.json", "report.json", "reconstruction.json"):
         if (source_dir / status_file).is_file():
@@ -604,18 +615,28 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
             if isinstance(doc, dict) and doc.get("status") in REJECTED_SOURCE_STATUSES:
                 raise ValueError(f"Source artifact {status_file} has rejected status {doc.get('status')!r}")
 
-    scene = validate_shared_world(json.loads((source_dir / "scene.json").read_text()))
-    source_binding_check = verify_shared_world_sources(scene, source_dir)
+    source_binding_check = source_files.report
 
     policy_verified = None
     policy_manifest = None
+    policy_source_check = None
+    policy_manifest_bytes = None
     if policy_run is not None:
         policy_verified = verify_artifacts(policy_run)
-        policy_manifest = json.loads((policy_run / "manifest.json").read_text())
+        policy_scene_raw = read_package_file(policy_run, "scene.json", max_bytes=64 * 1024 * 1024)
+        pol_scene = validate_shared_world(json.loads(policy_scene_raw))
+        policy_files = collect_shared_source_files(
+            pol_scene, policy_run, expected_manifest_sha256=policy_verified["manifest_sha256"])
+        policy_files.validate_layout(reserved_paths=generated_paths)
+        policy_manifest = json.loads(policy_files.manifest_bytes)
+        policy_source_check = policy_files.report
+        policy_manifest_bytes = policy_files.manifest_bytes
+        if policy_files.manifest_files.get("scene.json") != hashlib.sha256(policy_scene_raw).hexdigest():
+            raise ValueError("Policy scene must match its sealed source identity")
         if not REQUIRED_POLICY_FILES <= set(policy_manifest["files"]):
             raise ValueError("Policy run must seal scene.json, policy.json, training.json, rl-evaluation.json, policy-rollout.json")
-        pol_scene = validate_shared_world(json.loads((policy_run / "scene.json").read_text()))
-        pol_doc = json.loads((policy_run / "policy.json").read_text())
+        pol_doc = json.loads(read_package_file(policy_run, "policy.json", max_bytes=1024 * 1024,
+                                              expected_sha256=policy_manifest["files"]["policy.json"]))
         # Compare core scene identity ignoring learned_policy_available flag toggle.
         s_cmp = deepcopy(scene)
         s_cmp["learned_policy_available"] = True
@@ -624,8 +645,10 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
             raise ValueError("Shared-world policy run was trained on a different scene")
         validate_shared_policy(pol_doc, pol_scene)
         scene = pol_scene
+        del policy_files
     elif "policy.json" in source_manifest["files"]:
-        pol_doc = json.loads((source_dir / "policy.json").read_text())
+        pol_doc = json.loads(read_package_file(source_dir, "policy.json", max_bytes=1024 * 1024,
+                                              expected_sha256=source_manifest["files"]["policy.json"]))
         scene["learned_policy_available"] = True
         scene = validate_shared_world(scene)
         validate_shared_policy(pol_doc, scene)
@@ -633,18 +656,36 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
         scene["learned_policy_available"] = False
         scene = validate_shared_world(scene)
 
+    rewritten = {"scene.json", "human.json", "task.json", "reference-feasibility.json", "interventions.json",
+                 "human-reference.json", "lab-provenance.json", "source-input-manifest.json", "policy-input-manifest.json"}
+    policy_outputs = {"policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"}
+    modules = ("shared_world_lab.py", "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
+               "world_evidence.py", "observations.py")
+    copied_names = {name for name in source_manifest["files"] if name not in rewritten
+                    and not name.startswith(("lab-implementation/", "policy-implementation/"))
+                    and not (policy_run is not None and name in policy_outputs)}
+    policy_implementation = {"policy-" + name for name in (policy_manifest or {}).get("files", {})
+                             if name.startswith("implementation/")}
+    validate_package_layout(copied_names | rewritten | {"repair-ledger.json", "reconstruction.json"}
+                            | {f"lab-implementation/{name}" for name in modules} | policy_implementation
+                            | (policy_outputs if policy_run is not None else set()))
+
+    def sealed_json(name):
+        return json.loads(read_package_file(source_dir, name, max_bytes=64 * 1024 * 1024,
+                                            expected_sha256=source_manifest["files"][name]))
+
     feasibility = (
-        json.loads((source_dir / "reference-feasibility.json").read_text())
+        sealed_json("reference-feasibility.json")
         if "reference-feasibility.json" in source_manifest["files"]
         else audit_shared_world_feasibility(scene)
     )
     interventions = (
-        json.loads((source_dir / "interventions.json").read_text())
+        sealed_json("interventions.json")
         if "interventions.json" in source_manifest["files"]
         else _probe_shared_interventions(scene)
     )
     ref_frames = (
-        json.loads((source_dir / "human-reference.json").read_text())
+        sealed_json("human-reference.json")
         if "human-reference.json" in source_manifest["files"]
         else _reference_frames_artifact(scene)
     )
@@ -652,17 +693,26 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     out.mkdir(parents=True, exist_ok=False)
     run = out / "run"
     run.mkdir()
+    source_files.copy_to(run, reserved_paths=generated_paths)
     for rel in source_manifest["files"]:
-        dst = run / rel
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_dir / rel, dst)
-    shutil.copyfile(source_dir / "manifest.json", run / "source-input-manifest.json")
+        if (rel in source_files.files or rel in rewritten or rel.startswith(("lab-implementation/", "policy-implementation/"))
+                or (policy_run is not None and rel in policy_outputs)):
+            continue
+        copy_package_file(source_dir, run, rel, source_manifest["files"][rel])
+    write_package_files(run, {"source-input-manifest.json": source_files.manifest_bytes})
+    del source_files
 
     if policy_run is not None:
-        for name in ("policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"):
-            if (policy_run / name).is_file():
-                shutil.copyfile(policy_run / name, run / name)
-        shutil.copyfile(policy_run / "manifest.json", run / "policy-input-manifest.json")
+        for name in policy_outputs:
+            if name in policy_manifest["files"]:
+                copy_package_file(policy_run, run, name, policy_manifest["files"][name])
+        for name, sha in policy_manifest["files"].items():
+            if name.startswith("implementation/"):
+                copy_package_file(policy_run, run, name, sha, target_name="policy-" + name)
+        write_package_files(run, {"policy-input-manifest.json": policy_manifest_bytes})
+
+    implementation = {name: (Path(__file__).parent / name).read_bytes() for name in modules}
+    write_package_files(run, {f"lab-implementation/{name}": raw for name, raw in implementation.items()})
 
     write_json(run / "scene.json", scene)
     write_json(run / "human.json", scene["human_spec"])
@@ -682,14 +732,18 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
                 "reference_feasibility": {k: feasibility[k] for k in ("status", "summary")},
             },
         )
+    packaged_source_check = verify_shared_world_sources(scene, run)
     provenance = {
         "schema_version": 1,
         "created_at": local_time(),
         "source_run": str(source_dir),
         "source_verification": source_verified,
         "source_binding_verification": source_binding_check,
+        "packaged_source_verification": packaged_source_check,
         "policy_run": str(policy_run) if policy_run is not None else None,
         "policy_verification": policy_verified,
+        "policy_source_verification": policy_source_check,
+        "packaging_module_hashes": {name: hashlib.sha256(raw).hexdigest() for name, raw in implementation.items()},
         "scene_sha256": canonical_hash(scene),
         "learned_policy_available": bool(scene.get("learned_policy_available", False)),
         "preparation_seconds": time.perf_counter() - started,

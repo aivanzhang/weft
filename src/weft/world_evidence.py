@@ -152,7 +152,32 @@ class WorldEvidence:
                 "total_bytes": sum(len(source.raw) for source in self._sources),
                 "total_slots": sum(len(source.document["observations"]) for source in self._sources)}
 
-    def construction_bytes(self, *, allowed_partitions=("construction",)):
+    def _check_partitions(self, source_aliases):
+        aliases = {} if source_aliases is None else source_aliases
+        if (not isinstance(aliases, Mapping) or len(aliases) > MAX_DOCUMENTS
+                or any(not isinstance(key, str) or not _DIGEST.fullmatch(key)
+                       or not isinstance(value, str) or not _DIGEST.fullmatch(value)
+                       or key == value or value in aliases for key, value in aliases.items())):
+            raise ValueError("Source aliases require distinct SHA256 identities without chains or cycles")
+        media = {source.document["source"]["sha256"] for source in self._sources}
+        if set(aliases) - media:
+            raise ValueError("Source aliases must reference included observation media")
+        partitions = {}
+        for source in self._sources:
+            identity = source.document["source"]["sha256"]
+            identity = aliases.get(identity, identity)
+            for row in source.document["observations"]:
+                if row["partition"] == "unsampled":
+                    if row["visibility"] != "not_sampled" or row["measurements"]:
+                        raise ValueError("Unsampled partition must retain an empty not_sampled observation")
+                    continue
+                # A missing sample is not a holdout; every actual frame reservation must agree.
+                key = (identity, row["frame"])
+                previous = partitions.setdefault(key, row["partition"])
+                if previous != row["partition"]:
+                    raise ValueError(f"Conflicting canonical frame partitions at frame {row['frame']}")
+
+    def construction_bytes(self, *, allowed_partitions=("construction",), source_aliases=None):
         """Export typed evidence only; development access requires explicit opt-in."""
         if not isinstance(allowed_partitions, (tuple, list, set, frozenset)):
             raise ValueError("Allowed partitions must be an explicit collection")
@@ -161,6 +186,8 @@ class WorldEvidence:
                 or len(set(allowed_partitions)) != len(allowed_partitions)):
             raise ValueError("Only construction, generation and development_validation may be exported")
         allowed = frozenset(allowed_partitions)
+        # Verified aliases add restrictions; they never rewrite slots or grant partition access.
+        self._check_partitions(source_aliases)
         sources = [self._construction_source(source, allowed) for source in self._sources]
         output = {"profile": "world-construction-evidence-v1", "schema_version": 1,
                   "physical_validation": "unverified", "allowed_partitions": sorted(allowed),

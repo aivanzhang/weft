@@ -2,7 +2,7 @@
 
 Supply a local video, inspect each processing stage, interact with the generated environment, and record your actions. The CLI starts a loopback-only lab and prints its browser link. The default local workflow uploads no video and makes no paid call. Optional Meta tracking is a separate, explicitly budgeted path.
 
-For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). Its saved source-linked body uses authored props; observed equipment reconstruction remains unfinished.
+For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). Its latest saved candidate binds body evidence and equipment masks to one source, with interactive box proxies and verified recordings. Depth, shape, materials and hand support remain unverified; it is not a recovered physical exercise.
 
 ## Try the saved exercise run
 

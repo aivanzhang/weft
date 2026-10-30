@@ -1,10 +1,10 @@
 """Bounded CEM policy search for coupled human-and-object shared-world-v1 tasks."""
 
 from copy import deepcopy
+import hashlib
 import json
 import math
 from pathlib import Path
-import shutil
 import time
 
 import numpy as np
@@ -17,6 +17,7 @@ from weft.shared_world import (
     audit_shared_world_feasibility,
     validate_shared_world,
 )
+from weft.shared_world_packaging import collect_shared_source_files, read_package_file, write_package_files
 from weft.whole_body import SUCCESS_LIMITS
 
 
@@ -203,7 +204,8 @@ def train_shared_world_policy(
             raise ValueError("Keep shared-world training output outside the immutable source directory")
         candidate_dir = source_dir / "run" if (source_dir / "run" / "scene.json").is_file() else source_dir
         source_verified = verify_artifacts(candidate_dir)
-        scene = json.loads((candidate_dir / "scene.json").read_text())
+        scene_raw = read_package_file(candidate_dir, "scene.json", max_bytes=64 * 1024 * 1024)
+        scene = json.loads(scene_raw)
     else:
         scene = deepcopy(scene_or_dir)
 
@@ -214,7 +216,15 @@ def train_shared_world_policy(
         raise ValueError("Source-qualified training requires a sealed source directory with observation evidence")
     from weft.shared_world_evidence import verify_shared_world_sources
 
-    evidence_verified = verify_shared_world_sources(scene, candidate_dir)
+    source_files = collect_shared_source_files(
+        scene, candidate_dir,
+        expected_manifest_sha256=source_verified["manifest_sha256"] if source_verified else None)
+    if candidate_dir is not None and source_files.manifest_files.get("scene.json") != hashlib.sha256(scene_raw).hexdigest():
+        raise ValueError("Training scene must match its sealed candidate identity")
+    generated_paths = {"manifest.json", "implementation", "reference-feasibility.json", "settings.json",
+                       "scene.json", "policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json"}
+    source_files.validate_layout(reserved_paths=generated_paths)
+    evidence_verified = source_files.report
 
     feasibility = audit_shared_world_feasibility(scene)
     out.mkdir(parents=True, exist_ok=False)
@@ -222,20 +232,15 @@ def train_shared_world_policy(
     deadline = started + float(max_seconds)
 
     modules = (
-        "shared_world.py", "shared_world_learning.py", "shared_world_evidence.py", "world_evidence.py",
+        "shared_world.py", "shared_world_learning.py", "shared_world_evidence.py", "shared_world_packaging.py",
+        "source_equivalence.py", "world_evidence.py",
         "observations.py", "human.py", "mobile_human.py", "whole_body.py",
     )
-    hashes = {name: digest(Path(__file__).parent / name) for name in modules}
-    impl_dir = out / "implementation"
-    impl_dir.mkdir()
-    for name in modules:
-        shutil.copyfile(Path(__file__).parent / name, impl_dir / name)
-    for sha, name in scene["source_binding"]["evidence_documents"].items():
-        target = out / name
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(candidate_dir / name, target)
-        if digest(target) != sha:
-            raise ValueError("Source observation evidence changed while preserving the training input")
+    implementation = {name: (Path(__file__).parent / name).read_bytes() for name in modules}
+    hashes = {name: hashlib.sha256(raw).hexdigest() for name, raw in implementation.items()}
+    write_package_files(out, {f"implementation/{name}": raw for name, raw in implementation.items()})
+    source_files.copy_to(out, reserved_paths=generated_paths)
+    del source_files
 
     rng = np.random.default_rng(seed)
     train_seeds = [int(x) for x in rng.integers(0, 2**31, 3)]
@@ -421,6 +426,7 @@ def train_shared_world_policy(
         }
         write_json(out / "rl-evaluation.json", evaluation)
         write_json(out / "policy-rollout.json", traces)
+        verify_shared_world_sources(scene_for_storage, out)
         write_json(
             out / "manifest.json",
             {
@@ -429,7 +435,7 @@ def train_shared_world_policy(
                 "files": {
                     str(path.relative_to(out)): digest(path)
                     for path in sorted(out.rglob("*"))
-                    if path.is_file() and path.name != "manifest.json"
+                    if path.is_file() and path != out / "manifest.json"
                 },
             },
         )

@@ -184,6 +184,15 @@ def main():
     sw_adapt.add_argument("--human-run", required=True, help="Existing verified mobile exercise-v3 run or lab directory")
     sw_adapt.add_argument("--out", required=True, help="New sealed shared-world-v1 directory outside the source")
     sw_adapt.add_argument("--scale", type=float, default=1.0, help="Explicit body-height-to-world scale prior in [0.5, 2.0]")
+    sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
+    sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
+    sw_construct.add_argument("--proposal-run", required=True, help="Sealed geometry-proposal study")
+    sw_construct.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
+    sw_construct.add_argument("--source-mapping", action="append", default=[], help="Verified original/derivative bundle; repeat for distinct derivatives")
+    sw_construct.add_argument("--target-object", required=True, help="Authored task target ID from the observation document")
+    sw_construct.add_argument("--frame-translation", nargs=2, type=float, metavar=("DX", "DY"),
+                              help="Explicit positive XY coordinate-frame translation; preserves body/floor but changes numerical bounds")
+    sw_construct.add_argument("--out", required=True, help="New sealed construction output outside the inputs")
     sw_train = commands.add_parser("shared-world-train", help="Train and evaluate a bounded CEM policy on a coupled shared-world-v1 run")
     sw_train.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_train.add_argument("--out", required=True, help="New policy training directory outside the source run")
@@ -312,6 +321,11 @@ def main():
         elif args.command == "shared-world-adapt":
             from weft.shared_world_lab import adapt_to_shared_world
             result = adapt_to_shared_world(args.human_run, args.out, scale=args.scale)
+        elif args.command == "shared-world-reconstruct":
+            from weft.shared_world_pipeline import construct_source_equipment_run
+            result = construct_source_equipment_run(args.run, args.proposal_run, args.evidence_run, args.out,
+                target_object_id=args.target_object, source_mappings=args.source_mapping,
+                frame_translation=args.frame_translation)
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
             result = train_shared_world_policy(
