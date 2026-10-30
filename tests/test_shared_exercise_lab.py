@@ -114,6 +114,48 @@ def test_exact_scene_and_task_are_preserved_without_importing_legacy_policy(tmp_
         lab.close()
 
 
+def test_sealed_input_task_preserves_custom_contacts_and_root_controls_by_default(tmp_path):
+    source, scene = source_fixture(tmp_path)
+    equipment = next(obj["id"] for obj in scene["objects"] if obj["role"] != "static")
+    task = build_shared_exercise_task(scene, root_assistance=True, contact_requirements=[{
+        "object_id": equipment, "wrist": "left", "kind": "wrist_region_contact", "start_step": 1, "end_step": 3,
+    }])
+    task_raw = json.dumps(task, indent=2).encode()
+    (source / "exercise-task.json").write_bytes(task_raw)
+    seal(source)
+    target = tmp_path / "lab"
+    prepare_shared_exercise_lab(source, target)
+    loaded = load_shared_exercise_lab(target / "run")
+    assert loaded["task"] == task
+    assert (target / "run/exercise-task.json").read_bytes() == task_raw
+    assert (target / "run/input-task.json").read_bytes() == task_raw
+    assert not loaded["contract"]["learned_policy_available"]
+
+
+@pytest.mark.parametrize("failure", ["stale_scene", "conflicting_root_assistance"])
+def test_sealed_input_task_cannot_be_silently_replaced_by_defaults(tmp_path, failure):
+    source, scene = source_fixture(tmp_path)
+    task = build_shared_exercise_task(scene)
+    if failure == "stale_scene":
+        task["scene_sha256"] = "a" * 64
+    write_json(source / "exercise-task.json", task)
+    seal(source)
+    with pytest.raises(ValueError, match="scene identity|conflicts with the sealed input task"):
+        prepare_shared_exercise_lab(source, tmp_path / "unused", root_assistance=failure != "stale_scene")
+    assert not (tmp_path / "unused").exists()
+
+
+def test_explicit_task_is_still_an_explicit_override_of_the_saved_choice(tmp_path):
+    source, scene = source_fixture(tmp_path)
+    write_json(source / "exercise-task.json", build_shared_exercise_task(scene))
+    seal(source)
+    chosen = build_shared_exercise_task(scene, root_assistance=True)
+    task_path = tmp_path / "chosen-task.json"
+    write_json(task_path, chosen)
+    prepare_shared_exercise_lab(source, tmp_path / "lab", task_path=task_path)
+    assert load_shared_exercise_lab(tmp_path / "lab/run")["task"] == chosen
+
+
 def test_source_equivalence_closure_is_standalone_and_tampering_blocks_resume(tmp_path):
     source = tmp_path / "source"
     scene, observation = candidate(source, equivalent=True)

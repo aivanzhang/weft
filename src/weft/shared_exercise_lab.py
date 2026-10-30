@@ -39,6 +39,7 @@ SOURCE_VIEWS = frozenset({
     "pose-quality.json", "camera-reference.json", "two-view-root.json", "evidence.json", "tracks.csv",
     "reconstruction.json", "reference-feasibility.json", "coverage-summary.json", "reconstruction-coverage.json",
     "geometry-proposal.json", "geometry-study.json",
+    "geometry-hypothesis.json", "previous-geometry.json", "initial-geometry-check.json",
 })
 
 
@@ -319,7 +320,13 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     scene = validate_shared_world(_json(inputs["scene.json"]))
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(input_manifest))
     task_raw = None
-    if task_path is None:
+    if task_path is None and "exercise-task.json" in inputs:
+        # Geometry alternatives retain custom contact/control requirements, not just default gates.
+        task_raw = inputs["exercise-task.json"]
+        task = validate_shared_exercise_task(_json(task_raw), scene)
+        if root_assistance and task["control"]["root_assistance"] != "explicit_3_axis":
+            raise ValueError("Root assistance conflicts with the sealed input task; provide an explicit replacement task")
+    elif task_path is None:
         task = build_shared_exercise_task(scene, root_assistance=root_assistance)
     else:
         path = Path(task_path).absolute()
@@ -359,6 +366,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol)
     views = {name: raw for name, raw in inputs.items()
              if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")}
+    if "geometry-hypothesis.json" in views and "input-config.json" in inputs:
+        views["input-config.json"] = inputs["input-config.json"]
     videos = [name for name in views if re.fullmatch(r"source\.(mp4|webm|mov|m4v|avi|mkv)", name)]
     if len(videos) > 1:
         raise ValueError("Exercise lab source contains ambiguous original video files")

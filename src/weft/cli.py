@@ -211,6 +211,11 @@ def main():
     sw_construct.add_argument("--frame-translation", nargs=2, type=float, metavar=("DX", "DY"),
                               help="Explicit positive XY coordinate-frame translation; preserves body/floor but changes numerical bounds")
     sw_construct.add_argument("--out", required=True, help="New sealed construction output outside the inputs")
+    sw_geometry = commands.add_parser("shared-world-geometry", help="Admit an explicitly authored compound-shape alternative; no recovered geometry or physical-accuracy claim")
+    sw_geometry.add_argument("--run", required=True, help="Complete sealed shared-world candidate to preserve")
+    sw_geometry.add_argument("--config", required=True, help="Versioned compound replacements pinned to the canonical base scene hash")
+    sw_geometry.add_argument("--out", required=True, help="New sealed hypothesis directory outside both inputs")
+    sw_geometry.add_argument("--max-seconds", type=float, default=30)
     sw_train = commands.add_parser("shared-world-train", help="Train and evaluate a bounded CEM policy on a coupled shared-world-v1 run")
     sw_train.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_train.add_argument("--out", required=True, help="New policy training directory outside the source run")
@@ -230,7 +235,7 @@ def main():
     exercise_lab.add_argument("--evaluation", help="Optional separate comparison for the exact installed policy; requires --learning")
     exercise_lab_choice = exercise_lab.add_mutually_exclusive_group()
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
-    exercise_lab_choice.add_argument("--task", help="Pinned shared-exercise-task-v1 JSON; preserve its exact task choice")
+    exercise_lab_choice.add_argument("--task", help="Explicit shared-exercise-task-v1 JSON; otherwise preserve a sealed input task before using defaults")
     exercise_lab.add_argument("--max-seconds", type=float, default=60)
     exercise_eval = commands.add_parser("shared-exercise-evaluate",
         help="Evaluate and record human-only controls with passive equipment; no training or API calls")
@@ -386,6 +391,9 @@ def main():
             from weft.equipment_proposal import prepare_equipment_proposal
             result = prepare_equipment_proposal(args.run, args.evidence_run, args.config, args.out,
                 source_mappings=args.source_mapping, max_seconds=args.max_seconds)
+        elif args.command == "shared-world-geometry":
+            from weft.shared_world_geometry import prepare_shared_world_geometry
+            result = prepare_shared_world_geometry(args.run, args.config, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             labels = {"equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",

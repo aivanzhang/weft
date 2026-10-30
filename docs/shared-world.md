@@ -78,7 +78,77 @@ The runtime accepts `shape: compound` with `rigid-compound-v1` geometry: **one o
 
 Collision, Python previews, the live front/top/angled views and offline replay use the actual transformed parts, not a replacement bounding box. Parts inherit the parent's role/color and receive no independent force controls. Invalid or excessive geometry is rejected; primitive-only scenes retain their previous behavior.
 
-This support is verified on analytical fixtures. **The saved kettlebell scenes still use their original boxes**: no source handle, cavity or grasp has been recovered. Strict source-compound proposal admission is in progress separately; runtime support alone is not construction approval or physical validation.
+This support is verified on analytical fixtures and a source integration that represents the **same original boxes** as one-part compounds. No source handle, cavity or grasp has been recovered. The trained-policy lab remains unchanged; runtime/integration acceptance is not source fit or physical validation.
+
+### Prepare an authored geometry alternative
+
+`shared-world-geometry` replaces only the geometry/inertia of named existing objects in a complete sealed shared-world run. It does not fit shapes to imagery. Body/reference poses, object IDs/order/poses/velocities/mass/materials, camera/floor/clocks, source evidence and task parameters remain unchanged. Old fit reports and any policies/evaluations are archived under `source-run/`, not inherited as validation of the new shape. The alternative has a new scene identity and no installed policy.
+
+Create a configuration like this, replacing the hash, object ID and **illustrative, unmeasured** geometry values with your intended hypothesis:
+
+```json
+{
+  "schema_version": 1,
+  "profile": "shared-world-geometry-hypothesis-config-v1",
+  "base_scene_sha256": "REPLACE_WITH_CANONICAL_BASE_SCENE_SHA256",
+  "assumptions": ["This replacement is authored; source fit is unverified."],
+  "replacements": [{
+    "object_id": "equipment",
+    "geometry": {
+      "profile": "rigid-compound-v1",
+      "origin": "authored_hypothesis",
+      "assumptions": ["Dimensions and centered inertia are authored priors."],
+      "inertia": {"mode": "authored_centered_diagonal", "diagonal": [0.004, 0.004, 0.004]},
+      "parts": [{
+        "id": "body",
+        "shape": "box",
+        "position": [0, 0, 0],
+        "quaternion": [1, 0, 0, 0],
+        "size": [0.2, 0.2, 0.2]
+      }]
+    }
+  }]
+}
+```
+
+`base_scene_sha256` is the canonical hash of the validated `scene.json` object (`weft.io.canonical_hash`), **not** the raw file hash. Each unique `object_id` must already exist; replacements cannot add actors, move them or change mass. Supply complete geometry, not a patch. Parts use body-local positions and `[w,x,y,z]` unit quaternions. Boxes use full `size`; spheres use `radius`; capsules use `radius` and centerline `length` along local Z. Inertia remains an explicit centered diagonal prior, subject to rigid-body bounds; it is not computed from recovered mass distribution.
+
+```sh
+.venv-lab/bin/python -m weft shared-world-geometry \
+  --run artifacts/my-base-run \
+  --config /absolute/path/to/geometry-config.json \
+  --out artifacts/my-geometry-01 \
+  --max-seconds 30
+```
+
+Use the sealed run directory containing `manifest.json` and `scene.json` (a lab's `run/`, not its mutable outer directory). `--out` must be new and outside both inputs. `--max-seconds` defaults to **30**, accepts **1–60**, and is cooperative: it checks stages/readback/publication but cannot interrupt a native call. Configuration is bounded to 64 KiB; input/output packages to 512 files/128 MiB and 1,024 files/192 MiB respectively. No fitting, video decoding, inference or API request occurs.
+
+Inspect `geometry-hypothesis.json` and the final manifest before using the output:
+
+| Output | Meaning |
+| --- | --- |
+| `input-config.json`, `previous-geometry.json` | Exact choices and archived prior geometry/provenance |
+| `initial-geometry-check.json` | Existing clearance checks at an unperturbed reset; **zero physics steps** |
+| `scene.json`, `candidate.xml` | Ready alternative and compiled compound parts |
+| `exercise-task.json` | Input task, if supplied, with only its scene hash rebound |
+| `source-verification.json`, `source-run/` | Exact source proof and preserved original package |
+| `scene.candidate.rejected.json` | Non-ready candidate when one could be formed; not a playable scene |
+
+**Ready means initial clearance only.** Full-reference clearance, silhouette fit, contact/support, task success and physical accuracy remain unverified. A preserved exercise task keeps all controls, gates, interval/contact requirements and source scope; rebinding its scene hash also changes its task identity. Old policies/evaluations cannot be attached to the changed scene as if still current.
+
+Feed only a ready result into the [human-only lab](shared-exercise.md#prepare-a-lab-from-a-geometry-alternative). Its sealed task is selected by default; preparation does not silently replace custom contact requirements or assistance with defaults. `shared-exercise-policy-lab-02` remains the trained-policy example; the separate geometry integration below has no policy.
+
+### Verified representation-only source example
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/shared-world-geometry-integration-01/interaction/lab
+```
+
+This saved run converts the two existing boxes to **one box part each with exact box inertia**, preserving body/source/task parameters and original video attribution. It does not change collision outlines, fit imagery or claim improved shape. Geometry inspection links the authored configuration, prior geometry and initial-clearance report; old fit panels are not reused as validation.
+
+`artifacts/shared-world-geometry-integration-01` completes in **6.523 s**, 856 files/170,610,628 bytes before the root manifest. It verifies **69 actions, one reset, 71 frames**, resume and exact own replay. The full declared 60-step interval finishes but **fails `equipment_stability:sam-2`**. No older-baseline comparison, policy training or paid call was requested. [Report](../artifacts/shared-world-geometry-integration-01/report.json); [exact seals and scoped checks](handoffs/combined.md#current-authored-geometry-integration-checkpoint).
+
+Both this lab and the unchanged policy lab pass actual saved-payload UI checks. This is source-custody and interaction acceptance, not a recovered kettlebell, full-video evaluation or solved exercise.
 
 ## Evidence and runtime boundaries
 

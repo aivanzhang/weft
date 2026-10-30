@@ -30,9 +30,26 @@ To prepare another saved shared world, choose a new directory:
 .venv-lab/bin/python -m weft lab --resume artifacts/my-human-only-lab-01
 ```
 
-Preparation seals the exact scene, task, source evidence and runtime. It does not start a server. Omit `--root-assistance` for 19 joint-only controls, or pass `--task <file>` to preserve an explicit task instead. Assistance and task selection cannot change inside a prepared lab. Existing coupled labs keep their legacy task and virtual object controls.
+Preparation seals the exact scene, task, source evidence and runtime. It does not start a server. Without `--task`, it preserves a sealed input `exercise-task.json` when present, including its assistance and contact requirements. Only when no input task exists does it create a default: 19 joint controls, or 22 with `--root-assistance`. The flag cannot override a sealed joint-only task; that conflict rejects. `--task <file>` is an explicit validated replacement and cannot be combined with `--root-assistance`. Assistance and task selection cannot change inside a prepared lab. Existing coupled labs keep their legacy task and virtual object controls.
 
 For new saved body/tracking evidence, [assemble the world and lab in one command](equipment-proposals.md). The camera/shape configuration remains explicit; it is not automatic recovery of arbitrary equipment.
+
+### Prepare a lab from a geometry alternative
+
+The [authored geometry command](shared-world.md#prepare-an-authored-geometry-alternative) produces a new scene without changing body/reference poses, source evidence, object poses/mass or task parameters. If the input includes an exercise task, it carries that task forward with only the scene hash rebound. Geometry/inertia are authored hypotheses, not recovered equipment or a solved exercise.
+
+After its report and manifest say **ready**, prepare a separate lab:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/my-geometry-01 \
+  --out artifacts/my-geometry-lab-01
+.venv-lab/bin/python -m weft lab --resume artifacts/my-geometry-lab-01
+```
+
+No `--task` or `--root-assistance` is needed to retain the sealed input task. An explicit task override must match the new scene; it is a deliberate change, not preservation. Old policies/fit reports remain archived and cannot establish success for the alternative. The new scene requires its own evaluation; initial-clearance admission alone checks neither the full movement nor equipment stability.
+
+The [verified representation-only example](shared-world.md#verified-representation-only-source-example) is available at `artifacts/shared-world-geometry-integration-01/interaction/lab`. It retains the original two box collision shapes/inertias as one-part compounds, exact source attribution and the same task parameters. Its 69 actions/one reset/71 frames replay exactly; the 60-step interval completes and **fails equipment stability**. No policy or older-baseline comparison is attached. The current trained-policy example remains **`shared-exercise-policy-lab-02`** above; no recovered handles, new source fit or learning improvement is claimed by the alternative.
 
 ## Compare baseline controllers
 

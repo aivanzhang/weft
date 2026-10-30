@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from weft import lab_inspection
+from weft.io import canonical_hash
 from weft.lab import Lab
 
 
@@ -90,6 +91,57 @@ def test_saved_summary_separates_counts_labels_and_authored_physics(tmp_path):
     assert len(payload.encode()) < lab_inspection.MAX_SUMMARY_BYTES
     assert all(secret not in payload for secret in ('DO NOT COPY', 'raw_pose', 'raw_internal', 'large reference'))
     assert {p: digest(p.read_bytes()) for p in before} == before
+
+
+def authored_alternative(root):
+    saved_run(root)
+    # These are temporary test fixtures, not saved project evidence.
+    (root / 'geometry-proposal.json').unlink()
+    (root / 'geometry-study.json').unlink()
+    config = {'profile': 'shared-world-geometry-hypothesis-config-v1', 'base_scene_sha256': 'a' * 64,
+              'assumptions': ['An authored open shape; no source-fit validation.']}
+    write(root, 'input-config.json', config)
+    scene = json.loads((root / 'scene.json').read_bytes())
+    write(root, 'geometry-hypothesis.json', {'profile': 'shared-world-geometry-hypothesis-v1',
+        'status': 'ready', 'source_fit': 'unverified', 'physical_validation': 'unverified',
+        'base_scene_sha256': config['base_scene_sha256'], 'candidate_scene_sha256': canonical_hash(scene),
+        'input_config_sha256': digest((root / 'input-config.json').read_bytes())})
+    for name in ('previous-geometry.json', 'initial-geometry-check.json', 'reconstruction.json'):
+        write(root, name, {'scope': 'Authored test evidence, not physical validation.'})
+    seal(root)
+    return root
+
+
+def test_authored_alternative_exposes_its_own_scope_without_old_projection_panels(tmp_path):
+    result = summary(authored_alternative(tmp_path / 'alternative'))
+    assert result['status'] == 'available'
+    assert result['geometry']['status'] == 'initial_hypothesis'
+    assert result['geometry']['panels'] == []
+    assert 'only initial clearance' in result['geometry']['scope']
+    assert result['geometry']['assumptions'] == ['An authored open shape; no source-fit validation.']
+    names = {item['name'] for item in result['artifact_links']}
+    assert {'input-config.json', 'geometry-hypothesis.json', 'previous-geometry.json',
+            'initial-geometry-check.json', 'reconstruction.json'} <= names
+
+
+@pytest.mark.parametrize('mutation', ['scene_identity', 'config_identity', 'old_comparison', 'missing_receipt', 'empty_report'])
+def test_alternative_inspection_rejects_mixed_geometry_evidence(tmp_path, mutation):
+    root = authored_alternative(tmp_path / 'alternative')
+    if mutation in ('scene_identity', 'config_identity'):
+        key = 'candidate_scene_sha256' if mutation == 'scene_identity' else 'input_config_sha256'
+        edit(root, 'geometry-hypothesis.json', lambda value: value.update({key: 'f' * 64}))
+    elif mutation == 'old_comparison':
+        write(root, 'geometry-proposal.json', {'assumptions': ['Previous box fit.']})
+        seal(root)
+    elif mutation == 'empty_report':
+        write(root, 'geometry-hypothesis.json', {})
+        seal(root)
+    else:
+        (root / 'initial-geometry-check.json').unlink()
+        seal(root)
+    result = summary(root)
+    assert result['status'] == 'unavailable'
+    assert 'hypothesis' in result['reason'] or 'alternative' in result['reason']
 
 
 def test_only_selected_metadata_are_read_not_linked_media_or_evidence(tmp_path, monkeypatch):

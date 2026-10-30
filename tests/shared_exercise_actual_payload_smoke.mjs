@@ -64,7 +64,15 @@ assert(['explicit_3_axis','disabled'].includes(rootAssistance));
 assert.equal(initial.action_contract.names.length, rootAssistance==='explicit_3_axis'?22:19);
 assert.equal(final.profile, 'shared-exercise-state-v1'); assert.equal(final.task_sha256, initial.snapshot.task_sha256);
 assert.equal(typeof final.task_metrics.completed_interval, 'boolean'); assert.equal(typeof final.task_metrics.success, 'boolean');
-assert.equal(inspection.status, 'available'); assert(inspection.geometry.panels.length > 0);
+assert.equal(inspection.status, 'available');
+const geometryAlternative = inspection.artifact_links.some(item => item.name === 'geometry-hypothesis.json');
+if (geometryAlternative) {
+  assert.equal(inspection.geometry.panels.length, 0, 'New alternatives must not inherit old source-fit panels');
+  assert.match(inspection.geometry.scope, /only initial clearance.*unverified/);
+  for (const name of ['input-config.json','previous-geometry.json','initial-geometry-check.json','reconstruction.json']) {
+    assert(inspection.artifact_links.some(item => item.name === name), `Missing geometry inspection artifact: ${name}`);
+  }
+} else assert(inspection.geometry.panels.length > 0);
 const hasPolicy = initial.learned_policy_available === true;
 const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback'};
 const policyDescriptions={authored_unchanged:/unchanged programmed feedback, not new learned gains/,
@@ -167,8 +175,13 @@ assert(ui.ids.get('source').src.includes('/files/run/' + inspection.source.video
 assert.equal(runManifest.files[inspection.source.video], inspection.source.sha256);
 assert.equal(ui.ids.get('geometry-preview').src, undefined, 'Geometry image should remain lazy');
 ui.ids.get('inspect-geometry').click();
-assert(ui.ids.get('geometry-preview').src.includes('/files/run/' + inspection.geometry.panels[0].name));
-assert.match(ui.ids.get('geometry-caption').textContent, /not synchronized to video playback/);
+if (geometryAlternative) {
+  assert.equal(ui.ids.get('geometry-preview').src, undefined, 'Do not display an old shape-fit image');
+  assert.equal(ui.ids.get('inspection-geometry').textContent, inspection.geometry.scope);
+} else {
+  assert(ui.ids.get('geometry-preview').src.includes('/files/run/' + inspection.geometry.panels[0].name));
+  assert.match(ui.ids.get('geometry-caption').textContent, /not synchronized to video playback/);
+}
 assert(!ui.ids.get('world-canvas').drawCalls.some(call => call.name === 'setLineDash' && call.args[0]?.length));
 const taskButton = ui.elements.find(element => element.dataset.json === 'exercise-task.json');
 assert(taskButton); assert.equal(taskButton.disabled, false);

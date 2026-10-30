@@ -15,6 +15,8 @@ from pathlib import Path, PurePosixPath
 import re
 import stat
 
+from weft.io import canonical_hash
+
 
 MAX_SUMMARY_BYTES = 64 * 1024
 MAX_METADATA_BYTES = 8 * 1024 * 1024
@@ -227,6 +229,21 @@ def _summary(run, profile):
 
         study = read('geometry-study.json')
         proposal = read('geometry-proposal.json')
+        hypothesis = read('geometry-hypothesis.json')
+        config = {}
+        if 'geometry-hypothesis.json' in files:
+            if (hypothesis.get('profile') != 'shared-world-geometry-hypothesis-v1'
+                    or hypothesis.get('status') != 'ready' or hypothesis.get('source_fit') != 'unverified'
+                    or hypothesis.get('physical_validation') != 'unverified'):
+                raise ValueError('Invalid authored geometry hypothesis summary')
+            if proposal or study:
+                raise ValueError('An authored geometry alternative cannot inherit an earlier geometry comparison')
+            config = read('input-config.json', 64 * 1024)
+            if (config.get('profile') != 'shared-world-geometry-hypothesis-config-v1'
+                    or hypothesis.get('candidate_scene_sha256') != canonical_hash(scene)
+                    or hypothesis.get('input_config_sha256') != files.get('input-config.json')
+                    or hypothesis.get('base_scene_sha256') != config.get('base_scene_sha256')):
+                raise ValueError('Geometry hypothesis configuration or scene identity differs')
         pose_counts = study.get('source_pose_status_counts')
         if pose_counts is not None:
             if not isinstance(pose_counts, dict) or len(pose_counts) > 16:
@@ -245,17 +262,26 @@ def _summary(run, profile):
             if panel is None:
                 raise ValueError('Declared geometry panel is not sealed with this run')
             previews.append(panel)
-        assumptions = proposal.get('assumptions', [])
+        assumptions = config.get('assumptions', []) if hypothesis else proposal.get('assumptions', [])
         if not isinstance(assumptions, list) or len(assumptions) > 32:
             raise ValueError('Invalid geometry assumption summary')
-        geometry = {'status': 'initial_hypothesis' if proposal or previews else 'no_saved_comparison',
+        geometry = {'status': 'initial_hypothesis' if proposal or previews or hypothesis else 'no_saved_comparison',
                     'panels': previews, 'assumptions': [_text(value, 1000) for value in assumptions],
-                    'scope': 'Initial authored geometry hypotheses, not recovered shape, grasp, sustained support or physical accuracy.'}
+                    'scope': ('Authored compound-shape alternative: only initial clearance was checked. Source-image fit, full-motion clearance, grasp and physical accuracy are unverified.' if hypothesis else
+                              'Initial authored geometry hypotheses, not recovered shape, grasp, sustained support or physical accuracy.')}
         for name, label in [('source.json', 'Source metadata'), ('geometry-proposal.json', 'Geometry assumptions'),
                             ('geometry-study.json', 'Geometry comparison summary'), ('evidence.json', 'Frame measurements'),
                             ('observations.json', 'Frame observations'), ('coverage-summary.json', 'Tracking coverage'),
                             ('pose-quality.json', 'Pose-quality summary')]:
             artifact(name, label)
+        if hypothesis:
+            for name, label in [('input-config.json', 'Authored shape configuration'),
+                                ('geometry-hypothesis.json', 'Geometry alternative and limitations'),
+                                ('previous-geometry.json', 'Previous geometry and provenance'),
+                                ('initial-geometry-check.json', 'Initial-clearance check'),
+                                ('reconstruction.json', 'Current reconstruction scope')]:
+                if artifact(name, label) is None:
+                    raise ValueError('Authored geometry hypothesis is missing a declared inspection artifact')
         stages = []
         states = ['available' if video else 'unavailable', 'available' if documents or 'evidence.json' in files or 'observations.json' in files else 'unavailable',
                   'initial_hypothesis' if geometry['status'] == 'initial_hypothesis' else 'model_only', 'simulation', 'local_recording']
