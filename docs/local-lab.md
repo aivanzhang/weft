@@ -6,11 +6,21 @@ For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide
 
 The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved initial-geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls, an optional validated policy and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls. To combine a saved mobile-body lab with equipment evidence, use [one-command `shared-exercise-build --human-run … --full-reference`](equipment-proposals.md). It prepares the body directly, then creates one continuous task and one lab; no separate shared-world adaptation or intermediate lab is needed. Camera distance, body scale, box shape and unknown depth remain explicit assumptions.
 
-To try the current full-reference human-plus-equipment run, start the lab yourself:
+To try the current full-reference human-plus-equipment run, start the lab yourself from the repository root:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/feasibility-fullspan-lab-01
+.venv-lab/bin/python scripts/play_sandbox.py
 ```
+
+1. Open the complete printed `127.0.0.1` link, including its temporary token. Keep the terminal running; Ctrl+C stops the lab.
+2. Choose **Sandbox → Searched joint corrections → Start**. Selecting a controller alone leaves movement paused.
+3. To act yourself, choose **Move it yourself**, select **Human motor to move**, then tap **Motor +0.25 / −0.25** or start and hold. Equipment stays passive.
+4. Choose **Record & start** for a fresh recorded trial, then **Stop & save**. Download **Interactive replay**, **Video**, **Preview** or **Action data** under Your recordings; **Explain this trial** shows saved equipment failures.
+5. Inspect **Video** for the original and source-observation downloads, or **Coupled 3D world** for rotatable views and estimated-pose replay. Source playback and simulation clocks are independent.
+
+The launcher uses trusted committed runtime **`6396be84018e6cb6525614f07a664cf0bb673b34`**, not mutable development code or Python copied from a supplied artifact. It checks the 24 policy and 17 lab source pins plus installed dependency versions. Its bounded local cache under `.local/playable-runtime/` is verified, never silently overwritten or replaced with development code. Recordings remain in `artifacts/feasibility-fullspan-lab-01/sessions/`. Keep the existing `.venv-lab` and saved artifacts; no new key, install, inference or training is required on this checked workspace.
+
+Optional `.venv-lab/bin/python scripts/play_sandbox.py --check` verifies the runtime and sealed lab metadata without starting a server or physics. The actual check passed in **0.183 s** with **167 files /3,108,210 bytes**, receipt `.local/playable-launcher-verification-01.json`; this is one startup check, not sustained browser performance or a new full lab admission. Complete source/training/evaluation admission still runs when the sandbox opens. Direct `.venv-lab/bin/python -m weft lab --resume artifacts/feasibility-fullspan-lab-01` remains supported while the checkout matches its pinned runtime; use the launcher as development advances.
 
 The task runs **254 continuous actions / 8.47 seconds**, covering every retained body reference from 0.0667 to 8.5333 seconds. It does not invent the missing opening poses. All 257 source-frame slots and 121 body poses remain inspectable; native video timestamps and the estimated pose clock remain distinct.
 

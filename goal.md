@@ -129,6 +129,18 @@ A running dog needs all three. A passive ball does not need a decision-making po
 
 Use an established physical model and engine where appropriate, then estimate supported parameters, structure, initial conditions, and controls. Treat changes to the assumed law family as explicit hypotheses. Do not describe choosing a built-in law as discovering it from the video.
 
+### Optional avatars and custom skins — requested, not built
+
+Add an optional appearance layer over the same simulated body, joints, root, equipment, world and clock. Provide built-in panda and robot avatars, plus local user-supplied rigged GLB/glTF models and compatible skins. Map asset bones to simulated joints explicitly, with inspectable scale/orientation and unsupported-bone handling; a static mesh without a usable rig must not be presented as automatically animated. Keep the skeleton/original-body overlay and an immediate return to the default body.
+
+Changing appearance must not change collisions, dynamics, actions, reward, task gates or policy inputs. Parse local assets with explicit file/byte/geometry/texture/time bounds, no embedded-code execution or unexpected remote fetches, and preserved rights/provenance. Persist the asset identity/hash, rig mapping, settings and appearance changes with recordings, replay and exports. Missing or incompatible assets must show an explicit fallback, never a silently substituted or misaligned avatar.
+
+Acceptance requires identical seeded states and rewards for the same actions across default/skeleton, panda and robot; a custom rig importing and following the body correctly; recording/replay/export retaining the selected appearance; explicit invalid/missing-asset behavior; and measured bounded loading/rendering responsiveness. This visual feature does not establish recovered anatomy, muscle activation or physical accuracy.
+
+**Muse reference — planned, not implemented.** Preserve `/Users/ivan/Downloads/Poo avatar assets.zip` (SHA-256 `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`, 2,667,322 bytes, five members). It supplies a 1600×1600 opaque WebP of a panda with a small green dragon on the viewer-left shoulder, plus four silent 720×720 H.264 clips, each 192 frames at 24 fps: unnamed, `making_something`, `milestone_level_up`, `working`. Motion/loops are not visually verified. No 3D mesh, rig, skin weights or license is supplied; preserve provenance and unknown rights.
+
+The separate asset-creation session at `/Users/ivan/kintsugi/avatar-assets` owns reusable asset authoring; Weft owns only integration and generic avatar import/render/recording. Use Muse as visual reference for a newly authored rigged avatar, with an explicit dragon attachment; unseen views and rigging are authored, not recovered. Optional portrait/status media is not a 3D replacement. Keep the appearance-only contract and unchanged simulation/runtime above.
+
 ### Provide two operating modes
 
 - **Reconstruction:** initialize the world, apply inferred demonstration controls, and compare the resulting motion with the source.

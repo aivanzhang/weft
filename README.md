@@ -33,10 +33,12 @@ A CLI-launched **local lab** now shows video processing step by step, exposes th
 For a person and equipment in one world, use the [human-only exercise sandbox](docs/shared-exercise.md). The latest lab covers the **complete available 8.47-second body reference**, with 254 continuous actions, passive equipment and recording/replay. Its Source vs simulation card separates video coverage, reference time and live simulation time.
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/feasibility-fullspan-lab-01
+.venv-lab/bin/python scripts/play_sandbox.py
 ```
 
-Select **Searched joint corrections**, move the body yourself, and use **Record & start → Stop & save**. The current task-priority controller completes the full interval but still fails equipment stability on **3/3 fresh starts**. Its worst equipment displacement is **44.3% lower** than the previous reward-selected policy, but still exceeds the unchanged limit. Exact full-interval recording/replay passes. The earlier two-second task's 3/3 success does not transfer; neither result proves grasp or physical accuracy. The [shape comparison](artifacts/silhouette-shared-world-03/shape-comparison.html) retains geometry assumptions and overlap failures.
+Run from the repository root, open the complete printed link and keep the terminal running. Choose **Sandbox → Searched joint corrections → Start**. To save a fresh trial, choose **Record & start → Stop & save**; replay and video links appear below. For manual control, choose **Move it yourself**, select a human motor and tap **Motor +0.25 / −0.25**. The launcher keeps this lab on its verified runtime while development continues; recordings stay in the same lab folder. [Launch details and source inspection](docs/local-lab.md).
+
+The current task-priority controller completes the full interval but still fails equipment stability on **3/3 fresh starts**. Its worst equipment displacement is **44.3% lower** than the previous reward-selected policy, but still exceeds the unchanged limit. Exact full-interval recording/replay passes. The earlier two-second task's 3/3 success does not transfer; neither result proves grasp or physical accuracy. The [shape comparison](artifacts/silhouette-shared-world-03/shape-comparison.html) retains geometry assumptions and overlap failures.
 
 Under saved recordings, choose **Explain this trial** to see when equipment first exceeded a limit, the simulator value and allowed limit, and each episode separated by resets. This reads the saved journal; it does not change the live simulation or run another trial.
 
