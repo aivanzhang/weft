@@ -118,6 +118,30 @@ The planar profile uses Pymunk shared rigid-body physics, distinct saturated-col
 
 The appearance profile additionally supports [explicit sections of longer videos](source-intervals.md). It preserves the full source and original frame numbers, tracks only the requested interval and labels pre-initialization frames as untracked. Exercise/planar/rolling whole-video limits are unchanged.
 
+## 3D rigid-object scenes (`spatial-rigid-v1`)
+
+Verified 3D rigid-object runs can be opened directly in the same local lab without modifying their sealed inputs or claiming physical validation:
+
+```sh
+# Optional: materialize a standalone analytic 3D fixture on a fresh checkout (no API calls).
+.venv-lab/bin/python -m weft spatial-fixture --out artifacts/my-3d-fixture-01
+
+# Package a verified 3D run into a new inspectable lab directory without starting a server.
+.venv-lab/bin/python -m weft spatial-lab \
+  --run artifacts/my-3d-fixture-01 \
+  --out artifacts/my-3d-lab-01
+
+# Or import and launch the loopback lab in one step (add --no-serve for terminal-only packaging).
+.venv-lab/bin/python -m weft lab \
+  --scene-run artifacts/my-3d-fixture-01 \
+  --out artifacts/my-3d-lab-02
+
+# Reopen an already-packaged 3D lab later.
+.venv-lab/bin/python -m weft lab --resume artifacts/my-3d-lab-01
+```
+
+In **3D scene** and **Sandbox**, synchronized front (`x / height`), top (`x / depth`), and rotatable `3D` views show the same MuJoCo rigid-body state. Rotating yaw, zooming (`1×–3×`), or enabling **Follow moving objects** affects only your view and never steps physics. All eight actions (`coast`, `left`, `right`, `forward`, `back`, `up`, `down`, `brake`) are exposed through buttons and keyboard (`A/D` or Left/Right for `x`, `W/S` or Up/Down for depth `y`, `Q/E` or PageUp/PageDown for height `z`, `Space` to slow down). Live values inspect per-object 3D position, quaternion orientation, linear velocity, world spin, virtual force, substeps, and active contact forces. Untrained 3D runs keep **Learned controller** disabled rather than fabricating a policy; recordings save under `sessions/` and export to `video.mp4`, `preview.gif`, and `replay.html`. See [3D rigid-object sandbox](spatial-rigid.md) for contract limits.
+
 ## Terminal-only processing
 
 Add `--no-serve` to run all processing with stage/progress messages in the terminal. Open the saved result later with `lab --resume`. Optional `--episodes` and `--eval-episodes` bound local learning (defaults: 1,500 and 100). A free local port is selected unless `--port` is specified.

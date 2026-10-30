@@ -55,7 +55,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
   const elements = [];
   const ids = new Map();
   for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
@@ -91,6 +91,24 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     objects: [{id: 'actor', label: 'Synthetic actor', role: 'active', shape: 'circle', radius: .035, color: '#E0B620'}]};
   let state = {objects: [{id: 'actor', position: [.2,.3], velocity: [0,0]}], target: scene.target,
     steps: 0, time_s: 0, terminated: false, truncated: false, success: false};
+  if (profile === 'spatial-rigid') {
+    Object.assign(scene, {profile: 'spatial-rigid-v1', bounds: [1, .8, .8], dt: 1/120, controlled_id: 'block',
+      target: [.78, .56, .065], task: {position_tolerance: .035, speed_tolerance: .06, acceleration: 12, max_steps: 360},
+      objects: [
+        {id: 'block', label: 'Controlled block', role: 'active', shape: 'box', size: [.06, .05, .05], color: '#965644'},
+        {id: 'companion', label: 'Companion sphere', role: 'passive', shape: 'sphere', radius: .035, color: '#C7795D'},
+        {id: 'floor', label: 'Support table', role: 'static', shape: 'box', size: [.96, .76, .04], color: '#D8C9BA'},
+      ]});
+    delete scene.width; delete scene.height;
+    state = {controlled_id: 'block', target: scene.target, steps: 0, time_s: 0, substeps: 4,
+      virtual_force: [0, 0, 0], contacts: [['block', 'floor']], contact_count: 1,
+      contact_details: [{objects: ['block', 'floor'], position: [.24, .36, .04], normal: [0, 0, 1], distance: -.0002, normal_force: 9.81}],
+      objects: [
+        {id: 'block', role: 'active', shape: 'box', size: [.06, .05, .05], color: '#965644', position: [.24, .36, .065], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
+        {id: 'companion', role: 'passive', shape: 'sphere', radius: .035, color: '#C7795D', position: [.5, .42, .075], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
+        {id: 'floor', role: 'static', shape: 'box', size: [.96, .76, .04], color: '#D8C9BA', position: [.5, .4, .02], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
+      ], terminated: false, truncated: false, success: false};
+  }
   if (profile === 'exercise') {
     scene.profile=mobile?'exercise-v3':spatial?'exercise-v2':'exercise-v1';scene.joint_names=['left_knee','left_elbow'];
     state.human={height:1.8,segments:[{id:'torso',a:[0,0,.8],b:[0,0,1.5],radius:.1}],
@@ -131,7 +149,9 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = [];
+  const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
+    learned_policy_available: !(cameraBody || isSpatialUntrained),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
     ...(suppliedGround ? {ground_clearance:{status:'descriptive_no_contact_evidence',summary:{minimum:.076,median:.356,maximum:.630,positive_gap_poses:112,reference_poses:112}}} : {}),
     ...(sourceInterval ? {requested_source_interval:{first_frame:2580,last_frame:2760,initialization_frame:2620}} : {}),
@@ -141,7 +161,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     events: legacyPackageEvent && backendReady ? [{index:1,stage:'whole_body',message:'Existing packaged run without elapsed time'}] : [{index: 0, stage: backendReady ? 'ready' : 'source', elapsed_seconds: .1, message: 'Synthetic UI fixture'}],
     scene, snapshot: state, recording: backendRecording, sessions: savedSessions,
     ...(exportStatus ? {export:{status:exportStatus}} : {}),
-    artifacts: [...(backendReady ? ['source.mp4',...(!generationFailed ? ['tracks.gif'] : []),'training.json','rl-evaluation.json','repair-ledger.json','reconstruction.json'] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])].map(name => ({name,bytes:500}))});
+    artifacts: [...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...(!isSpatialUntrained ? ['training.json','rl-evaluation.json'] : []),'repair-ledger.json','reconstruction.json'] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])].map(name => ({name,bytes:500}))});
   const artifacts = {'training.json': {completed_episodes: 10, steps: 200, seconds: .3,
     history: [{episode: 10,recent_training_success_rate: .4}]},
     'rl-evaluation.json': {policies: {q_learning: {successes: 3,episodes: 5}, random: {successes: 1,episodes: 5}}},
@@ -149,9 +169,15 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     'reconstruction.json': {before:{rmse_px:10},after:{rmse_px:4}},
     'policy.json': {selected_joint:'left_knee'}};
   if (coverage) artifacts['coverage-summary.json'] = coverage;
-  if (cameraBody) {
+  if (cameraBody || isSpatialUntrained) {
     delete artifacts['policy.json']; delete artifacts['training.json']; delete artifacts['rl-evaluation.json'];
-    artifacts['reconstruction.json'] = {scope: 'Unvalidated camera-aware candidate'};
+    artifacts['reconstruction.json'] = {scope: isSpatialUntrained ? 'Unvalidated 3D rigid scene' : 'Unvalidated camera-aware candidate'};
+    artifacts['repair-ledger.json'] = {proposals: []};
+  }
+  if (profile === 'spatial-rigid' && spatialTrained) {
+    artifacts['policy.json'] = {profile: 'spatial-policy-v1', controlled_id: 'block'};
+    artifacts['rl-evaluation.json'] = {policies: {learned: {successes: 8, episodes: 10}, random: {successes: 1, episodes: 10}, coast: {successes: 0, episodes: 10}, brake: {successes: 0, episodes: 10}}};
+    artifacts['reconstruction.json'] = {scope: 'Trained 3D rigid scene; physical validation remains unverified'};
     artifacts['repair-ledger.json'] = {proposals: []};
   }
   if (wholeBody) {
@@ -201,7 +227,8 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
         state.human.mobility.support_force=state.human.normalized_action.slice(19).map(value=>value*100);
       }
     } else if (path === '/api/reset' || path === '/api/record/start') {
-      state = clone(state); state.steps = 0; state.time_s = 0; state.objects[0].position = [.2,.3];
+      state = clone(state); state.steps = 0; state.time_s = 0;
+      state.objects[0].position = profile === 'spatial-rigid' ? [.24, .36, .065] : [.2,.3];
       state.terminated = state.truncated = state.success = false;
       delete state.simulation_failure;
     }
@@ -225,11 +252,11 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     dispatchWindow(type) { for (const listener of windowListeners.get(type) || []) listener(); },
     visibility(hidden) { document.hidden = hidden; for (const listener of documentListeners.get('visibilitychange') || []) listener(); },
     stage(name) { elements.find(element => element.dataset.panel === name).click(); },
-    action(value) { select('[data-action]').find(element => element.dataset.action === String(value)).click(); },
+    action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,1);
-      assert.equal(ids.get('scores').children.length,cameraBody?0:wholeBody?4:2); this.stage('play'); }
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,profile==='spatial-rigid'?3:1);
+      assert.equal(ids.get('scores').children.length,(cameraBody||isSpatialUntrained)?0:(wholeBody||spatialTrained)?4:2); this.stage('play'); }
   };
 }
 
@@ -787,8 +814,75 @@ async function coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion() {
   assert.equal(missing.ids.get('pose-timeline').hidden,true);
 }
 
+async function spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState() {
+  const ui = fixture('spatial-rigid'); await ui.ready();
+  assert.equal(ui.ids.get('world-tab').textContent, '3D scene');
+  assert.equal(ui.ids.get('spatial-controls').hidden, false);
+  assert.equal(ui.ids.get('spatial-world-controls').hidden, false);
+  assert.equal(ui.ids.get('human-controls').hidden, true);
+  assert.equal(ui.ids.get('mobile-controls').hidden, true);
+  assert.equal(ui.ids.get('reference-feasibility').hidden, true);
+  assert.equal(ui.ids.get('reference-servo').hidden, true);
+  assert.equal(ui.ids.get('policy').disabled, true);
+  assert.equal(ui.ids.get('start-learned').disabled, true);
+  assert.match(ui.ids.get('tracks-empty').textContent, /No source video or tracking preview was sealed/);
+  assert.match(ui.ids.get('training-caption').textContent, /Not trained/);
+  assert(!ui.requests.some(request => /\/(policy|training|rl-evaluation)\.json/.test(request.path)));
+  const visibleActions = ui.document.querySelectorAll('[data-action]').filter(button => !button.hidden);
+  assert.deepEqual(visibleActions.map(button => Number(button.dataset.action)).sort((a, b) => a - b), [0, 1, 2, 3, 4, 5, 6, 7]);
+  assert(visibleActions.every(button => !button.disabled));
+  const hiddenMobile = ui.document.querySelectorAll('[data-action]').filter(button => button.hidden);
+  assert.equal(hiddenMobile.length, 4, 'Mobile-body support actions 6..9 stay hidden in 3D rigid scenes');
+  assert(hiddenMobile.every(button => button.disabled));
+  const viewLabels = ui.ids.get('live').drawCalls.filter(call => call.name === 'fillText').map(call => call.args[0]);
+  assert.deepEqual(viewLabels, ['Front: x / height', 'Top: x / depth', '3D: same state']);
+  const beforeView = ui.backendState(), requestsBeforeView = ui.requests.length;
+  ui.ids.get('spatial-yaw').value = '-1.1'; ui.ids.get('spatial-yaw').dispatch('input');
+  ui.ids.get('spatial-zoom').value = '2.2'; ui.ids.get('spatial-zoom').dispatch('input');
+  ui.ids.get('spatial-follow').checked = true; ui.ids.get('spatial-follow').dispatch('change');
+  assert.equal(ui.ids.get('spatial-world-yaw').value, '-1.1');
+  assert.equal(ui.ids.get('spatial-world-zoom').value, '2.2');
+  assert.equal(ui.ids.get('spatial-world-follow').checked, true);
+  assert.deepEqual(ui.backendState(), beforeView, '3D camera yaw/zoom/follow must not advance simulation');
+  assert.equal(ui.requests.length, requestsBeforeView);
+  for (const code of [0, 1, 2, 3, 4, 5, 6, 7]) {
+    ui.action(code); await drain();
+    assert.deepEqual(ui.pending[0].data, {action: code, steps: 3, policy: false});
+    ui.resolveNext('/api/step'); await drain();
+  }
+  assert.match(ui.ids.get('readout').textContent, /quat \[1\.000, 0\.000, 0\.000, 0\.000\]/);
+  assert.match(ui.ids.get('readout').textContent, /contacts 1 · substeps 4/);
+  assert.equal(ui.ids.get('spatial-readout').hidden, false);
+  assert.match(ui.ids.get('spatial-readout').textContent, /companion \(passive, sphere\)/);
+  assert.match(ui.ids.get('spatial-readout').textContent, /contact block↔floor.*Fn 9\.81N/);
+  for (const [key, expected] of [['q', 5], ['e', 6], [' ', 7], ['w', 3], ['s', 4], ['a', 1], ['d', 2]]) {
+    ui.ids.get('live').dispatch('keydown', {key}); await drain();
+    assert.equal(ui.pending[0].data.action, expected);
+    ui.resolveNext('/api/step'); await drain();
+    ui.ids.get('live').dispatch('keyup', {key});
+  }
+  ui.ids.get('record').click(); await drain();
+  ui.resolveNext('/api/record/start'); await drain();
+  ui.resolveNext('/api/step'); await drain();
+  ui.ids.get('stop-record').click(); await drain();
+  ui.resolveNext('/api/record/stop'); await drain();
+  assert.equal(ui.ids.get('stop-record').disabled, true);
+}
+
+async function spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed() {
+  const ui = fixture('spatial-rigid', {spatialTrained: true}); await ui.ready();
+  assert.equal(ui.ids.get('policy').disabled, false);
+  assert.equal(ui.ids.get('start-learned').disabled, false);
+  assert.match(ui.ids.get('scores').children[0].children[1].textContent, /Learned controller/);
+  assert.match(ui.ids.get('scores').children[3].children[1].textContent, /Braking baseline/);
+  ui.ids.get('policy').click(); ui.ids.get('step').click(); await drain();
+  assert.deepEqual(ui.pending[0].data, {action: 0, steps: 1, policy: true});
+  ui.resolveNext('/api/step'); await drain();
+}
+
 checks.push(poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
-  failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion);
+  failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
+  spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed);
 const requestedChecks = new Set(process.argv.slice(2));
 const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
 if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');

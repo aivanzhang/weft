@@ -11,15 +11,17 @@
   let playbackGeneration = 0, stepPromise = Promise.resolve(), controlBusy = false, mutationEpoch = 0;
   let pollPending = false, pollAgain = false, referenceFrames = [], referenceState = null;
   let mode = "manual", trainedJoint = null, exporting = false, referenceTimer = null;
-  let selectedMotor = null, wholeBodyPolicyReady = false, simulationFailureMessage = null;
+  let selectedMotor = null, wholeBodyPolicyReady = false, simulationFailureMessage = null, learnedPolicyAvailable = true;
   let coverageLoaded = false;
   let poseCoverageLoaded = false, poseCoveragePending = false, poseCoverageAttempts = 0;
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
+  const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
   const number = (value, places = 3) => typeof value === "number" && Number.isFinite(value) ? value.toFixed(places) : "unavailable";
   const held = new Set();
   const keyActions = {ArrowLeft: 1, a: 1, ArrowRight: 2, d: 2, ArrowUp: 3, w: 3, ArrowDown: 4, s: 4, " ": 5};
-  const keyAction = (key) => wholeBody() && key === " " ? 0 : current?.profile === "exercise" ? (key === " " ? 3 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : 2) : keyActions[key];
+  const spatialKeys = {ArrowLeft: 1, a: 1, A: 1, ArrowRight: 2, d: 2, D: 2, ArrowUp: 3, w: 3, W: 3, ArrowDown: 4, s: 4, S: 4, q: 5, Q: 5, PageUp: 5, e: 6, E: 6, PageDown: 6, " ": 7};
+  const keyAction = (key) => spatialRigid() ? spatialKeys[key] : keyActions[key] === undefined ? undefined : wholeBody() && key === " " ? 0 : current?.profile === "exercise" ? (key === " " ? 3 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : 2) : keyActions[key];
   let actionNames = ["coast", "left", "right", "up", "down", "brake"];
   const fileURL = (name) => `/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   const text = (element, value) => { element.textContent = String(value); };
@@ -49,6 +51,7 @@
   function draw(canvas, state) {
     if (!scene || !state) return;
     if (state.human) { drawHuman(canvas, state); return; }
+    if (spatialRigid()) { drawSpatial(canvas, state); return; }
     const width = 960, height = Math.round(width * scene.height / (scene.width || 1));
     if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
     const ctx = canvas.getContext("2d"), scale = width / (scene.width || 1);
@@ -115,6 +118,99 @@
     ctx.fillText(human.reference ? "Captured pose · estimated from video" : human.control_mode === "direct_motor_actions" ? "Explicit motor commands · no automatic support" : human.mobility ? "Mobile simulation · assumed floor and support" : "Simulated body · fixed at the pelvis", 20, 27);
     ctx.font = "12px system-ui"; ctx.fillText((human.view_mode === "body_follow" ? "View follows body · " : "") + "Illustrative muscles · not measured activation", 20, height - 18);
   }
+  const spatialFaces = [[0, 1, 3, 2], [4, 6, 7, 5], [0, 4, 5, 1], [2, 3, 7, 6], [0, 2, 6, 4], [1, 5, 7, 3]];
+  function rotateQuat([x, y, z], [w, a, b, c]) {
+    return [
+      (1 - 2 * (b * b + c * c)) * x + 2 * (a * b - w * c) * y + 2 * (a * c + w * b) * z,
+      2 * (a * b + w * c) * x + (1 - 2 * (a * a + c * c)) * y + 2 * (b * c - w * a) * z,
+      2 * (a * c - w * b) * x + 2 * (b * c + w * a) * y + (1 - 2 * (a * a + b * b)) * z,
+    ];
+  }
+  function spatialCorners(obj) {
+    const result = [];
+    for (const x of [-1, 1]) for (const y of [-1, 1]) for (const z of [-1, 1]) {
+      const r = rotateQuat([x * obj.size[0] / 2, y * obj.size[1] / 2, z * obj.size[2] / 2], obj.quaternion);
+      result.push(r.map((v, i) => v + obj.position[i]));
+    }
+    return result;
+  }
+  function drawSpatial(canvas, state) {
+    const width = 1080, height = 400;
+    if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#FBF7F1"; ctx.fillRect(0, 0, width, height);
+    const yaw = Number($("spatial-yaw")?.value ?? 0.5), zoom = Number($("spatial-zoom")?.value ?? 1);
+    const follow = Boolean($("spatial-follow")?.checked);
+    const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(0.5), sp = Math.sin(0.5), pane = width / 3;
+    const scale = zoom * Math.min(pane * 0.85, height * 0.76 / Math.max(...scene.bounds));
+    const movingObjects = state.objects.filter((o) => o.role !== "static");
+    const center = follow && movingObjects.length
+      ? [0, 1, 2].map((i) => movingObjects.reduce((sum, o) => sum + o.position[i], 0) / movingObjects.length)
+      : scene.bounds.map((v) => v / 2);
+    const views = [
+      {name: "Front: x / height", matrix: [[1, 0, 0], [0, 0, -1]], depth: [0, 1, 0]},
+      {name: "Top: x / depth", matrix: [[1, 0, 0], [0, -1, 0]], depth: [0, 0, 1]},
+      {name: "3D: same state", matrix: [[cy, -sy, 0], [sy * sp, cy * sp, -cp]], depth: [sy * cp, cy * cp, sp]},
+    ];
+    const dot = (a, b) => a.reduce((sum, v, i) => sum + v * b[i], 0);
+    const controlledId = state.controlled_id || scene.controlled_id;
+    views.forEach((view, index) => {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(index * pane, 0, pane, height); ctx.clip();
+      if (index > 0) { ctx.strokeStyle = "#E9DED1"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(index * pane, 0); ctx.lineTo(index * pane, height); ctx.stroke(); }
+      const project = (p) => {
+        const q = p.map((v, i) => v - center[i]);
+        return [(index + 0.5) * pane + dot(q, view.matrix[0]) * scale, height * 0.55 + dot(q, view.matrix[1]) * scale];
+      };
+      ctx.fillStyle = "#214F50"; ctx.font = "15px system-ui"; ctx.fillText(view.name, index * pane + 10, 22);
+      const shapes = [];
+      for (const body of state.objects) {
+        const model = scene.objects.find((item) => item.id === body.id) || body;
+        const obj = {...model, ...body};
+        const moving = obj.role !== "static";
+        if (obj.shape === "sphere") { shapes.push({moving, depth: dot(obj.position, view.depth), object: obj}); continue; }
+        const vertices = spatialCorners(obj);
+        for (const face of spatialFaces) {
+          const points = face.map((i) => vertices[i]);
+          shapes.push({moving, depth: points.reduce((sum, p) => sum + dot(p, view.depth), 0) / 4, points, color: obj.color || "#C5A059"});
+        }
+      }
+      for (const shape of shapes.sort((a, b) => Number(a.moving) - Number(b.moving) || a.depth - b.depth)) {
+        ctx.beginPath();
+        ctx.strokeStyle = shape.moving ? "#214F50" : "#AAA399";
+        ctx.lineWidth = 1;
+        if (shape.object) {
+          const obj = shape.object, [x, y] = project(obj.position);
+          ctx.fillStyle = obj.color || "#C5A059";
+          ctx.arc(x, y, obj.radius * scale, 0, 2 * Math.PI);
+        } else {
+          ctx.fillStyle = shape.color;
+          shape.points.forEach((p, i) => { const [x, y] = project(p); if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+          ctx.closePath();
+        }
+        if (shape.moving) ctx.fill();
+        ctx.stroke();
+      }
+      const controlled = state.objects.find((item) => item.id === controlledId);
+      if (controlled) {
+        const model = scene.objects.find((item) => item.id === controlled.id) || controlled;
+        const [cx, cyPos] = project(controlled.position);
+        const extent = (model.radius || Math.max(...(model.size || [0.05])) / 2) * scale + 5;
+        ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.arc(cx, cyPos, extent, 0, 2 * Math.PI); ctx.stroke();
+      }
+      const target = state.target || scene.target;
+      if (target) {
+        const [tx, ty] = project(target);
+        ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.setLineDash([6, 4]); ctx.lineWidth = 2;
+        ctx.arc(tx, ty, (scene.task.position_tolerance || 0.03) * scale, 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
+      }
+      for (const contact of state.contact_details || []) {
+        const [x, y] = project(contact.position);
+        ctx.beginPath(); ctx.fillStyle = "#965644"; ctx.arc(x, y, 2.5, 0, 2 * Math.PI); ctx.fill();
+      }
+      ctx.restore();
+    });
+  }
   function updateSnapshot(state) {
     if (state.simulation_failure) {
       const message = `Simulation failed: ${state.simulation_failure.reason || "unknown dynamics failure"}. Showing the last valid state, not a fabricated terminal pose. Reset before continuing.`;
@@ -142,7 +238,22 @@
       if (state.terminated || state.truncated) pause();
       return;
     }
-    const body = state.objects.find((item) => item.id === scene.controlled_id);
+    if (spatialRigid()) {
+      const controlledId = state.controlled_id || scene.controlled_id;
+      const body = state.objects.find((item) => item.id === controlledId) || state.objects[0];
+      const suffix = state.success ? "TASK SUCCESS — reset to continue" : state.truncated ? "TIME LIMIT — reset to continue" : state.terminated ? "TRIAL ENDED — reset to continue" : `action: ${usePolicy ? "learned policy" : actionNames[action]}`;
+      text($("readout"), `t ${(state.time_s || 0).toFixed(3)}s · step ${state.steps} · ${body.id} pos [${body.position.map((v) => v.toFixed(3)).join(", ")}] m · speed ${Math.hypot(...body.velocity).toFixed(3)} m/s · quat [${body.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${body.angular_velocity.map((v) => v.toFixed(2)).join(", ")}] rad/s · contacts ${state.contact_count ?? 0} · substeps ${state.substeps ?? 0} · ${suffix}`);
+      const objectLines = state.objects.map((o) => `${o.id} (${o.role}, ${o.shape}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${o.angular_velocity.map((v) => v.toFixed(2)).join(", ")}]`);
+      const contactLines = (state.contact_details || []).length
+        ? state.contact_details.map((c) => `contact ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] normal [${c.normal.map((v) => v.toFixed(2)).join(", ")}] dist ${c.distance.toFixed(4)}m Fn ${c.normal_force.toFixed(2)}N`)
+        : ["contacts: none"];
+      $("spatial-readout").hidden = false;
+      text($("spatial-readout"), [`virtual force (${controlledId}): [${(state.virtual_force || [0, 0, 0]).map((v) => v.toFixed(2)).join(", ")}] N`, ...objectLines, ...contactLines].join("\n"));
+      if (state.terminated || state.truncated) pause();
+      return;
+    }
+    $("spatial-readout").hidden = true;
+    const body = state.objects.find((item) => item.id === (state.controlled_id || scene.controlled_id)) || state.objects[0];
     const suffix = state.success ? "TASK SUCCESS — reset to continue" : state.truncated ? "TIME LIMIT — reset to continue" : state.terminated ? "TRIAL ENDED — reset to continue" : `action: ${usePolicy ? "learned policy" : actionNames[action]}`;
     text($("readout"), `t ${(state.time_s || 0).toFixed(2)}s · step ${state.steps} · position ${body.position.map((v) => v.toFixed(3)).join(", ")} · speed ${Math.hypot(...body.velocity).toFixed(3)} · ${suffix}`);
     if (state.terminated || state.truncated) pause();
@@ -154,17 +265,22 @@
     if (snapshot?.human) {
       const h = snapshot.human, degrees = value => (value * 180 / Math.PI).toFixed(0);
       text($("goal-summary"), wholeBody() ? "Track the known full-body reference using 19 joint motors and 3 virtual root-force controls. Tracking and floor-contact errors determine success; this is not learned balance." : mode === "reference" ? "Follow the video’s estimated joint movement. This controller is programmed, not learned." : `${h.selected_joint.replaceAll("_", " ")}: ${degrees(h.angles[h.selected_joint])}° now → ${degrees(h.target_angle)}° target. Reach the target and slow to a stop.`);
-    } else if (scene) text($("goal-summary"), "Move the highlighted object into the dashed target and slow to a stop.");
+    } else if (spatialRigid()) text($("goal-summary"), `Move ${snapshot?.controlled_id || scene.controlled_id} into the 3D dashed target [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}] m and slow below ${scene.task.speed_tolerance} m/s.`);
+    else if (scene) text($("goal-summary"), "Move the highlighted object into the dashed target and slow to a stop.");
     text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
-      $(id).disabled = !scene || controlBusy || (value === "learned" && current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint));
+      $(id).disabled = !scene || controlBusy || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
     }
     for (const button of document.querySelectorAll("[data-action]")) {
-      const mobileOnly = Number(button.dataset.action) >= 6 && scene?.profile !== "exercise-v3";
-      const incompatible = wholeBody() && ![0, 1, 2].includes(Number(button.dataset.action));
-      button.disabled = !scene || controlBusy || mode !== "manual" || !!ended || mobileOnly || incompatible || (current?.profile === "rolling" && Number(button.dataset.action) > 2) || (current?.profile === "exercise" && Number(button.dataset.action) === 5);
-      button.hidden = mobileOnly || incompatible || (current?.profile === "exercise" && Number(button.dataset.action) === 5);
+      const code = Number(button.dataset.action);
+      const isSpatialExtra = button.dataset.spatial === "true";
+      const spatialMismatch = isSpatialExtra && !spatialRigid();
+      const mobileOnly = !isSpatialExtra && code >= 6 && scene?.profile !== "exercise-v3";
+      const incompatible = wholeBody() && ![0, 1, 2].includes(code);
+      const exerciseServo = current?.profile === "exercise" && code === 5;
+      button.disabled = !scene || controlBusy || mode !== "manual" || !!ended || spatialMismatch || mobileOnly || incompatible || (current?.profile === "rolling" && code > 2) || exerciseServo;
+      button.hidden = spatialMismatch || mobileOnly || incompatible || exerciseServo;
     }
     $("joint").disabled = (recording && !wholeBody()) || controlBusy || mode !== "manual";
     $("record").disabled = recording || exporting || !scene || controlBusy;
@@ -269,10 +385,20 @@
   $("start-manual").onclick = () => { showPanel("play"); selectMode("manual"); $("live").focus(); };
   $("start-learned").onclick = () => { showPanel("play"); selectMode("learned"); begin({fresh: true}); };
   $("start-reference").onclick = () => showPanel("world");
-  function redrawViews() { if (snapshot) draw($("live"), snapshot); if (referenceState) draw($("world-canvas"), referenceState); }
+  function redrawViews() {
+    if (snapshot) draw($("live"), snapshot);
+    if (referenceState) draw($("world-canvas"), referenceState);
+    else if (spatialRigid() && snapshot) draw($("world-canvas"), snapshot);
+  }
   $("camera-yaw").oninput = () => { $("world-yaw").value = $("camera-yaw").value; redrawViews(); };
   $("world-yaw").oninput = () => { $("camera-yaw").value = $("world-yaw").value; redrawViews(); };
   $("show-muscles").oninput = redrawViews;
+  $("spatial-yaw").oninput = () => { $("spatial-world-yaw").value = $("spatial-yaw").value; redrawViews(); };
+  $("spatial-world-yaw").oninput = () => { $("spatial-yaw").value = $("spatial-world-yaw").value; redrawViews(); };
+  $("spatial-zoom").oninput = () => { $("spatial-world-zoom").value = $("spatial-zoom").value; redrawViews(); };
+  $("spatial-world-zoom").oninput = () => { $("spatial-zoom").value = $("spatial-world-zoom").value; redrawViews(); };
+  $("spatial-follow").onchange = () => { $("spatial-world-follow").checked = $("spatial-follow").checked; redrawViews(); };
+  $("spatial-world-follow").onchange = () => { $("spatial-follow").checked = $("spatial-world-follow").checked; redrawViews(); };
   function showReference(index) {
     $("reference-frame").value = index; referenceState = referenceFrames[index];
     if (referenceState) { draw($("world-canvas"), referenceState); text($("reference-time"), `${(referenceState.source_time_s ?? referenceState.time_s ?? 0).toFixed(2)} seconds · estimated pose`); }
@@ -295,7 +421,7 @@
   function chooseAction(value) {
     if (mode !== "manual" || controlBusy || (wholeBody() && ![0, 1, 2].includes(value))) return;
     action = value; usePolicy = false;
-    for (const button of document.querySelectorAll("[data-action]")) button.setAttribute("aria-pressed", String(Number(button.dataset.action) === value));
+    for (const button of document.querySelectorAll("[data-action]")) button.setAttribute("aria-pressed", String(!button.hidden && Number(button.dataset.action) === value));
   }
   for (const button of document.querySelectorAll("[data-action]")) {
     button.onpointerdown = (event) => { if (mode !== "manual") return; button.setPointerCapture(event.pointerId); chooseAction(Number(button.dataset.action)); };
@@ -305,11 +431,12 @@
   }
   $("live").onkeydown = (event) => {
     if (event.key === "Escape") { pause(); return; }
-    if (keyActions[event.key] === undefined || mode !== "manual" || snapshot?.terminated || snapshot?.truncated) return;
-    const value = keyAction(event.key); if (current?.profile === "rolling" && value > 2) return;
+    const value = keyAction(event.key);
+    if (value === undefined || mode !== "manual" || snapshot?.terminated || snapshot?.truncated) return;
+    if (current?.profile === "rolling" && value > 2) return;
     event.preventDefault(); held.add(event.key); chooseAction(value); if (!running && !event.repeat) step(3);
   };
-  $("live").onkeyup = (event) => { if (keyActions[event.key] === undefined) return; event.preventDefault(); held.delete(event.key); chooseAction(held.size ? keyAction([...held].at(-1)) : 0); };
+  $("live").onkeyup = (event) => { if (keyAction(event.key) === undefined) return; event.preventDefault(); held.delete(event.key); chooseAction(held.size ? (keyAction([...held].at(-1)) ?? 0) : 0); };
   const pauseAll = () => { pause(); stopReference(); };
   window.addEventListener("blur", pauseAll);
   document.addEventListener("visibilitychange", () => { if (document.hidden) { pauseAll(); clearTimeout(statusTimer); } else scheduleStatus(0); });
@@ -345,8 +472,9 @@
   }
   async function readyDetails(data) {
     scene = data.scene;
-    const noLearnedPolicy = scene.learned_policy_available === false;
-    if (wholeBody() || noLearnedPolicy) {
+    const noLearnedPolicy = data.learned_policy_available === false || scene.learned_policy_available === false;
+    learnedPolicyAvailable = !noLearnedPolicy;
+    if (data.profile === "exercise" && (wholeBody() || noLearnedPolicy)) {
       const feasibility = data.reference_feasibility, summary = feasibility?.summary;
       $("reference-feasibility").hidden = false;
       const label = feasibility?.status === "infeasible" ? "Reference has floor conflicts; this sandbox is a diagnostic simulation." : feasibility?.status === "feasible" ? "Reference passed the configured floor checks; this sandbox is a diagnostic simulation, not validated physical reconstruction." : "Reference floor feasibility is unavailable; this sandbox is a diagnostic simulation.";
@@ -358,11 +486,37 @@
     updateSnapshot(data.snapshot); draw($("world-canvas"), data.snapshot);
     $("build-details").open = false; text($("build-status"), "· complete");
     text($("start-help"), "Ready. Start with the captured movement, or jump straight into the sandbox.");
-    for (const id of ["start-reference", "start-manual", "start-learned", "mode-manual"]) $(id).disabled = id === "start-learned" && data.profile === "exercise";
-    for (const button of document.querySelectorAll("[data-action]")) button.disabled = data.profile === "rolling" && Number(button.dataset.action) > 2;
+    for (const id of ["start-reference", "start-manual", "start-learned", "mode-manual"]) $(id).disabled = id === "start-learned" && (!learnedPolicyAvailable || data.profile === "exercise");
     $("scene-json").dataset.json = data.profile === "rolling" ? "world.json" : "scene.json";
     $("reconstruction-json").dataset.json = data.profile === "rolling" ? "report.json" : "reconstruction.json";
     if (data.profile === "rolling") text($("control-help"), "Left/right arrows or A/D to push. Release to coast. This profile has horizontal control only.");
+    if (data.profile === "spatial-rigid") {
+      actionNames = ["Coast", "← Left (−x)", "Right (+x) →", "↑ Forward (+y)", "↓ Back (−y)", "Up (+z)", "Down (−z)", "Slow down"];
+      for (const button of document.querySelectorAll("[data-action]")) {
+        if (Number(button.dataset.action) >= 6 && button.dataset.spatial !== "true") continue;
+        const label = actionNames[Number(button.dataset.action)];
+        if (label) text(button, label);
+      }
+      $("spatial-controls").hidden = false; $("spatial-world-controls").hidden = false;
+      text($("world-tab"), "3D scene");
+      text($("world-heading"), "One 3D world. Front, top and angled views.");
+      text($("world-description"), "Rigid 3D objects share meter-scale coordinates, quaternions, contacts and MuJoCo dynamics. Depth, shape, materials, controls and task remain explicit assumptions; physical validation is unverified.");
+      text($("evidence-boundary"), "Imported from a sealed 3D scene run. Depth, unseen surfaces, mass, friction and task forces are assumptions—not verified physical measurements.");
+      const hasVideo = (data.artifacts || []).some((file) => /^source\.(mp4|webm|mov|m4v|avi|mkv)$/.test(file.name));
+      if (!hasVideo && $("tracks").hidden) text($("tracks-empty"), "No source video or tracking preview was sealed with this 3D scene run. Inspect scene.json, reconstruction.json and Files for provenance.");
+      text($("control-help"), "Tap one of the eight 3D controls, or start and hold. With the scene focused: A/D or Left/Right push x, W/S or Up/Down push depth y, Q/E (or PageUp/PageDown) push height z, Space slows movement, Escape pauses.");
+      text($("play-boundary"), "Bounded virtual translational forces act on the controlled object; rotation and contact forces come from 3D collisions. Physical validation remains unverified.");
+      $("live").setAttribute("aria-label", "3D rigid simulation. Arrows and WASD push x and depth y; Q and E push height z; Space slows movement; Escape pauses.");
+      if (noLearnedPolicy) {
+        text($("start-help"), "3D scene ready. Inspect the front/top/3D views and assumptions, then try manual 3D controls and recording. No learned controller has been trained for this run.");
+        text($("learning-description"), "No learned controller was trained or imported for this 3D scene run.");
+        text($("learning-boundary"), "Manual controls and 8-action intervention probes verify simulator responsiveness only, not learned behavior or physical accuracy.");
+        text($("training-caption"), "Not trained · inspect interventions.json for verified 8-action MuJoCo control probes.");
+      } else {
+        text($("start-help"), "3D scene and learned controller ready. Inspect the 3D world, try manual controls, or watch the trained controller.");
+        text($("learning-description"), "Compare the learned 3D policy against matched baselines on the same 3D rigid scene.");
+      }
+    }
     if (data.profile === "appearance") {
       text($("evidence-boundary"), "The rectangles were selected in the source video. Tracking compares their appearance; a match does not prove visibility or identity. Missing or ambiguous matches remain untracked.");
       text($("world-description"), "Selected regions become simple 2D shapes. Gravity, collisions and controls are explicit assumptions, checked against later tracked positions.");
@@ -438,6 +592,7 @@
       selectedMotor = wholeBody() ? scene.action_contract.names[0] : null;
       $("joint").value = wholeBody() ? selectedMotor : data.snapshot.human.selected_joint;
       for (const button of document.querySelectorAll("[data-action]")) {
+        if (button.dataset.spatial === "true") continue;
         const label = actionNames[Number(button.dataset.action)]; if (label) text(button, label);
       }
       try { const reference = await artifact("human-reference.json"); referenceFrames = reference.frames; $("reference-frame").max = Math.max(0, referenceFrames.length - 1); showReference(0); $("reference-play").disabled = referenceFrames.length < 2; } catch (e) { error(e.message); }
@@ -452,7 +607,7 @@
         const trials = score.trials || [], successes = trials.filter(trial => trial.success).length;
         return [`${successes}/${trials.length}`, `${({learned: "Learned full-body controller", zero: "Zero motor force", random: "Random actions", authored_feedback: "Authored feedback (not learned)"})[name] || name.replaceAll("_", " ")} · full-body trials passed · mean return ${number(score.mean_return)}`];
       }
-      return [`${score.successes}/${score.episodes}`, `${({q_learning: "Learned controller", random: "Random actions", coast: "No control"})[name] || name.replaceAll("_", " ")} · goals reached`];
+      return [`${score.successes}/${score.episodes}`, `${({q_learning: "Learned controller", learned: "Learned controller", random: "Random actions", coast: "No control", brake: "Braking baseline", heuristic_feedback: "Target feedback (not learned)"})[name] || name.replaceAll("_", " ")} · goals reached`];
     }));
     if (results[2].status === "fulfilled") {
       const ledger = results[2].value; const rows = Array.isArray(ledger) ? ledger : (ledger.proposals || ledger.repairs || ledger.candidates || []);

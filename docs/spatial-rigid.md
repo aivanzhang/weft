@@ -22,6 +22,22 @@ Try `right 6`, `forward 6`, `back 6`, `brake 6`, `reset` and `quit`. Nothing adv
 
 Your recording folder's `current-frame.png` shows the current state. Quitting exports a video and an offline step-by-step replay, including resets. The existing [control/reset example](../artifacts/spatial-ramp-views-01/terminal-session/replay.html) contains 26 states. The positive-offset example was fixed before comparison, not selected as the best result. Its parking target and controls are authored; no policy was trained here.
 
+### Open in the unified local lab
+
+You can also inspect, control, and record any verified `spatial-rigid-v1` run inside the browser local lab while keeping the source run immutable:
+
+```sh
+# Package without starting a server (or generate a standalone analytic fixture first with `weft spatial-fixture`).
+.venv-lab/bin/python -m weft spatial-lab \
+  --run artifacts/spatial-ramp-sandbox-02/positive-offset \
+  --out artifacts/my-3d-ramp-lab-01
+
+# Open the packaged lab on 127.0.0.1 (or use `weft lab --scene-run <run> --out <new-lab>` directly).
+.venv-lab/bin/python -m weft lab --resume artifacts/my-3d-ramp-lab-01
+```
+
+The lab copies only sealed inputs into `run/inputs/source-run/`, preserves `physical_validation: "unverified"`, exposes synchronized front/top/3D views, full 3D position/quaternion/spin/contact inspection, all eight controls, and exact `sessions/` recording/export/replay without altering `run/`. Untrained 3D imports keep learned-policy controls explicitly disabled.
+
 ## What the environment contains
 
 `spatial_rigid.py` implements the separate `spatial-rigid-v1` contract; planar and human profiles retain their own contracts.

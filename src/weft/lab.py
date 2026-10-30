@@ -224,6 +224,57 @@ class WholeBodySession:
         return self._snapshot
 
 
+class SpatialSession:
+    def __init__(self, root):
+        from weft.spatial_rigid import SpatialRigidEnv
+        self.scene = json.loads((root / "scene.json").read_text())
+        self.policy = json.loads((root / "policy.json").read_text()) if (root / "policy.json").is_file() else None
+        if self.policy is not None and self.policy.get("scene_sha256") != canonical_hash(self.scene):
+            raise ValueError("Spatial policy belongs to a different 3D scene")
+        self.env = SpatialRigidEnv(self.scene)
+        self.scene = self.env.scene
+        try:
+            self.reset(0)
+            if self.policy is not None:
+                self.policy_action()
+        except Exception:
+            self.env.close()
+            raise
+
+    def reset(self, seed):
+        self.observation, _ = self.env.reset(seed=seed, options={"jitter": False})
+        self.done, self.failure = False, None
+        self._snapshot = self.env.snapshot()
+        return self.snapshot()
+
+    def policy_action(self):
+        if self.policy is None:
+            raise ValueError("This 3D scene has no learned policy; use manual controls")
+        from weft.spatial_learning import policy_action
+        if self.env.scene["controlled_id"] != self.policy.get("controlled_id"):
+            raise ValueError(f"This policy was trained for {self.policy['controlled_id']}; select that object first")
+        return int(policy_action(self.policy, self.observation))
+
+    def step(self, action):
+        if type(action) is not int or not 0 <= action <= 7:
+            raise ValueError("Spatial rigid control requires an integer action 0–7")
+        try:
+            self.observation, reward, terminated, truncated, info = self.env.step(action)
+            self._snapshot = self.env.snapshot()
+        except RuntimeError as error:
+            self.done = True
+            self.failure = {"reason": str(error), "attempted_action": action,
+                            "scope": "Last valid state shown; no terminal state was fabricated."}
+            raise
+        self.done = terminated or truncated
+        return reward, terminated, truncated, info
+
+    def snapshot(self):
+        if self.failure:
+            return {**self._snapshot, "terminated": True, "simulation_failure": self.failure}
+        return self._snapshot
+
+
 class Lab:
     def __init__(self, root):
         self.root = Path(root).resolve()
@@ -287,7 +338,7 @@ class Lab:
                 raise ValueError("The environment is not ready; inspect the pipeline status")
             verify_artifacts(self.root / "run")
             cls = {"rolling": RollingSession, "planar": PlanarSession, "appearance": PlanarSession,
-                   "exercise": HumanSession}[self.config["profile"]]
+                   "spatial-rigid": SpatialSession, "exercise": HumanSession}[self.config["profile"]]
             if self.config.get('control_profile') == 'whole_body':
                 if self.config['profile'] != 'exercise':
                     raise ValueError('Whole-body control requires an exercise lab')
@@ -332,7 +383,11 @@ class Lab:
             if self.artifacts is None:
                 self.artifacts = [{"name": str(p.relative_to(self.root / "run")), "bytes": p.stat().st_size}
                                   for p in sorted((self.root / "run").iterdir()) if p.is_file()]
-            result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts)
+            policy_ready = (session.scene.get("learned_policy_available") is not False
+                            and not isinstance(session, CameraHumanSession)
+                            and (not isinstance(session, SpatialSession) or session.policy is not None))
+            result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
+                          learned_policy_available=policy_ready)
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}
@@ -373,7 +428,8 @@ class Lab:
             return {"snapshot": snapshot}
         if path == "/api/step":
             count, action = data.get("steps", 1), data.get("action", 0)
-            maximum_action = 9 if session.scene.get("profile") == "exercise-v3" else 5
+            scene_profile = session.scene.get("profile")
+            maximum_action = 9 if scene_profile == "exercise-v3" else 7 if scene_profile == "spatial-rigid-v1" else 5
             if type(count) is not int or not 1 <= count <= 6:
                 raise ValueError('Use 1–6 steps')
             if type(data.get("policy", False)) is not bool:
@@ -405,7 +461,7 @@ class Lab:
                 try:
                     reward, terminated, truncated, info = session.step(chosen)
                 except RuntimeError:
-                    if not isinstance(session, WholeBodySession) or session.failure is None:
+                    if not isinstance(session, (WholeBodySession, SpatialSession)) or session.failure is None:
                         raise
                     if self.recorder:
                         recorder, self.recorder = self.recorder, None
@@ -430,7 +486,8 @@ class Lab:
             # Start at a seeded reset so every saved action stream can be reproduced.
             snapshot = session.reset(self.seed)
             name = f"session-{uuid4().hex[:12]}"
-            recorder = Recorder(self.root / "sessions" / name, session.scene, profile=self.config["profile"])
+            recorder_profile = "spatial-rigid" if session.scene.get("profile") == "spatial-rigid-v1" else self.config["profile"]
+            recorder = Recorder(self.root / "sessions" / name, session.scene, profile=recorder_profile)
             recorder.start(snapshot, seed=self.seed)
             self.recorder = recorder
             return {"recording": True, "directory": name, "snapshot": snapshot}
@@ -664,13 +721,23 @@ def prepare_lab(video, out, *, profile="planar", config=None, episodes=1500, eva
 
 
 def launch_lab(args):
+    scene_run = getattr(args, "scene_run", None)
+    scene_learning = getattr(args, "learning", None)
     if args.resume:
-        if args.video or args.out or args.config:
-            raise ValueError("--resume cannot be combined with --video, --out, or --config")
+        if args.video or args.out or args.config or scene_run or scene_learning:
+            raise ValueError("--resume cannot be combined with --video, --out, --config, or --scene-run")
         root = Path(args.resume).resolve()
         if not (root / "lab-config.json").is_file():
             raise ValueError("--resume requires an existing lab directory")
+    elif scene_run:
+        if args.video or args.config or not args.out:
+            raise ValueError("--scene-run requires a new --out directory and cannot be combined with --video or --config")
+        from weft.spatial_lab import prepare_spatial_lab
+        prepare_spatial_lab(scene_run, args.out, policy_run=scene_learning)
+        root = Path(args.out).resolve()
     else:
+        if scene_learning:
+            raise ValueError("--learning requires --scene-run")
         if not args.video or not args.out:
             raise ValueError("Provide --video and a new --out directory")
         root = prepare_lab(args.video, args.out, profile=args.profile, config=args.config,
@@ -686,7 +753,7 @@ def launch_lab(args):
             server = LabServer(("127.0.0.1", args.port), lab)
             print(f"\nWeft local lab: http://127.0.0.1:{server.server_port}/#token={lab.token}", flush=True)
             print(f"Artifacts: {root}\nOpen the link in your browser. Ctrl+C stops the lab; recordings stay on disk.\n", flush=True)
-        if not args.resume:
+        if not args.resume and not scene_run:
             lab.start_worker()
         if args.no_serve:
             last = -1

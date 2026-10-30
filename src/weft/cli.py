@@ -57,6 +57,8 @@ def main():
     lab.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
     lab.add_argument("--no-serve", action="store_true", help="Run stages in the terminal without a web server")
     lab.add_argument("--resume", help="Inspect a saved lab without rerunning its pipeline")
+    lab.add_argument("--scene-run", help="Opt-in import of a verified spatial-rigid-v1 run into a new --out lab")
+    lab.add_argument("--learning", help="Optional verified spatial policy directory paired with --scene-run")
     replay = commands.add_parser("replay", help="Verify or export an interaction recording")
     replay.add_argument("directory")
     replay.add_argument("--export", action="store_true", help="Create video and offline replay from a closed journal")
@@ -150,6 +152,12 @@ def main():
     camera_body.add_argument('--partial-segments', action='store_true',
                              help='Use supported upper segments when wrists/ankles are missing; twist and distal bends remain explicit priors')
     camera_body.add_argument('--out', required=True, help='New candidate lab; no server or training is started')
+    spatial_fixture = commands.add_parser("spatial-fixture", help="Write a verified analytic spatial-rigid-v1 fixture run; no API calls")
+    spatial_fixture.add_argument("--out", required=True, help="New sealed 3D scene directory")
+    spatial_lab = commands.add_parser("spatial-lab", help="Package a verified spatial-rigid-v1 run into a new local lab; no server started")
+    spatial_lab.add_argument("--run", required=True, help="Existing verified spatial-rigid-v1 run directory")
+    spatial_lab.add_argument("--learning", help="Optional verified spatial policy directory for the same scene")
+    spatial_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -233,6 +241,12 @@ def main():
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
                                              root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments)
+        elif args.command == "spatial-fixture":
+            from weft.spatial_lab import write_sealed_spatial_fixture
+            result = write_sealed_spatial_fixture(args.out)
+        elif args.command == "spatial-lab":
+            from weft.spatial_lab import prepare_spatial_lab
+            result = prepare_spatial_lab(args.run, args.out, policy_run=args.learning)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)
