@@ -223,8 +223,18 @@ class SpatialRigidEnv(gym.Env):
     def reset(self, *, seed=None, options=None):
         if seed is not None and (type(seed) is not int or not 0 <= seed < 2**32):
             raise ValueError('Seed must be a bounded nonnegative integer')
-        if options is not None and (not isinstance(options, dict) or set(options) - {'jitter'} or options.get('jitter', False) is not False):
-            raise ValueError('Spatial hypotheses currently support exact, non-jittered resets only')
+        if options is not None and not isinstance(options, dict):
+            raise ValueError('Spatial reset options must be a mapping')
+        options = options or {}
+        if set(options) - {'jitter', 'position_jitter', 'velocity_jitter'}:
+            raise ValueError('Spatial reset accepts only jitter, position_jitter, and velocity_jitter')
+        use_jitter = options.get('jitter', False)
+        if type(use_jitter) is not bool:
+            raise ValueError('Spatial reset jitter must be a boolean')
+        if not use_jitter and (options.get('position_jitter', 0.) != 0. or options.get('velocity_jitter', 0.) != 0.):
+            raise ValueError('position_jitter and velocity_jitter require jitter=True')
+        pos_jitter = _number(options.get('position_jitter', .03 if use_jitter else 0.), 'position_jitter', 0., .15)
+        vel_jitter = _number(options.get('velocity_jitter', .15 if use_jitter else 0.), 'velocity_jitter', 0., 1.)
         super().reset(seed=seed)
         self.model.opt.timestep = self.scene['dt']/32
         mujoco.mj_resetData(self.model, self.data)
@@ -244,11 +254,76 @@ class SpatialRigidEnv(gym.Env):
                     self.model.geom(other['id']).id, .01, None)
                 if distance < -1e-6:
                     raise ValueError('Initial spatial objects intersect')
+        perturbations = {}
+        if use_jitter:
+            bounds = np.asarray(self.scene['bounds'], dtype=float)
+            for obj in self.scene['objects']:
+                if obj['role'] == 'static':
+                    continue
+                joint = self.model.joint(obj['id'] + '_joint').id
+                qadr = self.model.jnt_qposadr[joint]
+                vadr = self.model.jnt_dofadr[joint]
+                nominal_pos = np.asarray(obj['position'], dtype=float)
+                nominal_vel = np.asarray(obj['velocity'], dtype=float)
+                chosen_pos = nominal_pos.copy()
+                fallback = False
+                if pos_jitter > 0.:
+                    margin = min(float(self._radii[obj['id']]) + .005, float(np.min(bounds)) * .45)
+                    low = np.minimum(nominal_pos, margin)
+                    high = np.maximum(nominal_pos, bounds - margin)
+                    geom_id = self.model.geom(obj['id']).id
+                    placed = False
+                    for _ in range(32):
+                        delta = np.array([
+                            float(self.np_random.uniform(-pos_jitter, pos_jitter)),
+                            float(self.np_random.uniform(-pos_jitter, pos_jitter)),
+                            float(self.np_random.uniform(0., .5 * pos_jitter)),
+                        ])
+                        candidate = np.clip(nominal_pos + delta, low, high)
+                        self.data.qpos[qadr:qadr+3] = candidate
+                        mujoco.mj_forward(self.model, self.data)
+                        if all(
+                            mujoco.mj_geomDistance(
+                                self.model, self.data, geom_id, self.model.geom(other['id']).id, .01, None
+                            ) >= 1e-4
+                            for other in self.scene['objects'] if other['id'] != obj['id']
+                        ):
+                            chosen_pos = candidate
+                            placed = True
+                            break
+                    if not placed:
+                        self.data.qpos[qadr:qadr+3] = nominal_pos
+                        mujoco.mj_forward(self.model, self.data)
+                        fallback = True
+                chosen_vel = nominal_vel.copy()
+                if vel_jitter > 0.:
+                    chosen_vel = nominal_vel + self.np_random.uniform(-vel_jitter, vel_jitter, 3)
+                    speed = float(np.linalg.norm(chosen_vel))
+                    if speed > .8 * MAX_SPEED:
+                        chosen_vel *= (.8 * MAX_SPEED) / speed
+                    self.data.qvel[vadr:vadr+3] = chosen_vel
+                perturbations[obj['id']] = {
+                    'position_delta': (chosen_pos - nominal_pos).tolist(),
+                    'velocity_delta': (chosen_vel - nominal_vel).tolist(),
+                    'fallback_unperturbed': fallback,
+                }
+            mujoco.mj_forward(self.model, self.data)
+            for i, obj in enumerate(self.scene['objects']):
+                for other in self.scene['objects'][i+1:]:
+                    if obj['role'] == other['role'] == 'static':
+                        continue
+                    distance = mujoco.mj_geomDistance(self.model, self.data, self.model.geom(obj['id']).id,
+                        self.model.geom(other['id']).id, .01, None)
+                    if distance < -1e-6:
+                        raise ValueError('Perturbed spatial objects intersect')
         self.steps, self.substeps = 0, 0
         self.success = self.terminated = self.truncated = False
         self._initialized, self._done = True, False
         self._force = [0., 0., 0.]
-        return self._observation(self._objects()), {'reset_jitter': False, 'physical_validation': 'unverified'}
+        info = {'reset_jitter': use_jitter, 'physical_validation': 'unverified'}
+        if use_jitter:
+            info['perturbation'] = perturbations
+        return self._observation(self._objects()), info
 
     def step(self, action):
         if not self._initialized or self._done:

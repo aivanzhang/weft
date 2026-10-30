@@ -85,6 +85,18 @@ Defaults: eight generations × 16 candidates × three training trials, at most 6
 
 Artifacts include the human model, settings and source hashes, implementation copies, every candidate and trial result, the selected policy, all four evaluation results and representative state traces. Policy bytes are frozen before evaluation and verified afterward. No best seed is selected using evaluation results.
 
+### Changed-initial-condition and explicit perturbation evaluation
+
+Evaluate any sealed whole-body learning directory across scaled initial reset perturbations (`0.0x`, `1.0x`, `3.0x`, `5.0x`) and four named deterministic perturbations (`lateral_root_push_plus_x`, `lateral_root_push_minus_x`, `joint_flexion_offset_0p08rad`, `upward_root_offset_0p03`) under unmodified `SUCCESS_LIMITS` without altering the source directory:
+
+```sh
+.venv-lab/bin/python -m weft body-evaluate \
+  --learning artifacts/whole-body-learning-02/single-leg-squat-seed-11 \
+  --out artifacts/my-whole-body-changed-eval-01
+```
+
+In `artifacts/track-b-learning-changed-init-02`, `single-leg-squat-seed-11` passes `3/3` (`0.0x`), `9/9` (`1.0x`), `9/9` (`3.0x`), `9/9` (`5.0x`), and `3/3` on all four explicit perturbations for both `learned` (mean return `0.726–0.728`) and `authored_feedback` (`0.936–0.940`), versus `0` passes for `zero` and `random`. On `squat-seed-11`, `learned` and `authored_feedback` keep `1.0` diagnostic tracking-within-RMSE rate across every regime, while the two floor-conflicted evaluation windows remain explicit failures (`1/3` at `0.0x`, `3/9` at `1.0x–5.0x`, `1/3` per explicit perturbation, peak penetration `0.21` model units) under the unchanged `0.025` floor gate.
+
 ## Verified development results
 
 `artifacts/whole-body-learning-02` completed all nine jobs in 40.385 seconds using two workers: three real-source body models × training seeds 11, 29 and 47. Each controller receives three later-window trials per seed; the table combines those nine trials, not nine independent videos.

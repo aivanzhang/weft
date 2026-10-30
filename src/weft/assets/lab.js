@@ -656,7 +656,8 @@
         const trials = score.trials || [], successes = trials.filter(trial => trial.success).length;
         return [`${successes}/${trials.length}`, `${({learned: "Learned full-body controller", zero: "Zero motor force", random: "Random actions", authored_feedback: "Authored feedback (not learned)"})[name] || name.replaceAll("_", " ")} · full-body trials passed · mean return ${number(score.mean_return)}`];
       }
-      return [`${score.successes}/${score.episodes}`, `${({q_learning: "Learned controller", learned: "Learned controller", random: "Random actions", coast: "No control", brake: "Braking baseline", heuristic_feedback: "Target feedback (not learned)"})[name] || name.replaceAll("_", " ")} · goals reached`];
+      const extra = typeof score.mean_final_distance_m === "number" ? ` · mean return ${number(score.mean_return)} · final dist ${number(score.mean_final_distance_m)} m` : "";
+      return [`${score.successes}/${score.episodes}`, `${({q_learning: "Learned controller", learned: "Learned controller", random: "Random actions", coast: "No control", brake: "Braking baseline", heuristic_feedback: "Target feedback (not learned)"})[name] || name.replaceAll("_", " ")} · goals reached${extra}`];
     }));
     if (results[2].status === "fulfilled") {
       const ledger = results[2].value; const rows = Array.isArray(ledger) ? ledger : (ledger.proposals || ledger.repairs || ledger.candidates || []);

@@ -1,5 +1,8 @@
 """Bounded policy search over explicit whole-body motors; no hidden stabilizer."""
 
+from copy import deepcopy
+import json
+import math
 from pathlib import Path
 import shutil
 import time
@@ -8,7 +11,8 @@ import numpy as np
 
 from weft.human import validate_human
 from weft.io import canonical_hash, digest, local_time, write_json
-from weft.whole_body import WholeBodyEnv
+from weft.pipeline import verify_artifacts
+from weft.whole_body import SUCCESS_LIMITS, WholeBodyEnv
 from weft.whole_body_feasibility import audit_reference_feasibility
 
 
@@ -57,8 +61,8 @@ def windows(spec, requested_horizon=60):
             'scope': 'Disjoint time windows in an already-exposed development video, not a final holdout.'}
 
 
-def rollout(env, weights, seed, *, random=False, deadline=None, trace=False):
-    env.reset(seed=seed, options={'jitter': True})
+def rollout(env, weights, seed, *, random=False, deadline=None, trace=False, reset_options=None):
+    env.reset(seed=seed, options={'jitter': True} if reset_options is None else reset_options)
     rng = np.random.default_rng(seed + 1)
     snapshots = [env.snapshot()] if trace else None
     while True:
@@ -201,6 +205,252 @@ def train_whole_body(spec, out, *, seed=1729, generations=8, population=16,
         training.update(budget_exhausted=True, seconds=time.perf_counter() - started, failure=str(error))
         write_json(out / 'training.json', training)
         raise
+    finally:
+        for env in envs:
+            env.close()
+
+
+def _summarize_controller_trials(trials):
+    valid_ang = [row['angular_rmse_rad'] for row in trials if row['angular_rmse_rad'] is not None]
+    valid_root = [row['root_rmse_model_units'] for row in trials if row['root_rmse_model_units'] is not None]
+    tracking_passes = sum(
+        bool(
+            row['completed_horizon']
+            and row['angular_rmse_rad'] is not None
+            and row['angular_rmse_rad'] <= SUCCESS_LIMITS['angular_rmse_rad']
+            and row['root_rmse_model_units'] is not None
+            and row['root_rmse_model_units'] <= SUCCESS_LIMITS['root_rmse_model_units']
+        )
+        for row in trials
+    )
+    floor_failures = sum(
+        bool(row['max_floor_penetration_model_units'] > SUCCESS_LIMITS['max_floor_penetration_model_units'])
+        for row in trials
+    )
+    return {
+        'episodes': len(trials),
+        'successes': sum(int(row['success']) for row in trials),
+        'success_rate': sum(int(row['success']) for row in trials) / len(trials),
+        'diagnostic_tracking_within_rmse_bounds_rate': tracking_passes / len(trials),
+        'floor_penetration_failures': floor_failures,
+        'mean_return': float(np.mean([row['return'] for row in trials])),
+        'mean_angular_rmse_rad': float(np.mean(valid_ang)) if valid_ang else None,
+        'mean_root_rmse_model_units': float(np.mean(valid_root)) if valid_root else None,
+        'max_floor_penetration_model_units': float(max(row['max_floor_penetration_model_units'] for row in trials)),
+        'trials': trials,
+    }
+
+
+def evaluate_changed_conditions(
+    learning_dir,
+    out,
+    *,
+    seed=938401,
+    jitter_scales=(0.0, 1.0, 3.0, 5.0),
+    trials_per_window=3,
+    max_seconds=120,
+):
+    """Evaluate a sealed whole-body policy against matched baselines across changed initial conditions."""
+    if type(seed) is not int or not 0 <= seed < 2**31:
+        raise ValueError('Invalid whole-body evaluation seed')
+    if type(trials_per_window) is not int or not 1 <= trials_per_window <= 12:
+        raise ValueError('trials_per_window must be 1–12')
+    if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 180:
+        raise ValueError('max_seconds must be 1–180 seconds')
+    if not isinstance(jitter_scales, (list, tuple)) or not 1 <= len(jitter_scales) <= 8:
+        raise ValueError('jitter_scales must list 1–8 finite scales in [0, 5]')
+    scales = []
+    for item in jitter_scales:
+        if type(item) not in (int, float) or not math.isfinite(item) or not 0.0 <= float(item) <= 5.0:
+            raise ValueError('Each jitter_scale must be finite within [0, 5]')
+        scales.append(float(item))
+
+    learning_dir, out = Path(learning_dir).resolve(), Path(out).resolve()
+    if out.exists():
+        raise FileExistsError('Choose a new output directory for whole-body changed-condition evaluation')
+    if out == learning_dir or out.is_relative_to(learning_dir):
+        raise ValueError('Keep evaluation output outside the immutable learning directory')
+
+    verified = verify_artifacts(learning_dir)
+    for required in ('human.json', 'policy.json', 'settings.json'):
+        if not (learning_dir / required).is_file():
+            raise ValueError(f'Whole-body learning directory is missing {required}')
+
+    spec = validate_human(json.loads((learning_dir / 'human.json').read_text()))
+    policy = json.loads((learning_dir / 'policy.json').read_text())
+    settings = json.loads((learning_dir / 'settings.json').read_text())
+    if policy.get('spec_sha256') != canonical_hash(spec):
+        raise ValueError('Whole-body policy does not match human.json')
+    if policy.get('algorithm') != ALGORITHM or policy.get('schema_version') != 1:
+        raise ValueError('Unsupported whole-body policy')
+    weights_learned = np.asarray(policy.get('weights'), dtype=float)
+    if weights_learned.shape != (4, 3) or not np.all(np.isfinite(weights_learned)) or np.any(np.abs(weights_learned) > 3):
+        raise ValueError('Whole-body policy requires bounded finite 4-by-3 weights')
+
+    partition = settings['partition']
+    eval_starts = list(partition['evaluation_start_times_s'])
+    horizon_steps = int(partition['horizon_steps'])
+    feasibility = (
+        json.loads((learning_dir / 'reference-feasibility.json').read_text())
+        if (learning_dir / 'reference-feasibility.json').is_file()
+        else audit_reference_feasibility(spec)
+    )
+
+    rng = np.random.default_rng(seed)
+    envs = [WholeBodyEnv(spec, start_time_s=start, horizon_steps=horizon_steps) for start in eval_starts]
+    try:
+        for env in envs:
+            env.reset(seed=0, options={'jitter': False})
+            policy_action(policy, env)
+
+        out.mkdir(parents=True, exist_ok=False)
+        started = time.perf_counter()
+        deadline = started + float(max_seconds)
+        policy_sha = digest(learning_dir / 'policy.json')
+
+        controllers = [
+            ('learned', weights_learned, False),
+            ('zero', np.zeros((4, 3)), False),
+            ('random', np.zeros((4, 3)), True),
+            ('authored_feedback', np.ones((4, 3)), False),
+        ]
+
+        jitter_regimes = {}
+        for scale in scales:
+            regime_key = f'scale_{scale:.1f}x'
+            reset_opts = {'jitter': False} if scale == 0.0 else {'jitter': True, 'jitter_scale': scale}
+            count_per_window = 1 if scale == 0.0 else trials_per_window
+            trial_seeds = [
+                [int(x) for x in rng.integers(0, 2**31, count_per_window)]
+                for _ in eval_starts
+            ]
+            ctrl_results = {}
+            for name, weights, is_random in controllers:
+                trials = []
+                for win_idx, (env, start_s) in enumerate(zip(envs, eval_starts)):
+                    for t_seed in trial_seeds[win_idx]:
+                        _, reset_info = env.reset(seed=t_seed, options=reset_opts)
+                        metrics, _ = rollout(
+                            env,
+                            weights,
+                            t_seed,
+                            random=is_random,
+                            deadline=deadline,
+                            reset_options=reset_opts,
+                        )
+                        trials.append(
+                            {
+                                'seed': t_seed,
+                                'start_time_s': start_s,
+                                'jitter_scale': scale,
+                                'initial_angular_offset_rmse_rad': reset_info['initial_angular_offset_rmse_rad'],
+                                'initial_root_offset_rmse_model_units': reset_info['initial_root_offset_rmse_model_units'],
+                                'initial_angular_speed_rmse_rad_s': reset_info['initial_angular_speed_rmse_rad_s'],
+                                'initial_root_speed_rmse_model_units_s': reset_info['initial_root_speed_rmse_model_units_s'],
+                                **metrics,
+                            }
+                        )
+                ctrl_results[name] = _summarize_controller_trials(trials)
+            jitter_regimes[regime_key] = {
+                'jitter_scale': scale,
+                'trials_per_window': count_per_window,
+                'policies': ctrl_results,
+            }
+
+        named_perturbations = [
+            (
+                'lateral_root_push_plus_x',
+                {'jitter': False, 'qvel_offset': [0.0] * 19 + [0.15, 0.0, 0.0]},
+            ),
+            (
+                'lateral_root_push_minus_x',
+                {'jitter': False, 'qvel_offset': [0.0] * 19 + [-0.15, 0.0, 0.0]},
+            ),
+            (
+                'joint_flexion_offset_0p08rad',
+                {'jitter': False, 'qpos_offset': [0.0, 0.0, 0.0] + [0.08] * 16 + [0.0, 0.0, 0.0]},
+            ),
+            (
+                'upward_root_offset_0p03',
+                {'jitter': False, 'qpos_offset': [0.0] * 19 + [0.0, 0.0, 0.03]},
+            ),
+        ]
+        explicit_regimes = {}
+        for pert_name, reset_opts in named_perturbations:
+            pert_seeds = [int(x) for x in rng.integers(0, 2**31, len(eval_starts))]
+            ctrl_results = {}
+            for name, weights, is_random in controllers:
+                trials = []
+                for env, start_s, t_seed in zip(envs, eval_starts, pert_seeds):
+                    _, reset_info = env.reset(seed=t_seed, options=reset_opts)
+                    metrics, _ = rollout(
+                        env,
+                        weights,
+                        t_seed,
+                        random=is_random,
+                        deadline=deadline,
+                        reset_options=reset_opts,
+                    )
+                    trials.append(
+                        {
+                            'seed': t_seed,
+                            'start_time_s': start_s,
+                            'perturbation': pert_name,
+                            'initial_angular_offset_rmse_rad': reset_info['initial_angular_offset_rmse_rad'],
+                            'initial_root_offset_rmse_model_units': reset_info['initial_root_offset_rmse_model_units'],
+                            'initial_angular_speed_rmse_rad_s': reset_info['initial_angular_speed_rmse_rad_s'],
+                            'initial_root_speed_rmse_model_units_s': reset_info['initial_root_speed_rmse_model_units_s'],
+                            **metrics,
+                        }
+                    )
+                ctrl_results[name] = _summarize_controller_trials(trials)
+            explicit_regimes[pert_name] = {
+                'reset_options': deepcopy(reset_opts),
+                'policies': ctrl_results,
+            }
+
+        report = {
+            'schema_version': 1,
+            'profile': 'whole-body-changed-conditions-v1',
+            'created_at': local_time(),
+            'source_learning_directory': str(learning_dir),
+            'source_manifest_sha256': verified['manifest_sha256'],
+            'policy_sha256': policy_sha,
+            'spec_sha256': canonical_hash(spec),
+            'seed': seed,
+            'success_limits': deepcopy(SUCCESS_LIMITS),
+            'success_limits_modified': False,
+            'partition': partition,
+            'reference_feasibility': {key: feasibility[key] for key in ('status', 'summary')},
+            'jitter_regimes': jitter_regimes,
+            'explicit_perturbations': explicit_regimes,
+            'seconds': time.perf_counter() - started,
+            'physical_validation': 'unverified',
+            'comparison': (
+                'Matched 22-motor direct actuation across learned, zero, random, and authored_feedback '
+                'on disjoint evaluation windows under scaled initial jitter and deterministic perturbations. '
+                'SUCCESS_LIMITS are unchanged and floor-penetration failures remain explicit.'
+            ),
+            'scope': SCOPE,
+        }
+        write_json(out / 'changed-conditions.json', report)
+        write_json(out / 'policy.json', policy)
+        write_json(out / 'settings.json', settings)
+        write_json(out / 'reference-feasibility.json', feasibility)
+        write_json(
+            out / 'manifest.json',
+            {
+                'schema_version': 1,
+                'created_at': local_time(),
+                'files': {
+                    str(path.relative_to(out)): digest(path)
+                    for path in sorted(out.rglob('*'))
+                    if path.is_file() and path.name != 'manifest.json'
+                },
+            },
+        )
+        verify_artifacts(out)
+        return report
     finally:
         for env in envs:
             env.close()

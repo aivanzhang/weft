@@ -123,19 +123,65 @@ class WholeBodyEnv(gym.Env):
         if options is not None and not isinstance(options, dict):
             raise ValueError("Whole-body reset options must be a mapping")
         options = options or {}
-        if set(options) - {"jitter"} or type(options.get("jitter", True)) is not bool:
-            raise ValueError("Whole-body reset accepts only boolean jitter")
+        allowed = {"jitter", "jitter_scale", "qpos_offset", "qvel_offset"}
+        if set(options) - allowed or type(options.get("jitter", True)) is not bool:
+            raise ValueError("Whole-body reset accepts boolean jitter, jitter_scale, qpos_offset, and qvel_offset")
+        use_jitter = options.get("jitter", True)
+        raw_scale = options.get("jitter_scale", 1. if use_jitter else 0.)
+        if type(raw_scale) not in (int, float) or not math.isfinite(raw_scale) or not 0. <= float(raw_scale) <= 5.:
+            raise ValueError("Whole-body jitter_scale must be finite within [0, 5]")
+        scale = float(raw_scale)
+        if not use_jitter and scale > 0.:
+            raise ValueError("Whole-body jitter_scale > 0 requires jitter=True")
+        qpos_offset = options.get("qpos_offset")
+        qvel_offset = options.get("qvel_offset")
+        qpos_vec = qvel_vec = None
+        if qpos_offset is not None:
+            if isinstance(qpos_offset, (list, tuple)) and any(isinstance(v, (bool, np.bool_)) for v in qpos_offset):
+                raise ValueError("Whole-body qpos_offset cannot contain booleans")
+            qpos_vec = np.asarray(qpos_offset)
+            if (
+                qpos_vec.shape != (22,)
+                or qpos_vec.dtype.kind not in "fiu"
+                or not np.isfinite(qpos_vec).all()
+                or np.any(np.abs(qpos_vec[:19]) > .25)
+                or np.any(np.abs(qpos_vec[19:]) > .10)
+            ):
+                raise ValueError("Whole-body qpos_offset requires 22 finite values within [±0.25 rad, ±0.10 root]")
+            qpos_vec = qpos_vec.astype(float, copy=True)
+        if qvel_offset is not None:
+            if isinstance(qvel_offset, (list, tuple)) and any(isinstance(v, (bool, np.bool_)) for v in qvel_offset):
+                raise ValueError("Whole-body qvel_offset cannot contain booleans")
+            qvel_vec = np.asarray(qvel_offset)
+            if (
+                qvel_vec.shape != (22,)
+                or qvel_vec.dtype.kind not in "fiu"
+                or not np.isfinite(qvel_vec).all()
+                or np.any(np.abs(qvel_vec[:19]) > 1.)
+                or np.any(np.abs(qvel_vec[19:]) > .5)
+            ):
+                raise ValueError("Whole-body qvel_offset requires 22 finite values within [±1.0 rad/s, ±0.5 root/s]")
+            qvel_vec = qvel_vec.astype(float, copy=True)
+
         super().reset(seed=seed)
         self.base.reset(seed=seed, options={"jitter": False})
         target, _ = self._target_at(0.)
         self.data.qpos[self._q] = target
         self.data.qvel[:] = 0.
-        if options.get("jitter", True):
-            self.data.qpos[self._q[:19]] += self.np_random.uniform(-.01, .01, 19)
-            self.data.qvel[self._v[:19]] = self.np_random.uniform(-.02, .02, 19)
-            self.data.qpos[self._q[19:21]] += self.np_random.uniform(-.002, .002, 2)
-            self.data.qpos[self._q[21]] += self.np_random.uniform(0., .002)
-            self.data.qvel[self._v[19:]] = self.np_random.uniform(-.01, .01, 3)
+        if use_jitter and scale > 0.:
+            self.data.qpos[self._q[:19]] += self.np_random.uniform(-.01 * scale, .01 * scale, 19)
+            self.data.qvel[self._v[:19]] = self.np_random.uniform(-.02 * scale, .02 * scale, 19)
+            self.data.qpos[self._q[19:21]] += self.np_random.uniform(-.002 * scale, .002 * scale, 2)
+            self.data.qpos[self._q[21]] += self.np_random.uniform(0., .002 * scale)
+            self.data.qvel[self._v[19:]] = self.np_random.uniform(-.01 * scale, .01 * scale, 3)
+        if qpos_vec is not None:
+            self.data.qpos[self._q] += qpos_vec
+        if qvel_vec is not None:
+            self.data.qvel[self._v] += qvel_vec
+        if (use_jitter and scale != 1.) or qpos_vec is not None:
+            for idx, name in enumerate(self.joint_names):
+                low, high = self.base.joint_limits[name]
+                self.data.qpos[self._q[idx]] = float(np.clip(self.data.qpos[self._q[idx]], low + 1e-4, high - 1e-4))
         self.data.ctrl[:] = 0.
         self.data.qfrc_applied[:] = 0.
         self.data.xfrc_applied[:] = 0.
@@ -148,8 +194,20 @@ class WholeBodyEnv(gym.Env):
         self._max_penetration = self._floor_penetration()
         self._failure = None
         self._last_action = np.zeros(22)
-        return self.observation(), {"source_time_s": self.source_start, "reset_jitter": options.get("jitter", True),
-                                    "hidden_assistance": False, "action_names": list(self.action_names)}
+        q_delta = self.data.qpos[self._q] - target
+        v_now = self.data.qvel[self._v]
+        return self.observation(), {
+            "source_time_s": self.source_start,
+            "reset_jitter": use_jitter,
+            "jitter_scale": scale if use_jitter else 0.,
+            "initial_angular_offset_rmse_rad": float(np.sqrt(np.mean(q_delta[:19] ** 2))),
+            "initial_root_offset_rmse_model_units": float(np.sqrt(np.mean(q_delta[19:] ** 2))),
+            "initial_angular_speed_rmse_rad_s": float(np.sqrt(np.mean(v_now[:19] ** 2))),
+            "initial_root_speed_rmse_model_units_s": float(np.sqrt(np.mean(v_now[19:] ** 2))),
+            "initial_floor_penetration_model_units": float(self._max_penetration),
+            "hidden_assistance": False,
+            "action_names": list(self.action_names),
+        }
 
     def _floor_penetration(self):
         return max((max(0., -float(self.data.contact[i].dist)) for i in range(self.data.ncon)

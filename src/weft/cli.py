@@ -158,6 +158,19 @@ def main():
     spatial_lab.add_argument("--run", required=True, help="Existing verified spatial-rigid-v1 run directory")
     spatial_lab.add_argument("--learning", help="Optional verified spatial policy directory for the same scene")
     spatial_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
+    spatial_train = commands.add_parser("spatial-train", help="Train and evaluate a bounded 3D rigid policy on a verified spatial-rigid-v1 run")
+    spatial_train.add_argument("--run", required=True, help="Existing verified spatial-rigid-v1 run directory")
+    spatial_train.add_argument("--out", required=True, help="New policy training directory outside the source run")
+    spatial_train.add_argument("--seed", type=int, default=1729)
+    spatial_train.add_argument("--eval-seed", type=int, default=938401)
+    spatial_train.add_argument("--generations", type=int, default=8)
+    spatial_train.add_argument("--population", type=int, default=16)
+    spatial_train.add_argument("--eval-episodes", type=int, default=12)
+    body_eval = commands.add_parser("body-evaluate", help="Evaluate a sealed whole-body policy across changed initial conditions and matched baselines")
+    body_eval.add_argument("--learning", required=True, help="Existing verified whole-body learning directory")
+    body_eval.add_argument("--out", required=True, help="New evaluation output directory")
+    body_eval.add_argument("--seed", type=int, default=938401)
+    body_eval.add_argument("--trials-per-window", type=int, default=3)
     capabilities_cmd = commands.add_parser("capabilities", help="Inspect shared environment, action, observation, task, and evidence capabilities")
     capabilities_cmd.add_argument("--run", required=True, help="Existing verified run directory or ready lab directory")
     capabilities_cmd.add_argument("--out", help="Optional new JSON path outside the inspected directory")
@@ -250,6 +263,25 @@ def main():
         elif args.command == "spatial-lab":
             from weft.spatial_lab import prepare_spatial_lab
             result = prepare_spatial_lab(args.run, args.out, policy_run=args.learning)
+        elif args.command == "spatial-train":
+            from weft.spatial_learning import train_spatial_policy
+            result = train_spatial_policy(
+                args.run,
+                args.out,
+                seed=args.seed,
+                eval_seed=args.eval_seed,
+                generations=args.generations,
+                population=args.population,
+                eval_episodes=args.eval_episodes,
+            )
+        elif args.command == "body-evaluate":
+            from weft.whole_body_learning import evaluate_changed_conditions
+            result = evaluate_changed_conditions(
+                args.learning,
+                args.out,
+                seed=args.seed,
+                trials_per_window=args.trials_per_window,
+            )
         elif args.command == "capabilities":
             from weft.capabilities import describe_run_capabilities
             result = describe_run_capabilities(args.run, out=args.out)

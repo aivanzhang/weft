@@ -36,7 +36,24 @@ You can also inspect, control, and record any verified `spatial-rigid-v1` run in
 .venv-lab/bin/python -m weft lab --resume artifacts/my-3d-ramp-lab-01
 ```
 
-The lab copies only sealed inputs into `run/inputs/source-run/`, preserves `physical_validation: "unverified"`, exposes synchronized front/top/3D views, full 3D position/quaternion/spin/contact inspection, all eight controls, and exact `sessions/` recording/export/replay without altering `run/`. Untrained 3D imports keep learned-policy controls explicitly disabled.
+The lab copies only sealed inputs into `run/inputs/source-run/`, preserves `physical_validation: "unverified"`, exposes synchronized front/top/3D views, full 3D position/quaternion/spin/contact inspection, multi-object dynamic actor switching (`Object to control`), all eight controls, and exact `sessions/` recording/export/replay without altering `run/`. Untrained 3D imports keep learned-policy controls explicitly disabled.
+
+### Bounded 3D RL training and changed-initial-condition evaluation
+
+Train a bounded 8-action linear-feedback and braking policy (`spatial-policy-v1` / `spatial_cem_v1`) from an uninformed zero-weight coast prior on any verified `spatial-rigid-v1` run, evaluate it against matched `learned`, `random`, `coast`, and `brake` controllers across both exact and collision-free perturbed initial conditions, and package it into a new local lab:
+
+```sh
+.venv-lab/bin/python -m weft spatial-train \
+  --run artifacts/track-b-spatial-lab-01/authored-fixture \
+  --out artifacts/my-3d-policy-01
+
+.venv-lab/bin/python -m weft spatial-lab \
+  --run artifacts/track-b-spatial-lab-01/authored-fixture \
+  --learning artifacts/my-3d-policy-01 \
+  --out artifacts/my-3d-trained-lab-01
+```
+
+Reset remains exact (`jitter=False`) by default. Opt-in `options={"jitter": True, "position_jitter": ..., "velocity_jitter": ...}` samples bounded initial actor perturbations verified collision-free via `mj_geomDistance >= 1e-4`. In `artifacts/track-b-learning-changed-init-02`, the learned policy improves simulated return and reduces mean final target distance over all baselines on both the authored 3D fixture (`0.588m → 0.142m` under changed initial conditions; return `+0.2305` vs `-0.3584` coast) and the source-linked ramp candidate (`0.319m → 0.071m` nominal; `1/12` passes under changed initial conditions), while short-horizon 8×16 discrete CEM does not reliably stop inside the tight speed+position tolerance on every trial. Simulation improvement does not verify physical accuracy.
 
 ## What the environment contains
 
