@@ -149,7 +149,7 @@ def _evaluate_arm_pose(index, trial, sigma, derivatives=False, *, changes, rows,
 
 
 def _propose(human_document, observation_document, *, human_entity_ref, camera_hypothesis,
-             equipment_boxes, human_xml_document, context):
+             equipment_boxes, human_xml_document, context, projection_solver=None, curvature_restorer=None):
     started = context['started']; deadline = started + CONTRACT['maximum_fit_seconds']
     if type(human_document) is not bytes or len(human_document) > 8 * 1024 * 1024:
         raise ValueError('A bounded exact human document is required')
@@ -236,24 +236,41 @@ def _propose(human_document, observation_document, *, human_entity_ref, camera_h
                 if not valid: raise ValueError('Accepted iterate lost its nonlinear feasibility')
                 matrix.extend(np.eye(8)); bounds.extend(lo)
                 matrix.extend(-np.eye(8)); bounds.extend(-hi)
-                step, projection = _project_step(jac.T @ jac + np.eye(8) * CONTRACT['linear_system_ridge'],
+                project = _project_step if projection_solver is None else projection_solver
+                step, projection = project(jac.T @ jac + np.eye(8) * CONTRACT['linear_system_ridge'],
                     jac.T @ residual, matrix, bounds, cycles=CONTRACT['projection_cycles'], tolerance=CONTRACT['projection_tolerance'])
                 projections.append(projection | {'reference_index': i, 'sweep': sweep})
                 if not projection['converged']:
                     attempts[i]['projection_failures'] += 1; continue
+                step_accepted, smallest_invalid, completed_backtracks = False, False, 0
                 for backtrack in range(CONTRACT['maximum_backtracks']):
                     if time.monotonic() >= deadline: exhausted = True; break
                     trial = changes[i] + step * .5 ** backtrack
                     if np.max(abs(trial - changes[i])) < 1e-10: break
                     trial_cost, _, _, valid, _, _, states = evaluate(i, trial, sigma)
+                    completed_backtracks += 1; smallest_invalid = not valid
                     if not valid:
                         attempts[i]['nonlinear_rejections'] += 1
                     if valid and trial_cost < cost - 1e-12:
+                        step_accepted = True
                         changes[i] = trial; accepted += 1; attempts[i]['accepted_updates'] += 1
                         for j, name in enumerate(geometry.arm_names):
                             candidate['reference'][i]['joints'][name] = float(original[i, columns[j]] + trial[j])
                         for sample, gaps in states: sample['current_gaps'] = gaps
                         break
+                if (curvature_restorer is not None and not exhausted and not step_accepted and smallest_invalid and
+                        completed_backtracks == CONTRACT['maximum_backtracks']):
+                    restored = curvature_restorer(index=i, sweep=sweep, sigma=sigma, baseline=changes[i].copy(),
+                        direction=step, lower=lo, upper=hi, baseline_cost=cost,
+                        evaluate=lambda trial, derivatives=False: evaluate(i, trial, sigma, derivatives),
+                        affected_count=len(affected[i]), pair_count=len(pairs), deadline=deadline)
+                    attempts[i]['nonlinear_rejections'] += restored['nonlinear_rejections']
+                    if restored['trial'] is not None:
+                        trial, states = restored['trial'], restored['states']
+                        changes[i] = trial; accepted += 1; attempts[i]['accepted_updates'] += 1
+                        for j, name in enumerate(geometry.arm_names):
+                            candidate['reference'][i]['joints'][name] = float(original[i, columns[j]] + trial[j])
+                        for sample, gaps in states: sample['current_gaps'] = gaps
                 if exhausted: break
             sweeps.append({'sweep': sweep, 'collision_sigma_model_units': sigma, 'accepted_updates': accepted})
             if exhausted: break
@@ -363,15 +380,14 @@ def _propose(human_document, observation_document, *, human_entity_ref, camera_h
     return result
 
 
-def propose_constrained_arm_alignment(human_document: bytes, observation_document: bytes, *,
-                                      human_entity_ref, camera_hypothesis, equipment_boxes,
-                                      human_xml_document: bytes):
-    """Return an unadmitted proposal or explicit partial receipt, retaining every input row."""
+def _run_alignment(human_document, observation_document, *, human_entity_ref, camera_hypothesis,
+                   equipment_boxes, human_xml_document, projection_solver=None, curvature_restorer=None):
     context = {'started': time.monotonic()}
     try:
         return _propose(human_document, observation_document, human_entity_ref=human_entity_ref,
                         camera_hypothesis=camera_hypothesis, equipment_boxes=equipment_boxes,
-                        human_xml_document=human_xml_document, context=context)
+                        human_xml_document=human_xml_document, context=context,
+                        projection_solver=projection_solver, curvature_restorer=curvature_restorer)
     except _BudgetExpired as error:
         candidate, original = context['candidate'], context['original']
         rows = deepcopy(context['rows'])
@@ -401,3 +417,11 @@ def propose_constrained_arm_alignment(human_document: bytes, observation_documen
         if len(json.dumps(result, allow_nan=False, separators=(',', ':')).encode()) > MAX_OUTPUT_BYTES:
             raise ValueError('Partial proposal exceeds its separate output bound')
         return result
+
+
+def propose_constrained_arm_alignment(human_document: bytes, observation_document: bytes, *,
+                                      human_entity_ref, camera_hypothesis, equipment_boxes,
+                                      human_xml_document: bytes):
+    """Return an unadmitted proposal or explicit partial receipt, retaining every input row."""
+    return _run_alignment(human_document, observation_document, human_entity_ref=human_entity_ref,
+        camera_hypothesis=camera_hypothesis, equipment_boxes=equipment_boxes, human_xml_document=human_xml_document)
