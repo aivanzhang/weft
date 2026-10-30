@@ -15,7 +15,7 @@ from weft.human import validate_human
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.mobile_human import MOBILITY_DEFAULTS, calibrate_floor, ground_normal
 from weft.pipeline import verify_artifacts
-from weft.observations import adapt_run
+from weft.observations import adapt_exercise, adapt_run, validate_observations
 from weft.shared_world_evidence import build_shared_world_binding, verify_shared_world_sources
 from weft.shared_world import (
     OBJECT_ACTIONS,
@@ -26,16 +26,26 @@ from weft.shared_world import (
 )
 from weft.shared_world_learning import validate_shared_policy
 from weft.shared_world_packaging import (
-    collect_shared_source_files, copy_package_file, read_package_file, validate_package_layout, write_package_files,
+    collect_shared_source_files, copy_package_file, read_package_file, read_package_manifest,
+    validate_package_layout, write_package_files,
 )
 from weft.spatial_pose import SPATIAL_JOINT_NAMES
 from weft.whole_body import SUCCESS_LIMITS
+from weft.world_evidence import _check_tree, _nonfinite, _unique_object
 
 
 REJECTED_SOURCE_STATUSES = frozenset({"failed", "error", "unsupported", "rejected", "cancelled"})
 REQUIRED_POLICY_FILES = frozenset(
     {"scene.json", "policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json"}
 )
+SEED_MAX_FILES = 512
+SEED_MAX_BYTES = 128 * 1024 * 1024
+SEED_MAX_SECONDS = 30.0
+SEED_PROFILE = "shared-world-construction-seed-v1"
+_SEED_BODY_BYTES = 8 * 1024 * 1024
+_SEED_FILE_BYTES = 64 * 1024 * 1024
+_SEED_OPTIONAL = frozenset({"source.json", "pose-quality.json", "root-motion.json", "floor-assumption.json"})
+_VIDEO_SUFFIXES = frozenset({".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv"})
 
 
 def _analytic_mobile_human_spec():
@@ -356,25 +366,11 @@ def write_sealed_shared_world_fixture(out):
     return _seal_directory(out)
 
 
-def adapt_to_shared_world(human_source, out, *, scale=1.0):
-    """Adapt an immutable mobile exercise-v3 run/lab into a source-qualified shared-world-v1 run."""
-    human_source, out = Path(human_source).resolve(), Path(out).resolve()
-    if out.exists():
-        raise FileExistsError("Choose a new output directory for shared-world adaptation")
-    if out == human_source or out.is_relative_to(human_source):
-        raise ValueError("Keep adapted shared-world output outside the immutable source directory")
-
-    run_dir = human_source / "run" if (human_source / "run" / "human.json").is_file() else human_source
-    if not (run_dir / "manifest.json").is_file() or not (run_dir / "human.json").is_file():
-        raise ValueError("Source must be a sealed run or lab containing human.json and manifest.json")
-    source_verified = verify_artifacts(run_dir)
-    source_manifest = json.loads((run_dir / "manifest.json").read_text())
-    if not {"human.json", "scene.json", "evidence.json"} <= set(source_manifest["files"]):
-        raise ValueError("Source-qualified adaptation requires sealed human, scene and observation evidence, not counts alone")
-    human_spec = validate_human(json.loads((run_dir / "human.json").read_text()))
+def _adapted_shared_world(human_spec, observation_document, run_dir, *, scale=1.0, deadline=None):
+    """Prepare the legacy coordinate scaffold without creating or advancing a simulator."""
+    human_spec = validate_human(human_spec)
     if human_spec.get("profile") != "exercise-v3" or "camera_reference" in human_spec:
         raise ValueError("shared-world adaptation requires a validated 30-Hz mobile exercise-v3 human.json")
-
     if type(scale) not in (int, float) or not math.isfinite(scale) or not 0.5 <= scale <= 2.0:
         raise ValueError("Shared-world scale prior must be finite and within [0.5, 2.0]")
     scale = float(scale)
@@ -401,7 +397,6 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
 
     ref_duration = float(human_spec["reference"][-1]["time_s"] - human_spec["reference"][0]["time_s"])
     horizon_steps = max(10, min(60, int(math.floor(ref_duration * 30.0 - 1e-6))))
-    observation_document = adapt_run(run_dir)
     source_sha = observation_document["source"]["sha256"]
     if human_spec.get("source_sha256") != source_sha:
         raise ValueError("Human model and observation evidence must bind the same original source")
@@ -410,7 +405,7 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
     source_binding, construction_bytes = build_shared_world_binding(
         {observation_sha: raw_observations}, source_sha256=source_sha,
         world_ids=["human", "ball", "table"],
-        entity_refs={"human": (observation_sha, "person-0"), "ball": None, "table": None})
+        entity_refs={"human": (observation_sha, "person-0"), "ball": None, "table": None}, deadline=deadline)
     source_fps = float(observation_document["source"]["fps"])
 
     base_quat = [1.0, 0.0, 0.0, 0.0]
@@ -514,6 +509,32 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
         ],
     }
     scene = validate_shared_world(scene)
+    return scene, raw_observations, construction_bytes
+
+
+def adapt_to_shared_world(human_source, out, *, scale=1.0):
+    """Adapt an immutable mobile exercise-v3 run/lab into a source-qualified shared-world-v1 run."""
+    human_source, out = Path(human_source).resolve(), Path(out).resolve()
+    if out.exists():
+        raise FileExistsError("Choose a new output directory for shared-world adaptation")
+    if out == human_source or out.is_relative_to(human_source):
+        raise ValueError("Keep adapted shared-world output outside the immutable source directory")
+
+    run_dir = human_source / "run" if (human_source / "run" / "human.json").is_file() else human_source
+    if not (run_dir / "manifest.json").is_file() or not (run_dir / "human.json").is_file():
+        raise ValueError("Source must be a sealed run or lab containing human.json and manifest.json")
+    source_verified = verify_artifacts(run_dir)
+    source_manifest = json.loads((run_dir / "manifest.json").read_text())
+    if not {"human.json", "scene.json", "evidence.json"} <= set(source_manifest["files"]):
+        raise ValueError("Source-qualified adaptation requires sealed human, scene and observation evidence, not counts alone")
+    human_spec = validate_human(json.loads((run_dir / "human.json").read_text()))
+    if human_spec.get("profile") != "exercise-v3" or "camera_reference" in human_spec:
+        raise ValueError("shared-world adaptation requires a validated 30-Hz mobile exercise-v3 human.json")
+
+    scene, raw_observations, construction_bytes = _adapted_shared_world(
+        human_spec, adapt_run(run_dir), run_dir, scale=scale)
+    source_binding = scene["source_binding"]
+    observation_sha = hashlib.sha256(raw_observations).hexdigest()
     feasibility = audit_shared_world_feasibility(scene)
     interventions = _probe_shared_interventions(scene)
     ref_frames = _reference_frames_artifact(scene)
@@ -573,6 +594,185 @@ def adapt_to_shared_world(human_source, out, *, scale=1.0):
     return _seal_directory(out)
 
 
+def _seed_bytes(value):
+    return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode()
+
+
+def _seed_json(raw):
+    try:
+        value = json.loads(raw, object_pairs_hook=_unique_object, parse_constant=_nonfinite)
+        _check_tree(value)
+    except (UnicodeError, json.JSONDecodeError, RecursionError) as error:
+        raise ValueError("Mobile source requires bounded strict JSON") from error
+    if not isinstance(value, dict):
+        raise ValueError("Mobile source documents must be JSON objects")
+    return value
+
+
+def _seed_check(deadline):
+    if time.monotonic() >= deadline:
+        raise TimeoutError("Mobile body preparation exceeded its cooperative wall-time bound")
+
+
+def _seed_path(value):
+    path = Path(value).absolute()
+    if ".." in path.parts or any(part.is_symlink() for part in (path, *path.parents)):
+        raise ValueError("Mobile body preparation paths must not contain traversal or symlinks")
+    return path
+
+
+def _seed_media(name):
+    path = Path(name)
+    return len(path.parts) == 1 and path.stem == "source" and path.suffix.lower() in _VIDEO_SUFFIXES
+
+
+def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
+    """Seal construction-only body scaffolding; no simulator, inference or media decoding."""
+    started = time.monotonic()
+    if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
+        raise ValueError("Mobile body preparation deadline must be a finite monotonic time")
+    deadline = min(started + SEED_MAX_SECONDS, deadline) if deadline is not None else started + SEED_MAX_SECONDS
+    if type(scale) not in (int, float) or not math.isfinite(scale) or not 0.5 <= scale <= 2.0:
+        raise ValueError("Shared-world scale prior must be finite and within [0.5, 2.0]")
+    _seed_check(deadline)
+    source, target = _seed_path(human_source), _seed_path(out)
+    if target.exists() or target.is_relative_to(source) or source.is_relative_to(target):
+        raise ValueError("Body seed output must be new and outside its immutable input")
+    run = _seed_path(source / "run") if (source / "run" / "manifest.json").is_file() else source
+    source_identity = run.stat().st_dev, run.stat().st_ino
+    manifest_raw, declared = read_package_manifest(run)
+    if _seed_json(manifest_raw).get("status") in REJECTED_SOURCE_STATUSES:
+        raise ValueError("Cannot prepare a body seed from a failed or rejected manifest")
+    required = {"human.json", "scene.json", "evidence.json"}
+    if not required <= declared.keys() or len(declared) + 1 > SEED_MAX_FILES:
+        raise ValueError("Body seed requires sealed human, scene and evidence within its 512-file bound")
+    if "construction-seed.json" in declared:
+        raise ValueError("Body seed input must be a mobile run, not another construction seed")
+
+    def read(name, maximum):
+        _seed_check(deadline)
+        raw = read_package_file(run, name, max_bytes=min(_SEED_FILE_BYTES, max(1, maximum)),
+                                expected_sha256=declared[name])
+        _seed_check(deadline)
+        return raw
+
+    kept, sizes = {}, {}
+    total = len(manifest_raw)
+    status_snapshot = None
+    if run != source and (source / "status.json").exists():
+        if len(declared) + 2 > SEED_MAX_FILES:
+            raise ValueError("Mobile source and lifecycle exceed the 512-file input bound")
+        status_snapshot = read_package_file(source, "status.json", max_bytes=64 * 1024)
+        if _seed_json(status_snapshot).get("status") in REJECTED_SOURCE_STATUSES:
+            raise ValueError("Cannot prepare a body seed from a failed or rejected mobile lab")
+        total += len(status_snapshot)
+    for name in sorted(declared):
+        if total >= SEED_MAX_BYTES:
+            raise ValueError("Mobile source exceeds the 128-MiB input bound")
+        maximum = min(_SEED_BODY_BYTES, SEED_MAX_BYTES - total) if name in {"human.json", "scene.json"} else SEED_MAX_BYTES - total
+        raw = read(name, maximum)
+        sizes[name] = len(raw)
+        total += len(raw)
+        if name in {"status.json", "report.json", "reconstruction.json"}:
+            if _seed_json(raw).get("status") in REJECTED_SOURCE_STATUSES:
+                raise ValueError("Cannot prepare a body seed from failed or rejected mobile artifacts")
+        if name in required | _SEED_OPTIONAL or _seed_media(name):
+            kept[name] = raw
+    _seed_check(deadline)
+    human, original_scene, evidence = (_seed_json(kept[name]) for name in ("human.json", "scene.json", "evidence.json"))
+    if (human.get("profile") != "exercise-v3" or "camera_reference" in human
+            or original_scene.get("profile") != "exercise-v3" or evidence.get("profile") != "exercise-pose-v1"):
+        raise ValueError("Body seed requires a supported mobile exercise-v3 body and its exercise-pose-v1 evidence")
+    source_sha = human.get("source_sha256")
+    if original_scene.get("source_sha256", source_sha) != source_sha:
+        raise ValueError("Mobile scene and body source identities differ")
+    if any(declared[name] != source_sha for name in kept if _seed_media(name)):
+        raise ValueError("Mobile source media must match the original body source identity")
+    observations = adapt_exercise(evidence, scene=original_scene)
+    observations["provenance"]["input_artifacts"] = {name: declared[name] for name in ("evidence.json", "scene.json")}
+    observations = validate_observations(observations)
+    if not 5.0 <= observations["source"]["fps"] <= 240.0:
+        raise ValueError("Source clock exceeds shared-world limits; it cannot be clamped or retimed")
+    scene, observation_raw, construction = _adapted_shared_world(human, observations, run,
+                                                                 scale=scale, deadline=deadline)
+    if canonical_hash(human) != canonical_hash(scene["human_spec"]):
+        raise ValueError("Mobile body must already have its canonical validated values; source bytes are never rewritten")
+    binding = scene["source_binding"]
+    observation_name = next(iter(binding["evidence_documents"].values()))
+    files = {"scene.json": _seed_bytes(scene), "human.json": kept["human.json"],
+             "task.json": _seed_bytes(scene["task"]), observation_name: observation_raw,
+             "construction-evidence.json": construction,
+             "inputs/human-source/source-manifest.json": manifest_raw,
+             **{f"inputs/human-source/{name}": kept[name] for name in required},
+             **{name: raw for name, raw in kept.items() if name in _SEED_OPTIONAL or _seed_media(name)}}
+    implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024)
+    files["implementation/shared_world_lab.py"] = implementation
+    if status_snapshot is not None:
+        files["inputs/human-source/source-lifecycle.json"] = status_snapshot
+    receipt = {"schema_version": 1, "profile": SEED_PROFILE, "status": "construction_only",
+        "simulation_ready": False, "physical_validation": "unverified", "source_directory": str(run),
+        "source_verification": {"manifest_sha256": hashlib.sha256(manifest_raw).hexdigest(),
+                                "verified_files": len(declared), "verified_bytes": total},
+        "source_sha256": source_sha, "human_json_sha256": declared["human.json"],
+        "implementation_sha256": hashlib.sha256(implementation).hexdigest(),
+        "source_binding": binding, "scale_bridge": scene["coordinate_frame"]["scale_bridge"],
+        "clock_binding": scene["coordinate_frame"]["clock_binding"], "source_clock": observations["time"],
+        "scaffold_entity_ids": [obj["id"] for obj in scene["objects"]],
+        "physics_steps": 0, "physics_models": 0, "reference_renders": 0,
+        "video_decodes": 0, "inference_calls": 0, "api_calls": 0,
+        "maximum_files": SEED_MAX_FILES, "maximum_bytes": SEED_MAX_BYTES,
+        "maximum_file_bytes": _SEED_FILE_BYTES,
+        "maximum_seconds": deadline - started,
+        "scope": "Unexposed construction scaffolding, not a playable or admitted equipment world. The equipment constructor replaces the authored ball and pedestal; source poses, missing slots and assumed clocks remain unchanged."}
+    files["reconstruction.json"] = _seed_bytes({"schema_version": 1, "profile": PROFILE,
+        "mode": "construction_seed", "status": "construction_only", "simulation_ready": False,
+        "physical_validation": "unverified", "source_sha256": source_sha, "scope": receipt["scope"]})
+
+    def check_output():
+        if len(files) + 3 > SEED_MAX_FILES or sum(map(len, files.values())) + 1024 * 1024 > SEED_MAX_BYTES:
+            raise ValueError("Body seed cannot reserve terminal metadata within its 512-file/128-MiB output bound")
+        _seed_check(deadline)
+
+    check_output()
+    _seed_path(source); _seed_path(target)
+    target.mkdir(parents=True, exist_ok=False)
+    for name, raw in files.items():
+        _seed_check(deadline)
+        write_package_files(target, {name: raw})
+    _seed_check(deadline)
+    verification = verify_shared_world_sources(scene, target)
+    _seed_check(deadline)
+    files["source-binding-verification.json"] = _seed_bytes(verification)
+    check_output()
+
+    # Recheck every sealed input before publishing a terminal seal, including inputs not copied forward.
+    _seed_path(source); _seed_path(run)
+    if (run.stat().st_dev, run.stat().st_ino) != source_identity:
+        raise ValueError("Mobile source directory changed during body preparation")
+    if read_package_file(run, "manifest.json", max_bytes=len(manifest_raw)) != manifest_raw:
+        raise ValueError("Mobile source manifest changed during body preparation")
+    for name in declared:
+        if len(read(name, max(1, sizes[name]))) != sizes[name]:
+            raise ValueError("Mobile source size changed during body preparation")
+    if status_snapshot is not None and read_package_file(source, "status.json", max_bytes=64 * 1024) != status_snapshot:
+        raise ValueError("Mobile lab lifecycle changed during body preparation")
+    if read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024) != implementation:
+        raise ValueError("Body preparation implementation changed during execution")
+    receipt["seconds"] = time.monotonic() - started
+    files["construction-seed.json"] = _seed_bytes(receipt)
+    check_output()
+    manifest = _seed_bytes({"schema_version": 1, "status": "construction_only", "simulation_ready": False,
+        "files": {name: hashlib.sha256(raw).hexdigest() for name, raw in files.items()}})
+    if len(files) + 1 > SEED_MAX_FILES or sum(map(len, files.values())) + len(manifest) > SEED_MAX_BYTES:
+        raise ValueError("Body seed terminal metadata exceeds its output bound")
+    _seed_check(deadline)
+    write_package_files(target, {name: files[name] for name in ("source-binding-verification.json", "construction-seed.json")})
+    _seed_check(deadline)
+    write_package_files(target, {"manifest.json": manifest})
+    _seed_check(deadline)
+    return target
+
+
 def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     """Package an immutable sealed shared-world-v1 run (and optional policy run) into a new local lab."""
     started = time.perf_counter()
@@ -592,6 +792,8 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
             raise ValueError(f"Cannot package a {st.get('status')} source lab into shared-world-lab")
 
     source_dir = source_run / "run" if (source_run / "run" / "manifest.json").is_file() else source_run
+    if (source_dir / "construction-seed.json").exists():
+        raise ValueError("Construction-only body seeds require equipment construction before lab packaging")
     if not (source_dir / "manifest.json").is_file() or not (source_dir / "scene.json").is_file():
         raise ValueError("Shared-world lab import requires a sealed directory containing scene.json and manifest.json")
     source_verified = verify_artifacts(source_dir)

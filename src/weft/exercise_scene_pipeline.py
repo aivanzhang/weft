@@ -25,7 +25,8 @@ MAX_FILES = 1600
 MAX_BYTES = 384 * 1024 * 1024
 METADATA_RESERVE_BYTES = 2 * 1024 * 1024
 METADATA_RESERVE_FILES = 8
-STAGE_LIMITS = {"equipment_priors": (PROPOSAL_FILES, PROPOSAL_BYTES),
+STAGE_LIMITS = {"body_seed": (512, 128 * 1024 * 1024),
+                "equipment_priors": (PROPOSAL_FILES, PROPOSAL_BYTES),
                 "shared_world": (WORLD_FILES, WORLD_BYTES), "interactive_lab": (LAB_FILES, LAB_BYTES)}
 
 
@@ -133,8 +134,17 @@ def _failure_receipt(root, result, sealing_error, started):
 
 
 def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_mappings=(),
-                           root_assistance=False, full_reference=False, max_seconds=90, progress=None):
+                           human_run=None, body_scale=None, root_assistance=False, full_reference=False,
+                           max_seconds=90, progress=None):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
+    if (base_run is None) == (human_run is None):
+        raise ValueError("Provide exactly one shared-world base or mobile human run")
+    if human_run is None and body_scale is not None:
+        raise ValueError("Body scale applies only to a mobile human run; existing worlds keep their scale")
+    resolved_scale = 1.0 if body_scale is None else body_scale
+    if (type(resolved_scale) not in (int, float) or not math.isfinite(resolved_scale)
+            or not .5 <= resolved_scale <= 2.):
+        raise ValueError("Body scale must be an explicit finite prior in [0.5, 2.0]")
     if type(root_assistance) is not bool:
         raise ValueError("Root assistance must be explicitly enabled or disabled")
     if type(full_reference) is not bool:
@@ -144,7 +154,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > 7:
         raise ValueError("Use at most seven verified source mapping bundles")
     source, evidence, config, target = map(lambda value: Path(value).absolute(),
-                                         (base_run, evidence_run, config_path, out))
+                                         (human_run if human_run is not None else base_run, evidence_run, config_path, out))
     inputs = [source, evidence, config, *(Path(value).absolute() for value in source_mappings)]
     if target.exists() or any(target.resolve().is_relative_to(path.resolve())
                              or path.resolve().is_relative_to(target.resolve()) for path in inputs):
@@ -155,7 +165,11 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
     stages, completed_lab = [], None
     finalization_started = False
     _write_metadata(target, "settings.json", _bytes({"schema_version": 1, "created_at": local_time(),
-        "base_run": str(source), "evidence_run": str(evidence), "config": str(config),
+        "base_run": str(source) if human_run is None else None,
+        "human_run": str(source) if human_run is not None else None,
+        "body_scale": float(resolved_scale) if human_run is not None else None,
+        "body_scale_scope": "Explicit body-height-to-world prior; not measured scale" if human_run is not None else None,
+        "evidence_run": str(evidence), "config": str(config),
         "source_mappings": [str(Path(value).absolute()) for value in source_mappings],
         "root_assistance": root_assistance, "full_reference": full_reference, "maximum_seconds": max_seconds,
         "maximum_files": MAX_FILES, "maximum_bytes": MAX_BYTES,
@@ -193,6 +207,16 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         return _seal(target, result, deadline=deadline, started=started)
 
     try:
+        if human_run is not None:
+            from weft.shared_world_lab import prepare_shared_world_seed
+
+            _reserve_stage(target, "body_seed", deadline)
+            stage("body_seed", "running")
+            source = prepare_shared_world_seed(source, target / "body_seed", scale=resolved_scale, deadline=deadline)
+            seed_manifest = read_package_file(source, "manifest.json", max_bytes=8 * 1024 * 1024)
+            stage("body_seed", "ready", manifest_sha256=hashlib.sha256(seed_manifest).hexdigest(),
+                  scope="Unexposed construction seed; no dummy-prop simulation or intermediate lab")
+            remaining()
         _reserve_stage(target, "equipment_priors", deadline)
         stage("equipment_priors", "running")
         proposal = prepare_equipment_proposal(source, evidence, config, target / "proposal",

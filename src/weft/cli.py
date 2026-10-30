@@ -195,7 +195,11 @@ def main():
     sw_propose.add_argument("--out", required=True, help="New sealed proposal directory outside the inputs")
     sw_propose.add_argument("--max-seconds", type=float, default=30)
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one human-only lab from verified body/tracking evidence and explicit equipment priors")
-    exercise_build.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
+    exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
+    exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
+    exercise_source.add_argument("--human-run", help="Sealed mobile exercise-v3 run or ready lab; no prior shared-world adapter required")
+    exercise_build.add_argument("--body-scale", type=float,
+                                help="Only with --human-run: explicit body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
     exercise_build.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
     exercise_build.add_argument("--config", required=True, help="Explicit source-pinned equipment proposal configuration")
     exercise_build.add_argument("--source-mapping", action="append", default=[])
@@ -277,6 +281,10 @@ def main():
     exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual")
     exercise_train.add_argument("--population", type=int, help="Default: 8 for feedback, 12 for phase-residual")
     exercise_train.add_argument("--max-seconds", type=float, default=60)
+    exercise_refine = commands.add_parser("shared-exercise-refine", help="Refine verified residual training by prioritizing unchanged task limits; no evaluation data")
+    exercise_refine.add_argument("--learning", required=True, help="Sealed compatible two-generation residual training package")
+    exercise_refine.add_argument("--out", required=True, help="New versioned feasibility-first policy and training evidence")
+    exercise_refine.add_argument("--max-seconds", type=float, default=60)
     exercise_select = commands.add_parser("shared-exercise-select", help="Select a saved residual candidate meeting every training-task gate; no retraining")
     exercise_select.add_argument("--learning", required=True, help="Complete sealed residual-policy training package")
     exercise_select.add_argument("--out", required=True, help="New selected-policy package; original candidates and policy stay unchanged")
@@ -425,9 +433,10 @@ def main():
                 conditional_exterior=args.conditional_exterior, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
-            labels = {"equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
+            labels = {"body_seed": "Prepare source body", "equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
                       "interactive_lab": "Prepare interactive lab"}
             result = prepare_exercise_scene(args.run, args.evidence_run, args.config, args.out,
+                human_run=args.human_run, body_scale=args.body_scale,
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
                 max_seconds=args.max_seconds,
@@ -469,6 +478,9 @@ def main():
                 root_assistance=args.root_assistance, seed=args.seed,
                 generations=generations if args.generations is None else args.generations,
                 population=population if args.population is None else args.population, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-refine":
+            from weft.shared_exercise_feasibility_learning import train_shared_exercise_feasibility_policy
+            result = train_shared_exercise_feasibility_policy(args.learning, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-select":
             from weft.shared_exercise_selection import select_feasible_shared_exercise_policy
             result = select_feasible_shared_exercise_policy(args.learning, args.out, max_seconds=args.max_seconds)

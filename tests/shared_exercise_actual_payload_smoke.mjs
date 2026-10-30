@@ -149,12 +149,17 @@ if (hasPolicy) {
   assert.equal(typeof initial.exercise_policy.training_score_improved_over_authored, 'boolean');
   assert.equal(runManifest.files['policy.json'], initial.exercise_policy.policy_sha256);
   const policy = readJson('policy.json', 64 * 1024, initial.exercise_policy.policy_sha256, run).value;
-  assert(['shared-exercise-policy-v1','shared-exercise-policy-v2'].includes(policy.profile));
+  assert(['shared-exercise-policy-v1','shared-exercise-policy-v2','shared-exercise-policy-v3'].includes(policy.profile));
   assert.equal(policy.profile, initial.exercise_policy.profile); assert.equal(policy.task_sha256, initial.snapshot.task_sha256);
-  if (policy.profile === 'shared-exercise-policy-v2') {
+  if (['shared-exercise-policy-v2','shared-exercise-policy-v3'].includes(policy.profile)) {
     assert(['authored_unchanged','searched_joint_residuals'].includes(selectedKind));
     assert.equal(policy.residual_coefficients.length, 2);
     assert(policy.residual_coefficients.every(row => row.length === 19 && row.every(value => Number.isFinite(value) && Math.abs(value) <= .25)));
+  }
+  if (policy.profile === 'shared-exercise-policy-v3') {
+    assert.equal(initial.exercise_policy.training_feasible,policy.optimization_rank.feasible);
+    assert.equal(policy.actor_algorithm,'shared_exercise_phase_residual_actor_v1');
+    assert.equal(initial.exercise_policy.selection_objective,policy.selection_objective);
   }
   if(initial.exercise_policy.evaluation_status==='evaluated')for(const name of ['coast','random','authored','learned']) {
     const row=initial.exercise_policy.evaluation_successes[name];
@@ -244,9 +249,13 @@ if (hasPolicy) {
   assert.equal(ui.ids.get('policy').textContent, policyLabels[selectedKind]);
   assert.match(ui.ids.get('exercise-policy-summary').textContent, policyDescriptions[selectedKind]);
   assert.match(ui.ids.get('learning-description').textContent, /simulator-state and reference features, not video pixels/);
-  assert.match(ui.ids.get('training-caption').textContent, initial.exercise_policy.training_score_improved_over_authored
-    ? /training score was above the authored baseline.*not an independent evaluation result/
-    : /No higher training score than the authored baseline/);
+  if (initial.exercise_policy.profile === 'shared-exercise-policy-v3') {
+    assert.match(ui.ids.get('training-caption').textContent,/prioritized task limits before reward/);
+    assert.match(ui.ids.get('training-caption').textContent,initial.exercise_policy.training_feasible
+      ? /Both training starts passed every task limit/:/At least one training start still failed/);
+  } else assert.match(ui.ids.get('training-caption').textContent, initial.exercise_policy.training_score_improved_over_authored
+      ? /training score was above the authored baseline.*not an independent evaluation result/
+      : /No higher training score than the authored baseline/);
   assert.match(ui.ids.get('exercise-evaluation-summary').textContent, expectedScores.length
     ? /Attached independent changed-start evaluation/:/Independent evaluation unavailable/);
   if(expectedScores.length)assert.match(ui.ids.get('exercise-evaluation-summary').textContent,

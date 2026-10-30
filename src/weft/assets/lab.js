@@ -476,7 +476,8 @@
   }
   const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections"};
   const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
-    "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"]};
+    "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"],
+    "shared-exercise-policy-v3": ["authored_unchanged", "searched_joint_residuals"]};
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
     exercisePolicy = data.learned_policy_available === true && typeof policy?.profile === "string"
@@ -484,6 +485,7 @@
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
       && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
       && exercisePolicyKinds[policy.profile].includes(policy.selected_feedback_kind)
+      && (policy.profile !== "shared-exercise-policy-v3" || typeof policy.training_feasible === "boolean")
       && policy.privileged_simulator_features === true ? policy : null;
     return exerciseContractReady && exercisePolicy !== null;
   }
@@ -508,12 +510,16 @@
   }
   function showExerciseLearning(data) {
     const available = learnedPolicyAvailable && exercisePolicy !== null;
+    const feasibilityFirst = available && exercisePolicy.profile === "shared-exercise-policy-v3";
     text($("policy"), available ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : "Learned controller · unavailable");
     text($("start-learned"), available ? `Try ${exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind].toLowerCase()}` : "Learned controller unavailable");
     text($("exercise-policy-summary"), exerciseFeedbackDescription());
     text($("learning-description"), available ? `${exerciseFeedbackDescription()} The policy interface uses privileged simulator-state and reference features, not video pixels.`
       : "No learned human-only exercise policy is available. The live task panel reports independent whole-interval results, not the legacy target task or a training score.");
-    text($("training-caption"), available ? `Training selection score: ${number(exercisePolicy.training_score)}. ${exercisePolicy.training_score_improved_over_authored === true
+    text($("training-caption"), feasibilityFirst
+      ? `Training prioritized task limits before reward. ${exercisePolicy.training_feasible ? "Both training starts passed every task limit."
+        : "At least one training start still failed a task limit."} Reward: ${number(exercisePolicy.training_score)}. Independent results are shown separately.`
+      : available ? `Training selection score: ${number(exercisePolicy.training_score)}. ${exercisePolicy.training_score_improved_over_authored === true
       ? "The training score was above the authored baseline; this is not an independent evaluation result."
       : exercisePolicy.training_score_improved_over_authored === false ? "No higher training score than the authored baseline was reported."
       : "Training comparison unavailable."}`

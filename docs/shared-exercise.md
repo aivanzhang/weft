@@ -9,17 +9,19 @@ This is a simulated test, not recovered anatomy, a complete exercise definition 
 From the repository root, start the current full-reference lab:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/fullspan-exercise-lab-01
+.venv-lab/bin/python -m weft lab --resume artifacts/feasibility-fullspan-lab-01
 ```
 
 Open the token-bearing local URL printed by the command. This resumes saved evidence without inference, training or a paid request. The task covers **254 actions / 8.47 seconds**, not only the opening two seconds. It retains 19 joint controls, three explicitly assisted root controls and passive equipment.
 
 1. Use **Original → Tracks → Geometry** to inspect evidence. **Source vs simulation** separates all 257 source slots, the 121 retained poses, the full task window and actual live time. Video playback is independent; its native clock is not silently equated with the pose clock.
 2. Open **Sandbox**. Choose manual movement, coast, authored following or **Searched joint corrections**. Root assistance remains programmed; equipment has no force controls.
-3. Read the interval result. The new controller completes all 254 actions but fails equipment stability on **3/3 fresh starts**. The authored controller has the same failed gate. The earlier two-second policy passed 3/3; it is not the policy installed here, and its success does not transfer.
+3. Read the interval result. The task-priority v3 controller and earlier reward-selected policy both complete all 254 actions but fail equipment stability on **3/3 fresh starts**. Worst displacement falls **44.3%**, but remains above the unchanged limit. The earlier two-second policy's 3/3 success does not transfer.
 4. Choose **Record & start**, interact, pause or reset, then **Stop & save**. The exports preserve resets, actions and controller identity and verify exact state replay.
 
 The idle object retains the conditional eight-band shape; the working object remains an occluded box. The [offline shape comparison](../artifacts/silhouette-shared-world-03/shape-comparison.html) is separate from full-sequence control. Missing panels in this lab are not replaced with stale fit claims. Its full-reference receipt records the new task identity and unchanged original evidence.
+
+The current [saved replay](../artifacts/feasibility-fullspan-lab-01/sessions/session-04b7c0ac12c4/replay.html) verifies **262 actions /one reset /264 events**, including all 254 post-reset policy steps and 256 learned decisions, with exact state/task replay. The live trial still fails working-object stability. **Explain this trial** reports its final episode's first speed/spin crossing in **(1.233333, 1.266667] s**, source-prior frame 40. These are recorded simulation/reference clocks, not native-video timing or causal contact proof.
 
 To prepare another saved shared world, choose a new directory:
 
@@ -32,7 +34,7 @@ To prepare another saved shared world, choose a new directory:
 
 Preparation seals the exact scene, task, source evidence and runtime. It does not start a server. Without `--task`, it preserves a sealed input `exercise-task.json` when present, including its assistance and contact requirements. Only when no input task exists does it create a default: 19 joint controls, or 22 with `--root-assistance`. The flag cannot override a sealed joint-only task; that conflict rejects. `--task <file>` is an explicit validated replacement and cannot be combined with `--root-assistance`. Assistance and task selection cannot change inside a prepared lab. Existing coupled labs keep their legacy task and virtual object controls.
 
-For new saved body/tracking evidence, [assemble the world and lab in one command](equipment-proposals.md). The camera/shape configuration remains explicit; it is not automatic recovery of arbitrary equipment.
+For new saved body/tracking evidence, [assemble the world and lab in one command](equipment-proposals.md): use `shared-exercise-build --human-run <mobile-run-or-lab> --body-scale 1.0 --full-reference` with its equipment evidence/configuration. The direct body-preparation stage is bounded and construction-only; it neither runs a throwaway simulation nor creates an intermediate lab. Existing shared-world bases still use `--run`. Camera, scale and shape assumptions remain explicit; this is not automatic recovery of arbitrary equipment.
 
 ### Prepare a lab from a geometry alternative
 
@@ -78,9 +80,35 @@ For this 254-action source, the explicit 2×8 search allows at most **8,128 trai
 
 `artifacts/fullspan-exercise-control-01` completed one frozen comparison in **27.851 seconds**: 28 training episodes / 7,112 actions, then 2,354 evaluation actions. None of 14 saved candidates met every training gate, so selection retained the original reward winner. Learned, authored and coast each completed all three intervals but passed **0/3**; random control failed early. Learned/authored failures were specifically working-object stability. The learned reward improved, but that is not task success. These exposed trials are development evidence, not a future final holdout.
 
-The current lab acceptance, `artifacts/fullspan-exercise-interaction-01`, records **262 actions / one reset / 264 frames**, including every one of the 254 post-reset policy actions. All 256 recorded learned decisions and the complete action/state/task replay match exactly; resume works. The live trial fails the same equipment-stability gate. Replay: `artifacts/fullspan-exercise-lab-01/sessions/session-73987c5a73d0/replay.html`. Saved UI checks verify 22 controls, the full interval and missing-pose counts. Local six-step control/record/JSON batches measured median **22.539 ms**, maximum **23.451 ms**; these are not browser or sustained-use measurements.
+The earlier v2 lab acceptance, `artifacts/fullspan-exercise-interaction-01`, records **262 actions / one reset / 264 frames**, including every one of the 254 post-reset policy actions. All 256 recorded learned decisions and the complete action/state/task replay match exactly; resume worked under its pinned runtime. The live trial fails the same equipment-stability gate. Historical replay: `artifacts/fullspan-exercise-lab-01/sessions/session-73987c5a73d0/replay.html`. Saved UI checks verify 22 controls, the full interval and missing-pose counts. Local six-step control/record/JSON batches measured median **22.539 ms**, maximum **23.451 ms**; these are not browser or sustained-use measurements.
 
 Older runtime-pinned labs/policies remain unchanged and require their archived implementation; no hash is silently replaced. A separate numerical check reproduced the old two-second recording's 68 actions, 70 snapshots, rewards and outcomes exactly under the new core. That check does not authorize old policy loading or imply full-interval success.
+
+## Prioritize task limits during refinement
+
+`shared-exercise-refine` creates a **v3 policy** from a verified original two-generation, eight-candidate phase-residual training package. It imports that package's first generation exactly, without replaying its physics, then runs at most **12 new episodes /3,048 actions** under a **60-second /512-file /128-MiB** bound. It does not accept evaluation results or a v2 selection wrapper as training input.
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-refine \
+  --learning artifacts/my-fullspan-learning-01 \
+  --out artifacts/my-task-priority-learning-01
+.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+  --learning artifacts/my-task-priority-learning-01 --max-seconds 60 \
+  --out artifacts/my-task-priority-evaluation-01
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/my-task-priority-learning-01 \
+  --learning artifacts/my-task-priority-learning-01 \
+  --evaluation artifacts/my-task-priority-evaluation-01 \
+  --out artifacts/my-task-priority-lab-01
+```
+
+Freeze a fresh `--seed` for evaluation after checking earlier trial history; a default seed is not a promise of fresh evidence. V3 evaluation adds the original reward winner's verified coefficients as a **fifth matched comparison**, alongside coast/random/authored/selected control. This reuses the unchanged actor math, not permission to load an old runtime-pinned policy. Three 254-step starts across five controllers allow at most **3,810 evaluation actions**. Every controller receives the same fresh human-start perturbations; equipment starts, scene, task and gates stay fixed.
+
+Selection first prefers candidates that complete every training interval and pass every limit. Otherwise it minimizes the largest normalized limit violation, then the mean violation, then uses original reward as the tie-breaker. With no passing candidate it retains the least-violating **complete** candidate, explicitly marked infeasible; without a complete candidate it publishes no policy. Reward and its recorded loss are unchanged. The two phase functions, 2×19 coefficients bounded to ±0.25, joint-only residuals, root feedback and passive equipment all remain unchanged. V3 changes the training objective and provenance, not the actor's controls or task definition.
+
+**Verified development result:** `artifacts/feasibility-fullspan-control-01` imports **16 episodes /4,064 actions** and runs **12 new episodes /3,048 actions** in **8.016 s**. It selects imported generation 0/candidate 3; **no new candidate beats it**, and training remains infeasible. The separate five-controller evaluation uses **3,352 actions /12.738 s** on three fresh starts. Selected and previous reward policies both complete **3/3** intervals and pass **0/3**, failing working-object stability; all other controllers also pass 0/3. Worst equipment displacement falls **0.448419→0.249624 model units (44.3%)**, still above the **0.03** limit. Reward decreases **0.719233→0.669190**: reduced gate violation is not increased reward or task success. `.local/feasibility-fullspan-verification-01.json` verifies unchanged scene/task/gates and exact paired evidence. These starts are now exposed development evidence, not a future final holdout.
+
+The initial evaluation admission stopped before creating output or running physics because a valid archived mapping-log path was unsupported. The bounded path-reader correction retained the **same frozen policy and seed stream**; training was not repeated. The rejected admission receipt remains with the study. No new video decode, inference or paid request occurred. The current ready lab/recording at the top uses this versioned policy; old v2 labs remain archived rather than silently repinned.
 
 ## Compare baseline controllers
 
@@ -129,7 +157,7 @@ Both families use two matched training starts, one CPU lane and a 60-second coop
 
 The optional **v2-only `shared-exercise-select`** stage chooses the highest original mean reward among saved candidates that passed **every frozen gate on both original training starts**. If none qualified, it explicitly retains the original selection. It performs no retraining, physics actions or evaluation reads, and has a 15-second cooperative limit. The new package preserves every candidate and the exact original policy, training history, settings, manifest, source proofs and actor runtime. `selection.json` records the rule, candidate identity and separate selector snapshot. Training and evaluation APIs/defaults are unchanged; omit this stage to evaluate the original reward-selected policy.
 
-`shared-exercise-policy-evaluate` automatically detects v1/v2. It freezes policy bytes and evaluation seeds before comparing coast, random, authored-reference and selected-policy control on three separate perturbed starts, with a 30-second default (up to 60 seconds for full-reference scenes). It does not feed those results back into training. Both commands preserve incomplete runs and failures; a new run always needs a new directory. Without `--task`, training preserves the sealed input task when available. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
+`shared-exercise-policy-evaluate` automatically detects v1/v2/v3. It freezes policy bytes and evaluation seeds before comparing coast, random, authored-reference and selected-policy control on three separate perturbed starts; v3 adds the paired previous-reward comparison described above. The default is 30 seconds, up to 60 seconds for full-reference scenes. Evaluation does not feed results back into training. Commands preserve incomplete runs and failures; a new run always needs a new directory. Without `--task`, training preserves the sealed input task when available. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
 
 Inspect `policy.json` for selected gains or residual coefficients and `training.json` for the search history/score, then the **separate** `evaluation.json` for per-seed success/failures. For previously evaluated input, freeze a fresh evaluation seed and check that its reset seeds do not repeat earlier trials. Evaluation is not input to feasibility selection. V1 may select unchanged coast or authored control; v2 may select unchanged authored control or `searched_joint_residuals`. Unchanged anchors are not called learned improvement. A higher reward does not override an equipment or body failure. Three mild changed starts are development checks, not broad generalization or physical validation.
 

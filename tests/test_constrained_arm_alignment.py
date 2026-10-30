@@ -10,10 +10,20 @@ from test_arm_equipment_refinement import fixture
 from weft import constrained_arm_alignment as alignment
 from weft.arm_equipment_refinement import _Geometry
 from weft.human import human_xml
+from weft.io import canonical_hash
 
 
 def propose(spec, evidence, options):
     return alignment.propose_constrained_arm_alignment(json.dumps(spec).encode(), evidence, **options)
+
+
+def test_default_dual_fixture_is_numerically_unchanged_by_local_problem_extraction():
+    result = propose(*fixture())
+    assert result['report']['profile'] == 'hard-nonregression-arm-alignment-v1'
+    assert canonical_hash(result['human_candidate']) == 'cea669233b179ddf8339aab3b51cfbef842cae15175f6ded062af85c47f2404d'
+    assert canonical_hash(result['report']['projections']) == '0c52c1ad179448634387ade26c534a0cad017c0df4fe892f6526ed1ed0c8bc77'
+    assert canonical_hash(result['report']['geometry_checks']) == '683f92a2f3f850bafd35afe81f0fdb769aaedd5be30fb54117dbcfd1835c7dcf'
+    assert canonical_hash(result['report']['image_summary']) == '7844a1135951d2c463bbdd4f8fff91d05aca8e24bababc4a0fcadd2571f8db67'
 
 
 def test_quadratic_projection_preserves_each_constraint_instead_of_total_cost():

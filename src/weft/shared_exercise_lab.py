@@ -85,7 +85,7 @@ def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maxi
     files, total = {}, len(manifest_raw)
     for name, expected in hashes.items():
         _deadline(deadline)
-        required_log = re.fullmatch(r"(?:(?:source-run|learning-run|policy-evaluation-run)/)*source-mappings/[0-9a-f]{64}/[^/]+\.log", name)
+        required_log = re.fullmatch(r"(?:(?:source-run|learning-run|policy-evaluation-run|imported-training)/)*source-mappings/[0-9a-f]{64}/[^/]+\.log", name)
         if (any(part.startswith(".") or part == "__pycache__" for part in Path(name).parts)
                 or name.endswith(".pyc") or name.endswith(".log") and not required_log):
             raise ValueError("Exercise lab inputs must exclude hidden files, caches and logs")
@@ -143,7 +143,7 @@ def _reference_frames(scene, deadline):
         env.close()
 
 
-def _validate_policy_package(manifest_raw, files, scene, task):
+def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseline=False):
     # Lazy imports keep the learner's existing lab-helper dependency acyclic.
     from weft.shared_exercise_policies import selection_kind, validate_policy
 
@@ -179,7 +179,14 @@ def _validate_policy_package(manifest_raw, files, scene, task):
     identity = {"policy_sha256": _sha(files["policy.json"]), "learning_manifest_sha256": _sha(manifest_raw),
                 "learning_files_verified": len(files), "policy_runtime_sha256": deepcopy(policy["runtime_sha256"]),
                 "policy_evaluation_scope": "Training completed; independent evaluation success is not attested by this package"}
-    return policy, identity
+    baseline = None
+    if policy["profile"] == "shared-exercise-policy-v3":
+        from weft.shared_exercise_feasibility_learning import verify_imported_policy_baseline
+
+        baseline = verify_imported_policy_baseline(files, scene, task)
+        identity.update(import_proof_sha256=baseline["import_proof_sha256"],
+                        previous_reward_policy_sha256=baseline["policy_sha256"])
+    return (policy, identity, baseline) if include_baseline else (policy, identity)
 
 
 def _validate_policy_evaluation(manifest_raw, files, learning_manifest, learning_files, policy):
@@ -274,13 +281,19 @@ def _validate_policy_evaluation(manifest_raw, files, learning_manifest, learning
         successes[controller] = {"successes": count, "episodes": len(rows)}
     if type(evaluation.get("control_steps")) is not int or evaluation["control_steps"] != total_steps:
         raise ValueError("Exercise policy evaluation control-step count differs from its trials")
+    comparison_identity = {}
+    if policy["profile"] == "shared-exercise-policy-v3":
+        from weft.shared_exercise_feasibility_evaluation import validate_previous_reward_comparison
+
+        comparison_identity = validate_previous_reward_comparison(manifest_raw, files, learning_files, policy,
+            evaluation, scene, task, standard_control_steps=total_steps)
     return {"policy_evaluation_manifest_sha256": _sha(manifest_raw), "policy_evaluation_sha256": _sha(files["evaluation.json"]),
-            "policy_evaluation_files_verified": len(files)}, successes, describe_reset_protocol(resets)
+            "policy_evaluation_files_verified": len(files), **comparison_identity}, successes, describe_reset_protocol(resets)
 
 
 def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluation_reset_protocol=None):
     training = _json(training_raw)
-    return {"profile": policy["profile"], "policy_sha256": training["policy_sha256"],
+    result = {"profile": policy["profile"], "policy_sha256": training["policy_sha256"],
             "selected_feedback_kind": training["selected_feedback_kind"], "privileged_simulator_features": True,
             "training_score": policy["training_score"],
             "training_score_improved_over_authored": training["training_score_improved_over_authored"],
@@ -288,6 +301,10 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluatio
             "evaluation_successes": deepcopy(evaluation_successes),
             "evaluation_reset_protocol": deepcopy(evaluation_reset_protocol),
             "scope": "Training selection and separate changed-start simulator comparison; neither verifies new-video generalization, grasp or physical accuracy."}
+    if policy["profile"] == "shared-exercise-policy-v3":
+        result.update(selection_objective=policy["selection_objective"],
+                      training_feasible=policy["optimization_rank"]["feasible"])
+    return result
 
 
 def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=None, policy_run=None, evaluation_run=None, max_seconds=60):
@@ -313,6 +330,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     started = time.monotonic()
     deadline = started + max_seconds
     input_manifest, inputs = _verified_inputs(source, deadline=deadline)
+    if "construction-seed.json" in inputs:
+        raise ValueError("Construction seed is not a simulation; finish equipment construction before preparing a lab")
     if "scene.json" not in inputs:
         raise ValueError("Exercise lab input requires a sealed shared-world scene")
     for name in ("status.json", "report.json", "evaluation.json", "reconstruction.json"):

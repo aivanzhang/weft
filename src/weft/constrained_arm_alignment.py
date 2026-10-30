@@ -80,6 +80,74 @@ def _nonregression(before, current, trial, tolerance):
     return bool(np.all(trial >= threshold - tolerance))
 
 
+def _geometry_state(engine, pairs, angles, root, derivatives=False):
+    engine.set(angles, root)
+    points, point_jac = engine.points(derivatives)
+    values = [engine.distance(g, other, jacobian=derivatives) for g, other, _ in pairs]
+    return points, point_jac, np.array([v[0] for v in values]), np.array([v[1] for v in values]) if derivatives else None
+
+
+def _arm_step_bounds(index, changes, lower, upper, times):
+    lo, hi = lower[index].copy(), upper[index].copy()
+    for neighbor in (index - 1, index + 1):
+        if 0 <= neighbor < len(times):
+            radius = CONTRACT['maximum_correction_rate_rad_s'] * abs(times[index] - times[neighbor])
+            lo, hi = np.maximum(lo, changes[neighbor] - radius), np.minimum(hi, changes[neighbor] + radius)
+    lo = np.maximum(lo - changes[index], -CONTRACT['maximum_update_rad'])
+    hi = np.minimum(hi - changes[index], CONTRACT['maximum_update_rad'])
+    return lo, hi
+
+
+def _evaluate_arm_pose(index, trial, sigma, derivatives=False, *, changes, rows, times, affected,
+                       geometry, state, columns, camera_hypothesis, object_pair_count, tolerance, deadline):
+    previous = changes[index].copy(); changes[index] = trial
+    residuals, jacobians, matrix, bounds, states = [], [], [], [], []
+    valid = True
+    def add(residual, jac):
+        residuals.extend(np.asarray(residual).ravel())
+        if derivatives: jacobians.extend(np.asarray(jac).reshape(-1, 8))
+    try:
+        add(trial / CONTRACT['old_angle_sigma_rad'], np.eye(8) / CONTRACT['old_angle_sigma_rad'])
+        for neighbor in (index - 1, index + 1):
+            if 0 <= neighbor < len(rows) and abs(times[index] - times[neighbor]) <= CONTRACT['maximum_temporal_prior_gap_s']:
+                add((trial - changes[neighbor]) / CONTRACT['adjacent_correction_sigma_rad'],
+                    np.eye(8) / CONTRACT['adjacent_correction_sigma_rad'])
+        for sample, weight in affected[index]:
+            _check_deadline(deadline, 'optimization_samples')
+            angles = sample['angles'].copy()
+            angles[columns] += sum(changes[j] * w for j, w in sample['weights'])
+            points, point_jac, gaps, gap_jac = state(geometry, angles, sample['root'], derivatives)
+            states.append((sample, gaps))
+            valid &= _nonregression(sample['before_gaps'], sample['current_gaps'], gaps, tolerance)
+            depth = points[:, 1] - sample['points'][:, 1]
+            valid &= bool(np.max(abs(depth)) <= CONTRACT['maximum_endpoint_depth_change_model_units'] + tolerance)
+            if derivatives:
+                threshold = np.maximum(np.minimum(0., sample['before_gaps']), np.minimum(0., sample['current_gaps']))
+                matrix.extend(gap_jac * weight)
+                bounds.extend(threshold - gaps - tolerance)
+                depth_jac = point_jac[:, 1] * weight
+                matrix.extend(depth_jac); bounds.extend(-CONTRACT['maximum_endpoint_depth_change_model_units'] - depth)
+                matrix.extend(-depth_jac); bounds.extend(depth - CONTRACT['maximum_endpoint_depth_change_model_units'])
+            for j, gap in enumerate(gaps[:object_pair_count]):
+                if gap < CONTRACT['collision_margin_model_units']:
+                    add([(CONTRACT['collision_margin_model_units'] - gap) / sigma],
+                        -gap_jac[j] * weight / sigma if derivatives else None)
+            if len(sample['weights']) == 1 and sample['weights'][0][0] == index:
+                pixels, projection = perspective_points(points, camera_hypothesis, jacobian=derivatives)
+                for j, point in enumerate(rows[index]['endpoints']):
+                    if point['fit_weight']:
+                        w = np.sqrt(point['fit_weight']) / CONTRACT['image_sigma_px']
+                        add((pixels[j] - point['image_px']) * w, projection[j] @ point_jac[j] * w if derivatives else None)
+                    w = np.sqrt(point['fit_weight'] or CONTRACT['weak_endpoint_depth_weight']) / CONTRACT['inferred_depth_sigma_model_units']
+                    add([(points[j, 1] - point['depth_prior_model_units']) * w], point_jac[j, 1] * w if derivatives else None)
+    except ValueError:
+        valid = False
+    finally:
+        changes[index] = previous
+    residuals = np.asarray(residuals)
+    return float(residuals @ residuals / 2), residuals, np.asarray(jacobians), valid, matrix, bounds, states
+
+
 def _propose(human_document, observation_document, *, human_entity_ref, camera_hypothesis,
              equipment_boxes, human_xml_document, context):
     started = context['started']; deadline = started + CONTRACT['maximum_fit_seconds']
@@ -112,10 +180,7 @@ def _propose(human_document, observation_document, *, human_entity_ref, camera_h
                      'kind': 'human_equipment' if obj is not None else 'human_floor'} for g, _, obj in pairs]
 
     def state(engine, angles, root, derivatives=False):
-        engine.set(angles, root)
-        points, point_jac = engine.points(derivatives)
-        values = [engine.distance(g, other, jacobian=derivatives) for g, other, _ in pairs]
-        return points, point_jac, np.array([v[0] for v in values]), np.array([v[1] for v in values]) if derivatives else None
+        return _geometry_state(engine, pairs, angles, root, derivatives)
 
     samples, by_time = [], {}
     affected = [[] for _ in rows]
@@ -153,52 +218,9 @@ def _propose(human_document, observation_document, *, human_entity_ref, camera_h
                  for j, gap in enumerate(first[:object_pair_count]) if gap < -tolerance]
 
     def evaluate(index, trial, sigma, derivatives=False):
-        previous = changes[index].copy(); changes[index] = trial
-        residuals, jacobians, matrix, bounds, states = [], [], [], [], []
-        valid = True
-        def add(residual, jac):
-            residuals.extend(np.asarray(residual).ravel())
-            if derivatives: jacobians.extend(np.asarray(jac).reshape(-1, 8))
-        try:
-            add(trial / CONTRACT['old_angle_sigma_rad'], np.eye(8) / CONTRACT['old_angle_sigma_rad'])
-            for neighbor in (index - 1, index + 1):
-                if 0 <= neighbor < len(rows) and abs(times[index] - times[neighbor]) <= CONTRACT['maximum_temporal_prior_gap_s']:
-                    add((trial - changes[neighbor]) / CONTRACT['adjacent_correction_sigma_rad'],
-                        np.eye(8) / CONTRACT['adjacent_correction_sigma_rad'])
-            for sample, weight in affected[index]:
-                _check_deadline(deadline, 'optimization_samples')
-                angles = sample['angles'].copy()
-                angles[columns] += sum(changes[j] * w for j, w in sample['weights'])
-                points, point_jac, gaps, gap_jac = state(geometry, angles, sample['root'], derivatives)
-                states.append((sample, gaps))
-                valid &= _nonregression(sample['before_gaps'], sample['current_gaps'], gaps, tolerance)
-                depth = points[:, 1] - sample['points'][:, 1]
-                valid &= bool(np.max(abs(depth)) <= CONTRACT['maximum_endpoint_depth_change_model_units'] + tolerance)
-                if derivatives:
-                    threshold = np.maximum(np.minimum(0., sample['before_gaps']), np.minimum(0., sample['current_gaps']))
-                    matrix.extend(gap_jac * weight)
-                    bounds.extend(threshold - gaps - tolerance)
-                    depth_jac = point_jac[:, 1] * weight
-                    matrix.extend(depth_jac); bounds.extend(-CONTRACT['maximum_endpoint_depth_change_model_units'] - depth)
-                    matrix.extend(-depth_jac); bounds.extend(depth - CONTRACT['maximum_endpoint_depth_change_model_units'])
-                for j, gap in enumerate(gaps[:object_pair_count]):
-                    if gap < CONTRACT['collision_margin_model_units']:
-                        add([(CONTRACT['collision_margin_model_units'] - gap) / sigma],
-                            -gap_jac[j] * weight / sigma if derivatives else None)
-                if len(sample['weights']) == 1 and sample['weights'][0][0] == index:
-                    pixels, projection = perspective_points(points, camera_hypothesis, jacobian=derivatives)
-                    for j, point in enumerate(rows[index]['endpoints']):
-                        if point['fit_weight']:
-                            w = np.sqrt(point['fit_weight']) / CONTRACT['image_sigma_px']
-                            add((pixels[j] - point['image_px']) * w, projection[j] @ point_jac[j] * w if derivatives else None)
-                        w = np.sqrt(point['fit_weight'] or CONTRACT['weak_endpoint_depth_weight']) / CONTRACT['inferred_depth_sigma_model_units']
-                        add([(points[j, 1] - point['depth_prior_model_units']) * w], point_jac[j, 1] * w if derivatives else None)
-        except ValueError:
-            valid = False
-        finally:
-            changes[index] = previous
-        residuals = np.asarray(residuals)
-        return float(residuals @ residuals / 2), residuals, np.asarray(jacobians), valid, matrix, bounds, states
+        return _evaluate_arm_pose(index, trial, sigma, derivatives, changes=changes, rows=rows, times=times,
+            affected=affected, geometry=geometry, state=state, columns=columns, camera_hypothesis=camera_hypothesis,
+            object_pair_count=object_pair_count, tolerance=tolerance, deadline=deadline)
 
     attempts = [{'accepted_updates': 0, 'nonlinear_rejections': 0, 'projection_failures': 0} for _ in rows]
     sweeps, projections, exhausted = [], [], False
@@ -209,13 +231,7 @@ def _propose(human_document, observation_document, *, human_entity_ref, camera_h
             order = range(1, len(rows)) if sweep % 2 == 0 else range(len(rows) - 1, 0, -1)
             for i in order:
                 if time.monotonic() >= deadline: exhausted = True; break
-                lo, hi = lower[i].copy(), upper[i].copy()
-                for neighbor in (i - 1, i + 1):
-                    if 0 <= neighbor < len(rows):
-                        radius = CONTRACT['maximum_correction_rate_rad_s'] * abs(times[i] - times[neighbor])
-                        lo, hi = np.maximum(lo, changes[neighbor] - radius), np.minimum(hi, changes[neighbor] + radius)
-                lo = np.maximum(lo - changes[i], -CONTRACT['maximum_update_rad'])
-                hi = np.minimum(hi - changes[i], CONTRACT['maximum_update_rad'])
+                lo, hi = _arm_step_bounds(i, changes, lower, upper, times)
                 cost, residual, jac, valid, matrix, bounds, _ = evaluate(i, changes[i], sigma, True)
                 if not valid: raise ValueError('Accepted iterate lost its nonlinear feasibility')
                 matrix.extend(np.eye(8)); bounds.extend(lo)

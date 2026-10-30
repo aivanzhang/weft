@@ -1536,7 +1536,9 @@ async function sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl() {
       [true,attachedExercisePolicy('searched_gains',{privileged_simulator_features:false})],
       [true,attachedExercisePolicy('searched_joint_residuals')],
       [true,attachedExercisePolicy('searched_gains',{profile:'shared-exercise-policy-v2'})],
-      [true,attachedExercisePolicy('coast_unchanged',{profile:'shared-exercise-policy-v2'})]]) {
+      [true,attachedExercisePolicy('coast_unchanged',{profile:'shared-exercise-policy-v2'})],
+      [true,attachedExercisePolicy('searched_joint_residuals',{profile:'shared-exercise-policy-v3'})],
+      [true,attachedExercisePolicy('searched_joint_residuals',{profile:'shared-exercise-policy-v3',training_feasible:'true'})]]) {
     const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:available,exercisePolicy:policy});await ui.ready();
     assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
     assert.equal(ui.ids.get('mode-coast').disabled,false);assert.equal(ui.ids.get('reference-servo').disabled,false);
@@ -1545,6 +1547,22 @@ async function sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl() {
   }
   const missing=fixture('shared-world',{sharedExercise:true,missingExerciseState:true,exercisePolicyAvailable:true,exercisePolicy:attachedExercisePolicy()});await missing.ready();
   assert.equal(missing.ids.get('policy').disabled,true);assert.equal(missing.ids.get('start-learned').disabled,true);
+}
+
+async function sharedExerciseFeasibilityPolicySeparatesLimitsFromRewardAndEvaluation() {
+  for (const feasible of [false,true]) {
+    const policy=attachedExercisePolicy('searched_joint_residuals',{profile:'shared-exercise-policy-v3',
+      training_feasible:feasible,training_score_improved_over_authored:false});
+    const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:policy});await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,false);
+    assert.match(ui.ids.get('training-caption').textContent,/prioritized task limits before reward/);
+    assert.match(ui.ids.get('training-caption').textContent,feasible?/Both training starts passed every task limit/:/At least one training start still failed/);
+    assert.match(ui.ids.get('training-caption').textContent,/Independent results are shown separately/);
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/Independent evaluation unavailable/);
+    assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+    ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,policy:true});ui.resolveNext('/api/step');await drain();
+  }
 }
 
 async function sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome() {
@@ -1669,6 +1687,7 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
   sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording,sharedExerciseBaselineSelectionIsNotCalledNewLearning,
   sharedExerciseResidualPolicyExplainsItsAuthoredBaseAndKeepsHumanOnlyRequests,
+  sharedExerciseFeasibilityPolicySeparatesLimitsFromRewardAndEvaluation,
   sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl,sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome,
   sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns,
   savedTrialExplainsEquipmentFailureWithoutChangingLiveState,savedTrialInspectionBoundsPollingAndOffersRetryAfterHiding,

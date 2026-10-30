@@ -1,8 +1,8 @@
 # Build an exercise scene from saved evidence
 
-Use a verified mobile-body run and a sealed equipment tracking export to build **one shared world and a human-only lab**. This path no longer requires chained camera-study directories. It still requires explicit camera/shape assumptions; it does not automatically recover arbitrary equipment from a video.
+Use a sealed **mobile exercise-v3 run or lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. The body input no longer needs a separate shared-world adaptation or clip-specific study directory. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
 
-For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, first prepare its mobile body and tracking evidence using the [shared-world guide](shared-world.md). Keep the original video hash and any original/derivative mapping bundles.
+For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, first prepare its [mobile body](local-lab.md#process-your-own-exercise-video) with `--body-model mobile` and its [tracking evidence](shared-world.md). Keep the original video hash and any original/derivative mapping bundles. Assembly reuses those saved results; it does not repeat pose inference or request tracking.
 
 ## One assembly command
 
@@ -27,7 +27,7 @@ The distance above is an **authored example**, not a measured camera distance. T
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-build \
-  --run artifacts/my-shared-body \
+  --human-run artifacts/my-mobile-lab --body-scale 1.0 \
   --evidence-run artifacts/my-tracking-evidence \
   --config /absolute/path/to/equipment-config.json \
   --full-reference \
@@ -38,11 +38,17 @@ The distance above is an **authored example**, not a measured camera distance. T
 
 The first command prints stage progress and does not start a server. The second command is user-started. Add `--root-assistance` to assembly only if you want the three explicit virtual root controls; otherwise it uses 19 human joint controls. Equipment remains passive in both modes.
 
+`--human-run` accepts the sealed mobile run directly or its enclosing lab. `--body-scale` is an authored body-to-world scale, not a measured size; it defaults to `1.0` and must stay within `[0.5, 2.0]`. The prepared body snapshot preserves exact human/source bytes, source-frame slots and clocks, without physics or rendering. It is construction-only and cannot be opened as a lab. Unsupported body profiles, camera-reference bodies, incomplete source intervals and conflicting identities reject instead of falling back.
+
+Existing shared-world inputs still use `--run artifacts/my-shared-body` instead of `--human-run`. The two options are mutually exclusive; `--body-scale` cannot change a prepared shared world. Neither route infers which equipment to use or silently selects a different source frame.
+
 `--full-reference` builds one continuous episode from the first retained body pose to the last. It uses the existing `shared-world-v2` contract: at most 1,800 actions / 60 seconds, unchanged timestep and no chunk resets. Missing poses and source prefixes stay missing; the selected interval is not necessarily the entire original video. Unsupported endpoints reject instead of being rounded or retimed. Omit the flag to keep the original short-window behavior.
 
 The full-reference choice is made before task/lab packaging, so it creates only one candidate and one lab. It does not attach a short-window policy, run training, change success limits or require a temporary lab. `candidate/reconstruction.json` records the original window and the selected interval; `lab/run/exercise-task.json` binds the new task to that exact scene.
 
 If tracking used a verified derivative, add `--source-mapping <bundle>`; repeat for distinct derivatives. Canonical root `scene-observations.json` and the older nested layout are supported without moving files. Conflicting sealed copies reject.
+
+Each equipment frame must also be a retained body-reference frame. Equipment measurements must belong to the explicit construction partition; authored initialization boxes and raw appearance/generation/development/audit rows are not silently promoted. Missing or withheld observations remain unsupported, not filled from a nearby frame.
 
 An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entire frame and invokes the existing bounded nominal dynamics check. It is not a body-only adjustment; it changes numerical bounds and must not be described as complete task equivalence. Omit it unless that coordinate migration is intended. The assembly command passes the resolved choice to construction; it does not invent or apply a second translation.
 
@@ -51,6 +57,7 @@ An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entir
 | Output | Meaning |
 | --- | --- |
 | `settings.json`, `stages.json`, `result.json` | Requested inputs, completed stages and outcome |
+| `body_seed/construction-seed.json` | Direct mobile input only: verified body/source snapshot and explicit construction-only scope; no intermediate lab |
 | `proposal/input-config.json` | Exact user choices |
 | `proposal/report.json` | Resolved assumptions, exact source bindings and admission/rejection reasons |
 | `proposal/geometry-proposal.json` | Initially admitted proposal; absent on rejection |
@@ -61,11 +68,15 @@ An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entir
 
 Every output directory must be new. Unsupported input stops before construction or lab creation. Later failures preserve completed stages. If a lab was already successfully prepared before an outer deadline or finalization failure, the failed assembly result explicitly retains `lab_status: ready` and its launch path; it never relabels that completed lab. A failure-only manifest identifies unsealed partial outputs rather than pretending they were verified.
 
-The default assembly deadline is 90 seconds, checked around stages and during final hashing. Native calls and bounded source-verification calls already underway cannot be preempted. Each next stage reserves its complete output allowance before starting: proposal 256 files/64 MiB, construction 512 files/128 MiB, lab 1,024 files/192 MiB, within the shared 1,600-file/384 MiB envelope. No inference, training, provider call or deployment occurs in assembly.
+The default assembly deadline is 90 seconds, checked around stages and during final hashing. Native calls and bounded source-verification calls already underway cannot be preempted. Each next stage reserves its complete output allowance before starting: optional body preparation 512 files/128 MiB, proposal 256 files/64 MiB, construction 512 files/128 MiB, lab 1,024 files/192 MiB, within the shared 1,600-file/384 MiB envelope. Body preparation also bounds its input to 512 files/128 MiB, each file to 64 MiB and its cooperative time to 30 seconds or the remaining assembly deadline, whichever is shorter. Oversize input is rejected, not trimmed. No inference, training, provider call or deployment occurs in assembly.
 
 For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Use [human-only training/evaluation](shared-exercise.md) separately; a ready geometry package is not a successful policy.
 
 ## Verified scope
+
+**Direct mobile input:** `artifacts/mobile-source-assembly-01` uses `--human-run` on the saved mobile lab, with existing equipment evidence/configuration and the verified derivative mapping. It completes in **3.977 s**, including **0.756 s** for body preparation, and seals **397 files /102,458,085 bytes including the manifest**: `04ef00208ceecd8585021db55bd27bff654c8cb025db4ea6b17c65a46b782635`. The final physical scene is identical to `full-reference-assembly-01`; task and human bytes match exactly. All **121 references /257 slots /254 actions** remain, and only the selected `sam-2`/`sam-3` equipment reaches the final world. Three reference actions and one reset pass in **0.554 s**, with no object forces or immutable-run changes. `.local/mobile-source-assembly-verification-01.json` verifies all 396 covered members. The new **untrained** lab is `artifacts/mobile-source-assembly-01/lab`; it does not replace the trained example or claim task success. No seed physics/model creation, video decode, inference or paid request occurs.
+
+A separate analytical fixture reaches the same builder with unfamiliar foam-pad/training-weight IDs and missing body slots 0/1/31. It preserves all 63 source slots, exposes only the selected equipment in one v2 lab, and steps the body without equipment forces. The corrected end-to-end case passes `.local/mobile-source-pipeline-tests-02.xml`; this verifies reusable input handling, not independent video or physical accuracy.
 
 **Full-reference assembly:** `artifacts/full-reference-assembly-01` runs the public command with `--full-reference` in **3.148 s** (3.407 s including CLI startup), producing **374 files / 88,686,504 bytes including its manifest**, seal `2b7a5954682099a6a06216362f24ad5df6b475cf265bf10b1b2d8f3534ad1965`. All physical settings and source documents match the earlier box assembly; only the scene profile and task interval change to 254 continuous actions. All 121 poses / 257 slots remain. Three reference-control actions and one reset work through the lab API; the sealed run stays unchanged. This new lab is **untrained**, not a replacement for the trained example above. Root verification: `.local/full-reference-assembly-verification-01.json`. No inference, fitting, paid calls, server or browser was used.
 

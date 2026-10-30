@@ -171,7 +171,15 @@ def test_late_progress_failure_preserves_the_legitimately_ready_inner_lab(tmp_pa
 
 
 def _fake_stages(monkeypatch):
+    from weft import shared_world_lab
+
     calls = []
+
+    def body_seed(source, out, **kwargs):
+        calls.append(("body_seed", kwargs))
+        out.mkdir()
+        write_json(out / "manifest.json", {"files": {}})
+        return out
 
     def proposal(base, evidence, config, out, **kwargs):
         calls.append(("equipment_priors", kwargs))
@@ -197,6 +205,7 @@ def _fake_stages(monkeypatch):
     monkeypatch.setattr(pipeline, "prepare_equipment_proposal", proposal)
     monkeypatch.setattr(pipeline, "construct_source_equipment_run", world)
     monkeypatch.setattr(pipeline, "prepare_shared_exercise_lab", lab)
+    monkeypatch.setattr(shared_world_lab, "prepare_shared_world_seed", body_seed)
     return calls
 
 
@@ -209,10 +218,98 @@ def test_reserve_aggregate_capacity_before_starting_each_stage(tmp_path, monkeyp
     monkeypatch.setattr(pipeline, "STAGE_LIMITS", limits)
     out = tmp_path / "bounded"
     with pytest.raises(ValueError, match="cannot reserve the complete " + stage):
-        pipeline.prepare_exercise_scene(tmp_path / "base", tmp_path / "evidence", tmp_path / "config", out)
+        pipeline.prepare_exercise_scene(None if stage == "body_seed" else tmp_path / "base",
+            tmp_path / "evidence", tmp_path / "config", out,
+            human_run=tmp_path / "human" if stage == "body_seed" else None)
     assert stage not in [name for name, _ in calls]
     result = json.loads((out / "result.json").read_text())
     assert result["status"] == "failed" and result["lab_status"] == "not_ready"
+
+
+@pytest.mark.parametrize("base,human,scale,message", [
+    (None, None, None, "exactly one"), ("base", "human", None, "exactly one"),
+    ("base", None, 1., "only to a mobile"),
+    (None, "human", True, "finite prior"), (None, "human", float("nan"), "finite prior"),
+    (None, "human", .49, "finite prior"), (None, "human", 2.01, "finite prior"),
+])
+def test_mobile_source_choices_reject_before_output(tmp_path, base, human, scale, message):
+    out = tmp_path / "invalid"
+    with pytest.raises(ValueError, match=message):
+        pipeline.prepare_exercise_scene(base, "evidence", "config", out, human_run=human, body_scale=scale)
+    assert not out.exists()
+
+
+def test_mobile_source_preparation_keeps_one_bounded_assembly(tmp_path, monkeypatch):
+    calls = _fake_stages(monkeypatch)
+    out = tmp_path / "mobile"
+    result = pipeline.prepare_exercise_scene(None, tmp_path / "evidence", tmp_path / "config", out,
+        human_run=tmp_path / "human", body_scale=1.2, full_reference=True)
+    assert result["status"] == "ready"
+    assert [name for name, _ in calls] == ["body_seed", "equipment_priors", "shared_world", "interactive_lab"]
+    assert dict(calls)["body_seed"]["scale"] == 1.2
+    assert dict(calls)["body_seed"]["deadline"] == dict(calls)["shared_world"]["deadline"]
+    settings = json.loads((out / "settings.json").read_bytes())
+    assert settings["base_run"] is None and settings["human_run"] == str(tmp_path / "human")
+    assert settings["body_scale"] == 1.2 and settings["inference_calls"] == settings["api_calls"] == 0
+    assert sum(row["stage"] == "interactive_lab" and row["status"] == "ready" for row in result["stages"]) == 1
+    assert "body_seed/manifest.json" in json.loads((out / "manifest.json").read_bytes())["files"]
+
+
+def test_mobile_source_build_preserves_unknown_slots_and_exposes_only_selected_equipment(tmp_path):
+    from test_shared_world_seed import mobile_source_packages
+
+    human, equipment, config, original, _ = mobile_source_packages(tmp_path, as_lab=True)
+    before = {path: path.read_bytes() for directory in (human, equipment)
+              for path in directory.rglob("*") if path.is_file()}
+    out = tmp_path / "mobile-full-reference"
+    result = pipeline.prepare_exercise_scene(None, equipment, config, out,
+        human_run=human, full_reference=True, root_assistance=True)
+    assert result["status"] == "ready" and result["lab_status"] == "ready"
+    assert sorted(path.name for path in out.iterdir() if path.is_dir()) == ["body_seed", "candidate", "lab", "proposal"]
+    scene = json.loads((out / "candidate/scene.json").read_bytes())
+    assert scene["profile"] == "shared-world-v2" and scene["human_spec"] == original
+    assert {row["id"] for row in scene["objects"]} == {"foam-pad", "training-weight"}
+    assert (out / "body_seed/human.json").read_bytes() == (human / "run/human.json").read_bytes()
+    seed = json.loads((out / "body_seed/construction-seed.json").read_bytes())
+    assert seed["simulation_ready"] is False and seed["physics_steps"] == seed["physics_models"] == 0
+    assert not (out / "candidate/construction-seed.json").exists()
+    assert not (out / "lab/run/construction-seed.json").exists()
+    binding = scene["source_binding"]
+    assert binding["total_source_frames"] == 63
+    body_binding = binding["entity_bindings"][0]
+    assert body_binding["observed_slots"] == 60 and body_binding["missing_slots"] == 3
+    observation_path = binding["evidence_documents"][body_binding["observation_document_sha256"]]
+    observations = json.loads((out / "candidate" / observation_path).read_bytes())
+    assert [row["frame"] for row in observations["observations"] if row["visibility"] == "not_sampled"] == [0, 1, 31]
+    lab = Lab(out / "lab")
+    try:
+        snapshot = lab.control("/api/step", {"controller": "reference"})["snapshot"]
+        assert snapshot["engine_state"]["steps"] == 1
+        assert not any(snapshot["engine_state"]["normalized_action"][22:])
+    finally:
+        lab.close()
+    assert all(path.read_bytes() == raw for path, raw in before.items())
+
+
+def test_mobile_source_cli_passes_explicit_scale_without_a_shared_base(tmp_path, monkeypatch, capsys):
+    import sys
+    from weft import cli
+
+    called = {}
+
+    def prepare(base, evidence, config, out, **kwargs):
+        called.update(base=base, **kwargs)
+        kwargs["progress"]({"stage": "body_seed", "status": "running"})
+        return {"status": "ready"}
+
+    monkeypatch.setattr(pipeline, "prepare_exercise_scene", prepare)
+    monkeypatch.setattr(sys, "argv", ["weft", "shared-exercise-build", "--human-run", "mobile",
+        "--body-scale", "1.2", "--evidence-run", "evidence", "--config", "config", "--out", str(tmp_path / "out")])
+    cli.main()
+    assert called["base"] is None and called["human_run"] == "mobile" and called["body_scale"] == 1.2
+    output = capsys.readouterr()
+    assert "Prepare source body: running" in output.err
+    assert json.loads(output.out)["status"] == "ready"
 
 
 def test_deadline_after_lab_keeps_ready_path_and_only_seals_small_failure_receipt(tmp_path, monkeypatch):
