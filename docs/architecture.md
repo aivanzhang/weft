@@ -63,6 +63,8 @@ Experimental `surface_features.py` extracts bounded image-texture descriptors in
 
 Experimental `feature_tracks.py` adds [bounded adjacent-frame histories](feature-track-diversity.md), with unchanged original-reference checks, explicit births/breaks and conflict splitting. It stores only original/previous features and active links; callers journal full history. More local appearance links do not restore every opening anchor, identify physical points or qualify source edits. It does not replace ordinary lab tracking or infer a new scene.
 
+Experimental `track_shape.py` attempts relative 3D visible-point shape from complete bounded track windows under an explicit scaled-orthographic camera model. It preserves incomplete observations and rejects inadequate depth motion, ambiguous metrics and inconsistent projections. The [five-view study](track-shape-diversity.md) retains all 140 windows but qualifies no real shape proposal; known 3D controls pass while coherent scale deformation remains indistinguishable from camera scaling. It exports neither anatomy nor collision geometry and does not modify existing worlds or lab defaults.
+
 Before replacing the fixture, specify and validate:
 
 - **Scene:** coordinate conventions, units/calibration, camera, timebase, gravity, boundaries, evidence partitions.
