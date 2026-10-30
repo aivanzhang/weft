@@ -434,12 +434,16 @@
       : "No wrist-region contact is required. Passing means body tracking and equipment stability only—not hand support, a completed exercise or grasp."
       : "Contact requirements are unavailable; none are inferred from the image.");
   }
-  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback"};
+  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections"};
+  const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
+    "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"]};
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
-    exercisePolicy = data.learned_policy_available === true && policy?.profile === "shared-exercise-policy-v1"
+    exercisePolicy = data.learned_policy_available === true && typeof policy?.profile === "string"
+      && Object.hasOwn(exercisePolicyKinds, policy.profile)
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
       && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
+      && exercisePolicyKinds[policy.profile].includes(policy.selected_feedback_kind)
       && policy.privileged_simulator_features === true ? policy : null;
     return exerciseContractReady && exercisePolicy !== null;
   }
@@ -448,6 +452,7 @@
     const kind = exercisePolicy.selected_feedback_kind;
     return `${exerciseFeedbackLabels[kind]}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
       : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
+      : kind === "searched_joint_residuals" ? "Training searched small phase-dependent joint corrections on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
       : "Training searched feedback gains using simulator state and the known body reference."} Equipment has no force controls; root assistance remains the selected task setting.`;
   }
   function exerciseResetDescription() {

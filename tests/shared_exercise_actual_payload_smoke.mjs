@@ -74,9 +74,10 @@ if (geometryAlternative) {
   }
 } else assert(inspection.geometry.panels.length > 0);
 const hasPolicy = initial.learned_policy_available === true;
-const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback'};
+const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback',searched_joint_residuals:'Searched joint corrections'};
 const policyDescriptions={authored_unchanged:/unchanged programmed feedback, not new learned gains/,
-  coast_unchanged:/unchanged zero-command baseline, not new learned gains/,searched_gains:/searched feedback gains using simulator state and the known body reference/};
+  coast_unchanged:/unchanged zero-command baseline, not new learned gains/,searched_gains:/searched feedback gains using simulator state and the known body reference/,
+  searched_joint_residuals:/phase-dependent joint corrections on top of programmed feedback/};
 let selectedKind=null,expectedScores=[];
 if (hasPolicy) {
   selectedKind=initial.exercise_policy.selected_feedback_kind;assert(Object.hasOwn(policyLabels,selectedKind));
@@ -84,7 +85,13 @@ if (hasPolicy) {
   assert.equal(typeof initial.exercise_policy.training_score_improved_over_authored, 'boolean');
   assert.equal(runManifest.files['policy.json'], initial.exercise_policy.policy_sha256);
   const policy = readJson('policy.json', 64 * 1024, initial.exercise_policy.policy_sha256, run).value;
-  assert.equal(policy.profile, 'shared-exercise-policy-v1'); assert.equal(policy.task_sha256, initial.snapshot.task_sha256);
+  assert(['shared-exercise-policy-v1','shared-exercise-policy-v2'].includes(policy.profile));
+  assert.equal(policy.profile, initial.exercise_policy.profile); assert.equal(policy.task_sha256, initial.snapshot.task_sha256);
+  if (policy.profile === 'shared-exercise-policy-v2') {
+    assert(['authored_unchanged','searched_joint_residuals'].includes(selectedKind));
+    assert.equal(policy.residual_coefficients.length, 2);
+    assert(policy.residual_coefficients.every(row => row.length === 19 && row.every(value => Number.isFinite(value) && Math.abs(value) <= .25)));
+  }
   if(initial.exercise_policy.evaluation_status==='evaluated')for(const name of ['coast','random','authored','learned']) {
     const row=initial.exercise_policy.evaluation_successes[name];
     assert(Number.isInteger(row.episodes)&&row.episodes>=1&&row.episodes<=6);

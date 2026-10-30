@@ -140,7 +140,7 @@ def _reference_frames(scene, deadline):
 
 def _validate_policy_package(manifest_raw, files, scene, task):
     # Lazy imports keep the learner's existing lab-helper dependency acyclic.
-    from weft.shared_exercise_learning import validate_shared_exercise_policy
+    from weft.shared_exercise_policies import selection_kind, validate_policy
 
     manifest = _json(manifest_raw)
     required = {"policy.json", "training.json", "settings.json", "scene.json", "exercise-task.json", "input-manifest.json"}
@@ -153,14 +153,12 @@ def _validate_policy_package(manifest_raw, files, scene, task):
         raise ValueError("Exercise learning scene/task must exactly match the selected lab")
     if len(files["policy.json"]) > 64 * 1024:
         raise ValueError("Exercise policy exceeds its document bound")
-    policy = validate_shared_exercise_policy(_json(files["policy.json"]), scene, task)
+    policy = validate_policy(_json(files["policy.json"]), scene, task)
     training, settings = _json(files["training.json"]), _json(files["settings.json"])
     if (not isinstance(training, dict) or training.get("status") != "trained"
             or training.get("policy_sha256") != _sha(files["policy.json"])):
         raise ValueError("Exercise training must pin the exact selected policy bytes")
-    authored = all(value == 1 for row in policy["weights"] for value in row)
-    coast = all(value == 0 for row in policy["weights"] for value in row)
-    kind = "authored_unchanged" if authored else "coast_unchanged" if coast else "searched_gains"
+    kind, authored, coast = selection_kind(policy)
     improvement = training.get("improvement_over_authored_training")
     if (training.get("selected_feedback_kind") != kind
             or training.get("selected_authored_baseline") is not authored
@@ -564,8 +562,8 @@ class SharedExerciseSession:
             self.reset(0)
             self._policy_action = None
             if self.policy is not None:
-                from weft.shared_exercise_learning import prepare_shared_exercise_policy
-                self._policy_action = prepare_shared_exercise_policy(self.policy, self.env)
+                from weft.shared_exercise_policies import prepare_policy
+                self._policy_action = prepare_policy(self.policy, self.env)
             from weft.capabilities import describe_capabilities
             self._capabilities = describe_capabilities(self._scene, lab_profile=CONTROL_PROFILE,
                 exercise_task=self._task, reference_available=True,

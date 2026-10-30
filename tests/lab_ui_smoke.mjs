@@ -1448,10 +1448,34 @@ async function sharedExerciseBaselineSelectionIsNotCalledNewLearning() {
   }
 }
 
+async function sharedExerciseResidualPolicyExplainsItsAuthoredBaseAndKeepsHumanOnlyRequests() {
+  for (const rootAssistance of [false, true]) {
+    const policy=attachedExercisePolicy('searched_joint_residuals',{profile:'shared-exercise-policy-v2'});
+    const ui=fixture('shared-world',{sharedExercise:true,rootAssistance,exercisePolicyAvailable:true,exercisePolicy:policy});await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,false);
+    assert.equal(ui.ids.get('policy').textContent,'Searched joint corrections');
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,/phase-dependent joint corrections on top of programmed feedback/);
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,/permitted root assistance remains programmed, not learned/);
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/Independent evaluation unavailable/);
+    assert.equal(ui.ids.get('joint').children.length,rootAssistance?22:19);
+    assert.equal(ui.ids.get('actor').disabled,true);
+    ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,policy:true});ui.resolveNext('/api/step');await drain();
+    assert(!ui.requests.some(request=>['/api/actor','/api/joint'].includes(request.path)));
+  }
+  const zero=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,
+    exercisePolicy:attachedExercisePolicy('authored_unchanged',{profile:'shared-exercise-policy-v2',training_score_improved_over_authored:false})});await zero.ready();
+  assert.equal(zero.ids.get('policy').textContent,'Selected authored baseline');
+  assert.match(zero.ids.get('exercise-policy-summary').textContent,/unchanged programmed feedback, not new learned gains/);
+}
+
 async function sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl() {
   for(const [available,policy] of [[false,attachedExercisePolicy()],[true,null],['true',attachedExercisePolicy()],
       [true,attachedExercisePolicy('unknown')],[true,attachedExercisePolicy('searched_gains',{policy_sha256:'invalid'})],
-      [true,attachedExercisePolicy('searched_gains',{privileged_simulator_features:false})]]) {
+      [true,attachedExercisePolicy('searched_gains',{privileged_simulator_features:false})],
+      [true,attachedExercisePolicy('searched_joint_residuals')],
+      [true,attachedExercisePolicy('searched_gains',{profile:'shared-exercise-policy-v2'})],
+      [true,attachedExercisePolicy('coast_unchanged',{profile:'shared-exercise-policy-v2'})]]) {
     const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:available,exercisePolicy:policy});await ui.ready();
     assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
     assert.equal(ui.ids.get('mode-coast').disabled,false);assert.equal(ui.ids.get('reference-servo').disabled,false);
@@ -1505,6 +1529,7 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates,sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess,
   sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
   sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording,sharedExerciseBaselineSelectionIsNotCalledNewLearning,
+  sharedExerciseResidualPolicyExplainsItsAuthoredBaseAndKeepsHumanOnlyRequests,
   sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl,sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome,
   sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns,
   fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,

@@ -216,6 +216,15 @@ def main():
     sw_geometry.add_argument("--config", required=True, help="Versioned compound replacements pinned to the canonical base scene hash")
     sw_geometry.add_argument("--out", required=True, help="New sealed hypothesis directory outside both inputs")
     sw_geometry.add_argument("--max-seconds", type=float, default=30)
+    sw_shape = commands.add_parser("shared-world-shape", help="Propose conditional solid shapes from saved silhouettes and compare full-motion clearance")
+    sw_shape.add_argument("--run", required=True, help="Sealed source-qualified shared-world candidate")
+    sw_shape.add_argument("--masks-run", required=True, help="Sealed segmentation and decoded-mask evidence for the same source")
+    sw_shape.add_argument("--object-id", action="append", required=True, help="Rigid world ID; repeat for up to four objects")
+    sw_shape.add_argument("--source-frame", type=int, required=True, help="Exact original construction-frame index; no frame search")
+    sw_shape.add_argument("--conditional-exterior", action="store_true", help="Explicitly assume clear-row exterior may narrow solid bands; not measured empty space")
+    sw_shape.add_argument("--task", help="Frozen exercise task to preserve apart from the candidate scene hash")
+    sw_shape.add_argument("--out", required=True, help="New directory for original geometry, proposals, admission and clearance comparison")
+    sw_shape.add_argument("--max-seconds", type=float, default=60)
     sw_train = commands.add_parser("shared-world-train", help="Train and evaluate a bounded CEM policy on a coupled shared-world-v1 run")
     sw_train.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_train.add_argument("--out", required=True, help="New policy training directory outside the source run")
@@ -253,10 +262,16 @@ def main():
     exercise_train_choice = exercise_train.add_mutually_exclusive_group()
     exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
     exercise_train_choice.add_argument("--task", help="Exact shared-exercise-task-v1 JSON to train without changing its gates")
+    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual"], default="feedback",
+                                help="Feedback gains (existing default) or bounded joint corrections over authored feedback")
     exercise_train.add_argument("--seed", type=int, default=1729)
-    exercise_train.add_argument("--generations", type=int, default=3)
-    exercise_train.add_argument("--population", type=int, default=8)
+    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual")
+    exercise_train.add_argument("--population", type=int, help="Default: 8 for feedback, 12 for phase-residual")
     exercise_train.add_argument("--max-seconds", type=float, default=60)
+    exercise_select = commands.add_parser("shared-exercise-select", help="Select a saved residual candidate meeting every training-task gate; no retraining")
+    exercise_select.add_argument("--learning", required=True, help="Complete sealed residual-policy training package")
+    exercise_select.add_argument("--out", required=True, help="New selected-policy package; original candidates and policy stay unchanged")
+    exercise_select.add_argument("--max-seconds", type=float, default=15)
     exercise_policy_eval = commands.add_parser("shared-exercise-policy-evaluate", help="Compare a frozen human-only policy with coast/random/authored on separate changed starts")
     exercise_policy_eval.add_argument("--learning", required=True, help="Verified immutable human-only training directory")
     exercise_policy_eval.add_argument("--out", required=True, help="New evaluation directory outside training inputs")
@@ -394,6 +409,11 @@ def main():
         elif args.command == "shared-world-geometry":
             from weft.shared_world_geometry import prepare_shared_world_geometry
             result = prepare_shared_world_geometry(args.run, args.config, args.out, max_seconds=args.max_seconds)
+        elif args.command == "shared-world-shape":
+            from weft.silhouette_pipeline import prepare_silhouette_world
+            result = prepare_silhouette_world(args.run, args.masks_run, args.out, task_path=args.task,
+                object_ids=args.object_id, source_frame=args.source_frame,
+                conditional_exterior=args.conditional_exterior, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             labels = {"equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
@@ -426,13 +446,22 @@ def main():
                 task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
                 max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-train":
-            from weft.shared_exercise_learning import train_shared_exercise_policy
-            result = train_shared_exercise_policy(args.run, args.out, task_path=args.task,
-                root_assistance=args.root_assistance, seed=args.seed, generations=args.generations,
-                population=args.population, max_seconds=args.max_seconds)
+            if args.policy_family == "phase-residual":
+                from weft.shared_exercise_residual_learning import train_shared_exercise_residual_policy as train_policy
+                generations, population = 6, 12
+            else:
+                from weft.shared_exercise_learning import train_shared_exercise_policy as train_policy
+                generations, population = 3, 8
+            result = train_policy(args.run, args.out, task_path=args.task,
+                root_assistance=args.root_assistance, seed=args.seed,
+                generations=generations if args.generations is None else args.generations,
+                population=population if args.population is None else args.population, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-select":
+            from weft.shared_exercise_selection import select_feasible_shared_exercise_policy
+            result = select_feasible_shared_exercise_policy(args.learning, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-policy-evaluate":
-            from weft.shared_exercise_learning import evaluate_shared_exercise_policy
-            result = evaluate_shared_exercise_policy(args.learning, args.out, seed=args.seed,
+            from weft.shared_exercise_policies import evaluate_policy
+            result = evaluate_policy(args.learning, args.out, seed=args.seed,
                 trials=args.trials, jitter_scale=args.jitter_scale, max_seconds=args.max_seconds)
         elif args.command == "lab":
             from weft.lab import launch_lab
@@ -479,6 +508,8 @@ def main():
                     print(error)
             result = {"status": "closed"}
         print(json.dumps(result, indent=2, allow_nan=False))
+        if args.command == "shared-world-shape" and result.get("status") == "failed":
+            parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
     except (ValueError, RuntimeError, TimeoutError, OSError) as error:
         parser.exit(1, f"weft: {error}\n")
 

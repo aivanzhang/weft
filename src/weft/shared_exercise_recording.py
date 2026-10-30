@@ -27,11 +27,11 @@ def recording_scene(scene, task, *, policy_document=None):
               "dt": scene["dt"], "objects": deepcopy(scene["objects"])}
     if policy_document is not None:
         from weft.shared_exercise_lab import _json
-        from weft.shared_exercise_learning import validate_shared_exercise_policy
+        from weft.shared_exercise_policies import validate_policy
 
         if not isinstance(policy_document, bytes) or not 1 <= len(policy_document) <= 64 * 1024:
             raise ValueError("Exercise recording policy requires bounded exact document bytes")
-        validate_shared_exercise_policy(_json(policy_document), scene, task)
+        validate_policy(_json(policy_document), scene, task)
         result["learned_policy"] = {"document_utf8": policy_document.decode("utf-8"),
                                     "sha256": hashlib.sha256(policy_document).hexdigest()}
     return result
@@ -180,8 +180,8 @@ def verify_action_replay(directory, *, max_seconds=60):
         policy_action = None
         if "learned_policy" in scene:
             from weft.shared_exercise_lab import _json
-            from weft.shared_exercise_learning import prepare_shared_exercise_policy
-            policy_action = prepare_shared_exercise_policy(_json(scene["learned_policy"]["document_utf8"].encode("utf-8")), env)
+            from weft.shared_exercise_policies import prepare_policy
+            policy_action = prepare_policy(_json(scene["learned_policy"]["document_utf8"].encode("utf-8")), env)
         if events[0]["snapshot"]["task_metrics"]["evaluator_sha256"] != env.evaluator_sha256:
             raise ValueError("Recorded evaluator differs from this runtime; use the pinned implementation for action replay")
         for event in events:

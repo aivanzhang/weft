@@ -9,14 +9,16 @@ This is a simulated test, not recovered anatomy, a complete exercise definition 
 From the repository root, start the verified human-plus-equipment lab:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-policy-lab-02
+.venv-lab/bin/python -m weft lab --resume artifacts/silhouette-exercise-lab-01
 ```
 
 Open the token-bearing local URL printed by the command. This resumes saved evidence without inference, training or a paid request. The saved task covers **two seconds**, not the complete video; it has three explicitly assisted root controls plus 19 joint controls.
 
-1. Use **Original → Tracks → Geometry** to inspect the video, evidence and initial geometry assumptions.
-2. Open **Sandbox**. Choose manual movement, coast, authored video-following or **Selected authored baseline**. The installed policy is unchanged authored control, not a learned improvement. Equipment is passive; it has no force controls in this task.
-3. Read the task card and interval result. The source reference controller currently **fails equipment stability**; the interface does not turn that failure into success.
+The idle object (`sam-3`) now uses an admitted eight-band compound shape based on conditional image-mask evidence. The occluded working object (`sam-2`) is unchanged. This lab has a **new scene, task identity and newly trained policy**; the old box-world policy was not attached.
+
+1. Use **Original → Tracks → Geometry** to inspect the video, evidence, shape configuration and initial-clearance check. Open the separate [offline shape comparison](../artifacts/silhouette-shared-world-03/shape-comparison.html) for image-mask fit; obsolete source-fit panels are intentionally absent from the new lab.
+2. Open **Sandbox**. Choose manual movement, coast, authored video-following or **Searched joint corrections**. The installed policy adds learned, bounded joint corrections to programmed feedback; root assistance remains programmed. Equipment is passive, with no force controls.
+3. Read the task card and interval result. This policy passes the fixed tracking/equipment task on **3/3 fresh simulated starts**; coast, random and authored control each pass **0/3**. The saved live trial also passes all gates. Training gates determined the candidate choice; the separate evaluation was not used for selection.
 4. Choose **Record & start**, interact, and use **Pause** or reset as needed. Reset events remain in the recording.
 5. Choose **Stop & save**, then open the exported replay/video/actions. Export also re-executes the actions to verify the saved states.
 
@@ -24,8 +26,7 @@ To prepare another saved shared world, choose a new directory:
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-lab \
-  --run artifacts/source-equipment-integration-04/candidate \
-  --root-assistance \
+  --run artifacts/silhouette-shared-world-03/geometry \
   --out artifacts/my-human-only-lab-01
 .venv-lab/bin/python -m weft lab --resume artifacts/my-human-only-lab-01
 ```
@@ -49,11 +50,11 @@ After its report and manifest say **ready**, prepare a separate lab:
 
 No `--task` or `--root-assistance` is needed to retain the sealed input task. An explicit task override must match the new scene; it is a deliberate change, not preservation. Old policies/fit reports remain archived and cannot establish success for the alternative. The new scene requires its own evaluation; initial-clearance admission alone checks neither the full movement nor equipment stability.
 
-The [verified representation-only example](shared-world.md#verified-representation-only-source-example) is available at `artifacts/shared-world-geometry-integration-01/interaction/lab`. It retains the original two box collision shapes/inertias as one-part compounds, exact source attribution and the same task parameters. Its 69 actions/one reset/71 frames replay exactly; the 60-step interval completes and **fails equipment stability**. No policy or older-baseline comparison is attached. The current trained-policy example remains **`shared-exercise-policy-lab-02`** above; no recovered handles, new source fit or learning improvement is claimed by the alternative.
+The earlier [representation-only example](shared-world.md#verified-representation-only-source-example), `artifacts/shared-world-geometry-integration-01/interaction/lab`, retains the original two box collision shapes/inertias as one-part compounds. Its 69 actions/one reset/71 frames replay exactly; the 60-step interval completes and **fails equipment stability**. No policy is attached. The latest **`silhouette-exercise-lab-01`** instead uses the separately admitted idle-object shape and a newly trained policy. Neither geometry alternative establishes recovered handles or grasp.
 
 ## Compare baseline controllers
 
-For a noninteractive comparison in a new output directory:
+For a noninteractive comparison on the original box-proxy scene, use a new output directory:
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-evaluate \
@@ -68,30 +69,46 @@ The command compares coast with the authored human reference controller using th
 
 ## Train and compare a frozen policy
 
-Training searches a small set of feedback gains for all declared human controls. It uses simulator state and the known reference, not video-only observations. The task, scene and success gates remain fixed.
+Both policy families use privileged simulator state and the known reference, not video-only observations. The scene, equipment, declared task interval, reward and success gates remain fixed.
+
+| Training option | Search | Default work |
+| --- | --- | --- |
+| Omit `--policy-family`, or use `feedback` | v1: grouped feedback gains for all permitted human controls | 3 generations × 8 candidates |
+| `--policy-family phase-residual` | v2: 2 fixed phase functions × 19 joint coefficients, each in ±0.25 normalized action units | 6 generations × 12 candidates |
+
+The v2 correction changes only joint actions. Permitted root controls still use authored feedback from the current state; equipment is never forced. Phase is the existing interval fraction, not a retimed reference. Zero coefficients reproduce the authored baseline exactly. Opt in with:
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-train \
-  --run artifacts/source-equipment-integration-04/candidate \
-  --task artifacts/shared-exercise-evaluation-02/exercise-task.json \
+  --run artifacts/silhouette-shared-world-03/geometry \
+  --policy-family phase-residual \
   --out artifacts/my-exercise-learning-01
 
-.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+.venv-lab/bin/python -m weft shared-exercise-select \
   --learning artifacts/my-exercise-learning-01 \
+  --out artifacts/my-exercise-selected-01
+
+.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+  --learning artifacts/my-exercise-selected-01 \
   --out artifacts/my-exercise-policy-check-01
 ```
 
-Defaults: three generations, eight candidates, two matched training starts, one CPU lane and a 60-second cooperative limit. Identical candidates reuse their existing trials. Evaluation freezes the policy first, then compares coast, random, authored-reference and selected-policy control on three separate perturbed starts, with a 30-second limit. It does not feed those results back into training. Both commands preserve incomplete runs and failures; a new run always needs a new directory. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
+This input already seals its exercise task. Omitting `--task` preserves its parameters and the new scene binding; do not supply the earlier box-world task or policy.
 
-Inspect `training.json` for the selected weights and training score, then the **separate** `evaluation.json` for per-seed success/failures. The selected policy may be the unchanged coast or authored baseline; those cases are labeled explicitly, not called learned improvement. A higher reward does not override an equipment or body failure. Three mild changed starts are development checks, not broad generalization or physical validation.
+Both families use two matched training starts, one CPU lane and a 60-second cooperative limit. Identical candidates reuse their existing trials. The v2 action cap is **8,640**, including anchors within the population; cached trials issue no new actions and there are no hidden baseline runs or retries. Its separate evaluation cap is **720 actions**. A requested configuration exceeding a cap rejects instead of shortening the task.
+
+The optional **v2-only `shared-exercise-select`** stage chooses the highest original mean reward among saved candidates that passed **every frozen gate on both original training starts**. If none qualified, it explicitly retains the original selection. It performs no retraining, physics actions or evaluation reads, and has a 15-second cooperative limit. The new package preserves every candidate and the exact original policy, training history, settings, manifest, source proofs and actor runtime. `selection.json` records the rule, candidate identity and separate selector snapshot. Training and evaluation APIs/defaults are unchanged; omit this stage to evaluate the original reward-selected policy.
+
+`shared-exercise-policy-evaluate` automatically detects v1/v2. It freezes policy bytes and evaluation seeds before comparing coast, random, authored-reference and selected-policy control on three separate perturbed starts, with a 30-second limit. It does not feed those results back into training. Both commands preserve incomplete runs and failures; a new run always needs a new directory. Without `--task`, training preserves the sealed input task when available. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
+
+Inspect `policy.json` for selected gains or residual coefficients and `training.json` for the search history/score, then the **separate** `evaluation.json` for per-seed success/failures. For previously evaluated input, freeze a fresh evaluation seed and check that its reset seeds do not repeat earlier trials. Evaluation is not input to feasibility selection. V1 may select unchanged coast or authored control; v2 may select unchanged authored control or `searched_joint_residuals`. Unchanged anchors are not called learned improvement. A higher reward does not override an equipment or body failure. Three mild changed starts are development checks, not broad generalization or physical validation.
 
 To try and record that exact policy, prepare a **new** lab:
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-lab \
-  --run artifacts/source-equipment-integration-04/candidate \
-  --task artifacts/my-exercise-learning-01/exercise-task.json \
-  --learning artifacts/my-exercise-learning-01 \
+  --run artifacts/my-exercise-selected-01 \
+  --learning artifacts/my-exercise-selected-01 \
   --evaluation artifacts/my-exercise-policy-check-01 \
   --out artifacts/my-exercise-policy-lab-01
 
@@ -108,6 +125,9 @@ The policy and attached comparison must match the exact scene, task and runtime.
 | `exercise-task.json` | Human controls, complete interval, equipment IDs and contact requirements |
 | `settings.json` | Frozen gates, seed/reset, implementation hashes, package versions and work bounds |
 | `source-verification.json` | Complete copied evidence checks; not physical calibration |
+| `policy.json`, `training.json` | Selected controller and unchanged candidate/reward history |
+| `selection.json` | Optional v2 training-feasibility rule, chosen candidate and exact input/output identities |
+| `selection-source/`, `selection-implementation/` | Exact original selection documents and separately pinned selector; actor runtime is unchanged |
 | `evaluation.json` | Separate baseline results, whole-interval metrics, timings and replay checks |
 | `recordings/<baseline>/replay.html` | Offline three-view replay with this task's results |
 | `recordings/<baseline>/video.mp4` | Every recorded control-boundary frame, including the initial state |
@@ -152,11 +172,45 @@ Telemetry separates contact/site solver state from post-integration state, follo
 
 ## Current limits
 
+### Current combined geometry and control result
+
+`artifacts/silhouette-shared-world-03` improves the idle object's **conditional mask overlap (IoU) from 0.593595 to 0.666873** with eight shape bands. It loses no previously covered foreground; **55 already-uncovered mask cells remain uncovered**. The occluded working object is unchanged. Full-reference kinematic checks find no increased overlap, but the existing worst overlap remains **0.104829 world units**. These are conditional construction-image and geometry checks, not recovered depth, grasp or a solved full video; inspect the [offline comparison](../artifacts/silhouette-shared-world-03/shape-comparison.html).
+
+`artifacts/silhouette-exercise-control-01` trains on that admitted scene using the same predeclared optimizer and training seeds as the box-world comparison. The workflow takes **22.83212 s**:
+
+| Stage | Verified work/result | Time |
+| --- | --- | --- |
+| Fresh training | 124 episodes / 7,440 actions | 18.56242 s |
+| Training-only selection | Saved generation 2, candidate 6; 193 original files recoverable byte-for-byte; no new physics or evaluation reads | 0.57124 s |
+| Independent evaluation | 628 actions; selected policy 3/3, authored/coast/random 0/3 each | 2.86201 s |
+
+Fresh evaluation seeds are **132787259, 656811237 and 1783657337**. The selected coefficients match the earlier candidate, but **scene/task/policy identities are new**; policy hash begins `2b114ccd160ef858`. Reward, gates and task parameters stay fixed. The box-world policy already passed, so this does **not** show that the shape change caused control success. This is one two-second root-assisted simulated task, not new-video or physical generalization.
+
+`artifacts/silhouette-exercise-interaction-01` verifies the latest lab with **68 actions, one reset, 70 frames, all 60 post-reset steps**, task success, exact own replay and resume in **5.7570 s**. Open `artifacts/silhouette-exercise-lab-01/sessions/session-caf49de203d4/replay.html` or its `video.mp4`. Ten six-step API/JSON batches measured median **21.8363 ms**, maximum **22.3967 ms**. Saved-payload UI acceptance rechecked **6,007,393 bytes** and 22 controls; its **zero old source-fit panels** is intentional, with configuration/initial checks available and image comparison separate. These are local API/mock-UI checks, not browser/device or sustained-use measurements.
+
+### Preserved passing box-world policy
+
+`artifacts/shared-exercise-feasible-01` selected generation 2, candidate 6 (zero-based), the best of three feasible candidates among 62 unique saved candidates. Its reward **0.745602768** is lower than the reward-only winner (**0.762395196**) and authored anchor (**0.755012031**). Selection took **0.585506 s** with no new physics, training or evaluation reads; all **190 original training-package files** remain recoverable byte-for-byte. Policy `577392dbf25acd13…` retained the original box-world/task/runtime. Separate fresh seeds **1715624570, 2147129040 and 1762882840** gave **3/3 policy passes, 0/3 for each other controller**, in **661 actions / 2.68616 s**; the workflow took **3.80953 s**. Those results were not used for selection.
+
+The previous **`artifacts/shared-exercise-feasible-lab-01`** retains this passing box-world policy and comparison. `artifacts/shared-exercise-feasible-interaction-01` verifies **68 actions, one reset, 70 frames**, exact own replay and resume in **5.57594 s**. All **60 post-reset policy steps** run and the live task passes with no failed gates. No old-baseline equality was requested. The recording remains `artifacts/shared-exercise-feasible-lab-01/sessions/session-7fafb12a9511`; open its `replay.html` or `video.mp4`.
+
+### Preserved reward-only residual result
+
+`artifacts/shared-exercise-residual-01` completes in **20.5015 s** on the unchanged original scene and frozen two-second task. Training evaluates **124 episodes / 7,440 actions** in **17.3003 s**, with 10 cached candidates. It selects `searched_joint_residuals`, scoring **0.762395196**, **+0.007383165** over the matched authored training anchor. The 38 coefficients, exact source attribution/video, task, runtime and predeclared seed plan are preserved in the package.
+
+The separate fresh-start comparison takes **631 actions / 2.74995 s**: coast, random, authored and selected policy all remain **0/3 task passes**. Against matched authored trials, selected-policy `sam-2` maximum displacement falls **71.6846–79.8258%**. Its body/floor gates pass, but equipment speed remains **0.2493–0.3180 model units/s > 0.15** and spin **1.7854–1.9911 rad/s > 0.75**. These outcomes were not used to retune the policy. This is partial simulator improvement, not a solved task, new-video test, grasp or physical success.
+
+The historical **`artifacts/shared-exercise-residual-lab-01`** retains this reward-selected policy and attached failed comparison. `artifacts/shared-exercise-residual-interaction-01` verifies **68 actions, one reset, 70 frames**, exact own replay and resume in **5.5577 s**. All **60 post-reset steps** run; that live result fails `equipment_stability:sam-2`. No old-baseline equality was requested. The recording remains `artifacts/shared-exercise-residual-lab-01/sessions/session-5440f09a1a94`; open its `replay.html` or `video.mp4` to inspect the unchanged trial.
+
+Ten recorded six-step API/JSON batches measured median **19.9912 ms**, maximum **20.9795 ms**. Actual saved-payload UI acceptance processed **5,292,153 bytes**, exposed 22 controls and three source-fit panels, and retained the distinct training, 0/3 evaluation and live-failure displays. These are local API and mocked-interface checks, not browser/device or sustained-use measurements.
+
+### Preserved earlier results
+
 The earlier nominal source evaluation, `artifacts/shared-exercise-evaluation-02`, has 60 steps/960 substeps and 61 video frames per baseline, with exact action replay. Both fail: coast loses body tracking; reference control destabilizes the working proxy. Its actions, engine states and task results match preserved `-01` exactly, apart from the evaluator implementation hash. Preparing invariant validation once reduced measured control/record p95 from 56.8–57.8 ms to 3.0–3.5 ms; total evaluation/export/replay fell from 35.879 s to 4.717 s. Both runs preserve all state checks and evidence. OS caches were not evicted; these are local stage measurements, not browser or sustained-use guarantees.
 
-This is a two-second exposed development case, not the whole exercise or independent physical evidence. Later evaluator versions require their own pinned replay evidence. The current saved replay is `artifacts/shared-exercise-evaluation-02/recordings/authored_human_reference/replay.html`.
+This is a two-second exposed development case, not the whole exercise or independent physical evidence. Later evaluator versions require their own pinned replay evidence. Its preserved baseline replay is `artifacts/shared-exercise-evaluation-02/recordings/authored_human_reference/replay.html`.
 
-Equipment remains solid-box geometry with uncertain depth/materials. [Compound runtime support](shared-world.md#authored-compound-objects) is analytically tested but has not replaced this source geometry. One arm-image refinement improved projection but worsened penetration and was rejected; see the [handoff](handoffs/combined.md). Baseline evaluation is not policy training or physical transfer.
+These older runs retain solid-box equipment with uncertain depth/materials. The latest lab changes only the idle object to the conditional compound described above; the working object and old runs remain unchanged. One arm-image refinement improved projection but worsened penetration and was rejected; see the [handoff](handoffs/combined.md). Baseline evaluation is not policy training or physical transfer.
 
 The live integration study, `artifacts/shared-exercise-lab-integration-01`, verifies preparation, manual/coast/reference actions, in-recording reset, export, resume and exact replay: **69 actions, 71 events/video frames**. Its post-reset 60-step reference trial exactly matches the failed baseline above. Mocked-interface checks use these actual saved backend payloads, not invented passing scores. Local six-step control/record/JSON median was **19.26 ms**, p95 **24.18 ms**; first status load/serialization **476.71 ms**, 20 warm status serializations median **5.77 ms**. These are local core/API measurements, not browser/device or sustained-use guarantees.
 
@@ -168,8 +222,8 @@ That evaluation revealed a **reset-protocol flaw**, not a clean controller compa
 
 The first policy lab, `artifacts/shared-exercise-policy-lab-01`, remains unchanged. Its `shared-exercise-policy-interaction-01` verifies 68 actions, one reset, 70 frames and exact replay in 5.494 s. All 60 post-reset policy actions/states equal the earlier failed authored baseline. Its ten recorded six-step API/JSON batches had median 19.38 ms/max 20.41 ms.
 
-**Current fresh-seed result:** `artifacts/shared-exercise-human-jitter-01` completes in 6.960 s under the new human-only reset. Training uses 36 episodes/1,588 controls in 4.3055 s and again selects `authored_unchanged`, with no improvement. Separate evaluation runs all four controllers on three new states: **0/3 each**, 642 controls in 2.6039 s. Every one of the 12 starts retains zero equipment floor gap/speed. Idle equipment stays stable (peak speed 0.0204375 model units/s). Coast keeps both objects stable but fails body tracking; authored/selected control moves `sam-2` at peak speeds 0.6796–0.7302, above the frozen 0.15 gate. Two random trials fail early, including one rigid-velocity-envelope failure. The new reset removes the start-state confound, not these task failures.
+**Earlier v1 fresh-seed result:** `artifacts/shared-exercise-human-jitter-01` completes in 6.960 s under the human-only reset. Training uses 36 episodes/1,588 controls in 4.3055 s and again selects `authored_unchanged`, with no improvement. Separate evaluation runs all four controllers on three new states: **0/3 each**, 642 controls in 2.6039 s. Every one of the 12 starts retains zero equipment floor gap/speed. Idle equipment stays stable (peak speed 0.0204375 model units/s). Coast keeps both objects stable but fails body tracking; authored/selected control moves `sam-2` at peak speeds 0.6796–0.7302, above the frozen 0.15 gate. Two random trials fail early, including one rigid-velocity-envelope failure. The new reset removes the start-state confound, not these task failures.
 
-Use **`artifacts/shared-exercise-policy-lab-02`**, launched above, for the current policy and attached comparison. Its `artifacts/shared-exercise-policy-interaction-02` verifies **68 actions, one reset, 70 frames**, resume and exact own replay in **5.512 s**, retaining the live equipment-stability failure. It includes 60 post-reset policy actions; no old-baseline comparison was requested. Ten recorded six-step API/JSON batches measured median **20.408 ms**, max **20.476 ms**. Actual saved-payload UI acceptance verifies reset disclosure, policy identity, separate 0/3 comparison, 22 controls and source/geometry links. These are local core/mock-UI checks, not browser or sustained-use measurements. Exact seals, seeds and source audit are in the [current handoff](handoffs/combined.md#current-reset-assembly-and-compound-checkpoint).
+The earlier v1 lab **`artifacts/shared-exercise-policy-lab-02`** remains loadable with its unchanged manifest, policy and 0/3 comparison; `.local/shared-exercise-v1-compatibility-01.json` records that compatibility check. Its `artifacts/shared-exercise-policy-interaction-02` verifies **68 actions, one reset, 70 frames**, resume and exact own replay in **5.512 s**, retaining the live equipment-stability failure. It includes 60 post-reset policy actions; no old-baseline comparison was requested. Ten recorded six-step API/JSON batches measured median **20.408 ms**, max **20.476 ms**. Actual saved-payload UI acceptance verifies reset disclosure, policy identity, separate 0/3 comparison, 22 controls and source/geometry links. These are local core/mock-UI checks, not browser or sustained-use measurements. Exact seals, seeds and source audit are in the [current handoff](handoffs/combined.md#current-reset-assembly-and-compound-checkpoint).
 
 The default 60-second limit is a **cooperative deadline** checked between stages, actions, export frames and replay events; it cannot preempt one native encoder call. Each recording export also has a 64 MiB byte guard. Failures preserve partial files and journals; retries require new directories. Source fit, simulated checks, learning and real physical validation remain separate. The full A+B goal stays open.

@@ -136,7 +136,7 @@ Inspect `geometry-hypothesis.json` and the final manifest before using the outpu
 
 **Ready means initial clearance only.** Full-reference clearance, silhouette fit, contact/support, task success and physical accuracy remain unverified. A preserved exercise task keeps all controls, gates, interval/contact requirements and source scope; rebinding its scene hash also changes its task identity. Old policies/evaluations cannot be attached to the changed scene as if still current.
 
-Feed only a ready result into the [human-only lab](shared-exercise.md#prepare-a-lab-from-a-geometry-alternative). Its sealed task is selected by default; preparation does not silently replace custom contact requirements or assistance with defaults. `shared-exercise-policy-lab-02` remains the trained-policy example; the separate geometry integration below has no policy.
+Feed only a ready result into the [human-only lab](shared-exercise.md#prepare-a-lab-from-a-geometry-alternative). Its sealed task is selected by default; preparation does not silently replace custom contact requirements or assistance with defaults. `silhouette-exercise-lab-01` is the current source-shaped world with its own evaluated policy. The representation-only integration below has no policy.
 
 ### Verified representation-only source example
 
@@ -149,6 +149,43 @@ This saved run converts the two existing boxes to **one box part each with exact
 `artifacts/shared-world-geometry-integration-01` completes in **6.523 s**, 856 files/170,610,628 bytes before the root manifest. It verifies **69 actions, one reset, 71 frames**, resume and exact own replay. The full declared 60-step interval finishes but **fails `equipment_stability:sam-2`**. No older-baseline comparison, policy training or paid call was requested. [Report](../artifacts/shared-world-geometry-integration-01/report.json); [exact seals and scoped checks](handoffs/combined.md#current-authored-geometry-integration-checkpoint).
 
 Both this lab and the unchanged policy lab pass actual saved-payload UI checks. This is source-custody and interaction acceptance, not a recovered kettlebell, full-video evaluation or solved exercise.
+
+### Propose a shape from saved silhouettes
+
+`shared-world-shape` connects saved mask evidence to a conditional solid-shape proposal, initial admission and a separate full-reference collision comparison. A **mask** is the inferred pixel region belonging to an object. It does not measure hidden depth or empty space.
+
+```sh
+.venv-lab/bin/python -m weft shared-world-shape \
+  --run artifacts/source-equipment-integration-04/candidate \
+  --masks-run artifacts/kettlebell-shared-evidence-01 \
+  --task artifacts/shared-exercise-human-jitter-01/training/exercise-task.json \
+  --object-id sam-2 --object-id sam-3 \
+  --source-frame 8 --conditional-exterior \
+  --out artifacts/my-silhouette-01
+```
+
+The explicit `--conditional-exterior` option permits clear silhouette rows to narrow up to eight solid horizontal bands per object. Camera, depth, object pose/mass/materials, body motion and original box inertia remain fixed assumptions. Other foreground, uncertain rows and empty rows retain the original envelope; holes are filled, never interpreted as recovered handles. The method makes one proposal per requested object and combines all image-qualified proposals once. It does not search camera settings, contact outcomes, frames or subsets until something passes.
+
+| Output | Inspect |
+| --- | --- |
+| `shape-comparison.html` | Offline before/after silhouette outlines, uncertainty and separate fit/collision results |
+| `objects/<ID>/result.json` | Original and proposed geometry, native-cell fit, missing/unknown slots and rejected/no-improvement outcomes |
+| `settings.json`, `inputs/`, `geometry-input/` | Frozen rule, source identities/clocks, selected masks and exact baseline/task |
+| `geometry/` | Separate initially admitted candidate, if one qualified; earlier inputs remain unchanged |
+| `clearance-comparison.json` | Every source slot/reference, full-span 30 Hz grid and declared task-control boundary |
+| `report.json`, `manifest.json` | Stage outcomes and file integrity; completion is not a physical-success label |
+
+The collision comparison fixes equipment at its declared pose and examines every human/rigid-part, rigid-part/floor and human/floor pair. It does not run physics or establish grasp, stability, continuous-time clearance, self-collision or rigid–rigid clearance. Missing source/reference coverage stays unavailable; interpolated grid samples are labeled separately. Every positive overlap increase remains in the report, including numerical-scale changes.
+
+Use a new output directory. Bounds are four requested objects, 128 MiB/2,048 input files, 384 MiB/2,048 output files and a default **60-second cooperative limit**, with bounded failure preservation. No API, inference, video decode or training runs. A ready `geometry/` may be inspected in a new lab only after reviewing its separate reports; old policies and source-fit panels do not validate the changed scene. The original task keeps its interval and gates, with only the scene identity rebound.
+
+#### Verified source-shaped world
+
+The saved [before/after report](../artifacts/silhouette-shared-world-03/shape-comparison.html) retains the occluded working object unchanged. The idle object's conditional silhouette overlap improves **0.593595 → 0.666873** with eight solid bands. It still covers **1,075/1,130** foreground cells: 55 were already outside the original projection, and none are newly lost. Depth, inertia and hidden shape remain assumptions; these are not recovered handles.
+
+The separate full-reference comparison retains **696 scheduled samples: 558 checked and 138 unavailable**, with no increased or new overlap. Existing worst overlap remains **0.104829 model units**; this does not resolve later body/equipment contact. Earlier loader and floating-point construction failures remain preserved beside the completed run.
+
+`artifacts/silhouette-exercise-control-01` then trains and selects a policy for this **new scene identity**, with no mask, camera, task or gate changes. On three fresh starts, selected control passes **3/3**, while coast/random/authored control each pass **0/3**. The [current playable lab](shared-exercise.md#try-it), `artifacts/silhouette-exercise-lab-01`, verifies manual/controller interaction, reset, **68 actions/70 recorded frames**, and exact replay. Its two-second root-assisted task requires tracking and equipment stability, not grasp or full-exercise completion. Old-world policies and fit panels were not carried over as validation.
 
 ## Evidence and runtime boundaries
 
