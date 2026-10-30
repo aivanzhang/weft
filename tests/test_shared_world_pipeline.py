@@ -147,3 +147,35 @@ def test_constructor_reserves_complete_output_before_creating_directory(tmp_path
     with pytest.raises(ValueError, match="complete output exceeds"):
         construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a")
     assert not out.exists()
+
+
+def test_full_reference_construction_preserves_physics_sources_and_initial_window(tmp_path):
+    base, geometry, evidence, original = inputs(tmp_path)
+    original["task"]["horizon_steps"] = 3
+    write_json(base / "scene.json", original)
+    seal(base)
+    before = {path: path.read_bytes() for directory in (base, geometry, evidence)
+              for path in directory.rglob("*") if path.is_file()}
+    short, complete = tmp_path / "short", tmp_path / "complete"
+    construct_source_equipment_run(base, geometry, evidence, short, target_object_id="equipment-a")
+    result = construct_source_equipment_run(base, geometry, evidence, complete,
+                                           target_object_id="equipment-a", full_reference=True)
+    old = json.loads((short / "scene.json").read_bytes())
+    new = json.loads((complete / "scene.json").read_bytes())
+    assert old["profile"] == "shared-world-v1" and old["task"]["horizon_steps"] == 3
+    assert new["profile"] == "shared-world-v2" and new["task"]["horizon_steps"] == 60
+    assert new["task"]["start_offset_s"] == 0
+    assert result["reference_interval"]["mode"] == "complete_reference"
+    assert result["reference_interval"]["initial_window"] == {"start_offset_s": 0., "horizon_steps": 3}
+    new["profile"], new["task"] = old["profile"], old["task"]
+    assert new == old
+    assert all(path.read_bytes() == data for path, data in before.items())
+    assert json.loads((complete / "reconstruction.json").read_bytes())["profile"] == "shared-world-v2"
+
+
+@pytest.mark.parametrize("value", [1, "true", None])
+def test_full_reference_choice_requires_boolean_before_io(tmp_path, value):
+    with pytest.raises(ValueError, match="explicitly enabled"):
+        construct_source_equipment_run("missing", "missing", "missing", tmp_path / "out",
+                                       target_object_id="equipment-a", full_reference=value)
+    assert not (tmp_path / "out").exists()

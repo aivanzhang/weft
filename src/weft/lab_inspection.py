@@ -25,6 +25,7 @@ MAX_MANIFEST_FILES = 4096
 MAX_ACTORS = 128
 _SHA = re.compile(r'[0-9a-f]{64}')
 _VIDEO = re.compile(r'source\.(mp4|webm|mov|m4v|avi|mkv)')
+_SESSION = re.compile(r'session-[0-9a-f]{12}')
 _STAGES = (('original', 'Original', 'evidence'), ('tracking', 'Tracks', 'evidence'),
            ('geometry', 'Geometry', 'world'), ('sandbox', 'Sandbox', 'play'),
            ('recordings', 'Recordings', 'play'))
@@ -402,3 +403,27 @@ def load_inspection(run, *, profile):
     except (ValueError, OSError, KeyError, TypeError, RecursionError) as error:
         return {'status': 'unavailable', 'reason': str(error)[:300],
                 'scope': 'No inspection completeness claim. Saved artifacts and simulation checks are unchanged.'}
+
+
+def recording_session_name(name):
+    if not isinstance(name, str) or not _SESSION.fullmatch(name):
+        raise ValueError('Choose one completed recording from this lab')
+    return name
+
+
+def load_recording_inspection(root, name, *, scene_sha256, task_sha256):
+    """Read one sealed trial off-thread; never replay physics or alter the active trial."""
+    try:
+        from weft.shared_exercise_diagnostics import inspect_recording_failure
+
+        name = recording_session_name(name)
+        if any(not isinstance(value, str) or not _SHA.fullmatch(value) for value in (scene_sha256, task_sha256)):
+            raise ValueError('Current lab scene/task identity is unavailable')
+        result = inspect_recording_failure(Path(root) / 'sessions' / name, max_seconds=10)
+        if result.get('scene_sha256') != scene_sha256 or result.get('task_sha256') != task_sha256:
+            raise ValueError('Saved trial belongs to a different scene or task')
+        return {'status': 'available', 'session': name, 'timeline': result,
+                'scope': 'Sealed saved trial only; separate from the current live state and independent evaluation.'}
+    except (ValueError, OSError, KeyError, TypeError, RuntimeError, RecursionError) as error:
+        return {'status': 'unavailable', 'session': name if isinstance(name, str) else None,
+                'reason': str(error)[:300], 'scope': 'No failure timing or task success is inferred.'}

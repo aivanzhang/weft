@@ -200,6 +200,8 @@ def main():
     exercise_build.add_argument("--config", required=True, help="Explicit source-pinned equipment proposal configuration")
     exercise_build.add_argument("--source-mapping", action="append", default=[])
     exercise_build.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root controls")
+    exercise_build.add_argument("--full-reference", action="store_true",
+                                help="Run every retained body reference in one continuous episode; preserve missing source poses")
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
     exercise_build.add_argument("--max-seconds", type=float, default=90)
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
@@ -210,6 +212,8 @@ def main():
     sw_construct.add_argument("--target-object", required=True, help="Authored task target ID from the observation document")
     sw_construct.add_argument("--frame-translation", nargs=2, type=float, metavar=("DX", "DY"),
                               help="Explicit positive XY coordinate-frame translation; preserves body/floor but changes numerical bounds")
+    sw_construct.add_argument("--full-reference", action="store_true",
+                              help="Construct a continuous full-reference v2 task instead of the initial window")
     sw_construct.add_argument("--out", required=True, help="New sealed construction output outside the inputs")
     sw_geometry = commands.add_parser("shared-world-geometry", help="Admit an explicitly authored compound-shape alternative; no recovered geometry or physical-accuracy claim")
     sw_geometry.add_argument("--run", required=True, help="Complete sealed shared-world candidate to preserve")
@@ -406,7 +410,7 @@ def main():
             from weft.shared_world_pipeline import construct_source_equipment_run
             result = construct_source_equipment_run(args.run, args.proposal_run, args.evidence_run, args.out,
                 target_object_id=args.target_object, source_mappings=args.source_mapping,
-                frame_translation=args.frame_translation)
+                frame_translation=args.frame_translation, full_reference=args.full_reference)
         elif args.command == "shared-world-propose":
             from weft.equipment_proposal import prepare_equipment_proposal
             result = prepare_equipment_proposal(args.run, args.evidence_run, args.config, args.out,
@@ -425,6 +429,7 @@ def main():
                       "interactive_lab": "Prepare interactive lab"}
             result = prepare_exercise_scene(args.run, args.evidence_run, args.config, args.out,
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
+                full_reference=args.full_reference,
                 max_seconds=args.max_seconds,
                 progress=lambda row: print(f"{labels[row['stage']]}: {row['status'].replace('_', ' ')}",
                                            file=sys.stderr, flush=True))

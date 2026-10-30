@@ -8,8 +8,9 @@ import {execFileSync} from 'node:child_process';
 import {Element, html, script} from './lab_ui_smoke.mjs';
 
 const currentUI = process.argv.includes('--current-ui');
-const args = process.argv.slice(2).filter(arg => arg !== '--current-ui');
-assert(args.length <= 2 && !args.some(arg => arg.startsWith('--')), 'Expected study, optional lab and --current-ui');
+const inspectRecording = process.argv.includes('--recording-diagnostics');
+const args = process.argv.slice(2).filter(arg => !['--current-ui','--recording-diagnostics'].includes(arg));
+assert(args.length <= 2 && !args.some(arg => arg.startsWith('--')), 'Expected study, optional lab, --current-ui and --recording-diagnostics');
 const study = fs.realpathSync(args[0] || 'artifacts/shared-exercise-lab-integration-01');
 const sha = raw => crypto.createHash('sha256').update(raw).digest('hex');
 const inputs = new Map(), artifacts = new Map();
@@ -57,6 +58,28 @@ assert(run.startsWith(lab + path.sep));
 const runHash = settings ? settings.run_manifest_sha256 : manifest.files['lab/run/manifest.json'];
 assert.match(runHash, /^[0-9a-f]{64}$/);
 const runManifest = readJson('manifest.json', 1024 * 1024, runHash, run).value;
+let recordingInspection = null, recordingDerivation = null;
+if (inspectRecording) {
+  const report = readSealed('report.json', 64 * 1024).value;
+  const recording = fs.realpathSync(report.recording_directory), name = path.basename(recording);
+  assert.equal(path.dirname(recording), path.join(lab, 'sessions'));
+  assert.match(name, /^session-[0-9a-f]{12}$/);
+  const derived = JSON.parse(execFileSync('.venv-lab/bin/python', ['-c', `import hashlib,json,sys,time
+from pathlib import Path
+from weft import lab_inspection,shared_exercise_diagnostics
+modules={module.__name__:hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest() for module in (lab_inspection,shared_exercise_diagnostics)}
+started=time.perf_counter()
+result=lab_inspection.load_recording_inspection(Path(sys.argv[1]),sys.argv[2],scene_sha256=sys.argv[3],task_sha256=sys.argv[4])
+elapsed=time.perf_counter()-started
+print(json.dumps({'result':result,'seconds':elapsed,'module_sha256':modules}))`, lab, name, initial.snapshot.scene_sha256, initial.snapshot.task_sha256],
+    {encoding:'utf8',timeout:12000,maxBuffer:600*1024}));
+  assert.equal(derived.result.status,'available',derived.result.reason);
+  assert.equal(derived.result.timeline.integrity.manifest_sha256,report.recording_integrity.manifest_sha256);
+  recordingInspection=derived.result;
+  const {result,...receipt}=derived;recordingDerivation=receipt;
+  recordingDerivation.recording_manifest_sha256=result.timeline.integrity.manifest_sha256;
+  recordingDerivation.summary_sha256=sha(JSON.stringify(result));
+}
 const savedHtml = readRaw('lab-implementation/assets/lab.html', 256 * 1024, runManifest.files['lab-implementation/assets/lab.html'], run);
 const savedScript = readRaw('lab-implementation/assets/lab.js', 256 * 1024, runManifest.files['lab-implementation/assets/lab.js'], run);
 let inspectionDerivation = null;
@@ -168,8 +191,10 @@ function harness() {
     createElement: tag => new Element(tag), addEventListener() {}};
   function fetch(url, options = {}) {
     const request = {url, data: options.body ? JSON.parse(options.body) : null}; requests.push(request);
-    if (url === '/api/status') return Promise.resolve(response(initial, JSON.stringify(initial).length));
+    if (url === '/api/status') return Promise.resolve(response(recordingInspection
+      ? {...initial,sessions:[{name:recordingInspection.session,complete:true}]} : initial, JSON.stringify(initial).length));
     if (url === '/api/inspection') return Promise.resolve(response(inspection, JSON.stringify(inspection).length));
+    if (recordingInspection && url === `/api/recording-inspection?session=${recordingInspection.session}`) return Promise.resolve(response(recordingInspection,JSON.stringify(recordingInspection).length));
     if (url.startsWith('/files/run/')) {
       const pathname = new URL(url, 'http://local-mock.invalid').pathname;
       const relative = pathname.slice('/files/run/'.length).split('/').map(decodeURIComponent).join('/');
@@ -192,6 +217,23 @@ function harness() {
 }
 
 const ui = harness(); await drain();
+if (recordingInspection) {
+  assert(!ui.requests.some(row=>row.url.startsWith('/api/recording-inspection')));
+  const button=ui.ids.get('recordings').children[0].children.find(child=>child.tagName==='BUTTON');assert(button);
+  const before=ui.requests.length,started=performance.now();button.click();await drain();
+  recordingDerivation.render_seconds=(performance.now()-started)/1000;
+  assert.equal(ui.requests.length,before+1);assert.equal(ui.ids.get('recording-diagnosis-content').hidden,false);
+  const last=recordingInspection.timeline.episodes.at(-1),first=last.first_equipment_failure;
+  assert.equal(ui.ids.get('recording-diagnosis-episode').value,String(recordingInspection.timeline.episodes.length-1));
+  assert.equal(ui.ids.get('recording-diagnosis-crossings').children.length,last.first_crossings.length);
+  if(first){assert(ui.ids.get('recording-diagnosis-first').textContent.includes(first.first_failed_elapsed_s.toFixed(3)+'s'));
+    assert(ui.ids.get('recording-diagnosis-clock').textContent.includes(first.reference_clock_s.toFixed(3)+'s'));
+    assert.match(ui.ids.get('recording-diagnosis-contacts').textContent,/not proof of cause|no cause is inferred/);}
+  recordingDerivation.episodes=recordingInspection.timeline.episodes.length;
+  recordingDerivation.selected_episode=recordingInspection.timeline.episodes.length-1;
+  recordingDerivation.first_equipment_failure=first;
+  recordingDerivation.scope='Current recording summary derived from the sealed journal; completed-session listing is derived, not part of the old saved initial status. No physics, media decode or server.';
+}
 assert.equal(ui.ids.get('error').hidden, true, ui.ids.get('error').textContent);
 assert.equal(ui.ids.get('exercise-task-card').hidden, false);
 assert.match(ui.ids.get('exercise-assistance').textContent, rootAssistance==='explicit_3_axis'?/3 explicit virtual controls/:/Root assistance: OFF/);
@@ -304,6 +346,7 @@ console.log(JSON.stringify({status: 'passed', study, lab, study_manifest_sha256:
   asset_sha256: {html: sha(html), js: sha(script)}, controls: initial.action_contract.names.length,
   asset_mode: currentUI ? 'current_workspace_ui_against_saved_payloads' : 'exact_saved_asset_parity',
   saved_asset_sha256: {html:sha(savedHtml),js:sha(savedScript)}, inspection_derivation:inspectionDerivation,
+  recording_derivation:recordingDerivation,
   timeline: inspection.timeline || null,
   source_frames: inspection.source.decoded_frames, geometry_panels: inspection.geometry.panels.length,
   policy: hasPolicy ? initial.exercise_policy : null, metadata_bytes_rechecked: inputBytes,

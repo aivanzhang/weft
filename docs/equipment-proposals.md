@@ -30,12 +30,17 @@ The distance above is an **authored example**, not a measured camera distance. T
   --run artifacts/my-shared-body \
   --evidence-run artifacts/my-tracking-evidence \
   --config /absolute/path/to/equipment-config.json \
+  --full-reference \
   --out artifacts/my-shared-exercise-01
 
 .venv-lab/bin/python -m weft lab --resume artifacts/my-shared-exercise-01/lab
 ```
 
 The first command prints stage progress and does not start a server. The second command is user-started. Add `--root-assistance` to assembly only if you want the three explicit virtual root controls; otherwise it uses 19 human joint controls. Equipment remains passive in both modes.
+
+`--full-reference` builds one continuous episode from the first retained body pose to the last. It uses the existing `shared-world-v2` contract: at most 1,800 actions / 60 seconds, unchanged timestep and no chunk resets. Missing poses and source prefixes stay missing; the selected interval is not necessarily the entire original video. Unsupported endpoints reject instead of being rounded or retimed. Omit the flag to keep the original short-window behavior.
+
+The full-reference choice is made before task/lab packaging, so it creates only one candidate and one lab. It does not attach a short-window policy, run training, change success limits or require a temporary lab. `candidate/reconstruction.json` records the original window and the selected interval; `lab/run/exercise-task.json` binds the new task to that exact scene.
 
 If tracking used a verified derivative, add `--source-mapping <bundle>`; repeat for distinct derivatives. Canonical root `scene-observations.json` and the older nested layout are supported without moving files. Conflicting sealed copies reject.
 
@@ -58,9 +63,11 @@ Every output directory must be new. Unsupported input stops before construction 
 
 The default assembly deadline is 90 seconds, checked around stages and during final hashing. Native calls and bounded source-verification calls already underway cannot be preempted. Each next stage reserves its complete output allowance before starting: proposal 256 files/64 MiB, construction 512 files/128 MiB, lab 1,024 files/192 MiB, within the shared 1,600-file/384 MiB envelope. No inference, training, provider call or deployment occurs in assembly.
 
-For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. Use [human-only training/evaluation](shared-exercise.md) separately; a ready geometry package is not a successful policy.
+For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Use [human-only training/evaluation](shared-exercise.md) separately; a ready geometry package is not a successful policy.
 
 ## Verified scope
+
+**Full-reference assembly:** `artifacts/full-reference-assembly-01` runs the public command with `--full-reference` in **3.148 s** (3.407 s including CLI startup), producing **374 files / 88,686,504 bytes including its manifest**, seal `2b7a5954682099a6a06216362f24ad5df6b475cf265bf10b1b2d8f3534ad1965`. All physical settings and source documents match the earlier box assembly; only the scene profile and task interval change to 254 continuous actions. All 121 poses / 257 slots remain. Three reference-control actions and one reset work through the lab API; the sealed run stays unchanged. This new lab is **untrained**, not a replacement for the trained example above. Root verification: `.local/full-reference-assembly-verification-01.json`. No inference, fitting, paid calls, server or browser was used.
 
 **One-command acceptance:** `artifacts/shared-exercise-assembly-01` completes the public assembler on the existing 257-frame kettlebell evidence in **3.225 s**, within its 90-second bound. Its 362 files total about 88.3 MB; root seal `4028bb4e36176252d4eb3de4f14b9c81839fc979192a17289583ba37b0d5c931`. The prepared lab is `artifacts/shared-exercise-assembly-01/lab`. Independent verification checks all 361 sealed members; the root manifest is the remaining file. No inference, fitting, training or API call was needed. The existing 31 assembly/bounds checks remain passing.
 
@@ -68,4 +75,4 @@ The earlier `artifacts/shared-equipment-proposal-integration-01` verifies the th
 
 The proposer still uses **`floor_box_depth_equals_width`**, and these source scenes remain solid boxes. [Compound collision/rendering](shared-world.md#authored-compound-objects) is separately tested with analytical shapes; it does not infer source handles or admit compound equipment through this configuration. Strict source-compound proposal admission is in progress.
 
-These are integration results for an exposed development clip, not a new camera calibration or generalization result. Unknown depth, approximate shape, body–equipment overlap, missing hands/grasp and the current two-second exercise interval remain limitations. Broader-video automation and independent physical accuracy are still open.
+These earlier integration results use a two-second task on an exposed development clip, not a new camera calibration or generalization result. The full-reference option removes that interval restriction; unknown depth, approximate shape, body–equipment overlap and missing hands/grasp remain. Broader-video automation and independent physical accuracy are still open.

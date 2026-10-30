@@ -19,6 +19,8 @@
   let exerciseTask = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
   let exerciseDetailSignature = "", exercisePolicy = null;
   let mediaClockReady = false;
+  let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
+  let recordingReadAttempts = 0;
   const inspectionActors = new Map();
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
@@ -936,8 +938,8 @@
   $("live").onkeyup = (event) => { if (keyAction(event.key) === undefined) return; event.preventDefault(); held.delete(event.key); chooseAction(held.size ? (keyAction([...held].at(-1)) ?? 0) : 0); };
   const pauseAll = () => { pause(); stopReference(); };
   window.addEventListener("blur", pauseAll);
-  document.addEventListener("visibilitychange", () => { if (document.hidden) { pauseAll(); clearTimeout(statusTimer); } else scheduleStatus(0); });
-  window.addEventListener("pagehide", () => { pauseAll(); clearTimeout(statusTimer); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); } else scheduleStatus(0); });
+  window.addEventListener("pagehide", () => { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); });
 
   async function artifact(name) {
     const response = await fetch(fileURL(`run/${name}`), {signal: AbortSignal.timeout(10000)});
@@ -1353,12 +1355,136 @@
         const li = document.createElement("li"); text(li, `Trial ${index + 1}` + (session.complete ? " · saved" : " · actions saved; replay not yet exported"));
         li.append(link("Action data", `sessions/${session.name}/events.jsonl`));
         if (session.complete) for (const [label, file] of [["Interactive replay", "replay.html"], ["Video", "video.mp4"], ["Preview", "preview.gif"]]) li.append(link(label, `sessions/${session.name}/${file}`));
+        if (sharedExercise() && session.complete && /^session-[0-9a-f]{12}$/.test(session.name)) {
+          const explain = document.createElement("button"); text(explain, "Explain this trial");
+          explain.onclick = () => selectRecordingDiagnosis(session.name); li.append(explain);
+        }
         $("recordings").append(li);
       }
     }
     exporting = data.export?.status === "running";
     if (data.export) { text($("export-status"), data.export.status === "ready" ? "Recording exported and verified. Download the offline replay or video below." : data.export.status === "failed" ? `Export failed: ${data.export.error}. The action journal is preserved.` : "Exporting recorded states to video and an offline replay…"); }
   }
+  const equipmentMetricLabels = {
+    displacement_model_units: ["displacement", "model units"], orientation_rad: ["rotation", "rad"],
+    speed_model_units_s: ["speed", "model units/s"], angular_speed_rad_s: ["spin", "rad/s"],
+  };
+  function recordingTimelineValid(value) {
+    const digest = v => typeof v === "string" && /^[0-9a-f]{64}$/.test(v);
+    return value?.profile === "shared-exercise-failure-timeline-v1" && [value.scene_sha256, value.task_sha256, value.gates_sha256].every(digest)
+      && digest(value.integrity?.manifest_sha256) && value.integrity?.verified_scope === "scene_task_policy_journal_metadata_only"
+      && value.integrity?.media_verified === false && value.integrity?.action_replay_performed === false
+      && value.source_clock?.kind === "declared_human_reference_clock" && value.source_clock?.native_video_time_available === false
+      && Array.isArray(value.episodes) && value.episodes.length > 0 && value.episodes.length <= 64
+      && value.episodes.every(episode => Number.isInteger(episode.reset_event_index) && episode.reset_event_index >= 0
+        && Array.isArray(episode.first_crossings) && episode.first_crossings.length <= 48 && episode.terminal
+        && typeof episode.terminal.completed_interval === "boolean" && typeof episode.terminal.success === "boolean"
+        && episode.first_crossings.every(crossing => Object.hasOwn(equipmentMetricLabels, crossing.metric)
+          && [crossing.value, crossing.threshold, crossing.first_failed_elapsed_s].every(Number.isFinite)
+          && Array.isArray(crossing.boundary_contacts) && crossing.boundary_contacts.length <= 64));
+  }
+  function renderRecordingEpisode() {
+    const timeline = recordingDiagnosis?.timeline, index = Number($("recording-diagnosis-episode").value);
+    const episode = timeline?.episodes[index];
+    if (!episode) return;
+    const terminal = episode.terminal, first = episode.first_equipment_failure;
+    const counts = Object.entries(episode.controller_counts || {}).map(([controller, count]) => `${controller}: ${count}`).join(", ");
+    text($("recording-diagnosis-outcome"), `Episode ${index + 1}: ${terminal.completed_interval
+      ? terminal.success ? "Declared task passed." : "Declared interval complete; task did not pass."
+      : "Recording ended before a complete passing task interval."}`);
+    text($("recording-diagnosis-episode-evidence"), `Reset event ${episode.reset_event_index} · seed ${episode.seed}. ${counts ? `Recorded controls: ${counts}. ` : ""}Reported task failures: ${terminal.failed_gates?.length ? terminal.failed_gates.join(", ") : "none reported"}. ${terminal.failure ? `Simulation failure: ${terminal.failure}.` : ""}`);
+    const crossings = episode.first_crossings;
+    const firstCrossings = first?.crossings || [];
+    const earliest = firstCrossings[0];
+    const window = value => Number.isFinite(value.previous_safe_elapsed_s)
+      ? `${number(value.previous_safe_elapsed_s)}–${number(value.first_failed_elapsed_s)}s`
+      : `first reported ${number(value.first_failed_elapsed_s)}s; previous safe boundary unavailable`;
+    text($("recording-diagnosis-first"), first && earliest
+      ? `First equipment limit reported at ${number(first.first_failed_elapsed_s)}s after reset. ${firstCrossings.map(value => {
+          const [label, unit] = equipmentMetricLabels[value.metric] || [value.metric, ""];
+          return `${actorLabel(value.object_id)} ${label}: reported peak ${number(value.value)} ${unit}, allowed ${number(value.threshold)} ${unit}`;
+        }).join("; ")}.`
+      : "No equipment-limit crossing was recorded in this episode. This does not mean the task passed.");
+    const bracket = first?.source_frame_bracket, lower = bracket?.lower?.source_frame_index, upper = bracket?.upper?.source_frame_index;
+    const frames = Number.isInteger(lower) && Number.isInteger(upper)
+      ? `Retained reference frames ${lower}–${upper}${Array.isArray(bracket.frames_without_reference_between) ? `; ${bracket.frames_without_reference_between.length} intervening source frames have no reference pose` : ""}. ` : "Source-frame bracket unavailable. ";
+    text($("recording-diagnosis-clock"), first
+      ? `First crossing window: ${window(first)} (step ${first.control_step}, recording event ${first.event_index}). Saved task time: ${number(first.first_failed_elapsed_s)}s; declared reference clock: ${number(first.reference_clock_s)}s. ${frames}${first.engine_state_status === "last_valid_control_boundary"
+          ? `Geometry is the last valid boundary at ${number(first.last_valid_geometry_elapsed_s)}s, not a terminal pose. ` : ""}Native video time is unavailable; this does not seek or synchronize the video or live simulation.`
+      : "No failure clock is inferred. Video, declared reference and current live time remain separate.");
+    const pairs = new Map();
+    for (const crossing of firstCrossings) for (const contact of crossing.boundary_contacts || []) {
+      if (!Array.isArray(contact.objects) || !contact.objects.includes(crossing.object_id)) continue;
+      const names = contact.objects.map(id => id === contact.human_geom && contact.human_segment
+        ? `${contact.human_segment.replaceAll("_", " ")} collision shape` : id === "mobile_floor" ? "model floor" : actorLabel(id));
+      pairs.set(names.join(" ↔ "), true);
+    }
+    text($("recording-diagnosis-contacts"), first
+      ? pairs.size ? `Contacts at the saved boundary: ${[...pairs.keys()].join("; ")}. Co-occurrence, not proof of cause.`
+        : "No matching contact is saved at this boundary. Contact between recorded boundaries may be missing; no cause is inferred."
+      : "No first-failure contact is inferred.");
+    text($("recording-diagnosis-scope"), "Equipment values are recorded maxima since reset, not current object speed or motion. The journal brackets the first reported crossing; it does not retain every physics substep. Collision shapes and model units are assumptions, not measured grasp or physical accuracy.");
+    $("recording-diagnosis-crossings").replaceChildren();
+    for (const value of crossings) {
+      const row = document.createElement("tr"), [label, unit] = equipmentMetricLabels[value.metric];
+      for (const entry of [`${actorLabel(value.object_id)} · ${label}`, `${number(value.value)} / ${number(value.threshold)} ${unit}`,
+        window(value), `${value.event_index} · step ${value.control_step}`]) cell(row, entry);
+      $("recording-diagnosis-crossings").append(row);
+    }
+  }
+  $("recording-diagnosis-episode").onchange = renderRecordingEpisode;
+  function suspendRecordingDiagnosis() {
+    clearTimeout(recordingRetryTimer);
+    if (requestedRecording && !recordingDiagnosis) $("recording-diagnosis-retry").hidden = false;
+  }
+  function applyRecordingDiagnosis(data) {
+    recordingDiagnosis = data;
+    const timeline = data.timeline, samePolicy = timeline.policy_sha256 && timeline.policy_sha256 === exercisePolicy?.policy_sha256;
+    text($("recording-diagnosis-status"), "Saved trial verified and summarized. No physics or media decoding was run.");
+    text($("recording-diagnosis-provenance"), `${data.session} · sealed journal ${timeline.integrity.manifest_sha256.slice(0, 12)}. Same scene and task as this lab; ${samePolicy ? "same attached policy" : timeline.policy_sha256 ? "a different or no currently attached policy" : "no policy recorded"}. Journal/scene/task/policy metadata checked; media and action replay are not reverified here.`);
+    const selector = $("recording-diagnosis-episode"); selector.replaceChildren();
+    for (const [index, episode] of timeline.episodes.entries()) {
+      const option = document.createElement("option"); option.value = String(index);
+      text(option, `Episode ${index + 1} · ${index ? "after reset" : "recording start"} · event ${episode.reset_event_index}`); selector.append(option);
+    }
+    selector.value = String(timeline.episodes.length - 1);
+    $("recording-diagnosis-links").replaceChildren(link("Interactive replay · scrub to the event above", `sessions/${data.session}/replay.html`),
+      link("Exact actions and states", `sessions/${data.session}/events.jsonl`), link("Saved task and scene", `sessions/${data.session}/scene.json`));
+    $("recording-diagnosis-content").hidden = false; $("recording-diagnosis-retry").hidden = true;
+    renderRecordingEpisode();
+  }
+  async function readRecordingDiagnosis() {
+    if (!requestedRecording || recordingReadPending || document.hidden) return;
+    const name = requestedRecording;
+    recordingReadPending = true; recordingReadAttempts++;
+    try {
+      const result = await request(`/api/recording-inspection?session=${encodeURIComponent(name)}`);
+      if (requestedRecording !== name) return;
+      if (result.status === "loading" && recordingReadAttempts < 12) {
+        text($("recording-diagnosis-status"), "Reading this sealed trial in the background. Live controls are unchanged.");
+        if (!document.hidden) recordingRetryTimer = setTimeout(readRecordingDiagnosis, 900);
+      } else if (result.status === "available" && result.session === name && recordingTimelineValid(result.timeline)) applyRecordingDiagnosis(result);
+      else {
+        text($("recording-diagnosis-status"), result.status === "loading" ? "The saved summary is still being prepared. Read this trial again when ready."
+          : `Saved failure summary unavailable: ${result.reason || "incomplete or incompatible diagnostic metadata"}. No time or success is inferred.`);
+        $("recording-diagnosis-retry").hidden = false;
+      }
+    } catch (failure) {
+      if (requestedRecording === name) { text($("recording-diagnosis-status"), `Saved summary could not be read: ${failure.message}. Live controls are unchanged.`); $("recording-diagnosis-retry").hidden = false; }
+    } finally {
+      recordingReadPending = false;
+      if (requestedRecording !== name) readRecordingDiagnosis();
+    }
+  }
+  function selectRecordingDiagnosis(name) {
+    clearTimeout(recordingRetryTimer); requestedRecording = name; recordingReadAttempts = 0;
+    $("recording-diagnosis").hidden = false;
+    if (recordingDiagnosis?.session === name) { applyRecordingDiagnosis(recordingDiagnosis); return; }
+    recordingDiagnosis = null; $("recording-diagnosis-content").hidden = true; $("recording-diagnosis-retry").hidden = true;
+    text($("recording-diagnosis-status"), "Reading the selected saved trial; not the current live simulation.");
+    readRecordingDiagnosis();
+  }
+  $("recording-diagnosis-retry").onclick = () => { recordingReadAttempts = 0; clearTimeout(recordingRetryTimer); readRecordingDiagnosis(); };
   function scheduleStatus(delay = 900) { clearTimeout(statusTimer); if (!document.hidden) statusTimer = setTimeout(poll, delay); }
   function seekSource(time) {
     pendingSourceSeek = time;

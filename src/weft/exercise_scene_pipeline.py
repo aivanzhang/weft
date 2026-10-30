@@ -133,10 +133,12 @@ def _failure_receipt(root, result, sealing_error, started):
 
 
 def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_mappings=(),
-                           root_assistance=False, max_seconds=90, progress=None):
+                           root_assistance=False, full_reference=False, max_seconds=90, progress=None):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
     if type(root_assistance) is not bool:
         raise ValueError("Root assistance must be explicitly enabled or disabled")
+    if type(full_reference) is not bool:
+        raise ValueError("Full-reference assembly must be explicitly enabled or disabled")
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 180:
         raise ValueError("Exercise assembly requires a cooperative 1–180 second bound")
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > 7:
@@ -155,7 +157,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
     _write_metadata(target, "settings.json", _bytes({"schema_version": 1, "created_at": local_time(),
         "base_run": str(source), "evidence_run": str(evidence), "config": str(config),
         "source_mappings": [str(Path(value).absolute()) for value in source_mappings],
-        "root_assistance": root_assistance, "maximum_seconds": max_seconds,
+        "root_assistance": root_assistance, "full_reference": full_reference, "maximum_seconds": max_seconds,
         "maximum_files": MAX_FILES, "maximum_bytes": MAX_BYTES,
         "stage_output_reservations": {name: {"files": bounds[0], "bytes": bounds[1]}
                                       for name, bounds in STAGE_LIMITS.items()},
@@ -204,8 +206,9 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         stage("shared_world", "running")
         world = construct_source_equipment_run(source, target / "proposal", evidence, target / "candidate",
             target_object_id=resolved["target_object_id"], source_mappings=source_mappings,
-            frame_translation=resolved["frame_translation"], deadline=deadline)
-        stage("shared_world", "ready", manifest_sha256=world["manifest_sha256"])
+            frame_translation=resolved["frame_translation"], full_reference=full_reference, deadline=deadline)
+        stage("shared_world", "ready", manifest_sha256=world["manifest_sha256"],
+              **{key: world[key] for key in ("profile", "reference_interval") if key in world})
         remaining()
         _reserve_stage(target, "interactive_lab", deadline)
         stage("interactive_lab", "running")

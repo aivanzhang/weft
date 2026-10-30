@@ -203,6 +203,22 @@ The driver reserves output capacity and pins inputs, implementation and project 
 
 The single saved study, `artifacts/perspective-root-depth-01`, **rejects** the candidate: aggregate confident image error improves **11.588→11.276 px**, but left-ankle error worsens **13.380→15.929 px** and left-knee error **13.038→13.114 px**. It retains 121 references / 257 slots, changes 120 roots within the declared ±0.15-unit bound and keeps the first root exact. No contact/reward term, physical rollout or body installation occurs. The existing mobile-body depth validator was not bypassed; this rejected result cannot establish geometry or exercise accuracy.
 
+## Collision-constrained arm proposals
+
+`constrained_arm_alignment.py` fits the eight existing shoulder/elbow angles to construction-only landmarks and explicit geometry/temporal priors. Every accepted update must avoid new or deeper human/equipment/floor penetration at all affected reference and interpolated control samples. It keeps the first pose, body dimensions, camera, floor, root and equipment fixed. Weak observations retain their raw confidence and receive no image-fit weight; any correction there remains inferred, not a new observation.
+
+The bounded driver accepts a sealed original-box candidate, not a compound-shape replacement:
+
+```sh
+.venv-lab/bin/python scripts/studies/check_constrained_arm_alignment.py \
+  --run artifacts/my-source-equipment/candidate \
+  --out artifacts/my-constrained-arm-proposal-01
+```
+
+One fixed study, `artifacts/constrained-arm-alignment-01`, improves confident endpoint image RMSE **15.917→13.843 px** and reduces penetrating pair-samples **303→242**, with **zero new or worsened overlaps**. All four endpoint aggregates improve; 104 poses change while all 121 references / 257 slots remain. Its fresh kinematic audit checks 9,024 human/equipment and 4,512 human/floor pairs. **The proposal is rejected and not installed:** maximum remaining overlap is 0.103896 model units. There is no physics rollout or physical-accuracy claim.
+
+The result also exposes a numerical limit: 167 of 720 projected steps fail the bounded solver. Unchanged references around the worst remaining overlap are stalled or rejected by nonlinear backtracking, not proved impossible. A future solver change must retain the same bounds and nonlinear checks; simply repeating this failed fit or loosening collision tolerances is not justified. The later compound geometry would require its own full-reference audit before any candidate could be admitted.
+
 ## Evidence and runtime boundaries
 
 - `shared_world_evidence.py` uses `world_evidence.py` to bind exact document SHA256s and actual entity IDs. Foreign media require a verified original/derivative mapping. Conflicting canonical-frame partitions reject across documents, entities and aliases; an empty unsampled slot remains withheld but does not reserve an unseen measurement as a holdout.

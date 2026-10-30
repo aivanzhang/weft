@@ -8,7 +8,7 @@ import re
 import time
 
 from weft.io import canonical_hash, local_time
-from weft.shared_world import audit_shared_world_feasibility, validate_shared_world
+from weft.shared_world import FULLSPAN_PROFILE, audit_shared_world_feasibility, full_reference_horizon, validate_shared_world
 from weft.shared_world_evidence import (
     MAX_INPUT_BYTES, MAX_SOURCE_FILES, build_shared_world_binding, verify_shared_world_sources,
 )
@@ -65,11 +65,13 @@ def read_equipment_observations(directory, files):
 
 
 def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *, target_object_id,
-                                   source_mappings=(), frame_translation=None, deadline=None):
+                                   source_mappings=(), frame_translation=None, full_reference=False, deadline=None):
     """Construct a new sealed coupled candidate from explicit, verified intermediate inputs."""
     from weft.shared_world_reconstruction import MAX_BODY_JSON_BYTES, MAX_PROPOSAL_BYTES, PROFILE, construct_equipment_world
 
     started = time.monotonic()
+    if type(full_reference) is not bool:
+        raise ValueError("Full-reference construction must be explicitly enabled or disabled")
     if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
         raise ValueError("Construction deadline must be a finite absolute monotonic time")
     deadline = min(started + 30.0, deadline) if deadline is not None else started + 30.0
@@ -151,6 +153,13 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
         base, frame_receipt = checked(translate_shared_world_xy, base, frame_translation)
     scene = checked(construct_equipment_world, base, proposal, source_binding=binding,
         construction_evidence=construction, human_document=human_document, target_object_id=target_object_id)
+    initial_interval = {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")}
+    if full_reference:
+        # Choose the new task before packaging; never stretch an existing task or policy in place.
+        scene["profile"] = FULLSPAN_PROFILE
+        scene["task"].update(start_offset_s=0.,
+                            horizon_steps=full_reference_horizon(scene["human_spec"]["reference"], scene["dt"]))
+        scene = checked(validate_shared_world, scene)
     feasibility = checked(audit_shared_world_feasibility, scene)
 
     files = {name: documents[sha] for sha, name in binding["evidence_documents"].items()}
@@ -219,7 +228,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
     for name, raw in files.items():
         checked(write_package_files, out, {name: raw})
     source_check = checked(verify_shared_world_sources, scene, out)
-    report = {"schema_version": 1, "profile": "shared-world-v1", "created_at": local_time(),
+    report = {"schema_version": 1, "profile": scene["profile"], "created_at": local_time(),
               "mode": "source_equipment_initial_geometry", "physical_validation": "unverified",
               "scene_sha256": canonical_hash(scene), "source_binding_verification": source_check,
               "base_manifest_sha256": hashlib.sha256(base_manifest).hexdigest(),
@@ -227,6 +236,13 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
               "evidence_manifest_sha256": hashlib.sha256(evidence_manifest).hexdigest(),
               "proposal_sha256": hashlib.sha256(proposal_raw).hexdigest(),
               "preserved_human_spec_sha256": canonical_hash(base["human_spec"]),
+              "reference_interval": {"mode": "complete_reference" if full_reference else "initial_window",
+                  "initial_window": initial_interval,
+                  "selected": {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")},
+                  "first_reference_time_s": scene["human_spec"]["reference"][0]["time_s"],
+                  "last_reference_time_s": scene["human_spec"]["reference"][-1]["time_s"],
+                  "dt": scene["dt"], "substeps": scene["substeps"],
+                  "scope": "Task interval choice, not complete source observation, source-clock alignment or task success."},
               "frame_migration": frame_receipt,
               "reference_feasibility": {key: feasibility[key] for key in ("status", "summary")},
               "construction_seconds": time.monotonic() - started,
@@ -243,6 +259,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
     checked(write_package_files, out, {"manifest.json": manifest})
     checked(collect_shared_source_files, scene, out)
     return {"out": str(out), "scene_sha256": report["scene_sha256"],
+            "profile": scene["profile"], "reference_interval": report["reference_interval"],
             "source_documents": len(documents), "source_equivalences": len(mappings),
             "reference_feasibility": report["reference_feasibility"],
             "scope": report["scope"], "manifest_sha256": hashlib.sha256(manifest).hexdigest()}

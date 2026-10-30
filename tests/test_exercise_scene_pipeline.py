@@ -9,6 +9,72 @@ from weft.io import digest, write_json
 from weft.lab import Lab
 
 
+def test_full_reference_assembly_uses_one_candidate_and_one_lab(tmp_path):
+    from test_equipment_proposal import seal
+
+    body, equipment, config_path, original, _ = packages(tmp_path)
+    original["task"]["horizon_steps"] = 3
+    write_json(body / "scene.json", original)
+    seal(body)
+    out = tmp_path / "full-reference"
+    result = pipeline.prepare_exercise_scene(body, equipment, config_path, out,
+                                            root_assistance=True, full_reference=True)
+    assert result["status"] == "ready"
+    ready_world = next(row for row in result["stages"] if row["stage"] == "shared_world" and row["status"] == "ready")
+    assert ready_world["profile"] == "shared-world-v2"
+    assert ready_world["reference_interval"]["selected"]["horizon_steps"] == 60
+    assert sorted(path.name for path in out.iterdir() if path.is_dir()) == ["candidate", "lab", "proposal"]
+    assert json.loads((out / "settings.json").read_bytes())["full_reference"] is True
+    scene = json.loads((out / "candidate/scene.json").read_bytes())
+    task = json.loads((out / "lab/run/exercise-task.json").read_bytes())
+    assert scene["profile"] == "shared-world-v2" and task["interval"] == {"start_offset_s": 0., "horizon_steps": 60}
+    assert scene["human_spec"] == original["human_spec"]
+    assert task["control"]["root_assistance"] == "explicit_3_axis"
+    assert task["contact_requirements"] == []
+    lab = Lab(out / "lab")
+    try:
+        assert lab.summary()["learned_policy_available"] is False
+        state = lab.control("/api/step", {"controller": "reference"})["snapshot"]
+        assert state["engine_state"]["steps"] == 1
+        assert not any(state["engine_state"]["normalized_action"][22:])
+    finally:
+        lab.close()
+    manifest = json.loads((out / "manifest.json").read_bytes())
+    assert all(digest(out / name) == sha for name, sha in manifest["files"].items())
+
+
+@pytest.mark.parametrize("value", [1, "true", None])
+def test_full_reference_assembly_choice_requires_boolean_before_io(tmp_path, value):
+    with pytest.raises(ValueError, match="explicitly enabled"):
+        pipeline.prepare_exercise_scene("missing", "missing", "missing", tmp_path / "out", full_reference=value)
+    assert not (tmp_path / "out").exists()
+
+
+@pytest.mark.parametrize("command", ["shared-exercise-build", "shared-world-reconstruct"])
+def test_full_reference_cli_passes_choice_to_existing_pipeline(tmp_path, monkeypatch, capsys, command):
+    import sys
+    from weft import cli, shared_world_pipeline
+
+    called = {}
+
+    def prepare(*args, **kwargs):
+        called.update(kwargs)
+        return {"status": "ready"}
+
+    argv = ["weft", command, "--run", "body", "--evidence-run", "evidence", "--out", str(tmp_path / "new"),
+            "--full-reference"]
+    if command == "shared-exercise-build":
+        argv += ["--config", "config"]
+        monkeypatch.setattr(pipeline, "prepare_exercise_scene", prepare)
+    else:
+        argv += ["--proposal-run", "proposal", "--target-object", "weight"]
+        monkeypatch.setattr(shared_world_pipeline, "construct_source_equipment_run", prepare)
+    monkeypatch.setattr(sys, "argv", argv)
+    cli.main()
+    assert called["full_reference"] is True
+    assert json.loads(capsys.readouterr().out)["status"] == "ready"
+
+
 def test_one_command_assembles_canonical_evidence_into_a_human_only_lab(tmp_path):
     body, equipment, config_path, original, config = packages(tmp_path)
     inputs = {path: path.read_bytes() for directory in (body, equipment)
@@ -163,7 +229,7 @@ def test_deadline_after_lab_keeps_ready_path_and_only_seals_small_failure_receip
         pipeline.prepare_exercise_scene(tmp_path / "base", tmp_path / "evidence", tmp_path / "config", out,
                                         root_assistance=True, max_seconds=5, progress=progress)
     assert dict(calls)["shared_world"] == {"target_object_id": "explicit-target", "source_mappings": (),
-                                            "frame_translation": [.2, 0.], "deadline": 15.}
+                                            "frame_translation": [.2, 0.], "full_reference": False, "deadline": 15.}
     assert dict(calls)["interactive_lab"]["root_assistance"] is True
     result = json.loads((out / "result.json").read_text())
     assert result["lab_status"] == "ready" and result["lab_directory"] == str(out / "lab")

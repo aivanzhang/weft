@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -190,7 +190,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     ...(missingExerciseState?{}:{task_metrics:exerciseMetrics}),last_action:lastExerciseAction,
     terminated:Boolean(exerciseMetrics.failure||exerciseMetrics.success),truncated:Boolean(exerciseMetrics.completed_interval&&!exerciseMetrics.success&&!exerciseMetrics.failure)} : state;
   let backendReady = false, backendRecording = false, exportStatus = null;
-  let savedSessions = [];
+  let savedSessions = clone(savedRecordings);
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
   const noPolicy = sharedExercise ? !exercisePolicyAvailable : cameraBody || isSpatialUntrained || (shared && !sharedTrained);
   const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
@@ -294,6 +294,10 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     if (path === '/api/status') return Promise.resolve(response(status()));
     if (path === '/api/exercise-coverage') return Promise.resolve(response(coverageLoading-- > 0 ? {status:'loading'} : poseCoverage || {status:'unavailable'}));
     if (path === '/api/inspection') return Promise.resolve(response(inspectionLoading-- > 0 ? {status:'loading'} : inspection || {status:'unavailable',reason:'Synthetic run has no compact inspection metadata'}));
+    if (path.startsWith('/api/recording-inspection?')) {
+      if (deferRecordingInspection) return new Promise(resolve => pending.push({...request, resolve}));
+      return Promise.resolve(response(recordingInspectionLoading-- > 0 ? {status:'loading'} : recordingInspection || {status:'unavailable',reason:'Synthetic recording has no failure summary'}));
+    }
     if (path.startsWith('/files/')) {
       const filename = decodeURIComponent(path.split('/').at(-1).split('?')[0]);
       assert(filename in artifacts, `Unexpected artifact fetch: ${filename}`);
@@ -369,6 +373,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   return {ids, pending, requests, timers, resolveNext, document,
     rejectNext(path,message) {const index=pending.findIndex(request=>request.path===path);assert(index>=0);pending.splice(index,1)[0].resolve(response({error:message},false));},
     resolveArtifacts(){for(const request of [...pending])if('artifactValue' in request)resolveNext(request.path);},
+    resolveRecording(value) {const index=pending.findIndex(request=>request.path.startsWith('/api/recording-inspection?'));assert(index>=0);pending.splice(index,1)[0].resolve(response(value));},
     backendState:()=>clone(state),
     backendTaskState:()=>clone(wireState()),
     finish(){state=clone(state);state.terminated=true;state.success=true;},
@@ -1581,6 +1586,82 @@ async function sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns() {
   }
 }
 
+function savedFailureInspection(session = 'session-123456789abc') {
+  const crossing = {object_id:'block',metric:'speed_model_units_s',threshold:.15,value:.251,previous_safe_elapsed_s:1.866667,
+    first_failed_elapsed_s:1.9,event_index:66,control_step:57,reference_clock_s:1.966667,last_valid_geometry_elapsed_s:1.9,
+    engine_state_status:'current',source_frame_bracket:{lower:{source_frame_index:58},upper:{source_frame_index:62},frames_without_reference_between:[59,60,61]},
+    boundary_contacts:[{objects:['right_elbow_geom','block'],human_geom:'right_elbow_geom',human_segment:'right_forearm'}]};
+  const spin = {...clone(crossing),metric:'angular_speed_rad_s',value:2.236,threshold:2};
+  const first = {...clone(crossing),crossings:[clone(crossing),clone(spin)]};
+  const episode = {reset_event_index:9,seed:0,controller_counts:{learned:254},first_equipment_failure:first,
+    first_crossings:[crossing,spin],terminal:{completed_interval:true,success:false,failed_gates:['equipment_stability:block'],elapsed_s:8.466667}};
+  const prior = clone(episode);prior.reset_event_index=0;prior.controller_counts={manual:2,coast:2,authored:2,learned:2};
+  prior.first_equipment_failure.first_failed_elapsed_s=.233333;prior.first_equipment_failure.event_index=7;prior.terminal.completed_interval=false;
+  return {status:'available',session,timeline:{profile:'shared-exercise-failure-timeline-v1',scene_sha256:'a'.repeat(64),task_sha256:'b'.repeat(64),
+    gates_sha256:'c'.repeat(64),policy_sha256:null,integrity:{manifest_sha256:'d'.repeat(64),verified_scope:'scene_task_policy_journal_metadata_only',media_verified:false,action_replay_performed:false},
+    source_clock:{kind:'declared_human_reference_clock',native_video_time_available:false},episodes:[prior,episode]}};
+}
+
+function explainButton(ui, index = 0) { return ui.ids.get('recordings').children[index].children.find(child => child.tagName === 'BUTTON'); }
+
+async function savedTrialExplainsEquipmentFailureWithoutChangingLiveState() {
+  const result=savedFailureInspection();const ui=fixture('shared-world',{sharedExercise:true,savedRecordings:[{name:result.session,complete:true}],recordingInspection:result});await ui.ready();
+  assert(!ui.requests.some(row=>row.path.startsWith('/api/recording-inspection')),'Read only after an explicit selection');
+  const before=ui.backendTaskState(), requests=ui.requests.length, media=ui.ids.get('source').currentTime;
+  explainButton(ui).click();await drain();
+  assert.equal(ui.requests.length,requests+1);assert.deepEqual(ui.backendTaskState(),before);assert.equal(ui.ids.get('source').currentTime,media);
+  assert.equal(ui.ids.get('recording-diagnosis-content').hidden,false);
+  assert.equal(ui.ids.get('recording-diagnosis-episode').value,'1');
+  assert.match(ui.ids.get('recording-diagnosis-outcome').textContent,/interval complete; task did not pass/);
+  assert.match(ui.ids.get('recording-diagnosis-first').textContent,/1\.900s after reset.*speed.*0\.251.*allowed 0\.150.*spin/);
+  assert.match(ui.ids.get('recording-diagnosis-clock').textContent,/1\.867–1\.900s.*event 66.*reference clock: 1\.967s.*58–62.*3 intervening/);
+  assert.match(ui.ids.get('recording-diagnosis-contacts').textContent,/right forearm collision shape.*Co-occurrence, not proof of cause/);
+  assert.equal(ui.ids.get('recording-diagnosis-crossings').children.length,2);
+  ui.ids.get('recording-diagnosis-episode').value='0';ui.ids.get('recording-diagnosis-episode').dispatch('change');
+  assert.match(ui.ids.get('recording-diagnosis-first').textContent,/0\.233s/);
+  assert.match(ui.ids.get('recording-diagnosis-outcome').textContent,/before a complete passing task/);
+  assert.equal(ui.requests.length,requests+1,'Episode selection is local metadata, not a new request');
+  explainButton(ui).click();await drain();assert.equal(ui.requests.length,requests+1,'Repeated selection reuses this summary');
+  assert(ui.ids.get('recording-diagnosis-links').children[0].href.includes('/replay.html?'));
+}
+
+async function savedTrialInspectionBoundsPollingAndOffersRetryAfterHiding() {
+  const result=savedFailureInspection();const ui=fixture('shared-world',{sharedExercise:true,savedRecordings:[{name:result.session,complete:true}],
+    recordingInspection:result,recordingInspectionLoading:40});await ui.ready();explainButton(ui).click();await drain();
+  for(let index=0;index<11;index++)await ui.nextTimer();
+  assert.equal(ui.requests.filter(row=>row.path.startsWith('/api/recording-inspection')).length,12);
+  assert.equal(ui.timers.size,0);assert.equal(ui.ids.get('recording-diagnosis-retry').hidden,false);
+  ui.ids.get('recording-diagnosis-retry').click();await drain();assert(ui.timers.size>0);
+  ui.visibility(true);assert.equal(ui.timers.size,0);assert.equal(ui.ids.get('recording-diagnosis-retry').hidden,false);
+  assert.equal(ui.ids.get('recording-diagnosis-content').hidden,true);
+}
+
+async function savedTrialSelectionIgnoresSupersededRepliesAndKeepsOneRequest() {
+  const first=savedFailureInspection(),second=savedFailureInspection('session-abcdef012345');
+  const ui=fixture('shared-world',{sharedExercise:true,deferRecordingInspection:true,
+    savedRecordings:[first,second].map(row=>({name:row.session,complete:true}))});await ui.ready();
+  explainButton(ui,0).click();await drain();explainButton(ui,1).click();await drain();
+  assert.equal(ui.pending.length,1);
+  ui.resolveRecording(first);await drain();
+  assert.equal(ui.ids.get('recording-diagnosis-content').hidden,true);assert.equal(ui.pending.length,1);
+  assert(ui.pending[0].path.endsWith(second.session));
+  ui.resolveRecording(second);await drain();
+  assert.match(ui.ids.get('recording-diagnosis-provenance').textContent,new RegExp(second.session));
+  assert.equal(ui.pending.length,0);
+}
+
+async function savedTrialMissingEquipmentFailureIsNotAPassOrANativeClock() {
+  const result=savedFailureInspection();for(const episode of result.timeline.episodes){episode.first_equipment_failure=null;episode.first_crossings=[];episode.terminal.failed_gates=['angular_rmse_rad'];}
+  const ui=fixture('shared-world',{sharedExercise:true,savedRecordings:[{name:result.session,complete:true}],recordingInspection:result});await ui.ready();
+  explainButton(ui).click();await drain();assert.match(ui.ids.get('recording-diagnosis-first').textContent,/No equipment-limit crossing.*does not mean the task passed/);
+  assert.match(ui.ids.get('recording-diagnosis-episode-evidence').textContent,/angular_rmse_rad/);
+  assert.match(ui.ids.get('recording-diagnosis-clock').textContent,/No failure clock is inferred/);
+  const invalid=clone(result);invalid.timeline.source_clock.native_video_time_available=true;
+  const bad=fixture('shared-world',{sharedExercise:true,savedRecordings:[{name:result.session,complete:true}],recordingInspection:invalid});await bad.ready();
+  explainButton(bad).click();await drain();assert.equal(bad.ids.get('recording-diagnosis-content').hidden,true);
+  assert.match(bad.ids.get('recording-diagnosis-status').textContent,/unavailable.*No time or success is inferred/);
+}
+
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
   sourceAndSimulationWindowsKeepPlaybackIndependent,sourceWindowPreservesUnknownAndFailedGeometryClocks,
   sharedWorldV2FullReferenceWindowDoesNotClipOrClaimFullVideo,
@@ -1590,6 +1671,8 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   sharedExerciseResidualPolicyExplainsItsAuthoredBaseAndKeepsHumanOnlyRequests,
   sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl,sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome,
   sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns,
+  savedTrialExplainsEquipmentFailureWithoutChangingLiveState,savedTrialInspectionBoundsPollingAndOffersRetryAfterHiding,
+  savedTrialSelectionIgnoresSupersededRepliesAndKeepsOneRequest,savedTrialMissingEquipmentFailureIsNotAPassOrANativeClock,
   fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
   inspectionPollingIsBoundedCachedAndIndependentOfRecording,inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop,
   poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
