@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -154,6 +154,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     state.coupled_metrics={angular_rmse_rad:.12,root_rmse_model_units:.03,object_distance_world:.15,human_object_contacts_total:1,failure:null};
     delete state.whole_body_metrics;
   }
+  if (rigidObjects) {scene.objects = clone(rigidObjects); state.objects = clone(rigidObjects);}
   if (floorNormal) state.human.mobility.floor_normal = floorNormal;
   if (cameraBody) {
     scene.learned_policy_available = false;
@@ -380,7 +381,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||shared||multiObject)?3:1);
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,rigidObjects?.length ?? ((profile==='spatial-rigid'||shared||multiObject)?3:1));
       if(!sharedExercise)assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
@@ -1481,11 +1482,31 @@ async function sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome()
   }
 }
 
+async function sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns() {
+  const scores=Object.fromEntries(['coast','random','authored','learned'].map(name=>[name,{successes:0,episodes:3}]));
+  const humanOnly={profile:'shared-exercise-human-jitter-v1',human_jitter_scale:.1,object_position_jitter_world:0,
+    object_velocity_jitter_world_s:0,equipment_stability_reference:'actual_reset_state',equipment_reset_state:'unchanged_scene_pose_and_velocity'};
+  const legacy={profile:'shared-exercise-reset-v1',human_jitter_scale:.1,object_position_jitter_world:.025,
+    object_velocity_jitter_world_s:.12,equipment_stability_reference:'actual_reset_state'};
+  for(const [protocol,expected] of [[humanOnly,/human-only perturbations.*exact scene pose and velocity.*not a changed-equipment test/],
+      [legacy,/Legacy reset.*position jitter 0\.025.*velocity jitter 0\.120.*Support-preserving starts are not established/],
+      [undefined,/Reset protocol unspecified/],[null,/Reset protocol unspecified/],
+      [{...humanOnly,object_velocity_jitter_world_s:.12},/Reset protocol unspecified/]]) {
+    const policy=attachedExercisePolicy('authored_unchanged',{evaluation_status:'evaluated',evaluation_successes:scores,evaluation_reset_protocol:protocol});
+    const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:policy});await ui.ready();
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,expected);
+    assert.deepEqual(ui.ids.get('scores').children.map(box=>box.children[0].textContent),Array(4).fill('0/3'));
+    assert.equal(ui.ids.get('policy').textContent,'Selected authored baseline');
+    assert(!ui.requests.some(request=>/\/(training|rl-evaluation)\.json/.test(request.path)));
+  }
+}
+
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
   sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates,sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess,
   sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
   sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording,sharedExerciseBaselineSelectionIsNotCalledNewLearning,
   sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl,sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome,
+  sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns,
   fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
   inspectionPollingIsBoundedCachedAndIndependentOfRecording,inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop,
   poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
@@ -1496,7 +1517,7 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   sharedWorldShowsBodyObjectsAndContactsInAllThreeViews,sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions,
   sharedWorldPolicyAvailabilityAndControllerPayloadsStayExplicit,sharedWorldRecordingLocksActorAndSerializesReset,
   sharedWorldKinematicScrubbingCannotAdvanceLivePhysics);
-export {Element, html, script};
+export {Element, html, script, fixture, drain};
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const requestedChecks = new Set(process.argv.slice(2));
   const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;

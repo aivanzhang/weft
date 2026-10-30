@@ -9,14 +9,16 @@ The five inspection shortcuts expose **Original → Tracks → Geometry → Sand
 To try the verified human-plus-equipment run, start the lab yourself:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-policy-lab-01
+.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-policy-lab-02
 ```
 
-This saved task covers **two seconds**, with 19 human joint controls plus three explicit virtual root controls; equipment stays passive. Its policy search selected the **unchanged authored baseline**, not a learned improvement. The separate changed-start comparison is **0/3 for every controller**. Those starts have a documented equipment-reset flaw, so they are preserved failures, not a clean controller ranking. A new versioned support-preserving reset protocol and fresh seeds are next; the nominal reference controller separately moves the working equipment and fails stability.
+This saved task covers **two seconds**, with 19 human joint controls plus three explicit virtual root controls; equipment stays passive. Fresh training selected the **unchanged authored baseline**, not a learned improvement. The separate comparison is **0/3 for every controller** under `shared-exercise-human-jitter-v1`: human starts vary while equipment keeps its exact scene pose/velocity. All 12 equipment starts have zero floor gap/speed. Coast keeps equipment stable but loses body tracking; authored/selected control moves the working equipment and fails stability. This is not a test of changed equipment placements or physical generalization. The earlier reset-confounded study remains preserved.
 
-Choose manual movement, coast, authored following or **Selected authored baseline** in Sandbox. Training selection, attached evaluation and the live task result are separate. Record & start → Stop & save exports the exact action journal, video and replay, including controller/policy identities and resets. The saved acceptance run verifies **68 actions, one reset and 70 frames**; its 60 post-reset policy actions/states exactly match the failed authored baseline. This proves reproducibility, not exercise success or physical accuracy. Older no-policy labs remain available, including `artifacts/shared-exercise-lab-integration-01/lab`.
+Choose manual movement, coast, authored following or **Selected authored baseline** in Sandbox. Training selection, attached evaluation and the live task result are separate. Record & start → Stop & save exports the exact action journal, video and replay, including controller/policy identities and resets. Saved acceptance `shared-exercise-policy-interaction-02` verifies **68 actions, one reset and 70 frames**, including 60 post-reset policy actions and exact replay of its own states. No comparison with an older baseline was requested. This proves reproducibility, not exercise success or physical accuracy. The older policy lab `shared-exercise-policy-lab-01` and no-policy lab `artifacts/shared-exercise-lab-integration-01/lab` remain unchanged.
 
 For your own admitted shared world, the [task guide](shared-exercise.md#train-and-compare-a-frozen-policy) provides bounded training, a separate frozen-policy comparison and new-lab preparation with optional `--learning` / `--evaluation`. No attached evaluation means **unavailable**, not passed. No existing lab, task, scorer or recording is rewritten.
+
+The source scene still uses solid box proxies. [Compound objects](shared-world.md#authored-compound-objects) now render and collide as their individual parts in analytical fixtures; this does not mean the source kettlebells have recovered handles or grasp geometry.
 
 ## Try the saved exercise run
 

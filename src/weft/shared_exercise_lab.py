@@ -12,6 +12,7 @@ import time
 
 from weft.io import canonical_hash, local_time
 from weft.shared_exercise_recording import recording_scene, validate_action, verify_action_replay
+from weft.shared_exercise_reset import describe_reset_protocol, resolve_reset_options
 from weft.shared_exercise_task import SharedExerciseTaskEnv, build_shared_exercise_task, validate_shared_exercise_task
 from weft.shared_world import SharedWorldEnv, validate_shared_world
 from weft.shared_world_packaging import (
@@ -28,7 +29,7 @@ MAX_FILE_BYTES = 64 * 1024 * 1024
 MAX_RUNTIME_BYTES = 16 * 1024 * 1024
 RESET_OPTIONS = {"jitter": False, "jitter_scale": 0.0}
 RUNTIME_FILES = (
-    "shared_exercise_task.py", "shared_world.py", "shared_world_observation.py", "shared_world_evidence.py",
+    "shared_exercise_task.py", "shared_exercise_reset.py", "shared_world.py", "shared_world_observation.py", "shared_world_evidence.py",
     "source_equivalence.py", "world_evidence.py", "observations.py", "human.py", "mobile_human.py",
     "whole_body.py", "spatial_rigid.py", "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "io.py",
 )
@@ -212,7 +213,7 @@ def _validate_policy_evaluation(manifest_raw, files, learning_manifest, learning
             or not isinstance(evaluation.get("training_seeds"), list)
             or any(type(seed) is not int for seed in evaluation["training_seeds"])
             or set(seeds) & set(evaluation["training_seeds"])
-            or not isinstance(resets, dict) or set(resets) != {"jitter", "jitter_scale"} or resets["jitter"] is not True
+            or not isinstance(resets, dict) or resets != resolve_reset_options(resets) or resets["jitter"] is not True
             or type(resets["jitter_scale"]) not in (int, float) or not 0 < resets["jitter_scale"] <= .25):
         raise ValueError("Exercise policy evaluation requires independent bounded changed-start trials")
     initial = evaluation.get("initial_states")
@@ -270,10 +271,10 @@ def _validate_policy_evaluation(manifest_raw, files, learning_manifest, learning
     if type(evaluation.get("control_steps")) is not int or evaluation["control_steps"] != total_steps:
         raise ValueError("Exercise policy evaluation control-step count differs from its trials")
     return {"policy_evaluation_manifest_sha256": _sha(manifest_raw), "policy_evaluation_sha256": _sha(files["evaluation.json"]),
-            "policy_evaluation_files_verified": len(files)}, successes
+            "policy_evaluation_files_verified": len(files)}, successes, describe_reset_protocol(resets)
 
 
-def _policy_status(policy, training_raw, *, evaluation_successes=None):
+def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluation_reset_protocol=None):
     training = _json(training_raw)
     return {"profile": policy["profile"], "policy_sha256": training["policy_sha256"],
             "selected_feedback_kind": training["selected_feedback_kind"], "privileged_simulator_features": True,
@@ -281,6 +282,7 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None):
             "training_score_improved_over_authored": training["training_score_improved_over_authored"],
             "evaluation_status": "evaluated" if evaluation_successes is not None else "not_attached",
             "evaluation_successes": deepcopy(evaluation_successes),
+            "evaluation_reset_protocol": deepcopy(evaluation_reset_protocol),
             "scope": "Training selection and separate changed-start simulator comparison; neither verifies new-video generalization, grasp or physical accuracy."}
 
 
@@ -328,10 +330,10 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         learning_manifest, learning_files = _verified_inputs(learning_source, deadline=deadline)
         policy, policy_identity = _validate_policy_package(learning_manifest, learning_files, scene, task)
         collect_shared_source_files(scene, learning_source, expected_manifest_sha256=_sha(learning_manifest))
-    evaluation_files, evaluation_manifest, evaluation_successes = {}, None, None
+    evaluation_files, evaluation_manifest, evaluation_successes, evaluation_reset_protocol = {}, None, None, None
     if evaluation_source is not None:
         evaluation_manifest, evaluation_files = _verified_inputs(evaluation_source, deadline=deadline)
-        evaluation_identity, evaluation_successes = _validate_policy_evaluation(
+        evaluation_identity, evaluation_successes, evaluation_reset_protocol = _validate_policy_evaluation(
             evaluation_manifest, evaluation_files, learning_manifest, learning_files, policy)
         policy_identity.update(evaluation_identity)
         collect_shared_source_files(scene, evaluation_source, expected_manifest_sha256=_sha(evaluation_manifest))
@@ -353,7 +355,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                 "scope": "Independent authored human-only simulator task; no recovered grasp or physical validation."}
     contract.update(policy_identity)
     if policy is not None:
-        contract["exercise_policy"] = _policy_status(policy, learning_files["training.json"], evaluation_successes=evaluation_successes)
+        contract["exercise_policy"] = _policy_status(policy, learning_files["training.json"],
+            evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol)
     views = {name: raw for name, raw in inputs.items()
              if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")}
     videos = [name for name in views if re.fullmatch(r"source\.(mp4|webm|mov|m4v|avi|mkv)", name)]
@@ -474,7 +477,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
     if files["scene.json"] != files.get("source-run/scene.json"):
         raise ValueError("Exercise lab cannot rewrite the original engine scene")
     policy = None
-    evaluation_successes = None
+    evaluation_successes, evaluation_reset_protocol = None, None
     if contract["learned_policy_available"]:
         if not {"policy.json", "learning-run/manifest.json"} <= set(files):
             raise ValueError("Exercise lab learned policy lacks its complete training package")
@@ -493,7 +496,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
                 raise ValueError("Exercise policy evaluation lacks its complete separate package")
             evaluation_files = {name[len("policy-evaluation-run/"):]: raw for name, raw in files.items()
                                 if name.startswith("policy-evaluation-run/") and name != "policy-evaluation-run/manifest.json"}
-            evaluation_identity, evaluation_successes = _validate_policy_evaluation(
+            evaluation_identity, evaluation_successes, evaluation_reset_protocol = _validate_policy_evaluation(
                 files["policy-evaluation-run/manifest.json"], evaluation_files,
                 files["learning-run/manifest.json"], learning_files, policy)
             if (files["policy-evaluation.json"] != evaluation_files["evaluation.json"]
@@ -502,7 +505,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             collect_shared_source_files(scene, root / "policy-evaluation-run",
                                         expected_manifest_sha256=evaluation_identity["policy_evaluation_manifest_sha256"])
         if contract.get("exercise_policy") != _policy_status(policy, learning_files["training.json"],
-                                                           evaluation_successes=evaluation_successes):
+                evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol):
             raise ValueError("Exercise lab policy status differs from its sealed training/evaluation evidence")
     elif "policy.json" in files or any(name.startswith("learning-run/") for name in files):
         raise ValueError("Exercise lab cannot expose an unbound learned policy")

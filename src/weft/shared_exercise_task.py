@@ -13,6 +13,10 @@ from gymnasium import spaces
 import numpy as np
 
 from weft.io import canonical_hash
+from weft.shared_exercise_reset import (
+    HUMAN_JITTER_PROFILE, describe_reset_protocol as _reset_protocol, engine_reset_options,
+    resolve_reset_options as _reset_options,
+)
 from weft.shared_world import SharedWorldEnv, prepare_shared_snapshot_validator, validate_shared_world
 from weft.shared_world_observation import EquipmentState, SubstepSample
 
@@ -418,7 +422,7 @@ class SharedExerciseTaskEnv(gym.Env):
         resolved = _reset_options(options)
         self._done, self._accumulator = True, None
         super().reset(seed=seed)
-        observation, reset_info = self._engine.reset(seed=seed, options=resolved)
+        observation, reset_info = self._engine.reset(seed=seed, options=engine_reset_options(resolved))
         state = self._engine.snapshot()
         initial = tuple(EquipmentState(obj["id"], tuple(obj["position"]), tuple(obj["quaternion"]), tuple(obj["velocity"]),
                                        tuple(obj["angular_velocity"]), tuple(obj.get("virtual_force", [0., 0., 0.])))
@@ -515,27 +519,6 @@ class SharedExerciseTaskEnv(gym.Env):
         self._engine.close()
 
 
-def _reset_options(options):
-    if options is None:
-        options = {}
-    if (not isinstance(options, dict) or set(options) - {"jitter", "jitter_scale"}
-            or type(options.get("jitter", False)) is not bool):
-        raise ValueError("Exercise reset accepts only explicit jitter and jitter_scale")
-    jitter = options.get("jitter", False)
-    scale = options.get("jitter_scale", 1. if jitter else 0.)
-    if (type(scale) not in (int, float) or not math.isfinite(scale) or not 0 <= scale <= 5
-            or not jitter and scale != 0):
-        raise ValueError("Exercise jitter_scale must be finite in [0,5]; nonzero requires jitter")
-    return {"jitter": jitter, "jitter_scale": float(scale)}
-
-
-def _reset_protocol(options):
-    return {"profile": "shared-exercise-reset-v1", "human_jitter_scale": options["jitter_scale"],
-            "object_position_jitter_world": .025 if options["jitter"] else 0.,
-            "object_velocity_jitter_world_s": .12 if options["jitter"] else 0.,
-            "equipment_stability_reference": "actual_reset_state"}
-
-
 def validate_shared_exercise_snapshot(snapshot, scene, task):
     """Strict one-shot validation; use the prepared validator only for the same pinned scene/task."""
     return prepare_shared_exercise_snapshot_validator(scene, task)(snapshot)
@@ -548,6 +531,7 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
     scene_sha256, task_sha256 = canonical_hash(scene), canonical_hash(task)
     validate_engine = prepare_shared_snapshot_validator(scene)
     gates = dict(GATES)
+    initial_equipment = {obj["id"]: obj for obj in scene["objects"]}
     equipment_order = [obj["id"] for obj in scene["objects"] if obj["role"] != "static"]
     contact_windows = tuple((row, (row["end_step"] - row["start_step"]) * scene["dt"])
                             for row in task["contact_requirements"])
@@ -582,6 +566,17 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
             raise ValueError("Exercise reset options must be resolved explicitly")
         state = snapshot["engine_state"]
         validate_engine(state)
+        if state["controlled_id"] != "human":
+            raise ValueError("Exercise snapshots must retain the human as their only controlled actor")
+        if (state["steps"] == 0
+                and snapshot["resolved_reset_options"].get("profile") == HUMAN_JITTER_PROFILE):
+            for actual in state["objects"]:
+                nominal = initial_equipment[actual["id"]]
+                if (any(not np.allclose(actual[key], nominal[key], rtol=0, atol=1e-12)
+                        for key in ("position", "velocity", "angular_velocity"))
+                        or not math.isclose(abs(float(np.dot(actual["quaternion"], nominal["quaternion"]))),
+                                            1., rel_tol=0, abs_tol=1e-12)):
+                    raise ValueError("Human-only equipment reset must retain the exact scene pose and velocity")
         status = snapshot["engine_state_status"]
         if status not in {"current", "last_valid_control_boundary"}:
             raise ValueError("Exercise engine-state status must distinguish stale failure geometry")

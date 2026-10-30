@@ -2,7 +2,7 @@
 
 Weft can now place a mobile articulated body and rigid objects in **one MuJoCo simulation**, with one clock and contact solver. You can control the body or a dynamic object, inspect three views, and record/replay actions. This is a runtime capability, not proof that equipment geometry, forces or anatomy were recovered correctly from a video.
 
-For separate whole-interval body/equipment checks with **human-only actions**, see [exercise tasks and recordings](shared-exercise.md). That task does not replace this sandbox's existing score or enable recovered grasp.
+For separate whole-interval body/equipment checks with **human-only actions**, use the current `artifacts/shared-exercise-policy-lab-02` via [exercise tasks and recordings](shared-exercise.md). That lab keeps equipment passive and displays its unchanged authored policy plus separate failed evaluation. It does not replace this sandbox's existing score/object controls or enable recovered grasp.
 
 ## Try the source-linked equipment sandbox
 
@@ -54,7 +54,7 @@ Use new output names; completed outputs are never overwritten.
 
 `shared-world-adapt --human-run <sealed-mobile-run> --out <new-run>` accepts the supported mobile `exercise-v3` input with sealed `human.json`, `scene.json` and complete `evidence.json`. It exports exact observation documents and all source slots; metadata-only pose counts cannot establish source qualification. It currently adds authored props and rejects camera-reference bodies. It does not reconstruct arbitrary equipment automatically.
 
-The reusable next stage consumes a sealed geometry proposal and exact equipment evidence. This example reuses completed studies without inference or paid calls:
+For a direct camera/shape configuration or one-command human-only assembly, use [the equipment proposer](equipment-proposals.md); it no longer needs chained camera studies. For separate stage control, the constructor also consumes a sealed geometry proposal and exact equipment evidence. This older example reuses completed studies without inference or paid calls:
 
 ```sh
 .venv-lab/bin/python -m weft shared-world-reconstruct \
@@ -71,6 +71,14 @@ The reusable next stage consumes a sealed geometry proposal and exact equipment 
 The frame translation is explicit and optional; omitting it for this input rejects the old bounds. Construction never silently shifts the floor, body or objects. Proposal/human inputs have separate bounded sizes; the scene remains bounded to 500 KB of compact JSON. This is an inspectable intermediate workflow, not yet one-click arbitrary-video reconstruction.
 
 `shared-world-train --run <sealed-run> --out <new-policy-run> --generations 2 --population 4 --eval-episodes 2` is a small actual CEM learning experiment, not a guarantee of useful task success. `shared-world-lab --learning <policy-run>` verifies that the policy belongs to the scene. Training, test fixtures, source fit and physical validation remain separate evidence levels.
+
+## Authored compound objects
+
+The runtime accepts `shape: compound` with `rigid-compound-v1` geometry: **one object/body/control ID**, containing 1–8 local box, sphere or capsule parts, with at most 32 rigid primitives across the scene. Shape, centered diagonal inertia and assumptions are authored, not measured from a video. Part positions/rotations compose with the parent pose; capsule length denotes its straight centerline, with hemispherical ends added.
+
+Collision, Python previews, the live front/top/angled views and offline replay use the actual transformed parts, not a replacement bounding box. Parts inherit the parent's role/color and receive no independent force controls. Invalid or excessive geometry is rejected; primitive-only scenes retain their previous behavior.
+
+This support is verified on analytical fixtures. **The saved kettlebell scenes still use their original boxes**: no source handle, cavity or grasp has been recovered. Strict source-compound proposal admission is in progress separately; runtime support alone is not construction approval or physical validation.
 
 ## Evidence and runtime boundaries
 
@@ -94,6 +102,8 @@ The request settled at **$0.0498**; the shared Meta ledger then held nine settle
 
 ## Verification scope
 
-Latest targeted receipts cover **285 distinct passing cases**; see the [combined handoff](handoffs/combined.md) for scope and identities. Three new source-equipment recordings verify exact replay. New-candidate construction took **1.016 s**, lab packaging **0.720 s**, and local three-step control dispatch plus JSON had p95 **3.923 ms** across 30 samples. These are scoped local measurements, not browser latency or sustained-use guarantees.
+The earlier construction checkpoint covers **285 distinct passing cases**; three source-equipment recordings verify exact replay. Candidate construction took **1.016 s**, lab packaging **0.720 s**, and local three-step control dispatch plus JSON had p95 **3.923 ms** across 30 samples.
+
+Current reset/runtime integration has **143 passing cases** (`.local/shared-exercise-reset-integration-04.xml`) plus six study-driver checks. Five analytical JS checks cover compound transforms, outlines, small parts, rejection and the 32-part bound; exercise and legacy replay checks retain lifecycle/task behavior. The new human-only source lab verifies 68 actions/one reset/70 frames and exact replay while preserving failure. [Current receipts and identities](handoffs/combined.md#current-reset-assembly-and-compound-checkpoint). Counts overlap with earlier targeted checks and must not be added into a repository-wide total. These are scoped local measurements, not browser latency or sustained-use guarantees.
 
 No live browser/device QA, independently measured biomechanics, recovered equipment geometry, physical changed-action validation or general arbitrary-video completion is claimed.

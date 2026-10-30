@@ -14,6 +14,7 @@ from weft.shared_exercise_lab import load_shared_exercise_lab, prepare_shared_ex
 from weft.shared_exercise_learning import evaluate_shared_exercise_policy, train_shared_exercise_policy
 from weft.shared_exercise_recording import recording_scene, validate_event, validate_recording_scene, verify_action_replay
 from weft.shared_exercise_task import SharedExerciseTaskEnv
+from weft.shared_exercise_reset import HUMAN_JITTER_PROFILE
 from test_shared_exercise_run import source_fixture
 from test_shared_world_packaging import candidate
 
@@ -92,6 +93,8 @@ def test_policy_lab_pins_complete_learning_and_separate_evaluation(tmp_path, bun
         assert summary["scene"]["learned_policy_available"] is False
         assert metadata["policy_sha256"] == digest(learning / "policy.json")
         assert metadata["evaluation_status"] == "evaluated"
+        assert metadata["evaluation_reset_protocol"]["profile"] == HUMAN_JITTER_PROFILE
+        assert metadata["evaluation_reset_protocol"]["object_position_jitter_world"] == 0
         assert set(metadata["evaluation_successes"]) == {"coast", "random", "authored", "learned"}
         actual = json.loads((evaluation / "evaluation.json").read_bytes())
         assert metadata["evaluation_successes"] == {name: {"successes": row["successes"], "episodes": 1}
@@ -126,6 +129,7 @@ def test_training_only_has_no_evaluation_claim_and_reuses_cached_factory(tmp_pat
         summary = lab.summary()
         assert summary["exercise_policy"]["evaluation_status"] == "not_attached"
         assert summary["exercise_policy"]["evaluation_successes"] is None
+        assert summary["exercise_policy"]["evaluation_reset_protocol"] is None
         assert not (tmp_path / "lab/run/policy-evaluation.json").exists()
         session = lab.load_session()
         expected = session.policy_action()

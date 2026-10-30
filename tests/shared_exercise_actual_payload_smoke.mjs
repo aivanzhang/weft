@@ -59,19 +59,31 @@ assert.equal(sha(html), runManifest.files['lab-implementation/assets/lab.html'])
 assert.equal(sha(script), runManifest.files['lab-implementation/assets/lab.js']);
 assert.equal(initial.status, 'ready'); assert.equal(initial.control_profile, 'shared_exercise');
 assert.equal(fs.realpathSync(initial.directory), lab);
-assert.equal(initial.action_contract.names.length, 22); assert.equal(initial.exercise_task.control.root_assistance, 'explicit_3_axis');
+const rootAssistance=initial.exercise_task.control.root_assistance;
+assert(['explicit_3_axis','disabled'].includes(rootAssistance));
+assert.equal(initial.action_contract.names.length, rootAssistance==='explicit_3_axis'?22:19);
 assert.equal(final.profile, 'shared-exercise-state-v1'); assert.equal(final.task_sha256, initial.snapshot.task_sha256);
-assert.equal(final.task_metrics.completed_interval, true); assert.equal(final.task_metrics.success, false);
+assert.equal(typeof final.task_metrics.completed_interval, 'boolean'); assert.equal(typeof final.task_metrics.success, 'boolean');
 assert.equal(inspection.status, 'available'); assert(inspection.geometry.panels.length > 0);
 const hasPolicy = initial.learned_policy_available === true;
+const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback'};
+const policyDescriptions={authored_unchanged:/unchanged programmed feedback, not new learned gains/,
+  coast_unchanged:/unchanged zero-command baseline, not new learned gains/,searched_gains:/searched feedback gains using simulator state and the known body reference/};
+let selectedKind=null,expectedScores=[];
 if (hasPolicy) {
-  assert.equal(initial.exercise_policy.selected_feedback_kind, 'authored_unchanged');
-  assert.equal(initial.exercise_policy.evaluation_status, 'evaluated');
-  assert.equal(initial.exercise_policy.training_score_improved_over_authored, false);
+  selectedKind=initial.exercise_policy.selected_feedback_kind;assert(Object.hasOwn(policyLabels,selectedKind));
+  assert(['evaluated','not_attached'].includes(initial.exercise_policy.evaluation_status));
+  assert.equal(typeof initial.exercise_policy.training_score_improved_over_authored, 'boolean');
   assert.equal(runManifest.files['policy.json'], initial.exercise_policy.policy_sha256);
   const policy = readJson('policy.json', 64 * 1024, initial.exercise_policy.policy_sha256, run).value;
   assert.equal(policy.profile, 'shared-exercise-policy-v1'); assert.equal(policy.task_sha256, initial.snapshot.task_sha256);
-  for (const name of ['coast', 'random', 'authored', 'learned']) assert.deepEqual(initial.exercise_policy.evaluation_successes[name], {successes: 0, episodes: 3});
+  if(initial.exercise_policy.evaluation_status==='evaluated')for(const name of ['coast','random','authored','learned']) {
+    const row=initial.exercise_policy.evaluation_successes[name];
+    assert(Number.isInteger(row.episodes)&&row.episodes>=1&&row.episodes<=6);
+    assert.equal(row.episodes,initial.exercise_policy.evaluation_successes.coast.episodes);
+    assert(Number.isInteger(row.successes)&&row.successes>=0&&row.successes<=row.episodes);
+    expectedScores.push(`${row.successes}/${row.episodes}`);
+  }
 }
 
 const copy = value => JSON.parse(JSON.stringify(value));
@@ -126,17 +138,24 @@ function harness() {
 const ui = harness(); await drain();
 assert.equal(ui.ids.get('error').hidden, true, ui.ids.get('error').textContent);
 assert.equal(ui.ids.get('exercise-task-card').hidden, false);
-assert.match(ui.ids.get('exercise-assistance').textContent, /3 explicit virtual controls/);
-assert.equal(ui.ids.get('joint').children.length, 22);
+assert.match(ui.ids.get('exercise-assistance').textContent, rootAssistance==='explicit_3_axis'?/3 explicit virtual controls/:/Root assistance: OFF/);
+assert.equal(ui.ids.get('joint').children.length, initial.action_contract.names.length);
 assert.deepEqual(ui.ids.get('joint').children.map(option => option.value), initial.action_contract.names);
 assert.equal(ui.ids.get('actor-controls').hidden, true); assert.equal(ui.ids.get('policy').disabled, !hasPolicy);
 if (hasPolicy) {
-  assert.equal(ui.ids.get('policy').textContent, 'Selected authored baseline');
-  assert.match(ui.ids.get('exercise-policy-summary').textContent, /unchanged programmed feedback, not new learned gains/);
+  assert.equal(ui.ids.get('policy').textContent, policyLabels[selectedKind]);
+  assert.match(ui.ids.get('exercise-policy-summary').textContent, policyDescriptions[selectedKind]);
   assert.match(ui.ids.get('learning-description').textContent, /simulator-state and reference features, not video pixels/);
-  assert.match(ui.ids.get('training-caption').textContent, /No higher training score than the authored baseline/);
-  assert.match(ui.ids.get('exercise-evaluation-summary').textContent, /Attached independent changed-start evaluation/);
-  assert.deepEqual(ui.ids.get('scores').children.map(row => row.children[0].textContent), Array(4).fill('0/3'));
+  assert.match(ui.ids.get('training-caption').textContent, initial.exercise_policy.training_score_improved_over_authored
+    ? /training score was above the authored baseline.*not an independent evaluation result/
+    : /No higher training score than the authored baseline/);
+  assert.match(ui.ids.get('exercise-evaluation-summary').textContent, expectedScores.length
+    ? /Attached independent changed-start evaluation/:/Independent evaluation unavailable/);
+  if(expectedScores.length)assert.match(ui.ids.get('exercise-evaluation-summary').textContent,
+    initial.exercise_policy.evaluation_reset_protocol?.profile==='shared-exercise-human-jitter-v1'
+      ? /human-only perturbations.*exact scene pose and velocity.*not a changed-equipment test/
+      : initial.exercise_policy.evaluation_reset_protocol?.profile==='shared-exercise-reset-v1'?/Legacy reset/:/Reset protocol unspecified/);
+  assert.deepEqual(ui.ids.get('scores').children.map(row => row.children[0].textContent), expectedScores);
   assert.equal(ui.ids.get('exercise-policy-links').children.length, 1);
   assert(ui.ids.get('exercise-policy-links').children[0].href.includes('/files/run/policy.json'));
 }
@@ -167,8 +186,10 @@ authored.ids.get('inspect-sandbox').click(); authored.ids.get(hasPolicy ? 'polic
 assert.equal(authored.pending.length, 1); assert.deepEqual(authored.pending[0].data, hasPolicy ? {steps: 1, policy: true} : {steps: 1, controller: 'reference'});
 // Only the transport envelope is mocked; this exact saved final state is not a one-step physics claim.
 authored.pending.shift().resolve(response({snapshot: final}, JSON.stringify(final).length)); await drain();
-assert.match(authored.ids.get('exercise-outcome').textContent, /^Not passed · interval complete/);
-assert.equal(authored.ids.get('play-state').textContent, 'Trial finished');
+assert.match(authored.ids.get('exercise-outcome').textContent, final.task_metrics.success?/^Passed/
+  :final.task_metrics.failure?/^Not passed · simulation failed/:final.task_metrics.completed_interval?/^Not passed · interval complete/:/^In progress/);
+assert.equal(authored.ids.get('play-state').textContent, final.task_metrics.success?'Goal reached'
+  :final.terminated||final.truncated||final.task_metrics.failure?'Trial finished':'Paused — ready to try');
 assert.match(authored.ids.get('exercise-duration').textContent, new RegExp(`${final.task_metrics.valid_substeps} valid / ${final.task_metrics.observed_substeps} observed`));
 assert.doesNotMatch(authored.ids.get('readout').textContent, /object.*dist|target:|TASK SUCCESS/);
 authored.ids.get('exercise-metrics-details').open = true; authored.ids.get('exercise-metrics-details').dispatch('toggle');
@@ -176,8 +197,8 @@ for (const gate of final.task_metrics.failed_gates) assert(authored.ids.get('exe
 assert(!authored.ids.get('live').drawCalls.some(call => call.name === 'setLineDash' && call.args[0]?.length));
 assert(!authored.requests.some(request => /\/(training|rl-evaluation|policy)\.json/.test(request.url)));
 if (hasPolicy) {
-  assert.match(authored.ids.get('mode-description').textContent, /unchanged programmed feedback, not new learned gains/);
-  assert.deepEqual(authored.ids.get('scores').children.map(row => row.children[0].textContent), Array(4).fill('0/3'));
+  assert.match(authored.ids.get('mode-description').textContent, policyDescriptions[selectedKind]);
+  assert.deepEqual(authored.ids.get('scores').children.map(row => row.children[0].textContent), expectedScores);
 }
 authored.shutdown();
 const verifiedInputs = [...inputs];

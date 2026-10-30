@@ -8,10 +8,14 @@ import time
 
 from weft.io import digest, local_time, write_json
 from weft.shared_exercise_learning import train_shared_exercise_policy, evaluate_shared_exercise_policy
+from weft.shared_exercise_reset import human_jitter_options
 from weft.shared_world_packaging import read_package_file, read_package_manifest
 
 
-def run(source, out, *, task_path=None, root_assistance=False):
+def run(source, out, *, task_path=None, root_assistance=False, training_seed=1729, evaluation_seed=924017):
+    if (any(type(seed) is not int or not 0 <= seed < 2**31 for seed in (training_seed, evaluation_seed))
+            or training_seed == evaluation_seed):
+        raise ValueError("Choose distinct bounded training and evaluation seeds before the study")
     source, out = Path(source).resolve(), Path(out).resolve()
     if out.exists() or out == source or out.is_relative_to(source) or source.is_relative_to(out):
         raise ValueError("Choose a new study directory outside the immutable source")
@@ -25,9 +29,12 @@ def run(source, out, *, task_path=None, root_assistance=False):
     if type(horizon) is not int or 48 * horizon > 20_000 or 12 * horizon > 3_000:
         raise ValueError("The complete task interval exceeds this fixed study's control-step bound")
     plan = {"schema_version": 1, "created_at": local_time(), "source_manifest_sha256": hashlib.sha256(manifest).hexdigest(),
-            "source_scene_sha256": hashlib.sha256(scene_raw).hexdigest(), "training_seed": 1729, "evaluation_seed": 924017,
+            "source_scene_sha256": hashlib.sha256(scene_raw).hexdigest(),
+            "training_seed": training_seed, "evaluation_seed": evaluation_seed,
             "generations": 3, "population": 8, "training_reset_trials": 2, "changed_start_seeds": 3,
             "training_reset_jitter_scales": [0., .05], "evaluation_reset_jitter_scale": .10,
+            "training_reset_options": [human_jitter_options(0.), human_jitter_options(.05)],
+            "evaluation_reset_options": human_jitter_options(.10),
             "maximum_training_control_steps": 48 * horizon, "maximum_evaluation_control_steps": 12 * horizon,
             "horizon_steps": horizon, "declared_interval_s": horizon * scene["dt"], "workers": 1,
             "max_training_seconds": 60, "max_evaluation_seconds": 30, "max_study_seconds": 95,
@@ -41,12 +48,12 @@ def run(source, out, *, task_path=None, root_assistance=False):
     result = {"status": "running", "plan": plan}
     try:
         training = train_shared_exercise_policy(source, out / "training", task_path=task_path,
-            root_assistance=root_assistance, seed=1729, generations=3, population=8, max_seconds=60)
+            root_assistance=root_assistance, seed=training_seed, generations=3, population=8, max_seconds=60)
         result["training"] = {key: training[key] for key in (
             "manifest_sha256", "policy_sha256", "seconds", "control_steps", "evaluated_episodes", "cache_hits",
             "selected_feedback_kind", "improvement_over_authored_training")}
         evaluation = evaluate_shared_exercise_policy(out / "training", out / "evaluation",
-            seed=924017, trials=3, jitter_scale=.10, max_seconds=30)
+            seed=evaluation_seed, trials=3, jitter_scale=.10, max_seconds=30)
         result["evaluation"] = {key: evaluation[key] for key in (
             "manifest_sha256", "policy_sha256", "seconds", "control_steps", "comparison_complete", "independent_changed_states")}
         result["evaluation"]["controllers"] = {name: {key: value for key, value in summary.items() if key != "trials"}
@@ -82,8 +89,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--run", required=True)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--training-seed", type=int, default=1729)
+    parser.add_argument("--evaluation-seed", type=int, default=924017)
     task = parser.add_mutually_exclusive_group()
     task.add_argument("--task")
     task.add_argument("--root-assistance", action="store_true")
     args = parser.parse_args()
-    run(args.run, args.out, task_path=args.task, root_assistance=args.root_assistance)
+    run(args.run, args.out, task_path=args.task, root_assistance=args.root_assistance,
+        training_seed=args.training_seed, evaluation_seed=args.evaluation_seed)

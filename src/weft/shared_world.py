@@ -29,6 +29,9 @@ MAX_SPEED = 6.0
 MAX_SPIN = 200.0
 MAX_CONTACTS = 256
 STATE_EPS = 1e-8
+COMPOUND_PROFILE = "rigid-compound-v1"
+MAX_OBJECT_PARTS = 8
+MAX_RIGID_PRIMITIVES = 32
 
 CALIBRATION_STATUSES = frozenset({"calibrated", "estimated_prior", "unverified"})
 SOURCE_MODES = frozenset({"analytic_fixture", "source_qualified"})
@@ -119,8 +122,117 @@ def _text(value, name, maximum=500):
     return value
 
 
+def _same_immutable(value, expected):
+    if isinstance(expected, dict):
+        return isinstance(value, dict) and value.keys() == expected.keys() and all(
+            _same_immutable(value[key], item) for key, item in expected.items())
+    if isinstance(expected, list):
+        return isinstance(value, list) and len(value) == len(expected) and all(
+            _same_immutable(one, two) for one, two in zip(value, expected))
+    if type(expected) in (int, float):
+        return type(value) in (int, float) and value == expected
+    return type(value) is type(expected) and value == expected
+
+
 def _dynamic_objects(scene):
     return [obj for obj in scene["objects"] if obj["role"] != "static"]
+
+
+def _quaternion_product(first, second):
+    a, b, c, d = first
+    e, f, g, h = second
+    return [a * e - b * f - c * g - d * h, a * f + b * e + c * h - d * g,
+            a * g - b * h + c * e + d * f, a * h + b * g - c * f + d * e]
+
+
+def _capsule_endpoints(primitive):
+    offset = rotation(primitive["quaternion"])[:, 2] * (primitive["length"] / 2.0)
+    center = np.asarray(primitive["position"], dtype=float)
+    return center - offset, center + offset
+
+
+def _primitive_bounds(primitive):
+    if primitive["shape"] == "box":
+        points = corners(primitive)
+        return points.min(axis=0), points.max(axis=0)
+    if primitive["shape"] == "capsule":
+        first, second = _capsule_endpoints(primitive)
+        return np.minimum(first, second) - primitive["radius"], np.maximum(first, second) + primitive["radius"]
+    center = np.asarray(primitive["position"], dtype=float)
+    return center - primitive["radius"], center + primitive["radius"]
+
+
+def _world_primitives(obj):
+    if obj["shape"] != "compound":
+        return [obj]
+    parent_rotation, center = rotation(obj["quaternion"]), np.asarray(obj["position"], dtype=float)
+    return [{**part, "object_id": obj["id"], "role": obj["role"], "color": obj["color"],
+             "position": (center + parent_rotation @ np.asarray(part["position"], dtype=float)).tolist(),
+             "quaternion": _quaternion_product(obj["quaternion"], part["quaternion"])}
+            for part in obj["geometry"]["parts"]]
+
+
+def _geometry_names(scene):
+    for index, obj in enumerate(scene["objects"]):
+        if obj["shape"] == "compound":
+            for part_index, part in enumerate(obj["geometry"]["parts"]):
+                # Object IDs cannot begin with an underscore; generated geom names cannot alias them.
+                yield obj, part["id"], f"__weft_part_{index}_{part_index}"
+        else:
+            yield obj, None, obj["id"]
+
+
+def _validate_compound(obj):
+    geometry = obj["geometry"]
+    if (not isinstance(geometry, dict) or set(geometry) != {"profile", "origin", "assumptions", "inertia", "parts"}
+            or geometry["profile"] != COMPOUND_PROFILE or geometry["origin"] != "authored_hypothesis"):
+        raise ValueError("Compound geometry requires the explicit rigid-compound-v1 authored hypothesis")
+    assumptions = geometry["assumptions"]
+    if not isinstance(assumptions, list) or not 1 <= len(assumptions) <= 8:
+        raise ValueError("Compound geometry requires 1–8 explicit authored assumptions")
+    for assumption in assumptions:
+        _text(assumption, "compound assumption", 500)
+    inertia = geometry["inertia"]
+    if (not isinstance(inertia, dict) or set(inertia) != {"mode", "diagonal"}
+            or inertia["mode"] != "authored_centered_diagonal"):
+        raise ValueError("Compound inertia must be an explicit centered diagonal prior")
+    inertia["diagonal"] = _vector(inertia["diagonal"], 3, "compound inertia diagonal", 1e-8, 1e4)
+    if 2.0 * max(inertia["diagonal"]) > sum(inertia["diagonal"]) + 1e-12:
+        raise ValueError("Compound inertia must satisfy rigid-body triangle inequalities")
+    parts = geometry["parts"]
+    if not isinstance(parts, list) or not 1 <= len(parts) <= MAX_OBJECT_PARTS:
+        raise ValueError("Compound objects require 1–8 rigid primitive parts")
+    identities, signatures, local_bounds = set(), set(), []
+    maximum = 4.0 if obj["role"] == "static" else 1.2
+    for part in parts:
+        shape = part.get("shape") if isinstance(part, dict) else None
+        dimensions = {"box": {"size"}, "sphere": {"radius"}, "capsule": {"radius", "length"}}
+        if (not isinstance(shape, str) or shape not in dimensions
+                or set(part) != {"id", "shape", "position", "quaternion"} | dimensions[shape]):
+            raise ValueError("Compound parts require exact box, sphere or capsule fields")
+        if (not isinstance(part["id"], str) or not re.fullmatch(r"[a-z][a-z0-9_-]{0,31}", part["id"])
+                or part["id"] in identities):
+            raise ValueError("Compound part IDs must be bounded and unique within their object")
+        identities.add(part["id"])
+        part["position"] = _vector(part["position"], 3, "compound local position", -4.0, 4.0)
+        part["quaternion"] = _vector(part["quaternion"], 4, "compound local quaternion", -1.0, 1.0)
+        if not math.isclose(float(np.linalg.norm(part["quaternion"])), 1.0, rel_tol=0, abs_tol=1e-8):
+            raise ValueError("Compound part orientation must be a unit quaternion")
+        if shape == "box":
+            part["size"] = _vector(part["size"], 3, "compound box size", 0.01, maximum)
+        else:
+            part["radius"] = _number(part["radius"], "compound radius", 0.01, 0.5)
+            if shape == "capsule":
+                part["length"] = _number(part["length"], "compound capsule centerline length", 0.01, maximum)
+        signature = canonical_hash({key: value for key, value in part.items() if key != "id"})
+        if signature in signatures:
+            raise ValueError("Compound geometry cannot duplicate an identical collision primitive")
+        signatures.add(signature)
+        local_bounds.append(_primitive_bounds(part))
+    low = np.min([item[0] for item in local_bounds], axis=0)
+    high = np.max([item[1] for item in local_bounds], axis=0)
+    if np.max(high - low) > maximum + 1e-12:
+        raise ValueError("Compound geometry exceeds the rigid-object extent envelope")
 
 
 def _human_only_xml(human_spec, scale):
@@ -311,6 +423,7 @@ def validate_shared_world(scene):
         raise ValueError("shared-world-v1 requires 1–12 rigid objects alongside the articulated human")
     reserved = _reserved_human_names(human_spec)
     identifiers = set()
+    primitive_count = 0
     for obj in result["objects"]:
         obj_required = {
             "id",
@@ -327,7 +440,8 @@ def validate_shared_world(scene):
             "provenance",
         }
         shape = obj.get("shape") if isinstance(obj, dict) else None
-        if shape not in {"box", "sphere"} or set(obj) != obj_required | ({"size"} if shape == "box" else {"radius"}):
+        geometry_fields = {"box": {"size"}, "sphere": {"radius"}, "compound": {"geometry"}}
+        if not isinstance(shape, str) or shape not in geometry_fields or set(obj) != obj_required | geometry_fields[shape]:
             raise ValueError("Shared-world rigid object fields differ from contract")
         if (
             not isinstance(obj["id"], str)
@@ -359,10 +473,18 @@ def validate_shared_world(scene):
             obj["size"] = _vector(obj["size"], 3, "box size", 0.01, max_dim)
             pts = corners(obj)
             low, high = pts.min(axis=0), pts.max(axis=0)
-        else:
+        elif shape == "sphere":
             obj["radius"] = _number(obj["radius"], "sphere radius", 0.01, 0.5)
             low = np.asarray(obj["position"]) - obj["radius"]
             high = np.asarray(obj["position"]) + obj["radius"]
+        else:
+            _validate_compound(obj)
+            part_bounds = [_primitive_bounds(part) for part in _world_primitives(obj)]
+            low = np.min([item[0] for item in part_bounds], axis=0)
+            high = np.max([item[1] for item in part_bounds], axis=0)
+        primitive_count += len(obj["geometry"]["parts"]) if shape == "compound" else 1
+        if primitive_count > MAX_RIGID_PRIMITIVES:
+            raise ValueError("Shared-world scenes support at most 32 rigid collision primitives")
         if (low < 0.0).any() or (high > np.asarray(result["bounds"])).any():
             raise ValueError(f"Initial rigid object {obj['id']!r} exceeds shared-world bounds")
         if not isinstance(obj["provenance"], dict) or not obj["provenance"]:
@@ -737,7 +859,7 @@ def _build_world_xml(scene):
             tip = "ankle" if limb == "leg" else "wrist"
             ET.SubElement(child, "site", name=f"{side}_{tip}_site", pos=f"0 0 {-l2}", size=str(0.01 * scale))
 
-    for obj in scene["objects"]:
+    for object_index, obj in enumerate(scene["objects"]):
         body = ET.SubElement(
             world,
             "body",
@@ -748,6 +870,19 @@ def _build_world_xml(scene):
         is_static = obj["role"] == "static"
         if not is_static:
             ET.SubElement(body, "freejoint", name=f"{obj['id']}_joint")
+        if obj["shape"] == "compound":
+            # Collision parts never add mass or silently move the authored body-frame origin.
+            ET.SubElement(body, "inertial", pos="0 0 0", mass=str(obj["mass"]),
+                          diaginertia=" ".join(map(str, obj["geometry"]["inertia"]["diagonal"])))
+            for part_index, part in enumerate(obj["geometry"]["parts"]):
+                size = (np.asarray(part["size"], dtype=float) / 2.0 if part["shape"] == "box" else
+                        [part["radius"], part["length"] / 2.0] if part["shape"] == "capsule" else [part["radius"]])
+                ET.SubElement(body, "geom", name=f"__weft_part_{object_index}_{part_index}", type=part["shape"],
+                              pos=" ".join(map(str, part["position"])), quat=" ".join(map(str, part["quaternion"])),
+                              size=" ".join(map(str, size)), mass="0", friction=" ".join(map(str, obj["friction"])),
+                              contype="1" if is_static else "4", conaffinity="6" if is_static else "7", condim="6",
+                              solref=solref, solimp="0.99 0.99 0.001", margin="0")
+            continue
         size = np.asarray(obj["size"], dtype=float) / 2.0 if obj["shape"] == "box" else [float(obj["radius"])]
         ET.SubElement(
             body,
@@ -800,7 +935,8 @@ def shared_world_xml(scene):
 
 def _initial_intersections(scene, model, data, human_geoms):
     floor = model.geom("mobile_floor").id
-    objects = [(model.geom(obj["id"]).id, obj["id"], obj["role"]) for obj in scene["objects"]]
+    objects = [(model.geom(name).id, obj["id"], obj["role"], part) for obj, part, name in _geometry_names(scene)]
+    compound = any(obj["shape"] == "compound" for obj in scene["objects"])
     intersections = []
     scale = scene["coordinate_frame"]["scale_bridge"]["body_height_to_world_scale"]
     floor_limit = SUCCESS_LIMITS["max_floor_penetration_model_units"] * scale
@@ -808,23 +944,26 @@ def _initial_intersections(scene, model, data, human_geoms):
         distance = float(mujoco.mj_geomDistance(model, data, hgid, floor, 0.05, None))
         if distance < -floor_limit:
             intersections.append({"pair": [hname, "mobile_floor"], "kind": "human_floor", "distance": distance})
-    for index, (gid, name, role) in enumerate(objects):
+    for index, (gid, name, role, part) in enumerate(objects):
         if role != "static":
             distance = float(mujoco.mj_geomDistance(model, data, gid, floor, 0.05, None))
             if distance < -1e-5:
-                intersections.append({"pair": [name, "mobile_floor"], "kind": "object_floor", "distance": distance})
+                intersections.append({"pair": [name, "mobile_floor"], "kind": "object_floor", "distance": distance,
+                                      **({"parts": [part, None]} if compound else {})})
         for hgid, hname in human_geoms.items():
             distance = float(mujoco.mj_geomDistance(model, data, gid, hgid, 0.05, None))
             if distance < -1e-5:
                 kind = "human_static" if role == "static" else "human_object"
-                intersections.append({"pair": [hname, name], "kind": kind, "distance": distance})
-        for other_gid, other_name, other_role in objects[index + 1 :]:
-            if role == other_role == "static":
+                intersections.append({"pair": [hname, name], "kind": kind, "distance": distance,
+                                      **({"parts": [None, part]} if compound else {})})
+        for other_gid, other_name, other_role, other_part in objects[index + 1 :]:
+            if name == other_name or role == other_role == "static":
                 continue
             distance = float(mujoco.mj_geomDistance(model, data, gid, other_gid, 0.05, None))
             if distance < -1e-5:
                 kind = "object_static" if "static" in (role, other_role) else "object_object"
-                intersections.append({"pair": [name, other_name], "kind": kind, "distance": distance})
+                intersections.append({"pair": [name, other_name], "kind": kind, "distance": distance,
+                                      **({"parts": [part, other_part]} if compound else {})})
     return intersections
 
 
@@ -851,8 +990,10 @@ def audit_shared_world_feasibility(scene):
     ref_matrix = np.vstack((ref_angles, ref_roots))
 
     floor_geom = model.geom("mobile_floor").id
-    static_geoms = {model.geom(obj["id"]).id: obj["id"] for obj in validated["objects"] if obj["role"] == "static"}
-    dynamic_geoms = {model.geom(obj["id"]).id: obj["id"] for obj in validated["objects"] if obj["role"] != "static"}
+    static_geoms = {model.geom(name).id: obj["id"] for obj, _, name in _geometry_names(validated) if obj["role"] == "static"}
+    dynamic_geoms = {model.geom(name).id: obj["id"] for obj, _, name in _geometry_names(validated) if obj["role"] != "static"}
+    part_by_geom = {model.geom(name).id: part for _, part, name in _geometry_names(validated)}
+    compound = any(obj["shape"] == "compound" for obj in validated["objects"])
     human_geoms = {
         gid: mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, gid)
         for gid in range(model.ngeom)
@@ -904,6 +1045,7 @@ def audit_shared_world_feasibility(scene):
                         {
                             "human_geom": human_geoms[hg],
                             "static_object": static_geoms[sg],
+                            **({"part_id": part_by_geom[sg]} if compound else {}),
                             "distance_world": float(con.dist),
                             "position": con.pos.tolist(),
                         }
@@ -946,7 +1088,7 @@ def audit_shared_world_feasibility(scene):
             "max_penetration_model_units": max(r["max_penetration_model_units"] for r in rows),
             "static_conflict_poses": sum(r["static_conflict_count"] > 0 for r in rows),
             "initial_cross_entity_intersections": len(initial_intersections),
-            "dynamic_object_count": len(dynamic_geoms),
+            "dynamic_object_count": len(set(dynamic_geoms.values())),
             "physics_steps": 0,
         },
         "initial_intersections": initial_intersections,
@@ -1022,7 +1164,14 @@ class SharedWorldEnv(gym.Env):
         self._dynamic_objects = _dynamic_objects(self.scene)
         self._dynamic_ids = [obj["id"] for obj in self._dynamic_objects]
         self._object_body_ids = {obj["id"]: self.model.body(obj["id"]).id for obj in self.scene["objects"]}
-        self._object_geom_ids = {obj["id"]: self.model.geom(obj["id"]).id for obj in self.scene["objects"]}
+        self._compound_geometry = any(obj["shape"] == "compound" for obj in self.scene["objects"])
+        self._object_geometry_ids = {obj["id"]: [] for obj in self.scene["objects"]}
+        self._geom_part_ids = {}
+        for obj, part, name in _geometry_names(self.scene):
+            gid = self.model.geom(name).id
+            self._object_geometry_ids[obj["id"]].append(gid)
+            self._geom_part_ids[gid] = part
+        self._object_geometry_ids = {name: tuple(ids) for name, ids in self._object_geometry_ids.items()}
         self._object_free_addresses = {}
         if substep_observer is not None:
             for obj in self._dynamic_objects:
@@ -1031,18 +1180,22 @@ class SharedWorldEnv(gym.Env):
                     int(self.model.jnt_qposadr[joint]), int(self.model.jnt_dofadr[joint])
                 )
         self._object_radii = {
-            obj["id"]: (float(np.linalg.norm(obj["size"]) / 2.0) if obj["shape"] == "box" else float(obj["radius"]))
+            obj["id"]: (float(np.linalg.norm(obj["size"]) / 2.0) if obj["shape"] == "box" else
+                        float(obj["radius"]) if obj["shape"] == "sphere" else
+                        max(float(np.linalg.norm(np.maximum(abs(low), abs(high))))
+                            for low, high in map(_primitive_bounds, obj["geometry"]["parts"])))
             for obj in self._dynamic_objects
         }
 
         self._floor_geom = self.model.geom("mobile_floor").id
         self._static_geom_to_id = {
-            self._object_geom_ids[obj["id"]]: obj["id"]
+            gid: obj["id"]
             for obj in self.scene["objects"]
             if obj["role"] == "static"
+            for gid in self._object_geometry_ids[obj["id"]]
         }
         self._dynamic_geom_to_id = {
-            self._object_geom_ids[obj["id"]]: obj["id"] for obj in self._dynamic_objects
+            gid: obj["id"] for obj in self._dynamic_objects for gid in self._object_geometry_ids[obj["id"]]
         }
         self._human_geom_to_name = {
             gid: mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, gid)
@@ -1158,6 +1311,17 @@ class SharedWorldEnv(gym.Env):
             return "object", self._dynamic_geom_to_id[gid]
         return "other", mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, gid) or f"geom_{gid}"
 
+    @property
+    def _object_geom_ids(self):
+        # Old study helpers must fail instead of silently inspecting only one compound part.
+        if self._compound_geometry:
+            raise ValueError("Compound objects require all object_geometry_ids(), not a single geom per object")
+        return {name: ids[0] for name, ids in self._object_geometry_ids.items()}
+
+    def object_geometry_ids(self):
+        """Return every collision geom per semantic object; fixed parts are not actors."""
+        return dict(self._object_geometry_ids)
+
     def _current_contacts(self, data=None):
         data = self.data if data is None else data
         if data.ncon > MAX_CONTACTS:
@@ -1205,6 +1369,8 @@ class SharedWorldEnv(gym.Env):
                     "position": pos,
                     "distance": dist,
                     "normal_force": normal_force,
+                    **({"parts": [self._geom_part_ids.get(gid) for _, gid in sorted(
+                        ((name1, int(con.geom1)), (name2, int(con.geom2))))]} if self._compound_geometry else {}),
                 }
             )
             if kind == "human_floor":
@@ -1456,7 +1622,7 @@ class SharedWorldEnv(gym.Env):
                 joint = self.model.joint(f"{obj['id']}_joint").id
                 qadr = int(self.model.jnt_qposadr[joint])
                 vadr = int(self.model.jnt_dofadr[joint])
-                gid = self._object_geom_ids[obj["id"]]
+                gids = self._object_geometry_ids[obj["id"]]
                 nominal_pos = np.asarray(obj["position"], dtype=float)
                 nominal_vel = np.asarray(obj["velocity"], dtype=float)
                 chosen_pos = nominal_pos.copy()
@@ -1469,7 +1635,8 @@ class SharedWorldEnv(gym.Env):
                     other_geoms = [
                         self._floor_geom,
                         *self._human_geom_to_name.keys(),
-                        *(self._object_geom_ids[o["id"]] for o in self.scene["objects"] if o["id"] != obj["id"]),
+                        *(gid for o in self.scene["objects"] if o["id"] != obj["id"]
+                          for gid in self._object_geometry_ids[o["id"]]),
                     ]
                     for _ in range(32):
                         delta = np.array(
@@ -1484,7 +1651,7 @@ class SharedWorldEnv(gym.Env):
                         mujoco.mj_forward(self.model, self.data)
                         if all(
                             mujoco.mj_geomDistance(self.model, self.data, gid, ogid, 0.02, None) >= 1e-4
-                            for ogid in other_geoms
+                            for gid in gids for ogid in other_geoms
                         ):
                             chosen_pos = candidate
                             placed = True
@@ -1940,6 +2107,10 @@ def _validate_shared_snapshot(state, validated_scene):
         raise ValueError("Shared-world snapshot must preserve profile, bounds, and physical_validation='unverified'")
 
     expected_objects = {obj["id"]: obj for obj in validated_scene["objects"]}
+    selected = state.get("controlled_id")
+    if selected != "human" and (not isinstance(selected, str) or selected not in expected_objects
+                                 or expected_objects[selected]["role"] == "static"):
+        raise ValueError("Shared-world snapshot controlled_id must name the human or a dynamic object")
     if not isinstance(state.get("objects"), list) or len(state["objects"]) != len(expected_objects):
         raise ValueError("Shared-world snapshot must retain all rigid objects")
     seen_objs = set()
@@ -1948,9 +2119,15 @@ def _validate_shared_snapshot(state, validated_scene):
             raise ValueError("Shared-world snapshot rigid object identity mismatch")
         seen_objs.add(obj["id"])
         orig = expected_objects[obj["id"]]
-        for key in ("shape", "color", "mass", "friction"):
-            if obj.get(key) != orig[key]:
+        geometry_keys = ("geometry",) if orig["shape"] == "compound" else ("size",) if orig["shape"] == "box" else ("radius",)
+        for key in ("shape", "label", "color", "mass", "friction", *geometry_keys):
+            if not _same_immutable(obj.get(key), orig[key]):
                 raise ValueError(f"Shared-world snapshot rigid object {key} changed")
+        expected_role = "static" if orig["role"] == "static" else "active" if selected == obj["id"] else "passive"
+        if obj.get("role") != expected_role:
+            raise ValueError("Shared-world snapshot role must preserve static geometry and the selected dynamic actor")
+        if any(key in obj for key in {"size", "radius", "geometry"} - set(geometry_keys)):
+            raise ValueError("Shared-world snapshot cannot introduce different rigid geometry fields")
         _vector(obj.get("position"), 3, "recorded position", -8.0, 8.0)
         _vector(obj.get("velocity"), 3, "recorded velocity", -MAX_SPEED - STATE_EPS, MAX_SPEED + STATE_EPS)
         _vector(obj.get("angular_velocity"), 3, "recorded spin", -MAX_SPIN - STATE_EPS, MAX_SPIN + STATE_EPS)
@@ -2060,15 +2237,24 @@ def _validate_shared_snapshot(state, validated_scene):
     ):
         raise ValueError("Shared-world contact_details must match contact_count within bounds")
     known_contact_names = _reserved_human_names(validated_scene["human_spec"]) | set(expected_objects)
+    part_names = {obj["id"]: {part["id"] for part in obj["geometry"]["parts"]}
+                  for obj in validated_scene["objects"] if obj["shape"] == "compound"}
     pairs = set()
     for con in details:
-        if not isinstance(con, dict) or set(con) != {"objects", "kind", "position", "distance", "normal_force"}:
+        keys = {"objects", "kind", "position", "distance", "normal_force"} | ({"parts"} if part_names else set())
+        if not isinstance(con, dict) or set(con) != keys:
             raise ValueError("Shared-world contact detail fields differ from contract")
         if con["kind"] not in CONTACT_KINDS:
             raise ValueError(f"Unknown shared-world contact kind: {con['kind']!r}")
         ids = con["objects"]
         if not isinstance(ids, list) or len(ids) != 2 or len(set(ids)) != 2 or not set(ids) <= known_contact_names:
             raise ValueError("Shared-world contact must name two distinct known world geometries")
+        if part_names:
+            parts = con["parts"]
+            if (not isinstance(parts, list) or len(parts) != 2 or any(
+                    (not isinstance(part, str) or part not in part_names[name]) if name in part_names else part is not None
+                    for name, part in zip(ids, parts))):
+                raise ValueError("Shared-world contact part identity must belong to its exact semantic object")
         pairs.add(tuple(sorted(ids)))
         _vector(con["position"], 3, "contact position", -15.0, 15.0)
         _number(con["distance"], "contact distance", -2.0, 2.0)
@@ -2118,6 +2304,7 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
     human = state["human"]
     floor_z = float(human["mobility"]["floor_height"])
     goal_tol = float(scene["task"]["object_goal"]["position_tolerance"])
+    rigid_primitives = [part for obj in state["objects"] for part in _world_primitives(obj)]
 
     for index, (label, matrix, depth) in enumerate(views):
         offset = np.array([(index + 0.5) * panel_width, height * 0.54])
@@ -2140,10 +2327,12 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
 
         # Depth-sorted rigid primitives and human capsules in one shared coordinate frame.
         draw_items = []
-        for obj in state["objects"]:
+        for obj in rigid_primitives:
             moving = obj["role"] != "static"
             if obj["shape"] == "sphere":
                 draw_items.append((0 if not moving else 1, float(np.asarray(obj["position"]) @ depth), "sphere", obj))
+            elif obj["shape"] == "capsule":
+                draw_items.append((0 if not moving else 1, float(np.asarray(obj["position"]) @ depth), "rigid_capsule", obj))
             else:
                 verts = corners(obj)
                 for face in FACES:
@@ -2166,13 +2355,23 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
                 )
             elif kind == "sphere":
                 x, y = project(payload["position"])
-                r = max(2.0, payload["radius"] * scale)
+                r = payload["radius"] * scale if "object_id" in payload else max(2.0, payload["radius"] * scale)
                 draw.ellipse(
                     (x - r, y - r, x + r, y + r),
                     fill=payload["color"] if payload["role"] != "static" else None,
                     outline="#214F50" if payload["role"] != "static" else "#AAA399",
                     width=1,
                 )
+            elif kind == "rigid_capsule":
+                pa, pb = (project(point) for point in _capsule_endpoints(payload))
+                px_w = max(1, round(2.0 * payload["radius"] * scale))
+                outline = "#214F50" if payload["role"] != "static" else "#AAA399"
+                fill = payload["color"] if payload["role"] != "static" else "#F5EADC"
+                for stroke, color in ((px_w + 2, outline), (px_w, fill)):
+                    draw.line((*pa, *pb), fill=color, width=stroke)
+                    for x, y in (pa, pb):
+                        radius = stroke / 2.0
+                        draw.ellipse((x - radius, y - radius, x + radius, y + radius), fill=color)
             else:
                 pa, pb = project(payload["a"]), project(payload["b"])
                 px_w = max(2, round(2.0 * payload["radius"] * scale))

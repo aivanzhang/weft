@@ -157,6 +157,71 @@
     }
     return result;
   }
+  function composeQuat([w, x, y, z], [a, b, c, d]) {
+    return [w * a - x * b - y * c - z * d, w * b + x * a + y * d - z * c,
+      w * c - x * d + y * a + z * b, w * d + x * c - y * b + z * a];
+  }
+  function sharedGeometry(objects) {
+    const primitives = [], extents = new Map();
+    const vector = (value, length, bound) => Array.isArray(value) && value.length === length && value.every(v => Number.isFinite(v) && Math.abs(v) <= bound);
+    const quaternion = value => vector(value, 4, 1) && Math.abs(Math.hypot(...value) - 1) <= 1e-8;
+    const unavailable = () => ({primitives: [], extents, error: "Rigid geometry unavailable · unsupported or invalid compound; no substitute drawn"});
+    if (!Array.isArray(objects) || objects.length > 12) return unavailable();
+    for (const obj of objects) {
+      if (obj.shape !== "compound") { primitives.push(obj); continue; }
+      const geometry = obj.geometry;
+      if (geometry?.profile !== "rigid-compound-v1" || !Array.isArray(geometry.parts) || !geometry.parts.length || geometry.parts.length > 8
+        || !vector(obj.position, 3, 100) || !quaternion(obj.quaternion)) return unavailable();
+      let extent = 0;
+      for (const part of geometry.parts) {
+        if (!part || !vector(part.position, 3, 4) || !quaternion(part.quaternion)) return unavailable();
+        let radius;
+        if (part.shape === "box" && vector(part.size, 3, 4) && part.size.every(v => v >= .01)) radius = Math.hypot(...part.size) / 2;
+        else if ((part.shape === "sphere" || part.shape === "capsule") && Number.isFinite(part.radius) && part.radius >= .01 && part.radius <= .5) {
+          radius = part.radius;
+          if (part.shape === "capsule") {
+            if (!Number.isFinite(part.length) || part.length < .01 || part.length > 4) return unavailable();
+            radius += part.length / 2;
+          }
+        } else return unavailable();
+        const offset = rotateQuat(part.position, obj.quaternion);
+        primitives.push({...part, id: obj.id, compoundPart: true, role: obj.role, color: obj.color,
+          position: offset.map((v, i) => v + obj.position[i]), quaternion: composeQuat(obj.quaternion, part.quaternion)});
+        extent = Math.max(extent, Math.hypot(...part.position) + radius);
+      }
+      extents.set(obj.id, extent);
+    }
+    if (primitives.length > 32) return unavailable();
+    // Transform once per frame; all three projections share the same part geometry.
+    return {extents, primitives: primitives.map(obj => {
+      if (obj.shape === "box") return {obj, vertices: spatialCorners(obj)};
+      if (obj.shape === "capsule") {
+        const axis = rotateQuat([0, 0, obj.length / 2], obj.quaternion);
+        return {obj, a: axis.map((v, i) => obj.position[i] - v), b: axis.map((v, i) => obj.position[i] + v)};
+      }
+      return {obj};
+    })};
+  }
+  function capsulePath(ctx, a, b, radius) {
+    const angle = Math.atan2(b[1] - a[1], b[0] - a[0]);
+    // Orthographic projection of a capsule is a stadium, including an end-on circle.
+    ctx.beginPath();
+    if (Math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-9) ctx.arc(...a, radius, 0, 2 * Math.PI);
+    else {
+      ctx.moveTo(a[0] + Math.sin(angle) * radius, a[1] - Math.cos(angle) * radius);
+      ctx.lineTo(b[0] + Math.sin(angle) * radius, b[1] - Math.cos(angle) * radius);
+      ctx.arc(...b, radius, angle - Math.PI / 2, angle + Math.PI / 2);
+      ctx.lineTo(a[0] - Math.sin(angle) * radius, a[1] + Math.cos(angle) * radius);
+      ctx.arc(...a, radius, angle + Math.PI / 2, angle + 3 * Math.PI / 2);
+    }
+    ctx.closePath();
+  }
+  function geometryLabel(obj) {
+    const parts = obj.geometry?.parts;
+    return obj.shape === "compound" ? Array.isArray(parts) && parts.length >= 1 && parts.length <= 8 && parts.every(part => part && typeof part.id === "string")
+      ? `compound · ${parts.length} authored parts (${parts.map(part => `${part.id}: ${part.shape}`).join(", ")})`
+      : "compound · geometry unavailable" : obj.shape;
+  }
   function drawSpatial(canvas, state) {
     const width = 1080, height = 400;
     if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
@@ -250,6 +315,8 @@
     const floorZ = state.human?.mobility?.floor_height ?? 0;
     const goalTol = scene.task?.object_goal?.position_tolerance || 0.05;
     const controlledId = state.controlled_id || scene.controlled_id;
+    const models = new Map(scene.objects.map(obj => [obj.id, obj]));
+    const geometry = sharedGeometry(state.objects.map(body => ({...models.get(body.id), ...body})));
     const views = [
       {name: "Front: x / height", matrix: [[1, 0, 0], [0, 0, -1]], depth: [0, 1, 0]},
       {name: "Top: x / depth", matrix: [[1, 0, 0], [0, -1, 0]], depth: [0, 0, 1]},
@@ -265,6 +332,7 @@
         return [(index + 0.5) * pane + dot(q, view.matrix[0]) * scale, height * 0.54 + dot(q, view.matrix[1]) * scale];
       };
       ctx.fillStyle = "#214F50"; ctx.font = "15px system-ui"; ctx.fillText(view.name, index * pane + 10, 22);
+      if (geometry.error) { ctx.font = "11px system-ui"; ctx.fillText(geometry.error, index * pane + 10, 40, pane - 20); }
       ctx.strokeStyle = "#E6D8C8"; ctx.lineWidth = 1;
       for (const f of [0.2, 0.5, 0.8]) {
         const gx = scene.bounds[0] * f, gy = scene.bounds[1] * f;
@@ -273,12 +341,12 @@
         }
       }
       const items = [];
-      for (const body of state.objects) {
-        const model = scene.objects.find((item) => item.id === body.id) || body;
-        const obj = {...model, ...body};
+      for (const primitive of geometry.primitives) {
+        const {obj} = primitive;
         const moving = obj.role !== "static";
         if (obj.shape === "sphere") { items.push({tier: moving ? 1 : 0, depth: dot(obj.position, view.depth), kind: "sphere", obj}); continue; }
-        const vertices = spatialCorners(obj);
+        if (obj.shape === "capsule") { items.push({tier: moving ? 1 : 0, depth: dot(obj.position, view.depth), kind: "rigid-capsule", ...primitive}); continue; }
+        const {vertices} = primitive;
         for (const face of spatialFaces) {
           const points = face.map((i) => vertices[i]);
           items.push({tier: moving ? 1 : 0, depth: points.reduce((sum, p) => sum + dot(p, view.depth), 0) / 4, kind: "poly", moving, points, color: obj.color || "#C5A059"});
@@ -296,8 +364,13 @@
         } else if (item.kind === "sphere") {
           const obj = item.obj, [x, y] = project(obj.position);
           ctx.beginPath(); ctx.strokeStyle = obj.role !== "static" ? "#214F50" : "#AAA399"; ctx.lineWidth = 1;
-          ctx.fillStyle = obj.color || "#C5A059"; ctx.arc(x, y, Math.max(2, obj.radius * scale), 0, 2 * Math.PI);
+          ctx.fillStyle = obj.color || "#C5A059"; ctx.arc(x, y, obj.compoundPart ? obj.radius * scale : Math.max(2, obj.radius * scale), 0, 2 * Math.PI);
           if (obj.role !== "static") ctx.fill(); ctx.stroke();
+        } else if (item.kind === "rigid-capsule") {
+          const moving = item.obj.role !== "static";
+          capsulePath(ctx, project(item.a), project(item.b), item.obj.radius * scale);
+          ctx.strokeStyle = moving ? "#214F50" : "#AAA399"; ctx.lineWidth = 1; ctx.fillStyle = item.obj.color || "#C5A059";
+          if (moving) ctx.fill(); ctx.stroke();
         } else {
           const pa = project(item.seg.a), pb = project(item.seg.b), w = Math.max(2, 2 * item.seg.radius * scale);
           ctx.lineCap = "round"; ctx.strokeStyle = "#214F50"; ctx.lineWidth = w + 2;
@@ -313,12 +386,12 @@
           ctx.lineWidth = 1.5 + 2.5 * act; ctx.beginPath(); ctx.moveTo(...pa); ctx.lineTo(...pb); ctx.stroke();
         }
       }
-      if (controlledId !== "human") {
+      if (controlledId !== "human" && !geometry.error) {
         const controlled = state.objects.find((item) => item.id === controlledId);
         if (controlled) {
           const model = scene.objects.find((item) => item.id === controlled.id) || controlled;
           const [cx, cyPos] = project(controlled.position);
-          const extent = (model.radius || Math.max(...(model.size || [0.05])) / 2) * scale + 5;
+          const extent = (geometry.extents.get(controlled.id) ?? (model.radius || Math.max(...(model.size || [0.05])) / 2)) * scale + 5;
           ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.arc(cx, cyPos, extent, 0, 2 * Math.PI); ctx.stroke();
         }
       }
@@ -377,6 +450,17 @@
       : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
       : "Training searched feedback gains using simulator state and the known body reference."} Equipment has no force controls; root assistance remains the selected task setting.`;
   }
+  function exerciseResetDescription() {
+    const reset = exercisePolicy?.evaluation_reset_protocol;
+    const values = [reset?.human_jitter_scale, reset?.object_position_jitter_world, reset?.object_velocity_jitter_world_s];
+    if (!values.every(value => typeof value === "number" && Number.isFinite(value) && value >= 0)) return "Reset protocol unspecified in this saved comparison.";
+    if (reset.profile === "shared-exercise-human-jitter-v1" && reset.equipment_reset_state === "unchanged_scene_pose_and_velocity"
+      && reset.object_position_jitter_world === 0 && reset.object_velocity_jitter_world_s === 0) {
+      return `Changed starts: human-only perturbations (scale ${number(reset.human_jitter_scale, 2)}); equipment keeps its exact scene pose and velocity. This is not a changed-equipment test.`;
+    }
+    if (reset.profile === "shared-exercise-reset-v1") return `Legacy reset: human perturbation scale ${number(reset.human_jitter_scale, 2)}, equipment position jitter ${number(reset.object_position_jitter_world)} model units and velocity jitter ${number(reset.object_velocity_jitter_world_s)} model units/s. Support-preserving starts are not established.`;
+    return "Reset protocol unspecified in this saved comparison.";
+  }
   function showExerciseLearning(data) {
     const available = learnedPolicyAvailable && exercisePolicy !== null;
     text($("policy"), available ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : "Learned controller · unavailable");
@@ -399,7 +483,7 @@
         && Number.isInteger(row.successes) && row.successes >= 0 && row.successes <= row.episodes;
     });
     text($("exercise-evaluation-summary"), evaluated
-      ? "Attached independent changed-start evaluation: matched starts, frozen policy and the same declared task interval. Counts below are task trials passed, not physical or full-exercise validation."
+      ? `Attached independent changed-start evaluation: matched starts, frozen policy and the same declared task interval. ${exerciseResetDescription()} Counts below are task trials passed, not physical or full-exercise validation.`
       : available && exercisePolicy.evaluation_status !== "not_attached"
         ? "Attached evaluation results unavailable or incomplete. No evaluation pass is inferred from training."
         : "Independent evaluation unavailable · no verified evaluation is attached. Training is not an evaluation pass.");
@@ -506,9 +590,9 @@
       const forceUnits = cm.contact_force_units || scene.action_contract?.units?.[19] || "uncalibrated model force units";
       text($("whole-body-status"), `Virtual root forces [${(root?.support_force || []).map((v) => number(v, 1)).join(", ")}] ${forceUnits} · ${root?.contact_count ?? 0} simulated floor contacts · ${cm.human_object_contacts_total ?? 0} cumulative human↔object contacts.`);
       text($("muscle-readout"), `${h?.muscles?.length ?? 38} illustrative muscle bands show joint motor commands, not measured activation.`);
-      const objLines = state.objects.map((o) => `${o.id} (${o.role}, ${o.shape}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}]${o.virtual_force ? ` · force [${o.virtual_force.map((v) => v.toFixed(2)).join(", ")}] ${forceUnits}` : ""}`);
+      const objLines = state.objects.map((o) => `${o.id} (${o.role}, ${geometryLabel(o)}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}]${o.virtual_force ? ` · force [${o.virtual_force.map((v) => v.toFixed(2)).join(", ")}] ${forceUnits}` : ""}`);
       const contactLines = (state.contact_details || []).length
-        ? state.contact_details.map((c) => `contact [${c.kind}] ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] normal force ${c.normal_force.toFixed(2)} ${forceUnits}`)
+        ? state.contact_details.map((c) => `contact [${c.kind}] ${c.objects.map((id, i) => c.parts?.[i] ? `${id}[${c.parts[i]}]` : id).join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] normal force ${c.normal_force.toFixed(2)} ${forceUnits}`)
         : ["contacts: none"];
       $("spatial-readout").hidden = false;
       text($("spatial-readout"), [...objLines, ...contactLines].join("\n"));
@@ -1076,7 +1160,7 @@
     $("objects").replaceChildren();
     for (const obj of scene.objects) {
       const row = document.createElement("tr");
-      cell(row, `${actorLabel(obj.id)} · ${obj.id}`); cell(row, obj.role); cell(row, obj.shape);
+      cell(row, `${actorLabel(obj.id)} · ${obj.id}`); cell(row, obj.role); cell(row, geometryLabel(obj));
       cell(row, inspectionActors.get(obj.id)?.scope || (current?.profile === "exercise"
         ? "Simplified body segment; inferred proportions and authored physics."
         : "Geometry and physics are assumptions; inspect the model data for provenance."));

@@ -11,6 +11,7 @@ import pytest
 from weft.io import canonical_hash, digest
 from weft.pipeline import verify_artifacts
 from weft.shared_exercise_task import SharedExerciseTaskEnv, build_shared_exercise_task
+from weft.shared_exercise_reset import HUMAN_JITTER_PROFILE
 from weft.shared_exercise_learning import (
     _policy, _runtime_hashes, evaluate_shared_exercise_policy, prepare_shared_exercise_policy,
     train_shared_exercise_policy, validate_shared_exercise_policy,
@@ -83,6 +84,7 @@ def test_training_and_independent_evaluation_preserve_full_task_and_inputs(tmp_p
     assert trained["status"] == "trained" and trained["completed_generations"] == 2
     assert trained["cache_hits"] >= 2 and trained["evaluated_episodes"] < 16
     assert trained["control_steps"] <= settings["maximum_control_steps"] == 48
+    assert all(reset["profile"] == HUMAN_JITTER_PROFILE for reset in settings["training_reset_options"])
     assert policy["root_assistance"] == ("explicit_3_axis" if root_assistance else "disabled")
     assert (learning / "scene.json").read_bytes() == (source / "scene.json").read_bytes()
     assert not (learning / "evaluation.json").exists()
@@ -95,6 +97,7 @@ def test_training_and_independent_evaluation_preserve_full_task_and_inputs(tmp_p
     assert result["evaluation_feedback_to_optimizer"] is False
     assert result["policy_sha256"] == digest(learning / "policy.json")
     assert result["external_api_usd"] == 0
+    assert result["reset_options"]["profile"] == HUMAN_JITTER_PROFILE
     hashes = {}
     for controller, summary in result["controllers"].items():
         assert len(summary["trials"]) == 2
@@ -254,14 +257,18 @@ def test_study_driver_runs_one_fixed_pair_without_retry_or_interval_expansion(tm
     monkeypatch.setattr(module, "train_shared_exercise_policy", train)
     monkeypatch.setattr(module, "evaluate_shared_exercise_policy", evaluate)
     out = tmp_path / "study"
+    seeds = {"training_seed": 1733, "evaluation_seed": 924019}
     if fail_evaluation:
         with pytest.raises(RuntimeError, match="failed evaluation"):
-            module.run(source, out)
+            module.run(source, out, **seeds)
     else:
-        module.run(source, out)
+        module.run(source, out, **seeds)
     assert [name for name, _ in calls] == ["train", "evaluate"]
     assert calls[0][1]["generations"] == 3 and calls[0][1]["population"] == 8
-    assert calls[1][1]["trials"] == 3 and calls[1][1]["seed"] == 924017
+    assert calls[0][1]["seed"] == seeds["training_seed"]
+    assert calls[1][1]["trials"] == 3 and calls[1][1]["seed"] == seeds["evaluation_seed"]
     plan = json.loads((out / "pre-training-freeze.json").read_text())
     assert plan["horizon_steps"] == 3 and plan["declared_interval_s"] == .1
+    assert plan["training_seed"] == seeds["training_seed"] and plan["evaluation_seed"] == seeds["evaluation_seed"]
+    assert plan["evaluation_reset_options"]["profile"] == HUMAN_JITTER_PROFILE
     assert json.loads((out / "manifest.json").read_text())["status"] == ("failed" if fail_evaluation else "completed")

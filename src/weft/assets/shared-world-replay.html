@@ -31,6 +31,65 @@ function stop(){if(timer!==null)clearTimeout(timer);timer=null;play.textContent=
 function requestFrame(index){wanted=Math.max(0,Math.min(count-1,index));if(busy||closed||!scene)return;busy=true;requested=wanted;worker.postMessage({type:'frame',index:requested});}
 function rotate([x,y,z],[w,a,b,c]){return [(1-2*(b*b+c*c))*x+2*(a*b-w*c)*y+2*(a*c+w*b)*z,2*(a*b+w*c)*x+(1-2*(a*a+c*c))*y+2*(b*c-w*a)*z,2*(a*c-w*b)*x+2*(b*c+w*a)*y+(1-2*(a*a+b*b))*z];}
 function corners(o){const result=[];for(const x of [-1,1])for(const y of [-1,1])for(const z of [-1,1]){const r=rotate([x*o.size[0]/2,y*o.size[1]/2,z*o.size[2]/2],o.quaternion);result.push(r.map((v,i)=>v+o.position[i]));}return result;}
+function composeQuat([w, x, y, z], [a, b, c, d]) {
+  return [w * a - x * b - y * c - z * d, w * b + x * a + y * d - z * c,
+    w * c - x * d + y * a + z * b, w * d + x * c - y * b + z * a];
+}
+function sharedGeometry(objects) {
+  const primitives = [], extents = new Map();
+  const vector = (value, length, bound) => Array.isArray(value) && value.length === length && value.every(v => Number.isFinite(v) && Math.abs(v) <= bound);
+  const quaternion = value => vector(value, 4, 1) && Math.abs(Math.hypot(...value) - 1) <= 1e-8;
+  const unavailable = () => ({primitives: [], extents, error: "Rigid geometry unavailable · unsupported or invalid compound; no substitute drawn"});
+  if (!Array.isArray(objects) || objects.length > 12) return unavailable();
+  for (const obj of objects) {
+    if (obj.shape !== "compound") { primitives.push(obj); continue; }
+    const geometry = obj.geometry;
+    if (geometry?.profile !== "rigid-compound-v1" || !Array.isArray(geometry.parts) || !geometry.parts.length || geometry.parts.length > 8
+      || !vector(obj.position, 3, 100) || !quaternion(obj.quaternion)) return unavailable();
+    let extent = 0;
+    for (const part of geometry.parts) {
+      if (!part || !vector(part.position, 3, 4) || !quaternion(part.quaternion)) return unavailable();
+      let radius;
+      if (part.shape === "box" && vector(part.size, 3, 4) && part.size.every(v => v >= .01)) radius = Math.hypot(...part.size) / 2;
+      else if ((part.shape === "sphere" || part.shape === "capsule") && Number.isFinite(part.radius) && part.radius >= .01 && part.radius <= .5) {
+        radius = part.radius;
+        if (part.shape === "capsule") {
+          if (!Number.isFinite(part.length) || part.length < .01 || part.length > 4) return unavailable();
+          radius += part.length / 2;
+        }
+      } else return unavailable();
+      const offset = rotate(part.position, obj.quaternion);
+      primitives.push({...part, id: obj.id, compoundPart: true, role: obj.role, color: obj.color,
+        position: offset.map((v, i) => v + obj.position[i]), quaternion: composeQuat(obj.quaternion, part.quaternion)});
+      extent = Math.max(extent, Math.hypot(...part.position) + radius);
+    }
+    extents.set(obj.id, extent);
+  }
+  if (primitives.length > 32) return unavailable();
+  // Transform once per frame; all three projections share the same part geometry.
+  return {extents, primitives: primitives.map(obj => {
+    if (obj.shape === "box") return {obj, vertices: corners(obj)};
+    if (obj.shape === "capsule") {
+      const axis = rotate([0, 0, obj.length / 2], obj.quaternion);
+      return {obj, a: axis.map((v, i) => obj.position[i] - v), b: axis.map((v, i) => obj.position[i] + v)};
+    }
+    return {obj};
+  })};
+}
+function capsulePath(ctx, a, b, radius) {
+  const angle = Math.atan2(b[1] - a[1], b[0] - a[0]);
+  // Orthographic projection of a capsule is a stadium, including an end-on circle.
+  ctx.beginPath();
+  if (Math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-9) ctx.arc(...a, radius, 0, 2 * Math.PI);
+  else {
+    ctx.moveTo(a[0] + Math.sin(angle) * radius, a[1] - Math.cos(angle) * radius);
+    ctx.lineTo(b[0] + Math.sin(angle) * radius, b[1] - Math.cos(angle) * radius);
+    ctx.arc(...b, radius, angle - Math.PI / 2, angle + Math.PI / 2);
+    ctx.lineTo(a[0] - Math.sin(angle) * radius, a[1] + Math.cos(angle) * radius);
+    ctx.arc(...a, radius, angle + Math.PI / 2, angle + 3 * Math.PI / 2);
+  }
+  ctx.closePath();
+}
 function controllerLabel(row){
 if(row.type==='start')return 'Recording start · no action applied';
 if(row.type==='reset')return 'Seeded reset · no action applied';
@@ -43,17 +102,18 @@ function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.h
 const scale=Number(zoom.value)*Math.min(pane*.84/Math.max(scene.bounds[0],scene.bounds[1]),canvas.height*.76/Math.max(...scene.bounds));
 const center=scene.bounds.map(v=>v/2),floorZ=state.human?.mobility?.floor_height??0,goalTol=scene.task?.object_goal?.position_tolerance||.05;
 const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:'3D: coupled world',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
-const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0);
+const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0),geometry=sharedGeometry(state.objects);
 views.forEach((view,index)=>{ctx.save();ctx.beginPath();ctx.rect(index*pane,0,pane,canvas.height);ctx.clip();
 if(index>0){ctx.strokeStyle='#E9DED1';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(index*pane,0);ctx.lineTo(index*pane,canvas.height);ctx.stroke();}
 const project=p=>{const q=p.map((v,i)=>v-center[i]);return [(index+.5)*pane+dot(q,view.matrix[0])*scale,canvas.height*.54+dot(q,view.matrix[1])*scale];};
 ctx.fillStyle='#214F50';ctx.font='15px system-ui';ctx.fillText(view.name,index*pane+10,22);
+if(geometry.error){ctx.font='11px system-ui';ctx.fillText(geometry.error,index*pane+10,40,pane-20);}
 ctx.strokeStyle='#E6D8C8';ctx.lineWidth=1;
 for(const f of [.2,.5,.8]){const gx=scene.bounds[0]*f,gy=scene.bounds[1]*f;for(const [a,b] of [[[gx,0,floorZ],[gx,scene.bounds[1],floorZ]],[[0,gy,floorZ],[scene.bounds[0],gy,floorZ]]]){const p1=project(a),p2=project(b);ctx.beginPath();ctx.moveTo(...p1);ctx.lineTo(...p2);ctx.stroke();}}
 const items=[];
-for(const o of state.objects){const moving=o.role!=='static';if(o.shape==='sphere'){items.push({tier:moving?1:0,depth:dot(o.position,view.depth),kind:'sphere',o});continue;}const verts=corners(o);for(const face of faces){const pts=face.map(i=>verts[i]);items.push({tier:moving?1:0,depth:pts.reduce((s,p)=>s+dot(p,view.depth),0)/4,kind:'poly',moving,pts,color:o.color});}}
+for(const primitive of geometry.primitives){const o=primitive.obj,moving=o.role!=='static';if(o.shape==='sphere'){items.push({tier:moving?1:0,depth:dot(o.position,view.depth),kind:'sphere',o});continue;}if(o.shape==='capsule'){items.push({tier:moving?1:0,depth:dot(o.position,view.depth),kind:'rigid-capsule',...primitive});continue;}for(const face of faces){const pts=face.map(i=>primitive.vertices[i]);items.push({tier:moving?1:0,depth:pts.reduce((s,p)=>s+dot(p,view.depth),0)/4,kind:'poly',moving,pts,color:o.color});}}
 for(const seg of state.human?.segments||[]){const mid=[0,1,2].map(i=>(seg.a[i]+seg.b[i])/2);items.push({tier:1,depth:dot(mid,view.depth),kind:'capsule',seg});}
-for(const item of items.sort((a,b)=>a.tier-b.tier||a.depth-b.depth)){if(item.kind==='poly'){ctx.beginPath();ctx.strokeStyle=item.moving?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=item.color;item.pts.forEach((p,i)=>{const [x,y]=project(p);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.closePath();if(item.moving)ctx.fill();ctx.stroke();}else if(item.kind==='sphere'){const o=item.o,[x,y]=project(o.position);ctx.beginPath();ctx.strokeStyle=o.role!=='static'?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=o.color;ctx.arc(x,y,Math.max(2,o.radius*scale),0,2*Math.PI);if(o.role!=='static')ctx.fill();ctx.stroke();}else{const pa=project(item.seg.a),pb=project(item.seg.b),w=Math.max(2,2*item.seg.radius*scale);ctx.lineCap='round';ctx.strokeStyle='#214F50';ctx.lineWidth=w+2;ctx.beginPath();ctx.moveTo(...pa);ctx.lineTo(...pb);ctx.stroke();ctx.strokeStyle='#9BB3B0';ctx.lineWidth=w;ctx.stroke();ctx.lineCap='butt';}}
+for(const item of items.sort((a,b)=>a.tier-b.tier||a.depth-b.depth)){if(item.kind==='poly'){ctx.beginPath();ctx.strokeStyle=item.moving?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=item.color;item.pts.forEach((p,i)=>{const [x,y]=project(p);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.closePath();if(item.moving)ctx.fill();ctx.stroke();}else if(item.kind==='sphere'){const o=item.o,[x,y]=project(o.position);ctx.beginPath();ctx.strokeStyle=o.role!=='static'?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=o.color;ctx.arc(x,y,o.compoundPart?o.radius*scale:Math.max(2,o.radius*scale),0,2*Math.PI);if(o.role!=='static')ctx.fill();ctx.stroke();}else if(item.kind==='rigid-capsule'){const moving=item.obj.role!=='static';capsulePath(ctx,project(item.a),project(item.b),item.obj.radius*scale);ctx.strokeStyle=moving?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=item.obj.color;if(moving)ctx.fill();ctx.stroke();}else{const pa=project(item.seg.a),pb=project(item.seg.b),w=Math.max(2,2*item.seg.radius*scale);ctx.lineCap='round';ctx.strokeStyle='#214F50';ctx.lineWidth=w+2;ctx.beginPath();ctx.moveTo(...pa);ctx.lineTo(...pb);ctx.stroke();ctx.strokeStyle='#9BB3B0';ctx.lineWidth=w;ctx.stroke();ctx.lineCap='butt';}}
 if(muscles.checked)for(const m of state.human?.muscles||[]){const pa=project(m.a),pb=project(m.b),a=m.activation;ctx.strokeStyle=`rgb(${Math.round(150+55*a)},${Math.round(92-30*a)},${Math.round(72-20*a)})`;ctx.lineWidth=1.5+2.5*a;ctx.beginPath();ctx.moveTo(...pa);ctx.lineTo(...pb);ctx.stroke();}
 if(!exerciseTask){const [tx,ty]=project(state.target);ctx.beginPath();ctx.strokeStyle='#965644';ctx.setLineDash([6,4]);ctx.lineWidth=2;ctx.arc(tx,ty,Math.max(3,goalTol*scale),0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);}
 for(const c of state.contact_details||[]){const [x,y]=project(c.position),coupled=c.kind==='human_object';ctx.beginPath();ctx.fillStyle=coupled?'#C7795D':'#965644';ctx.arc(x,y,coupled?4.5:2.5,0,2*Math.PI);ctx.fill();if(coupled){ctx.strokeStyle='#214F50';ctx.lineWidth=1;ctx.stroke();}}

@@ -257,7 +257,8 @@ def main():
     exercise_policy_eval.add_argument("--out", required=True, help="New evaluation directory outside training inputs")
     exercise_policy_eval.add_argument("--seed", type=int, default=924017)
     exercise_policy_eval.add_argument("--trials", type=int, default=3)
-    exercise_policy_eval.add_argument("--jitter-scale", type=float, default=.10)
+    exercise_policy_eval.add_argument("--jitter-scale", type=float, default=.10,
+                                     help="Human-only start perturbation; equipment retains its scene pose and velocity")
     exercise_policy_eval.add_argument("--max-seconds", type=float, default=30)
     args = parser.parse_args()
     try:

@@ -11,6 +11,7 @@ import numpy as np
 
 from weft.io import canonical_hash, digest, local_time
 from weft.recording import _atomic_json
+from weft.shared_exercise_reset import human_jitter_options
 from weft.shared_exercise_lab import (
     RUNTIME_FILES, _implementation_snapshot, _json, _runtime_versions, _verified_inputs, load_shared_exercise_lab,
 )
@@ -30,7 +31,7 @@ POLICY_RUNTIME_FILES = (*RUNTIME_FILES, "whole_body_learning.py", "shared_exerci
 MAX_CONTROL_STEPS = 20_000
 MAX_EVALUATION_STEPS = 3_000
 MAX_OUTPUT_BYTES = 128 * 1024 * 1024
-TRAIN_RESETS = ({"jitter": False, "jitter_scale": 0.}, {"jitter": True, "jitter_scale": .05})
+TRAIN_RESETS = (human_jitter_options(0.), human_jitter_options(.05))
 CONTROLLERS = ("coast", "random", "authored", "learned")
 SCOPE = ("Reward-driven search over privileged reference-feedback gains in one authored simulator task. "
          "Coast and authored weights are explicit candidates; selecting authored unchanged is not learned improvement. "
@@ -432,7 +433,7 @@ def evaluate_shared_exercise_policy(learning_dir, out, *, seed=924017, trials=3,
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(manifest))
     _check(deadline)
     _package(out, scene_raw, task_raw, manifest, proof, extra={"policy.json": policy_raw})
-    reset = {"jitter": True, "jitter_scale": float(jitter_scale)}
+    reset = human_jitter_options(float(jitter_scale))
     evaluation = {"schema_version": 1, "status": "running", "created_at": local_time(), "policy_sha256": _sha(policy_raw),
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "runtime_sha256": hashes,
         "seed": seed, "evaluation_seeds": seeds, "training_seeds": settings["training_seeds"], "reset_options": reset,
