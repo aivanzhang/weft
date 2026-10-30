@@ -66,6 +66,8 @@ def main():
     replay.add_argument("--recover-incomplete", action="store_true",
                         help="Recover complete journal events from an interrupted recording into a new --out directory")
     replay.add_argument("--out", help="New output directory required with --recover-incomplete")
+    replay.add_argument("--verify-actions", action="store_true",
+                        help="Re-execute a human-only exercise journal and compare exact task/engine outcomes")
     demo = commands.add_parser("demo", help="Create a clearly labeled synthetic tabletop test video")
     demo.add_argument("--out", required=True, help="New directory for video, config, and provenance")
     pose_model = commands.add_parser("fetch-pose-model", help="Download/verify the pinned local pose model (no inference upload)")
@@ -204,6 +206,16 @@ def main():
     sw_lab.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_lab.add_argument("--learning", help="Optional verified shared-world policy directory for the same scene")
     sw_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
+    exercise_eval = commands.add_parser("shared-exercise-evaluate",
+        help="Evaluate and record human-only controls with passive equipment; no training or API calls")
+    exercise_eval.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
+    exercise_eval.add_argument("--out", required=True, help="New evaluation directory outside the immutable input")
+    exercise_choice = exercise_eval.add_mutually_exclusive_group()
+    exercise_choice.add_argument("--root-assistance", action="store_true", help="Allow three explicit virtual root controls")
+    exercise_choice.add_argument("--task", help="Validated shared-exercise-task-v1 JSON, with frozen gates and contact intervals")
+    exercise_eval.add_argument("--seed", type=int, default=938401)
+    exercise_eval.add_argument("--jitter", action="store_true", help="Use the same seeded reset perturbation for both baselines")
+    exercise_eval.add_argument("--max-seconds", type=float, default=60)
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -339,6 +351,10 @@ def main():
         elif args.command == "shared-world-lab":
             from weft.shared_world_lab import prepare_shared_world_lab
             result = prepare_shared_world_lab(args.run, args.out, policy_run=args.learning)
+        elif args.command == "shared-exercise-evaluate":
+            from weft.shared_exercise_run import evaluate_shared_exercise_run
+            result = evaluate_shared_exercise_run(args.run, args.out, root_assistance=args.root_assistance,
+                task_path=args.task, seed=args.seed, jitter=args.jitter, max_seconds=args.max_seconds)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)
@@ -352,6 +368,9 @@ def main():
                 if args.out:
                     raise ValueError("--out is supported only with --recover-incomplete")
                 result = export_recording(args.directory) if args.export else verify_recording(args.directory)
+            if args.verify_actions:
+                from weft.shared_exercise_recording import verify_action_replay
+                result["action_replay"] = verify_action_replay(args.out if args.recover_incomplete else args.directory)
         elif args.command == "demo":
             from weft.demo import create_demo
             result = create_demo(args.out)

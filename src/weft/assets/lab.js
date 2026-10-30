@@ -15,6 +15,9 @@
   let coverageLoaded = false;
   let poseCoverageLoaded = false, poseCoveragePending = false, poseCoverageAttempts = 0;
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
+  let inspection = null, inspectionLoaded = false, inspectionPending = false, inspectionAttempts = 0;
+  const inspectionActors = new Map();
+  const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
   const sharedWorld = () => scene?.profile === "shared-world-v1";
@@ -57,6 +60,7 @@
       button.classList.toggle("selected", button.dataset.panel === name);
       button.setAttribute("aria-current", button.dataset.panel === name ? "step" : "false");
     }
+    if (name === "world") showGeometryPanel();
   }
   for (const button of $("stages").querySelectorAll("button")) button.onclick = () => showPanel(button.dataset.panel);
 
@@ -414,13 +418,13 @@
         if (code >= 6 && button.dataset.spatial !== "true") continue;
         if (actionNames[code]) text(button, actionNames[code]);
       }
-      text($("goal-summary"), `Coupled world: keep the 22-motor human within reference & floor limits while moving ${goalObj} into [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}]${scene.task?.object_goal?.require_human_contact ? " with real human↔object contact" : ""}.`);
-      text($("mode-description"), mode === "manual" ? (sharedHumanTarget() ? "Human selected: choose any of the 22 human motors and apply +0.25 or −0.25." : `Object ${snapshot?.controlled_id || scene.controlled_id} selected: use the eight 3D force controls to push or slow it in the shared world.`) : mode === "reference" ? "Authored human feedback drives the 22 body motors along the reference while rigid objects respond purely to gravity and 3D collisions." : "The learned coupled controller coordinates all 22 human motors and bounded 3D object guidance in one MuJoCo model.");
+      text($("goal-summary"), `Authored terminal task: match the body reference within configured limits and stop ${actorLabel(goalObj)} in the dashed target at the end of the trial.${scene.task?.object_goal?.require_human_contact ? " A configured simulated human–object contact check also applies." : ""} This is not exercise or grasp success.`);
+      text($("mode-description"), mode === "manual" ? (sharedHumanTarget() ? "Human selected: choose any of the 22 human motors and apply +0.25 or −0.25." : `${actorLabel(snapshot?.controlled_id || scene.controlled_id)} selected: use the eight 3D force controls to push or slow it in the shared world.`) : mode === "reference" ? "Authored human feedback drives the 22 body motors along the reference while rigid objects respond purely to gravity and 3D collisions." : "The learned coupled controller coordinates all 22 human motors and bounded 3D object guidance in one MuJoCo model.");
     } else if (snapshot?.human) {
       const h = snapshot.human, degrees = value => (value * 180 / Math.PI).toFixed(0);
       text($("goal-summary"), wholeBody() ? "Track the known full-body reference using 19 joint motors and 3 virtual root-force controls. Tracking and floor-contact errors determine success; this is not learned balance." : mode === "reference" ? "Follow the video’s estimated joint movement. This controller is programmed, not learned." : `${h.selected_joint.replaceAll("_", " ")}: ${degrees(h.angles[h.selected_joint])}° now → ${degrees(h.target_angle)}° target. Reach the target and slow to a stop.`);
-    } else if (spatialRigid()) text($("goal-summary"), `Move ${snapshot?.controlled_id || scene.controlled_id} into the 3D dashed target [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}] m and slow below ${scene.task.speed_tolerance} m/s.`);
-    else if (scene) text($("goal-summary"), dynamicObjects().length > 1 ? `Move ${snapshot?.controlled_id || scene.controlled_id} into the dashed target and slow to a stop.` : "Move the highlighted object into the dashed target and slow to a stop.");
+    } else if (spatialRigid()) text($("goal-summary"), `Move ${actorLabel(snapshot?.controlled_id || scene.controlled_id)} into the 3D dashed target [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}] m and slow below ${scene.task.speed_tolerance} m/s.`);
+    else if (scene) text($("goal-summary"), dynamicObjects().length > 1 ? `Move ${actorLabel(snapshot?.controlled_id || scene.controlled_id)} into the dashed target and slow to a stop.` : "Move the highlighted object into the dashed target and slow to a stop.");
     if (!sharedWorld()) text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
@@ -850,8 +854,7 @@
       }
       try { const reference = await artifact("human-reference.json"); referenceFrames = reference.frames; $("reference-frame").max = Math.max(0, referenceFrames.length - 1); showReference(0); $("reference-play").disabled = referenceFrames.length < 2; } catch (e) { error(e.message); }
     }
-    $("objects").replaceChildren();
-    for (const obj of scene.objects) { const row = document.createElement("tr"); cell(row, obj.label || obj.id); cell(row, obj.role); cell(row, obj.shape); cell(row, JSON.stringify(obj.provenance || (data.profile === "exercise" ? "Simplified body segment; inferred proportions and authored physics" : "Unverified geometry and authored physics; inspect source evidence"))); $("objects").append(row); }
+    renderObjectDetails();
     $("assumptions").replaceChildren(); for (const assumption of scene.assumptions || []) { const li = document.createElement("li"); text(li, assumption); $("assumptions").append(li); }
     const results = await Promise.allSettled([noLearnedPolicy ? Promise.resolve(null) : artifact("training.json"), noLearnedPolicy ? Promise.resolve(null) : artifact("rl-evaluation.json"), artifact("repair-ledger.json"), artifact(data.profile === "rolling" ? "report.json" : "reconstruction.json")]);
     if (results[0].status === "fulfilled" && results[0].value) { const training = results[0].value; curve(training); text($("training-caption"), (wholeBody() || sharedWorld()) ? `${training.completed_generations} completed generations · ${number(training.seconds, 2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}` : `${training.completed_episodes ?? training.episodes} training episodes · ${training.steps} steps · ${Number(training.seconds).toFixed(2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}`); }
@@ -878,16 +881,139 @@
       const after = scores.after?.rmse_px ?? scores.selected?.rmse_px;
       if (before !== undefined && after !== undefined) metrics($("repair-summary"), [[Number(before).toFixed(2) + " px", "Initial development error"], [Number(after).toFixed(2) + " px", "Selected development error"]]);
     }
-    updateControls();
+    updateControls(); refreshArtifactButtons(data);
+  }
+  function renderObjectDetails() {
+    if (!scene) return;
+    $("objects").replaceChildren();
+    for (const obj of scene.objects) {
+      const row = document.createElement("tr");
+      cell(row, `${actorLabel(obj.id)} · ${obj.id}`); cell(row, obj.role); cell(row, obj.shape);
+      cell(row, inspectionActors.get(obj.id)?.scope || (current?.profile === "exercise"
+        ? "Simplified body segment; inferred proportions and authored physics."
+        : "Geometry and physics are assumptions; inspect the model data for provenance."));
+      $("objects").append(row);
+    }
+  }
+  function showGeometryPanel() {
+    if (activePanel !== "world") return;
+    const panels = inspection?.geometry?.panels || [], index = Number($("geometry-panel").value);
+    const panel = panels[index];
+    if (!panel) return;
+    if ($("geometry-preview").dataset.path === panel.name) return;
+    $("geometry-preview").dataset.path = panel.name;
+    $("geometry-preview").src = fileURL(`run/${panel.name}`); $("geometry-preview").hidden = false;
+    text($("geometry-caption"), `${index + 1}/${panels.length} · ${panel.name.split("/").pop()} · Saved source slots and authored hypotheses. This image is not synchronized to video playback and does not show a live physics state.`);
+    $("geometry-download").replaceChildren(link("Download full-size comparison", `run/${panel.name}`));
+  }
+  $("geometry-panel").onchange = showGeometryPanel;
+  $("geometry-preview").onerror = () => {
+    $("geometry-preview").hidden = true;
+    text($("geometry-caption"), "The saved comparison could not be displayed. Download it below; no geometry result is inferred.");
+  };
+  for (const [id, panel, target] of [["original", "evidence", "source"], ["tracking", "evidence", "tracking-summary"],
+    ["geometry", "world", "geometry-summary"], ["sandbox", "play", "live"], ["recordings", "play", "record-box"]]) {
+    $("inspect-" + id).onclick = () => { showPanel(panel); $(target).scrollIntoView({block: "nearest"}); };
+  }
+  function applyInspection(data) {
+    const source = inspection.source, tracking = inspection.tracking;
+    text($("inspection-status"), "Explore the saved source, estimates and assumptions, then interact and record. This is a prepared simulation candidate, not verified automatic reconstruction.");
+    text($("inspection-source"), `${source.decoded_frames === null ? "Decoded frame count unavailable" : `${source.decoded_frames} decoded source frames`}. ${source.sha256 ? `Source SHA256: ${source.sha256}.` : "Source identity unavailable."} ${source.scope}`);
+    const poses = tracking.pose_status_counts;
+    const body = poses ? `Body estimates: ${(poses.tracked || 0) + (poses.tracked_partial || 0)} usable, including ${poses.tracked_partial || 0} partial. Saved frame statuses: ${Object.entries(poses).map(([key, count]) => `${count} ${key.replaceAll("_", " ")}`).join("; ")}. `
+      : inspection.actors.some(actor => actor.id === "human") ? "No compact body-status summary is saved here; check the pose-coverage section if available. " : "";
+    text($("inspection-tracking"), `${body}${tracking.reference_poses === null ? "" : `${tracking.reference_poses} body poses retained for model replay. `}${tracking.scope}`);
+    $("inspection-actors").replaceChildren();
+    for (const actor of inspection.actors) {
+      inspectionActors.set(actor.id, actor);
+      const card = document.createElement("article"), title = document.createElement("h4"), identity = document.createElement("p"), detail = document.createElement("p"), scope = document.createElement("p");
+      text(title, actor.label); text(identity, `ID: ${actor.id} · ${actor.geometry} · ${actor.label_origin}`); identity.classList.add("hint");
+      const binding = actor.source_binding, counts = binding?.counts;
+      text(detail, counts && binding.kind !== "authored_addition"
+        ? `${counts.observed_slots} construction-observation slots · ${counts.missing_slots} not used or unavailable · ${counts.pre_init_slots} pre-initialization. These are not true-visibility or accuracy counts.`
+        : "No source-qualified tracking counts for this model entity.");
+      text(scope, actor.scope); card.append(title, identity, detail, scope); $("inspection-actors").append(card);
+    }
+    $("inspection-evidence-links").replaceChildren();
+    for (const file of inspection.artifact_links.filter(file => file.label === "Source observation document" || ["evidence.json", "observations.json", "coverage-summary.json", "pose-quality.json"].includes(file.name))) {
+      $("inspection-evidence-links").append(link(`${file.label} · ${file.sha256.slice(0, 12)} · download`, `run/${file.name}`));
+    }
+    if ($("tracks").hidden) text($("tracks-empty"), "No tracking movie is saved in this run. Review the coverage below and the selected source/geometry comparisons in stage 3. Raw observation documents are available to download.");
+    for (const option of $("actor").children) {
+      const actor = inspectionActors.get(option.value);
+      if (actor) text(option, actor.id === "human" ? actor.label : `${actor.label} (${actor.id})`);
+    }
+    text($("inspection-geometry"), inspection.geometry.status === "initial_hypothesis"
+      ? inspection.geometry.scope
+      : "No saved source-to-geometry comparison is available. Inspect the model below and its assumptions; physical geometry is unverified.");
+    const panels = inspection.geometry.panels;
+    $("geometry-gallery").hidden = !panels.length; $("geometry-panel").replaceChildren();
+    for (const [index, panel] of panels.entries()) {
+      const option = document.createElement("option"); option.value = String(index);
+      text(option, panel.name.split("/").pop()); $("geometry-panel").append(option);
+    }
+    $("geometry-panel").value = "0";
+    $("geometry-assumptions").replaceChildren();
+    for (const assumption of inspection.geometry.assumptions) {
+      const li = document.createElement("li"); text(li, assumption); $("geometry-assumptions").append(li);
+    }
+    const labels = {available: "Saved evidence available", unavailable: "No saved artifact", initial_hypothesis: "Initial hypotheses · inspect assumptions",
+      model_only: "Model only · no comparison", simulation: "Authored simulation · interact", local_recording: "Record, save and replay"};
+    for (const stage of inspection.stages) text($("stage-" + stage.id), labels[stage.state] || "Inspect saved evidence");
+    renderObjectDetails(); files(data); showGeometryPanel(); updateControls();
+  }
+  async function showInspection(data) {
+    if (inspectionLoaded || data.status !== "ready") return;
+    for (const id of ["original", "tracking", "geometry", "sandbox", "recordings"]) $("inspect-" + id).disabled = false;
+    try {
+      inspectionAttempts++;
+      const result = await request("/api/inspection");
+      const loading = ["pending", "loading"].includes(result.status);
+      inspectionPending = loading && inspectionAttempts < 10;
+      if (loading) {
+        text($("inspection-status"), inspectionPending ? "Reading a compact summary of the saved run…" : "The saved summary is still being prepared. You can use the lab now or read it again.");
+        $("inspection-retry").hidden = inspectionPending;
+        inspectionLoaded = !inspectionPending;
+        return;
+      }
+      inspectionLoaded = true;
+      if (result.status !== "available") {
+        text($("inspection-status"), `Saved inspection summary unavailable: ${result.reason || "no supported metadata"}. Original files and simulation controls are unchanged.`);
+        text($("inspection-tracking"), "No validated compact tracking summary is available. Use the saved source files; no completeness claim is made.");
+        return;
+      }
+      inspection = result; applyInspection(data);
+    } catch (_) {
+      inspectionLoaded = true; inspectionPending = false; $("inspection-retry").hidden = false;
+      text($("inspection-status"), "The saved summary could not be read. The lab and saved files remain available.");
+    }
+  }
+  $("inspection-retry").onclick = () => {
+    inspectionLoaded = false; inspectionAttempts = 0; $("inspection-retry").hidden = true; scheduleStatus(0);
+  };
+  function artifactEntries(data) {
+    return [...new Map([...(data.artifacts || []), ...(inspection?.artifact_links || [])].map(file => [file.name, file])).values()];
+  }
+  const inspectLimit = name => name === "human-reference.json" ? 8_000_000 : 2_000_000;
+  function refreshArtifactButtons(data) {
+    const entries = new Map(artifactEntries(data).map(file => [file.name, file]));
+    for (const button of document.querySelectorAll("[data-json]")) {
+      const file = entries.get(button.dataset.json);
+      button.disabled = !file || file.bytes > inspectLimit(file.name);
+      button.title = !file ? "Not saved in this run. Use the stage summary or Files." : button.disabled ? "Large artifact: download from Files." : "Inspect saved artifact";
+    }
   }
   function files(data) {
-    const entries = data.artifacts || [], signature = entries.map((item) => item.name).join("|");
+    const entries = artifactEntries(data), signature = entries.map((item) => `${item.name}:${item.bytes}`).join("|");
     if (signature === lastFiles) return; lastFiles = signature;
     $("files").replaceChildren();
     for (const file of entries) {
       const row = document.createElement("tr"); const name = cell(row, ""); name.append(link(file.name, `run/${file.name}`));
       cell(row, `${(file.bytes / 1024).toFixed(1)} KB`); const inspectCell = cell(row, "");
-      if (file.name.endsWith(".json")) { const button = document.createElement("button"); button.textContent = "Inspect"; button.onclick = () => inspect(file.name); inspectCell.append(button); }
+      if (file.name.endsWith(".json")) {
+        if (file.bytes <= inspectLimit(file.name)) { const button = document.createElement("button"); button.textContent = "Inspect"; button.onclick = () => inspect(file.name); inspectCell.append(button); }
+        else text(inspectCell, "Large document · download to inspect");
+      }
       $("files").append(row);
     }
     const names = entries.map((item) => item.name);
@@ -897,6 +1023,7 @@
     if (preview) { $("tracks").src = fileURL(`run/${preview}`); $("tracks").hidden = false; $("tracks-empty").hidden = true; }
     const replay = names.includes("reconstruction.gif") ? "reconstruction.gif" : names.includes("replay-slow.gif") ? "replay-slow.gif" : names.includes("tracks-contact-sheet.png") ? "tracks-contact-sheet.png" : null;
     if (replay) { $("reconstruction-preview").src = fileURL(`run/${replay}`); $("reconstruction-preview").hidden = false; }
+    refreshArtifactButtons(data);
   }
   function sessions(data) {
     const signature = JSON.stringify(data.sessions);
@@ -1013,12 +1140,13 @@
       $("progress").value = data.status === "ready" ? 7 : stages[last?.stage] || 0;
       files(data); sessions(data); await showCoverage(data); await showExerciseCoverage(data); if (epoch === mutationEpoch && !controlBusy) setRecording(data.recording);
       if (data.status === "ready" && !loadedReady) { loadedReady = true; await readyDetails(data); if (epoch === mutationEpoch && !controlBusy) setRecording(data.recording); }
+      await showInspection(data);
       if (data.status === "failed" || data.status === "cancelled") {
         error(data.error?.message || "Pipeline stopped. Inspect the worker log and preserved artifacts.");
         text($("build-status"), "· stopped"); text($("start-help"), "Generation stopped before an interactive environment was ready. Inspect Video for tracking issues and Files for the saved evidence.");
         if ($("tracks").hidden) text($("tracks-empty"), "No tracking preview was saved. Inspect the original video, tracking issues and frame measurements instead.");
       }
-      if (!["ready", "failed", "cancelled"].includes(data.status) || data.export?.status === "running" || poseCoveragePending) scheduleStatus();
+      if (!["ready", "failed", "cancelled"].includes(data.status) || data.export?.status === "running" || poseCoveragePending || inspectionPending) scheduleStatus();
     } catch (e) { error(`Cannot reach the local lab: ${e.message}. Keep the CLI process running.`); pause(); }
     finally { pollPending = false; if (pollAgain) { pollAgain = false; scheduleStatus(0); } }
   }

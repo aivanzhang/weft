@@ -1,0 +1,257 @@
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+
+from weft import lab_inspection
+from weft.lab import Lab
+
+
+def digest(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+
+def write(root, name, value):
+    path = root / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(value if isinstance(value, bytes) else json.dumps(value).encode())
+
+
+def seal(root):
+    write(root, 'manifest.json', {'files': {
+        path.relative_to(root).as_posix(): digest(path.read_bytes())
+        for path in root.rglob('*') if path.is_file() and path.name != 'manifest.json'}})
+
+
+def saved_run(root):
+    root.mkdir()
+    # Deliberately not JSON: linked observations must not be parsed by this view.
+    observations = b'opaque raw observations and model arrays; do not inspect here'
+    sha = digest(observations)
+    name = f'evidence/{sha}.json'
+    write(root, name, observations)
+    write(root, 'source.webm', b'original video; not decoded here')
+    source = digest((root / 'source.webm').read_bytes())
+    write(root, 'source.json', {'sha256': source, 'decoded_frames': 10, 'private_raw_provenance': 'DO NOT COPY'})
+    scene = {'profile': 'shared-world-v1', 'human_spec': {'reference': [{'raw_pose': [1, 2]}] * 4},
+             'objects': [{'id': 'sam-2', 'label': 'sam-2 source-linked solid-box proxy', 'role': 'passive', 'shape': 'box',
+                          'provenance': {'raw_internal': 'DO NOT COPY'}},
+                         {'id': 'floor', 'label': 'Authored floor', 'role': 'static', 'shape': 'box'}],
+             'source_binding': {'source_sha256': source, 'total_source_frames': 10,
+                                'evidence_documents': {sha: name}, 'entity_bindings': []}}
+    for actor, observed, mode in [('human', 6, 'observed_track'), ('sam-2', 8, 'observed_track'), ('floor', 0, 'authored_addition')]:
+        scene['source_binding']['entity_bindings'].append({
+            'world_entity_id': actor, 'observed_slots': observed, 'missing_slots': 10 - observed, 'pre_init_slots': 0,
+            'provenance_mode': mode, 'observation_entity_id': actor if observed else None,
+            'observation_document_sha256': sha if observed else None})
+    write(root, 'scene.json', scene)
+    write(root, 'human-reference.json', b'large reference replay, not read here')
+    write(root, 'geometry-study.json', {'panels': ['perspective-0008.png'],
+        'source_pose_status_counts': {'tracked': 4, 'tracked_partial': 2, 'no_pose': 3, 'not_sampled': 1}})
+    write(root, 'geometry-proposal.json', {'assumptions': ['Camera depth and solid box shape are authored.'],
+                                          'raw_provenance': 'DO NOT COPY'})
+    write(root, 'geometry-inspection/perspective-0008.png', b'saved diagnostic PNG; not decoded here')
+    write(root, 'geometry-inspection/body-reprojection.json', b'full body reprojection; do not read')
+    seal(root)
+    return root
+
+
+def summary(root):
+    return lab_inspection.load_inspection(root, profile='shared-world')
+
+
+def edit(root, name, mutate):
+    doc = json.loads((root / name).read_bytes())
+    mutate(doc)
+    write(root, name, doc)
+    seal(root)
+
+
+def test_saved_summary_separates_counts_labels_and_authored_physics(tmp_path):
+    root = saved_run(tmp_path / 'run')
+    before = {p: digest(p.read_bytes()) for p in root.rglob('*') if p.is_file()}
+    result = summary(root)
+    assert result['status'] == 'available'
+    assert result['source']['decoded_frames'] == 10
+    assert result['tracking']['reference_poses'] == 4
+    assert result['tracking']['pose_status_counts']['tracked_partial'] == 2
+    human, object_, floor = result['actors']
+    assert human['source_binding']['counts']['observed_slots'] == 6
+    assert object_['source_binding']['counts']['observed_slots'] == 8
+    assert object_['label'] == 'Tracked object 1' and object_['id'] == 'sam-2'
+    assert object_['source_binding']['observation_entity_id'] == 'sam-2'
+    assert floor['source_binding']['kind'] == 'authored_addition'
+    assert 'no source-qualified' in floor['scope']
+    assert [s['id'] for s in result['stages']] == ['original', 'tracking', 'geometry', 'sandbox', 'recordings']
+    assert result['geometry']['status'] == 'initial_hypothesis'
+    assert 'not recovered' in result['geometry']['scope']
+    payload = json.dumps(result)
+    assert len(payload.encode()) < lab_inspection.MAX_SUMMARY_BYTES
+    assert all(secret not in payload for secret in ('DO NOT COPY', 'raw_pose', 'raw_internal', 'large reference'))
+    assert {p: digest(p.read_bytes()) for p in before} == before
+
+
+def test_only_selected_metadata_are_read_not_linked_media_or_evidence(tmp_path, monkeypatch):
+    root = saved_run(tmp_path / 'run')
+    original = lab_inspection.os.fdopen
+    reads = []
+
+    class Reader:
+        def __init__(self, fd, *args):
+            self.stream = original(fd, *args)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            self.stream.close()
+
+        def fileno(self):
+            return self.stream.fileno()
+
+        def read(self, limit):
+            raw = self.stream.read(limit)
+            reads.append(raw)
+            return raw
+
+    monkeypatch.setattr(lab_inspection.os, 'fdopen', Reader)
+    assert summary(root)['status'] == 'available'
+    assert len(reads) == 5  # Manifest, source, scene, geometry study and proposal.
+    assert all(b'opaque raw observations' not in raw and b'not decoded here' not in raw for raw in reads)
+
+
+def test_legacy_run_does_not_invent_source_or_coverage(tmp_path):
+    root = tmp_path / 'run'
+    root.mkdir()
+    write(root, 'scene.json', {'objects': [{'id': 'box', 'label': 'Authored box', 'shape': 'box', 'role': 'active'}]})
+    seal(root)
+    result = lab_inspection.load_inspection(root, profile='spatial-rigid')
+    assert result['status'] == 'available'
+    assert result['source']['sha256'] is None and result['source']['decoded_frames'] is None
+    assert result['actors'][0]['source_binding'] is None
+    assert result['tracking']['pose_status_counts'] is None
+    assert [row['state'] for row in result['stages']][:3] == ['unavailable', 'unavailable', 'model_only']
+
+
+def test_legacy_exercise_reads_body_metadata_without_reference_movie(tmp_path):
+    root = tmp_path / 'run'
+    root.mkdir()
+    write(root, 'human.json', {'reference': [{'angles': {}}] * 3})
+    write(root, 'scene.json', {'objects': [{'id': 'pelvis', 'shape': 'capsule'}, {'id': 'torso', 'shape': 'capsule'}]})
+    seal(root)
+    result = lab_inspection.load_inspection(root, profile='exercise')
+    assert result['status'] == 'available'
+    assert result['actors'][0]['id'] == 'human' and result['tracking']['reference_poses'] == 3
+    assert len(result['actors']) == 1, 'Body segments are not separately tracked rigid actors'
+
+
+def test_authored_only_binding_does_not_advertise_tracking_evidence(tmp_path):
+    root = saved_run(tmp_path / 'run')
+
+    def authored_only(doc):
+        doc.pop('human_spec')
+        doc['objects'] = [doc['objects'][-1]]
+        doc['source_binding']['entity_bindings'] = [doc['source_binding']['entity_bindings'][-1]]
+        doc['source_binding']['evidence_documents'] = {}
+
+    edit(root, 'scene.json', authored_only)
+    result = summary(root)
+    assert result['status'] == 'available'
+    assert result['stages'][1]['state'] == 'unavailable'
+    assert result['actors'][0]['source_binding']['kind'] == 'authored_addition'
+    assert all(link['label'] != 'Source observation document' for link in result['artifact_links'])
+
+
+@pytest.mark.parametrize('case', ['changed_metadata', 'conflicting_hash', 'conflicting_count', 'slot_count',
+                                  'pose_count', 'unknown_document', 'authored_measurements', 'duplicate_actor',
+                                  'unsealed_panel', 'unsafe_panel'])
+def test_inconsistent_metadata_is_explicitly_unavailable(tmp_path, case):
+    root = saved_run(tmp_path / 'run')
+    if case == 'changed_metadata':
+        write(root, 'source.json', {'decoded_frames': 99})
+    elif case == 'conflicting_hash':
+        edit(root, 'source.json', lambda doc: doc.update(sha256='f' * 64))
+    elif case == 'conflicting_count':
+        edit(root, 'source.json', lambda doc: doc.update(decoded_frames=9))
+    elif case in ('slot_count', 'unknown_document', 'authored_measurements'):
+        def mutate(doc):
+            row = doc['source_binding']['entity_bindings'][0]
+            row.update({'slot_count': {'missing_slots': 3}, 'unknown_document': {'observation_document_sha256': 'f' * 64},
+                        'authored_measurements': {'provenance_mode': 'authored_addition'}}[case])
+        edit(root, 'scene.json', mutate)
+    elif case == 'pose_count':
+        edit(root, 'geometry-study.json', lambda doc: doc['source_pose_status_counts'].update(tracked=9))
+    elif case == 'duplicate_actor':
+        edit(root, 'scene.json', lambda doc: doc['objects'].append(doc['objects'][0]))
+    elif case == 'unsealed_panel':
+        edit(root, 'geometry-study.json', lambda doc: doc.update(panels=['not-saved.png']))
+    elif case == 'unsafe_panel':
+        edit(root, 'geometry-study.json', lambda doc: doc.update(panels=['../escape.png']))
+    result = summary(root)
+    assert result['status'] == 'unavailable' and result['reason']
+    assert 'actors' not in result and 'geometry' not in result
+
+
+@pytest.mark.parametrize('raw', [b'{"panels":[],"panels":[]}', b'{"x":NaN}', b'{"x":1e999}', b'[]', b'{'])
+def test_malformed_metadata_is_unavailable(tmp_path, raw):
+    root = saved_run(tmp_path / 'run')
+    write(root, 'geometry-study.json', raw)
+    seal(root)
+    assert summary(root)['status'] == 'unavailable'
+
+
+@pytest.mark.parametrize('name', ['scene.json', 'geometry-inspection/perspective-0008.png'])
+def test_symlink_artifacts_are_not_followed(tmp_path, name):
+    root = saved_run(tmp_path / 'run')
+    path = root / name
+    outside = tmp_path / 'outside'
+    path.rename(outside)
+    path.symlink_to(outside)
+    assert summary(root)['status'] == 'unavailable'
+
+
+def test_symlink_parent_of_nested_preview_is_not_followed(tmp_path):
+    root = saved_run(tmp_path / 'run')
+    (root / 'geometry-inspection').rename(tmp_path / 'other')
+    (root / 'geometry-inspection').symlink_to(tmp_path / 'other', target_is_directory=True)
+    assert summary(root)['status'] == 'unavailable'
+
+
+@pytest.mark.parametrize('cap', ['MAX_METADATA_BYTES', 'MAX_MANIFEST_BYTES', 'MAX_SUMMARY_BYTES', 'MAX_MANIFEST_FILES', 'MAX_ACTORS'])
+def test_size_and_count_limits_fail_closed(tmp_path, monkeypatch, cap):
+    root = saved_run(tmp_path / 'run')
+    monkeypatch.setattr(lab_inspection, cap, 1)
+    assert summary(root)['status'] == 'unavailable'
+
+
+def test_lab_summary_uses_one_worker_and_never_constructs_a_session(tmp_path, monkeypatch):
+    saved_run(tmp_path / 'run')
+    write(tmp_path, 'lab-config.json', {'profile': 'shared-world'})
+    write(tmp_path, 'status.json', {'status': 'ready'})
+    lab = Lab(tmp_path)
+    try:
+        monkeypatch.setattr(lab, 'load_session', lambda: pytest.fail('Inspection must not create simulation'))
+        result = lab.inspection()
+        assert result['status'] in ('loading', 'available')
+        future = lab.inspection_future
+        assert future.result(timeout=3)['status'] == 'available'
+        for _ in range(3):
+            assert lab.inspection()['status'] == 'available'
+            assert lab.inspection_future is future
+        assert lab.session is None
+    finally:
+        lab.close()
+
+
+@pytest.mark.parametrize('state, expected', [('pending', 'pending'), ('running', 'pending'),
+                                            ('failed', 'unavailable'), ('cancelled', 'unavailable')])
+def test_unfinished_run_does_not_schedule_metadata_reads(tmp_path, state, expected):
+    write(tmp_path, 'lab-config.json', {'profile': 'shared-world'})
+    write(tmp_path, 'status.json', {'status': state})
+    lab = Lab(tmp_path)
+    try:
+        assert lab.inspection()['status'] == expected
+        assert lab.inspection_future is None and lab.session is None
+    finally:
+        lab.close()

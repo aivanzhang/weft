@@ -9,8 +9,15 @@
 <p id="error" role="alert" hidden></p>
 <div id="reference-feasibility" class="boundary" role="status" hidden><p id="feasibility-notice"></p><button data-json="reference-feasibility.json">Inspect reference floor checks</button></div>
 <section class="start-guide" aria-labelledby="start-heading">
-<h2 id="start-heading">Start here</h2><p id="start-help">Preparing your video. These shortcuts unlock when the environment is ready.</p>
-<div class="quick-start"><button id="start-reference" disabled><strong>1. See the movement</strong><span>Inspect what was captured from the video.</span></button><button id="start-manual" disabled><strong>2. Try it yourself</strong><span>Move the simulation with simple controls.</span></button><button id="start-learned" disabled><strong>3. Watch the controller</strong><span>Watch the trained controller attempt its target.</span></button></div>
+<h2 id="start-heading">From video to a saved trial</h2><p id="start-help">Preparing your video. Explore each stage when the environment is ready.</p>
+<div class="inspection-stages" role="group" aria-label="Five steps through this run">
+<button id="inspect-original" disabled><strong>1. Original</strong><span id="stage-original">What was recorded</span></button>
+<button id="inspect-tracking" disabled><strong>2. Tracks</strong><span id="stage-tracking">What was detected or missing</span></button>
+<button id="inspect-geometry" disabled><strong>3. Geometry</strong><span id="stage-geometry">What the model assumes</span></button>
+<button id="inspect-sandbox" disabled><strong>4. Sandbox</strong><span id="stage-sandbox">Interact with the simulation</span></button>
+<button id="inspect-recordings" disabled><strong>5. Recordings</strong><span id="stage-recordings">Save actions and replay</span></button>
+</div><p id="inspection-status" class="hint" role="status">A saved-run summary appears here when ready.</p><button id="inspection-retry" hidden>Read summary again</button>
+<details><summary>Control shortcuts</summary><div class="quick-start"><button id="start-reference" disabled><strong>See the movement</strong><span>Replay estimated poses or view the initial world.</span></button><button id="start-manual" disabled><strong>Try it yourself</strong><span>Move the simulation with simple controls.</span></button><button id="start-learned" disabled><strong>Watch the controller</strong><span>Available only when a trained policy is saved.</span></button></div></details>
 </section>
 <nav aria-label="Explore the lab" id="stages">
 <button data-panel="evidence" class="selected">Video</button><button data-panel="world" id="world-tab">Generated world</button><button data-panel="play">Sandbox</button><button data-panel="results">Learning results</button><button data-panel="repair">Checks &amp; limits</button><button data-panel="artifacts">Files</button>
@@ -19,7 +26,9 @@
 <section id="evidence" class="panel">
 <h2>Start with what was recorded.</h2><p>Compare the original video with the detected movement. The simulation is an approximation, not a copy of reality.</p>
 <div class="two"><figure><figcaption>Original video</figcaption><video id="source" controls preload="metadata"></video><p id="source-selection" class="hint" hidden></p><p class="hint">If your browser cannot decode this file, download the source or inspect the tracked-frame preview.</p></figure><figure><figcaption>Measured tracks / reconstruction preview</figcaption><img id="tracks" alt="Tracked objects or recorded versus simulated motion" hidden><p id="tracks-empty">Preview appears after tracking completes.</p></figure></div>
-<div class="actions"><button data-json="evidence.json">Inspect frame measurements</button><button data-json="source.json">Source and provenance</button></div>
+<p id="inspection-source" class="hint"></p>
+<div class="actions"><button id="measurements-inspect" data-json="evidence.json">Inspect frame measurements</button><button data-json="source.json">Source and provenance</button></div>
+<section id="tracking-summary" aria-labelledby="tracking-heading"><h3 id="tracking-heading">What the model could use</h3><p id="inspection-tracking">Coverage is not available yet. Missing measurements are not filled in.</p><div id="inspection-actors" class="actor-cards"></div><div id="inspection-evidence-links" class="inspection-links"></div></section>
 <div id="coverage-details" class="boundary" hidden><p id="coverage-text"></p><button id="coverage-inspect" data-json="reconstruction-coverage.json">Inspect every frame</button></div>
 <div id="pose-coverage" class="boundary" hidden><h3>What got tracked?</h3><p id="pose-coverage-text" role="status"></p><canvas id="pose-timeline" width="960" height="64" aria-label="Pose coverage along the source video"></canvas><p id="pose-coverage-legend" class="hint">Each mark is one analyzed frame: tall marks are usable estimates, short marks are uncertain, and crosses are unusable. Unanalyzed frames stay blank. Visibility is not proof of correct anatomy.</p><button id="pose-next-issue" disabled>Next tracking issue</button><span id="pose-issue" role="status"></span></div>
 <div id="evidence-layers" class="boundary" hidden><p id="evidence-layers-text"></p></div>
@@ -27,6 +36,7 @@
 </section>
 <section id="world" class="panel" hidden>
 <h2 id="world-heading">One world. Shared physics.</h2><p id="world-description">Objects share coordinates, time, and contacts. Dimensions use image widths, not calibrated meters.</p>
+<section id="geometry-summary" aria-labelledby="geometry-heading"><h3 id="geometry-heading">From observations to assumed geometry</h3><p id="inspection-geometry">Saved comparisons appear here when available. Model geometry is not automatically measured physical shape.</p><div id="geometry-gallery" hidden><label>Initial comparison <select id="geometry-panel"></select></label><figure><figcaption>Initial authored geometry hypotheses · not physical validation</figcaption><img id="geometry-preview" alt="Saved initial source and geometry hypothesis comparison" loading="lazy" decoding="async" hidden><p id="geometry-caption" class="hint"></p></figure><div id="geometry-download"></div></div><ul id="geometry-assumptions"></ul></section>
 <div id="human-reference-controls" hidden><button id="reference-play" disabled>Play captured movement</button><label>Video position <input id="reference-frame" type="range" min="0" max="0" value="0"></label><span id="reference-time"></span><label>Rotate view <input id="world-yaw" type="range" min="-3.14" max="3.14" step="0.02" value="0.5"></label><p class="hint">Source-derived joint poses, projected into the simplified body. This is kinematic replay, not a learned action sequence.</p></div>
 <div id="spatial-world-controls" hidden><label>3D view angle <input id="spatial-world-yaw" type="range" min="-3.14" max="3.14" step="0.02" value="0.5"></label><label>Zoom <input id="spatial-world-zoom" type="range" min="1" max="3" step="0.1" value="1"></label><label><input id="spatial-world-follow" type="checkbox"> Follow moving objects</label><p class="hint">Front, top and 3D views show the same simulated world. Turning or zooming changes only your view.</p></div>
 <canvas id="world-canvas" width="960" height="540" aria-label="Initial generated scene"></canvas>
@@ -65,7 +75,7 @@
 <div id="mobile-controls" hidden><p>Body support is a virtual aid, not learned balance. Release it to let gravity and the assumed floor act on the body. Push while holding a button; restore support to stabilize the current pose.</p><div class="directions"><button data-action="6" hidden disabled>Release body support</button><button data-action="7" hidden disabled>Push body left</button><button data-action="8" hidden disabled>Push body right</button><button data-action="9" hidden disabled>Restore support</button></div><p id="mobile-status" role="status"></p></div>
 <p id="whole-body-status" class="hint" role="status" hidden></p>
 <details><summary>Fine controls &amp; live values</summary><button id="step" disabled>Advance one step</button><div id="readout" class="readout">Environment is not ready.</div><div id="spatial-readout" class="readout" hidden></div><div id="muscle-readout" class="hint"></div></details>
-<div class="record-box"><h3>Save a trial</h3><p>Starts a fresh trial in the selected mode. Your actions and the resulting movement are saved.</p><button id="record" disabled>Record &amp; start</button><button id="stop-record" disabled>Stop &amp; save</button><p id="export-status" role="status"></p></div>
+<div id="record-box" class="record-box"><h3>Save a trial</h3><p>Starts a fresh trial in the selected mode. Your actions and the resulting movement are saved. Stop &amp; save creates the replay and video below.</p><button id="record" disabled>Record &amp; start</button><button id="stop-record" disabled>Stop &amp; save</button><p id="export-status" role="status"></p></div>
 </div></div>
 <p id="play-boundary" class="boundary">This is a simulation with an authored goal. Success here does not prove the controller works on a real object.</p>
 <p class="hint">Leaving this tab or window pauses movement. If recording, return here and choose Stop &amp; save to finish. Camera changes affect only your view.</p>
@@ -73,5 +83,5 @@
 </section>
 <section id="artifacts" class="panel" hidden><h2>Nothing hidden behind the result.</h2><p id="directory"></p><p>The completed run is preserved separately from your interactive recordings. Each run includes source copies and file hashes.</p><div class="table-wrap"><table><thead><tr><th>Artifact</th><th>Size</th><th>Inspect</th></tr></thead><tbody id="files"></tbody></table></div><a id="worker-log">Download worker log</a></section>
 <section id="inspector" hidden><div class="heading-row"><h2 id="inspect-title">Artifact</h2><button id="close-inspector">Close</button></div><pre id="json"></pre></section>
-</main><footer><span>Weft · Local development evidence</span><span>No cloud calls. No upload. No submission.</span></footer>
+</main><footer><span>Weft · Local development evidence</span><span>Local controls · no uploads from this interface</span></footer>
 </body></html>

@@ -20,6 +20,7 @@ import numpy as np
 from weft.env import RollingEnv, task_success
 from weft.exercise_coverage import TERMINAL, load_coverage
 from weft.io import canonical_hash, local_time, write_json
+from weft.lab_inspection import load_inspection
 from weft.lab_worker import atomic_json
 from weft.pipeline import verify_artifacts
 from weft.recording import Recorder, export_recording
@@ -391,6 +392,7 @@ class Lab:
         self.export_future = None
         self.export_path = None
         self.coverage_future = None
+        self.inspection_future = None
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="weft-export")
         self.worker = None
         self.worker_log = None
@@ -466,6 +468,17 @@ class Lab:
             # Terminal evidence is immutable; parse it once off the request/control thread.
             self.coverage_future = self.executor.submit(load_coverage, self.root / 'run')
         return self.coverage_future.result() if self.coverage_future.done() else {'status': 'loading'}
+
+    def inspection(self):
+        status = self.status()['status']
+        if status != 'ready':
+            return {'status': 'unavailable' if status in TERMINAL else 'pending',
+                    'reason': 'A completed run is required for the saved inspection summary.'}
+        if self.inspection_future is None:
+            # Immutable metadata is read once off the control thread; no environment is created.
+            self.inspection_future = self.executor.submit(
+                load_inspection, self.root / 'run', profile=self.config['profile'])
+        return self.inspection_future.result() if self.inspection_future.done() else {'status': 'loading'}
 
     def capabilities(self, session):
         from weft.capabilities import describe_capabilities
@@ -884,6 +897,9 @@ class LabHandler(BaseHTTPRequestHandler):
             if path == '/api/exercise-coverage':
                 with self.server.lab.lock:
                     return self.reply(self.server.lab.exercise_coverage())
+            if path == '/api/inspection':
+                with self.server.lab.lock:
+                    return self.reply(self.server.lab.inspection())
             if path in public:
                 return self.send_file(public[path])
             if path.startswith("/files/"):

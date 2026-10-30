@@ -156,8 +156,10 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
             if Path(name).name.startswith("source.") and sha == original_sha:
                 files[Path(name).name] = _sealed_file(base_run, base_files, name)
     for name in ("shared_world_pipeline.py", "shared_world_reconstruction.py", "shared_world.py",
+                 "shared_world_observation.py",
                  "shared_world_evidence.py", "shared_world_packaging.py", "source_equivalence.py",
                  "world_evidence.py", "observations.py", "human.py", "mobile_human.py", "whole_body.py",
+                 "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py",
                  "spatial_rigid.py"):
         files[f"implementation/{name}"] = Path(__file__).with_name(name).read_bytes()
     if time.monotonic() - started >= 30.0:

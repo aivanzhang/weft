@@ -4,6 +4,8 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). Its latest saved candidate binds body evidence and equipment masks to one source, with interactive box proxies and verified recordings. Depth, shape, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved geometry panels and compact provenance. The separate [human-only exercise evaluator](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with exact recorded action replay. Its CLI/Gym task does not silently replace the existing lab's task or virtual object controls.
+
 ## Try the saved exercise run
 
 From the repository root:

@@ -659,8 +659,10 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     rewritten = {"scene.json", "human.json", "task.json", "reference-feasibility.json", "interventions.json",
                  "human-reference.json", "lab-provenance.json", "source-input-manifest.json", "policy-input-manifest.json"}
     policy_outputs = {"policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json", "settings.json"}
-    modules = ("shared_world_lab.py", "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
-               "world_evidence.py", "observations.py")
+    modules = ("shared_world_lab.py", "shared_world.py", "shared_world_observation.py",
+               "shared_world_packaging.py", "shared_world_evidence.py", "source_equivalence.py",
+               "world_evidence.py", "observations.py", "human.py", "mobile_human.py", "whole_body.py",
+               "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "spatial_rigid.py")
     copied_names = {name for name in source_manifest["files"] if name not in rewritten
                     and not name.startswith(("lab-implementation/", "policy-implementation/"))
                     and not (policy_run is not None and name in policy_outputs)}

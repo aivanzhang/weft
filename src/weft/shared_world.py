@@ -5,6 +5,7 @@ import json
 import math
 from pathlib import PurePosixPath
 import re
+from types import MappingProxyType
 import xml.etree.ElementTree as ET
 
 import gymnasium as gym
@@ -17,6 +18,7 @@ from weft.human import joint_contract, joint_segment, validate_human
 from weft.io import canonical_hash
 from weft.mobile_human import ROOT_AXES, ground_normal
 from weft.shared_world_evidence import validate_equivalence_bindings
+from weft.shared_world_observation import EquipmentState, HumanObjectContact, SubstepSample
 from weft.spatial_rigid import DIRECTIONS, FACES, corners, rotation
 from weft.whole_body import GROUP_NAMES, SUCCESS_LIMITS
 
@@ -56,6 +58,12 @@ HUMAN_SEGMENT_DEFS = (
     ("right_thigh", "right_hip", "right_knee", 0.045),
     ("right_shin", "right_knee", "right_ankle", 0.038),
 )
+
+_HUMAN_SEGMENT_BY_GEOM = {"torso_geom": "torso", "head_geom": "head"} | {
+    f"{side}_{joint}_geom": f"{side}_{segment}"
+    for side in ("left", "right")
+    for joint, segment in (("shoulder", "upper_arm"), ("elbow", "forearm"), ("hip", "thigh"), ("knee", "shin"))
+}
 
 
 def _reserved_human_names(human_spec):
@@ -951,7 +959,10 @@ class SharedWorldEnv(gym.Env):
 
     metadata = {"render_modes": ["rgb_array"], "render_fps": 30}
 
-    def __init__(self, scene, render_mode=None):
+    def __init__(self, scene, render_mode=None, *, substep_observer=None):
+        if substep_observer is not None and not callable(substep_observer):
+            raise TypeError("substep_observer must be callable or None")
+        self._substep_observer = substep_observer
         self.scene = validate_shared_world(scene)
         self.render_mode = render_mode
         self.human_spec = self.scene["human_spec"]
@@ -1012,6 +1023,13 @@ class SharedWorldEnv(gym.Env):
         self._dynamic_ids = [obj["id"] for obj in self._dynamic_objects]
         self._object_body_ids = {obj["id"]: self.model.body(obj["id"]).id for obj in self.scene["objects"]}
         self._object_geom_ids = {obj["id"]: self.model.geom(obj["id"]).id for obj in self.scene["objects"]}
+        self._object_free_addresses = {}
+        if substep_observer is not None:
+            for obj in self._dynamic_objects:
+                joint = self.model.joint(f"{obj['id']}_joint").id
+                self._object_free_addresses[obj["id"]] = (
+                    int(self.model.jnt_qposadr[joint]), int(self.model.jnt_dofadr[joint])
+                )
         self._object_radii = {
             obj["id"]: (float(np.linalg.norm(obj["size"]) / 2.0) if obj["shape"] == "box" else float(obj["radius"]))
             for obj in self._dynamic_objects
@@ -1218,6 +1236,100 @@ class SharedWorldEnv(gym.Env):
             "max_human_object_force": max_human_obj_force,
             "human_goal_object_contacts": goal_contacts,
         }
+
+    def _substep_sample(self, start_s, contact_state, action):
+        end_s = float(self.data.time)
+        common = {
+            "step_index": self.steps + 1,
+            "substep_index": self._last_action_substeps,
+            "interval_start_s": start_s,
+            "interval_end_s": end_s if math.isfinite(end_s) else None,
+            "contact_time_s": start_s,
+            "human_action": tuple(map(float, action[:22])),
+        }
+
+        def invalid(reason):
+            return SubstepSample(
+                **common, valid=False, failure=reason, human_qpos=(), human_qvel=(),
+                target_qpos=(), equipment=(), contacts=(), wrist_positions=MappingProxyType({}),
+                max_human_floor_penetration_model_units=None,
+            )
+
+        if self._failure == "nonfinite_dynamics" or not math.isfinite(end_s) or contact_state is None:
+            return invalid(self._failure or "nonfinite_observation")
+        if self.model.opt.integrator != mujoco.mjtIntegrator.mjINT_IMPLICITFAST:
+            return invalid("unsupported_observation_integrator")
+
+        # implicitfast leaves contact/site caches at the solve state, before integration.
+        wrists = MappingProxyType({
+            side: tuple(map(float, self.data.site_xpos[self._site_ids[f"{side}_wrist"]]))
+            for side in ("left", "right")
+        })
+        contacts = []
+        for index in range(self.data.ncon):
+            con = self.data.contact[index]
+            first, second = self._classify_geom(int(con.geom1)), self._classify_geom(int(con.geom2))
+            if first[0] == "human" and second[0] in ("static", "object"):
+                human, obj, sign = first[1], second[1], -1.0
+            elif second[0] == "human" and first[0] in ("static", "object"):
+                human, obj, sign = second[1], first[1], 1.0
+            else:
+                continue
+            force = np.zeros(6)
+            mujoco.mj_contactForce(self.model, self.data, index, force)
+            contacts.append(HumanObjectContact(
+                human_geom=human, human_segment=_HUMAN_SEGMENT_BY_GEOM.get(human, human),
+                object_id=obj, position=tuple(map(float, con.pos)), distance=float(con.dist),
+                normal_force=max(0.0, float(force[0])),
+                force_on_human_world=tuple(map(float, sign * con.frame.reshape(3, 3).T @ force[:3])),
+                normal_on_human_world=tuple(map(float, sign * con.frame[:3])),
+            ))
+        equipment = []
+        for obj in self.scene["objects"]:
+            if obj["role"] == "static":
+                position, quaternion = obj["position"], obj["quaternion"]
+                velocity, angular_velocity, virtual_force = (0.0,) * 3, (0.0,) * 3, (0.0,) * 3
+            else:
+                qadr, vadr = self._object_free_addresses[obj["id"]]
+                # Free joints expose integrated world translation and local angular velocity.
+                position = self.data.qpos[qadr:qadr + 3]
+                quaternion = self.data.qpos[qadr + 3:qadr + 7]
+                velocity = self.data.qvel[vadr:vadr + 3]
+                angular_velocity = rotation(quaternion) @ self.data.qvel[vadr + 3:vadr + 6]
+                virtual_force = self._object_forces[obj["id"]]
+            equipment.append(EquipmentState(
+                object_id=obj["id"], position=tuple(map(float, position)),
+                quaternion=tuple(map(float, quaternion)), velocity=tuple(map(float, velocity)),
+                angular_velocity=tuple(map(float, angular_velocity)),
+                virtual_force=tuple(map(float, virtual_force)),
+            ))
+        qpos = tuple(map(float, self.data.qpos[self._q]))
+        qvel = tuple(map(float, self.data.qvel[self._v]))
+        target = tuple(map(float, self._target_at(end_s)[0]))
+        penetration = float(contact_state["max_human_floor_penetration_model_units"])
+        numbers = [*qpos, *qvel, *target, penetration, *(value for point in wrists.values() for value in point)]
+        for obj in equipment:
+            numbers.extend((*obj.position, *obj.quaternion, *obj.velocity, *obj.angular_velocity, *obj.virtual_force))
+        for con in contacts:
+            numbers.extend((*con.position, con.distance, con.normal_force, *con.force_on_human_world,
+                            *con.normal_on_human_world))
+        if not all(math.isfinite(value) for value in numbers):
+            return invalid("nonfinite_observation")
+        return SubstepSample(
+            **common, valid=True, failure=self._failure, human_qpos=qpos, human_qvel=qvel,
+            target_qpos=target, equipment=tuple(equipment), contacts=tuple(contacts),
+            wrist_positions=wrists, max_human_floor_penetration_model_units=penetration,
+        )
+
+    def _observe_substep(self, start_s, contact_state, action):
+        try:
+            self._substep_observer(self._substep_sample(start_s, contact_state, action))
+        except Exception as exc:
+            # Observation failure cannot leave a partially advanced episode retryable.
+            self.steps += 1
+            self._last_action = action.copy()
+            self._failure, self._done, self.terminated = "substep_observer_failed", True, True
+            raise RuntimeError("Shared-world substep observer failed after physics advanced") from exc
 
     def _check_initial_clearances(self):
         intersections = _initial_intersections(self.scene, self.model, self.data, self._human_geom_to_name)
@@ -1493,17 +1605,32 @@ class SharedWorldEnv(gym.Env):
 
         self._last_action_substeps = 0
         for _ in range(self.substeps):
+            start_s = float(self.data.time) if self._substep_observer is not None else None
             mujoco.mj_step(self.model, self.data)
             self._last_action_substeps += 1
             self._failure = self._instability()
             if self._failure == "nonfinite_dynamics":
+                if self._substep_observer is not None:
+                    self._observe_substep(start_s, None, values)
                 break
-            c_now = self._current_contacts()
+            try:
+                c_now = self._current_contacts()
+            except Exception as exc:
+                if self._substep_observer is None:
+                    raise
+                self._failure = "contact_observation_failed"
+                self._observe_substep(start_s, None, values)
+                self.steps += 1
+                self._last_action = values
+                self._done, self.terminated = True, True
+                raise RuntimeError("Shared-world contact observation failed after physics advanced") from exc
             self._max_penetration = max(self._max_penetration, c_now["max_human_floor_penetration_model_units"])
             self._max_human_object_force = max(self._max_human_object_force, c_now["max_human_object_force"])
             self._human_goal_object_contacts += c_now["human_goal_object_contacts"]
             for kind, cnt in c_now["counts"].items():
                 self._cumulative_contacts[kind] += cnt
+            if self._substep_observer is not None:
+                self._observe_substep(start_s, c_now, values)
             if self._failure is not None:
                 break
 
@@ -1794,7 +1921,16 @@ class SharedWorldEnv(gym.Env):
 
 def validate_shared_snapshot(state, scene):
     """Validate a recorded or rendered shared-world-v1 state snapshot."""
+    prepare_shared_snapshot_validator(scene)(state)
+
+
+def prepare_shared_snapshot_validator(scene):
+    """Pin a detached scene once; every subsequent state still receives all checks."""
     validated_scene = validate_shared_world(scene)
+    return lambda state: _validate_shared_snapshot(state, validated_scene)
+
+
+def _validate_shared_snapshot(state, validated_scene):
     if (
         not isinstance(state, dict)
         or state.get("profile") != PROFILE
@@ -1941,9 +2077,23 @@ def validate_shared_snapshot(state, scene):
         raise ValueError("Shared-world contact pair summary differs from contact_details")
 
 
-def render_snapshot(state, scene, width=960):
+def render_snapshot(state, scene, width=960, *, show_target=True):
     """Render synchronized Front (x/z), Top (x/y), and 3D views of the coupled human + rigid-object world."""
-    validate_shared_snapshot(state, scene)
+    return prepare_shared_renderer(scene, width=width, show_target=show_target)(state)
+
+
+def prepare_shared_renderer(scene, width=960, *, show_target=True):
+    """A bounded export reuses immutable model metadata, never cached state validation."""
+    scene = validate_shared_world(scene)
+
+    def render(state):
+        _validate_shared_snapshot(state, scene)
+        return _render_snapshot(state, scene, width=width, show_target=show_target)
+
+    return render
+
+
+def _render_snapshot(state, scene, width=960, *, show_target=True):
     width = max(480, min(1280, int(width)))
     width += width % 2
     panel_width = width / 3.0
@@ -2038,9 +2188,10 @@ def render_snapshot(state, scene, width=960):
             m_color = (round(150 + 55 * act), round(92 - 30 * act), round(72 - 20 * act))
             draw.line((*pa, *pb), fill=m_color, width=max(1, round(1.5 + 2.5 * act)))
 
-        tx, ty = project(state["target"])
-        tr = max(3.0, goal_tol * scale)
-        draw.ellipse((tx - tr, ty - tr, tx + tr, ty + tr), outline="#965644", width=2)
+        if show_target:
+            tx, ty = project(state["target"])
+            tr = max(3.0, goal_tol * scale)
+            draw.ellipse((tx - tr, ty - tr, tx + tr, ty + tr), outline="#965644", width=2)
 
         for con in state["contact_details"]:
             cx, cy = project(con["position"])

@@ -232,9 +232,10 @@ def train_shared_world_policy(
     deadline = started + float(max_seconds)
 
     modules = (
-        "shared_world.py", "shared_world_learning.py", "shared_world_evidence.py", "shared_world_packaging.py",
+        "shared_world.py", "shared_world_observation.py", "shared_world_learning.py", "shared_world_evidence.py", "shared_world_packaging.py",
         "source_equivalence.py", "world_evidence.py",
         "observations.py", "human.py", "mobile_human.py", "whole_body.py",
+        "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "spatial_rigid.py",
     )
     implementation = {name: (Path(__file__).parent / name).read_bytes() for name in modules}
     hashes = {name: hashlib.sha256(raw).hexdigest() for name, raw in implementation.items()}

@@ -51,11 +51,11 @@ class Element {
   }
   setPointerCapture() {}
   releasePointerCapture() {}
-  scrollIntoView() {}
+  scrollIntoView() { this.scrolled = true; }
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -230,7 +230,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     events: legacyPackageEvent && backendReady ? [{index:1,stage:'whole_body',message:'Existing packaged run without elapsed time'}] : [{index: 0, stage: backendReady ? 'ready' : 'source', elapsed_seconds: .1, message: 'Synthetic UI fixture'}],
     scene, snapshot: state, recording: backendRecording, sessions: savedSessions,
     ...(exportStatus ? {export:{status:exportStatus}} : {}),
-    artifacts: [...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...(!noPolicy ? ['training.json','rl-evaluation.json'] : []),'repair-ledger.json','reconstruction.json'] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])].map(name => ({name,bytes:500}))});
+    artifacts: [...new Set([...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...Object.keys(artifacts)] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])])].map(name => ({name,bytes:500}))});
   const artifacts = {'training.json': {completed_episodes: 10, steps: 200, seconds: .3,
     history: [{episode: 10,recent_training_success_rate: .4}]},
     'rl-evaluation.json': {policies: {q_learning: {successes: 3,episodes: 5}, random: {successes: 1,episodes: 5}}},
@@ -273,6 +273,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     requests.push(request);
     if (path === '/api/status') return Promise.resolve(response(status()));
     if (path === '/api/exercise-coverage') return Promise.resolve(response(coverageLoading-- > 0 ? {status:'loading'} : poseCoverage || {status:'unavailable'}));
+    if (path === '/api/inspection') return Promise.resolve(response(inspectionLoading-- > 0 ? {status:'loading'} : inspection || {status:'unavailable',reason:'Synthetic run has no compact inspection metadata'}));
     if (path.startsWith('/files/')) {
       const filename = decodeURIComponent(path.split('/').at(-1).split('?')[0]);
       assert(filename in artifacts, `Unexpected artifact fetch: ${filename}`);
@@ -995,7 +996,7 @@ async function multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedAc
   assert.deepEqual(ui.pending[0].data, {actor: 'companion'});
   ui.resolveNext('/api/actor'); await drain();
   assert.equal(ui.ids.get('actor').value, 'companion');
-  assert.match(ui.ids.get('goal-summary').textContent, /Move companion into the dashed target/);
+  assert.match(ui.ids.get('goal-summary').textContent, /Move Companion puck into the dashed target/);
   assert.match(ui.ids.get('capabilities-json').textContent, /"active_control_target": "companion"/);
 
   ui.ids.get('actor').value = 'divider';
@@ -1028,7 +1029,7 @@ async function spatialRigidActorSelectionSwitchesDynamicObjectsOnly() {
   ui.ids.get('actor').value = 'companion';
   ui.ids.get('actor').dispatch('change'); await drain();
   ui.resolveNext('/api/actor'); await drain();
-  assert.match(ui.ids.get('goal-summary').textContent, /Move companion into the 3D dashed target/);
+  assert.match(ui.ids.get('goal-summary').textContent, /Move Companion sphere into the 3D dashed target/);
   ui.ids.get('start-learned').click(); await drain();
   assert.equal(ui.pending[0].path, '/api/actor');
   assert.deepEqual(ui.pending[0].data, {actor: 'block'});
@@ -1162,7 +1163,86 @@ async function sharedWorldKinematicScrubbingCannotAdvanceLivePhysics() {
   ui.visibility(true);assert.equal(ui.timers.size,0);
 }
 
-checks.push(poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
+function inspectionFixture() {
+  const panel = name => ({name:`geometry-inspection/${name}`,label:'Initial geometry comparison',bytes:400000,sha256:'b'.repeat(64)});
+  return {status:'available',profile:'lab-inspection-v1',source:{sha256:'a'.repeat(64),decoded_frames:10,video:'source.mp4',scope:'Saved count, not physical calibration.'},
+    stages:[['original','available'],['tracking','available'],['geometry','initial_hypothesis'],['sandbox','simulation'],['recordings','local_recording']].map(([id,state])=>({id,state})),
+    actors:[{id:'human',label:'Articulated human',geometry:'simplified body',label_origin:'generic label',scope:'Estimated body; not recovered anatomy.',source_binding:{kind:'observed_track',counts:{observed_slots:6,missing_slots:4,pre_init_slots:0}}},
+      {id:'block',label:'Tracked object 1',geometry:'box',label_origin:'generic display label',scope:'Source-linked model estimate; shape and physics are assumptions.',source_binding:{kind:'observed_track',counts:{observed_slots:8,missing_slots:2,pre_init_slots:0}}}],
+    tracking:{reference_poses:4,pose_status_counts:{tracked:4,tracked_partial:2,no_pose:3,not_sampled:1},scope:'Construction slots are not true visibility or accuracy.'},
+    geometry:{status:'initial_hypothesis',scope:'Initial authored geometry hypotheses, not recovered shape or grasp.',panels:[panel('first.png'),panel('later.png')],assumptions:['Depth is authored.']},
+    artifact_links:[{name:'evidence/observations.json',label:'Source observation document',bytes:3000000,sha256:'c'.repeat(64)},panel('first.png'),panel('later.png')]};
+}
+
+async function fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics() {
+  const ui=fixture('shared-world',{inspection:inspectionFixture()});await ui.ready();
+  assert.match(ui.ids.get('inspection-source').textContent,/10 decoded source frames/);
+  assert.match(ui.ids.get('inspection-tracking').textContent,/6 usable, including 2 partial/);
+  assert.match(ui.ids.get('inspection-tracking').textContent,/4 body poses retained/);
+  assert.match(ui.ids.get('inspection-actors').children[0].children[2].textContent,/6 construction-observation slots/);
+  assert.match(ui.ids.get('inspection-actors').children[1].children[2].textContent,/8 construction-observation slots/);
+  assert.equal(ui.ids.get('geometry-preview').src,undefined,'Do not fetch geometry images until their stage is opened');
+  assert.match(ui.ids.get('inspection-geometry').textContent,/not recovered shape/);
+  const state=ui.backendState(),requests=ui.requests.length;
+  for(const [id,panel,target] of [['original','evidence','source'],['tracking','evidence','tracking-summary'],
+    ['geometry','world','geometry-summary'],['sandbox','play','live'],['recordings','play','record-box']]) {
+    assert.equal(ui.ids.get(`inspect-${id}`).disabled,false);ui.ids.get(`inspect-${id}`).click();
+    assert.equal(ui.ids.get(panel).hidden,false);assert.equal(ui.ids.get(target).scrolled,true);
+  }
+  assert.match(ui.ids.get('geometry-preview').src,/geometry-inspection\/first\.png\?token=/);
+  ui.ids.get('inspect-geometry').click();ui.ids.get('geometry-panel').value='1';ui.ids.get('geometry-panel').dispatch('change');
+  assert.match(ui.ids.get('geometry-preview').src,/later\.png/);
+  assert.match(ui.ids.get('geometry-caption').textContent,/not synchronized to video playback/);
+  assert.deepEqual(ui.backendState(),state);assert.equal(ui.requests.length,requests);
+  assert(!ui.requests.some(request=>request.path.includes('/evidence/')),'Raw observation arrays must stay download-only');
+}
+
+async function inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct() {
+  const ui=fixture('shared-world',{inspection:inspectionFixture()});await ui.ready();
+  assert.deepEqual(ui.ids.get('actor').children.map(option=>option.value),['human','block','companion']);
+  assert.equal(ui.ids.get('actor').children[1].textContent,'Tracked object 1 (block)');
+  assert.match(ui.ids.get('goal-summary').textContent,/stop Tracked object 1/);
+  assert.match(ui.ids.get('goal-summary').textContent,/terminal task/);
+  assert.match(ui.ids.get('goal-summary').textContent,/not exercise or grasp success/);
+  assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
+  assert.equal(ui.ids.get('measurements-inspect').disabled,true,'An absent evidence.json must not produce a dead inspector link');
+  const row=ui.ids.get('files').children.find(row=>row.children[0].children[0].textContent==='evidence/observations.json');
+  assert(row);assert.match(row.children[2].textContent,/Large document/);assert.equal(row.children[2].children.length,0);
+  ui.ids.get('actor').value='block';ui.ids.get('actor').dispatch('change');await drain();
+  assert.deepEqual(ui.pending[0].data,{actor:'block'});ui.resolveNext('/api/actor');await drain();
+  assert.match(ui.ids.get('mode-description').textContent,/Tracked object 1 selected/);
+}
+
+async function inspectionPollingIsBoundedCachedAndIndependentOfRecording() {
+  const ui=fixture('shared-world',{inspection:inspectionFixture(),inspectionLoading:1});await ui.ready();
+  assert.match(ui.ids.get('inspection-status').textContent,/Reading a compact summary/);
+  assert.equal(ui.ids.get('geometry-preview').src,undefined);
+  await ui.nextTimer();assert.match(ui.ids.get('inspection-status').textContent,/prepared simulation candidate/);
+  assert.equal(ui.timers.size,0);
+  assert.equal(ui.requests.filter(request=>request.path==='/api/inspection').length,2);
+  const count=ui.requests.length;ui.visibility(true);ui.visibility(false);await ui.nextTimer();
+  assert.equal(ui.requests.length,count+1,'A refresh reads status, not already cached inspection metadata');
+  ui.ids.get('inspect-recordings').click();ui.ids.get('record').click();await drain();
+  assert.equal(ui.pending[0].path,'/api/record/start');ui.resolveNext('/api/record/start');await drain();
+  assert.equal(ui.ids.get('actor').disabled,true);
+  ui.ids.get('inspect-original').click();await drain();ui.resolveNext('/api/step');await drain();
+  assert.equal(ui.ids.get('stop-record').disabled,false,'Navigation pauses movement but must not silently stop or discard the journal');
+  assert(!ui.pending.some(request=>request.path==='/api/record/stop'));
+}
+
+async function inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop() {
+  const ui=fixture('shared-world',{inspection:inspectionFixture(),inspectionLoading:10});await ui.ready();
+  for(let i=1;i<10;i++)await ui.nextTimer();
+  assert.equal(ui.timers.size,0);assert.equal(ui.ids.get('inspection-retry').hidden,false);
+  assert.equal(ui.requests.filter(request=>request.path==='/api/inspection').length,10);
+  ui.ids.get('inspection-retry').click();await ui.nextTimer();
+  assert.equal(ui.ids.get('inspection-retry').hidden,true);assert.equal(ui.timers.size,0);
+  assert.match(ui.ids.get('inspection-status').textContent,/prepared simulation candidate/);
+}
+
+checks.push(fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
+  inspectionPollingIsBoundedCachedAndIndependentOfRecording,inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop,
+  poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
   spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed,
   multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly,

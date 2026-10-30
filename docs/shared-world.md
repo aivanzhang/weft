@@ -2,6 +2,8 @@
 
 Weft can now place a mobile articulated body and rigid objects in **one MuJoCo simulation**, with one clock and contact solver. You can control the body or a dynamic object, inspect three views, and record/replay actions. This is a runtime capability, not proof that equipment geometry, forces or anatomy were recovered correctly from a video.
 
+For separate whole-interval body/equipment checks with **human-only actions**, see [exercise tasks and recordings](shared-exercise.md). That task does not replace this sandbox's existing score or enable recovered grasp.
+
 ## Try the source-linked equipment sandbox
 
 Run this yourself from the repository root; no inference or paid call is repeated:

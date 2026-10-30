@@ -30,6 +30,8 @@ The [hosted Weft site](https://weft.ivanzhangofficial.workers.dev/) is temporari
 
 A CLI-launched **local lab** now shows video processing step by step, exposes the evidence and results, runs an interactive Python simulation, and records actions/state with video and offline replay exports.
 
+For a person and equipment in one world, start with the [coupled sandbox](docs/shared-world.md). Its guided inspector shows Original → Tracks → Geometry → Sandbox → Recordings. The separate [human-only exercise evaluator](docs/shared-exercise.md) forbids object-pushing commands and records whole-interval tracking/equipment checks. Current source baselines replay exactly but fail the task; this is not verified physical reconstruction or full-exercise learning.
+
 - **Exercise videos (current focus):** local MediaPipe pose estimation → a rotatable MuJoCo articulated body with 12 segments, eight controllable joints, and 16 illustrative muscle bands. Inspect inferred poses, control a joint, run a reference servo or a learned joint-target policy, and record it. The torso/pelvis are anchored; muscle intensity is illustrative, not measured activation or force.
 - **Tabletop objects:** bounded distinct-color tracking → a shared Pymunk 2D rigid-body scene, bounded damping/initial-speed proposals, reconstruction checks, and actual Q-learning. The included multi-object demo is clearly labeled synthetic.
 - **Original rolling profile:** the existing real-yellow-ball fixture and its evaluation/repair behavior remain available.

@@ -122,6 +122,33 @@ def test_exercise_coverage_endpoint_requires_the_same_local_authentication(serve
     assert headers['Cache-Control'] == 'no-store'
 
 
+def test_inspection_endpoint_is_authenticated_cached_and_does_not_start_physics(server):
+    assert request(server, '/api/inspection', token=False)[0] == 401
+    assert request(server, '/api/inspection', headers={'Host': 'attacker.example'})[0] == 403
+    assert request(server, '/api/inspection', headers={'Origin': 'https://attacker.example'})[0] == 403
+    assert server.lab.inspection_future is None
+    code, headers, body = request(server, '/api/inspection')
+    assert code == 200 and json.loads(body)['status'] in ('loading', 'available')
+    future = server.lab.inspection_future
+    assert future.result(timeout=3)['status'] == 'available'
+    code, _, body = request(server, '/api/inspection')
+    result = json.loads(body)
+    assert code == 200 and result['actors'][0]['id'] == 'actor'
+    assert len(body) <= 64 * 1024 and headers['Cache-Control'] == 'no-store'
+    assert server.lab.inspection_future is future and server.lab.session is None
+
+
+def test_inspection_failure_does_not_enable_or_rewrite_a_run(server):
+    scene_path = server.lab.root / 'run' / 'scene.json'
+    scene_path.write_text('{"unsealed":true}')
+    request(server, '/api/inspection')
+    server.lab.inspection_future.result(timeout=3)
+    code, _, body = request(server, '/api/inspection')
+    assert code == 200 and json.loads(body)['status'] == 'unavailable'
+    assert scene_path.read_text() == '{"unsealed":true}'
+    assert server.lab.session is None and server.lab.status()['status'] == 'ready'
+
+
 def test_public_assets_need_no_token_but_never_bypass_host_check(server):
     assert request(server, "/", token=False)[0] == 200
     assert request(server, "/lab.js", token=False)[0] == 200
