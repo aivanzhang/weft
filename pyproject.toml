@@ -23,7 +23,7 @@ weft = "weft.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-weft = ["assets/*.html", "assets/*.js", "assets/*.css", "assets/*.json", "assets/*.png"]
+weft = ["assets/*.html", "assets/*.js", "assets/*.cjs", "assets/*.css", "assets/*.json", "assets/*.png"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

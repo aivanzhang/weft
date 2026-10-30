@@ -21,6 +21,7 @@
   let mediaClockReady = false;
   let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
   let recordingReadAttempts = 0;
+  let appearanceView = null;
   const inspectionActors = new Map();
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
@@ -106,10 +107,12 @@
       button.setAttribute("aria-current", button.dataset.panel === name ? "step" : "false");
     }
     if (name === "world") showGeometryPanel();
+    appearanceView?.setVisible(name === "play" && !document.hidden);
   }
   for (const button of $("stages").querySelectorAll("button")) button.onclick = () => showPanel(button.dataset.panel);
 
   function draw(canvas, state) {
+    if (canvas.id === "live" && appearanceView?.update(state)) return;
     state = engineState(state);
     if (!scene || !state) return;
     if (sharedWorld()) { drawSharedWorld(canvas, state); return; }
@@ -853,6 +856,8 @@
   }
   async function begin({fresh = false, record = false} = {}) {
     if (controlBusy) return;
+    try { await appearanceView?.flush(); } catch (e) { error(e.message); return; }
+    if (controlBusy) return;
     const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
     const needsActor = mode === "learned" && !sharedExercise() && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
     if (fresh || record || needsJoint || needsActor || snapshot?.terminated || snapshot?.truncated) {
@@ -942,10 +947,25 @@
     event.preventDefault(); held.add(event.key); chooseAction(value); if (!running && !event.repeat) step(3);
   };
   $("live").onkeyup = (event) => { if (keyAction(event.key) === undefined) return; event.preventDefault(); held.delete(event.key); chooseAction(held.size ? (keyAction([...held].at(-1)) ?? 0) : 0); };
+  if (rootAppearanceAvailable()) {
+    $("avatar-live").onkeydown = $("live").onkeydown;
+    $("avatar-live").onkeyup = $("live").onkeyup;
+  }
   const pauseAll = () => { pause(); stopReference(); };
   window.addEventListener("blur", pauseAll);
-  document.addEventListener("visibilitychange", () => { if (document.hidden) { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); } else scheduleStatus(0); });
-  window.addEventListener("pagehide", () => { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); });
+  document.addEventListener("visibilitychange", () => { appearanceView?.setVisible(!document.hidden && activePanel === "play"); if (document.hidden) { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); } else scheduleStatus(0); });
+  window.addEventListener("pagehide", () => { appearanceView?.setVisible(false); pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); });
+
+  function rootAppearanceAvailable() { return typeof globalThis.WeftLabAppearance?.create === "function"; }
+  function configureAppearance(data) {
+    if (!data.appearance || !rootAppearanceAvailable()) return;
+    appearanceView = globalThis.WeftLabAppearance.create({token, pause,
+      send: async settings => (await request("/api/appearance", settings)).appearance,
+      redraw: () => { if (snapshot) draw($("live"), snapshot); },
+      camera: () => ({yaw: Number($("spatial-yaw").value), zoom: Number($("spatial-zoom").value), follow: $("spatial-follow").checked}),
+      visible: () => activePanel === "play" && !document.hidden});
+    appearanceView.configure(data.appearance, scene);
+  }
 
   async function artifact(name) {
     const response = await fetch(fileURL(`run/${name}`), {signal: AbortSignal.timeout(10000)});
@@ -978,6 +998,7 @@
   }
   async function readyDetails(data) {
     scene = data.scene;
+    configureAppearance(data);
     showSourceWindow();
     if (sharedExercise()) configureExerciseTask(data);
     const noLearnedPolicy = sharedExercise() ? !configureExercisePolicy(data) : data.learned_policy_available === false || scene.learned_policy_available === false;
@@ -1360,7 +1381,9 @@
       for (const [index, session] of (data.sessions || []).entries()) {
         const li = document.createElement("li"); text(li, `Trial ${index + 1}` + (session.complete ? " · saved" : " · actions saved; replay not yet exported"));
         li.append(link("Action data", `sessions/${session.name}/events.jsonl`));
-        if (session.complete) for (const [label, file] of [["Interactive replay", "replay.html"], ["Video", "video.mp4"], ["Preview", "preview.gif"]]) li.append(link(label, `sessions/${session.name}/${file}`));
+        if (session.complete) for (const [label, file] of [[session.appearance_recorded ? "Physics-body replay" : "Interactive replay", "replay.html"], [session.appearance_recorded ? "Physics-body video" : "Video", "video.mp4"], ["Preview", "preview.gif"]]) li.append(link(label, `sessions/${session.name}/${file}`));
+        if (session.appearance_complete) for (const [label, file] of [["Avatar replay", "avatar-replay.html"], ["Avatar video", "avatar-video.mp4"], ["Appearance changes", "appearance-events.jsonl"]]) li.append(link(label, `sessions/${session.name}/${file}`));
+        else if (session.appearance_recorded) { const note = document.createElement("span"); text(note, " · Avatar export not complete; physics-body files do not include the chosen character."); li.append(note); }
         if (sharedExercise() && session.complete && /^session-[0-9a-f]{12}$/.test(session.name)) {
           const explain = document.createElement("button"); text(explain, "Explain this trial");
           explain.onclick = () => selectRecordingDiagnosis(session.name); li.append(explain);

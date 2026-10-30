@@ -56,6 +56,7 @@ def main():
     lab.add_argument("--seed", type=int, default=1729)
     lab.add_argument("--source-note", default="User-provided local video; rights not independently verified")
     lab.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
+    lab.add_argument("--avatar", action="append", help="Sealed local avatar import; repeat up to four times")
     lab.add_argument("--no-serve", action="store_true", help="Run stages in the terminal without a web server")
     lab.add_argument("--resume", help="Inspect a saved lab without rerunning its pipeline")
     lab.add_argument("--scene-run", help="Opt-in import of a verified spatial-rigid-v1 run into a new --out lab")
@@ -297,6 +298,12 @@ def main():
     exercise_policy_eval.add_argument("--jitter-scale", type=float, default=.10,
                                      help="Human-only start perturbation; equipment retains its scene pose and velocity")
     exercise_policy_eval.add_argument("--max-seconds", type=float, default=30)
+    avatar_import = commands.add_parser("avatar-import", help="Validate and seal a local rigged avatar without changing physics")
+    avatar_source = avatar_import.add_mutually_exclusive_group(required=True)
+    avatar_source.add_argument("--source", help="Factory package directory containing avatar.json")
+    avatar_source.add_argument("--model", help="Local rigged GLB/glTF; requires explicit --metadata")
+    avatar_import.add_argument("--metadata", help="JSON with identity, rights, provenance and explicit body-bone mapping")
+    avatar_import.add_argument("--out", required=True, help="New sealed output directory; never overwritten")
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -491,6 +498,20 @@ def main():
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)
+        elif args.command == "avatar-import":
+            from weft.avatar_assets import import_avatar_model, import_avatar_package
+            if args.source:
+                if args.metadata:
+                    raise ValueError("--source already contains metadata; do not combine it with --metadata")
+                result = import_avatar_package(args.source, args.out)
+            else:
+                if not args.metadata:
+                    raise ValueError("A custom model needs --metadata with an explicit body-bone mapping")
+                with Path(args.metadata).open("rb") as stream:
+                    raw = stream.read(128 * 1024 + 1)
+                if len(raw) > 128 * 1024:
+                    raise ValueError("Avatar metadata exceeds 128 KiB")
+                result = import_avatar_model(args.model, json.loads(raw), args.out)
         elif args.command == "replay":
             from weft.recording import export_recording, recover_incomplete_recording, verify_recording
             if args.recover_incomplete:

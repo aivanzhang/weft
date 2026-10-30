@@ -28,7 +28,9 @@ from weft.world import World
 
 
 PUBLIC_ASSETS = {"/": "lab.html", "/lab.js": "lab.js", "/lab.css": "lab.css",
-                 "/brand.css": "brand.css", "/weft-logo.png": "weft-logo.png"}
+                 "/brand.css": "brand.css", "/weft-logo.png": "weft-logo.png",
+                 "/avatar_retarget.js": "avatar_retarget.js", "/avatar_worker.js": "avatar_worker.js",
+                 "/avatar_viewer.js": "avatar_viewer.js", "/lab_appearance.js": "lab_appearance.js"}
 
 
 def _shared_exercise(session):
@@ -390,7 +392,7 @@ class SharedWorldSession:
 
 
 class Lab:
-    def __init__(self, root):
+    def __init__(self, root, *, avatars=()):
         self.root = Path(root).resolve()
         self.config = json.loads((self.root / "lab-config.json").read_text())
         self.token = secrets.token_urlsafe(32)
@@ -411,6 +413,11 @@ class Lab:
         self.artifacts = None
         self._evidence_provenance = None
         self.cancelled = False
+        from weft.avatar_lab import AvatarCatalog, DEFAULT_APPEARANCE, validate_appearance
+        self.avatars = AvatarCatalog(avatars)
+        self.appearance = validate_appearance(DEFAULT_APPEARANCE, self.avatars.packages)
+        if self.avatars.packages and self.config.get("profile") != "shared-world":
+            raise ValueError("Avatar rendering currently requires a shared-world lab with a human body")
 
     def start_worker(self):
         self.worker_log = (self.root / "worker.log").open("xb")
@@ -703,6 +710,8 @@ class Lab:
             result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
                           learned_policy_available=policy_ready, capabilities=capabilities,
                           evidence_provenance=self.evidence_provenance(capabilities))
+            if result["scene"].get("profile") in ("shared-world-v1", "shared-world-v2"):
+                result["appearance"] = self.avatars.summary(self.appearance)
             if _shared_exercise(session):
                 result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
                               action_contract=session.action_contract(), exercise_policy=session.exercise_policy())
@@ -715,12 +724,39 @@ class Lab:
                 except Exception as error:
                     result["export"].update(status="failed", error=str(error))
         sessions = self.root / "sessions"
-        result["sessions"] = [{"name": p.name, "complete": (p / "manifest.json").exists()}
+        result["sessions"] = [{"name": p.name, "complete": (p / "manifest.json").exists(),
+                              **({"appearance_recorded": True,
+                                  "appearance_complete": (p / "appearance-manifest.json").exists()}
+                                 if (p / "appearance.json").exists() else {})}
                               for p in sorted(sessions.iterdir())[-100:]] if sessions.exists() else []
         return result
 
+    def _queue_export(self, recorder, session):
+        self.export_path = recorder.root.name
+        if _shared_exercise(session):
+            from weft.shared_exercise_lab import export_shared_exercise_session
+            export = export_shared_exercise_session
+        else:
+            export = export_recording
+        if hasattr(recorder, "asset_future"):
+            from weft.avatar_recording import export_with_appearance
+            self.export_future = self.executor.submit(export_with_appearance, recorder, export)
+        else:
+            self.export_future = self.executor.submit(export, recorder.root)
+
     def control(self, path, data):
         session = self.load_session()
+        if path == "/api/appearance":
+            from weft.avatar_lab import validate_appearance
+            if not _shared_exercise(session) and not isinstance(session, SharedWorldSession):
+                raise ValueError("This lab has no supported avatar body")
+            settings = validate_appearance(data, self.avatars.packages)
+            if self.recorder:
+                if not hasattr(self.recorder, "select_appearance"):
+                    raise ValueError("This trial started without avatars; stop and save before selecting one")
+                self.recorder.select_appearance(settings)
+            self.appearance = settings
+            return {"appearance": self.avatars.summary(settings)}
         if _shared_exercise(session) and path in ("/api/record/start", "/api/record/stop") and data:
             raise ValueError("Exercise recording uses the selected task and current seed; no overrides are accepted")
         if path == "/api/joint":
@@ -819,8 +855,7 @@ class Lab:
                         recorder.close()
                         metadata = json.loads((recorder.root / 'recording.json').read_text())
                         atomic_json(recorder.root / 'recording.json', metadata | {'failed_attempt': session.failure})
-                        self.export_path = recorder.root.name
-                        self.export_future = self.executor.submit(export_recording, recorder.root)
+                        self._queue_export(recorder, session)
                     return {'snapshot': session.snapshot(), 'transitions': transitions, 'recording': False,
                             'warning': 'Simulation stopped after a failed action. Last valid state and failed attempt preserved.'}
                 event = {"type": "step", "action": chosen, "reward": float(reward),
@@ -852,23 +887,26 @@ class Lab:
                 else self.config["profile"]
             )
             recording_scene = session.recording_scene() if _shared_exercise(session) else session.scene
-            recorder = Recorder(self.root / "sessions" / name, recording_scene, profile=recorder_profile)
-            recorder.start(snapshot, seed=self.seed)
+            if self.avatars.packages:
+                from weft.avatar_recording import AppearanceRecorder
+                recorder = AppearanceRecorder(self.root / "sessions" / name, recording_scene,
+                    profile=recorder_profile, catalog=self.avatars, settings=self.appearance, executor=self.executor)
+            else:
+                recorder = Recorder(self.root / "sessions" / name, recording_scene, profile=recorder_profile)
+            try:
+                recorder.start(snapshot, seed=self.seed)
+            except Exception:
+                if recorder._stream is not None and not recorder._closed:
+                    recorder.close()
+                raise
             self.recorder = recorder
             return {"recording": True, "directory": name, "snapshot": snapshot}
         if path == "/api/record/stop":
             if not self.recorder:
                 raise ValueError("No recording is active")
             recorder, self.recorder = self.recorder, None
-            result = recorder.close()
-            root = Path(result["directory"]) if "directory" in result else recorder.root
-            self.export_path = Path(root).name
-            if _shared_exercise(session):
-                from weft.shared_exercise_lab import export_shared_exercise_session
-                export = export_shared_exercise_session
-            else:
-                export = export_recording
-            self.export_future = self.executor.submit(export, root)
+            recorder.close()
+            self._queue_export(recorder, session)
             return {"recording": False, "export": "running", "directory": self.export_path}
         raise ValueError("Unknown control endpoint")
 
@@ -980,6 +1018,16 @@ class LabHandler(BaseHTTPRequestHandler):
                     raise ValueError('Choose exactly one completed recording')
                 with self.server.lab.lock:
                     return self.reply(self.server.lab.recording_inspection(query['session'][0]))
+            if path.startswith("/api/avatar/"):
+                parts = path.split("/")
+                if len(parts) != 5:
+                    raise ValueError("Invalid avatar resource")
+                raw, mime, sha = self.server.lab.avatars.resource(parts[3], parts[4])
+                self.response_headers(200, mime, len(raw))
+                self.send_header("X-Content-SHA256", sha)
+                self.end_headers()
+                self.wfile.write(raw)
+                return
             if path in public:
                 return self.send_file(public[path])
             if path.startswith("/files/"):
@@ -1133,7 +1181,7 @@ def launch_lab(args):
                            body_model=args.body_model, pose_identity=args.pose_identity)
     if not 0 <= args.port <= 65535:
         raise ValueError("Port must be 0–65535 (0 chooses a free local port)")
-    lab = Lab(root)
+    lab = Lab(root, avatars=getattr(args, "avatar", ()) or ())
     server = None
     try:
         if not args.no_serve:
