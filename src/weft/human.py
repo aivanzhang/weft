@@ -97,11 +97,23 @@ def validate_human(spec):
     return result
 
 
-def build_human(evidence, out, *, body_model="hinge"):
+def _body_artifact(out, name, value, artifact_sink):
+    if artifact_sink is None:
+        if isinstance(value, str):
+            (out / name).write_text(value)
+        else:
+            write_json(out / name, value)
+    elif isinstance(value, str):
+        artifact_sink.write_text(name, value)
+    else:
+        artifact_sink.write_json(name, value)
+
+
+def build_human(evidence, out, *, body_model="hinge", artifact_sink=None):
     if body_model not in ("hinge", "spatial", "mobile"):
         raise ValueError("Body model must be hinge, spatial or mobile")
     if body_model in ("spatial", "mobile"):
-        return build_spatial_human(evidence, out, mobile=body_model == "mobile")
+        return build_spatial_human(evidence, out, mobile=body_model == "mobile", artifact_sink=artifact_sink)
     if not isinstance(evidence, dict) or not isinstance(evidence.get("reference"), list):
         raise ValueError("Pose evidence must contain reference joint angles")
     references = [{"time_s": row["time_s"], "joints": deepcopy(row["joints"])} for row in evidence["reference"]]
@@ -146,13 +158,13 @@ def build_human(evidence, out, *, body_model="hinge"):
     out.mkdir(parents=True, exist_ok=True)
     if (out / "human.json").exists() or (out / "human.xml").exists():
         raise FileExistsError("Human model already exists; use a new output directory")
-    write_json(out / "human.json", spec)
-    write_json(out / "body-frame.json", body_frame)
-    (out / "human.xml").write_text(human_xml(spec))
+    _body_artifact(out, "human.json", spec, artifact_sink)
+    _body_artifact(out, "body-frame.json", body_frame, artifact_sink)
+    _body_artifact(out, "human.xml", human_xml(spec), artifact_sink)
     return spec
 
 
-def build_spatial_human(evidence, out, *, mobile=False):
+def build_spatial_human(evidence, out, *, mobile=False, artifact_sink=None):
     body_frame = fit_body_frame(evidence)
     reference, audit = build_spatial_reference(evidence, body_frame)
     spec = validate_human({"schema_version": 2, "profile": "exercise-v2", "dt": 1 / 30,
@@ -183,14 +195,14 @@ def build_spatial_human(evidence, out, *, mobile=False):
         from weft.mobile_human import prepare_mobile, calibrate_floor
         from weft.root_motion import build_root_reference
         root_audit = build_root_reference(evidence)
-        write_json(out / "root-motion.json", root_audit)
+        _body_artifact(out, "root-motion.json", root_audit, artifact_sink)
         spec, _ = prepare_mobile(spec, evidence, root_audit=root_audit)
         spec = validate_human(calibrate_floor(spec))
-        write_json(out / "floor-assumption.json", spec["mobility"]["floor_fit"])
-    write_json(out / "human.json", spec)
-    write_json(out / "body-frame.json", body_frame)
-    write_json(out / "spatial-pose.json", audit)
-    (out / "human.xml").write_text(human_xml(spec))
+        _body_artifact(out, "floor-assumption.json", spec["mobility"]["floor_fit"], artifact_sink)
+    _body_artifact(out, "human.json", spec, artifact_sink)
+    _body_artifact(out, "body-frame.json", body_frame, artifact_sink)
+    _body_artifact(out, "spatial-pose.json", audit, artifact_sink)
+    _body_artifact(out, "human.xml", human_xml(spec), artifact_sink)
     return spec
 
 

@@ -75,6 +75,16 @@ def main():
     pose_model = commands.add_parser("fetch-pose-model", help="Download/verify the pinned local pose model (no inference upload)")
     pose_model.add_argument("--out")
     pose_model.add_argument("--variant", choices=("lite", "full", "heavy"), default="lite", help="Explicit model choice; existing lab default remains lite")
+    body_source = commands.add_parser("exercise-body", help="Prepare body evidence for a shared world without creating or training a body-only lab")
+    body_input = body_source.add_mutually_exclusive_group(required=True)
+    body_input.add_argument("--video", help="Local exercise video, at most 64 MiB and 60 seconds")
+    body_input.add_argument("--evidence-run", help="Sealed pose run; reuse exact source/model/options without inference")
+    body_source.add_argument("--pose-model", help="Required with --video: local pinned pose model")
+    body_source.add_argument("--pose-mode", choices=("video", "image"), help="Raw-video inference mode; default video")
+    body_source.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw-video anatomy handling; default raw")
+    body_source.add_argument("--source-note", help="Raw-video provenance note; never overrides a saved source")
+    body_source.add_argument("--max-seconds", type=float, help="Cooperative bound: default 180 for video, 30 for saved evidence")
+    body_source.add_argument("--out", required=True, help="New sealed construction-only output; not a playable lab")
     exercise_sample = commands.add_parser("fetch-exercise-sample", help="Download/verify an attributed exercise video")
     exercise_sample.add_argument("--out", default="data/exercise")
     exercise_sample.add_argument("--name", choices=("single-leg-squat", "squat", "kettlebell-pushup", "lunge-twist", "jumping-jacks-burpees"), default="single-leg-squat")
@@ -198,7 +208,7 @@ def main():
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one human-only lab from verified body/tracking evidence and explicit equipment priors")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
-    exercise_source.add_argument("--human-run", help="Sealed mobile exercise-v3 run or ready lab; no prior shared-world adapter required")
+    exercise_source.add_argument("--human-run", help="Sealed exercise-body output, mobile exercise-v3 run or ready lab")
     exercise_build.add_argument("--body-scale", type=float,
                                 help="Only with --human-run: explicit body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
     exercise_build.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
@@ -566,6 +576,28 @@ def main():
         elif args.command == "fetch-pose-model":
             from weft.exercise_vision import fetch_pose_model
             result = {"path": str(fetch_pose_model(args.out, variant=args.variant))}
+        elif args.command == "exercise-body":
+            from weft.exercise_body_source import prepare_exercise_body_source, prepare_exercise_body_source_from_evidence
+            def body_progress(stage, detail):
+                message = detail.get("message", stage.replace("_", " "))
+                if stage == "tracking":
+                    message += f" — {detail['decoded_frames']} decoded frames, {detail['sampled_frames']} sampled"
+                print(message, file=sys.stderr, flush=True)
+            if args.evidence_run:
+                if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note")):
+                    raise ValueError("Saved body evidence inherits its exact source/model/options; overrides are not supported")
+                destination = prepare_exercise_body_source_from_evidence(args.evidence_run, args.out,
+                    max_seconds=30 if args.max_seconds is None else args.max_seconds, progress=body_progress)
+            else:
+                if not args.pose_model:
+                    raise ValueError("--video requires --pose-model; fetch-pose-model can prepare the pinned local model")
+                options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note")
+                           if getattr(args, key) is not None}
+                destination = prepare_exercise_body_source(args.video, args.out, pose_model=args.pose_model,
+                    max_seconds=180 if args.max_seconds is None else args.max_seconds, progress=body_progress, **options)
+            result = {"profile": "exercise-body-source-v1", "status": "construction_only",
+                "directory": str(destination), "simulation_ready": False,
+                "next_step": "Use shared-exercise-build --human-run with sealed equipment evidence and explicit camera/equipment configuration"}
         elif args.command == "fetch-exercise-sample":
             from weft.exercise_source import fetch_exercise_sample
             result = fetch_exercise_sample(args.out, args.name)

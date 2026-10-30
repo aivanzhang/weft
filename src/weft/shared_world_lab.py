@@ -643,7 +643,23 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     manifest_raw, declared = read_package_manifest(run)
     if _seed_json(manifest_raw).get("status") in REJECTED_SOURCE_STATUSES:
         raise ValueError("Cannot prepare a body seed from a failed or rejected manifest")
-    required = {"human.json", "scene.json", "evidence.json"}
+    construction_body = "body-source.json" in declared
+    if construction_body:
+        from weft.exercise_body_source import PROFILE as BODY_SOURCE_PROFILE, POSE_FILES, validate_body_source_files
+
+        body_validator_implementation = read_package_file(Path(__file__).parent, "exercise_body_source.py",
+                                                           max_bytes=1024 * 1024)
+        _seed_check(deadline)
+        if (run / "failure.json").exists() or (run / "failure.json").is_symlink():
+            raise ValueError("Body-source failure marker prevents seed admission even after a terminal I/O failure")
+        marker = _seed_json(manifest_raw)
+        if (marker.get("profile") != BODY_SOURCE_PROFILE or marker.get("status") != "construction_only"
+                or marker.get("simulation_ready") is not False):
+            raise ValueError("Body-source input requires its explicit construction-only manifest")
+        required = POSE_FILES | {"body-source.json", "human.json", "observations.json",
+                                 "source-clock.json", "implementation.json"}
+    else:
+        required = {"human.json", "scene.json", "evidence.json"}
     if not required <= declared.keys() or len(declared) + 1 > SEED_MAX_FILES:
         raise ValueError("Body seed requires sealed human, scene and evidence within its 512-file bound")
     if "construction-seed.json" in declared:
@@ -679,17 +695,20 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
         if name in required | _SEED_OPTIONAL or _seed_media(name):
             kept[name] = raw
     _seed_check(deadline)
-    human, original_scene, evidence = (_seed_json(kept[name]) for name in ("human.json", "scene.json", "evidence.json"))
-    if (human.get("profile") != "exercise-v3" or "camera_reference" in human
-            or original_scene.get("profile") != "exercise-v3" or evidence.get("profile") != "exercise-pose-v1"):
-        raise ValueError("Body seed requires a supported mobile exercise-v3 body and its exercise-pose-v1 evidence")
+    if construction_body:
+        human, observations = validate_body_source_files(kept)
+    else:
+        human, original_scene, evidence = (_seed_json(kept[name]) for name in ("human.json", "scene.json", "evidence.json"))
+        if (human.get("profile") != "exercise-v3" or "camera_reference" in human
+                or original_scene.get("profile") != "exercise-v3" or evidence.get("profile") != "exercise-pose-v1"):
+            raise ValueError("Body seed requires a supported mobile exercise-v3 body and its exercise-pose-v1 evidence")
+        if original_scene.get("source_sha256", human.get("source_sha256")) != human.get("source_sha256"):
+            raise ValueError("Mobile scene and body source identities differ")
+        observations = adapt_exercise(evidence, scene=original_scene)
+        observations["provenance"]["input_artifacts"] = {name: declared[name] for name in ("evidence.json", "scene.json")}
     source_sha = human.get("source_sha256")
-    if original_scene.get("source_sha256", source_sha) != source_sha:
-        raise ValueError("Mobile scene and body source identities differ")
     if any(declared[name] != source_sha for name in kept if _seed_media(name)):
         raise ValueError("Mobile source media must match the original body source identity")
-    observations = adapt_exercise(evidence, scene=original_scene)
-    observations["provenance"]["input_artifacts"] = {name: declared[name] for name in ("evidence.json", "scene.json")}
     observations = validate_observations(observations)
     if not 5.0 <= observations["source"]["fps"] <= 240.0:
         raise ValueError("Source clock exceeds shared-world limits; it cannot be clamped or retimed")
@@ -707,6 +726,8 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
              **{name: raw for name, raw in kept.items() if name in _SEED_OPTIONAL or _seed_media(name)}}
     implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024)
     files["implementation/shared_world_lab.py"] = implementation
+    if construction_body:
+        files["implementation/exercise_body_source.py"] = body_validator_implementation
     if status_snapshot is not None:
         files["inputs/human-source/source-lifecycle.json"] = status_snapshot
     receipt = {"schema_version": 1, "profile": SEED_PROFILE, "status": "construction_only",
@@ -724,6 +745,9 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
         "maximum_file_bytes": _SEED_FILE_BYTES,
         "maximum_seconds": deadline - started,
         "scope": "Unexposed construction scaffolding, not a playable or admitted equipment world. The equipment constructor replaces the authored ball and pedestal; source poses, missing slots and assumed clocks remain unchanged."}
+    if construction_body:
+        receipt["input_profile"] = BODY_SOURCE_PROFILE
+        receipt["body_source_validator_sha256"] = hashlib.sha256(body_validator_implementation).hexdigest()
     files["reconstruction.json"] = _seed_bytes({"schema_version": 1, "profile": PROFILE,
         "mode": "construction_seed", "status": "construction_only", "simulation_ready": False,
         "physical_validation": "unverified", "source_sha256": source_sha, "scope": receipt["scope"]})
@@ -756,8 +780,13 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
             raise ValueError("Mobile source size changed during body preparation")
     if status_snapshot is not None and read_package_file(source, "status.json", max_bytes=64 * 1024) != status_snapshot:
         raise ValueError("Mobile lab lifecycle changed during body preparation")
+    if construction_body and ((run / "failure.json").exists() or (run / "failure.json").is_symlink()):
+        raise ValueError("Body-source input gained a failure marker during seed preparation")
     if read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=1024 * 1024) != implementation:
         raise ValueError("Body preparation implementation changed during execution")
+    if (construction_body and read_package_file(Path(__file__).parent, "exercise_body_source.py",
+                                               max_bytes=1024 * 1024) != body_validator_implementation):
+        raise ValueError("Body source admission validator changed during seed preparation")
     receipt["seconds"] = time.monotonic() - started
     files["construction-seed.json"] = _seed_bytes(receipt)
     check_output()

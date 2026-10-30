@@ -241,12 +241,16 @@ def _draw_pose(frame, record):
     return banner
 
 
-def _save_previews(previews, timestamps, out):
+def _save_previews(previews, timestamps, out, *, artifact_sink=None):
     if not previews:
         return
     durations = [max(40, round((right - left) * 1000)) for left, right in zip(timestamps, timestamps[1:])]
     durations.append(durations[-1] if durations else 100)
-    previews[0].save(out / "tracks.gif", save_all=True, append_images=previews[1:], duration=durations, loop=0)
+    options = {"save_all": True, "append_images": previews[1:], "duration": durations, "loop": 0}
+    if artifact_sink is None:
+        previews[0].save(out / "tracks.gif", **options)
+    else:
+        artifact_sink.write_image("tracks.gif", previews[0], **options)
     indices = sorted({0, len(previews) // 3, 2 * len(previews) // 3, len(previews) - 1})
     selected = []
     for index in indices:
@@ -257,7 +261,17 @@ def _save_previews(previews, timestamps, out):
     sheet = Image.new("RGB", (960, row_height * math.ceil(len(selected) / 2)), "#F5EADC")
     for index, image in enumerate(selected):
         sheet.paste(image, ((index % 2) * 480, (index // 2) * row_height))
-    sheet.save(out / "tracks-contact-sheet.png")
+    if artifact_sink is None:
+        sheet.save(out / "tracks-contact-sheet.png")
+    else:
+        artifact_sink.write_image("tracks-contact-sheet.png", sheet)
+
+
+def _pose_json(out, name, value, artifact_sink):
+    if artifact_sink is None:
+        write_json(out / name, value)
+    else:
+        artifact_sink.write_json(name, value)
 
 
 def _quality(evidence):
@@ -312,7 +326,7 @@ def _quality(evidence):
 
 
 
-def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw"):
+def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw", artifact_sink=None):
     if pose_mode not in {"video", "image"}:
         raise ValueError("Pose mode must be video or image")
     if pose_identity not in {"raw", "temporal"}:
@@ -368,7 +382,9 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                 if frame.shape[:2] != (height, width):
                     raise ValueError("Video resolution changes within the exercise recording")
                 if frame_index == 0:
-                    if not cv2.imwrite(str(out / "background.jpg"), frame):
+                    if artifact_sink is not None:
+                        artifact_sink.write_source_preview("background.jpg", frame)
+                    elif not cv2.imwrite(str(out / "background.jpg"), frame):
                         raise OSError("Could not write source preview")
                 if frame_index % stride:
                     continue
@@ -415,17 +431,17 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         except importlib.metadata.PackageNotFoundError:
             evidence["model"]["mediapipe_version"] = "unavailable"
         # Partial failures remain inspectable; they are never silently replaced with synthetic poses.
-        write_json(out / "pose-landmarks.json", {"frames": evidence["frames"], "model": evidence["model"], "scope": evidence["scope"]})
-        write_json(out / "evidence.json", evidence)
-        _save_previews(previews, preview_times, out)
+        _pose_json(out, "pose-landmarks.json", {"frames": evidence["frames"], "model": evidence["model"], "scope": evidence["scope"]}, artifact_sink)
+        _pose_json(out, "evidence.json", evidence, artifact_sink)
+        _save_previews(previews, preview_times, out, artifact_sink=artifact_sink)
     evidence["decode_metadata_discrepancy"] = {"metadata_frames": count, "decoded_frames": decoded,
                                               "difference": decoded - count,
                                               "note": "One-frame rounding is retained; larger WebM/Matroska differences require an independent encoded video-block count matching every decoded frame"}
-    resolve_pose_identity(evidence, out, pose_identity)
-    return finalize_evidence(evidence, out)
+    resolve_pose_identity(evidence, out, pose_identity, artifact_sink=artifact_sink)
+    return finalize_evidence(evidence, out, artifact_sink=artifact_sink)
 
 
-def finalize_evidence(evidence, out):
+def finalize_evidence(evidence, out, *, artifact_sink=None):
     out = Path(out)
     tracked = [frame for frame in evidence["frames"] if frame["status"] in USABLE_STATUSES]
     evidence["lengths"] = {name: float(np.median([frame["lengths"][name] for frame in tracked])) for name in tracked[0]["lengths"]} if tracked else {}
@@ -436,15 +452,15 @@ def finalize_evidence(evidence, out):
                               **({"image_refinement": frame["image_refinement"]} if "image_refinement" in frame else {})} for frame in tracked]
     evidence["origin_time_s"] = tracked[0]["time_s"] if tracked else None
     evidence["quality"] = _quality(evidence)
-    write_json(out / "joint-angles.json", {"reference": evidence["reference"], "quality": evidence["quality"],
-                                          "lengths": evidence["lengths"], "assumptions": evidence["assumptions"]})
-    write_json(out / "evidence.json", evidence)
+    _pose_json(out, "joint-angles.json", {"reference": evidence["reference"], "quality": evidence["quality"],
+                                          "lengths": evidence["lengths"], "assumptions": evidence["assumptions"]}, artifact_sink)
+    _pose_json(out, "evidence.json", evidence, artifact_sink)
     if not evidence["quality"]["passes"]:
         raise UnsupportedVideo("; ".join(evidence["quality"]["errors"]))
     return evidence
 
 
-def resolve_pose_identity(evidence, out, mode):
+def resolve_pose_identity(evidence, out, mode, *, artifact_sink=None):
     """Keep raw detector evidence immutable; recompute only explicitly reassigned poses."""
     if mode not in {"raw", "temporal"}:
         raise ValueError("Pose identity must be raw or temporal")
@@ -473,4 +489,4 @@ def resolve_pose_identity(evidence, out, mode):
     evidence["pose_identity"] = {"mode": mode, "audit_artifact": "identity-audit.json",
                                  "repaired_frames": len(audit["repaired_evidence_ids"]),
                                  "raw_artifact_sha256": audit["raw_artifact_sha256"]}
-    write_json(Path(out) / "identity-audit.json", audit)
+    _pose_json(Path(out), "identity-audit.json", audit, artifact_sink)

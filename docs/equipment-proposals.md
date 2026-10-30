@@ -1,8 +1,35 @@
 # Build an exercise scene from saved evidence
 
-Use a sealed **mobile exercise-v3 run or lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. The body input no longer needs a separate shared-world adaptation or clip-specific study directory. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
+Use sealed **body-source evidence or a mobile exercise-v3 run/lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. Body-source preparation skips the unrelated body-only lab, control trials and single-joint training. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
 
-For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, first prepare its [mobile body](local-lab.md#process-your-own-exercise-video) with `--body-model mobile` and its [tracking evidence](shared-world.md). Keep the original video hash and any original/derivative mapping bundles. Assembly reuses those saved results; it does not repeat pose inference or request tracking.
+For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, prepare its body below and its [equipment tracking evidence](shared-world.md). Keep the original video hash and any original/derivative mapping bundles. Assembly reuses those saved results; it does not repeat pose inference or request tracking.
+
+## Prepare body evidence without a lab
+
+```sh
+.venv-lab/bin/python -m weft exercise-body \
+  --video /absolute/path/to/exercise.mp4 \
+  --pose-model /absolute/path/to/pose_landmarker_lite.task \
+  --out artifacts/my-body-01
+```
+
+Use the existing pinned local model, or obtain one with `weft fetch-pose-model`. The command reports landmark/body stages in the terminal and saves the source video, model identity, raw poses, missing/uncertain slots, annotations, canonical observations and mobile body. It does not train, run control trials, render simulated motion or create a task. Defaults remain `--pose-mode video --pose-identity raw`; alternative identity handling is explicit, not a silent fallback.
+
+If pose evidence already exists, reuse it instead of repeating inference:
+
+```sh
+.venv-lab/bin/python -m weft exercise-body \
+  --evidence-run artifacts/existing-mobile-lab \
+  --out artifacts/my-body-02
+```
+
+This path inherits the sealed source/model/pose options and rejects overrides. The copied run configuration describes the original pose processing; `body-source.json` identifies the new mobile-body construction separately. It performs no video decoding or inference. Both paths reuse the current body builder's **one forward-geometry calculation** for the assumed floor; neither steps dynamics. Model-derived joints, root and floor remain assumptions, not measured anatomy or contacts.
+
+`body-source.json` marks the result **construction-only**, with exact source/pose/model/body hashes; `source-clock.json` preserves sampled native timestamps separately from assumed frame-rate time. There is deliberately no `scene.json` or task. Open only the final assembled `lab/`, not this input package. A failed preparation retains its evidence and cannot become a ready lab.
+
+Keep the body-source and complete assembly directories for the full evidence trail. The final `lab/run/` carries selected runtime/canonical evidence, not every raw preparation file; sampled native-clock bytes remain in the body-source and assembly's body-seed snapshot.
+
+Limits: **64 MiB per input/output file, 128 MiB total package, 512 files**, and the existing 60-second/1,800-decoded-frame video limits. The 64 MiB video limit keeps the result compatible with the downstream builder. Default cooperative bounds are 180 seconds for raw video and 30 seconds for saved evidence; a stuck native call still requires a caller process deadline. Source annotation images are not simulation renders.
 
 ## One assembly command
 
@@ -27,7 +54,7 @@ The distance above is an **authored example**, not a measured camera distance. T
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-build \
-  --human-run artifacts/my-mobile-lab --body-scale 1.0 \
+  --human-run artifacts/my-body-01 --body-scale 1.0 \
   --evidence-run artifacts/my-tracking-evidence \
   --config /absolute/path/to/equipment-config.json \
   --full-reference \
@@ -38,7 +65,7 @@ The distance above is an **authored example**, not a measured camera distance. T
 
 The first command prints stage progress and does not start a server. The second command is user-started. Add `--root-assistance` to assembly only if you want the three explicit virtual root controls; otherwise it uses 19 human joint controls. Equipment remains passive in both modes.
 
-`--human-run` accepts the sealed mobile run directly or its enclosing lab. `--body-scale` is an authored body-to-world scale, not a measured size; it defaults to `1.0` and must stay within `[0.5, 2.0]`. The prepared body snapshot preserves exact human/source bytes, source-frame slots and clocks, without physics or rendering. It is construction-only and cannot be opened as a lab. Unsupported body profiles, camera-reference bodies, incomplete source intervals and conflicting identities reject instead of falling back.
+`--human-run` accepts the new body-source package, a legacy sealed mobile run, or its enclosing lab. `--body-scale` is an authored body-to-world scale, not a measured size; it defaults to `1.0` and must stay within `[0.5, 2.0]`. The assembly's body-seed stage preserves exact human/source bytes, source-frame slots and clocks, without physics or rendering. It is construction-only and cannot be opened as a lab. Unsupported body profiles, camera-reference bodies, incomplete source intervals and conflicting identities reject instead of falling back.
 
 Existing shared-world inputs still use `--run artifacts/my-shared-body` instead of `--human-run`. The two options are mutually exclusive; `--body-scale` cannot change a prepared shared world. Neither route infers which equipment to use or silently selects a different source frame.
 
@@ -73,6 +100,12 @@ The default assembly deadline is 90 seconds, checked around stages and during fi
 For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Use [human-only training/evaluation](shared-exercise.md) separately; a ready geometry package is not a successful policy.
 
 ## Verified scope
+
+**Body preparation without a separate lab:** `artifacts/exercise-body-source-equivalence-01` passes on three saved exercise inputs: single-leg squat **235 source slots /118 body references**, squat **213 /100**, and kettlebell push-up **257 /127**. One uses the public `exercise-body --evidence-run` command, two the API. Bodies, root/floor/body-frame/spatial-pose documents match their originals; source videos, raw poses, model/options, identity audits and sampled native timestamps remain exact. Shared-world seed arithmetic also matches the old pure constructor, with source-binding/object provenance differences explicitly excluded from that comparison.
+
+The single study takes **6.153 s including the process**, retains **393 files /114,222,777 bytes**, and seals `f6e126caa4aabefa3da3e421c0c30698a18f1ffe2dd5deb56290ff827f2664cd`. It performs three existing floor-forward calculations, **zero dynamics, decoding, inference, training, API calls or new labs**. Root `.local/exercise-body-source-root-verification-01.json` verifies all 392 covered files and saved body/source/clock custody without new geometry work. This is saved-evidence equivalence, not a new raw-video performance benchmark or improved reconstruction accuracy.
+
+**135 distinct scoped checks** cover the new source path, CLI, bounded producer writes, old pose/body/seed behavior and study failure handling. The new end-to-end analytical fixture preserves 63 slots (29 usable, three sampled missing, 31 unsampled), builds one 58-action declared task/lab with unfamiliar passive foam-pad/training-weight equipment, and executes one legal human action. A real constructor rejection retains its prior evidence without publishing a lab. The tests do not qualify the entire 58-action task or measure physical accuracy; `.local/exercise-body-source-tests-summary-02.json` identifies the receipts. Raw-video orchestration is fixture-tested; real saved evidence is tested as above.
 
 **Direct mobile input:** `artifacts/mobile-source-assembly-01` uses `--human-run` on the saved mobile lab, with existing equipment evidence/configuration and the verified derivative mapping. It completes in **3.977 s**, including **0.756 s** for body preparation, and seals **397 files /102,458,085 bytes including the manifest**: `04ef00208ceecd8585021db55bd27bff654c8cb025db4ea6b17c65a46b782635`. The final physical scene is identical to `full-reference-assembly-01`; task and human bytes match exactly. All **121 references /257 slots /254 actions** remain, and only the selected `sam-2`/`sam-3` equipment reaches the final world. Three reference actions and one reset pass in **0.554 s**, with no object forces or immutable-run changes. `.local/mobile-source-assembly-verification-01.json` verifies all 396 covered members. The new **untrained** lab is `artifacts/mobile-source-assembly-01/lab`; it does not replace the trained example or claim task success. No seed physics/model creation, video decode, inference or paid request occurs.
 
