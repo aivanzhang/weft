@@ -101,11 +101,14 @@ def describe_capabilities(
     trained_target_id=None,
     source_video_present=False,
     reference_available=False,
+    exercise_task=None,
 ):
     """Build a validated environment-capabilities-v1 summary for any supported Weft scene."""
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
+    if exercise_task is not None and scene_profile != "shared-world-v1":
+        raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])
 
     if scene_profile == "rolling":
@@ -645,6 +648,37 @@ def describe_capabilities(
                 "Automatic end-to-end single-video coupled person+object 3D perception without explicit scale bridge",
             ],
         }
+        if exercise_task is not None:
+            from weft.shared_exercise_task import GATES, validate_shared_exercise_task
+
+            exercise = validate_shared_exercise_task(exercise_task, validated)
+            count = 22 if exercise["control"]["root_assistance"] == "explicit_3_axis" else 19
+            doc["entities"].update(controllable_actors=[{
+                "id": "human", "label": f"Human ({count} explicit motors)", "kind": "articulated_human"}],
+                active_control_target="human", multi_target_selection_endpoint=None)
+            doc["action_contract"].update(dimension=count, discrete_actions=[],
+                actuator_names=contract["names"][:count], physical_units=contract["units"][:count],
+                joint_channels=list(range(19)), root_assistance_channels=list(range(19, count)), object_force_channels=[])
+            doc["observation_contract"].update(dimension=156 + 17 * len(exercise["equipment_ids"])
+                                               + 6 * len(exercise["contact_requirements"]),
+                components=["human_reference_conditioned_state", "passive_equipment_reset_relative_state",
+                            "declared_contact_requirement_coverage_and_gaps", "elapsed_fraction"])
+            doc["task_contract"] = {
+                "task_type": exercise["profile"], "authored_addition": True,
+                "reward_summary": "Human reference tracking and passive equipment stability minus explicit human effort; no legacy object-target score.",
+                "success_criteria": {"frozen_gates": dict(GATES), "equipment_ids": exercise["equipment_ids"],
+                    "contact_requirements": exercise["contact_requirements"], "complete_substep_interval_required": True},
+                "termination_conditions": ["explicit_engine_or_observation_failure", "completed_successful_interval"],
+                "truncation_steps": exercise["interval"]["horizon_steps"],
+                "source_scope": exercise["source_scope"], "root_assistance": exercise["control"]["root_assistance"],
+            }
+            doc["reset_contract"].update(supports_jitter=False, default_lab_jitter=False)
+            doc["controllers"].update(learned_policy_available=False, trained_target_id=None, coast=True)
+            doc["unsupported_capabilities"] = [
+                "Object-force actions, object-target selection and legacy coupled learned policies",
+                "Changing task gates, contact requirements or root assistance inside this lab",
+                "Finger grasping, measured muscle activation, verified contact or physical transfer",
+            ]
         return validate_capabilities(doc)
 
     raise ValueError(f"Unsupported scene profile for capability inspection: {scene_profile!r}")
@@ -670,7 +704,12 @@ def describe_run_capabilities(directory, *, out=None):
         finally:
             lab.close()
     else:
-        verify_artifacts(target)
+        exercise_task = None
+        if (target / "exercise-lab.json").is_file():
+            from weft.shared_exercise_lab import load_shared_exercise_lab
+            exercise_task = load_shared_exercise_lab(target)["task"]
+        else:
+            verify_artifacts(target)
         has_video = any((target / f"source.{ext}").is_file() for ext in ("mp4", "webm", "mov", "m4v", "avi", "mkv"))
         has_reference = (target / "human-reference.json").is_file()
         has_policy = (target / "policy.json").is_file()
@@ -688,11 +727,12 @@ def describe_run_capabilities(directory, *, out=None):
                 trained_target = scene.get("controlled_id")
             doc = describe_capabilities(
                 scene,
-                lab_profile="standalone",
+                lab_profile="shared_exercise" if exercise_task is not None else "standalone",
                 learned_policy_available=has_policy and scene.get("learned_policy_available") is not False,
                 trained_target_id=trained_target,
                 source_video_present=has_video,
                 reference_available=has_reference,
+                exercise_task=exercise_task,
             )
         elif (target / "human.json").is_file():
             spec = json.loads((target / "human.json").read_text())

@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {pathToFileURL} from 'node:url';
 
 const html = fs.readFileSync(new URL('../src/weft/assets/lab.html', import.meta.url), 'utf8');
 const script = fs.readFileSync(new URL('../src/weft/assets/lab.js', import.meta.url), 'utf8');
@@ -55,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -172,16 +173,31 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     scene.human.geometry_coverage.right_hip={two_view_estimate:80,two_view_proximal_monocular_distal_and_twist:15,monocular_prior_missing_points:17};
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
+  const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
+    interval:{horizon_steps:6,start_offset_s:0},equipment_ids:['block','companion'],contact_requirements:[]} : null;
+  const exerciseActionContract = sharedExercise ? {names:scene.action_contract.names.slice(0,rootAssistance?22:19),
+    root_assistance:exerciseTask.control.root_assistance,object_force_channels:[]} : null;
+  const freshExerciseMetrics = () => ({profile:'shared-exercise-task-v1',simulated_duration_s:0,declared_duration_s:.2,clock_status:'observed',
+    observed_substeps:0,valid_substeps:0,completed_interval:false,success:false,failure:null,failed_gates:[],
+    angular_rmse_rad:null,peak_angular_rmse_rad:0,root_rmse_model_units:null,peak_root_rmse_model_units:0,max_floor_penetration_model_units:0,
+    equipment:['block','companion'].map(object_id=>({object_id,displacement_model_units:0,orientation_rad:0,speed_model_units_s:0,angular_speed_rad_s:0,within_limits:true})),
+    contact_requirements:[],gates_sha256:'f'.repeat(64)});
+  let exerciseMetrics = {...freshExerciseMetrics(),...exerciseInitialMetrics};
+  let lastExerciseAction = Array(rootAssistance?22:19).fill(0);
+  if(sharedExercise){scene.dt=1/30;state.substeps=8;state.success=!exerciseMetrics.success;state.time_s=exerciseGeometryTime;state.human.mobility.support_force=[0,0,0];}
+  const wireState = () => sharedExercise ? {profile:'shared-exercise-state-v1',engine_state:state,engine_state_status:exerciseEngineStatus,
+    ...(missingExerciseState?{}:{task_metrics:exerciseMetrics}),last_action:lastExerciseAction,
+    terminated:Boolean(exerciseMetrics.failure||exerciseMetrics.success),truncated:Boolean(exerciseMetrics.completed_interval&&!exerciseMetrics.success&&!exerciseMetrics.failure)} : state;
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = [];
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
-  const noPolicy = cameraBody || isSpatialUntrained || (shared && !sharedTrained);
+  const noPolicy = sharedExercise || cameraBody || isSpatialUntrained || (shared && !sharedTrained);
   const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
   const buildCapabilities = () => ({
     schema_version: 1,
     profile: 'environment-capabilities-v1',
     scene_profile: scene.profile,
-    lab_profile: wholeBody ? 'whole_body' : cameraBody ? 'camera_body' : profile,
+    lab_profile: sharedExercise ? 'shared_exercise' : wholeBody ? 'whole_body' : cameraBody ? 'camera_body' : profile,
     entities: {
       articulated_body_present: profile === 'exercise' || shared,
       active_control_target: state.human?.selected_joint || scene.controlled_id,
@@ -219,6 +235,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
+    ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract}:{}),
     learned_policy_available: !noPolicy,
     ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
@@ -228,7 +245,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       failed_source_poses:3,source_pose_checks:10,failed_control_grid_poses:7,control_grid_checks:30}}} : {}),
     ...(temporalIdentity ? {result:{pose_identity:{mode:'temporal',repaired_frames:2}}} : {}),
     events: legacyPackageEvent && backendReady ? [{index:1,stage:'whole_body',message:'Existing packaged run without elapsed time'}] : [{index: 0, stage: backendReady ? 'ready' : 'source', elapsed_seconds: .1, message: 'Synthetic UI fixture'}],
-    scene, snapshot: state, recording: backendRecording, sessions: savedSessions,
+    scene, snapshot: wireState(), recording: backendRecording, sessions: savedSessions,
     ...(exportStatus ? {export:{status:exportStatus}} : {}),
     artifacts: [...new Set([...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...Object.keys(artifacts)] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])])].map(name => ({name,bytes:500}))});
   const artifacts = {'training.json': {completed_episodes: 10, steps: 200, seconds: .3,
@@ -238,6 +255,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     'reconstruction.json': {before:{rmse_px:10},after:{rmse_px:4}},
     'policy.json': {selected_joint:'left_knee'}};
   if (coverage) artifacts['coverage-summary.json'] = coverage;
+  if (sharedExercise) artifacts['exercise-task.json'] = exerciseTask;
   if (noPolicy) {
     delete artifacts['policy.json']; delete artifacts['training.json']; delete artifacts['rl-evaluation.json'];
     artifacts['reconstruction.json'] = {scope: isSpatialUntrained ? 'Unvalidated 3D rigid scene' : 'Unvalidated camera-aware candidate'};
@@ -316,20 +334,30 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       }
       if (shared && request.data.action !== undefined) {
         if(Array.isArray(request.data.action)) {
-          assert.equal(request.data.action.length,28);
+          assert.equal(request.data.action.length,sharedExercise?(rootAssistance?22:19):28);
           assert(request.data.action.every(value=>Number.isFinite(value)&&value>=-1&&value<=1));
           state.human.normalized_action=request.data.action.slice(0,22);
         } else assert(Number.isInteger(request.data.action)&&request.data.action>=0&&request.data.action<=7);
+      }
+      if(sharedExercise) {
+        if(request.data.action===undefined)assert(['coast','reference'].includes(request.data.controller));
+        else assert(Array.isArray(request.data.action),'Exercise never uses object-force integer actions');
+        lastExerciseAction=request.data.action||Array(rootAssistance?22:19).fill(request.data.controller==='coast'?0:.2);
+        state.human.normalized_action=[...lastExerciseAction,...(rootAssistance?[]:[0,0,0])];
+        state.human.mobility.support_force=rootAssistance?lastExerciseAction.slice(19).map(value=>value*100):[0,0,0];
+        exerciseMetrics={...exerciseMetrics,simulated_duration_s:state.time_s,observed_substeps:state.steps*8,valid_substeps:state.steps*8,
+          angular_rmse_rad:.12,root_rmse_model_units:.03};
       }
     } else if (path === '/api/reset' || path === '/api/record/start') {
       state = clone(state); state.steps = 0; state.time_s = 0;
       state.objects[0].position = profile === 'spatial-rigid' || shared ? [.24, .36, .065] : [.2,.3];
       state.terminated = state.truncated = state.success = false;
       delete state.simulation_failure;
+      if(sharedExercise){exerciseMetrics=freshExerciseMetrics();exerciseEngineStatus='current';lastExerciseAction=Array(rootAssistance?22:19).fill(0);}
     }
     if (path === '/api/record/start') backendRecording = true;
     if (path === '/api/record/stop') {backendRecording = false;exportStatus = 'running';savedSessions = [{name:'trial-001',complete:false}];}
-    request.resolve(response({snapshot: state, ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
+    request.resolve(response({snapshot: wireState(), ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
   }
   const storage = new Map();
   vm.runInNewContext(script, {document, window, location: {hash:'#token=synthetic-token',pathname:'/'},
@@ -340,6 +368,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     rejectNext(path,message) {const index=pending.findIndex(request=>request.path===path);assert(index>=0);pending.splice(index,1)[0].resolve(response({error:message},false));},
     resolveArtifacts(){for(const request of [...pending])if('artifactValue' in request)resolveNext(request.path);},
     backendState:()=>clone(state),
+    backendTaskState:()=>clone(wireState()),
     finish(){state=clone(state);state.terminated=true;state.success=true;},
     finishExport(){exportStatus='ready';savedSessions[0].complete=true;},
     setReady() { backendReady = true; },
@@ -350,7 +379,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||shared||multiObject)?3:1);
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||shared||multiObject)?3:1);
       assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
@@ -1240,7 +1269,138 @@ async function inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop() {
   assert.match(ui.ids.get('inspection-status').textContent,/prepared simulation candidate/);
 }
 
-checks.push(fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
+async function sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance() {
+  for(const rootAssistance of [false,true]) {
+    const ui=fixture('shared-world',{sharedExercise:true,rootAssistance,sharedTrained:true});await ui.ready();
+    assert.equal(ui.ids.get('exercise-task-card').hidden,false);assert.equal(ui.ids.get('exercise-results').hidden,false);
+    assert.match(ui.ids.get('exercise-task-scope').textContent,/0\.20 seconds \(6 control steps\)/);
+    assert.match(ui.ids.get('exercise-assistance').textContent,rootAssistance?/3 explicit virtual controls/:/OFF · 19 joint motors/);
+    assert.match(ui.ids.get('exercise-contact-scope').textContent,/No wrist-region contact is required/);
+    assert.equal(ui.ids.get('joint').children.length,rootAssistance?22:19);
+    assert.equal(ui.ids.get('actor-controls').hidden,true);assert.equal(ui.ids.get('actor').disabled,true);
+    assert.deepEqual(ui.ids.get('actor').children.map(option=>option.value),['human']);
+    assert.equal(ui.ids.get('mode-coast').hidden,false);assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
+    assert(!ui.requests.some(request=>/\/(policy|training|rl-evaluation)\.json/.test(request.path)),'Legacy learned artifacts must not activate the human-only task');
+    assert(!ui.ids.get('live').drawCalls.some(call=>call.name==='setLineDash'&&call.args[0]?.length),'Exercise view has no object-target marker');
+    assert.match(ui.ids.get('goal-summary').textContent,/not a target-object task/);
+    assert.doesNotMatch(ui.ids.get('readout').textContent,/object.*dist|target:|TASK SUCCESS/);
+    assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+    assert.notEqual(ui.ids.get('play-state').textContent,'Goal reached','Legacy engine success must not decide exercise success');
+    const before=ui.requests.length;ui.ids.get('actor').value='companion';ui.ids.get('actor').dispatch('change');await drain();
+    assert.equal(ui.requests.length,before,'Hidden object selector cannot submit an exercise actor switch');
+  }
+}
+
+async function sharedExerciseManualCoastAndAuthoredRequestsStayDistinct() {
+  for(const rootAssistance of [false,true]) {
+    const ui=fixture('shared-world',{sharedExercise:true,rootAssistance});await ui.ready();
+    const motor=rootAssistance?'root_x':'left_elbow';
+    ui.ids.get('joint').value=motor;ui.ids.get('joint').dispatch('change');ui.action(1);await drain();
+    let data=ui.pending[0].data;
+    assert.equal(data.action.length,rootAssistance?22:19);assert.equal(data.action.filter(Boolean).length,1);
+    const index=ui.ids.get('joint').children.findIndex(option=>option.value===motor);
+    assert.equal(data.action[index],.25);assert(!('controller' in data));ui.resolveNext('/api/step');await drain();
+    ui.ids.get('mode-coast').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,controller:'coast'});ui.resolveNext('/api/step');await drain();
+    assert(ui.backendTaskState().last_action.every(value=>value===0));assert.match(ui.ids.get('mode-description').textContent,/every joint and root-force command is zero/);
+    ui.ids.get('reference-servo').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,controller:'reference'});ui.resolveNext('/api/step');await drain();
+    assert.match(ui.ids.get('mode-description').textContent,/programmed control, not learned behavior/);
+    const before=ui.requests.length;ui.action(1);ui.ids.get('live').dispatch('keydown',{key:'ArrowUp'});await drain();
+    assert.equal(ui.requests.length,before,'Manual input cannot replace the authored controller');
+    assert.equal(ui.maxActiveSteps(),1);
+  }
+}
+
+async function sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates() {
+  const equipment=[{object_id:'block',displacement_model_units:.18,orientation_rad:.21,speed_model_units_s:.22,angular_speed_rad_s:.81,within_limits:false},
+    {object_id:'companion',displacement_model_units:.02,orientation_rad:.03,speed_model_units_s:.04,angular_speed_rad_s:.05,within_limits:true}];
+  const contacts=[{object_id:'block',wrist:'left',kind:'upward_support',start_step:0,end_step:6,qualifying_fraction:.5,
+    observed_duration_s:.1,required_duration_s:.2,max_gap_s:.11,satisfied:false}];
+  const ui=fixture('shared-world',{sharedExercise:true,exerciseInitialMetrics:{simulated_duration_s:.1,observed_substeps:24,valid_substeps:24,
+    angular_rmse_rad:.2,peak_angular_rmse_rad:.5,root_rmse_model_units:.1,peak_root_rmse_model_units:.2,max_floor_penetration_model_units:.03,
+    equipment,contact_requirements:contacts,failed_gates:['equipment_stability:block']}});await ui.ready();
+  assert.match(ui.ids.get('exercise-body-errors').textContent,/mean 0\.200 rad \/ peak 0\.500 rad/);
+  assert.match(ui.ids.get('exercise-equipment-summary').textContent,/0\.180 model units/);
+  assert.match(ui.ids.get('exercise-duration').textContent,/24 valid \/ 24 observed substeps/);
+  assert.equal(ui.ids.get('exercise-equipment').children.length,0,'Detailed tables stay lazy until opened');
+  ui.ids.get('exercise-metrics-details').open=true;ui.ids.get('exercise-metrics-details').dispatch('toggle');
+  assert.equal(ui.ids.get('exercise-equipment').children.length,2);
+  assert.equal(ui.ids.get('exercise-equipment').children[0].children[1].textContent,'0.180 model units');
+  assert.match(ui.ids.get('exercise-contacts').children[0].children[2].textContent,/50\.0% qualifying/);
+  assert.match(ui.ids.get('exercise-gates').textContent,/equipment_stability:block/);
+  assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+  for(const success of [true,false]) {
+    const finished=fixture('shared-world',{sharedExercise:true,exerciseInitialMetrics:{completed_interval:true,success,simulated_duration_s:.2,observed_substeps:48,valid_substeps:48}});
+    await finished.ready();
+    assert.match(finished.ids.get('exercise-outcome').textContent,success?/^Passed/:/^Not passed/);
+    assert.equal(finished.ids.get('play-state').textContent,success?'Goal reached':'Trial finished');
+    assert.equal(finished.ids.get('step').disabled,true);
+  }
+}
+
+async function sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess() {
+  const missing=fixture('shared-world',{sharedExercise:true,missingExerciseState:true});await missing.ready();
+  assert.match(missing.ids.get('exercise-outcome').textContent,/unavailable/);
+  assert.match(missing.ids.get('exercise-duration').textContent,/no zero values or success/);
+  for(const id of ['toggle','step','record','mode-manual','mode-coast','reference-servo'])assert.equal(missing.ids.get(id).disabled,true);
+  assert.equal(missing.ids.get('reset').disabled,false);assert.equal(missing.ids.get('exercise-equipment').children.length,0);
+  const before=missing.requests.length;missing.action(1);await drain();assert.equal(missing.requests.length,before);
+  for(const stale of [false,true]) {
+    const failed=fixture('shared-world',{sharedExercise:true,exerciseEngineStatus:stale?'last_valid_control_boundary':'current',exerciseGeometryTime:stale?.1:.12,
+      exerciseInitialMetrics:{failure:'engine_failure:partial action',simulated_duration_s:.12,observed_substeps:29,valid_substeps:28}});
+    await failed.ready();
+    assert.match(failed.ids.get('exercise-outcome').textContent,/Not passed · simulation failed/);
+    assert.match(failed.ids.get('exercise-duration').textContent,/28 valid \/ 29 observed/);
+    assert.match(failed.ids.get('readout').textContent,stale?/task 0\.120s · geometry 0\.100s/:/task 0\.120s · geometry 0\.120s/);
+    assert.match(failed.ids.get('exercise-failure').textContent,stale?/last valid geometry.*No terminal pose was fabricated/:/current geometry time/);
+    assert.equal(failed.ids.get('step').disabled,true);assert.equal(failed.ids.get('stop-record').disabled,true);
+    failed.ids.get('reset').click();await drain();failed.resolveNext('/api/reset');await drain();
+    assert.equal(failed.ids.get('exercise-failure').hidden,true);assert.equal(failed.ids.get('error').hidden,true);
+    assert.match(failed.ids.get('exercise-outcome').textContent,/In progress/);
+  }
+}
+
+async function sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper() {
+  const ui=fixture('shared-world',{sharedExercise:true,rootAssistance:true});await ui.ready();
+  const before=ui.backendTaskState(),requestCount=ui.requests.length;
+  ui.stage('world');ui.ids.get('reference-frame').value='2';ui.ids.get('reference-frame').dispatch('input');
+  ui.ids.get('spatial-world-yaw').value='1.2';ui.ids.get('spatial-world-yaw').dispatch('input');
+  assert.deepEqual(ui.backendTaskState(),before);assert.equal(ui.requests.length,requestCount);
+  assert(!ui.ids.get('world-canvas').drawCalls.some(call=>call.name==='setLineDash'&&call.args[0]?.length));
+  ui.stage('play');ui.ids.get('mode-coast').click();ui.ids.get('record').click();await drain();
+  assert.equal(ui.pending[0].path,'/api/record/start');ui.resolveNext('/api/record/start');await drain();
+  assert.equal(ui.ids.get('actor').disabled,true);assert.equal(ui.ids.get('joint').disabled,true);
+  assert.deepEqual(ui.pending[0].data,{steps:3,controller:'coast'});
+  ui.ids.get('reset').click();await drain();assert(!ui.pending.some(request=>request.path==='/api/reset'));
+  ui.resolveNext('/api/step');await drain();ui.resolveNext('/api/reset');await drain();
+  assert.equal(ui.backendTaskState().profile,'shared-exercise-state-v1');assert.equal(ui.backendTaskState().task_metrics.observed_substeps,0);
+  assert.equal(ui.backendTaskState().engine_state.time_s,0);assert.match(ui.ids.get('record-status').textContent,/Recording/);
+  ui.ids.get('mode-manual').click();assert.equal(ui.ids.get('joint').disabled,false,'A different human motor does not change the immutable task');
+  ui.ids.get('stop-record').click();await drain();ui.resolveNext('/api/record/stop');await drain();
+  assert.equal(ui.ids.get('stop-record').disabled,true);assert.equal(ui.maxActiveSteps(),1);
+}
+
+async function sharedExerciseMissingContractAndContactFractionStayUnavailable() {
+  const missing=fixture('shared-world',{sharedExercise:true,missingExerciseContract:true,
+    exerciseInitialMetrics:{completed_interval:true,success:true,simulated_duration_s:.2,observed_substeps:48,valid_substeps:48}});
+  await missing.ready();
+  assert.match(missing.ids.get('exercise-outcome').textContent,/unavailable/);
+  assert.doesNotMatch(missing.ids.get('exercise-outcome').textContent,/^Passed/);
+  assert.equal(missing.ids.get('record').disabled,true);assert.equal(missing.ids.get('joint').children.length,0);
+  const ui=fixture('shared-world',{sharedExercise:true,exerciseInitialMetrics:{contact_requirements:[{
+    object_id:'block',wrist:'left',kind:'upward_support',start_step:0,end_step:6,qualifying_fraction:null,
+    observed_duration_s:0,required_duration_s:.2,max_gap_s:0,satisfied:false}]}});await ui.ready();
+  ui.ids.get('exercise-metrics-details').open=true;ui.ids.get('exercise-metrics-details').dispatch('toggle');
+  const coverage=ui.ids.get('exercise-contacts').children[0].children[2].textContent;
+  assert.match(coverage,/Qualifying fraction unavailable/);assert.doesNotMatch(coverage,/0\.0%/);
+  assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/,'The UI does not rescore missing display values');
+}
+
+checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
+  sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates,sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess,
+  sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
+  fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
   inspectionPollingIsBoundedCachedAndIndependentOfRecording,inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop,
   poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
@@ -1250,9 +1410,12 @@ checks.push(fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspecti
   sharedWorldShowsBodyObjectsAndContactsInAllThreeViews,sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions,
   sharedWorldPolicyAvailabilityAndControllerPayloadsStayExplicit,sharedWorldRecordingLocksActorAndSerializesReset,
   sharedWorldKinematicScrubbingCannotAdvanceLivePhysics);
-const requestedChecks = new Set(process.argv.slice(2));
-const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
-if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');
-let failed=0;
-for(const check of selectedChecks){try{await check();console.log(`PASS ${check.name}`);}catch(error){failed++;console.error(`FAIL ${check.name}: ${error.stack}`);}}
-if(failed)process.exitCode=1;
+export {Element, html, script};
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  const requestedChecks = new Set(process.argv.slice(2));
+  const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
+  if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');
+  let failed=0;
+  for(const check of selectedChecks){try{await check();console.log(`PASS ${check.name}`);}catch(error){failed++;console.error(`FAIL ${check.name}: ${error.stack}`);}}
+  if(failed)process.exitCode=1;
+}

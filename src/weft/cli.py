@@ -206,6 +206,14 @@ def main():
     sw_lab.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_lab.add_argument("--learning", help="Optional verified shared-world policy directory for the same scene")
     sw_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
+    exercise_lab = commands.add_parser("shared-exercise-lab",
+        help="Prepare an immutable human-only exercise lab with passive equipment; no server or training")
+    exercise_lab.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
+    exercise_lab.add_argument("--out", required=True, help="New lab directory outside the immutable input")
+    exercise_lab_choice = exercise_lab.add_mutually_exclusive_group()
+    exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
+    exercise_lab_choice.add_argument("--task", help="Pinned shared-exercise-task-v1 JSON; preserve its exact task choice")
+    exercise_lab.add_argument("--max-seconds", type=float, default=60)
     exercise_eval = commands.add_parser("shared-exercise-evaluate",
         help="Evaluate and record human-only controls with passive equipment; no training or API calls")
     exercise_eval.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
@@ -355,6 +363,10 @@ def main():
             from weft.shared_exercise_run import evaluate_shared_exercise_run
             result = evaluate_shared_exercise_run(args.run, args.out, root_assistance=args.root_assistance,
                 task_path=args.task, seed=args.seed, jitter=args.jitter, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-lab":
+            from weft.shared_exercise_lab import prepare_shared_exercise_lab
+            result = prepare_shared_exercise_lab(args.run, args.out, root_assistance=args.root_assistance,
+                task_path=args.task, max_seconds=args.max_seconds)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)

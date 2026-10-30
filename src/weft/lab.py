@@ -27,6 +27,14 @@ from weft.recording import Recorder, export_recording
 from weft.world import World
 
 
+PUBLIC_ASSETS = {"/": "lab.html", "/lab.js": "lab.js", "/lab.css": "lab.css",
+                 "/brand.css": "brand.css", "/weft-logo.png": "weft-logo.png"}
+
+
+def _shared_exercise(session):
+    return getattr(session, "control_profile", None) == "shared_exercise"
+
+
 class RollingSession:
     def __init__(self, root):
         self.world = World.from_dict(json.loads((root / "world.json").read_text()))
@@ -444,6 +452,15 @@ class Lab:
         if self.session is None:
             if self.status()["status"] != "ready":
                 raise ValueError("The environment is not ready; inspect the pipeline status")
+            if self.config.get("control_profile") == "shared_exercise":
+                if self.config["profile"] != "shared-world":
+                    raise ValueError("Human-only shared exercise requires a shared-world lab")
+                from weft.shared_exercise_lab import SharedExerciseSession
+                self.session = SharedExerciseSession(self.root / "run", config=self.config)
+                self.artifacts = self.session.artifacts
+                return self.session
+            if (self.root / "run" / "exercise-lab.json").exists():
+                raise ValueError("A human-only exercise lab cannot switch to a legacy control profile")
             verify_artifacts(self.root / "run")
             cls = {"rolling": RollingSession, "planar": PlanarSession, "appearance": PlanarSession,
                    "spatial-rigid": SpatialSession, "shared-world": SharedWorldSession,
@@ -481,6 +498,8 @@ class Lab:
         return self.inspection_future.result() if self.inspection_future.done() else {'status': 'loading'}
 
     def capabilities(self, session):
+        if _shared_exercise(session):
+            return session.capabilities()
         from weft.capabilities import describe_capabilities
         if self.artifacts is None and (self.root / "run").exists():
             self.artifacts = [{"name": str(p.relative_to(self.root / "run")), "bytes": p.stat().st_size}
@@ -661,6 +680,9 @@ class Lab:
             result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
                           learned_policy_available=policy_ready, capabilities=capabilities,
                           evidence_provenance=self.evidence_provenance(capabilities))
+            if _shared_exercise(session):
+                result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
+                              action_contract=session.action_contract())
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}
@@ -676,6 +698,8 @@ class Lab:
 
     def control(self, path, data):
         session = self.load_session()
+        if _shared_exercise(session) and path in ("/api/record/start", "/api/record/stop") and data:
+            raise ValueError("Exercise recording uses the selected task and current seed; no overrides are accepted")
         if path == "/api/joint":
             if not isinstance(session, HumanSession):
                 raise ValueError("Joint selection is available only for exercise runs")
@@ -698,6 +722,8 @@ class Lab:
                 self.recorder = None
                 raise ValueError(f"Recording stopped before the next action: {error}. The journal is preserved.") from error
         if path == "/api/reset":
+            if _shared_exercise(session) and set(data) - {"seed"}:
+                raise ValueError("Exercise reset accepts only a seed; task, assistance and reset protocol are fixed")
             seed = data.get("seed", self.seed + 1)
             if type(seed) is not int or not 0 <= seed < 2 ** 31:
                 raise ValueError("Seed must be an integer between 0 and 2147483647")
@@ -708,13 +734,26 @@ class Lab:
             return {"snapshot": snapshot}
         if path == "/api/step":
             count, action = data.get("steps", 1), data.get("action", 0)
-            scene_profile = session.scene.get("profile")
+            scene_profile = session.scene_profile if _shared_exercise(session) else session.scene.get("profile")
             maximum_action = 9 if scene_profile == "exercise-v3" else 7 if scene_profile == "spatial-rigid-v1" else 5
             if type(count) is not int or not 1 <= count <= 6:
                 raise ValueError('Use 1–6 steps')
             if type(data.get("policy", False)) is not bool:
                 raise ValueError("policy must be a boolean")
-            if isinstance(session, WholeBodySession):
+            if _shared_exercise(session):
+                if set(data) - {"steps", "action", "controller", "policy"}:
+                    raise ValueError("Exercise steps cannot change actors, task or assistance")
+                if data.get("policy", False):
+                    raise ValueError("This human-only task has no learned policy")
+                if data.get("controller") not in (None, "reference", "coast"):
+                    raise ValueError("Choose manual human actions, authored reference or coast")
+                if int("action" in data) + int(data.get("controller") is not None) != 1:
+                    raise ValueError("Choose exactly one human-only action vector or controller")
+                if "action" in data:
+                    action = session.resolve_action(action)
+                elif data["controller"] == "coast":
+                    action = [0.] * session.env.action_count
+            elif isinstance(session, WholeBodySession):
                 if data.get('controller') not in (None, 'reference'):
                     raise ValueError('Unknown whole-body controller')
                 selectors = int('action' in data) + int(data.get('policy', False)) + int(data.get('controller') is not None)
@@ -763,6 +802,8 @@ class Lab:
                             'warning': 'Simulation stopped after a failed action. Last valid state and failed attempt preserved.'}
                 event = {"type": "step", "action": chosen, "reward": float(reward),
                          "terminated": bool(terminated), "truncated": bool(truncated), "snapshot": session.snapshot()}
+                if _shared_exercise(session):
+                    event["controller"] = {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual")
                 if self.recorder:
                     self.recorder.append(event)
                 transitions.append(event)
@@ -776,13 +817,16 @@ class Lab:
             snapshot = session.reset(self.seed)
             name = f"session-{uuid4().hex[:12]}"
             recorder_profile = (
-                "shared-world"
+                "shared-exercise"
+                if _shared_exercise(session)
+                else "shared-world"
                 if session.scene.get("profile") == "shared-world-v1"
                 else "spatial-rigid"
                 if session.scene.get("profile") == "spatial-rigid-v1"
                 else self.config["profile"]
             )
-            recorder = Recorder(self.root / "sessions" / name, session.scene, profile=recorder_profile)
+            recording_scene = session.recording_scene() if _shared_exercise(session) else session.scene
+            recorder = Recorder(self.root / "sessions" / name, recording_scene, profile=recorder_profile)
             recorder.start(snapshot, seed=self.seed)
             self.recorder = recorder
             return {"recording": True, "directory": name, "snapshot": snapshot}
@@ -793,7 +837,12 @@ class Lab:
             result = recorder.close()
             root = Path(result["directory"]) if "directory" in result else recorder.root
             self.export_path = Path(root).name
-            self.export_future = self.executor.submit(export_recording, root)
+            if _shared_exercise(session):
+                from weft.shared_exercise_lab import export_shared_exercise_session
+                export = export_shared_exercise_session
+            else:
+                export = export_recording
+            self.export_future = self.executor.submit(export, root)
             return {"recording": False, "export": "running", "directory": self.export_path}
         raise ValueError("Unknown control endpoint")
 
@@ -886,8 +935,7 @@ class LabHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = unquote(urlsplit(self.path).path)
         assets = Path(__file__).parent / "assets"
-        public = {"/": assets / "lab.html", "/lab.js": assets / "lab.js", "/lab.css": assets / "lab.css",
-                  "/brand.css": assets / "brand.css", "/weft-logo.png": assets / "weft-logo.png"}
+        public = {url: assets / name for url, name in PUBLIC_ASSETS.items()}
         if not self.authorized(public=path in public):
             return
         try:

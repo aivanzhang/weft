@@ -38,6 +38,17 @@ def _sealed_file(directory, files, name, *, max_bytes=MAX_INPUT_BYTES):
         raise ValueError(f"Construction input {name}: {error}") from error
 
 
+def read_equipment_observations(directory, files):
+    """Accept the canonical exporter and legacy study layout without rewriting either."""
+    names = [name for name in ("scene-observations.json", "evidence/scene-observations.json") if name in files]
+    if not names:
+        raise ValueError("Equipment input requires sealed scene-observations.json")
+    documents = [_sealed_file(directory, files, name) for name in names]
+    if any(raw != documents[0] for raw in documents[1:]):
+        raise ValueError("Equipment input contains conflicting sealed observation documents")
+    return documents[0]
+
+
 def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *, target_object_id,
                                    source_mappings=(), frame_translation=None):
     """Construct a new sealed coupled candidate from explicit, verified intermediate inputs."""
@@ -74,7 +85,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                    or not 1 <= len(row["object_id"]) <= 80 for row in equipment)):
         raise ValueError("Equipment proposal requires its version, pinned body and bounded object identities")
     evidence_manifest, evidence_files = read_package_manifest(evidence_run)
-    equipment_raw = _sealed_file(evidence_run, evidence_files, "evidence/scene-observations.json")
+    equipment_raw = read_equipment_observations(evidence_run, evidence_files)
     equipment_sha = hashlib.sha256(equipment_raw).hexdigest()
     human_ref = next(row for row in base["source_binding"]["entity_bindings"] if row["world_entity_id"] == "human")
     human_sha = human_ref["observation_document_sha256"]

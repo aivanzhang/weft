@@ -152,6 +152,39 @@ def test_loader_binds_metadata_seed_to_initial_event(tmp_path, target, seed):
         load_recording(root)
 
 
+@pytest.mark.parametrize("controller", ["unknown", True, None, {}, "coast"])
+def test_controller_metadata_rejects_unknown_modes_and_nonzero_coast(tmp_path, controller):
+    root = closed_session(tmp_path)
+    journal = root / "events.jsonl"
+    events = [json.loads(line) for line in journal.read_text().splitlines()]
+    assert any(events[1]["action"])
+    events[1]["controller"] = controller
+    journal.write_text("".join(json.dumps(event) + "\n" for event in events))
+    with pytest.raises(ValueError, match="controller metadata|coast metadata"):
+        load_recording(root)
+
+
+def test_authored_label_requires_the_authored_action_during_exact_replay(tmp_path):
+    scene, task = short_task(False)
+    env = SharedExerciseTaskEnv(scene, task)
+    recorder = Recorder(tmp_path / "session", recording_scene(scene, task), profile="shared-exercise")
+    try:
+        env.reset(seed=0)
+        assert any(env.authored_action())
+        recorder.start(env.snapshot())
+        append_step(recorder, env, np.zeros(env.action_count))
+        recorder.close()
+        journal = recorder.root / "events.jsonl"
+        events = [json.loads(line) for line in journal.read_text().splitlines()]
+        events[1]["controller"] = "authored"
+        journal.write_text("".join(json.dumps(event) + "\n" for event in events))
+        with pytest.raises(ValueError, match="authored controller replay"):
+            verify_action_replay(recorder.root)
+    finally:
+        recorder.close()
+        env.close()
+
+
 def test_envelope_rejects_alias_changes():
     scene, task = short_task(False)
     bundle = recording_scene(scene, task)

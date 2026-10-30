@@ -1,0 +1,137 @@
+/** Saved-source UI presentation and outbound selectors; no browser, server or physics. */
+import assert from 'node:assert/strict';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import {Element, html, script} from './lab_ui_smoke.mjs';
+
+const study = fs.realpathSync(process.argv[2] || 'artifacts/shared-exercise-lab-integration-01');
+const sha = raw => crypto.createHash('sha256').update(raw).digest('hex');
+const inputs = new Map(), artifacts = new Map();
+function readJson(name, limit, expected) {
+  const filename = fs.realpathSync(path.join(study, name));
+  assert(filename.startsWith(study + path.sep), 'Payload must stay in the saved study');
+  assert(fs.statSync(filename).isFile() && fs.statSync(filename).size <= limit, 'Payload exceeds its bound');
+  const raw = fs.readFileSync(filename);
+  if (expected) assert.equal(sha(raw), expected, `Saved input changed: ${name}`);
+  inputs.set(name, sha(raw));
+  return {value: JSON.parse(raw), bytes: raw.length};
+}
+const manifest = readJson('manifest.json', 1024 * 1024).value;
+assert.equal(manifest.status, 'verified', 'Wait for the root study to finish and seal');
+const readSealed = (name, limit) => {
+  assert.equal(typeof manifest.files[name], 'string', `Study does not seal ${name}`);
+  return readJson(name, limit, manifest.files[name]);
+};
+const initial = readSealed('initial-status.json', 4 * 1024 * 1024).value;
+const final = readSealed('final-task-state.json', 4 * 1024 * 1024).value;
+const inspection = readSealed('inspection.json', 64 * 1024).value;
+const runManifest = readSealed('lab/run/manifest.json', 1024 * 1024).value;
+assert.equal(sha(html), runManifest.files['lab-implementation/assets/lab.html']);
+assert.equal(sha(script), runManifest.files['lab-implementation/assets/lab.js']);
+assert.equal(initial.status, 'ready'); assert.equal(initial.control_profile, 'shared_exercise');
+assert.equal(fs.realpathSync(initial.directory), path.join(study, 'lab'));
+assert.equal(initial.action_contract.names.length, 22); assert.equal(initial.exercise_task.control.root_assistance, 'explicit_3_axis');
+assert.equal(final.profile, 'shared-exercise-state-v1'); assert.equal(final.task_sha256, initial.snapshot.task_sha256);
+assert.equal(final.task_metrics.completed_interval, true); assert.equal(final.task_metrics.success, false);
+assert.equal(inspection.status, 'available'); assert(inspection.geometry.panels.length > 0);
+
+const copy = value => JSON.parse(JSON.stringify(value));
+const response = (value, bytes) => ({ok: true, headers: {get: name => name === 'Content-Length' ? String(bytes) : null}, json: async () => copy(value)});
+async function drain() { for (let i = 0; i < 60; i++) await Promise.resolve(); }
+function harness() {
+  const elements = [], ids = new Map(), requests = [], pending = [], timers = new Map(), windowListeners = new Map();
+  let timer = 0;
+  for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
+    const attributes = {};
+    for (const attr of match[2].matchAll(/([\w-]+)(?:="([^"]*)")?/g)) attributes[attr[1]] = attr[2] ?? '';
+    const element = new Element(match[1], attributes); elements.push(element);
+    if (element.id) ids.set(element.id, element);
+  }
+  const select = selector => {
+    if (selector === '.panel') return elements.filter(element => element.classes.has('panel'));
+    if (selector === '[data-action]') return elements.filter(element => 'action' in element.dataset);
+    if (selector === '[data-json]') return elements.filter(element => 'json' in element.dataset);
+    if (selector === '[data-action][aria-pressed=true]') return select('[data-action]').filter(element => element.getAttribute('aria-pressed') === 'true');
+    if (selector.startsWith('#')) return [ids.get(selector.slice(1))].filter(Boolean);
+    throw new Error(`Unsupported DOM selector ${selector}`);
+  };
+  ids.get('stages').querySelectorAll = () => elements.filter(element => 'panel' in element.dataset);
+  const document = {hidden: false, getElementById: id => { assert(ids.has(id), `Missing DOM element ${id}`); return ids.get(id); },
+    querySelectorAll: select, querySelector: selector => select(selector)[0] || null,
+    createElement: tag => new Element(tag), addEventListener() {}};
+  function fetch(url, options = {}) {
+    const request = {url, data: options.body ? JSON.parse(options.body) : null}; requests.push(request);
+    if (url === '/api/status') return Promise.resolve(response(initial, JSON.stringify(initial).length));
+    if (url === '/api/inspection') return Promise.resolve(response(inspection, JSON.stringify(inspection).length));
+    if (url.startsWith('/files/run/')) {
+      const pathname = new URL(url, 'http://local-mock.invalid').pathname;
+      const relative = pathname.slice('/files/run/'.length).split('/').map(decodeURIComponent).join('/');
+      assert(!relative.startsWith('/') && !relative.split('/').some(part => !part || part === '.' || part === '..'));
+      assert.equal(typeof runManifest.files[relative], 'string', 'Only sealed saved artifacts may supply fetch data');
+      assert(relative.endsWith('.json'), 'This harness does not decode videos or images');
+      if (!artifacts.has(relative)) artifacts.set(relative, readJson('lab/run/' + relative,
+        relative === 'human-reference.json' ? 8_000_000 : 2_000_000, runManifest.files[relative]));
+      const artifact = artifacts.get(relative); return Promise.resolve(response(artifact.value, artifact.bytes));
+    }
+    assert.equal(url, '/api/step', 'No unexpected mutation or external request');
+    return new Promise(resolve => pending.push({...request, resolve}));
+  }
+  const storage = new Map();
+  vm.runInNewContext(script, {document, window: {addEventListener(name, listener) { windowListeners.set(name, listener); }},
+    location: {hash: '#token=local-mock-only', pathname: '/'}, sessionStorage: {getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value)},
+    history: {replaceState() {}}, URLSearchParams, AbortSignal, fetch, performance: {now: () => 0},
+    setTimeout(fn, delay) { timers.set(++timer, {fn, delay}); return timer; }, clearTimeout(id) { timers.delete(id); }}, {filename: 'lab.js'});
+  return {ids, elements, requests, pending, timers, shutdown() { windowListeners.get('pagehide')(); }};
+}
+
+const ui = harness(); await drain();
+assert.equal(ui.ids.get('error').hidden, true, ui.ids.get('error').textContent);
+assert.equal(ui.ids.get('exercise-task-card').hidden, false);
+assert.match(ui.ids.get('exercise-assistance').textContent, /3 explicit virtual controls/);
+assert.equal(ui.ids.get('joint').children.length, 22);
+assert.deepEqual(ui.ids.get('joint').children.map(option => option.value), initial.action_contract.names);
+assert.equal(ui.ids.get('actor-controls').hidden, true); assert.equal(ui.ids.get('policy').disabled, true);
+assert.match(ui.ids.get('exercise-outcome').textContent, /In progress/);
+assert(!ui.requests.some(request => /\/(training|rl-evaluation|policy)\.json/.test(request.url)));
+assert.equal(ui.ids.get('measurements-inspect').disabled, true);
+assert.match(ui.ids.get('inspection-source').textContent, new RegExp(`${inspection.source.decoded_frames} decoded source frames`));
+assert(ui.ids.get('source').src.includes('/files/run/' + inspection.source.video));
+assert.equal(runManifest.files[inspection.source.video], inspection.source.sha256);
+assert.equal(ui.ids.get('geometry-preview').src, undefined, 'Geometry image should remain lazy');
+ui.ids.get('inspect-geometry').click();
+assert(ui.ids.get('geometry-preview').src.includes('/files/run/' + inspection.geometry.panels[0].name));
+assert.match(ui.ids.get('geometry-caption').textContent, /not synchronized to video playback/);
+assert(!ui.ids.get('world-canvas').drawCalls.some(call => call.name === 'setLineDash' && call.args[0]?.length));
+const taskButton = ui.elements.find(element => element.dataset.json === 'exercise-task.json');
+assert(taskButton); assert.equal(taskButton.disabled, false);
+taskButton.click(); await drain();
+assert.equal(ui.ids.get('inspector').hidden, false);
+assert.equal(ui.ids.get('inspect-title').textContent, 'exercise-task.json');
+assert.deepEqual(JSON.parse(ui.ids.get('json').textContent), initial.exercise_task);
+ui.ids.get('inspect-sandbox').click();
+ui.ids.get('mode-coast').click(); ui.ids.get('step').click(); await drain();
+assert.equal(ui.pending.length, 1); assert.deepEqual(ui.pending[0].data, {steps: 1, controller: 'coast'});
+ui.shutdown();
+
+const authored = harness(); await drain();
+authored.ids.get('inspect-sandbox').click(); authored.ids.get('reference-servo').click(); authored.ids.get('step').click(); await drain();
+assert.equal(authored.pending.length, 1); assert.deepEqual(authored.pending[0].data, {steps: 1, controller: 'reference'});
+// Only the transport envelope is mocked; this exact saved final state is not a one-step physics claim.
+authored.pending.shift().resolve(response({snapshot: final}, JSON.stringify(final).length)); await drain();
+assert.match(authored.ids.get('exercise-outcome').textContent, /^Not passed · interval complete/);
+assert.equal(authored.ids.get('play-state').textContent, 'Trial finished');
+assert.match(authored.ids.get('exercise-duration').textContent, new RegExp(`${final.task_metrics.valid_substeps} valid / ${final.task_metrics.observed_substeps} observed`));
+assert.doesNotMatch(authored.ids.get('readout').textContent, /object.*dist|target:|TASK SUCCESS/);
+authored.ids.get('exercise-metrics-details').open = true; authored.ids.get('exercise-metrics-details').dispatch('toggle');
+for (const gate of final.task_metrics.failed_gates) assert(authored.ids.get('exercise-gates').textContent.includes(gate));
+assert(!authored.ids.get('live').drawCalls.some(call => call.name === 'setLineDash' && call.args[0]?.length));
+authored.shutdown();
+for (const [name, expected] of inputs) assert.equal(sha(fs.readFileSync(path.join(study, name))), expected, `Input mutated: ${name}`);
+console.log(JSON.stringify({status: 'passed', study, study_manifest_sha256: inputs.get('manifest.json'),
+  payload_hashes: Object.fromEntries([...inputs].filter(([name]) => !name.startsWith('lab/run/'))),
+  asset_sha256: {html: sha(html), js: sha(script)}, controls: initial.action_contract.names.length,
+  source_frames: inspection.source.decoded_frames, geometry_panels: inspection.geometry.panels.length,
+  final_outcome: {success: final.task_metrics.success, completed_interval: final.task_metrics.completed_interval, failed_gates: final.task_metrics.failed_gates},
+  scope: 'Actual saved-payload UI presentation and outbound coast/reference selectors only. Final snapshot injected unchanged; no new physics, browser, image/video decoding or server.'}, null, 2));

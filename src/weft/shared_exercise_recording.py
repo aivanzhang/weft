@@ -59,6 +59,11 @@ def validate_event(event, scene):
     state = event["snapshot"]
     if event["type"] == "step":
         validate_action(event.get("action"), scene)
+        if "controller" in event:
+            if event["controller"] not in ("manual", "coast", "authored"):
+                raise ValueError("Exercise controller metadata must be manual, coast or authored")
+            if event["controller"] == "coast" and any(event["action"]):
+                raise ValueError("Exercise coast metadata requires zero human actions")
         if list(event["action"]) != state["last_action"]:
             raise ValueError("Exercise event action must match the task snapshot")
         if type(event.get("reward")) not in (int, float) or not math.isfinite(event["reward"]):
@@ -150,6 +155,8 @@ def verify_action_replay(directory, *, max_seconds=60):
             if event["type"] in ("start", "reset"):
                 env.reset(seed=event["seed"], options=event["snapshot"]["resolved_reset_options"])
             else:
+                if event.get("controller") == "authored" and env.authored_action().tolist() != event["action"]:
+                    raise ValueError(f"Exercise authored controller replay differs at event {event['index']}")
                 _, reward, terminated, truncated, _ = env.step(event["action"])
                 if (reward, terminated, truncated) != (event["reward"], event["terminated"], event["truncated"]):
                     raise ValueError(f"Exercise outcome replay differs at event {event['index']}")

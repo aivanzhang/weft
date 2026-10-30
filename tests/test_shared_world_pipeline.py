@@ -51,6 +51,37 @@ def test_pipeline_keeps_sources_and_generates_canonical_display_metadata(tmp_pat
     assert all(path.read_bytes() == value for path, value in before.items())
 
 
+@pytest.mark.parametrize("legacy_copy", [False, True])
+def test_pipeline_accepts_canonical_tracking_export_without_rewriting_inputs(tmp_path, legacy_copy):
+    base, geometry, evidence, _ = inputs(tmp_path)
+    legacy = evidence / "evidence/scene-observations.json"
+    canonical = evidence / "scene-observations.json"
+    canonical.write_bytes(legacy.read_bytes())
+    if not legacy_copy:
+        legacy.unlink()
+    seal(evidence)
+    before = {path: path.read_bytes() for path in evidence.rglob("*") if path.is_file()}
+    out = tmp_path / "canonical"
+    construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a")
+    scene = json.loads((out / "scene.json").read_text())
+    assert collect_shared_source_files(scene, out).report["source_evidence_verified"]
+    assert all(path.read_bytes() == raw for path, raw in before.items())
+
+
+@pytest.mark.parametrize("invalid", ["conflicting", "tampered"])
+def test_pipeline_rejects_ambiguous_or_tampered_tracking_export(tmp_path, invalid):
+    base, geometry, evidence, _ = inputs(tmp_path)
+    canonical = evidence / "scene-observations.json"
+    canonical.write_bytes((evidence / "evidence/scene-observations.json").read_bytes() + b" ")
+    seal(evidence)
+    if invalid == "tampered":
+        canonical.write_bytes(b"changed after seal")
+    out = tmp_path / "rejected"
+    with pytest.raises(ValueError, match="conflicting|SHA256"):
+        construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a")
+    assert not out.exists()
+
+
 @pytest.mark.parametrize("invalid", [b'{"schema_version":1,"schema_version":1}', b'[]', b'{"equipment":null}',
                                      b'{"padding":"' + b'x' * MAX_PROPOSAL_BYTES + b'"}'])
 def test_pipeline_rejects_bad_or_oversized_proposals_before_output(tmp_path, invalid):

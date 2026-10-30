@@ -1,6 +1,36 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 29, 2026, 10:31 PM PDT
+## Active continuation — October 29, 2026, 11:29 PM PDT
+
+**Implementation progress; both tracks remain active.** The user explicitly directed work back to implementation. Do not export/open goal files again without a new request. The full video→shared world→interaction/learning→recording goal remains incomplete; current local demonstrations are not general physical reconstruction.
+
+### Completed live exercise sandbox
+
+- `shared_exercise_lab.py`, `shared-exercise-lab`, session/API/capability wiring and the existing lab UI now support one immutable human-only task. Exact original scene/source/task, current core runtime and evaluator are checked before resume. Controls are manual/coast/authored, with 19 joints or 22 channels including explicitly selected root assistance. Equipment receives no force commands; legacy tasks/policies are not substituted.
+- Task results use the complete exercise wrapper and independent interval metrics, not the legacy target score. Failed/incomplete/unavailable outcomes stay separate. Recording tags, resets, failure clocks, full engine/task state and exact replay are preserved. Export remains background work; the guide is [here](../shared-exercise.md).
+- Real source run: `artifacts/shared-exercise-lab-integration-01`, seal **`67ad8519c41455592870bf4779ba50c588d4a19635606350088f5da20b07be96`**; **283 files /69,209,824 bytes**, 4.922 s. Prepared lab `lab/` run seal **`77e51e78a3847e20f5aa6932dd1bd06d66fa9b76ca2f305db7a896c0216da87d`**. Source and task equal the preserved evaluation-02 identities below. No inference/decode/API/server.
+- Recording `lab/sessions/session-f76ae780a15d`: **69 actions, one in-recording reset, 71 events/video frames**, exact replay, then successful lab resume. Controller tags: manual 3 / coast 3 / authored 63. After reset, all 60 authored actions/outcomes/states exactly match evaluation-02. Task still fails **`equipment_stability:sam-2`**; there is no learned policy, grasp or completed full-exercise claim.
+- Ten recorded 6-step control/snapshot/JSON batches median **19.257 ms**, p95 **24.183 ms**, max 27.426 ms. First ready-load/serialization 476.708 ms (533,767 bytes) ; 20 warm serializations median 5.766 / max 5.873 ms. OS caches not evicted; no browser/device or sustained-resource claim.
+- Actual-payload mocked-UI check verifies matching sealed HTML/JS, 22 controls, distinct selectors, exact task link, original 257-frame source, three lazy initial-geometry panels and the real failed result. No invented passing fixture substitutes for this source result. Backend review found no concrete blocker. Two final HTTP cases cover both assistance modes.
+
+### Track A repair and pipeline progress
+
+- `arm_equipment_refinement.py` and its bounded driver preserve first pose, body/root/floor/camera/clocks and all 121 references / 257 slots. One frozen six-sweep solve checks 9,024 pairs across 121 source poses and 255 control samples. Penetrating pairs **303→216**, maximum **0.104829→0.098129 model units**, 33 pointwise worsenings. **Rejected; not promoted.** All other image/bounds/floor/fixed-contract gates pass; this finite result is not an impossibility proof.
+- `artifacts/source-arm-equipment-01`: seal **`500b953c66dcb0bab092d01be43d2aea252635e4268fc59cde30a7d3af276426`**, report **`26e6633a7e3401de8d3b11c9cce43b5f74b50bfc999ef19baf6a942aec7f933a`**. Root independently checked 49 output hashes (`.local/source-arm-equipment-independent-01.json`). Wall/CPU 0.563/0.554 s, 20.19 MB; no rollout, inference or API. Worst residual is right forearm at 8.1 s, references 240–244; nearby confidence 0.22–0.33 means geometry/depth-prior changes, not measured correction.
+- 21 unique arm/report tests pass across `artifacts/arm-equipment-checks-01/junit.xml`, corrected Jacobian checks `-03`, bounds/collision checks `-04`, and `artifacts/arm-equipment-study-checks-01/junit.xml`. Initial static-box fixture failures remain preserved; no repeated source fit.
+- Fixed a real integration mismatch: `tracking-evidence` writes root `scene-observations.json`, but construction required the study-only nested layout. `read_equipment_observations` now verifies either canonical or legacy layout, rejects differing sealed duplicates and never rewrites inputs. `.local/shared-world-canonical-evidence-03.xml`: 10 passing pipeline cases.
+
+### Verification, ownership and publication
+
+- Live backend receipts: `.local/shared-exercise-lab-backend-01.xml` (23 passes plus initial sandbox HTTP-bind failure), `shared-exercise-lab-http-legacy-02.xml` (37 passes), `shared-exercise-lab-closure-cache-03.xml` (6), `shared-exercise-lab-artifact-scope-04.xml` (2), `shared-exercise-lab-http-modes-05.xml` (2). Counts overlap; do not add them as unique tests.
+- UI: 52 full mocked checks before two focused fixes, then 3 final affected cases; 53 registered cases. Actual-payload harness and its reused-selector regression passed on sealed source results. Existing comprehensive task/recording and legacy receipts below remain applicable; unchanged suites were not repeated.
+- Published earlier this continuation: **`9bff7185c524fe235d3c75a8ffde72dda79e6d81`**, independently matched on private `origin/main`; worktree/stashes were clean at that instant. Receipt `.local/shared-exercise-publication-01.json`. This newer live-lab/canonical-handoff/arm checkpoint is being prepared separately; `.local/shared-exercise-live-publication-02.json` records its exact pushed revision once verified. Do not infer live remote state from this document.
+- Active ownership: root integration/docs/Git and canonical evidence resolver; `/root/mixed_runtime` new `shared_exercise_learning.py`/tests/bounded driver; `/root/mobile_evidence` new direct equipment proposal module/tests; `/root/shared_world_contract_review` review complete, no writes. Existing live-lab source is stable. Check actual handles before overlapping work.
+- Next ready implementation: source-pinned proposal config/API without study prerequisites; bounded learner then one frozen changed-start comparison. Proposed local training envelope: 3 generations × 8 candidates × 2 matched resets, ≤20k controls/60 s; separate 3-seed × 4-controller evaluation ≤30 s. No training started when this status was recorded. These are development seeds, not final physical evidence.
+
+No new paid call, development server, browser, deployment or submission. Last verified ledger remains 9 settled, **$0.235952/$5**, **$4.764048 remaining**, 0 unsettled; recheck before paid execution. Preserve all studies and the separately rejected jumping-jacks upload decision.
+
+## Previous continuation — October 29, 2026, 10:31 PM PDT
 
 The previous goal turn was **progress**: the complete updated A+B prompt was saved and opened at the user's request. The active goal still references `/Users/ivan/.codex/attachments/98750543-c1d7-4a2b-a257-47d9cc058f18/pasted-text-1.txt`; it was read again before this continuation. The export is a dated snapshot, not a goal completion or new runtime objective. Both tracks remain owned here; generalization and independent physical accuracy are incomplete.
 

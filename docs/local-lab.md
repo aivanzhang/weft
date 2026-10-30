@@ -4,7 +4,15 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). Its latest saved candidate binds body evidence and equipment masks to one source, with interactive box proxies and verified recordings. Depth, shape, materials and hand support remain unverified; it is not a recovered physical exercise.
 
-The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved geometry panels and compact provenance. The separate [human-only exercise evaluator](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with exact recorded action replay. Its CLI/Gym task does not silently replace the existing lab's task or virtual object controls.
+The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls.
+
+To try the verified human-plus-equipment run, start the lab yourself:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-lab-integration-01/lab
+```
+
+This saved task covers two seconds with explicit virtual root assistance. Its reference controller moves the equipment and fails the unchanged stability checks. The interface displays that failure; it is not a completed exercise or physical validation.
 
 ## Try the saved exercise run
 
