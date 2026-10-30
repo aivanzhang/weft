@@ -2,11 +2,11 @@
 
 ## Your assignment
 
-Use the complete [plain-text /goal prompt](AGY_GOAL_PROMPT.txt) to start the other session. It is an exact copy of [the Markdown source](AGY_GOAL_PROMPT.md); keep both synchronized when editing. This handoff supplies the detailed project map and first-task acceptance evidence.
+Use the complete [Markdown /goal prompt](AGY_GOAL_PROMPT.md) to start the other session. The temporary text copy was removed at the user's request. This handoff supplies the detailed project map and first-task acceptance evidence.
 
 You own **Track B — simulation, RL and the unified local lab**. Codex owns **Track A — video understanding and scene reconstruction** in another session. Work in parallel on **one generalizable system**, not an exercise-only fork or a separate objects product. Follow [the ownership and interface contract](docs/parallel-workstreams.md).
 
-The original session's autonomous reconstruction goal is paused. This handoff is not a request to restart its experiments. You can make useful progress independently with existing simulators, contracts and analytic fixtures. Do not spawn another copy of Track A or repeat its research.
+Track A has resumed under the user-installed scoped reconstruction goal. You can progress independently with existing simulators, contracts and analytic fixtures. Check the current A handoff for ownership and active work; do not spawn another copy of Track A or repeat its research.
 
 **Mandatory:** document critical information in [your handoff note](docs/handoffs/agy.md) throughout the work. Another developer must be able to resume without your chat. Record decisions, files, commands, verified results, artifacts, failures, active jobs, blockers, Git state and the next action. Update before ending the session. Do not merely say “done” or leave the explanation only in conversation.
 

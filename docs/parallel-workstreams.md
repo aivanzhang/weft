@@ -9,7 +9,7 @@ Build one generalizable **video → evidence → executable shared world → RL 
 | A — Video understanding and scene reconstruction | **Codex, this session** | Source acquisition/provenance, segmentation/pose observations, tracking/identity, camera and shape inference, evidence-backed world candidates | Lab UI, runtime/session dispatch, recording implementation, reward definitions or independent graders |
 | B — Simulation, RL and the unified lab | **agy, teammate/session** | Executable environment adapters, constraints/contacts, RL task/control interfaces, lab/session integration, inspection and recordings | New tracking/pose/camera algorithms, re-labeling source evidence, new source acquisitions or duplicating A's experiments |
 
-Track A's autonomous development is currently **paused at the user's request**. Handoff and repository checkpoint preparation are separately authorized. Track B can begin independently when the user starts the other session; it does not need A to resume. Start with the [self-contained agy handoff](../AGY_HANDOFF.md).
+Track A is **active under the user-installed scoped goal**; Track B is also active on lab integration. Both sessions currently use the canonical checkout, so commit/stage only explicitly owned paths and preserve the other session's unfinished files. Do not use a blanket add, stash or cleanup to obtain a clean tree. Their implementation work remains independent across the agreed interfaces. Start with the [self-contained agy handoff](../AGY_HANDOFF.md).
 
 ## The dependency boundary
 

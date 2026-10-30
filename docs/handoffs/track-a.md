@@ -1,8 +1,8 @@
 # Codex — Track A handoff
 
 - Scope: video understanding and scene reconstruction for one generalizable Weft pipeline. [Parallel ownership](../parallel-workstreams.md).
-- Revised assignment: [Track A goal text](track-a-goal.md). The runtime goal remains paused with its old full-project objective because the exposed goal controls cannot edit unfinished objective text; do not falsely mark it complete to replace it. User/UI replacement is still required for the runtime label.
-- Status: autonomous development **paused by the user**. Handoff/Git preparation is separate authorized work; no new reconstruction run is required to hand off B.
+- Revised assignment: [Track A goal text](track-a-goal.md). The user cleared the old runtime goal, installed this scoped objective through a pasted attachment and set it active. The attachment was read before continuing; its historical pause footer is superseded by that activation.
+- Status: **active, Track A only**. agy is independently implementing B's spatial-lab milestone in the same checkout. Preserve `docs/handoffs/agy.md`, `src/weft/spatial_lab.py` and other B-owned work; use path-scoped commits, not blanket staging or stashing.
 - Workspace: `/Users/ivan/kintsugi/weft`, `main`; goal thread `01a18139-c198-70d3-8cfe-e8e79b56fa2a`.
 - Shared code/handoff baseline: `f819a93`, pushed and remote-verified; subsequent documentation receipts may advance `main`. The reviewed old stash was removed only after preservation in a verified local bundle. [Checkpoint details](../checkpoints/2026-10-29-collaboration.md). Verify actual Git state before resuming.
 - Last research verification: October 29, 2026, 4:14 PM PDT. `feature_tracks.py` and its twelve tests are complete; `feature-track-diversity-01` and independent verification are terminal. No live study job remains from this work.
@@ -24,4 +24,4 @@ Source/model inference and physics were not rerun for the feature-history study;
 .venv-lab/bin/python scripts/studies/check_feature_track_diversity.py --out artifacts/track-a-feature-histories-new
 ```
 
-This is not an instruction to run it again unchanged. Existing results are sufficient; move to the unresolved requirement after the user resumes A.
+This is not an instruction to run it again unchanged. Existing results are sufficient; move to the unresolved source camera/shape/pose and correspondence requirement while B integrates the lab.

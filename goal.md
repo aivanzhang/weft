@@ -2,7 +2,7 @@
 
 Current implementation and the user's exercise-video priority are documented in the [local lab guide](docs/local-lab.md). This file retains the broader product target; the original single-ball status descriptions are historical, not the current feature inventory.
 
-**Parallel execution:** Codex owns [Track A: video understanding and scene reconstruction](docs/handoffs/track-a-goal.md); agy owns [Track B: simulation, RL and the unified lab](AGY_GOAL_PROMPT.md). These are non-overlapping layers of the same system, not exercise/object forks. Follow [ownership and durable handoffs](docs/parallel-workstreams.md). Track A remains paused until the user resumes it; B can start independently on existing contracts and fixtures.
+**Parallel execution:** Codex owns [Track A: video understanding and scene reconstruction](docs/handoffs/track-a-goal.md); agy owns [Track B: simulation, RL and the unified lab](AGY_GOAL_PROMPT.md). These are non-overlapping layers of the same system, not exercise/object forks. Follow [ownership and durable handoffs](docs/parallel-workstreams.md). The user has resumed Track A with its scoped goal; B proceeds independently on existing contracts and fixtures.
 
 **One video → an object-based world model → an interactive simulator → a trainable RL environment.**
 
