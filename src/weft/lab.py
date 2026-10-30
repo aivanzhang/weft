@@ -682,7 +682,7 @@ class Lab:
                           evidence_provenance=self.evidence_provenance(capabilities))
             if _shared_exercise(session):
                 result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
-                              action_contract=session.action_contract())
+                              action_contract=session.action_contract(), exercise_policy=session.exercise_policy())
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}
@@ -743,15 +743,15 @@ class Lab:
             if _shared_exercise(session):
                 if set(data) - {"steps", "action", "controller", "policy"}:
                     raise ValueError("Exercise steps cannot change actors, task or assistance")
-                if data.get("policy", False):
+                if data.get("policy", False) and session.policy is None:
                     raise ValueError("This human-only task has no learned policy")
                 if data.get("controller") not in (None, "reference", "coast"):
                     raise ValueError("Choose manual human actions, authored reference or coast")
-                if int("action" in data) + int(data.get("controller") is not None) != 1:
+                if int("action" in data) + int(data.get("policy", False)) + int(data.get("controller") is not None) != 1:
                     raise ValueError("Choose exactly one human-only action vector or controller")
                 if "action" in data:
                     action = session.resolve_action(action)
-                elif data["controller"] == "coast":
+                elif data.get("controller") == "coast":
                     action = [0.] * session.env.action_count
             elif isinstance(session, WholeBodySession):
                 if data.get('controller') not in (None, 'reference'):
@@ -803,7 +803,10 @@ class Lab:
                 event = {"type": "step", "action": chosen, "reward": float(reward),
                          "terminated": bool(terminated), "truncated": bool(truncated), "snapshot": session.snapshot()}
                 if _shared_exercise(session):
-                    event["controller"] = {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual")
+                    event["controller"] = ("learned" if data.get("policy", False) else
+                        {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual"))
+                    if event["controller"] == "learned":
+                        event["policy_sha256"] = session.policy_sha256
                 if self.recorder:
                     self.recorder.append(event)
                 transitions.append(event)

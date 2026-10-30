@@ -673,7 +673,8 @@ def describe_capabilities(
                 "source_scope": exercise["source_scope"], "root_assistance": exercise["control"]["root_assistance"],
             }
             doc["reset_contract"].update(supports_jitter=False, default_lab_jitter=False)
-            doc["controllers"].update(learned_policy_available=False, trained_target_id=None, coast=True)
+            doc["controllers"].update(learned_policy_available=bool(learned_policy_available),
+                                      trained_target_id="human" if learned_policy_available else None, coast=True)
             doc["unsupported_capabilities"] = [
                 "Object-force actions, object-target selection and legacy coupled learned policies",
                 "Changing task gates, contact requirements or root assistance inside this lab",
@@ -704,10 +705,11 @@ def describe_run_capabilities(directory, *, out=None):
         finally:
             lab.close()
     else:
-        exercise_task = None
+        exercise_task, exercise_policy = None, None
         if (target / "exercise-lab.json").is_file():
             from weft.shared_exercise_lab import load_shared_exercise_lab
-            exercise_task = load_shared_exercise_lab(target)["task"]
+            loaded = load_shared_exercise_lab(target)
+            exercise_task, exercise_policy = loaded["task"], loaded.get("policy")
         else:
             verify_artifacts(target)
         has_video = any((target / f"source.{ext}").is_file() for ext in ("mp4", "webm", "mov", "m4v", "avi", "mkv"))
@@ -728,8 +730,9 @@ def describe_run_capabilities(directory, *, out=None):
             doc = describe_capabilities(
                 scene,
                 lab_profile="shared_exercise" if exercise_task is not None else "standalone",
-                learned_policy_available=has_policy and scene.get("learned_policy_available") is not False,
-                trained_target_id=trained_target,
+                learned_policy_available=(exercise_policy is not None if exercise_task is not None else
+                                          has_policy and scene.get("learned_policy_available") is not False),
+                trained_target_id="human" if exercise_policy is not None else trained_target,
                 source_video_present=has_video,
                 reference_available=has_reference,
                 exercise_task=exercise_task,

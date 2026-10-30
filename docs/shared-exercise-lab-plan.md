@@ -1,6 +1,6 @@
 # Human-only exercise task in the local lab
 
-**Status: implemented and locally verified, October 29, 2026, 11:25 PM PDT.** This retained design note now records the implemented contract. The [task guide](shared-exercise.md) provides the launch command and walkthrough.
+**Status: implemented and locally verified, October 30, 2026, 10:00 AM PDT.** This retained design note records the live task and optional frozen-policy contract. The [task guide](shared-exercise.md) provides launch, training and evaluation commands; the [equipment guide](equipment-proposals.md) covers one-command assembly from saved evidence. Checkpoint publication is pending in the [handoff](handoffs/combined.md).
 
 New labs explicitly select the human-only task. Existing labs keep their older task; inspection alone never changes the scorer.
 
@@ -8,7 +8,7 @@ New labs explicitly select the human-only task. Existing labs keep their older t
 
 - Reuse `SharedExerciseTaskEnv`, its frozen gates, distinct recording envelope and offline replay. Do not create another simulator or change scoring criteria for the UI.
 - The inspector returns bounded manifest-linked metadata through the authenticated `/api/inspection` endpoint. It leaves source observations, model assumptions and simulator results separate. Read-only review found no new blocking endpoint/path/authentication regression; this is not a general security certification.
-- The exercise replay has four passing focused mocked-worker checks in `tests/shared_exercise_replay_smoke.mjs`: task/assistance labels, cumulative metrics, outcome separation and stale failure geometry. The generic replay suite already covers playback/camera/worker lifecycle. No browser or server was used for this review, and unchanged suites were not rerun.
+- The exercise replay has six passing focused mocked-worker checks in `tests/shared_exercise_replay_smoke.mjs`: task/assistance labels, cumulative metrics, outcome separation, stale failure geometry and recorded controller/policy identity. The generic replay suite covers playback/camera/worker lifecycle. No browser or server was used for this review.
 - Reuse `artifacts/source-equipment-integration-04/candidate` as a saved source-linked input, not new perception or physical-validation evidence. The current task interval is shorter than the entire source video; “whole interval” must mean the declared task interval, not the full exercise.
 
 ## Explicit selection before launch
@@ -32,6 +32,8 @@ The preparer accepts either `--task PATH` for a validated saved task or `--root-
 - Do not blindly call `prepare_shared_world_lab`: it can rewrite `learned_policy_available` and import a legacy policy. Preserve the pinned scene hash and disable legacy policies through the exercise controller contract, not by editing the scene.
 - Preparation copies verified inputs and writes bounded metadata only: no pose/tracking inference, training, provider call, deployment or server launch.
 
+Optional `--learning <sealed-run>` attaches a validated human-only policy to a **new** lab; optional `--evaluation <sealed-run>` attaches its separate complete comparison, including failures. Require exact scene/task/runtime/policy identity. No attachment means unavailable, not passed. Legacy policies cannot be substituted, and existing labs never gain a policy automatically. The ready source example selected the unchanged authored baseline, not improved learned behavior.
+
 ## Session and API contract
 
 Only the explicit control profile routes to `SharedExerciseSession`. Authentication, host/origin checks, bounded action batches, single-step serialization and background export remain in place.
@@ -40,9 +42,9 @@ Only the explicit control profile routes to `SharedExerciseSession`. Authenticat
 | --- | --- |
 | Status | Preserve `scene` as the engine scene. Add `control_profile`, `exercise_task` and the authoritative human-only `action_contract`; publish capabilities for the active task. |
 | Snapshot | Return the complete `shared-exercise-state-v1` wrapper unchanged. Draw `snapshot.engine_state`; use `snapshot.task_metrics`, wrapper termination flags and `engine_state_status` for task state. Never flatten away either clock or overwrite engine metrics. |
-| Actions | Exactly 19 joint channels, or 22 with the three declared root controls, using `env.action_contract()`. Manual, zero/coast and authored human feedback are allowed; no object-force channels. |
+| Actions | Exactly 19 joint channels, or 22 with the three declared root controls, using `env.action_contract()`. Manual vectors, explicit `controller: "coast"`, authored `controller: "reference"`, or `policy: true` only when a validated human policy is installed. No object-force channels or mixed selectors. |
 | Rejected actions | Reject object/actor switching, discrete object-force commands, legacy learned policies, wrong-sized/nonfinite vectors and ambiguous controller selectors before advancing physics. |
-| Capabilities | One controllable human; equipment remains passive. Expose the task's action/observation contracts, interval, frozen gate identity and explicit assistance. Learned policy unavailable. Preserve physical validation as unverified. |
+| Capabilities | One controllable human; equipment remains passive. Expose task action/observation contracts, interval, frozen gate identity and assistance. `learned_policy_available` reflects the validated exercise policy, not the unchanged engine-scene flag. Preserve physical validation as unverified. |
 | Reset | Seeded resolved reset options, zero last action, fresh task/engine clocks and accumulators. An advanced coast state cannot be admitted as a start/reset merely because its action is zero. |
 | Failure | Retain measured substep time and the last valid geometry's distinct time. Return the task's failure/termination state; do not manufacture a fresh terminal engine pose or substitute the legacy exception envelope. |
 
@@ -51,7 +53,7 @@ The existing `/api/step`, `/api/reset`, `/api/record/start` and `/api/record/sto
 ## User-facing behavior
 
 1. **Task card:** “Human-only body tracking + passive equipment,” declared interval, root assistance **off** or **three explicit virtual controls**, contact requirements or “none,” and a link to `exercise-task.json`. State that a different task requires a new lab. Existing labs retain their explicit legacy terminal target task label.
-2. **Controls:** show the declared 19/22 human motors; hide object selection and force controls. Keep manual and authored-follow modes visibly distinct; disable learned mode both in UI and backend. Kinematic source-pose playback remains inspection only and must not generate task scores.
+2. **Controls:** show the declared 19/22 human motors; hide object selection and force controls. Distinguish manual/coast/authored modes; enable selected-policy mode only for the validated optional policy. Label `authored_unchanged`, `coast_unchanged` or `searched_gains` honestly and disclose simulator/reference features. Training and attached evaluation stay separate; no evaluation is explicitly unavailable. Kinematic source-pose playback remains inspection only and must not generate task scores.
 3. **Task result:** show in-progress, passed, not-passed or unavailable from the independent evaluator—not engine target distance, contact-dot count or reward. Null/unmeasured fields are not zero. Early recording stop means an incomplete task interval, not success.
 4. **Interval metrics:** show measured/declared duration, valid/observed substeps, body mean/peak errors, peak floor penetration, per-equipment maximum displacement/rotation/speed/spin and each declared wrist-region interval's coverage/gap result. Use bounded summaries and disclosures; do not send source/model arrays into the new panel or rescore them in JavaScript.
 5. **Rendering:** reuse the three-view body/equipment renderer but omit the old object-target marker and distance score in exercise mode. Contact dots remain simulated contacts, not automatically qualifying wrist support. Failure prominently labels last-valid geometry beside the later measured failure time.
@@ -63,7 +65,7 @@ No-contact task success is tracking/stability only. Neither task mode establishe
 
 Use `shared_exercise_recording.recording_scene(scene, task)` with `Recorder(..., profile="shared-exercise")`; record full task wrappers and the exact human action vector. Preserve first/reset seed consistency, resolved reset options, failed attempts, all measured substeps and existing journal/export bounds. Do not emit a `shared-world` recording under a new title.
 
-Reuse the exercise renderer and replay adapter, including their no-target and last-valid-geometry behavior. Verify saved actions with the matching pinned evaluator through `verify_action_replay`; a new evaluator version is not permission to rewrite old evidence. Interrupted recovery must write a new directory.
+Reuse the exercise renderer and replay adapter, including their no-target and last-valid-geometry behavior. Record controller intent as manual/coast/authored/learned; policy events retain the exact policy hash and are displayed as recorded policy, not proof of improvement. Old untagged events remain unspecified; start/reset are distinct. Verify saved actions with the matching pinned evaluator through `verify_action_replay`; a new evaluator version is not permission to rewrite old evidence. Interrupted recovery must write a new directory.
 
 ## Implementation boundaries
 
@@ -76,7 +78,7 @@ The backend and interface share the fixed wire contract above:
 | Existing evaluator/recording owner | `src/weft/shared_exercise_task.py`, `shared_exercise_recording.py`, `recording.py` and their tests. Complete/reset integrity review stays here; UI work must not redefine gates or journal validation. |
 | Coordination | Root owns integrated source verification, broader docs and Git. Current ownership is recorded in the [handoff](handoffs/combined.md). |
 
-Generic rendering/export tests are reused; replay assets remain unchanged by this live-lab integration.
+Generic rendering/export tests are reused; the later optional-policy integration adds per-event controller/hash labels to the existing replay without changing task outcomes.
 
 ## Acceptance gates
 
@@ -87,8 +89,12 @@ Generic rendering/export tests are reused; replay assets remain unchanged by thi
 - [x] **Failure clocks:** existing task/replay checks retain finite partial-step clocks. Live-lab tests inject unavailable-current-geometry failure, export and replay it exactly; UI distinguishes last-valid geometry from the later task time.
 - [x] **UI and legacy:** mocked-DOM and targeted legacy HTTP/recording checks retain explicit task semantics, correct controls, unavailable states and recording lifecycle. No browser/device verification is claimed.
 - [x] **Bounded local evidence:** `artifacts/shared-exercise-lab-integration-01` seals preparation → controls/reset → export/action replay → resume; 283 output hashes checked. No inference, paid call or new server. The source and earlier baseline remain unchanged.
+- [x] **Optional policy and separate evaluation:** `artifacts/shared-exercise-policy-interaction-01` verifies 68 actions/one reset/70 frames, including 62 policy-tagged actions, exact replay and resume. Actual sealed payload/asset UI checks show the unchanged authored selection, all four 0/3 comparisons and the independent failed live task. All 60 post-reset policy actions/states equal the older authored baseline; no improvement is claimed.
+- [ ] **Unconfounded changed starts:** version a support-preserving reset distribution before further learning/comparison, retain old behavior/recordings and freeze fresh disjoint seeds. The present reset can lift passive equipment or initialize speed beyond the frozen gate; exact replay does not validate that experimental design. Nominal working-equipment failure remains separate.
 
 Receipts: `.local/shared-exercise-lab-backend-01.xml` (initial localhost sandbox bind failure retained), `shared-exercise-lab-http-legacy-02.xml`, `shared-exercise-lab-closure-cache-03.xml`, `shared-exercise-lab-artifact-scope-04.xml`, and `shared-exercise-lab-http-modes-05.xml`. These contain overlapping checks and must not be summed as unique cases. The actual-payload harness is `tests/shared_exercise_actual_payload_smoke.mjs`; it verifies the sealed run's current HTML/JS and real task/source/geometry outputs. Source study seal: `67ad8519c41455592870bf4779ba50c588d4a19635606350088f5da20b07be96`.
+
+Policy acceptance uses `node tests/shared_exercise_actual_payload_smoke.mjs artifacts/shared-exercise-policy-interaction-01 artifacts/shared-exercise-policy-lab-01`; study seal `cae395d0b33378797ee2192a53c71af3cc0f05e0421691362f39cc6b3af20439`, external lab run seal `2e69544a00c5fbdb53192cca329bd8dca68c53584bfd3390f34592d247d0b9e6`. The harness uses bounded saved metadata and exact assets, not new simulation or browser interaction.
 
 Preparation bounds: 512 input files/128 MiB, 1,024 output files/192 MiB, 64 MiB per file, 16 MiB runtime snapshot, cooperative 60-second default deadline. Export uses the existing worker with a 180-second cooperative limit and 128 MiB guard; current core/runtime mismatches fail before simulation.
 

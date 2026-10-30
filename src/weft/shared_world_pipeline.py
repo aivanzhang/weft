@@ -2,11 +2,12 @@
 
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import time
 
-from weft.io import canonical_hash, digest, local_time, write_json
+from weft.io import canonical_hash, local_time
 from weft.shared_world import audit_shared_world_feasibility, validate_shared_world
 from weft.shared_world_evidence import (
     MAX_INPUT_BYTES, MAX_SOURCE_FILES, build_shared_world_binding, verify_shared_world_sources,
@@ -16,6 +17,20 @@ from weft.shared_world_packaging import (
 )
 from weft.source_equivalence import MAX_FILES, load_source_equivalence
 from weft.world_evidence import _check_tree, _nonfinite, _unique_object
+
+
+MAX_OUTPUT_FILES = 512
+MAX_OUTPUT_BYTES = 128 * 1024 * 1024
+METADATA_RESERVE_BYTES = 2 * 1024 * 1024
+
+
+def _check_deadline(deadline):
+    if time.monotonic() >= deadline:
+        raise TimeoutError("Construction exceeded its cooperative wall-time bound")
+
+
+def _bytes(value):
+    return (json.dumps(value, indent=2, sort_keys=True, allow_nan=False) + "\n").encode()
 
 
 def _json(raw):
@@ -50,11 +65,23 @@ def read_equipment_observations(directory, files):
 
 
 def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *, target_object_id,
-                                   source_mappings=(), frame_translation=None):
+                                   source_mappings=(), frame_translation=None, deadline=None):
     """Construct a new sealed coupled candidate from explicit, verified intermediate inputs."""
     from weft.shared_world_reconstruction import MAX_BODY_JSON_BYTES, MAX_PROPOSAL_BYTES, PROFILE, construct_equipment_world
 
     started = time.monotonic()
+    if deadline is not None and (type(deadline) not in (int, float) or not math.isfinite(deadline)):
+        raise ValueError("Construction deadline must be a finite absolute monotonic time")
+    deadline = min(started + 30.0, deadline) if deadline is not None else started + 30.0
+    _check_deadline(deadline)
+
+    def checked(operation, *args, **kwargs):
+        # Existing bounded/native calls are cooperative, not preemptible.
+        _check_deadline(deadline)
+        result = operation(*args, **kwargs)
+        _check_deadline(deadline)
+        return result
+
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > 7:
         raise ValueError("Use at most seven explicitly supplied source mapping bundles")
     base_run, proposal_run, evidence_run, out = map(Path, (base_run, proposal_run, evidence_run, out))
@@ -64,15 +91,15 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
     if any(out.resolve().is_relative_to(path.resolve()) or path.resolve().is_relative_to(out.resolve())
            for path in inputs):
         raise ValueError("Keep construction output outside every immutable input")
-    base_manifest, base_files = read_package_manifest(base_run)
-    base_raw = _sealed_file(base_run, base_files, "scene.json", max_bytes=MAX_BODY_JSON_BYTES)
-    base = validate_shared_world(_json(base_raw))
-    base_sources = collect_shared_source_files(base, base_run,
+    base_manifest, base_files = checked(read_package_manifest, base_run)
+    base_raw = checked(_sealed_file, base_run, base_files, "scene.json", max_bytes=MAX_BODY_JSON_BYTES)
+    base = checked(validate_shared_world, _json(base_raw))
+    base_sources = checked(collect_shared_source_files, base, base_run,
         expected_manifest_sha256=hashlib.sha256(base_manifest).hexdigest())
     if base["source_binding"]["mode"] != "source_qualified":
         raise ValueError("Equipment reconstruction requires an existing source-qualified mobile body")
 
-    proposal_manifest, proposal_files = read_package_manifest(proposal_run)
+    proposal_manifest, proposal_files = checked(read_package_manifest, proposal_run)
     proposal_raw = _sealed_file(proposal_run, proposal_files, "geometry-proposal.json", max_bytes=MAX_PROPOSAL_BYTES)
     proposal = _json(proposal_raw)
     equipment, body_binding = proposal.get("equipment"), proposal.get("body_binding")
@@ -84,8 +111,8 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
             or any(not isinstance(row, dict) or not isinstance(row.get("object_id"), str)
                    or not 1 <= len(row["object_id"]) <= 80 for row in equipment)):
         raise ValueError("Equipment proposal requires its version, pinned body and bounded object identities")
-    evidence_manifest, evidence_files = read_package_manifest(evidence_run)
-    equipment_raw = read_equipment_observations(evidence_run, evidence_files)
+    evidence_manifest, evidence_files = checked(read_package_manifest, evidence_run)
+    equipment_raw = checked(read_equipment_observations, evidence_run, evidence_files)
     equipment_sha = hashlib.sha256(equipment_raw).hexdigest()
     human_ref = next(row for row in base["source_binding"]["entity_bindings"] if row["world_entity_id"] == "human")
     human_sha = human_ref["observation_document_sha256"]
@@ -105,9 +132,10 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
     remaining = MAX_INPUT_BYTES - sum(map(len, documents.values()))
     remaining_files = MAX_SOURCE_FILES - len(documents)
     for path in source_mappings:
+        _check_deadline(deadline)
         item = load_source_equivalence(path, max_input_bytes=min(remaining, MAX_INPUT_BYTES),
                                        max_files=min(remaining_files, MAX_FILES + 1),
-                                       deadline=started + 30.0)
+                                       deadline=deadline)
         remaining -= item.total_input_bytes
         remaining_files -= len(item.file_names)
         mappings.append(item)
@@ -116,14 +144,14 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
             **{identifier: (equipment_sha, identifier) for identifier in ids}}
     binding, construction = build_shared_world_binding(documents,
         source_sha256=base["source_binding"]["source_sha256"], world_ids=["human", *ids],
-        entity_refs=refs, source_equivalences=mappings, deadline=started + 30.0)
+        entity_refs=refs, source_equivalences=mappings, deadline=deadline)
     frame_receipt = None
     if frame_translation is not None:
         from weft.shared_world_reconstruction import translate_shared_world_xy
-        base, frame_receipt = translate_shared_world_xy(base, frame_translation)
-    scene = construct_equipment_world(base, proposal, source_binding=binding,
+        base, frame_receipt = checked(translate_shared_world_xy, base, frame_translation)
+    scene = checked(construct_equipment_world, base, proposal, source_binding=binding,
         construction_evidence=construction, human_document=human_document, target_object_id=target_object_id)
-    feasibility = audit_shared_world_feasibility(scene)
+    feasibility = checked(audit_shared_world_feasibility, scene)
 
     files = {name: documents[sha] for sha, name in binding["evidence_documents"].items()}
     for item in mappings:
@@ -142,6 +170,7 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
         raise ValueError("Geometry inspection export exceeds 16 files")
     inspection_bytes = 0
     for name in inspection_files:
+        _check_deadline(deadline)
         raw = read_package_file(proposal_run, name, max_bytes=16 * 1024 * 1024 - inspection_bytes,
                                 expected_sha256=proposal_files[name])
         inspection_bytes += len(raw)
@@ -173,23 +202,26 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                  "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py",
                  "spatial_rigid.py"):
         files[f"implementation/{name}"] = Path(__file__).with_name(name).read_bytes()
-    if time.monotonic() - started >= 30.0:
-        raise ValueError("Construction preflight exceeded its 30-second bound")
-
-    out.mkdir(parents=True, exist_ok=False)
-    write_package_files(out, files)
-    write_json(out / "scene.json", scene)
-    write_json(out / "human.json", scene["human_spec"])
-    write_json(out / "task.json", scene["task"])
+    files.update({"scene.json": _bytes(scene), "human.json": _bytes(scene["human_spec"]),
+                  "task.json": _bytes(scene["task"]), "reference-feasibility.json": _bytes(feasibility),
+                  "repair-ledger.json": _bytes({"proposals": [],
+                    "scope": "Initial geometry proposal only; retained camera alternatives are in geometry-study.json. No dynamic repair or learning executed."})})
     if frame_receipt is not None:
-        write_json(out / "frame-migration.json", frame_receipt)
-        write_json(out / "inputs/framed-base-scene.json", base)
-    write_json(out / "reference-feasibility.json", feasibility)
-    checked = verify_shared_world_sources(scene, out)
-    write_json(out / "source-binding-verification.json", checked)
+        files["frame-migration.json"] = _bytes(frame_receipt)
+        files["inputs/framed-base-scene.json"] = _bytes(base)
+    # Verification reports and the complete manifest have reserved capacity before any output.
+    if (len(files) + 3 > MAX_OUTPUT_FILES or
+            sum(map(len, files.values())) + METADATA_RESERVE_BYTES > MAX_OUTPUT_BYTES or
+            any(len(raw) > 64 * 1024 * 1024 for raw in files.values())):
+        raise ValueError("Construction complete output exceeds its file/byte bound")
+    _check_deadline(deadline)
+    out.mkdir(parents=True, exist_ok=False)
+    for name, raw in files.items():
+        checked(write_package_files, out, {name: raw})
+    source_check = checked(verify_shared_world_sources, scene, out)
     report = {"schema_version": 1, "profile": "shared-world-v1", "created_at": local_time(),
               "mode": "source_equipment_initial_geometry", "physical_validation": "unverified",
-              "scene_sha256": canonical_hash(scene), "source_binding_verification": checked,
+              "scene_sha256": canonical_hash(scene), "source_binding_verification": source_check,
               "base_manifest_sha256": hashlib.sha256(base_manifest).hexdigest(),
               "proposal_manifest_sha256": hashlib.sha256(proposal_manifest).hexdigest(),
               "evidence_manifest_sha256": hashlib.sha256(evidence_manifest).hexdigest(),
@@ -199,14 +231,18 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
               "reference_feasibility": {key: feasibility[key] for key in ("status", "summary")},
               "construction_seconds": time.monotonic() - started,
               "scope": "Source-linked collision proxies in one body/object simulator; camera, depth, materials and initial state are explicit priors. No recovered grasp, hand support, complete exercise or physical validation."}
-    write_json(out / "reconstruction.json", report)
-    write_json(out / "repair-ledger.json", {"proposals": [],
-        "scope": "Initial geometry proposal only; retained camera alternatives are in geometry-study.json. No dynamic repair or learning executed."})
-    write_json(out / "manifest.json", {"schema_version": 1, "files": {
-        path.relative_to(out).as_posix(): digest(path) for path in sorted(out.rglob("*"))
-        if path.is_file() and path != out / "manifest.json"}})
-    collect_shared_source_files(scene, out)
+    metadata = {"source-binding-verification.json": _bytes(source_check), "reconstruction.json": _bytes(report)}
+    manifest = _bytes({"schema_version": 1, "files": {
+        name: hashlib.sha256(raw).hexdigest() for name, raw in (files | metadata).items()}})
+    if sum(map(len, metadata.values())) + len(manifest) > METADATA_RESERVE_BYTES:
+        raise ValueError("Construction verification metadata exceeds its reserved byte bound")
+    checked(write_package_files, out, metadata)
+    for name, raw in (files | metadata).items():
+        checked(read_package_file, out, name, max_bytes=max(1, len(raw)),
+                expected_sha256=hashlib.sha256(raw).hexdigest())
+    checked(write_package_files, out, {"manifest.json": manifest})
+    checked(collect_shared_source_files, scene, out)
     return {"out": str(out), "scene_sha256": report["scene_sha256"],
             "source_documents": len(documents), "source_equivalences": len(mappings),
             "reference_feasibility": report["reference_feasibility"],
-            "scope": report["scope"], "manifest_sha256": digest(out / "manifest.json")}
+            "scope": report["scope"], "manifest_sha256": hashlib.sha256(manifest).hexdigest()}

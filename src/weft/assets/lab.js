@@ -17,7 +17,7 @@
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   let inspection = null, inspectionLoaded = false, inspectionPending = false, inspectionAttempts = 0;
   let exerciseTask = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
-  let exerciseDetailSignature = "";
+  let exerciseDetailSignature = "", exercisePolicy = null;
   const inspectionActors = new Map();
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
@@ -361,6 +361,56 @@
       : "No wrist-region contact is required. Passing means body tracking and equipment stability only—not hand support, a completed exercise or grasp."
       : "Contact requirements are unavailable; none are inferred from the image.");
   }
+  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback"};
+  function configureExercisePolicy(data) {
+    const policy = data.exercise_policy;
+    exercisePolicy = data.learned_policy_available === true && policy?.profile === "shared-exercise-policy-v1"
+      && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
+      && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
+      && policy.privileged_simulator_features === true ? policy : null;
+    return exerciseContractReady && exercisePolicy !== null;
+  }
+  function exerciseFeedbackDescription() {
+    if (!exercisePolicy || !learnedPolicyAvailable) return "No validated human-only policy is available.";
+    const kind = exercisePolicy.selected_feedback_kind;
+    return `${exerciseFeedbackLabels[kind]}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
+      : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
+      : "Training searched feedback gains using simulator state and the known body reference."} Equipment has no force controls; root assistance remains the selected task setting.`;
+  }
+  function showExerciseLearning(data) {
+    const available = learnedPolicyAvailable && exercisePolicy !== null;
+    text($("policy"), available ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : "Learned controller · unavailable");
+    text($("start-learned"), available ? `Try ${exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind].toLowerCase()}` : "Learned controller unavailable");
+    text($("exercise-policy-summary"), exerciseFeedbackDescription());
+    text($("learning-description"), available ? `${exerciseFeedbackDescription()} The policy interface uses privileged simulator-state and reference features, not video pixels.`
+      : "No learned human-only exercise policy is available. The live task panel reports independent whole-interval results, not the legacy target task or a training score.");
+    text($("training-caption"), available ? `Training selection score: ${number(exercisePolicy.training_score)}. ${exercisePolicy.training_score_improved_over_authored === true
+      ? "The training score was above the authored baseline; this is not an independent evaluation result."
+      : exercisePolicy.training_score_improved_over_authored === false ? "No higher training score than the authored baseline was reported."
+      : "Training comparison unavailable."}`
+      : "Compare manual, coast and authored feedback under the selected task. Inherited scene checks are development evidence, not exercise-task successes.");
+    $("learning-curve").hidden = true;
+    $("exercise-evaluation-summary").hidden = false;
+    $("scores").replaceChildren();
+    const scores = exercisePolicy?.evaluation_successes, names = ["coast", "random", "authored", "learned"];
+    const evaluated = available && exercisePolicy.evaluation_status === "evaluated" && scores && names.every(name => {
+      const row = scores[name];
+      return Number.isInteger(row?.episodes) && row.episodes > 0 && row.episodes <= 6 && row.episodes === scores.coast?.episodes
+        && Number.isInteger(row.successes) && row.successes >= 0 && row.successes <= row.episodes;
+    });
+    text($("exercise-evaluation-summary"), evaluated
+      ? "Attached independent changed-start evaluation: matched starts, frozen policy and the same declared task interval. Counts below are task trials passed, not physical or full-exercise validation."
+      : available && exercisePolicy.evaluation_status !== "not_attached"
+        ? "Attached evaluation results unavailable or incomplete. No evaluation pass is inferred from training."
+        : "Independent evaluation unavailable · no verified evaluation is attached. Training is not an evaluation pass.");
+    if (evaluated) metrics($("scores"), names.map(name => [`${scores[name].successes}/${scores[name].episodes}`,
+      `${name === "learned" ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : {coast: "Coast baseline", random: "Random human actions", authored: "Authored feedback"}[name]} · declared-interval task trials passed`]));
+    text($("learning-boundary"), "Changed starts reuse the same fixed source interval; they are not a new-video test. Simulator results do not verify grasp, anatomy, measured muscles, unassisted balance or physical accuracy. The live task panel reports this trial separately.");
+    $("exercise-policy-links").replaceChildren();
+    const policyFile = available && (data.artifacts || []).some(file => file.name === "policy.json");
+    $("exercise-policy-links").hidden = !policyFile;
+    if (policyFile) $("exercise-policy-links").append(link("Download attached policy", "run/policy.json"));
+  }
   function exerciseOutcome(m) {
     if (!m) return "Task result unavailable";
     if (m.failure) return "Not passed · simulation failed";
@@ -524,6 +574,7 @@
       text($("goal-summary"), "Across the complete declared interval: track the body reference, stay within the body/floor limits, and keep equipment stable. Only explicitly required wrist-region checks count. This is not a target-object task or proof of grasp.");
       text($("mode-description"), mode === "coast" ? "Coast: every joint and root-force command is zero. Equipment remains passive; gravity and simulated contacts still act."
         : mode === "reference" ? `Authored feedback follows the body reference using ${exerciseActions?.names?.length || "the declared"} human channels. This is programmed control, not learned behavior; equipment has no force controls.`
+        : mode === "learned" ? exerciseFeedbackDescription()
         : `Move one of ${exerciseActions?.names?.length || "the declared"} human motors with +0.25 or −0.25; all other commands stay zero. Root assistance is ${exerciseTask?.control?.root_assistance === "disabled" ? "disabled" : "explicit, not automatic"}. Equipment has no force controls.`);
     } else if (sharedWorld()) {
       const goalObj = scene.task?.object_goal?.target_object_id || "ball";
@@ -545,8 +596,9 @@
     if (!sharedWorld()) text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["mode-coast", "coast"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
-      $(id).disabled = !scene || controlBusy || blockedTask || (value === "coast" && !sharedExercise()) || (value === "learned" && (sharedExercise() || !learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
+      $(id).disabled = !scene || controlBusy || blockedTask || (value === "coast" && !sharedExercise()) || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
     }
+    if (sharedExercise()) $("start-learned").disabled = controlBusy || blockedTask || !learnedPolicyAvailable;
     for (const button of document.querySelectorAll("[data-action]")) {
       const code = Number(button.dataset.action);
       const isSpatialExtra = button.dataset.spatial === "true";
@@ -574,14 +626,14 @@
   }
   function step(count = 1) {
     if (requestPending || controlBusy || !scene || document.hidden) return;
-    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || snapshot.terminated || snapshot.truncated || exerciseMetrics()?.failure)) return;
+    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || snapshot.terminated || snapshot.truncated || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable)) return;
     requestPending = true;
     stepPromise = (async () => {
     try {
       let payload = {action, steps: count, policy: usePolicy};
       if (sharedExercise()) {
         const vector = exerciseActions.names.map(name => mode === "manual" && name === selectedMotor ? (action === 1 ? .25 : action === 2 ? -.25 : 0) : 0);
-        payload = mode === "reference" ? {steps: count, controller: "reference"} : mode === "coast" ? {steps: count, controller: "coast"} : {steps: count, action: vector};
+        payload = mode === "learned" ? {steps: count, policy: true} : mode === "reference" ? {steps: count, controller: "reference"} : mode === "coast" ? {steps: count, controller: "coast"} : {steps: count, action: vector};
       } else if (wholeBody()) {
         const names = scene.action_contract.names;
         const vector = names.map(name => name === selectedMotor ? (action === 1 ? .25 : action === 2 ? -.25 : 0) : 0);
@@ -613,13 +665,13 @@
   }
   function start() {
     if (!scene || controlBusy || document.hidden || activePanel !== "play" || snapshot.terminated || snapshot.truncated) return;
-    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || exerciseMetrics()?.failure)) return;
+    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable)) return;
     usePolicy = mode === "learned"; action = mode === "reference" ? 5 : 0;
     running = true; clearError(); updateControls(); tick(++playbackGeneration);
   }
   function selectMode(value) {
     if (controlBusy) return;
-    if (sharedExercise() ? !["manual", "coast", "reference"].includes(value) : value === "coast") return;
+    if (sharedExercise() ? !["manual", "coast", "reference", "learned"].includes(value) || value === "learned" && !learnedPolicyAvailable : value === "coast") return;
     pause(); mode = value; usePolicy = mode === "learned"; updateControls();
   }
   async function mutate(path, data = {}, prepareLearned = false) {
@@ -637,7 +689,7 @@
           updateSnapshot(joint.snapshot); $("joint").value = trainedJoint;
         }
       }
-      if (prepareLearned && mode === "learned" && !snapshot?.human && trainedActor && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor) {
+      if (prepareLearned && mode === "learned" && !sharedExercise() && !snapshot?.human && trainedActor && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor) {
         if (recording) throw new Error("Stop & save this recording before switching to the trained object.");
         const switched = await request("/api/actor", {actor: trainedActor});
         scene = switched.scene; if (switched.capabilities) updateCapabilities(switched.capabilities);
@@ -665,7 +717,7 @@
   async function begin({fresh = false, record = false} = {}) {
     if (controlBusy) return;
     const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
-    const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
+    const needsActor = mode === "learned" && !sharedExercise() && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
     if (fresh || record || needsJoint || needsActor || snapshot?.terminated || snapshot?.truncated) {
       const pending = mutate(record ? "/api/record/start" : "/api/reset", {}, true);
       const generation = playbackGeneration;
@@ -681,7 +733,7 @@
   $("step").onclick = async () => {
     pause();
     const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
-    const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
+    const needsActor = mode === "learned" && !sharedExercise() && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
     if (needsJoint || needsActor) {
       const pending = mutate("/api/reset", {}, true), generation = playbackGeneration;
       if (!await pending || generation !== playbackGeneration) return;
@@ -790,7 +842,7 @@
   async function readyDetails(data) {
     scene = data.scene;
     if (sharedExercise()) configureExerciseTask(data);
-    const noLearnedPolicy = sharedExercise() || data.learned_policy_available === false || scene.learned_policy_available === false;
+    const noLearnedPolicy = sharedExercise() ? !configureExercisePolicy(data) : data.learned_policy_available === false || scene.learned_policy_available === false;
     learnedPolicyAvailable = !noLearnedPolicy;
     if (data.capabilities) updateCapabilities(data.capabilities);
     if (data.evidence_provenance?.layers) {
@@ -800,7 +852,7 @@
       $("evidence-layers").hidden = false;
       text($("evidence-layers-text"), `Layer separation — Source: ${layers.recorded_source}${src.frame_count ? ` (${src.frame_count} frames)` : ""}.${missing} Kinematic projection: ${layers.kinematic_projection}. Controllers: ${(layers.controllers || []).join(", ")}. Physics: ${layers.physical_simulation}.${muscles}`);
     }
-    if (!data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
+    if (!sharedExercise() && !data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
     const controllable = sharedExercise() ? [{id: "human", label: "Human · equipment stays passive"}] : sharedWorld()
       ? [{id: "human", label: "Articulated human (22 motors)"}, ...dynamicObjects()]
       : dynamicObjects();
@@ -874,12 +926,11 @@
         text($("learning-description"), "Compare the learned coupled controller against zero force, random actions, and authored human feedback on identical seeded resets.");
       }
       if (sharedExercise()) {
-        text($("start-help"), "Human-only task selected. Inspect the source and assumptions, then try manual motors, coast or authored body feedback. Equipment is passive; record a trial to inspect the complete task result.");
+        text($("start-help"), `Human-only task selected. Inspect the source and assumptions, then try manual motors, coast or authored body feedback${learnedPolicyAvailable ? ", or the attached selected policy" : ""}. Equipment is passive; record a trial to inspect the complete task result.`);
         text($("world-description"), "The same articulated body and equipment share one simulated world. In this task only human motors are controlled; equipment responds to gravity and contacts. Geometry, scale and physical accuracy remain unverified.");
         text($("control-help"), `Choose one of ${humanMotorNames.length || "the declared"} human motors. Tap + or −, or start and hold. Release sets all commands to zero. Equipment cannot be selected or pushed with virtual forces.`);
         text($("play-boundary"), "Human-only simulator task: passive equipment, explicit root-assistance setting and frozen whole-interval gates. Contact dots are not automatically qualifying wrist support. This does not verify grasp, anatomy, muscles, balance or real exercise completion.");
-        text($("learning-description"), "No learned human-only exercise policy is available. The live task panel reports independent whole-interval results, not the legacy target task or a training score.");
-        text($("training-caption"), "Compare manual, coast and authored feedback under the selected task. Inherited scene checks are development evidence, not exercise-task successes.");
+        showExerciseLearning(data);
         $("live").setAttribute("aria-label", "Human-only exercise simulation. Select a human motor; equipment remains passive. Escape pauses.");
       }
     }
@@ -992,7 +1043,8 @@
     }
     renderObjectDetails();
     $("assumptions").replaceChildren(); for (const assumption of scene.assumptions || []) { const li = document.createElement("li"); text(li, assumption); $("assumptions").append(li); }
-    const results = await Promise.allSettled([noLearnedPolicy ? Promise.resolve(null) : artifact("training.json"), noLearnedPolicy ? Promise.resolve(null) : artifact("rl-evaluation.json"), artifact("repair-ledger.json"), artifact(data.profile === "rolling" ? "report.json" : "reconstruction.json")]);
+    const skipLearningArtifacts = sharedExercise() || noLearnedPolicy;
+    const results = await Promise.allSettled([skipLearningArtifacts ? Promise.resolve(null) : artifact("training.json"), skipLearningArtifacts ? Promise.resolve(null) : artifact("rl-evaluation.json"), artifact("repair-ledger.json"), artifact(data.profile === "rolling" ? "report.json" : "reconstruction.json")]);
     if (results[0].status === "fulfilled" && results[0].value) { const training = results[0].value; curve(training); text($("training-caption"), (wholeBody() || sharedWorld()) ? `${training.completed_generations} completed generations · ${number(training.seconds, 2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}` : `${training.completed_episodes ?? training.episodes} training episodes · ${training.steps} steps · ${Number(training.seconds).toFixed(2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}`); }
     if (results[1].status === "fulfilled" && results[1].value) metrics($("scores"), Object.entries(results[1].value.policies).map(([name, score]) => {
       if (sharedWorld()) {

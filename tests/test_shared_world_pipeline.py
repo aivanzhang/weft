@@ -1,9 +1,11 @@
 import hashlib
 import json
+from types import SimpleNamespace
 
 import pytest
 
 from weft.io import digest, write_json
+from weft import shared_world_pipeline as pipeline
 from weft.shared_world_packaging import collect_shared_source_files
 from weft.shared_world_pipeline import construct_source_equipment_run
 from weft.shared_world_reconstruction import MAX_PROPOSAL_BYTES
@@ -106,3 +108,42 @@ def test_complete_human_reference_document_has_its_own_larger_bound(tmp_path):
     out = tmp_path / "larger-body"
     construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a")
     assert (out / "inputs/human.json").read_bytes() == human
+
+
+@pytest.mark.parametrize("deadline", [True, float("inf"), float("nan")])
+def test_constructor_rejects_invalid_absolute_deadline_before_inputs(tmp_path, deadline):
+    with pytest.raises(ValueError, match="finite absolute monotonic"):
+        construct_source_equipment_run("missing", "missing", "missing", tmp_path / "out",
+                                       target_object_id="equipment-a", deadline=deadline)
+    assert not (tmp_path / "out").exists()
+
+
+def test_constructor_checks_caller_deadline_after_existing_bounded_source_verification(tmp_path, monkeypatch):
+    base, geometry, evidence, _ = inputs(tmp_path)
+    clock = [1.]
+    monkeypatch.setattr(pipeline, "time", SimpleNamespace(monotonic=lambda: clock[0]))
+    calls = []
+
+    def bounded_verification(*args, **kwargs):
+        calls.append("verified")
+        clock[0] = 3.
+        return None
+
+    monkeypatch.setattr(pipeline, "collect_shared_source_files", bounded_verification)
+    out = tmp_path / "expired"
+    with pytest.raises(TimeoutError, match="cooperative wall-time"):
+        construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a", deadline=2.)
+    assert calls == ["verified"] and not out.exists()
+
+
+@pytest.mark.parametrize("bound", ["files", "bytes"])
+def test_constructor_reserves_complete_output_before_creating_directory(tmp_path, monkeypatch, bound):
+    base, geometry, evidence, _ = inputs(tmp_path)
+    if bound == "files":
+        monkeypatch.setattr(pipeline, "MAX_OUTPUT_FILES", 1)
+    else:
+        monkeypatch.setattr(pipeline, "MAX_OUTPUT_BYTES", pipeline.METADATA_RESERVE_BYTES)
+    out = tmp_path / "too-large"
+    with pytest.raises(ValueError, match="complete output exceeds"):
+        construct_source_equipment_run(base, geometry, evidence, out, target_object_id="equipment-a")
+    assert not out.exists()

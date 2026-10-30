@@ -8,7 +8,7 @@ const script = [...html.matchAll(/<script(?: [^>]*)?>([\s\S]*?)<\/script>/g)].at
 const object = {id: 'equipment', role: 'passive', shape: 'box', size: [.1, .1, .1],
   position: [.8, .6, .4], quaternion: [1, 0, 0, 0], color: '#965644'};
 
-function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engineStateStatus = 'current'} = {}) {
+function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engineStateStatus = 'current', eventTags = [{}]} = {}) {
   const scene = {profile: 'shared-world-v1', bounds: [3, 2, 2.5], dt: 1 / 30,
     task: {object_goal: {position_tolerance: .04}}};
   const exerciseTask = {profile: 'shared-exercise-task-v1',
@@ -30,14 +30,14 @@ function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engi
       contact_details: [{kind: 'human_object', objects: ['human:forearm', 'equipment'], position: [.8, .6, .45]}],
       contact_count: 1, contact_summary: {human_object: 1}, coupled_metrics: {object_distance_world: 9.876},
       time_s: stateTime, substeps: 8}};
-  const raw = JSON.stringify({scene, exercise_task: exerciseTask, events: [event]});
+  const raw = JSON.stringify({scene, exercise_task: exerciseTask, events: eventTags.map(tags => ({...event, ...tags}))});
   const elements = new Map(), calls = [], workers = [];
   let blobSource = '';
   const context = new Proxy({}, {get: (object, name) => object[name] || ((...args) => calls.push({name, args})),
     set: (object, name, value) => (object[name] = value, true)});
   const element = id => {
     if (!elements.has(id)) elements.set(id, {id, value: id === 'zoom' ? '1' : id === 'yaw' ? '.5' : '0',
-      checked: false, disabled: true, hidden: id === 'exercise-scope', open: false, width: 1080, height: 420,
+      checked: false, disabled: true, hidden: ['exercise-scope','controller'].includes(id), open: false, width: 1080, height: 420,
       textContent: id === 'data' ? raw : '', listeners: {},
       getContext: () => context, addEventListener(name, handler) { this.listeners[name] = handler; }, remove() {}});
     return elements.get(id);
@@ -61,7 +61,9 @@ function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engi
   workers[0].flush(); workers[0].flush();
   assert.equal(workers[0].queue.length, 0);
   assert.equal(element('play').disabled, false);
-  return {element, calls, original: JSON.parse(raw), selected: () => {
+  return {element, calls, original: JSON.parse(raw), selectFrame(index) {
+    element('scrub').value = String(index); element('scrub').listeners.input(); workers[0].flush();
+  }, selected: () => {
     element('details').open = true; element('details').listeners.toggle();
     return JSON.parse(element('detail').textContent);
   }};
@@ -114,7 +116,7 @@ function completedSuccessAndGateFailureUseExerciseOutcomeNotEngineTarget() {
 
 function interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly() {
   const failure = 'engine_failure:invalid_substep_observation';
-  const ui = fixture({stateTime: 8 / 240, engineStateStatus: 'last_valid_control_boundary', metrics: {
+  const ui = fixture({stateTime: 8 / 240, engineStateStatus: 'last_valid_control_boundary', eventTags: [{type:'step',controller:'learned',policy_sha256:'a'.repeat(64)}], metrics: {
     simulated_duration_s: 9 / 240, observed_substeps: 9, valid_substeps: 8, completed_interval: false, success: false,
     failure, failed_gates: [failure], equipment: [{object_id: 'equipment', displacement_model_units: .02}]}});
   assert.match(ui.element('status').textContent, / · not passed/);
@@ -122,6 +124,7 @@ function interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly() {
   assert(Math.abs(displayedTime - 9 / 240) <= .0005001, 'The displayed clock must use measured exercise time, not stale geometry time');
   assert.match(ui.element('status').textContent, /9 measured substeps/);
   assert.match(ui.element('status').textContent, /showing last valid geometry after simulation failure/);
+  assert.match(ui.element('controller').textContent, /recorded policy · SHA256 aaaaaaaaaaaa/);
   assert.doesNotMatch(ui.element('status').textContent, /in progress|object dist/);
   const selected = ui.selected();
   assert.equal(selected.exercise_metrics.failure, failure);
@@ -131,10 +134,48 @@ function interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly() {
   assert.deepEqual(selected, ui.original.events[0], 'A failed event must not relabel stale geometry as a new terminal state');
 }
 
+function controllerLabelsFollowRecordedIntentAcrossFramesAndResets() {
+  const hash = '0123456789ab' + 'f'.repeat(52);
+  const tags = [{type:'start',action:undefined},{controller:'manual'},{controller:'coast'},
+    {controller:'authored'},{controller:'learned',policy_sha256:hash},{type:'reset',action:undefined},{}];
+  const ui = fixture({eventTags:tags});
+  const labels = [/^Recording start · no action applied$/, /manual human action/, /coast · all human commands zero/,
+    /authored feedback · programmed, not learned/, /recorded policy · SHA256 0123456789ab/, /^Seeded reset · no action applied$/,
+    /^Controller unspecified/];
+  for(let index=0;index<tags.length;index++) {
+    if(index) ui.selectFrame(index);
+    assert.equal(ui.element('controller').hidden,false);
+    assert.match(ui.element('controller').textContent,labels[index]);
+    assert.match(ui.element('status').textContent,/in progress/);
+    assert.deepEqual(ui.selected(),ui.original.events[index],'Controller display must not rewrite the recorded event');
+    if(index!==4) assert.doesNotMatch(ui.element('controller').textContent,/SHA256/,'Prior policy identity must not survive a manual action or reset');
+  }
+  ui.selectFrame(4);
+  assert.match(ui.element('controller').textContent,/not a claim of learned improvement/);
+  assert(!ui.element('controller').textContent.includes(hash),'The compact label uses a short hash; details preserve the complete identity');
+  assert.equal(ui.selected().policy_sha256,hash);
+}
+
+function untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit() {
+  for(const tag of [{},{controller:'unknown'}]) {
+    const ui=fixture({eventTags:[tag]});
+    assert(ui.selected().action.every(value=>value===0));
+    assert.match(ui.element('controller').textContent,/^Controller unspecified/);
+    assert.doesNotMatch(ui.element('controller').textContent,/coast|manual|recorded policy/);
+  }
+  for(const policy_sha256 of [undefined,'not-a-hash']) {
+    const ui=fixture({eventTags:[{controller:'learned',policy_sha256}]});
+    assert.match(ui.element('controller').textContent,/recorded policy · policy identity unavailable/);
+    assert.doesNotMatch(ui.element('controller').textContent,/SHA256/);
+  }
+}
+
 const checks = [exerciseTitleAndAssistanceNeverImplyObjectActuatorsOrGrasp,
   wholeIntervalHistoryIsNotReplacedByCurrentGeometryOrLegacyScore,
   completedSuccessAndGateFailureUseExerciseOutcomeNotEngineTarget,
-  interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly];
+  interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly,
+  controllerLabelsFollowRecordedIntentAcrossFramesAndResets,
+  untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit];
 let failures = 0;
 for (const check of checks) {
   try { check(); console.log(`PASS ${check.name}`); }

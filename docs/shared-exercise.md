@@ -32,6 +32,8 @@ To prepare another saved shared world, choose a new directory:
 
 Preparation seals the exact scene, task, source evidence and runtime. It does not start a server. Omit `--root-assistance` for 19 joint-only controls, or pass `--task <file>` to preserve an explicit task instead. Assistance and task selection cannot change inside a prepared lab. Existing coupled labs keep their legacy task and virtual object controls.
 
+For new saved body/tracking evidence, [assemble the world and lab in one command](equipment-proposals.md). The camera/shape configuration remains explicit; it is not automatic recovery of arbitrary equipment.
+
 ## Compare baseline controllers
 
 For a noninteractive comparison in a new output directory:
@@ -46,6 +48,40 @@ For a noninteractive comparison in a new output directory:
 The command compares coast with the authored human reference controller using the same seed/reset, records both, exports videos and re-executes their actions. It does not start a server, train a policy or call an API.
 
 `--root-assistance` permits three explicit virtual forces on the body root; omit it for joint-only control. Neither mode forces equipment. `--jitter` applies the same seeded reset perturbation to both baselines, measuring equipment movement from its actual reset state.
+
+## Train and compare a frozen policy
+
+Training searches a small set of feedback gains for all declared human controls. It uses simulator state and the known reference, not video-only observations. The task, scene and success gates remain fixed.
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-train \
+  --run artifacts/source-equipment-integration-04/candidate \
+  --task artifacts/shared-exercise-evaluation-02/exercise-task.json \
+  --out artifacts/my-exercise-learning-01
+
+.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+  --learning artifacts/my-exercise-learning-01 \
+  --out artifacts/my-exercise-policy-check-01
+```
+
+Defaults: three generations, eight candidates, two matched training starts, one CPU lane and a 60-second cooperative limit. Identical candidates reuse their existing trials. Evaluation freezes the policy first, then compares coast, random, authored-reference and selected-policy control on three separate perturbed starts, with a 30-second limit. It does not feed those results back into training. Both commands preserve incomplete runs and failures; a new run always needs a new directory. The current reset protocol also perturbs passive equipment; its source-case flaw is documented below.
+
+Inspect `training.json` for the selected weights and training score, then the **separate** `evaluation.json` for per-seed success/failures. The selected policy may be the unchanged coast or authored baseline; those cases are labeled explicitly, not called learned improvement. A higher reward does not override an equipment or body failure. Three mild changed starts are development checks, not broad generalization or physical validation.
+
+To try and record that exact policy, prepare a **new** lab:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/source-equipment-integration-04/candidate \
+  --task artifacts/my-exercise-learning-01/exercise-task.json \
+  --learning artifacts/my-exercise-learning-01 \
+  --evaluation artifacts/my-exercise-policy-check-01 \
+  --out artifacts/my-exercise-policy-lab-01
+
+.venv-lab/bin/python -m weft lab --resume artifacts/my-exercise-policy-lab-01
+```
+
+The policy and attached comparison must match the exact scene, task and runtime. `--evaluation` is optional, but omitting it means **evaluation unavailable**, not passed. A failed comparison can be attached when its trials completed; the interface keeps those failures visible. Existing labs are not modified and do not gain a policy automatically.
 
 ## Inspect the results
 
@@ -108,5 +144,17 @@ Equipment remains solid-box geometry with uncertain depth/materials. One arm-ima
 The live integration study, `artifacts/shared-exercise-lab-integration-01`, verifies preparation, manual/coast/reference actions, in-recording reset, export, resume and exact replay: **69 actions, 71 events/video frames**. Its post-reset 60-step reference trial exactly matches the failed baseline above. Mocked-interface checks use these actual saved backend payloads, not invented passing scores. Local six-step control/record/JSON median was **19.26 ms**, p95 **24.18 ms**; first status load/serialization **476.71 ms**, 20 warm status serializations median **5.77 ms**. These are local core/API measurements, not browser/device or sustained-use guarantees.
 
 The live-lab preparation limit is 60 seconds by default, with complete input/output bounds; see the [integration contract](shared-exercise-lab-plan.md). Live recording export uses a 180-second cooperative limit and 128 MiB output guard. Inputs, completed `run/` files and old recordings stay immutable; new interaction recordings live under `sessions/`.
+
+The first source training run, `artifacts/shared-exercise-learning-01`, completed three generations/36 actual episodes/1,596 controls in 4.303 s, reusing six identical candidates. It selected the **unchanged authored baseline**, with no training improvement. Separate `artifacts/shared-exercise-policy-evaluation-01` ran 12 trials on three new starts in 2.649 s: every controller scored **0/3**. Two random-control trials ended early; other intervals completed. No evaluation feedback was used to retrain.
+
+That evaluation reveals a **reset-protocol flaw**, not a clean controller comparison: equipment receives fixed position/velocity jitter even when human jitter is scaled down. Idle equipment starts 0.0064–0.0120 model units above the floor; one initial speed is 0.15481, already above the frozen 0.15 gate. Its peak speed is identical across all four controllers for each seed. These results stay preserved. A separately versioned, support-preserving reset distribution with fresh seeds is still required; gates must not be relaxed. The nominal authored trial independently moves the working equipment, so fixing resets will not resolve that interaction.
+
+The policy-enabled lab is ready to inspect:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-policy-lab-01
+```
+
+Its selected-baseline label and attached failed evaluation remain visible. `artifacts/shared-exercise-policy-interaction-01` verifies 68 mixed-controller actions, one reset, 70 recorded frames, policy identities, resume and exact replay in 5.494 s. The 60 post-reset policy actions/states exactly match the earlier authored baseline, including its equipment-stability failure. Ten recorded six-step API/JSON batches had median 19.38 ms and maximum 20.41 ms; this is not browser or sustained-use measurement.
 
 The default 60-second limit is a **cooperative deadline** checked between stages, actions, export frames and replay events; it cannot preempt one native encoder call. Each recording export also has a 64 MiB byte guard. Failures preserve partial files and journals; retries require new directories. Source fit, simulated checks, learning and real physical validation remain separate. The full A+B goal stays open.

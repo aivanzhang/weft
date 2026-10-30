@@ -32,6 +32,8 @@ A CLI-launched **local lab** now shows video processing step by step, exposes th
 
 For a person and equipment in one world, use the [human-only exercise sandbox](docs/shared-exercise.md): move the body, follow its source-derived reference, inspect passive equipment, and record/replay a trial. Its guided inspector shows Original → Tracks → Geometry → Sandbox → Recordings. The [general coupled sandbox](docs/shared-world.md) retains separate virtual object controls. Current source baselines replay exactly but fail the exercise task; this is not verified physical reconstruction or full-exercise learning.
 
+The [equipment assembly command](docs/equipment-proposals.md) connects saved body/tracking evidence to that lab without clip-specific study scripts. Camera distance and simple box geometry remain explicit assumptions; unsupported inputs stop with inspectable reasons.
+
 - **Exercise videos (current focus):** local MediaPipe pose estimation → a rotatable MuJoCo articulated body with 12 segments, eight controllable joints, and 16 illustrative muscle bands. Inspect inferred poses, control a joint, run a reference servo or a learned joint-target policy, and record it. The torso/pelvis are anchored; muscle intensity is illustrative, not measured activation or force.
 - **Tabletop objects:** bounded distinct-color tracking → a shared Pymunk 2D rigid-body scene, bounded damping/initial-speed proposals, reconstruction checks, and actual Q-learning. The included multi-object demo is clearly labeled synthetic.
 - **Original rolling profile:** the existing real-yellow-ball fixture and its evaluation/repair behavior remain available.

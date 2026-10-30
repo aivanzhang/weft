@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -184,14 +184,14 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     contact_requirements:[],gates_sha256:'f'.repeat(64)});
   let exerciseMetrics = {...freshExerciseMetrics(),...exerciseInitialMetrics};
   let lastExerciseAction = Array(rootAssistance?22:19).fill(0);
-  if(sharedExercise){scene.dt=1/30;state.substeps=8;state.success=!exerciseMetrics.success;state.time_s=exerciseGeometryTime;state.human.mobility.support_force=[0,0,0];}
+  if(sharedExercise){scene.dt=1/30;scene.learned_policy_available=false;state.substeps=8;state.success=!exerciseMetrics.success;state.time_s=exerciseGeometryTime;state.human.mobility.support_force=[0,0,0];}
   const wireState = () => sharedExercise ? {profile:'shared-exercise-state-v1',engine_state:state,engine_state_status:exerciseEngineStatus,
     ...(missingExerciseState?{}:{task_metrics:exerciseMetrics}),last_action:lastExerciseAction,
     terminated:Boolean(exerciseMetrics.failure||exerciseMetrics.success),truncated:Boolean(exerciseMetrics.completed_interval&&!exerciseMetrics.success&&!exerciseMetrics.failure)} : state;
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = [];
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
-  const noPolicy = sharedExercise || cameraBody || isSpatialUntrained || (shared && !sharedTrained);
+  const noPolicy = sharedExercise ? !exercisePolicyAvailable : cameraBody || isSpatialUntrained || (shared && !sharedTrained);
   const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
   const buildCapabilities = () => ({
     schema_version: 1,
@@ -235,8 +235,8 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
-    ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract}:{}),
-    learned_policy_available: !noPolicy,
+    ...(sharedExercise?{control_profile:'shared_exercise',exercise_task:exerciseTask,action_contract:missingExerciseContract?null:exerciseActionContract,exercise_policy:exercisePolicy}:{}),
+    learned_policy_available: sharedExercise ? exercisePolicyAvailable : !noPolicy,
     ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
     ...(suppliedGround ? {ground_clearance:{status:'descriptive_no_contact_evidence',summary:{minimum:.076,median:.356,maximum:.630,positive_gap_poses:112,reference_poses:112}}} : {}),
@@ -256,11 +256,12 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     'policy.json': {selected_joint:'left_knee'}};
   if (coverage) artifacts['coverage-summary.json'] = coverage;
   if (sharedExercise) artifacts['exercise-task.json'] = exerciseTask;
-  if (noPolicy) {
+  if (noPolicy || sharedExercise) {
     delete artifacts['policy.json']; delete artifacts['training.json']; delete artifacts['rl-evaluation.json'];
     artifacts['reconstruction.json'] = {scope: isSpatialUntrained ? 'Unvalidated 3D rigid scene' : 'Unvalidated camera-aware candidate'};
     artifacts['repair-ledger.json'] = {proposals: []};
   }
+  if (sharedExercise && exercisePolicy) artifacts['policy.json'] = {profile:'shared-exercise-policy-v1',scope:'Synthetic attached-policy UI fixture'};
   if (profile === 'spatial-rigid' && spatialTrained) {
     artifacts['policy.json'] = {profile: 'spatial-policy-v1', controlled_id: 'block'};
     artifacts['rl-evaluation.json'] = {policies: {learned: {successes: 8, episodes: 10}, random: {successes: 1, episodes: 10}, coast: {successes: 0, episodes: 10}, brake: {successes: 0, episodes: 10}}};
@@ -340,9 +341,9 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
         } else assert(Number.isInteger(request.data.action)&&request.data.action>=0&&request.data.action<=7);
       }
       if(sharedExercise) {
-        if(request.data.action===undefined)assert(['coast','reference'].includes(request.data.controller));
+        if(request.data.action===undefined)assert(request.data.policy===true&&exercisePolicyAvailable||['coast','reference'].includes(request.data.controller));
         else assert(Array.isArray(request.data.action),'Exercise never uses object-force integer actions');
-        lastExerciseAction=request.data.action||Array(rootAssistance?22:19).fill(request.data.controller==='coast'?0:.2);
+        lastExerciseAction=request.data.action||Array(rootAssistance?22:19).fill(request.data.policy?.1:request.data.controller==='coast'?0:.2);
         state.human.normalized_action=[...lastExerciseAction,...(rootAssistance?[]:[0,0,0])];
         state.human.mobility.support_force=rootAssistance?lastExerciseAction.slice(19).map(value=>value*100):[0,0,0];
         exerciseMetrics={...exerciseMetrics,simulated_duration_s:state.time_s,observed_substeps:state.steps*8,valid_substeps:state.steps*8,
@@ -380,7 +381,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
       assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,missingExerciseState||missingExerciseContract); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||shared||multiObject)?3:1);
-      assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
+      if(!sharedExercise)assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
 
@@ -1397,9 +1398,94 @@ async function sharedExerciseMissingContractAndContactFractionStayUnavailable() 
   assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/,'The UI does not rescore missing display values');
 }
 
+function attachedExercisePolicy(kind = 'searched_gains', overrides = {}) {
+  return {profile:'shared-exercise-policy-v1',policy_sha256:'c'.repeat(64),selected_feedback_kind:kind,
+    privileged_simulator_features:true,training_score:.7,training_score_improved_over_authored:true,
+    evaluation_status:'not_attached',evaluation_successes:null,scope:'Synthetic training metadata, not independent evaluation',...overrides};
+}
+
+async function sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording() {
+  for(const rootAssistance of [false,true]) {
+    const ui=fixture('shared-world',{sharedExercise:true,rootAssistance,exercisePolicyAvailable:true,exercisePolicy:attachedExercisePolicy()});await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,false);assert.equal(ui.ids.get('start-learned').disabled,false);
+    assert.equal(ui.ids.get('joint').children.length,rootAssistance?22:19);
+    assert.equal(ui.ids.get('actor').disabled,true);assert.match(ui.ids.get('policy').textContent,/Searched human feedback/);
+    assert.match(ui.ids.get('learning-description').textContent,/simulator-state and reference features, not video pixels/);
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/Independent evaluation unavailable/);
+    assert.equal(ui.ids.get('scores').children.length,0);assert.equal(ui.ids.get('learning-curve').hidden,true);
+    assert.equal(ui.ids.get('exercise-policy-links').children.length,1);
+    assert(ui.ids.get('exercise-policy-links').children[0].href.includes('/files/run/policy.json'));
+    ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,policy:true});ui.resolveNext('/api/step');await drain();
+    assert.match(ui.ids.get('mode-description').textContent,/Equipment has no force controls/);
+    assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+    ui.ids.get('record').click();await drain();
+    assert.equal(ui.pending[0].path,'/api/record/start');assert.deepEqual(ui.pending[0].data,{});
+    assert.equal(ui.ids.get('policy').disabled,true,'Start/reset remains serialized');
+    ui.resolveNext('/api/record/start');await drain();assert.deepEqual(ui.pending[0].data,{steps:3,policy:true});
+    assert.equal(ui.ids.get('record').disabled,true);assert.equal(ui.ids.get('joint').disabled,true);
+    ui.ids.get('reset').click();await drain();assert(!ui.pending.some(request=>request.path==='/api/reset'));
+    ui.resolveNext('/api/step');await drain();ui.resolveNext('/api/reset');await drain();
+    assert.equal(ui.backendTaskState().task_metrics.observed_substeps,0);assert.match(ui.ids.get('record-status').textContent,/Recording/);
+    ui.ids.get('stop-record').click();await drain();ui.resolveNext('/api/record/stop');await drain();
+    assert(!ui.requests.some(request=>['/api/actor','/api/joint'].includes(request.path)));
+    assert(!ui.requests.some(request=>/\/(policy|training|rl-evaluation)\.json/.test(request.path)),'Human-only metadata must not trigger legacy learning artifact reads');
+    assert.equal(ui.maxActiveSteps(),1);
+  }
+}
+
+async function sharedExerciseBaselineSelectionIsNotCalledNewLearning() {
+  for(const [kind,label,explanation] of [['coast_unchanged','Selected coast baseline',/unchanged zero-command baseline/],
+      ['authored_unchanged','Selected authored baseline',/unchanged programmed feedback/]]) {
+    const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:attachedExercisePolicy(kind)});await ui.ready();
+    assert.equal(ui.ids.get('policy').textContent,label);assert.match(ui.ids.get('exercise-policy-summary').textContent,explanation);
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,/not new learned gains/);
+    assert.match(ui.ids.get('training-caption').textContent,/not an independent evaluation result/);
+    ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,policy:true},'Installed baseline policy intent remains distinct from the coast/reference selector');
+    ui.resolveNext('/api/step');await drain();
+  }
+}
+
+async function sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl() {
+  for(const [available,policy] of [[false,attachedExercisePolicy()],[true,null],['true',attachedExercisePolicy()],
+      [true,attachedExercisePolicy('unknown')],[true,attachedExercisePolicy('searched_gains',{policy_sha256:'invalid'})],
+      [true,attachedExercisePolicy('searched_gains',{privileged_simulator_features:false})]]) {
+    const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:available,exercisePolicy:policy});await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
+    assert.equal(ui.ids.get('mode-coast').disabled,false);assert.equal(ui.ids.get('reference-servo').disabled,false);
+    const before=ui.requests.length;ui.ids.get('policy').click();ui.ids.get('start-learned').click();await drain();assert.equal(ui.requests.length,before);
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,/No validated human-only policy/);
+  }
+  const missing=fixture('shared-world',{sharedExercise:true,missingExerciseState:true,exercisePolicyAvailable:true,exercisePolicy:attachedExercisePolicy()});await missing.ready();
+  assert.equal(missing.ids.get('policy').disabled,true);assert.equal(missing.ids.get('start-learned').disabled,true);
+}
+
+async function sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome() {
+  const scores=Object.fromEntries(['coast','random','authored','learned'].map((name,index)=>[name,{successes:[0,0,1,2][index],episodes:3}]));
+  const policy=attachedExercisePolicy('searched_gains',{evaluation_status:'evaluated',evaluation_successes:scores});
+  const ui=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:policy,
+    exerciseInitialMetrics:{completed_interval:true,success:false,simulated_duration_s:.2,observed_substeps:48,valid_substeps:48,failed_gates:['equipment_stability:block']}});await ui.ready();
+  assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/Attached independent changed-start evaluation/);
+  assert.deepEqual(ui.ids.get('scores').children.map(box=>box.children[0].textContent),['0/3','0/3','1/3','2/3']);
+  assert.match(ui.ids.get('training-caption').textContent,/Training selection score: 0\.700/);
+  assert.match(ui.ids.get('exercise-outcome').textContent,/^Not passed/);assert.equal(ui.ids.get('play-state').textContent,'Trial finished');
+  assert(!ui.ids.get('live').drawCalls.some(call=>call.name==='setLineDash'&&call.args[0]?.length));
+  assert(!ui.requests.some(request=>/\/(training|rl-evaluation)\.json/.test(request.path)));
+  for(const change of [{evaluation_status:'failed'},{evaluation_successes:null},
+      {evaluation_successes:{...scores,learned:{successes:null,episodes:3}}},
+      {evaluation_successes:{...scores,learned:{successes:1,episodes:2}}}]) {
+    const invalid=fixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:{...policy,...change}});await invalid.ready();
+    assert.equal(invalid.ids.get('scores').children.length,0);assert.match(invalid.ids.get('exercise-evaluation-summary').textContent,/unavailable or incomplete/);
+    assert.equal(invalid.ids.get('policy').disabled,false,'Missing evaluation does not erase a validated installed controller');
+  }
+}
+
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
   sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates,sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess,
   sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
+  sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording,sharedExerciseBaselineSelectionIsNotCalledNewLearning,
+  sharedExerciseMissingPolicyMetadataNeverEnablesLearnedControl,sharedExerciseEvaluationStaysSeparateFromTrainingAndLiveOutcome,
   fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics,inspectionNamesKeepControlIdsAndUnavailablePolicyDistinct,
   inspectionPollingIsBoundedCachedAndIndependentOfRecording,inspectionTimeoutOffersRetryWithoutAnUnboundedPollLoop,
   poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,

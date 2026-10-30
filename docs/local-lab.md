@@ -4,15 +4,19 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). Its latest saved candidate binds body evidence and equipment masks to one source, with interactive box proxies and verified recordings. Depth, shape, materials and hand support remain unverified; it is not a recovered physical exercise.
 
-The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls.
+The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved initial-geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls, an optional validated policy and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls. To combine saved body/tracking evidence without chained study directories, use [one-command `shared-exercise-build`](equipment-proposals.md); camera distance, box shape and unknown depth remain explicit assumptions.
 
 To try the verified human-plus-equipment run, start the lab yourself:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-lab-integration-01/lab
+.venv-lab/bin/python -m weft lab --resume artifacts/shared-exercise-policy-lab-01
 ```
 
-This saved task covers two seconds with explicit virtual root assistance. Its reference controller moves the equipment and fails the unchanged stability checks. The interface displays that failure; it is not a completed exercise or physical validation.
+This saved task covers **two seconds**, with 19 human joint controls plus three explicit virtual root controls; equipment stays passive. Its policy search selected the **unchanged authored baseline**, not a learned improvement. The separate changed-start comparison is **0/3 for every controller**. Those starts have a documented equipment-reset flaw, so they are preserved failures, not a clean controller ranking. A new versioned support-preserving reset protocol and fresh seeds are next; the nominal reference controller separately moves the working equipment and fails stability.
+
+Choose manual movement, coast, authored following or **Selected authored baseline** in Sandbox. Training selection, attached evaluation and the live task result are separate. Record & start → Stop & save exports the exact action journal, video and replay, including controller/policy identities and resets. The saved acceptance run verifies **68 actions, one reset and 70 frames**; its 60 post-reset policy actions/states exactly match the failed authored baseline. This proves reproducibility, not exercise success or physical accuracy. Older no-policy labs remain available, including `artifacts/shared-exercise-lab-integration-01/lab`.
+
+For your own admitted shared world, the [task guide](shared-exercise.md#train-and-compare-a-frozen-policy) provides bounded training, a separate frozen-policy comparison and new-lab preparation with optional `--learning` / `--evaluation`. No attached evaluation means **unavailable**, not passed. No existing lab, task, scorer or recording is rewritten.
 
 ## Try the saved exercise run
 

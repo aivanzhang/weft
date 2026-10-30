@@ -52,14 +52,14 @@
 <p class="boundary">Better fit to this source does not prove new physical behavior. Same-video checks are development evidence, not an untouched final test.</p>
 </section>
 <section id="results" class="panel" hidden>
-<h2>Learning, measured separately.</h2><p id="learning-description">The learned policy, random actions, and coasting are evaluated on the same generated world and matched starting conditions.</p>
+<h2>Learning, measured separately.</h2><p id="learning-description">The learned policy, random actions, and coasting are evaluated on the same generated world and matched starting conditions.</p><p id="exercise-evaluation-summary" hidden></p><div id="exercise-policy-links" class="actions" hidden></div>
 <div id="scores" class="metrics"></div><canvas id="learning-curve" width="960" height="240" aria-label="Training success over completed episodes"></canvas><p id="training-caption"></p>
 <div class="actions"><button data-json="training.json">Training history</button><button data-json="rl-evaluation.json">Every evaluation trial</button><button data-json="interventions.json">Changed-action tests</button><button data-json="report.json">Full report</button></div>
 <p id="learning-boundary" class="boundary">The parking goal and actuator are authored additions. Simulation success is not evidence that this controller works on a real object.</p>
 </section>
 <section id="play" class="panel" hidden>
 <div class="heading-row"><div><h2>Try the sandbox.</h2><p>Choose who controls the movement, then start. You can pause at any time.</p></div><span id="record-status" role="status">Not recording</span></div>
-<section id="exercise-task-card" class="task-card" aria-labelledby="exercise-task-heading" hidden><h3 id="exercise-task-heading">Human-only body tracking + passive equipment</h3><p id="exercise-task-scope"></p><p id="exercise-assistance"></p><p id="exercise-contact-scope"></p><p class="hint">This task and its assistance are fixed for this lab. Prepare a new lab to change them. This does not score the old object-target task.</p><button data-json="exercise-task.json">Inspect the selected task</button></section>
+<section id="exercise-task-card" class="task-card" aria-labelledby="exercise-task-heading" hidden><h3 id="exercise-task-heading">Human-only body tracking + passive equipment</h3><p id="exercise-task-scope"></p><p id="exercise-assistance"></p><p id="exercise-contact-scope"></p><p id="exercise-policy-summary"></p><p class="hint">This task and its assistance are fixed for this lab. Prepare a new lab to change them. This does not score the old object-target task.</p><button data-json="exercise-task.json">Inspect the selected task</button></section>
 <div class="mode-picker" role="group" aria-label="Who controls the movement?">
 <button id="mode-manual" aria-pressed="true" disabled>Move it yourself</button><button id="mode-coast" aria-pressed="false" hidden disabled>Coast · all motors off</button><button id="reference-servo" aria-pressed="false" hidden disabled>Follow video movement</button><button id="policy" aria-pressed="false" disabled>Learned controller</button></div>
 <p id="mode-description">You control the movement. Tap a direction for a small move, or start and hold a direction.</p>

@@ -1,6 +1,7 @@
 """A distinct recording envelope keeps exercise gates separate from legacy scores."""
 
 from copy import deepcopy
+import hashlib
 import math
 import time
 
@@ -19,19 +20,41 @@ from weft.shared_world import validate_shared_world
 PROFILE = "shared-exercise-recording-v1"
 
 
-def recording_scene(scene, task):
+def recording_scene(scene, task, *, policy_document=None):
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
-    return {"schema_version": 1, "profile": PROFILE, "engine_scene": scene, "exercise_task": task,
-            "dt": scene["dt"], "objects": deepcopy(scene["objects"])}
+    result = {"schema_version": 1, "profile": PROFILE, "engine_scene": scene, "exercise_task": task,
+              "dt": scene["dt"], "objects": deepcopy(scene["objects"])}
+    if policy_document is not None:
+        from weft.shared_exercise_lab import _json
+        from weft.shared_exercise_learning import validate_shared_exercise_policy
+
+        if not isinstance(policy_document, bytes) or not 1 <= len(policy_document) <= 64 * 1024:
+            raise ValueError("Exercise recording policy requires bounded exact document bytes")
+        validate_shared_exercise_policy(_json(policy_document), scene, task)
+        result["learned_policy"] = {"document_utf8": policy_document.decode("utf-8"),
+                                    "sha256": hashlib.sha256(policy_document).hexdigest()}
+    return result
 
 
 def validate_recording_scene(scene):
-    if not isinstance(scene, dict) or set(scene) != {
-        "schema_version", "profile", "engine_scene", "exercise_task", "dt", "objects",
-    } or type(scene["schema_version"]) is not int or scene["schema_version"] != 1 or scene["profile"] != PROFILE:
+    keys = {"schema_version", "profile", "engine_scene", "exercise_task", "dt", "objects"}
+    if (not isinstance(scene, dict) or set(scene) not in (keys, keys | {"learned_policy"})
+            or type(scene["schema_version"]) is not int or scene["schema_version"] != 1 or scene["profile"] != PROFILE):
         raise ValueError("Exercise recording envelope differs from its versioned contract")
-    result = recording_scene(scene["engine_scene"], scene["exercise_task"])
+    policy_document = None
+    if "learned_policy" in scene:
+        policy = scene["learned_policy"]
+        if (not isinstance(policy, dict) or set(policy) != {"document_utf8", "sha256"}
+                or not isinstance(policy["document_utf8"], str) or len(policy["document_utf8"]) > 64 * 1024):
+            raise ValueError("Exercise recording learned-policy envelope is invalid")
+        try:
+            policy_document = policy["document_utf8"].encode("utf-8")
+        except UnicodeError as error:
+            raise ValueError("Exercise recording policy must be UTF-8") from error
+        if hashlib.sha256(policy_document).hexdigest() != policy["sha256"]:
+            raise ValueError("Exercise recording policy hash differs from its exact document")
+    result = recording_scene(scene["engine_scene"], scene["exercise_task"], policy_document=policy_document)
     if scene != result:
         raise ValueError("Exercise recording aliases must preserve the exact engine scene and task")
     return result
@@ -57,11 +80,18 @@ def prepare_snapshot_validator(scene):
 
 def validate_event(event, scene):
     state = event["snapshot"]
+    learned = event.get("controller") == "learned"
+    if learned:
+        if (event["type"] != "step" or "learned_policy" not in scene
+                or event.get("policy_sha256") != scene["learned_policy"]["sha256"]):
+            raise ValueError("Exercise learned action requires its pinned policy hash and document")
+    elif "policy_sha256" in event:
+        raise ValueError("Exercise policy identity belongs only to learned actions")
     if event["type"] == "step":
         validate_action(event.get("action"), scene)
         if "controller" in event:
-            if event["controller"] not in ("manual", "coast", "authored"):
-                raise ValueError("Exercise controller metadata must be manual, coast or authored")
+            if event["controller"] not in ("manual", "coast", "authored", "learned"):
+                raise ValueError("Exercise controller metadata must be manual, coast, authored or learned")
             if event["controller"] == "coast" and any(event["action"]):
                 raise ValueError("Exercise coast metadata requires zero human actions")
         if list(event["action"]) != state["last_action"]:
@@ -147,6 +177,11 @@ def verify_action_replay(directory, *, max_seconds=60):
         raise ValueError("Action replay requires a shared exercise recording")
     env = SharedExerciseTaskEnv(scene["engine_scene"], scene["exercise_task"])
     try:
+        policy_action = None
+        if "learned_policy" in scene:
+            from weft.shared_exercise_lab import _json
+            from weft.shared_exercise_learning import prepare_shared_exercise_policy
+            policy_action = prepare_shared_exercise_policy(_json(scene["learned_policy"]["document_utf8"].encode("utf-8")), env)
         if events[0]["snapshot"]["task_metrics"]["evaluator_sha256"] != env.evaluator_sha256:
             raise ValueError("Recorded evaluator differs from this runtime; use the pinned implementation for action replay")
         for event in events:
@@ -157,6 +192,8 @@ def verify_action_replay(directory, *, max_seconds=60):
             else:
                 if event.get("controller") == "authored" and env.authored_action().tolist() != event["action"]:
                     raise ValueError(f"Exercise authored controller replay differs at event {event['index']}")
+                if event.get("controller") == "learned" and (policy_action is None or policy_action().tolist() != event["action"]):
+                    raise ValueError(f"Exercise learned controller replay differs at event {event['index']}")
                 _, reward, terminated, truncated, _ = env.step(event["action"])
                 if (reward, terminated, truncated) != (event["reward"], event["terminated"], event["truncated"]):
                     raise ValueError(f"Exercise outcome replay differs at event {event['index']}")
@@ -167,6 +204,9 @@ def verify_action_replay(directory, *, max_seconds=60):
         return {"events": len(events), "steps": sum(event["type"] == "step" for event in events),
                 "exact_state_replay": True, "scene_sha256": canonical_hash(scene["engine_scene"]),
                 "task_sha256": canonical_hash(scene["exercise_task"]),
+                **({"policy_sha256": scene["learned_policy"]["sha256"],
+                    "learned_actions_verified": sum(event.get("controller") == "learned" for event in events)}
+                   if "learned_policy" in scene else {}),
                 "scope": "Exact simulated action/state/task replay; not physical validation"}
     finally:
         env.close()

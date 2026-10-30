@@ -7,6 +7,7 @@ canvas{width:100%;background:#FBF7F1;border:1px solid #D8C9BA}button,input{font:
 <h1 id="recording-title">Coupled 3D recorded simulation</h1>
 <p>One simulated MuJoCo world containing an articulated human body and 3D rigid objects, seen from the front, above and at an angle. This is an offline replay, not live controls. Muscle colors are illustrative motor-command proxies, not measured activation; physical validation is unverified.</p>
 <p id="status" role="status">Loading recorded states…</p>
+<p id="controller" hidden></p>
 <p id="exercise-scope" hidden></p>
 <canvas id="view" width="1080" height="420" aria-label="Three views of the same recorded coupled 3D world"></canvas>
 <p><button id="play" disabled>Play</button> <input id="scrub" aria-label="Recorded state" type="range" min="0" value="0" disabled> <output id="frame"></output></p>
@@ -30,6 +31,14 @@ function stop(){if(timer!==null)clearTimeout(timer);timer=null;play.textContent=
 function requestFrame(index){wanted=Math.max(0,Math.min(count-1,index));if(busy||closed||!scene)return;busy=true;requested=wanted;worker.postMessage({type:'frame',index:requested});}
 function rotate([x,y,z],[w,a,b,c]){return [(1-2*(b*b+c*c))*x+2*(a*b-w*c)*y+2*(a*c+w*b)*z,2*(a*b+w*c)*x+(1-2*(a*a+c*c))*y+2*(b*c-w*a)*z,2*(a*c-w*b)*x+2*(b*c+w*a)*y+(1-2*(a*a+b*b))*z];}
 function corners(o){const result=[];for(const x of [-1,1])for(const y of [-1,1])for(const z of [-1,1]){const r=rotate([x*o.size[0]/2,y*o.size[1]/2,z*o.size[2]/2],o.quaternion);result.push(r.map((v,i)=>v+o.position[i]));}return result;}
+function controllerLabel(row){
+if(row.type==='start')return 'Recording start · no action applied';
+if(row.type==='reset')return 'Seeded reset · no action applied';
+if(row.controller==='manual')return 'Controller: manual human action';
+if(row.controller==='coast')return 'Controller: coast · all human commands zero';
+if(row.controller==='authored')return 'Controller: authored feedback · programmed, not learned';
+if(row.controller==='learned'){const hash=typeof row.policy_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.policy_sha256)?row.policy_sha256.slice(0,12):null;return `Controller: recorded policy · ${hash?'SHA256 '+hash:'policy identity unavailable'} · not a claim of learned improvement`;}
+return 'Controller unspecified · no recognized controller tag in this recording';}
 function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;
 const scale=Number(zoom.value)*Math.min(pane*.84/Math.max(scene.bounds[0],scene.bounds[1]),canvas.height*.76/Math.max(...scene.bounds));
 const center=scene.bounds.map(v=>v/2),floorZ=state.human?.mobility?.floor_height??0,goalTol=scene.task?.object_goal?.position_tolerance||.05;
@@ -53,6 +62,7 @@ document.getElementById('frame').textContent=`${Number(slider.value)+1} / ${coun
 const ho=state.contact_summary?.human_object??0,cm=state.coupled_metrics||{};
 status.textContent=`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} contacts (${ho} human↔object) · object dist ${(cm.object_distance_world??0).toFixed(3)} · substeps ${state.substeps}`;
 if(exerciseTask){const m=event.exercise_metrics||{},drift=Math.max(0,...(m.equipment||[]).map(o=>o.displacement_model_units||0)),outcome=m.success?'passed':m.failure||m.completed_interval?'not passed':'in progress';status.textContent=`Human-only task · ${(m.simulated_duration_s??0).toFixed(3)}s · ${outcome} · maximum equipment drift ${drift.toFixed(3)} model units · ${m.observed_substeps??0} measured substeps`;if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
+if(exerciseTask){const label=document.getElementById('controller');label.hidden=false;label.textContent=controllerLabel(event);}
 if(details.open)detail.textContent=JSON.stringify(event,null,2);}
 function tick(){if(document.hidden||closed){stop();return;}if(Number(slider.value)>=count-1){stop();return;}slider.value=Number(slider.value)+1;requestFrame(Number(slider.value));timer=setTimeout(tick,1000*scene.dt);}
 worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;exerciseTask=data.exercise_task||null;count=data.count;slider.max=count-1;play.disabled=slider.disabled=false;if(exerciseTask){document.getElementById('recording-title').textContent='Human-only exercise task replay';const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Equipment stays passive: no virtual object forces. Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Stability is checked throughout the declared interval; this is an authored simulation task, not verified grasp or biomechanics.`;document.getElementById('contact-explanation').textContent='Turning the view does not change physics. Dots show simulated body contacts, not necessarily qualifying wrist-region support. Only the declared wrist-region requirements count toward this task.';}requestFrame(0);return;}busy=false;if(data.index===wanted){event=data.event;draw();}else requestFrame(wanted);};

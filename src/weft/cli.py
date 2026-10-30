@@ -1,6 +1,7 @@
 import argparse
 import json
 from pathlib import Path
+import sys
 
 from weft.compare import compare_runs, save_comparison
 from weft.env import RollingEnv
@@ -186,9 +187,24 @@ def main():
     sw_adapt.add_argument("--human-run", required=True, help="Existing verified mobile exercise-v3 run or lab directory")
     sw_adapt.add_argument("--out", required=True, help="New sealed shared-world-v1 directory outside the source")
     sw_adapt.add_argument("--scale", type=float, default=1.0, help="Explicit body-height-to-world scale prior in [0.5, 2.0]")
+    sw_propose = commands.add_parser("shared-world-propose", help="Prepare explicit equipment priors directly from verified body/tracking evidence; no API or fitting")
+    sw_propose.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
+    sw_propose.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
+    sw_propose.add_argument("--config", required=True, help="Source-pinned camera, equipment and coordinate-frame choices")
+    sw_propose.add_argument("--source-mapping", action="append", default=[], help="Verified original/derivative bundle; repeat for distinct derivatives")
+    sw_propose.add_argument("--out", required=True, help="New sealed proposal directory outside the inputs")
+    sw_propose.add_argument("--max-seconds", type=float, default=30)
+    exercise_build = commands.add_parser("shared-exercise-build", help="Build one human-only lab from verified body/tracking evidence and explicit equipment priors")
+    exercise_build.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
+    exercise_build.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
+    exercise_build.add_argument("--config", required=True, help="Explicit source-pinned equipment proposal configuration")
+    exercise_build.add_argument("--source-mapping", action="append", default=[])
+    exercise_build.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root controls")
+    exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
+    exercise_build.add_argument("--max-seconds", type=float, default=90)
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
     sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
-    sw_construct.add_argument("--proposal-run", required=True, help="Sealed geometry-proposal study")
+    sw_construct.add_argument("--proposal-run", required=True, help="Sealed ready geometry proposal")
     sw_construct.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
     sw_construct.add_argument("--source-mapping", action="append", default=[], help="Verified original/derivative bundle; repeat for distinct derivatives")
     sw_construct.add_argument("--target-object", required=True, help="Authored task target ID from the observation document")
@@ -210,6 +226,8 @@ def main():
         help="Prepare an immutable human-only exercise lab with passive equipment; no server or training")
     exercise_lab.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
     exercise_lab.add_argument("--out", required=True, help="New lab directory outside the immutable input")
+    exercise_lab.add_argument("--learning", help="Optional sealed human-only policy for this exact scene and task")
+    exercise_lab.add_argument("--evaluation", help="Optional separate comparison for the exact installed policy; requires --learning")
     exercise_lab_choice = exercise_lab.add_mutually_exclusive_group()
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
     exercise_lab_choice.add_argument("--task", help="Pinned shared-exercise-task-v1 JSON; preserve its exact task choice")
@@ -224,6 +242,23 @@ def main():
     exercise_eval.add_argument("--seed", type=int, default=938401)
     exercise_eval.add_argument("--jitter", action="store_true", help="Use the same seeded reset perturbation for both baselines")
     exercise_eval.add_argument("--max-seconds", type=float, default=60)
+    exercise_train = commands.add_parser("shared-exercise-train", help="Train a bounded human-only policy; freeze it before separate evaluation")
+    exercise_train.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
+    exercise_train.add_argument("--out", required=True, help="New immutable training directory")
+    exercise_train_choice = exercise_train.add_mutually_exclusive_group()
+    exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
+    exercise_train_choice.add_argument("--task", help="Exact shared-exercise-task-v1 JSON to train without changing its gates")
+    exercise_train.add_argument("--seed", type=int, default=1729)
+    exercise_train.add_argument("--generations", type=int, default=3)
+    exercise_train.add_argument("--population", type=int, default=8)
+    exercise_train.add_argument("--max-seconds", type=float, default=60)
+    exercise_policy_eval = commands.add_parser("shared-exercise-policy-evaluate", help="Compare a frozen human-only policy with coast/random/authored on separate changed starts")
+    exercise_policy_eval.add_argument("--learning", required=True, help="Verified immutable human-only training directory")
+    exercise_policy_eval.add_argument("--out", required=True, help="New evaluation directory outside training inputs")
+    exercise_policy_eval.add_argument("--seed", type=int, default=924017)
+    exercise_policy_eval.add_argument("--trials", type=int, default=3)
+    exercise_policy_eval.add_argument("--jitter-scale", type=float, default=.10)
+    exercise_policy_eval.add_argument("--max-seconds", type=float, default=30)
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -346,6 +381,19 @@ def main():
             result = construct_source_equipment_run(args.run, args.proposal_run, args.evidence_run, args.out,
                 target_object_id=args.target_object, source_mappings=args.source_mapping,
                 frame_translation=args.frame_translation)
+        elif args.command == "shared-world-propose":
+            from weft.equipment_proposal import prepare_equipment_proposal
+            result = prepare_equipment_proposal(args.run, args.evidence_run, args.config, args.out,
+                source_mappings=args.source_mapping, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-build":
+            from weft.exercise_scene_pipeline import prepare_exercise_scene
+            labels = {"equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
+                      "interactive_lab": "Prepare interactive lab"}
+            result = prepare_exercise_scene(args.run, args.evidence_run, args.config, args.out,
+                source_mappings=args.source_mapping, root_assistance=args.root_assistance,
+                max_seconds=args.max_seconds,
+                progress=lambda row: print(f"{labels[row['stage']]}: {row['status'].replace('_', ' ')}",
+                                           file=sys.stderr, flush=True))
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
             result = train_shared_world_policy(
@@ -366,7 +414,17 @@ def main():
         elif args.command == "shared-exercise-lab":
             from weft.shared_exercise_lab import prepare_shared_exercise_lab
             result = prepare_shared_exercise_lab(args.run, args.out, root_assistance=args.root_assistance,
-                task_path=args.task, max_seconds=args.max_seconds)
+                task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
+                max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-train":
+            from weft.shared_exercise_learning import train_shared_exercise_policy
+            result = train_shared_exercise_policy(args.run, args.out, task_path=args.task,
+                root_assistance=args.root_assistance, seed=args.seed, generations=args.generations,
+                population=args.population, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-policy-evaluate":
+            from weft.shared_exercise_learning import evaluate_shared_exercise_policy
+            result = evaluate_shared_exercise_policy(args.learning, args.out, seed=args.seed,
+                trials=args.trials, jitter_scale=args.jitter_scale, max_seconds=args.max_seconds)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)
