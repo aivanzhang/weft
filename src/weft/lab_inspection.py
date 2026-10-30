@@ -87,6 +87,88 @@ def _text(value, limit=400):
     return value
 
 
+def _timeline(scene, human, decoded, exercise_task):
+    result = {'status': 'unavailable', 'reference_span_s': None, 'reference_poses': None,
+              'task_window_s': None, 'task_duration_s': None, 'task_steps': None,
+              'source_slots': None, 'alignment_method': None, 'native_source_clock': 'not_read_here',
+              'media_sync_verified': False,
+              'scope': 'Declared reference times are not native source timestamps or synchronized video playback.'}
+    reference = human.get('reference')
+    if not isinstance(reference, list) or not 1 <= len(reference) <= 100000:
+        return result
+    finite = lambda value: type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 3600
+    times = [row.get('time_s') if isinstance(row, dict) else None for row in reference]
+    if any(not finite(value) for value in times) or any(a >= b for a, b in zip(times, times[1:])):
+        return result
+    result.update(status='available', reference_span_s=[times[0], times[-1]], reference_poses=len(times))
+    frame = scene.get('coordinate_frame', {})
+    clock = frame.get('clock_binding', {}) if isinstance(frame, dict) else {}
+    method = clock.get('alignment_method') if isinstance(clock, dict) else None
+    if isinstance(method, str) and len(method) <= 200:
+        result['alignment_method'] = method
+    metadata, source_sha = human.get('reference_evidence'), human.get('source_sha256')
+    if isinstance(metadata, list) and len(metadata) == len(times) and isinstance(source_sha, str) and _SHA.fullmatch(source_sha):
+        frames = []
+        for row, timestamp in zip(metadata, times):
+            evidence_id = row.get('evidence_id') if isinstance(row, dict) else None
+            match = re.fullmatch(re.escape(source_sha) + r':frame:(\d+)(?::.*)?', evidence_id) if isinstance(evidence_id, str) else None
+            if match is None or row.get('time_s') != timestamp:
+                break
+            frames.append(int(match[1]))
+        if (decoded is not None and len(frames) == len(times) and len(set(frames)) == len(frames)
+                and all(0 <= index < decoded for index in frames) and frames == sorted(frames)):
+            result['source_slots'] = {'with_reference': len(frames), 'without_reference': decoded - len(frames),
+                                      'leading_without_reference': frames[0],
+                                      'trailing_without_reference': decoded - frames[-1] - 1}
+    # The shared runtime starts at first retained reference + its declared task offset.
+    task = exercise_task.get('interval') if exercise_task else scene.get('task')
+    dt = scene.get('dt')
+    if scene.get('profile') in ('shared-world-v1', 'shared-world-v2') and isinstance(task, dict) and finite(dt) and dt > 0:
+        offset, steps = task.get('start_offset_s'), task.get('horizon_steps')
+        if finite(offset) and type(steps) is int and 1 <= steps <= 100000:
+            start, duration = times[0] + offset, steps * dt
+            if duration <= 3600 and start + duration <= times[-1] + 1e-9:
+                result.update(task_window_s=[start, start + duration], task_duration_s=duration, task_steps=steps)
+    return result
+
+
+def _fullspan_summary(receipt, scene, task, files, timeline):
+    if (receipt.get('profile') != 'shared-exercise-fullspan-preparation-v1'
+            or receipt.get('status') != 'ready' or scene.get('profile') != 'shared-world-v2'
+            or receipt.get('runnable_scene_published') is not True
+            or receipt.get('old_policy_or_evaluation_attached') is not False
+            or any(type(receipt.get(key)) is not int or receipt[key] != 0
+                   for key in ('physics_steps', 'resets', 'training_episodes', 'inference_calls', 'api_calls', 'video_decodes'))):
+        raise ValueError('Invalid full-reference preparation summary')
+    if (task.get('profile') != 'shared-exercise-task-v1'
+            or receipt.get('scene_sha256') != canonical_hash(scene) or receipt.get('task_sha256') != canonical_hash(task)
+            or task.get('scene_sha256') != canonical_hash(scene)
+            or task.get('interval') != {key: scene.get('task', {}).get(key) for key in ('start_offset_s', 'horizon_steps')}
+            or receipt.get('gates_sha256') != task.get('gates_sha256') or timeline['task_window_s'] is None
+            or any(not math.isclose(a, b, rel_tol=0, abs_tol=1e-9)
+                   for a, b in zip(timeline['task_window_s'], timeline['reference_span_s']))):
+        raise ValueError('Full-reference preparation scene, task or interval differs')
+    expected_interval = {'first_time_s': timeline['reference_span_s'][0],
+                         'last_time_s': timeline['reference_span_s'][1], 'horizon_steps': timeline['task_steps'],
+                         'dt': scene.get('dt'), 'substeps': scene.get('substeps'),
+                         'reference_poses': timeline['reference_poses']}
+    if receipt.get('reference_interval') != expected_interval:
+        raise ValueError('Full-reference preparation clocks or pose count differ')
+    # The ordinary lab adds one source-run layer around the unchanged preparation package.
+    nested = files.get('source-run/fullspan.json') == files['fullspan.json']
+    archive = 'source-run/source-run/manifest.json' if nested else 'source-run/manifest.json'
+    source_manifest = receipt.get('input_manifest_sha256')
+    if (not isinstance(source_manifest, str) or not _SHA.fullmatch(source_manifest)
+            or receipt.get('original_manifest_path') != 'source-run/manifest.json'
+            or files.get(archive) != receipt.get('input_manifest_sha256')):
+        raise ValueError('Full-reference preparation original archive differs')
+    return {'status': 'preparation_only', 'scene_sha256': receipt['scene_sha256'],
+            'task_sha256': receipt['task_sha256'], 'input_manifest_sha256': receipt['input_manifest_sha256'],
+            'scope': 'The task spans the retained reference without new geometry, observations or physics checks. '
+                     'Missing source frames remain missing; preparation alone does not establish task success.',
+            'artifact': 'fullspan.json'}
+
+
 def _summary(run, profile):
     root_fd = os.open(Path(run), os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     consumed = 0
@@ -230,6 +312,14 @@ def _summary(run, profile):
         study = read('geometry-study.json')
         proposal = read('geometry-proposal.json')
         hypothesis = read('geometry-hypothesis.json')
+        exercise_task = read('exercise-task.json', 64 * 1024)
+        timeline = _timeline(scene, human, decoded, exercise_task)
+        fullspan = None
+        if 'fullspan.json' in files:
+            fullspan = _fullspan_summary(read('fullspan.json', 64 * 1024), scene, exercise_task, files, timeline)
+            if study or proposal or hypothesis:
+                raise ValueError('Full-reference preparation cannot relabel an earlier geometry comparison')
+            artifact('fullspan.json', 'Full-reference preparation and preserved limitations')
         config = {}
         if 'geometry-hypothesis.json' in files:
             if (hypothesis.get('profile') != 'shared-world-geometry-hypothesis-v1'
@@ -291,6 +381,7 @@ def _summary(run, profile):
                 'lab_profile': profile, 'source': source, 'stages': stages, 'actors': actors,
                 'tracking': {'reference_poses': reference_poses, 'pose_status_counts': pose_counts,
                              'scope': 'A construction observation is input retained to build the model; it may still be too uncertain for a usable pose. These counts do not verify identity, true visibility or accuracy.'},
+                'timeline': timeline, 'fullspan_preparation': fullspan,
                 'geometry': geometry, 'artifact_links': list(links.values()),
                 'scope': 'Saved manifest-linked inspection only. Simulation, controller availability and recordings use the live lab contract.'}
     finally:

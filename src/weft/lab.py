@@ -823,7 +823,7 @@ class Lab:
                 "shared-exercise"
                 if _shared_exercise(session)
                 else "shared-world"
-                if session.scene.get("profile") == "shared-world-v1"
+                if session.scene.get("profile") in ("shared-world-v1", "shared-world-v2")
                 else "spatial-rigid"
                 if session.scene.get("profile") == "spatial-rigid-v1"
                 else self.config["profile"]

@@ -18,11 +18,12 @@
   let inspection = null, inspectionLoaded = false, inspectionPending = false, inspectionAttempts = 0;
   let exerciseTask = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
   let exerciseDetailSignature = "", exercisePolicy = null;
+  let mediaClockReady = false;
   const inspectionActors = new Map();
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
-  const sharedWorld = () => scene?.profile === "shared-world-v1";
+  const sharedWorld = () => ["shared-world-v1", "shared-world-v2"].includes(scene?.profile);
   const sharedExercise = () => current?.control_profile === "shared_exercise";
   const engineState = state => state?.profile === "shared-exercise-state-v1" ? state.engine_state : state;
   const exerciseMetrics = () => sharedExercise() && exerciseStateReady ? snapshot.task_metrics : null;
@@ -37,6 +38,43 @@
   let actionNames = ["coast", "left", "right", "up", "down", "brake"];
   const fileURL = (name) => `/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   const text = (element, value) => { element.textContent = String(value); };
+  function windowText(id, value) { if ($(id).textContent !== value) text($(id), value); }
+  function updateWindowClocks() {
+    if ($("source-simulation-window").hidden) return;
+    const video = $("source"), state = engineState(snapshot);
+    windowText("window-media", mediaClockReady && Number.isFinite(video.currentTime)
+      ? `Original video player: ${number(video.currentTime)}s${Number.isFinite(video.duration) ? ` / ${number(video.duration)}s media duration` : ""}. Playback is independent of the simulation.`
+      : "Original video player clock unavailable until media metadata loads. No source duration is inferred from frame count.");
+    const valid = !sharedExercise() || exerciseStateReady;
+    const stale = sharedExercise() ? snapshot?.engine_state_status === "last_valid_control_boundary" : Boolean(state?.simulation_failure);
+    windowText("window-live", valid && Number.isFinite(state?.time_s)
+      ? `${stale ? "Last valid simulation geometry" : "Displayed simulation geometry"}: ${number(state.time_s)}s elapsed; ${Number.isFinite(state.source_time_s) ? `${number(state.source_time_s)}s on the declared reference clock` : "reference-clock position unavailable"}. ${stale ? "Simulation failed; this is not a new terminal pose." : "This is a simulated state, not the recorded video frame."}`
+      : "Simulation/reference-clock position unavailable. No zero time or synchronized source pose is inferred.");
+  }
+  function showSourceWindow() {
+    const timeline = inspection?.timeline;
+    $("source-simulation-window").hidden = !sharedWorld() && timeline?.status !== "available";
+    if ($("source-simulation-window").hidden) return;
+    const pair = value => Array.isArray(value) && value.length === 2 && value.every(Number.isFinite) && value[0] <= value[1];
+    const reference = timeline?.reference_span_s, task = timeline?.task_window_s;
+    windowText("window-reference", pair(reference)
+      ? `Retained body reference: ${number(reference[0])}–${number(reference[1])}s (${Number.isInteger(timeline.reference_poses) ? timeline.reference_poses : "unknown"} poses), on its declared reference clock.`
+      : "Retained reference span unavailable in this saved summary; the source video is not assumed fully reconstructed.");
+    windowText("window-task", pair(task) && Number.isFinite(timeline.task_duration_s) && Number.isInteger(timeline.task_steps)
+      ? `Selected simulation window: ${number(task[0])}–${number(task[1])}s on that reference clock (${number(timeline.task_duration_s)}s, ${timeline.task_steps} control steps). ${pair(reference) && (task[0] > reference[0] + 1e-9 || task[1] < reference[1] - 1e-9) ? "Only part of the retained reference is tested." : "Covering a reference window does not establish complete source-video coverage."}`
+      : "Selected reference-time window unavailable. The live task's declared interval is reported separately below.");
+    if (inspection?.fullspan_preparation?.status === "preparation_only") {
+      windowText("window-task", `${$("window-task").textContent} Full-reference preparation changes the task interval, not the recovered geometry. Inspect fullspan.json in Files for the preserved inputs and limits.`);
+    }
+    const slots = timeline?.source_slots;
+    windowText("window-coverage", slots && [slots.with_reference, slots.without_reference, slots.leading_without_reference, slots.trailing_without_reference].every(Number.isInteger)
+      ? `Source slots: ${slots.with_reference} with a retained body reference; ${slots.without_reference} without one, including ${slots.leading_without_reference} leading and ${slots.trailing_without_reference} trailing slots. These are reference-coverage counts, not detection or visibility labels; gaps are not filled.`
+      : "Source-to-reference slot coverage unavailable here. Pose counts alone do not identify missing source frames.");
+    windowText("window-clocks", timeline?.alignment_method === "pose_frame_index_over_fps_prior_v1"
+      ? "Reference times use an authored frame-index / FPS prior. Native source timestamps are not read by this summary. Video, kinematic reference and live simulation are not synchronized."
+      : "Reference times use the saved declared clock; its mapping to native source timestamps is unavailable here. Video, kinematic reference and live simulation are not synchronized.");
+    updateWindowClocks();
+  }
   function updateCapabilities(doc) {
     if (!doc) return;
     capabilities = doc;
@@ -550,6 +588,7 @@
       $("exercise-equipment").replaceChildren(); $("exercise-contacts").replaceChildren(); exerciseDetailSignature = "";
       text($("exercise-failure"), "The selected task, control contract or state metrics are unavailable. Any visible geometry is the previous display, not a new verified state."); $("exercise-failure").hidden = false;
       text($("readout"), "Exercise task state unavailable. Reset or reload before continuing.");
+      updateWindowClocks();
       return;
     }
     draw($("live"), geometry);
@@ -568,6 +607,7 @@
     if (failure) { error(failure); simulationFailureMessage = failure; }
     else if (simulationFailureMessage !== null) { if ($("error").textContent === simulationFailureMessage) clearError(); simulationFailureMessage = null; }
     text($("readout"), `${exerciseOutcome(m)} · task ${number(m.simulated_duration_s)}s · geometry ${number(geometry.time_s)}s · equipment is not actuated.`);
+    updateWindowClocks();
     text($("whole-body-status"), exerciseTask?.control?.root_assistance === "disabled" ? "Root assistance disabled; all three root-force commands stay zero."
       : `Explicit virtual root forces [${(geometry.human.mobility?.support_force || []).map(value => number(value, 1)).join(", ")}] · model force units, not measured human forces.`);
     text($("muscle-readout"), "Illustrative muscle bands show motor commands, not measured activation. Contact dots do not automatically qualify as wrist support.");
@@ -584,7 +624,7 @@
       if ($("error").textContent === simulationFailureMessage) clearError();
       simulationFailureMessage = null;
     }
-    snapshot = state; draw($("live"), state);
+    snapshot = state; draw($("live"), state); updateWindowClocks();
     updateControls();
     if (sharedWorld()) {
       const h = state.human, cm = state.coupled_metrics || {}, root = h?.mobility;
@@ -930,6 +970,7 @@
   }
   async function readyDetails(data) {
     scene = data.scene;
+    showSourceWindow();
     if (sharedExercise()) configureExerciseTask(data);
     const noLearnedPolicy = sharedExercise() ? !configureExercisePolicy(data) : data.learned_policy_available === false || scene.learned_policy_available === false;
     learnedPolicyAvailable = !noLearnedPolicy;
@@ -993,7 +1034,7 @@
       text($("world-tab"), "Coupled 3D world");
       text($("world-heading"), "One coupled 3D world: articulated human and rigid objects.");
       text($("world-description"), "An articulated 22-motor human body and 3D rigid objects share one MuJoCo model, coordinate frame, clock, and contact solver. Muscle bands remain illustrative motor-command proxies, scale bridges are explicit, and physical validation is unverified.");
-      text($("evidence-boundary"), "Coupled shared-world-v1 run. Source slot conservation, coordinate scale bridge, and kinematic preflight are explicit; physical validation remains unverified.");
+      text($("evidence-boundary"), `Coupled ${scene.profile} run. Source slot conservation, coordinate scale bridge, and kinematic preflight are explicit; physical validation remains unverified.`);
       text($("control-help"), "Select 'Articulated human' to drive any of the 22 body motors (+0.25 / −0.25), or select a dynamic 3D object to apply the eight 3D virtual forces. Choose Follow video for programmed human reference feedback.");
       text($("play-boundary"), "Human limbs and 3D rigid objects exchange real simulated MuJoCo contact impulses on one shared clock. Virtual root motors remain explicit assumptions, not unassisted balance.");
       $("live").setAttribute("aria-label", "Coupled 3D human and object simulation. Switch between human motors and 3D rigid objects; Escape pauses.");
@@ -1238,7 +1279,7 @@
       model_only: "Model only · no comparison", simulation: "Authored simulation · interact", local_recording: "Record, save and replay"};
     for (const stage of inspection.stages) text($("stage-" + stage.id), labels[stage.state] || "Inspect saved evidence");
     exerciseDetailSignature = ""; exerciseDetails(exerciseMetrics());
-    renderObjectDetails(); files(data); showGeometryPanel(); updateControls();
+    renderObjectDetails(); files(data); showGeometryPanel(); updateControls(); showSourceWindow();
   }
   async function showInspection(data) {
     if (inspectionLoaded || data.status !== "ready") return;
@@ -1326,7 +1367,9 @@
       catch (_) { text($("pose-issue"), "The source video could not seek to this frame. Download it from Files to inspect it."); }
     }
   }
-  $("source").addEventListener("loadedmetadata", () => { if (pendingSourceSeek !== null) seekSource(pendingSourceSeek); });
+  $("source").addEventListener("loadedmetadata", () => { mediaClockReady = true; if (pendingSourceSeek !== null) seekSource(pendingSourceSeek); updateWindowClocks(); });
+  $("source").addEventListener("timeupdate", updateWindowClocks);
+  for (const event of ["emptied", "error"]) $("source").addEventListener(event, () => { mediaClockReady = false; updateWindowClocks(); });
   $("pose-next-issue").onclick = () => {
     if (!poseIssues.length) return;
     poseIssueIndex = (poseIssueIndex + 1) % poseIssues.length;

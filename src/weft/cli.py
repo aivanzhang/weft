@@ -236,6 +236,11 @@ def main():
     sw_lab.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
     sw_lab.add_argument("--learning", help="Optional verified shared-world policy directory for the same scene")
     sw_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
+    exercise_fullspan = commands.add_parser("shared-exercise-fullspan",
+        help="Prepare an explicit full-reference task without clipping, retiming, or training")
+    exercise_fullspan.add_argument("--run", required=True, help="Sealed shared-world-v1 scene with its exercise task")
+    exercise_fullspan.add_argument("--out", required=True, help="New full-reference candidate; original files remain unchanged")
+    exercise_fullspan.add_argument("--max-seconds", type=float, default=30)
     exercise_lab = commands.add_parser("shared-exercise-lab",
         help="Prepare an immutable human-only exercise lab with passive equipment; no server or training")
     exercise_lab.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
@@ -436,6 +441,9 @@ def main():
         elif args.command == "shared-world-lab":
             from weft.shared_world_lab import prepare_shared_world_lab
             result = prepare_shared_world_lab(args.run, args.out, policy_run=args.learning)
+        elif args.command == "shared-exercise-fullspan":
+            from weft.shared_exercise_fullspan import prepare_fullspan_shared_exercise
+            result = prepare_fullspan_shared_exercise(args.run, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-evaluate":
             from weft.shared_exercise_run import evaluate_shared_exercise_run
             result = evaluate_shared_exercise_run(args.run, args.out, root_assistance=args.root_assistance,
@@ -510,6 +518,8 @@ def main():
         print(json.dumps(result, indent=2, allow_nan=False))
         if args.command == "shared-world-shape" and result.get("status") == "failed":
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
+        if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":
+            parser.exit(1, f"weft: full-reference preparation failed; preserved report: {result['directory']}/fullspan.json\n")
     except (ValueError, RuntimeError, TimeoutError, OSError) as error:
         parser.exit(1, f"weft: {error}\n")
 

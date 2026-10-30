@@ -8,14 +8,14 @@ const script = [...html.matchAll(/<script(?: [^>]*)?>([\s\S]*?)<\/script>/g)].at
 const object = {id: 'equipment', role: 'passive', shape: 'box', size: [.1, .1, .1],
   position: [.8, .6, .4], quaternion: [1, 0, 0, 0], color: '#965644'};
 
-function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engineStateStatus = 'current', eventTags = [{}]} = {}) {
-  const scene = {profile: 'shared-world-v1', bounds: [3, 2, 2.5], dt: 1 / 30,
+function fixture({rootAssistance = 'disabled', metrics = {}, stateTime = 0, engineStateStatus = 'current', eventTags = [{}], sceneProfile = 'shared-world-v1', horizon = 3} = {}) {
+  const scene = {profile: sceneProfile, bounds: [3, 2, 2.5], dt: 1 / 30,
     task: {object_goal: {position_tolerance: .04}}};
   const exerciseTask = {profile: 'shared-exercise-task-v1',
     control: {root_assistance: rootAssistance, object_forces: 'forbidden'},
-    equipment_ids: ['equipment'], interval: {start_offset_s: 0, horizon_steps: 3},
-    contact_requirements: [{object_id: 'equipment', wrist: 'left', kind: 'upward_support', start_step: 0, end_step: 3}]};
-  const taskMetrics = {profile: 'shared-exercise-task-v1', simulated_duration_s: 0, declared_duration_s: .1,
+    equipment_ids: ['equipment'], interval: {start_offset_s: 0, horizon_steps: horizon},
+    contact_requirements: [{object_id: 'equipment', wrist: 'left', kind: 'upward_support', start_step: 0, end_step: horizon}]};
+  const taskMetrics = {profile: 'shared-exercise-task-v1', simulated_duration_s: 0, declared_duration_s: horizon / 30,
     observed_substeps: 0, valid_substeps: 0, completed_interval: false, success: false, failure: null,
     failed_gates: [], angular_rmse_rad: null, peak_angular_rmse_rad: 0,
     equipment: [{object_id: 'equipment', displacement_model_units: 0}],
@@ -170,14 +170,32 @@ function untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit()
   }
 }
 
+function fullReferenceV2ReplaysUnclippedIntervalAndIndependentFailure() {
+  const ui = fixture({sceneProfile: 'shared-world-v2', horizon: 254, rootAssistance: 'explicit_3_axis',
+    stateTime: 254 / 30, metrics: {simulated_duration_s: 254 / 30, observed_substeps: 254 * 16,
+      valid_substeps: 254 * 16, completed_interval: true, success: false, failed_gates: ['body_tracking']}});
+  assert.match(ui.element('status').textContent, /8\.467s · not passed/);
+  assert.match(ui.element('status').textContent, /4064 measured substeps/);
+  assert.doesNotMatch(ui.element('status').textContent, /object dist|9\.876|in progress/);
+  assert.equal(ui.original.scene.profile, 'shared-world-v2');
+  assert.equal(ui.original.exercise_task.interval.horizon_steps, 254);
+  assert.equal(ui.selected().exercise_metrics.declared_duration_s, 254 / 30);
+  assert.equal(ui.selected().action.length, 22);
+  assert(ui.calls.some(call => call.name === 'lineTo'), 'V2 retains the same geometry rendering');
+}
+
 const checks = [exerciseTitleAndAssistanceNeverImplyObjectActuatorsOrGrasp,
   wholeIntervalHistoryIsNotReplacedByCurrentGeometryOrLegacyScore,
   completedSuccessAndGateFailureUseExerciseOutcomeNotEngineTarget,
   interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly,
   controllerLabelsFollowRecordedIntentAcrossFramesAndResets,
-  untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit];
+  untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit,
+  fullReferenceV2ReplaysUnclippedIntervalAndIndependentFailure];
+const requested = new Set(process.argv.slice(2));
+const selected = requested.size ? checks.filter(check => requested.has(check.name)) : checks;
+if (requested.size && selected.length !== requested.size) throw new Error('Unknown replay check name');
 let failures = 0;
-for (const check of checks) {
+for (const check of selected) {
   try { check(); console.log(`PASS ${check.name}`); }
   catch (error) { failures++; console.error(`FAIL ${check.name}: ${error.stack}`); }
 }

@@ -48,7 +48,7 @@ def main():
     write_json(out / "settings.json", {"created_at": local_time(), "lab_directory": str(root),
         "run_manifest_sha256": run_manifest, "baseline_directory": str(baseline_root) if baseline_root else None,
         "baseline_manifest_sha256": baseline_manifest, "maximum_seconds": 120,
-        "maximum_actions": 188, "maximum_horizon_steps": 180, "paid_calls": 0, "training": False,
+        "maximum_actions": 1808, "maximum_horizon_steps": 1800, "paid_calls": 0, "training": False,
         "scope": "Live API policy provenance and exact recording; no browser, inference or new policy evaluation."})
     (out / "study.py").write_bytes(Path(__file__).read_bytes())
     lab, report = None, {"status": "failed"}
@@ -62,7 +62,8 @@ def main():
                 or status["exercise_task"] != baseline["scene"]["exercise_task"]):
             raise ValueError("This matched study requires the exact unchanged authored selection and baseline task")
         horizon = status["exercise_task"]["interval"]["horizon_steps"]
-        if type(horizon) is not int or not 1 <= horizon <= 180:
+        maximum_horizon = 1800 if status["scene"]["profile"] == "shared-world-v2" else 180
+        if type(horizon) is not int or not 1 <= horizon <= maximum_horizon:
             raise ValueError("Policy interaction requires the complete bounded task interval")
         write_json(out / "initial-status.json", status)
         lab.inspection()

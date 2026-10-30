@@ -24,6 +24,9 @@ from weft.whole_body import GROUP_NAMES, SUCCESS_LIMITS
 
 
 PROFILE = "shared-world-v1"
+FULLSPAN_PROFILE = "shared-world-v2"
+MAX_FULLSPAN_STEPS = 1800
+MAX_FULLSPAN_SECONDS = 60.0
 OBJECT_ACTIONS = ("coast", "left", "right", "forward", "back", "up", "down", "brake")
 MAX_SPEED = 6.0
 MAX_SPIN = 200.0
@@ -295,8 +298,18 @@ def action_contract_for_scene(scene):
     }
 
 
+def full_reference_horizon(reference, dt):
+    """Require one complete 30-Hz reference span; never round away an unsupported endpoint."""
+    duration = reference[-1]["time_s"] - reference[0]["time_s"]
+    steps = round(duration / dt)
+    if (not 1 <= steps <= MAX_FULLSPAN_STEPS or not 0 < duration <= MAX_FULLSPAN_SECONDS
+            or not math.isclose(steps * dt, duration, rel_tol=0, abs_tol=1e-9)):
+        raise ValueError("shared-world-v2 requires a complete grid-aligned reference of 1–1800 actions within 60 seconds")
+    return steps
+
+
 def validate_shared_world(scene):
-    """Validate a shared-world-v1 coupled rigid + articulated scene specification."""
+    """Validate bounded v1 windows or opt-in v2 complete-reference episodes."""
     required = {
         "schema_version",
         "profile",
@@ -318,8 +331,9 @@ def validate_shared_world(scene):
     optional = {"action_contract", "learned_policy_available"}
     if not isinstance(scene, dict) or not required <= set(scene) or set(scene) - (required | optional):
         raise ValueError("Unsupported shared-world-v1 scene fields")
-    if type(scene["schema_version"]) is not int or scene["schema_version"] != 1 or scene["profile"] != PROFILE:
-        raise ValueError("Unsupported shared-world-v1 schema_version or profile")
+    if (type(scene["schema_version"]) is not int or scene["schema_version"] != 1
+            or scene["profile"] not in (PROFILE, FULLSPAN_PROFILE)):
+        raise ValueError("Unsupported shared-world schema_version or profile")
     if scene["physical_validation"] != "unverified":
         raise ValueError("shared-world-v1 must preserve physical_validation='unverified'")
     if "learned_policy_available" in scene and type(scene["learned_policy_available"]) is not bool:
@@ -632,9 +646,14 @@ def validate_shared_world(scene):
     if task["type"] != "coupled_human_object_v1" or task["authored_addition"] is not True:
         raise ValueError("shared-world-v1 task must declare type='coupled_human_object_v1' and authored_addition=True")
     task["start_offset_s"] = _number(task["start_offset_s"], "start_offset_s", 0.0, 60.0)
-    if type(task["horizon_steps"]) is not int or not 1 <= task["horizon_steps"] <= 180:
-        raise ValueError("shared-world-v1 horizon_steps must be an integer in 1–180")
+    maximum = MAX_FULLSPAN_STEPS if result["profile"] == FULLSPAN_PROFILE else 180
+    if type(task["horizon_steps"]) is not int or not 1 <= task["horizon_steps"] <= maximum:
+        raise ValueError(f"{result['profile']} horizon_steps must be an integer in 1–{maximum}")
     ref_times = [row["time_s"] for row in human_spec["reference"]]
+    if result["profile"] == FULLSPAN_PROFILE:
+        horizon = full_reference_horizon(human_spec["reference"], result["dt"])
+        if task["start_offset_s"] != 0 or task["horizon_steps"] != horizon:
+            raise ValueError("shared-world-v2 must preserve the complete original reference interval without offsets or clipping")
     if ref_times[0] + task["start_offset_s"] + task["horizon_steps"] * result["dt"] > ref_times[-1] + 1e-9:
         raise ValueError("shared-world-v1 task window exceeds the available human reference trajectory")
     if task["human_limits"] != SUCCESS_LIMITS:
@@ -1998,7 +2017,7 @@ class SharedWorldEnv(gym.Env):
             else [0.0, 0.0, 0.0]
         )
         state = {
-            "profile": PROFILE,
+            "profile": self.scene["profile"],
             "bounds": list(self.scene["bounds"]),
             "coordinate_frame": deepcopy(self.scene["coordinate_frame"]),
             "controlled_id": active_id,
@@ -2052,7 +2071,7 @@ class SharedWorldEnv(gym.Env):
         human = self._human_snapshot_dict(contact_state, data=data, reference=True)
         human["reference"] = True
         return {
-            "profile": PROFILE,
+            "profile": self.scene["profile"],
             "bounds": list(self.scene["bounds"]),
             "coordinate_frame": deepcopy(self.scene["coordinate_frame"]),
             "controlled_id": self.scene["controlled_id"],
@@ -2100,7 +2119,7 @@ def prepare_shared_snapshot_validator(scene):
 def _validate_shared_snapshot(state, validated_scene):
     if (
         not isinstance(state, dict)
-        or state.get("profile") != PROFILE
+        or state.get("profile") != validated_scene["profile"]
         or state.get("bounds") != validated_scene["bounds"]
         or state.get("physical_validation") != "unverified"
     ):
@@ -2182,9 +2201,13 @@ def _validate_shared_snapshot(state, validated_scene):
             if not np.allclose(state_obj["virtual_force"], expected_f, atol=1e-6, rtol=0):
                 raise ValueError(f"Recorded virtual_force on {dobj['id']!r} differs from normalized_action * limit")
 
-    if type(state.get("steps")) is not int or not 0 <= state["steps"] <= max(
-        validated_scene["task"]["horizon_steps"], len(validated_scene["human_spec"]["reference"])
-    ):
+    maximum_steps = max(validated_scene["task"]["horizon_steps"], len(validated_scene["human_spec"]["reference"]))
+    if validated_scene["profile"] == FULLSPAN_PROFILE:
+        if type(human.get("reference", False)) is not bool:
+            raise ValueError("Full-reference snapshots require an explicit boolean reference marker")
+        maximum_steps = (len(validated_scene["human_spec"]["reference"]) - 1 if human.get("reference")
+                         else validated_scene["task"]["horizon_steps"])
+    if type(state.get("steps")) is not int or not 0 <= state["steps"] <= maximum_steps:
         raise ValueError("Recorded shared-world step index exceeds bounds")
     expected_time = state["steps"] * validated_scene["dt"]
     if "partial_action" in state:
@@ -2225,6 +2248,16 @@ def _validate_shared_snapshot(state, validated_scene):
         expected_time, rel_tol=0, abs_tol=1e-8,
     ):
         raise ValueError("Recorded shared-world time_s differs from completed physics substeps")
+    if validated_scene["profile"] == FULLSPAN_PROFILE:
+        first = validated_scene["human_spec"]["reference"][0]["time_s"]
+        source_time = (validated_scene["human_spec"]["reference"][state["steps"]]["time_s"]
+                       if human.get("reference") else first + expected_time)
+        if (not math.isclose(_number(state.get("source_time_s"), "full-reference source time", 0., 3600.),
+                             source_time, rel_tol=0, abs_tol=1e-8)
+                or human.get("reference") and not math.isclose(
+                    _number(state.get("time_s"), "full-reference pose time", 0., 60.), source_time - first,
+                    rel_tol=0, abs_tol=1e-8)):
+            raise ValueError("Full-reference snapshot clocks must retain the complete original source timeline")
     for flag in ("success", "terminated", "truncated"):
         if type(state.get(flag)) is not bool:
             raise ValueError(f"Shared-world {flag} flag must be boolean")

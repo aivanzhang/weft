@@ -26,6 +26,7 @@ POLICY_RUNTIME_FILES = (*BASE_RUNTIME_FILES, "shared_exercise_residual_learning.
 RESIDUAL_BOUND = .25
 MAX_CONTROL_STEPS = 8_640
 MAX_EVALUATION_STEPS = 720
+MAX_FULLSPAN_EVALUATION_STEPS = 21_600
 MAX_OUTPUT_BYTES = 128 * 1024 * 1024
 MAX_OUTPUT_FILES = 512
 TRAIN_RESETS = (human_jitter_options(0.), human_jitter_options(.05))
@@ -395,7 +396,7 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
     """Freeze selected policy bytes and fresh reset seeds before any comparison state is observed."""
     _integer(seed, "evaluation seed", 0, 2**31 - 1)
     _integer(trials, "evaluation trials", 1, 3)
-    _seconds(max_seconds, 30)
+    _seconds(max_seconds, 60)
     excluded = _excluded_seeds(excluded_seeds)
     if type(jitter_scale) not in (int, float) or not math.isfinite(jitter_scale) or not 0 < jitter_scale <= .25:
         raise ValueError("Changed-start evaluation jitter_scale must be explicit in (0,.25]")
@@ -408,6 +409,8 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
         raise ValueError("Residual evaluation requires completed sealed training, never a failed checkpoint")
     scene_raw, task_raw, policy_raw = files["scene.json"], files["exercise-task.json"], files["policy.json"]
     scene, task, _ = _context(_json(scene_raw), _json(task_raw))
+    fullspan = scene["profile"] == "shared-world-v2"
+    _seconds(max_seconds, 60 if fullspan else 30)
     hashes = _runtime_hashes()
     policy = validate_shared_exercise_residual_policy(_json(policy_raw), scene, task)
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
@@ -419,8 +422,9 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
             or any(settings.get(name) != policy[name] for name in ("scene_sha256", "task_sha256", "gates_sha256", "runtime_sha256"))):
         raise ValueError("Residual evaluation requires a frozen policy and independent seed stream")
     maximum_steps = len(CONTROLLERS) * trials * task["interval"]["horizon_steps"]
-    if maximum_steps > MAX_EVALUATION_STEPS:
-        raise ValueError("Residual evaluation exceeds 720 full-interval actions")
+    maximum_allowed = MAX_FULLSPAN_EVALUATION_STEPS if fullspan else MAX_EVALUATION_STEPS
+    if maximum_steps > maximum_allowed:
+        raise ValueError(f"Residual evaluation exceeds {maximum_allowed} full-interval actions")
     seeds = _seed_plan(seed, trials, [*training_seeds, *excluded])
     train_states = {trial["initial_state_sha256"] for generation in training["history"]
                     for row in generation["candidates"] for trial in row["trials"] if trial["initial_state_sha256"] is not None}
@@ -435,6 +439,8 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
         "max_seconds": max_seconds, "workers": 1, "external_api_usd": 0, "control_steps": 0,
         "evaluation_feedback_to_optimizer": False, "source_scope": task["source_scope"], "scope": SCOPE,
         "controllers": {}, "initial_states": {}}
+    if fullspan:
+        evaluation["evaluation_protocol"] = "shared-exercise-full-reference-evaluation-v1"
     freeze = {key: value for key, value in evaluation.items()
               if key not in ("status", "control_steps", "controllers", "initial_states")}
     _check(deadline)

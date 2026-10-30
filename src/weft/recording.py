@@ -140,7 +140,7 @@ def _action(action, scene):
         from weft.shared_exercise_recording import validate_action
         validate_action(action, scene)
         return
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         from weft.shared_world import validate_shared_world
         validated = validate_shared_world(scene)
         _finite_vector(action, len(validated["action_contract"]["names"]), "Shared-world recording action", limit=1)
@@ -158,7 +158,7 @@ def _whole_body_event(event, scene):
         from weft.shared_exercise_recording import validate_event
         validate_event(event, scene)
         return
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         normalized = event["snapshot"]["normalized_action"]
         if event["type"] == "step":
             if list(event["action"]) != list(normalized):
@@ -250,7 +250,7 @@ def _snapshot(snapshot, scene):
         validate_snapshot(snapshot, scene)
         _encoded(snapshot)
         return
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         from weft.shared_world import validate_shared_snapshot
         validate_shared_snapshot(snapshot, scene)
         _encoded(snapshot)
@@ -358,7 +358,7 @@ class Recorder:
         if self.scene.get("profile") == "spatial-rigid-v1":
             from weft.spatial_rigid import validate_scene
             validate_scene(self.scene)
-        if self.scene.get("profile") == "shared-world-v1":
+        if self.scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
             from weft.shared_world import validate_shared_world
             self.scene = validate_shared_world(self.scene)
         if self.scene.get("profile") == "shared-exercise-recording-v1":
@@ -475,7 +475,7 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
     if scene.get("profile") == "spatial-rigid-v1":
         from weft.spatial_rigid import validate_scene
         validate_scene(scene)
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         from weft.shared_world import validate_shared_world
         scene = validate_shared_world(scene)
     if scene.get("profile") == "shared-exercise-recording-v1":
@@ -602,7 +602,7 @@ def render_snapshot(snapshot, scene, width=640):
     if scene.get("profile") == "shared-exercise-recording-v1":
         from weft.shared_exercise_recording import render_snapshot as render_exercise
         return render_exercise(snapshot, scene, width=width)
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         from weft.shared_world import render_snapshot as render_shared
         return render_shared(snapshot, scene, width=width)
     if scene.get("profile") == "spatial-rigid-v1":
@@ -656,7 +656,7 @@ def _replay_html(scene, events):
         template = Path(__file__).parent / "assets/shared-world-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)
     data = _encoded({"scene": scene, "events": events}).replace("<", "\\u003c")
-    if scene.get("profile") == "shared-world-v1":
+    if scene.get("profile") in ("shared-world-v1", "shared-world-v2"):
         template = Path(__file__).parent / "assets/shared-world-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)
     if scene.get("profile") == "spatial-rigid-v1":

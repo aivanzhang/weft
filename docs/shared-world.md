@@ -2,7 +2,7 @@
 
 Weft can now place a mobile articulated body and rigid objects in **one MuJoCo simulation**, with one clock and contact solver. You can control the body or a dynamic object, inspect three views, and record/replay actions. This is a runtime capability, not proof that equipment geometry, forces or anatomy were recovered correctly from a video.
 
-For separate whole-interval body/equipment checks with **human-only actions**, use the current `artifacts/shared-exercise-policy-lab-02` via [exercise tasks and recordings](shared-exercise.md). That lab keeps equipment passive and displays its unchanged authored policy plus separate failed evaluation. It does not replace this sandbox's existing score/object controls or enable recovered grasp.
+For complete-reference body/equipment checks with **human-only actions**, use `artifacts/fullspan-exercise-lab-01` via [exercise tasks and recordings](shared-exercise.md). Its explicit `shared-world-v2` interval runs 254 continuous actions with passive equipment; fresh learned/authored trials complete the interval but fail equipment stability. It does not replace this sandbox's existing score/object controls or enable recovered grasp.
 
 ## Try the source-linked equipment sandbox
 
@@ -136,7 +136,7 @@ Inspect `geometry-hypothesis.json` and the final manifest before using the outpu
 
 **Ready means initial clearance only.** Full-reference clearance, silhouette fit, contact/support, task success and physical accuracy remain unverified. A preserved exercise task keeps all controls, gates, interval/contact requirements and source scope; rebinding its scene hash also changes its task identity. Old policies/evaluations cannot be attached to the changed scene as if still current.
 
-Feed only a ready result into the [human-only lab](shared-exercise.md#prepare-a-lab-from-a-geometry-alternative). Its sealed task is selected by default; preparation does not silently replace custom contact requirements or assistance with defaults. `silhouette-exercise-lab-01` is the current source-shaped world with its own evaluated policy. The representation-only integration below has no policy.
+Feed only a ready result into the [human-only lab](shared-exercise.md#prepare-a-lab-from-a-geometry-alternative). Its sealed task is selected by default; preparation does not silently replace custom contact requirements or assistance with defaults. `silhouette-exercise-lab-01` preserves the earlier two-second source-shaped world; the current full-reference lab is documented in the exercise guide. The representation-only integration below has no policy.
 
 ### Verified representation-only source example
 
@@ -185,7 +185,23 @@ The saved [before/after report](../artifacts/silhouette-shared-world-03/shape-co
 
 The separate full-reference comparison retains **696 scheduled samples: 558 checked and 138 unavailable**, with no increased or new overlap. Existing worst overlap remains **0.104829 model units**; this does not resolve later body/equipment contact. Earlier loader and floating-point construction failures remain preserved beside the completed run.
 
-`artifacts/silhouette-exercise-control-01` then trains and selects a policy for this **new scene identity**, with no mask, camera, task or gate changes. On three fresh starts, selected control passes **3/3**, while coast/random/authored control each pass **0/3**. The [current playable lab](shared-exercise.md#try-it), `artifacts/silhouette-exercise-lab-01`, verifies manual/controller interaction, reset, **68 actions/70 recorded frames**, and exact replay. Its two-second root-assisted task requires tracking and equipment stability, not grasp or full-exercise completion. Old-world policies and fit panels were not carried over as validation.
+`artifacts/silhouette-exercise-control-01` then trains and selects a policy for this **new scene identity**, with no mask, camera, task or gate changes. On three fresh starts, selected control passes **3/3**, while coast/random/authored control each pass **0/3**. The earlier two-second lab, `artifacts/silhouette-exercise-lab-01`, verified manual/controller interaction, reset, **68 actions/70 recorded frames**, and exact replay. Its two-second root-assisted task requires tracking and equipment stability, not grasp or full-exercise completion. Old-world policies and fit panels were not carried over as validation.
+
+## Retained depth alternative
+
+The reusable `perspective_root_depth.py` proposer challenges the constant pelvis-depth assumption using construction-only image landmarks. It preserves the camera, body dimensions, joint angles, first root and baseline pelvis projection ray. One bounded smooth depth trajectory is a hypothesis, not recovered 3D truth; confidence, unavailable rows, authored uncertainty and all original source slots remain explicit.
+
+To inspect a new candidate with the same fixed method, use a new output directory:
+
+```sh
+.venv-lab/bin/python scripts/studies/check_perspective_root_depth.py \
+  --run artifacts/source-equipment-integration-04/candidate \
+  --out artifacts/my-root-depth-hypothesis-01
+```
+
+The driver reserves output capacity and pins inputs, implementation and project configuration before its one fit. It never installs a body or changes the task; failed/partial outputs retain explicit receipts. Do not repeat the already exposed source study without a new justified hypothesis.
+
+The single saved study, `artifacts/perspective-root-depth-01`, **rejects** the candidate: aggregate confident image error improves **11.588→11.276 px**, but left-ankle error worsens **13.380→15.929 px** and left-knee error **13.038→13.114 px**. It retains 121 references / 257 slots, changes 120 roots within the declared ±0.15-unit bound and keeps the first root exact. No contact/reward term, physical rollout or body installation occurs. The existing mobile-body depth validator was not bypassed; this rejected result cannot establish geometry or exercise accuracy.
 
 ## Evidence and runtime boundaries
 

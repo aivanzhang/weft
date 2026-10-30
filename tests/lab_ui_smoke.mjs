@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -142,7 +142,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     state.whole_body_metrics={angular_rmse_rad:.12,root_rmse_model_units:.03,max_floor_penetration_model_units:.001,failure:null};
   }
   if (shared) {
-    Object.assign(scene, {profile:'shared-world-v1', bounds:[3,2,2.5], controlled_id:'human',
+    Object.assign(scene, {profile:sharedProfile, bounds:[3,2,2.5], controlled_id:'human',
       task:{object_goal:{target_object_id:'block',position_tolerance:.035,require_human_contact:true}}});
     scene.action_contract.names.push(...['block','companion'].flatMap(id => ['fx','fy','fz'].map(axis => `${id}_${axis}`)));
     scene.action_contract.physical_limits.push(...Array(6).fill(10));
@@ -175,10 +175,10 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
   const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
-    interval:{horizon_steps:6,start_offset_s:0},equipment_ids:['block','companion'],contact_requirements:[]} : null;
+    interval:exerciseInterval || {horizon_steps:6,start_offset_s:0},equipment_ids:['block','companion'],contact_requirements:[]} : null;
   const exerciseActionContract = sharedExercise ? {names:scene.action_contract.names.slice(0,rootAssistance?22:19),
     root_assistance:exerciseTask.control.root_assistance,object_force_channels:[]} : null;
-  const freshExerciseMetrics = () => ({profile:'shared-exercise-task-v1',simulated_duration_s:0,declared_duration_s:.2,clock_status:'observed',
+  const freshExerciseMetrics = () => ({profile:'shared-exercise-task-v1',simulated_duration_s:0,declared_duration_s:exerciseTask?exerciseTask.interval.horizon_steps/30:.2,clock_status:'observed',
     observed_substeps:0,valid_substeps:0,completed_interval:false,success:false,failure:null,failed_gates:[],
     angular_rmse_rad:null,peak_angular_rmse_rad:0,root_rmse_model_units:null,peak_root_rmse_model_units:0,max_floor_penetration_model_units:0,
     equipment:['block','companion'].map(object_id=>({object_id,displacement_model_units:0,orientation_rad:0,speed_model_units_s:0,angular_speed_rad_s:0,within_limits:true})),
@@ -1205,6 +1205,62 @@ function inspectionFixture() {
     artifact_links:[{name:'evidence/observations.json',label:'Source observation document',bytes:3000000,sha256:'c'.repeat(64)},panel('first.png'),panel('later.png')]};
 }
 
+function windowInspection(full = false) {
+  const data = inspectionFixture();
+  data.timeline = {status:'available',reference_span_s:[.2,8.666666666666666],reference_poses:4,
+    task_window_s:full?[.2,8.666666666666666]:[.3,.6],task_duration_s:full?254/30:.3,task_steps:full?254:9,
+    source_slots:{with_reference:4,without_reference:6,leading_without_reference:2,trailing_without_reference:0},
+    alignment_method:'pose_frame_index_over_fps_prior_v1',native_source_clock:'not_read_here',media_sync_verified:false};
+  return data;
+}
+
+async function sourceAndSimulationWindowsKeepPlaybackIndependent() {
+  const ui=fixture('shared-world',{sharedExercise:true,inspection:windowInspection(),exerciseInterval:{start_offset_s:.1,horizon_steps:9}});await ui.ready();
+  assert.equal(ui.ids.get('source-simulation-window').hidden,false);
+  assert.match(ui.ids.get('window-task').textContent,/0\.300–0\.600s.*0\.300s, 9 control steps.*Only part/);
+  assert.match(ui.ids.get('window-coverage').textContent,/4 with.*6 without.*2 leading.*not detection or visibility/);
+  assert.match(ui.ids.get('window-clocks').textContent,/frame-index \/ FPS prior.*Native source timestamps.*not synchronized/);
+  assert.match(ui.ids.get('window-media').textContent,/unavailable until media metadata/);
+  const before=ui.backendTaskState(),requests=ui.requests.length;
+  const video=ui.ids.get('source');video.currentTime=7.25;video.duration=8.7;video.dispatch('loadedmetadata');video.dispatch('timeupdate');
+  assert.match(ui.ids.get('window-media').textContent,/7\.250s \/ 8\.700s media duration.*independent/);
+  assert.match(ui.ids.get('window-live').textContent,/0\.000s elapsed.*reference-clock position unavailable/);
+  assert.equal(ui.requests.length,requests);assert.deepEqual(ui.backendTaskState(),before);
+  video.dispatch('error');assert.match(ui.ids.get('window-media').textContent,/unavailable/);
+}
+
+async function sourceWindowPreservesUnknownAndFailedGeometryClocks() {
+  const missing=fixture('shared-world',{sharedExercise:true,inspection:inspectionFixture(),missingExerciseState:true});await missing.ready();
+  assert.match(missing.ids.get('window-reference').textContent,/span unavailable/);
+  assert.match(missing.ids.get('window-task').textContent,/window unavailable/);
+  assert.match(missing.ids.get('window-live').textContent,/position unavailable.*No zero time/);
+  const failed=fixture('shared-world',{sharedExercise:true,inspection:windowInspection(),exerciseEngineStatus:'last_valid_control_boundary',
+    exerciseGeometryTime:.125,exerciseInitialMetrics:{failure:'Saved failure',simulated_duration_s:.15}});await failed.ready();
+  assert.match(failed.ids.get('window-live').textContent,/Last valid simulation geometry: 0\.125s.*not a new terminal pose/);
+  assert.match(failed.ids.get('exercise-duration').textContent,/0\.150/);
+}
+
+async function sharedWorldV2FullReferenceWindowDoesNotClipOrClaimFullVideo() {
+  const inspection = windowInspection(true);
+  inspection.fullspan_preparation = {status:'preparation_only',artifact:'fullspan.json'};
+  inspection.artifact_links.push({name:'fullspan.json',label:'Full-reference preparation and preserved limitations',bytes:2000,sha256:'d'.repeat(64)});
+  inspection.geometry = {status:'no_saved_comparison',panels:[],assumptions:[]};
+  const ui=fixture('shared-world',{sharedProfile:'shared-world-v2',sharedExercise:true,rootAssistance:true,
+    exerciseInterval:{start_offset_s:0,horizon_steps:254},inspection});await ui.ready();
+  assert.equal(ui.ids.get('joint').children.length,22);assert.equal(ui.ids.get('actor-controls').hidden,true);
+  assert.match(ui.ids.get('evidence-boundary').textContent,/shared-world-v2/);
+  assert.match(ui.ids.get('window-task').textContent,/254 control steps.*does not establish complete source-video coverage/);
+  assert.doesNotMatch(ui.ids.get('window-task').textContent,/180|Only part/);
+  assert.match(ui.ids.get('exercise-task-scope').textContent,/254 control steps/);
+  assert.match(ui.ids.get('window-task').textContent,/changes the task interval, not the recovered geometry.*fullspan.json in Files/);
+  assert.equal(ui.ids.get('geometry-preview').src,undefined);
+  assert.match(ui.ids.get('inspection-geometry').textContent,/No saved source-to-geometry comparison/);
+  ui.ids.get('mode-coast').click();ui.ids.get('step').click();await drain();
+  assert.deepEqual(ui.pending[0].data,{steps:1,controller:'coast'});ui.resolveNext('/api/step');await drain();
+  assert.match(ui.ids.get('window-live').textContent,/Displayed simulation geometry: 0\.033s/);
+  assert(ui.ids.get('live').drawCalls.length>0);
+}
+
 async function fiveStagesExposeCountsAndLazyGeometryWithoutChangingPhysics() {
   const ui=fixture('shared-world',{inspection:inspectionFixture()});await ui.ready();
   assert.match(ui.ids.get('inspection-source').textContent,/10 decoded source frames/);
@@ -1526,6 +1582,8 @@ async function sharedExerciseComparisonDisclosesResetScopeAndLegacyUnknowns() {
 }
 
 checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistance,sharedExerciseManualCoastAndAuthoredRequestsStayDistinct,
+  sourceAndSimulationWindowsKeepPlaybackIndependent,sourceWindowPreservesUnknownAndFailedGeometryClocks,
+  sharedWorldV2FullReferenceWindowDoesNotClipOrClaimFullVideo,
   sharedExerciseReportsWholeIntervalMetricsAndExactOutcomeStates,sharedExerciseMissingAndFailureStatesNeverInventTimeOrSuccess,
   sharedExerciseRecordingAndInspectionPreserveTheTaskWrapper,sharedExerciseMissingContractAndContactFractionStayUnavailable,
   sharedExerciseOptionalPolicyRoutesHumanOnlyAndPreservesRecording,sharedExerciseBaselineSelectionIsNotCalledNewLearning,

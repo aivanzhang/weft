@@ -40,6 +40,7 @@ SOURCE_VIEWS = frozenset({
     "reconstruction.json", "reference-feasibility.json", "coverage-summary.json", "reconstruction-coverage.json",
     "geometry-proposal.json", "geometry-study.json",
     "geometry-hypothesis.json", "previous-geometry.json", "initial-geometry-check.json",
+    "fullspan.json",
 })
 
 
@@ -129,10 +130,14 @@ def _reference_frames(scene, deadline):
     try:
         env.reset(seed=0, options=RESET_OPTIONS)
         frames = []
-        for index in range(min(180, len(scene["human_spec"]["reference"]))):
+        count = len(scene["human_spec"]["reference"])
+        if count > 900:
+            raise ValueError("Reference inspection exceeds its 900-pose bound; no silent clipping")
+        for index in range(count):
             _deadline(deadline)
             frames.append(env.reference_snapshot(index))
         return {"schema_version": 1, "profile": "shared-world-kinematic-reference-v1", "frames": frames,
+                "reference_poses_total": count, "reference_poses_included": len(frames),
                 "scope": "Kinematic body projection with initial passive equipment; no physics actions or grasp inference."}
     finally:
         env.close()
@@ -551,6 +556,7 @@ class SharedExerciseSession:
     def __init__(self, root, *, config=None):
         loaded = load_shared_exercise_lab(root, config=config)
         self._scene, self._task = loaded["scene"], loaded["task"]
+        self.scene_profile = self._scene["profile"]
         self.artifacts = loaded["artifacts"]
         self.source_binding_verification = loaded["source_verification"]
         self.policy = loaded.get("policy")

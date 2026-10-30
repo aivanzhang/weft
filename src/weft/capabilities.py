@@ -64,7 +64,7 @@ def validate_capabilities(doc):
     if not isinstance(frame, dict) or frame.get("dimensions") not in (2, 3) or not isinstance(frame.get("units"), dict):
         raise ValueError("Capabilities coordinate_frame must specify 2 or 3 dimensions and explicit units")
     entities = doc["entities"]
-    expected_mixed = doc["scene_profile"] == "shared-world-v1"
+    expected_mixed = doc["scene_profile"] in ("shared-world-v1", "shared-world-v2")
     if (
         not isinstance(entities, dict)
         or type(entities.get("total_count")) is not int
@@ -107,7 +107,7 @@ def describe_capabilities(
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
-    if exercise_task is not None and scene_profile != "shared-world-v1":
+    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])
 
@@ -548,7 +548,7 @@ def describe_capabilities(
         }
         return validate_capabilities(doc)
 
-    if scene_profile == "shared-world-v1":
+    if scene_profile in ("shared-world-v1", "shared-world-v2"):
         from weft.shared_world import OBJECT_ACTIONS, validate_shared_world
 
         validated = validate_shared_world(scene)

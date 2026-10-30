@@ -30,13 +30,13 @@ The [hosted Weft site](https://weft.ivanzhangofficial.workers.dev/) is temporari
 
 A CLI-launched **local lab** now shows video processing step by step, exposes the evidence and results, runs an interactive Python simulation, and records actions/state with video and offline replay exports.
 
-For a person and equipment in one world, use the [human-only exercise sandbox](docs/shared-exercise.md): move the body, follow its source-derived reference, inspect passive equipment, and record/replay a trial. Its guided inspector shows Original → Tracks → Geometry → Sandbox → Recordings. The latest conditional-shape world has a selected controller passing **3/3 fresh-start trials**, versus **0/3** for coast, random and authored control. Its sandbox recording replays exactly. This checks a **two-second, root-assisted simulation task**, not the full video, grasp or physical accuracy.
+For a person and equipment in one world, use the [human-only exercise sandbox](docs/shared-exercise.md). The latest lab covers the **complete available 8.47-second body reference**, with 254 continuous actions, passive equipment and recording/replay. Its Source vs simulation card separates video coverage, reference time and live simulation time.
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/silhouette-exercise-lab-01
+.venv-lab/bin/python -m weft lab --resume artifacts/fullspan-exercise-lab-01
 ```
 
-Select **Searched joint corrections**, or move the body yourself and use **Record & start → Stop & save**. The [shape comparison](artifacts/silhouette-shared-world-03/shape-comparison.html) separates conditional silhouette fit, uncertainty and full-reference overlap. The working object remains an occluded box; only the idle object's solid outline improves. The [general coupled sandbox](docs/shared-world.md) retains separate virtual object controls.
+Select **Searched joint corrections**, move the body yourself, and use **Record & start → Stop & save**. The learned controller completes the full interval but fails equipment stability on **3/3 fresh starts**; the earlier two-second task passed 3/3. The longer failure remains visible, not shortened away. Neither result proves grasp or physical accuracy. The [shape comparison](artifacts/silhouette-shared-world-03/shape-comparison.html) retains geometry assumptions and overlap failures.
 
 The [equipment assembly command](docs/equipment-proposals.md) connects saved body/tracking evidence to that lab without clip-specific study scripts. The [conditional shape command](docs/shared-world.md#propose-a-shape-from-saved-silhouettes) adds bounded mask-based proposals and an offline comparison. Camera, depth and unobserved properties remain explicit assumptions; unsupported inputs stop with inspectable reasons.
 

@@ -22,7 +22,7 @@ def write(root, name, value):
 def seal(root):
     write(root, 'manifest.json', {'files': {
         path.relative_to(root).as_posix(): digest(path.read_bytes())
-        for path in root.rglob('*') if path.is_file() and path.name != 'manifest.json'}})
+        for path in root.rglob('*') if path.is_file() and path != root / 'manifest.json'}})
 
 
 def saved_run(root):
@@ -122,6 +122,167 @@ def test_authored_alternative_exposes_its_own_scope_without_old_projection_panel
     names = {item['name'] for item in result['artifact_links']}
     assert {'input-config.json', 'geometry-hypothesis.json', 'previous-geometry.json',
             'initial-geometry-check.json', 'reconstruction.json'} <= names
+
+
+def timed_run(root, *, offset=.1, steps=3):
+    saved_run(root)
+    scene = json.loads((root / 'scene.json').read_bytes())
+    source = scene['source_binding']['source_sha256']
+    frames, times = [2, 4, 7, 9], [.2, .4, .7, .9]
+    scene.update(dt=.1, task={'start_offset_s': 0, 'horizon_steps': 1},
+                 coordinate_frame={'clock_binding': {'alignment_method': 'pose_frame_index_over_fps_prior_v1'}})
+    scene['human_spec'].update(source_sha256=source, reference=[{'time_s': stamp} for stamp in times],
+        reference_evidence=[{'time_s': stamp, 'evidence_id': f'{source}:frame:{frame}'} for stamp, frame in zip(times, frames)])
+    write(root, 'scene.json', scene)
+    write(root, 'exercise-task.json', {'profile': 'shared-exercise-task-v1', 'interval': {'start_offset_s': offset, 'horizon_steps': steps}})
+    seal(root)
+    return root
+
+
+def test_timeline_uses_declared_task_not_legacy_window_and_retains_source_gaps(tmp_path):
+    root = timed_run(tmp_path / 'timed')
+    before = {p: digest(p.read_bytes()) for p in root.rglob('*') if p.is_file()}
+    result = summary(root)
+    timeline = result['timeline']
+    assert result['status'] == 'available' and timeline['status'] == 'available'
+    assert timeline['reference_span_s'] == [.2, .9]
+    assert timeline['task_window_s'] == pytest.approx([.3, .6])
+    assert timeline['task_duration_s'] == pytest.approx(.3) and timeline['task_steps'] == 3
+    assert timeline['source_slots'] == {'with_reference': 4, 'without_reference': 6,
+        'leading_without_reference': 2, 'trailing_without_reference': 0}
+    assert timeline['native_source_clock'] == 'not_read_here' and timeline['media_sync_verified'] is False
+    assert result['actors'][0]['source_binding']['counts']['observed_slots'] == 6
+    assert {p: digest(p.read_bytes()) for p in before} == before
+    assert len(json.dumps(result).encode()) < lab_inspection.MAX_SUMMARY_BYTES
+
+
+@pytest.mark.parametrize('damage', ['missing_times', 'nonmonotone', 'unqualified_id', 'task_outside', 'unknown_clock'])
+def test_timeline_unknowns_do_not_become_zero_times_or_missing_detections(tmp_path, damage):
+    root = timed_run(tmp_path / 'timed')
+    if damage == 'missing_times':
+        edit(root, 'scene.json', lambda doc: doc['human_spec']['reference'][0].pop('time_s'))
+    elif damage == 'nonmonotone':
+        edit(root, 'scene.json', lambda doc: doc['human_spec']['reference'][1].update(time_s=.1))
+    elif damage == 'unqualified_id':
+        edit(root, 'scene.json', lambda doc: doc['human_spec']['reference_evidence'][0].update(evidence_id='other:frame:2'))
+    elif damage == 'task_outside':
+        edit(root, 'exercise-task.json', lambda doc: doc['interval'].update(horizon_steps=20))
+    else:
+        edit(root, 'scene.json', lambda doc: doc.pop('coordinate_frame'))
+    result = summary(root)
+    assert result['status'] == 'available'
+    timeline = result['timeline']
+    assert timeline['native_source_clock'] == 'not_read_here' and not timeline['media_sync_verified']
+    if damage in ('missing_times', 'nonmonotone'):
+        assert timeline['reference_span_s'] is None and timeline['task_window_s'] is None
+    elif damage == 'unqualified_id':
+        assert timeline['source_slots'] is None
+    elif damage == 'task_outside':
+        assert timeline['task_window_s'] is None and timeline['task_duration_s'] is None
+    else:
+        assert timeline['alignment_method'] is None and timeline['reference_span_s'] == [.2, .9]
+
+
+def test_timeline_handles_full_retained_interval_without_claiming_complete_video(tmp_path):
+    timeline = summary(timed_run(tmp_path / 'timed', offset=0, steps=7))['timeline']
+    assert timeline['task_window_s'] == pytest.approx(timeline['reference_span_s'])
+    assert timeline['source_slots']['leading_without_reference'] == 2
+    assert timeline['source_slots']['without_reference'] == 6
+
+
+def test_timeline_v2_preserves_254_step_interval_and_all_reference_gaps(tmp_path):
+    root = timed_run(tmp_path / 'v2', offset=0, steps=254)
+    scene = json.loads((root / 'scene.json').read_bytes())
+    source = scene['human_spec']['source_sha256']
+    frames = [2, 4, 7, 256]
+    scene.update(profile='shared-world-v2', dt=1 / 30)
+    scene['source_binding']['total_source_frames'] = 257
+    for row in scene['source_binding']['entity_bindings']:
+        row['missing_slots'] = 257 - row['observed_slots']
+    scene['human_spec'].update(reference=[{'time_s': frame / 30} for frame in frames],
+        reference_evidence=[{'time_s': frame / 30, 'evidence_id': f'{source}:frame:{frame}'} for frame in frames])
+    write(root, 'scene.json', scene)
+    edit(root, 'source.json', lambda doc: doc.update(decoded_frames=257))
+    edit(root, 'geometry-study.json', lambda doc: doc.update(
+        source_pose_status_counts={'tracked': 4, 'tracked_partial': 2, 'no_pose': 3, 'not_sampled': 248}))
+    result = summary(root)
+    assert result['status'] == 'available'
+    timeline = result['timeline']
+    assert timeline['task_steps'] == 254 and timeline['task_duration_s'] == pytest.approx(254 / 30)
+    assert timeline['task_window_s'] == pytest.approx([2 / 30, 256 / 30])
+    assert timeline['source_slots'] == {'with_reference': 4, 'without_reference': 253,
+        'leading_without_reference': 2, 'trailing_without_reference': 0}
+    assert timeline['media_sync_verified'] is False
+
+
+def test_timeline_task_metadata_is_manifest_verified(tmp_path):
+    root = timed_run(tmp_path / 'timed')
+    write(root, 'exercise-task.json', {'interval': {'start_offset_s': 0, 'horizon_steps': 7}})
+    result = summary(root)
+    assert result['status'] == 'unavailable' and 'hash' in result['reason']
+
+
+def fullspan_run(root, *, nested=False):
+    timed_run(root, offset=0, steps=7)
+    scene = json.loads((root / 'scene.json').read_bytes())
+    scene.update(profile='shared-world-v2', substeps=16)
+    scene['task'].update(start_offset_s=0, horizon_steps=7)
+    write(root, 'scene.json', scene)
+    task = json.loads((root / 'exercise-task.json').read_bytes())
+    task['gates_sha256'] = 'd' * 64
+    task['scene_sha256'] = canonical_hash(scene)
+    write(root, 'exercise-task.json', task)
+    for name in ('geometry-proposal.json', 'geometry-study.json'):
+        (root / name).rename(root / ('archived-' + name))
+    archive = 'source-run/source-run/manifest.json' if nested else 'source-run/manifest.json'
+    write(root, archive, {'files': {'scene.json': 'e' * 64}})
+    receipt = {'profile': 'shared-exercise-fullspan-preparation-v1', 'status': 'ready',
+        'scene_sha256': canonical_hash(scene), 'task_sha256': canonical_hash(task),
+        'gates_sha256': task['gates_sha256'], 'runnable_scene_published': True,
+        'old_policy_or_evaluation_attached': False, 'physics_steps': 0, 'resets': 0,
+        'training_episodes': 0, 'inference_calls': 0, 'api_calls': 0, 'video_decodes': 0,
+        'input_manifest_sha256': digest((root / archive).read_bytes()),
+        'original_manifest_path': 'source-run/manifest.json',
+        'reference_interval': {'first_time_s': .2, 'last_time_s': .9, 'horizon_steps': 7,
+            'dt': .1, 'substeps': 16, 'reference_poses': 4}}
+    write(root, 'fullspan.json', receipt)
+    if nested:
+        write(root, 'source-run/fullspan.json', receipt)
+    seal(root)
+    return root
+
+
+@pytest.mark.parametrize('nested', [False, True])
+def test_fullspan_receipt_explains_interval_without_inheriting_shape_comparisons(tmp_path, nested):
+    root = fullspan_run(tmp_path / 'fullspan', nested=nested)
+    result = summary(root)
+    assert result['status'] == 'available'
+    assert result['fullspan_preparation']['status'] == 'preparation_only'
+    assert result['geometry']['status'] == 'no_saved_comparison' and result['geometry']['panels'] == []
+    assert any(item['name'] == 'fullspan.json' for item in result['artifact_links'])
+    assert 'without new geometry' in result['fullspan_preparation']['scope']
+    assert result['timeline']['task_window_s'] == pytest.approx([.2, .9])
+
+
+@pytest.mark.parametrize('damage', ['failed', 'scene_identity', 'task_identity', 'archive_identity',
+                                  'interval', 'physics_claim', 'old_geometry', 'unsealed_receipt'])
+def test_fullspan_receipt_cannot_claim_success_with_mixed_or_partial_provenance(tmp_path, damage):
+    root = fullspan_run(tmp_path / 'fullspan', nested=True)
+    fields = {'failed': {'status': 'failed'}, 'scene_identity': {'scene_sha256': 'f' * 64},
+              'task_identity': {'task_sha256': 'f' * 64}, 'archive_identity': {'input_manifest_sha256': 'f' * 64},
+              'interval': {'reference_interval': {}}, 'physics_claim': {'physics_steps': 1}}
+    if damage in fields:
+        edit(root, 'fullspan.json', lambda doc: doc.update(fields[damage]))
+        write(root, 'source-run/fullspan.json', (root / 'fullspan.json').read_bytes())
+        seal(root)
+    elif damage == 'old_geometry':
+        write(root, 'geometry-study.json', {'panels': ['perspective-0008.png']})
+        seal(root)
+    else:
+        write(root, 'fullspan.json', {'status': 'ready'})
+    result = summary(root)
+    assert result['status'] == 'unavailable' and result['reason']
+    assert 'fullspan_preparation' not in result
 
 
 @pytest.mark.parametrize('mutation', ['scene_identity', 'config_identity', 'old_comparison', 'missing_receipt', 'empty_report'])
