@@ -217,6 +217,33 @@ class SceneEnv(gym.Env):
                          self.scene["target"][1] - body.position.y,
                          body.velocity.x, body.velocity.y], dtype=np.float32)
 
+    def select_actor(self, object_id):
+        if not isinstance(object_id, str):
+            raise ValueError("Controlled object ID must be a string")
+        target = next((obj for obj in self.scene["objects"] if obj["id"] == object_id), None)
+        if target is None:
+            raise ValueError(f"Unknown scene object: {object_id}")
+        if target["role"] == "static":
+            raise ValueError(f"Static object {object_id!r} cannot be controlled")
+        proposed = deepcopy(self.scene)
+        for obj in proposed["objects"]:
+            if obj["role"] != "static":
+                obj["role"] = "active" if obj["id"] == object_id else "passive"
+        proposed["controlled_id"] = object_id
+        self.scene = validate_scene(proposed)
+        if self.space is not None:
+            body = self.bodies[object_id]
+            self.success = bool(task_success(self.scene, body.position, body.velocity))
+            escaped = any(
+                not -0.02 <= b.position.x <= 1.02 or not -0.02 <= b.position.y <= self.scene["height"] + 0.02
+                for b in self.bodies.values()
+            )
+            self.terminated = bool(self.success or escaped)
+            self.truncated = bool(self.steps >= self.scene["task"]["max_steps"] and not self.terminated)
+            self._done = self.terminated or self.truncated
+            return self._observation()
+        return None
+
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
         options = options or {}

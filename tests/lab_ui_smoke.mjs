@@ -55,7 +55,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
   const elements = [];
   const ids = new Map();
   for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
@@ -89,8 +89,19 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   const scene = {profile: 'planar-rigid-v1', width: 1, height: .6, dt: 1/30, controlled_id: 'actor',
     target: [.8, .3], task: {position_tolerance: .06}, assumptions: ['Synthetic UI fixture'],
     objects: [{id: 'actor', label: 'Synthetic actor', role: 'active', shape: 'circle', radius: .035, color: '#E0B620'}]};
-  let state = {objects: [{id: 'actor', position: [.2,.3], velocity: [0,0]}], target: scene.target,
+  let state = {objects: [{id: 'actor', role: 'active', shape: 'circle', position: [.2,.3], velocity: [0,0], angle: 0}], controlled_id: 'actor', target: scene.target,
     steps: 0, time_s: 0, terminated: false, truncated: false, success: false};
+  if (profile === 'planar' && multiObject) {
+    scene.objects.push(
+      {id: 'companion', label: 'Companion puck', role: 'passive', shape: 'circle', radius: .03, color: '#C7795D'},
+      {id: 'divider', label: 'Static divider', role: 'static', shape: 'box', size: [.1, .03], color: '#AAA399'},
+    );
+    state.objects.push(
+      {id: 'companion', role: 'passive', shape: 'circle', position: [.45, .3], velocity: [0, 0], angle: 0},
+      {id: 'divider', role: 'static', shape: 'box', position: [.5, .52], velocity: [0, 0], angle: 0},
+    );
+    state.contacts = [['actor', 'companion']];
+  }
   if (profile === 'spatial-rigid') {
     Object.assign(scene, {profile: 'spatial-rigid-v1', bounds: [1, .8, .8], dt: 1/120, controlled_id: 'block',
       target: [.78, .56, .065], task: {position_tolerance: .035, speed_tolerance: .06, acceleration: 12, max_steps: 360},
@@ -102,7 +113,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     delete scene.width; delete scene.height;
     state = {controlled_id: 'block', target: scene.target, steps: 0, time_s: 0, substeps: 4,
       virtual_force: [0, 0, 0], contacts: [['block', 'floor']], contact_count: 1,
-      contact_details: [{objects: ['block', 'floor'], position: [.24, .36, .04], normal: [0, 0, 1], distance: -.0002, normal_force: 9.81}],
+      contact_details: [{objects: ['block', 'floor'], position: [.24, .36, .04], distance: -.0002, normal_force: 9.81}],
       objects: [
         {id: 'block', role: 'active', shape: 'box', size: [.06, .05, .05], color: '#965644', position: [.24, .36, .065], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
         {id: 'companion', role: 'passive', shape: 'sphere', radius: .035, color: '#C7795D', position: [.5, .42, .075], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
@@ -150,8 +161,25 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = [];
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
+  const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
+  const buildCapabilities = () => ({
+    schema_version: 1,
+    profile: 'environment-capabilities-v1',
+    scene_profile: scene.profile,
+    lab_profile: wholeBody ? 'whole_body' : cameraBody ? 'camera_body' : profile,
+    entities: {
+      articulated_body_present: profile === 'exercise',
+      active_control_target: state.human?.selected_joint || scene.controlled_id,
+    },
+    controllers: {
+      learned_policy_available: !(cameraBody || isSpatialUntrained),
+      trained_target_id: profile === 'exercise' ? (cameraBody ? null : wholeBody ? 'all_direct_motors' : 'left_knee') : trainedActor,
+    },
+    evidence_separation: {physical_validation: 'unverified'},
+  });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
     learned_policy_available: !(cameraBody || isSpatialUntrained),
+    ...(backendReady && !generationFailed ? {capabilities: buildCapabilities()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
     ...(suppliedGround ? {ground_clearance:{status:'descriptive_no_contact_evidence',summary:{minimum:.076,median:.356,maximum:.630,positive_gap_poses:112,reference_poses:112}}} : {}),
     ...(sourceInterval ? {requested_source_interval:{first_frame:2580,last_frame:2760,initialization_frame:2620}} : {}),
@@ -215,6 +243,16 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       if(backendRecording){request.resolve(response({error:'Stop recording before changing the controlled joint'},false));return;}
       state=clone(state);state.human.selected_joint=request.data.joint;
     }
+    if(path==='/api/actor'){
+      assert(profile !== 'exercise', 'Human runs must not call /api/actor');
+      if(backendRecording){request.resolve(response({error:'Stop and export the recording before changing its controlled object'},false));return;}
+      const target = scene.objects.find(obj => obj.id === request.data.actor);
+      if(!target || target.role === 'static'){request.resolve(response({error:'Static or unknown object cannot be controlled'},false));return;}
+      for(const obj of scene.objects) if(obj.role !== 'static') obj.role = obj.id === request.data.actor ? 'active' : 'passive';
+      scene.controlled_id = request.data.actor;
+      state = clone(state); state.controlled_id = request.data.actor;
+      for(const obj of state.objects) if(obj.role && obj.role !== 'static') obj.role = obj.id === request.data.actor ? 'active' : 'passive';
+    }
     if (path === '/api/step') {
       activeSteps--; state = clone(state); state.steps += request.data.steps; state.time_s = state.steps / 30;
       state.objects[0].position[0] += .01 * request.data.steps;
@@ -234,7 +272,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     }
     if (path === '/api/record/start') backendRecording = true;
     if (path === '/api/record/stop') {backendRecording = false;exportStatus = 'running';savedSessions = [{name:'trial-001',complete:false}];}
-    request.resolve(response({snapshot: state, ...(path==='/api/joint'?{scene}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
+    request.resolve(response({snapshot: state, ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
   }
   const storage = new Map();
   vm.runInNewContext(script, {document, window, location: {hash:'#token=synthetic-token',pathname:'/'},
@@ -255,7 +293,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,profile==='spatial-rigid'?3:1);
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||multiObject)?3:1);
       assert.equal(ids.get('scores').children.length,(cameraBody||isSpatialUntrained)?0:(wholeBody||spatialTrained)?4:2); this.stage('play'); }
   };
 }
@@ -880,9 +918,71 @@ async function spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed() {
   ui.resolveNext('/api/step'); await drain();
 }
 
+async function multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor() {
+  const single = fixture('planar'); await single.ready();
+  assert.equal(single.ids.get('actor-controls').hidden, true, 'Single-object planar run hides actor selector');
+  assert.equal(single.ids.get('spatial-readout').hidden, true);
+
+  const ui = fixture('planar', {multiObject: true}); await ui.ready();
+  assert.equal(ui.ids.get('actor-controls').hidden, false);
+  assert.deepEqual(ui.ids.get('actor').children.map(option => option.value), ['actor', 'companion']);
+  assert.equal(ui.ids.get('actor').value, 'actor');
+  assert.equal(ui.ids.get('spatial-readout').hidden, false, 'Multi-object 2D planar scene shows per-object and contact readout');
+  assert.match(ui.ids.get('spatial-readout').textContent, /contacts: actor↔companion/);
+  assert.match(ui.ids.get('capabilities-json').textContent, /"active_control_target": "actor"/);
+
+  ui.ids.get('actor').value = 'companion';
+  ui.ids.get('actor').dispatch('change'); await drain();
+  assert.deepEqual(ui.pending[0].data, {actor: 'companion'});
+  ui.resolveNext('/api/actor'); await drain();
+  assert.equal(ui.ids.get('actor').value, 'companion');
+  assert.match(ui.ids.get('goal-summary').textContent, /Move companion into the dashed target/);
+  assert.match(ui.ids.get('capabilities-json').textContent, /"active_control_target": "companion"/);
+
+  ui.ids.get('actor').value = 'divider';
+  ui.ids.get('actor').dispatch('change'); await drain();
+  ui.resolveNext('/api/actor'); await drain();
+  assert.equal(ui.ids.get('actor').value, 'companion', 'Rejected static object restores active selector value');
+  assert.equal(ui.ids.get('error').hidden, false);
+
+  ui.ids.get('record').click(); await drain();
+  ui.resolveNext('/api/record/start'); await drain();
+  ui.resolveNext('/api/step'); await drain();
+  assert.equal(ui.ids.get('actor').disabled, true, 'Actor selector locks while recording');
+  ui.ids.get('stop-record').click(); await drain();
+  ui.resolveNext('/api/record/stop'); await drain();
+
+  ui.ids.get('policy').click();
+  ui.ids.get('step').click(); await drain();
+  assert.equal(ui.pending[0].path, '/api/actor', 'Learned mode restores trained actor before stepping');
+  assert.deepEqual(ui.pending[0].data, {actor: 'actor'});
+  ui.resolveNext('/api/actor'); await drain();
+  ui.resolveNext('/api/reset'); await drain();
+  ui.resolveNext('/api/step'); await drain();
+  assert.equal(ui.ids.get('actor').value, 'actor');
+}
+
+async function spatialRigidActorSelectionSwitchesDynamicObjectsOnly() {
+  const ui = fixture('spatial-rigid', {spatialTrained: true}); await ui.ready();
+  assert.equal(ui.ids.get('actor-controls').hidden, false);
+  assert.deepEqual(ui.ids.get('actor').children.map(option => option.value), ['block', 'companion']);
+  ui.ids.get('actor').value = 'companion';
+  ui.ids.get('actor').dispatch('change'); await drain();
+  ui.resolveNext('/api/actor'); await drain();
+  assert.match(ui.ids.get('goal-summary').textContent, /Move companion into the 3D dashed target/);
+  ui.ids.get('start-learned').click(); await drain();
+  assert.equal(ui.pending[0].path, '/api/actor');
+  assert.deepEqual(ui.pending[0].data, {actor: 'block'});
+  ui.resolveNext('/api/actor'); await drain();
+  ui.resolveNext('/api/reset'); await drain();
+  ui.resolveNext('/api/step'); await drain();
+  assert.equal(ui.ids.get('actor').value, 'block');
+}
+
 checks.push(poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
-  spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed);
+  spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed,
+  multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly);
 const requestedChecks = new Set(process.argv.slice(2));
 const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
 if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');

@@ -142,6 +142,20 @@ Verified 3D rigid-object runs can be opened directly in the same local lab witho
 
 In **3D scene** and **Sandbox**, synchronized front (`x / height`), top (`x / depth`), and rotatable `3D` views show the same MuJoCo rigid-body state. Rotating yaw, zooming (`1×–3×`), or enabling **Follow moving objects** affects only your view and never steps physics. All eight actions (`coast`, `left`, `right`, `forward`, `back`, `up`, `down`, `brake`) are exposed through buttons and keyboard (`A/D` or Left/Right for `x`, `W/S` or Up/Down for depth `y`, `Q/E` or PageUp/PageDown for height `z`, `Space` to slow down). Live values inspect per-object 3D position, quaternion orientation, linear velocity, world spin, virtual force, substeps, and active contact forces. Untrained 3D runs keep **Learned controller** disabled rather than fabricating a policy; recordings save under `sessions/` and export to `video.mp4`, `preview.gif`, and `replay.html`. See [3D rigid-object sandbox](spatial-rigid.md) for contract limits.
 
+### Multi-object controls and capability inspection
+
+For multi-object 2D (`planar-rigid-v1/v2`) and 3D (`spatial-rigid-v1`) scenes with two or more dynamic bodies, **Sandbox** exposes **Object to control** (`/api/actor`) so you can switch which dynamic body receives manual forces without resetting live physics or altering `run/scene.json`. Static obstacles/supports cannot be selected, switching locks while a recording is active, and **Learned controller** automatically restores the trained object before stepping.
+
+Every ready lab and sealed run also exposes a validated `environment-capabilities-v1` contract (in **Generated world / 3D scene / 3D body → Environment & RL contract**, `/api/status`, and the CLI):
+
+```sh
+.venv-lab/bin/python -m weft capabilities \
+  --run artifacts/my-3d-lab-01 \
+  --out artifacts/my-3d-capabilities.json
+```
+
+The capability summary explicitly declares representation family, physics backend, coordinate frame/units, controllable actors, action/observation spaces, authored task/reward/termination/reset rules, available controllers, `physical_validation: "unverified"`, and unsupported capabilities.
+
 ## Terminal-only processing
 
 Add `--no-serve` to run all processing with stage/progress messages in the terminal. Open the saved result later with `lab --resume`. Optional `--episodes` and `--eval-episodes` bound local learning (defaults: 1,500 and 100). A free local port is selected unless `--port` is specified.

@@ -10,13 +10,14 @@
   let statusTimer = null, playbackTimer = null, lastEvents = "", lastFiles = "", loadedReady = false;
   let playbackGeneration = 0, stepPromise = Promise.resolve(), controlBusy = false, mutationEpoch = 0;
   let pollPending = false, pollAgain = false, referenceFrames = [], referenceState = null;
-  let mode = "manual", trainedJoint = null, exporting = false, referenceTimer = null;
+  let mode = "manual", trainedJoint = null, trainedActor = null, capabilities = null, exporting = false, referenceTimer = null;
   let selectedMotor = null, wholeBodyPolicyReady = false, simulationFailureMessage = null, learnedPolicyAvailable = true;
   let coverageLoaded = false;
   let poseCoverageLoaded = false, poseCoveragePending = false, poseCoverageAttempts = 0;
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
+  const dynamicObjects = () => (scene?.objects || []).filter((obj) => obj.role !== "static");
   const number = (value, places = 3) => typeof value === "number" && Number.isFinite(value) ? value.toFixed(places) : "unavailable";
   const held = new Set();
   const keyActions = {ArrowLeft: 1, a: 1, ArrowRight: 2, d: 2, ArrowUp: 3, w: 3, ArrowDown: 4, s: 4, " ": 5};
@@ -25,6 +26,14 @@
   let actionNames = ["coast", "left", "right", "up", "down", "brake"];
   const fileURL = (name) => `/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   const text = (element, value) => { element.textContent = String(value); };
+  function updateCapabilities(doc) {
+    if (!doc) return;
+    capabilities = doc;
+    text($("capabilities-json"), JSON.stringify(doc, null, 2));
+    if (doc.controllers?.trained_target_id && !doc.entities?.articulated_body_present) {
+      trainedActor = doc.controllers.trained_target_id;
+    }
+  }
   const error = (message) => { simulationFailureMessage = null; text($("error"), message); $("error").hidden = false; };
   const clearError = () => { simulationFailureMessage = null; $("error").hidden = true; };
   async function request(path, data) {
@@ -245,14 +254,21 @@
       text($("readout"), `t ${(state.time_s || 0).toFixed(3)}s · step ${state.steps} · ${body.id} pos [${body.position.map((v) => v.toFixed(3)).join(", ")}] m · speed ${Math.hypot(...body.velocity).toFixed(3)} m/s · quat [${body.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${body.angular_velocity.map((v) => v.toFixed(2)).join(", ")}] rad/s · contacts ${state.contact_count ?? 0} · substeps ${state.substeps ?? 0} · ${suffix}`);
       const objectLines = state.objects.map((o) => `${o.id} (${o.role}, ${o.shape}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${o.angular_velocity.map((v) => v.toFixed(2)).join(", ")}]`);
       const contactLines = (state.contact_details || []).length
-        ? state.contact_details.map((c) => `contact ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] normal [${c.normal.map((v) => v.toFixed(2)).join(", ")}] dist ${c.distance.toFixed(4)}m Fn ${c.normal_force.toFixed(2)}N`)
+        ? state.contact_details.map((c) => `contact ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] dist ${c.distance.toFixed(4)}m Fn ${c.normal_force.toFixed(2)}N`)
         : ["contacts: none"];
       $("spatial-readout").hidden = false;
       text($("spatial-readout"), [`virtual force (${controlledId}): [${(state.virtual_force || [0, 0, 0]).map((v) => v.toFixed(2)).join(", ")}] N`, ...objectLines, ...contactLines].join("\n"));
       if (state.terminated || state.truncated) pause();
       return;
     }
-    $("spatial-readout").hidden = true;
+    if (state.objects.length > 1) {
+      const objectLines = state.objects.map((o) => `${o.id} (${o.role || "body"}, ${o.shape || "shape"}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${(o.velocity || [0, 0]).map((v) => v.toFixed(3)).join(", ")}] · angle ${number(o.angle ?? 0, 2)} rad`);
+      const contacts = (state.contacts || []).length ? `contacts: ${state.contacts.map((pair) => pair.join("↔")).join(", ")}` : "contacts: none";
+      $("spatial-readout").hidden = false;
+      text($("spatial-readout"), [...objectLines, contacts].join("\n"));
+    } else {
+      $("spatial-readout").hidden = true;
+    }
     const body = state.objects.find((item) => item.id === (state.controlled_id || scene.controlled_id)) || state.objects[0];
     const suffix = state.success ? "TASK SUCCESS — reset to continue" : state.truncated ? "TIME LIMIT — reset to continue" : state.terminated ? "TRIAL ENDED — reset to continue" : `action: ${usePolicy ? "learned policy" : actionNames[action]}`;
     text($("readout"), `t ${(state.time_s || 0).toFixed(2)}s · step ${state.steps} · position ${body.position.map((v) => v.toFixed(3)).join(", ")} · speed ${Math.hypot(...body.velocity).toFixed(3)} · ${suffix}`);
@@ -266,7 +282,7 @@
       const h = snapshot.human, degrees = value => (value * 180 / Math.PI).toFixed(0);
       text($("goal-summary"), wholeBody() ? "Track the known full-body reference using 19 joint motors and 3 virtual root-force controls. Tracking and floor-contact errors determine success; this is not learned balance." : mode === "reference" ? "Follow the video’s estimated joint movement. This controller is programmed, not learned." : `${h.selected_joint.replaceAll("_", " ")}: ${degrees(h.angles[h.selected_joint])}° now → ${degrees(h.target_angle)}° target. Reach the target and slow to a stop.`);
     } else if (spatialRigid()) text($("goal-summary"), `Move ${snapshot?.controlled_id || scene.controlled_id} into the 3D dashed target [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}] m and slow below ${scene.task.speed_tolerance} m/s.`);
-    else if (scene) text($("goal-summary"), "Move the highlighted object into the dashed target and slow to a stop.");
+    else if (scene) text($("goal-summary"), dynamicObjects().length > 1 ? `Move ${snapshot?.controlled_id || scene.controlled_id} into the dashed target and slow to a stop.` : "Move the highlighted object into the dashed target and slow to a stop.");
     text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
@@ -283,6 +299,7 @@
       button.hidden = spatialMismatch || mobileOnly || incompatible || exerciseServo;
     }
     $("joint").disabled = (recording && !wholeBody()) || controlBusy || mode !== "manual";
+    $("actor").disabled = recording || controlBusy || mode !== "manual";
     $("record").disabled = recording || exporting || !scene || controlBusy;
     $("stop-record").disabled = !recording || controlBusy;
     for (const id of ["toggle", "reset", "step"]) $(id).disabled = !scene || controlBusy || (id === "step" && !!ended);
@@ -339,22 +356,39 @@
         if (snapshot.human.selected_joint !== trainedJoint) {
           if (recording) throw new Error("Stop & save this recording before switching to the trained joint.");
           const joint = await request("/api/joint", {joint: trainedJoint});
-          scene = joint.scene; updateSnapshot(joint.snapshot); $("joint").value = trainedJoint;
+          scene = joint.scene; if (joint.capabilities) updateCapabilities(joint.capabilities);
+          updateSnapshot(joint.snapshot); $("joint").value = trainedJoint;
         }
       }
+      if (prepareLearned && mode === "learned" && !snapshot?.human && trainedActor && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor) {
+        if (recording) throw new Error("Stop & save this recording before switching to the trained object.");
+        const switched = await request("/api/actor", {actor: trainedActor});
+        scene = switched.scene; if (switched.capabilities) updateCapabilities(switched.capabilities);
+        updateSnapshot(switched.snapshot); $("actor").value = trainedActor;
+      }
       const result = await request(path, data);
-      if (result.scene) scene = result.scene;
+      if (result.capabilities) updateCapabilities(result.capabilities);
+      if (result.scene) {
+        scene = result.scene;
+        if (!snapshot?.human && $("actor").children.length) $("actor").value = result.scene.controlled_id;
+        if (!referenceState && (result.snapshot || snapshot)) draw($("world-canvas"), result.snapshot || snapshot);
+      }
       if (result.snapshot) updateSnapshot(result.snapshot);
       if ("recording" in result) setRecording(result.recording);
       if (result.export === "running") exporting = true;
       scheduleStatus(0); return result;
-    } catch (e) { if (snapshot?.human && !wholeBody()) $("joint").value = snapshot.human.selected_joint; error(e.message); }
+    } catch (e) {
+      if (snapshot?.human && !wholeBody()) $("joint").value = snapshot.human.selected_joint;
+      else if (!snapshot?.human && scene?.controlled_id && $("actor").children.length) $("actor").value = snapshot?.controlled_id || scene.controlled_id;
+      error(e.message);
+    }
     finally { requestPending = false; controlBusy = false; updateControls(); }
   }
   async function begin({fresh = false, record = false} = {}) {
     if (controlBusy) return;
     const needsJoint = mode === "learned" && snapshot?.human && !wholeBody() && snapshot.human.selected_joint !== trainedJoint;
-    if (fresh || record || needsJoint || snapshot?.terminated || snapshot?.truncated) {
+    const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
+    if (fresh || record || needsJoint || needsActor || snapshot?.terminated || snapshot?.truncated) {
       const pending = mutate(record ? "/api/record/start" : "/api/reset", {}, true);
       const generation = playbackGeneration;
       if (!await pending || generation !== playbackGeneration) return;
@@ -367,7 +401,9 @@
   $("reference-servo").onclick = () => selectMode("reference");
   $("step").onclick = async () => {
     pause();
-    if (mode === "learned" && snapshot?.human && !wholeBody() && snapshot.human.selected_joint !== trainedJoint) {
+    const needsJoint = mode === "learned" && snapshot?.human && !wholeBody() && snapshot.human.selected_joint !== trainedJoint;
+    const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
+    if (needsJoint || needsActor) {
       const pending = mutate("/api/reset", {}, true), generation = playbackGeneration;
       if (!await pending || generation !== playbackGeneration) return;
     }
@@ -382,6 +418,7 @@
     if (controlBusy || mode !== "manual") { $("joint").value = selectedMotor; return; }
     pause(); selectedMotor = $("joint").value; chooseAction(0); updateControls();
   };
+  $("actor").onchange = () => mutate("/api/actor", {actor: $("actor").value});
   $("start-manual").onclick = () => { showPanel("play"); selectMode("manual"); $("live").focus(); };
   $("start-learned").onclick = () => { showPanel("play"); selectMode("learned"); begin({fresh: true}); };
   $("start-reference").onclick = () => showPanel("world");
@@ -474,6 +511,18 @@
     scene = data.scene;
     const noLearnedPolicy = data.learned_policy_available === false || scene.learned_policy_available === false;
     learnedPolicyAvailable = !noLearnedPolicy;
+    if (data.capabilities) updateCapabilities(data.capabilities);
+    if (!data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
+    const controllable = dynamicObjects();
+    $("actor-controls").hidden = Boolean(data.snapshot?.human) || controllable.length < 2;
+    $("actor").replaceChildren();
+    for (const obj of controllable) {
+      const option = document.createElement("option");
+      option.value = obj.id;
+      text(option, `${obj.label || obj.id} (${obj.id})`);
+      $("actor").append(option);
+    }
+    if (controllable.length) $("actor").value = data.snapshot?.controlled_id || scene.controlled_id;
     if (data.profile === "exercise" && (wholeBody() || noLearnedPolicy)) {
       const feasibility = data.reference_feasibility, summary = feasibility?.summary;
       $("reference-feasibility").hidden = false;

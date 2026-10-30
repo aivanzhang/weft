@@ -74,6 +74,8 @@ class PlanarSession:
         self.scene = json.loads((root / "scene.json").read_text())
         self.policy = json.loads((root / "policy.json").read_text())
         self.env = SceneEnv(self.scene)
+        self.scene = self.env.scene
+        self.trained_controlled_id = self.policy.get("controlled_id", self.scene["controlled_id"])
         self.reset(0)
 
     def reset(self, seed):
@@ -81,8 +83,15 @@ class PlanarSession:
         self.done = False
         return self.snapshot()
 
+    def select_actor(self, name):
+        self.observation = self.env.select_actor(name)
+        self.scene = self.env.scene
+        self.done = self.env._done
+
     def policy_action(self):
         from weft.scene_learning import policy_action
+        if self.scene["controlled_id"] != self.trained_controlled_id:
+            raise ValueError(f"This policy was trained for {self.trained_controlled_id}; select that object first")
         return int(policy_action(self.policy, self.observation))
 
     def step(self, action):
@@ -233,6 +242,9 @@ class SpatialSession:
             raise ValueError("Spatial policy belongs to a different 3D scene")
         self.env = SpatialRigidEnv(self.scene)
         self.scene = self.env.scene
+        self.trained_controlled_id = (
+            self.policy.get("controlled_id", self.scene["controlled_id"]) if self.policy is not None else None
+        )
         try:
             self.reset(0)
             if self.policy is not None:
@@ -247,12 +259,20 @@ class SpatialSession:
         self._snapshot = self.env.snapshot()
         return self.snapshot()
 
+    def select_actor(self, name):
+        if self.failure is not None:
+            raise ValueError("Reset the failed episode before changing the controlled object")
+        self.observation = self.env.select_actor(name)
+        self.scene = self.env.scene
+        self.done = self.env._done
+        self._snapshot = self.env.snapshot()
+
     def policy_action(self):
         if self.policy is None:
             raise ValueError("This 3D scene has no learned policy; use manual controls")
         from weft.spatial_learning import policy_action
-        if self.env.scene["controlled_id"] != self.policy.get("controlled_id"):
-            raise ValueError(f"This policy was trained for {self.policy['controlled_id']}; select that object first")
+        if self.env.scene["controlled_id"] != self.trained_controlled_id:
+            raise ValueError(f"This policy was trained for {self.trained_controlled_id}; select that object first")
         return int(policy_action(self.policy, self.observation))
 
     def step(self, action):
@@ -360,6 +380,42 @@ class Lab:
             self.coverage_future = self.executor.submit(load_coverage, self.root / 'run')
         return self.coverage_future.result() if self.coverage_future.done() else {'status': 'loading'}
 
+    def capabilities(self, session):
+        from weft.capabilities import describe_capabilities
+        if self.artifacts is None and (self.root / "run").exists():
+            self.artifacts = [{"name": str(p.relative_to(self.root / "run")), "bytes": p.stat().st_size}
+                              for p in sorted((self.root / "run").iterdir()) if p.is_file()]
+        artifacts = self.artifacts or []
+        policy_ready = (session.scene.get("learned_policy_available") is not False
+                        and not isinstance(session, CameraHumanSession)
+                        and (not isinstance(session, SpatialSession) or session.policy is not None))
+        trained_target = None
+        if policy_ready:
+            if isinstance(session, RollingSession):
+                trained_target = "ball-0"
+            elif isinstance(session, (PlanarSession, SpatialSession)):
+                trained_target = session.trained_controlled_id
+            elif isinstance(session, WholeBodySession):
+                trained_target = "all_direct_motors"
+            elif isinstance(session, HumanSession) and session.policy is not None:
+                trained_target = session.policy.get("selected_joint")
+        has_video = any(
+            item["name"].startswith("source.")
+            and Path(item["name"]).suffix.lower() in (".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv")
+            for item in artifacts
+        )
+        has_reference = any(item["name"] == "human-reference.json" for item in artifacts) or bool(
+            getattr(session, "spec", {}).get("reference")
+        )
+        return describe_capabilities(
+            session.scene,
+            lab_profile=self.config.get("control_profile") or self.config["profile"],
+            learned_policy_available=policy_ready,
+            trained_target_id=trained_target,
+            source_video_present=has_video,
+            reference_available=has_reference,
+        )
+
     def summary(self):
         status = self.status()
         result = {**status, "profile": self.config["profile"], "directory": str(self.root)}
@@ -383,11 +439,10 @@ class Lab:
             if self.artifacts is None:
                 self.artifacts = [{"name": str(p.relative_to(self.root / "run")), "bytes": p.stat().st_size}
                                   for p in sorted((self.root / "run").iterdir()) if p.is_file()]
-            policy_ready = (session.scene.get("learned_policy_available") is not False
-                            and not isinstance(session, CameraHumanSession)
-                            and (not isinstance(session, SpatialSession) or session.policy is not None))
+            capabilities = self.capabilities(session)
+            policy_ready = capabilities["controllers"]["learned_policy_available"]
             result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
-                          learned_policy_available=policy_ready)
+                          learned_policy_available=policy_ready, capabilities=capabilities)
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}
@@ -409,7 +464,14 @@ class Lab:
             if self.recorder:
                 raise ValueError("Stop and export the recording before changing its controlled joint")
             session.select_joint(data.get("joint"))
-            return {"snapshot": session.snapshot(), "scene": session.scene}
+            return {"snapshot": session.snapshot(), "scene": session.scene, "capabilities": self.capabilities(session)}
+        if path == "/api/actor":
+            if not isinstance(session, (PlanarSession, SpatialSession)):
+                raise ValueError("Object selection is available only for rigid-object runs")
+            if self.recorder:
+                raise ValueError("Stop and export the recording before changing its controlled object")
+            session.select_actor(data.get("actor"))
+            return {"snapshot": session.snapshot(), "scene": session.scene, "capabilities": self.capabilities(session)}
         if path in ("/api/reset", "/api/step") and self.recorder:
             try:
                 self.recorder.check_capacity()

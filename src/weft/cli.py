@@ -158,6 +158,9 @@ def main():
     spatial_lab.add_argument("--run", required=True, help="Existing verified spatial-rigid-v1 run directory")
     spatial_lab.add_argument("--learning", help="Optional verified spatial policy directory for the same scene")
     spatial_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
+    capabilities_cmd = commands.add_parser("capabilities", help="Inspect shared environment, action, observation, task, and evidence capabilities")
+    capabilities_cmd.add_argument("--run", required=True, help="Existing verified run directory or ready lab directory")
+    capabilities_cmd.add_argument("--out", help="Optional new JSON path outside the inspected directory")
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -247,6 +250,9 @@ def main():
         elif args.command == "spatial-lab":
             from weft.spatial_lab import prepare_spatial_lab
             result = prepare_spatial_lab(args.run, args.out, policy_run=args.learning)
+        elif args.command == "capabilities":
+            from weft.capabilities import describe_run_capabilities
+            result = describe_run_capabilities(args.run, out=args.out)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)

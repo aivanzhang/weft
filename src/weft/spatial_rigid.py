@@ -185,6 +185,41 @@ class SpatialRigidEnv(gym.Env):
             raise RuntimeError('Spatial observation exceeds declared finite bounds')
         return observation
 
+    def select_actor(self, object_id):
+        if not isinstance(object_id, str):
+            raise ValueError('Controlled object ID must be a string')
+        target = next((obj for obj in self.scene['objects'] if obj['id'] == object_id), None)
+        if target is None:
+            raise ValueError(f'Unknown spatial object: {object_id}')
+        if target['role'] == 'static':
+            raise ValueError(f'Static object {object_id!r} cannot be controlled')
+        proposed = deepcopy(self.scene)
+        for obj in proposed['objects']:
+            if obj['role'] != 'static':
+                obj['role'] = 'active' if obj['id'] == object_id else 'passive'
+        proposed['controlled_id'] = object_id
+        self.scene = validate_scene(proposed)
+        if self._initialized:
+            objects = self._objects()
+            controlled = next(o for o in objects if o['id'] == object_id)
+            distance = math.dist(controlled['position'], self.scene['target'])
+            self.success = bool(
+                distance <= self.scene['task']['position_tolerance']
+                and np.linalg.norm(controlled['velocity']) <= self.scene['task']['speed_tolerance']
+            )
+            outside = any(
+                (np.asarray(o['position']) < -.2).any()
+                or (np.asarray(o['position']) > np.asarray(self.scene['bounds']) + .2).any()
+                for o in objects if o['role'] != 'static'
+            )
+            self.terminated = bool(self.success or outside)
+            self.truncated = bool(self.steps >= self.scene['task']['max_steps'] and not self.terminated)
+            self._done = self.terminated or self.truncated
+            self._force = [0., 0., 0.]
+            self.data.xfrc_applied[:] = 0
+            return self._observation(objects)
+        return None
+
     def reset(self, *, seed=None, options=None):
         if seed is not None and (type(seed) is not int or not 0 <= seed < 2**32):
             raise ValueError('Seed must be a bounded nonnegative integer')
