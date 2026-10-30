@@ -44,8 +44,9 @@ def _qp_summary(result):
 
 
 class _SequentialSolver:
-    def __init__(self, deadline):
+    def __init__(self, deadline, *, feasibility_finder=None):
         self.deadline = deadline
+        self._feasibility_finder = find_bounded_feasible_point if feasibility_finder is None else feasibility_finder
         self.restorations, self.diagnostics = [], []
         self.restoration_bytes = 0
         self.direction_calls = self.restoration_calls = self.phase_calls = 0
@@ -109,7 +110,7 @@ class _SequentialSolver:
                 record['rounds'].append(round_report)
                 settings = _limits(deadline); self.phase_calls += 1
                 try:
-                    phase = find_bounded_feasible_point(matrix, bounds, lo, hi, seed=-delta, settings=settings)
+                    phase = self._feasibility_finder(matrix, bounds, lo, hi, seed=-delta, settings=settings)
                 except ValueError as error:
                     record['status'] = 'invalid_phase_one_problem'; round_report['reason'] = str(error)[:256]; break
                 phase_report = phase['report']
