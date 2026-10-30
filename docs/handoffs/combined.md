@@ -64,3 +64,5 @@ Final latest-result union: **176 distinct Python cases pass**, plus 43 lab UI ch
 The tracking request, all source/export/integration studies and final core/policy test handles are terminal. No development server, deployment or external message/submission was started. Do not rerun the paid request, duplicate finished studies, modify sealed runs or reset the shared ledger.
 
 Only tested code/docs/scripts belong in the Git checkpoint. Preserve local evidence and hidden configuration outside Git, review the complete diff, then verify publication and stash state. The goal remains active.
+
+**Publication:** implementation checkpoint `24e754c2df0d9bb7af15f6bbe1350ea2b00224ef` was pushed to private `origin/main`; an independent `git ls-remote` matched exactly. The worktree and stash list were empty after that push. This documentation receipt may advance the branch afterward; use actual Git state and `.local/combined-publication-01.json` for the final receipt. No local videos, generated runs, credentials, budget ledger or model caches were published or deleted.

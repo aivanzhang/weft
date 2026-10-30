@@ -13,6 +13,7 @@
 
 ## Latest combined implementation checkpoint
 
+- [x] Publish reviewed implementation checkpoint `24e754c` to private `origin/main`, independently verify the exact remote hash, and confirm an empty worktree/stash list. Final documentation receipts may advance the branch; [resumption state](docs/handoffs/combined.md#ownership-processes-and-publication).
 - [x] Take ownership of both former tracks and preserve agy's inherited work; [complete goal](docs/handoffs/complete-goal.md), [current implementation/evidence](docs/handoffs/combined.md).
 - [x] Integrate and review coupled human/rigid runtime, exact recording, source-qualified evidence and mobile topology. Four saved recordings verify 12 steps, one reset and 14 frames each; authored and source-linked/authored-prop cases stay distinct.
 - [x] Preserve the 3 ms native/decoder origin mapping and all 257 video frames, then perform one bounded SAM call ($0.0498) and decode all 747 returned masks. Preserve 24 pre-initialization slots and unresolved identity groups.
