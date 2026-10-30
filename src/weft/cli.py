@@ -59,9 +59,12 @@ def main():
     lab.add_argument("--resume", help="Inspect a saved lab without rerunning its pipeline")
     lab.add_argument("--scene-run", help="Opt-in import of a verified spatial-rigid-v1 run into a new --out lab")
     lab.add_argument("--learning", help="Optional verified spatial policy directory paired with --scene-run")
-    replay = commands.add_parser("replay", help="Verify or export an interaction recording")
+    replay = commands.add_parser("replay", help="Verify, export, or non-destructively recover an interaction recording")
     replay.add_argument("directory")
     replay.add_argument("--export", action="store_true", help="Create video and offline replay from a closed journal")
+    replay.add_argument("--recover-incomplete", action="store_true",
+                        help="Recover complete journal events from an interrupted recording into a new --out directory")
+    replay.add_argument("--out", help="New output directory required with --recover-incomplete")
     demo = commands.add_parser("demo", help="Create a clearly labeled synthetic tabletop test video")
     demo.add_argument("--out", required=True, help="New directory for video, config, and provenance")
     pose_model = commands.add_parser("fetch-pose-model", help="Download/verify the pinned local pose model (no inference upload)")
@@ -289,8 +292,15 @@ def main():
             from weft.lab import launch_lab
             result = launch_lab(args)
         elif args.command == "replay":
-            from weft.recording import export_recording, verify_recording
-            result = export_recording(args.directory) if args.export else verify_recording(args.directory)
+            from weft.recording import export_recording, recover_incomplete_recording, verify_recording
+            if args.recover_incomplete:
+                if not args.out:
+                    raise ValueError("--recover-incomplete requires --out <new-directory> to preserve the interrupted source")
+                result = recover_incomplete_recording(args.directory, args.out, export=True)
+            else:
+                if args.out:
+                    raise ValueError("--out is supported only with --recover-incomplete")
+                result = export_recording(args.directory) if args.export else verify_recording(args.directory)
         elif args.command == "demo":
             from weft.demo import create_demo
             result = create_demo(args.out)

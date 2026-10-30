@@ -177,9 +177,35 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     },
     evidence_separation: {physical_validation: 'unverified'},
   });
+  const buildEvidenceProvenance = () => ({
+    schema_version: 1,
+    physical_validation: 'unverified',
+    source_evidence: {
+      source_video_present: profile !== 'spatial-rigid',
+      source_sha256: profile !== 'spatial-rigid' ? 'a'.repeat(64) : null,
+      frame_count: profile !== 'spatial-rigid' ? 90 : null,
+      observations_artifact_present: false,
+      missing_or_uncertain_summary: profile === 'exercise' ? '82 usable, 5 partial, 3 unusable sampled frames' : null,
+    },
+    layers: {
+      recorded_source: profile !== 'spatial-rigid'
+        ? 'Sealed source video and per-frame measurements preserved in run/'
+        : 'Analytic or imported scene without sealed source video',
+      kinematic_projection: profile === 'exercise'
+        ? 'Source-derived joint poses projected onto simplified body geometry (no physics solver)'
+        : 'Not applicable (rigid-object simulation)',
+      controllers: [
+        'manual',
+        ...(profile === 'exercise' ? ['authored_reference_controller'] : []),
+        ...(!(cameraBody || isSpatialUntrained) ? ['learned_policy'] : []),
+      ],
+      physical_simulation: `${profile === 'exercise' ? 'mujoco_3d_articulated' : profile === 'spatial-rigid' ? 'mujoco_3d_rigid' : 'pymunk_2d'} forward dynamics under authored geometry, contact, and actuator assumptions (physical_validation: unverified)`,
+      muscle_display: profile === 'exercise' ? 'illustrative_motor_command_not_measured_activation' : 'not_applicable',
+    },
+  });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
     learned_policy_available: !(cameraBody || isSpatialUntrained),
-    ...(backendReady && !generationFailed ? {capabilities: buildCapabilities()} : {}),
+    ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
     ...(suppliedGround ? {ground_clearance:{status:'descriptive_no_contact_evidence',summary:{minimum:.076,median:.356,maximum:.630,positive_gap_poses:112,reference_poses:112}}} : {}),
     ...(sourceInterval ? {requested_source_interval:{first_frame:2580,last_frame:2760,initialization_frame:2620}} : {}),
@@ -979,10 +1005,29 @@ async function spatialRigidActorSelectionSwitchesDynamicObjectsOnly() {
   assert.equal(ui.ids.get('actor').value, 'block');
 }
 
+async function evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulation() {
+  const ex = fixture('exercise'); await ex.ready();
+  assert.equal(ex.ids.get('evidence-layers').hidden, false);
+  const exText = ex.ids.get('evidence-layers-text').textContent;
+  assert.match(exText, /Sealed source video and per-frame measurements preserved in run\/ \(90 frames\)/);
+  assert.match(exText, /3 unusable sampled frames/);
+  assert.match(exText, /Kinematic projection: Source-derived joint poses/);
+  assert.match(exText, /Controllers: manual, authored_reference_controller, learned_policy/);
+  assert.match(exText, /illustrative motor command not measured activation/);
+
+  const sp = fixture('spatial-rigid'); await sp.ready();
+  assert.equal(sp.ids.get('evidence-layers').hidden, false);
+  const spText = sp.ids.get('evidence-layers-text').textContent;
+  assert.match(spText, /Analytic or imported scene without sealed source video/);
+  assert.match(spText, /Kinematic projection: Not applicable \(rigid-object simulation\)/);
+  assert.match(spText, /Controllers: manual\./);
+}
+
 checks.push(poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
   spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed,
-  multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly);
+  multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly,
+  evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulation);
 const requestedChecks = new Set(process.argv.slice(2));
 const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
 if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');

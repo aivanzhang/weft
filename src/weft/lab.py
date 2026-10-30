@@ -311,6 +311,7 @@ class Lab:
         self.worker_log = None
         self.seed = 0
         self.artifacts = None
+        self._evidence_provenance = None
         self.cancelled = False
 
     def start_worker(self):
@@ -416,6 +417,101 @@ class Lab:
             reference_available=has_reference,
         )
 
+    def evidence_provenance(self, capabilities):
+        if self._evidence_provenance is not None:
+            return self._evidence_provenance
+        run_dir = self.root / "run"
+
+        def _bounded_json(name, limit=4 * 1024 * 1024):
+            path = run_dir / name
+            if not path.is_file() or path.stat().st_size > limit:
+                return None
+            try:
+                value = json.loads(path.read_text())
+                return value if isinstance(value, dict) else None
+            except (OSError, ValueError):
+                return None
+
+        source_meta = _bounded_json("source.json")
+        pose_quality = _bounded_json("pose-quality.json")
+        obs_meta = _bounded_json("observations.json")
+        coverage_summary = _bounded_json("coverage-summary.json")
+
+        has_video = bool(capabilities["evidence_separation"]["source_video_present"])
+        has_obs = (run_dir / "observations.json").is_file()
+        frame_count = None
+        source_sha = None
+        if source_meta is not None:
+            source_sha = source_meta.get("sha256")
+            for key in ("frames", "frame_count", "decoded_frames"):
+                if type(source_meta.get(key)) is int:
+                    frame_count = source_meta[key]
+                    break
+        missing_summary = None
+        if coverage_summary is not None and type(coverage_summary.get("missing_observation_slots")) is int:
+            missing_summary = (
+                f"{coverage_summary['missing_observation_slots']}/{coverage_summary.get('observation_slots', '?')} "
+                "unavailable object-frame slots preserved without interpolation"
+            )
+        elif pose_quality is not None and type(pose_quality.get("unusable_frames")) is int:
+            missing_summary = (
+                f"{pose_quality.get('usable_frames', '?')} usable, "
+                f"{pose_quality.get('partial_frames', 0)} partial, "
+                f"{pose_quality['unusable_frames']} unusable sampled frames"
+            )
+        elif obs_meta is not None and isinstance(obs_meta.get("entities"), list):
+            missing_slots = 0
+            total_slots = 0
+            for ent in obs_meta["entities"]:
+                for sample in ent.get("samples", []) if isinstance(ent, dict) else []:
+                    total_slots += 1
+                    if isinstance(sample, dict) and sample.get("status") not in ("observed", "tracked", "measured"):
+                        missing_slots += 1
+            if total_slots:
+                missing_summary = f"{missing_slots}/{total_slots} non-observed or uncertain entity-frame slots"
+
+        ctrls = capabilities["controllers"]
+        active_controllers = ["manual"]
+        if ctrls["authored_reference_controller"]:
+            active_controllers.append("authored_reference_controller")
+        if ctrls["learned_policy_available"]:
+            active_controllers.append("learned_policy")
+
+        if has_video:
+            recorded_desc = "Sealed source video and per-frame measurements preserved in run/"
+        elif source_meta is not None or has_obs:
+            recorded_desc = "Source-linked metadata/observations preserved; no video file sealed in run/"
+        else:
+            recorded_desc = "Analytic or imported scene without sealed source video"
+
+        kinematic_desc = (
+            "Source-derived joint poses projected onto simplified body geometry (no physics solver)"
+            if ctrls["kinematic_pose_replay"]
+            else "Not applicable (rigid-object simulation)"
+        )
+        self._evidence_provenance = {
+            "schema_version": 1,
+            "physical_validation": "unverified",
+            "source_evidence": {
+                "source_video_present": has_video,
+                "source_sha256": source_sha,
+                "frame_count": frame_count,
+                "observations_artifact_present": has_obs,
+                "missing_or_uncertain_summary": missing_summary,
+            },
+            "layers": {
+                "recorded_source": recorded_desc,
+                "kinematic_projection": kinematic_desc,
+                "controllers": active_controllers,
+                "physical_simulation": (
+                    f"{capabilities['physics_backend']} forward dynamics under authored geometry, "
+                    "contact, and actuator assumptions (physical_validation: unverified)"
+                ),
+                "muscle_display": capabilities["evidence_separation"]["muscle_display"],
+            },
+        }
+        return self._evidence_provenance
+
     def summary(self):
         status = self.status()
         result = {**status, "profile": self.config["profile"], "directory": str(self.root)}
@@ -442,7 +538,8 @@ class Lab:
             capabilities = self.capabilities(session)
             policy_ready = capabilities["controllers"]["learned_policy_available"]
             result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
-                          learned_policy_available=policy_ready, capabilities=capabilities)
+                          learned_policy_available=policy_ready, capabilities=capabilities,
+                          evidence_provenance=self.evidence_provenance(capabilities))
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}

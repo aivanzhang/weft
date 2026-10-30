@@ -22,6 +22,7 @@
 <div class="actions"><button data-json="evidence.json">Inspect frame measurements</button><button data-json="source.json">Source and provenance</button></div>
 <div id="coverage-details" class="boundary" hidden><p id="coverage-text"></p><button id="coverage-inspect" data-json="reconstruction-coverage.json">Inspect every frame</button></div>
 <div id="pose-coverage" class="boundary" hidden><h3>What got tracked?</h3><p id="pose-coverage-text" role="status"></p><canvas id="pose-timeline" width="960" height="64" aria-label="Pose coverage along the source video"></canvas><p id="pose-coverage-legend" class="hint">Each mark is one analyzed frame: tall marks are usable estimates, short marks are uncertain, and crosses are unusable. Unanalyzed frames stay blank. Visibility is not proof of correct anatomy.</p><button id="pose-next-issue" disabled>Next tracking issue</button><span id="pose-issue" role="status"></span></div>
+<div id="evidence-layers" class="boundary" hidden><p id="evidence-layers-text"></p></div>
 <p id="evidence-boundary" class="boundary">Supported: fixed-camera colored rigid objects in 2D, or the explicit rolling-ball profile. Not arbitrary-video understanding, 3D recovery, or proof of physical transfer.</p>
 </section>
 <section id="world" class="panel" hidden>

@@ -512,6 +512,13 @@
     const noLearnedPolicy = data.learned_policy_available === false || scene.learned_policy_available === false;
     learnedPolicyAvailable = !noLearnedPolicy;
     if (data.capabilities) updateCapabilities(data.capabilities);
+    if (data.evidence_provenance?.layers) {
+      const prov = data.evidence_provenance, layers = prov.layers, src = prov.source_evidence || {};
+      const missing = src.missing_or_uncertain_summary ? ` · Gaps/uncertainty: ${src.missing_or_uncertain_summary}.` : "";
+      const muscles = layers.muscle_display && layers.muscle_display !== "not_applicable" ? ` · Muscles: ${layers.muscle_display.replaceAll("_", " ")}.` : "";
+      $("evidence-layers").hidden = false;
+      text($("evidence-layers-text"), `Layer separation — Source: ${layers.recorded_source}${src.frame_count ? ` (${src.frame_count} frames)` : ""}.${missing} Kinematic projection: ${layers.kinematic_projection}. Controllers: ${(layers.controllers || []).join(", ")}. Physics: ${layers.physical_simulation}.${muscles}`);
+    }
     if (!data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
     const controllable = dynamicObjects();
     $("actor-controls").hidden = Boolean(data.snapshot?.human) || controllable.length < 2;

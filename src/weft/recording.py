@@ -712,3 +712,93 @@ def verify_recording(root):
             "video_frames": manifest["video_frames"], "manifest_sha256": digest(root / "manifest.json"),
             "replay": str(root / "replay.html"), "video": str(root / "video.mp4"),
             "scope": "File integrity and complete recorded-state replay; not physical validation"}
+
+
+def recover_incomplete_recording(source_dir, out_dir, *, export=True):
+    """Non-destructively recover complete validated journal events into a new recording directory."""
+    source_dir, out_dir = Path(source_dir).resolve(), Path(out_dir).resolve()
+    if not source_dir.is_dir():
+        raise FileNotFoundError(f"Recording directory does not exist: {source_dir}")
+    if out_dir.exists():
+        raise FileExistsError(f"Recovery output directory already exists: {out_dir}")
+    if out_dir == source_dir or out_dir.is_relative_to(source_dir) or source_dir.is_relative_to(out_dir):
+        raise ValueError("Recovery output directory must be outside the source recording directory")
+
+    partial_exports = sorted(
+        name
+        for name in ("video.mp4", "video.partial.mp4", "replay.html", "preview.gif", "manifest.json")
+        if (source_dir / name).exists()
+    )
+    loaded = load_recording(source_dir, allow_incomplete=True)
+    if (
+        (source_dir / "manifest.json").is_file()
+        and not loaded["interrupted"]
+        and not loaded["incomplete_journal"]
+    ):
+        raise ValueError("Recording is already complete and sealed; use verify_recording instead")
+
+    scene = loaded["scene"]
+    events = loaded["events"]
+    source_meta = dict(loaded["metadata"])
+    journal_limit = 16 * 1024 * 1024 if scene.get("profile") == "spatial-rigid-v1" else MAX_JOURNAL_BYTES
+
+    encoded_lines = []
+    journal_bytes = 0
+    for event in events:
+        line = (_encoded(event) + "\n").encode("utf-8")
+        if len(line) > MAX_EVENT_BYTES or journal_bytes + len(line) > journal_limit:
+            raise ValueError("Recovered journal exceeds recording size bound")
+        encoded_lines.append(line)
+        journal_bytes += len(line)
+
+    recovered_at = local_time()
+    recovered_steps = sum(e["type"] == "step" for e in events)
+    recovered_resets = sum(e["type"] == "reset" for e in events)
+    recovery = {
+        "schema_version": 1,
+        "recovered_from": str(source_dir),
+        "source_scene_sha256": digest(source_dir / "scene.json"),
+        "source_recording_sha256": digest(source_dir / "recording.json"),
+        "source_events_sha256": digest(source_dir / "events.jsonl"),
+        "source_status": source_meta.get("status"),
+        "source_interrupted": bool(loaded["interrupted"]),
+        "dropped_trailing_partial_event": bool(loaded["incomplete_journal"]),
+        "source_partial_export_files": partial_exports,
+        "recovered_events": len(events),
+        "recovered_steps": recovered_steps,
+        "recovered_resets": recovered_resets,
+        "recovered_at": recovered_at,
+        "scope": (
+            "Non-destructive recovery of complete validated journal events into a new directory; "
+            "the source crash directory is preserved unchanged and truncated tail data is never fabricated."
+        ),
+    }
+
+    out_dir.mkdir(parents=True, exist_ok=False)
+    write_json(out_dir / "scene.json", scene)
+    with (out_dir / "events.jsonl").open("xb") as stream:
+        for line in encoded_lines:
+            stream.write(line)
+        stream.flush()
+        os.fsync(stream.fileno())
+
+    closed_meta = {
+        **source_meta,
+        "status": "closed",
+        "closed_at": source_meta.get("closed_at") or recovered_at,
+        "events": len(events),
+        "journal_bytes": journal_bytes,
+        "recovery": recovery,
+    }
+    _atomic_json(out_dir / "recording.json", closed_meta)
+    if export:
+        verified = export_recording(out_dir)
+        return {**verified, "recovery": recovery}
+    return {
+        "directory": str(out_dir),
+        "status": "closed",
+        "events": len(events),
+        "steps": recovered_steps,
+        "resets": recovered_resets,
+        "recovery": recovery,
+    }

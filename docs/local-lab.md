@@ -79,9 +79,14 @@ Completed run artifacts stay under `run/`; interactive recordings go into new di
 
 # Export a closed journal left by a normal Ctrl+C shutdown.
 .venv-lab/bin/python -m weft replay artifacts/my-exercise-01/sessions/session-EXAMPLE --export
+
+# Non-destructively recover complete journal events from an interrupted recording into a NEW directory.
+.venv-lab/bin/python -m weft replay artifacts/my-exercise-01/sessions/session-INTERRUPTED \
+  --recover-incomplete \
+  --out artifacts/my-recovered-session-01
 ```
 
-An abrupt process kill may leave an incomplete journal. Complete JSONL records remain recoverable through `load_recording(..., allow_incomplete=True)`; the CLI does not claim automatic crash-resume or silently seal an incomplete recording. Saved MP4 uses the locally available MPEG-4 codec; the self-contained HTML/GIF replay is available when a browser does not support that codec.
+An abrupt process kill may leave an unclosed `recording.json`, a truncated trailing JSONL fragment, or a partial video export. `--recover-incomplete --out <new-dir>` copies only validated complete events into `<new-dir>`, records explicit `recovery` provenance and source SHA-256 digests in `<new-dir>/recording.json`, exports `video.mp4` / `replay.html` / `preview.gif` / `manifest.json`, and leaves the original interrupted directory byte-for-byte untouched and unsealed. Saved MP4 uses the locally available MPEG-4 codec; the self-contained HTML/GIF replay is available when a browser does not support that codec.
 
 ## Tabletop and rolling profiles
 
