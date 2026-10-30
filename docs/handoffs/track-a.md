@@ -1,3 +1,5 @@
+> **Historical split assignment — superseded October 29, 2026.** The user closed agy and assigned both tracks to this session. Use the [combined goal/current handoff](combined.md); preserve the implementation evidence below, not its obsolete ownership restrictions.
+
 # Codex — Track A handoff
 
 - Scope: video understanding and scene reconstruction for one generalizable Weft pipeline. [Parallel ownership](../parallel-workstreams.md).

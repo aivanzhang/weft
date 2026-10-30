@@ -463,6 +463,54 @@ def adapt_tracks(evidence, *, profile, tracks=None, scene=None, graph=None):
     return validate_observations(document)
 
 
+def _exercise_relationships(scene, source_sha256):
+    if not isinstance(scene, dict):
+        raise ValueError("Exercise scene must be a mapping")
+    human = scene.get("human", {})
+    if not isinstance(human, dict):
+        raise ValueError("Exercise scene human metadata must be a mapping")
+    profile = human.get("profile", scene.get("profile"))
+    supported = {"exercise-v1", "exercise-v2", "exercise-v3"}
+    if scene.get("profile") in supported and profile != scene["profile"]:
+        raise ValueError("Exercise scene and human profiles conflict")
+    if human.get("source_sha256") not in (None, source_sha256):
+        raise ValueError("Exercise scene and pose source identities conflict")
+    if profile not in supported:
+        return []
+    if profile == "exercise-v1":
+        names = tuple(f"{side}_{joint}" for side in ("left", "right") for joint in ("shoulder", "elbow", "hip", "knee"))
+    else:
+        from weft.spatial_pose import SPATIAL_JOINT_NAMES
+        names = SPATIAL_JOINT_NAMES
+    for declared in (scene.get("joint_names"), human.get("joint_names")):
+        if declared is not None and (not isinstance(declared, list) or len(declared) != len(names)
+                                     or any(not isinstance(name, str) for name in declared) or set(declared) != set(names)):
+            raise ValueError("Exercise scene joint names conflict with its body profile")
+    mobility = human.get("mobility")
+    if mobility is not None and (profile != "exercise-v3" or not isinstance(mobility, dict)
+                                 or type(mobility.get("translation_axes")) is not int or mobility["translation_axes"] != 3):
+        raise ValueError("Exercise scene mobility conflicts with its body profile")
+
+    def relationship(identifier, kind, attributes):
+        return {"id": identifier, "type": kind, "objects": ["person-0"], "status": "assumed",
+                "evidence_ids": [], "interval_s": None, "attributes": attributes}
+
+    result = [relationship("joint-" + name.replace("_", "-"), "internal_hinge_joint",
+                           {"name": name, "scope": "Authored simulator topology, not recovered joint mechanics"}) for name in names]
+    if profile == "exercise-v3":
+        roots = [f"root_{axis}" for axis in ("x", "y", "z")]
+        result.extend(relationship("joint-" + name.replace("_", "-"), "root_slide_joint",
+                                   {"name": name, "scope": "Authored root translation axis, not recovered joint mechanics"}) for name in roots)
+        result.append(relationship("virtual-root-support", "virtual_actuation",
+                                   {"axes": roots, "mobility": deepcopy(mobility),
+                                    "scope": "Authored virtual root motors, not fixed anchoring, measured force, balance or ground contact"}))
+    else:
+        scope = ("Authored fixed pelvis/torso, not observed support or ground contact" if profile == "exercise-v1" else
+                 "Authored fixed pelvis translation with articulated torso rotation, not observed support or ground contact")
+        result.append(relationship("anchored-pelvis", "anchored_support", {"scope": scope}))
+    return result
+
+
 def adapt_exercise(evidence, *, scene=None):
     """Retain pose outputs and confidence without upgrading them to anatomy measurements."""
     document = _base(evidence, "exercise")
@@ -494,14 +542,9 @@ def adapt_exercise(evidence, *, scene=None):
                 measurements["joint_angles"] = _measurement(deepcopy(raw["joints"]), "joint", "inferred")
         document["observations"].append(_observation(document, index, "person-0", visibility, "construction", [identifier], measurements))
     if scene:
-        for side in ("left", "right"):
-            for joint in ("shoulder", "elbow", "hip", "knee"):
-                document["relationships"].append({"id": f"joint-{side}-{joint}", "type": "internal_hinge_joint",
-                    "objects": ["person-0"], "status": "assumed", "evidence_ids": [], "interval_s": None,
-                    "attributes": {"name": f"{side}_{joint}", "scope": "Authored simulator topology, not recovered joint mechanics"}})
-        document["relationships"].append({"id": "anchored-pelvis", "type": "anchored_support",
-            "objects": ["person-0"], "status": "assumed", "evidence_ids": [], "interval_s": None,
-            "attributes": {"scope": "Authored fixed pelvis/torso, not observed support or ground contact"}})
+        document["relationships"] = _exercise_relationships(scene, evidence["source_sha256"])
+        if not document["relationships"]:
+            document["limits"].append("No authored topology/support adapter is available for this scene profile; no joint or support relationships are asserted.")
     document["provenance"]["scene"] = deepcopy(scene)
     document["limits"].append("Model-world meters and normalized depth are uncalibrated model estimates; muscle activation, mass, force and ground contacts remain unknown.")
     return validate_observations(document)

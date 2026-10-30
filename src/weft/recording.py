@@ -128,6 +128,11 @@ def _whole_body_contract(scene):
 
 
 def _action(action, scene):
+    if scene.get("profile") == "shared-world-v1":
+        from weft.shared_world import validate_shared_world
+        validated = validate_shared_world(scene)
+        _finite_vector(action, len(validated["action_contract"]["names"]), "Shared-world recording action", limit=1)
+        return
     if scene.get("profile") in DIRECT_PROFILES:
         _finite_vector(action, DIRECT_PROFILES[scene["profile"]][0] + 3, "Whole-body recording action", limit=1)
         return
@@ -137,6 +142,14 @@ def _action(action, scene):
 
 
 def _whole_body_event(event, scene):
+    if scene.get("profile") == "shared-world-v1":
+        normalized = event["snapshot"]["normalized_action"]
+        if event["type"] == "step":
+            if list(event["action"]) != list(normalized):
+                raise ValueError("Shared-world event action must match snapshot normalized_action")
+        elif any(value != 0 for value in normalized):
+            raise ValueError("Shared-world start/reset snapshots require zero normalized_action")
+        return
     if scene.get("profile") not in DIRECT_PROFILES:
         return
     normalized = event["snapshot"]["human"]["normalized_action"]
@@ -216,6 +229,11 @@ def _human_snapshot(human):
 
 
 def _snapshot(snapshot, scene):
+    if scene.get("profile") == "shared-world-v1":
+        from weft.shared_world import validate_shared_snapshot
+        validate_shared_snapshot(snapshot, scene)
+        _encoded(snapshot)
+        return
     if scene.get("profile") == "spatial-rigid-v1":
         from weft.spatial_rigid import validate_snapshot
         validate_snapshot(snapshot, scene)
@@ -312,6 +330,9 @@ class Recorder:
         if self.scene.get("profile") == "spatial-rigid-v1":
             from weft.spatial_rigid import validate_scene
             validate_scene(self.scene)
+        if self.scene.get("profile") == "shared-world-v1":
+            from weft.shared_world import validate_shared_world
+            self.scene = validate_shared_world(self.scene)
         human = profile in {"human", "exercise"} or self.scene.get("profile") in {"exercise-v1", "exercise-v2", "exercise-v3", *DIRECT_PROFILES}
         if self.scene.get("profile") in DIRECT_PROFILES:
             _whole_body_contract(self.scene)
@@ -421,6 +442,9 @@ def load_recording(root, *, allow_incomplete=False):
     if scene.get("profile") == "spatial-rigid-v1":
         from weft.spatial_rigid import validate_scene
         validate_scene(scene)
+    if scene.get("profile") == "shared-world-v1":
+        from weft.shared_world import validate_shared_world
+        scene = validate_shared_world(scene)
     metadata = json.loads((root / "recording.json").read_text())
     journal = root / "events.jsonl"
     if journal.stat().st_size > MAX_JOURNAL_BYTES:
@@ -532,6 +556,9 @@ def _render_human(snapshot, width):
 
 
 def render_snapshot(snapshot, scene, width=640):
+    if scene.get("profile") == "shared-world-v1":
+        from weft.shared_world import render_snapshot as render_shared
+        return render_shared(snapshot, scene, width=width)
     if scene.get("profile") == "spatial-rigid-v1":
         from weft.spatial_rigid import render_snapshot as render_spatial
         return render_spatial(snapshot, scene, width=width)
@@ -578,6 +605,9 @@ def render_snapshot(snapshot, scene, width=640):
 
 def _replay_html(scene, events):
     data = _encoded({"scene": scene, "events": events}).replace("<", "\\u003c")
+    if scene.get("profile") == "shared-world-v1":
+        template = Path(__file__).parent / "assets/shared-world-replay.html"
+        return template.read_text().replace("__WEFT_DATA__", data)
     if scene.get("profile") == "spatial-rigid-v1":
         template = Path(__file__).parent / "assets/spatial-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)

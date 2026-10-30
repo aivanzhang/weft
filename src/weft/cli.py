@@ -58,7 +58,8 @@ def main():
     lab.add_argument("--no-serve", action="store_true", help="Run stages in the terminal without a web server")
     lab.add_argument("--resume", help="Inspect a saved lab without rerunning its pipeline")
     lab.add_argument("--scene-run", help="Opt-in import of a verified spatial-rigid-v1 run into a new --out lab")
-    lab.add_argument("--learning", help="Optional verified spatial policy directory paired with --scene-run")
+    lab.add_argument("--shared-world-run", help="Opt-in import of a verified shared-world-v1 run into a new --out lab")
+    lab.add_argument("--learning", help="Optional verified policy directory paired with --scene-run or --shared-world-run")
     replay = commands.add_parser("replay", help="Verify, export, or non-destructively recover an interaction recording")
     replay.add_argument("directory")
     replay.add_argument("--export", action="store_true", help="Create video and offline replay from a closed journal")
@@ -177,6 +178,23 @@ def main():
     capabilities_cmd = commands.add_parser("capabilities", help="Inspect shared environment, action, observation, task, and evidence capabilities")
     capabilities_cmd.add_argument("--run", required=True, help="Existing verified run directory or ready lab directory")
     capabilities_cmd.add_argument("--out", help="Optional new JSON path outside the inspected directory")
+    sw_fixture = commands.add_parser("shared-world-fixture", help="Write a verified analytic shared-world-v1 coupled human+object fixture; no API calls")
+    sw_fixture.add_argument("--out", required=True, help="New sealed shared-world-v1 directory")
+    sw_adapt = commands.add_parser("shared-world-adapt", help="Adapt a verified mobile exercise-v3 run into a source-qualified shared-world-v1 run")
+    sw_adapt.add_argument("--human-run", required=True, help="Existing verified mobile exercise-v3 run or lab directory")
+    sw_adapt.add_argument("--out", required=True, help="New sealed shared-world-v1 directory outside the source")
+    sw_adapt.add_argument("--scale", type=float, default=1.0, help="Explicit body-height-to-world scale prior in [0.5, 2.0]")
+    sw_train = commands.add_parser("shared-world-train", help="Train and evaluate a bounded CEM policy on a coupled shared-world-v1 run")
+    sw_train.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
+    sw_train.add_argument("--out", required=True, help="New policy training directory outside the source run")
+    sw_train.add_argument("--seed", type=int, default=1729)
+    sw_train.add_argument("--generations", type=int, default=8)
+    sw_train.add_argument("--population", type=int, default=16)
+    sw_train.add_argument("--eval-episodes", type=int, default=8)
+    sw_lab = commands.add_parser("shared-world-lab", help="Package a verified shared-world-v1 run into a new local lab; no server started")
+    sw_lab.add_argument("--run", required=True, help="Existing verified shared-world-v1 run directory")
+    sw_lab.add_argument("--learning", help="Optional verified shared-world policy directory for the same scene")
+    sw_lab.add_argument("--out", required=True, help="New lab directory outside the immutable inputs")
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -288,6 +306,25 @@ def main():
         elif args.command == "capabilities":
             from weft.capabilities import describe_run_capabilities
             result = describe_run_capabilities(args.run, out=args.out)
+        elif args.command == "shared-world-fixture":
+            from weft.shared_world_lab import write_sealed_shared_world_fixture
+            result = write_sealed_shared_world_fixture(args.out)
+        elif args.command == "shared-world-adapt":
+            from weft.shared_world_lab import adapt_to_shared_world
+            result = adapt_to_shared_world(args.human_run, args.out, scale=args.scale)
+        elif args.command == "shared-world-train":
+            from weft.shared_world_learning import train_shared_world_policy
+            result = train_shared_world_policy(
+                args.run,
+                args.out,
+                seed=args.seed,
+                generations=args.generations,
+                population=args.population,
+                eval_episodes=args.eval_episodes,
+            )
+        elif args.command == "shared-world-lab":
+            from weft.shared_world_lab import prepare_shared_world_lab
+            result = prepare_shared_world_lab(args.run, args.out, policy_run=args.learning)
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)

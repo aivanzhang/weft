@@ -2,9 +2,11 @@
 
 Current implementation and the user's exercise-video priority are documented in the [local lab guide](docs/local-lab.md). This file retains the broader product target; the original single-ball status descriptions are historical, not the current feature inventory.
 
-**Parallel execution:** Codex owns [Track A: video understanding and scene reconstruction](docs/handoffs/track-a-goal.md); agy owns [Track B: simulation, RL and the unified lab](AGY_GOAL_PROMPT.md). These are non-overlapping layers of the same system, not exercise/object forks. Follow [ownership and durable handoffs](docs/parallel-workstreams.md). The user has resumed Track A with its scoped goal; B proceeds independently on existing contracts and fixtures.
+**Current combined assignment — October 29, 2026, 7:04 PM PDT:** the user closed agy's session and transferred Track B into this session. Codex now owns both video understanding/reconstruction and simulation/RL/lab/recording. Use the [complete replacement /goal prompt](docs/handoffs/complete-goal.md), which includes inherited unfinished work, verified evidence, remaining requirements and operating constraints. Earlier A-only/B-only assignments are historical; preserve their implementation without duplicating it. The product target below remains unchanged.
 
 **One video → an object-based world model → an interactive simulator → a trainable RL environment.**
+
+Current implementation and next actions: [combined handoff](docs/handoffs/combined.md). The goal prompt is a dated scope snapshot, not a continuously current cost/process report.
 
 Weft's goal is to turn a physical demonstration into a world an agent can act in, test, and learn from. The world should explain the recording and remain coherent when an agent takes a different action.
 

@@ -1,4 +1,12 @@
-# One Weft system, two parallel workstreams
+# Weft workstreams and integration
+
+## Current ownership — October 29, 2026, 7:04 PM PDT
+
+The user closed agy's **[CURRENT] Integrate Spatial Rigid 3D** session and transferred both tracks to this session. Codex now owns A and B, including agy's uncommitted shared-world/runtime work. The [complete combined goal](handoffs/complete-goal.md) supersedes the A-only objective, old cross-session edit prohibitions and earlier pause. Review and finish existing work; do not duplicate it or wait for the closed session. Evidence partitions, independent scoring, immutable artifacts, budget and source/runtime interface constraints still apply.
+
+The sections below retain the **historical parallel assignment and interface contract**. Their file split remains useful for future non-overlapping delegation, but it no longer assigns work to an active agy session. The latest complete goal records the inherited diff and next safe integration steps.
+
+Use the [combined implementation handoff](handoffs/combined.md) for current verified work, costs, live-handle status and remaining integration; historical snapshots below are retained for provenance.
 
 ## Objective and assignments
 

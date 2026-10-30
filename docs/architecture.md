@@ -32,6 +32,8 @@ Keep appearance, physics, and actor behavior separate. Use an established physic
 
 ## Implemented contracts and replacement boundaries
 
+The [coupled shared-world runtime](shared-world.md) now combines articulated bodies and rigid objects in one MuJoCo model/clock, with lab controls and exact recording. `shared_world_evidence.py` verifies exact observation documents and full source coverage at construction, packaging, loading and training boundaries. Current source-linked adaptation adds authored props; actual same-source equipment reconstruction and original/derivative evidence equivalence remain open. See the [combined handoff](handoffs/combined.md) for scoped tests, preserved failures and physical limits.
+
 These describe working code, not unimplemented abstract interfaces. `run-config.json` uses schema version 1; existing world/evidence formats are identified by their preserved implementation snapshot and must be migrated explicitly if changed.
 
 | Stage | Entry point | Inputs → outputs | Boundary |

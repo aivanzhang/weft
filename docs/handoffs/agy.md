@@ -1,3 +1,5 @@
+> **Historical split assignment — superseded October 29, 2026.** The user closed agy and assigned both tracks to this session. Use the [combined goal/current handoff](combined.md); preserve the implementation evidence below, not its obsolete ownership restrictions.
+
 # agy — Track B handoff
 
 - Assignment: simulation, reinforcement learning, and the unified local lab/recording runtime. Read [full project/task context](../../AGY_HANDOFF.md) and [ownership contract](../parallel-workstreams.md).

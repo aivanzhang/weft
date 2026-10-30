@@ -46,7 +46,7 @@ class Element {
     this.drawCalls ??= [];
     return new Proxy({}, {get: (object, name) => object[name] || ((...args) => {
       if (name === 'fillRect') this.drawCalls.length = 0;
-      this.drawCalls.push({name, args});
+      this.drawCalls.push({name, args, strokeStyle: object.strokeStyle, fillStyle: object.fillStyle, lineWidth: object.lineWidth});
     }), set: (object, name, value) => (object[name] = value, true)});
   }
   setPointerCapture() {}
@@ -55,7 +55,8 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false} = {}) {
+  const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
   for (const match of html.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)) {
@@ -102,7 +103,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     );
     state.contacts = [['actor', 'companion']];
   }
-  if (profile === 'spatial-rigid') {
+  if (profile === 'spatial-rigid' || shared) {
     Object.assign(scene, {profile: 'spatial-rigid-v1', bounds: [1, .8, .8], dt: 1/120, controlled_id: 'block',
       target: [.78, .56, .065], task: {position_tolerance: .035, speed_tolerance: .06, acceleration: 12, max_steps: 360},
       objects: [
@@ -120,7 +121,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
         {id: 'floor', role: 'static', shape: 'box', size: [.96, .76, .04], color: '#D8C9BA', position: [.5, .4, .02], quaternion: [1, 0, 0, 0], velocity: [0, 0, 0], angular_velocity: [0, 0, 0]},
       ], terminated: false, truncated: false, success: false};
   }
-  if (profile === 'exercise') {
+  if (profile === 'exercise' || shared) {
     scene.profile=mobile?'exercise-v3':spatial?'exercise-v2':'exercise-v1';scene.joint_names=['left_knee','left_elbow'];
     state.human={height:1.8,segments:[{id:'torso',a:[0,0,.8],b:[0,0,1.5],radius:.1}],
       muscles:[{name:'left_knee_flexor',a:[0,0,.7],b:[0,.1,.3],activation:.4,status:'illustrative'}],
@@ -128,7 +129,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     if(spatial||mobile)Object.assign(state.human,{view_height:2.5,view_origin:[0,0,.8]});
     if(mobile)state.human.mobility={support_enabled:true,translation:[0,0,0],contact_count:0,contacts:[]};
   }
-  if (wholeBody) {
+  if (wholeBody || shared) {
     scene.profile = 'exercise-imitation-v1';
     scene.joint_names = ['torso_twist','torso_lateral','torso_flex', ...['left','right'].flatMap(side =>
       ['shoulder_twist','shoulder_lateral','shoulder','elbow','hip_twist','hip_lateral','hip','knee'].map(joint => `${side}_${joint}`))];
@@ -138,6 +139,19 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       mobility:{support_enabled:false,translation:[0,0,0],support_force:[0,0,50],floor_height:0,contact_count:2,contacts:[]}});
     delete state.human.selected_joint; delete state.human.target_angle;
     state.whole_body_metrics={angular_rmse_rad:.12,root_rmse_model_units:.03,max_floor_penetration_model_units:.001,failure:null};
+  }
+  if (shared) {
+    Object.assign(scene, {profile:'shared-world-v1', bounds:[3,2,2.5], controlled_id:'human',
+      task:{object_goal:{target_object_id:'block',position_tolerance:.035,require_human_contact:true}}});
+    scene.action_contract.names.push(...['block','companion'].flatMap(id => ['fx','fy','fz'].map(axis => `${id}_${axis}`)));
+    scene.action_contract.physical_limits.push(...Array(6).fill(10));
+    state.controlled_id='human';
+    for (const obj of [...scene.objects,...state.objects]) if (obj.role!=='static') obj.role='passive';
+    state.contact_count=2; state.contact_summary={human_object:1,object_object:1,human_floor:0};
+    state.contact_details.push({objects:['human:left_hand','block'],kind:'human_object',position:[.24,.36,.11],distance:-.0001,normal_force:2});
+    state.contact_details[0].kind='object_object';
+    state.coupled_metrics={angular_rmse_rad:.12,root_rmse_model_units:.03,object_distance_world:.15,human_object_contacts_total:1,failure:null};
+    delete state.whole_body_metrics;
   }
   if (floorNormal) state.human.mobility.floor_normal = floorNormal;
   if (cameraBody) {
@@ -161,6 +175,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = [];
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
+  const noPolicy = cameraBody || isSpatialUntrained || (shared && !sharedTrained);
   const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
   const buildCapabilities = () => ({
     schema_version: 1,
@@ -168,11 +183,11 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     scene_profile: scene.profile,
     lab_profile: wholeBody ? 'whole_body' : cameraBody ? 'camera_body' : profile,
     entities: {
-      articulated_body_present: profile === 'exercise',
+      articulated_body_present: profile === 'exercise' || shared,
       active_control_target: state.human?.selected_joint || scene.controlled_id,
     },
     controllers: {
-      learned_policy_available: !(cameraBody || isSpatialUntrained),
+      learned_policy_available: !noPolicy,
       trained_target_id: profile === 'exercise' ? (cameraBody ? null : wholeBody ? 'all_direct_motors' : 'left_knee') : trainedActor,
     },
     evidence_separation: {physical_validation: 'unverified'},
@@ -191,31 +206,31 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       recorded_source: profile !== 'spatial-rigid'
         ? 'Sealed source video and per-frame measurements preserved in run/'
         : 'Analytic or imported scene without sealed source video',
-      kinematic_projection: profile === 'exercise'
+      kinematic_projection: profile === 'exercise' || shared
         ? 'Source-derived joint poses projected onto simplified body geometry (no physics solver)'
         : 'Not applicable (rigid-object simulation)',
       controllers: [
         'manual',
-        ...(profile === 'exercise' ? ['authored_reference_controller'] : []),
-        ...(!(cameraBody || isSpatialUntrained) ? ['learned_policy'] : []),
+        ...(profile === 'exercise' || shared ? ['authored_reference_controller'] : []),
+        ...(!noPolicy ? ['learned_policy'] : []),
       ],
-      physical_simulation: `${profile === 'exercise' ? 'mujoco_3d_articulated' : profile === 'spatial-rigid' ? 'mujoco_3d_rigid' : 'pymunk_2d'} forward dynamics under authored geometry, contact, and actuator assumptions (physical_validation: unverified)`,
-      muscle_display: profile === 'exercise' ? 'illustrative_motor_command_not_measured_activation' : 'not_applicable',
+      physical_simulation: `${shared ? 'mujoco_3d_coupled' : profile === 'exercise' ? 'mujoco_3d_articulated' : profile === 'spatial-rigid' ? 'mujoco_3d_rigid' : 'pymunk_2d'} forward dynamics under authored geometry, contact, and actuator assumptions (physical_validation: unverified)`,
+      muscle_display: profile === 'exercise' || shared ? 'illustrative_motor_command_not_measured_activation' : 'not_applicable',
     },
   });
   const status = () => ({status: backendReady ? generationFailed ? 'failed' : 'ready' : 'running', profile, directory: '/synthetic/lab',
-    learned_policy_available: !(cameraBody || isSpatialUntrained),
+    learned_policy_available: !noPolicy,
     ...(backendReady && !generationFailed ? {capabilities: buildCapabilities(), evidence_provenance: buildEvidenceProvenance()} : {}),
     ...(generationFailed ? {error:{message:'Synthetic missing source poses'}} : {}),
     ...(suppliedGround ? {ground_clearance:{status:'descriptive_no_contact_evidence',summary:{minimum:.076,median:.356,maximum:.630,positive_gap_poses:112,reference_poses:112}}} : {}),
     ...(sourceInterval ? {requested_source_interval:{first_frame:2580,last_frame:2760,initialization_frame:2620}} : {}),
-    ...(wholeBody || cameraBody ? {reference_feasibility:{status:feasibilityStatus,summary:{max_penetration_model_units:.42,
+    ...(wholeBody || cameraBody || shared ? {reference_feasibility:{status:feasibilityStatus,summary:{max_penetration_model_units:.42,
       failed_source_poses:3,source_pose_checks:10,failed_control_grid_poses:7,control_grid_checks:30}}} : {}),
     ...(temporalIdentity ? {result:{pose_identity:{mode:'temporal',repaired_frames:2}}} : {}),
     events: legacyPackageEvent && backendReady ? [{index:1,stage:'whole_body',message:'Existing packaged run without elapsed time'}] : [{index: 0, stage: backendReady ? 'ready' : 'source', elapsed_seconds: .1, message: 'Synthetic UI fixture'}],
     scene, snapshot: state, recording: backendRecording, sessions: savedSessions,
     ...(exportStatus ? {export:{status:exportStatus}} : {}),
-    artifacts: [...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...(!isSpatialUntrained ? ['training.json','rl-evaluation.json'] : []),'repair-ledger.json','reconstruction.json'] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])].map(name => ({name,bytes:500}))});
+    artifacts: [...(backendReady ? [...(profile === 'spatial-rigid' ? ['scene.json', 'interventions.json'] : ['source.mp4', ...(!generationFailed ? ['tracks.gif'] : [])]), ...(!noPolicy ? ['training.json','rl-evaluation.json'] : []),'repair-ledger.json','reconstruction.json'] : []), ...(coverage ? ['coverage-summary.json', 'reconstruction-coverage.json'] : [])].map(name => ({name,bytes:500}))});
   const artifacts = {'training.json': {completed_episodes: 10, steps: 200, seconds: .3,
     history: [{episode: 10,recent_training_success_rate: .4}]},
     'rl-evaluation.json': {policies: {q_learning: {successes: 3,episodes: 5}, random: {successes: 1,episodes: 5}}},
@@ -223,7 +238,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     'reconstruction.json': {before:{rmse_px:10},after:{rmse_px:4}},
     'policy.json': {selected_joint:'left_knee'}};
   if (coverage) artifacts['coverage-summary.json'] = coverage;
-  if (cameraBody || isSpatialUntrained) {
+  if (noPolicy) {
     delete artifacts['policy.json']; delete artifacts['training.json']; delete artifacts['rl-evaluation.json'];
     artifacts['reconstruction.json'] = {scope: isSpatialUntrained ? 'Unvalidated 3D rigid scene' : 'Unvalidated camera-aware candidate'};
     artifacts['repair-ledger.json'] = {proposals: []};
@@ -241,7 +256,15 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     artifacts['rl-evaluation.json'] = {policies:Object.fromEntries(['learned','zero','random','authored_feedback'].map((name,index)=>
       [name,{trials:[0,1,2].map(trial=>({success:trial<[2,0,1,3][index]})),mean_return:[.6,.1,.2,.7][index]}]))};
   }
-  if(profile==='exercise')artifacts['human-reference.json']={frames:[0,1.5,3,4.5].map(source_time_s=>({...clone(state),source_time_s}))};
+  if (shared && sharedTrained) {
+    artifacts['policy.json']={profile:'shared-world-policy-v1',action_names:scene.action_contract.names};
+    artifacts['training.json']={completed_generations:3,seconds:.4,history:[.2,.4,.6].map((best_training_return,generation)=>({generation,best_training_return}))};
+    artifacts['rl-evaluation.json']={policies:Object.fromEntries(['learned','zero','random','authored_feedback'].map((name,index)=>
+      [name,{successes:[2,0,1,3][index],episodes:3,mean_return:[.6,.1,.2,.7][index],mean_final_object_distance_world:.15}]))};
+  }
+  if(profile==='exercise'||shared)artifacts['human-reference.json']={frames:[0,1.5,3,4.5].map(source_time_s=>({...clone(state),source_time_s,
+    ...(shared?{contact_details:[],contact_count:0,contact_summary:{human_object:0},reference_projection:true}:{}),
+  }))};
   const requests = [], pending = [];
   let activeSteps = 0, maxActiveSteps = 0;
   function response(value,ok=true) { return {ok, status: ok?200:400, headers: {get: () => '500'}, json: async () => clone(value)}; }
@@ -273,7 +296,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
       assert(profile !== 'exercise', 'Human runs must not call /api/actor');
       if(backendRecording){request.resolve(response({error:'Stop and export the recording before changing its controlled object'},false));return;}
       const target = scene.objects.find(obj => obj.id === request.data.actor);
-      if(!target || target.role === 'static'){request.resolve(response({error:'Static or unknown object cannot be controlled'},false));return;}
+      if((!target && !(shared && request.data.actor==='human')) || target?.role === 'static'){request.resolve(response({error:'Static or unknown object cannot be controlled'},false));return;}
       for(const obj of scene.objects) if(obj.role !== 'static') obj.role = obj.id === request.data.actor ? 'active' : 'passive';
       scene.controlled_id = request.data.actor;
       state = clone(state); state.controlled_id = request.data.actor;
@@ -290,9 +313,16 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
         state.human.normalized_action=request.data.action||Array(22).fill(request.data.policy?.1:.2);
         state.human.mobility.support_force=state.human.normalized_action.slice(19).map(value=>value*100);
       }
+      if (shared && request.data.action !== undefined) {
+        if(Array.isArray(request.data.action)) {
+          assert.equal(request.data.action.length,28);
+          assert(request.data.action.every(value=>Number.isFinite(value)&&value>=-1&&value<=1));
+          state.human.normalized_action=request.data.action.slice(0,22);
+        } else assert(Number.isInteger(request.data.action)&&request.data.action>=0&&request.data.action<=7);
+      }
     } else if (path === '/api/reset' || path === '/api/record/start') {
       state = clone(state); state.steps = 0; state.time_s = 0;
-      state.objects[0].position = profile === 'spatial-rigid' ? [.24, .36, .065] : [.2,.3];
+      state.objects[0].position = profile === 'spatial-rigid' || shared ? [.24, .36, .065] : [.2,.3];
       state.terminated = state.truncated = state.success = false;
       delete state.simulation_failure;
     }
@@ -319,8 +349,8 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     action(value) { (select('[data-action]').find(element => !element.hidden && element.dataset.action === String(value)) || select('[data-action]').find(element => element.dataset.action === String(value))).click(); },
     async nextTimer() { const entry = [...timers].sort((a,b)=>a[1].at-b[1].at)[0]; assert(entry, 'Expected scheduled timer'); timers.delete(entry[0]); now=entry[1].at; entry[1].callback(); await drain(); },
     async ready() { await drain(); assert.match(ids.get('status').textContent,/running/); backendReady=true; await this.nextTimer(); await drain();
-      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||multiObject)?3:1);
-      assert.equal(ids.get('scores').children.length,(cameraBody||isSpatialUntrained)?0:(wholeBody||spatialTrained)?4:2); this.stage('play'); }
+      assert.match(ids.get('status').textContent,/ready/i); assert.equal(ids.get('toggle').disabled,false); assert.equal(ids.get('objects').children.length,(profile==='spatial-rigid'||shared||multiObject)?3:1);
+      assert.equal(ids.get('scores').children.length,noPolicy?0:(wholeBody||spatialTrained||sharedTrained)?4:2); this.stage('play'); }
   };
 }
 
@@ -880,6 +910,9 @@ async function coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion() {
 
 async function spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState() {
   const ui = fixture('spatial-rigid'); await ui.ready();
+  assert.match(ui.ids.get('readout').textContent, /scene_width/);
+  assert.doesNotMatch(ui.ids.get('readout').textContent, / m\/s/);
+  assert.doesNotMatch(ui.ids.get('spatial-readout').textContent, /\dN\b/);
   assert.equal(ui.ids.get('world-tab').textContent, '3D scene');
   assert.equal(ui.ids.get('spatial-controls').hidden, false);
   assert.equal(ui.ids.get('spatial-world-controls').hidden, false);
@@ -918,7 +951,7 @@ async function spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState
   assert.match(ui.ids.get('readout').textContent, /contacts 1 · substeps 4/);
   assert.equal(ui.ids.get('spatial-readout').hidden, false);
   assert.match(ui.ids.get('spatial-readout').textContent, /companion \(passive, sphere\)/);
-  assert.match(ui.ids.get('spatial-readout').textContent, /contact block↔floor.*Fn 9\.81N/);
+  assert.match(ui.ids.get('spatial-readout').textContent, /contact block↔floor.*normal force 9\.81 relative_mass\*scene_width\/second\^2/);
   for (const [key, expected] of [['q', 5], ['e', 6], [' ', 7], ['w', 3], ['s', 4], ['a', 1], ['d', 2]]) {
     ui.ids.get('live').dispatch('keydown', {key}); await drain();
     assert.equal(ui.pending[0].data.action, expected);
@@ -1023,11 +1056,120 @@ async function evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulati
   assert.match(spText, /Controllers: manual\./);
 }
 
+async function sharedWorldShowsBodyObjectsAndContactsInAllThreeViews() {
+  const ui=fixture('shared-world'); await ui.ready();
+  assert.equal(ui.ids.get('world-tab').textContent,'Coupled 3D world');
+  assert.equal(ui.ids.get('human-controls').hidden,false);
+  assert.equal(ui.ids.get('spatial-controls').hidden,false);
+  assert.match(ui.ids.get('world-description').textContent,/one MuJoCo model, coordinate frame, clock, and contact solver/);
+  assert.match(ui.ids.get('muscle-readout').textContent,/38 illustrative muscle bands.*not measured activation/);
+  const calls=ui.ids.get('live').drawCalls;
+  assert.deepEqual(calls.filter(c=>c.name==='fillText').map(c=>c.args[0]),['Front: x / height','Top: x / depth','3D: coupled world']);
+  assert.equal(calls.filter(c=>c.name==='clip').length,3);
+  assert.equal(calls.filter(c=>c.name==='stroke'&&c.strokeStyle==='#C6A58A').length,3,'Human segment must appear in each view');
+  assert.equal(calls.filter(c=>c.name==='fill'&&c.fillStyle==='#965644').length,21,'Six box faces and one ordinary contact appear in each view');
+  assert.equal(calls.filter(c=>c.name==='arc'&&c.args[2]===4.5).length,3,'Human-object contacts are visually distinct in each view');
+  for(const c of calls.filter(c=>['moveTo','lineTo','arc'].includes(c.name))) assert(c.args.every(Number.isFinite));
+  assert.match(ui.ids.get('spatial-readout').textContent,/contact \[human_object\] human:left_hand↔block/);
+  assert.doesNotMatch(ui.ids.get('spatial-readout').textContent,/\dN\b/);
+  assert.doesNotMatch(ui.ids.get('whole-body-status').textContent,/\] N\b/);
+  assert(!JSON.stringify(ui.ids.get('objects').children.map(row=>row.children.map(cell=>cell.textContent))).includes('Measured geometry'));
+  const before=ui.backendState(), requests=ui.requests.length;
+  ui.ids.get('spatial-yaw').value='-1.1';ui.ids.get('spatial-yaw').dispatch('input');
+  ui.ids.get('spatial-zoom').value='2';ui.ids.get('spatial-zoom').dispatch('input');
+  ui.ids.get('show-muscles').checked=false;ui.ids.get('show-muscles').dispatch('input');
+  assert(!ui.ids.get('live').drawCalls.some(c=>c.name==='stroke'&&c.strokeStyle?.startsWith('rgb(')));
+  assert.deepEqual(ui.backendState(),before);assert.equal(ui.requests.length,requests);
+}
+
+async function sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions() {
+  const ui=fixture('shared-world');await ui.ready();
+  assert.deepEqual(ui.ids.get('actor').children.map(option=>option.value),['human','block','companion']);
+  assert.equal(ui.ids.get('joint').children.length,22);
+  const visible=()=>ui.document.querySelectorAll('[data-action]').filter(button=>!button.hidden).map(button=>Number(button.dataset.action));
+  assert.deepEqual(visible().sort((a,b)=>a-b),[0,1,2]);
+  ui.ids.get('joint').value='root_y';ui.ids.get('joint').dispatch('change');await drain();
+  assert(!ui.requests.some(request=>request.path==='/api/joint'));
+  ui.action(1);await drain();
+  let data=ui.pending[0].data;
+  assert.equal(data.action.length,28);assert.equal(data.action[20],.25);
+  assert.equal(data.action.filter(Boolean).length,1);assert(data.action.slice(22).every(value=>value===0));
+  ui.resolveNext('/api/step');await drain();
+  ui.action(2);await drain();assert.equal(ui.pending[0].data.action[20],-.25);
+  ui.resolveNext('/api/step');await drain();
+  ui.ids.get('actor').value='companion';ui.ids.get('actor').dispatch('change');await drain();
+  ui.resolveNext('/api/actor');await drain();
+  assert.equal(ui.ids.get('joint').disabled,true);
+  assert.deepEqual(visible().sort((a,b)=>a-b),[0,1,2,3,4,5,6,7]);
+  for(const action of [0,1,2,3,4,5,6,7]) {
+    ui.action(action);await drain();assert.deepEqual(ui.pending[0].data,{steps:3,action});
+    ui.resolveNext('/api/step');await drain();
+  }
+  ui.ids.get('actor').value='human';ui.ids.get('actor').dispatch('change');await drain();
+  ui.resolveNext('/api/actor');await drain();
+  ui.ids.get('step').click();await drain();
+  assert(ui.pending[0].data.action.every(value=>value===0),'Changing actor must not leak a held object action into a human motor');
+  ui.resolveNext('/api/step');await drain();
+  assert.equal(ui.maxActiveSteps(),1);
+}
+
+async function sharedWorldPolicyAvailabilityAndControllerPayloadsStayExplicit() {
+  const untrained=fixture('shared-world');await untrained.ready();
+  assert.equal(untrained.ids.get('policy').disabled,true);assert.equal(untrained.ids.get('start-learned').disabled,true);
+  assert.match(untrained.ids.get('learning-description').textContent,/No learned coupled policy/);
+  assert(!untrained.requests.some(request=>/\/(policy|training|rl-evaluation)\.json/.test(request.path)));
+  untrained.ids.get('policy').click();untrained.ids.get('step').click();await drain();
+  assert(Array.isArray(untrained.pending[0].data.action));assert(!untrained.pending[0].data.policy);
+  untrained.resolveNext('/api/step');await drain();
+  const ui=fixture('shared-world',{sharedTrained:true});await ui.ready();
+  assert.equal(ui.ids.get('policy').disabled,false);assert.equal(ui.ids.get('start-learned').disabled,false);
+  assert.match(ui.ids.get('scores').children[0].children[1].textContent,/Learned coupled controller/);
+  assert.match(ui.ids.get('scores').children[3].children[1].textContent,/Authored human feedback/);
+  ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+  assert.deepEqual(ui.pending[0].data,{steps:1,policy:true});ui.resolveNext('/api/step');await drain();
+  ui.ids.get('reference-servo').click();ui.ids.get('step').click();await drain();
+  assert.deepEqual(ui.pending[0].data,{steps:1,controller:'reference'});ui.resolveNext('/api/step');await drain();
+  assert.match(ui.ids.get('mode-description').textContent,/Authored human feedback/);
+}
+
+async function sharedWorldRecordingLocksActorAndSerializesReset() {
+  const ui=fixture('shared-world');await ui.ready();
+  ui.ids.get('record').click();await drain();ui.resolveNext('/api/record/start');await drain();
+  assert.equal(ui.ids.get('actor').disabled,true);
+  assert.equal(ui.ids.get('joint').disabled,false,'Selected motor can change without changing the recorded actor binding');
+  ui.ids.get('reset').click();await drain();
+  assert.equal(ui.pending.filter(request=>request.path==='/api/reset').length,0);
+  ui.resolveNext('/api/step');await drain();ui.resolveNext('/api/reset');await drain();
+  assert.equal(ui.backendState().steps,0);assert.match(ui.ids.get('record-status').textContent,/Recording/);
+  assert.equal(ui.ids.get('actor').disabled,true);
+  ui.ids.get('stop-record').click();await drain();ui.resolveNext('/api/record/stop');await drain();
+  assert.equal(ui.ids.get('actor').disabled,false);assert.equal(ui.ids.get('stop-record').disabled,true);
+  assert.equal(ui.maxActiveSteps(),1);
+}
+
+async function sharedWorldKinematicScrubbingCannotAdvanceLivePhysics() {
+  const ui=fixture('shared-world',{feasibilityStatus:'feasible'});await ui.ready();
+  assert.match(ui.ids.get('feasibility-notice').textContent,/diagnostic simulation, not validated physical reconstruction/);
+  assert.match(ui.ids.get('evidence-layers-text').textContent,/Kinematic projection: Source-derived joint poses/);
+  assert.match(ui.ids.get('evidence-layers-text').textContent,/mujoco_3d_coupled forward dynamics/);
+  const state=ui.backendState(),requests=ui.requests.length;
+  ui.stage('world');ui.ids.get('reference-frame').value='2';ui.ids.get('reference-frame').dispatch('input');
+  assert.match(ui.ids.get('reference-time').textContent,/3\.00 seconds · estimated pose/);
+  assert.deepEqual(ui.backendState(),state);assert.equal(ui.requests.length,requests);
+  assert(!ui.ids.get('world-canvas').drawCalls.some(call=>call.name==='arc'&&call.args[2]===4.5),'Kinematic projection must not show live collision forces');
+  assert.equal(ui.ids.get('live').drawCalls.filter(call=>call.name==='arc'&&call.args[2]===4.5).length,3);
+  ui.ids.get('reference-play').click();assert(ui.timers.size>0);
+  ui.visibility(true);assert.equal(ui.timers.size,0);
+}
+
 checks.push(poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
   spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed,
   multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly,
-  evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulation);
+  evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulation,
+  sharedWorldShowsBodyObjectsAndContactsInAllThreeViews,sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions,
+  sharedWorldPolicyAvailabilityAndControllerPayloadsStayExplicit,sharedWorldRecordingLocksActorAndSerializesReset,
+  sharedWorldKinematicScrubbingCannotAdvanceLivePhysics);
 const requestedChecks = new Set(process.argv.slice(2));
 const selectedChecks = requestedChecks.size ? checks.filter(check => requestedChecks.has(check.name)) : checks;
 if (requestedChecks.size && selectedChecks.length !== requestedChecks.size) throw new Error('Unknown UI check name');

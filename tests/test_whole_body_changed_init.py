@@ -98,6 +98,16 @@ def test_evaluate_changed_conditions_compares_matched_baselines_with_unmodified_
         for ctrl_summary in regime["policies"].values():
             assert [row["seed"] for row in ctrl_summary["trials"]] == seeds
             assert "floor_penetration_failures" in ctrl_summary
+            assert "reset_floor_penetration_failures" in ctrl_summary
+            assert "reference_window_floor_penetration_failures" in ctrl_summary
+            assert "dynamic_only_floor_penetration_failures" in ctrl_summary
+            assert (
+                ctrl_summary["dynamic_only_floor_penetration_failures"]
+                <= ctrl_summary["floor_penetration_failures"]
+            )
+            for row in ctrl_summary["trials"]:
+                assert "initial_floor_penetration_model_units" in row
+                assert "reference_window_max_floor_penetration_model_units" in row
 
     cli_out = tmp_path / "wb-changed-cli"
     completed = subprocess.run(

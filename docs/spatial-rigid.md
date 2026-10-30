@@ -40,7 +40,7 @@ The lab copies only sealed inputs into `run/inputs/source-run/`, preserves `phys
 
 ### Bounded 3D RL training and changed-initial-condition evaluation
 
-Train a bounded 8-action linear-feedback and braking policy (`spatial-policy-v1` / `spatial_cem_v1`) from an uninformed zero-weight coast prior on any verified `spatial-rigid-v1` run, evaluate it against matched `learned`, `random`, `coast`, and `brake` controllers across both exact and collision-free perturbed initial conditions, and package it into a new local lab:
+Train a bounded 8-action linear-feedback and braking policy from an uninformed zero-weight coast prior on a verified `spatial-rigid-v1` run, evaluate it against matched `learned`, `random`, `coast`, and `brake` controllers across exact and collision-free perturbed starts, and package it into a new local lab. New training emits **policy schema 2 / `spatial-policy-v2` / `spatial_cem_v2`**. Saved **schema 1 / `spatial-policy-v1` / `spatial_cem_v1`** policies retain their exact original controller interpretation. Mixed version triples reject; scene identity, actor/order and controller tolerances must match. Settings/evaluation container schemas remain version 1.
 
 ```sh
 .venv-lab/bin/python -m weft spatial-train \
@@ -53,7 +53,7 @@ Train a bounded 8-action linear-feedback and braking policy (`spatial-policy-v1`
   --out artifacts/my-3d-trained-lab-01
 ```
 
-Reset remains exact (`jitter=False`) by default. Opt-in `options={"jitter": True, "position_jitter": ..., "velocity_jitter": ...}` samples bounded initial actor perturbations verified collision-free via `mj_geomDistance >= 1e-4`. In `artifacts/track-b-learning-changed-init-02`, the learned policy improves simulated return and reduces mean final target distance over all baselines on both the authored 3D fixture (`0.588m → 0.142m` under changed initial conditions; return `+0.2305` vs `-0.3584` coast) and the source-linked ramp candidate (`0.319m → 0.071m` nominal; `1/12` passes under changed initial conditions), while short-horizon 8×16 discrete CEM does not reliably stop inside the tight speed+position tolerance on every trial. Simulation improvement does not verify physical accuracy.
+Reset remains exact (`jitter=False`) by default. Opt-in `options={"jitter": True, "position_jitter": ..., "velocity_jitter": ...}` samples bounded initial actor perturbations verified collision-free via `mj_geomDistance >= 1e-4`. In the saved v1 study `artifacts/track-b-learning-changed-init-02`, the learned policy improves simulated return and reduces mean final target distance over the baselines on the authored fixture (`0.588 → 0.142 scene_width` under changed starts; return `+0.2305` vs `-0.3584` coast) and source-linked ramp (`0.319 → 0.071 scene_width` nominal; `1/12` changed-start passes). The authored fixture still has `0/12` changed-start successes. These are not measured metres; legacy `*_m` metric keys retain their historical names. Short-horizon discrete CEM does not reliably satisfy terminal position/speed tolerances. No old study was retrained or relabeled v2; 617 saved v1 actions were checked unchanged. Simulation improvement does not verify physical accuracy.
 
 ## What the environment contains
 

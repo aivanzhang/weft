@@ -295,6 +295,91 @@ class SpatialSession:
         return self._snapshot
 
 
+class SharedWorldSession:
+    def __init__(self, root):
+        from weft.shared_world import SharedWorldEnv, validate_shared_world
+        from weft.shared_world_evidence import verify_shared_world_sources
+        from weft.shared_world_learning import validate_shared_policy
+
+        self.scene = validate_shared_world(json.loads((root / "scene.json").read_text()))
+        self.source_binding_verification = verify_shared_world_sources(self.scene, root)
+        self.policy = json.loads((root / "policy.json").read_text()) if (root / "policy.json").is_file() else None
+        if self.policy is not None:
+            validate_shared_policy(self.policy, self.scene)
+        self.env = SharedWorldEnv(self.scene)
+        self.scene = self.env.scene
+        try:
+            self.reset(0)
+            if self.policy is not None:
+                self.policy_action()
+        except Exception:
+            self.env.close()
+            raise
+
+    def reset(self, seed):
+        self.observation, _ = self.env.reset(seed=seed, options={"jitter": False})
+        self.done, self.failure = False, None
+        self._snapshot = self.env.snapshot()
+        return self.snapshot()
+
+    def select_actor(self, name):
+        if self.failure is not None:
+            raise ValueError("Reset the failed episode before changing the control target")
+        self.observation = self.env.select_target(name)
+        self.scene = self.env.scene
+        self._snapshot = self.env.snapshot()
+
+    def policy_action(self):
+        if self.policy is None:
+            raise ValueError("This shared-world run has no learned policy; use manual or reference controls")
+        from weft.shared_world_learning import policy_action
+
+        return policy_action(self.policy, self.env).tolist()
+
+    def reference_action(self):
+        return self.env.authored_action().tolist()
+
+    def resolve_action(self, action):
+        expected = len(self.env.action_names)
+        if type(action) is int:
+            if self.scene["controlled_id"] == "human":
+                raise ValueError(f"Human control requires a {expected}-element normalized motor+object vector")
+            if not 0 <= action <= 7:
+                raise ValueError("Shared-world rigid object action must be an integer 0–7")
+            return self.env.manual_action_vector(
+                object_id=self.scene["controlled_id"],
+                object_action_code=action,
+            ).tolist()
+        if (
+            not isinstance(action, list)
+            or len(action) != expected
+            or any(type(v) not in (int, float) or not math.isfinite(v) or not -1.0 <= v <= 1.0 for v in action)
+        ):
+            raise ValueError(f"Shared-world action requires exactly {expected} finite numbers within [-1, 1]")
+        return [float(v) for v in action]
+
+    def step(self, action):
+        vector = self.resolve_action(action)
+        try:
+            self.observation, reward, terminated, truncated, info = self.env.step(vector)
+            self._snapshot = self.env.snapshot()
+        except RuntimeError as error:
+            self.done = True
+            self.failure = {
+                "reason": str(error),
+                "attempted_action": vector,
+                "scope": "Last valid state shown; no terminal state was fabricated.",
+            }
+            raise
+        self.done = terminated or truncated
+        return reward, terminated, truncated, info
+
+    def snapshot(self):
+        if self.failure:
+            return {**self._snapshot, "terminated": True, "simulation_failure": self.failure}
+        return self._snapshot
+
+
 class Lab:
     def __init__(self, root):
         self.root = Path(root).resolve()
@@ -359,7 +444,8 @@ class Lab:
                 raise ValueError("The environment is not ready; inspect the pipeline status")
             verify_artifacts(self.root / "run")
             cls = {"rolling": RollingSession, "planar": PlanarSession, "appearance": PlanarSession,
-                   "spatial-rigid": SpatialSession, "exercise": HumanSession}[self.config["profile"]]
+                   "spatial-rigid": SpatialSession, "shared-world": SharedWorldSession,
+                   "exercise": HumanSession}[self.config["profile"]]
             if self.config.get('control_profile') == 'whole_body':
                 if self.config['profile'] != 'exercise':
                     raise ValueError('Whole-body control requires an exercise lab')
@@ -389,13 +475,15 @@ class Lab:
         artifacts = self.artifacts or []
         policy_ready = (session.scene.get("learned_policy_available") is not False
                         and not isinstance(session, CameraHumanSession)
-                        and (not isinstance(session, SpatialSession) or session.policy is not None))
+                        and (not isinstance(session, (SpatialSession, SharedWorldSession)) or session.policy is not None))
         trained_target = None
         if policy_ready:
             if isinstance(session, RollingSession):
                 trained_target = "ball-0"
             elif isinstance(session, (PlanarSession, SpatialSession)):
                 trained_target = session.trained_controlled_id
+            elif isinstance(session, SharedWorldSession):
+                trained_target = "coupled_human_and_" + session.scene["task"]["object_goal"]["target_object_id"]
             elif isinstance(session, WholeBodySession):
                 trained_target = "all_direct_motors"
             elif isinstance(session, HumanSession) and session.policy is not None:
@@ -405,8 +493,10 @@ class Lab:
             and Path(item["name"]).suffix.lower() in (".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv")
             for item in artifacts
         )
-        has_reference = any(item["name"] == "human-reference.json" for item in artifacts) or bool(
-            getattr(session, "spec", {}).get("reference")
+        has_reference = (
+            any(item["name"] == "human-reference.json" for item in artifacts)
+            or bool(getattr(session, "spec", {}).get("reference"))
+            or bool(session.scene.get("human_spec", {}).get("reference"))
         )
         return describe_capabilities(
             session.scene,
@@ -436,6 +526,8 @@ class Lab:
         pose_quality = _bounded_json("pose-quality.json")
         obs_meta = _bounded_json("observations.json")
         coverage_summary = _bounded_json("coverage-summary.json")
+        scene_doc = _bounded_json("scene.json")
+        source_binding = scene_doc.get("source_binding") if isinstance(scene_doc, dict) else None
 
         has_video = bool(capabilities["evidence_separation"]["source_video_present"])
         has_obs = (run_dir / "observations.json").is_file()
@@ -447,11 +539,26 @@ class Lab:
                 if type(source_meta.get(key)) is int:
                     frame_count = source_meta[key]
                     break
+        if isinstance(source_binding, dict) and source_binding.get("mode") == "source_qualified":
+            source_sha = source_sha or source_binding.get("source_sha256")
+            if frame_count is None and type(source_binding.get("total_source_frames")) is int:
+                frame_count = source_binding["total_source_frames"]
         missing_summary = None
         if coverage_summary is not None and type(coverage_summary.get("missing_observation_slots")) is int:
             missing_summary = (
                 f"{coverage_summary['missing_observation_slots']}/{coverage_summary.get('observation_slots', '?')} "
                 "unavailable object-frame slots preserved without interpolation"
+            )
+        elif isinstance(source_binding, dict) and source_binding.get("mode") == "source_qualified":
+            bindings = source_binding.get("entity_bindings", [])
+            tot_slots = sum(
+                row.get("observed_slots", 0) + row.get("missing_slots", 0) + row.get("pre_init_slots", 0)
+                for row in bindings if isinstance(row, dict)
+            )
+            obs_slots = sum(row.get("observed_slots", 0) for row in bindings if isinstance(row, dict))
+            missing_summary = (
+                f"{obs_slots}/{tot_slots} observed entity-frame slots across {len(bindings)} coupled entities "
+                "(missing and authored-addition slots preserved explicitly)"
             )
         elif pose_quality is not None and type(pose_quality.get("unusable_frames")) is int:
             missing_summary = (
@@ -479,7 +586,7 @@ class Lab:
 
         if has_video:
             recorded_desc = "Sealed source video and per-frame measurements preserved in run/"
-        elif source_meta is not None or has_obs:
+        elif source_meta is not None or has_obs or (isinstance(source_binding, dict) and source_binding.get("mode") == "source_qualified"):
             recorded_desc = "Source-linked metadata/observations preserved; no video file sealed in run/"
         else:
             recorded_desc = "Analytic or imported scene without sealed source video"
@@ -515,8 +622,9 @@ class Lab:
     def summary(self):
         status = self.status()
         result = {**status, "profile": self.config["profile"], "directory": str(self.root)}
-        if self.config.get('control_profile') in ('whole_body', 'camera_body'):
-            result['reference_feasibility'] = self.config.get('reference_feasibility')
+        if self.config.get('control_profile') in ('whole_body', 'camera_body') or self.config.get('profile') == 'shared-world':
+            if 'reference_feasibility' in self.config:
+                result['reference_feasibility'] = self.config.get('reference_feasibility')
         if self.config.get('control_profile') == 'camera_body' and 'ground_clearance' in self.config:
             result['ground_clearance'] = self.config['ground_clearance']
         scene_config = self.config.get("scene_config")
@@ -563,8 +671,8 @@ class Lab:
             session.select_joint(data.get("joint"))
             return {"snapshot": session.snapshot(), "scene": session.scene, "capabilities": self.capabilities(session)}
         if path == "/api/actor":
-            if not isinstance(session, (PlanarSession, SpatialSession)):
-                raise ValueError("Object selection is available only for rigid-object runs")
+            if not isinstance(session, (PlanarSession, SpatialSession, SharedWorldSession)):
+                raise ValueError("Object selection is available only for rigid-object or shared-world runs")
             if self.recorder:
                 raise ValueError("Stop and export the recording before changing its controlled object")
             session.select_actor(data.get("actor"))
@@ -601,6 +709,14 @@ class Lab:
                     raise ValueError('Choose one whole-body action vector, learned policy or reference controller')
                 if 'action' in data:
                     session.validate_action(action)
+            elif isinstance(session, SharedWorldSession):
+                if data.get('controller') not in (None, 'reference'):
+                    raise ValueError('Unknown shared-world controller')
+                selectors = int('action' in data) + int(data.get('policy', False)) + int(data.get('controller') is not None)
+                if selectors != 1:
+                    raise ValueError('Choose one shared-world action, learned policy or reference controller')
+                if 'action' in data:
+                    action = session.resolve_action(action)
             elif ('controller' in data or type(action) is not int or not 0 <= action <= maximum_action):
                 raise ValueError(f'Use action 0–{maximum_action}; whole-body controllers require a whole-body run')
             transitions = []
@@ -616,11 +732,12 @@ class Lab:
                         return {"snapshot": session.snapshot(), "transitions": transitions, "recording": False,
                                 "warning": f"Recording stopped at its bound: {error}. Prior actions are saved."}
                 chosen = (session.policy_action() if data.get('policy', False) else
-                          session.reference_action() if data.get('controller') == 'reference' else action)
+                          session.reference_action() if data.get('controller') == 'reference' else
+                          session.resolve_action(action) if isinstance(session, SharedWorldSession) else action)
                 try:
                     reward, terminated, truncated, info = session.step(chosen)
                 except RuntimeError:
-                    if not isinstance(session, (WholeBodySession, SpatialSession)) or session.failure is None:
+                    if not isinstance(session, (WholeBodySession, SpatialSession, SharedWorldSession)) or session.failure is None:
                         raise
                     if self.recorder:
                         recorder, self.recorder = self.recorder, None
@@ -645,7 +762,13 @@ class Lab:
             # Start at a seeded reset so every saved action stream can be reproduced.
             snapshot = session.reset(self.seed)
             name = f"session-{uuid4().hex[:12]}"
-            recorder_profile = "spatial-rigid" if session.scene.get("profile") == "spatial-rigid-v1" else self.config["profile"]
+            recorder_profile = (
+                "shared-world"
+                if session.scene.get("profile") == "shared-world-v1"
+                else "spatial-rigid"
+                if session.scene.get("profile") == "spatial-rigid-v1"
+                else self.config["profile"]
+            )
             recorder = Recorder(self.root / "sessions" / name, session.scene, profile=recorder_profile)
             recorder.start(snapshot, seed=self.seed)
             self.recorder = recorder
@@ -881,10 +1004,13 @@ def prepare_lab(video, out, *, profile="planar", config=None, episodes=1500, eva
 
 def launch_lab(args):
     scene_run = getattr(args, "scene_run", None)
+    shared_world_run = getattr(args, "shared_world_run", None)
     scene_learning = getattr(args, "learning", None)
+    if scene_run and shared_world_run:
+        raise ValueError("Choose either --scene-run or --shared-world-run, not both")
     if args.resume:
-        if args.video or args.out or args.config or scene_run or scene_learning:
-            raise ValueError("--resume cannot be combined with --video, --out, --config, or --scene-run")
+        if args.video or args.out or args.config or scene_run or shared_world_run or scene_learning:
+            raise ValueError("--resume cannot be combined with --video, --out, --config, --scene-run, or --shared-world-run")
         root = Path(args.resume).resolve()
         if not (root / "lab-config.json").is_file():
             raise ValueError("--resume requires an existing lab directory")
@@ -894,9 +1020,15 @@ def launch_lab(args):
         from weft.spatial_lab import prepare_spatial_lab
         prepare_spatial_lab(scene_run, args.out, policy_run=scene_learning)
         root = Path(args.out).resolve()
+    elif shared_world_run:
+        if args.video or args.config or not args.out:
+            raise ValueError("--shared-world-run requires a new --out directory and cannot be combined with --video or --config")
+        from weft.shared_world_lab import prepare_shared_world_lab
+        prepare_shared_world_lab(shared_world_run, args.out, policy_run=scene_learning)
+        root = Path(args.out).resolve()
     else:
         if scene_learning:
-            raise ValueError("--learning requires --scene-run")
+            raise ValueError("--learning requires --scene-run or --shared-world-run")
         if not args.video or not args.out:
             raise ValueError("Provide --video and a new --out directory")
         root = prepare_lab(args.video, args.out, profile=args.profile, config=args.config,
@@ -912,7 +1044,7 @@ def launch_lab(args):
             server = LabServer(("127.0.0.1", args.port), lab)
             print(f"\nWeft local lab: http://127.0.0.1:{server.server_port}/#token={lab.token}", flush=True)
             print(f"Artifacts: {root}\nOpen the link in your browser. Ctrl+C stops the lab; recordings stay on disk.\n", flush=True)
-        if not args.resume and not scene_run:
+        if not args.resume and not scene_run and not shared_world_run:
             lab.start_worker()
         if args.no_serve:
             last = -1

@@ -1,3 +1,5 @@
+> **Historical split assignment — superseded October 29, 2026.** The user closed agy and assigned both tracks to this session. Use the [combined goal/current handoff](docs/handoffs/complete-goal.md); preserve the implementation evidence below, not its obsolete ownership restrictions.
+
 Own and complete Track B of Weft: the shared simulation, reinforcement-learning and inspection/recording runtime for one generalizable video-to-environment system. Implement and verify the work, not just a plan. Continue beyond the first milestone until the Track B acceptance criteria are satisfied, while preserving the broader Weft goal and coordinating cross-track dependencies.
 
 ## Project and collaboration context

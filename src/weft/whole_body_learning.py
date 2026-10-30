@@ -210,7 +210,29 @@ def train_whole_body(spec, out, *, seed=1729, generations=8, population=16,
             env.close()
 
 
+def _window_reference_max_penetration(env):
+    """Zero-physics check of max floor penetration along the exact target trajectory window."""
+    import mujoco
+
+    saved_qpos = env.data.qpos.copy()
+    saved_qvel = env.data.qvel.copy()
+    try:
+        worst = 0.0
+        for step_idx in range(env.horizon_steps + 1):
+            target, _ = env._target_at(step_idx * env.dt)
+            env.data.qpos[env._q] = target
+            env.data.qvel[:] = 0.0
+            mujoco.mj_forward(env.model, env.data)
+            worst = max(worst, float(env._floor_penetration()))
+        return worst
+    finally:
+        env.data.qpos[:] = saved_qpos
+        env.data.qvel[:] = saved_qvel
+        mujoco.mj_forward(env.model, env.data)
+
+
 def _summarize_controller_trials(trials):
+    limit = SUCCESS_LIMITS['max_floor_penetration_model_units']
     valid_ang = [row['angular_rmse_rad'] for row in trials if row['angular_rmse_rad'] is not None]
     valid_root = [row['root_rmse_model_units'] for row in trials if row['root_rmse_model_units'] is not None]
     tracking_passes = sum(
@@ -224,7 +246,23 @@ def _summarize_controller_trials(trials):
         for row in trials
     )
     floor_failures = sum(
-        bool(row['max_floor_penetration_model_units'] > SUCCESS_LIMITS['max_floor_penetration_model_units'])
+        bool(row['max_floor_penetration_model_units'] > limit)
+        for row in trials
+    )
+    reset_floor_failures = sum(
+        bool(row.get('initial_floor_penetration_model_units', 0.0) > limit)
+        for row in trials
+    )
+    ref_window_floor_failures = sum(
+        bool(row.get('reference_window_max_floor_penetration_model_units', 0.0) > limit)
+        for row in trials
+    )
+    dynamic_only_floor_failures = sum(
+        bool(
+            row['max_floor_penetration_model_units'] > limit
+            and row.get('initial_floor_penetration_model_units', 0.0) <= limit
+            and row.get('reference_window_max_floor_penetration_model_units', 0.0) <= limit
+        )
         for row in trials
     )
     return {
@@ -233,6 +271,9 @@ def _summarize_controller_trials(trials):
         'success_rate': sum(int(row['success']) for row in trials) / len(trials),
         'diagnostic_tracking_within_rmse_bounds_rate': tracking_passes / len(trials),
         'floor_penetration_failures': floor_failures,
+        'reset_floor_penetration_failures': reset_floor_failures,
+        'reference_window_floor_penetration_failures': ref_window_floor_failures,
+        'dynamic_only_floor_penetration_failures': dynamic_only_floor_failures,
         'mean_return': float(np.mean([row['return'] for row in trials])),
         'mean_angular_rmse_rad': float(np.mean(valid_ang)) if valid_ang else None,
         'mean_root_rmse_model_units': float(np.mean(valid_root)) if valid_root else None,
@@ -299,9 +340,11 @@ def evaluate_changed_conditions(
     rng = np.random.default_rng(seed)
     envs = [WholeBodyEnv(spec, start_time_s=start, horizon_steps=horizon_steps) for start in eval_starts]
     try:
+        window_ref_penetrations = []
         for env in envs:
             env.reset(seed=0, options={'jitter': False})
             policy_action(policy, env)
+            window_ref_penetrations.append(_window_reference_max_penetration(env))
 
         out.mkdir(parents=True, exist_ok=False)
         started = time.perf_counter()
@@ -347,6 +390,8 @@ def evaluate_changed_conditions(
                                 'initial_root_offset_rmse_model_units': reset_info['initial_root_offset_rmse_model_units'],
                                 'initial_angular_speed_rmse_rad_s': reset_info['initial_angular_speed_rmse_rad_s'],
                                 'initial_root_speed_rmse_model_units_s': reset_info['initial_root_speed_rmse_model_units_s'],
+                                'initial_floor_penetration_model_units': reset_info['initial_floor_penetration_model_units'],
+                                'reference_window_max_floor_penetration_model_units': window_ref_penetrations[win_idx],
                                 **metrics,
                             }
                         )
@@ -381,7 +426,7 @@ def evaluate_changed_conditions(
             ctrl_results = {}
             for name, weights, is_random in controllers:
                 trials = []
-                for env, start_s, t_seed in zip(envs, eval_starts, pert_seeds):
+                for win_idx, (env, start_s, t_seed) in enumerate(zip(envs, eval_starts, pert_seeds)):
                     _, reset_info = env.reset(seed=t_seed, options=reset_opts)
                     metrics, _ = rollout(
                         env,
@@ -400,6 +445,8 @@ def evaluate_changed_conditions(
                             'initial_root_offset_rmse_model_units': reset_info['initial_root_offset_rmse_model_units'],
                             'initial_angular_speed_rmse_rad_s': reset_info['initial_angular_speed_rmse_rad_s'],
                             'initial_root_speed_rmse_model_units_s': reset_info['initial_root_speed_rmse_model_units_s'],
+                            'initial_floor_penetration_model_units': reset_info['initial_floor_penetration_model_units'],
+                            'reference_window_max_floor_penetration_model_units': window_ref_penetrations[win_idx],
                             **metrics,
                         }
                     )

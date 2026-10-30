@@ -1,3 +1,5 @@
+> **Historical split assignment — superseded October 29, 2026.** The user closed agy and assigned both tracks to this session. Use the [combined goal/current handoff](complete-goal.md); preserve the implementation evidence below, not its obsolete ownership restrictions.
+
 # Track A goal — video understanding and scene reconstruction
 
 Own Track A of the shared Weft project: turn diverse source videos into evidence-backed executable-world candidates for one generalizable video-to-RL system. Preserve the broader product goal in `goal.md`; balls, tabletop scenes, exercises and other videos are validation cases, not separate products. Do not declare the full project complete when only this track succeeds.

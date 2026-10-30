@@ -17,12 +17,15 @@
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
+  const sharedWorld = () => scene?.profile === "shared-world-v1";
+  const sharedHumanTarget = () => sharedWorld() && (snapshot?.controlled_id || scene?.controlled_id) === "human";
+  const sharedObjectTarget = () => sharedWorld() && !sharedHumanTarget();
   const dynamicObjects = () => (scene?.objects || []).filter((obj) => obj.role !== "static");
   const number = (value, places = 3) => typeof value === "number" && Number.isFinite(value) ? value.toFixed(places) : "unavailable";
   const held = new Set();
   const keyActions = {ArrowLeft: 1, a: 1, ArrowRight: 2, d: 2, ArrowUp: 3, w: 3, ArrowDown: 4, s: 4, " ": 5};
   const spatialKeys = {ArrowLeft: 1, a: 1, A: 1, ArrowRight: 2, d: 2, D: 2, ArrowUp: 3, w: 3, W: 3, ArrowDown: 4, s: 4, S: 4, q: 5, Q: 5, PageUp: 5, e: 6, E: 6, PageDown: 6, " ": 7};
-  const keyAction = (key) => spatialRigid() ? spatialKeys[key] : keyActions[key] === undefined ? undefined : wholeBody() && key === " " ? 0 : current?.profile === "exercise" ? (key === " " ? 3 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : 2) : keyActions[key];
+  const keyAction = (key) => (spatialRigid() || sharedObjectTarget()) ? spatialKeys[key] : (wholeBody() || sharedHumanTarget()) ? (key === " " ? 0 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : ["ArrowRight", "d", "ArrowDown", "s"].includes(key) ? 2 : undefined) : keyActions[key] === undefined ? undefined : current?.profile === "exercise" ? (key === " " ? 3 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : 2) : keyActions[key];
   let actionNames = ["coast", "left", "right", "up", "down", "brake"];
   const fileURL = (name) => `/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   const text = (element, value) => { element.textContent = String(value); };
@@ -59,6 +62,7 @@
 
   function draw(canvas, state) {
     if (!scene || !state) return;
+    if (sharedWorld()) { drawSharedWorld(canvas, state); return; }
     if (state.human) { drawHuman(canvas, state); return; }
     if (spatialRigid()) { drawSpatial(canvas, state); return; }
     const width = 960, height = Math.round(width * scene.height / (scene.width || 1));
@@ -220,6 +224,109 @@
       ctx.restore();
     });
   }
+  function drawSharedWorld(canvas, state) {
+    const width = 1080, height = 420;
+    if (canvas.width !== width || canvas.height !== height) { canvas.width = width; canvas.height = height; }
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#FBF7F1"; ctx.fillRect(0, 0, width, height);
+    const yaw = Number($("spatial-yaw")?.value ?? 0.5), zoom = Number($("spatial-zoom")?.value ?? 1);
+    const follow = Boolean($("spatial-follow")?.checked), showMuscles = Boolean($("show-muscles")?.checked);
+    const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(0.5), sp = Math.sin(0.5), pane = width / 3;
+    const scale = zoom * Math.min(pane * 0.84 / Math.max(scene.bounds[0], scene.bounds[1]), height * 0.76 / Math.max(...scene.bounds));
+    const movingObjects = state.objects.filter((o) => o.role !== "static");
+    const center = follow && movingObjects.length
+      ? [0, 1, 2].map((i) => movingObjects.reduce((sum, o) => sum + o.position[i], 0) / movingObjects.length)
+      : scene.bounds.map((v) => v / 2);
+    const floorZ = state.human?.mobility?.floor_height ?? 0;
+    const goalTol = scene.task?.object_goal?.position_tolerance || 0.05;
+    const controlledId = state.controlled_id || scene.controlled_id;
+    const views = [
+      {name: "Front: x / height", matrix: [[1, 0, 0], [0, 0, -1]], depth: [0, 1, 0]},
+      {name: "Top: x / depth", matrix: [[1, 0, 0], [0, -1, 0]], depth: [0, 0, 1]},
+      {name: "3D: coupled world", matrix: [[cy, -sy, 0], [sy * sp, cy * sp, -cp]], depth: [sy * cp, cy * cp, sp]},
+    ];
+    const dot = (a, b) => a.reduce((sum, v, i) => sum + v * b[i], 0);
+    views.forEach((view, index) => {
+      ctx.save();
+      ctx.beginPath(); ctx.rect(index * pane, 0, pane, height); ctx.clip();
+      if (index > 0) { ctx.strokeStyle = "#E9DED1"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(index * pane, 0); ctx.lineTo(index * pane, height); ctx.stroke(); }
+      const project = (p) => {
+        const q = p.map((v, i) => v - center[i]);
+        return [(index + 0.5) * pane + dot(q, view.matrix[0]) * scale, height * 0.54 + dot(q, view.matrix[1]) * scale];
+      };
+      ctx.fillStyle = "#214F50"; ctx.font = "15px system-ui"; ctx.fillText(view.name, index * pane + 10, 22);
+      ctx.strokeStyle = "#E6D8C8"; ctx.lineWidth = 1;
+      for (const f of [0.2, 0.5, 0.8]) {
+        const gx = scene.bounds[0] * f, gy = scene.bounds[1] * f;
+        for (const [a, b] of [[[gx, 0, floorZ], [gx, scene.bounds[1], floorZ]], [[0, gy, floorZ], [scene.bounds[0], gy, floorZ]]]) {
+          const p1 = project(a), p2 = project(b); ctx.beginPath(); ctx.moveTo(...p1); ctx.lineTo(...p2); ctx.stroke();
+        }
+      }
+      const items = [];
+      for (const body of state.objects) {
+        const model = scene.objects.find((item) => item.id === body.id) || body;
+        const obj = {...model, ...body};
+        const moving = obj.role !== "static";
+        if (obj.shape === "sphere") { items.push({tier: moving ? 1 : 0, depth: dot(obj.position, view.depth), kind: "sphere", obj}); continue; }
+        const vertices = spatialCorners(obj);
+        for (const face of spatialFaces) {
+          const points = face.map((i) => vertices[i]);
+          items.push({tier: moving ? 1 : 0, depth: points.reduce((sum, p) => sum + dot(p, view.depth), 0) / 4, kind: "poly", moving, points, color: obj.color || "#C5A059"});
+        }
+      }
+      for (const seg of state.human?.segments || []) {
+        const mid = [0, 1, 2].map((i) => (seg.a[i] + seg.b[i]) / 2);
+        items.push({tier: 1, depth: dot(mid, view.depth), kind: "capsule", seg});
+      }
+      for (const item of items.sort((a, b) => a.tier - b.tier || a.depth - b.depth)) {
+        if (item.kind === "poly") {
+          ctx.beginPath(); ctx.strokeStyle = item.moving ? "#214F50" : "#AAA399"; ctx.lineWidth = 1; ctx.fillStyle = item.color;
+          item.points.forEach((p, i) => { const [x, y] = project(p); if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); });
+          ctx.closePath(); if (item.moving) ctx.fill(); ctx.stroke();
+        } else if (item.kind === "sphere") {
+          const obj = item.obj, [x, y] = project(obj.position);
+          ctx.beginPath(); ctx.strokeStyle = obj.role !== "static" ? "#214F50" : "#AAA399"; ctx.lineWidth = 1;
+          ctx.fillStyle = obj.color || "#C5A059"; ctx.arc(x, y, Math.max(2, obj.radius * scale), 0, 2 * Math.PI);
+          if (obj.role !== "static") ctx.fill(); ctx.stroke();
+        } else {
+          const pa = project(item.seg.a), pb = project(item.seg.b), w = Math.max(2, 2 * item.seg.radius * scale);
+          ctx.lineCap = "round"; ctx.strokeStyle = "#214F50"; ctx.lineWidth = w + 2;
+          ctx.beginPath(); ctx.moveTo(...pa); ctx.lineTo(...pb); ctx.stroke();
+          ctx.strokeStyle = controlledId === "human" ? "#C6A58A" : "#9BB3B0"; ctx.lineWidth = w; ctx.stroke();
+          ctx.lineCap = "butt";
+        }
+      }
+      if (showMuscles) {
+        for (const m of state.human?.muscles || []) {
+          const pa = project(m.a), pb = project(m.b), act = m.activation;
+          ctx.strokeStyle = `rgb(${Math.round(150 + 55 * act)},${Math.round(92 - 30 * act)},${Math.round(72 - 20 * act)})`;
+          ctx.lineWidth = 1.5 + 2.5 * act; ctx.beginPath(); ctx.moveTo(...pa); ctx.lineTo(...pb); ctx.stroke();
+        }
+      }
+      if (controlledId !== "human") {
+        const controlled = state.objects.find((item) => item.id === controlledId);
+        if (controlled) {
+          const model = scene.objects.find((item) => item.id === controlled.id) || controlled;
+          const [cx, cyPos] = project(controlled.position);
+          const extent = (model.radius || Math.max(...(model.size || [0.05])) / 2) * scale + 5;
+          ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.arc(cx, cyPos, extent, 0, 2 * Math.PI); ctx.stroke();
+        }
+      }
+      const target = state.target || scene.target;
+      if (target) {
+        const [tx, ty] = project(target);
+        ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.setLineDash([6, 4]); ctx.lineWidth = 2;
+        ctx.arc(tx, ty, Math.max(3, goalTol * scale), 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
+      }
+      for (const c of state.contact_details || []) {
+        const [x, y] = project(c.position), coupled = c.kind === "human_object";
+        ctx.beginPath(); ctx.fillStyle = coupled ? "#C7795D" : "#965644";
+        ctx.arc(x, y, coupled ? 4.5 : 2.5, 0, 2 * Math.PI); ctx.fill();
+        if (coupled) { ctx.strokeStyle = "#214F50"; ctx.lineWidth = 1; ctx.stroke(); }
+      }
+      ctx.restore();
+    });
+  }
   function updateSnapshot(state) {
     if (state.simulation_failure) {
       const message = `Simulation failed: ${state.simulation_failure.reason || "unknown dynamics failure"}. Showing the last valid state, not a fabricated terminal pose. Reset before continuing.`;
@@ -230,6 +337,24 @@
     }
     snapshot = state; draw($("live"), state);
     updateControls();
+    if (sharedWorld()) {
+      const h = state.human, cm = state.coupled_metrics || {}, root = h?.mobility;
+      const hoCount = state.contact_summary?.human_object ?? 0;
+      const targetId = scene.task?.object_goal?.target_object_id || state.controlled_id;
+      const suffix = cm.failure || (state.success ? "TASK SUCCESS — reset to continue" : state.terminated || state.truncated ? "TRIAL ENDED — reset to continue" : `target: ${state.controlled_id}`);
+      text($("readout"), `t ${number(state.time_s, 2)}s · step ${state.steps} · angular RMSE ${number(cm.angular_rmse_rad)} rad · root RMSE ${number(cm.root_rmse_model_units)} · ${targetId} dist ${number(cm.object_distance_world)} · contacts ${state.contact_count ?? 0} (${hoCount} human↔object) · ${suffix}`);
+      const forceUnits = cm.contact_force_units || scene.action_contract?.units?.[19] || "uncalibrated model force units";
+      text($("whole-body-status"), `Virtual root forces [${(root?.support_force || []).map((v) => number(v, 1)).join(", ")}] ${forceUnits} · ${root?.contact_count ?? 0} simulated floor contacts · ${cm.human_object_contacts_total ?? 0} cumulative human↔object contacts.`);
+      text($("muscle-readout"), `${h?.muscles?.length ?? 38} illustrative muscle bands show joint motor commands, not measured activation.`);
+      const objLines = state.objects.map((o) => `${o.id} (${o.role}, ${o.shape}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}]${o.virtual_force ? ` · force [${o.virtual_force.map((v) => v.toFixed(2)).join(", ")}] ${forceUnits}` : ""}`);
+      const contactLines = (state.contact_details || []).length
+        ? state.contact_details.map((c) => `contact [${c.kind}] ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] normal force ${c.normal_force.toFixed(2)} ${forceUnits}`)
+        : ["contacts: none"];
+      $("spatial-readout").hidden = false;
+      text($("spatial-readout"), [...objLines, ...contactLines].join("\n"));
+      if (state.terminated || state.truncated) pause();
+      return;
+    }
     if (state.human) {
       const h = state.human;
       if (wholeBody()) {
@@ -250,14 +375,15 @@
     if (spatialRigid()) {
       const controlledId = state.controlled_id || scene.controlled_id;
       const body = state.objects.find((item) => item.id === controlledId) || state.objects[0];
+      const lengthUnits = scene.units?.length || "scene_width", forceUnits = `${scene.units?.mass || "relative_mass"}*${lengthUnits}/second^2`;
       const suffix = state.success ? "TASK SUCCESS — reset to continue" : state.truncated ? "TIME LIMIT — reset to continue" : state.terminated ? "TRIAL ENDED — reset to continue" : `action: ${usePolicy ? "learned policy" : actionNames[action]}`;
-      text($("readout"), `t ${(state.time_s || 0).toFixed(3)}s · step ${state.steps} · ${body.id} pos [${body.position.map((v) => v.toFixed(3)).join(", ")}] m · speed ${Math.hypot(...body.velocity).toFixed(3)} m/s · quat [${body.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${body.angular_velocity.map((v) => v.toFixed(2)).join(", ")}] rad/s · contacts ${state.contact_count ?? 0} · substeps ${state.substeps ?? 0} · ${suffix}`);
+      text($("readout"), `t ${(state.time_s || 0).toFixed(3)}s · step ${state.steps} · ${body.id} pos [${body.position.map((v) => v.toFixed(3)).join(", ")}] ${lengthUnits} · speed ${Math.hypot(...body.velocity).toFixed(3)} ${lengthUnits}/s · quat [${body.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${body.angular_velocity.map((v) => v.toFixed(2)).join(", ")}] rad/s · contacts ${state.contact_count ?? 0} · substeps ${state.substeps ?? 0} · ${suffix}`);
       const objectLines = state.objects.map((o) => `${o.id} (${o.role}, ${o.shape}): pos [${o.position.map((v) => v.toFixed(3)).join(", ")}] · vel [${o.velocity.map((v) => v.toFixed(3)).join(", ")}] · quat [${o.quaternion.map((v) => v.toFixed(3)).join(", ")}] · spin [${o.angular_velocity.map((v) => v.toFixed(2)).join(", ")}]`);
       const contactLines = (state.contact_details || []).length
-        ? state.contact_details.map((c) => `contact ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] dist ${c.distance.toFixed(4)}m Fn ${c.normal_force.toFixed(2)}N`)
+        ? state.contact_details.map((c) => `contact ${c.objects.join("↔")} @ [${c.position.map((v) => v.toFixed(3)).join(", ")}] dist ${c.distance.toFixed(4)} ${lengthUnits} · normal force ${c.normal_force.toFixed(2)} ${forceUnits}`)
         : ["contacts: none"];
       $("spatial-readout").hidden = false;
-      text($("spatial-readout"), [`virtual force (${controlledId}): [${(state.virtual_force || [0, 0, 0]).map((v) => v.toFixed(2)).join(", ")}] N`, ...objectLines, ...contactLines].join("\n"));
+      text($("spatial-readout"), [`virtual force (${controlledId}): [${(state.virtual_force || [0, 0, 0]).map((v) => v.toFixed(2)).join(", ")}] ${forceUnits}`, ...objectLines, ...contactLines].join("\n"));
       if (state.terminated || state.truncated) pause();
       return;
     }
@@ -278,12 +404,24 @@
     const ended = snapshot?.terminated || snapshot?.truncated;
     text($("toggle"), running ? "Pause" : ended ? "Start again" : "Start");
     text($("play-state"), !scene ? "Preparing environment" : running ? "Running" : snapshot?.success ? "Goal reached" : ended ? "Trial finished" : "Paused — ready to try");
-    if (snapshot?.human) {
+    if (sharedWorld()) {
+      const goalObj = scene.task?.object_goal?.target_object_id || "ball";
+      actionNames = sharedHumanTarget()
+        ? ["Release all motors", "Motor +0.25", "Motor −0.25"]
+        : ["Coast", "← Left (−x)", "Right (+x) →", "↑ Forward (+y)", "↓ Back (−y)", "Up (+z)", "Down (−z)", "Slow down"];
+      for (const button of document.querySelectorAll("[data-action]")) {
+        const code = Number(button.dataset.action);
+        if (code >= 6 && button.dataset.spatial !== "true") continue;
+        if (actionNames[code]) text(button, actionNames[code]);
+      }
+      text($("goal-summary"), `Coupled world: keep the 22-motor human within reference & floor limits while moving ${goalObj} into [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}]${scene.task?.object_goal?.require_human_contact ? " with real human↔object contact" : ""}.`);
+      text($("mode-description"), mode === "manual" ? (sharedHumanTarget() ? "Human selected: choose any of the 22 human motors and apply +0.25 or −0.25." : `Object ${snapshot?.controlled_id || scene.controlled_id} selected: use the eight 3D force controls to push or slow it in the shared world.`) : mode === "reference" ? "Authored human feedback drives the 22 body motors along the reference while rigid objects respond purely to gravity and 3D collisions." : "The learned coupled controller coordinates all 22 human motors and bounded 3D object guidance in one MuJoCo model.");
+    } else if (snapshot?.human) {
       const h = snapshot.human, degrees = value => (value * 180 / Math.PI).toFixed(0);
       text($("goal-summary"), wholeBody() ? "Track the known full-body reference using 19 joint motors and 3 virtual root-force controls. Tracking and floor-contact errors determine success; this is not learned balance." : mode === "reference" ? "Follow the video’s estimated joint movement. This controller is programmed, not learned." : `${h.selected_joint.replaceAll("_", " ")}: ${degrees(h.angles[h.selected_joint])}° now → ${degrees(h.target_angle)}° target. Reach the target and slow to a stop.`);
     } else if (spatialRigid()) text($("goal-summary"), `Move ${snapshot?.controlled_id || scene.controlled_id} into the 3D dashed target [${(snapshot?.target || scene.target).map((v) => v.toFixed(2)).join(", ")}] m and slow below ${scene.task.speed_tolerance} m/s.`);
     else if (scene) text($("goal-summary"), dynamicObjects().length > 1 ? `Move ${snapshot?.controlled_id || scene.controlled_id} into the dashed target and slow to a stop.` : "Move the highlighted object into the dashed target and slow to a stop.");
-    text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
+    if (!sharedWorld()) text($("mode-description"), wholeBody() ? (mode === "manual" ? "Choose one of 22 motors. Apply +0.25 or −0.25 of its force limit; every other motor stays at zero. Release sets all motors to zero." : mode === "reference" ? "Authored feedback follows the known full-body reference. Every joint torque and virtual root force is explicit; this baseline is not learned." : "The learned full-body controller follows a known reference using 19 joint torques and 3 virtual root forces. It has not learned unassisted balance or human intent.") : mode === "manual" ? "You control the movement. Tap a direction for a small move, or start and hold a direction." : mode === "reference" ? "A programmed controller follows the video’s estimated poses. This is simulated movement, not learned exercise behavior." : current?.profile === "exercise" ? `The learned controller moves the ${(trainedJoint || "trained joint").replaceAll("_", " ")} toward one target angle. It has not learned the whole exercise.` : "The learned controller attempts the target task. Watch its choices, or pause to inspect a step.");
     for (const [id, value] of [["mode-manual", "manual"], ["reference-servo", "reference"], ["policy", "learned"]]) {
       $(id).setAttribute("aria-pressed", String(mode === value));
       $(id).disabled = !scene || controlBusy || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
@@ -291,14 +429,14 @@
     for (const button of document.querySelectorAll("[data-action]")) {
       const code = Number(button.dataset.action);
       const isSpatialExtra = button.dataset.spatial === "true";
-      const spatialMismatch = isSpatialExtra && !spatialRigid();
+      const spatialMismatch = isSpatialExtra && !(spatialRigid() || sharedObjectTarget());
       const mobileOnly = !isSpatialExtra && code >= 6 && scene?.profile !== "exercise-v3";
-      const incompatible = wholeBody() && ![0, 1, 2].includes(code);
+      const incompatible = (wholeBody() || sharedHumanTarget()) && ![0, 1, 2].includes(code);
       const exerciseServo = current?.profile === "exercise" && code === 5;
       button.disabled = !scene || controlBusy || mode !== "manual" || !!ended || spatialMismatch || mobileOnly || incompatible || (current?.profile === "rolling" && code > 2) || exerciseServo;
       button.hidden = spatialMismatch || mobileOnly || incompatible || exerciseServo;
     }
-    $("joint").disabled = (recording && !wholeBody()) || controlBusy || mode !== "manual";
+    $("joint").disabled = (recording && !(wholeBody() || sharedWorld())) || controlBusy || mode !== "manual" || sharedObjectTarget();
     $("actor").disabled = recording || controlBusy || mode !== "manual";
     $("record").disabled = recording || exporting || !scene || controlBusy;
     $("stop-record").disabled = !recording || controlBusy;
@@ -322,6 +460,16 @@
         const names = scene.action_contract.names;
         const vector = names.map(name => name === selectedMotor ? (action === 1 ? .25 : action === 2 ? -.25 : 0) : 0);
         payload = mode === "learned" ? {steps: count, policy: true} : mode === "reference" ? {steps: count, controller: "reference"} : {steps: count, action: vector};
+      } else if (sharedWorld()) {
+        if (mode === "learned") payload = {steps: count, policy: true};
+        else if (mode === "reference") payload = {steps: count, controller: "reference"};
+        else if (sharedHumanTarget()) {
+          const names = scene.action_contract.names;
+          const vector = names.map((name) => name === selectedMotor ? (action === 1 ? 0.25 : action === 2 ? -0.25 : 0) : 0);
+          payload = {steps: count, action: vector};
+        } else {
+          payload = {steps: count, action};
+        }
       }
       const data = await request("/api/step", payload);
       updateSnapshot(data.snapshot);
@@ -370,7 +518,8 @@
       if (result.capabilities) updateCapabilities(result.capabilities);
       if (result.scene) {
         scene = result.scene;
-        if (!snapshot?.human && $("actor").children.length) $("actor").value = result.scene.controlled_id;
+        if ((!snapshot?.human || sharedWorld()) && $("actor").children.length) $("actor").value = result.scene.controlled_id;
+        if (sharedWorld()) action = 0;
         if (!referenceState && (result.snapshot || snapshot)) draw($("world-canvas"), result.snapshot || snapshot);
       }
       if (result.snapshot) updateSnapshot(result.snapshot);
@@ -378,15 +527,15 @@
       if (result.export === "running") exporting = true;
       scheduleStatus(0); return result;
     } catch (e) {
-      if (snapshot?.human && !wholeBody()) $("joint").value = snapshot.human.selected_joint;
-      else if (!snapshot?.human && scene?.controlled_id && $("actor").children.length) $("actor").value = snapshot?.controlled_id || scene.controlled_id;
+      if (snapshot?.human && !wholeBody() && !sharedWorld()) $("joint").value = snapshot.human.selected_joint;
+      else if ((!snapshot?.human || sharedWorld()) && scene?.controlled_id && $("actor").children.length) $("actor").value = snapshot?.controlled_id || scene.controlled_id;
       error(e.message);
     }
-    finally { requestPending = false; controlBusy = false; updateControls(); }
+    finally { requestPending = false; controlBusy = false; if (sharedWorld() && mode === "manual") chooseAction(action); updateControls(); }
   }
   async function begin({fresh = false, record = false} = {}) {
     if (controlBusy) return;
-    const needsJoint = mode === "learned" && snapshot?.human && !wholeBody() && snapshot.human.selected_joint !== trainedJoint;
+    const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
     const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
     if (fresh || record || needsJoint || needsActor || snapshot?.terminated || snapshot?.truncated) {
       const pending = mutate(record ? "/api/record/start" : "/api/reset", {}, true);
@@ -401,7 +550,7 @@
   $("reference-servo").onclick = () => selectMode("reference");
   $("step").onclick = async () => {
     pause();
-    const needsJoint = mode === "learned" && snapshot?.human && !wholeBody() && snapshot.human.selected_joint !== trainedJoint;
+    const needsJoint = mode === "learned" && current?.profile === "exercise" && !wholeBody() && snapshot?.human?.selected_joint !== trainedJoint;
     const needsActor = mode === "learned" && !snapshot?.human && Boolean(trainedActor) && (snapshot?.controlled_id || scene?.controlled_id) !== trainedActor;
     if (needsJoint || needsActor) {
       const pending = mutate("/api/reset", {}, true), generation = playbackGeneration;
@@ -414,7 +563,7 @@
   $("record").onclick = () => begin({record: true});
   $("stop-record").onclick = () => mutate("/api/record/stop");
   $("joint").onchange = () => {
-    if (!wholeBody()) return mutate("/api/joint", {joint: $("joint").value});
+    if (!wholeBody() && !sharedWorld()) return mutate("/api/joint", {joint: $("joint").value});
     if (controlBusy || mode !== "manual") { $("joint").value = selectedMotor; return; }
     pause(); selectedMotor = $("joint").value; chooseAction(0); updateControls();
   };
@@ -425,7 +574,7 @@
   function redrawViews() {
     if (snapshot) draw($("live"), snapshot);
     if (referenceState) draw($("world-canvas"), referenceState);
-    else if (spatialRigid() && snapshot) draw($("world-canvas"), snapshot);
+    else if ((spatialRigid() || sharedWorld()) && snapshot) draw($("world-canvas"), snapshot);
   }
   $("camera-yaw").oninput = () => { $("world-yaw").value = $("camera-yaw").value; redrawViews(); };
   $("world-yaw").oninput = () => { $("camera-yaw").value = $("world-yaw").value; redrawViews(); };
@@ -456,7 +605,7 @@
   };
   $("reference-frame").oninput = () => { stopReference(); showReference(Number($("reference-frame").value)); };
   function chooseAction(value) {
-    if (mode !== "manual" || controlBusy || (wholeBody() && ![0, 1, 2].includes(value))) return;
+    if (mode !== "manual" || controlBusy || ((wholeBody() || sharedHumanTarget()) && ![0, 1, 2].includes(value))) return;
     action = value; usePolicy = false;
     for (const button of document.querySelectorAll("[data-action]")) button.setAttribute("aria-pressed", String(!button.hidden && Number(button.dataset.action) === value));
   }
@@ -498,14 +647,15 @@
   function curve(training) {
     const canvas = $("learning-curve"), ctx = canvas.getContext("2d"), history = training.history || [];
     ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "#596562"; ctx.font = "13px system-ui";
-    const fullBody = wholeBody();
+    const fullBody = wholeBody() || sharedWorld();
     ctx.fillText(fullBody ? "Best training return by generation (not evaluation)" : "Training success · last 100–500 episodes (not evaluation)", 20, 23);
     if (!history.length) return;
     ctx.strokeStyle = "#D8C9BA"; ctx.beginPath(); ctx.moveTo(45, 40); ctx.lineTo(45, 205); ctx.lineTo(940, 205); ctx.stroke();
     ctx.strokeStyle = "#965644"; ctx.lineWidth = 2; ctx.beginPath();
     const max = fullBody ? history.at(-1).generation + 1 : history.at(-1).episode;
-    history.forEach((row, i) => { const x = 45 + (fullBody ? row.generation + 1 : row.episode) / max * 890, y = 205 - (fullBody ? row.best_training_return : row.recent_training_success_rate) * 160; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }); ctx.stroke();
-    ctx.fillText(fullBody ? "0" : "0%", 8, 205); ctx.fillText(fullBody ? "1" : "100%", 4, 45); ctx.fillText(`${max} ${fullBody ? "generations" : "episodes"}`, 820, 230);
+    const peak = fullBody ? Math.max(1, ...history.map((r) => r.best_training_return || 0)) : 1;
+    history.forEach((row, i) => { const x = 45 + (fullBody ? row.generation + 1 : row.episode) / max * 890, y = 205 - Math.min(1, Math.max(0, (fullBody ? row.best_training_return / peak : row.recent_training_success_rate))) * 160; if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y); }); ctx.stroke();
+    ctx.fillText(fullBody ? "0" : "0%", 8, 205); ctx.fillText(fullBody ? peak.toFixed(1).replace(/\.0$/, "") : "100%", 4, 45); ctx.fillText(`${max} ${fullBody ? "generations" : "episodes"}`, 820, 230);
   }
   async function readyDetails(data) {
     scene = data.scene;
@@ -520,21 +670,28 @@
       text($("evidence-layers-text"), `Layer separation — Source: ${layers.recorded_source}${src.frame_count ? ` (${src.frame_count} frames)` : ""}.${missing} Kinematic projection: ${layers.kinematic_projection}. Controllers: ${(layers.controllers || []).join(", ")}. Physics: ${layers.physical_simulation}.${muscles}`);
     }
     if (!data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
-    const controllable = dynamicObjects();
-    $("actor-controls").hidden = Boolean(data.snapshot?.human) || controllable.length < 2;
+    const controllable = sharedWorld()
+      ? [{id: "human", label: "Articulated human (22 motors)"}, ...dynamicObjects()]
+      : dynamicObjects();
+    $("actor-controls").hidden = (!sharedWorld() && Boolean(data.snapshot?.human)) || controllable.length < 2;
     $("actor").replaceChildren();
     for (const obj of controllable) {
       const option = document.createElement("option");
       option.value = obj.id;
-      text(option, `${obj.label || obj.id} (${obj.id})`);
+      text(option, obj.id === "human" ? obj.label : `${obj.label || obj.id} (${obj.id})`);
       $("actor").append(option);
     }
     if (controllable.length) $("actor").value = data.snapshot?.controlled_id || scene.controlled_id;
-    if (data.profile === "exercise" && (wholeBody() || noLearnedPolicy)) {
+    if ((data.profile === "exercise" && (wholeBody() || noLearnedPolicy)) || data.profile === "shared-world") {
       const feasibility = data.reference_feasibility, summary = feasibility?.summary;
       $("reference-feasibility").hidden = false;
-      const label = feasibility?.status === "infeasible" ? "Reference has floor conflicts; this sandbox is a diagnostic simulation." : feasibility?.status === "feasible" ? "Reference passed the configured floor checks; this sandbox is a diagnostic simulation, not validated physical reconstruction." : "Reference floor feasibility is unavailable; this sandbox is a diagnostic simulation.";
-      const detail = summary ? ` Maximum reference penetration: ${number(summary.max_penetration_model_units)} model units. Conflicting source poses: ${summary.failed_source_poses}/${summary.source_pose_checks}; conflicting sampled control poses: ${summary.failed_control_grid_poses}/${summary.control_grid_checks}. ${noLearnedPolicy ? "No learned policy is available for this candidate." : "Selected RL window results remain separate."}` : "";
+      const isShared = data.profile === "shared-world";
+      const label = feasibility?.status === "infeasible"
+        ? (isShared ? "Reference has floor or static conflicts; this sandbox is a diagnostic simulation." : "Reference has floor conflicts; this sandbox is a diagnostic simulation.")
+        : feasibility?.status === "feasible"
+          ? (isShared ? "Reference passed the configured coupled floor/static checks; this sandbox is a diagnostic simulation, not validated physical reconstruction." : "Reference passed the configured floor checks; this sandbox is a diagnostic simulation, not validated physical reconstruction.")
+          : "Reference floor feasibility is unavailable; this sandbox is a diagnostic simulation.";
+      const detail = summary ? ` Maximum reference penetration: ${number(summary.max_penetration_model_units)} model units. Conflicting source poses: ${summary.failed_source_poses}/${summary.source_pose_checks}; conflicting sampled control poses: ${summary.failed_control_grid_poses}/${summary.control_grid_checks}. ${noLearnedPolicy ? "No learned policy is available for this candidate." : (isShared ? "Selected RL results remain separate." : "Selected RL window results remain separate.")}` : "";
       const gap = data.ground_clearance?.summary;
       const clearance = gap ? ` Reference body–ground gap: minimum ${number(gap.minimum)}, median ${number(gap.median)}, maximum ${number(gap.maximum)} model units. Contact timing has not been inferred.` : "";
       text($("feasibility-notice"), label + detail + clearance);
@@ -546,6 +703,46 @@
     $("scene-json").dataset.json = data.profile === "rolling" ? "world.json" : "scene.json";
     $("reconstruction-json").dataset.json = data.profile === "rolling" ? "report.json" : "reconstruction.json";
     if (data.profile === "rolling") text($("control-help"), "Left/right arrows or A/D to push. Release to coast. This profile has horizontal control only.");
+    if (data.profile === "shared-world") {
+      $("spatial-controls").hidden = false; $("spatial-world-controls").hidden = false;
+      $("human-controls").hidden = false; $("human-reference-controls").hidden = false;
+      $("whole-body-status").hidden = false; $("reference-servo").hidden = false;
+      text($("joint-label"), "Human motor (when human selected)");
+      const humanMotorNames = (scene.action_contract?.names || []).slice(0, 22);
+      $("joint").replaceChildren();
+      for (const name of humanMotorNames) {
+        const option = document.createElement("option");
+        option.value = name;
+        text(option, name.replaceAll("_", " "));
+        $("joint").append(option);
+      }
+      selectedMotor = humanMotorNames[0] || null;
+      if (selectedMotor) $("joint").value = selectedMotor;
+      text($("world-tab"), "Coupled 3D world");
+      text($("world-heading"), "One coupled 3D world: articulated human and rigid objects.");
+      text($("world-description"), "An articulated 22-motor human body and 3D rigid objects share one MuJoCo model, coordinate frame, clock, and contact solver. Muscle bands remain illustrative motor-command proxies, scale bridges are explicit, and physical validation is unverified.");
+      text($("evidence-boundary"), "Coupled shared-world-v1 run. Source slot conservation, coordinate scale bridge, and kinematic preflight are explicit; physical validation remains unverified.");
+      text($("control-help"), "Select 'Articulated human' to drive any of the 22 body motors (+0.25 / −0.25), or select a dynamic 3D object to apply the eight 3D virtual forces. Choose Follow video for programmed human reference feedback.");
+      text($("play-boundary"), "Human limbs and 3D rigid objects exchange real simulated MuJoCo contact impulses on one shared clock. Virtual root motors remain explicit assumptions, not unassisted balance.");
+      $("live").setAttribute("aria-label", "Coupled 3D human and object simulation. Switch between human motors and 3D rigid objects; Escape pauses.");
+      const hasVideo = (data.artifacts || []).some((file) => /^source\.(mp4|webm|mov|m4v|avi|mkv)$/.test(file.name));
+      if (!hasVideo && $("tracks").hidden) text($("tracks-empty"), "No source video was sealed with this shared-world run. Inspect scene.json, reference-feasibility.json, and Files for provenance.");
+      try {
+        const reference = await artifact("human-reference.json");
+        referenceFrames = reference.frames;
+        $("reference-frame").max = Math.max(0, referenceFrames.length - 1);
+        showReference(0);
+        $("reference-play").disabled = referenceFrames.length < 2;
+      } catch (e) { error(e.message); }
+      if (noLearnedPolicy) {
+        text($("start-help"), "Coupled 3D world ready. Inspect the front/top/3D views, scrub kinematic poses, or switch between human motors and 3D objects in the sandbox. No learned controller has been trained yet.");
+        text($("learning-description"), "No learned coupled policy was packaged with this shared-world run.");
+        text($("training-caption"), "Not trained · inspect interventions.json for verified human-feedback and 8-action object probes.");
+      } else {
+        text($("start-help"), "Coupled 3D world and learned policy ready. Try manual human/object control, authored human reference feedback, or the trained coupled controller.");
+        text($("learning-description"), "Compare the learned coupled controller against zero force, random actions, and authored human feedback on identical seeded resets.");
+      }
+    }
     if (data.profile === "spatial-rigid") {
       actionNames = ["Coast", "← Left (−x)", "Right (+x) →", "↑ Forward (+y)", "↓ Back (−y)", "Up (+z)", "Down (−z)", "Slow down"];
       for (const button of document.querySelectorAll("[data-action]")) {
@@ -654,11 +851,14 @@
       try { const reference = await artifact("human-reference.json"); referenceFrames = reference.frames; $("reference-frame").max = Math.max(0, referenceFrames.length - 1); showReference(0); $("reference-play").disabled = referenceFrames.length < 2; } catch (e) { error(e.message); }
     }
     $("objects").replaceChildren();
-    for (const obj of scene.objects) { const row = document.createElement("tr"); cell(row, obj.label || obj.id); cell(row, obj.role); cell(row, obj.shape); cell(row, JSON.stringify(obj.provenance || (data.profile === "exercise" ? "Simplified body segment; inferred proportions and authored physics" : "Measured geometry; authored actuator"))); $("objects").append(row); }
+    for (const obj of scene.objects) { const row = document.createElement("tr"); cell(row, obj.label || obj.id); cell(row, obj.role); cell(row, obj.shape); cell(row, JSON.stringify(obj.provenance || (data.profile === "exercise" ? "Simplified body segment; inferred proportions and authored physics" : "Unverified geometry and authored physics; inspect source evidence"))); $("objects").append(row); }
     $("assumptions").replaceChildren(); for (const assumption of scene.assumptions || []) { const li = document.createElement("li"); text(li, assumption); $("assumptions").append(li); }
     const results = await Promise.allSettled([noLearnedPolicy ? Promise.resolve(null) : artifact("training.json"), noLearnedPolicy ? Promise.resolve(null) : artifact("rl-evaluation.json"), artifact("repair-ledger.json"), artifact(data.profile === "rolling" ? "report.json" : "reconstruction.json")]);
-    if (results[0].status === "fulfilled" && results[0].value) { const training = results[0].value; curve(training); text($("training-caption"), wholeBody() ? `${training.completed_generations} completed generations · ${number(training.seconds, 2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}` : `${training.completed_episodes ?? training.episodes} training episodes · ${training.steps} steps · ${Number(training.seconds).toFixed(2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}`); }
+    if (results[0].status === "fulfilled" && results[0].value) { const training = results[0].value; curve(training); text($("training-caption"), (wholeBody() || sharedWorld()) ? `${training.completed_generations} completed generations · ${number(training.seconds, 2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}` : `${training.completed_episodes ?? training.episodes} training episodes · ${training.steps} steps · ${Number(training.seconds).toFixed(2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}`); }
     if (results[1].status === "fulfilled" && results[1].value) metrics($("scores"), Object.entries(results[1].value.policies).map(([name, score]) => {
+      if (sharedWorld()) {
+        return [`${score.successes}/${score.episodes}`, `${({learned: "Learned coupled controller", zero: "Zero force", random: "Random actions", authored_feedback: "Authored human feedback"})[name] || name.replaceAll("_", " ")} · coupled passes · mean return ${number(score.mean_return)} · obj dist ${number(score.mean_final_object_distance_world)}`];
+      }
       if (wholeBody()) {
         const trials = score.trials || [], successes = trials.filter(trial => trial.success).length;
         return [`${successes}/${trials.length}`, `${({learned: "Learned full-body controller", zero: "Zero motor force", random: "Random actions", authored_feedback: "Authored feedback (not learned)"})[name] || name.replaceAll("_", " ")} · full-body trials passed · mean return ${number(score.mean_return)}`];

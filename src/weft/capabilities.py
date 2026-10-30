@@ -10,10 +10,22 @@ from weft.pipeline import verify_artifacts
 
 CAPABILITY_PROFILE = "environment-capabilities-v1"
 REPRESENTATION_FAMILIES = frozenset(
-    {"rigid_1d_support", "rigid_planar_2d", "rigid_spatial_3d", "articulated_human_3d"}
+    {
+        "rigid_1d_support",
+        "rigid_planar_2d",
+        "rigid_spatial_3d",
+        "articulated_human_3d",
+        "mixed_rigid_articulated_3d",
+    }
 )
 PHYSICS_BACKENDS = frozenset(
-    {"analytic_rolling_1d", "pymunk_2d", "mujoco_3d_rigid", "mujoco_3d_articulated"}
+    {
+        "analytic_rolling_1d",
+        "pymunk_2d",
+        "mujoco_3d_rigid",
+        "mujoco_3d_articulated",
+        "mujoco_3d_shared_world",
+    }
 )
 
 
@@ -52,11 +64,12 @@ def validate_capabilities(doc):
     if not isinstance(frame, dict) or frame.get("dimensions") not in (2, 3) or not isinstance(frame.get("units"), dict):
         raise ValueError("Capabilities coordinate_frame must specify 2 or 3 dimensions and explicit units")
     entities = doc["entities"]
+    expected_mixed = doc["scene_profile"] == "shared-world-v1"
     if (
         not isinstance(entities, dict)
         or type(entities.get("total_count")) is not int
         or entities["total_count"] < 1
-        or entities.get("mixed_rigid_articulated") is not False
+        or entities.get("mixed_rigid_articulated") is not expected_mixed
         or not isinstance(entities.get("controllable_actors"), list)
         or not entities["controllable_actors"]
     ):
@@ -527,7 +540,109 @@ def describe_capabilities(
             "unsupported_capabilities": [
                 "Unassisted balance without the 3 explicit virtual root-force actuators",
                 "Measured muscle activation, anatomical foot-ground compliance, or recovered human intent",
-                "Coupled external rigid objects in the same MuJoCo scene (requires proposed shared-world-v1)",
+                "Coupled external rigid objects in this single-body profile (use shared-world-v1 for coupled worlds)",
+            ],
+        }
+        return validate_capabilities(doc)
+
+    if scene_profile == "shared-world-v1":
+        from weft.shared_world import OBJECT_ACTIONS, validate_shared_world
+
+        validated = validate_shared_world(scene)
+        dyn_objs = [obj for obj in validated["objects"] if obj["role"] != "static"]
+        static_objs = [obj for obj in validated["objects"] if obj["role"] == "static"]
+        contract = validated["action_contract"]
+        task = validated["task"]
+        goal = task["object_goal"]
+        actors = [{"id": "human", "label": "Articulated human (22 motors)", "kind": "articulated_human"}] + [
+            {"id": obj["id"], "label": obj.get("label", obj["id"]), "kind": "rigid_body"} for obj in dyn_objs
+        ]
+        doc = {
+            "schema_version": 1,
+            "profile": CAPABILITY_PROFILE,
+            "scene_profile": scene_profile,
+            "lab_profile": lab_profile,
+            "representation_family": "mixed_rigid_articulated_3d",
+            "physics_backend": "mujoco_3d_shared_world",
+            "coordinate_frame": {
+                "dimensions": 3,
+                "axes": validated["coordinate_frame"]["axes"],
+                "units": deepcopy(validated["coordinate_frame"]["units"]),
+            },
+            "entities": {
+                "total_count": 1 + len(validated["objects"]),
+                "dynamic_count": 1 + len(dyn_objs),
+                "static_count": len(static_objs),
+                "articulated_body_present": True,
+                "rigid_objects_present": True,
+                "mixed_rigid_articulated": True,
+                "controllable_actors": actors,
+                "active_control_target": validated["controlled_id"],
+                "multi_target_selection_endpoint": "/api/actor",
+            },
+            "action_contract": {
+                "space_type": "continuous_box",
+                "dimension": len(contract["names"]),
+                "discrete_actions": [{"index": idx, "name": name} for idx, name in enumerate(OBJECT_ACTIONS)],
+                "continuous_bounds": [-1.0, 1.0],
+                "actuator_names": list(contract["names"]),
+                "physical_units": list(contract["units"]),
+                "hidden_assistance": False,
+            },
+            "observation_contract": {
+                "space_type": "continuous_box",
+                "dimension": 155 + 13 * len(validated["objects"]) + 3,
+                "components": [
+                    "human_qpos_22_qvel_22_target_qpos_22_target_qvel_22_policy_features_66_phase_1",
+                    "per_object_position_xyz_quaternion_wxyz_velocity_xyz_spin_xyz",
+                    "target_object_goal_offset_xyz",
+                ],
+                "privileged_simulator_state": True,
+            },
+            "task_contract": {
+                "task_type": "coupled_human_object_v1",
+                "authored_addition": True,
+                "reward_summary": (
+                    "Nonnegative coupled human reference-tracking exponential + 3D target-object proximity/settling "
+                    "score (gated by human-object contact when required) minus control effort, plus +0.5 coupled bonus."
+                ),
+                "success_criteria": {
+                    "human_limits": deepcopy(task["human_limits"]),
+                    "object_goal": deepcopy(goal),
+                },
+                "termination_conditions": [
+                    "nonfinite_dynamics",
+                    "human_position_or_velocity_envelope_exceeded",
+                    "rigid_velocity_envelope_exceeded",
+                    "object_left_bounds",
+                ],
+                "truncation_steps": int(task["horizon_steps"]),
+            },
+            "reset_contract": {
+                "deterministic_seeded_reset": True,
+                "supports_jitter": True,
+                "supports_explicit_perturbation": False,
+                "default_lab_jitter": False,
+            },
+            "controllers": {
+                "manual": True,
+                "kinematic_pose_replay": bool(reference_available or validated["human_spec"].get("reference")),
+                "authored_reference_controller": True,
+                "learned_policy_available": bool(learned_policy_available),
+                "trained_target_id": (
+                    trained_target_id or ("coupled_human_and_" + goal["target_object_id"] if learned_policy_available else None)
+                ),
+            },
+            "evidence_separation": {
+                "physical_validation": "unverified",
+                "source_video_present": bool(source_video_present),
+                "muscle_display": "illustrative_motor_command_not_measured_activation",
+                "kinematic_vs_dynamic_distinct": True,
+            },
+            "unsupported_capabilities": [
+                "Unassisted human balance without the 3 explicit virtual root-force actuators",
+                "Dexterous multi-finger grasping, soft-tissue deformation, or measured EMG/contact forces",
+                "Automatic end-to-end single-video coupled person+object 3D perception without explicit scale bridge",
             ],
         }
         return validate_capabilities(doc)
@@ -563,7 +678,10 @@ def describe_run_capabilities(directory, *, out=None):
         if has_policy:
             policy = json.loads((target / "policy.json").read_text())
             if isinstance(policy, dict):
-                trained_target = policy.get("selected_joint") or policy.get("controlled_id")
+                if policy.get("algorithm") == "shared_world_cem_v1":
+                    trained_target = "coupled_human_and_" + str(policy.get("target_object_id", "object"))
+                else:
+                    trained_target = policy.get("selected_joint") or policy.get("controlled_id")
         if (target / "scene.json").is_file():
             scene = json.loads((target / "scene.json").read_text())
             if trained_target is None and has_policy:

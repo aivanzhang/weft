@@ -14,8 +14,11 @@ from weft.pipeline import verify_artifacts
 from weft.spatial_rigid import ACTIONS, PROFILE, SpatialRigidEnv, validate_scene
 
 
-POLICY_PROFILE = "spatial-policy-v1"
-ALGORITHM = "spatial_cem_v1"
+LEGACY_POLICY_PROFILE = "spatial-policy-v1"
+LEGACY_ALGORITHM = "spatial_cem_v1"
+POLICY_PROFILE = "spatial-policy-v2"
+ALGORITHM = "spatial_cem_v2"
+POLICY_SCHEMA_VERSION = 2
 WEIGHT_DIM = 11
 WEIGHT_LIMIT = 6.0
 SCOPE = (
@@ -31,12 +34,13 @@ def _number(value, name, low, high):
 
 
 def validate_spatial_policy(policy, scene=None):
-    """Validate a spatial-policy-v1 document against optional spatial-rigid-v1 scene."""
+    """Validate an explicitly versioned policy against an optional spatial-rigid-v1 scene."""
     if not isinstance(policy, dict):
         raise ValueError("Spatial policy must be a JSON object")
-    if type(policy.get("schema_version")) is not int or policy["schema_version"] != 1:
-        raise ValueError("Spatial policy schema_version must be integer 1")
-    if policy.get("profile") != POLICY_PROFILE or policy.get("algorithm") != ALGORITHM:
+    if type(policy.get("schema_version")) is not int:
+        raise ValueError("Spatial policy schema_version must be an integer")
+    contract = (policy["schema_version"], policy.get("profile"), policy.get("algorithm"))
+    if contract not in ((1, LEGACY_POLICY_PROFILE, LEGACY_ALGORITHM), (POLICY_SCHEMA_VERSION, POLICY_PROFILE, ALGORITHM)):
         raise ValueError(f"Unsupported spatial policy profile/algorithm: {policy.get('profile')!r}/{policy.get('algorithm')!r}")
     if policy.get("physical_validation") != "unverified":
         raise ValueError("Spatial policy must preserve physical_validation='unverified'")
@@ -74,10 +78,16 @@ def validate_spatial_policy(policy, scene=None):
         target_obj = validated_scene["objects"][controlled_index]
         if target_obj["role"] == "static":
             raise ValueError("Spatial policy cannot target a static object")
+        if controlled_id != validated_scene["controlled_id"]:
+            raise ValueError("Spatial policy controlled actor differs from scene")
+        for name in ("position_tolerance", "speed_tolerance"):
+            if policy[name] != validated_scene["task"][name]:
+                raise ValueError(f"Spatial policy {name} differs from scene task")
     return deepcopy(policy)
 
 
 def _action_from_weights(weights, observation, controlled_index, pos_tol, speed_tol):
+    # Sealed v1 weights retain their original gains and braking thresholds.
     vel_start = 13 * controlled_index + 7
     vel = observation[vel_start : vel_start + 3]
     offset = observation[-4:-1]
@@ -109,15 +119,57 @@ def _action_from_weights(weights, observation, controlled_index, pos_tol, speed_
     return 5 if demand[2] > 0.0 else 6
 
 
+def _action_from_weights_v2(weights, observation, controlled_index, pos_tol, speed_tol):
+    vel_start = 13 * controlled_index + 7
+    vel = observation[vel_start : vel_start + 3]
+    offset = observation[-4:-1]
+    dist = float(np.linalg.norm(offset))
+    speed = float(np.linalg.norm(vel))
+
+    kp = weights[0:3]
+    kd = 0.25 * weights[3:6]
+    bias_scale = min(1.0, dist / max(2.0 * pos_tol, 1e-3))
+    bias = 0.05 * weights[6:9] * bias_scale
+    brake_gain = max(0.0, float(weights[9]))
+    deadband = max(0.0, 0.02 * float(weights[10]))
+
+    if brake_gain > 0.0:
+        if dist <= 0.85 * pos_tol:
+            return 7 if speed > 0.7 * speed_tol else 0
+        approach_limit = 0.6 * speed_tol + (0.5 + 0.6 * brake_gain) * math.sqrt(max(0.0, dist - 0.5 * pos_tol))
+        if speed > approach_limit:
+            return 7
+        if float(np.dot(offset, vel)) < -0.1 * speed_tol * dist and speed > speed_tol:
+            return 7
+
+    demand = kp * offset - kd * vel + bias
+    axis = int(np.argmax(np.abs(demand)))
+    if abs(float(demand[axis])) <= deadband:
+        return 0
+    if axis == 0:
+        return 2 if demand[0] > 0.0 else 1
+    if axis == 1:
+        return 3 if demand[1] > 0.0 else 4
+    return 5 if demand[2] > 0.0 else 6
+
+
+def _action_kernel(algorithm):
+    if algorithm == LEGACY_ALGORITHM:
+        return _action_from_weights
+    if algorithm == ALGORITHM:
+        return _action_from_weights_v2
+    raise ValueError(f"Unsupported spatial policy algorithm: {algorithm!r}")
+
+
 def policy_action(policy, observation):
-    """Choose a discrete 3D action 0..7 from a validated spatial-policy-v1 document."""
+    """Choose action 0..7 using the sealed policy's explicit weight interpretation."""
     validate_spatial_policy(policy)
     obs = np.asarray(observation, dtype=float)
     if obs.shape != (policy["observation_dim"],) or not np.isfinite(obs).all():
         raise ValueError("Spatial observation shape or finiteness differs from policy contract")
     weights = np.asarray(policy["weights"], dtype=float)
     return int(
-        _action_from_weights(
+        _action_kernel(policy["algorithm"])(
             weights,
             obs,
             policy["controlled_index"],
@@ -137,9 +189,11 @@ def _rollout_episode(
     controlled_index=0,
     pos_tol=0.035,
     speed_tol=0.08,
+    algorithm=ALGORITHM,
     deadline=None,
     trace=False,
 ):
+    kernel = _action_kernel(algorithm)
     obs, reset_info = env.reset(seed=seed, options=reset_options)
     rng = np.random.default_rng(seed + 104729)
     total_reward = 0.0
@@ -150,7 +204,7 @@ def _rollout_episode(
         if deadline is not None and time.perf_counter() >= deadline:
             raise TimeoutError("Spatial 3D learning local compute deadline reached")
         if mode == "weights":
-            act = _action_from_weights(weights, obs, controlled_index, pos_tol, speed_tol)
+            act = kernel(weights, obs, controlled_index, pos_tol, speed_tol)
         elif mode == "random":
             act = int(rng.integers(0, len(ACTIONS)))
         elif mode == "coast":
@@ -393,7 +447,7 @@ def train_spatial_policy(
             )
             policy_doc = validate_spatial_policy(
                 {
-                    "schema_version": 1,
+                    "schema_version": POLICY_SCHEMA_VERSION,
                     "profile": POLICY_PROFILE,
                     "algorithm": ALGORITHM,
                     "scene_sha256": scene_hash,
