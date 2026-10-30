@@ -304,6 +304,19 @@ def main():
     avatar_source.add_argument("--model", help="Local rigged GLB/glTF; requires explicit --metadata")
     avatar_import.add_argument("--metadata", help="JSON with identity, rights, provenance and explicit body-bone mapping")
     avatar_import.add_argument("--out", required=True, help="New sealed output directory; never overwritten")
+    qualify = commands.add_parser("qualify", help="Check sealed environments: legal actions, complete intervals and exact replay")
+    qualify_source = qualify.add_mutually_exclusive_group(required=True)
+    qualify_source.add_argument("--run", help="One existing sealed run or ready lab; never modified")
+    qualify_source.add_argument("--cases", help="JSON list of up to five cases; relative inputs use this file's directory")
+    qualify.add_argument("--out", required=True, help="New qualification directory outside the inputs")
+    qualify.add_argument("--controller", choices=("coast", "authored"), help="Single-run baseline; default coast, never a learned policy")
+    qualify.add_argument("--seed", type=int, help="Single-run deterministic reset seed; default 1729")
+    qualify.add_argument("--probe-steps", type=int, help="Single-run changed-action prefix; default 6")
+    qualify.add_argument("--probe-channel", type=int, help="Single-run motor channel from capabilities; default 0")
+    qualify.add_argument("--manifest-sha256", help="Require this exact single-run manifest identity before execution")
+    qualify.add_argument("--max-seconds", type=int, default=60)
+    qualify.add_argument("--max-steps", type=int, default=12000, help="Total simulation steps including exact replay")
+    qualify.add_argument("--max-output-mib", type=int, default=64)
     args = parser.parse_args()
     try:
         if args.command == "fetch-sample":
@@ -512,6 +525,28 @@ def main():
                 if len(raw) > 128 * 1024:
                     raise ValueError("Avatar metadata exceeds 128 KiB")
                 result = import_avatar_model(args.model, json.loads(raw), args.out)
+        elif args.command == "qualify":
+            from weft.runtime_qualification import _json, qualify_runtimes
+            options = {key: getattr(args, key) for key in ("controller", "seed", "probe_steps", "probe_channel", "manifest_sha256")
+                       if getattr(args, key) is not None}
+            if args.cases:
+                if options:
+                    raise ValueError("With --cases, put each case's controller, seed, probe and manifest settings in that file")
+                path = Path(args.cases)
+                with path.open("rb") as stream:
+                    raw = stream.read(1024 * 1024 + 1)
+                if len(raw) > 1024 * 1024:
+                    raise ValueError("Qualification case plan exceeds 1 MiB")
+                cases = _json(raw)
+                if not isinstance(cases, list):
+                    raise ValueError("Qualification case plan must be a JSON list")
+                for case in cases:
+                    if isinstance(case, dict) and isinstance(case.get("input"), str):
+                        case["input"] = str(path.parent / case["input"])
+            else:
+                cases = [{"id": "environment", "input": args.run, **options}]
+            result = qualify_runtimes(cases, args.out, max_seconds=args.max_seconds,
+                max_steps=args.max_steps, max_output_bytes=args.max_output_mib * 1024 * 1024)
         elif args.command == "replay":
             from weft.recording import export_recording, recover_incomplete_recording, verify_recording
             if args.recover_incomplete:
@@ -558,6 +593,8 @@ def main():
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
         if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":
             parser.exit(1, f"weft: full-reference preparation failed; preserved report: {result['directory']}/fullspan.json\n")
+        if args.command == "qualify" and (result["status"] != "completed" or result["operationally_qualified"] != len(result["cases"])):
+            parser.exit(1, f"weft: not all environments qualified; preserved report: {result['directory']}/report.json\n")
     except (ValueError, RuntimeError, TimeoutError, OSError) as error:
         parser.exit(1, f"weft: {error}\n")
 

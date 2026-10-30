@@ -197,6 +197,8 @@ Every ready lab and sealed run also exposes a validated `environment-capabilitie
 
 The capability summary explicitly declares representation family, physics backend, coordinate frame/units, controllable actors, action/observation spaces, authored task/reward/termination/reset rules, available controllers, `physical_validation: "unverified"`, and unsupported capabilities.
 
+Use [`weft qualify`](runtime-qualification.md) to check a sealed environment's complete interval, exact seeded action replay and changed-control response without starting a server. It uses one protocol across object/body/shared-world action spaces and saves a separate result directory. Operational checks, original task outcomes and physical accuracy remain distinct; no learned policy is trained or evaluated by this command.
+
 ## Terminal-only processing
 
 Add `--no-serve` to run all processing with stage/progress messages in the terminal. Open the saved result later with `lab --resume`. Optional `--episodes` and `--eval-episodes` bound local learning (defaults: 1,500 and 100). A free local port is selected unless `--port` is specified.
