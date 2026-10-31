@@ -205,7 +205,9 @@ def _arguments(argv):
                         help="With --train: existing phase corrections (default) or opt-in joint state-feedback corrections")
     parser.add_argument("--source-note", help="Video attribution or provenance")
     parser.add_argument("--out", help="New directory; default artifacts/video-<local timestamp>-<random suffix>")
-    parser.add_argument("--serve", action="store_true", help="After success, start the local sandbox; never opens a browser")
+    interact = parser.add_mutually_exclusive_group()
+    interact.add_argument("--serve", action="store_true", help="After success, start the local sandbox; never opens a browser")
+    interact.add_argument("--console", action="store_true", help="After success, interact and record in the terminal without a server")
     parser.add_argument("--port", type=int, default=0)
     parser.add_argument("--max-seconds", type=float, help="Build deadline, within the existing pipeline's limits")
     args = parser.parse_args(argv)
@@ -328,8 +330,12 @@ def main(argv=None):
     if receipt["status"] != "ready":
         return 1
     lab_command = prefix + ["lab", "--resume", receipt["lab"], "--port", str(args.port)]
+    console_command = prefix + ["lab-console", "--resume", receipt["lab"]]
     print("Sandbox → choose a control mode → Start. Record & start → Stop & save exports replay/video/actions.")
     print("Start or reopen (requires this build's compatible runtime):\n" + shlex.join(lab_command), flush=True)
+    print("Or interact and record in the terminal:\n" + shlex.join(console_command), flush=True)
+    if args.console:
+        return subprocess.call(console_command, cwd=PROJECT, env=_environment(root))
     if args.serve:
         # Serving is explicitly user-controlled and separate from the bounded construction process.
         return subprocess.call(lab_command, cwd=PROJECT, env=_environment(root))

@@ -94,6 +94,26 @@ def test_scope_conflicts_before_output(project, flags):
     assert not (project / "artifacts").exists()
 
 
+def test_console_and_server_are_mutually_exclusive(project):
+    with pytest.raises(SystemExit):
+        launcher.main(["--video", str(project / "video.webm"), "--person-only", "--console", "--serve"])
+    assert not (project / "artifacts").exists()
+
+
+@pytest.mark.parametrize("ready", [False, True])
+def test_console_starts_only_after_ready_build_and_report(project, monkeypatch, ready):
+    mocked_worker(monkeypatch, ready=ready)
+    calls = []
+    monkeypatch.setattr(launcher.subprocess, "call", lambda cmd, **kwargs: calls.append((cmd, kwargs)) or 0)
+    out = project / "console-build"
+    assert launcher.main(["--video", str(project / "video.webm"), "--person-only", "--console", "--out", str(out)]) == (0 if ready else 1)
+    assert len(calls) == int(ready)
+    if ready:
+        assert calls[0][0][-3:] == ["lab-console", "--resume", str(out / "build/lab")]
+        assert "stdin" not in calls[0][1]
+        assert "META_API_KEY" not in calls[0][1]["env"]
+
+
 @pytest.mark.parametrize("flag", ["--train", "--person-only", "--root-assistance"])
 def test_inspect_never_changes_saved_settings(project, flag):
     with pytest.raises(SystemExit):

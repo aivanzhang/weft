@@ -36,6 +36,36 @@ Choose **Explain this trial** under a saved recording for body-error values, all
 
 The shortcut uses trusted Git runtime **`e1c54236ebf625264e2cb335cab65ba53a907ac1`**, including the saved body-failure explanation and person-only recording captions. The metadata-only `--example person --check` verified the unchanged22policy/18lab source pins and192exported files in **0.165seconds**; it did not start a server, run physics or establish browser performance. Full lab/source/policy admission still runs on opening. The original and `--example video` runtimes are unchanged; the prior person cache is preserved.
 
+## Interact and record in the terminal
+
+Use the same saved world, task and controllers without a server or browser:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/person-feedback-workflow-01/lab
+```
+
+This command requires the lab's matching runtime. It does not rebuild, train, or start movement automatically. Enter:
+
+```text
+controls
+record start
+mode learned
+step 6
+motor torso_twist 0.25
+step
+reset
+mode reference
+step 6
+record stop
+files
+quit
+```
+
+`controls` lists the actual available motors, actions and controllers. `motor` selects one motor and leaves others at zero; selecting a control does not move anything until `step`. Use `mode coast` to release control. `record start` resets the trial; later resets are recorded. `files` prints paths to the video, interactive replay and action data as export completes. Quitting or pressing Ctrl+C at the prompt saves an active recording and finishes its export. Native failures preserve the journal and print the appropriate verification or non-destructive recovery command.
+
+The real exercise CLI check took **2.75 seconds**:11manual/controller actions, one reset,13recorded events, six learned decisions and exact action/state replay. The completed lab's861sealed files and prior recording stayed unchanged. This short interface check does not replace the full-task evaluation, which remains0/3success. The terminal shares the lab's existing recording/export bounds; it does not introduce a hard native-memory or export timeout.
+
 ## Build from your person-only exercise video
 
 From the repository root:
@@ -47,6 +77,8 @@ From the repository root:
 ```
 
 This uses the existing pipeline, then automatically saves a step-by-step report. On success, `--serve` starts the local lab and prints its link; it never opens a browser. Choose **Sandbox → a control mode → Start**, then **Record & start → Stop & save** to export your trial. Without `--serve`, it prints the command to start the lab later. A rejected input still gets a report when its failure is sealed, but no sandbox starts.
+
+Use `--console` instead of `--serve` to enter the terminal controls after a successful build and report. The two options are mutually exclusive; failed builds never start either interface. With neither option, the launcher prints both reopening commands.
 
 - `--person-only` declares one selected person, ground-only support, and no task-relevant equipment or obstacles. It does not detect their absence.
 - `--root-assistance` enables three virtual body-position controls; this is not recovered human balance. Omit it to disable that assistance.
@@ -71,9 +103,14 @@ Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-v
 Optional `shared-exercise-pixel-check` compares local image-patch motion with the original estimated joint motion. It accepts sealed pose evidence and a sealed extraction containing two to four original PNG frames; it never decodes the video again, runs a pose model, or changes the body. This is an advanced check on selected frames, not a whole-video accuracy test.
 
 ```sh
+.venv-lab/bin/python -m weft shared-exercise-frames \
+  --pose-run artifacts/single-leg-person-workflow-01/build/body_source \
+  --frames 16 18 20 22 \
+  --out artifacts/my-source-frames-01
+
 .venv-lab/bin/python -m weft shared-exercise-pixel-check \
   --pose-run artifacts/single-leg-person-workflow-01/build/body_source \
-  --extraction-run artifacts/single-leg-source-pixels-01 \
+  --extraction-run artifacts/my-source-frames-01 \
   --out artifacts/my-pixel-check-01
 
 .venv-lab/bin/python -m weft shared-exercise-inspect \
@@ -84,9 +121,11 @@ Optional `shared-exercise-pixel-check` compares local image-patch motion with th
 
 The separate report card distinguishes local patch disagreement, no detected disagreement, and unavailable evidence. Agreement does not prove that a patch belongs to the correct joint or that the 3D pose is accurate. Occlusion, repeated texture, large motion, unsupported clocks and time limits stay visible; original pose-quality decisions and task results remain unchanged. Every output needs a new directory. The producer's five-second cooperative limit includes packaging; a partial result is not a completed check. The normal report command remains unchanged when `--pixel-support` is omitted.
 
+`shared-exercise-frames` supplies the missing extraction step. Choose two to four increasing original frame IDs retained in raw pose evidence. It verifies the sealed source bytes, decodes one prefix without seeking, and preserves full-resolution pixels and native timestamps. Unknown or different clocks reject; frames are never resized or renumbered. Limits:64MiB source,1,800reads,4MiB/12output files and30seconds plus up to2seconds cleanup; native decoding runs in one supervised child. Memory is not hard-capped. The real four-frame extraction took0.427seconds/23reads, saved1,363,271bytes and reproduced all original RGB hashes/clocks. One PNG has different compression bytes, not different pixels. No inference, simulation or repeated patch matching ran.
+
 The checked local [example report](../artifacts/single-leg-pixel-inspection-01/index.html) retains36joint-pair checks:5conditional disagreements,2without disagreement and29unavailable. Diagnostic and report together took0.603seconds with no new video decoding, inference or simulation. This is a selected-frame warning, not a repaired reference or accuracy score.
 
-For other saved extractions, use `source-frame-pixels-v1`: a schema1manifest and `report.json`, both with `status: pixels_extracted`. The report binds `source_sha256`, declares no resampling/automatic repair/API/inference/physics, and lists2–4ordered PNG rows containing `frame`, nominal `time_s`, `decoder_timestamp_s`, `file`, PNG `sha256`, `decoded_rgb_sha256`, `source_sha256`, `width` and `height`. Its manifest must cover the report and exact PNG bytes. Extraction provenance is supplied by that producer, not independently re-established by this checker. The earlier `single-leg-source-pixels-v1` receipt is accepted through an explicit time-field compatibility adapter. This command does not extract frames from a new video.
+Other extraction producers must supply `source-frame-pixels-v1`: a schema1manifest and `report.json`, both with `status: pixels_extracted`. The report binds `source_sha256`, declares no resampling/automatic repair/API/inference/physics, and lists2–4ordered PNG rows containing `frame`, nominal `time_s`, `decoder_timestamp_s`, `file`, PNG `sha256`, `decoded_rgb_sha256`, `source_sha256`, `width` and `height`. Its manifest must cover the report and exact PNG bytes. Extraction provenance is supplied by that producer, not independently re-established by the pixel checker. The earlier `single-leg-source-pixels-v1` receipt is accepted through an explicit time-field compatibility adapter.
 
 For a person interacting with equipment, the same launcher accepts `--evidence-run`, `--config` and optional `--source-mapping` instead of `--person-only`. Equipment geometry/camera assumptions remain explicit; it does not silently remove objects. Local build/report processing makes no paid API call and inherits no provider-key environment variables. Native calls run in a bounded child process; native memory is not hard-capped. The user owns any server started with `--serve`.
 

@@ -62,6 +62,9 @@ def main():
     lab.add_argument("--scene-run", help="Opt-in import of a verified spatial-rigid-v1 run into a new --out lab")
     lab.add_argument("--shared-world-run", help="Opt-in import of a verified shared-world-v1 run into a new --out lab")
     lab.add_argument("--learning", help="Optional verified policy directory paired with --scene-run or --shared-world-run")
+    lab_console = commands.add_parser("lab-console", help="Interact with a saved lab and record in the terminal; no server, browser or training")
+    lab_console.add_argument("--resume", required=True, help="Ready lab matching the installed runtime; completed run stays unchanged")
+    lab_console.add_argument("--seed", type=int, default=1729)
     replay = commands.add_parser("replay", help="Verify, export, or non-destructively recover an interaction recording")
     replay.add_argument("directory")
     replay.add_argument("--export", action="store_true", help="Create video and offline replay from a closed journal")
@@ -259,6 +262,11 @@ def main():
     pixel_check.add_argument("--extraction-run", required=True, help="Sealed source-frame-pixels-v1 receipt and two to four original PNGs")
     pixel_check.add_argument("--out", required=True, help="New diagnostic companion; never modifies the original evidence")
     pixel_check.add_argument("--max-seconds", type=float, default=5, help="Cooperative total bound, at most five seconds")
+    source_frames = commands.add_parser("shared-exercise-frames", help="Extract two to four original frames for saved-pose inspection; no pose inference")
+    source_frames.add_argument("--pose-run", required=True, help="Sealed original raw pose evidence with its exact source video")
+    source_frames.add_argument("--frames", nargs="+", type=int, required=True, help="Two to four increasing original frame IDs")
+    source_frames.add_argument("--out", required=True, help="New source-frame-pixels-v1 extraction directory")
+    source_frames.add_argument("--max-seconds", type=float, default=30)
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
     sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
     sw_construct.add_argument("--proposal-run", required=True, help="Sealed ready geometry proposal")
@@ -543,6 +551,9 @@ def main():
         elif args.command == "shared-exercise-pixel-check":
             from weft.pose_pixel_support_package import prepare_pose_pixel_support
             result = prepare_pose_pixel_support(args.pose_run, args.extraction_run, args.out, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-frames":
+            from weft.source_frame_pixels import prepare_source_frame_pixels
+            result = prepare_source_frame_pixels(args.pose_run, args.out, frames=args.frames, max_seconds=args.max_seconds)
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
             result = train_shared_world_policy(
@@ -595,6 +606,9 @@ def main():
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)
+        elif args.command == "lab-console":
+            from weft.lab_console import console
+            result = console(args.resume, seed=args.seed)
         elif args.command == "avatar-import":
             from weft.avatar_assets import import_avatar_model, import_avatar_package
             if args.source:
@@ -711,6 +725,8 @@ def main():
                     print(error)
             result = {"status": "closed"}
         print(json.dumps(result, indent=2, allow_nan=False))
+        if args.command == "lab-console" and result.get("recording", {}).get("export") == "failed":
+            parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
         if args.command == "shared-exercise-build" and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-world-shape" and result.get("status") == "failed":
