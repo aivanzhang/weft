@@ -20,7 +20,7 @@ def raw(value):
     return (json.dumps(value, sort_keys=True) + "\n").encode()
 
 
-def saved_build(path, *, ready=False, trained=False, lab=None, preflight=None):
+def saved_build(path, *, ready=False, trained=False, lab=None, preflight=None, members=None):
     path.mkdir(parents=True)
     result = {"schema_version": 1, "status": "ready" if ready else "failed",
               "lab_status": "ready" if ready else "not_ready", "seal_scope": "complete_immutable_outputs",
@@ -33,6 +33,11 @@ def saved_build(path, *, ready=False, trained=False, lab=None, preflight=None):
         contents = raw(preflight)
         (path / "input-preflight.json").write_bytes(contents)
         manifest["files"]["input-preflight.json"] = hashlib.sha256(contents).hexdigest()
+    for name, contents in (members or {}).items():
+        member = path / name
+        member.parent.mkdir(parents=True, exist_ok=True)
+        member.write_bytes(contents)
+        manifest["files"][name] = hashlib.sha256(contents).hexdigest()
     (path / "manifest.json").write_bytes(raw(manifest))
     return path
 
@@ -291,3 +296,241 @@ def test_worker_output_is_bounded_and_not_retried(tmp_path, monkeypatch):
     assert result["error"]["type"] == "ValueError"
     assert (tmp_path / "worker.stdout.log").stat().st_size == 1024
     assert len(list(tmp_path.glob("*.log"))) == 2
+
+
+def body_source(path):
+    """Analytical metadata only; constructor validation is never stubbed as physical evidence."""
+    path.mkdir()
+    source_raw, human_raw = b"unchanged source bytes", raw({"fixture": "body"})
+    source_sha, human_sha = hashlib.sha256(source_raw).hexdigest(), hashlib.sha256(human_raw).hexdigest()
+    source = raw({"artifact": "source.webm", "sha256": source_sha, "license": "fixture only"})
+    marker = raw({"schema_version": 1, "profile": launcher.BODY_SOURCE_PROFILE, "status": "construction_only",
+                  "simulation_ready": False, "source_artifact": "source.webm", "source_sha256": source_sha,
+                  "artifacts": {"source.json": hashlib.sha256(source).hexdigest(), "human.json": human_sha},
+                  "pose_options": {"pose_mode": "video", "pose_identity": "raw"}})
+    members = {"source.webm": source_raw, "human.json": human_raw, "source.json": source, "body-source.json": marker}
+    for name, contents in members.items():
+        (path / name).write_bytes(contents)
+    (path / "manifest.json").write_bytes(raw({"schema_version": 1, "profile": launcher.BODY_SOURCE_PROFILE,
+        "status": "construction_only", "simulation_ready": False,
+        "files": {name: hashlib.sha256(contents).hexdigest() for name, contents in members.items()}}))
+    return path
+
+
+def body_consumption(body, *, person=True):
+    identity = launcher._body_identity(body)
+    hashes = identity["metadata_sha256"]
+    prefix = "candidate/" if person else "body_seed/inputs/human-source/"
+    archive = "candidate/inputs/body-source-manifest.json" if person else "body_seed/inputs/human-source/source-manifest.json"
+    report = "candidate/reconstruction.json" if person else "body_seed/construction-seed.json"
+    proof = {"source_sha256": identity["source_sha256"], "source_verification": {"verified_files": 4}}
+    if person:
+        proof.update(profile="shared-world-v3", status="ready", source_manifest_sha256=hashes["manifest.json"],
+                     human_file_sha256=identity["human_sha256"])
+    else:
+        proof.update(profile="shared-world-construction-seed-v1", status="construction_only", simulation_ready=False,
+                     input_profile=launcher.BODY_SOURCE_PROFILE, source_directory=str(body),
+                     human_json_sha256=identity["human_sha256"])
+        proof["source_verification"]["manifest_sha256"] = hashes["manifest.json"]
+    return {"settings.json": raw({"human_run": str(body), "video": None, "base_run": None,
+                "inference_calls": 0, **({"scene_scope": "human_only"} if person else {})}),
+            archive: (body / "manifest.json").read_bytes(), report: raw(proof),
+            **{prefix + name: (body / name).read_bytes() for name in ("body-source.json", "source.json", "human.json")}}
+
+
+def mocked_body_worker(monkeypatch, *, ready=True, mutation=None, original_mutation=None, partial=False):
+    calls = []
+
+    def run(command, root, name, seconds):
+        calls.append((command, name, seconds))
+        if name == "build":
+            body = Path(command[command.index("--human-run") + 1])
+            members = body_consumption(body, person="--person-only" in command)
+            if partial:
+                members = {"settings.json": members["settings.json"]}
+            if mutation:
+                mutation(members)
+            saved_build(root / "build", ready=ready, trained="--train" in command, members=members)
+            if original_mutation:
+                original_mutation(body)
+        else:
+            saved_report(root / "report", Path(command[command.index("--run") + 1]))
+        return {"returncode": (0 if ready else 1) if name == "build" else 0,
+                "error": None, "interrupted": False, "seconds": 0, "log_bytes": {"stdout": 0, "stderr": 0}}
+
+    monkeypatch.setattr(launcher, "_run", run)
+    return calls
+
+
+def test_saved_body_scope_matches_public_assembler_contract(project):
+    from weft.exercise_scene_pipeline import prepare_exercise_scene
+
+    body = body_source(project / "body")
+    scope = json.loads(body_consumption(body)["settings.json"])["scene_scope"]
+    # A base input stops at the public scope guard, before any source reads or native stage.
+    with pytest.raises(ValueError, match="Person-only scope accepts"):
+        prepare_exercise_scene(project / "unused-base", None, None, project / "unused-out", scene_scope=scope)
+    with pytest.raises(ValueError, match="Scene scope requires"):
+        prepare_exercise_scene(project / "unused-base", None, None, project / "unused-out", scene_scope="person_only")
+    assert not (project / "unused-out").exists()
+
+
+@pytest.mark.parametrize("person", [True, False])
+@pytest.mark.parametrize("train", [True, False])
+def test_saved_body_ready_uses_common_pipeline_without_raw_inputs(project, monkeypatch, person, train):
+    body = body_source(project / "body")
+    original = {p.name: p.read_bytes() for p in body.iterdir()}
+    original_read = launcher._read
+
+    def metadata_only(path, limit=launcher.MAX_METADATA_BYTES):
+        if path.is_relative_to(body):
+            assert path.name in launcher.BODY_METADATA, "Launcher must not duplicate the constructor's body/media scan"
+        return original_read(path, limit)
+
+    monkeypatch.setattr(launcher, "_read", metadata_only)
+    calls = mocked_body_worker(monkeypatch)
+    out = project / "saved-attempt"
+    flags = ["--person-only"] if person else ["--evidence-run", str(project / "observations"),
+        "--config", str(project / "camera.json"), "--source-mapping", str(project / "mapping")]
+    if train:
+        flags += ["--train", "--policy-family", "feedback-residual"]
+    assert launcher.main(["--human-run", str(body), "--root-assistance", *flags, "--out", str(out)]) == 0
+    assert [row[1] for row in calls] == ["build", "report"]
+    command = calls[0][0]
+    assert calls[0][2] == (295 if train else 115)
+    assert "--full-reference" in command and "--root-assistance" in command
+    assert not {"--video", "--pose-model", "--pose-recovery", "--source-note"} & set(command)
+    assert ("--train" in command) == train and ("--person-only" in command) == person
+    if train:
+        assert command[command.index("--training-policy-family") + 1] == "feedback-residual"
+    plan = json.loads((out / "workflow-plan.json").read_bytes())
+    assert set(plan["input_sha256"]) == {str(body / name) for name in launcher.BODY_METADATA}
+    assert plan["body_source"]["status"] == "construction_only"
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["input_binding"] == "sealed_body_source_match_plan" and receipt["status"] == "ready"
+    assert receipt["lab"] == str(out / "build" / ("learning_workflow/lab" if train else "lab"))
+    assert original == {p.name: p.read_bytes() for p in body.iterdir()}
+
+
+@pytest.mark.parametrize("flag,value", [("--pose-model", "unused"), ("--pose-recovery", "selective-crop"),
+    ("--source-note", "changed attribution"), ("--source-note", ""), ("--pose-mode", "image"), ("--pose-identity", "temporal")])
+def test_saved_body_rejects_raw_only_options_before_output(project, flag, value):
+    with pytest.raises(SystemExit):
+        launcher.main(["--human-run", "unused", "--person-only", flag, value])
+    assert not (project / "artifacts").exists()
+
+
+@pytest.mark.parametrize("other", ["--video", "--inspect-build"])
+def test_saved_body_input_is_mutually_exclusive(project, other):
+    with pytest.raises(SystemExit):
+        launcher.main(["--human-run", "unused", other, "unused", "--person-only"])
+    assert not (project / "artifacts").exists()
+
+
+@pytest.mark.parametrize("train,deadline", [(False, "181"), (True, "481"), (False, "nan"), (False, "0")])
+def test_saved_body_deadline_rejects_before_output(project, train, deadline):
+    with pytest.raises(ValueError, match="deadline"):
+        launcher.main(["--human-run", "unused", "--person-only", "--max-seconds", deadline, *(["--train"] if train else [])])
+    assert not (project / "artifacts").exists()
+
+
+@pytest.mark.parametrize("person", [True, False])
+@pytest.mark.parametrize("partial", [True, False])
+def test_saved_body_failed_build_still_reports_without_interaction(project, monkeypatch, person, partial):
+    body = body_source(project / "body")
+    calls = mocked_body_worker(monkeypatch, ready=False, partial=partial)
+    out = project / "saved-attempt"
+    scope = ["--person-only"] if person else ["--evidence-run", "unused", "--config", "unused"]
+    assert launcher.main(["--human-run", str(body), *scope, "--console", "--out", str(out)]) == 1
+    assert [row[1] for row in calls] == ["build", "report"]
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["report"] and receipt["lab"] is None and receipt["status"] == "stopped"
+    assert receipt["input_binding"] == ("unavailable_before_sealed_construction" if partial else "sealed_body_source_match_plan")
+
+
+@pytest.mark.parametrize("person", [True, False])
+def test_saved_body_ready_without_consumption_proof_is_blocked(project, monkeypatch, person):
+    body = body_source(project / "body")
+    mocked_body_worker(monkeypatch, partial=True)
+    out = project / "saved-attempt"
+    scope = ["--person-only"] if person else ["--evidence-run", "unused", "--config", "unused"]
+    assert launcher.main(["--human-run", str(body), *scope, "--serve", "--out", str(out)]) == 1
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["report"] and receipt["lab"] is None
+    assert "no sealed input identities" in receipt["error"]["message"]
+
+
+@pytest.mark.parametrize("person", [True, False])
+@pytest.mark.parametrize("kind", ["settings", "manifest", "metadata", "human", "report"])
+def test_saved_body_child_substitution_preserves_report_but_blocks_lab(project, monkeypatch, person, kind):
+    body = body_source(project / "body")
+
+    def mutate(members):
+        if kind == "settings":
+            doc = json.loads(members["settings.json"]); doc["human_run"] += "-other"
+            members["settings.json"] = raw(doc)
+        elif kind == "report":
+            name = "candidate/reconstruction.json" if person else "body_seed/construction-seed.json"
+            doc = json.loads(members[name]); doc["source_sha256"] = "a" * 64
+            members[name] = raw(doc)
+        else:
+            prefix = "candidate/" if person else "body_seed/inputs/human-source/"
+            name = ("candidate/inputs/body-source-manifest.json" if person else prefix + "source-manifest.json") if kind == "manifest" else prefix + ("source.json" if kind == "metadata" else "human.json")
+            members[name] += b" "
+
+    mocked_body_worker(monkeypatch, mutation=mutate)
+    out = project / "saved-attempt"
+    scope = ["--person-only"] if person else ["--evidence-run", "unused", "--config", "unused"]
+    assert launcher.main(["--human-run", str(body), *scope, "--serve", "--out", str(out)]) == 1
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["report"] and receipt["lab"] is None and "workflow plan" in receipt["error"]["message"]
+
+
+@pytest.mark.parametrize("kind", ["manifest", "metadata", "failure"])
+def test_saved_body_original_change_blocks_ready_result(project, monkeypatch, kind):
+    body = body_source(project / "body")
+
+    def mutate(original):
+        name = {"manifest": "manifest.json", "metadata": "source.json", "failure": "failure.json"}[kind]
+        with (original / name).open("ab") as stream:
+            stream.write(b" ")
+
+    mocked_body_worker(monkeypatch, original_mutation=mutate)
+    out = project / "saved-attempt"
+    assert launcher.main(["--human-run", str(body), "--person-only", "--serve", "--out", str(out)]) == 1
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["report"] and receipt["lab"] is None and receipt["error"]
+
+
+@pytest.mark.parametrize("kind", ["failed", "legacy", "unsealed", "conflicting", "failure_marker", "oversize"])
+def test_saved_body_bad_metadata_rejects_before_output(project, kind):
+    body = body_source(project / "body")
+    manifest = json.loads((body / "manifest.json").read_bytes())
+    if kind in ("failed", "legacy"):
+        manifest.update({"status": "failed"} if kind == "failed" else {"profile": "exercise-v3"})
+    elif kind == "unsealed":
+        (body / "source.json").write_bytes(raw({"artifact": "source.webm", "sha256": "b" * 64}))
+    elif kind == "conflicting":
+        contents = raw({"artifact": "source.webm", "sha256": "b" * 64})
+        (body / "source.json").write_bytes(contents)
+        manifest["files"]["source.json"] = hashlib.sha256(contents).hexdigest()
+    elif kind == "failure_marker":
+        (body / "failure.json").write_text("{}")
+    else:
+        (body / "source.json").write_bytes(b" " * (launcher.MAX_METADATA_BYTES + 1))
+    (body / "manifest.json").write_bytes(raw(manifest))
+    with pytest.raises(ValueError):
+        launcher.main(["--human-run", str(body), "--person-only"])
+    assert not (project / "artifacts").exists()
+
+
+def test_saved_body_output_overlap_and_symlink_reject_without_mutation(project):
+    body = body_source(project / "body")
+    before = {p.name: p.read_bytes() for p in body.iterdir()}
+    with pytest.raises(ValueError, match="outside every input"):
+        launcher.main(["--human-run", str(body), "--person-only", "--out", str(body / "output")])
+    linked = project / "body-link"
+    linked.symlink_to(body)
+    with pytest.raises(ValueError, match="symlink"):
+        launcher.main(["--human-run", str(linked), "--person-only"])
+    assert before == {p.name: p.read_bytes() for p in body.iterdir()}

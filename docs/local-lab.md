@@ -115,6 +115,37 @@ The report shows the stopped stage, exact source artifacts, saved quality checks
 
 Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) for direct access with an explicit local pose model. It uses the same pipeline and assumptions as the launcher, not a separate product. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible.
 
+### Reuse an extracted body
+
+If video analysis already produced a successful `exercise-body` package, reuse
+it to build a new world, train, or inspect the results without analyzing the
+video again:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --human-run artifacts/single-leg-person-workflow-01/build/body_source \
+  --person-only --root-assistance --console
+```
+
+This accepts a sealed construction-only body package, not a saved lab or rejected
+pose estimates. It keeps the original source, poses, missing frames and model
+identity. The existing constructors verify the complete package; the launcher
+also checks that the new build consumed that exact saved body.
+
+Add `--train` to run the same bounded learner, or use `--serve` instead of
+`--console` for the 3D lab. Without training, learned control is unavailable.
+For equipment scenes, replace `--person-only` with the existing `--evidence-run`
+and `--config` inputs. Model, pose-recovery and source-note options apply only
+to raw video and cannot replace saved provenance. Each build uses a new output
+directory; reuse does not overwrite the original or repair its uncertainties.
+
+The real saved-body build/report check completed in **2.22 seconds**, preserving
+all 235 source slots, 118 poses and the 234-step task, with zero new inference,
+training or simulated actions. Its [report](../artifacts/saved-body-sandbox-01/report/index.html)
+and untrained lab are separate from the recommended trained exercise example.
+The saved-output audit is `.local/saved-body-sandbox-verification-02.json`;
+57 focused launcher checks and independent code review also pass.
+
 ### Check suspicious motion using saved images
 
 Optional `shared-exercise-pixel-check` compares local image-patch motion with the original estimated joint motion. It accepts sealed pose evidence and a sealed extraction containing two to four original PNG frames; it never decodes the video again, runs a pose model, or changes the body. This is an advanced check on selected frames, not a whole-video accuracy test.

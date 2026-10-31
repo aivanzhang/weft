@@ -1,4 +1,4 @@
-"""Build a video sandbox and its step-by-step report using the existing Weft CLI."""
+"""Build a video or saved-body sandbox and its report using the existing Weft CLI."""
 
 import argparse
 import hashlib
@@ -20,6 +20,8 @@ from zoneinfo import ZoneInfo
 PROJECT = Path(__file__).resolve().parents[1]
 MAX_LOG_BYTES = 1024 * 1024
 MAX_METADATA_BYTES = 2 * 1024 * 1024
+BODY_SOURCE_PROFILE = "exercise-body-source-v1"
+BODY_METADATA = ("manifest.json", "body-source.json", "source.json")
 
 
 def _path(value):
@@ -162,11 +164,104 @@ def _report_identity(root, source_sha, build_status):
     return hashlib.sha256(raw).hexdigest()
 
 
-def _input_identity(build, command, pins, source_sha):
+def _body_identity(body):
+    # Constructors verify all body/media bytes; the launcher only pins bounded identity metadata.
+    body = _path(body)
+    failure = body / "failure.json"
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Use a successful construction-only exercise-body output, not failed body evidence")
+    contents = {name: _read(body / name) for name in BODY_METADATA}
+    manifest, marker, source = (_json(contents[name]) for name in BODY_METADATA)
+    files = manifest.get("files")
+    if (not isinstance(files, dict) or not 1 <= len(files) <= 511 or "failure.json" in files
+            or any(type(doc.get("schema_version")) is not int or doc["schema_version"] != 1
+                   or doc.get("profile") != BODY_SOURCE_PROFILE or doc.get("status") != "construction_only"
+                   or doc.get("simulation_ready") is not False for doc in (manifest, marker))):
+        raise ValueError("--human-run requires a sealed construction-only exercise-body output, not a saved lab")
+    hashes = {name: hashlib.sha256(raw).hexdigest() for name, raw in contents.items()}
+    if any(files.get(name) != hashes[name] for name in BODY_METADATA[1:]):
+        raise ValueError("Saved body provenance differs from its manifest")
+    artifact, source_sha = marker.get("source_artifact"), marker.get("source_sha256")
+    artifacts, human_sha = marker.get("artifacts"), files.get("human.json")
+    valid_sha = lambda value: isinstance(value, str) and len(value) == 64 and all(c in "0123456789abcdef" for c in value)
+    if (not isinstance(artifact, str) or artifact not in {"source" + suffix for suffix in (".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv")}
+            or not valid_sha(source_sha) or files.get(artifact) != source_sha
+            or source.get("sha256") != source_sha or source.get("artifact") != artifact
+            or not valid_sha(human_sha) or not isinstance(artifacts, dict)
+            or artifacts.get("human.json") != human_sha or artifacts.get("source.json") != hashes["source.json"]
+            or any(not valid_sha(sha) or files.get(name) != sha for name, sha in artifacts.items())):
+        raise ValueError("Saved exercise-body provenance has conflicting source/body identities")
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Saved exercise-body input acquired a failure marker")
+    return {"profile": BODY_SOURCE_PROFILE, "status": "construction_only", "source_sha256": source_sha,
+            "source_artifact": artifact, "human_sha256": human_sha, "metadata_sha256": hashes,
+            "scope": "Identity metadata only; full body, source and recovery proofs are verified by construction admission."}
+
+
+def _saved_body_binding(build, command, pins, manifest, body_identity):
+    body = _path(command[command.index("--human-run") + 1])
+    current = _body_identity(body)
+    if current != body_identity or any(pins.get(str(body / name)) != sha for name, sha in current["metadata_sha256"].items()):
+        raise ValueError("Saved exercise-body input changed from the workflow plan")
+    if manifest["seal_scope"] == "failure_receipt_only":
+        return "unavailable_before_sealed_construction"
+    files = manifest["files"]
+
+    def covered(name):
+        raw = _read(build / name)
+        if hashlib.sha256(raw).hexdigest() != files.get(name):
+            raise ValueError("Saved body consumption proof differs from the build seal")
+        return raw
+
+    if "settings.json" not in files:
+        return "unavailable_before_sealed_construction"
+    settings = _json(covered("settings.json"))
+    if (settings.get("human_run") != str(body) or settings.get("video") is not None
+            or settings.get("base_run") is not None or type(settings.get("inference_calls")) is not int
+            or settings["inference_calls"] != 0):
+        raise ValueError("Build consumed different saved-body settings than the workflow plan")
+    person = "--person-only" in command
+    archive = "candidate/inputs/body-source-manifest.json" if person else "body_seed/inputs/human-source/source-manifest.json"
+    report = "candidate/reconstruction.json" if person else "body_seed/construction-seed.json"
+    prefix = "candidate/" if person else "body_seed/inputs/human-source/"
+    required = (archive, report, prefix + "body-source.json", prefix + "source.json", prefix + "human.json")
+    if any(name not in files for name in required):
+        return "unavailable_before_sealed_construction"
+    hashes = current["metadata_sha256"]
+    for name, expected in ((archive, hashes["manifest.json"]),
+                           (prefix + "body-source.json", hashes["body-source.json"]),
+                           (prefix + "source.json", hashes["source.json"])):
+        if hashlib.sha256(covered(name)).hexdigest() != expected:
+            raise ValueError("Build consumed different saved-body provenance than the workflow plan")
+    proof = _json(covered(report))
+    verification = proof.get("source_verification")
+    if (proof.get("source_sha256") != current["source_sha256"]
+            or files[prefix + "human.json"] != current["human_sha256"]
+            or not isinstance(verification, dict)):
+        raise ValueError("Build source/body identities differ from the workflow plan")
+    if person:
+        valid = (proof.get("profile") == "shared-world-v3" and proof.get("status") == "ready"
+                 and proof.get("source_manifest_sha256") == hashes["manifest.json"]
+                 and proof.get("human_file_sha256") == current["human_sha256"]
+                 and settings.get("scene_scope") == "human_only")
+    else:
+        valid = (proof.get("profile") == "shared-world-construction-seed-v1"
+                 and proof.get("status") == "construction_only" and proof.get("simulation_ready") is False
+                 and proof.get("input_profile") == BODY_SOURCE_PROFILE and proof.get("source_directory") == str(body)
+                 and verification.get("manifest_sha256") == hashes["manifest.json"]
+                 and proof.get("human_json_sha256") == current["human_sha256"])
+    if not valid:
+        raise ValueError("Saved body construction provenance contradicts the workflow plan")
+    return "sealed_body_source_match_plan"
+
+
+def _input_identity(build, command, pins, source_sha, body_identity=None):
     raw = _read(build / "manifest.json")
     if hashlib.sha256(raw).hexdigest() != source_sha:
         raise ValueError("Build seal changed before input-identity verification")
     manifest = _json(raw)
+    if "--human-run" in command:
+        return _saved_body_binding(build, command, pins, manifest, body_identity)
     expected = manifest["files"].get("input-preflight.json")
     if manifest["seal_scope"] == "failure_receipt_only" or expected is None:
         return "unavailable_before_sealed_preflight"
@@ -192,6 +287,7 @@ def _arguments(argv):
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--video", help="Local exercise video; never uploaded")
+    source.add_argument("--human-run", help="Sealed construction-only exercise-body output; reuses saved poses without inference (not a saved lab)")
     source.add_argument("--inspect-build", help="Saved build to report without rerunning video processing")
     parser.add_argument("--person-only", action="store_true", help="Declare one person, ground-only support and no task-relevant equipment")
     parser.add_argument("--evidence-run", help="Otherwise, sealed equipment observations")
@@ -213,6 +309,10 @@ def _arguments(argv):
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
+    if args.human_run is not None and not args.human_run.strip():
+        parser.error("--human-run requires a sealed exercise-body output directory")
+    if args.human_run and any(value is not None for value in (args.pose_model, args.pose_recovery, args.source_note)):
+        parser.error("--human-run reuses sealed exercise-body provenance; raw pose/model/source options are not allowed")
     if args.inspect_build:
         if any((args.person_only, args.evidence_run, args.config, args.source_mapping, args.pose_model,
                 args.pose_recovery, args.root_assistance, args.train, args.policy_family, args.source_note, args.max_seconds is not None)):
@@ -241,7 +341,7 @@ def main(argv=None):
         command = [str(python), str(Path(__file__).absolute()), "--inspect-build", str(saved)]
         raise ValueError("Output already exists. Inspect without rerunning: " + shlex.join(command))
     prefix = [str(python), "-P", "-B", "-m", "weft"]
-    command, pins = None, {}
+    command, pins, body_identity = None, {}, None
     if args.inspect_build:
         build = _path(args.inspect_build)
         if root.is_relative_to(build) or build.is_relative_to(root):
@@ -249,22 +349,35 @@ def main(argv=None):
         _terminal(build)
         maximum = 0
     else:
-        video = _path(args.video)
-        variant = "full" if args.pose_recovery else "lite"
-        model = _path(args.pose_model or PROJECT / ".local/models" / f"pose_landmarker_{variant}.task")
         maximum = args.max_seconds
         if maximum is None:
-            maximum = (600 if args.train else 450) if args.pose_recovery else (450 if args.train else 270)
-        if not math.isfinite(maximum) or not 1 <= maximum <= (660 if args.pose_recovery else 480):
+            maximum = ((270 if args.train else 90) if args.human_run else
+                       (600 if args.train else 450) if args.pose_recovery else (450 if args.train else 270))
+        ceiling = 180 if args.human_run and not args.train else 660 if args.pose_recovery else 480
+        if not math.isfinite(maximum) or not 1 <= maximum <= ceiling:
             raise ValueError("Build deadline is outside the pipeline's allowed interval")
-        inputs = [video, model] + [_path(p) for p in (args.evidence_run, args.config, *args.source_mapping) if p]
+        if args.human_run:
+            body = _path(args.human_run)
+            inputs = [body]
+            source_flags = ["--human-run", str(body)]
+        else:
+            video = _path(args.video)
+            variant = "full" if args.pose_recovery else "lite"
+            model = _path(args.pose_model or PROJECT / ".local/models" / f"pose_landmarker_{variant}.task")
+            inputs = [video, model]
+            source_flags = ["--video", str(video), "--pose-model", str(model)]
+        inputs += [_path(p) for p in (args.evidence_run, args.config, *args.source_mapping) if p]
         if any(root.is_relative_to(p) or p.is_relative_to(root) for p in inputs):
             raise ValueError("Output must be outside every input")
-        for path in (video, model):
-            pins[str(path)] = hashlib.sha256(_read(path, 64 * 1024 * 1024)).hexdigest()
+        if args.human_run:
+            body_identity = _body_identity(body)
+            pins.update({str(body / name): sha for name, sha in body_identity["metadata_sha256"].items()})
+        else:
+            for path in (video, model):
+                pins[str(path)] = hashlib.sha256(_read(path, 64 * 1024 * 1024)).hexdigest()
         build = root / "build"
-        command = prefix + ["shared-exercise-build", "--video", str(video), "--pose-model", str(model),
-                            "--full-reference", "--max-seconds", str(maximum), "--out", str(build)]
+        command = prefix + ["shared-exercise-build", *source_flags, "--full-reference",
+                            "--max-seconds", str(maximum), "--out", str(build)]
         if args.person_only:
             command += ["--person-only"]
         else:
@@ -286,6 +399,7 @@ def main(argv=None):
     report_command = prefix + ["shared-exercise-inspect", "--run", str(build), "--out", str(root / "report")]
     _write(root / "workflow-plan.json", {"profile": "local-video-sandbox-workflow-v1", "created_at": now.isoformat(),
         "build_command": command, "report_command": report_command, "input_sha256": pins,
+        **({"body_source": body_identity} if body_identity is not None else {}),
         "build_process_seconds": maximum + 25 if command else 0, "report_process_seconds": 40,
         "log_bytes_per_stream": MAX_LOG_BYTES, "api_calls": 0, "retries": 0,
         "training_evidence": "exposed development; fixed separate seeds, not a final holdout",
@@ -310,11 +424,12 @@ def main(argv=None):
             raise ValueError("Saved build changed while reporting")
         receipt["report"] = str(root / "report/index.html")
         print(f"Report: {receipt['report']}", flush=True)
-        receipt["input_binding"] = _input_identity(build, command, pins, receipt["build_manifest_sha256"]) if command else "saved_build_not_reprocessed"
+        receipt["input_binding"] = _input_identity(build, command, pins, receipt["build_manifest_sha256"], body_identity) if command else "saved_build_not_reprocessed"
         build_process = receipt.get("build_process", {"returncode": 0, "error": None})
         if (build_process["returncode"] == 0 and build_process["error"] is None
                 and terminal.get("status") == "ready" and terminal.get("lab_status") == "ready"):
-            if command and receipt["input_binding"] != "sealed_source_and_model_match_plan":
+            expected_binding = "sealed_body_source_match_plan" if args.human_run else "sealed_source_and_model_match_plan"
+            if command and receipt["input_binding"] != expected_binding:
                 raise ValueError("Ready build has no sealed input identities matching the workflow plan")
             lab = _path(terminal.get("lab_directory", ""))
             if lab not in (build / "lab", build / "learning_workflow/lab"):
