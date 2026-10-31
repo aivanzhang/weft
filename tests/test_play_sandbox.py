@@ -21,6 +21,7 @@ SPEC.loader.exec_module(launcher)
 ACTUAL_COMMIT = launcher.TRUSTED_COMMIT
 ACTUAL_VIDEO_COMMIT = launcher.VIDEO_TRUSTED_COMMIT
 ACTUAL_PERSON_COMMIT = launcher.PERSON_TRUSTED_COMMIT
+ACTUAL_FEEDBACK_COMMIT = launcher.FEEDBACK_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -102,6 +103,7 @@ def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_COMMIT == "6396be84018e6cb6525614f07a664cf0bb673b34"
     assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
     assert ACTUAL_PERSON_COMMIT == "e1c54236ebf625264e2cb335cab65ba53a907ac1"
+    assert ACTUAL_FEEDBACK_COMMIT == "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2
@@ -376,6 +378,14 @@ def test_presets_keep_exact_distinct_profiles_and_policy_sets():
     assert len(launcher.PERSON_POLICY_FILES) == 22 and len(launcher._lab_files("person")) == 18
     assert launcher._lab_files("person") == launcher.LAB_RUNTIME_FILES | {"person_inventory.py"}
     assert launcher._lab_files(None) == launcher._lab_files("video") == launcher.LAB_RUNTIME_FILES
+    assert launcher._preset("feedback") == (ACTUAL_FEEDBACK_COMMIT, "artifacts/person-feedback-workflow-01/lab",
+                                            "shared-exercise-policy-v4", launcher.FEEDBACK_POLICY_FILES)
+    assert launcher.FEEDBACK_POLICY_FILES == launcher.PERSON_POLICY_FILES | {
+        "shared_exercise_feasibility_learning.py", "shared_exercise_selection.py",
+        "shared_exercise_feedback_learning.py", "shared_exercise_feedback_residual.py",
+    }
+    assert len(launcher.FEEDBACK_POLICY_FILES) == 26
+    assert launcher._lab_files("feedback") == launcher._lab_files("person")
 
 
 @pytest.mark.parametrize("revision", ["HEAD", "main", "0" * 40, "../arbitrary"])
@@ -618,3 +628,164 @@ def test_person_launch_preserves_selected_lab_and_recording_location(person_proj
     _, command, env = calls[0]
     assert command == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", "lab", "--resume", str(lab), "--port", "8767"]
     assert env["PYTHONPATH"] == str(runtime / "src")
+
+
+@pytest.fixture
+def feedback_project(person_project, monkeypatch):
+    project = person_project
+    (project / "src/weft/__init__.py").write_text("marker = 'trusted feedback'\n")
+    for name in launcher.FEEDBACK_POLICY_FILES - launcher.PERSON_POLICY_FILES:
+        (project / "src/weft" / name).write_text("# Trusted feedback runtime: " + name + "\n")
+    (project / "src/weft/lab_console.py").write_text("raise RuntimeError('Tests must not start the console')\n")
+    git(project, "add", "src/weft")
+    git(project, "-c", "commit.gpgsign=false", "commit", "-qm", "Freeze feedback runtime fixture")
+    monkeypatch.setattr(launcher, "FEEDBACK_TRUSTED_COMMIT", git(project, "rev-parse", "HEAD"))
+    return project
+
+
+@pytest.mark.parametrize("example", [None, "video", "person"])
+def test_console_requires_feedback_before_cache_work(monkeypatch, example):
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: pytest.fail("Unsupported console cannot prepare runtime"))
+    args = ["--console", "--check"] + (["--example", example] if example else [])
+    with pytest.raises(SystemExit) as error:
+        launcher.main(args)
+    assert error.value.code == 2
+
+
+def test_feedback_console_rejects_a_server_port_before_cache_work(monkeypatch):
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: pytest.fail("Conflicting mode cannot prepare runtime"))
+    with pytest.raises(SystemExit) as error:
+        launcher.main(["--example", "feedback", "--console", "--port", "8768"])
+    assert error.value.code == 2
+
+
+@pytest.mark.parametrize("console", [False, True])
+@pytest.mark.parametrize("override", [False, True])
+def test_feedback_check_is_metadata_only_with_exact_v4_pins(feedback_project, monkeypatch, capsys, console, override):
+    project = feedback_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    location = "artifacts/compatible-feedback-lab" if override else None
+    lab = saved_lab(project, hashes, example="feedback", location=location)
+    before = {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    monkeypatch.setattr(launcher.os, "execve", lambda *_a: pytest.fail("Check cannot start interaction or a server"))
+    monkeypatch.setattr(launcher.subprocess, "call", lambda *_a, **_k: pytest.fail("Check cannot start a child interface"))
+    args = ["--example", "feedback", "--check"] + (["--console"] if console else []) + (["--lab", location] if override else [])
+    assert launcher.main(args) == 0
+    text = capsys.readouterr().out
+    assert "26 policy pins, 18 lab pins" in text and launcher.FEEDBACK_TRUSTED_COMMIT[:12] in text
+    assert "No server, physics, session or media reads" in text and "Opening" not in text
+    assert before == {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    assert not (lab / "sessions").exists() and not list(runtime.rglob("__pycache__"))
+
+
+@pytest.mark.parametrize("console", [False, True])
+def test_feedback_launch_uses_trusted_selected_interface_and_same_lab(feedback_project, monkeypatch, capsys, console):
+    project = feedback_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="feedback")
+    calls, changed_directories = [], []
+
+    class Replaced(BaseException):
+        pass
+
+    def replace(python, command, env):
+        calls.append((python, command, env))
+        raise Replaced
+
+    monkeypatch.setattr(launcher.os, "chdir", changed_directories.append)
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    monkeypatch.setattr(launcher.subprocess, "call", lambda *_a, **_k: pytest.fail("No lingering launcher parent"))
+    args = ["--example", "feedback"] + (["--console"] if console else ["--port", "8768"])
+    with pytest.raises(Replaced):
+        launcher.main(args)
+    assert len(calls) == 1 and changed_directories == [project]
+    python, command, env = calls[0]
+    suffix = ["lab-console", "--resume", str(lab)] if console else ["lab", "--resume", str(lab), "--port", "8768"]
+    assert command == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", *suffix]
+    assert python == command[0] and env["PYTHONPATH"] == str(runtime / "src")
+    assert env["PYTHONDONTWRITEBYTECODE"] == "1"
+    assert f"Recordings stay in {lab / 'sessions'}" in capsys.readouterr().out
+    assert not (lab / "sessions").exists()
+
+
+@pytest.mark.parametrize("selected,lab_example", [("feedback", "person"), ("person", "feedback")])
+def test_feedback_override_cannot_cross_v2_and_v4_pins(feedback_project, monkeypatch, capsys, selected, lab_example):
+    project = feedback_project
+    commit, _, _, _ = launcher._preset(lab_example)
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=commit)
+    lab = saved_lab(project, hashes, example=lab_example)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_a: pytest.fail("Incompatible profile cannot launch"))
+    assert launcher.main(["--example", selected, "--lab", str(lab), "--check"]) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("change", ["missing_feedback", "contract_missing_feedback", "lab_missing_inventory", "extra_pin", "profile", "unsealed"])
+def test_feedback_metadata_requires_exact_v4_policy_and_lab_closures(feedback_project, monkeypatch, capsys, change):
+    project = feedback_project
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="feedback")
+    name = "exercise-lab.json" if change in {"contract_missing_feedback", "lab_missing_inventory"} else "policy.json"
+    value = json.loads((lab / "run" / name).read_bytes())
+    if change == "missing_feedback":
+        value["runtime_sha256"].pop("shared_exercise_feedback_residual.py")
+    elif change == "contract_missing_feedback":
+        value["policy_runtime_sha256"].pop("shared_exercise_feedback_learning.py")
+    elif change == "lab_missing_inventory":
+        value["runtime_sha256"].pop("person_inventory.py")
+    elif change == "extra_pin":
+        value["runtime_sha256"]["shared_exercise_feasibility_evaluation.py"] = "0" * 64
+    elif change == "profile":
+        value["profile"] = "shared-exercise-policy-v2"
+    else:
+        value["unexpected"] = True
+    if change == "unsealed":
+        (lab / "run" / name).write_bytes(json_bytes(value))
+    else:
+        reseal(lab, name, value)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_a: pytest.fail("Incompatible policy cannot launch"))
+    assert launcher.main(["--example", "feedback", "--console", "--check"]) == 1
+    expected = "Lab metadata differs" if change == "unsealed" else "pins or installed dependency versions differ"
+    assert expected in capsys.readouterr().err
+
+
+def test_feedback_uses_committed_code_not_worktree_or_artifact(feedback_project, monkeypatch, capsys):
+    project = feedback_project
+    (project / "src/weft/lab_console.py").write_text("raise RuntimeError('Mutable terminal interface')\n")
+    changed = project / "src/weft/shared_exercise_feedback_residual.py"
+    changed.write_text("raise RuntimeError('Mutable controller must not run')\n")
+    archive = project / launcher.FEEDBACK_LAB / "run/implementation/weft"
+    archive.mkdir(parents=True)
+    (archive / "lab_console.py").write_text("raise RuntimeError('Artifact code must not run')\n")
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    assert (runtime / "src/weft/lab_console.py").read_text() == "raise RuntimeError('Tests must not start the console')\n"
+    assert "Trusted feedback runtime" in (runtime / "src/weft/shared_exercise_feedback_residual.py").read_text()
+    lab = saved_lab(project, hashes, example="feedback", location="artifacts/mutable-feedback-pins")
+    policy = json.loads((lab / "run/policy.json").read_bytes())
+    policy["runtime_sha256"]["shared_exercise_feedback_residual.py"] = hashlib.sha256(changed.read_bytes()).hexdigest()
+    reseal(lab, "policy.json", policy)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_a: pytest.fail("Working-tree policy cannot launch"))
+    assert launcher.main(["--example", "feedback", "--lab", str(lab), "--check"]) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+
+
+def test_feedback_requires_console_in_trusted_runtime_before_admission(feedback_project, monkeypatch, capsys):
+    project = feedback_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    hashes.pop("src/weft/lab_console.py")
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: (runtime, hashes))
+    monkeypatch.setattr(launcher, "check_compatibility", lambda *_a, **_k: pytest.fail("Incomplete feedback runtime cannot admit lab"))
+    assert launcher.main(["--example", "feedback", "--check"]) == 1
+    assert "missing its terminal interface" in capsys.readouterr().err
+
+
+def test_altered_feedback_console_cache_is_never_repaired(feedback_project, monkeypatch):
+    project = feedback_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.FEEDBACK_TRUSTED_COMMIT)
+    saved_lab(project, hashes, example="feedback")
+    changed = runtime / "src/weft/lab_console.py"
+    changed.write_text("raise RuntimeError('Changed cache must not run')\n")
+    before = changed.read_bytes(), changed.stat().st_mtime_ns
+    monkeypatch.setattr(launcher.os, "execve", lambda *_a: pytest.fail("Altered cache cannot launch"))
+    assert launcher.main(["--example", "feedback", "--console", "--check"]) == 1
+    assert (changed.read_bytes(), changed.stat().st_mtime_ns) == before
+    assert not list(runtime.parent.glob(".stage-*"))

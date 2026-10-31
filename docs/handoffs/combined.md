@@ -1,8 +1,8 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 30, 2026, 9:26 PM PDT
+## Active continuation — October 30, 2026, 9:31 PM PDT
 
-**Current product:** real person-only video → body/world → bounded training/evaluation → report → interactive lab → recording/export/exact replay is verified. Start the stable example with `.venv-lab/bin/python scripts/play_sandbox.py --example person`; the user owns the server. That preset retains authored control. The newer opt-in v4 workflow selects a nonzero learned correction; both workflows still score **0/3** task success. Generalized reconstruction, useful independent learning and physical accuracy remain unfinished; the combined goal stays active.
+**Current product:** real person-only video → body/world → bounded training/evaluation → report → interactive lab → recording/export/exact replay is verified. The new `.venv-lab/bin/python scripts/play_sandbox.py --example feedback --console` uses a trusted frozen terminal runtime; omit `--console` for the3Dlab, whose server the user owns. The v4 workflow selects a nonzero learned correction; it and the older stable `--example person` still score **0/3** task success. Original-frame extraction and source-pixel warnings now have ordinary CLI paths. Generalized reconstruction, useful independent learning and physical accuracy remain unfinished; the combined goal stays active.
 
 **Real workflow:** `artifacts/single-leg-person-workflow-01`, raw Lite/VIDEO,235 source slots/118 references/full234-step /7.8s interval. Process23.736 s /597,983,232 B peak RSS/$0. Training8 episodes /1,872 actions; separate exposed development evaluation 2,295 actions, including early random failures. `.local/single-leg-person-workflow-01-verification.json` SHA `0025598b9188a82db10af5de358c7165f85301f1aadd4ceb72f17caa48971302` verifies 1,525 build members, nested packages and 37 report members. Preserve the complete source and failed evaluation, not an interval chosen to pass.
 
@@ -10,15 +10,21 @@
 
 **Preserved negative case:** `crossfit-person-build-01` is terminal failed, not running. Competing poses at frames 130,142,144,190,384 cause rejection; coverage passes 165/204=80.88%. All 408 source slots remain; no body/world/training/lab. `.local/crossfit-person-build-01-verification.json` SHA `3b834a5fb90b889a3cfa12db8936b79a7b7da00c27632ac4ab1e53ec805a1901` verifies 120 covered members. Actual plan SHA `a71cfd2e83eaaa9304e48316fa07003bfd6a75bfde140d27d317aecc73a24d47`; historical launch notes contain a superseded draft hash. Saved hypotheses do not justify duplicate suppression or nearest-neighbor selection. Do not retry unchanged.
 
-**Publication predecessor:** **`d82abe793747150cd5548bccff6affdd2d11a6e3`** is pushed and independently remote-verified; `.local/pixel-support-publication-01.json` SHA `89fd3092723de81123eeed61cf090e2bfdd8077690d78fc4a80fac7ae821f91c` records11owned paths clean/stashes0. The terminal/extraction checkpoint's exact commit/remote result belongs in `.local/frontdoors-publication-01.json`. Stable person runtime remains **`e1c54236ebf625264e2cb335cab65ba53a907ac1`**; a separate trusted feedback preset is next. Never stage or remove the avatar session's files.
+**Publication predecessor:** **`6003c96533a6f9cb610a9b162a498ebecd02a3ec`** is pushed and independently remote-verified; `.local/frontdoors-publication-01.json` SHA `48bcf75ad123c1b1c53800da450f992013f8a56be51cf7ae1a531fe807a86dc9` records11owned paths clean/stashes0. This publishes terminal/extraction code and is the new feedback preset's trusted runtime. Feedback-launcher/docs publication belongs in `.local/feedback-launcher-publication-01.json`. Earlier source-pixel checkpoint `d82abe7` and its receipt remain preserved; old default/video/person runtime pins remain unchanged. Never stage or remove avatar-session files.
 
 ### Active implementation ownership
 
-- Root: completed terminal/CLI/launcher integration and actual console/extraction studies; docs/scoped publication next. No native job remains.
-- `/root/fullspan_inspector`: user-path audit, console review and actual saved-output audit complete. Owns only `play_sandbox.py` and its tests for a new feedback/terminal preset, awaiting the checkpoint commit to pin. No native lab/server/browser run.
-- `/root/fullspan_backend`: original-frame extractor and52focused checks complete; independent saved real-output audit complete. No further edits or native work.
+- Root: completed terminal/CLI/launcher integration and actual console/extraction studies; feedback launcher metadata check passed. Final docs/scoped publication only; no native job remains.
+- `/root/fullspan_inspector`: user-path audit, console review, actual saved-output audit and feedback/terminal preset with31focused checks complete. No remaining edits/job.
+- `/root/fullspan_backend`: original-frame extractor,52focused checks, actual-output audit and independent feedback-launcher review complete. No remaining edits/job.
 - `/root/root_depth_proposal`: extraction review and structural interpolation proposal complete; no implementation or native work. Dataset discovery is stopped.
 - All source/build/recording jobs are terminal. No browser, server, paid request or deployment runs. Keep old caches and completed run manifests immutable; avatar authoring remains the other session's work.
+
+### Trusted feedback launcher — verified
+
+`play_sandbox.py --example feedback` selects v4 lab `artifacts/person-feedback-workflow-01/lab` and trusted Git6003c965; adding `--console` dispatches that runtime's `lab-console`, not mutable or artifact Python. Old presets reject console mode before cache work; console mode rejects a server port. All three prior presets/commits/defaults remain exact.31focused fake-Git/metadata checks pass; independent review confirms the26policy/18lab closures and no fallback. Freeze `.local/playable-feedback-launcher-freeze-01.json` SHA `df3d93ab213fc0355499c7e1b8e089b8ac5a6dca527b4600598dfc180f0d0fab`; Git pin receipt `.local/playable-feedback-pin-check-01.json` SHA `0d8bb645650933e39119306ec257a1073f9f7b16a3621640d59112224776c1b6`.
+
+Exactly one real `--example feedback --console --check` completed:0.168668s,198exported Git files/3,845,323B,26policy/18lab pins and installed dependency versions. Plan `.local/playable-feedback-launcher-plan-01.json` SHA `63e40523c1a34970dbd7aecaefb648f0438709533ee4f9ada1c930bb5f938254`; receipt `.local/playable-feedback-launcher-verification-01.json` SHA `3cfbd6f8bd56b78d519f0685aeadeca3583eead22145ed09723e0d7f3489178b`. Full-tree checks are reused from the launcher's one pass, with explicit postflight console/CLI blob verification. No server, interaction, physics, source-video/session reads or repeated native trial. The runtime cache `.local/playable-runtime/6003c96533a6f9cb610a9b162a498ebecd02a3ec` is fixed and verified; old caches stay intact. Full source/training/evaluation admission still runs when the user opens the lab. No browser-performance or new task-success claim.
 
 ### Public terminal and original-frame workflows — verified
 

@@ -19,10 +19,12 @@ import uuid
 TRUSTED_COMMIT = "6396be84018e6cb6525614f07a664cf0bb673b34"
 VIDEO_TRUSTED_COMMIT = "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
 PERSON_TRUSTED_COMMIT = "e1c54236ebf625264e2cb335cab65ba53a907ac1"
+FEEDBACK_TRUSTED_COMMIT = "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
 VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"
 PERSON_LAB = "artifacts/single-leg-person-workflow-01/build/learning_workflow/lab"
+FEEDBACK_LAB = "artifacts/person-feedback-workflow-01/lab"
 EXPORT_PATHS = ("src/weft", "pyproject.toml", "requirements-lab.lock")
 MAX_FILES, MAX_BYTES, MAX_FILE_BYTES = 256, 16 * 1024 * 1024, 2 * 1024 * 1024
 POLICY_FILES = frozenset((
@@ -43,6 +45,10 @@ VIDEO_POLICY_FILES = POLICY_FILES - {
     "shared_exercise_selection.py",
 }
 PERSON_POLICY_FILES = VIDEO_POLICY_FILES | {"person_inventory.py"}
+FEEDBACK_POLICY_FILES = PERSON_POLICY_FILES | {
+    "shared_exercise_feasibility_learning.py", "shared_exercise_selection.py",
+    "shared_exercise_feedback_learning.py", "shared_exercise_feedback_residual.py",
+}
 DIR_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
 
 
@@ -53,17 +59,19 @@ def _preset(example):
         return VIDEO_TRUSTED_COMMIT, VIDEO_LAB, "shared-exercise-policy-v2", VIDEO_POLICY_FILES
     if example == "person":
         return PERSON_TRUSTED_COMMIT, PERSON_LAB, "shared-exercise-policy-v2", PERSON_POLICY_FILES
+    if example == "feedback":
+        return FEEDBACK_TRUSTED_COMMIT, FEEDBACK_LAB, "shared-exercise-policy-v4", FEEDBACK_POLICY_FILES
     raise ValueError("Unknown sandbox example")
 
 
 def _lab_files(example):
     _preset(example)
-    return LAB_RUNTIME_FILES | {"person_inventory.py"} if example == "person" else LAB_RUNTIME_FILES
+    return LAB_RUNTIME_FILES | {"person_inventory.py"} if example in ("person", "feedback") else LAB_RUNTIME_FILES
 
 
 def _trusted_commit(value):
     value = TRUSTED_COMMIT if value is None else value
-    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT}:
+    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT, FEEDBACK_TRUSTED_COMMIT}:
         raise ValueError("Runtime revision must be one of the launcher's fixed trusted examples")
     return value
 
@@ -277,11 +285,13 @@ def child_environment(runtime):
     return env
 
 
-def child_command(project, lab, port):
+def child_command(project, lab, port, *, console=False):
     python = Path(project) / ".venv-lab/bin/python"
     if not python.is_file():
         raise ValueError("Missing .venv-lab/bin/python; this launcher does not install dependencies")
-    return [str(python), "-P", "-m", "weft", "lab", "--resume", str(lab), "--port", str(port)]
+    prefix = [str(python), "-P", "-m", "weft"]
+    return prefix + (["lab-console", "--resume", str(lab)] if console else
+                     ["lab", "--resume", str(lab), "--port", str(port)])
 
 
 def _json(raw):
@@ -359,17 +369,24 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
-    parser.add_argument("--example", choices=("video", "person"), help="Use a video-to-lab or person-only example; omitted keeps the original sandbox")
+    parser.add_argument("--example", choices=("video", "person", "feedback"), help="Choose a saved video, person-only or feedback-controller example; omitted keeps the original sandbox")
     parser.add_argument("--lab", help="Override the selected example's lab with another strictly compatible saved lab")
     parser.add_argument("--check", action="store_true", help="Check runtime and lab identity only; no server or physics")
+    parser.add_argument("--console", action="store_true", help="With --example feedback: interact and record in the terminal, without a server")
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
+    if args.console and args.example != "feedback":
+        parser.error("--console requires --example feedback; older frozen examples have no terminal interface")
+    if args.console and args.port != 0:
+        parser.error("--port applies only to the browser sandbox, not --console")
     commit, default_lab, _, policy_files = _preset(args.example)
     lab = Path(args.lab if args.lab is not None else default_lab)
     lab = lab if lab.is_absolute() else PROJECT / lab
     try:
         runtime, hashes = prepare_runtime(PROJECT, trusted_commit=commit)
+        if args.example == "feedback" and "src/weft/lab_console.py" not in hashes:
+            raise ValueError("Trusted feedback runtime is missing its terminal interface")
         check_compatibility(PROJECT, runtime, hashes, lab, example=args.example)
         print(f"Verified trusted runtime {commit[:12]}: {len(hashes)} files, {len(policy_files)} policy pins, "
               f"{len(_lab_files(args.example))} lab pins and dependency versions.", flush=True)
@@ -377,8 +394,9 @@ def main(argv=None):
             print("Check only: sealed runtime/lab metadata identity. No server, physics, session or media reads.")
             print("Complete source, training and evaluation admission still runs when the sandbox opens.")
             return 0
-        print(f"Opening saved sandbox: {lab}\nRecordings stay in {lab / 'sessions'}", flush=True)
-        command = child_command(PROJECT, lab, args.port)
+        destination = "terminal sandbox" if args.console else "saved sandbox"
+        print(f"Opening {destination}: {lab}\nRecordings stay in {lab / 'sessions'}", flush=True)
+        command = child_command(PROJECT, lab, args.port, console=args.console)
         os.chdir(PROJECT)
         os.execve(command[0], command, child_environment(runtime))
     except (ValueError, OSError, subprocess.SubprocessError) as error:

@@ -41,11 +41,14 @@ The shortcut uses trusted Git runtime **`e1c54236ebf625264e2cb335cab65ba53a907ac
 Use the same saved world, task and controllers without a server or browser:
 
 ```sh
-.venv-lab/bin/python -m weft lab-console \
-  --resume artifacts/person-feedback-workflow-01/lab
+.venv-lab/bin/python scripts/play_sandbox.py --example feedback --console
 ```
 
-This command requires the lab's matching runtime. It does not rebuild, train, or start movement automatically. Enter:
+The shortcut pins trusted runtime **`6003c96533a6f9cb610a9b162a498ebecd02a3ec`** and `artifacts/person-feedback-workflow-01/lab`, so development changes do not replace this example's behavior. It does not rebuild, train, or start movement automatically. Omit `--console` to use the 3D browser lab instead. Existing default/video/person examples remain unchanged; their older runtimes do not have terminal mode.
+
+The metadata-only `--example feedback --console --check` passed in **0.169seconds**:198trusted runtime files/3,845,323bytes and exact26policy/18lab pins. It starts no server or physics; complete source/task/policy admission still runs when opening the lab. This verifies runtime compatibility, not browser performance. For another compatible saved lab, use `.venv-lab/bin/python -m weft lab-console --resume /path/to/lab` directly.
+
+Enter these commands in the terminal:
 
 ```text
 controls
