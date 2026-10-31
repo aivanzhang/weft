@@ -213,6 +213,9 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
         native = _hashes(contract.get("runtime_sha256"))
         versions = _versions(contract.get("runtime_versions"))
         _require("shared_exercise_task.py" in native, "Exercise runtime lacks its evaluator identity")
+        if scene["profile"] == "shared-world-v4":
+            _require(task.get("profile") == "shared-support-task-v1" and "shared_support_task.py" in native,
+                     "Static-support runtime lacks its distinct task/evaluator identity")
         embedded = envelope.get("learned_policy")
         policy_sha = contract.get("policy_sha256")
         if policy_sha is not None:
@@ -287,6 +290,16 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
             "spatial_contract": spatial_contract, "spatial_proof": spatial_proof}
 
 
+def _evaluator_identity(binding):
+    hashes = binding["native_sha256"]
+    if binding["shared"] and binding["engine_profile"] == "shared-world-v4":
+        from weft.shared_support_task import evaluator_identity
+
+        return evaluator_identity({name: hashes.get(name) for name in
+                                   ("shared_exercise_task.py", "shared_support_task.py")})
+    return hashes.get("shared_exercise_task.py")
+
+
 def _runtime(binding, budget):
     names = {"recording.py", "recording_receipt.py", "io.py"}
     if binding["shared"]:
@@ -312,7 +325,7 @@ def _runtime(binding, budget):
         _require(versions == binding["runtime_versions"], "Export dependency versions differ from the source lab")
     return {"implementation_sha256": {name: observed[name] for name in sorted(names)},
             "native_sha256": dict(binding["native_sha256"]), "versions": versions,
-            "evaluator_sha256": binding["native_sha256"].get("shared_exercise_task.py")}
+            "evaluator_sha256": _evaluator_identity(binding)}
 
 
 def _counts(value):
@@ -547,7 +560,7 @@ def load_recording_evidence(lab_root, session_name, *, expected_run_manifest_sha
                 required.update(bound["native_sha256"])
         _require(set(implementations) == required, "Saved export implementation identity is incomplete")
         versions = _versions(runtime.get("versions"))
-        _require(runtime.get("evaluator_sha256") == bound["native_sha256"].get("shared_exercise_task.py"),
+        _require(runtime.get("evaluator_sha256") == _evaluator_identity(bound),
                  "Saved evaluator identity differs from source runtime")
         if bound["shared"] or bound.get("spatial_contract") is not None:
             _require(versions == bound["runtime_versions"], "Saved dependency versions differ from the sealed lab")

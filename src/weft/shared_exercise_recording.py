@@ -11,6 +11,7 @@ from PIL import Image, ImageDraw
 from weft.io import canonical_hash
 from weft.shared_exercise_task import (
     HUMAN_ONLY_TASK_PROFILE,
+    SUPPORT_TASK_PROFILE,
     SharedExerciseTaskEnv,
     validate_shared_exercise_snapshot,
     validate_shared_exercise_task,
@@ -24,6 +25,8 @@ PROFILE = "shared-exercise-recording-v1"
 def recording_scene(scene, task, *, policy_document=None, reference_controller_document=None):
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
+    if task["profile"] == SUPPORT_TASK_PROFILE and (policy_document is not None or reference_controller_document is not None):
+        raise ValueError("Static-support learned/reference-proposal controllers require separate qualification")
     result = {"schema_version": 1, "profile": PROFILE, "engine_scene": scene, "exercise_task": task,
               "dt": scene["dt"], "objects": deepcopy(scene["objects"])}
     if policy_document is not None:
@@ -62,6 +65,8 @@ def validate_recording_scene(scene):
             raise ValueError("Exercise recording policy hash differs from its exact document")
     result = recording_scene(scene["engine_scene"], scene["exercise_task"], policy_document=policy_document)
     if "reference_controller" in scene:
+        if result["exercise_task"]["profile"] == SUPPORT_TASK_PROFILE:
+            raise ValueError("Static-support reference-proposal controllers require separate qualification")
         from weft.shared_exercise_reference_recording import validate_reference_controller_envelope
 
         result["reference_controller"] = validate_reference_controller_envelope(
@@ -125,17 +130,19 @@ def validate_event(event, scene):
         if any(state["last_action"]) or state["engine_state_status"] != "current":
             raise ValueError("Exercise start/reset requires a current state with zero action")
         engine, metrics = state["engine_state"], state["task_metrics"]
+        support = metrics["profile"] == SUPPORT_TASK_PROFILE
         zero_metrics = ("observed_substeps", "valid_substeps", "simulated_duration_s", "valid_observed_duration_s",
-                        "joint_effort_mean_squared", "root_assistance_mean_squared", "reward_integral", "mean_reward",
-                        "failure_reward_penalty")
+                        "reward_integral", "mean_reward", "failure_reward_penalty")
+        effort_keys = ("joint_effort_mean_squared", "root_assistance_mean_squared")
         if (any(engine[key] != 0 for key in ("steps", "episode_steps", "time_s"))
                 or any(metrics[key] != 0 for key in zero_metrics)
+                or any(metrics[key] is not None if support else metrics[key] != 0 for key in effort_keys)
                 or any(state[key] or engine[key] for key in ("terminated", "truncated"))
-                or metrics["failure"] is not None or metrics["clock_status"] != "observed"
+                or metrics["failure"] is not None or metrics["clock_status"] != ("not_observed" if support else "observed")
                 or metrics["success"] or metrics["completed_interval"]):
             raise ValueError("Exercise start/reset requires a genuine initial boundary, not an advanced coast state")
         # Reset jitter can create real equipment velocities; only accumulated history must be empty.
-        for row in metrics["contact_requirements"]:
+        for row in metrics["support_requirements" if support else "contact_requirements"]:
             if any(row[key] != 0 for key in ("observed_duration_s", "qualifying_duration_s", "current_gap_s", "max_gap_s")):
                 raise ValueError("Exercise start/reset cannot carry accumulated contact observations")
 
@@ -177,7 +184,11 @@ def _annotate_frame(frame, snapshot):
     metrics = snapshot["task_metrics"]
     result = "PASSED" if metrics["success"] else "NOT PASSED" if metrics["completed_interval"] or metrics["failure"] else "IN PROGRESS"
     person_only = metrics["profile"] == HUMAN_ONLY_TASK_PROFILE
-    if person_only:
+    static_support = metrics["profile"] == SUPPORT_TASK_PROFILE
+    if static_support:
+        satisfied = sum(row["satisfied"] for row in metrics["support_requirements"])
+        heading = f"STATIC-SUPPORT TASK | {result} | support intervals {satisfied}/{len(metrics['support_requirements'])}"
+    elif person_only:
         heading = f"PERSON-ONLY TASK | {result} | equipment/contact: N/A"
     else:
         drift = max((row["displacement_model_units"] for row in metrics["equipment"]), default=0.)
@@ -185,6 +196,7 @@ def _annotate_frame(frame, snapshot):
     draw.text((10, frame.shape[0] + 4), heading, fill="#214F50")
     note = (f"Last valid geometry; simulation failed at {metrics['simulated_duration_s']:.3f}s."
             if snapshot["engine_state_status"] != "current" else
+            "Declared static contacts and motor actions; not verified support, balance or biomechanics." if static_support else
             "Person and ground only. Simulated task success is not verified biomechanics." if person_only else
             "Passive equipment; no object forces. Simulated task success is not verified grasp or biomechanics.")
     draw.text((10, frame.shape[0] + 27), note, fill="#965644")

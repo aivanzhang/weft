@@ -845,8 +845,8 @@ def prepare_shared_world_lab(source_run, out, *, policy_run=None):
     source_verified = verify_artifacts(source_dir)
     scene_raw = read_package_file(source_dir, "scene.json", max_bytes=64 * 1024 * 1024)
     scene = validate_shared_world(json.loads(scene_raw))
-    if scene["profile"] == HUMAN_ONLY_PROFILE:
-        raise ValueError("Person-only scenes require shared-exercise-lab; coupled shared-world-lab requires rigid equipment")
+    if scene["task"]["object_goal"] is None:
+        raise ValueError("No-object-goal scenes require shared-exercise-lab; coupled shared-world-lab requires movable equipment")
     source_files = collect_shared_source_files(
         scene, source_dir, expected_manifest_sha256=source_verified["manifest_sha256"])
     source_manifest = json.loads(source_files.manifest_bytes)

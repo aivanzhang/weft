@@ -17,13 +17,16 @@ from weft.shared_exercise_reset import (
     HUMAN_JITTER_PROFILE, describe_reset_protocol as _reset_protocol, engine_reset_options,
     resolve_reset_options as _reset_options,
 )
-from weft.shared_world import HUMAN_ONLY_PROFILE, SharedWorldEnv, prepare_shared_snapshot_validator, validate_shared_world
+from weft.shared_world import (
+    HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, SharedWorldEnv, prepare_shared_snapshot_validator, validate_shared_world,
+)
 from weft.shared_world_observation import EquipmentState, SubstepSample
 
 
 PROFILE = "shared-exercise-task-v1"
 HUMAN_ONLY_TASK_PROFILE = "shared-exercise-task-v2"
-TASK_PROFILES = (PROFILE, HUMAN_ONLY_TASK_PROFILE)
+SUPPORT_TASK_PROFILE = "shared-support-task-v1"
+TASK_PROFILES = (PROFILE, HUMAN_ONLY_TASK_PROFILE, SUPPORT_TASK_PROFILE)
 HUMAN_ONLY_REWARD_PROFILE = "human_tracking_effort_v1"
 HUMAN_ONLY_GATE_APPLICABILITY = MappingProxyType({
     "human_tracking": "applied", "equipment_stability": "not_applicable",
@@ -45,6 +48,28 @@ GATES = MappingProxyType({
 })
 GATES_SHA256 = canonical_hash(dict(GATES))
 GATES_PROVENANCE = "Frozen authored simulator criteria; equipment stability is reset-relative. Not measured biomechanics, recovered grasp or physical transfer."
+
+
+def _support_module():
+    # Legacy profiles retain their original pinned dependency closure.
+    from weft import shared_support_task
+    return shared_support_task
+
+
+def _support_evaluator_sha256():
+    support_task = _support_module()
+    return support_task.evaluator_identity({
+        "shared_exercise_task.py": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "shared_support_task.py": hashlib.sha256(Path(support_task.__file__).read_bytes()).hexdigest(),
+    })
+
+
+def _support_reset_protocol(options):
+    result = _reset_protocol(options)
+    result.update(profile="shared-support-reset-v1", object_position_jitter_world=0.,
+                  object_velocity_jitter_world_s=0., equipment_stability_reference="not_applicable",
+                  static_support_reset_state="unchanged_scene_pose_and_velocity")
+    return result
 
 
 def _prefix_scope(scene, identifiers):
@@ -73,8 +98,15 @@ def _prefix_scope(scene, identifiers):
             "grasp_supported": False, "source_contact_verified": False}
 
 
-def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=None, contact_requirements=()):
+def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=None, contact_requirements=(), support_requirements=None):
     scene = validate_shared_world(scene)
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        if equipment_ids is not None or contact_requirements != ():
+            raise ValueError("Static-support tasks require explicit support_requirements, not equipment/contact criteria")
+        return _support_module().build_shared_support_task(scene, support_requirements=support_requirements,
+                                                     root_assistance=root_assistance)
+    if support_requirements is not None:
+        raise ValueError("Support requirements require an explicit static-support scene")
     if type(root_assistance) is not bool:
         raise ValueError("root_assistance must be an explicit boolean")
     if (equipment_ids is not None and (not isinstance(equipment_ids, (list, tuple)) or len(equipment_ids) > 12)
@@ -95,6 +127,8 @@ def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=No
 
 def validate_shared_exercise_task(task, scene):
     scene = validate_shared_world(scene)
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        return _support_module().validate_shared_support_task(task, scene)
     try:
         raw = json.dumps(task, allow_nan=False, separators=(",", ":"))
     except (TypeError, ValueError, RecursionError) as error:
@@ -370,8 +404,12 @@ class SharedExerciseTaskEnv(gym.Env):
     def __init__(self, scene, task, render_mode=None):
         self._scene = validate_shared_world(scene)
         self._task = validate_shared_exercise_task(task, self._scene)
+        self._static_support = self._task["profile"] == SUPPORT_TASK_PROFILE
+        self._equipment_ids = () if self._static_support else tuple(self._task["equipment_ids"])
+        self._requirement_key = "support_requirements" if self._static_support else "contact_requirements"
         self.scene_sha256, self.task_sha256 = canonical_hash(self._scene), canonical_hash(self._task)
-        self.evaluator_sha256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+        self.evaluator_sha256 = (_support_evaluator_sha256() if self._static_support else
+                                 hashlib.sha256(Path(__file__).read_bytes()).hexdigest())
         self._engine = SharedWorldEnv(self._scene, render_mode, substep_observer=self._observe_substep)
         self.render_mode = render_mode
         self.dt, self.substeps = self._scene["dt"], self._scene["substeps"]
@@ -379,7 +417,7 @@ class SharedExerciseTaskEnv(gym.Env):
         self.action_count = 22 if task["control"]["root_assistance"] == "explicit_3_axis" else 19
         self.action_names = tuple(self._engine.human_action_names[:self.action_count])
         self.action_space = spaces.Box(-1., 1., shape=(self.action_count,), dtype=np.float32)
-        self.observation_size = 156 + 17 * len(task["equipment_ids"]) + 6 * len(task["contact_requirements"])
+        self.observation_size = 156 + 17 * len(self._equipment_ids) + 6 * len(task[self._requirement_key])
         self.observation_space = spaces.Box(-1e6, 1e6, shape=(self.observation_size,), dtype=np.float32)
         self._accumulator = None
         self._done = True
@@ -406,6 +444,13 @@ class SharedExerciseTaskEnv(gym.Env):
                 "root_assistance": self._task["control"]["root_assistance"], "object_force_channels": []}
 
     def observation_contract(self):
+        if self._static_support:
+            return {"profile": "shared-support-observation-v1", "size": self.observation_size,
+                    "fields": [{"name": "human_reference_conditioned_state", "count": 155},
+                               {"name": "support_requirements", "count_each": 6,
+                                "fields": ["active", "qualifying", "load_fraction_clipped_10_unobserved_zero",
+                                           "observed_coverage_fraction", "current_gap_s", "max_gap_s"]},
+                               {"name": "elapsed_fraction", "count": 1}]}
         return {"profile": "shared-exercise-observation-v1", "size": self.observation_size,
                 "fields": [{"name": "human_reference_conditioned_state", "count": 155},
                            {"name": "equipment", "ids": list(self._task["equipment_ids"]), "count_each": 17,
@@ -421,7 +466,7 @@ class SharedExerciseTaskEnv(gym.Env):
     def _observation(self, engine_observation):
         acc = self._accumulator
         values = list(engine_observation[:155])
-        for name in self._task["equipment_ids"]:
+        for name in self._equipment_ids:
             item, initial = acc.latest[name], acc.initial[name]
             values.extend(np.asarray(item.position) / acc.scale)
             values.extend(item.quaternion)
@@ -429,9 +474,11 @@ class SharedExerciseTaskEnv(gym.Env):
             values.extend(item.angular_velocity)
             values.extend((np.asarray(item.position) - initial.position) / acc.scale)
             values.append(_quat_angle(item.quaternion, initial.quaternion))
-        for state in acc.contacts:
+        states = acc.requirements if self._static_support else acc.contacts
+        for state in states:
             observed = state["observed_duration_s"]
-            values.extend((state["active_now"], state["qualifying_now"], min(10., state["load_body_weight_fraction"]),
+            load = state["load_body_weight_fraction"]
+            values.extend((state["active_now"], state["qualifying_now"], min(10., load) if load is not None else 0.,
                            state["qualifying_duration_s"] / observed if observed else 0.,
                            state["current_gap_s"], state["max_gap_s"]))
         values.append(acc.elapsed / acc.duration)
@@ -449,7 +496,8 @@ class SharedExerciseTaskEnv(gym.Env):
         initial = tuple(EquipmentState(obj["id"], tuple(obj["position"]), tuple(obj["quaternion"]), tuple(obj["velocity"]),
                                        tuple(obj["angular_velocity"]), tuple(obj.get("virtual_force", [0., 0., 0.])))
                         for obj in state["objects"])
-        self._accumulator = _ExerciseMetrics(self._scene, self._task, initial,
+        accumulator = _support_module().SupportMetrics if self._static_support else _ExerciseMetrics
+        self._accumulator = accumulator(self._scene, self._task, initial,
             state["human"]["mobility"]["max_penetration"], self._engine.human_mass)
         self._done = False
         self.terminated = self.truncated = False
@@ -513,8 +561,9 @@ class SharedExerciseTaskEnv(gym.Env):
     def metrics(self):
         if self._accumulator is None:
             raise RuntimeError("Reset before reading exercise metrics")
+        reset = _support_reset_protocol(self._reset_options) if self._static_support else _reset_protocol(self._reset_options)
         return {**self._accumulator.metrics(), "scene_sha256": self.scene_sha256, "task_sha256": self.task_sha256,
-                "evaluator_sha256": self.evaluator_sha256, "reset_protocol": _reset_protocol(self._reset_options)}
+                "evaluator_sha256": self.evaluator_sha256, "reset_protocol": reset}
 
     def snapshot(self):
         if self._accumulator is None:
@@ -550,6 +599,8 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
     """Pin private immutable inputs once; every call still checks the complete dynamic snapshot."""
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
+    if task["profile"] == SUPPORT_TASK_PROFILE:
+        return _prepare_support_snapshot_validator(scene, task)
     scene_sha256, task_sha256 = canonical_hash(scene), canonical_hash(task)
     validate_engine = prepare_shared_snapshot_validator(scene)
     gates = dict(GATES)
@@ -702,6 +753,184 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
         if (type(snapshot["terminated"]) is not bool or type(snapshot["truncated"]) is not bool
                 or snapshot["terminated"] != expected_terminated or snapshot["truncated"] != expected_truncated):
             raise ValueError("Exercise completion flags differ from task completion/failure")
+        return deepcopy(snapshot)
+
+    return validate
+
+
+def _prepare_support_snapshot_validator(scene, task):
+    """Validate support snapshots without broadening any legacy task/state contract."""
+    support_task = _support_module()
+    validate_engine = prepare_shared_snapshot_validator(scene)
+    scene_sha, task_sha = canonical_hash(scene), canonical_hash(task)
+    evaluator_sha = _support_evaluator_sha256()
+    supports = {obj["id"]: obj for obj in scene["objects"]}
+    action_count = 22 if task["control"]["root_assistance"] == "explicit_3_axis" else 19
+    horizon, tick = task["interval"]["horizon_steps"], scene["dt"] / scene["substeps"]
+    duration, maximum = horizon * scene["dt"], horizon * scene["substeps"]
+    expected = {"schema_version", "profile", "scene_sha256", "task_sha256", "engine_state", "task_metrics", "last_action",
+                "engine_state_status", "resolved_reset_options", "terminated", "truncated"}
+    fixed = {"profile": support_task.PROFILE, "scene_sha256": scene_sha, "task_sha256": task_sha,
+             "gate_profile": support_task.GATE_PROFILE, "gates_sha256": support_task.GATES_SHA256,
+             "gates_provenance": support_task.GATES_PROVENANCE, "source_scope": task["source_scope"],
+             "reward_profile": support_task.REWARD_PROFILE, "evaluator_sha256": evaluator_sha,
+             "root_assistance": task["control"]["root_assistance"], "virtual_object_forces": "forbidden", "equipment": [],
+             "gate_applicability": {"equipment_stability": "not_applicable", "declared_support": "required"}}
+    tracking = ("angular_rmse_rad", "root_rmse_model_units", "peak_angular_rmse_rad", "peak_root_rmse_model_units")
+    efforts = ("joint_effort_mean_squared", "root_assistance_mean_squared")
+    finite = ("simulated_duration_s", "valid_observed_duration_s", "declared_duration_s",
+              "max_floor_penetration_model_units", "reward_integral", "mean_reward", "failure_reward_penalty")
+    metric_keys = {*fixed, *tracking, *efforts, *finite, "support_requirements", "completed_interval", "success", "failure",
+                   "failed_gates", "observed_substeps", "valid_substeps", "clock_status", "reset_protocol"}
+    gates = dict(support_task.GATES)
+    windows = [(row, (row["end_step"] - row["start_step"]) * scene["dt"])
+               for row in task["support_requirements"]]
+
+    def numeric(value, *, lower=0., upper=1e12):
+        return type(value) in (int, float) and math.isfinite(value) and lower <= value <= upper
+
+    def validate(snapshot):
+        try:
+            raw = json.dumps(snapshot, allow_nan=False, separators=(",", ":"))
+        except (TypeError, ValueError, RecursionError) as error:
+            raise ValueError("Support snapshot must be finite JSON") from error
+        if (len(raw.encode()) > 4 << 20 or not isinstance(snapshot, dict) or set(snapshot) != expected
+                or type(snapshot["schema_version"]) is not int or snapshot["schema_version"] != 1
+                or snapshot["profile"] != STATE_PROFILE or snapshot["scene_sha256"] != scene_sha
+                or snapshot["task_sha256"] != task_sha):
+            raise ValueError("Support snapshot fields or pinned identities differ")
+        options = snapshot["resolved_reset_options"]
+        if options != _reset_options(options):
+            raise ValueError("Support reset options must be resolved explicitly")
+        state = snapshot["engine_state"]
+        validate_engine(state)
+        if state["controlled_id"] != "human" or state["target"] is not None:
+            raise ValueError("Support snapshots require human control and no movable-object target")
+        if [obj["id"] for obj in state["objects"]] != list(supports):
+            raise ValueError("Support snapshot must retain all declared static objects")
+        for obj in state["objects"]:
+            original = supports[obj["id"]]
+            if (obj["position"] != original["position"] or obj["quaternion"] != original["quaternion"]
+                    or any(any(obj[key]) for key in ("velocity", "angular_velocity"))
+                    or any(obj.get("virtual_force", (0., 0., 0.)))):
+                raise ValueError("Static support pose, motion or force differs from its declared scene")
+        status = snapshot["engine_state_status"]
+        if status not in {"current", "last_valid_control_boundary"}:
+            raise ValueError("Support geometry must distinguish a stale failure boundary")
+        action = snapshot["last_action"]
+        if (not isinstance(action, list) or len(action) != action_count
+                or any(not numeric(value, lower=-1., upper=1.) for value in action)
+                or any(state["normalized_action"][action_count:])
+                or status == "current" and state["normalized_action"][:action_count] != action):
+            raise ValueError("Support snapshot contains inconsistent or forbidden actions")
+        metrics = snapshot["task_metrics"]
+        if (not isinstance(metrics, dict) or set(metrics) != metric_keys
+                or any(metrics[key] != value for key, value in fixed.items())
+                or metrics["reset_protocol"] != _support_reset_protocol(options)
+                or any(not numeric(metrics[key], lower=-1e12) for key in finite)):
+            raise ValueError("Support metric fields, evaluator identity, criteria or source scope differ")
+        observed, valid = metrics["observed_substeps"], metrics["valid_substeps"]
+        if (type(observed) is not int or type(valid) is not int or not 0 <= valid <= observed <= maximum
+                or not math.isclose(metrics["declared_duration_s"], duration, rel_tol=0, abs_tol=1e-9)
+                or not math.isclose(metrics["valid_observed_duration_s"], valid * tick, rel_tol=0, abs_tol=1e-8)
+                or not valid * tick - 1e-8 <= metrics["simulated_duration_s"] <= observed * tick + 1e-8):
+            raise ValueError("Support duration/substep accounting differs")
+        failure, clock = metrics["failure"], metrics["clock_status"]
+        if failure is not None and (not isinstance(failure, str) or not 1 <= len(failure) <= 240):
+            raise ValueError("Support failures must be bounded explicit reasons")
+        if valid < observed and failure is None:
+            raise ValueError("Missing support substeps require an explicit failure")
+        if (clock not in {"not_observed", "observed", "invalid_substep_clock", "unavailable_after_last_observed_time"}
+                or clock == "not_observed" and observed != 0
+                or clock in {"invalid_substep_clock", "unavailable_after_last_observed_time"} and failure is None
+                or observed == 0 and clock != "not_observed"):
+            raise ValueError("Support clock availability contradicts observed samples")
+        if (status == "current" and not math.isclose(state["time_s"], metrics["simulated_duration_s"], rel_tol=0, abs_tol=1e-8)
+                or status == "last_valid_control_boundary" and (failure is None or state["time_s"] > metrics["simulated_duration_s"] + 1e-8)):
+            raise ValueError("Support geometry clock contradicts current/failure state")
+        failures = [failure] if failure else []
+        for key in (*tracking, "max_floor_penetration_model_units"):
+            value = metrics[key]
+            if not valid and key in tracking and value is not None:
+                raise ValueError("Unobserved support tracking must remain unavailable, not a fabricated zero")
+            if value is None:
+                if valid or key not in tracking:
+                    raise ValueError("Support tracking cannot be missing after valid observations")
+            elif not numeric(value):
+                raise ValueError("Support tracking and penetration must be nonnegative finite values")
+            if (value is None and key in tracking[:2]) or (value is not None and value > gates[key] + 1e-12):
+                failures.append(key)
+        if valid and any(metrics[mean] > metrics[peak] + 1e-12 for mean, peak in zip(tracking[:2], tracking[2:])):
+            raise ValueError("Support mean tracking errors cannot exceed their observed peaks")
+        for key in efforts:
+            if (not valid and metrics[key] is not None) or (valid and not numeric(metrics[key], upper=1. + 1e-9)):
+                raise ValueError("Support effort is unavailable until observed, then bounded by public actions")
+        if valid and action_count == 19 and metrics["root_assistance_mean_squared"] != 0:
+            raise ValueError("Disabled support root assistance cannot have nonzero effort")
+        rows = metrics["support_requirements"]
+        if not isinstance(rows, list) or len(rows) != len(windows):
+            raise ValueError("Support requirement metric coverage differs")
+        for index, (row, (requirement, required_duration)) in enumerate(zip(rows, windows)):
+            values = {"required_duration_s", "observed_duration_s", "qualifying_duration_s", "current_gap_s", "max_gap_s"}
+            optional = {"load_body_weight_fraction", "peak_load_body_weight_fraction", "qualifying_fraction"}
+            flags = {"active_now", "qualifying_now", "satisfied"}
+            if (not isinstance(row, dict) or set(row) != set(requirement) | values | optional | flags
+                    or any(row[key] != value for key, value in requirement.items())
+                    or any(not numeric(row[key], upper=60.) for key in values)
+                    or any(row[key] is not None and not numeric(row[key], upper=1e30) for key in optional)
+                    or any(type(row[key]) is not bool for key in flags)):
+                raise ValueError("Support requirement values or authored identities differ")
+            available = max(0., min(observed * tick, requirement["end_step"] * scene["dt"])
+                            - requirement["start_step"] * scene["dt"])
+            if (not math.isclose(row["required_duration_s"], required_duration, rel_tol=0, abs_tol=1e-9)
+                    or not 0 <= row["qualifying_duration_s"] <= row["observed_duration_s"] + 1e-8 <= required_duration + 2e-8
+                    or not max(0., available - (observed - valid) * tick) - 1e-8 <= row["observed_duration_s"] <= available + 1e-8
+                    or not row["current_gap_s"] <= row["max_gap_s"] + 1e-8 <= row["observed_duration_s"] + 2e-8
+                    or row["max_gap_s"] > row["observed_duration_s"] - row["qualifying_duration_s"] + 1e-8):
+                raise ValueError("Support interval duration/coverage/gap accounting differs")
+            fraction = row["qualifying_duration_s"] / required_duration if row["observed_duration_s"] else None
+            if ((fraction is None) != (row["qualifying_fraction"] is None)
+                    or fraction is not None and not math.isclose(row["qualifying_fraction"], fraction, rel_tol=0, abs_tol=1e-8)
+                    or (row["peak_load_body_weight_fraction"] is None) != (row["observed_duration_s"] == 0)
+                    or row["active_now"] != (row["load_body_weight_fraction"] is not None)
+                    or row["active_now"] and row["observed_duration_s"] == 0):
+                raise ValueError("Missing support loads and measured coverage must remain explicit")
+            if valid == observed:
+                active = observed > 0 and requirement["start_step"] <= (observed - 1) // scene["substeps"] < requirement["end_step"]
+                if row["active_now"] != active:
+                    raise ValueError("Support active window differs from its observed substep")
+            if (row["load_body_weight_fraction"] is not None and
+                    row["load_body_weight_fraction"] > row["peak_load_body_weight_fraction"] + 1e-9
+                    or row["qualifying_now"] and (not row["active_now"] or row["current_gap_s"] != 0
+                        or row["load_body_weight_fraction"] < requirement["minimum_load_body_weight_fraction"])
+                    or row["active_now"] and not row["qualifying_now"] and row["current_gap_s"] < tick - 1e-9
+                    or row["qualifying_duration_s"] > 0 and row["peak_load_body_weight_fraction"] < requirement["minimum_load_body_weight_fraction"]):
+                raise ValueError("Support current load/qualification contradicts its observed peak or gap")
+            passed = (math.isclose(row["observed_duration_s"], required_duration, rel_tol=0, abs_tol=1e-8)
+                      and fraction is not None and fraction >= gates["contact_duration_fraction"] - 1e-12
+                      and row["max_gap_s"] <= gates["max_contact_gap_s"] + 1e-12)
+            if row["satisfied"] != passed:
+                raise ValueError("Support success cannot bypass coverage or maximum-gap gates")
+            if not passed:
+                failures.append("support_requirement:" + str(index))
+        completed = observed == valid == maximum and failure is None
+        success = completed and not failures
+        if (type(metrics["completed_interval"]) is not bool or metrics["completed_interval"] != completed
+                or type(metrics["success"]) is not bool or metrics["success"] != success or metrics["failed_gates"] != failures):
+            raise ValueError("Support success differs from complete independent task gates")
+        penalty = metrics["failure_reward_penalty"]
+        reward_before_effort = metrics["reward_integral"] - penalty * scene["dt"]
+        if valid:
+            reward_before_effort += (.01 * metrics[efforts[0]] + .02 * metrics[efforts[1]]) * valid * tick
+        if (penalty not in (0., -1.) or penalty and failure is None
+                or not -1e-8 <= reward_before_effort <= valid * tick + 1e-8
+                or not math.isclose(metrics["mean_reward"], metrics["reward_integral"] / duration, rel_tol=0, abs_tol=1e-9)):
+            raise ValueError("Support reward must reflect observed tracking/load and explicit action effort")
+        terminated = bool(failure or success)
+        truncated = bool(completed and not terminated)
+        if (type(snapshot["terminated"]) is not bool or snapshot["terminated"] != terminated
+                or type(snapshot["truncated"]) is not bool or snapshot["truncated"] != truncated):
+            raise ValueError("Support completion flags differ from interval success/failure")
         return deepcopy(snapshot)
 
     return validate

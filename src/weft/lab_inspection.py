@@ -126,7 +126,7 @@ def _timeline(scene, human, decoded, exercise_task):
     # The shared runtime starts at first retained reference + its declared task offset.
     task = exercise_task.get('interval') if exercise_task else scene.get('task')
     dt = scene.get('dt')
-    if scene.get('profile') in ('shared-world-v1', 'shared-world-v2', 'shared-world-v3') and isinstance(task, dict) and finite(dt) and dt > 0:
+    if scene.get('profile') in ('shared-world-v1', 'shared-world-v2', 'shared-world-v3', 'shared-world-v4') and isinstance(task, dict) and finite(dt) and dt > 0:
         offset, steps = task.get('start_offset_s'), task.get('horizon_steps')
         if finite(offset) and type(steps) is int and 1 <= steps <= 100000:
             start, duration = times[0] + offset, steps * dt
@@ -375,6 +375,13 @@ def _summary(run, profile):
                                 ('source-clock.json', 'Original source clocks and unknown timestamps'),
                                 ('reference-feasibility.json', 'Full reference geometry audit; not task success'),
                                 ('reconstruction.json', 'Person-only construction and remaining assumptions')]:
+                artifact(name, label)
+        if scene.get('profile') == 'shared-world-v4':
+            for name, label in [('support-config.json', 'Authored support geometry and load requirements'),
+                                ('exercise-task.json', 'Frozen support task; simulated loads, not measured forces'),
+                                ('source-clock.json', 'Original source clocks and unknown timestamps'),
+                                ('reference-feasibility.json', 'Full reference geometry audit; not task success'),
+                                ('reconstruction.json', 'Source body and authored static-support assumptions')]:
                 artifact(name, label)
         if hypothesis:
             for name, label in [('input-config.json', 'Authored shape configuration'),

@@ -1,5 +1,225 @@
 # Combined Weft implementation handoff
 
+## Static-support interaction — October 31, 2026, 10:01 AM PDT
+
+The full goal remains active, with exercise a priority in one common pipeline.
+This phase adds authored static-support interaction and real saved-body custody,
+not source-recovered contact, learned support control or physical validation.
+All described native jobs are terminal. Root owns final publication and current
+Git-state verification; no whole-worktree cleanliness claim is made here.
+
+### Implemented constructor and strict evidence boundary
+
+New `src/weft/shared_world_support.py` exposes
+`construct_static_support_run(body_source, config, out, *, max_seconds=30)`;
+the ordinary CLI is `shared-support-build --body-source ... --config ... --out ...`.
+Config profile `shared-static-support-construction-v1` requires exact original
+video/body-manifest hashes, scale, 1–12 static box/sphere/compound objects,
+support requirements and an explicit root-assistance boolean (normally false).
+Support provenance must be authored, uncalibrated, contact-unverified and
+physically unverified. False observed/calibrated claims and unknown fields reject.
+
+The constructor reuses the existing placement scaffold, removes only its
+ground-only inventory and two incompatible assumptions, then validates v4.
+It never invokes person-only admission or invents an inventory proof. Human
+bindings name the exact original observation document; added supports have
+null observation identities. Every declared body-source member and supplied
+file-config byte is copied unchanged. All original slots, missing observations,
+native timestamps, references, first pose, roots and floor are preserved.
+Separate `exercise-task.json` uses the fixed support-task gates and exact scene.
+Reference feasibility is informational; lab admission still checks initial geometry.
+
+Constructor SHA `28e45897668ff339109588208545f94fdff09c61bac9cc1a355f178ff58be064`;
+test SHA `42090d6fe3ce6e6ed66fe55ad6cbbb327f8fcef909ee52ed9d8fb6b818c6d401`.
+**57 distinct pure cases pass**: 41 in receipt01 and the 16 corrected harness
+cases in receipt02. Fifteen initially reached a deliberately forbidden native
+mass extractor; one expected error differed in capitalization. Both receipts
+remain. Native mass/feasibility are explicit analytical stubs; the body/source,
+v4 geometry contract and task validators remain real. Independent read-only
+review found no integration blocker. Implementation receipt:
+`.local/shared-world-support-construction-implementation-01.json`, SHA
+`54c4547de0403836c4be033cdac943cbdd89b13ec18b183a9909266b57a355c9`.
+See [configuration, geometry and admission limits](../static-support.md).
+
+### Paired analytical interaction — completed and audited
+
+`artifacts/static-support-play-acceptance-01` has terminal seal
+`cfcd8a31cb620b9c5488ae496c9fa3d8582caa2b0bc60e473963a7347299562c`.
+The public fixture/lab/console/recording path takes **3.44 s**, with 123 live
+and 123 exact-replay actions, **3,936 native substeps**, 100 models/eight data,
+and observed Python peak RSS **213,942,272 B**. Present: 63 actions, a reset,
+65 exported frames; lowered: 60 actions and 61 frames. Both final intervals
+are 60 controls /960 substeps /two seconds. No paid call or source inference.
+
+| Fixed criterion/outcome | Present support | Only support Z lowered by 0.6 |
+| --- | --- | --- |
+| Task outcome | Pass | Fail root mean/peak and support |
+| Scored support samples | 864/864 (100%) | 793/864 (91.7824%) |
+| Longest support gap | Passes the fixed gate | 58/480 s = 0.120833 s |
+| Root RMSE, model units | 0.0003305 | 0.326787 |
+| Peak root error, model units | Passes the fixed gate | 0.353024 |
+
+The lowered case retains its **32.644789 body-weight** peak simulated impact;
+this is not a measured load or a substitute for sustained support. The exact
+one-field intervention, criteria and initial physical states are independently
+verified. Translational root forces are disabled, but authored torso actuators
+remain; do not call this free-floating or physically validated human balance.
+
+Saved-only audit02:
+`.local/static-support-play-saved-audit-02.json`, SHA
+`7ac5af46fe6613dcbd4ca305c3bc9a4d7356e95d56323af4553c88fec953f6ff`;
+**492 files /20,860,146 B**. Audit01's wrong archive path is a preserved tooling
+failure; its successful seal checks are reused. No native/export/replay rerun.
+Interact with the analytical positive-control lab using:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/static-support-play-acceptance-01/present/lab
+```
+
+### Actual saved-video body construction — custody only
+
+Input `artifacts/single-leg-person-workflow-01/build/body_source` is the genuine
+original `local_video` body used by the later person-clock workflow, not a test
+fixture or a reconstructed package. Its seal is
+`b6d9da169c84c0053e1e9715d77f53d3c82f1b0d95b256052c7c215f383d7519`,
+source SHA `ab4602823ad00de3409eb50d2c65c6b1ce5566c5dca6753555ff2b19107db88e`;
+38 files /18,938,673 B including seal. Config
+`.local/shared-support-real-body-config-01.json`, SHA
+`8bb3f31188648b25b8e4173bd303e682a026350d52ecd73424ea1b5a5d387ccd`,
+places an authored 0.08-unit box at `[2.1, 2.3, 0.1]`, intentionally away from
+the body. The declared load window is not executed or claimed successful.
+
+One public-CLI constructor run completes in **1.313 s** supervisor /1.063 s
+worker: three models/one data, **354 forward and 354 reset calls**, zero dynamics,
+environment actions, decode, inference, training, network, sysctl or API calls.
+Output `artifacts/shared-support-real-body-01`, seal
+`bce739f74c99476d8932f2640fda97da845259fbd1c2856940c2d4ced3a8a4d9`:
+73 files /27,387,076 B; completed-child peak RSS **206,225,408 B**, sampled
+peak 188,448,768 B. The observed memory values are not hard allocation caps.
+Supervisor records are outside the immutable candidate at
+`.local/shared-support-real-body-acceptance-01`, seal
+`fdc1ff749eb8a087cc7f906e7afd43a3057e7a83d1c4957aaa2aadff378f99f2`.
+Frozen plan SHA `e2d2352d92eb56e382529a8599c02e95103198431cf285679d7659f22ed84a2d`;
+helper `.local/shared_support_real_body_01.py`, SHA
+`60290185e730e92c37b22f019b142c5c2aca0d62c4ea6e5284f00c00787c7b81`.
+Bounds: 30-second constructor /35-second outer worker, 512 MiB sampled RSS,
+128 MiB/512-file candidate, at most four models/two data/400 forwards and resets
+each. No retry, body fit, policy run, lab rollout or source processing.
+
+Both actual acceptance lanes use the same committed-plus-reviewed frozen
+runtime, `.local/static-support-runtime-01/runtime-manifest.json`, SHA
+`e393623348f39e5e747b756a7613b91dfd094583d496ccfe0fdefe813a367faf`.
+Its 219 file pins are checked; workspace/dirty avatar files are not copied.
+This does not assert that every later presentation edit ran in that native job.
+
+Saved-only custody audit:
+`.local/shared-support-real-body-saved-audit-01.json`, SHA
+`7ad2e0dd85c6dba519e76698960efb64916628a468d92eec304db4a6a61401d5`.
+It hash-reads 121 selected files /46,519,435 B in 0.102 s, checks all 37 original
+body members unchanged and exactly copied, and preserves **235 source slots,
+118 references, 234 task steps and the historical 236-frame metadata declaration**.
+Every saved geometry row and the summary exactly equal the original candidate:
+**8/118 source +16/235 grid floor failures**, peak **0.08313043391431332** against
+the unchanged **0.025** limit; zero initial intersections/static conflicts.
+Readiness remains `candidate_constructed_not_lab_admitted`, `simulation_ready:false`.
+Construction success is not a passing reference, admitted lab or support-task success.
+
+### Source screen and current presentation
+
+The one licensed original **Interval Push-ups** acquisition is preserved in
+`artifacts/interval-pushups-source-screen-02`, seal
+`5e3de9eafa5ccde9303557f75586e3e909fec39825e1e0a156223da2cb4469e3`.
+Original 7,468,464 bytes, SHA
+`e93ea83a78d47c27972f245a61d114118793598cfd059c318e120c453fd40bbe`;
+author Taco Fleur /Cavemantraining, CC BY-SA 4.0, exact Commons source/license
+links retained in `provenance.json`. HTTP Content-Length matches. Strict container
+and full decode both have **1,543 frames**, native times 0–51.4 s, 640×480,
+nominal 30 Hz. OpenCV metadata says 1,544 and FFmpeg duration is 51.48 s; the
+discrepancy is retained, not converted into invented missing observations.
+Nine predetermined previews include the exact final frame. Peak completed-child
+RSS is 101,351,424 B; no pose inference, physics or paid call.
+
+Failed preparation01 is unchanged, seal
+`b282ef965bf971bbe91cc332ea487e85cfe111a86ebea043ce94cd5df50bf0f6`:
+missing `psutil` stopped before a child/request/source byte. Corrected02 reuses
+the dependency-free owned-PID monitor; it makes the only source request.
+No re-encode, repeated acquisition or Dand retry occurred.
+
+Root viewed only the contact sheet: one full-body person performs push-ups on
+two hand-held weights/kettlebell-like supports, then stands. A fixed low camera
+is apparent in these samples only; near/far hands and equipment partially
+occlude. This is not equipment-free hand-ground or static-bench evidence, and
+does not establish grasp topology/depth. External interpretation receipt
+`.local/interval-pushups-source-inspection-02.json`, SHA
+`293a093638a88baa23d0863309e6d1886468adfa1f37498babd969577f4a1eac`,
+does not modify the screen seal. The clip is now exposed construction/development,
+never a fresh final holdout; no further source inference is authorized by this note.
+
+Support UI has 13 new/16 legacy scripted checks and eight actual-saved-payload
+checks; actual receipt `.local/static-support-actual-ui-01.json`, SHA
+`0f5c73af9a668c1aa58c0a3ed01f5b11e7cac33ab0c85706da8d7d9bb9857d0c`.
+Latest malformed-payload guards are presentation-only changes after the frozen
+native runtime; they use saved results without new physics. Root also verified
+metadata timeline/artifact links (59 cases including 58 legacy), terminal
+simulated-load summary (24 including 23 legacy) and one early rejection of v4
+avatar options. Existing avatar-recording formats do not support this profile;
+no avatar-authoring files changed. These counts are scoped groups, not a newly
+deduplicated repository total or browser/sustained-performance proof.
+
+### Camera/root fitting foundation — pure only
+
+`src/weft/body_camera_root_refinement.py`, SHA
+`836a1a7e6ee740c9ae26673554562fec8f0af5cab31fc73112190e29d05dbbd5`,
+provides the bounded numerical foundation, not a trusted source adapter or native
+integration. Test SHA `d955b994b73704ba8397a718a965867877982a5b40be23f0511e21e426f66674`;
+[contract and limits](../body-camera-root-refinement.md), SHA
+`d592f43986d075fe67639d3fac214edba4b562f6aa8c2c904254a68e3cfee974`.
+**50 distinct pure checks pass**: receipt01 has 45 /0.256 s; receipt02 has nine
+affected cases, including four new /0.091 s; receipt03 has three affected cases,
+including one new /0.714 s. Existing successful cases are not counted again.
+
+| Receipt | SHA-256 |
+| --- | --- |
+| `.local/body-camera-root-refinement-tests-01.xml` | `360fa1c2df0b81f4d0c1f7e87c29dcee4d1761c43eb2aac9d56d39aa25df5de8` |
+| `.local/body-camera-root-refinement-tests-02.xml` | `4173ac2c6822c3cc6a35af102d1482d4d64056d66413ee51a89c2cffb92a82a4` |
+| `.local/body-camera-root-refinement-tests-03.xml` | `673fbcd878dc9364789a8816531e41fba98a9dbeda214a88855a14a8eecc1b9a` |
+
+The 900-knot /12-endpoint /64-floor-support exact-match fixture takes **0.642 s**
+with zero solves/trials. Three-column SVDs bound the local rank check; this is
+not worst-case fitting performance, global uniqueness or a measured camera.
+The input-document hash is computed, but external source/body pins remain
+declared rather than authenticated. Optional complete source/30-Hz floor-gap
+arrays bind computed root/floor hashes and declared fixed body/angles/shape;
+missing gap evidence stays unavailable. `source_qualified`, `admitted` and
+`promoted` remain false. No source fit, native model, media or inference was run.
+Earlier failed image/floor/depth fits remain unchanged.
+
+Next adapter plan: `.local/camera-root-integration-next-01.json`, SHA
+`51cf08567be15d0a18d687510231e266378915d7eaa8dde6b5d8f26da47d1fb4`.
+Authenticate saved source/camera/ground bindings before an actual source fit;
+do not treat foundation-only hashes or numerical rank as that missing proof.
+Separate adapter/geometry/workflow work has begun in new files; it is unverified,
+not completed and excluded from this checkpoint.
+
+### Remaining work and ownership
+
+- [ ] Connect trusted camera/ground observations to the bounded camera/body
+  fitting foundation before an actual source fit; preserve all source uncertainty,
+  partitions, missing points and physical gates.
+- [ ] Qualify new videos and source-supported support geometry/contact; add
+  meaningful learned support control only through a separately supported native
+  profile. Ground-force tasks, grasp and v4 avatar recording remain unsupported.
+- [ ] Establish independent physical evidence and robust whole-exercise learning;
+  authored simulator controls, construction custody and exact replay do not satisfy it.
+- [ ] Root: finalize the scoped Git checkpoint/publication and current stash/avatar
+  ownership receipt. Older publication statements below remain historical.
+
+Constructor/test/guide ownership is frozen pending root handoff. This lane owns
+only this top handoff section, TODO and `docs/static-support.md` until release;
+root owns README/local-lab, execution, current Git state and publication.
+Do not repeat either completed native acceptance or the new-source download.
+
 ## Guided object workflow — October 31, 2026, 9:04 AM PDT
 
 The full goal remains active, with exercise still a priority in one common

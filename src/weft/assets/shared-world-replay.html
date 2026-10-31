@@ -9,6 +9,7 @@ canvas{width:100%;background:#FBF7F1;border:1px solid #D8C9BA}button,input{font:
 <p id="status" role="status">Loading recorded states…</p>
 <p id="controller" hidden></p>
 <p id="exercise-scope" hidden></p>
+<section id="support-panel" aria-labelledby="support-heading" hidden><h2 id="support-heading">Saved simulated support loads</h2><p id="support-status"></p><div id="support-requirements"></div></section>
 <canvas id="view" width="1080" height="420" aria-label="Three views of the same recorded coupled 3D world"></canvas>
 <p><button id="play" disabled>Play</button> <input id="scrub" aria-label="Recorded state" type="range" min="0" value="0" disabled> <output id="frame"></output></p>
 <label>3D view angle <input id="yaw" aria-label="3D view angle" type="range" min="-3.14" max="3.14" value="0.5" step="0.02"></label>
@@ -23,6 +24,68 @@ const canvas=document.getElementById('view'),ctx=canvas.getContext('2d'),slider=
 const details=document.getElementById('details'),detail=document.getElementById('detail');
 const zoom=document.getElementById('zoom'),muscles=document.getElementById('muscles');
 let scene=null,exerciseTask=null,event=null,count=0,timer=null,busy=false,wanted=0,requested=0,closed=false;
+let supportSignature=null,supportValid=false;
+const supportScene=()=>scene?.profile==='shared-world-v4';
+const number=(value,places=3)=>typeof value==='number'&&Number.isFinite(value)?value.toFixed(places):'unavailable';
+const digest=value=>typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);
+const supportVector=(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite);
+const validStaticSupports=objects=>Array.isArray(objects)&&objects.length>0&&objects.length<=12
+&&objects.every(o=>o?.role==='static'&&typeof o.id==='string'&&supportVector(o.position,3)&&supportVector(o.quaternion,4)&&Math.abs(Math.hypot(...o.quaternion)-1)<=1e-8)
+&&new Set(objects.map(o=>o.id)).size===objects.length;
+const supportObjectsMatch=objects=>validStaticSupports(scene?.objects)&&validStaticSupports(objects)&&objects.length===scene.objects.length
+&&objects.every(o=>scene.objects.some(s=>s.id===o.id&&['position','quaternion'].every(k=>o[k].every((v,i)=>Math.abs(v-s[k][i])<=1e-8))));
+function showSupport(){
+if(!supportScene())return false;
+const m=event?.exercise_metrics,rows=m?.support_requirements,requirements=exerciseTask?.support_requirements,scope=exerciseTask?.source_scope;
+const objects=event?.snapshot?.objects,poses=Array.isArray(objects)&&objects.length<=12?objects.map(o=>[o?.id,o?.role,o?.position,o?.quaternion]):null;
+const signature=JSON.stringify([exerciseTask,m,poses]);if(signature===supportSignature)return supportValid;supportSignature=signature;
+const nonnegative=v=>typeof v==='number'&&Number.isFinite(v)&&v>=0,nullable=v=>v===null||nonnegative(v);
+const fields=['object_id','human_segment','direction_world','minimum_load_body_weight_fraction','start_step','end_step'];
+const segments=new Set(['torso','head','pelvis','shoulders','left_upper_arm','left_forearm','left_thigh','left_shin','right_upper_arm','right_forearm','right_thigh','right_shin']);
+supportValid=exerciseTask?.schema_version===1&&exerciseTask.profile==='shared-support-task-v1'&&exerciseTask.authored_addition===true
+&&exerciseTask.contact_requirements===undefined&&exerciseTask.equipment_ids===undefined
+&&exerciseTask.control?.object_forces==='forbidden'&&['disabled','explicit_3_axis'].includes(exerciseTask.control.root_assistance)
+&&exerciseTask.gate_profile==='shared-support-gates-v1'&&exerciseTask.reward_profile==='tracking-times-declared-support-v1'
+&&digest(exerciseTask.scene_sha256)&&digest(exerciseTask.gates_sha256)&&scene.target===null&&scene.task?.object_goal===null
+&&scene.task?.type==='human_support_v1'&&scene.task.authored_addition===true
+&&scope?.success_scope==='authored_simulated_support_task'&&scope.physical_validation==='unverified'&&scope.source_contact_verified===false&&scope.grasp_supported===false
+&&scope.geometry_scope==='declared_static_collision_geometry_not_recovered_contact'&&scope.clock_alignment==='preserved_scene_clocks_not_retimed'
+&&validStaticSupports(scene.objects)&&supportObjectsMatch(objects)
+&&Array.isArray(scope.supports)&&scope.supports.length===scene.objects.length&&new Set(scope.supports.map(o=>o?.object_id)).size===scope.supports.length
+&&scope.supports.every(o=>typeof o?.object_id==='string'&&o.object_id.length<=128&&digest(o.object_sha256)&&scene.objects.some(s=>s.id===o.object_id))
+&&Array.isArray(requirements)&&requirements.length>0&&requirements.length<=24
+&&requirements.every(r=>r&&scope.supports.some(o=>o.object_id===r.object_id)&&segments.has(r.human_segment)
+&&Array.isArray(r.direction_world)&&r.direction_world.length===3&&r.direction_world.every(Number.isFinite)&&Math.abs(Math.hypot(...r.direction_world)-1)<=1e-9
+&&nonnegative(r.minimum_load_body_weight_fraction)&&r.minimum_load_body_weight_fraction>0&&r.minimum_load_body_weight_fraction<=2
+&&Number.isInteger(r.start_step)&&Number.isInteger(r.end_step)&&0<=r.start_step&&r.start_step<r.end_step&&r.end_step<=exerciseTask.interval?.horizon_steps)
+&&m?.profile==='shared-support-task-v1'&&m.scene_sha256===exerciseTask.scene_sha256&&digest(m.task_sha256)&&m.gates_sha256===exerciseTask.gates_sha256
+&&m.gate_profile===exerciseTask.gate_profile&&m.reward_profile===exerciseTask.reward_profile
+&&m.root_assistance===exerciseTask.control.root_assistance&&m.virtual_object_forces==='forbidden'
+&&m.source_scope?.physical_validation==='unverified'&&m.source_scope?.source_contact_verified===false&&m.source_scope?.grasp_supported===false
+&&Array.isArray(m.source_scope?.supports)&&m.source_scope.supports.length===scope.supports.length
+&&m.source_scope.supports.every((r,i)=>r?.object_id===scope.supports[i].object_id&&r.object_sha256===scope.supports[i].object_sha256)
+&&m.gate_applicability?.equipment_stability==='not_applicable'&&m.gate_applicability?.declared_support==='required'
+&&Array.isArray(m.equipment)&&m.equipment.length===0&&m.contact_requirements===undefined
+&&typeof m.success==='boolean'&&typeof m.completed_interval==='boolean'&&nonnegative(m.simulated_duration_s)&&nonnegative(m.declared_duration_s)
+&&Number.isInteger(m.observed_substeps)&&m.observed_substeps>=0&&Number.isInteger(m.valid_substeps)&&m.valid_substeps>=0
+&&Array.isArray(m.failed_gates)&&m.failed_gates.length<=40&&m.failed_gates.every(v=>typeof v==='string'&&v.length<200)
+&&Array.isArray(rows)&&rows.length===requirements.length&&rows.every((r,i)=>r&&fields.every(k=>JSON.stringify(r[k])===JSON.stringify(requirements[i][k]))
+&&['required_duration_s','observed_duration_s','qualifying_duration_s','current_gap_s','max_gap_s'].every(k=>nonnegative(r[k]))
+&&['load_body_weight_fraction','peak_load_body_weight_fraction','qualifying_fraction'].every(k=>nullable(r[k]))
+&&(r.qualifying_fraction===null||r.qualifying_fraction<=1+1e-8)&&['active_now','qualifying_now','satisfied'].every(k=>typeof r[k]==='boolean')
+&&(!r.qualifying_now||r.active_now&&r.load_body_weight_fraction!==null)
+&&(!r.satisfied||r.qualifying_fraction!==null&&Math.abs(r.observed_duration_s-r.required_duration_s)<=1e-8))
+&&(!m.success||m.completed_interval&&!m.failure&&m.failed_gates.length===0&&rows.every(r=>r.satisfied));
+const panel=document.getElementById('support-panel'),status=document.getElementById('support-status'),list=document.getElementById('support-requirements');panel.hidden=false;list.replaceChildren();
+status.textContent=supportValid?'Authored load windows; equipment drift is not scored. Loads are fractions of simulated body weight, not measured human forces. Coverage and gaps describe this saved interval.':'Support task or metrics unavailable; no load, coverage or success is inferred.';
+if(!supportValid)return false;
+for(const r of rows){const block=document.createElement('section'),heading=document.createElement('h3'),requirement=document.createElement('p'),load=document.createElement('p'),coverage=document.createElement('p'),identity=document.createElement('details'),summary=document.createElement('summary'),hash=document.createElement('p');
+heading.textContent=`${r.human_segment.replaceAll('_',' ')} / ${r.object_id}`;
+requirement.textContent=`Authored direction [${r.direction_world.map(v=>number(v,2)).join(', ')}] in world axes; minimum ${number(r.minimum_load_body_weight_fraction*100,1)}% of simulated body weight; steps ${r.start_step}–${r.end_step} (end excluded).`;
+load.textContent=`Current load ${r.load_body_weight_fraction===null?'unavailable':number(r.load_body_weight_fraction*100,1)+'%'}; peak ${r.peak_load_body_weight_fraction===null?'unavailable':number(r.peak_load_body_weight_fraction*100,1)+'%'} of simulated body weight. ${r.active_now?r.qualifying_now?'Qualifying now.':'Active, not qualifying.':'Outside active window / not observed.'}`;
+coverage.textContent=`${r.qualifying_fraction===null?'Qualifying fraction unavailable':number(r.qualifying_fraction*100,1)+'% qualifying'}; ${number(r.observed_duration_s)} / ${number(r.required_duration_s)}s observed. Current gap ${number(r.current_gap_s)}s; longest gap ${number(r.max_gap_s)}s. ${r.satisfied?'Satisfied interval.':'Not yet satisfied / failed.'}`;
+summary.textContent='Declared support identity';hash.textContent=scope.supports.find(o=>o.object_id===r.object_id).object_sha256;identity.append(summary,hash);block.append(heading,requirement,load,coverage,identity);list.append(block);}
+return true;}
 const faces=[[0,1,3,2],[4,6,7,5],[0,4,5,1],[2,3,7,6],[0,2,6,4],[1,5,7,3]];
 const workerSource=`let bundle;onmessage=({data})=>{try{if(data.type==='init'){bundle=JSON.parse(data.raw);postMessage({type:'ready',scene:bundle.scene,exercise_task:bundle.exercise_task,count:bundle.events.length});}else{postMessage({type:'frame',index:data.index,event:bundle.events[data.index]});}}catch(error){postMessage({type:'error',message:String(error)});}};`;
 const url=URL.createObjectURL(new Blob([workerSource],{type:'application/javascript'}));
@@ -99,11 +162,11 @@ if(row.controller==='authored')return 'Controller: authored feedback · programm
 if(row.controller==='reference_proposal'){const hash=typeof row.reference_controller_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.reference_controller_sha256)?row.reference_controller_sha256.slice(0,12):null;return `Controller: fitted-reference alternative · original task unchanged · ${hash?'SHA256 '+hash:'controller identity unavailable'} · programmed, not learned`;}
 if(row.controller==='learned'){const hash=typeof row.policy_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.policy_sha256)?row.policy_sha256.slice(0,12):null;return `Controller: recorded policy · ${hash?'SHA256 '+hash:'policy identity unavailable'} · not a claim of learned improvement`;}
 return 'Controller unspecified · no recognized controller tag in this recording';}
-function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;
+function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot||{},supportReady=supportScene()?showSupport():false,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;
 const scale=Number(zoom.value)*Math.min(pane*.84/Math.max(scene.bounds[0],scene.bounds[1]),canvas.height*.76/Math.max(...scene.bounds));
 const center=scene.bounds.map(v=>v/2),floorZ=state.human?.mobility?.floor_height??0,goalTol=scene.task?.object_goal?.position_tolerance||.05;
-const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:scene.profile==='shared-world-v3'?'3D: human and ground':'3D: coupled world',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
-const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0),geometry=sharedGeometry(state.objects);
+const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:supportScene()?'3D: human and static supports':scene.profile==='shared-world-v3'?'3D: human and ground':'3D: coupled world',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
+const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0),geometry=sharedGeometry(supportScene()&&!supportReady?[]:state.objects);
 views.forEach((view,index)=>{ctx.save();ctx.beginPath();ctx.rect(index*pane,0,pane,canvas.height);ctx.clip();
 if(index>0){ctx.strokeStyle='#E9DED1';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(index*pane,0);ctx.lineTo(index*pane,canvas.height);ctx.stroke();}
 const project=p=>{const q=p.map((v,i)=>v-center[i]);return [(index+.5)*pane+dot(q,view.matrix[0])*scale,canvas.height*.54+dot(q,view.matrix[1])*scale];};
@@ -116,22 +179,29 @@ for(const primitive of geometry.primitives){const o=primitive.obj,moving=o.role!
 for(const seg of state.human?.segments||[]){const mid=[0,1,2].map(i=>(seg.a[i]+seg.b[i])/2);items.push({tier:1,depth:dot(mid,view.depth),kind:'capsule',seg});}
 for(const item of items.sort((a,b)=>a.tier-b.tier||a.depth-b.depth)){if(item.kind==='poly'){ctx.beginPath();ctx.strokeStyle=item.moving?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=item.color;item.pts.forEach((p,i)=>{const [x,y]=project(p);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.closePath();if(item.moving)ctx.fill();ctx.stroke();}else if(item.kind==='sphere'){const o=item.o,[x,y]=project(o.position);ctx.beginPath();ctx.strokeStyle=o.role!=='static'?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=o.color;ctx.arc(x,y,o.compoundPart?o.radius*scale:Math.max(2,o.radius*scale),0,2*Math.PI);if(o.role!=='static')ctx.fill();ctx.stroke();}else if(item.kind==='rigid-capsule'){const moving=item.obj.role!=='static';capsulePath(ctx,project(item.a),project(item.b),item.obj.radius*scale);ctx.strokeStyle=moving?'#214F50':'#AAA399';ctx.lineWidth=1;ctx.fillStyle=item.obj.color;if(moving)ctx.fill();ctx.stroke();}else{const pa=project(item.seg.a),pb=project(item.seg.b),w=Math.max(2,2*item.seg.radius*scale);ctx.lineCap='round';ctx.strokeStyle='#214F50';ctx.lineWidth=w+2;ctx.beginPath();ctx.moveTo(...pa);ctx.lineTo(...pb);ctx.stroke();ctx.strokeStyle='#9BB3B0';ctx.lineWidth=w;ctx.stroke();ctx.lineCap='butt';}}
 if(muscles.checked)for(const m of state.human?.muscles||[]){const pa=project(m.a),pb=project(m.b),a=m.activation;ctx.strokeStyle=`rgb(${Math.round(150+55*a)},${Math.round(92-30*a)},${Math.round(72-20*a)})`;ctx.lineWidth=1.5+2.5*a;ctx.beginPath();ctx.moveTo(...pa);ctx.lineTo(...pb);ctx.stroke();}
-if(!exerciseTask&&Array.isArray(state.target)){const [tx,ty]=project(state.target);ctx.beginPath();ctx.strokeStyle='#965644';ctx.setLineDash([6,4]);ctx.lineWidth=2;ctx.arc(tx,ty,Math.max(3,goalTol*scale),0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);}
+if(!exerciseTask&&!supportScene()&&Array.isArray(state.target)){const [tx,ty]=project(state.target);ctx.beginPath();ctx.strokeStyle='#965644';ctx.setLineDash([6,4]);ctx.lineWidth=2;ctx.arc(tx,ty,Math.max(3,goalTol*scale),0,2*Math.PI);ctx.stroke();ctx.setLineDash([]);}
 for(const c of state.contact_details||[]){const [x,y]=project(c.position),coupled=c.kind==='human_object';ctx.beginPath();ctx.fillStyle=coupled?'#C7795D':'#965644';ctx.arc(x,y,coupled?4.5:2.5,0,2*Math.PI);ctx.fill();if(coupled){ctx.strokeStyle='#214F50';ctx.lineWidth=1;ctx.stroke();}}
 ctx.restore();});
 document.getElementById('frame').textContent=`${Number(slider.value)+1} / ${count}`;
 const ho=state.contact_summary?.human_object??0,cm=state.coupled_metrics||{};
-status.textContent=scene.profile==='shared-world-v3'?`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} simulated ground contacts · equipment not applicable · substeps ${state.substeps}`:`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} contacts (${ho} human↔object) · object dist ${(cm.object_distance_world??0).toFixed(3)} · substeps ${state.substeps}`;
-if(exerciseTask){const m=event.exercise_metrics||{},drift=Math.max(0,...(m.equipment||[]).map(o=>o.displacement_model_units||0)),outcome=m.success?'passed':m.failure||m.completed_interval?'not passed':'in progress';status.textContent=`Human-only task · ${(m.simulated_duration_s??0).toFixed(3)}s · ${outcome} · ${scene.profile==='shared-world-v3'?'equipment and contact requirements not applicable':`maximum equipment drift ${drift.toFixed(3)} model units`} · ${m.observed_substeps??0} measured substeps`;if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
+status.textContent=supportScene()?'Static-support task result unavailable.':scene.profile==='shared-world-v3'?`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} simulated ground contacts · equipment not applicable · substeps ${state.substeps}`:`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} contacts (${ho} human↔object) · object dist ${(cm.object_distance_world??0).toFixed(3)} · substeps ${state.substeps}`;
+if(exerciseTask&&!supportScene()){const m=event.exercise_metrics||{},drift=Math.max(0,...(m.equipment||[]).map(o=>o.displacement_model_units||0)),outcome=m.success?'passed':m.failure||m.completed_interval?'not passed':'in progress';status.textContent=`Human-only task · ${(m.simulated_duration_s??0).toFixed(3)}s · ${outcome} · ${scene.profile==='shared-world-v3'?'equipment and contact requirements not applicable':`maximum equipment drift ${drift.toFixed(3)} model units`} · ${m.observed_substeps??0} measured substeps`;if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
+if(supportScene()){const m=event.exercise_metrics;status.textContent=supportReady?`Authored static-support task · ${number(m.simulated_duration_s)} / ${number(m.declared_duration_s)}s · ${m.failure?'not passed · simulation failed':m.completed_interval?m.success?'passed · interval complete':'not passed · interval complete':'in progress · interval incomplete'} · ${m.valid_substeps} valid / ${m.observed_substeps} observed simulated substeps`:'Static-support task result unavailable; no success or zero load is inferred.';if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
 if(exerciseTask){const label=document.getElementById('controller');label.hidden=false;label.textContent=controllerLabel(event);}
 if(details.open)detail.textContent=JSON.stringify(event,null,2);}
 function tick(){if(document.hidden||closed){stop();return;}if(Number(slider.value)>=count-1){stop();return;}slider.value=Number(slider.value)+1;requestFrame(Number(slider.value));timer=setTimeout(tick,1000*scene.dt);}
-worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;exerciseTask=data.exercise_task||null;count=data.count;slider.max=count-1;play.disabled=slider.disabled=false;if(exerciseTask){document.getElementById('recording-title').textContent='Human-only exercise task replay';const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Equipment stays passive: no virtual object forces. Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Stability is checked throughout the declared interval; this is an authored simulation task, not verified grasp or biomechanics.`;document.getElementById('contact-explanation').textContent='Turning the view does not change physics. Dots show simulated body contacts, not necessarily qualifying wrist-region support. Only the declared wrist-region requirements count toward this task.';}if(scene.profile==='shared-world-v3'){
+worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;exerciseTask=data.exercise_task||null;count=data.count;slider.max=count-1;play.disabled=slider.disabled=false;if(exerciseTask&&!supportScene()){document.getElementById('recording-title').textContent='Human-only exercise task replay';const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Equipment stays passive: no virtual object forces. Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Stability is checked throughout the declared interval; this is an authored simulation task, not verified grasp or biomechanics.`;document.getElementById('contact-explanation').textContent='Turning the view does not change physics. Dots show simulated body contacts, not necessarily qualifying wrist-region support. Only the declared wrist-region requirements count toward this task.';}if(scene.profile==='shared-world-v3'){
 document.getElementById('recording-title').textContent='Person-only 3D task replay';
 document.getElementById('world-scope').textContent='One simulated human body and ground, seen from the front, above and at an angle. No equipment or obstacles are declared; object absence is not visually verified. This is an offline state replay, not live controls. Muscle colors are illustrative motor commands; physical validation remains unverified.';
 canvas.setAttribute('aria-label','Three views of the same recorded human and ground');
 document.getElementById('contact-explanation').textContent='Turning the view does not advance physics or alter the recording. Dots show simulated ground contacts; no object target or wrist-region requirement is present.';
 if(exerciseTask){const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Body tracking and floor limits are checked throughout the declared interval. Equipment and contact-requirement checks are not applicable and add no reward.`;}
+}if(supportScene()){
+document.getElementById('recording-title').textContent='Authored static-support task replay';
+document.getElementById('world-scope').textContent='One simulated human body with fixed authored supports. This is saved state playback, not live control or recovered physical contact. Muscle colors are illustrative motor commands; physical validation is unverified.';
+canvas.setAttribute('aria-label','Three views of the same recorded human and authored static supports');
+document.getElementById('contact-explanation').textContent='Turning the view does not advance physics or alter the recording. Contact dots alone do not satisfy a support-load window. No object target, wrist-region or grasp requirement is inferred.';
+const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Only human motors are controlled; static supports cannot be moved or actuated. Root assistance: ${exerciseTask?.control?.root_assistance==='disabled'?'disabled · 19 joint motors':exerciseTask?.control?.root_assistance==='explicit_3_axis'?'three explicit virtual controls · 22 channels':'unavailable'}. Body limits and authored load windows cover the declared interval; equipment drift is not scored.`;
 }requestFrame(0);return;}busy=false;if(data.index===wanted){event=data.event;draw();}else requestFrame(wanted);};
 worker.onerror=()=>{stop();status.textContent='Could not start the local recording reader.';};
 {const input=document.getElementById('data');worker.postMessage({type:'init',raw:input.textContent});input.remove();}

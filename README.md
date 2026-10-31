@@ -24,6 +24,7 @@ included in a fresh clone. Run one command, then open its printed local link:
 | Try | Command |
 | --- | --- |
 | Recommended exercise body | `.venv-lab/bin/python scripts/play_sandbox.py --example exercise` |
+| Body resting on a static support | `.venv-lab/bin/python -m weft lab --resume artifacts/static-support-play-acceptance-01/present/lab` |
 | Guided video → 3D ball with learned control | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-guided-play-acceptance-02/workflow/lab` |
 | Trained 3D tabletop objects | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored` |
 | Trained 3D ramp hypothesis | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp` |
@@ -39,6 +40,13 @@ control, add `--console` to the exercise launcher or replace `lab` with
 The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
+
+The new [static-support example](docs/local-lab.md#inspect-static-support-loads)
+shows actual simulated contact loads, coverage and gaps. Its authored body rests
+on a support with translational root assistance disabled; lowering the support
+causes the unchanged task to fail. Both recorded trials replay exactly. This is
+a controlled simulator example, not a recovered exercise or free-floating human
+balance. [Build from saved video-body evidence](docs/static-support.md).
 
 For a guided object-video workflow, use
 [`build_sandbox.py --profile spatial`](docs/spatial-scene-construction.md).

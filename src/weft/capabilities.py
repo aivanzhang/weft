@@ -91,7 +91,7 @@ def validate_capabilities(doc):
     if not isinstance(frame, dict) or frame.get("dimensions") not in (2, 3) or not isinstance(frame.get("units"), dict):
         raise ValueError("Capabilities coordinate_frame must specify 2 or 3 dimensions and explicit units")
     entities = doc["entities"]
-    expected_mixed = doc["scene_profile"] in ("shared-world-v1", "shared-world-v2")
+    expected_mixed = doc["scene_profile"] in ("shared-world-v1", "shared-world-v2", "shared-world-v4")
     if (
         not isinstance(entities, dict)
         or type(entities.get("total_count")) is not int
@@ -134,7 +134,7 @@ def describe_capabilities(
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
-    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
+    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])
 
@@ -575,11 +575,13 @@ def describe_capabilities(
         }
         return validate_capabilities(doc)
 
-    if scene_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
-        from weft.shared_world import HUMAN_ONLY_PROFILE, OBJECT_ACTIONS, validate_shared_world
+    if scene_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"):
+        from weft.shared_world import HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, OBJECT_ACTIONS, validate_shared_world
 
         validated = validate_shared_world(scene)
         human_only = scene_profile == HUMAN_ONLY_PROFILE
+        static_support = scene_profile == STATIC_SUPPORT_PROFILE
+        no_object_goal = human_only or static_support
         dyn_objs = [obj for obj in validated["objects"] if obj["role"] != "static"]
         static_objs = [obj for obj in validated["objects"] if obj["role"] == "static"]
         contract = validated["action_contract"]
@@ -661,7 +663,7 @@ def describe_capabilities(
                 "authored_reference_controller": True,
                 "learned_policy_available": bool(learned_policy_available),
                 "trained_target_id": (
-                    trained_target_id or (("human" if human_only else "coupled_human_and_" + goal["target_object_id"])
+                    trained_target_id or (("human" if no_object_goal else "coupled_human_and_" + goal["target_object_id"])
                                           if learned_policy_available else None)
                 ),
             },
@@ -694,6 +696,24 @@ def describe_capabilities(
                 "Unassisted human balance without the 3 explicit virtual root-force actuators",
                 "Measured muscle activation, verified object absence or physical transfer",
             ]
+        if static_support:
+            if learned_policy_available:
+                raise ValueError("Static-support tasks do not yet have a qualified learned-policy contract")
+            doc["entities"].update(multi_target_selection_endpoint=None, support="declared_static_collision_geometry")
+            doc["action_contract"]["discrete_actions"] = []
+            doc["observation_contract"].update(dimension=155 + 13 * len(static_objs), components=[
+                "human_qpos_22_qvel_22_target_qpos_22_target_qvel_22_policy_features_66_phase_1",
+                "per_static_object_position_xyz_quaternion_wxyz_velocity_xyz_spin_xyz"])
+            doc["task_contract"].update(task_type="human_support_v1",
+                reward_summary="Engine reference tracking; declared support-load criteria require an attached support task.",
+                success_criteria={"human_limits": deepcopy(task["human_limits"]), "object_goal": None},
+                termination_conditions=["nonfinite_dynamics", "human_position_or_velocity_envelope_exceeded"])
+            doc["unsupported_capabilities"] = [
+                "Movable equipment, object-force controls and learned support policies",
+                "Avatar recording for this static-support profile",
+                "Ground-force load requirements, finger grasping or measured muscle activation",
+                "Recovered support geometry, verified physical contact or physical transfer",
+            ]
         if exercise_task is not None:
             from weft.shared_exercise_task import GATES, HUMAN_ONLY_GATE_APPLICABILITY, validate_shared_exercise_task
 
@@ -705,15 +725,17 @@ def describe_capabilities(
             doc["action_contract"].update(dimension=count, discrete_actions=[],
                 actuator_names=contract["names"][:count], physical_units=contract["units"][:count],
                 joint_channels=list(range(19)), root_assistance_channels=list(range(19, count)), object_force_channels=[])
-            doc["observation_contract"].update(dimension=156 + 17 * len(exercise["equipment_ids"])
-                                               + 6 * len(exercise["contact_requirements"]),
+            equipment_ids = [] if static_support else exercise["equipment_ids"]
+            requirements = exercise["support_requirements"] if static_support else exercise["contact_requirements"]
+            doc["observation_contract"].update(dimension=156 + 17 * len(equipment_ids)
+                                               + 6 * len(requirements),
                 components=["human_reference_conditioned_state", "passive_equipment_reset_relative_state",
                             "declared_contact_requirement_coverage_and_gaps", "elapsed_fraction"])
             doc["task_contract"] = {
                 "task_type": exercise["profile"], "authored_addition": True,
                 "reward_summary": "Human reference tracking and passive equipment stability minus explicit human effort; no legacy object-target score.",
-                "success_criteria": {"frozen_gates": dict(GATES), "equipment_ids": exercise["equipment_ids"],
-                    "contact_requirements": exercise["contact_requirements"], "complete_substep_interval_required": True},
+                "success_criteria": {"frozen_gates": dict(GATES), "equipment_ids": equipment_ids,
+                    "contact_requirements": requirements, "complete_substep_interval_required": True},
                 "termination_conditions": ["explicit_engine_or_observation_failure", "completed_successful_interval"],
                 "truncation_steps": exercise["interval"]["horizon_steps"],
                 "source_scope": exercise["source_scope"], "root_assistance": exercise["control"]["root_assistance"],
@@ -733,6 +755,21 @@ def describe_capabilities(
                     frozen_gates={name: GATES[name] for name in ("angular_rmse_rad", "root_rmse_model_units",
                         "peak_angular_rmse_rad", "peak_root_rmse_model_units", "max_floor_penetration_model_units")},
                     gate_applicability=dict(HUMAN_ONLY_GATE_APPLICABILITY))
+            if static_support:
+                from weft.shared_support_task import GATES as SUPPORT_GATES
+
+                doc["observation_contract"]["components"] = ["human_reference_conditioned_state",
+                    "declared_support_load_coverage_and_gaps", "elapsed_fraction"]
+                doc["task_contract"].update(
+                    reward_summary="Human tracking multiplied by declared simulated support load, minus explicit human effort; no equipment-stability bonus.",
+                    success_criteria={"frozen_gates": dict(SUPPORT_GATES), "support_requirements": requirements,
+                        "complete_substep_interval_required": True, "equipment_stability": "not_applicable"})
+                doc["unsupported_capabilities"] = [
+                    "Movable equipment, object-force controls and learned support policies",
+                    "Avatar recording for this static-support profile",
+                    "Ground-force load requirements, finger grasping or measured muscle activation",
+                    "Recovered support geometry, verified physical contact or physical transfer",
+                ]
         return validate_capabilities(doc)
 
     raise ValueError(f"Unsupported scene profile for capability inspection: {scene_profile!r}")

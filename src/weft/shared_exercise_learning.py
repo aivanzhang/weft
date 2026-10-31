@@ -79,6 +79,8 @@ def _groups(names):
 
 
 def _context(scene, task):
+    if isinstance(scene, dict) and scene.get("profile") == "shared-world-v4":
+        raise ValueError("Static-support learning requires a separately qualified policy contract")
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
     count = 22 if task["control"]["root_assistance"] == "explicit_3_axis" else 19
@@ -158,6 +160,8 @@ def _source(run, task_path, root_assistance, deadline):
     if "scene.json" not in files:
         raise ValueError("Exercise learning requires a sealed shared-world scene")
     scene_raw = files["scene.json"]
+    if _json(scene_raw).get("profile") == "shared-world-v4":
+        raise ValueError("Static-support learning requires a separately qualified policy contract")
     scene = validate_shared_world(_json(scene_raw))
     if "exercise-lab.json" in files:
         load_shared_exercise_lab(root, deadline=deadline)

@@ -4,6 +4,56 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Inspect static-support loads
+
+Open the prepared support example:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/static-support-play-acceptance-01/present/lab
+```
+
+Choose authored reference control, then **Record & start → Stop & save**.
+Inspect the declared body segment, load direction, minimum load, current simulated
+load, contact coverage and gaps. Loads are fractions of simulated body weight.
+Unknown values remain unavailable, rather than appearing as zero.
+
+Use `lab-console` instead of `lab` for terminal controls:
+
+```text
+controls
+record start
+mode reference
+step 6
+status
+record stop
+files
+```
+
+The two-second analytical example passes with the support in place. The matched
+[`lowered/lab`](../artifacts/static-support-play-acceptance-01/lowered/lab)
+changes only support height by −0.6 world units: it finishes but fails root
+tracking and contact requirements. Qualifying contact covers 91.78% of the
+required window, below 95%; its longest gap is 0.121 seconds, above 0.10.
+Both trials have exact recorded-action replay. The lowered case retains a
+32.64-body-weight simulated impact; it is not a measured human force.
+
+There are 19 explicit joint/torso controls and no translational root forces in
+this example. The authored body template does not establish free-floating balance,
+anatomy or biomechanics. Learned support policies, floor-force requirements and
+grasp are unavailable. Avatar recording for this new support profile is not yet
+qualified; launch it without avatar options. Existing learned object and person-only examples remain
+separate supported modes in the same lab.
+
+On a fresh clone, create the analytical fixture and lab without a server:
+
+```sh
+.venv-lab/bin/python -m weft shared-support-fixture --out artifacts/my-support-source
+.venv-lab/bin/python -m weft shared-exercise-lab --run artifacts/my-support-source --out artifacts/my-support-lab
+```
+
+For an existing video-derived body, use the [source-pinned support builder](static-support.md).
+Support shapes and load requirements remain explicit authored assumptions.
+
 ## Play an object video without training
 
 Add `--no-train` to a new **planar** or **appearance** video build. Tracking,

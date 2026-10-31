@@ -114,6 +114,11 @@ def _brief(snapshot):
     metrics = snapshot.get("task_metrics", snapshot.get("whole_body_metrics", state))
     result.update({key: metrics[key] for key in ("success", "completed_interval", "failed_gates", "failure", "clock_status",
         "simulated_duration_s", "angular_rmse_rad", "peak_angular_rmse_rad", "mean_reward") if key in metrics})
+    if metrics.get("profile") == "shared-support-task-v1":
+        result["simulated_support_loads"] = [{key: row[key] for key in (
+            "object_id", "human_segment", "direction_world", "minimum_load_body_weight_fraction",
+            "load_body_weight_fraction", "qualifying_fraction", "max_gap_s", "satisfied")}
+            for row in metrics["support_requirements"]]
     return result
 
 

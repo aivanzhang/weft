@@ -10,6 +10,8 @@ def _profile(policy):
 
 
 def validate_policy(policy, scene, task):
+    if isinstance(scene, dict) and scene.get("profile") == "shared-world-v4":
+        raise ValueError("Static-support learning requires a separately qualified policy contract")
     # Lazy imports keep the learners' lab-helper dependency acyclic.
     if _profile(policy) == "shared-exercise-policy-v4":
         from weft.shared_exercise_feedback_residual import validate_shared_exercise_feedback_policy
@@ -25,6 +27,8 @@ def validate_policy(policy, scene, task):
 
 
 def prepare_policy(policy, env):
+    if env.scene.get("profile") == "shared-world-v4":
+        raise ValueError("Static-support learning requires a separately qualified policy contract")
     if _profile(policy) == "shared-exercise-policy-v4":
         from weft.shared_exercise_feedback_residual import prepare_shared_exercise_feedback_policy
         return prepare_shared_exercise_feedback_policy(policy, env)

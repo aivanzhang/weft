@@ -30,9 +30,10 @@
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
-  const sharedWorld = () => ["shared-world-v1", "shared-world-v2", "shared-world-v3"].includes(scene?.profile);
+  const sharedWorld = () => ["shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"].includes(scene?.profile);
   const personOnly = () => scene?.profile === "shared-world-v3";
-  const sharedExercise = () => current?.control_profile === "shared_exercise";
+  const staticSupport = () => scene?.profile === "shared-world-v4";
+  const sharedExercise = () => current?.control_profile === "shared_exercise" || staticSupport();
   const engineState = state => state?.profile === "shared-exercise-state-v1" ? state.engine_state : state;
   const exerciseMetrics = () => sharedExercise() && exerciseStateReady ? snapshot.task_metrics : null;
   const sharedHumanTarget = () => sharedWorld() && (sharedExercise() || (snapshot?.controlled_id || scene?.controlled_id) === "human");
@@ -120,6 +121,7 @@
     if (canvas.id === "live" && appearanceView?.update(state)) return;
     state = engineState(state);
     if (!scene || !state) return;
+    if (staticSupport() && !supportObjectsMatch(state.objects)) return;
     if (sharedWorld()) { drawSharedWorld(canvas, state); return; }
     if (state.human) { drawHuman(canvas, state); return; }
     if (spatialRigid()) { drawSpatial(canvas, state); return; }
@@ -444,7 +446,7 @@
         }
       }
       const target = state.target || scene.target;
-      if (target && !sharedExercise()) {
+      if (target && !sharedExercise() && !staticSupport()) {
         const [tx, ty] = project(target);
         ctx.beginPath(); ctx.strokeStyle = "#965644"; ctx.setLineDash([6, 4]); ctx.lineWidth = 2;
         ctx.arc(tx, ty, Math.max(3, goalTol * scale), 0, 2 * Math.PI); ctx.stroke(); ctx.setLineDash([]);
@@ -458,29 +460,107 @@
       ctx.restore();
     });
   }
+  const supportSegments = new Set(["torso", "head", "pelvis", "shoulders", "left_upper_arm", "left_forearm", "left_thigh", "left_shin", "right_upper_arm", "right_forearm", "right_thigh", "right_shin"]);
+  const supportRequirementFields = ["object_id", "human_segment", "direction_world", "minimum_load_body_weight_fraction", "start_step", "end_step"];
+  const supportDigest = value => typeof value === "string" && /^[0-9a-f]{64}$/.test(value);
+  const nonnegative = value => typeof value === "number" && Number.isFinite(value) && value >= 0;
+  const nullableNonnegative = value => value === null || nonnegative(value);
+  const supportDirection = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite) && Math.abs(Math.hypot(...value) - 1) <= 1e-9;
+  const supportVector = (value, length) => Array.isArray(value) && value.length === length && value.every(Number.isFinite);
+  const validStaticSupports = objects => Array.isArray(objects) && objects.length > 0 && objects.length <= 12
+    && objects.every(obj => obj?.role === "static" && typeof obj.id === "string" && supportVector(obj.position, 3)
+      && supportVector(obj.quaternion, 4) && Math.abs(Math.hypot(...obj.quaternion) - 1) <= 1e-8)
+    && new Set(objects.map(obj => obj.id)).size === objects.length;
+  const supportObjectsMatch = objects => validStaticSupports(scene?.objects) && validStaticSupports(objects)
+    && objects.length === scene.objects.length && objects.every(obj => scene.objects.some(source => source.id === obj.id
+      && ["position", "quaternion"].every(key => obj[key].every((value, i) => Math.abs(value - source[key][i]) <= 1e-8))));
+  function validSupportTask(task) {
+    const scope = task?.source_scope, supports = scope?.supports, requirements = task?.support_requirements;
+    return task?.schema_version === 1 && task.authored_addition === true && task.gate_profile === "shared-support-gates-v1"
+      && task.reward_profile === "tracking-times-declared-support-v1" && supportDigest(task.scene_sha256) && supportDigest(task.gates_sha256)
+      && task.contact_requirements === undefined && task.equipment_ids === undefined && scene.target === null && scene.task?.object_goal === null
+      && scene.task?.type === "human_support_v1" && scene.task.authored_addition === true
+      && validStaticSupports(scene.objects)
+      && scope?.success_scope === "authored_simulated_support_task" && scope.physical_validation === "unverified"
+      && scope.source_contact_verified === false && scope.grasp_supported === false
+      && scope.geometry_scope === "declared_static_collision_geometry_not_recovered_contact" && scope.clock_alignment === "preserved_scene_clocks_not_retimed"
+      && Array.isArray(supports) && supports.length === scene.objects.length && new Set(supports.map(row => row?.object_id)).size === supports.length
+      && supports.every(row => typeof row?.object_id === "string" && row.object_id.length <= 128 && supportDigest(row.object_sha256)
+        && scene.objects.some(obj => obj.id === row.object_id))
+      && Array.isArray(requirements) && requirements.length > 0 && requirements.length <= 24
+      && requirements.every(row => supports.some(obj => obj.object_id === row?.object_id) && supportSegments.has(row.human_segment)
+        && supportDirection(row.direction_world) && nonnegative(row.minimum_load_body_weight_fraction)
+        && row.minimum_load_body_weight_fraction > 0 && row.minimum_load_body_weight_fraction <= 2
+        && Number.isInteger(row.start_step) && Number.isInteger(row.end_step) && 0 <= row.start_step
+        && row.start_step < row.end_step && row.end_step <= task.interval?.horizon_steps);
+  }
+  function validSupportMetrics(m, geometry) {
+    const rows = m?.support_requirements, required = exerciseTask.support_requirements;
+    return m?.contact_requirements === undefined && m.equipment.length === 0
+      && m.gate_applicability?.equipment_stability === "not_applicable" && m.gate_applicability?.declared_support === "required"
+      && m.gate_profile === exerciseTask.gate_profile && m.gates_sha256 === exerciseTask.gates_sha256
+      && m.reward_profile === exerciseTask.reward_profile && m.scene_sha256 === exerciseTask.scene_sha256 && supportDigest(m.task_sha256)
+      && m.root_assistance === exerciseTask.control.root_assistance && m.virtual_object_forces === "forbidden"
+      && m.source_scope?.physical_validation === "unverified" && m.source_scope?.source_contact_verified === false && m.source_scope?.grasp_supported === false
+      && Array.isArray(m.source_scope?.supports) && m.source_scope.supports.length === exerciseTask.source_scope.supports.length
+      && m.source_scope.supports.every((row, index) => row?.object_id === exerciseTask.source_scope.supports[index].object_id
+        && row.object_sha256 === exerciseTask.source_scope.supports[index].object_sha256)
+      && supportObjectsMatch(geometry.objects)
+      && Array.isArray(m.failed_gates) && m.failed_gates.length <= 40 && m.failed_gates.every(value => typeof value === "string" && value.length < 200)
+      && Array.isArray(rows) && rows.length === required.length && rows.every((row, index) => row && supportRequirementFields.every(key =>
+        JSON.stringify(row[key]) === JSON.stringify(required[index][key]))
+        && ["required_duration_s", "observed_duration_s", "qualifying_duration_s", "current_gap_s", "max_gap_s"].every(key => nonnegative(row[key]))
+        && ["load_body_weight_fraction", "peak_load_body_weight_fraction", "qualifying_fraction"].every(key => nullableNonnegative(row[key]))
+        && (row.qualifying_fraction === null || row.qualifying_fraction <= 1 + 1e-8)
+        && ["active_now", "qualifying_now", "satisfied"].every(key => typeof row[key] === "boolean")
+        && (!row.qualifying_now || row.active_now && row.load_body_weight_fraction !== null)
+        && (!row.satisfied || row.qualifying_fraction !== null && Math.abs(row.observed_duration_s - row.required_duration_s) <= 1e-8))
+      && (!m.success || m.completed_interval && !m.failure && m.failed_gates.length === 0 && rows.every(row => row.satisfied));
+  }
+  function configureSupportLabels() {
+    text($("exercise-task-heading"), "Body tracking + authored static support");
+    const details = $("exercise-metrics-details"), summary = details.querySelector?.("summary");
+    if (summary) text(summary, "Body limits and declared support loads");
+    const equipmentTable = $("exercise-equipment").closest?.(".table-wrap");
+    if (equipmentTable) equipmentTable.hidden = true;
+    const header = $("exercise-contacts").closest?.("table")?.querySelector("thead tr");
+    if (header) {
+      header.replaceChildren();
+      for (const label of ["Body segment / static support", "Authored load requirement", "Observed coverage", "Unqualified gaps", "Current load / result"]) {
+        const th = document.createElement("th"); th.setAttribute("scope", "col"); text(th, label); header.append(th);
+      }
+    }
+    const hint = $("exercise-results").querySelector?.(".hint");
+    if (hint) text(hint, "Loads come from simulated contacts, expressed as fractions of simulated body weight. Coverage and gaps use the declared windows; an early stop leaves the interval incomplete. These authored checks do not verify real contact or grasp.");
+  }
   function configureExerciseTask(data) {
     exerciseTask = data.exercise_task; exerciseActions = data.action_contract;
     const rootMode = exerciseTask?.control?.root_assistance, expected = rootMode === "disabled" ? 19 : rootMode === "explicit_3_axis" ? 22 : 0;
     const names = exerciseActions?.names;
-    exerciseContractReady = exerciseTask?.profile === (personOnly() ? "shared-exercise-task-v2" : "shared-exercise-task-v1") && exerciseTask.control.object_forces === "forbidden"
+    exerciseContractReady = exerciseTask?.profile === (staticSupport() ? "shared-support-task-v1" : personOnly() ? "shared-exercise-task-v2" : "shared-exercise-task-v1") && exerciseTask.control?.object_forces === "forbidden"
       && expected > 0 && Array.isArray(names) && names.length === expected && new Set(names).size === expected
       && names.every(name => typeof name === "string" && name.length > 0 && name.length < 160)
       && exerciseActions.root_assistance === rootMode && Array.isArray(exerciseActions.object_force_channels) && exerciseActions.object_force_channels.length === 0
       && Number.isInteger(exerciseTask.interval?.horizon_steps) && exerciseTask.interval.horizon_steps > 0
-      && Array.isArray(exerciseTask.contact_requirements) && exerciseTask.contact_requirements.length <= 24
+      && (staticSupport() ? validSupportTask(exerciseTask) : Array.isArray(exerciseTask.contact_requirements) && exerciseTask.contact_requirements.length <= 24)
       && (!personOnly() || (Array.isArray(exerciseTask.equipment_ids) && exerciseTask.equipment_ids.length === 0
         && exerciseTask.contact_requirements.length === 0 && scene.objects.length === 0 && scene.target === null));
     $("exercise-task-card").hidden = $("exercise-results").hidden = $("mode-coast").hidden = false;
+    if (staticSupport()) configureSupportLabels();
     const duration = exerciseTask?.interval?.horizon_steps * scene.dt;
     text($("exercise-task-scope"), exerciseContractReady
-      ? personOnly() ? `Track the body reference over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Only human and ground are modeled; equipment and contact-requirement checks do not apply. Unsampled source motion remains unknown.`
+      ? staticSupport() ? `Track the body reference and meet the authored segment/load requirements over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Supports stay fixed; equipment-drift scoring does not apply. This is a simulated task, not recovered physical contact.`
+        : personOnly() ? `Track the body reference over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Only human and ground are modeled; equipment and contact-requirement checks do not apply. Unsampled source motion remains unknown.`
         : `Track the body reference while every equipment object stays stable over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). This declared task interval is not necessarily the whole source video.`
       : "The saved human-only task/control contract is unavailable or inconsistent. Task controls are disabled; no legacy task is substituted.");
     text($("exercise-assistance"), rootMode === "disabled" ? "Root assistance: OFF · 19 joint motors. The body has no virtual root-force controls."
       : rootMode === "explicit_3_axis" ? "Root assistance: 3 explicit virtual controls · 19 joint motors + 3 root-force channels. This is not unassisted balance."
       : "Root assistance: unavailable.");
-    const requirements = exerciseTask?.contact_requirements;
-    text($("exercise-contact-scope"), Array.isArray(requirements) ? requirements.length
+    const requirements = staticSupport() ? exerciseTask?.support_requirements : exerciseTask?.contact_requirements;
+    text($("exercise-contact-scope"), staticSupport() ? exerciseContractReady
+      ? `${requirements.length} authored support requirement(s). Each names a body segment, static object, world-space load direction and minimum fraction of simulated body weight. Only these declared load windows count; contact dots alone do not qualify.`
+      : "Static-support requirements unavailable; no contact or load is inferred."
+      : Array.isArray(requirements) ? requirements.length
       ? `${requirements.length} declared wrist-region requirements. Only these checks count; other body contacts do not establish hand support or grasp.`
       : personOnly() ? "Equipment and wrist-region requirements: not applicable. This declared inventory is not verified object absence. Passing checks simulated body tracking, not real exercise completion."
         : "No wrist-region contact is required. Passing means body tracking and equipment stability only—not hand support, a completed exercise or grasp."
@@ -569,7 +649,7 @@
   }
   function exerciseDetails(m) {
     if (!$("exercise-metrics-details").open || !m) return;
-    const signature = JSON.stringify([m.equipment, m.contact_requirements, m.failed_gates, m.gates_sha256]);
+    const signature = JSON.stringify([m.equipment, m.contact_requirements, m.support_requirements, m.failed_gates, m.gates_sha256]);
     if (signature === exerciseDetailSignature) return;
     exerciseDetailSignature = signature;
     text($("exercise-gates"), `Reported gate failures: ${m.failed_gates?.length ? m.failed_gates.join(", ") : "none reported so far"}. Gate identity: ${m.gates_sha256 || "unavailable"}. Passing still requires the complete declared interval.`);
@@ -585,6 +665,20 @@
       $("exercise-equipment").append(row);
     }
     $("exercise-contacts").replaceChildren();
+    if (staticSupport()) {
+      for (const item of m.support_requirements) {
+        const row = document.createElement("tr"), name = cell(row, `${item.human_segment.replaceAll("_", " ")} / ${actorLabel(item.object_id)}`);
+        const identity = document.createElement("details"), summary = document.createElement("summary"), hash = document.createElement("p");
+        text(summary, "Declared support identity"); text(hash, exerciseTask.source_scope.supports.find(obj => obj.object_id === item.object_id).object_sha256);
+        identity.append(summary, hash); name.append(identity);
+        cell(row, `Direction [${item.direction_world.map(value => number(value, 2)).join(", ")}] in world axes; minimum ${number(item.minimum_load_body_weight_fraction * 100, 1)}% of simulated body weight · steps ${item.start_step}–${item.end_step} (end excluded)`);
+        cell(row, `${item.qualifying_fraction === null ? "Qualifying fraction unavailable" : `${number(item.qualifying_fraction * 100, 1)}% qualifying`} · ${number(item.observed_duration_s)} / ${number(item.required_duration_s)}s observed`);
+        cell(row, `Current ${number(item.current_gap_s)}s · longest ${number(item.max_gap_s)}s`);
+        cell(row, `Current ${item.load_body_weight_fraction === null ? "unavailable" : `${number(item.load_body_weight_fraction * 100, 1)}%`} · peak ${item.peak_load_body_weight_fraction === null ? "unavailable" : `${number(item.peak_load_body_weight_fraction * 100, 1)}%`} of simulated body weight · ${item.active_now ? item.qualifying_now ? "qualifying now" : "active, not qualifying" : "outside active window / not observed"} · ${item.satisfied ? "Satisfied interval" : "Not yet satisfied / failed"}`);
+        $("exercise-contacts").append(row);
+      }
+      return;
+    }
     for (const item of m.contact_requirements) {
       const row = document.createElement("tr");
       const fraction = Number.isFinite(item.qualifying_fraction) ? `${number(item.qualifying_fraction * 100, 1)}% qualifying` : "Qualifying fraction unavailable";
@@ -607,7 +701,8 @@
       && m?.profile === exerciseTask?.profile && typeof m.completed_interval === "boolean" && typeof m.success === "boolean"
       && Number.isFinite(m.simulated_duration_s) && Number.isFinite(m.declared_duration_s)
       && Number.isInteger(m.observed_substeps) && Number.isInteger(m.valid_substeps)
-      && Array.isArray(m.equipment) && m.equipment.length <= 12 && Array.isArray(m.contact_requirements) && m.contact_requirements.length <= 24
+      && Array.isArray(m.equipment) && m.equipment.length <= 12
+      && (staticSupport() ? validSupportMetrics(m, geometry) : Array.isArray(m.contact_requirements) && m.contact_requirements.length <= 24)
       && (!personOnly() || (m.equipment.length === 0 && m.contact_requirements.length === 0 && geometry.objects.length === 0
         && m.reward_profile === "human_tracking_effort_v1" && m.gate_applicability?.human_tracking === "applied"
         && m.gate_applicability?.equipment_stability === "not_applicable" && m.gate_applicability?.contact_requirements === "not_applicable"));
@@ -626,7 +721,8 @@
     text($("exercise-body-errors"), `Body angular error: mean ${number(m.angular_rmse_rad)} rad / peak ${number(m.peak_angular_rmse_rad)} rad. Root error: mean ${number(m.root_rmse_model_units)} / peak ${number(m.peak_root_rmse_model_units)} model units. Peak floor penetration: ${number(m.max_floor_penetration_model_units)} model units.`);
     const drifts = m.equipment.map(item => item.displacement_model_units);
     const drift = drifts.length && drifts.every(Number.isFinite) ? Math.max(...drifts) : null;
-    text($("exercise-equipment-summary"), personOnly() ? "Equipment and contact requirements: not applicable — none are declared. They add no reward or success credit."
+    text($("exercise-equipment-summary"), staticSupport() ? `Static supports are authored and cannot be actuated. ${m.support_requirements.filter(row => row.active_now).length} active load window(s); ${m.support_requirements.filter(row => row.load_body_weight_fraction !== null).length} current simulated loads available. Equipment drift is not a task metric. Load fractions, coverage and gaps are in the details below.`
+      : personOnly() ? "Equipment and contact requirements: not applicable — none are declared. They add no reward or success credit."
       : `Equipment stays passive. Maximum displacement since reset: ${number(drift)} model units across ${m.equipment.length} objects. Detailed rotation, speed and contact checks are below.`);
     const stale = state.engine_state_status === "last_valid_control_boundary";
     $("exercise-failure").hidden = !stale && !m.failure;
@@ -636,11 +732,12 @@
     text($("exercise-failure"), failure);
     if (failure) { error(failure); simulationFailureMessage = failure; }
     else if (simulationFailureMessage !== null) { if ($("error").textContent === simulationFailureMessage) clearError(); simulationFailureMessage = null; }
-    text($("readout"), `${exerciseOutcome(m)} · task ${number(m.simulated_duration_s)}s · geometry ${number(geometry.time_s)}s · ${personOnly() ? "human and ground only" : "equipment is not actuated"}.`);
+    text($("readout"), `${exerciseOutcome(m)} · task ${number(m.simulated_duration_s)}s · geometry ${number(geometry.time_s)}s · ${staticSupport() ? "authored static supports" : personOnly() ? "human and ground only" : "equipment is not actuated"}.`);
     updateWindowClocks();
     text($("whole-body-status"), exerciseTask?.control?.root_assistance === "disabled" ? "Root assistance disabled; all three root-force commands stay zero."
       : `Explicit virtual root forces [${(geometry.human.mobility?.support_force || []).map(value => number(value, 1)).join(", ")}] · model force units, not measured human forces.`);
-    text($("muscle-readout"), "Illustrative muscle bands show motor commands, not measured activation. Contact dots do not automatically qualify as wrist support.");
+    text($("muscle-readout"), staticSupport() ? "Illustrative muscle bands show motor commands, not measured activation. Contact dots alone do not meet the declared simulated support-load requirements."
+      : "Illustrative muscle bands show motor commands, not measured activation. Contact dots do not automatically qualify as wrist support.");
     $("spatial-readout").hidden = true;
     exerciseDetails(m); updateControls();
     if (state.terminated || state.truncated || m.failure) pause();
@@ -732,9 +829,11 @@
       for (const button of document.querySelectorAll("[data-action]")) {
         if (actionNames[Number(button.dataset.action)]) text(button, actionNames[Number(button.dataset.action)]);
       }
-      text($("goal-summary"), personOnly() ? "Across the complete declared interval: track the body reference and stay within the body/floor limits. Equipment and wrist-contact requirements do not apply. This is simulated tracking, not verified exercise completion."
+      text($("goal-summary"), staticSupport() ? "Across the complete declared interval: track the body reference, stay within body/floor limits and meet every authored segment/load window. Static supports have no controls or equipment-drift score. These are simulated criteria, not physical contact verification."
+        : personOnly() ? "Across the complete declared interval: track the body reference and stay within the body/floor limits. Equipment and wrist-contact requirements do not apply. This is simulated tracking, not verified exercise completion."
         : "Across the complete declared interval: track the body reference, stay within the body/floor limits, and keep equipment stable. Only explicitly required wrist-region checks count. This is not a target-object task or proof of grasp.");
-      text($("mode-description"), mode === "coast" ? personOnly() ? "Coast: every joint and root-force command is zero. Gravity and simulated ground contacts still act." : "Coast: every joint and root-force command is zero. Equipment remains passive; gravity and simulated contacts still act."
+      text($("mode-description"), mode === "coast" ? staticSupport() ? "Coast: every joint and root-force command is zero. Authored supports remain fixed; gravity and simulated contacts still act."
+        : personOnly() ? "Coast: every joint and root-force command is zero. Gravity and simulated ground contacts still act." : "Coast: every joint and root-force command is zero. Equipment remains passive; gravity and simulated contacts still act."
         : mode === "reference" ? `Authored feedback follows the body reference using ${exerciseActions?.names?.length || "the declared"} human channels. This is programmed control, not learned behavior; equipment has no force controls.`
         : mode === "learned" ? exerciseFeedbackDescription()
         : `Move one of ${exerciseActions?.names?.length || "the declared"} human motors with +0.25 or −0.25; all other commands stay zero. Root assistance is ${exerciseTask?.control?.root_assistance === "disabled" ? "disabled" : "explicit, not automatic"}. Equipment has no force controls.`);
@@ -1038,7 +1137,7 @@
       text($("evidence-layers-text"), `Layer separation — Source: ${layers.recorded_source}${src.frame_count ? ` (${src.frame_count} frames)` : ""}.${missing} Kinematic projection: ${layers.kinematic_projection}. Controllers: ${(layers.controllers || []).join(", ")}. Physics: ${layers.physical_simulation}.${muscles}`);
     }
     if (!sharedExercise() && !data.snapshot?.human && learnedPolicyAvailable && !trainedActor) trainedActor = scene.controlled_id;
-    const controllable = sharedExercise() ? [{id: "human", label: personOnly() ? "Human · ground only" : "Human · equipment stays passive"}] : sharedWorld()
+    const controllable = sharedExercise() ? [{id: "human", label: staticSupport() ? "Human · supports stay fixed" : personOnly() ? "Human · ground only" : "Human · equipment stays passive"}] : sharedWorld()
       ? [{id: "human", label: "Articulated human (22 motors)"}, ...dynamicObjects()]
       : dynamicObjects();
     $("actor-controls").hidden = sharedExercise() || (!sharedWorld() && Boolean(data.snapshot?.human)) || controllable.length < 2;
@@ -1131,6 +1230,16 @@
           text($("learning-description"), "No learned human policy was packaged with this person-only run.");
           text($("training-caption"), "Not trained · only human and ground are modeled.");
         }
+      }
+      if (staticSupport()) {
+        text($("world-tab"), "Human and static supports");
+        text($("world-heading"), "One 3D world: human body and authored static supports.");
+        text($("world-description"), "The articulated body contacts fixed, authored collision shapes in one simulated world. Only human motors are controlled. Support shapes, load directions and thresholds are declared assumptions, not recovered physical contact.");
+        text($("evidence-boundary"), "Authored static-support task. Original body/source clocks remain separate from these added support assumptions; physical validation is unverified.");
+        text($("start-help"), "Inspect the authored support requirements, then try manual human motors, coast or programmed reference feedback. Record a trial to inspect its simulated loads and complete-interval result.");
+        text($("control-help"), `Choose one of ${humanMotorNames.length || "the declared"} human motors. Tap + or −, or start and hold. Release sets all commands to zero. Static supports cannot be selected, moved or pushed.`);
+        text($("play-boundary"), "Body tracking and authored segment/load windows are evaluated over the fixed interval. Root assistance is explicit; equipment drift is not scored. This does not establish wrist support, grasp, anatomy, unassisted balance or physical accuracy.");
+        $("live").setAttribute("aria-label", "Human simulation with authored static supports. Only human motors are controlled. Escape pauses.");
       }
     }
     if (data.profile === "spatial-rigid") {
@@ -1281,6 +1390,9 @@
   function renderObjectDetails() {
     if (!scene) return;
     $("objects").replaceChildren();
+    if (staticSupport() && !validStaticSupports(scene.objects)) {
+      const row = document.createElement("tr"); cell(row, "Static-support geometry unavailable; no substitute inferred."); $("objects").append(row); return;
+    }
     for (const obj of scene.objects) {
       const row = document.createElement("tr");
       cell(row, `${actorLabel(obj.id)} · ${obj.id}`); cell(row, obj.role); cell(row, geometryLabel(obj));

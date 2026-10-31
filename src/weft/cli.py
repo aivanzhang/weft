@@ -351,6 +351,16 @@ def main():
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
     exercise_lab_choice.add_argument("--task", help="Explicit shared-exercise-task-v1 JSON; otherwise preserve a sealed input task before using defaults")
     exercise_lab.add_argument("--max-seconds", type=float, default=60)
+    support_build = commands.add_parser("shared-support-build",
+        help="Bind a sealed video body to explicitly authored static supports and load requirements")
+    support_build.add_argument("--body-source", required=True)
+    support_build.add_argument("--config", required=True, help="Source-pinned shared-static-support-construction-v1 JSON")
+    support_build.add_argument("--out", required=True, help="New immutable candidate directory")
+    support_build.add_argument("--max-seconds", type=float, default=30)
+    support_fixture = commands.add_parser("shared-support-fixture",
+        help="Create an unexecuted analytical support fixture, not a reconstructed video")
+    support_fixture.add_argument("--out", required=True)
+    support_fixture.add_argument("--lowered", action="store_true", help="Predeclared support-height counterfactual")
     exercise_eval = commands.add_parser("shared-exercise-evaluate",
         help="Evaluate and record human-only controls with passive equipment; no training or API calls")
     exercise_eval.add_argument("--run", required=True, help="Sealed shared-world candidate or ready lab")
@@ -640,6 +650,12 @@ def main():
             result = prepare_shared_exercise_lab(args.run, args.out, root_assistance=args.root_assistance,
                 task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
                 max_seconds=args.max_seconds)
+        elif args.command == "shared-support-build":
+            from weft.shared_world_support import construct_static_support_run
+            result = construct_static_support_run(args.body_source, args.config, args.out, max_seconds=args.max_seconds)
+        elif args.command == "shared-support-fixture":
+            from weft.shared_support_fixture import write_static_support_fixture
+            result = write_static_support_fixture(args.out, lowered=args.lowered)
         elif args.command == "shared-exercise-train":
             if args.policy_family == "feedback-residual":
                 from weft.shared_exercise_feedback_learning import train_shared_exercise_feedback_policy as train_policy

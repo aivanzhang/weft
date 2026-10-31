@@ -26,7 +26,9 @@ from weft.whole_body import GROUP_NAMES, SUCCESS_LIMITS
 PROFILE = "shared-world-v1"
 FULLSPAN_PROFILE = "shared-world-v2"
 HUMAN_ONLY_PROFILE = "shared-world-v3"
-FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE)
+STATIC_SUPPORT_PROFILE = "shared-world-v4"
+FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE)
+NO_OBJECT_GOAL_PROFILES = (HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE)
 MAX_FULLSPAN_STEPS = 1800
 MAX_FULLSPAN_SECONDS = 60.0
 OBJECT_ACTIONS = ("coast", "left", "right", "forward", "back", "up", "down", "brake")
@@ -332,6 +334,8 @@ def validate_shared_world(scene):
     }
     optional = {"action_contract", "learned_policy_available"}
     human_only = isinstance(scene, dict) and scene.get("profile") == HUMAN_ONLY_PROFILE
+    static_support = isinstance(scene, dict) and scene.get("profile") == STATIC_SUPPORT_PROFILE
+    no_object_goal = human_only or static_support
     if human_only:
         required.add("inventory")
     if not isinstance(scene, dict) or not required <= set(scene) or set(scene) - (required | optional):
@@ -513,7 +517,9 @@ def validate_shared_world(scene):
             raise ValueError("Rigid object provenance must be a non-empty object")
 
     dynamic_ids = [obj["id"] for obj in result["objects"] if obj["role"] != "static"]
-    if not dynamic_ids and not human_only:
+    if static_support and dynamic_ids:
+        raise ValueError("shared-world-v4 requires only static support objects")
+    if not dynamic_ids and not no_object_goal:
         raise ValueError("shared-world-v1 requires at least one non-static rigid object")
 
     controlled_id = result["controlled_id"]
@@ -646,8 +652,9 @@ def validate_shared_world(scene):
         )
         if human_spec.get("source_sha256") != source_binding["source_sha256"]:
             raise ValueError("Person-only inventory, human and source identities must match")
+    if no_object_goal:
         if result["target"] is not None:
-            raise ValueError("shared-world-v3 has no object target")
+            raise ValueError(f"{result['profile']} has no object target")
     else:
         result["target"] = _vector(result["target"], 3, "target", 0.0, 6.0)
         if (np.asarray(result["target"]) > np.asarray(result["bounds"])).any():
@@ -663,7 +670,7 @@ def validate_shared_world(scene):
         "object_goal",
     }:
         raise ValueError("shared-world-v1 task fields differ from contract")
-    task_type = "human_motion_v1" if human_only else "coupled_human_object_v1"
+    task_type = "human_support_v1" if static_support else "human_motion_v1" if human_only else "coupled_human_object_v1"
     if task["type"] != task_type or task["authored_addition"] is not True:
         raise ValueError(f"{result['profile']} task must declare type={task_type!r} and authored_addition=True")
     task["start_offset_s"] = _number(task["start_offset_s"], "start_offset_s", 0.0, 60.0)
@@ -681,9 +688,9 @@ def validate_shared_world(scene):
         raise ValueError("shared-world-v1 task.human_limits must match unmodified whole-body SUCCESS_LIMITS")
 
     goal = task["object_goal"]
-    if human_only:
+    if no_object_goal:
         if goal is not None:
-            raise ValueError("shared-world-v3 has no object goal")
+            raise ValueError(f"{result['profile']} has no object goal")
     elif not isinstance(goal, dict) or set(goal) != {
         "target_object_id",
         "position_tolerance",
@@ -692,7 +699,7 @@ def validate_shared_world(scene):
         "require_human_contact",
     }:
         raise ValueError("task.object_goal fields differ from contract")
-    if not human_only:
+    if not no_object_goal:
         if goal["target_object_id"] not in dynamic_ids:
             raise ValueError("task.object_goal.target_object_id must name a non-static rigid object")
         goal["position_tolerance"] = _number(goal["position_tolerance"], "position_tolerance", 0.01, 0.3)
@@ -1260,7 +1267,7 @@ class SharedWorldEnv(gym.Env):
         self.physical_limits.setflags(write=False)
 
         act_dim = len(self.action_names)
-        obs_dim = 155 + 13 * len(self.scene["objects"]) + (0 if self.scene["profile"] == HUMAN_ONLY_PROFILE else 3)
+        obs_dim = 155 + 13 * len(self.scene["objects"]) + (0 if self.scene["profile"] in NO_OBJECT_GOAL_PROFILES else 3)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(act_dim,), dtype=np.float32)
         self.observation_space = spaces.Box(
             np.full(obs_dim, -1e6, dtype=np.float32),
@@ -1337,7 +1344,7 @@ class SharedWorldEnv(gym.Env):
             for val in obj[field]
         ]
         goal_offset = []
-        if self.scene["profile"] != HUMAN_ONLY_PROFILE:
+        if self.scene["profile"] not in NO_OBJECT_GOAL_PROFILES:
             target_id = self.scene["task"]["object_goal"]["target_object_id"]
             goal_obj = next(obj for obj in objects if obj["id"] == target_id)
             goal_offset = (np.asarray(self.scene["target"], dtype=float) - np.asarray(goal_obj["position"], dtype=float)).tolist()
@@ -2166,9 +2173,10 @@ def _validate_shared_snapshot(state, validated_scene):
         raise ValueError("Shared-world snapshot must preserve profile, bounds, and physical_validation='unverified'")
 
     human_only = validated_scene["profile"] == HUMAN_ONLY_PROFILE
-    if human_only and ("target" not in state or state["target"] is not None
-                       or state.get("virtual_force") != [0., 0., 0.]):
-        raise ValueError("Person-only snapshots cannot introduce an object target or virtual object force")
+    no_object_goal = validated_scene["profile"] in NO_OBJECT_GOAL_PROFILES
+    if no_object_goal and ("target" not in state or state["target"] is not None
+                          or state.get("virtual_force") != [0., 0., 0.]):
+        raise ValueError("No-object-goal snapshots cannot introduce an object target or virtual object force")
 
     expected_objects = {obj["id"]: obj for obj in validated_scene["objects"]}
     selected = state.get("controlled_id")
@@ -2346,6 +2354,7 @@ def _validate_shared_snapshot(state, validated_scene):
         counts["human_floor"] = len(details)
         if state.get("contact_summary") != counts:
             raise ValueError("Person-only contact summary must exclude equipment contacts")
+    if no_object_goal:
         if not human.get("reference"):
             metrics = state.get("coupled_metrics")
             null_fields = ("target_object_id", "object_distance_world", "object_speed_world_s",
@@ -2353,7 +2362,7 @@ def _validate_shared_snapshot(state, validated_scene):
             if (not isinstance(metrics, dict) or any(key not in metrics or metrics[key] is not None for key in null_fields)
                     or any(metrics.get(key) != "not_applicable" for key in
                            ("object_goal_status", "human_object_contact_status"))):
-                raise ValueError("Person-only object goal/contact metrics must remain not applicable")
+                raise ValueError("Object goal/contact metrics must remain not applicable")
 
 
 def render_snapshot(state, scene, width=960, *, show_target=True):

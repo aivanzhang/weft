@@ -489,7 +489,11 @@ class Lab:
                 if self.config["profile"] != "shared-world":
                     raise ValueError("Human-only shared exercise requires a shared-world lab")
                 from weft.shared_exercise_lab import SharedExerciseSession
-                self.session = SharedExerciseSession(self.root / "run", config=self.config)
+                session = SharedExerciseSession(self.root / "run", config=self.config)
+                if self.avatars.packages and session.scene_profile == "shared-world-v4":
+                    session.env.close()
+                    raise ValueError("Static-support avatar recording is not yet qualified; launch this lab without avatar options")
+                self.session = session
                 self.artifacts = self.session.artifacts
                 return self.session
             if (self.root / "run" / "exercise-lab.json").exists():
@@ -798,6 +802,8 @@ class Lab:
         session = self.load_session()
         if path == "/api/appearance":
             from weft.avatar_lab import validate_appearance
+            if getattr(session, "scene_profile", None) == "shared-world-v4":
+                raise ValueError("Static-support avatar recording is not yet qualified")
             if not _shared_exercise(session) and not isinstance(session, SharedWorldSession):
                 raise ValueError("This lab has no supported avatar body")
             settings = validate_appearance(data, self.avatars.packages)
@@ -937,7 +943,7 @@ class Lab:
                 "shared-exercise"
                 if _shared_exercise(session)
                 else "shared-world"
-                if session.scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3")
+                if session.scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4")
                 else "spatial-rigid"
                 if session.scene.get("profile") == "spatial-rigid-v1"
                 else self.config["profile"]
