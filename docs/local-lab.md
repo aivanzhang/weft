@@ -4,6 +4,20 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Recommended exercise sandbox
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example exercise
+```
+
+Open the printed local link. Choose **Sandbox → Learned controller → Record & start**. You can pause, step, switch to manual joint controls, reset, then **Stop & save** to export your recording. You start and manage the server; the launcher never opens a browser.
+
+For terminal controls without a server, add `--console`. Nothing moves until you enter `step`; `help` lists controls and `record start` begins a seeded recording.
+
+This single-leg squat example has a 3D body, illustrative muscles, 22 joint/root controls and the full 234-step/7.8-second reference. The newly trained controller and authored reference controller each pass **3/3 changed-start trials**; coast and random actions pass 0/3. Learned reward is 0.9206 versus 0.9167 authored, but learned peak joint error is slightly worse (0.667 versus 0.649 rad). Root assistance is explicit. These are simulator results on one exposed clip, not accurate anatomy, unassisted balance or arbitrary-video reconstruction.
+
+The preset pins trusted runtime **`4ad01536dbbfe121b30b82192f96500d33f7108a`** and `artifacts/person-clock-workflow-01/lab`. It does not retrain or modify the older examples below. Its metadata-only `--console --check` passed in 0.195 seconds: 198 runtime files/3,849,085 bytes, 26 policy/18 lab pins, no server or physics. Saved source evidence is reused; the new training/evaluation/lab run took 30.7 seconds with no API charge. The [verified recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames. The full 234-step post-reset trial passes and replays exactly. [Evidence and limits](handoffs/combined.md#reference-velocity-clock-correction--local-verification).
+
 ## Try the complete video-to-lab example
 
 From the repository root:

@@ -22,6 +22,7 @@ ACTUAL_COMMIT = launcher.TRUSTED_COMMIT
 ACTUAL_VIDEO_COMMIT = launcher.VIDEO_TRUSTED_COMMIT
 ACTUAL_PERSON_COMMIT = launcher.PERSON_TRUSTED_COMMIT
 ACTUAL_FEEDBACK_COMMIT = launcher.FEEDBACK_TRUSTED_COMMIT
+ACTUAL_EXERCISE_COMMIT = launcher.EXERCISE_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -104,6 +105,7 @@ def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
     assert ACTUAL_PERSON_COMMIT == "e1c54236ebf625264e2cb335cab65ba53a907ac1"
     assert ACTUAL_FEEDBACK_COMMIT == "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
+    assert ACTUAL_EXERCISE_COMMIT == "4ad01536dbbfe121b30b82192f96500d33f7108a"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2
@@ -386,6 +388,9 @@ def test_presets_keep_exact_distinct_profiles_and_policy_sets():
     }
     assert len(launcher.FEEDBACK_POLICY_FILES) == 26
     assert launcher._lab_files("feedback") == launcher._lab_files("person")
+    assert launcher._preset("exercise") == (ACTUAL_EXERCISE_COMMIT, "artifacts/person-clock-workflow-01/lab",
+                                            "shared-exercise-policy-v4", launcher.FEEDBACK_POLICY_FILES)
+    assert launcher._lab_files("exercise") == launcher._lab_files("feedback")
 
 
 @pytest.mark.parametrize("revision", ["HEAD", "main", "0" * 40, "../arbitrary"])
@@ -652,10 +657,11 @@ def test_console_requires_feedback_before_cache_work(monkeypatch, example):
     assert error.value.code == 2
 
 
-def test_feedback_console_rejects_a_server_port_before_cache_work(monkeypatch):
+@pytest.mark.parametrize("example", ["feedback", "exercise"])
+def test_console_rejects_a_server_port_before_cache_work(monkeypatch, example):
     monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: pytest.fail("Conflicting mode cannot prepare runtime"))
     with pytest.raises(SystemExit) as error:
-        launcher.main(["--example", "feedback", "--console", "--port", "8768"])
+        launcher.main(["--example", example, "--console", "--port", "8768"])
     assert error.value.code == 2
 
 
@@ -789,3 +795,89 @@ def test_altered_feedback_console_cache_is_never_repaired(feedback_project, monk
     assert launcher.main(["--example", "feedback", "--console", "--check"]) == 1
     assert (changed.read_bytes(), changed.stat().st_mtime_ns) == before
     assert not list(runtime.parent.glob(".stage-*"))
+
+
+@pytest.fixture
+def exercise_project(feedback_project, monkeypatch):
+    project = feedback_project
+    (project / "src/weft/__init__.py").write_text("marker = 'trusted exercise'\n")
+    for name in ("human.py", "whole_body.py", "shared_world.py"):
+        (project / "src/weft" / name).write_text("# Distinct exercise clock runtime: " + name + "\n")
+    git(project, "add", "src/weft")
+    git(project, "-c", "commit.gpgsign=false", "commit", "-qm", "Freeze exercise runtime fixture")
+    monkeypatch.setattr(launcher, "EXERCISE_TRUSTED_COMMIT", git(project, "rev-parse", "HEAD"))
+    return project
+
+
+@pytest.mark.parametrize("console", [False, True])
+@pytest.mark.parametrize("override", [False, True])
+def test_exercise_check_is_metadata_only_and_preserves_lab(exercise_project, monkeypatch, capsys, console, override):
+    project = exercise_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.EXERCISE_TRUSTED_COMMIT)
+    location = "artifacts/compatible-exercise-lab" if override else None
+    lab = saved_lab(project, hashes, example="exercise", location=location)
+    before = {str(path.relative_to(lab)): (path.read_bytes(), path.stat().st_mtime_ns)
+              for path in lab.rglob("*") if path.is_file()}
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("Check cannot execute an interface"))
+    monkeypatch.setattr(launcher.subprocess, "call", lambda *_a, **_k: pytest.fail("Check cannot start another process"))
+    args = ["--example", "exercise", "--check"] + (["--console"] if console else []) + (["--lab", location] if override else [])
+    assert launcher.main(args) == 0
+    output = capsys.readouterr().out
+    assert launcher.EXERCISE_TRUSTED_COMMIT[:12] in output and "26 policy pins, 18 lab pins" in output
+    assert "No server, physics, session or media reads" in output and "Opening" not in output
+    assert before == {str(path.relative_to(lab)): (path.read_bytes(), path.stat().st_mtime_ns)
+                      for path in lab.rglob("*") if path.is_file()}
+    assert not (lab / "sessions").exists() and not list(runtime.rglob("__pycache__"))
+
+
+@pytest.mark.parametrize("console", [False, True])
+def test_exercise_launch_keeps_trusted_runtime_and_recording_location(exercise_project, monkeypatch, capsys, console):
+    project = exercise_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.EXERCISE_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="exercise")
+    calls, directories = [], []
+
+    class Replaced(BaseException):
+        pass
+
+    def replace(python, command, env):
+        calls.append((python, command, env))
+        raise Replaced
+
+    monkeypatch.setattr(launcher.os, "chdir", directories.append)
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    monkeypatch.setattr(launcher.subprocess, "call", lambda *_a, **_k: pytest.fail("No lingering launcher parent"))
+    args = ["--example", "exercise"] + (["--console"] if console else ["--port", "8769"])
+    with pytest.raises(Replaced):
+        launcher.main(args)
+    assert len(calls) == 1 and directories == [project]
+    python, command, env = calls[0]
+    suffix = ["lab-console", "--resume", str(lab)] if console else ["lab", "--resume", str(lab), "--port", "8769"]
+    assert command == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", *suffix]
+    assert python == command[0] and env["PYTHONPATH"] == str(runtime / "src")
+    assert env["PYTHONDONTWRITEBYTECODE"] == "1"
+    assert f"Recordings stay in {lab / 'sessions'}" in capsys.readouterr().out
+    assert not (lab / "sessions").exists()
+
+
+@pytest.mark.parametrize("selected,lab_example", [("exercise", "feedback"), ("feedback", "exercise")])
+def test_exercise_override_rejects_other_v4_runtime_even_with_same_profile(exercise_project, monkeypatch, capsys, selected, lab_example):
+    project = exercise_project
+    commit, _, profile, files = launcher._preset(lab_example)
+    assert (profile, files) == launcher._preset(selected)[2:]
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=commit)
+    lab = saved_lab(project, hashes, example=lab_example)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("A different v4 runtime cannot launch"))
+    assert launcher.main(["--example", selected, "--console", "--lab", str(lab), "--check"]) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+    assert not (lab / "sessions").exists()
+
+
+def test_exercise_requires_trusted_console_before_admission(exercise_project, monkeypatch, capsys):
+    project = exercise_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.EXERCISE_TRUSTED_COMMIT)
+    hashes.pop("src/weft/lab_console.py")
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: (runtime, hashes))
+    monkeypatch.setattr(launcher, "check_compatibility", lambda *_a, **_k: pytest.fail("Incomplete runtime cannot admit lab"))
+    assert launcher.main(["--example", "exercise", "--check"]) == 1
+    assert "Trusted exercise runtime is missing its terminal interface" in capsys.readouterr().err
