@@ -7,7 +7,7 @@ pipeline. This section supersedes the earlier pending ball-candidate training
 step and live ownership, not older frozen results or physical limitations.
 All jobs and audits are terminal; the direct-video and recording acceptance and
 its independent saved-only audit passed. No tests or native checks are repeated
-for this documentation update. The scoped Git publication is the next action.
+for this documentation update. The scoped implementation publication is verified below.
 
 ### Three-seed learning result — completed and audited
 
@@ -167,15 +167,25 @@ inventory is distinct from the earlier pre-report count above.
 
 Root independently deduplicated seven JUnit receipts to confirm the 339 Python
 cases; Node remains fourteen, total 353. All jobs and audits are terminal.
-No product check remains for this checkpoint. Root next stages/publishes the
-18 owned files and verifies live remote identity; no new Git claim is made yet.
+No product check remains for this checkpoint. Implementation **C1** is published:
+private `main` and live remote match
+`b44ef012a99e3b97fc8fd8c1fee6ef4537aa42dc` at **October 31, 2026, 9:07:49 AM PDT**.
+Receipt `.local/spatial-guided-publication-02.json`, SHA
+`9b805a2b9f986c7ddaf8a89704a25846493057151124542c04cf2780fa8e2718`;
+checkpoint `.local/spatial-guided-checkpoint-02.json`, SHA
+`12240690665ceea141e70513b5f2c871ee326e57777198e51317a39bdb402f61`.
+All 18 owned files match committed bytes and were clean at verification; zero
+stashes, all 75 separate avatar status/path entries preserved. Avatar bytes were
+not audited; this is not a whole-worktree clean claim. The two-file documentation
+follow-up reuses this publication receipt and repeats no product checks.
 
 This documentation lane releases TODO, this handoff and the construction guide
 to root; root owns execution/publication, README and local-lab.
 Different-video qualification, control robustness, depth/calibration, meaningful
 exercise/grasp/contact and independent physical evidence remain open. Earlier
-failures and separate avatar work remain intact. Prior publication is preserved
-below; this local checkpoint makes no whole-tree clean or new remote claim.
+failures and separate avatar work remain intact. The full goal stays active;
+the usable lab commands remain unchanged. Older publication statements below
+remain historical, not claims about the current scoped implementation.
 
 ## Latest parallel results — October 31, 2026, 8:12 AM PDT
 
