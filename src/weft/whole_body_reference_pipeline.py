@@ -76,10 +76,12 @@ def _environment(study):
             "MPLCONFIGDIR": str(study / "temporary")}
 
 
-def _run_worker(study, plan_sha, seconds):
+def _run_worker(study, plan_sha, seconds, *, script_name="whole_body_reference_worker.py"):
+    if script_name not in {"whole_body_reference_worker.py", "body_camera_root_worker.py"}:
+        raise ValueError("Unknown trusted body proposal worker")
     started, process = time.monotonic(), None
     sizes, error, interrupted = {"stdout": 0, "stderr": 0}, None, False
-    script = study / "runtime/weft/whole_body_reference_worker.py"
+    script = study / "runtime/weft" / script_name
     command = [sys.executable, "-I", "-B", str(script), str(study), plan_sha]
     with (study / "stdout.log").open("xb") as out, (study / "stderr.log").open("xb") as err:
         with selectors.DefaultSelector() as selector:
@@ -146,8 +148,10 @@ def _inventory(root, deadline, *, max_bytes=MAX_BYTES, media_name=None):
     return files, total
 
 
-def _seal(root, profile, status, deadline, *, max_bytes=MAX_BYTES, media_name=None):
+def _seal(root, profile, status, deadline, *, max_bytes=MAX_BYTES, media_name=None, expected_files=None):
     files, total = _inventory(root, deadline, max_bytes=max_bytes, media_name=media_name)
+    if expected_files is not None and any(files.get(name) != digest for name, digest in expected_files.items()):
+        raise ValueError("Proposal output changed before its terminal seal")
     raw = _bytes({"schema_version": 1, "profile": profile, "status": status, "files": files})
     if total + len(raw) > max_bytes:
         raise ValueError("Proposal seal exceeds its output reservation")

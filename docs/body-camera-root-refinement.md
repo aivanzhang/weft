@@ -4,7 +4,53 @@
 settings=None)` is an opt-in, native-free construction component. It fits one
 clip-wide camera rotation and source-knot root translations to **absolute** image
 points. It returns separate camera/root candidates and a report, never a modified
-human, task, policy or admitted scene. There is no CLI/source adapter yet.
+human, task, policy or admitted scene. The saved-body adapter and existing
+`body-reference-propose` command expose it as a separate diagnostic mode.
+
+## Try it on an extracted body
+
+```sh
+.venv-lab/bin/python -m weft body-reference-propose \
+  --run artifacts/single-leg-person-workflow-01/build/body_source \
+  --objective camera-root --camera-focal-px 640 --fit-seconds 5 \
+  --out artifacts/my-camera-root-proposal
+```
+
+Use a new output directory. The command does not start a server or open a browser.
+Inspect `proposal/index.html` yourself, or read `result.json` and the stage artifacts
+from the terminal. An unchanged, unavailable or rejected diagnostic is a completed
+inspection workflow, **not** an admitted body or a successful reconstruction.
+
+Here **640 pixels is an explicitly authored focal-length assumption**, not a
+calibration. This opt-in initialization fixes a centered principal point, zero
+distortion and the original camera-to-model axis convention. It uses the original
+image scale to choose camera distance, anchoring the first model pelvis to its
+selected image estimate. These choices are frozen before residuals are evaluated;
+there is no focal search or camera fallback. Source scale is still estimated.
+The first pelvis must be available. Alternatively supply `--camera camera.json`
+with the exact `fixed-body-camera-hypothesis-v1` contract below. Do not supply both.
+
+The step artifacts preserve:
+
+1. `inputs/`: exact selected original observations, body, clocks, source custody,
+   and frozen camera configuration. Ordinary input does not decode or copy video;
+   saved crop recovery retains its required original media/proof without decoding.
+2. `geometry.json`: original absolute body endpoints and all sphere/capsule floor
+   support gaps over every source knot and the full 30-Hz grid.
+3. `camera-root-input.json`, `target-provenance.json`, `source-slots.json`: exact
+   source-coordinate pixel targets, selected landmark provenance and unavailable
+   slots. Interpolated grid poses receive no invented image targets.
+4. `proposal.json`: bounded camera/root proposal, original/proposed errors,
+   identifiability, rejected updates and all retained failures.
+5. `geometry-check.json`: a fresh original-model diagnostic if roots changed;
+   otherwise an explicit skipped check. No candidate is installed or stepped.
+6. `worker.json`, `plan.json`, `supervision.json`, `manifest.json`: pinned code,
+   settings, source identities, native-call counts, resource usage and exact outputs.
+
+The offline page plots selected image points and model projections, **not actual
+source photographs**. It renders one selected knot at a time and makes no network
+requests. This report complements the existing video/lab workflow; it is not a new
+simulator or automatic repair/admission route.
 
 The ordinary angle fitter subtracts the pelvis before comparing image points.
 This component tests a different assumption: whether a shared camera/root
@@ -81,24 +127,60 @@ Timeouts during fitting return only the last fully accepted proposal, marked
 partial. Parsing/initial diagnostics may instead raise a bounded-input or timeout
 error. Native NumPy calls are not forcibly preempted.
 
-## Integration with the existing body workflow
+## Source and geometry integration
 
-A future trusted adapter must reuse `whole_body_reference_inputs` source custody
-and crop-target validation, then bind all retained body/reference identities and
-missing source slots. Extract absolute endpoints from the existing native body
-geometry, adding its pelvis offset to `body_refinement._kinematics` output;
-do not use its pelvis-centered result as absolute world coordinates. Derive pixel
-targets from the exact selected original-image landmarks, never interpolation.
+`body_camera_root_inputs` reuses `whole_body_reference_inputs` source custody and
+crop-target validation, binding retained body/reference identities and missing
+slots. `body_camera_root_geometry` extracts absolute endpoints from the original
+native body geometry by adding its actual pelvis-site offset to the existing
+pelvis-relative kinematics. Pixels come from the exact selected original-image
+landmarks, never interpolation.
 
-The adapter must independently establish the fixed camera hypothesis and freeze
-its construction/evaluation partition before fitting. Existing exposed source
-studies are development evidence, not new holdouts. Preserve the full source
-archive, clocks, unknown slots and baseline; do not select inputs using floor or
-task outcomes. Recheck original source/body/runtime identities before sealing.
+The camera document fixes `schema_version: 1`, profile
+`fixed-body-camera-hypothesis-v1`, exact source/body/derived-evidence `bindings`,
+an `image` object with width/height/fps/frame_count, `coordinate_frame:
+original_body_model_units`, `scale_model_units_per_unit: 1`, `partition:
+exposed_development`, `selection: explicit_before_proposal_no_search` and the
+camera object described above with `quality: authored`. These metadata checks
+authenticate selected bytes, not camera correctness or physical accuracy.
 
-After a proposal, a separate fresh `whole_body_feasibility` geometry audit must
-check the original source/30-Hz schedule with the unchanged floor, geometry and
-limit. Native body admission needs an explicitly versioned root/camera binding:
+The parent rechecks original source/body/camera/runtime identities before sealing.
+Previously exposed source studies remain development evidence, not new holdouts.
+The original archive, clocks, unknown slots and baseline stay unchanged.
+
+If proposed roots change, a fresh original-body geometry instance checks every
+original source/30-Hz sample with the unchanged floor, geometry and limit. The
+worker permits at most two model compilations/four data objects and tightens its
+5,402-forward global cap to twice the input source-plus-grid row count. It forbids
+physics steps, resets, rendering, media decoding, inference and network calls.
+After one narrowly allowed read-only macOS runtime-startup probe, nested processes
+are also forbidden. Fit time is at most ten seconds inside a 30-second owned child;
+the parent retains failure receipts and kills its process group on timeout.
+Input/output byte bounds and observed peak RSS are not a hard memory cap. These
+guards constrain reviewed trusted code, not arbitrary generated code.
+
+Native body admission still needs an explicitly versioned root/camera binding:
 ordinary `mobile_human` rejects nonzero inferred root depth. This component does
 not bypass that guard. Root motion is not evidence of support/grasp, and the
 19-axis capsule template still lacks recovered anatomy and physical validation.
+
+## Saved-source integration result
+
+`artifacts/body-camera-root-cli-01` completed the public CLI and offline report on
+the saved single-leg exercise body in 1.0655 seconds. The authored focal length
+was 640 pixels, selected before fitting; no calibration or focal search occurred.
+The original 118 source knots, 235 grid labels, 235 decoded-frame coverage and
+236-frame container declaration remain distinct.
+
+The result is **unchanged**, not an accuracy improvement. Image RMSE stays at
+7.55056 pixels for 1,190 available endpoints; 226 endpoints remain unavailable.
+Seven candidate directions exceeded the bounded correction envelope and one
+worsened floor support, so no update was accepted. Original floor failures remain.
+These perspective errors are not directly comparable with older pelvis-centered
+image-fit metrics. The existing body, world, task and policies were not replaced.
+
+The worker used one model, two data objects and 235 forward evaluations, with no
+physics actions, resets, video decoding, new inference or API calls. It recorded
+116,703,232 bytes peak RSS, not a hard memory cap. Unchanged roots correctly skip
+the second geometry pass. Root manifest:
+`1e07d5371215a3b9bb515ec7730ee81d5868d352e0219764f3dcc62c9f79deae`.

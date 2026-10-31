@@ -182,6 +182,13 @@ limit and are **not installed in the working sandbox**.
 Use `body-reference-report --run <sealed-study> --out <new-directory>` to build
 another offline page. [Full command and verification](body-model-options.md#inspect-the-saved-proposals).
 
+To inspect camera and body-position hypotheses while keeping the original joint
+angles and body shape fixed, use the same proposal command with
+`--objective camera-root --camera-focal-px 640`. The focal length is an explicit
+authored assumption, not a recovered calibration. The new offline page preserves
+missing observations and floor failures; it does not install a new body.
+[Command, stage artifacts and limits](body-camera-root-refinement.md#try-it-on-an-extracted-body).
+
 To propose a correction for **your own saved body**, use the normal CLI:
 
 ```sh
