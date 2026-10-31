@@ -1,6 +1,7 @@
 """Loopback-only inspection and control of the authoritative Python environment."""
 
 from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import math
@@ -406,6 +407,9 @@ class Lab:
         self.recording_inspection_future = None
         self.recording_inspection_name = None
         self.recording_inspection_started = 0
+        self.recording_evidence_future = None
+        self.recording_evidence_name = None
+        self.recording_evidence_started = 0
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="weft-export")
         self.worker = None
         self.worker_log = None
@@ -524,6 +528,27 @@ class Lab:
         self.recording_inspection_name, self.recording_inspection_started = name, now
         self.recording_inspection_future = self.executor.submit(
             load_recording_inspection, self.root, name,
+            scene_sha256=self.config.get('scene_sha256'), task_sha256=self.config.get('task_sha256'))
+        return {'status': 'loading', 'session': name}
+
+    def recording_evidence(self, name):
+        from weft.recording_receipt import load_recording_evidence
+
+        name = recording_session_name(name)
+        if self.status()['status'] != 'ready':
+            return {'status': 'unavailable', 'session': name, 'reason': 'A ready lab and completed export are required'}
+        if self.export_path == name and self.export_future is not None and not self.export_future.done():
+            return {'status': 'loading', 'session': name}
+        future, now = self.recording_evidence_future, time.monotonic()
+        if future is not None:
+            if name == self.recording_evidence_name and (not future.done() or now - self.recording_evidence_started < 600):
+                return future.result() if future.done() else {'status': 'loading', 'session': name}
+            # One selected sealed export, never a queue or a scan of all recordings.
+            if not future.done() and not future.cancel():
+                return {'status': 'loading', 'session': name}
+        self.recording_evidence_name, self.recording_evidence_started = name, now
+        self.recording_evidence_future = self.executor.submit(load_recording_evidence, self.root, name,
+            expected_run_manifest_sha256=self.config.get('manifest_sha256'),
             scene_sha256=self.config.get('scene_sha256'), task_sha256=self.config.get('task_sha256'))
         return {'status': 'loading', 'session': name}
 
@@ -732,12 +757,18 @@ class Lab:
         return result
 
     def _queue_export(self, recorder, session):
+        from weft.recording_receipt import export_recording_with_receipt
+
         self.export_path = recorder.root.name
         if _shared_exercise(session):
             from weft.shared_exercise_lab import export_shared_exercise_session
             export = export_shared_exercise_session
         else:
             export = export_recording
+        export = partial(export_recording_with_receipt, export=export, run_directory=self.root / 'run',
+                         expected_run_manifest_sha256=self.config.get('manifest_sha256'))
+        if self.recording_evidence_name == self.export_path:
+            self.recording_evidence_name = None
         if hasattr(recorder, "asset_future"):
             from weft.avatar_recording import export_with_appearance
             self.export_future = self.executor.submit(export_with_appearance, recorder, export)
@@ -1018,6 +1049,12 @@ class LabHandler(BaseHTTPRequestHandler):
                     raise ValueError('Choose exactly one completed recording')
                 with self.server.lab.lock:
                     return self.reply(self.server.lab.recording_inspection(query['session'][0]))
+            if path == '/api/recording-evidence':
+                query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                if len(query.get('session', [])) != 1 or set(query) - {'session', 'token'}:
+                    raise ValueError('Choose exactly one completed recording')
+                with self.server.lab.lock:
+                    return self.reply(self.server.lab.recording_evidence(query['session'][0]))
             if path.startswith("/api/avatar/"):
                 parts = path.split("/")
                 if len(parts) != 5:

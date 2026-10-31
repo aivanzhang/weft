@@ -21,6 +21,7 @@ HELP = """Nothing moves until you enter step.
   reset [SEED]              Reset; keep recording if one is active
   record start              Reset and begin a new recording
   record stop               Save actions and export video/interactive replay
+  record evidence [SESSION] Inspect saved action counts and replay verification
   status | files | help | quit
 Reference is authored feedback, not learning. Starting a recording resets the trial.
 Quit or Ctrl+C saves an active recording. No server, browser or training starts."""
@@ -130,7 +131,8 @@ def _files(lab, directory):
         if future.done():
             try:
                 exported = future.result()
-                result.update(export="ready", verified_action_replay=exported.get("action_replay"))
+                result.update(export="ready", verified_action_replay=exported.get("action_replay"),
+                              recording_evidence=exported.get("recording_evidence"))
             except Exception as error:
                 result.update(export="failed", error=str(error)[:1000])
     return result
@@ -162,6 +164,35 @@ def _evidence_rows(card, manifest_sha):
         return rows
     except (KeyError, TypeError, ValueError, RecursionError) as error:
         raise ValueError("Saved evidence summary has an unsupported format") from error
+
+
+def _recording_evidence(lab, name, output):
+    from weft.lab_inspection import recording_session_name
+
+    if name is None:
+        raise ValueError("Choose a completed session: record evidence session- followed by its 12-character ID")
+    name = recording_session_name(name)
+    result = lab.recording_evidence(name)
+    if isinstance(result, dict) and result.get('status') == 'loading':
+        output("Recording evidence is loading; enter record evidence again when ready. Controls are unchanged.")
+        return
+    try:
+        if (not isinstance(result, dict) or result.get('status') not in ('available', 'unavailable')
+                or result.get('session') != name
+                or len(json.dumps(result, ensure_ascii=True, allow_nan=False).encode()) > 64 * 1024):
+            raise ValueError
+        if result['status'] == 'available':
+            counts, replay = result['recorded'], result['replay']
+            if (not isinstance(counts, dict) or not isinstance(replay, dict)
+                    or replay.get('status') not in ('passed', 'not_performed')
+                    or any(type(counts.get(key)) is not int or not 0 <= counts[key] <= 100000
+                           for key in ('events', 'actions', 'resets'))
+                    or counts['events'] != counts['actions'] + counts['resets'] + 1):
+                raise ValueError
+    except (ValueError, TypeError, KeyError, RecursionError, OverflowError):
+        raise ValueError("Saved recording evidence has an unsupported format") from None
+    _emit(output, result)
+    output("Saved simulator replay is not physical validation. This command does not replay or move the simulation.")
 
 
 def _evidence(lab, selection, output):
@@ -276,6 +307,8 @@ def console(root, *, seed=1729, input_fn=input, output_fn=print):
                 elif command == "reset" and len(arguments) <= 1:
                     options = {"seed": _integer(arguments[0], 0, 2**31 - 1, "Seed")} if arguments else {}
                     _emit(output_fn, _brief(lab.control("/api/reset", options)["snapshot"]))
+                elif command == "record" and arguments[:1] == ["evidence"] and len(arguments) <= 2:
+                    _recording_evidence(lab, arguments[1] if len(arguments) == 2 else directory, output_fn)
                 elif command == "record" and arguments in (["start"], ["stop"]):
                     response = lab.control("/api/record/" + arguments[0], {})
                     directory = response["directory"]

@@ -22,6 +22,9 @@
   let mediaClockReady = false;
   let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
   let recordingReadAttempts = 0;
+  let requestedRecordingEvidence = null, recordingEvidenceRequest = null, recordingEvidenceTimer = null;
+  let recordingEvidenceGeneration = 0, recordingEvidenceAttempts = 0, recordingEvidenceSuspended = false;
+  let recordingEvidenceSignature = null;
   let appearanceView = null;
   const inspectionActors = new Map();
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
@@ -90,9 +93,9 @@
   }
   const error = (message) => { simulationFailureMessage = null; text($("error"), message); $("error").hidden = false; };
   const clearError = () => { simulationFailureMessage = null; $("error").hidden = true; };
-  async function request(path, data) {
+  async function request(path, data, signal) {
     const response = await fetch(path, {headers: {Authorization: `Bearer ${token}`, ...(data ? {"Content-Type": "application/json"} : {})},
-      ...(data ? {method: "POST", body: JSON.stringify(data)} : {}), signal: AbortSignal.timeout(10000)});
+      ...(data ? {method: "POST", body: JSON.stringify(data)} : {}), signal: signal || AbortSignal.timeout(10000)});
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
     return result;
@@ -976,8 +979,8 @@
   }
   const pauseAll = () => { pause(); stopReference(); };
   window.addEventListener("blur", pauseAll);
-  document.addEventListener("visibilitychange", () => { appearanceView?.setVisible(!document.hidden && activePanel === "play"); if (document.hidden) { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); } else scheduleStatus(0); });
-  window.addEventListener("pagehide", () => { appearanceView?.setVisible(false); pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); });
+  document.addEventListener("visibilitychange", () => { appearanceView?.setVisible(!document.hidden && activePanel === "play"); if (document.hidden) { pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); suspendRecordingEvidence(); } else scheduleStatus(0); });
+  window.addEventListener("pagehide", () => { appearanceView?.setVisible(false); pauseAll(); clearTimeout(statusTimer); suspendRecordingDiagnosis(); suspendRecordingEvidence(); });
 
   function rootAppearanceAvailable() { return typeof globalThis.WeftLabAppearance?.create === "function"; }
   function configureAppearance(data) {
@@ -1553,6 +1556,12 @@
           const explain = document.createElement("button"); text(explain, "Explain this trial");
           explain.onclick = () => selectRecordingDiagnosis(session.name); li.append(explain);
         }
+        if (session.complete && /^session-[0-9a-f]{12}$/.test(session.name)) {
+          const evidence = document.createElement("button"); text(evidence, "Recording evidence");
+          evidence.setAttribute("aria-controls", "recording-evidence");
+          evidence.setAttribute("aria-label", `Recording evidence for trial ${index + 1}`);
+          evidence.onclick = () => selectRecordingEvidence(session.name); li.append(evidence);
+        }
         $("recordings").append(li);
       }
     }
@@ -1756,6 +1765,129 @@
     readRecordingDiagnosis();
   }
   $("recording-diagnosis-retry").onclick = () => { recordingReadAttempts = 0; clearTimeout(recordingRetryTimer); readRecordingDiagnosis(); };
+  const recordingIdentityLabels = {
+    source_run_manifest_sha256: "Source run manifest · file bytes", recording_manifest_sha256: "Recording manifest · file bytes",
+    receipt_manifest_sha256: "Receipt manifest · file bytes", receipt_sha256: "Replay receipt · file bytes",
+    recording_scene_sha256: "Recording scene · canonical JSON", engine_scene_sha256: "Engine scene · canonical JSON",
+    task_sha256: "Task · canonical JSON", policy_sha256: "Policy · file bytes",
+  };
+  function recordingEvidencePointer(data, path, digest) {
+    const matches = data.verified_metadata.filter(row => row?.source_name === path && row.path === path);
+    return matches.length === 1 && /^[0-9a-f]{64}$/.test(matches[0].sha256) && (digest === undefined || matches[0].sha256 === digest)
+      && Number.isSafeInteger(matches[0].bytes) && matches[0].bytes >= 0 ? path : null;
+  }
+  function recordingEvidenceValid(data, name) {
+    const digest = value => typeof value === "string" && /^[0-9a-f]{64}$/.test(value);
+    const count = value => Number.isSafeInteger(value) && value >= 0;
+    if (data?.schema_version !== 1 || data.profile !== "recording-evidence-v1" || data.session !== name
+      || data.partition !== "exposed_development" || data.physical_validation !== "unverified"
+      || !data.identities || !Array.isArray(data.verified_metadata) || data.verified_metadata.length > 16
+      || !["events", "actions", "resets"].every(key => count(data.recorded?.[key]))
+      || data.recorded.events !== 1 + data.recorded.actions + data.recorded.resets) return false;
+    if (!Object.keys(recordingIdentityLabels).every(key => digest(data.identities[key])
+      || ["task_sha256", "policy_sha256"].includes(key) && data.identities[key] === null)) return false;
+    const paths = {source_run_manifest_sha256: "run/manifest.json", recording_manifest_sha256: `sessions/${name}/manifest.json`,
+      receipt_manifest_sha256: `sessions/${name}/evidence/manifest.json`, receipt_sha256: `sessions/${name}/evidence/receipt.json`,
+      recording_scene_sha256: `sessions/${name}/scene.json`, engine_scene_sha256: "run/scene.json",
+      task_sha256: "run/exercise-task.json", policy_sha256: "run/policy.json"};
+    // Canonical JSON identities differ from exact file-byte hashes; the reader checks both.
+    if (!Object.entries(paths).every(([key, path]) => data.identities[key] === null || recordingEvidencePointer(data, path,
+      ["recording_scene_sha256", "engine_scene_sha256", "task_sha256"].includes(key) ? undefined : data.identities[key]))) return false;
+    const replay = data.replay;
+    if (replay?.status === "not_performed") return replay.protocol === null
+      && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null);
+    return sharedExercise() && replay?.status === "passed" && replay.protocol === "shared-exercise-exact-action-state-task-v1"
+      && digest(data.identities.task_sha256)
+      && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
+      && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
+        && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
+  }
+  function clearRecordingEvidence() {
+    recordingEvidenceSignature = null;
+    $("recording-evidence-content").hidden = true;
+    $("recording-evidence-identities").replaceChildren(); $("recording-evidence-links").replaceChildren();
+    $("recording-evidence-details").open = false;
+  }
+  function applyRecordingEvidence(data) {
+    const signature = JSON.stringify([data.session, data.recorded, data.replay, data.identities]);
+    if (signature !== recordingEvidenceSignature) {
+      recordingEvidenceSignature = signature;
+      const counts = data.recorded, replay = data.replay;
+      text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
+      text($("recording-evidence-replay"), replay.status === "passed"
+        ? `Exact action replay: verified in the saved receipt. Checked ${replay.actions_checked} actions, ${replay.resets_checked} resets and ${replay.events_checked} events against saved states and task results. Learned actions verified: ${replay.learned_actions_verified ?? "unavailable"}.`
+        : "Exact action replay: not performed. Replay-check counts are unavailable, not zero. A saved-state export is not an exact action replay check.");
+      text($("recording-evidence-session"), `Selected recording: ${data.session}`);
+      $("recording-evidence-identities").replaceChildren();
+      for (const [key, label] of Object.entries(recordingIdentityLabels)) {
+        const row = document.createElement("tr"), heading = document.createElement("th");
+        heading.setAttribute("scope", "row"); text(heading, label); row.append(heading);
+        cell(row, data.identities[key] === null ? "Unavailable — not recorded" : data.identities[key]);
+        $("recording-evidence-identities").append(row);
+      }
+      $("recording-evidence-links").replaceChildren(
+        link("Saved replay receipt", recordingEvidencePointer(data, `sessions/${data.session}/evidence/receipt.json`, data.identities.receipt_sha256)),
+        link("Receipt manifest", recordingEvidencePointer(data, `sessions/${data.session}/evidence/manifest.json`, data.identities.receipt_manifest_sha256)));
+    }
+    text($("recording-evidence-status"), "Saved receipt and bound file hashes checked. Replay was not rerun by this view.");
+    $("recording-evidence-content").hidden = false; $("recording-evidence-retry").hidden = true;
+  }
+  function suspendRecordingEvidence() {
+    const reading = recordingEvidenceRequest || recordingEvidenceTimer !== null;
+    clearTimeout(recordingEvidenceTimer); recordingEvidenceTimer = null;
+    recordingEvidenceSuspended = true; recordingEvidenceGeneration++;
+    recordingEvidenceRequest?.controller?.abort();
+    if (requestedRecordingEvidence && (reading || $("recording-evidence-content").hidden)) {
+      text($("recording-evidence-status"), "Recording evidence read paused. Read this recording again when ready.");
+      $("recording-evidence-retry").hidden = false;
+    }
+  }
+  async function readRecordingEvidence() {
+    if (!requestedRecordingEvidence || recordingEvidenceRequest || recordingEvidenceSuspended || document.hidden) return;
+    clearTimeout(recordingEvidenceTimer); recordingEvidenceTimer = null;
+    const name = requestedRecordingEvidence, generation = recordingEvidenceGeneration;
+    const job = {controller: typeof AbortController === "function" ? new AbortController() : null};
+    // Keep one request even when cancellation is unavailable or a late response ignores it.
+    recordingEvidenceRequest = job; recordingEvidenceAttempts++;
+    const timeout = job.controller ? setTimeout(() => job.controller.abort(), 10000) : null;
+    try {
+      const result = await request(`/api/recording-evidence?session=${encodeURIComponent(name)}`, undefined, job.controller?.signal);
+      if (generation !== recordingEvidenceGeneration) return;
+      if (result?.status === "loading" && result.session === name && recordingEvidenceAttempts < 12) {
+        text($("recording-evidence-status"), "Checking the selected saved receipt in the background. Live controls are unchanged.");
+        recordingEvidenceTimer = setTimeout(readRecordingEvidence, 900);
+      } else if (result?.status === "available" && recordingEvidenceValid(result, name)) applyRecordingEvidence(result);
+      else {
+        clearRecordingEvidence();
+        text($("recording-evidence-status"), result?.status === "loading" && result.session === name
+          ? "The saved receipt is still being checked. Read this recording again when ready."
+          : `Recording evidence unavailable: ${result?.status === "unavailable" && result.session === name && typeof result.reason === "string" ? result.reason.slice(0, 500) : "missing, incompatible or mismatched receipt metadata"}. Exact action replay is not verified.`);
+        $("recording-evidence-retry").hidden = false;
+      }
+    } catch (_) {
+      if (generation === recordingEvidenceGeneration) {
+        clearRecordingEvidence();
+        text($("recording-evidence-status"), "Recording evidence could not be read within the request limit. Exact action replay is unavailable; live controls are unchanged.");
+        $("recording-evidence-retry").hidden = false;
+      }
+    } finally {
+      clearTimeout(timeout);
+      recordingEvidenceRequest = null;
+      if (generation !== recordingEvidenceGeneration && !recordingEvidenceSuspended) readRecordingEvidence();
+    }
+  }
+  function selectRecordingEvidence(name) {
+    if (!/^session-[0-9a-f]{12}$/.test(name)) return;
+    if (name === requestedRecordingEvidence && recordingEvidenceRequest && !recordingEvidenceSuspended) return;
+    clearTimeout(recordingEvidenceTimer); recordingEvidenceTimer = null;
+    recordingEvidenceGeneration++; recordingEvidenceAttempts = 0; recordingEvidenceSuspended = false;
+    recordingEvidenceRequest?.controller?.abort();
+    if (name !== requestedRecordingEvidence) clearRecordingEvidence();
+    requestedRecordingEvidence = name; $("recording-evidence").hidden = false; $("recording-evidence-retry").hidden = true;
+    text($("recording-evidence-status"), "Reading the selected recording's saved receipt; not replaying or moving the simulation.");
+    readRecordingEvidence();
+  }
+  $("recording-evidence-retry").onclick = () => selectRecordingEvidence(requestedRecordingEvidence);
   function scheduleStatus(delay = 900) { clearTimeout(statusTimer); if (!document.hidden) statusTimer = setTimeout(poll, delay); }
   function seekSource(time) {
     pendingSourceSeek = time;
