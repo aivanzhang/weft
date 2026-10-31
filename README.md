@@ -43,6 +43,12 @@ To inspect the remaining body-fitting errors, open the
 It preserves missing estimates and rejected results; it does not replace the working sandbox.
 For your own saved body, [run a bounded proposal and generate its comparison](docs/body-model-options.md#propose-a-correction-from-a-saved-body).
 
+To see whether a fitted reference helps the **unchanged simulation task**, open
+the [recorded controller comparison](artifacts/reference-controller-trial-cli-01/comparison/index.html).
+It includes both 3D replays, videos, actions and exact replay checks. Both trials
+finish but still fail equipment stability; the working sandbox is unchanged.
+[Run the same workflow on another saved proposal](docs/local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+
 ## Brand assets
 
 The selected logo, deep-clay palette, and mascot animation sources are in [assets/brand](assets/brand/README.md). Open [the mascot preview](assets/brand/preview.html) locally to watch the on-load weave formation and try the blink and wave sprites. The local evidence viewer uses the approved logo and palette; saved experiment folders remain unchanged.

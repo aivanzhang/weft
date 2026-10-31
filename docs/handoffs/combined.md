@@ -1,5 +1,27 @@
 # Combined Weft implementation handoff
 
+## Controller checkpoint published
+
+Implementation commit `9ea1b1ae9e23aca6d52bf301fc3269719957a741` is pushed and
+independently matched to live private `origin/main`. Publication receipt
+`.local/reference-controller-trial-publication-01.json`, SHA
+`fb5fee2195ff8311849c49fab2cd15710b0fa58c4d0db174ce63a7d43c9fb77d`;
+checkpoint SHA `e1e59ae1e5a15a3328c0a92e1d5551d4a9eefa2f3c0767c127032b9b728b48e1`.
+All 21 owned files match committed bytes, zero stashes, 75 separate avatar
+status/path entries unchanged. All workers are terminal. This documentation
+follow-up adds the result to the README entry path; no native checks are repeated.
+
+A targeted local-history lookup found MoVi is **already screened**, not a fresh
+lead: `.local/movi-source-discovery-01/report.json`, two-member seal
+`77bbab92fbcae6c96f664aecd41685a38309e31e7c6e7969e354acccd276f933`.
+Stationary PG video is documented as calibrated/synchronized; mobile phones are
+not. Access requires an institutional request/agreement with noncommercial
+restrictions; joint centers are derived, raw-marker/gap-fill availability is
+unverified, and minimum full-round/archive sizes and identities remain unknown.
+These are saved interpretations, not archived primary-source bytes. No browsing,
+download, account, agreement or new experiment ran; do not repeat this screen.
+The full goal remains active, with reconstruction/physical evidence unresolved.
+
 ## Recorded fixed-task comparison — October 31, 2026, 6:52 AM PDT
 
 The first real public-CLI comparison is complete and preserved at
