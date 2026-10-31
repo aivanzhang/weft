@@ -14,7 +14,7 @@ from weft.io import canonical_hash, local_time
 from weft.shared_exercise_recording import recording_scene, validate_action, verify_action_replay
 from weft.shared_exercise_reset import describe_reset_protocol, resolve_reset_options
 from weft.shared_exercise_task import SharedExerciseTaskEnv, build_shared_exercise_task, validate_shared_exercise_task
-from weft.shared_world import SharedWorldEnv, validate_shared_world
+from weft.shared_world import HUMAN_ONLY_PROFILE, SharedWorldEnv, validate_shared_world
 from weft.shared_world_packaging import (
     collect_shared_source_files, read_package_file, read_package_manifest, validate_package_layout, write_package_files,
 )
@@ -33,6 +33,13 @@ RUNTIME_FILES = (
     "source_equivalence.py", "world_evidence.py", "observations.py", "human.py", "mobile_human.py",
     "whole_body.py", "spatial_rigid.py", "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "io.py",
 )
+
+
+def runtime_files(scene):
+    """Only person-only admission executes the source-inventory validator."""
+    return (*RUNTIME_FILES, "person_inventory.py") if scene["profile"] == HUMAN_ONLY_PROFILE else RUNTIME_FILES
+
+
 REJECTED_STATUSES = frozenset({"failed", "error", "unsupported", "rejected", "cancelled"})
 SOURCE_VIEWS = frozenset({
     "source.json", "source.mp4", "source.webm", "source.mov", "source.m4v", "source.avi", "source.mkv",
@@ -138,7 +145,9 @@ def _reference_frames(scene, deadline):
             frames.append(env.reference_snapshot(index))
         return {"schema_version": 1, "profile": "shared-world-kinematic-reference-v1", "frames": frames,
                 "reference_poses_total": count, "reference_poses_included": len(frames),
-                "scope": "Kinematic body projection with initial passive equipment; no physics actions or grasp inference."}
+                "scope": ("Kinematic body projection with ground only; no physics actions or equipment inference."
+                          if scene["profile"] == HUMAN_ONLY_PROFILE else
+                          "Kinematic body projection with initial passive equipment; no physics actions or grasp inference.")}
     finally:
         env.close()
 
@@ -158,7 +167,11 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
         raise ValueError("Exercise learning scene/task must exactly match the selected lab")
     if len(files["policy.json"]) > 64 * 1024:
         raise ValueError("Exercise policy exceeds its document bound")
-    policy = validate_policy(_json(files["policy.json"]), scene, task)
+    policy_document = _json(files["policy.json"])
+    if scene["profile"] == HUMAN_ONLY_PROFILE and (not isinstance(policy_document, dict)
+            or policy_document.get("profile") != "shared-exercise-policy-v2"):
+        raise ValueError("Person-only labs require a newly pinned v2 human residual policy")
+    policy = validate_policy(policy_document, scene, task)
     training, settings = _json(files["training.json"]), _json(files["settings.json"])
     if (not isinstance(training, dict) or training.get("status") != "trained"
             or training.get("policy_sha256") != _sha(files["policy.json"])):
@@ -379,7 +392,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                 "reset_options": dict(RESET_OPTIONS), "learned_policy_available": policy is not None,
                 "source_manifest_sha256": _sha(input_manifest), "source_files_verified": len(inputs),
                 "implementation_sha256": {name: _sha(raw) for name, raw in implementation.items()},
-                "runtime_sha256": {name: _sha(implementation[name]) for name in RUNTIME_FILES},
+                "runtime_sha256": {name: _sha(implementation[name]) for name in runtime_files(scene)},
                 "runtime_versions": _runtime_versions(),
                 "scope": "Independent authored human-only simulator task; no recovered grasp or physical validation."}
     contract.update(policy_identity)
@@ -387,7 +400,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         contract["exercise_policy"] = _policy_status(policy, learning_files["training.json"],
             evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol)
     views = {name: raw for name, raw in inputs.items()
-             if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")}
+             if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")
+             or scene["profile"] == HUMAN_ONLY_PROFILE and name in {"inventory.json", "source-clock.json"}}
     if "geometry-hypothesis.json" in views and "input-config.json" in inputs:
         views["input-config.json"] = inputs["input-config.json"]
     videos = [name for name in views if re.fullmatch(r"source\.(mp4|webm|mov|m4v|avi|mkv)", name)]
@@ -423,7 +437,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     _deadline(deadline)
     manifest = _bytes({"schema_version": 1, "created_at": local_time(), "status": "ready",
                        "control_profile": CONTROL_PROFILE, "files": {name: _sha(raw) for name, raw in files.items()}})
-    event = {"stage": "shared_exercise_import", "message": "Verified immutable human-only task and passive equipment",
+    event = {"stage": "shared_exercise_import", "message": ("Verified immutable person-only task and ground-only inventory"
+             if scene["profile"] == HUMAN_ONLY_PROFILE else "Verified immutable human-only task and passive equipment"),
              "time": local_time()}
     config = {key: contract[key] for key in ("schema_version", "profile", "control_profile", "scene_sha256", "task_sha256",
                                            "reset_options", "learned_policy_available")}
@@ -488,7 +503,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             "lab-implementation/" + name not in files or _sha(files["lab-implementation/" + name]) != expected
             for name, expected in implementation.items())):
         raise ValueError("Exercise lab runtime closure differs from its pinned implementation")
-    expected_runtime = {name: implementation.get(name) for name in RUNTIME_FILES}
+    expected_runtime = {name: implementation.get(name) for name in runtime_files(scene)}
     if (any(value is None for value in expected_runtime.values()) or contract.get("runtime_sha256") != expected_runtime
             or contract.get("runtime_versions") != _runtime_versions()):
         raise ValueError("Exercise physics/evaluator runtime differs; use the pinned implementation or prepare a new lab")

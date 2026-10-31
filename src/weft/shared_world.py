@@ -25,6 +25,8 @@ from weft.whole_body import GROUP_NAMES, SUCCESS_LIMITS
 
 PROFILE = "shared-world-v1"
 FULLSPAN_PROFILE = "shared-world-v2"
+HUMAN_ONLY_PROFILE = "shared-world-v3"
+FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE)
 MAX_FULLSPAN_STEPS = 1800
 MAX_FULLSPAN_SECONDS = 60.0
 OBJECT_ACTIONS = ("coast", "left", "right", "forward", "back", "up", "down", "brake")
@@ -271,7 +273,7 @@ def action_contract_for_scene(scene):
     root_limit = float(min(mobility["maximum_force"], mobility["force_limit_weight_multiple"] * h_mass * 9.81))
     joint_limits = [float(human_spec.get("motor_limits", {}).get(name, 30.0)) for name in joint_names]
     dyn_objs = _dynamic_objects(scene)
-    accel = float(scene["task"]["object_goal"]["virtual_acceleration"])
+    accel = float(scene["task"]["object_goal"]["virtual_acceleration"]) if dyn_objs else 0.
 
     names = list(joint_names) + list(ROOT_AXES)
     limits = joint_limits + [root_limit] * 3
@@ -309,7 +311,7 @@ def full_reference_horizon(reference, dt):
 
 
 def validate_shared_world(scene):
-    """Validate bounded v1 windows or opt-in v2 complete-reference episodes."""
+    """Validate legacy coupled worlds or an explicit complete-reference person-only world."""
     required = {
         "schema_version",
         "profile",
@@ -329,10 +331,13 @@ def validate_shared_world(scene):
         "assumptions",
     }
     optional = {"action_contract", "learned_policy_available"}
+    human_only = isinstance(scene, dict) and scene.get("profile") == HUMAN_ONLY_PROFILE
+    if human_only:
+        required.add("inventory")
     if not isinstance(scene, dict) or not required <= set(scene) or set(scene) - (required | optional):
         raise ValueError("Unsupported shared-world-v1 scene fields")
     if (type(scene["schema_version"]) is not int or scene["schema_version"] != 1
-            or scene["profile"] not in (PROFILE, FULLSPAN_PROFILE)):
+            or scene["profile"] not in (PROFILE, *FULLSPAN_PROFILES)):
         raise ValueError("Unsupported shared-world schema_version or profile")
     if scene["physical_validation"] != "unverified":
         raise ValueError("shared-world-v1 must preserve physical_validation='unverified'")
@@ -433,7 +438,10 @@ def validate_shared_world(scene):
     clock["source_time_offset_s"] = _number(clock["source_time_offset_s"], "source_time_offset_s", 0.0, 3600.0)
     _text(clock["alignment_method"], "clock_binding.alignment_method", 200)
 
-    if not isinstance(result["objects"], list) or not 1 <= len(result["objects"]) <= 12:
+    if human_only:
+        if result["objects"] != [] or not isinstance(result["objects"], list):
+            raise ValueError("shared-world-v3 requires an empty objects list")
+    elif not isinstance(result["objects"], list) or not 1 <= len(result["objects"]) <= 12:
         raise ValueError("shared-world-v1 requires 1–12 rigid objects alongside the articulated human")
     reserved = _reserved_human_names(human_spec)
     identifiers = set()
@@ -505,7 +513,7 @@ def validate_shared_world(scene):
             raise ValueError("Rigid object provenance must be a non-empty object")
 
     dynamic_ids = [obj["id"] for obj in result["objects"] if obj["role"] != "static"]
-    if not dynamic_ids:
+    if not dynamic_ids and not human_only:
         raise ValueError("shared-world-v1 requires at least one non-static rigid object")
 
     controlled_id = result["controlled_id"]
@@ -629,9 +637,21 @@ def validate_shared_world(scene):
         if seen_world_ids != expected_world_ids:
             raise ValueError("entity_bindings must cover every coupled entity")
 
-    result["target"] = _vector(result["target"], 3, "target", 0.0, 6.0)
-    if (np.asarray(result["target"]) > np.asarray(result["bounds"])).any():
-        raise ValueError("Target lies outside shared-world bounds")
+    if human_only:
+        from weft.person_inventory import validate_person_inventory
+
+        result["inventory"] = validate_person_inventory(
+            result["inventory"], source_sha256=source_binding["source_sha256"],
+            analytic=source_binding["mode"] == "analytic_fixture",
+        )
+        if human_spec.get("source_sha256") != source_binding["source_sha256"]:
+            raise ValueError("Person-only inventory, human and source identities must match")
+        if result["target"] is not None:
+            raise ValueError("shared-world-v3 has no object target")
+    else:
+        result["target"] = _vector(result["target"], 3, "target", 0.0, 6.0)
+        if (np.asarray(result["target"]) > np.asarray(result["bounds"])).any():
+            raise ValueError("Target lies outside shared-world bounds")
 
     task = result["task"]
     if not isinstance(task, dict) or set(task) != {
@@ -643,24 +663,28 @@ def validate_shared_world(scene):
         "object_goal",
     }:
         raise ValueError("shared-world-v1 task fields differ from contract")
-    if task["type"] != "coupled_human_object_v1" or task["authored_addition"] is not True:
-        raise ValueError("shared-world-v1 task must declare type='coupled_human_object_v1' and authored_addition=True")
+    task_type = "human_motion_v1" if human_only else "coupled_human_object_v1"
+    if task["type"] != task_type or task["authored_addition"] is not True:
+        raise ValueError(f"{result['profile']} task must declare type={task_type!r} and authored_addition=True")
     task["start_offset_s"] = _number(task["start_offset_s"], "start_offset_s", 0.0, 60.0)
-    maximum = MAX_FULLSPAN_STEPS if result["profile"] == FULLSPAN_PROFILE else 180
+    maximum = MAX_FULLSPAN_STEPS if result["profile"] in FULLSPAN_PROFILES else 180
     if type(task["horizon_steps"]) is not int or not 1 <= task["horizon_steps"] <= maximum:
         raise ValueError(f"{result['profile']} horizon_steps must be an integer in 1–{maximum}")
     ref_times = [row["time_s"] for row in human_spec["reference"]]
-    if result["profile"] == FULLSPAN_PROFILE:
+    if result["profile"] in FULLSPAN_PROFILES:
         horizon = full_reference_horizon(human_spec["reference"], result["dt"])
         if task["start_offset_s"] != 0 or task["horizon_steps"] != horizon:
-            raise ValueError("shared-world-v2 must preserve the complete original reference interval without offsets or clipping")
+            raise ValueError(f"{result['profile']} must preserve the complete original reference interval without offsets or clipping")
     if ref_times[0] + task["start_offset_s"] + task["horizon_steps"] * result["dt"] > ref_times[-1] + 1e-9:
         raise ValueError("shared-world-v1 task window exceeds the available human reference trajectory")
     if task["human_limits"] != SUCCESS_LIMITS:
         raise ValueError("shared-world-v1 task.human_limits must match unmodified whole-body SUCCESS_LIMITS")
 
     goal = task["object_goal"]
-    if not isinstance(goal, dict) or set(goal) != {
+    if human_only:
+        if goal is not None:
+            raise ValueError("shared-world-v3 has no object goal")
+    elif not isinstance(goal, dict) or set(goal) != {
         "target_object_id",
         "position_tolerance",
         "speed_tolerance",
@@ -668,13 +692,14 @@ def validate_shared_world(scene):
         "require_human_contact",
     }:
         raise ValueError("task.object_goal fields differ from contract")
-    if goal["target_object_id"] not in dynamic_ids:
-        raise ValueError("task.object_goal.target_object_id must name a non-static rigid object")
-    goal["position_tolerance"] = _number(goal["position_tolerance"], "position_tolerance", 0.01, 0.3)
-    goal["speed_tolerance"] = _number(goal["speed_tolerance"], "speed_tolerance", 0.01, 1.0)
-    goal["virtual_acceleration"] = _number(goal["virtual_acceleration"], "virtual_acceleration", 0.1, 15.0)
-    if type(goal["require_human_contact"]) is not bool:
-        raise ValueError("task.object_goal.require_human_contact must be a boolean")
+    if not human_only:
+        if goal["target_object_id"] not in dynamic_ids:
+            raise ValueError("task.object_goal.target_object_id must name a non-static rigid object")
+        goal["position_tolerance"] = _number(goal["position_tolerance"], "position_tolerance", 0.01, 0.3)
+        goal["speed_tolerance"] = _number(goal["speed_tolerance"], "speed_tolerance", 0.01, 1.0)
+        goal["virtual_acceleration"] = _number(goal["virtual_acceleration"], "virtual_acceleration", 0.1, 15.0)
+        if type(goal["require_human_contact"]) is not bool:
+            raise ValueError("task.object_goal.require_human_contact must be a boolean")
 
     if (
         not isinstance(result["assumptions"], list)
@@ -1235,7 +1260,7 @@ class SharedWorldEnv(gym.Env):
         self.physical_limits.setflags(write=False)
 
         act_dim = len(self.action_names)
-        obs_dim = 155 + 13 * len(self.scene["objects"]) + 3
+        obs_dim = 155 + 13 * len(self.scene["objects"]) + (0 if self.scene["profile"] == HUMAN_ONLY_PROFILE else 3)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(act_dim,), dtype=np.float32)
         self.observation_space = spaces.Box(
             np.full(obs_dim, -1e6, dtype=np.float32),
@@ -1309,9 +1334,11 @@ class SharedWorldEnv(gym.Env):
             for field in ("position", "quaternion", "velocity", "angular_velocity")
             for val in obj[field]
         ]
-        target_id = self.scene["task"]["object_goal"]["target_object_id"]
-        goal_obj = next(obj for obj in objects if obj["id"] == target_id)
-        goal_offset = (np.asarray(self.scene["target"], dtype=float) - np.asarray(goal_obj["position"], dtype=float)).tolist()
+        goal_offset = []
+        if self.scene["profile"] != HUMAN_ONLY_PROFILE:
+            target_id = self.scene["task"]["object_goal"]["target_object_id"]
+            goal_obj = next(obj for obj in objects if obj["id"] == target_id)
+            goal_offset = (np.asarray(self.scene["target"], dtype=float) - np.asarray(goal_obj["position"], dtype=float)).tolist()
         obs = np.concatenate((human_obs, np.asarray(obj_flat, dtype=float), np.asarray(goal_offset, dtype=float))).astype(
             np.float32
         )
@@ -1353,7 +1380,8 @@ class SharedWorldEnv(gym.Env):
         max_human_floor_pen_world = 0.0
         max_human_obj_force = 0.0
         goal_contacts = 0
-        goal_id = self.scene["task"]["object_goal"]["target_object_id"]
+        goal = self.scene["task"]["object_goal"]
+        goal_id = goal["target_object_id"] if goal is not None else None
 
         for idx in range(data.ncon):
             con = data.contact[idx]
@@ -1783,7 +1811,7 @@ class SharedWorldEnv(gym.Env):
         self.data.ctrl[self._actuators] = human_forces
         self.data.qfrc_applied[:] = 0.0
         self.data.xfrc_applied[:] = 0.0
-        accel = float(self.scene["task"]["object_goal"]["virtual_acceleration"])
+        accel = float(self.scene["task"]["object_goal"]["virtual_acceleration"]) if self._dynamic_objects else 0.
         for idx, obj in enumerate(self._dynamic_objects):
             f_vec = values[22 + 3 * idx : 22 + 3 * (idx + 1)] * float(obj["mass"]) * accel
             self._object_forces[obj["id"]] = f_vec.tolist()
@@ -1845,24 +1873,28 @@ class SharedWorldEnv(gym.Env):
             - root_mse / (SUCCESS_LIMITS["root_rmse_model_units"] ** 2)
         )
         goal = self.scene["task"]["object_goal"]
-        objects = self._objects_state()
-        goal_obj = next(obj for obj in objects if obj["id"] == goal["target_object_id"])
-        dist = math.dist(goal_obj["position"], self.scene["target"])
-        speed = float(np.linalg.norm(goal_obj["velocity"]))
-        dist_scale = max(float(goal["position_tolerance"]), 0.22)
-        pos_term = math.exp(-((dist / dist_scale) ** 2))
-        park_bonus = 0.35 * math.exp(
-            -((dist / float(goal["position_tolerance"])) ** 2)
-            - 0.5 * ((speed / float(goal["speed_tolerance"])) ** 2)
-        )
-        object_score = (pos_term + park_bonus) / 1.35
-        contact_gate = (
-            1.0
-            if (not goal["require_human_contact"] or self._human_goal_object_contacts > 0)
-            else 0.65
-        )
         effort = float(np.mean(values**2))
-        reward = max(0.0, 0.5 * human_score + 0.5 * object_score * contact_gate - 0.01 * effort)
+        if goal is None:
+            object_score = None
+            reward = max(0.0, human_score - 0.01 * effort)
+        else:
+            objects = self._objects_state()
+            goal_obj = next(obj for obj in objects if obj["id"] == goal["target_object_id"])
+            dist = math.dist(goal_obj["position"], self.scene["target"])
+            speed = float(np.linalg.norm(goal_obj["velocity"]))
+            dist_scale = max(float(goal["position_tolerance"]), 0.22)
+            pos_term = math.exp(-((dist / dist_scale) ** 2))
+            park_bonus = 0.35 * math.exp(
+                -((dist / float(goal["position_tolerance"])) ** 2)
+                - 0.5 * ((speed / float(goal["speed_tolerance"])) ** 2)
+            )
+            object_score = (pos_term + park_bonus) / 1.35
+            contact_gate = (
+                1.0
+                if (not goal["require_human_contact"] or self._human_goal_object_contacts > 0)
+                else 0.65
+            )
+            reward = max(0.0, 0.5 * human_score + 0.5 * object_score * contact_gate - 0.01 * effort)
 
         self.terminated = self._failure is not None
         self.truncated = not self.terminated and self.steps >= self.horizon_steps
@@ -1891,13 +1923,15 @@ class SharedWorldEnv(gym.Env):
         valid = self._failure not in ("nonfinite_dynamics", "rigid_velocity_envelope_exceeded")
         angular = (math.sqrt(self._angular_squared / self._metric_samples) if self._metric_samples else 0.0) if valid else None
         root = (math.sqrt(self._root_squared / self._metric_samples) if self._metric_samples else 0.0) if valid else None
-        objects = self._objects_state()
         goal = self.scene["task"]["object_goal"]
-        goal_obj = next(obj for obj in objects if obj["id"] == goal["target_object_id"])
-        obj_dist = math.dist(goal_obj["position"], self.scene["target"])
-        obj_speed = float(np.linalg.norm(goal_obj["velocity"]))
-        obj_parked = bool(obj_dist <= goal["position_tolerance"] and obj_speed <= goal["speed_tolerance"])
-        contact_ok = bool(not goal["require_human_contact"] or self._human_goal_object_contacts > 0)
+        obj_dist = obj_speed = obj_parked = contact_ok = None
+        if goal is not None:
+            objects = self._objects_state()
+            goal_obj = next(obj for obj in objects if obj["id"] == goal["target_object_id"])
+            obj_dist = math.dist(goal_obj["position"], self.scene["target"])
+            obj_speed = float(np.linalg.norm(goal_obj["velocity"]))
+            obj_parked = bool(obj_dist <= goal["position_tolerance"] and obj_speed <= goal["speed_tolerance"])
+            contact_ok = bool(not goal["require_human_contact"] or self._human_goal_object_contacts > 0)
 
         completed = self.steps == self.horizon_steps and self._failure is None
         failures = [
@@ -1906,8 +1940,8 @@ class SharedWorldEnv(gym.Env):
                 ("angular_tracking", angular is None or angular > SUCCESS_LIMITS["angular_rmse_rad"]),
                 ("root_tracking", root is None or root > SUCCESS_LIMITS["root_rmse_model_units"]),
                 ("floor_penetration", self._max_penetration > SUCCESS_LIMITS["max_floor_penetration_model_units"]),
-                ("object_goal", not obj_parked),
-                ("human_object_contact", not contact_ok),
+                ("object_goal", goal is not None and not obj_parked),
+                ("human_object_contact", goal is not None and not contact_ok),
             )
             if bad
         ]
@@ -1925,9 +1959,9 @@ class SharedWorldEnv(gym.Env):
             "root_rmse_model_units": root,
             "max_floor_penetration_model_units": float(self._max_penetration),
             "initial_floor_penetration_model_units": float(self._initial_penetration),
-            "target_object_id": goal["target_object_id"],
-            "object_distance_world": float(obj_dist),
-            "object_speed_world_s": float(obj_speed),
+            "target_object_id": goal["target_object_id"] if goal is not None else None,
+            "object_distance_world": float(obj_dist) if obj_dist is not None else None,
+            "object_speed_world_s": float(obj_speed) if obj_speed is not None else None,
             "object_parked": obj_parked,
             "human_tracking_passed": human_ok,
             "human_object_contact_satisfied": contact_ok,
@@ -1942,6 +1976,8 @@ class SharedWorldEnv(gym.Env):
             "steps": self.steps,
             "return": self._episode_return / self.horizon_steps,
             "episode_return": float(self._episode_return),
+            **({"object_goal_status": "not_applicable", "human_object_contact_status": "not_applicable"}
+               if goal is None else {}),
         }
 
     def _human_snapshot_dict(self, contact_state, *, data=None, reference=False):
@@ -2021,7 +2057,7 @@ class SharedWorldEnv(gym.Env):
             "bounds": list(self.scene["bounds"]),
             "coordinate_frame": deepcopy(self.scene["coordinate_frame"]),
             "controlled_id": active_id,
-            "target": list(self.scene["target"]),
+            "target": list(self.scene["target"]) if self.scene["target"] is not None else None,
             "steps": self.steps,
             "episode_steps": self.steps,
             "time_s": float(self.steps * self.dt),
@@ -2075,7 +2111,7 @@ class SharedWorldEnv(gym.Env):
             "bounds": list(self.scene["bounds"]),
             "coordinate_frame": deepcopy(self.scene["coordinate_frame"]),
             "controlled_id": self.scene["controlled_id"],
-            "target": list(self.scene["target"]),
+            "target": list(self.scene["target"]) if self.scene["target"] is not None else None,
             "steps": index,
             "episode_steps": 0,
             "time_s": float(data.time),
@@ -2092,7 +2128,9 @@ class SharedWorldEnv(gym.Env):
             "contact_details": contact_state["details"],
             "contact_count": len(contact_state["details"]),
             "contact_summary": contact_state["counts"],
-            "scope": "Kinematic human pose projection alongside initial 3D rigid geometry; not dynamic simulation",
+            "scope": ("Kinematic human pose projection with declared ground only; not dynamic simulation"
+                      if self.scene["profile"] == HUMAN_ONLY_PROFILE else
+                      "Kinematic human pose projection alongside initial 3D rigid geometry; not dynamic simulation"),
             "physical_validation": "unverified",
         }
 
@@ -2124,6 +2162,11 @@ def _validate_shared_snapshot(state, validated_scene):
         or state.get("physical_validation") != "unverified"
     ):
         raise ValueError("Shared-world snapshot must preserve profile, bounds, and physical_validation='unverified'")
+
+    human_only = validated_scene["profile"] == HUMAN_ONLY_PROFILE
+    if human_only and ("target" not in state or state["target"] is not None
+                       or state.get("virtual_force") != [0., 0., 0.]):
+        raise ValueError("Person-only snapshots cannot introduce an object target or virtual object force")
 
     expected_objects = {obj["id"]: obj for obj in validated_scene["objects"]}
     selected = state.get("controlled_id")
@@ -2202,7 +2245,7 @@ def _validate_shared_snapshot(state, validated_scene):
                 raise ValueError(f"Recorded virtual_force on {dobj['id']!r} differs from normalized_action * limit")
 
     maximum_steps = max(validated_scene["task"]["horizon_steps"], len(validated_scene["human_spec"]["reference"]))
-    if validated_scene["profile"] == FULLSPAN_PROFILE:
+    if validated_scene["profile"] in FULLSPAN_PROFILES:
         if type(human.get("reference", False)) is not bool:
             raise ValueError("Full-reference snapshots require an explicit boolean reference marker")
         maximum_steps = (len(validated_scene["human_spec"]["reference"]) - 1 if human.get("reference")
@@ -2248,7 +2291,7 @@ def _validate_shared_snapshot(state, validated_scene):
         expected_time, rel_tol=0, abs_tol=1e-8,
     ):
         raise ValueError("Recorded shared-world time_s differs from completed physics substeps")
-    if validated_scene["profile"] == FULLSPAN_PROFILE:
+    if validated_scene["profile"] in FULLSPAN_PROFILES:
         first = validated_scene["human_spec"]["reference"][0]["time_s"]
         source_time = (validated_scene["human_spec"]["reference"][state["steps"]]["time_s"]
                        if human.get("reference") else first + expected_time)
@@ -2279,6 +2322,8 @@ def _validate_shared_snapshot(state, validated_scene):
             raise ValueError("Shared-world contact detail fields differ from contract")
         if con["kind"] not in CONTACT_KINDS:
             raise ValueError(f"Unknown shared-world contact kind: {con['kind']!r}")
+        if human_only and con["kind"] != "human_floor":
+            raise ValueError("Person-only snapshots support only human-floor contacts")
         ids = con["objects"]
         if not isinstance(ids, list) or len(ids) != 2 or len(set(ids)) != 2 or not set(ids) <= known_contact_names:
             raise ValueError("Shared-world contact must name two distinct known world geometries")
@@ -2294,6 +2339,19 @@ def _validate_shared_snapshot(state, validated_scene):
         _number(con["normal_force"], "contact normal_force", 0.0, 1e9)
     if state.get("contacts") != [list(p) for p in sorted(pairs)]:
         raise ValueError("Shared-world contact pair summary differs from contact_details")
+    if human_only:
+        counts = {kind: 0 for kind in CONTACT_KINDS}
+        counts["human_floor"] = len(details)
+        if state.get("contact_summary") != counts:
+            raise ValueError("Person-only contact summary must exclude equipment contacts")
+        if not human.get("reference"):
+            metrics = state.get("coupled_metrics")
+            null_fields = ("target_object_id", "object_distance_world", "object_speed_world_s",
+                           "object_parked", "human_object_contact_satisfied")
+            if (not isinstance(metrics, dict) or any(key not in metrics or metrics[key] is not None for key in null_fields)
+                    or any(metrics.get(key) != "not_applicable" for key in
+                           ("object_goal_status", "human_object_contact_status"))):
+                raise ValueError("Person-only object goal/contact metrics must remain not applicable")
 
 
 def render_snapshot(state, scene, width=960, *, show_target=True):
@@ -2328,7 +2386,7 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
         ("Front: x / height", np.array([[1.0, 0.0, 0.0], [0.0, 0.0, -1.0]]), np.array([0.0, 1.0, 0.0])),
         ("Top: x / depth", np.array([[1.0, 0.0, 0.0], [0.0, -1.0, 0.0]]), np.array([0.0, 0.0, 1.0])),
         (
-            "3D: coupled world",
+            "3D: human and ground" if scene["profile"] == HUMAN_ONLY_PROFILE else "3D: coupled world",
             np.array([[0.866, -0.5, 0.0], [0.25, 0.433, -0.866]]),
             np.array([0.433, 0.75, 0.5]),
         ),
@@ -2336,7 +2394,8 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
 
     human = state["human"]
     floor_z = float(human["mobility"]["floor_height"])
-    goal_tol = float(scene["task"]["object_goal"]["position_tolerance"])
+    goal = scene["task"]["object_goal"]
+    goal_tol = float(goal["position_tolerance"]) if goal is not None else None
     rigid_primitives = [part for obj in state["objects"] for part in _world_primitives(obj)]
 
     for index, (label, matrix, depth) in enumerate(views):
@@ -2420,7 +2479,7 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
             m_color = (round(150 + 55 * act), round(92 - 30 * act), round(72 - 20 * act))
             draw.line((*pa, *pb), fill=m_color, width=max(1, round(1.5 + 2.5 * act)))
 
-        if show_target:
+        if show_target and goal is not None:
             tx, ty = project(state["target"])
             tr = max(3.0, goal_tol * scale)
             draw.ellipse((tx - tr, ty - tr, tx + tr, ty + tr), outline="#965644", width=2)

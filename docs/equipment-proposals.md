@@ -2,7 +2,37 @@
 
 Use sealed **body-source evidence or a mobile exercise-v3 run/lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. Body-source preparation skips the unrelated body-only lab, control trials and single-joint training. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
 
-For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, prepare its [equipment tracking evidence](shared-world.md), then use the raw-video route below or reuse a saved body. Keep the original video hash and any original/derivative mapping bundles. Saved-input assembly reuses inference results; neither route requests tracking automatically.
+For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a person-only video, use [the equipment-free declaration below](#person-only-video-without-equipment-files). For a video with equipment, prepare its [equipment tracking evidence](shared-world.md), then use the raw-video route below or reuse a saved body. Keep the original video hash and any original/derivative mapping bundles. Saved-input assembly reuses inference results; neither route requests tracking automatically.
+
+## Person-only video without equipment files
+
+For a video with one selected person, ground-only support, and no task-relevant equipment or obstacles, use `--person-only`. This is **your explicit scene declaration**, not automatic detection of equipment absence. Do not use it for weights, racks, benches or external support that affect the exercise. The same MuJoCo engine, learner, lab and recorder are used; no dummy objects are inserted.
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-build \
+  --person-only --video /absolute/path/to/bodyweight-exercise.mp4 \
+  --pose-model /absolute/path/to/pose_landmarker_lite.task \
+  --root-assistance --train \
+  --training-generations 1 --training-population 4 \
+  --evaluation-seed 60824391 \
+  --out artifacts/my-person-exercise-01
+
+.venv-lab/bin/python -m weft shared-exercise-inspect \
+  --run artifacts/my-person-exercise-01 --out artifacts/my-person-inspection-01
+
+.venv-lab/bin/python -m weft lab \
+  --resume artifacts/my-person-exercise-01/learning_workflow/lab
+```
+
+Use fresh output directories; the sample evaluation seed is not guaranteed unused. If training is omitted, the final lab is `artifacts/my-person-exercise-01/lab`. `--root-assistance` adds three explicitly virtual root controls; without it, only 19 joint motors are available. Neither mode promises unassisted balance. Optional `--pose-recovery selective-crop` requires the pinned local Full model and the same fixed source-only recovery recipe described below.
+
+To reuse inference, replace `--video/--pose-model` with `--human-run <sealed exercise-body source>`. Person-only mode accepts only a construction-only `exercise-body-source-v1` package, not a prior mixed world or lab. `--evidence-run`, `--config`, `--source-mapping` and `--run` conflict with the declaration and reject before inference/output. The default equipment path is unchanged.
+
+The complete retained reference interval is mandatory; missing and unsampled slots stay missing. The new scene/task versions (`shared-world-v3` / `shared-exercise-task-v2`) use human control, no object target, and no equipment actions. Human tracking/floor gates are unchanged. Equipment/contact gates are **not applicable**, not passed; reward has no equipment-stability bonus. Only the newly pinned residual-v2 learner is supported on this scene. Earlier gain/feasibility policy profiles and the standalone `qualify` utility do not silently authorize the new variant.
+
+Inspect `person-inventory.json`, `body_source/` (raw input), `candidate/inventory.json`, `candidate/reference-feasibility.json` and the same `learning_workflow/` outputs. Candidate construction alone is not lab admission or task success: the lab retains its initial-geometry gate, and reference-feasibility failures stay visible. Depth, scale, floor and body geometry remain model-derived/authored priors; muscles remain illustrative. The report checks included scene metadata before describing an equipment-free constructed world; a stopped preconstruction build shows only the requested scope.
+
+**Verified scope:** `artifacts/person-only-native-03` exercises the complete saved-body→world→training/evaluation→one-lab→record/export/exact-replay path in5.24s:828 actions, all58 reference steps and68 recording frames. The original source is explicitly synthetic placeholder data, not a playable video or detector output. Selected and authored controllers each pass1/1 independent synthetic start; selection retained the neutral candidate, so no learned improvement is claimed.561 scoped Python checks and scripted UI checks pass; real person-only raw-video acceptance is the next step. Existing real-video examples and their0/3 failures remain unchanged.
 
 ## Video to one trained lab
 

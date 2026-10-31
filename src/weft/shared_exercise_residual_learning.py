@@ -15,6 +15,7 @@ from weft.shared_exercise_learning import (
 )
 from weft.shared_exercise_reset import human_jitter_options
 from weft.shared_exercise_task import GATES_SHA256, SharedExerciseTaskEnv, prepare_shared_exercise_snapshot_validator
+from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file
 
 
@@ -44,9 +45,10 @@ def _check(deadline):
         raise TimeoutError("Exercise residual learning/evaluation exceeded its cooperative wall-time bound")
 
 
-def _runtime_hashes():
+def _runtime_hashes(scene=None):
     package = Path(__file__).parent
-    return {name: digest(package / name) for name in POLICY_RUNTIME_FILES}
+    names = (*POLICY_RUNTIME_FILES, "person_inventory.py") if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE else POLICY_RUNTIME_FILES
+    return {name: digest(package / name) for name in names}
 
 
 def _coefficients(value):
@@ -88,7 +90,7 @@ def validate_shared_exercise_residual_policy(policy, scene, task):
             or len(_bytes(policy)) > 64 * 1024):
         raise ValueError("Exercise residual policy differs from its bounded versioned contract")
     _coefficients(policy["residual_coefficients"])
-    hashes = _runtime_hashes()
+    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
     if (policy["scene_sha256"] != canonical_hash(scene) or policy["task_sha256"] != canonical_hash(task)
             or policy["gates_sha256"] != GATES_SHA256 or policy["runtime_sha256"] != hashes
             or policy["evaluator_sha256"] != hashes["shared_exercise_task.py"]
@@ -138,10 +140,14 @@ def _terminal_manifest(raw):
         raise ValueError("Residual learning requires a supported terminal source or historical absent status")
 
 
-def _source_views(source, manifest):
+def source_view_names(scene=None):
+    return SOURCE_VIEWS | {"inventory.json", "source-clock.json"} if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE else SOURCE_VIEWS
+
+
+def _source_views(source, manifest, scene=None):
     hashes = _json(manifest)["files"]
-    names = sorted(SOURCE_VIEWS & set(hashes))
-    if len([name for name in names if name != "source.json"]) > 1:
+    names = sorted(source_view_names(scene) & set(hashes))
+    if len([name for name in names if name in SOURCE_VIEWS and name != "source.json"]) > 1:
         raise ValueError("Residual learning source contains ambiguous original video views")
     return {name: read_package_file(source, name, max_bytes=64 * 1024 * 1024,
                                     expected_sha256=hashes[name]) for name in names}
@@ -290,7 +296,8 @@ def train_shared_exercise_residual_policy(run, out, *, task_path=None, root_assi
     maximum_steps = generations * population * len(TRAIN_RESETS) * task["interval"]["horizon_steps"]
     if maximum_steps > MAX_CONTROL_STEPS:
         raise ValueError("Residual training exceeds 8640 actions; do not shorten the fixed task interval")
-    hashes, views = _runtime_hashes(), _source_views(source, manifest)
+    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
+    views = _source_views(source, manifest, scene)
     _check(deadline)
     _initialize(out, scene_raw, task_raw, manifest, proof, views)
     training_seeds = _seed_plan(seed, 2)
@@ -362,7 +369,7 @@ def train_shared_exercise_residual_policy(run, out, *, task_path=None, root_assi
             _write(out, "policy.json", policy)
             _write(out, "training.json", training)
         _input_unchanged(source, manifest, deadline, task_path=task_path, task_raw=task_raw)
-        if _runtime_hashes() != hashes:
+        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != hashes:
             raise RuntimeError("Residual policy/evaluator runtime changed during training")
         _check(deadline)
         authored = not bool(np.any(best))
@@ -409,9 +416,9 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
         raise ValueError("Residual evaluation requires completed sealed training, never a failed checkpoint")
     scene_raw, task_raw, policy_raw = files["scene.json"], files["exercise-task.json"], files["policy.json"]
     scene, task, _ = _context(_json(scene_raw), _json(task_raw))
-    fullspan = scene["profile"] == "shared-world-v2"
+    fullspan = scene["profile"] in FULLSPAN_PROFILES
     _seconds(max_seconds, 60 if fullspan else 30)
-    hashes = _runtime_hashes()
+    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
     policy = validate_shared_exercise_residual_policy(_json(policy_raw), scene, task)
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
     training_seeds = settings.get("training_seeds")
@@ -429,7 +436,7 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
     train_states = {trial["initial_state_sha256"] for generation in training["history"]
                     for row in generation["candidates"] for trial in row["trials"] if trial["initial_state_sha256"] is not None}
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(manifest))
-    views = _source_views(source, manifest)
+    views = _source_views(source, manifest, scene)
     reset = human_jitter_options(float(jitter_scale))
     evaluation = {"schema_version": 1, "status": "running", "created_at": local_time(), "policy_sha256": _sha(policy_raw),
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "runtime_sha256": hashes,
@@ -481,7 +488,7 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
                 reset_failures=sum(row["status"] == "reset_failed" for row in rows), mean_score=_score(rows))
             _write(out, "evaluation.json", evaluation)
         _input_unchanged(source, manifest, deadline)
-        if _runtime_hashes() != hashes:
+        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != hashes:
             raise RuntimeError("Frozen residual policy or evaluator runtime changed during evaluation")
         read_package_file(out, "policy.json", max_bytes=64 * 1024, expected_sha256=_sha(policy_raw))
         read_package_file(out, "pre-evaluation-freeze.json", max_bytes=64 * 1024, expected_sha256=_sha(_bytes(freeze)))

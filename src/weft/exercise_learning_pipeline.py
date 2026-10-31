@@ -16,6 +16,7 @@ from weft.shared_exercise_lab import (
 )
 from weft.shared_exercise_selection import RULE, select_feasible_shared_exercise_policy
 from weft.shared_exercise_task import GATES_SHA256
+from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE
 from weft.shared_world_packaging import read_package_file, read_package_manifest, write_package_files
 
 
@@ -211,6 +212,69 @@ def _document(root, name, hashes):
     return _json(read_package_file(root, name, max_bytes=8 * 1024 * 1024, expected_sha256=hashes[name]))
 
 
+def _admit_preserved_body_source(source, manifest_raw, names, scene, deadline):
+    """A completed v3 candidate retains its raw body receipt; the receipt alone is not admission."""
+    if "body-source.json" not in names:
+        return None
+    failure = "Workflow requires a completed untrained shared world with exact preserved person-only construction identity"
+    manifest = _json(manifest_raw)
+    required = {"reconstruction.json", "inventory.json", "inputs/body-source-manifest.json",
+                "body-source.json", "human.json", "observations.json", "source-clock.json", "source.json"}
+    if (scene["profile"] != HUMAN_ONLY_PROFILE or scene["source_binding"]["mode"] != "source_qualified"
+            or manifest.get("profile") != HUMAN_ONLY_PROFILE or manifest.get("status") != "ready"
+            or manifest.get("simulation_ready") is not False or not required <= names.keys()):
+        raise ValueError(failure)
+    documents = {}
+    # The source verifier already checked the full observations and clock bytes.
+    metadata = required - {"observations.json", "source-clock.json"}
+    for name in sorted(metadata):
+        _check(deadline)
+        documents[name] = _document(source, name, names)
+        if not isinstance(documents[name], dict):
+            raise ValueError(failure)
+    marker, parent = documents["body-source.json"], documents["inputs/body-source-manifest.json"]
+    report, inventory = documents["reconstruction.json"], documents["inventory.json"]
+    source_sha = scene["source_binding"]["source_sha256"]
+    report_fixed = {"profile": HUMAN_ONLY_PROFILE, "status": "ready", "mode": "source_person_only",
+                    "readiness": "candidate_constructed_not_lab_admitted", "simulation_ready": False,
+                    "lab_status": "not_created", "physical_validation": "unverified",
+                    "scene_sha256": canonical_hash(scene), "source_sha256": source_sha,
+                    "human_file_sha256": names["human.json"], "inventory": scene["inventory"],
+                    "source_manifest_sha256": names["inputs/body-source-manifest.json"]}
+    construction = {"schema_version": 1, "profile": "exercise-body-source-v1",
+                    "status": "construction_only", "simulation_ready": False}
+    if (any(report.get(key) != value for key, value in report_fixed.items())
+            or report.get("simulation_ready") is not False or inventory != scene["inventory"]
+            or any(doc.get(key) != value for doc in (marker, parent) for key, value in construction.items())
+            or any(type(doc.get("schema_version")) is not int for doc in (marker, parent))
+            or any(doc.get("simulation_ready") is not False for doc in (marker, parent))
+            or marker.get("source_sha256") != source_sha or documents["source.json"].get("sha256") != source_sha
+            or canonical_hash(documents["human.json"]) != canonical_hash(scene["human_spec"])):
+        raise ValueError(failure)
+    artifact = marker.get("source_artifact")
+    parent_files, artifacts = parent.get("files"), marker.get("artifacts")
+    verification = report.get("source_verification")
+    preserved = verification.get("preserved_files") if isinstance(verification, dict) else None
+    if (not isinstance(artifact, str) or artifact not in residual.SOURCE_VIEWS - {"source.json"}
+            or artifact not in names or names[artifact] != source_sha
+            or documents["source.json"].get("artifact") != artifact
+            or not isinstance(parent_files, dict) or not isinstance(artifacts, dict) or not isinstance(preserved, dict)
+            or not {"human.json", "observations.json", "source-clock.json", "source.json"} <= artifacts.keys()
+            or not {"body-source.json", artifact, *artifacts} <= preserved.keys()
+            or any(name not in parent_files or name not in names or parent_files[name] != expected
+                   or names[name] != expected for name, expected in preserved.items())
+            or any(preserved.get(name) != expected for name, expected in artifacts.items())
+            or any(name in parent_files for name in ("failure.json", "scene.json", "exercise-task.json", "policy.json", "training.json"))
+            or names["observations.json"] not in scene["source_binding"]["evidence_documents"]):
+        raise ValueError(failure)
+    _check(deadline)
+    return {"scope": "Preserved construction receipt inside an exact source-bound completed person-only candidate; not raw-body or physics admission",
+            "body_source_sha256": names["body-source.json"], "body_manifest_sha256": names["inputs/body-source-manifest.json"],
+            "reconstruction_sha256": names["reconstruction.json"], "inventory_sha256": names["inventory.json"],
+            "source_sha256": source_sha, "human_file_sha256": names["human.json"],
+            "identity_documents": {name: names[name] for name in sorted(metadata)}}
+
+
 def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_path=None,
                                        root_assistance=False, max_seconds=180, progress=None):
     """Train and compare the same task once; completed failed trials remain visible in the final lab."""
@@ -240,8 +304,9 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     source_manifest, source_names = read_package_manifest(source)
     if outer and "exercise-lab.json" not in source_names:
         raise ValueError("Workflow lab input requires its sealed human-only lab contract")
-    if any(name in source_names for name in ("construction-seed.json", "body-source.json", "policy.json",
-            "training.json", "selection.json", "evaluation.json", "pre-evaluation-freeze.json")):
+    if (any(name in source_names for name in ("construction-seed.json", "policy.json",
+            "training.json", "selection.json", "evaluation.json", "pre-evaluation-freeze.json"))
+            or "body-source.json" in source_names and "scene.json" not in source_names):
         raise ValueError("Workflow requires a completed untrained shared world, not construction or previous learning")
     if any(name.startswith(("learning-run/", "policy-evaluation-run/")) for name in source_names):
         raise ValueError("Workflow cannot consume previous policy/evaluation inputs")
@@ -258,6 +323,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     if admitted != source or manifest != source_manifest:
         raise ValueError("Workflow source manifest changed during admission")
     residual._terminal_manifest(manifest)
+    body_admission = _admit_preserved_body_source(source, manifest, source_names, scene, work_deadline)
     if outer and any(config.get(name) != expected for name, expected in {
             "manifest_sha256": _sha(manifest), "scene_sha256": canonical_hash(scene),
             "task_sha256": canonical_hash(task)}.items()):
@@ -265,15 +331,17 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     horizon = task["interval"]["horizon_steps"]
     training_steps = 2 * settings["generations"] * settings["population"] * horizon
     evaluation_steps = len(residual.CONTROLLERS) * settings["trials"] * horizon
-    evaluation_limit = residual.MAX_FULLSPAN_EVALUATION_STEPS if scene["profile"] == "shared-world-v2" else residual.MAX_EVALUATION_STEPS
+    evaluation_limit = residual.MAX_FULLSPAN_EVALUATION_STEPS if scene["profile"] in FULLSPAN_PROFILES else residual.MAX_EVALUATION_STEPS
     if training_steps > residual.MAX_CONTROL_STEPS or evaluation_steps > evaluation_limit:
         raise ValueError("Workflow exceeds the full-interval action budget; change explicit search settings, never shorten the task")
     training_seeds = residual._seed_plan(settings["training_seed"], 2)
     evaluation_seeds = residual._seed_plan(settings["evaluation_seed"], settings["trials"], training_seeds)
     implementation, versions = _runtime()
-    actor_runtime = residual._runtime_hashes()
+    actor_runtime = residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes()
     source_documents = {name: source_names[name] for name in source_names
                         if name in {"scene.json", "exercise-task.json", "report.json", "reconstruction.json", "status.json", "result.json"}}
+    if body_admission is not None:
+        source_documents.update(body_admission["identity_documents"])
     plan = {"schema_version": 1, "profile": PROFILE, "created_at": local_time(), "input": str(original),
         "source_run": str(source), "source_manifest_sha256": _sha(manifest),
         "source_documents": source_documents, "lab_metadata": {name: _sha(raw) for name, raw in outer.items()},
@@ -297,6 +365,8 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         "deadline_scope": "Cooperative checks; in-flight native/helper calls require a caller process deadline",
         "lab_preparation_scope": "Model construction and reference forward geometry, not additional dynamics",
         "physical_validation": "unverified"}
+    if body_admission is not None:
+        plan["preserved_body_source_admission"] = body_admission
     if len(_bytes(plan)) > MAX_METADATA_BYTES:
         raise ValueError("Workflow frozen plan exceeds its metadata bound")
     _check(work_deadline)
@@ -315,7 +385,8 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
             read_package_file(original, name, max_bytes=MAX_METADATA_BYTES, expected_sha256=_sha(raw))
         if supplied_task is not None:
             read_package_file(supplied_task.parent, supplied_task.name, max_bytes=64 * 1024, expected_sha256=_sha(task_raw))
-        if _runtime() != (implementation, versions) or residual._runtime_hashes() != actor_runtime:
+        current_actor_runtime = residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes()
+        if _runtime() != (implementation, versions) or current_actor_runtime != actor_runtime:
             raise RuntimeError("Workflow frozen implementation or dependency runtime changed")
         read_package_file(target, "plan.json", max_bytes=MAX_METADATA_BYTES, expected_sha256=_sha(_bytes(plan)))
         read_package_file(target, "exercise-task.json", max_bytes=64 * 1024, expected_sha256=_sha(task_raw))
@@ -391,7 +462,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         maximum = allowance("independent_evaluation", maximum_control_steps=evaluation_steps)
         evaluated = residual.evaluate_shared_exercise_residual_policy(target / "selected", target / "evaluation",
             seed=settings["evaluation_seed"], trials=settings["trials"], jitter_scale=settings["jitter_scale"],
-            max_seconds=min(maximum, 30 if scene["profile"] != "shared-world-v2" else 60))
+            max_seconds=min(maximum, 60 if scene["profile"] in FULLSPAN_PROFILES else 30))
         remember(target / "evaluation", evaluated["manifest_sha256"], "evaluated")
         if (evaluated["evaluation_seeds"] != evaluation_seeds or evaluated["maximum_control_steps"] != evaluation_steps
                 or evaluated["policy_sha256"] != selected["policy_sha256"]):

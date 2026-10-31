@@ -4,6 +4,8 @@ This task tests **body-motion tracking while equipment stays stable**, using the
 
 This is a simulated test, not recovered anatomy, a complete exercise definition or proof of physical grasp.
 
+**Human-controlled is not necessarily equipment-free.** Existing task-v1 labs below control the human while equipment stays passive. The new explicit [`--person-only` path](equipment-proposals.md#person-only-video-without-equipment-files) uses the same engine with no rigid objects and task-v2: equipment/contact gates are not applicable, never free successes or stability reward. It retains the full reference interval, human tracking/floor gates and exact recorded replay.
+
 ## Try it
 
 From the repository root, start the current full-reference lab:

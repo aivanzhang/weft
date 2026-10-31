@@ -16,6 +16,7 @@ from weft.world_evidence import _check_tree, load_world_evidence
 
 
 PROFILE = "exercise-scene-inputs-v1"
+HUMAN_PROFILE = "exercise-person-inputs-v1"
 MAX_INPUT_BYTES = 192 * 1024 * 1024
 MAX_FILE_BYTES = 64 * 1024 * 1024
 MAX_EVIDENCE_BYTES = 64 * 1024 * 1024
@@ -106,8 +107,8 @@ class _Pin:
 @dataclass(frozen=True, init=False)
 class RawExerciseInputs:
     video: Path
-    evidence_run: Path
-    config_path: Path
+    evidence_run: Path | None
+    config_path: Path | None
     pose_model: Path
     pose_mode: str
     pose_identity: str
@@ -177,7 +178,8 @@ class _Reader:
 
 def _recheck(inputs, deadline):
     for root in (inputs.evidence_run, *inputs.source_mappings):
-        _not_failed(_path(root))
+        if root is not None:
+            _not_failed(_path(root))
     for pin in inputs._pins:
         _check(deadline)
         path = _path(pin.path)
@@ -185,7 +187,8 @@ def _recheck(inputs, deadline):
         if len(raw) != pin.size:
             raise ValueError("Scene input size changed after preflight")
     for root in (inputs.evidence_run, *inputs.source_mappings):
-        _not_failed(_path(root))
+        if root is not None:
+            _not_failed(_path(root))
     _check(deadline)
 
 
@@ -197,13 +200,7 @@ def recheck_exercise_scene_inputs(inputs, *, deadline):
     _recheck(inputs, bounded)
 
 
-def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_model,
-                                   pose_mode=None, pose_identity=None, pose_recovery=None, source_note=SOURCE_NOTE,
-                                   source_mappings=(), max_seconds=30, deadline=None):
-    """Check source, model and exact construction frames without decoding or inference."""
-    started = time.monotonic()
-    deadline = _deadline(max_seconds, MAX_PREFLIGHT_SECONDS, deadline)
-    _check(deadline)
+def _pose_options(pose_mode, pose_identity, pose_recovery, source_note):
     if pose_recovery is not None and pose_recovery != RECOVERY_METHOD:
         raise ValueError("Pose recovery must be omitted or explicitly selective-crop")
     if pose_recovery is not None and (pose_mode not in (None, "image") or pose_identity not in (None, "raw")):
@@ -215,6 +212,103 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
         raise ValueError("Pose options require video/image and explicit raw/temporal identity")
     if not isinstance(source_note, str) or len(source_note) > 4000:
         raise ValueError("Source provenance note must be at most 4000 characters")
+    return pose_mode, pose_identity
+
+
+def _model_pins(reader, model, pose_recovery, dependencies):
+    model_raw = reader.read(model)
+    model_sha, model_size = _sha(model_raw), len(model_raw)
+    del model_raw
+    provenance = exercise_vision.model_provenance(model)
+    if provenance.get("sha256") != model_sha or provenance.get("bytes") != model_size:
+        raise ValueError("Pose model changed during preflight")
+    if pose_recovery is not None:
+        full = exercise_vision.MODEL_VARIANTS["full"]
+        if (model_sha != full["sha256"] or model_size != full["bytes"]
+                or provenance.get("variant") != "full" or provenance.get("model_version") != "float16/1"
+                or provenance.get("delegate") != "CPU" or provenance.get("network_inference") is not False):
+            raise ValueError("Selective-crop recovery requires the exact pinned official Full CPU model")
+        from weft import pose_crop_pipeline, pose_source_recovery
+
+        dependencies = tuple(dict.fromkeys((*dependencies, *pose_crop_pipeline.IMPLEMENTATION_FILES,
+                                            *pose_source_recovery.IMPLEMENTATION_FILES)))
+    implementation = {name: _sha(reader.read(Path(__file__).with_name(name))) for name in dependencies}
+    return provenance, implementation
+
+
+def _ready_inputs(reader, receipt, *, video, evidence, config_path, model, pose_mode, pose_identity,
+                  pose_recovery, source_note, mappings, source_sha, deadline):
+    if pose_recovery is not None:
+        receipt["pose_recovery"] = pose_recovery
+        receipt["recovery_contract"] = {
+            "recipe": "Pinned Full / IMAGE / raw, then one source-only selective-crop pass",
+            "maximum_combined_seconds": MAX_RECOVERY_BODY_SECONDS,
+            "stage_seconds": {"pose_proposals": MAX_BODY_SECONDS, "pose_recovery": RECOVERY_STAGE_SECONDS,
+                              "body_source": RECOVERY_STAGE_SECONDS},
+            "body_gate": "Existing body-source admission is unchanged; recovery does not guarantee a body or world",
+            "retries": 0, "model_selection": False, "task_or_geometry_feedback": False}
+    encoded = _bytes(receipt)
+    if len(encoded) > MAX_RECEIPT_BYTES:
+        raise ValueError("Scene input receipt exceeds its bounded output size")
+    result = object.__new__(RawExerciseInputs)
+    for name, value in {"video": video, "evidence_run": evidence, "config_path": config_path, "pose_model": model,
+                        "pose_mode": pose_mode, "pose_identity": pose_identity, "source_note": source_note,
+                        "pose_recovery": pose_recovery, "source_mappings": mappings, "source_sha256": source_sha,
+                        "_pins": tuple(reader.pins.values()), "_receipt": encoded}.items():
+        object.__setattr__(result, name, value)
+    _recheck(result, deadline)
+    return result
+
+
+def preflight_human_scene_inputs(video, *, pose_model, pose_mode=None, pose_identity=None, pose_recovery=None,
+                                source_note=SOURCE_NOTE, max_seconds=30, deadline=None):
+    """Declare a person/ground scope against exact source bytes, not detected absence."""
+    from weft.person_inventory import make_person_inventory
+
+    started = time.monotonic()
+    deadline = _deadline(max_seconds, MAX_PREFLIGHT_SECONDS, deadline)
+    _check(deadline)
+    pose_mode, pose_identity = _pose_options(pose_mode, pose_identity, pose_recovery, source_note)
+    video, model = map(_path, (video, pose_model))
+    if video.suffix.lower() not in exercise_body_source.SUFFIXES:
+        raise ValueError("Provide a supported local video container")
+    reader = _Reader(deadline)
+    raw = reader.read(video)
+    if not raw:
+        raise ValueError("Raw video input cannot be empty")
+    source_sha = _sha(raw)
+    del raw
+    dependencies = tuple(dict.fromkeys((*exercise_body_source.IMPLEMENTATION_FILES,
+        "exercise_scene_inputs.py", "person_inventory.py", "shared_world_human.py")))
+    provenance, implementation = _model_pins(reader, model, pose_recovery, dependencies)
+    receipt = {"schema_version": 1, "profile": HUMAN_PROFILE, "status": "input_preflight_passed",
+        "scene_scope": "human_only", "inventory": make_person_inventory(source_sha),
+        "source_sha256": source_sha, "source_bytes": reader.pins[video].size,
+        "pose_options": {"pose_mode": pose_mode, "pose_identity": pose_identity},
+        "pose_model": provenance, "source_note": source_note, "implementation_sha256": implementation,
+        "input_pins": [{"path": str(pin.path), "sha256": pin.sha256, "bytes": pin.size} for pin in reader.pins.values()],
+        "input_bytes": reader.total, "input_files": len(reader.pins),
+        "limits": {"maximum_input_bytes": MAX_INPUT_BYTES, "maximum_files": MAX_FILES,
+                   "maximum_file_bytes": MAX_FILE_BYTES, "maximum_seconds": max_seconds},
+        "work": {"video_decodes": 0, "inference_calls": 0, "physics_steps": 0, "api_calls": 0},
+        "scope": "User declares one selected person, ground-only support and no task-relevant equipment or obstacles. Absence is not detector-verified; scale, ground and depth remain priors.",
+        "remaining_checks": ["Actual video metadata and decode", "Existing body/pose quality admission",
+                             "Complete source clock and reference binding", "Unchanged initial geometry and human task gates"],
+        "deadline_scope": "Cooperative around bounded local reads; the body stage retains its existing native-call limits.",
+        "elapsed_seconds": time.monotonic() - started}
+    return _ready_inputs(reader, receipt, video=video, evidence=None, config_path=None, model=model,
+        pose_mode=pose_mode, pose_identity=pose_identity, pose_recovery=pose_recovery, source_note=source_note,
+        mappings=(), source_sha=source_sha, deadline=deadline)
+
+
+def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_model,
+                                   pose_mode=None, pose_identity=None, pose_recovery=None, source_note=SOURCE_NOTE,
+                                   source_mappings=(), max_seconds=30, deadline=None):
+    """Check source, model and exact construction frames without decoding or inference."""
+    started = time.monotonic()
+    deadline = _deadline(max_seconds, MAX_PREFLIGHT_SECONDS, deadline)
+    _check(deadline)
+    pose_mode, pose_identity = _pose_options(pose_mode, pose_identity, pose_recovery, source_note)
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > MAX_MAPPINGS:
         raise ValueError("Use at most seven verified source mappings")
     video, evidence, config_path, model = map(_path, (video, evidence_run, config_path, pose_model))
@@ -309,27 +403,7 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
         selected.append({**choice, "evidence_id": identifier, "time_s": row["time_s"],
                          "observation_document_sha256": document_sha})
 
-    model_raw = reader.read(model)
-    model_sha, model_size = _sha(model_raw), len(model_raw)
-    del model_raw
-    provenance = exercise_vision.model_provenance(model)
-    if provenance.get("sha256") != model_sha or provenance.get("bytes") != model_size:
-        raise ValueError("Pose model changed during preflight")
-    dependencies = IMPLEMENTATION_FILES
-    if pose_recovery is not None:
-        full = exercise_vision.MODEL_VARIANTS["full"]
-        if (model_sha != full["sha256"] or model_size != full["bytes"]
-                or provenance.get("variant") != "full" or provenance.get("model_version") != "float16/1"
-                or provenance.get("delegate") != "CPU" or provenance.get("network_inference") is not False):
-            raise ValueError("Selective-crop recovery requires the exact pinned official Full CPU model")
-        from weft import pose_crop_pipeline, pose_source_recovery
-
-        dependencies = tuple(dict.fromkeys((*dependencies, *pose_crop_pipeline.IMPLEMENTATION_FILES,
-                                            *pose_source_recovery.IMPLEMENTATION_FILES)))
-    implementation = {}
-    for name in dependencies:
-        path = Path(__file__).with_name(name)
-        implementation[name] = _sha(reader.read(path))
+    provenance, implementation = _model_pins(reader, model, pose_recovery, IMPLEMENTATION_FILES)
     receipt = {"schema_version": 1, "profile": PROFILE, "status": "input_preflight_passed",
         "source_sha256": source_sha, "source_bytes": reader.pins[video].size,
         "equipment_manifest_sha256": reader.pins[evidence / "manifest.json"].sha256,
@@ -352,27 +426,9 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
                              "Body/equipment clock and dimension agreement", "Unchanged strict geometry/task admission"],
         "deadline_scope": "Cooperative around bounded local reads; the body stage retains its existing native-call limits.",
         "elapsed_seconds": time.monotonic() - started}
-    if pose_recovery is not None:
-        receipt["pose_recovery"] = pose_recovery
-        receipt["recovery_contract"] = {
-            "recipe": "Pinned Full / IMAGE / raw, then one source-only selective-crop pass",
-            "maximum_combined_seconds": MAX_RECOVERY_BODY_SECONDS,
-            "stage_seconds": {"pose_proposals": MAX_BODY_SECONDS, "pose_recovery": RECOVERY_STAGE_SECONDS,
-                              "body_source": RECOVERY_STAGE_SECONDS},
-            "body_gate": "Existing body-source admission is unchanged; recovery does not guarantee a body or world",
-            "retries": 0, "model_selection": False, "task_or_geometry_feedback": False}
-    encoded = _bytes(receipt)
-    if len(encoded) > MAX_RECEIPT_BYTES:
-        raise ValueError("Scene input receipt exceeds its bounded output size")
-    result = object.__new__(RawExerciseInputs)
-    for name, value in {"video": video, "evidence_run": evidence, "config_path": config_path, "pose_model": model,
-                        "pose_mode": pose_mode, "pose_identity": pose_identity, "source_note": source_note,
-                        "pose_recovery": pose_recovery,
-                        "source_mappings": mappings, "source_sha256": source_sha,
-                        "_pins": tuple(reader.pins.values()), "_receipt": encoded}.items():
-        object.__setattr__(result, name, value)
-    _recheck(result, deadline)
-    return result
+    return _ready_inputs(reader, receipt, video=video, evidence=evidence, config_path=config_path, model=model,
+        pose_mode=pose_mode, pose_identity=pose_identity, pose_recovery=pose_recovery, source_note=source_note,
+        mappings=mappings, source_sha=source_sha, deadline=deadline)
 
 
 def _generated_pin(root, profile, status, deadline):
@@ -415,7 +471,8 @@ def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recover
     recovering = inputs.pose_recovery == RECOVERY_METHOD
     deadline = _deadline(max_seconds, MAX_RECOVERY_BODY_SECONDS if recovering else MAX_BODY_SECONDS, deadline)
     target = _path(out)
-    sources = (inputs.video, inputs.pose_model, inputs.evidence_run, inputs.config_path, *inputs.source_mappings)
+    sources = tuple(path for path in (inputs.video, inputs.pose_model, inputs.evidence_run, inputs.config_path,
+                                     *inputs.source_mappings) if path is not None)
     outputs = [target]
     if recovering:
         if pose_proposals_out is None or recovered_pose_out is None:

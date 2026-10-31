@@ -19,7 +19,7 @@ from weft.shared_exercise_task import (
     GATES_SHA256, SharedExerciseTaskEnv, build_shared_exercise_task, prepare_shared_exercise_snapshot_validator,
     validate_shared_exercise_task,
 )
-from weft.shared_world import validate_shared_world
+from weft.shared_world import HUMAN_ONLY_PROFILE, validate_shared_world
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, write_package_files
 from weft.whole_body_learning import _action as grouped_feedback_action
 
@@ -92,6 +92,8 @@ def _runtime_hashes():
 
 def validate_shared_exercise_policy(policy, scene, task):
     scene, task, count = _context(scene, task)
+    if scene["profile"] == HUMAN_ONLY_PROFILE:
+        raise ValueError("Person-only scenes require the v2 residual learner, not the v1 gain policy")
     keys = {"schema_version", "profile", "algorithm", "scene_sha256", "task_sha256", "evaluator_sha256",
             "gates_sha256", "runtime_sha256", "runtime_versions", "action_names", "groups", "feature_names", "weights",
             "root_assistance", "training_seed", "training_score", "privileged_simulator_features", "scope"}
@@ -306,6 +308,8 @@ def train_shared_exercise_policy(run, out, *, task_path=None, root_assistance=Fa
     out = _output_path(run, out)
     started, deadline = time.monotonic(), time.monotonic() + max_seconds
     source, scene, task, scene_raw, task_raw, manifest, proof = _source(run, task_path, root_assistance, deadline)
+    if scene["profile"] == HUMAN_ONLY_PROFILE:
+        raise ValueError("Person-only scenes require the v2 residual learner, not the v1 gain trainer")
     maximum_steps = generations * population * 2 * task["interval"]["horizon_steps"]
     if maximum_steps > MAX_CONTROL_STEPS:
         raise ValueError("Training exceeds the 20000-control-step bound; never shorten the task interval silently")

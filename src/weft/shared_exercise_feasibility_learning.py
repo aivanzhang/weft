@@ -16,6 +16,7 @@ from weft.shared_exercise_lab import _json, _runtime_versions, _verified_inputs
 from weft.shared_exercise_learning import _bytes, _context, _integer, _output_path, _package, _score, _seconds, _sha, _write
 from weft.shared_exercise_selection import BODY_GATES, EQUIPMENT_GATES, _history, _trial as validate_trial
 from weft.shared_exercise_task import GATES, GATES_SHA256, SharedExerciseTaskEnv, prepare_shared_exercise_snapshot_validator
+from weft.shared_world import HUMAN_ONLY_PROFILE
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, read_package_manifest
 
 
@@ -119,6 +120,8 @@ def _validate_rank(rank, scene, task, score):
 
 def validate_shared_exercise_feasibility_policy(policy, scene, task):
     scene, task, count = _context(scene, task)
+    if scene["profile"] == HUMAN_ONLY_PROFILE:
+        raise ValueError("Person-only scenes require the v2 residual learner, not the v3 feasibility policy")
     keys = {"schema_version", "profile", "algorithm", "actor_algorithm", "scene_sha256", "task_sha256", "evaluator_sha256",
             "gates_sha256", "runtime_sha256", "runtime_versions", "action_names", "feature_names", "residual_coefficients",
             "residual_bound", "basis_profile", "root_assistance", "training_seed", "training_score", "optimization_rank",
@@ -184,6 +187,8 @@ def _verify_original(manifest_raw, files, deadline):
     if not required <= set(files) or len(files["policy.json"]) > 64 * 1024:
         raise ValueError("Import requires complete bounded original training documents")
     scene, task, count = _context(_json(files["scene.json"]), _json(files["exercise-task.json"]))
+    if scene["profile"] == HUMAN_ONLY_PROFILE:
+        raise ValueError("Person-only scenes require the v2 residual learner, not the v3 feasibility trainer")
     policy = _json(files["policy.json"])
     hashes = policy.get("runtime_sha256") if isinstance(policy, dict) else None
     if not isinstance(hashes, dict) or set(hashes) != set(actor.POLICY_RUNTIME_FILES):

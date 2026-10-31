@@ -16,7 +16,7 @@ from weft.io import canonical_hash, digest, local_time, write_json
 from weft.recording import Recorder, export_recording
 from weft.shared_exercise_recording import recording_scene, verify_action_replay
 from weft.shared_exercise_task import GATES, SharedExerciseTaskEnv, build_shared_exercise_task, validate_shared_exercise_task
-from weft.shared_world import validate_shared_world
+from weft.shared_world import HUMAN_ONLY_PROFILE, validate_shared_world
 from weft.shared_world_evidence import verify_shared_world_sources
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, read_package_manifest, write_package_files
 
@@ -93,6 +93,8 @@ def evaluate_shared_exercise_run(run, out, *, root_assistance=False, task_path=N
                 "implementation", "recordings", "manifest.json")
     proof.validate_layout(reserved_paths=reserved)
     implementation_paths = {name: Path(__file__).parent / name for name in IMPLEMENTATION_FILES}
+    if scene["profile"] == HUMAN_ONLY_PROFILE:
+        implementation_paths["person_inventory.py"] = Path(__file__).parent / "person_inventory.py"
     project = Path(__file__).resolve().parents[2]
     for name in ("requirements-lab.lock", "pyproject.toml"):
         if (project / name).is_file():

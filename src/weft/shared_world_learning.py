@@ -12,6 +12,7 @@ import numpy as np
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.pipeline import verify_artifacts
 from weft.shared_world import (
+    HUMAN_ONLY_PROFILE,
     PROFILE as SCENE_PROFILE,
     SharedWorldEnv,
     audit_shared_world_feasibility,
@@ -95,6 +96,8 @@ def validate_shared_policy(policy, scene=None):
         raise ValueError(f"Shared-world policy requires {WEIGHT_DIM} finite weights within [-{WEIGHT_BOUND}, {WEIGHT_BOUND}]")
     if scene is not None:
         validated = validate_shared_world(scene)
+        if validated["profile"] == HUMAN_ONLY_PROFILE:
+            raise ValueError("Person-only scenes require the shared-exercise residual policy, not a coupled object policy")
         if policy.get("scene_sha256") != canonical_hash(validated):
             raise ValueError("Shared-world policy scene_sha256 does not match this scene")
         if policy.get("action_names") != validated["action_contract"]["names"]:
@@ -104,6 +107,8 @@ def validate_shared_policy(policy, scene=None):
 
 def policy_action(policy, env):
     # The environment already validated its model; never compile MuJoCo again per action.
+    if env.scene.get("profile") == HUMAN_ONLY_PROFILE:
+        raise ValueError("Person-only scenes require the shared-exercise residual policy, not a coupled object policy")
     validate_shared_policy(policy)
     if policy.get("scene_sha256") != canonical_hash(env.scene):
         raise ValueError("Shared-world policy scene_sha256 does not match this scene")

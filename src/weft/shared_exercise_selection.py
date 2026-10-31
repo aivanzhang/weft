@@ -13,13 +13,16 @@ from weft.shared_exercise_lab import _json, _validate_policy_package, _verified_
 from weft.shared_exercise_policies import selection_kind
 from weft.shared_exercise_residual_learning import (
     ALGORITHM, BASIS_PROFILE, MAX_CONTROL_STEPS, MAX_OUTPUT_BYTES, MAX_OUTPUT_FILES, RESIDUAL_BOUND,
-    SCOPE, SOURCE_VIEWS, TRAIN_RESETS, _bytes, _check, _coefficients, _failure, _input_unchanged,
+    SCOPE, TRAIN_RESETS, _bytes, _check, _coefficients, _failure, _input_unchanged,
     _integer, _output_path, _runtime_hashes, _score, _seal, _seconds, _seed_plan, _sha,
-    validate_shared_exercise_residual_policy,
+    source_view_names, validate_shared_exercise_residual_policy,
 )
 from weft.shared_exercise_reset import describe_reset_protocol, resolve_reset_options
-from weft.shared_exercise_task import GATES, GATES_PROVENANCE, GATES_SHA256, GATE_PROFILE, PROFILE
-from weft.shared_world import validate_shared_world
+from weft.shared_exercise_task import (
+    GATES, GATES_PROVENANCE, GATES_SHA256, GATE_PROFILE, HUMAN_ONLY_GATE_APPLICABILITY,
+    HUMAN_ONLY_REWARD_PROFILE, HUMAN_ONLY_TASK_PROFILE,
+)
+from weft.shared_world import HUMAN_ONLY_PROFILE, validate_shared_world
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, read_package_manifest, write_package_files
 
 
@@ -52,11 +55,13 @@ def _hash(value, name):
 
 
 def _metrics(metrics, scene, task, policy, reset, *, initial=False):
-    fixed = {"profile": PROFILE, "scene_sha256": policy["scene_sha256"], "task_sha256": policy["task_sha256"],
+    fixed = {"profile": task["profile"], "scene_sha256": policy["scene_sha256"], "task_sha256": policy["task_sha256"],
              "evaluator_sha256": policy["evaluator_sha256"], "gates_sha256": GATES_SHA256,
              "gate_profile": GATE_PROFILE, "gates_provenance": GATES_PROVENANCE, "source_scope": task["source_scope"],
              "root_assistance": task["control"]["root_assistance"], "virtual_object_forces": "forbidden",
              "reset_protocol": describe_reset_protocol(reset)}
+    if task["profile"] == HUMAN_ONLY_TASK_PROFILE:
+        fixed.update(gate_applicability=dict(HUMAN_ONLY_GATE_APPLICABILITY), reward_profile=HUMAN_ONLY_REWARD_PROFILE)
     numeric = {"simulated_duration_s", "valid_observed_duration_s", "declared_duration_s", "joint_effort_mean_squared",
                "root_assistance_mean_squared", "reward_integral", "mean_reward", "failure_reward_penalty"}
     keys = {*fixed, *numeric, *BODY_GATES, "completed_interval", "success", "failure", "failed_gates", "observed_substeps",
@@ -231,7 +236,7 @@ def _history(files, scene, task, policy, deadline):
         "candidate_anchors": ["zero_residual_authored", "previous_best_after_first_generation"],
         "action_accounting": "All anchors and candidates are in population; identical cached trials issue zero new actions; no retries",
         "source_scope": task["source_scope"], "scope": SCOPE,
-        "source_views_sha256": {name: _sha(files[name]) for name in sorted(SOURCE_VIEWS & set(files))}}
+        "source_views_sha256": {name: _sha(files[name]) for name in sorted(source_view_names(scene) & set(files))}}
     if set(settings) != set(expected) | {"created_at", "generations", "population", "max_seconds"} or any(settings.get(k) != v for k, v in expected.items()):
         raise ValueError("Selection input search settings differ from the frozen generator contract")
     for name, value in expected.items():
@@ -386,7 +391,7 @@ def select_feasible_shared_exercise_policy(learning_dir, out, *, max_seconds=15)
     try:
         write_package_files(out, output)
         _input_unchanged(source, manifest, deadline)
-        if _runtime_hashes() != policy["runtime_sha256"]:
+        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != policy["runtime_sha256"]:
             raise ValueError("Selection cannot change the original actor runtime")
         read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=8 * 1024 * 1024, expected_sha256=_sha(selector_raw))
         manifest_hash = _seal(out, "trained", deadline)

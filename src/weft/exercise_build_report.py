@@ -63,6 +63,7 @@ _OTHER_DOCS = {
     "settings.json": ("Build", "Requested options — execution is listed separately"),
     "stages.json": ("Build", "Recorded stage history"),
     "input-preflight.json": ("Build", "Original input checks and identities"),
+    "person-inventory.json": ("World", "User-declared person/ground scope — absence is not detected"),
     "pose_proposals/source.json": ("Original", "Pinned video attribution — original may not be copied"),
     "pose_proposals/report.json": ("Body", "Source-only crop preparation result"),
     "pose_proposals/crop-plan.json": ("Body", "Proposed image crops and eligibility checks"),
@@ -80,6 +81,9 @@ _OTHER_DOCS = {
     "proposal/source-binding.json": ("Equipment", "Body/equipment source-slot bindings"),
     "proposal/source-equivalences.json": ("Equipment", "Original/derivative source mapping identities"),
     "candidate/reconstruction.json": ("World", "Saved shared-world construction result"),
+    "candidate/inventory.json": ("World", "Source-bound person-only declaration"),
+    "candidate/reference-feasibility.json": ("World", "Reference geometry audit — not task success"),
+    "candidate/source-binding-verification.json": ("World", "Verified body/source identities and complete slots"),
     "candidate/scene.json": ("World", "Constructed scene definition — not executed here"),
     "candidate/exercise-task.json": ("World", "Frozen exercise task and gates"),
     "learning_workflow/result.json": ("Learning", "Saved learning workflow outcome"),
@@ -264,6 +268,7 @@ def _history(result, settings, receipt_only):
         previous = seconds
         history.append({"stage": name, "status": status_, "elapsed_seconds": seconds})
     latest = {row["stage"]: row for row in history}
+    person_only = settings.get("scene_scope") == "human_only"
     training = bool(settings.get("training")) or any(name.startswith("learning_") for name in latest)
     recovery = settings.get("pose_recovery") == "selective-crop" or any(
         name in latest for name in ("source_pose_proposals", "source_pose_recovery", "source_body_source"))
@@ -273,8 +278,8 @@ def _history(result, settings, receipt_only):
         ("source_body_source", "Construct the body from verified poses", True),
     ] if recovery else [("body_source", "Estimate body from video", bool(settings.get("video")) or "body_source" in latest)]
     definitions = source_steps + [
-        ("body_seed", "Prepare construction-only body", bool(settings.get("human_run") or settings.get("video")) or "body_seed" in latest),
-        ("equipment_priors", "Propose equipment geometry", True),
+        ("body_seed", "Prepare construction-only body", not person_only and (bool(settings.get("human_run") or settings.get("video")) or "body_seed" in latest)),
+        ("equipment_priors", "Propose equipment geometry", not person_only),
         ("shared_world", "Construct the shared world", True),
         ("learning_training", "Train a controller", training),
         ("learning_training_selection", "Select using training evidence", training),
@@ -315,6 +320,9 @@ def _selection(source):
     if source.receipt_only:
         return chosen, None, None
     chosen.update({name: value for name, value in _OTHER_DOCS.items() if name in source.files})
+    if source.document("settings.json").get("scene_scope") == "human_only":
+        chosen.update({name: ("World", "Saved final lab scene — not executed here")
+                       for name in ("lab/run/scene.json", "learning_workflow/lab/run/scene.json") if name in source.files})
     # A failed body writer can contain metadata but no poses; retain earlier verified source evidence.
     body_prefix = next((prefix for prefix in _PREFIXES if prefix + "/evidence.json" in source.files), None)
     if body_prefix is None:
@@ -409,7 +417,33 @@ def _summary(source, body_prefix, video):
         result["equipment"]["candidate"] = _small_fields(geometry, ("status", "camera_hypothesis", "equipment"))
         result["assumptions"].extend(_strings(geometry.get("assumptions", [])))
     result["assumptions"] = list(dict.fromkeys(result["assumptions"]))
-    result["requested_options"] = _small_fields(settings, ("pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
+    if settings.get("scene_scope") == "human_only":
+        from weft.person_inventory import validate_person_inventory
+
+        if proposal or geometry_name or settings.get("evidence_run") is not None or settings.get("config") is not None:
+            raise ValueError("Person-only build contains contradictory equipment inputs or proposals")
+        inventory = source.document("person-inventory.json", required=True)
+        validate_person_inventory(inventory, source_sha256=result["source"].get("sha256", inventory.get("source_sha256")))
+        if settings.get("inventory") != inventory:
+            raise ValueError("Person-only inventory differs from saved build settings")
+        if "candidate/inventory.json" in source.files and source.document("candidate/inventory.json") != inventory:
+            raise ValueError("Person-only candidate inventory differs from the declared build scope")
+        scenes = [name for name in ("candidate/scene.json", "lab/run/scene.json", "learning_workflow/lab/run/scene.json")
+                  if name in source.files]
+        for name in scenes:
+            scene = source.document(name, required=True)
+            task, binding = scene.get("task"), scene.get("source_binding")
+            if (scene.get("profile") != "shared-world-v3" or scene.get("objects") != []
+                    or scene.get("controlled_id") != "human" or scene.get("target", "missing") is not None
+                    or scene.get("inventory") != inventory or not isinstance(task, dict)
+                    or task.get("type") != "human_motion_v1" or task.get("object_goal", "missing") is not None
+                    or not isinstance(binding, dict) or binding.get("source_sha256") != inventory["source_sha256"]):
+                raise ValueError("Saved scene contradicts the person-only inventory or source identity")
+        result["equipment"] = {"status": "not_applicable" if scenes else "declared_scope_only", "inventory": inventory,
+            "saved_scene_consistency": "metadata_only_checked" if scenes else "no_constructed_scene_available",
+            "scope": "No task-relevant equipment or obstacles declared; absence is not detector-verified."}
+        result["assumptions"].append("Person-only scope is user-declared. Ground, body scale and depth remain authored or monocular priors.")
+    result["requested_options"] = _small_fields(settings, ("scene_scope", "pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
     result["learning"] = _small_fields(source.document("learning_workflow/result.json"),
         ("status", "training", "selection", "evaluation", "scene_sha256", "task_sha256"))
     return result
@@ -499,6 +533,10 @@ def _render(summary, artifacts, palette):
             f'<td>{text(geometry.get("dimensions_model_units", "not recorded"))}</td></tr>')
     equipment_table = ('<table><thead><tr><th>Object</th><th>Saved source frame</th><th>Image box (pixels)</th>'
                        '<th>Proposed size (model units)</th></tr></thead><tbody>' + equipment_table + '</tbody></table>') if equipment_table else "<p>No equipment candidate is available in the inspected sealed files.</p>"
+    if summary["equipment"].get("status") == "not_applicable":
+        equipment_table = "<p>Person-only scene: one selected body and ground, without dummy equipment. Equipment and object-contact gates are not applicable, not passed. Equipment absence is user-declared, not detector-verified.</p>"
+    elif summary["equipment"].get("status") == "declared_scope_only":
+        equipment_table = "<p>Person-only scope was requested, but no constructed scene is available in the sealed files. Equipment absence is user-declared, not detector-verified.</p>"
     css = palette + """
 body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:32px 20px}h1{font:700 2.5rem/1.1 Georgia,serif}h2{margin-top:0}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:24px;margin:22px 0}a{color:var(--weft-primary)}small{display:block;color:var(--weft-muted);overflow-wrap:anywhere}code,pre{overflow-wrap:anywhere;white-space:pre-wrap}pre{font-size:.82rem;max-height:420px;overflow:auto;padding:14px;background:var(--weft-canvas)}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:10px;border-bottom:1px solid var(--weft-border);vertical-align:top}video,img{max-width:100%;max-height:560px;border-radius:8px}video{width:100%}figure{margin:20px 0}figcaption{color:var(--weft-muted)}summary{cursor:pointer;font-weight:650;padding:10px 0}li{margin:10px 0}.notice{border-left:4px solid var(--weft-primary);padding:12px 16px}.tag{font-weight:700;color:var(--weft-primary)}nav{display:flex;gap:20px;flex-wrap:wrap}@media(max-width:600px){main{padding:20px 12px}section{padding:16px}table{font-size:.85rem}td,th{padding:6px}h1{font-size:2rem}}"""
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">

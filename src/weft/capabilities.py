@@ -107,7 +107,7 @@ def describe_capabilities(
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
-    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2"):
+    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])
 
@@ -548,10 +548,11 @@ def describe_capabilities(
         }
         return validate_capabilities(doc)
 
-    if scene_profile in ("shared-world-v1", "shared-world-v2"):
-        from weft.shared_world import OBJECT_ACTIONS, validate_shared_world
+    if scene_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
+        from weft.shared_world import HUMAN_ONLY_PROFILE, OBJECT_ACTIONS, validate_shared_world
 
         validated = validate_shared_world(scene)
+        human_only = scene_profile == HUMAN_ONLY_PROFILE
         dyn_objs = [obj for obj in validated["objects"] if obj["role"] != "static"]
         static_objs = [obj for obj in validated["objects"] if obj["role"] == "static"]
         contract = validated["action_contract"]
@@ -633,7 +634,8 @@ def describe_capabilities(
                 "authored_reference_controller": True,
                 "learned_policy_available": bool(learned_policy_available),
                 "trained_target_id": (
-                    trained_target_id or ("coupled_human_and_" + goal["target_object_id"] if learned_policy_available else None)
+                    trained_target_id or (("human" if human_only else "coupled_human_and_" + goal["target_object_id"])
+                                          if learned_policy_available else None)
                 ),
             },
             "evidence_separation": {
@@ -648,8 +650,25 @@ def describe_capabilities(
                 "Automatic end-to-end single-video coupled person+object 3D perception without explicit scale bridge",
             ],
         }
+        if human_only:
+            doc["representation_family"] = "articulated_human_3d"
+            doc["entities"].update(rigid_objects_present=False, mixed_rigid_articulated=False,
+                                   multi_target_selection_endpoint=None, support="implicit_ground_plane")
+            doc["action_contract"]["discrete_actions"] = []
+            doc["observation_contract"].update(dimension=155, components=[
+                "human_qpos_22_qvel_22_target_qpos_22_target_qvel_22_policy_features_66_phase_1"])
+            doc["task_contract"].update(task_type="human_motion_v1",
+                reward_summary="Human reference tracking minus explicit control effort; no object-target score or equipment bonus.",
+                success_criteria={"human_limits": deepcopy(task["human_limits"]), "object_goal": None},
+                termination_conditions=["nonfinite_dynamics", "human_position_or_velocity_envelope_exceeded"])
+            doc["evidence_separation"].update(inventory_basis=validated["inventory"]["basis"], object_absence_verified=False)
+            doc["unsupported_capabilities"] = [
+                "Equipment, obstacles and object-target tasks; none are declared in this person-only scene",
+                "Unassisted human balance without the 3 explicit virtual root-force actuators",
+                "Measured muscle activation, verified object absence or physical transfer",
+            ]
         if exercise_task is not None:
-            from weft.shared_exercise_task import GATES, validate_shared_exercise_task
+            from weft.shared_exercise_task import GATES, HUMAN_ONLY_GATE_APPLICABILITY, validate_shared_exercise_task
 
             exercise = validate_shared_exercise_task(exercise_task, validated)
             count = 22 if exercise["control"]["root_assistance"] == "explicit_3_axis" else 19
@@ -680,6 +699,13 @@ def describe_capabilities(
                 "Changing task gates, contact requirements or root assistance inside this lab",
                 "Finger grasping, measured muscle activation, verified contact or physical transfer",
             ]
+            if human_only:
+                doc["observation_contract"]["components"] = ["human_reference_conditioned_state", "elapsed_fraction"]
+                doc["task_contract"]["reward_summary"] = "Human reference tracking minus explicit human effort; equipment and contact checks do not apply and add no reward."
+                doc["task_contract"]["success_criteria"].update(
+                    frozen_gates={name: GATES[name] for name in ("angular_rmse_rad", "root_rmse_model_units",
+                        "peak_angular_rmse_rad", "peak_root_rmse_model_units", "max_floor_penetration_model_units")},
+                    gate_applicability=dict(HUMAN_ONLY_GATE_APPLICABILITY))
         return validate_capabilities(doc)
 
     raise ValueError(f"Unsupported scene profile for capability inspection: {scene_profile!r}")

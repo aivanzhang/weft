@@ -216,11 +216,11 @@ def main():
     sw_propose.add_argument("--source-mapping", action="append", default=[], help="Verified original/derivative bundle; repeat for distinct derivatives")
     sw_propose.add_argument("--out", required=True, help="New sealed proposal directory outside the inputs")
     sw_propose.add_argument("--max-seconds", type=float, default=30)
-    exercise_build = commands.add_parser("shared-exercise-build", help="Build one human-only lab from verified body/tracking evidence and explicit equipment priors")
+    exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
     exercise_source.add_argument("--human-run", help="Sealed exercise-body output, mobile exercise-v3 run or ready lab")
-    exercise_source.add_argument("--video", help="Local exercise video; requires --pose-model and matching saved equipment evidence")
+    exercise_source.add_argument("--video", help="Local exercise video; requires --pose-model and either --person-only or saved equipment evidence")
     exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
     exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
     exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
@@ -229,8 +229,10 @@ def main():
     exercise_build.add_argument("--source-note", help="Raw video provenance; default rights not independently verified")
     exercise_build.add_argument("--body-scale", type=float,
                                 help="With --human-run or --video: body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
-    exercise_build.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
-    exercise_build.add_argument("--config", required=True, help="Explicit source-pinned equipment proposal configuration")
+    exercise_build.add_argument("--person-only", action="store_true",
+        help="Declare one selected person with ground-only support and no task-relevant equipment/obstacles; absence is not verified, full reference retained")
+    exercise_build.add_argument("--evidence-run", help="Sealed equipment observation export; required unless --person-only")
+    exercise_build.add_argument("--config", help="Source-pinned equipment configuration; required unless --person-only")
     exercise_build.add_argument("--source-mapping", action="append", default=[])
     exercise_build.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root controls")
     exercise_build.add_argument("--full-reference", action="store_true",
@@ -493,6 +495,11 @@ def main():
                 conditional_exterior=args.conditional_exterior, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
+            if args.person_only:
+                if args.run is not None or args.evidence_run is not None or args.config is not None or args.source_mapping:
+                    raise ValueError("--person-only requires --video or a sealed exercise-body --human-run, without --run, equipment, config or mappings")
+            elif args.evidence_run is None or args.config is None:
+                raise ValueError("Provide --person-only or both --evidence-run and --config")
             labels = {"body_seed": "Prepare source body", "equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
                       "interactive_lab": "Prepare interactive lab", "body_source": "Read exercise video and prepare body",
                       "body_source_progress": "Observe body", "learning_workflow": "Train and compare controllers",
@@ -517,6 +524,7 @@ def main():
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
                 max_seconds=args.max_seconds,
+                **({"scene_scope": "human_only"} if args.person_only else {}),
                 progress=lambda row: print(f"{labels.get(row['stage'], row['stage'].replace('_', ' '))}: {row['status'].replace('_', ' ')}",
                                            file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-inspect":

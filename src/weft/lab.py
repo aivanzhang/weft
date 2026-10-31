@@ -710,7 +710,7 @@ class Lab:
             result.update(scene=session.scene, snapshot=session.snapshot(), artifacts=self.artifacts,
                           learned_policy_available=policy_ready, capabilities=capabilities,
                           evidence_provenance=self.evidence_provenance(capabilities))
-            if result["scene"].get("profile") in ("shared-world-v1", "shared-world-v2"):
+            if result["scene"].get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
                 result["appearance"] = self.avatars.summary(self.appearance)
             if _shared_exercise(session):
                 result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
@@ -881,7 +881,7 @@ class Lab:
                 "shared-exercise"
                 if _shared_exercise(session)
                 else "shared-world"
-                if session.scene.get("profile") in ("shared-world-v1", "shared-world-v2")
+                if session.scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3")
                 else "spatial-rigid"
                 if session.scene.get("profile") == "spatial-rigid-v1"
                 else self.config["profile"]

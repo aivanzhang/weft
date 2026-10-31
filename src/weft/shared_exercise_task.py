@@ -17,11 +17,18 @@ from weft.shared_exercise_reset import (
     HUMAN_JITTER_PROFILE, describe_reset_protocol as _reset_protocol, engine_reset_options,
     resolve_reset_options as _reset_options,
 )
-from weft.shared_world import SharedWorldEnv, prepare_shared_snapshot_validator, validate_shared_world
+from weft.shared_world import HUMAN_ONLY_PROFILE, SharedWorldEnv, prepare_shared_snapshot_validator, validate_shared_world
 from weft.shared_world_observation import EquipmentState, SubstepSample
 
 
 PROFILE = "shared-exercise-task-v1"
+HUMAN_ONLY_TASK_PROFILE = "shared-exercise-task-v2"
+TASK_PROFILES = (PROFILE, HUMAN_ONLY_TASK_PROFILE)
+HUMAN_ONLY_REWARD_PROFILE = "human_tracking_effort_v1"
+HUMAN_ONLY_GATE_APPLICABILITY = MappingProxyType({
+    "human_tracking": "applied", "equipment_stability": "not_applicable",
+    "contact_requirements": "not_applicable",
+})
 GATE_PROFILE = "shared-exercise-gates-v1"
 STATE_PROFILE = "shared-exercise-state-v1"
 MAX_TASK_BYTES = 64 * 1024
@@ -75,7 +82,8 @@ def build_shared_exercise_task(scene, *, root_assistance=False, equipment_ids=No
         raise ValueError("Equipment and contact requirements must be bounded lists")
     identifiers = [obj["id"] for obj in scene["objects"] if obj["role"] != "static"]
     selected = identifiers if equipment_ids is None else list(equipment_ids)
-    task = {"schema_version": 1, "profile": PROFILE, "scene_sha256": canonical_hash(scene),
+    profile = HUMAN_ONLY_TASK_PROFILE if scene["profile"] == HUMAN_ONLY_PROFILE else PROFILE
+    task = {"schema_version": 1, "profile": profile, "scene_sha256": canonical_hash(scene),
             "gate_profile": GATE_PROFILE, "gates_sha256": GATES_SHA256,
             "interval": {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")},
             "control": {"root_assistance": "explicit_3_axis" if root_assistance else "disabled",
@@ -96,7 +104,9 @@ def validate_shared_exercise_task(task, scene):
         "equipment_ids", "contact_requirements", "source_scope",
     }:
         raise ValueError("Exercise task fields or size differ from contract")
-    if (task["schema_version"] != 1 or type(task["schema_version"]) is not int or task["profile"] != PROFILE
+    human_only = scene["profile"] == HUMAN_ONLY_PROFILE
+    profile = HUMAN_ONLY_TASK_PROFILE if human_only else PROFILE
+    if (task["schema_version"] != 1 or type(task["schema_version"]) is not int or task["profile"] != profile
             or task["scene_sha256"] != canonical_hash(scene) or task["gate_profile"] != GATE_PROFILE
             or task["gates_sha256"] != GATES_SHA256):
         raise ValueError("Exercise scene identity or frozen gate profile differs")
@@ -117,12 +127,13 @@ def validate_shared_exercise_task(task, scene):
         raise ValueError("Exercise controls must exclude object forces and explicitly declare root assistance")
     identifiers = task["equipment_ids"]
     dynamic = {obj["id"] for obj in scene["objects"] if obj["role"] != "static"}
-    if (not isinstance(identifiers, list) or not 1 <= len(identifiers) <= 12
+    minimum = 0 if human_only else 1
+    if (not isinstance(identifiers, list) or not minimum <= len(identifiers) <= 12
             or any(not isinstance(name, str) for name in identifiers)
             or len(set(identifiers)) != len(identifiers) or set(identifiers) != dynamic):
         raise ValueError("Exercise stability must cover every unique dynamic equipment object")
     requirements = task["contact_requirements"]
-    if not isinstance(requirements, list) or len(requirements) > MAX_REQUIREMENTS:
+    if not isinstance(requirements, list) or len(requirements) > MAX_REQUIREMENTS or human_only and requirements:
         raise ValueError("Exercise tasks permit at most 24 contact requirements")
     seen = {}
     for row in requirements:
@@ -163,6 +174,8 @@ class _ExerciseMetrics:
         if self.weight <= 1e-9:
             raise ValueError("Exercise force criteria require nonzero declared gravity and body mass")
         self.up = -gravity / np.linalg.norm(gravity)
+        if task["profile"] == HUMAN_ONLY_TASK_PROFILE and initial_equipment:
+            raise ValueError("Person-only reset cannot contain equipment states")
         self.initial = {item.object_id: item for item in initial_equipment if item.object_id in task["equipment_ids"]}
         if set(self.initial) != set(task["equipment_ids"]):
             raise ValueError("Reset must expose all designated equipment states")
@@ -211,6 +224,8 @@ class _ExerciseMetrics:
     def consume(self, sample):
         if not isinstance(sample, SubstepSample):
             raise ValueError("Exercise scoring requires the immutable engine substep contract")
+        if self.task["profile"] == HUMAN_ONLY_TASK_PROFILE and (sample.equipment or sample.contacts):
+            raise ValueError("Person-only substeps cannot contain equipment or human-object contacts")
         expected_step, expected_substep = divmod(self.samples, self.substeps)
         self.samples += 1
         aligned = not (sample.step_index != expected_step + 1 or sample.substep_index != expected_substep + 1
@@ -289,9 +304,13 @@ class _ExerciseMetrics:
         self.joint_effort += joint_effort * dt
         self.root_effort += root_effort * dt
         tracking = math.exp(-angular / GATES["angular_rmse_rad"] ** 2 - root / GATES["root_rmse_model_units"] ** 2)
-        stability = np.mean([math.exp(-sum((value / GATES["equipment_" + key]) ** 2 for key, value in maximum.items()))
-                             for maximum in self.equipment.values()])
-        reward = (.5 * tracking + .3 * stability + .2 * np.mean(contact_scores)) if contact_scores else (.625 * tracking + .375 * stability)
+        if self.task["profile"] == HUMAN_ONLY_TASK_PROFILE:
+            # Absent equipment earns no stability credit; only human tracking is scored.
+            reward = tracking
+        else:
+            stability = np.mean([math.exp(-sum((value / GATES["equipment_" + key]) ** 2 for key, value in maximum.items()))
+                                 for maximum in self.equipment.values()])
+            reward = (.5 * tracking + .3 * stability + .2 * np.mean(contact_scores)) if contact_scores else (.625 * tracking + .375 * stability)
         self.reward_integral += float(reward - .01 * joint_effort - .02 * root_effort) * dt
 
     def metrics(self):
@@ -322,7 +341,7 @@ class _ExerciseMetrics:
                 failures.append("contact_requirement:" + str(index))
         if self.failure:
             failures.insert(0, self.failure)
-        return {"profile": PROFILE, "completed_interval": completed, "success": completed and not failures,
+        return {"profile": self.task["profile"], "completed_interval": completed, "success": completed and not failures,
                 "failure": self.failure, "failed_gates": failures, "observed_substeps": self.samples,
                 "valid_substeps": self.valid_samples, "simulated_duration_s": self.elapsed,
                 "valid_observed_duration_s": self.valid_duration, "declared_duration_s": self.duration,
@@ -337,7 +356,10 @@ class _ExerciseMetrics:
                 "failure_reward_penalty": self.failure_penalty,
                 "gates_sha256": GATES_SHA256, "source_scope": deepcopy(self.task["source_scope"]),
                 "gate_profile": GATE_PROFILE, "gates_provenance": GATES_PROVENANCE,
-                "root_assistance": self.task["control"]["root_assistance"], "virtual_object_forces": "forbidden"}
+                "root_assistance": self.task["control"]["root_assistance"], "virtual_object_forces": "forbidden",
+                **({"gate_applicability": dict(HUMAN_ONLY_GATE_APPLICABILITY),
+                    "reward_profile": HUMAN_ONLY_REWARD_PROFILE}
+                   if self.task["profile"] == HUMAN_ONLY_TASK_PROFILE else {})}
 
 
 class SharedExerciseTaskEnv(gym.Env):
@@ -542,10 +564,12 @@ def prepare_shared_exercise_snapshot_validator(scene, task):
     numeric = ("simulated_duration_s", "valid_observed_duration_s", "declared_duration_s", "peak_angular_rmse_rad",
                "peak_root_rmse_model_units", "max_floor_penetration_model_units", "joint_effort_mean_squared",
                "root_assistance_mean_squared", "reward_integral", "mean_reward", "failure_reward_penalty")
-    fixed = {"profile": PROFILE, "gates_sha256": GATES_SHA256, "gate_profile": GATE_PROFILE,
+    fixed = {"profile": task["profile"], "gates_sha256": GATES_SHA256, "gate_profile": GATE_PROFILE,
              "gates_provenance": GATES_PROVENANCE, "source_scope": task["source_scope"],
              "root_assistance": task["control"]["root_assistance"], "virtual_object_forces": "forbidden",
              "scene_sha256": scene_sha256, "task_sha256": task_sha256}
+    if task["profile"] == HUMAN_ONLY_TASK_PROFILE:
+        fixed.update(gate_applicability=dict(HUMAN_ONLY_GATE_APPLICABILITY), reward_profile=HUMAN_ONLY_REWARD_PROFILE)
     metric_keys = {*fixed, *numeric, "angular_rmse_rad", "root_rmse_model_units", "completed_interval", "success", "failure",
             "failed_gates", "observed_substeps", "valid_substeps", "equipment", "contact_requirements", "evaluator_sha256", "clock_status", "reset_protocol"}
     duration = task["interval"]["horizon_steps"] * scene["dt"]

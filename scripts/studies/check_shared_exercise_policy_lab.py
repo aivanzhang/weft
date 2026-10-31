@@ -8,6 +8,7 @@ import time
 from weft.io import digest, local_time, write_json
 from weft.lab import Lab
 from weft.recording import load_recording, verify_recording
+from weft.shared_world import FULLSPAN_PROFILES
 
 
 def validate_baseline_episode(baseline):
@@ -62,14 +63,14 @@ def main():
                 or status["exercise_task"] != baseline["scene"]["exercise_task"]):
             raise ValueError("This matched study requires the exact unchanged authored selection and baseline task")
         horizon = status["exercise_task"]["interval"]["horizon_steps"]
-        maximum_horizon = 1800 if status["scene"]["profile"] == "shared-world-v2" else 180
+        maximum_horizon = 1800 if status["scene"]["profile"] in FULLSPAN_PROFILES else 180
         if type(horizon) is not int or not 1 <= horizon <= maximum_horizon:
             raise ValueError("Policy interaction requires the complete bounded task interval")
         write_json(out / "initial-status.json", status)
         lab.inspection()
         write_json(out / "inspection.json", lab.inspection_future.result(timeout=10))
         before = lab.load_session().snapshot()
-        object_id = status["scene"]["objects"][0]["id"]
+        object_id = status["scene"]["objects"][0]["id"] if status["scene"]["objects"] else "undeclared-equipment"
         for payload in ({"policy": True, "controller": "coast"}, {"policy": True, "action": 0},
                         {"policy": True, "actor": object_id}):
             try:

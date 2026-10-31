@@ -20,6 +20,10 @@ This preset pins trusted Git runtime **`d0cdbe87d9f89b002e13c969ca1ac1549ae20107
 
 The no-flag shortcut below retains the original sandbox and its separate frozen runtime. `--lab` can select another saved lab only if it matches the chosen preset's exact profile and source pins; neither preset executes artifact-supplied Python or silently replaces a modified cache.
 
+## Build from your person-only exercise video
+
+Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) to declare one selected person with ground-only support and no task-relevant equipment. You supply the video and a local pose model; no equipment/config JSON is needed. The same pipeline creates the body, a shared world with no dummy objects, optional training/evaluation and one recordable lab. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible. This does not replace the two frozen examples above/below.
+
 ## Original full-reference sandbox
 
 The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved initial-geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls, an optional validated policy and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls. To combine a saved mobile-body lab with equipment evidence, use [one-command `shared-exercise-build --human-run … --full-reference`](equipment-proposals.md). It prepares the body directly, then creates one continuous task and one lab; no separate shared-world adaptation or intermediate lab is needed. Camera distance, body scale, box shape and unknown depth remain explicit assumptions.
