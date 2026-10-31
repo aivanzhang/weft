@@ -137,3 +137,12 @@ All handles are terminal. Current product/test bytes remain the frozen reviewed
 versions. Root owns publication, TODO/combined notes and the next separately
 versioned policy-bearing lab/recording contract. Never repin old v1 recordings
 or present this small, mixed control gain as balance/contact generalization.
+
+## Published checkpoint — October 31, 2026, 3:59 PM PDT
+
+Product/test bytes are published at `34d406ef0a1dca2e77f925182a8a479d2396b48f` with exact private
+remote verification. Receipt `.local/camera-learning-publication-01.json`, SHA
+`7529b3fb4827c0abdf3de402607adfe34f6cf1f5c28a8ed64fe829751f59b9c6`. This follow-up changes notes only. Owned
+paths/index were clean and stash empty; all 1,249 unrelated avatar status entries
+were preserved. See [combined next steps](combined.md); no study is live or should
+be repeated merely to resume work.

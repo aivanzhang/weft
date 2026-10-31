@@ -66,14 +66,21 @@ Each study/runtime member was hashed once; the auditor-only import-guard failure
 01 is preserved, and guarded continuation discloses its extra 212-MB reread.
 No native readmission or exact physics/policy replay is implied. [Policy/results/runtime details](camera-shared-learning.md).
 
-Starting published main is `6c73bf77295fca7fdf0dec479b46c28d4afea981`.
-New owned changes are uncommitted; index/stash were empty at this turn's check.
-All unrelated avatar work stays excluded. Fetch confirms `HEAD` and `origin/main`
-still equal `6c73bf7`; index/stash are empty. All native/source-study handles are
-terminal; no source decoder, model inference, paid call, server, browser or
-deployment is active. Next: publish the 16 reviewed paths; all scoped checks and saved audits are complete. Then implement distinct camera-policy lab/recording admission
-without changing v1 artifacts; the source lane still needs another justified
-original-frame constraint for the rejected heel, not a repeat or looser threshold.
+All 16 reviewed paths are published at `34d406ef0a1dca2e77f925182a8a479d2396b48f`; exact
+private remote verified at 3:59 PM PDT. Publication receipt
+`.local/camera-learning-publication-01.json`, SHA
+`7529b3fb4827c0abdf3de402607adfe34f6cf1f5c28a8ed64fe829751f59b9c6`. Owned paths/index were clean, stash empty,
+and all 1,249 unrelated avatar status entries preserved. This documentation-only
+follow-up records publication; no product bytes changed after verification.
+The final documentation head is recorded in `.local/camera-learning-publication-final-02.json`
+after its push. All native/source-study handles are terminal; no source decoder,
+model inference, paid call, server, browser or deployment is active.
+
+Next: implement distinct camera-policy lab/recording admission without changing
+v1 artifacts. The source lane still needs another justified original-frame
+constraint for the rejected heel, not a repeat or looser threshold. Keep the
+full generalized-video goal active; neither this clip nor changed starts proves
+unfamiliar-video reconstruction or independent physical accuracy.
 
 ## Playable camera-based body — October 31, 2026, 3:10 PM PDT
 
