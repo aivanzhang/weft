@@ -35,15 +35,17 @@ def _positive_up(normal):
     return -normal if normal[2] < 0 else normal
 
 
-def _foot_frame(row):
+def _foot_frame(row, indices=FOOT_INDICES):
     reasons = []
+    if len(indices) < 3:
+        return None, {"reasons": ["insufficient_stationary_ground_candidates"]}
     if row.get("status") not in ("tracked", "tracked_partial"):
         return None, {"reasons": ["observation_not_tracked"]}
     image, world = row.get("landmarks"), row.get("world_landmarks")
     if not isinstance(image, list) or not isinstance(world, list) or len(image) != 33 or len(world) != 33:
         return None, {"reasons": ["missing_33_landmark_records"]}
     points, confidence, image_points = [], [], []
-    for index in FOOT_INDICES:
+    for index in indices:
         a, b = image[index], world[index]
         if not isinstance(a, dict) or not isinstance(b, dict):
             return None, {"reasons": ["malformed_foot_landmark"]}
@@ -94,7 +96,7 @@ def _foot_frame(row):
     return (covariance, normal), audit
 
 
-def estimate_ground_orientation(evidence):
+def estimate_ground_orientation(evidence, *, support_prior=None):
     """Screen only the first floor(0.6*N) ordered pose rows; never read floor scores."""
     if not isinstance(evidence, dict) or not isinstance(evidence.get("frames"), list):
         raise ValueError("Ground orientation requires a pose evidence object with frames")
@@ -114,9 +116,22 @@ def estimate_ground_orientation(evidence):
         raise ValueError("Pose times must be finite, increasing and between 0 and 60 seconds")
     cutoff = math.floor(SETTINGS["generation_fraction"] * len(frames))
     selected = frames[:cutoff]
+    support = None
+    if support_prior is not None:
+        from weft.exercise_support_evidence import estimate_exercise_support, _pose_row
+        support = estimate_exercise_support(evidence, camera_prior=support_prior)
+        if support["counts"]["construction_rows"] != cutoff:
+            raise ValueError("Ground/support construction partitions differ")
     audit, usable = [], []
-    for row in selected:
-        geometry, details = _foot_frame(row)
+    for index, row in enumerate(selected):
+        foot_indices, geometry_row = FOOT_INDICES, row
+        if support is not None:
+            foot_indices = tuple(point["index"] for point in support["rows"][index]["ground_points"]
+                                 if point["status"] == "stationary_image_candidate")
+            geometry_row, _ = _pose_row(row)
+        geometry, details = _foot_frame(geometry_row, foot_indices)
+        if support is not None:
+            details["stationary_candidate_indices"] = list(foot_indices)
         entry = {"frame": row["frame"], "evidence_id": row.get("id"), **details,
                  "status": "usable" if geometry is not None else "rejected"}
         audit.append(entry)
@@ -154,7 +169,7 @@ def estimate_ground_orientation(evidence):
         if p90 > SETTINGS["maximum_p90_normal_angle_deg"]:
             reasons.append("p90_normal_dispersion_excessive")
     diagnostic = normal.tolist() if normal is not None else None
-    return {"schema_version": 1, "method": "centered_equal_frame_foot_covariance_v1",
+    result = {"schema_version": 1, "method": "centered_equal_frame_foot_covariance_v1",
             "status": "unavailable" if reasons else "available", "normal": diagnostic if not reasons else None,
             "diagnostic_normal": diagnostic, "reasons": reasons, "metrics": metrics, "audit": audit,
             "settings": dict(SETTINGS), "supplied_pose_rows": len(frames), "construction_rows": cutoff,
@@ -168,3 +183,7 @@ def estimate_ground_orientation(evidence):
             "camera_to_sim": CAMERA_TO_SIM.tolist(), "normal_sign": "Positive camera-up, not measured gravity",
             "scope": "Authored screening limits, not physical truth; model-world heel/toe geometry only",
             "floor_offset": None, "floor_offset_scope": "Separate first-pose-only calibration; not estimated here"}
+    if support is not None:
+        result.update(method="stationary_candidate_foot_covariance_v1", support_selection=support,
+                      scope="Model-world heel/toe plane conditioned on stationary image candidates; not measured ground, contact or gravity")
+    return result

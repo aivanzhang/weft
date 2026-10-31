@@ -89,13 +89,26 @@ poses retained/excluded). This is only a conditional orientation candidate,
 tilted 73.57 degrees from camera-up, with no ground height, gravity calibration,
 body admission or recovered contact/grasp. The first two attempts remain
 startup failures with zero frames/inference. The older four-source selector
-study still abstains on every clip. Before publication, the owner is fixing a
-review-identified oversized-input serialization bound without repeating this
-inference. Exact settings/results and ownership remain in
+study still abstains on every clip. The oversized-input serialization fix is
+complete: 29 affected checks pass, with exact accepted canonical hashes preserved.
+The 43 unchanged legacy checks retain their earlier passes. Root reviewed the
+bounded traversal/string accounting and found no blocker. A saved 772-pose
+validation comparison takes 0.104 s before / 0.404 s after; this is explicit
+validation overhead, not a speedup. No inference or geometry fitting was repeated.
+Root's saved-member/partition audit passes: 38 members plus seal / 41,372,515 B,
+receipt `.local/interval-pose-saved-audit-03.json`, SHA
+`beae97b374616ed82836fcacef1d38b67d52a163feb2ee9962a24beef4d5a7f3`.
+All five reconstruction paths are frozen and released. Exact settings/results and ownership remain in
 `docs/handoffs/exercise-reconstruction.md`. Separate avatar work is untouched.
-Last read-only remote check: `main` is still `356cecd`, stash empty, October 31,
-2026, 10:57 AM PDT. Next: finish reconstruction's review fix and bounded source
-study, update evidence, and checkpoint only reviewed owned files. No API
+**Publication:** support-policy implementation is published at
+`9e7444024552bd5cf1d5a905e024563609945319`, exact private remote verified.
+`.local/static-support-policy-publication-01.json` records no remaining owned
+policy changes, five in-progress reconstruction paths and 85 separate avatar
+status/path entries. The avatar owner is still advancing its tree; no byte-wise
+unchanged or whole-worktree-clean claim is made, and no avatar file was staged.
+Stash was empty at the last read-only check. Next: checkpoint the reviewed
+reconstruction milestone, then use the saved unfamiliar evidence for the next
+explicit ground/contact hypothesis without repeating inference. No API
 calls or hosted deployment. This milestone does not complete generalized
 reconstruction, full exercise learning, ground-force/grasp or physical validation.
 

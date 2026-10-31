@@ -39,8 +39,10 @@ Both trials have exact recorded-action replay. The lowered case retains a
 
 There are 19 explicit joint/torso controls and no translational root forces in
 this example. The authored body template does not establish free-floating balance,
-anatomy or biomechanics. Learned support policies, floor-force requirements and
-grasp are unavailable. Avatar recording for this new support profile is not yet
+anatomy or biomechanics. [Support-policy training, comparison and recording](static-support.md#train-compare-and-record-a-support-policy)
+are available; the verified search selected the unchanged authored baseline,
+not an improved controller. Floor-force requirements and grasp are unavailable.
+Avatar recording for this new support profile is not yet
 qualified; launch it without avatar options. Existing learned object and person-only examples remain
 separate supported modes in the same lab.
 
