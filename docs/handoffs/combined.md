@@ -2,7 +2,7 @@
 
 ## Guided static-support build — October 31, 2026, 11:31 AM PDT
 
-Goal active. Latest verified private remote is `5b6eda2868c5d075c10215e33ed84b85e941224b`.
+Goal active. Latest verified private remote is `c9bed6ff2f1d1c6ccdbdc06d1b42825e360167bc`.
 Root owns seven runtime files: `cli.py`, `exercise_support_inputs.py`,
 `exercise_scene_inputs.py`, `exercise_scene_pipeline.py`, `shared_world_support.py`,
 `exercise_learning_pipeline.py` and `exercise_build_report.py`, plus three new
@@ -125,12 +125,39 @@ verifies 48 members plus seal (49 files), 14,479,371 B, 43 copied input/runtime
 pins, all 257 mapped frames, both clocks and all slot denominators. One cached
 read per file; 0.034189 s summed active verification phases, not total
 orchestration elapsed time. No product/native/media rerun. No live native process.
-Agent is investigating the next
-calibration hypothesis read-only in `.local/reconstruction-next-hypothesis-01.md`;
-released publication files must remain unchanged. Shared Meta budget untouched.
+The six-file reconstruction/evidence checkpoint is published at
+`c9bed6ff2f1d1c6ccdbdc06d1b42825e360167bc`, exact live remote verified.
+Receipt `.local/exercise-equipment-support-publication-01.json`, SHA
+`6e626e0aa951be6dd40678fd165ee8cf467707de878e828097244e8fdb71919a`:
+owned files clean at verification, zero stashes, 98 avatar status/path entries
+excluded. Shared Meta budget untouched.
 
-Next: publish the separately reviewed and saved-audited reconstruction delta;
-continue the agent's next calibration hypothesis without rerunning this acceptance.
+**Next parallel lane:** read-only diagnosis is complete in
+`.local/reconstruction-next-hypothesis-01.md`, SHA
+`c5dd5d3623f5b5388b710e75ddf3fe05e72e116d81ea0c21f016dd42b815f03d`.
+The 73.57-degree normal describes a consistent model heel/toe surface, not
+measured ground: 77/126 selected rows are trivially planar triples, foot
+world-XY/image direction disagreement is 20.63 degrees versus 2.52 for core
+segments. Camera, inclined feet and local depth errors remain ambiguous.
+Do not install the plane, alter gravity or repeat failed floor fits.
+
+Root authorized `/root/exercise_reconstruction` to implement/test one pure
+projection-consistency diagnostic and run one saved-source study at
+`artifacts/interval-foot-projection-consistency-01`. Ownership is new
+`src/weft/exercise_support_projection.py`,
+`tests/test_exercise_support_projection.py` and
+`docs/handoffs/exercise-projection.md`; no published ground/evaluator/default or
+root/avatars file changes. Freeze focal 640 px, center 320/240, original axes and
+126 existing selected rows inside the first 463 construction poses. Fit only
+three camera-translation values from non-foot core landmarks, then check
+unfitted heel/toe projections. Preserve 337 rejected/309 later rows without
+using their payloads to fit or evaluate. Fixed 90% coverage/5-degree diagnostic
+criteria do not become physical/task gates. Bounds 10 s compute / 30 s outer,
+512 MiB RSS / 8 MiB output, no inference, decoding, native body/physics, network or
+paid calls. Every outcome leaves ground/contact unknown and admission unchanged.
+The agent records exact plan, results and handles in its new handoff; no native
+root job remains. Next root action is review that delta/result without rerunning
+the completed guided-build acceptance.
 
 ## Support-policy integration — October 31, 2026, 10:57 AM PDT
 

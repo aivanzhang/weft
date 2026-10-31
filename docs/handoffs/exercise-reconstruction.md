@@ -25,10 +25,22 @@ starts at frame 154. Candidates at frames 20/22 share six window poses and are
 not independent contact confirmations. No original external media, decoding,
 inference, estimator/native rerun or network was used.
 
-The next agent task is read-only calibration-hypothesis analysis, separately
-recorded at `.local/reconstruction-next-hypothesis-01.md`. Released product files
-remain frozen; no body/floor installation or new source job is authorized by
-this diagnostic note alone.
+Root published this six-file checkpoint at
+`c9bed6ff2f1d1c6ccdbdc06d1b42825e360167bc`; exact private remote verified.
+Receipt `.local/exercise-equipment-support-publication-01.json`, SHA
+`6e626e0aa951be6dd40678fd165ee8cf467707de878e828097244e8fdb71919a`.
+Owned files were clean, stashes empty and 98 separate avatar status/path entries
+excluded at verification.
+
+Calibration diagnosis is complete at `.local/reconstruction-next-hypothesis-01.md`,
+SHA `c5dd5d3623f5b5388b710e75ddf3fe05e72e116d81ea0c21f016dd42b815f03d`.
+The 73.57-degree normal can describe a model foot surface; it is not a measured
+floor. Root authorized the frozen, source-only projection diagnostic in new
+`exercise_support_projection.py`, its focused tests and
+`docs/handoffs/exercise-projection.md`, with one new study directory. These
+published equipment/ground files remain unchanged by that lane. No body/floor
+installation, new inference, physics or external request is authorized by the
+diagnostic scope. See the combined handoff for exact ownership and bounds.
 
 ## Fixed hypothesis and limits
 
