@@ -1,5 +1,13 @@
 # Weft iteration backlog
 
+## Coupled feet and surface workflow — October 31, 2026
+
+- [x] Add source-pinned feet and six ankle controls to the same MuJoCo model under explicit `shared-world-v5`, preserving v2/v3/v4 bases, original body/root/floor, original 22 control channels and 19-joint scoring. Initial ankle targets are authored holds, not recovered video motion.
+- [x] Verify 19 pure helper cases, 12 new native/render cases and 18 affected legacy engine cases. Preserve the initial test-only argument failure; rerun only that corrected case. Prepared/live rendering reuses models and still validates each frame. Independent engine review found no blocker. [Exact frozen runs and limits](docs/handoffs/shared-world-feet.md#coupled-engine-checkpoint--october-31-2026-1248-pm-pdt).
+- [ ] Integrate the new motor layout into the existing task/lab/recording workflow. Old 22-motor scorers deliberately reject it; learning, ground-load tasks and end-to-end coupled-feet replay are not yet supported. Do not bypass the no-object-goal lab guard or change protected scores.
+- [ ] Finish the public calibration/surface-anchor CLI and sealed offline report. The 31 focused API checks pass; a second terminal-status review is being resolved before the one tiny analytical public-command acceptance. No real-source camera/contact qualification follows from authored inputs.
+- [ ] Publish only completed reviewed files; retain separate avatar work and an empty stash. [Current ownership](docs/handoffs/combined.md#coupled-feet-and-surface-workflow--october-31-2026).
+
 ## One-command authored-support sandbox — October 31, 2026
 
 The combined goal remains active. Root owns the public launcher and its integration; `/root/exercise_reconstruction` independently owns source-backed calibration/contact reconstruction. Separate avatar work is excluded.

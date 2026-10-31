@@ -2,6 +2,7 @@
 
 from copy import deepcopy
 import math
+import re
 import xml.etree.ElementTree as ET
 
 import mujoco
@@ -124,28 +125,56 @@ def validate_reference(spec, reference):
     return reference
 
 
-def foot_xml(spec, reference):
+def append_foot_capsules(root, spec, reference, *, scale=1.0, name_prefix=""):
+    """Append authored capsules without compiling or changing existing body geometry."""
     validate_reference(spec, reference)
     if any(shape["status"] != "inferred_fixed_triangle" for shape in reference["fixed_shapes"].values()):
         raise ValueError("Candidate unavailable: both fixed foot shapes are required")
-    root = ET.fromstring(human_xml(spec))
-    actuator = root.find("actuator")
+    if not _number(scale, .5, 2.):
+        raise ValueError("Foot geometry scale must be within [0.5, 2.0]")
+    if not isinstance(name_prefix, str) or not re.fullmatch(r"[A-Za-z0-9_]{0,64}", name_prefix):
+        raise ValueError("Foot XML prefix must be a bounded simple name")
+    if not isinstance(root, ET.Element) or root.tag != "mujoco" or len(root.findall("actuator")) != 1:
+        raise ValueError("Foot attachment requires one existing MJCF actuator element")
+    parents = {side: root.findall(f'.//body[@name="{name_prefix}{side}_knee_body"]') for side in SIDES}
+    if any(len(items) != 1 for items in parents.values()):
+        raise ValueError("Foot attachment requires both unique existing knee bodies")
+    suffixes = ("foot_body", "foot_geom", "heel_site", "foot_index_site",
+                "ankle_z", "ankle_y", "ankle_x", "ankle_z_motor", "ankle_y_motor", "ankle_x_motor")
+    new_names = {name_prefix + side + "_" + suffix for side in SIDES for suffix in suffixes}
+    if new_names.intersection(element.get("name") for element in root.iter()):
+        raise ValueError("Foot attachment names already exist; refusing a duplicate extension")
+    actuator, attachments, motors = root.find("actuator"), [], []
     for side in SIDES:
         parameters = reference["fixed_shapes"][side]["fixed_parameters"]
         heel = [-parameters["along"], 0., -parameters["height"]]
         toe = [parameters["length"] - parameters["along"], 0., -parameters["height"]]
-        parent = root.find(f'.//body[@name="{side}_knee_body"]')
-        foot = ET.SubElement(parent, "body", name=f"{side}_foot_body", pos=f'0 0 {-spec["lengths"]["shin"]}')
+        # Preserve legacy scale-one XML exactly; only added geometry receives scale.
+        if scale != 1:
+            heel, toe = [[value * scale for value in point] for point in (heel, toe)]
+        shin = spec["lengths"]["shin"] if scale == 1 else spec["lengths"]["shin"] * scale
+        foot = ET.Element("body", name=f"{name_prefix}{side}_foot_body", pos=f"0 0 {-shin}")
         for axis, vector in (("z", "0 0 1"), ("y", "0 1 0"), ("x", "1 0 0")):
-            name = f"{side}_ankle_{axis}"
+            name = f"{name_prefix}{side}_ankle_{axis}"
             ET.SubElement(foot, "joint", name=name, axis=vector, range=f"{-math.tau} {math.tau}")
-            ET.SubElement(actuator, "motor", name=name + "_motor", joint=name,
-                          ctrllimited="true", ctrlrange="-12 12", gear="1")
-        ET.SubElement(foot, "geom", name=f"{side}_foot_geom", type="capsule",
-                      fromto=" ".join(map(str, heel + toe)), size=str(FOOT_BODY_CONTRACT["radius_model_units"]),
-                      mass=str(FOOT_BODY_CONTRACT["mass_per_foot_kg"]))
+            motors.append(ET.Element("motor", name=name + "_motor", joint=name,
+                                     ctrllimited="true", ctrlrange="-12 12", gear="1"))
+        ET.SubElement(foot, "geom", name=f"{name_prefix}{side}_foot_geom", type="capsule",
+                      fromto=" ".join(map(str, heel + toe)), size=str(FOOT_BODY_CONTRACT["radius_model_units"] * scale),
+                      mass=str(FOOT_BODY_CONTRACT["mass_per_foot_kg"] * scale**3))
         for name, point in (("heel", heel), ("foot_index", toe)):
-            ET.SubElement(foot, "site", name=f"{side}_{name}_site", pos=" ".join(map(str, point)), size=".01")
+            ET.SubElement(foot, "site", name=f"{name_prefix}{side}_{name}_site", pos=" ".join(map(str, point)),
+                          size=".01" if scale == 1 else str(.01 * scale))
+        attachments.append((parents[side][0], foot))
+    for parent, foot in attachments:
+        parent.append(foot)
+    actuator.extend(motors)
+    return root
+
+
+def foot_xml(spec, reference):
+    root = ET.fromstring(human_xml(spec))
+    append_foot_capsules(root, spec, reference)
     return ET.tostring(root, encoding="unicode")
 
 

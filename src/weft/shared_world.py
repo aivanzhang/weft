@@ -27,7 +27,8 @@ PROFILE = "shared-world-v1"
 FULLSPAN_PROFILE = "shared-world-v2"
 HUMAN_ONLY_PROFILE = "shared-world-v3"
 STATIC_SUPPORT_PROFILE = "shared-world-v4"
-FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE)
+FEET_PROFILE = "shared-world-v5"
+FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, FEET_PROFILE)
 NO_OBJECT_GOAL_PROFILES = (HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE)
 MAX_FULLSPAN_STEPS = 1800
 MAX_FULLSPAN_SECONDS = 60.0
@@ -39,6 +40,26 @@ STATE_EPS = 1e-8
 COMPOUND_PROFILE = "rigid-compound-v1"
 MAX_OBJECT_PARTS = 8
 MAX_RIGID_PRIMITIVES = 32
+_FEET_NAMES = frozenset(f"{side}_{name}" for side in ("left", "right")
+                        for name in ("foot", "foot_body", "foot_geom", "heel_site", "foot_index_site",
+                                     "ankle_z", "ankle_y", "ankle_x", "ankle_z_motor", "ankle_y_motor", "ankle_x_motor"))
+
+
+def base_scene_profile(scene):
+    return scene["base_profile"] if scene.get("profile") == FEET_PROFILE else scene["profile"]
+
+
+def _no_object_goal(scene):
+    return base_scene_profile(scene) in NO_OBJECT_GOAL_PROFILES
+
+
+def _human_mass_for_scene(scene, scale):
+    mass = human_subtree_mass(scene["human_spec"], scale=scale)
+    if scene.get("profile") == FEET_PROFILE:
+        from weft.shared_world_feet import added_foot_mass
+
+        mass += added_foot_mass(scale)
+    return mass
 
 CALIBRATION_STATUSES = frozenset({"calibrated", "estimated_prior", "unverified"})
 SOURCE_MODES = frozenset({"analytic_fixture", "source_qualified"})
@@ -73,7 +94,7 @@ _HUMAN_SEGMENT_BY_GEOM = {"torso_geom": "torso", "head_geom": "head"} | {
     f"{side}_{joint}_geom": f"{side}_{segment}"
     for side in ("left", "right")
     for joint, segment in (("shoulder", "upper_arm"), ("elbow", "forearm"), ("hip", "thigh"), ("knee", "shin"))
-}
+} | {f"{side}_foot_geom": f"{side}_foot" for side in ("left", "right")}
 
 
 def _reserved_human_names(human_spec):
@@ -271,7 +292,7 @@ def action_contract_for_scene(scene):
     joint_names, _ = joint_contract(human_spec)
     scale = float(scene["coordinate_frame"]["scale_bridge"]["body_height_to_world_scale"])
     mobility = human_spec["mobility"]
-    h_mass = human_subtree_mass(human_spec, scale=scale)
+    h_mass = _human_mass_for_scene(scene, scale)
     root_limit = float(min(mobility["maximum_force"], mobility["force_limit_weight_multiple"] * h_mass * 9.81))
     joint_limits = [float(human_spec.get("motor_limits", {}).get(name, 30.0)) for name in joint_names]
     dyn_objs = _dynamic_objects(scene)
@@ -284,6 +305,13 @@ def action_contract_for_scene(scene):
     force_unit = f"{mass_unit} * {length_unit} / second^2"
     torque_unit = f"{mass_unit} * {length_unit}^2 / second^2"
     units = [torque_unit] * len(joint_names) + [force_unit] * 3
+    if scene.get("profile") == FEET_PROFILE:
+        from weft.shared_world_feet import ANKLE_LIMITS, ANKLE_NAMES
+
+        names.extend(ANKLE_NAMES)
+        limits.extend(ANKLE_LIMITS)
+        units.extend([torque_unit] * len(ANKLE_NAMES))
+    human_motor_count = len(names)
     for obj in dyn_objs:
         for axis in ("fx", "fy", "fz"):
             names.append(f"{obj['id']}_{axis}")
@@ -291,7 +319,7 @@ def action_contract_for_scene(scene):
             units.append(force_unit)
     return {
         "names": names,
-        "human_motor_count": 22,
+        "human_motor_count": human_motor_count,
         "object_force_channels": 3 * len(dyn_objs),
         "dynamic_object_ids": [obj["id"] for obj in dyn_objs],
         "normalized_bounds": [-1.0, 1.0],
@@ -312,8 +340,45 @@ def full_reference_horizon(reference, dt):
     return steps
 
 
+def add_feet_to_shared_world(scene, reference_bytes):
+    """Extend a validated world without changing its body, floor, source interval or task gates."""
+    from weft.shared_world_feet import build_foot_extension
+
+    result = validate_shared_world(scene)
+    if result["profile"] not in (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE):
+        raise ValueError("Feet require an unextended complete-reference shared world")
+    result.update(base_profile=result["profile"], profile=FEET_PROFILE,
+                  foot_extension=build_foot_extension(result["human_spec"], reference_bytes),
+                  learned_policy_available=False)
+    result.pop("action_contract")
+    return validate_shared_world(result)
+
+
 def validate_shared_world(scene):
     """Validate legacy coupled worlds or an explicit complete-reference person-only world."""
+    if isinstance(scene, dict) and scene.get("profile") == FEET_PROFILE:
+        from weft.shared_world_feet import validate_foot_extension
+
+        if scene.get("base_profile") not in (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE):
+            raise ValueError("Shared-world feet require an explicit full-reference base profile")
+        if scene.get("learned_policy_available", False) is not False:
+            raise ValueError("Existing policies do not control the six added ankle channels")
+        base = deepcopy(scene)
+        base["profile"] = base.pop("base_profile")
+        extension = base.pop("foot_extension", None)
+        has_declared_contract = "action_contract" in base
+        declared_contract = base.pop("action_contract", None)
+        result = validate_shared_world(base)
+        result.update(profile=FEET_PROFILE, base_profile=base["profile"],
+                      foot_extension=validate_foot_extension(result["human_spec"], extension))
+        if any(obj["id"] in _FEET_NAMES for obj in result["objects"]):
+            raise ValueError("Rigid object identifiers collide with added foot geometry")
+        result["action_contract"] = action_contract_for_scene(result)
+        if has_declared_contract and declared_contract != result["action_contract"]:
+            raise ValueError("Shared-world feet action contract differs from its 28 human motors")
+        if len(json.dumps(result, allow_nan=False, separators=(",", ":")).encode("utf-8")) > 16 << 20:
+            raise ValueError("Shared-world feet scene metadata exceeds the 16 MiB bound")
+        return result
     required = {
         "schema_version",
         "profile",
@@ -976,7 +1041,22 @@ def _build_world_xml(scene):
             forcelimited="true",
             forcerange=f"{-max_root_force} {max_root_force}",
         )
+    if scene.get("profile") == FEET_PROFILE:
+        from weft.shared_world_feet import append_shared_feet
+
+        append_shared_feet(root, human_spec, scene["foot_extension"], scale=scale)
     return ET.tostring(root, encoding="unicode")
+
+
+def _initial_foot_hold(model, data, scene, q_indices, original_target):
+    from weft.shared_world_feet import initial_ankle_angles
+
+    # Knee transforms come from the original nominal pose, never a jittered reset.
+    data.qpos[q_indices[:22]] = original_target
+    mujoco.mj_forward(model, data)
+    knees = {side: data.xmat[model.body(f"{side}_knee_body").id].reshape(3, 3).copy()
+             for side in ("left", "right")}
+    return np.asarray(initial_ankle_angles(scene["human_spec"], scene["foot_extension"], knees), dtype=float)
 
 
 def shared_world_xml(scene):
@@ -1027,7 +1107,12 @@ def audit_shared_world_feasibility(scene):
     data = mujoco.MjData(model)
 
     joint_names, _ = joint_contract(human_spec)
-    q_indices = np.array([int(model.jnt_qposadr[model.joint(name).id]) for name in (*joint_names, *ROOT_AXES)])
+    names = (*joint_names, *ROOT_AXES)
+    if validated["profile"] == FEET_PROFILE:
+        from weft.shared_world_feet import ANKLE_NAMES
+
+        names += ANKLE_NAMES
+    q_indices = np.array([int(model.jnt_qposadr[model.joint(name).id]) for name in names])
     ref_times = np.array([row["time_s"] for row in human_spec["reference"]], dtype=float)
     duration = float(ref_times[-1] - ref_times[0])
     if not 0.0 < duration <= 60.0:
@@ -1039,6 +1124,9 @@ def audit_shared_world_feasibility(scene):
     ref_angles = np.array([[row["joints"][name] for row in human_spec["reference"]] for name in joint_names], dtype=float)
     ref_roots = np.array([row["translation"] for row in human_spec["root_reference"]], dtype=float).T * scale
     ref_matrix = np.vstack((ref_angles, ref_roots))
+    if validated["profile"] == FEET_PROFILE:
+        hold = _initial_foot_hold(model, data, validated, q_indices, ref_matrix[:, 0])
+        ref_matrix = np.vstack((ref_matrix, np.repeat(hold[:, None], len(ref_times), axis=1)))
 
     floor_geom = model.geom("mobile_floor").id
     static_geoms = {model.geom(name).id: obj["id"] for obj, _, name in _geometry_names(validated) if obj["role"] == "static"}
@@ -1053,7 +1141,7 @@ def audit_shared_world_feasibility(scene):
 
     def _set_pose_at(timestamp):
         mujoco.mj_resetData(model, data)
-        for idx in range(22):
+        for idx in range(len(q_indices)):
             data.qpos[q_indices[idx]] = float(np.interp(timestamp, ref_times, ref_matrix[idx]))
         data.time = float(timestamp)
         mujoco.mj_forward(model, data)
@@ -1130,6 +1218,9 @@ def audit_shared_world_feasibility(scene):
             "Zero-physics kinematic preflight of the coupled human reference and initial rigid-object placement; "
             "not dynamic stability, balance, or verified physical accuracy."
         ),
+        **({"ankle_target_scope": "Authored original-start local-angle hold on every body/grid pose; not source foot interpolation",
+            "foot_reference_sha256": validated["foot_extension"]["reference_sha256"]}
+           if validated["profile"] == FEET_PROFILE else {}),
         "summary": {
             "source_pose_checks": len(ref_times),
             "control_grid_checks": grid_count,
@@ -1152,9 +1243,15 @@ class SharedWorldEnv(gym.Env):
 
     metadata = {"render_modes": ["rgb_array"], "render_fps": 30}
 
-    def __init__(self, scene, render_mode=None, *, substep_observer=None):
+    def __init__(self, scene, render_mode=None, *, substep_observer=None, substep_observer_motor_count=None):
         if substep_observer is not None and not callable(substep_observer):
             raise TypeError("substep_observer must be callable or None")
+        observer_count = 28 if isinstance(scene, dict) and scene.get("profile") == FEET_PROFILE else 22
+        if (substep_observer_motor_count is not None and
+                (substep_observer is None or type(substep_observer_motor_count) is not int or substep_observer_motor_count != observer_count)):
+            raise ValueError("Substep observer motor layout differs from the shared-world profile")
+        if substep_observer is not None and observer_count == 28 and substep_observer_motor_count != 28:
+            raise ValueError("Foot substep observers must explicitly opt into the 28-motor layout")
         self._substep_observer = substep_observer
         self.scene = validate_shared_world(scene)
         self.render_mode = render_mode
@@ -1172,13 +1269,20 @@ class SharedWorldEnv(gym.Env):
         self._reference_data = None
 
         self.human_action_names = tuple(self.joint_names) + ROOT_AXES
+        self.ankle_names = ()
+        if self.scene["profile"] == FEET_PROFILE:
+            from weft.shared_world_feet import ANKLE_NAMES
+
+            self.ankle_names = ANKLE_NAMES
+            self.human_action_names += self.ankle_names
+        self.human_motor_count = len(self.human_action_names)
         self.group_names = GROUP_NAMES
         self.group_indices = np.array(
             [
                 0 if name.startswith("torso_") else 1 if ("shoulder" in name or "hip" in name) else 2
                 for name in self.joint_names
             ]
-            + [3, 3, 3],
+            + [3, 3, 3] + [2] * len(self.ankle_names),
             dtype=int,
         )
 
@@ -1188,11 +1292,11 @@ class SharedWorldEnv(gym.Env):
         self._actuators = np.array(
             [self.model.actuator(f"{name}_motor").id for name in self.human_action_names], dtype=int
         )
-        if len(self._actuators) != 22 or self.model.nu != 22:
-            raise ValueError("SharedWorldEnv requires exact 22 human motor actuators in MjModel")
+        if len(self._actuators) != self.human_motor_count or self.model.nu != self.human_motor_count:
+            raise ValueError(f"SharedWorldEnv requires exact {self.human_motor_count} human motor actuators in MjModel")
 
         mobility = self.human_spec["mobility"]
-        self.human_mass = human_subtree_mass(self.human_spec, scale=self.scale)
+        self.human_mass = _human_mass_for_scene(self.scene, self.scale)
         root_limit = min(mobility["maximum_force"], mobility["force_limit_weight_multiple"] * self.human_mass * 9.81)
         joint_motor_limits = np.array(
             [float(self.human_spec.get("motor_limits", {}).get(name, 30.0)) for name in self.joint_names], dtype=float
@@ -1200,6 +1304,12 @@ class SharedWorldEnv(gym.Env):
         self.human_limits = np.concatenate((joint_motor_limits, np.repeat(root_limit, 3)))
         self._kp = np.concatenate((np.full(19, 40.0), np.repeat(mobility["kp_per_mass"] * self.human_mass, 3)))
         self._kd = np.concatenate((np.full(19, 5.0), np.repeat(mobility["kd_per_mass"] * self.human_mass, 3)))
+        if self.ankle_names:
+            from weft.shared_world_feet import ANKLE_LIMITS
+
+            self.human_limits = np.concatenate((self.human_limits, ANKLE_LIMITS))
+            self._kp = np.concatenate((self._kp, np.full(6, 40.0)))
+            self._kd = np.concatenate((self._kd, np.full(6, 5.0)))
 
         self._times = np.array([row["time_s"] for row in self.human_spec["reference"]], dtype=float)
         self.source_start = float(self._times[0] + self.start_offset_s)
@@ -1208,6 +1318,10 @@ class SharedWorldEnv(gym.Env):
         )
         ref_roots = np.array([row["translation"] for row in self.human_spec["root_reference"]], dtype=float).T * self.scale
         self._reference = np.vstack((ref_angles, ref_roots))
+        self._ankle_hold = np.empty(0)
+        if self.ankle_names:
+            self._ankle_hold = _initial_foot_hold(self.model, self.data, self.scene, self._q, self._reference[:, 0])
+            self._reference = np.vstack((self._reference, np.repeat(self._ankle_hold[:, None], len(self._times), axis=1)))
         self._slopes = np.diff(self._reference, axis=1) / np.diff(self._times)
         if not np.isfinite(self._slopes).all() or np.max(np.abs(self._slopes)) > 1e4:
             raise ValueError("Human reference velocities exceed the finite feature envelope")
@@ -1258,6 +1372,9 @@ class SharedWorldEnv(gym.Env):
             for _, a, b, _ in HUMAN_SEGMENT_DEFS
             for endpoint in (a, b)
         }
+        if self.ankle_names:
+            self._site_ids.update({f"{side}_{point}": self.model.site(f"{side}_{point}_site").id
+                                   for side in ("left", "right") for point in ("heel", "foot_index")})
         lengths = self.human_spec["lengths"]
         self.human_height = (lengths["thigh"] + lengths["shin"] + lengths["torso"] + 0.34) * self.scale
 
@@ -1267,7 +1384,7 @@ class SharedWorldEnv(gym.Env):
         self.physical_limits.setflags(write=False)
 
         act_dim = len(self.action_names)
-        obs_dim = 155 + 13 * len(self.scene["objects"]) + (0 if self.scene["profile"] in NO_OBJECT_GOAL_PROFILES else 3)
+        obs_dim = 7 * self.human_motor_count + 1 + 13 * len(self.scene["objects"]) + (0 if _no_object_goal(self.scene) else 3)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(act_dim,), dtype=np.float32)
         self.observation_space = spaces.Box(
             np.full(obs_dim, -1e6, dtype=np.float32),
@@ -1292,7 +1409,7 @@ class SharedWorldEnv(gym.Env):
         target = self._reference[:, index] + self._slopes[:, index] * (timestamp - self._times[index])
         velocity_index = reference_velocity_index(
             self._times, timestamp, elapsed=elapsed, timestep=self.model.opt.timestep, source_start=self.source_start)
-        velocity = self._slopes[:, velocity_index].copy() if velocity_index is not None else np.zeros(22)
+        velocity = self._slopes[:, velocity_index].copy() if velocity_index is not None else np.zeros(self.human_motor_count)
         return target, velocity
 
     def target_state(self):
@@ -1344,7 +1461,7 @@ class SharedWorldEnv(gym.Env):
             for val in obj[field]
         ]
         goal_offset = []
-        if self.scene["profile"] not in NO_OBJECT_GOAL_PROFILES:
+        if not _no_object_goal(self.scene):
             target_id = self.scene["task"]["object_goal"]["target_object_id"]
             goal_obj = next(obj for obj in objects if obj["id"] == target_id)
             goal_offset = (np.asarray(self.scene["target"], dtype=float) - np.asarray(goal_obj["position"], dtype=float)).tolist()
@@ -1467,7 +1584,7 @@ class SharedWorldEnv(gym.Env):
             "interval_start_s": start_s,
             "interval_end_s": end_s if math.isfinite(end_s) else None,
             "contact_time_s": start_s,
-            "human_action": tuple(map(float, action[:22])),
+            "human_action": tuple(map(float, action[:self.human_motor_count])),
         }
 
         def invalid(reason):
@@ -1601,7 +1718,7 @@ class SharedWorldEnv(gym.Env):
     def authored_action(self):
         """Programmed baseline: human tracks reference via explicit PD+bias motors; rigid objects unforced."""
         vec = np.zeros(len(self.action_names), dtype=float)
-        vec[:22] = self.authored_human_action()
+        vec[:self.human_motor_count] = self.authored_human_action()
         return vec
 
     def manual_action_vector(self, *, selected_motor=None, motor_nudge=0.0, object_id=None, object_action_code=0):
@@ -1610,7 +1727,8 @@ class SharedWorldEnv(gym.Env):
         if object_id is not None and object_id != "human":
             idx = self._dynamic_ids.index(object_id)
             # Only requested channels act; reference feedback is a separate controller.
-            vec[22 + 3 * idx : 22 + 3 * (idx + 1)] = self.discrete_object_action_3d(object_id, object_action_code)
+            start = self.human_motor_count + 3 * idx
+            vec[start:start + 3] = self.discrete_object_action_3d(object_id, object_action_code)
             return vec
         if selected_motor is not None:
             if selected_motor not in self.human_action_names:
@@ -1780,6 +1898,11 @@ class SharedWorldEnv(gym.Env):
             return "human_position_envelope_exceeded"
         if np.max(np.abs(v[:19])) > 30.0 or np.max(np.abs(v[19:22] / self.scale)) > 10.0:
             return "human_velocity_envelope_exceeded"
+        if self.ankle_names:
+            if np.max(np.abs(q[22:])) > 8.0:
+                return "human_position_envelope_exceeded"
+            if np.max(np.abs(v[22:])) > 30.0:
+                return "human_velocity_envelope_exceeded"
         bounds = np.asarray(self.scene["bounds"], dtype=float)
         for obj in self._dynamic_objects:
             body = self._object_body_ids[obj["id"]]
@@ -1815,14 +1938,15 @@ class SharedWorldEnv(gym.Env):
             self._failure, self._done = "nonfinite_dynamics", True
             raise RuntimeError("Nonfinite shared-world state; physics was not advanced")
 
-        human_forces = values[:22] * self.human_limits
+        human_forces = values[:self.human_motor_count] * self.human_limits
         self.data.ctrl[:] = 0.0
         self.data.ctrl[self._actuators] = human_forces
         self.data.qfrc_applied[:] = 0.0
         self.data.xfrc_applied[:] = 0.0
         accel = float(self.scene["task"]["object_goal"]["virtual_acceleration"]) if self._dynamic_objects else 0.
         for idx, obj in enumerate(self._dynamic_objects):
-            f_vec = values[22 + 3 * idx : 22 + 3 * (idx + 1)] * float(obj["mass"]) * accel
+            start = self.human_motor_count + 3 * idx
+            f_vec = values[start:start + 3] * float(obj["mass"]) * accel
             self._object_forces[obj["id"]] = f_vec.tolist()
             self.data.xfrc_applied[self._object_body_ids[obj["id"]], :3] = f_vec
 
@@ -2001,6 +2125,13 @@ class SharedWorldEnv(gym.Env):
             }
             for seg_id, a, b, radius in HUMAN_SEGMENT_DEFS
         ]
+        if self.ankle_names:
+            from weft.foot_body import FOOT_BODY_CONTRACT
+
+            segments.extend({"id": f"{side}_foot", "a": points[f"{side}_heel"].tolist(),
+                             "b": points[f"{side}_foot_index"].tolist(),
+                             "radius": FOOT_BODY_CONTRACT["radius_model_units"] * self.scale}
+                            for side in ("left", "right"))
         muscles = []
         for idx, jname in enumerate(self.joint_names):
             _, start, end = joint_segment(jname)
@@ -2017,6 +2148,13 @@ class SharedWorldEnv(gym.Env):
                         "status": "illustrative",
                     }
                 )
+        for offset, name in enumerate(self.ankle_names, 22):
+            side = name.split("_", 1)[0]
+            command = float(data.ctrl[self._actuators[offset]]) / float(self.human_limits[offset])
+            for antagonist, sign in (("flexor", 1), ("extensor", -1)):
+                muscles.append({"name": f"{name}_{antagonist}", "a": points[f"{side}_ankle"].tolist(),
+                                "b": points[f"{side}_foot_index"].tolist(),
+                                "activation": float(np.clip(max(0., sign * command), 0., 1.)), "status": "illustrative"})
         root_forces = [float(data.ctrl[self._actuators[19 + i]]) for i in range(3)]
         mobility = {
             "support_enabled": False,
@@ -2039,15 +2177,20 @@ class SharedWorldEnv(gym.Env):
             "height": float(self.human_height),
             "origin": self.origin_world.tolist(),
             "joints": {name: val.tolist() for name, val in points.items()},
-            "angles": {name: float(data.qpos[self._q[i]]) for i, name in enumerate(self.joint_names)},
-            "angular_velocities": {name: float(data.qvel[self._v[i]]) for i, name in enumerate(self.joint_names)},
+            "angles": {name: float(data.qpos[self._q[i]]) for i, name in enumerate(self.human_action_names) if not 19 <= i < 22},
+            "angular_velocities": {name: float(data.qvel[self._v[i]]) for i, name in enumerate(self.human_action_names) if not 19 <= i < 22},
             "control_mode": "direct_motor_actions",
             "action_names": list(self.human_action_names),
-            "normalized_action": [0.0] * 22 if reference else self._last_action[:22].tolist(),
+            "normalized_action": [0.0] * self.human_motor_count if reference else self._last_action[:self.human_motor_count].tolist(),
             "motor_forces": [float(data.ctrl[aid]) for aid in self._actuators],
-            "motor_units": list(self.scene["action_contract"]["units"][:22]),
+            "motor_units": list(self.scene["action_contract"]["units"][:self.human_motor_count]),
             "muscle_status": "Illustrative motor-command proxies; not physiological muscle activation",
             "mobility": mobility,
+            **({"feet": {"reference_sha256": self.scene["foot_extension"]["reference_sha256"],
+                         "target_mode": "authored_initial_angle_hold", "initial_ankle_targets_rad": self._ankle_hold.tolist(),
+                         "current_hold_error_rmse_rad": float(np.sqrt(np.mean((data.qpos[self._q[22:]] - self._ankle_hold) ** 2))),
+                         "scope": "Added collision capsules and explicit ankle motors; not recovered sole geometry or video foot imitation"}}
+               if self.ankle_names else {}),
         }
 
     def snapshot(self):
@@ -2110,6 +2253,8 @@ class SharedWorldEnv(gym.Env):
         for idx, jname in enumerate(self.joint_names):
             data.qpos[self._q[idx]] = frame["joints"][jname]
         data.qpos[self._q[19:22]] = np.asarray(root_frame["translation"], dtype=float) * self.scale
+        if self.ankle_names:
+            data.qpos[self._q[22:]] = self._ankle_hold
         data.time = float(frame["time_s"] - self.human_spec["reference"][0]["time_s"])
         mujoco.mj_forward(self.model, data)
         contact_state = self._current_contacts(data)
@@ -2137,14 +2282,18 @@ class SharedWorldEnv(gym.Env):
             "contact_details": contact_state["details"],
             "contact_count": len(contact_state["details"]),
             "contact_summary": contact_state["counts"],
-            "scope": ("Kinematic human pose projection with declared ground only; not dynamic simulation"
-                      if self.scene["profile"] == HUMAN_ONLY_PROFILE else
+            "scope": ("Kinematic source body with authored fixed ankle targets; not observed foot motion or dynamic simulation"
+                      if self.ankle_names else
+                      "Kinematic human pose projection with declared ground only; not dynamic simulation"
+                      if base_scene_profile(self.scene) == HUMAN_ONLY_PROFILE else
                       "Kinematic human pose projection alongside initial 3D rigid geometry; not dynamic simulation"),
             "physical_validation": "unverified",
         }
 
     def render(self):
-        return render_snapshot(self.snapshot(), self.scene)
+        state = self.snapshot()
+        _validate_shared_snapshot(state, self.scene, self._ankle_hold if self.ankle_names else None)
+        return _render_snapshot(state, self.scene)
 
     def close(self):
         self._initialized = False
@@ -2160,10 +2309,22 @@ def validate_shared_snapshot(state, scene):
 def prepare_shared_snapshot_validator(scene):
     """Pin a detached scene once; every subsequent state still receives all checks."""
     validated_scene = validate_shared_world(scene)
-    return lambda state: _validate_shared_snapshot(state, validated_scene)
+    foot_hold = None
+    if validated_scene["profile"] == FEET_PROFILE:
+        model = mujoco.MjModel.from_xml_string(_build_world_xml(validated_scene))
+        data = mujoco.MjData(model)
+        spec = validated_scene["human_spec"]
+        names = validated_scene["action_contract"]["names"][:28]
+        q_indices = np.array([int(model.jnt_qposadr[model.joint(name).id]) for name in names])
+        scale = validated_scene["coordinate_frame"]["scale_bridge"]["body_height_to_world_scale"]
+        initial = [spec["reference"][0]["joints"][name] for name in names[:19]]
+        initial += [float(value) * scale for value in spec["root_reference"][0]["translation"]]
+        # Derive once for the recording, not once per frame or from untrusted snapshot targets.
+        foot_hold = _initial_foot_hold(model, data, validated_scene, q_indices, initial)
+    return lambda state: _validate_shared_snapshot(state, validated_scene, foot_hold)
 
 
-def _validate_shared_snapshot(state, validated_scene):
+def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
     if (
         not isinstance(state, dict)
         or state.get("profile") != validated_scene["profile"]
@@ -2172,8 +2333,9 @@ def _validate_shared_snapshot(state, validated_scene):
     ):
         raise ValueError("Shared-world snapshot must preserve profile, bounds, and physical_validation='unverified'")
 
-    human_only = validated_scene["profile"] == HUMAN_ONLY_PROFILE
-    no_object_goal = validated_scene["profile"] in NO_OBJECT_GOAL_PROFILES
+    human_only = base_scene_profile(validated_scene) == HUMAN_ONLY_PROFILE
+    no_object_goal = _no_object_goal(validated_scene)
+    feet = validated_scene["profile"] == FEET_PROFILE
     if no_object_goal and ("target" not in state or state["target"] is not None
                           or state.get("virtual_force") != [0., 0., 0.]):
         raise ValueError("No-object-goal snapshots cannot introduce an object target or virtual object force")
@@ -2219,36 +2381,59 @@ def _validate_shared_snapshot(state, validated_scene):
     human = state.get("human")
     if not isinstance(human, dict) or human.get("control_mode") != "direct_motor_actions":
         raise ValueError("Shared-world snapshot requires human direct_motor_actions state")
-    if not isinstance(human.get("segments"), list) or len(human["segments"]) != len(HUMAN_SEGMENT_DEFS):
-        raise ValueError("Shared-world snapshot must retain all 12 human collision segments")
+    if not isinstance(human.get("segments"), list) or len(human["segments"]) != len(HUMAN_SEGMENT_DEFS) + (2 if feet else 0):
+        raise ValueError("Shared-world snapshot must retain all declared human collision segments")
     for seg in human["segments"]:
         if not isinstance(seg, dict):
             raise ValueError("Human segment must be an object")
         _vector(seg.get("a"), 3, "segment start", -15.0, 15.0)
         _vector(seg.get("b"), 3, "segment end", -15.0, 15.0)
         _number(seg.get("radius"), "segment radius", 0.005, 1.0)
-    if not isinstance(human.get("muscles"), list) or len(human["muscles"]) != 38:
-        raise ValueError("Shared-world snapshot must retain 38 illustrative muscle bands")
+    if not isinstance(human.get("muscles"), list) or len(human["muscles"]) != (50 if feet else 38):
+        raise ValueError("Shared-world snapshot must retain all declared illustrative muscle bands")
     for mus in human["muscles"]:
         if not isinstance(mus, dict) or mus.get("status") != "illustrative":
             raise ValueError("Shared-world muscle bands must preserve status='illustrative'")
         _number(mus.get("activation"), "muscle activation", 0.0, 1.0)
 
     contract = validated_scene["action_contract"]
+    human_motor_count = contract["human_motor_count"]
     act_dim = len(contract["names"])
     norm_act = _vector(state.get("normalized_action"), act_dim, "recorded normalized_action", -1.0, 1.0)
-    if human.get("normalized_action") != norm_act[:22]:
-        raise ValueError("Human normalized_action must match first 22 elements of shared-world normalized_action")
-    motor_forces = _vector(human.get("motor_forces"), 22, "human motor_forces", -2000.0, 2000.0)
+    if human.get("normalized_action") != norm_act[:human_motor_count]:
+        raise ValueError("Human normalized_action must match the declared human prefix of shared-world normalized_action")
+    motor_forces = _vector(human.get("motor_forces"), human_motor_count, "human motor_forces", -2000.0, 2000.0)
+    if feet:
+        from weft.shared_world_feet import ANKLE_NAMES
+
+        info = human.get("feet")
+        if (not isinstance(info, dict) or info.get("reference_sha256") != validated_scene["foot_extension"]["reference_sha256"]
+                or info.get("target_mode") != "authored_initial_angle_hold"
+                or human.get("action_names") != contract["names"][:human_motor_count]
+                or human.get("motor_units") != contract["units"][:human_motor_count]):
+            raise ValueError("Foot snapshot must preserve its reference, fixed-target mode and motor layout")
+        declared_hold = _vector(info.get("initial_ankle_targets_rad"), 6, "initial ankle targets", -math.tau, math.tau)
+        if foot_hold is None or not np.allclose(declared_hold, foot_hold, atol=1e-9, rtol=0):
+            raise ValueError("Foot snapshot targets differ from the original nominal source pose")
+        hold_error = _number(info.get("current_hold_error_rmse_rad"), "ankle hold error", 0., 1e6)
+        # Retain finite post-step envelope failures so their recordings remain inspectable.
+        for key, bound in (("angles", 1e6), ("angular_velocities", 1e6)):
+            values = human.get(key)
+            if not isinstance(values, dict) or not set(ANKLE_NAMES) <= values.keys():
+                raise ValueError("Foot snapshot must retain all six ankle angles and velocities")
+            _vector([values[name] for name in ANKLE_NAMES], 6, "recorded ankle " + key, -bound, bound)
+        expected_error = float(np.sqrt(np.mean((np.array([human["angles"][name] for name in ANKLE_NAMES]) - foot_hold) ** 2)))
+        if not math.isclose(hold_error, expected_error, rel_tol=0, abs_tol=1e-9):
+            raise ValueError("Foot snapshot hold error differs from its recorded angles")
     if not human.get("reference"):
-        for force_val, act_val, lim_val in zip(motor_forces, norm_act[:22], contract["physical_limits"][:22]):
+        for force_val, act_val, lim_val in zip(motor_forces, norm_act[:human_motor_count], contract["physical_limits"][:human_motor_count]):
             if not math.isclose(force_val, act_val * lim_val, rel_tol=0, abs_tol=1e-6):
                 raise ValueError("Human motor_forces must equal normalized_action * physical_limits")
         dyn_objs = _dynamic_objects(validated_scene)
         for idx, dobj in enumerate(dyn_objs):
             state_obj = next(o for o in state["objects"] if o["id"] == dobj["id"])
             expected_f = [
-                norm_act[22 + 3 * idx + axis] * contract["physical_limits"][22 + 3 * idx + axis]
+                norm_act[human_motor_count + 3 * idx + axis] * contract["physical_limits"][human_motor_count + 3 * idx + axis]
                 for axis in range(3)
             ]
             if not np.allclose(state_obj["virtual_force"], expected_f, atol=1e-6, rtol=0):
@@ -2323,6 +2508,8 @@ def _validate_shared_snapshot(state, validated_scene):
     ):
         raise ValueError("Shared-world contact_details must match contact_count within bounds")
     known_contact_names = _reserved_human_names(validated_scene["human_spec"]) | set(expected_objects)
+    if feet:
+        known_contact_names |= _FEET_NAMES
     part_names = {obj["id"]: {part["id"] for part in obj["geometry"]["parts"]}
                   for obj in validated_scene["objects"] if obj["shape"] == "compound"}
     pairs = set()
@@ -2373,9 +2560,10 @@ def render_snapshot(state, scene, width=960, *, show_target=True):
 def prepare_shared_renderer(scene, width=960, *, show_target=True):
     """A bounded export reuses immutable model metadata, never cached state validation."""
     scene = validate_shared_world(scene)
+    validate = prepare_shared_snapshot_validator(scene)
 
     def render(state):
-        _validate_shared_snapshot(state, scene)
+        validate(state)
         return _render_snapshot(state, scene, width=width, show_target=show_target)
 
     return render
@@ -2397,7 +2585,7 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
         ("Front: x / height", np.array([[1.0, 0.0, 0.0], [0.0, 0.0, -1.0]]), np.array([0.0, 1.0, 0.0])),
         ("Top: x / depth", np.array([[1.0, 0.0, 0.0], [0.0, -1.0, 0.0]]), np.array([0.0, 0.0, 1.0])),
         (
-            "3D: human and ground" if scene["profile"] == HUMAN_ONLY_PROFILE else "3D: coupled world",
+            "3D: human and ground" if base_scene_profile(scene) == HUMAN_ONLY_PROFILE else "3D: coupled world",
             np.array([[0.866, -0.5, 0.0], [0.25, 0.433, -0.866]]),
             np.array([0.433, 0.75, 0.5]),
         ),

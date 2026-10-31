@@ -1,5 +1,55 @@
 # Combined Weft implementation handoff
 
+## Coupled feet and surface workflow — October 31, 2026
+
+Updated **October 31, 2026, 12:48 PM PDT**. Goal active. Published base remains
+`342a3bb0eda25a0501dee4dbd78a9327cbc50b69`. Root owns the v5 engine, shared CLI,
+coordination and Git. Reconstruction owns source-surface CLI tests/fixture/handoff;
+`support_learning` is fixing the reviewed terminal on-disk status conflict in the
+new pipeline/tests. `support_ui` completed engine/render review and is inspecting
+existing task adapter points without edits. No native job is running. Independent
+avatar work remains excluded; stash is empty. No new paid call, key/ledger read,
+media download, inference, training, browser, server or deployment.
+
+**Engine checkpoint:** one existing model/data/clock, explicit v5 scene with v2/v3/v4
+base and exact source/body/reference-bound feet. Original 22 channels remain
+19 body rotations plus three root translations; six ankles follow, then any
+object-force triplets. Original source start, body/root/floor and 19-joint scores
+remain unchanged. Fixed initial ankle orientation is authored hold, not source
+ankle imitation. Foot geometry/mass/contact handling is coupled; no balance,
+measured force, recovered anatomy or physical-accuracy claim follows.
+
+Nineteen pure checks, eleven new native cases and one new render case pass.
+Eighteen relevant legacy cases also pass, including frozen XML/numerics,
+full-reference prefix equivalence, mass, contact momentum and person/support
+reset/snapshots. Native01 preserved a test-only `rotation_zyx` calling error;
+only that corrected case reran in02. Frozen03 tests only rendering and affected
+legacy paths: 19 pass /1.239413 s /143,507,456 B waited-child peak RSS (observed,
+not a memory cap). Engine SHA
+`cd0af3d569c40b96adba971801d75397901e2ee455d33feb1ec8b7de1ed5c7a5`;
+runtime03 manifest `a8cf0be3c9bf29dffeea7217f27c4d0f7ee2b9e7a9bbc2bb048b3d0bdd3c57fc`.
+Independent engine review found no further blocker. [Exact receipts and remaining
+integration](shared-world-feet.md#coupled-engine-checkpoint--october-31-2026-1248-pm-pdt).
+
+**Still unsupported:** v5 task/lab/recording/learning admission. Its substep observer
+requires explicit 28-motor opt-in, so legacy 22-motor scorers cannot silently consume
+new channels. No protected evaluator or gate changed. Do not bypass the existing
+no-object-goal packaging guard merely to expose an unqualified lab. Next step is
+a deliberate adapter within the existing task pipeline, with no hidden root force,
+original score denominator and separate ankle telemetry.
+
+**Reconstruction lane:** the frozen pure anchor API's 31 cases and independent
+review pass. New packaging/CLI is not yet published. Supplied camera, surface
+heights and annotated pixels produce conditional coordinates; missing slots remain
+unavailable, and contact/load/grasp remain unknown. Review found a deadline race:
+a late seal could return failure while leaving completed result/manifest files.
+`support_learning` owns the evidence-preserving terminal fix; reconstruction owns
+separate CLI tests and a tiny analytical input fixture. After both freeze, root
+will execute the actual public command once from a committed export plus only
+this lane's overrides, audit its seal/slots/report and publish scoped changes.
+Cooperative deadlines are not hard process/memory isolation. No real-source
+calibration study or automatic-body/floor installation is authorized by this step.
+
 ## One-command authored-support sandbox — October 31, 2026
 
 Goal active. Published base `0e4b1475e9c87fbc4b4884d12cde6c850220fff3`.
