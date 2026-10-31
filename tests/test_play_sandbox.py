@@ -101,7 +101,7 @@ def reseal(lab, name, value):
 def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_COMMIT == "6396be84018e6cb6525614f07a664cf0bb673b34"
     assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
-    assert ACTUAL_PERSON_COMMIT == "569e99dca81e5be31c100342a15c004dd3503df9"
+    assert ACTUAL_PERSON_COMMIT == "e1c54236ebf625264e2cb335cab65ba53a907ac1"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2

@@ -18,7 +18,7 @@ import uuid
 
 TRUSTED_COMMIT = "6396be84018e6cb6525614f07a664cf0bb673b34"
 VIDEO_TRUSTED_COMMIT = "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
-PERSON_TRUSTED_COMMIT = "569e99dca81e5be31c100342a15c004dd3503df9"
+PERSON_TRUSTED_COMMIT = "e1c54236ebf625264e2cb335cab65ba53a907ac1"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
 VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"

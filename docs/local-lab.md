@@ -34,7 +34,7 @@ Use **Record & start → Stop & save** to capture your own actions. The [verifie
 
 Choose **Explain this trial** under a saved recording for body-error values, allowed limits and the first recorded crossing window. In this example, peak angle error crosses its limit between0.633–0.667s after reset (event29, replay state30/244). The running average crosses later but recovers; the peak still fails. Source-video, reference and live clocks remain separate.
 
-The shortcut uses trusted Git runtime **`569e99dca81e5be31c100342a15c004dd3503df9`**, including person-only recording captions. The metadata-only `--example person --check` verified 22 policy/18 lab source pins and 192 exported files in **0.205 seconds**; it did not start a server, run physics or establish browser performance. Full lab/source/policy admission still runs on opening. The original and `--example video` runtimes are unchanged.
+The shortcut uses trusted Git runtime **`e1c54236ebf625264e2cb335cab65ba53a907ac1`**, including the saved body-failure explanation and person-only recording captions. The metadata-only `--example person --check` verified the unchanged22policy/18lab source pins and192exported files in **0.165seconds**; it did not start a server, run physics or establish browser performance. Full lab/source/policy admission still runs on opening. The original and `--example video` runtimes are unchanged; the prior person cache is preserved.
 
 ## Build from your person-only exercise video
 
