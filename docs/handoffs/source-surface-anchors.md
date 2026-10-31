@@ -2,6 +2,17 @@
 
 Updated 2026-10-31 12:51 PDT. Owner: `/root/exercise_reconstruction`.
 
+## Publication
+
+Published and exact private remote verified at
+`9abbdffb7b6405475f25b9ad16bbe8f0c2585b81`. Ten owned files were clean, stash
+empty, and 127 independent status/path entries were excluded. Receipt
+`.local/source-surface-publication-01.json`, SHA
+`18d497c63a8803623d8c3e9f64ec8cc5a09762606d860913190ca4de9503774c`.
+This documentation follow-up does not rerun the command or repair. The supported
+result remains conditional coordinates from supplied geometry, not automatic
+unfamiliar-video recovery or physical contact validation.
+
 ## Saved-only report correction — October 31, 2026, 12:58 PM PDT
 
 The independent audit passed 87/88 checks and found one misleading HTML label:

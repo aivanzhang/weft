@@ -108,3 +108,56 @@ new explicit telemetry/task semantics; current generic floor contacts do not sup
 measured ground forces. Keep all existing failures and source clocks. Run one
 frozen bounded workflow only after these adapters are complete. All current native
 processes are terminal; no live handle or paid work remains in this milestone.
+
+## Task projection checkpoint
+
+The existing scorer is unchanged. New `shared_exercise_feet_projection.py` maps
+25 task rotations to engine indices `[0:19] + [22:28]`, optionally followed by
+three task-root channels mapping to `[19:22]`. All object-force channels stay
+zero. The full v5 human observation block has 197 values; a legacy 155-value prefix
+is not a valid projection. Original 22 substep arrays are projected explicitly,
+with clocks/failures/floor penetration/equipment/wrists preserved. New foot
+contacts remain separately inspectable and receive no legacy support credit.
+Only exact canonical engine geometry/segment pairs are accepted. The complete
+mapping is part of the immutable projection contract hash.
+
+The one-time base-scene preparation reuses existing world validation, which can
+compile mass-check models. It is not a native-free hot-path API. Its result is a
+derived scoring identity, not original file-byte recovery; actual v5 world and
+derived base scene/task require separate hash bindings. Ankle effort is separate
+unscored telemetry; learned policies and ground-load requirements remain unsupported.
+
+Frozen pins:
+
+- Module: `c6004ad05628864bf1dc7d057d47b29ebac45aa647fbad91d7af906b5e0b2a69`.
+- Test: `2f951017d8e0b3b3ecf7e39dd641458ca9f1eff1723f7ad960388469ffe701da`.
+- Projection contract: `09bf31a0067692db77fcbe8ee36a0e6b8465eaccb82bb0339132072389eb1aab`.
+
+The initial 32 analytical checks passed with only human mass replaced by a
+`70 * scale**3` fixture; all native/model/network/process entry points were
+blocked. That original command emitted 32 progress dots but no JUnit summary.
+Its exact tool transcript is retained in
+`.local/shared-exercise-feet-projection-tests-01.json`, SHA
+`bd58e20e4470bedccd6a4040d06daf3960c7ed6a00327a95d89aa7aaaa24c9bd`;
+no JUnit receipt was fabricated and those checks were not rerun for logging.
+
+Independent review found an inverse alias gap: unknown geometry claiming a known
+forearm segment could receive old support credit. Preserve the two expected
+failing regressions in
+`.local/shared-exercise-feet-projection-contact-before-01.xml`, SHA
+`30d8f19676f3e0fc1a7aa9364b52c37ba7f7e4924e2047a483f1a693053e5009`.
+The canonical mapping fix passes 16 new/affected cases; 21 unchanged cases retain
+the earlier pass, 37 distinct checks total. After receipt
+`.local/shared-exercise-feet-projection-contact-after-01.xml`, SHA
+`f886ba59acc38d27376f31e508ec878d9fe9041dd6afc90f18271eebabde75a1`.
+Root reviewed the correction and exact result bytes. A bounded 128×256-contact
+projection measurement took 60.2 ms total, without native execution; it establishes
+only adapter timing, not full simulation or UI responsiveness.
+
+Next owner: `/root/support_learning` is implementing only new
+`shared_exercise_feet_task.py` and its focused test file. It must reuse unchanged
+legacy metric accumulators, create just one actual v5 engine, expose explicit
+root-off controls, retain 197 human observation values, and bind actual/base/task/
+projection/reference identities. Pure tests only until root freezes a bounded
+native acceptance. Root owns strict snapshot/recording/lab integration; no existing
+scorer/gate/UI file may change in that lane. No public v5 task/lab claim yet.

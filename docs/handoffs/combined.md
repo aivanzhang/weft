@@ -3,10 +3,10 @@
 ## Coupled feet and surface workflow — October 31, 2026
 
 Updated **October 31, 2026, 12:59 PM PDT**. Goal active. Published base is
-`733b802e82f49385b742e859bd25d3a8a9636bb2`. Root owns integration, CLI, coordination
+`9abbdffb7b6405475f25b9ad16bbe8f0c2585b81`. Root owns integration, CLI, coordination
 and Git. Reconstruction released its source-surface API/pipeline/CLI tests/fixture;
-`support_learning` is auditing only the saved report-label repair. `support_ui`
-owns a new pure task-control/scoring projection primitive and tests. No native job
+`support_learning` owns the new v5 task adapter and focused tests. The saved
+report repair and task projection primitive are reviewed and frozen. No native job
 is running. Independent avatar work remains excluded; stash was empty at the last
 publication. No new paid call, key/ledger read, media download, inference, training,
 browser, server or deployment.
@@ -70,21 +70,36 @@ contact/load/grasp unknown. No automatic body/floor installation, inference,
 training, media or paid work in this milestone. Cooperative deadlines are not
 hard process/memory isolation.
 
-**Next adapter work (now frozen for review):** `/root/support_ui` released only new
-`shared_exercise_feet_projection.py` and its test file. It prepares the exact base
-scoring scene, maps 25 rotations plus optional 3 roots explicitly, and projects 28-motor
-samples to the unchanged 22-motor scorer while retaining excluded foot contacts.
-It may not change engine/scorer/gates/lab/recording/UI files. Its preparation helper
-uses existing world validation (which compiles a mass model), so preparation is
-not a native-free hot-path operation; tests mock only analytical mass and block
-native calls. All unknown contacts must reject, new feet receive no old support
-credit, full floor penetration stays intact, and ground-load tasks remain unsupported.
-Its 32 analytical checks pass with native entrypoints blocked and mass substituted
-only in tests; independent read-only review is in progress. Module SHA
-`03d6094a7330e4ff84e1c5949810f2c2896220bd91143b213d492cc841143fe7`,
-tests `7769747b16ba930ae41e718bea1a424cdb7879a1a81dbdbc1677fa6c884bb747`.
-Root owns deliberate integration within the existing exercise pipeline after review. Do not use the first 155 values of a 197-value v5 observation:
-that mixes fields. Preserve explicit task/base-scene/projection/runtime hash bindings.
+**Reconstruction publication:** ten scoped files are committed/pushed at
+`9abbdffb7b6405475f25b9ad16bbe8f0c2585b81`; exact remote verified. Receipt
+`.local/source-surface-publication-01.json`, SHA
+`18d497c63a8803623d8c3e9f64ec8cc5a09762606d860913190ca4de9503774c`.
+Owned paths clean at publication, stash empty; 127 independent status/path entries
+excluded. No original acceptance or geometry run was repeated for the report fix.
+
+**Task projection primitive:** reviewed and frozen module
+`shared_exercise_feet_projection.py`, SHA
+`c6004ad05628864bf1dc7d057d47b29ebac45aa647fbad91d7af906b5e0b2a69`;
+test `2f951017d8e0b3b3ecf7e39dd641458ca9f1eff1723f7ad960388469ffe701da`;
+contract `09bf31a0067692db77fcbe8ee36a0e6b8465eaccb82bb0339132072389eb1aab`.
+It preserves original scoring, maps 25 rotations plus optional three roots,
+forbids object forces and retains excluded foot contacts separately. Review found
+an unknown-geometry/known-segment alias; the canonical-pair fix passes 16 affected
+cases, with 21 earlier cases reused (37 distinct). Tests block native execution and
+substitute analytical mass only. [Exact receipts and next boundary](shared-world-feet.md#task-projection-checkpoint).
+
+**Active next work:** `/root/support_learning` owns only new
+`shared_exercise_feet_task.py` plus its focused tests; it must send/freeze a strict
+versioned task/snapshot interface before root wires recording. It may reuse the
+unchanged original metric accumulators but cannot alter scorer/gates or edit existing
+engine/lab/recording/UI files. It creates one actual v5 engine and separates actual
+world identity from the derived base scoring scene/task. Ankle effort/hold errors
+stay unscored diagnostics; no foot support credit or ground-load qualification.
+Default root assistance remains off, object forces zero, human observation 197.
+Only pure tests are authorized in that lane; root coordinates later native runs.
+Root owns strict snapshot validation, recording and existing-lab integration.
+All prior native/process acceptances are terminal. Do not rerun unchanged passing
+studies or recopy avatar WIP into runtime archives.
 
 ## One-command authored-support sandbox — October 31, 2026
 
