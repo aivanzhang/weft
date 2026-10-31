@@ -82,6 +82,16 @@ co-motion candidates. Occluded, missing, withheld or clock-incompatible object
 slots remain unavailable. An inferred image box is not a physical surface;
 co-motion is not grasp/contact/load, and a handheld prop is never relabeled floor.
 
+When object tracking used a different video file, pass
+`equipment_source_equivalence=proof`, with `proof` returned by the existing
+`load_source_equivalence` validator. The adapter checks exact original/derivative
+identities, dimensions, complete coverage and schema-3 decoder clocks. It preserves
+the original equipment document, source hash, object/observation/evidence IDs and
+timestamps. Output exposes the proof seal and both frame/clock origins; it does
+not rewrite a derivative hash to make the files appear identical. Missing or
+conflicting pose-native clocks remain unavailable. Unverified or unused proofs
+reject; nominal frame/FPS timestamps cannot stand in for decoder evidence.
+
 **Four-source result: no reconstruction gain.** The new selector leaves all four
 known sources unavailable. It does not change any body, floor, task or default.
 Unchanged baseline orientations were reused after verifying identical complete
@@ -150,6 +160,40 @@ receipts. A single saved-only 772-pose comparison measured 0.104 seconds before 
 0.404 seconds after validation, with the same canonical hash and 102,072,320-byte
 whole-process peak RSS. This adds bounded validation work; it is not a speedup or
 hard memory guarantee. No source inference or ground fit was repeated.
+
+### Real-video hand/equipment qualification
+
+A single fixed-threshold study reused the existing kettlebell development clip:
+129 Lite VIDEO/raw poses on the original source, two explicitly selected SAM-3.1
+object IDs on its verified lossless derivative, and the complete existing
+257-frame source-equivalence proof. The source's 259-frame container declaration
+remains separate. This is previously exposed development data, not a fresh holdout.
+
+The first 77 poses supply 308 hand/object slots. All 52 later poses are excluded;
+the ledger also retains 512 unsampled decoded pairs and eight container-only pairs,
+for **1,036 total slots**. Original observations and both clocks stay unchanged.
+
+| Object / wrist | Co-motion candidate | Relative image motion | Image separation | Unavailable |
+| --- | ---: | ---: | ---: | ---: |
+| sam-2 / left | 0 | 70 | 0 | 7 |
+| sam-2 / right | 2 | 10 | 0 | 65 |
+| sam-3 / left | 0 | 0 | 70 | 7 |
+| sam-3 / right | 0 | 0 | 12 | 65 |
+
+The two candidates are original frames **20 and 22**, within overlapping
+seven-pose / 0.4-second windows. Right-wrist confidence is 0.684 and 0.625, and the
+projected wrist stays inside the inferred sam-2 image box. The existing working/
+idle kettlebell labels are authored, not verified semantic or physical identities.
+All 144 unavailable construction pairs retain missing/uncertain window points.
+**Contact, load and grasp remain unknown**, and existing equipment-stability
+failures are unchanged. Two image candidates do not establish physical coupling.
+
+Evidence: `artifacts/exercise-equipment-support-01`, seal
+`614621b0792ca5262a99ec0d7f36286046ab15b381b27c1e08b107887b08c31a`,
+49 files / 14,479,371 bytes. One run took 0.185 seconds, including 0.126 seconds in
+the estimator, with 77,545,472-byte observed peak process RSS. No new video decode,
+model inference, native physics, paid call or threshold tuning occurred. Fourteen
+focused equipment checks pass, including nine new proof/clock-provenance cases.
 
 To reproduce the original four-source orientation study (not the new temporal selector) in a new directory:
 

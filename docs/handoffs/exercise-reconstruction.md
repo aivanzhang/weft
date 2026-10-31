@@ -3,9 +3,32 @@
 ## Ownership and current status
 
 - Owner: `/root/exercise_reconstruction`, delegated by root after the user's parallel-agent request on October 31, 2026 (America/Los_Angeles).
-- Implemented and tested: source-only temporal support candidates and an opt-in path in the existing ground estimator. Four original sources abstain; the unfamiliar Interval clip now yields a conditional, more consistent foot-plane candidate under unchanged screening. Physical ground/contact remain unverified. The final validation-only input-envelope fix passed review and focused checks; all five owned paths are released to root for publication.
+- Implemented and tested: source-only temporal support candidates and an opt-in path in the existing ground estimator. Four original sources abstain; the unfamiliar Interval clip now yields a conditional, more consistent foot-plane candidate under unchanged screening. Physical ground/contact remain unverified. That input-envelope milestone is published. The source-equivalence adapter and real-video hand/equipment study pass independent code review and saved-artifact audit; root owns publication.
 - Owned files: `src/weft/exercise_support_evidence.py`, `src/weft/ground_orientation.py`, their focused tests, `docs/ground-orientation.md` and this handoff. Root owns CLI/camera-root/worker/sandbox/recording integration and Git publication. Separate avatar work is untouched.
-- No live jobs or native/inference runs owned by this workstream. Both source comparisons and all focused checks are terminal. Parent reported application network authorization revoked; this workstream made no network request and continues local-only. Do not retry any denied external request or download a model/video.
+- No live jobs or native/inference runs owned by this workstream. All source studies and focused checks are terminal. Parent reported application network authorization revoked; this workstream made no network request and continues local-only. Do not retry any denied external request or download a model/video.
+
+## Root review and saved evidence audit
+
+Independent adapter review found no blocker: loader-created source-equivalence
+proofs, exact original/derivative identities, complete clocks and per-slot
+abstention remain explicit. No contact/load claim is promoted from image motion.
+
+Saved-only audit `.local/exercise-equipment-support-saved-audit-01.json`, SHA
+`9fd9ce84fed3bd3eb02cbb4cd29f93566fb5a06f29102d58b8d264774b66fd5e`, passes.
+The published 49-file count is 48 manifest members plus the root seal. Each file
+was read once: 14,479,371 bytes, 0.012935 s acquisition and 0.034189 s summed active
+read/check/inventory phases; orchestration elapsed time is recorded separately.
+The audit checks 43 copied input/runtime pins, all 257 mapped frames and both
+clocks, 86 retained duration differences and every one of 1,036 pair slots.
+Construction ends at original frame 152 (77/129 sampled poses); later exclusion
+starts at frame 154. Candidates at frames 20/22 share six window poses and are
+not independent contact confirmations. No original external media, decoding,
+inference, estimator/native rerun or network was used.
+
+The next agent task is read-only calibration-hypothesis analysis, separately
+recorded at `.local/reconstruction-next-hypothesis-01.md`. Released product files
+remain frozen; no body/floor installation or new source job is authorized by
+this diagnostic note alone.
 
 ## Fixed hypothesis and limits
 
@@ -86,3 +109,29 @@ This local implementation milestone is verified and released; root owns Git publ
 - Saved-only 772-row input-validation comparison: 0.103965 s before / 0.403519 s after, same canonical SHA `136ac96971301f42cafe1deef144fe0a72d1c11b943b6e951cc9d2c4a9afe00b`; observed process peak RSS 102,072,320 bytes. This is bounded additional validation cost, not a speedup or hard memory cap. Plan `.local/exercise-support-input-bounds-01-plan.json` SHA `a0cfd30c5439f13df93fd41bfb5f9189dd5623ebba42b98aa8ed14e838fb2a7d`; result `.local/exercise-support-input-bounds-01.json` SHA `39d2e9f58d720137f45f8720932d755d273066e224bd17b3e02898c500bdb351`. Zero geometry fitting, decode, inference or API calls.
 - All five owned files are frozen and released. No additional tests, source experiments or code edits are pending here; root owns the next commit/push and records that publication in the combined handoff.
 - Root also independently checked saved Interval03 members/partitions: `.local/interval-pose-saved-audit-03.json` SHA `beae97b374616ed82836fcacef1d38b67d52a163feb2ee9962a24beef4d5a7f3`, 38 members plus seal / 41,372,515 bytes in 0.133 s. Counts, unchanged screening settings and unknown contact/height/no-promotion labels match. This metadata audit did not decode, infer, fit, read original source media or independently establish accuracy/native clocks.
+
+## Published milestone and equipment continuation — October 31, 2026, 11:12:37 AM PDT
+
+- Parent committed/pushed and exact-remote verified the prior five-file milestone at `5b6eda2868c5d075c10215e33ed84b85e941224b`; receipt `.local/exercise-support-publication-01.json`. Owned tree was clean at verification, native jobs terminal, separate avatar work untouched.
+- Ongoing owner remains `/root/exercise_reconstruction`. Next bounded task: qualify hand/equipment projected co-motion on one already sealed real-video pose + canonical object-observation pair with exact original source, identity and clock bindings. Prefer existing kettlebell evidence; Interval03 has no object tracks. Product changes only for concrete defects; no shared lab/CLI/learning/avatar edits.
+- Discovery only until the exact compatible pair and a fixed plan are recorded. Planned output `artifacts/exercise-equipment-support-01`: at most 900 poses / 12 explicit object IDs, unchanged first-60% construction split and estimator thresholds; 10 s estimator / 30 s outer bound / 128 MiB output. Preserve all missing, occluded, excluded and unsampled slots. No network, API, media decode, inference, native physics, crop/flow reruns or admission/contact/grasp/load claims. No live process.
+
+## Equipment mapping adapter and frozen real-study plan — 2026-10-31T11:23:35.303568-07:00 (PDT)
+
+- No existing raw pose/evidence JSON contained derivative SHA `34e74d9ab854a474ba647395f232e61dfde5cfa166bb449fd3057084c6dd5416`. Existing pose source is original SHA `4664b16bab5fbefd66f3dc9116ced8dfeb6f3b979635403b715bbc5848b0afbc`; the equipment document intentionally retains the derivative identity. Parent authorized the smallest explicit mapping adapter instead of relabeling sources.
+- API: `estimate_exercise_support(..., equipment_source_equivalence=proof)`, where `proof` comes from the established `load_source_equivalence` validator. Different sources require exact original/derivative hashes, image dimensions, complete frame count and explicit schema-3 decoder clocks. Unverified/unused proofs reject; absent/conflicting pose-native clocks abstain by slot. Original equipment bytes, IDs and timestamps stay unchanged, and output exposes both clocks/native PTS/durations plus the proof seal. No model/physics/media imports.
+- Fourteen focused equipment checks passed (five existing + nine mapping cases), including a real proof-loader fixture with different decoder origins. Command: `.venv-lab/bin/python -m pytest -q tests/test_exercise_support_evidence.py -k equipment --junitxml=.local/exercise-equipment-support-tests-01.xml`. No unchanged broader suite rerun.
+- Pose input: `artifacts/mobile-exercise-e2e-10/kettlebell-pushup/run/evidence.json`, SHA `df21a959787fc098711f4762151cc72c3d53bb87e4199fd2e901fc465a1b4ec8`; containing seal `e6e88ded526ec582b138dfd90285a0cdde65ddfd33596d255cc23f95afe5529b`. Saved Lite CPU VIDEO/raw model SHA `59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a`, 129 poses / 257 decoded / 259 declared, 640×480, nominal 30 fps with decoder timestamps distinct.
+- Equipment: `artifacts/kettlebell-shared-evidence-01/evidence/scene-observations.json`, exact SHA `d2004cddde40fa1013aa564bca71449040a81190bbd6198866c0fa8482960e13`, containing seal `acc67c78a8db45d07b855273a255d6e2e77eabd01f3d37c66e1f9e82df15cc40`; schema 3 saved SAM-3.1 boxes. Explicit IDs `sam-2` and `sam-3` have authored working/idle kettlebell labels, not verified semantic identity or grasp.
+- Existing complete source-equivalence bundle: `artifacts/source-equipment-integration-04/candidate/source-mappings/2c3cf30c05aeddd1d0751ee054993f1c9875bf85beb0f6e7c959f411a3a9e49c`; seal is the directory suffix. All 257 frame/pixel and native/decoder clock mappings remain intact; native origin is +3 ticks at time base 1/1000, and differing packet durations remain separate. Validator checks saved producer evidence/media bytes without decoding.
+- Prepared `artifacts/exercise-equipment-support-01`: plan SHA `b9e5b3ebe0f8e6e7b9e02198dd4cf753df5ee9c696757ce4b7736a99b23a4f5b`, helper `.local/exercise_equipment_support_01.py` SHA `0b35cd17576a0af1f6f5ef2e5fc70903e1d2ee2aec1b256edf79df025aa0c834`. Exact selected metadata, full proof bundle, runtime closure and fixed contract are preserved before the single estimator call.
+- One call, estimator 10 s / outer SIGALRM 30 s / CPU 30 s / 128 MiB output / 128 files / 32 MiB per file; first 77 poses construction, 52 later excluded. Preserve 308 construction + 208 excluded sampled pairs, 512 unsampled decoded pairs and eight container-only pairs = 1,036 pair slots. No inference, video decoding, physics, network/API, source edits or threshold tuning. Known development source, not unfamiliar/final holdout. No estimator call has run at this checkpoint.
+
+## Equipment study complete and adapter frozen — October 31, 2026, 11:26:41 AM PDT
+
+- `artifacts/exercise-equipment-support-01` completed at 2026-10-31T11:24:20.024473-07:00 (PDT), seal `614621b0792ca5262a99ec0d7f36286046ab15b381b27c1e08b107887b08c31a`: **49 files / 14,479,371 bytes**, 0.184547 s total / 0.126114 s estimator, 77,545,472-byte observed peak RSS (not a hard cap). One established proof-loader call and one support-estimator call; zero new decoder, model, native physics, network/API or body/floor operations. Original inputs and runtime pins stayed unchanged.
+- Complete denominators: 308 construction pairs = two projected co-motion candidates + 80 relative-image-motion + 82 image-separation + 144 unavailable; plus 208 later-excluded, 512 unsampled-decoded and eight container-only pairs = 1,036 source-grid slots. No dropped or imputed hand/object slots.
+- Both candidates are `sam-2/right_wrist`, original frames 20 and 22; nominal 0.666666667/0.733333333 s versus decoder 0.667/0.733 s. Confidence 0.684447/0.625489; relative-image range 0.027614/0.031988 torso spans; projected box gap zero throughout seven-pose / 0.4 s windows. Original observation/evidence IDs still carry the derivative SHA. These are conditional image candidates, not grasp/contact/load or equipment-stability improvement. All original geometry/task failures stay unchanged.
+- Final module SHA `9bf26ba6b35102148fea6d4a6650fa42bccd702cec6401db4096fa3f7d67a77e`; test file SHA `9ac98050350ba1991186db92346b854e003b6abb5be83d1eff30d372570399da`. Fourteen affected equipment checks passed; receipt `.local/exercise-equipment-support-tests-01.xml` SHA `e8fc95a1783c7267a81d4f40fe8b6acb45ce23eace0e15433e25b4192025f9f9`. The prior unrelated support/ground checks and all original source studies were not rerun.
+- The four changed paths (`exercise_support_evidence.py`, its test file, `docs/ground-orientation.md`, this handoff) are frozen and released to root; `ground_orientation.py` itself is unchanged. No live process/handle or additional study is pending. Root owns review/publication; no Git or stash mutation was performed by this agent.
+- Next source-backed gap: source-verified persistent hand/equipment contact and occluded wrist evidence remain insufficient. Reuse these exact boxes, clocks and missing slots when a distinct evidence method is justified; do not reinterpret two overlapping image windows as physical coupling or repeat failed point-flow/pose studies unchanged.

@@ -105,16 +105,31 @@ The supported workflow and prior format are in
 `docs/static-support.md#build-inspect-and-play-in-one-workflow`; the established
 analytical support example remains the useful positive control.
 
+**Publication:** the 15 owned files are committed/pushed at
+`e061214cdf78f477b9bebd8ce6babc9d4736edac`; live private remote verified exactly.
+Receipt `.local/static-support-build-publication-01.json`, SHA
+`02fe2f3e8dde04bc07976cf0c837cbe18a17541750505774183f52b82fc3aaeb`.
+Owned bytes match the commit and were clean at verification. Stash empty;
+98 separate avatar status/path entries and four reconstruction files remained
+excluded. No whole-worktree or avatar-byte cleanliness claim. This documentation
+follow-up does not invalidate or rerun the completed tests/native acceptance.
+
 **Parallel reconstruction:** source-equivalence adapter and real saved kettlebell
 study are frozen; handoff `docs/handoffs/exercise-reconstruction.md`. Study seal
 `614621b0792ca5262a99ec0d7f36286046ab15b381b27c1e08b107887b08c31a`;
 1,036 pair slots retained, only two overlapping projected co-motion candidates,
 not contact/grasp/load evidence. Fourteen affected tests pass; independent code
-review found no blocker. No live native process. Agent is investigating the next
+review found no blocker. Saved audit `.local/exercise-equipment-support-saved-audit-01.json`,
+SHA `9fd9ce84fed3bd3eb02cbb4cd29f93566fb5a06f29102d58b8d264774b66fd5e`,
+verifies 48 members plus seal (49 files), 14,479,371 B, 43 copied input/runtime
+pins, all 257 mapped frames, both clocks and all slot denominators. One cached
+read per file; 0.034189 s summed active verification phases, not total
+orchestration elapsed time. No product/native/media rerun. No live native process.
+Agent is investigating the next
 calibration hypothesis read-only in `.local/reconstruction-next-hypothesis-01.md`;
 released publication files must remain unchanged. Shared Meta budget untouched.
 
-Next: publish the tested guided build and separately reviewed reconstruction delta;
+Next: publish the separately reviewed and saved-audited reconstruction delta;
 continue the agent's next calibration hypothesis without rerunning this acceptance.
 
 ## Support-policy integration — October 31, 2026, 10:57 AM PDT

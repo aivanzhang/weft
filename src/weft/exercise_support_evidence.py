@@ -2,6 +2,7 @@
 
 from collections import Counter, deque
 from copy import deepcopy
+from fractions import Fraction
 from hashlib import sha256
 import json
 from json.encoder import encode_basestring_ascii
@@ -223,7 +224,36 @@ def _stationarity(points, windows, scale, deadline):
     return result
 
 
-def _equipment(raw, ids, evidence, deadline):
+def _equipment_mapping(document, evidence, equivalence, deadline):
+    if document["source"]["sha256"] == evidence["source_sha256"]:
+        _require(equivalence is None, "same-source equipment must not attach an unused equivalence")
+        return None, None
+    from weft.source_equivalence import SourceEquivalence
+
+    _require(type(equivalence) is SourceEquivalence, "different equipment source requires a verified SourceEquivalence")
+    _require(equivalence.original_sha256 == evidence["source_sha256"]
+             and equivalence.derivative_sha256 == document["source"]["sha256"], "equivalence source identities differ")
+    _require(equivalence.dimensions == (evidence["width"], evidence["height"])
+             and len(equivalence.frames) == evidence["decoded_frames"] == document["source"]["decoded_frames"],
+             "equivalence dimensions or complete coverage differ")
+    _require(document["schema_version"] == 3, "mapped equipment requires explicit decoder clocks, not nominal retiming")
+    scale = Fraction(equivalence.time_base)
+    clocks, mapping = document["source"]["frame_times_s"], {}
+    for pair in equivalence.frames:
+        _check(deadline)
+        original_time = float(pair.source_decoder_pts * scale)
+        derivative_time = float(pair.derivative_decoder_pts * scale)
+        _require(math.isclose(clocks[pair.derivative_frame], derivative_time, rel_tol=0, abs_tol=1e-9),
+                 "equipment decoder clock conflicts with verified equivalence")
+        mapping[pair.source_frame] = {"original_frame": pair.source_frame, "derivative_frame": pair.derivative_frame,
+            "original_decoder_time_s": original_time, "derivative_decoder_time_s": derivative_time,
+            "original_native_pts": pair.source_native_pts, "derivative_native_pts": pair.derivative_native_pts,
+            "original_duration_pts": pair.source_duration_pts, "derivative_duration_pts": pair.derivative_duration_pts,
+            "pixel_sha256": pair.pixel_sha256}
+    return mapping, equivalence.inspection()
+
+
+def _equipment(raw, ids, evidence, deadline, equivalence):
     from weft.observations import validate_observations
 
     _require(type(raw) is bytes and 0 < len(raw) <= CONTRACT["maximum_equipment_bytes"], "bounded exact equipment observation bytes required")
@@ -235,23 +265,29 @@ def _equipment(raw, ids, evidence, deadline):
         return value
     document = validate_observations(json.loads(raw, object_pairs_hook=unique))
     _check(deadline)
-    _require(document["source"]["sha256"] == evidence["source_sha256"]
-             and document["image"] == {"width_px": evidence["width"], "height_px": evidence["height"]}, "equipment source/image differs; map derivatives first")
+    _require(document["image"] == {"width_px": evidence["width"], "height_px": evidence["height"]}, "equipment source image differs")
+    mapping, proof = _equipment_mapping(document, evidence, equivalence, deadline)
     _require(isinstance(ids, (list, tuple)) and 1 <= len(ids) <= CONTRACT["maximum_equipment"]
              and all(isinstance(i, str) for i in ids) and len(set(ids)) == len(ids)
              and set(ids) <= {obj["id"] for obj in document["objects"]}, "select bounded unique equipment IDs")
     if document["schema_version"] != 3:
         _require(document["source"]["fps"] == evidence["fps"], "equipment nominal clock differs")
     index = {(row["frame"], row["object_id"]): row for row in document["observations"] if row["object_id"] in ids}
-    return document, index, sha256(raw).hexdigest()
+    return document, index, sha256(raw).hexdigest(), mapping, proof
 
 
-def _equipment_point(row, pose, native_clock):
+def _equipment_point(row, pose, native_clock, mapping=None):
     if row is None:
         return None, "equipment_slot_unavailable"
     if row["partition"] not in {"construction", "generation"}:
         return None, "equipment_partition_excluded"
-    expected = pose.get("decoder_timestamp_s") if native_clock else pose["time_s"]
+    if mapping is not None:
+        stamp = pose.get("decoder_timestamp_s")
+        if stamp is None or not math.isclose(stamp, mapping["original_decoder_time_s"], rel_tol=0, abs_tol=1e-9):
+            return None, "pose_decoder_clock_unavailable_or_different_from_equivalence"
+        expected = mapping["derivative_decoder_time_s"]
+    else:
+        expected = pose.get("decoder_timestamp_s") if native_clock else pose["time_s"]
     if expected is None or not math.isclose(expected, row["time_s"], abs_tol=1e-6):
         return None, "equipment_clock_unavailable_or_different"
     if row["visibility"] != "detected":
@@ -263,7 +299,8 @@ def _equipment_point(row, pose, native_clock):
     return [x, y, x + width, y + height], None
 
 
-def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=None, equipment_ids=()):
+def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=None, equipment_ids=(),
+                              equipment_source_equivalence=None):
     """Produce construction-only image candidates; original evidence and physics stay untouched."""
     started = time.monotonic()
     deadline = started + CONTRACT["maximum_seconds"]
@@ -284,11 +321,16 @@ def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=
     scale = median(torso_spans) if len(torso_spans) >= CONTRACT["minimum_scale_frames"] else None
     windows = _windows([row["time_s"] for row in selected])
     feet = {index: _stationarity([row[0][index]["pixel"] for row in inputs], windows, scale, deadline) for index in FOOT_POINTS}
-    pairs, equipment_hash = {}, None
+    pairs, equipment_hash, equipment_source, mapping, proof = {}, None, None, None, None
     if equipment_observations is not None:
-        equipment, indexed, equipment_hash = _equipment(equipment_observations, equipment_ids, evidence, deadline)
+        equipment, indexed, equipment_hash, mapping, proof = _equipment(
+            equipment_observations, equipment_ids, evidence, deadline, equipment_source_equivalence)
+        equipment_source = equipment["source"]["sha256"]
+        source_frames = [mapping[row["frame"]]["derivative_frame"] if mapping is not None else row["frame"] for row in selected]
         for object_id in equipment_ids:
-            boxes = [_equipment_point(indexed.get((row["frame"], object_id)), row, equipment["schema_version"] == 3) for row in selected]
+            boxes = [_equipment_point(indexed.get((frame, object_id)), row, equipment["schema_version"] == 3,
+                                      mapping[row["frame"]] if mapping is not None else None)
+                     for frame, row in zip(source_frames, selected, strict=True)]
             for hand in HANDS:
                 offsets, gaps = [], []
                 for (points, _), (box, _) in zip(inputs, boxes, strict=True):
@@ -299,9 +341,10 @@ def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=
                 values = _stationarity(offsets, windows, scale, deadline)
                 for i, value in enumerate(values):
                     left, right, _, _ = windows[i]
-                    source_row = indexed.get((selected[i]["frame"], object_id))
+                    source_row = indexed.get((source_frames[i], object_id))
                     value.update(object_id=object_id, hand=HANDS[hand], object_observation_id=source_row["id"] if source_row else None,
                                  object_evidence_ids=list(source_row["evidence_ids"]) if source_row else [],
+                                 object_source_frame=source_frames[i], object_time_s=source_row["time_s"] if source_row else None,
                                  equipment_slot_reason=boxes[i][1], hand_image_confidence=inputs[i][0][hand]["confidence"],
                                  image_box_px=boxes[i][0], hand_pixel=inputs[i][0][hand]["pixel"], image_gap_px=gaps[i],
                                  verified_contact=False, grasp="unknown")
@@ -316,11 +359,14 @@ def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=
                 pairs[(object_id, hand)] = values
     else:
         _require(not equipment_ids, "equipment IDs require their exact observation document")
+        _require(equipment_source_equivalence is None, "equivalence requires its exact equipment observation document")
     rows, foot_counts, pair_counts = [], Counter(), Counter()
     for i, frame in enumerate(frames):
         _check(deadline)
         item = {key: frame.get(key) for key in ("id", "frame", "time_s", "decoder_timestamp_s")}
         item.update(partition="construction" if i < cutoff else "excluded_later", ground_points=[], equipment_pairs=[])
+        if mapping is not None:
+            item["equipment_source_mapping"] = mapping[frame["frame"]]
         if i < cutoff:
             left, right, span, reasons = windows[i]
             item.update(landmark_origin=inputs[i][1], window={"first_evidence_id": selected[left]["id"],
@@ -340,6 +386,7 @@ def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=
     result = {"schema_version": 1, "profile": PROFILE, "status": "candidates_only" if scale is not None else "unavailable_image_scale",
         "source_sha256": evidence["source_sha256"], "pose_evidence_canonical_sha256": pose_hash,
         "equipment_observations_sha256": equipment_hash, "equipment_object_ids": list(equipment_ids),
+        "equipment_source_sha256": equipment_source, "equipment_source_equivalence": proof,
         "camera_prior": deepcopy(camera_prior), "contract": deepcopy(CONTRACT), "rows": rows,
         "image_scale": {"median_torso_span_px": scale, "usable_construction_rows": len(torso_spans), "total_construction_rows": cutoff,
                         "scope": "Image-only normalization, not metric scale, camera calibration or anatomy"},

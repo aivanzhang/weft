@@ -314,3 +314,101 @@ def test_expired_input_deadline_precedes_serialization(monkeypatch):
     _forbid_json_serialization(monkeypatch)
     with pytest.raises(TimeoutError):
         _prepare(data, prior(), deadline=0)
+
+
+def _equivalent_equipment(tmp_path):
+    from weft.source_equivalence import load_source_equivalence
+    from test_source_equivalence import fixture, seal
+
+    bundle = fixture(tmp_path / "mapping", derivative_offset=1)
+    # Scale the recorded-producer fixture; no real media is decoded or claimed.
+    for name in ("report.json", "pre-run.json"):
+        path = bundle / name
+        value = json.loads(path.read_bytes()); value["dimensions"] = [128, 128]
+        path.write_bytes(raw(value))
+    for side in ("source", "derivative"):
+        path = bundle / (side + "-frames.sha256")
+        path.write_text(path.read_text().replace("2x2", "128x128").replace(", 6, ", ", 24576, "))
+        path = bundle / (side + "-frames.log")
+        path.write_text(path.read_text().replace("2x2", "128x128"))
+    seal(bundle)
+    equivalence = load_source_equivalence(bundle)
+    data = pose(3, 30); data.update(width=128, height=128)
+    document = equipment(data, native=True)
+    data = json.loads(raw(data).replace(SOURCE.encode(), equivalence.original_sha256.encode()))
+    document = json.loads(raw(document).replace(SOURCE.encode(), equivalence.derivative_sha256.encode()))
+    for row, mapped in zip(data["frames"], equivalence.frames, strict=True):
+        row["decoder_timestamp_s"] = mapped.source_decoder_pts / 1000
+    document["source"]["frame_times_s"] = [row.derivative_decoder_pts / 1000 for row in equivalence.frames]
+    for row in document["observations"] + document["evidence"]:
+        row["time_s"] = document["source"]["frame_times_s"][row["frame"]]
+        if "time_s" in row.get("payload", {}):
+            row["payload"]["time_s"] = row["time_s"]
+    return data, document, equivalence
+
+
+def test_verified_equipment_mapping_preserves_both_sources_clocks_and_ids(tmp_path):
+    data, document, proof = _equivalent_equipment(tmp_path)
+    original, document_bytes = deepcopy(data), raw(document)
+    result = estimate_exercise_support(data, camera_prior=prior(data["source_sha256"]),
+        equipment_observations=document_bytes, equipment_ids=["weight"], equipment_source_equivalence=proof)
+    assert data == original and raw(document) == document_bytes
+    assert result["source_sha256"] == proof.original_sha256
+    assert result["equipment_source_sha256"] == proof.derivative_sha256
+    assert result["equipment_observations_sha256"] == sha256(document_bytes).hexdigest()
+    assert result["equipment_source_equivalence"]["manifest_sha256"] == proof.manifest_sha256
+    mapping = result["rows"][0]["equipment_source_mapping"]
+    assert mapping["original_decoder_time_s"] == 0 and mapping["derivative_decoder_time_s"] == .002
+    assert mapping["original_native_pts"] == mapping["derivative_native_pts"] == 3
+    pair = result["rows"][0]["equipment_pairs"][0]
+    assert pair["object_observation_id"] == document["observations"][0]["id"]
+    assert pair["object_evidence_ids"] == document["observations"][0]["evidence_ids"]
+    assert pair["object_time_s"] == .002 and pair["equipment_slot_reason"] is None
+    assert pair["status"] == "unavailable" and "insufficient_temporal_context" in pair["reasons"]
+    assert pair["grasp"] == "unknown" and pair["verified_contact"] is False
+    assert result["counts"]["retained_equipment_pair_slots"] == 6
+    assert result["rows"][-1]["equipment_source_mapping"]["original_frame"] == 2
+    assert all(p["status"] == "excluded_later_partition" for p in result["rows"][-1]["equipment_pairs"])
+
+
+@pytest.mark.parametrize("stamp", [None, .002])
+def test_mapped_equipment_missing_or_wrong_pose_decoder_clock_abstains(tmp_path, stamp):
+    data, document, proof = _equivalent_equipment(tmp_path)
+    data["frames"][0]["decoder_timestamp_s"] = stamp
+    result = estimate_exercise_support(data, camera_prior=prior(data["source_sha256"]),
+        equipment_observations=raw(document), equipment_ids=["weight"], equipment_source_equivalence=proof)
+    pair = result["rows"][0]["equipment_pairs"][0]
+    assert pair["equipment_slot_reason"] == "pose_decoder_clock_unavailable_or_different_from_equivalence"
+    assert pair["status"] == "unavailable" and pair["image_box_px"] is None
+
+
+@pytest.mark.parametrize("kind", ["missing_proof", "unverified_proof", "wrong_source", "coverage", "equipment_clock"])
+def test_equipment_mapping_rejects_missing_or_conflicting_proof(tmp_path, kind):
+    data, document, proof = _equivalent_equipment(tmp_path)
+    if kind == "missing_proof":
+        proof = None
+    elif kind == "unverified_proof":
+        proof = proof.inspection()
+    elif kind == "wrong_source":
+        data = json.loads(raw(data).replace(data["source_sha256"].encode(), b"b" * 64))
+    elif kind == "coverage":
+        data.update(decoded_frames=4, frame_count=4)
+    else:
+        document["source"]["frame_times_s"] = [stamp + .001 for stamp in document["source"]["frame_times_s"]]
+        for row in document["observations"] + document["evidence"]:
+            row["time_s"] += .001
+            if "time_s" in row.get("payload", {}):
+                row["payload"]["time_s"] = row["time_s"]
+    with pytest.raises(ValueError, match="equivalence|Equivalence"):
+        estimate_exercise_support(data, camera_prior=prior(data["source_sha256"]),
+            equipment_observations=raw(document), equipment_ids=["weight"], equipment_source_equivalence=proof)
+
+
+def test_unused_equipment_mapping_or_mapping_without_document_rejects(tmp_path):
+    _, _, proof = _equivalent_equipment(tmp_path)
+    data = pose(3)
+    with pytest.raises(ValueError, match="unused equivalence"):
+        estimate_exercise_support(data, camera_prior=prior(), equipment_observations=raw(equipment(data)),
+            equipment_ids=["weight"], equipment_source_equivalence=proof)
+    with pytest.raises(ValueError, match="exact equipment observation document"):
+        estimate_exercise_support(data, camera_prior=prior(), equipment_source_equivalence=proof)
