@@ -4,6 +4,43 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Play an object video without training
+
+Add `--no-train` to a new **planar** or **appearance** video build. Tracking,
+reconstruction checks and intervention checks still run; policy training and
+policy evaluation do not. The resulting lab supports manual controls, reset,
+recording and export. Learned controls remain disabled.
+
+This verified local example tracks the declared first visible pass of an
+existing grayscale ball clip, frames 39–60—not the entire 157-frame video:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/manual-video-acceptance-01/lab
+```
+
+Use `lab-console --resume` instead for terminal controls without a server.
+To build a new run yourself, choose a new output directory:
+
+```sh
+.venv-lab/bin/python -m weft lab \
+  --video data/general/rolling-ball-grayscale.avi \
+  --profile appearance \
+  --config data/general/annotations/rolling-grayscale.scene.json \
+  --out artifacts/my-manual-ball-01 --no-train --no-serve
+```
+
+`--no-serve` builds without starting a server. `--no-train` cannot be combined
+with training/evaluation episode counts or used to change an existing run.
+The explicit setting is sealed; a missing policy in an older trained run is
+still an error, not an automatic manual fallback.
+
+The saved build took **0.92 seconds**. Six manual actions, a reset, eight exported
+frames and an independent exact-action replay passed. The first acceptance
+script used the wrong reset default; the corrected saved-only check used the
+lab's explicit `jitter: false`, without reprocessing or exporting the video.
+This is a 2D simulation with declared regions and assumptions, not reconstructed
+3D physics. [Verification](../artifacts/manual-video-verification-01/report.json).
+
 ## Recommended exercise sandbox
 
 ```sh

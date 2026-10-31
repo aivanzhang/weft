@@ -4,7 +4,7 @@ from copy import deepcopy
 import json
 from pathlib import Path
 
-from weft.io import write_json
+from weft.io import digest, write_json
 from weft.pipeline import verify_artifacts
 
 
@@ -27,6 +27,33 @@ PHYSICS_BACKENDS = frozenset(
         "mujoco_3d_shared_world",
     }
 )
+
+
+def planar_training_enabled(directory, *, lab_config=None):
+    """Require a sealed explicit opt-out before a video lab can omit its policy."""
+    root = Path(directory)
+    path = root / "run-config.json"
+    settings = json.loads(path.read_text()) if path.is_file() else {}
+    if not isinstance(settings, dict):
+        raise ValueError("Planar run settings must be a JSON object")
+    enabled = settings.get("training_enabled", True)
+    if type(enabled) is not bool:
+        raise ValueError("Planar training_enabled must be a boolean")
+    if lab_config is not None:
+        configured = lab_config.get("training_enabled", True)
+        if type(configured) is not bool or configured is not enabled:
+            raise ValueError("Lab training mode differs from its sealed run settings")
+    if not enabled:
+        manifest = json.loads((root / "manifest.json").read_text())
+        if (manifest.get("files", {}).get("run-config.json") != digest(path)
+                or settings.get("profile") not in ("planar", "appearance")
+                or (lab_config is not None and settings["profile"] != lab_config.get("profile"))
+                or settings.get("episodes") is not None or settings.get("eval_episodes") is not None):
+            raise ValueError("Manual planar mode requires matching sealed no-training settings")
+        policy = root / "policy.json"
+        if policy.exists() or policy.is_symlink():
+            raise ValueError("A manual-only planar run must not contain a policy")
+    return enabled
 
 
 def validate_capabilities(doc):
@@ -751,6 +778,8 @@ def describe_run_capabilities(directory, *, out=None):
                     trained_target = policy.get("selected_joint") or policy.get("controlled_id")
         if (target / "scene.json").is_file():
             scene = json.loads((target / "scene.json").read_text())
+            if scene.get("profile") in ("planar-rigid-v1", "planar-rigid-v2"):
+                planar_training_enabled(target)
             if trained_target is None and has_policy:
                 trained_target = scene.get("controlled_id")
             doc = describe_capabilities(

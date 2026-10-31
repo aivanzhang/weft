@@ -105,7 +105,7 @@ def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
     assert ACTUAL_PERSON_COMMIT == "e1c54236ebf625264e2cb335cab65ba53a907ac1"
     assert ACTUAL_FEEDBACK_COMMIT == "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
-    assert ACTUAL_EXERCISE_COMMIT == "4ad01536dbbfe121b30b82192f96500d33f7108a"
+    assert ACTUAL_EXERCISE_COMMIT == "225a53c8c0a9fb25f03b8473adfdf7f2754e037d"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2

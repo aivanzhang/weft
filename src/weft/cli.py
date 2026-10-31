@@ -51,8 +51,10 @@ def main():
     lab.add_argument("--body-model", choices=("hinge", "spatial", "mobile"), default="hinge",
                      help="Exercise body: hinge, spatial, or mobile with explicit root/floor assumptions")
     lab.add_argument("--config", help="Tracking/task JSON; required for appearance region tracking")
-    lab.add_argument("--episodes", type=int, default=1500)
-    lab.add_argument("--eval-episodes", type=int, default=100)
+    lab.add_argument("--episodes", type=int, help="Training episodes (default: 1500)")
+    lab.add_argument("--eval-episodes", type=int, help="Evaluation episodes (default: 100)")
+    lab.add_argument("--no-train", action="store_true",
+                     help="Build a manual planar/appearance video lab without training or policy evaluation")
     lab.add_argument("--seed", type=int, default=1729)
     lab.add_argument("--source-note", default="User-provided local video; rights not independently verified")
     lab.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")

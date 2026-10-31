@@ -53,7 +53,39 @@ Train a bounded 8-action linear-feedback and braking policy from an uninformed z
   --out artifacts/my-3d-trained-lab-01
 ```
 
-Reset remains exact (`jitter=False`) by default. Opt-in `options={"jitter": True, "position_jitter": ..., "velocity_jitter": ...}` samples bounded initial actor perturbations verified collision-free via `mj_geomDistance >= 1e-4`. In the saved v1 study `artifacts/track-b-learning-changed-init-02`, the learned policy improves simulated return and reduces mean final target distance over the baselines on the authored fixture (`0.588 → 0.142 scene_width` under changed starts; return `+0.2305` vs `-0.3584` coast) and source-linked ramp (`0.319 → 0.071 scene_width` nominal; `1/12` changed-start passes). The authored fixture still has `0/12` changed-start successes. These are not measured metres; legacy `*_m` metric keys retain their historical names. Short-horizon discrete CEM does not reliably satisfy terminal position/speed tolerances. No old study was retrained or relabeled v2; 617 saved v1 actions were checked unchanged. Simulation improvement does not verify physical accuracy.
+Reset remains exact (`jitter=False`) by default. Opt-in `options={"jitter": True, "position_jitter": ..., "velocity_jitter": ...}` samples bounded initial actor perturbations verified collision-free via `mj_geomDistance >= 1e-4`. In the saved v1 study `artifacts/track-b-learning-changed-init-02`, the learned policy improves simulated return and reduces mean final target distance over the baselines on the authored fixture (`0.588 → 0.142 scene_width` under changed starts; return `+0.2305` vs `-0.3584` coast) and source-linked ramp (`0.319 → 0.071 scene_width` nominal; `1/12` changed-start passes). The historical authored fixture has `0/12` changed-start successes. These are not measured metres; legacy `*_m` metric keys retain their historical names. No old study was retrained or relabeled v2; 617 saved v1 actions were checked unchanged. Simulation improvement does not verify physical accuracy.
+
+### V2 learning qualification
+
+The newer controller has now been trained on both unchanged scenes with three
+training seeds and checked on the same 12 new changed starts per scene:
+
+| Scene | Seed 1729 | Seed 1733 | Seed 1739 | Saved v1 policy on those starts |
+| --- | --- | --- | --- | --- |
+| Authored tabletop | 12/12 | 12/12 | 12/12 | 0/12 |
+| Source-linked ramp | 12/12 | 6/12 | 12/12 | 0/12 |
+
+All six v2 policies also pass the nominal start; v1, random, coast and brake
+fail it and all changed starts. Physics, scene, target, horizon and success
+tolerances are unchanged. The v2 changes adjust damping, bias and braking;
+success is checked separately from reward. All policies/results are retained,
+including the six ramp failures. No evaluation-guided retuning occurred.
+
+This is **12 distinct changed starts per scene**, reused across three trained
+policies—not 36 distinct starts. Nominal starts were also used in training.
+The evaluation reset IDs are disjoint from training and the earlier evaluation.
+There are no evaluation reset fallbacks or native failures; those counts are
+unavailable for training because its saved output contains aggregates.
+
+The bounded study took **94.45 seconds**, 2,304 training episodes and 563,697
+total actions, with no API cost. Observed process peak memory was 104,087,552
+bytes, not a hard memory cap. The ramp's geometry remains an unverified,
+previously rejected physical hypothesis. These results establish improved
+simulated control, not physical accuracy or arbitrary-video generalization.
+
+[Saved study](../artifacts/spatial-v2-qualification-01/report.json), manifest
+`b1679bf2af02408ba105cfccd75995f94c7b8f07f853c5473dbdbc21a21b5a9a`;
+[independent saved-output audit](../.local/spatial-v2-saved-audit-01.json).
 
 ## What the environment contains
 

@@ -42,6 +42,11 @@ def execute(root):
         print(f"[{stage}] {detail.get('message', '')}", flush=True)
 
     try:
+        training_enabled = settings.get("training_enabled", True)
+        if type(training_enabled) is not bool or (not training_enabled and settings["profile"] not in ("planar", "appearance")):
+            raise ValueError("Training opt-out requires a planar or appearance video lab")
+        if not training_enabled and (settings.get("episodes") is not None or settings.get("eval_episodes") is not None):
+            raise ValueError("A manual-only lab cannot request training or evaluation episodes")
         if settings["profile"] == "rolling":
             result = run(settings["video"], out, episodes=settings["episodes"],
                          eval_episodes=settings["eval_episodes"], seed=settings["seed"],
@@ -50,7 +55,6 @@ def execute(root):
             result = exercise_pipeline(out, settings, progress)
         else:
             from weft.scene import SceneEnv, validate_scene
-            from weft.scene_learning import train_scene
             from weft.scene_vision import fit_scene, inspect_video
 
             out.mkdir()
@@ -94,10 +98,18 @@ def execute(root):
                 env.close()
             write_json(out / "interventions.json", {"scope": "Simulated actions, not physical trials",
                                                      "trials": interventions})
-            progress("train", {"message": f"Training and evaluating on one fixed world ({settings['episodes']} episodes)"})
-            learning = train_scene(scene, out, episodes=settings["episodes"],
-                                   eval_episodes=settings["eval_episodes"], seed=settings["seed"], progress=progress)
-            progress("render", {"message": "Preserving the world, evidence, policy, and source snapshots"})
+            if training_enabled:
+                from weft.scene_learning import train_scene
+                progress("train", {"message": f"Training and evaluating on one fixed world ({settings['episodes']} episodes)"})
+                learning = train_scene(scene, out, episodes=settings["episodes"],
+                                       eval_episodes=settings["eval_episodes"], seed=settings["seed"], progress=progress)
+            else:
+                learning = {"status": "not_requested", "learned_policy_available": False,
+                            "evaluation": None,
+                            "scope": "Manual controls only; no policy training or policy evaluation was requested"}
+                progress("learning_skipped", {"message": "Learning not requested. Manual controls and recording are available after the reconstruction checks."})
+            progress("render", {"message": ("Preserving the world, evidence, policy, and source snapshots" if training_enabled else
+                                               "Preserving the world, evidence, and source snapshots; no policy was created")})
             result = {"profile": settings["profile"], "learning": learning,
                       "objects": len(scene["objects"]), "assumptions": scene["assumptions"],
                       "source_sha256": digest(source_video),

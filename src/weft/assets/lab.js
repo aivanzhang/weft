@@ -1143,7 +1143,7 @@
       $("spatial-controls").hidden = false; $("spatial-world-controls").hidden = false;
       text($("world-tab"), "3D scene");
       text($("world-heading"), "One 3D world. Front, top and angled views.");
-      text($("world-description"), "Rigid 3D objects share meter-scale coordinates, quaternions, contacts and MuJoCo dynamics. Depth, shape, materials, controls and task remain explicit assumptions; physical validation is unverified.");
+      text($("world-description"), "Rigid 3D objects share relative scene-width coordinates, rotations, contacts and MuJoCo dynamics. Depth, shape, materials, controls and task remain explicit assumptions; physical validation is unverified.");
       text($("evidence-boundary"), "Imported from a sealed 3D scene run. Depth, unseen surfaces, mass, friction and task forces are assumptions—not verified physical measurements.");
       const hasVideo = (data.artifacts || []).some((file) => /^source\.(mp4|webm|mov|m4v|avi|mkv)$/.test(file.name));
       if (!hasVideo && $("tracks").hidden) text($("tracks-empty"), "No source video or tracking preview was sealed with this 3D scene run. Inspect scene.json, reconstruction.json and Files for provenance.");
@@ -1164,6 +1164,12 @@
       text($("evidence-boundary"), "The rectangles were selected in the source video. Tracking compares their appearance; a match does not prove visibility or identity. Missing or ambiguous matches remain untracked.");
       text($("world-description"), "Selected regions become simple 2D shapes. Gravity, collisions and controls are explicit assumptions, checked against later tracked positions.");
       text($("play-boundary"), "This is an authored 2D simulation, not recovered 3D physics. Tracking a region does not establish what object it is or which forces act on it.");
+    }
+    if (noLearnedPolicy && ["planar", "appearance"].includes(data.profile)) {
+      text($("start-help"), "2D scene ready. Inspect the video, tracks and assumptions, then try manual controls and recording. Learning was not requested for this run.");
+      text($("learning-description"), "No learned controller or policy evaluation was requested for this run.");
+      text($("learning-boundary"), "Manual controls and recorded trials do not establish learned behavior or physical accuracy.");
+      text($("training-caption"), "Not trained · manual controls, reset and recording are available.");
     }
     if (data.profile === "exercise") {
       actionNames = ["Release", "Bend", "Straighten", "Slow down", "Hold position", "Follow video"];
@@ -1243,6 +1249,7 @@
     renderObjectDetails();
     $("assumptions").replaceChildren(); for (const assumption of scene.assumptions || []) { const li = document.createElement("li"); text(li, assumption); $("assumptions").append(li); }
     const skipLearningArtifacts = sharedExercise() || noLearnedPolicy;
+    if (noLearnedPolicy) { $("learning-curve").hidden = true; $("scores").replaceChildren(); }
     const results = await Promise.allSettled([skipLearningArtifacts ? Promise.resolve(null) : artifact("training.json"), skipLearningArtifacts ? Promise.resolve(null) : artifact("rl-evaluation.json"), artifact("repair-ledger.json"), artifact(data.profile === "rolling" ? "report.json" : "reconstruction.json")]);
     if (results[0].status === "fulfilled" && results[0].value) { const training = results[0].value; curve(training); text($("training-caption"), (wholeBody() || sharedWorld()) ? `${training.completed_generations} completed generations · ${number(training.seconds, 2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}` : `${training.completed_episodes ?? training.episodes} training episodes · ${training.steps} steps · ${Number(training.seconds).toFixed(2)} seconds${training.budget_exhausted ? " · stopped at local time budget" : ""}`); }
     if (results[1].status === "fulfilled" && results[1].value) metrics($("scores"), Object.entries(results[1].value.policies).map(([name, score]) => {
@@ -1253,7 +1260,8 @@
         const trials = score.trials || [], successes = trials.filter(trial => trial.success).length;
         return [`${successes}/${trials.length}`, `${({learned: "Learned full-body controller", zero: "Zero motor force", random: "Random actions", authored_feedback: "Authored feedback (not learned)"})[name] || name.replaceAll("_", " ")} · full-body trials passed · mean return ${number(score.mean_return)}`];
       }
-      const extra = typeof score.mean_final_distance_m === "number" ? ` · mean return ${number(score.mean_return)} · final dist ${number(score.mean_final_distance_m)} m` : "";
+      const distanceUnit = data.profile === "spatial-rigid" ? "scene-width units" : "m";
+      const extra = typeof score.mean_final_distance_m === "number" ? ` · mean return ${number(score.mean_return)} · final dist ${number(score.mean_final_distance_m)} ${distanceUnit}` : "";
       return [`${score.successes}/${score.episodes}`, `${({q_learning: "Learned controller", learned: "Learned controller", random: "Random actions", coast: "No control", brake: "Braking baseline", heuristic_feedback: "Target feedback (not learned)"})[name] || name.replaceAll("_", " ")} · goals reached${extra}`];
     }));
     if (results[2].status === "fulfilled") {

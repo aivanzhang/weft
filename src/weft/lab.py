@@ -81,13 +81,17 @@ class RollingSession:
 
 
 class PlanarSession:
-    def __init__(self, root):
+    def __init__(self, root, *, config=None):
+        from weft.capabilities import planar_training_enabled
         from weft.scene import SceneEnv
+        training_enabled = planar_training_enabled(root, lab_config=config)
         self.scene = json.loads((root / "scene.json").read_text())
-        self.policy = json.loads((root / "policy.json").read_text())
+        if training_enabled and not (root / "policy.json").is_file():
+            raise ValueError("This trained planar run is missing policy.json; no manual fallback is allowed")
+        self.policy = json.loads((root / "policy.json").read_text()) if training_enabled else None
         self.env = SceneEnv(self.scene)
         self.scene = self.env.scene
-        self.trained_controlled_id = self.policy.get("controlled_id", self.scene["controlled_id"])
+        self.trained_controlled_id = self.policy.get("controlled_id", self.scene["controlled_id"]) if self.policy is not None else None
         self.reset(0)
 
     def reset(self, seed):
@@ -101,6 +105,8 @@ class PlanarSession:
         self.done = self.env._done
 
     def policy_action(self):
+        if self.policy is None:
+            raise ValueError("This planar run has no learned policy; use manual controls")
         from weft.scene_learning import policy_action
         if self.scene["controlled_id"] != self.trained_controlled_id:
             raise ValueError(f"This policy was trained for {self.trained_controlled_id}; select that object first")
@@ -487,7 +493,7 @@ class Lab:
                 if self.config['profile'] != 'exercise':
                     raise ValueError('Camera-body control requires an exercise lab')
                 cls = CameraHumanSession
-            self.session = cls(self.root / "run")
+            self.session = cls(self.root / "run", config=self.config) if cls is PlanarSession else cls(self.root / "run")
         return self.session
 
     def exercise_coverage(self):
@@ -562,7 +568,7 @@ class Lab:
         artifacts = self.artifacts or []
         policy_ready = (session.scene.get("learned_policy_available") is not False
                         and not isinstance(session, CameraHumanSession)
-                        and (not isinstance(session, (SpatialSession, SharedWorldSession)) or session.policy is not None))
+                        and (not isinstance(session, (PlanarSession, SpatialSession, SharedWorldSession)) or session.policy is not None))
         trained_target = None
         if policy_ready:
             if isinstance(session, RollingSession):
@@ -804,6 +810,8 @@ class Lab:
                 raise ValueError("Stop and export the recording before changing its controlled object")
             session.select_actor(data.get("actor"))
             return {"snapshot": session.snapshot(), "scene": session.scene, "capabilities": self.capabilities(session)}
+        if path == "/api/step" and isinstance(session, PlanarSession) and data.get("policy") is True and session.policy is None:
+            raise ValueError("This planar run has no learned policy; use manual controls")
         if path in ("/api/reset", "/api/step") and self.recorder:
             try:
                 self.recorder.check_capacity()
@@ -1132,20 +1140,27 @@ class LabHandler(BaseHTTPRequestHandler):
             self.reply({"error": str(error)}, 400)
 
 
-def prepare_lab(video, out, *, profile="planar", config=None, episodes=1500, eval_episodes=100,
+def prepare_lab(video, out, *, profile="planar", config=None, episodes=None, eval_episodes=None,
                 seed=1729, source_note="Rights not independently verified; user-provided local video", pose_model=None,
-                pose_mode="video", body_model="hinge", pose_identity="raw"):
+                pose_mode="video", body_model="hinge", pose_identity="raw", no_train=False):
     if profile not in ("planar", "appearance", "rolling", "exercise"):
         raise ValueError("Unknown profile")
+    if type(no_train) is not bool or (no_train and profile not in ("planar", "appearance")):
+        raise ValueError("--no-train applies only to planar and appearance video labs")
+    if no_train and (episodes is not None or eval_episodes is not None):
+        raise ValueError("--no-train cannot be combined with --episodes or --eval-episodes")
+    if not no_train:
+        episodes = 1500 if episodes is None else episodes
+        eval_episodes = 100 if eval_episodes is None else eval_episodes
     if pose_mode not in ("video", "image") or (profile != "exercise" and pose_mode != "video"):
         raise ValueError("Pose mode must be video or image and applies only to exercise")
     if body_model not in ("hinge", "spatial", "mobile") or (profile != "exercise" and body_model != "hinge"):
         raise ValueError("Body model must be hinge, spatial or mobile and applies only to exercise")
     if pose_identity not in ("raw", "temporal") or (profile != "exercise" and pose_identity != "raw"):
         raise ValueError("Pose identity must be raw or temporal and applies only to exercise")
-    if type(episodes) is not int or not 1 <= episodes <= (50000 if profile == "rolling" else 5000):
+    if not no_train and (type(episodes) is not int or not 1 <= episodes <= (50000 if profile == "rolling" else 5000)):
         raise ValueError("Training episodes exceed the selected profile's bounds")
-    if type(eval_episodes) is not int or not 1 <= eval_episodes <= 200:
+    if not no_train and (type(eval_episodes) is not int or not 1 <= eval_episodes <= 200):
         raise ValueError("Evaluation episodes must be 1–200")
     if type(seed) is not int or not 0 <= seed < 2 ** 31 or seed == 938401:
         raise ValueError("Invalid training seed or collision with evaluation seed")
@@ -1174,6 +1189,7 @@ def prepare_lab(video, out, *, profile="planar", config=None, episodes=1500, eva
     out.mkdir(parents=True)
     write_json(out / "lab-config.json", {"schema_version": 1, "video": str(video), "profile": profile,
                "episodes": episodes, "eval_episodes": eval_episodes, "seed": seed,
+               **({"training_enabled": False} if no_train else {}),
                "scene_config": scene_config, "source_note": source_note, "created_at": local_time(),
                "pose_model": str(pose_model) if pose_model else None,
                "pose_mode": pose_mode,
@@ -1187,6 +1203,9 @@ def launch_lab(args):
     scene_run = getattr(args, "scene_run", None)
     shared_world_run = getattr(args, "shared_world_run", None)
     scene_learning = getattr(args, "learning", None)
+    no_train = getattr(args, "no_train", False)
+    if no_train and (args.resume or scene_run or shared_world_run or scene_learning):
+        raise ValueError("--no-train requires a new planar/appearance --video lab, not a saved run or policy import")
     if scene_run and shared_world_run:
         raise ValueError("Choose either --scene-run or --shared-world-run, not both")
     if args.resume:
@@ -1215,7 +1234,7 @@ def launch_lab(args):
         root = prepare_lab(args.video, args.out, profile=args.profile, config=args.config,
                            episodes=args.episodes, eval_episodes=args.eval_episodes, seed=args.seed,
                            source_note=args.source_note, pose_model=args.pose_model, pose_mode=args.pose_mode,
-                           body_model=args.body_model, pose_identity=args.pose_identity)
+                           body_model=args.body_model, pose_identity=args.pose_identity, no_train=no_train)
     if not 0 <= args.port <= 65535:
         raise ValueError("Port must be 0–65535 (0 chooses a free local port)")
     lab = Lab(root, avatars=getattr(args, "avatar", ()) or ())

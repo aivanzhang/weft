@@ -1,5 +1,15 @@
 # Weft iteration backlog
 
+## Current progress — October 31, 2026, 3:35 AM PDT
+
+- [x] Verify the existing versioned v2 3D learner on unchanged tabletop and ramp worlds across three training seeds and 12 matched changed starts per scene. Tabletop: **12/12, 12/12, 12/12**; ramp: **12/12, 6/12, 12/12**. Matched frozen v1/random/coast/brake: **0/12**. All six v2 nominal trials pass. No task, physics or tolerance changes, no best-seed selection, no final-holdout or physical-accuracy claim. One 94.45-second/$0 study; [results and exact evidence](docs/spatial-rigid.md#v2-learning-qualification).
+- [x] Add explicit `lab --no-train` for planar/appearance videos, with sealed opt-out, manual controls/reset/recording and unavailable learned controls. Missing/tampered policies cannot become manual fallbacks. **48 distinct focused/regression Python cases** and five relevant scripted UI cases pass; earlier socket-denied and verifier errors are preserved. [Usage](docs/local-lab.md#play-an-object-video-without-training).
+- [x] Verify one real exposed-source manual build in **0.917 seconds**, six manual actions, one reset and eight exported frames. The first replay verifier omitted the lab's explicit `jitter:false`; preserve its failed study seal `9166331522b6e86f835eb6cd296a0a9433c76c633247ddc9a620f7f87df6af4e`. Corrected saved-only replay passes without reprocessing or exporting: `artifacts/manual-video-verification-01`, seal `8a6f2f830ddb6b2abfacf2280f93f7abe48e95da0cc52771c76924cb1bd1691d`. The lab itself is ready; it models declared frames 39–60 in 2D, not the full source or measured 3D physics.
+- [ ] Finish and verify the new opt-in whole-body reference corrector; require unchanged source/first pose/root/shape/floor/clocks, nonlinear floor/image/depth nonregression and complete final source/grid checks. No real-source fit or promotion has run.
+- [ ] Finish start-time runtime-bound exact-action replay for new spatial recordings; preserve old exports as saved-state-only, then package the predeclared seed-1729 tabletop/ramp policies and verify ordinary interaction/recording/export.
+- [ ] Continue source-supported unfamiliar-video reconstruction, stable coupled human/equipment behavior and independent physical evidence. New simulator learning successes do not complete these requirements. Preserve the separate avatar work and existing playable exercise preset.
+
+
 ## Current continuation — October 31, 2026, 3:03 AM PDT
 
 - [x] Complete the matched coupled-scene runtime check without retraining or migrating an old policy: all three 254-action trials finish, but all still fail `equipment_stability:sam-2`. Mean reward rises 0.7120→0.7477 while displacement worsens on every start (0.465–0.513 model units). Source, starts, task and gates remain unchanged; nine runtime files differ from the archived baseline, so this is not isolated clock causality. Saved-output audit `.local/mixed-clock-control-verification-02.json` passes; no candidate or policy is promoted.

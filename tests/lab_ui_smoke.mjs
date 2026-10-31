@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false} = {}) {
+function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -192,7 +192,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   let backendReady = false, backendRecording = false, exportStatus = null;
   let savedSessions = clone(savedRecordings);
   const isSpatialUntrained = profile === 'spatial-rigid' && !spatialTrained;
-  const noPolicy = sharedExercise ? !exercisePolicyAvailable : cameraBody || isSpatialUntrained || (shared && !sharedTrained);
+  const noPolicy = sharedExercise ? !exercisePolicyAvailable : cameraBody || isSpatialUntrained || (shared && !sharedTrained) || (trainingDisabled && ['planar','appearance'].includes(profile));
   const trainedActor = profile === 'spatial-rigid' ? (spatialTrained ? 'block' : null) : profile === 'exercise' ? null : 'actor';
   const buildCapabilities = () => ({
     schema_version: 1,
@@ -265,7 +265,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   if (sharedExercise && exercisePolicy) artifacts['policy.json'] = {profile:'shared-exercise-policy-v1',scope:'Synthetic attached-policy UI fixture'};
   if (profile === 'spatial-rigid' && spatialTrained) {
     artifacts['policy.json'] = {profile: 'spatial-policy-v1', controlled_id: 'block'};
-    artifacts['rl-evaluation.json'] = {policies: {learned: {successes: 8, episodes: 10}, random: {successes: 1, episodes: 10}, coast: {successes: 0, episodes: 10}, brake: {successes: 0, episodes: 10}}};
+    artifacts['rl-evaluation.json'] = {policies: {learned: {successes: 8, episodes: 10, mean_return: .5, mean_final_distance_m: .01}, random: {successes: 1, episodes: 10}, coast: {successes: 0, episodes: 10}, brake: {successes: 0, episodes: 10}}};
     artifacts['reconstruction.json'] = {scope: 'Trained 3D rigid scene; physical validation remains unverified'};
     artifacts['repair-ledger.json'] = {proposals: []};
   }
@@ -1009,9 +1009,39 @@ async function spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed() {
   assert.equal(ui.ids.get('start-learned').disabled, false);
   assert.match(ui.ids.get('scores').children[0].children[1].textContent, /Learned controller/);
   assert.match(ui.ids.get('scores').children[3].children[1].textContent, /Braking baseline/);
+  assert.match(ui.ids.get('world-description').textContent, /relative scene-width/);
+  assert.doesNotMatch(ui.ids.get('world-description').textContent, /meter-scale/);
+  assert.match(ui.ids.get('scores').children[0].children[1].textContent, /0\.010 scene-width units/);
   ui.ids.get('policy').click(); ui.ids.get('step').click(); await drain();
   assert.deepEqual(ui.pending[0].data, {action: 0, steps: 1, policy: true});
   ui.resolveNext('/api/step'); await drain();
+}
+
+async function manualObjectVideosDoNotClaimTrainingOrFetchMissingPolicies() {
+  for (const profile of ['planar', 'appearance']) {
+    const ui = fixture(profile, {trainingDisabled: true}); await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled, true);
+    assert.equal(ui.ids.get('start-learned').disabled, true);
+    assert.match(ui.ids.get('start-help').textContent, /2D scene ready/);
+    assert.match(ui.ids.get('learning-description').textContent, /No learned controller or policy evaluation/);
+    assert.match(ui.ids.get('training-caption').textContent, /Not trained/);
+    assert.equal(ui.ids.get('learning-curve').hidden, true);
+    assert.equal(ui.ids.get('scores').children.length, 0);
+    assert(!ui.requests.some(request => /\/(policy|training|rl-evaluation)\.json/.test(request.path)));
+    ui.action(2); await drain();
+    assert.deepEqual(ui.pending[0].data, {action: 2, steps: 3, policy: false});
+    ui.resolveNext('/api/step'); await drain();
+    ui.ids.get('reset').click(); await drain();
+    ui.resolveNext('/api/reset'); await drain();
+    ui.ids.get('record').click(); await drain();
+    ui.resolveNext('/api/record/start'); await drain();
+    assert.equal(ui.pending[0].data.policy, false);
+    ui.resolveNext('/api/step'); await drain();
+    ui.ids.get('stop-record').click(); await drain();
+    ui.resolveNext('/api/record/stop'); await drain();
+    assert.equal(ui.ids.get('stop-record').disabled, true);
+    assert.equal(ui.maxActiveSteps(), 1);
+  }
 }
 
 async function multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor() {
@@ -1697,6 +1727,7 @@ checks.push(sharedExerciseShowsImmutableTaskPassiveEquipmentAndExplicitAssistanc
   poseCoverageSeeksSourceWithoutChangingSimulationOrFetchingRawPoses,
   failedPoseRunRemainsInspectableAndSeeksAfterMetadataLoads,coverageBackgroundLoadDoesNotRestartOrPollAfterCompletion,
   spatialRigidExposesEightControlsThreeViewsAndHonestUntrainedState,spatialRigidLearnedModeUnlocksOnlyWhenPolicyIsSealed,
+  manualObjectVideosDoNotClaimTrainingOrFetchMissingPolicies,
   multiObjectActorSelectionLocksDuringRecordingAndRestoresTrainedActor,spatialRigidActorSelectionSwitchesDynamicObjectsOnly,
   evidenceProvenanceSeparatesSourceKinematicsControllersAndSimulation,
   sharedWorldShowsBodyObjectsAndContactsInAllThreeViews,sharedWorldRoutesHumanMotorVectorsAndSelectedObjectActions,

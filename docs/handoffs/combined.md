@@ -1,5 +1,67 @@
 # Combined Weft implementation handoff
 
+## Current implementation — October 31, 2026, 3:33 AM PDT
+
+The overall goal stays active. Git fetch confirms local/origin `main` at
+`3b77a058a09cccf47595ea10d48bb012ebec830c`; stashes are empty. Preserve the
+75 avatar-session status entries. No browser, development server, deployment or paid call.
+The two HTTP tests used temporary loopback-only servers and closed them.
+
+- **3D learning qualification completed:** `artifacts/spatial-v2-qualification-01`,
+  seal `b1679bf2af02408ba105cfccd75995f94c7b8f07f853c5473dbdbc21a21b5a9a`.
+  Three v2 training seeds 1729/1733/1739 use identical scenes, physics and task gates.
+  Tabletop changed-start successes are 12/12,12/12,12/12; ramp 12/12,6/12,12/12.
+  All six nominal trials pass. Frozen v1 and simple baselines fail nominal and
+  all 12 changed starts in both cases. There are 12 distinct changed starts per
+  case, reused across policies; nominal starts are training-exposed. No tuning
+  or best-seed selection; any playable package uses predeclared seed 1729.
+  2,304 training episodes, 406,762 training and 156,935 evaluation actions;
+  94.445 seconds supervised, 104,087,552 B observed peak RSS, $0. These are exposed
+  simulator development results, not physical validation or arbitrary-video proof.
+- Independent saved-only audit: `.local/spatial-v2-saved-audit-01.json`, SHA
+  `92a6242dd19a8e16cfdfde90171dc221d6505de28c66dd99b5f5bdd0f8b2913f`.
+  All 65 members /214 pins /six 9-member packages verify. Actual reset IDs are
+  distinct and disjoint from all relevant training and old evaluation IDs.
+  Evaluation has zero native failures/fallbacks. The worker checked the fallback
+  flag at the wrong nesting; independent per-object recount confirms zero.
+  Training failure/fallback counts are unavailable, not asserted zero. Do not rerun.
+- **Manual object-video implementation:** four Python files (`lab.py`,
+  `lab_worker.py`, `capabilities.py`, `cli.py`) and new
+  `tests/test_planar_manual_lab.py`; explicit `--no-train`, sealed opt-out,
+  manual controls/recording and no missing-policy fallback. 35 focused plus 11
+  relevant regression cases pass. The prepared two HTTP cases pass with narrow
+  loopback permission (`.local/planar-manual-http-01.xml`); earlier sandbox-denied
+  socket cases remain known test-environment failures. Root's five selected UI
+  cases pass, including manual planar/appearance wording and rigid relative units.
+  Real-source assembly finishes in 0.917 seconds and its six actions/reset/export
+  pass. Initial acceptance replay failed because the verifier omitted explicit
+  jitter:false; no product code or source rerun was needed. Saved-only correction
+  `artifacts/manual-video-verification-01` passes, seal
+  `8a6f2f830ddb6b2abfacf2280f93f7abe48e95da0cc52771c76924cb1bd1691d`.
+  Preserve original failed study seal
+  `9166331522b6e86f835eb6cd296a0a9433c76c633247ddc9a620f7f87df6af4e`.
+  Lab `artifacts/manual-video-acceptance-01/lab` is ready; no live worker remains.
+- **Pending body candidate:** helper owns only new
+  `whole_body_reference_refinement.py` and focused tests. At most 8-variable
+  joint blocks cover 19 joints; no old solver/native/default changes. Preserve
+  first pose/root/shape/floor/clocks and source-only image targets; every affected
+  source/control-grid floor primitive must be no worse. No real-source fit yet.
+- **Pending spatial recording:** helper owns new `spatial_recording.py`,
+  `recording.py`, `recording_receipt.py` and focused tests. New recordings pin
+  runtime at start; new exports must replay exact actions/resets/rewards/states.
+  Old journals/exports remain saved-state-only and must not be backfilled.
+  Root owns UI, packaging, end-to-end acceptance and publication.
+
+The deferred SO(3) interpolation hypothesis is analytically rejected under its
+unchanged per-axis rate gate: preserving endpoints while never exceeding the
+linear coordinate's peak speed forces the same linear path. Do not implement
+or rerun the 585-slot screen expecting a gain. Reviews are preserved in
+`.local/reference-rotation-math-review-01.json` and
+`.local/reference-rotation-saved-source-plan-01.json`. Physics101 is also a
+duplicate evidence lead; existing mass/volume/corners and exposed repeat supply
+no untried independent calibration. Do not reacquire or repeat the rejected fits.
+
+
 ## Active continuation — October 31, 2026, 3:03 AM PDT
 
 ### Saved rigid evaluation — verified
