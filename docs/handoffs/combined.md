@@ -1,5 +1,80 @@
 # Combined Weft implementation handoff
 
+## Parallel source reconstruction and learning — October 31, 2026, 3:45 PM PDT
+
+The user explicitly requested parallel work on unfamiliar exercise reconstruction,
+including ground/equipment contact. `/root/exercise_reconstruction` owns the new
+additional-view adapter, explicit numerical-rotation-prior helper, their tests and
+[handoff](multiview-landmark-evidence.md). The adapter has 29 analytical passes
+and independent review is clear. Saved check 01 stopped at rotation admission,
+before any point estimate; its input copies and failure are independently audited.
+The optional numerical prior has 23 new/four affected passing cases and root review;
+study 02 completed once with all slots retained. The original-start right heel
+still fails all-view consistency. Root saved audit passes:21 files/8,563,906 bytes,
+432 recorded fits and 216 numeric priors; `.local/multiview-landmark-jog-saved-audit-02.json`,
+SHA `b569ff9b0db1720697c37e7f6e90ee8e313a7d1b15434c8dea09bbcbeacb7cac`.
+The reconstruction uses all qualified supplied rays,
+keeps assumed calibration/synchronization explicit and cannot promote contact,
+alter the earlier heel rejection or use an exposed third camera as a fresh holdout.
+
+`/root/support_learning` owns new camera-specific policy/learning modules, their
+tests and handoff. Root owns CLI/product integration, native study coordination,
+this note, TODO and Git. The new policy is external bounded-search evidence;
+the existing v6 scene and v1 task retain their exact unqualified scope. The first
+proposed comparison fixes explicit authored root assistance, full source interval,
+unchanged rewards/gates and disjoint changed starts. The implementation has 37
+distinct analytical passes. Four missing-evidence failures were reproduced and
+fixed; independent custody-delta review is clear. The frozen native study completed once; handle `88307` is terminal.
+It selected 12 nonzero coefficients and changed 237/238 actions per evaluated
+interval. Average reward improves slightly on all three separate starts, while
+peak joint error and average root error worsen. Both authored and learned controls
+pass 3/3; this is not a task-success, balance or physical-validation gain.
+
+Root's five CLI checks and 18 affected state/recording checks pass. The internal
+prepared-state-validator extraction has byte-equivalent AST validation logic;
+the protected scorer is unchanged. Receipt
+`.local/camera-shared-learning-integration-checks-01.json`, SHA
+`3da3586bc01003e12d1e6bb03e0f906e724260d225f2a344930376d6ca3ef4b2`.
+The legacy policy dispatcher stays unchanged. The new state-module hash requires
+a newly prepared current-runtime lab before reporting the updated runtime ready;
+never replace hashes in old saved labs. Camera recording v1 continues rejecting
+policies until a distinct policy-bearing admission/recording contract is verified.
+
+Root's prepared study plan is `.local/camera-shared-learning-plan-01.json`, SHA
+`a13fdf19fe4b028e54749107801abd412e4b7cee386b4a851d39e9d2bbbf63f5`.
+It was launched once with `python3 .local/run_camera_shared_learning_01.py run`
+after custody review closed; handle `88307` is terminal. Do not rerun it. The frozen runtime is committed `6c73bf7`
+plus four owned overrides (CLI, state helper, new policy and learning modules),
+excluding avatar/reconstruction work. Worker SHA
+`c0b98e8f09d67f5d24d3965fcd77c7810173650ec209362c9903f8f6746ed012`.
+It prepares a new untrained lab from the existing candidate and exact roots-on
+task, checks resume/initial state, then runs actual CLI training/evaluation with
+fixed seeds 1642079/918364127. Bounds: 10,472 controls, 94,248 substeps, 165 seconds,
+140 CPU seconds, 256 MiB/1,800 files, one local worker/$0 API. Existing source,
+body, ground, full interval and scorer remain fixed. The prepared/resumed lab is
+`artifacts/camera-shared-learning-01/lab` and is not policy-bearing.
+
+Actual run:15.288462 seconds, 8,954 attempted controls/80,574 native substeps,
+637 files/211,948,220 bytes, 407,289,856 bytes observed peak child RSS. Training
+used 28 episodes/6,664 controls; evaluation used 12 matched trials/2,290 controls,
+retaining all random-controller velocity failures. Study seal
+`1e77872113906953ffb8603fe6c1a45aea3f79e1710621efc3116faf8bbfd682`; process
+SHA `b1fa281e3262f20bfc809b79c5a4c4cab1b932a0289846d396e8208b2282e147`.
+Independent saved-only audit passes all 24 checks: `.local/camera-shared-learning-saved-audit-02.json`,
+SHA `b3dc8e8a0776b71fc8f146f12bff2cb7f259e0f381c1bb3f86df75acdf071d6e`.
+Each study/runtime member was hashed once; the auditor-only import-guard failure
+01 is preserved, and guarded continuation discloses its extra 212-MB reread.
+No native readmission or exact physics/policy replay is implied. [Policy/results/runtime details](camera-shared-learning.md).
+
+Starting published main is `6c73bf77295fca7fdf0dec479b46c28d4afea981`.
+New owned changes are uncommitted; index/stash were empty at this turn's check.
+All unrelated avatar work stays excluded. Fetch confirms `HEAD` and `origin/main`
+still equal `6c73bf7`; index/stash are empty. All native/source-study handles are
+terminal; no source decoder, model inference, paid call, server, browser or
+deployment is active. Next: publish the 16 reviewed paths; all scoped checks and saved audits are complete. Then implement distinct camera-policy lab/recording admission
+without changing v1 artifacts; the source lane still needs another justified
+original-frame constraint for the rejected heel, not a repeat or looser threshold.
+
 ## Playable camera-based body — October 31, 2026, 3:10 PM PDT
 
 Both tracks remain owned here and the complete goal stays active. The parallel

@@ -401,11 +401,11 @@ def main():
     exercise_train.add_argument("--out", required=True, help="New immutable training directory")
     exercise_train_choice = exercise_train.add_mutually_exclusive_group()
     exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
-    exercise_train_choice.add_argument("--task", help="Exact shared-exercise-task-v1 JSON to train without changing its gates")
-    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual"], default="feedback",
-                                help="Legacy feedback gains (default), phase corrections (also static supports), or joint state-feedback corrections")
+    exercise_train_choice.add_argument("--task", help="Exact compatible exercise task JSON; preserve its source, interval, controls and gates")
+    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual", "camera-feedback"], default="feedback",
+                                help="Feedback gains (default), phase/state corrections, or camera-body corrections using an existing camera task")
     exercise_train.add_argument("--seed", type=int, default=1729)
-    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for feedback-residual")
+    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for feedback-residual or camera-feedback")
     exercise_train.add_argument("--population", type=int, help="Default: 12 for phase-residual, 8 otherwise")
     exercise_train.add_argument("--max-seconds", type=float, default=60)
     exercise_refine = commands.add_parser("shared-exercise-refine", help="Refine verified residual training by prioritizing unchanged task limits; no evaluation data")
@@ -716,7 +716,12 @@ def main():
             from weft.shared_support_fixture import write_static_support_fixture
             result = write_static_support_fixture(args.out, lowered=args.lowered)
         elif args.command == "shared-exercise-train":
-            if args.policy_family == "feedback-residual":
+            if args.policy_family == "camera-feedback":
+                if args.root_assistance:
+                    raise ValueError("Camera learning preserves an existing task; supply its exact --task or sealed task instead of --root-assistance")
+                from weft.camera_shared_learning import train_camera_shared_policy as train_policy
+                generations, population = 2, 8
+            elif args.policy_family == "feedback-residual":
                 from weft.shared_exercise_feedback_learning import train_shared_exercise_feedback_policy as train_policy
                 generations, population = 2, 8
             elif args.policy_family == "phase-residual":
@@ -725,8 +730,8 @@ def main():
             else:
                 from weft.shared_exercise_learning import train_shared_exercise_policy as train_policy
                 generations, population = 3, 8
-            result = train_policy(args.run, args.out, task_path=args.task,
-                root_assistance=args.root_assistance, seed=args.seed,
+            assistance = {} if args.policy_family == "camera-feedback" else {"root_assistance": args.root_assistance}
+            result = train_policy(args.run, args.out, task_path=args.task, **assistance, seed=args.seed,
                 generations=generations if args.generations is None else args.generations,
                 population=population if args.population is None else args.population, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-refine":
@@ -736,7 +741,15 @@ def main():
             from weft.shared_exercise_policies import select_policy
             result = select_policy(args.learning, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-policy-evaluate":
-            from weft.shared_exercise_policies import evaluate_policy
+            from weft.shared_exercise_lab import _json
+            from weft.shared_world_packaging import read_package_file
+
+            policy = _json(read_package_file(Path(args.learning), "policy.json", max_bytes=64 * 1024))
+            if isinstance(policy, dict) and policy.get("profile") == "camera-shared-policy-v1":
+                from weft.camera_shared_learning import evaluate_camera_shared_policy as evaluate_policy
+            else:
+                # Preserve the runtime-pinned legacy policy dispatcher unchanged.
+                from weft.shared_exercise_policies import evaluate_policy
             result = evaluate_policy(args.learning, args.out, seed=args.seed,
                 trials=args.trials, jitter_scale=args.jitter_scale, max_seconds=args.max_seconds)
         elif args.command == "lab":

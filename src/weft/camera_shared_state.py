@@ -38,6 +38,11 @@ def validate_camera_shared_snapshot(snapshot, scene, task):
 
 def prepare_camera_shared_snapshot_validator(scene, task):
     actual, outer = task_api.prepare_camera_shared_task(task, scene)
+    return _prepare_validated_camera_shared_snapshot_validator(actual, outer)
+
+
+def _prepare_validated_camera_shared_snapshot_validator(actual, outer):
+    """Reuse already validated scene/task context without repeating native admission."""
     arguments = outer["metric_context"]["kernel_arguments"]
     validate_engine = _prepare_engine_validator(actual, outer["camera_coupling_sha256"])
     validate_kernel_metrics = _prepare_legacy_metrics_validator(actual, arguments)

@@ -1,5 +1,20 @@
 # Weft iteration backlog
 
+## Parallel reconstruction and learning — October 31, 2026, 3:45 PM PDT
+
+- [ ] Reconstruction owner `/root/exercise_reconstruction`: the bounded adapter passes 29 analytical cases and independent review. Saved check 01 stopped before a point estimate because the original camera matrices exceed the solver's stricter rotation tolerance. All inputs/failure evidence are preserved and independently audited. An explicit opt-in numerical prior now passes 23 new/four affected analytical checks and root review; raw cameras and downstream limits stay unchanged. Check 02 completed once: all 240 frames and 1,440 landmark slots remain, but the original-start right heel still fails all-view consistency. Its saved evidence is independently audited. [Protocol and exact identities](docs/handoffs/multiview-landmark-evidence.md).
+- [ ] Learning owner `/root/support_learning`: separate camera-only phase/state-feedback search, frozen evaluation and saved verifiers are implemented with 37 distinct passing analytical cases. Four reproduced missing-evidence failures were fixed; the custody-only review is clear. One bounded real training/evaluation run completed: 12 nonzero coefficients, changed actions, a small reward gain on three separate starts, and mixed tracking errors. Both authored and learned controls pass 3/3; no task-success gain. Source/task/scorer and explicit root assistance remain unchanged. [Contract and receipts](docs/handoffs/camera-shared-learning.md).
+- [x] Root integration: add explicit `camera-feedback` CLI routing without changing the legacy policy dispatcher; reject root-authority overrides. Extract the existing camera-state validator closure for already prepared contexts without changing its algebra or the scorer. Five CLI and 18 affected state/recording checks pass; receipt `.local/camera-shared-learning-integration-checks-01.json`, SHA `3da3586bc01003e12d1e6bb03e0f906e724260d225f2a344930376d6ca3ef4b2`.
+- [x] Complete the independent saved learning audit: 24 checks pass, with one hash per study/runtime member and the auditor-only first import failure preserved. Receipt `.local/camera-shared-learning-saved-audit-02.json`, SHA `b3dc8e8a0776b71fc8f146f12bff2cb7f259e0f381c1bb3f86df75acdf071d6e`. No native readmission or exact policy replay.
+- [ ] Publish the 16 reviewed paths. A new current-runtime lab is prepared and resumed at `artifacts/camera-shared-learning-01/lab`; old artifacts remain unchanged. Policy-bearing lab/recording admission and reliable unfamiliar-video contact reconstruction remain unfinished. All native/source-study jobs are terminal; no paid call or deployment occurred. Unrelated avatar edits remain excluded.
+
+The frozen root plan `.local/camera-shared-learning-plan-01.json` (SHA
+`a13fdf19fe4b028e54749107801abd412e4b7cee386b4a851d39e9d2bbbf63f5`)
+completed once in 15.288462 seconds: 8,954 attempted controls, 80,574 actual native
+substeps, 637 files/211,948,220 bytes and 407,289,856 bytes observed peak child RSS.
+The 10,472-control/165-second/256-MiB envelope was respected. No paid service or
+recurring resource is involved. The saved study is not exact policy replay.
+
 ## Playable camera-based body — October 31, 2026, 3:10 PM PDT
 
 The combined goal remains active. This completes camera-task product integration,

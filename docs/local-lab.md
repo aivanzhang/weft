@@ -115,23 +115,49 @@ inspect it. Its body geometry passes the source/grid check but floats above the
 ground. Foot attachment remains unavailable because the original starting right
 heel is inconsistent across cameras. [Evidence and limits](handoffs/camera-shared-runtime.md).
 
-Two already-verified labs let you try this without rebuilding:
+The current assisted lab is ready without rebuilding:
 
 ```sh
-# Assisted tracking: all original tracking gates passed in the saved trial.
 .venv-lab/bin/python -m weft lab-console \
-  --resume artifacts/camera-shared-play-01/roots-on/lab
-
-# No virtual root forces: the saved trial completed but failed root tracking.
-.venv-lab/bin/python -m weft lab-console \
-  --resume artifacts/camera-shared-play-01/roots-off/lab
+  --resume artifacts/camera-shared-learning-01/lab
 ```
 
-Each retains the original 238-step / 7.94-second interval. Both recorded 240
-actions (two manual, reset, 238 authored) and replayed them exactly, with video,
-interactive replay and saved evidence receipts. Results remain simulation-only:
-feet, ground/equipment contact, learned policies and avatar skins are not
-qualified for this camera profile. [Verification and remaining work](handoffs/camera-shared-lab.md).
+It retains the original 238-step / 7.94-second interval, with manual, coast and
+authored reference controls. Its current runtime was prepared and resumed during
+the bounded learning study. No learned policy is attached to this lab yet.
+
+The earlier roots-on/off recordings remain unchanged under their archived runtime:
+240 actions each, all 480 actions replayed exactly. Assisted tracking passed;
+roots-off failed root tracking. [Historical recording evidence](handoffs/camera-shared-lab.md).
+Feet, ground/equipment contact, unassisted balance and avatar skins remain
+unqualified for this camera profile.
+
+### Train and inspect camera-body corrections
+
+Training is now available as a separate research artifact. It preserves the exact
+saved task and explicit root assistance; it cannot override them with a flag.
+Use new output directories:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-train \
+  --run artifacts/camera-shared-learning-01/lab/run --policy-family camera-feedback \
+  --out artifacts/my-camera-training --seed 1729 --generations 2 --population 8
+.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+  --learning artifacts/my-camera-training --out artifacts/my-camera-evaluation \
+  --seed 924017 --trials 3 --jitter-scale .10 --max-seconds 60
+```
+
+Inspect `policy.json`, `training.json`, per-action `diagnostics/`, and
+`evaluation.json`. Evaluation freezes the selected controller before comparing
+it with coast, random and authored controls on the same separate starting states.
+Previously used seeds are not fresh evidence merely because they are defaults.
+
+The saved study selected nonzero corrections and increased average reward from
+0.826211 to 0.827368 on three separate starts. Both learned and authored controls
+passed all three trials; average joint error fell slightly, but peak joint error
+and average root error rose. This is a small, mixed simulated-control result,
+not learned balance or unfamiliar-video validation. Camera policy attachment,
+recording and exact policy replay remain unfinished. [Results, bounds and exact evidence](handoffs/camera-shared-learning.md).
 
 ## Inspect static-support loads
 
