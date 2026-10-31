@@ -1,5 +1,16 @@
 # Weft iteration backlog
 
+## One-command authored-support sandbox — October 31, 2026
+
+The combined goal remains active. Root owns the public launcher and its integration; `/root/exercise_reconstruction` independently owns source-backed calibration/contact reconstruction. Separate avatar work is excluded.
+
+- [x] Extend `scripts/build_sandbox.py` with `--static-supports` for raw videos or saved construction-only bodies. Pin original prior bytes and resolved body identity, preserve failures, and recognize the optimizer's actual support-policy layout without inventing a secondary selection.
+- [x] Verify 35 initial support cases and 22 affected legacy cases. Independent review then found a missing lab-to-optimizer identity join; preserve both failing regression cases. The support-only fix passes those two plus six affected handoff cases. Real saved handoff metadata also passes in 0.065 seconds; no runtime was executed for that check.
+- [x] Complete one frozen public launcher→report→console→record/export/exact-replay acceptance in **5.055 seconds**. Three manual and three authored-reference actions, one reset and all eight events replay exactly. The unchanged saved body and distant authored custody box are an integration check, not a successful exercise reconstruction. No repeated inference or training. [Report](artifacts/static-support-launcher-acceptance-01/workflow/report/index.html); [bounds and identities](docs/handoffs/combined.md#one-command-authored-support-sandbox--october-31-2026).
+- [x] Independently audit the saved launcher result: eight seals /1,315 nonvideo member checks, exact input identities, unchanged floor failures, one lab/session, zero root forces and exact replay. Receipt `.local/static-support-launcher-saved-audit-02.json`; the auditor's initial null-before-substeps assumption is preserved in 01. Four source-video copies were checked by sealed identity/size only, not reread.
+- [x] Prepare the reviewed nine-file launcher/projection checkpoint; exact publication state is recorded in `.local/support-launcher-publication-01.json`. Projection audit also passes, but the hypothesis remains rejected: all 252 foot axes were evaluable and median error was 33.93°, not an improvement. Keep body/floor/contact admission unchanged; do not retry that fit.
+- [ ] Continue the parallel calibration/contact-evidence path. Supplied calibration and explicit static-surface annotations may resolve conditional coordinates; they must not become automatic or measured contact/load/grasp claims. Generalized unfamiliar-video reconstruction remains unfinished.
+
 ## Guided static-support build — October 31, 2026, 11:31 AM PDT
 
 The combined goal remains active. This integrates explicit authored supports into the existing build→train→inspect→lab workflow; it does not reconstruct contact automatically. Root owns integration/publication. The reconstruction agent has frozen its source-equivalence adapter for independent review and is investigating the next ground-calibration hypothesis separately. Avatar work remains untouched.

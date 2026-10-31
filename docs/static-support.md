@@ -8,6 +8,26 @@ This path does not infer contact, grasp, depth, materials, or biomechanics. A mo
 
 Use the ordinary exercise builder with a support-prior file. In the [configuration below](#configuration), change `profile` to `shared-static-support-priors-v1` and omit `body_source_manifest_sha256`; the builder fills that identity only after preparing the actual body. Keep the exact original video hash, scale, support shapes, load windows and root-assistance choice. These are authored assumptions, not inferred contact.
 
+The simplest entry point builds an untrained scene, saves `report/index.html`,
+and enters the terminal only when the lab is ready:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --video /absolute/path/to/exercise.mp4 \
+  --static-supports /absolute/path/to/support-priors.json --console
+```
+
+Replace `--video` with `--human-run /path/to/construction-only-body` to reuse saved
+poses. Add `--train` for bounded phase-based corrections and changed-start
+evaluation, or replace `--console` with `--serve` for the local 3D interface.
+With neither option, it prints reopening commands. The prior owns scale and root
+assistance; do not also pass `--person-only`, `--root-assistance`, equipment
+configuration or source mappings. It uses existing local models and never
+downloads one. Launcher training uses fixed exposed-development seeds, not a
+fresh final holdout.
+
+For explicit training/evaluation settings, use the underlying CLI:
+
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-build \
   --video /absolute/path/to/exercise.mp4 \

@@ -479,6 +479,21 @@ and `--config` inputs. Model, pose-recovery and source-note options apply only
 to raw video and cannot replace saved provenance. Each build uses a new output
 directory; reuse does not overwrite the original or repair its uncertainties.
 
+For explicitly authored fixed supports, use the same launcher with a
+[source-pinned support-prior file](static-support.md#build-inspect-and-play-in-one-workflow):
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --human-run /path/to/construction-only-body \
+  --static-supports /path/to/support-priors.json --console
+```
+
+The prior supplies support shapes, load windows, scale and root assistance.
+Do not also pass `--person-only` or `--root-assistance`. The launcher saves the
+step-by-step report and opens the console only after successful preparation.
+Add `--train` if needed; without it, use manual or authored-reference controls.
+These supports are assumptions, not automatically recovered contact.
+
 The real saved-body build/report check completed in **2.22 seconds**, preserving
 all 235 source slots, 118 poses and the 234-step task, with zero new inference,
 training or simulated actions. Its [report](../artifacts/saved-body-sandbox-01/report/index.html)

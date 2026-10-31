@@ -199,6 +199,22 @@ def _preserved_lab(build, terminal, manifest_sha, *, expected_source_sha=None):
     trained = lab == build / "learning_workflow/lab"
     prefix = lab.relative_to(build).as_posix() + "/run/"
     source_prefix = "learning_workflow/selected/" if trained else "candidate/"
+    support_learning = False
+    if trained and "settings.json" in parent_files:
+        settings = _json(covered("settings.json"))
+        if settings.get("scene_scope") == "human_static_supports":
+            workflow = _json(covered("learning_workflow/result.json"))
+            selection, training = workflow.get("selection"), workflow.get("training")
+            if (workflow.get("profile") != "shared-support-learning-workflow-v1"
+                    or not isinstance(selection, dict) or not isinstance(training, dict)
+                    or selection.get("selection_status") != "not_applicable" or selection.get("performed") is not False
+                    or selection.get("evaluation_used") is not False or selection.get("policy_sha256") != training.get("policy_sha256")
+                    or not isinstance(training.get("policy_sha256"), str) or len(training["policy_sha256"]) != 64
+                    or training.get("policy_sha256") != parent_files.get("learning_workflow/training/policy.json")
+                    or any(name.startswith("learning_workflow/selected/") for name in parent_files)):
+                raise ValueError("Preserved support lab has inconsistent optimizer/selection provenance")
+            source_prefix = "learning_workflow/training/"
+            support_learning = True
     failure = lab / "failure.json"
     if failure.exists() or failure.is_symlink():
         raise ValueError("Preserved lab has an incomplete-preparation failure marker")
@@ -228,6 +244,9 @@ def _preserved_lab(build, terminal, manifest_sha, *, expected_source_sha=None):
     contract = _json(covered(prefix + "exercise-lab.json"))
     scene = _json(covered(prefix + "scene.json"))
     task = _json(covered(prefix + "exercise-task.json"))
+    if trained and ((scene.get("profile") == "shared-world-v4") != support_learning
+                    or support_learning and task.get("profile") != "shared-support-task-v1"):
+        raise ValueError("Preserved support learning scope differs from its scene/task")
     source_raw = covered(prefix + "source-run/manifest.json")
     source = _json(source_raw)
     source_files = _manifest_files(source, 512)
@@ -265,6 +284,10 @@ def _preserved_lab(build, terminal, manifest_sha, *, expected_source_sha=None):
     if trained and any(contract.get(key) != files.get(name) or config.get(key) != files.get(name)
                        or name not in files for key, name in policy_pins.items()):
         raise ValueError("Preserved lab policy or evaluation identities are incomplete")
+    if support_learning and (files.get("policy.json") != source_files.get("policy.json")
+                             or files.get("policy.json") != training["policy_sha256"]
+                             or files.get("learning-run/manifest.json") != source_sha):
+        raise ValueError("Preserved support lab policy or learning source differs from its optimizer")
     binding = scene.get("source_binding")
     if (not isinstance(binding, dict) or binding.get("mode") != "source_qualified"
             or not isinstance(binding.get("source_sha256"), str) or len(binding["source_sha256"]) != 64
@@ -371,10 +394,11 @@ def _saved_body_binding(build, command, pins, manifest, body_identity):
             or settings.get("base_run") is not None or type(settings.get("inference_calls")) is not int
             or settings["inference_calls"] != 0):
         raise ValueError("Build consumed different saved-body settings than the workflow plan")
-    person = "--person-only" in command
-    archive = "candidate/inputs/body-source-manifest.json" if person else "body_seed/inputs/human-source/source-manifest.json"
-    report = "candidate/reconstruction.json" if person else "body_seed/construction-seed.json"
-    prefix = "candidate/" if person else "body_seed/inputs/human-source/"
+    person, supports = "--person-only" in command, "--static-supports" in command
+    direct = person or supports
+    archive = "candidate/inputs/body-source-manifest.json" if direct else "body_seed/inputs/human-source/source-manifest.json"
+    report = "candidate/reconstruction.json" if direct else "body_seed/construction-seed.json"
+    prefix = "candidate/" if direct else "body_seed/inputs/human-source/"
     required = (archive, report, prefix + "body-source.json", prefix + "source.json", prefix + "human.json")
     if any(name not in files for name in required):
         return "unavailable_before_sealed_construction"
@@ -390,11 +414,11 @@ def _saved_body_binding(build, command, pins, manifest, body_identity):
             or files[prefix + "human.json"] != current["human_sha256"]
             or not isinstance(verification, dict)):
         raise ValueError("Build source/body identities differ from the workflow plan")
-    if person:
-        valid = (proof.get("profile") == "shared-world-v3" and proof.get("status") == "ready"
+    if direct:
+        valid = (proof.get("profile") == ("shared-world-v4" if supports else "shared-world-v3") and proof.get("status") == "ready"
                  and proof.get("source_manifest_sha256") == hashes["manifest.json"]
                  and proof.get("human_file_sha256") == current["human_sha256"]
-                 and settings.get("scene_scope") == "human_only")
+                 and settings.get("scene_scope") == ("human_static_supports" if supports else "human_only"))
     else:
         valid = (proof.get("profile") == "shared-world-construction-seed-v1"
                  and proof.get("status") == "construction_only" and proof.get("simulation_ready") is False
@@ -406,11 +430,62 @@ def _saved_body_binding(build, command, pins, manifest, body_identity):
     return "sealed_body_source_match_plan"
 
 
+def _static_support_binding(build, command, pins, manifest, expected_source_sha, body_identity=None):
+    path = _path(command[command.index("--static-supports") + 1])
+    original = _read(path, 128 << 10)
+    prior_sha = hashlib.sha256(original).hexdigest()
+    if pins.get(str(path)) != prior_sha:
+        raise ValueError("Static-support assumptions changed from the workflow plan")
+    if manifest["seal_scope"] == "failure_receipt_only":
+        return False
+    files = manifest["files"]
+
+    def covered(name):
+        raw = _read(build / name)
+        if hashlib.sha256(raw).hexdigest() != files.get(name):
+            raise ValueError("Static-support consumption proof differs from the build seal")
+        return raw
+
+    if not {"settings.json", "support-priors.json"} <= files.keys():
+        return False
+    prior, settings = _json(original), _json(covered("settings.json"))
+    if "--video" in command and (settings.get("video") != command[command.index("--video") + 1]
+                                 or settings.get("human_run") is not None or settings.get("base_run") is not None):
+        raise ValueError("Static-support build consumed different video settings than the workflow plan")
+    if (covered("support-priors.json") != original or prior.get("source_sha256") != expected_source_sha
+            or settings.get("scene_scope") != "human_static_supports" or settings.get("static_supports") != str(path)
+            or settings.get("support_priors_sha256") != prior_sha or settings.get("full_reference") is not True
+            or settings.get("body_scale") != prior.get("scale") or settings.get("root_assistance") is not prior.get("root_assistance")
+            or settings.get("evidence_run") is not None or settings.get("config") is not None
+            or settings.get("source_mappings") != [] or "person-inventory.json" in files):
+        raise ValueError("Build consumed different static-support assumptions than the workflow plan")
+    if not {"support-config.json", "candidate/inputs/support-config.json", "candidate/inputs/body-source-manifest.json"} <= files.keys():
+        return False
+    config_raw = covered("support-config.json")
+    config = _json(config_raw)
+    expected_pin = (body_identity["metadata_sha256"]["manifest.json"] if body_identity else
+                    files.get("body_source/manifest.json"))
+    expected = {**prior, "profile": "shared-static-support-construction-v1",
+                "body_source_manifest_sha256": expected_pin}
+    if expected_pin is None or config != expected:
+        raise ValueError("Resolved support configuration differs from the original body/prior identities")
+    if covered("candidate/inputs/support-config.json") != config_raw:
+        raise ValueError("Constructed support config differs from the resolved assumptions")
+    if hashlib.sha256(covered("candidate/inputs/body-source-manifest.json")).hexdigest() != expected_pin:
+        raise ValueError("Support candidate binds a different body manifest")
+    return True
+
+
 def _input_identity(build, command, pins, source_sha, body_identity=None):
     raw = _read(build / "manifest.json")
     if hashlib.sha256(raw).hexdigest() != source_sha:
         raise ValueError("Build seal changed before input-identity verification")
     manifest = _json(raw)
+    if "--static-supports" in command:
+        expected_source = (body_identity["source_sha256"] if body_identity else
+                           pins[command[command.index("--video") + 1]])
+        if not _static_support_binding(build, command, pins, manifest, expected_source, body_identity):
+            return "unavailable_before_sealed_support_assumptions"
     if "--human-run" in command:
         return _saved_body_binding(build, command, pins, manifest, body_identity)
     expected = manifest["files"].get("input-preflight.json")
@@ -441,7 +516,9 @@ def _arguments(argv):
     source.add_argument("--planar-run", help="Sealed planar reconstruction for the explicit 3D object workflow")
     source.add_argument("--human-run", help="Sealed construction-only exercise-body output; reuses saved poses without inference (not a saved lab)")
     source.add_argument("--inspect-build", help="Saved build to report without rerunning video processing")
-    parser.add_argument("--person-only", action="store_true", help="Declare one person, ground-only support and no task-relevant equipment")
+    scope = parser.add_mutually_exclusive_group()
+    scope.add_argument("--person-only", action="store_true", help="Declare one person, ground-only support and no task-relevant equipment")
+    scope.add_argument("--static-supports", help="Source-pinned authored fixed supports/load windows; not recovered contact")
     parser.add_argument("--evidence-run", help="Otherwise, sealed equipment observations")
     parser.add_argument("--config", help="Explicit camera/equipment configuration, or source-pinned 3D object hypotheses")
     parser.add_argument("--profile", choices=("exercise", "spatial"), help="Exercise by default; --planar-run implies spatial")
@@ -471,7 +548,7 @@ def _arguments(argv):
     if args.spatial:
         if args.profile == "exercise" or args.human_run or args.inspect_build:
             parser.error("Spatial workflow requires --planar-run or --profile spatial --video")
-        if any((args.person_only, args.evidence_run, args.source_mapping, args.pose_model,
+        if any((args.person_only, args.static_supports, args.evidence_run, args.source_mapping, args.pose_model,
                 args.pose_recovery, args.root_assistance, args.policy_family)):
             parser.error("Spatial workflow cannot include exercise/equipment extraction options")
         if not args.config:
@@ -493,14 +570,18 @@ def _arguments(argv):
     if args.human_run and any(value is not None for value in (args.pose_model, args.pose_recovery, args.source_note)):
         parser.error("--human-run reuses sealed exercise-body provenance; raw pose/model/source options are not allowed")
     if args.inspect_build:
-        if any((args.person_only, args.evidence_run, args.config, args.source_mapping, args.pose_model,
+        if any((args.person_only, args.static_supports, args.evidence_run, args.config, args.source_mapping, args.pose_model,
                 args.pose_recovery, args.root_assistance, args.train, args.policy_family, args.source_note, args.max_seconds is not None)):
             parser.error("--inspect-build cannot change or rerun saved build settings")
+    elif args.static_supports is not None:
+        if (not args.static_supports.strip() or args.evidence_run or args.config or args.source_mapping or args.root_assistance
+                or args.policy_family == "feedback-residual"):
+            parser.error("--static-supports owns scale/root assumptions, requires phase-residual learning, and cannot include equipment or source mappings")
     elif args.person_only:
         if args.evidence_run or args.config or args.source_mapping:
             parser.error("--person-only cannot include equipment or source mappings")
     elif not (args.evidence_run and args.config):
-        parser.error("Declare --person-only, or supply both --evidence-run and --config")
+        parser.error("Declare --person-only, supply --static-supports, or provide both --evidence-run and --config")
     if len(args.source_mapping) > 7:
         parser.error("At most seven source mappings are supported")
     if args.policy_family and not args.train:
@@ -555,7 +636,7 @@ def main(argv=None):
             model = _path(args.pose_model or PROJECT / ".local/models" / f"pose_landmarker_{variant}.task")
             inputs = [video, model]
             source_flags = ["--video", str(video), "--pose-model", str(model)]
-        inputs += [_path(p) for p in (args.evidence_run, args.config, *args.source_mapping) if p]
+        inputs += [_path(p) for p in (args.static_supports, args.evidence_run, args.config, *args.source_mapping) if p]
         if any(root.is_relative_to(p) or p.is_relative_to(root) for p in inputs):
             raise ValueError("Output must be outside every input")
         if args.human_run:
@@ -564,11 +645,23 @@ def main(argv=None):
         else:
             for path in (video, model):
                 pins[str(path)] = hashlib.sha256(_read(path, 64 * 1024 * 1024)).hexdigest()
+        if args.static_supports:
+            support_path = _path(args.static_supports)
+            support_raw = _read(support_path, 128 << 10)
+            prior = _json(support_raw)
+            expected_source = body_identity["source_sha256"] if body_identity else pins[str(video)]
+            if (prior.get("profile") != "shared-static-support-priors-v1"
+                    or type(prior.get("schema_version")) is not int or prior["schema_version"] != 1
+                    or prior.get("source_sha256") != expected_source):
+                raise ValueError("Static-support priors must name the exact original video and supported profile")
+            pins[str(support_path)] = hashlib.sha256(support_raw).hexdigest()
         build = root / "build"
         command = prefix + ["shared-exercise-build", *source_flags, "--full-reference",
                             "--max-seconds", str(maximum), "--out", str(build)]
         if args.person_only:
             command += ["--person-only"]
+        elif args.static_supports:
+            command += ["--static-supports", str(support_path)]
         else:
             command += ["--evidence-run", str(_path(args.evidence_run)), "--config", str(_path(args.config))]
             for mapping in args.source_mapping:

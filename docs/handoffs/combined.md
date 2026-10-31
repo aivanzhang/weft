@@ -1,5 +1,106 @@
 # Combined Weft implementation handoff
 
+## One-command authored-support sandbox — October 31, 2026
+
+Goal active. Published base `0e4b1475e9c87fbc4b4884d12cde6c850220fff3`.
+Root owns `scripts/build_sandbox.py`, `tests/test_build_sandbox_support.py`,
+support/local-lab guides and integration notes. Parallel reconstruction owns
+new source-surface-anchor code/tests/handoff, not these files. All independent
+avatar edits remain excluded. No Git mutation or new paid call in this milestone yet.
+
+Launcher supports `--static-supports` with raw video or a saved body, exact prior
+and resolved-body consumption proofs, and the existing build/report/console flow.
+Preserved support training uses `training/`, not a fabricated `selected/` package.
+Independent review found a missing join between lab policy/learning identity and
+the optimizer: two new regression cases failed before the support-only fix.
+Both plus six affected handoff cases pass in
+`.local/static-support-launcher-provenance-02.xml`. Earlier 35 new cases and
+22 legacy cases retain their successful results; unchanged groups were not rerun.
+The real metadata-only handoff check passes in 0.0649 s at
+`.local/static-support-launcher-real-handoff-02.json`; full runtime admission is
+explicitly not part of that check. Earlier input-binding receipt remains valid.
+
+**Frozen acceptance:** `artifacts/static-support-launcher-acceptance-01`.
+Plan `7cc6f713e567ca907beb2fde405902123cc0e9d430456fdef4d08c6d4007798d`;
+helper `.local/accept_static_support_launcher_01.py`,
+`9b47f1d85d227431309e5a2804715b219e5ce72ce6700c156c5d089f1583d05f`.
+Frozen runtime `.local/static-support-launcher-runtime-01` is the committed base
+plus only launcher SHA `bff531299088db37af22347a067df772ec8dd26a15b860d79ba4393ccaa2b0fd`;
+runtime manifest `8a4876d11d4f51c9f37f684383d64e2ad0d809498663b25c7b008917217d1908`.
+It excludes concurrent avatars and projection/anchor changes. Reuses the original
+body seal `b6d9da169c84c0053e1e9715d77f53d3c82f1b0d95b256052c7c215f383d7519`
+and unchanged authored prior `e8cfce814f9ba603a55f91d2576e9364ed94ce01517ca33b8262a3902778195a`.
+One actual subprocess launcher invocation builds an untrained scene, saves its
+report, and enters the console: three manual elbow commands, reset 31, three
+authored-reference commands, recording/export and exact replay. No new inference,
+training, source decode, API call, server or browser. The distant box is a custody
+check, not useful/recovered support; preserve original eight/sixteen floor failures.
+Bounds: 30 s internal build /55 s owned build process /40 s report /120 s outer,
+10 s interrupt-cleanup grace, 1 MiB per stream, 256 MiB /2,500 output files,
+64 MiB per file. OS waited-child peak RSS is measured, not hard-capped. Console
+issues at most six control steps; existing export performs the corresponding
+replay. The outer supervisor interrupts the launcher so its own isolated children
+are cleaned, then escalates only for owned processes if needed. Launch once:
+`python3 .local/accept_static_support_launcher_01.py run`.
+
+**Terminal outcome:** exit 0 in 5.054557 s; build subprocess 2.633750 s and
+report subprocess 0.371215 s. OS waited-child peak RSS 282,689,536 B; no live
+handle. Public workflow is ready with `sealed_body_source_match_plan`.
+Three manual actions, reset 31 and three authored-reference actions produce
+eight recorded events/eight exported frames. Automatic exact action/state/task
+replay passes all six actions and the reset. No learned controller was trained.
+Process inventory seal
+`e4760221a90c8a12e692d1e46eb4f04ae3edc5583c0167a615ec944ddceb3b55`;
+build `b0fb863b39518b59d2ff0d9fca3cf5f46403022b761aa48374b44e2fee452a45`;
+report `e3d6f041c3e7718691115c2f25ddd4f09494366244e11252ad14654c1ebd6687`;
+lab run `67598266fe8f9e49227fcc091314a80d90a594175816148a7a3dc57f8aa1d821`;
+session `session-792fe0642525`, seal
+`f97074992fa578b06808f44fa9e6d9cfb19d5ff9cbc326b1d13f18231e3d742c`;
+saved replay receipt
+`3d6947f72260424fe45760ba4595b37bfc6de078b1ab2f428c860532cd906a77`.
+Saved-only audit passed: `.local/static-support-launcher-saved-audit-02.json`, SHA
+`5b1f5c06e743e1e927a8a409814da72a7176a8dd4b7f568c2842e6296b9cc5d2`.
+Eight seals /1,315 nonvideo member hashes, exact inputs, unchanged eight/sixteen
+floor failures, one session, six actions, zero root forces and unavailable learned
+control all verify. It read 453 files /92,007,369 B across output/runtime/metadata
+checks in 0.179 s active verification; interactive preparation/audit span was
+402.315 s. Four original-video copies were checked by sealed identity/size only,
+not reread. Initial audit01's incorrect zero-versus-null expectation before any
+substeps is preserved; audit02 repairs only that cached journal-tail assertion,
+with no additional artifact reads. No product defect, native rerun or new source
+processing occurred. Do not repeat this acceptance.
+
+Projection diagnostic is frozen: 19 tests passed; independent read-only review
+found no blocker. Result `artifacts/interval-foot-projection-consistency-01`, seal
+`64d70703307d7ab7aed95a79a7d7f37d6b2d2a99440a64c9bc7a8e3d53a0eb3b`:
+126 solves, 252/252 feet evaluable, median foot 33.9294° versus core 2.50455°.
+The fixed-camera hypothesis is rejected, not installed or tuned. All exclusions
+remain explicit. Saved-only audit passed:
+`.local/exercise-projection-saved-audit-01.json`, SHA
+`ba40e7b731dbaff318e535a98d813cf5b7ff55a6a40f381a485940cd68b9935c`.
+Eleven files /17,553,328 B read once, 0.205 s active verification. This covers all
+eight output files and three required input metadata files, not original media
+or unrelated input-manifest members. Historical execution counters remain
+sealed report claims. Do not repeat the study. [Handoff](exercise-projection.md).
+
+`/root/exercise_reconstruction` is active on an isolated source-surface-anchor
+adapter using existing camera-ground and world-alignment contracts. Explicit
+source-bound calibration/heights/annotations may resolve conditional 3D anchors;
+missing evidence abstains, moving equipment remains unsupported, and anchors
+cannot authorize contact/load/grasp or change bodies/floors. Pure bounded tests
+only; no new native/source/network study is authorized by that assignment.
+
+**Publication handoff:** root's scoped checkpoint contains nine reviewed files:
+launcher/test, three frozen projection files, two user guides, TODO and this note.
+Remote refresh verified base `0e4b1475e9c87fbc4b4884d12cde6c850220fff3` and an
+empty stash before publication. Exact resulting commit/live remote, owned-file
+hashes and excluded-path inventory are recorded in
+`.local/support-launcher-publication-01.json`; no whole-worktree-clean claim is
+made while avatar and source-anchor work remain independently active. Next safe
+action is review the anchor agent's frozen delta without rerunning completed
+launcher/projection acceptance, then continue qualified coupled-body/contact
+development. No running root native process remains.
+
 ## Guided static-support build — October 31, 2026, 11:31 AM PDT
 
 Goal active. Latest verified private remote is `c9bed6ff2f1d1c6ccdbdc06d1b42825e360167bc`.
