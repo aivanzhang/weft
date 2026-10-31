@@ -172,6 +172,14 @@ def main():
     feet_build.add_argument("--run", required=True, help="Completed mobile exercise lab run/ directory")
     feet_build.add_argument("--out", required=True, help="New candidate directory outside the source run")
     feet_build.add_argument("--image-directions", action="store_true", help="Opt into bounded image-direction correction; remains unverified")
+    surface_anchors = commands.add_parser("surface-anchors", help="Map annotated video points onto supplied calibrated surfaces; save conditional coordinates and a report")
+    surface_anchors.add_argument("--observation", action="append", required=True, help="Exact qualified observation JSON; repeat up to eight times")
+    surface_anchors.add_argument("--source-sha256", required=True, help="Original source video SHA256 shared by the observations")
+    surface_anchors.add_argument("--camera", help="Supplied source-pinned camera calibration JSON; no fitting or default camera")
+    surface_anchors.add_argument("--surfaces", help="Explicit horizontal ground/static-support surface JSON")
+    surface_anchors.add_argument("--annotations", help="Source-frame-bound authored pixel/surface annotations JSON")
+    surface_anchors.add_argument("--out", required=True, help="New output directory under an existing parent")
+    surface_anchors.add_argument("--max-seconds", type=float, default=30., help="Cooperative packaging deadline; not a hard process or memory limit")
     body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
     body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
@@ -499,6 +507,12 @@ def main():
         elif args.command == "feet-build":
             from weft.foot_candidate import build_candidate
             result = build_candidate(args.run, args.out, image_directions=args.image_directions)
+        elif args.command == "surface-anchors":
+            from weft.source_surface_pipeline import prepare_source_surface_anchors
+            labels = {"inputs": "Preserve source and assumptions", "anchors": "Resolve conditional 3D points", "report": "Save evidence and limits"}
+            result = prepare_source_surface_anchors(args.observation, args.out, source_sha256=args.source_sha256,
+                camera=args.camera, surfaces=args.surfaces, annotations=args.annotations, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "body-lab":
             from weft.whole_body_lab import prepare_whole_body_lab
             result = prepare_whole_body_lab(args.source_lab, args.learning, args.out)
@@ -834,6 +848,10 @@ def main():
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "body-reference-propose" and result.get("status") != "completed":
             parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "surface-anchors":
+            if result.get("status") != "completed" or result.get("sealed") is not True:
+                parser.exit(1, f"weft: surface anchors stopped; inspect preserved output: {args.out}\n")
+            print(f"Saved conditional-coordinate report: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("inspection_path"):
             print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("status") != "completed":

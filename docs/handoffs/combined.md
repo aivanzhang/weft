@@ -2,14 +2,14 @@
 
 ## Coupled feet and surface workflow — October 31, 2026
 
-Updated **October 31, 2026, 12:48 PM PDT**. Goal active. Published base remains
-`342a3bb0eda25a0501dee4dbd78a9327cbc50b69`. Root owns the v5 engine, shared CLI,
-coordination and Git. Reconstruction owns source-surface CLI tests/fixture/handoff;
-`support_learning` is fixing the reviewed terminal on-disk status conflict in the
-new pipeline/tests. `support_ui` completed engine/render review and is inspecting
-existing task adapter points without edits. No native job is running. Independent
-avatar work remains excluded; stash is empty. No new paid call, key/ledger read,
-media download, inference, training, browser, server or deployment.
+Updated **October 31, 2026, 12:59 PM PDT**. Goal active. Published base is
+`733b802e82f49385b742e859bd25d3a8a9636bb2`. Root owns integration, CLI, coordination
+and Git. Reconstruction released its source-surface API/pipeline/CLI tests/fixture;
+`support_learning` is auditing only the saved report-label repair. `support_ui`
+owns a new pure task-control/scoring projection primitive and tests. No native job
+is running. Independent avatar work remains excluded; stash was empty at the last
+publication. No new paid call, key/ledger read, media download, inference, training,
+browser, server or deployment.
 
 **Engine checkpoint:** one existing model/data/clock, explicit v5 scene with v2/v3/v4
 base and exact source/body/reference-bound feet. Original 22 channels remain
@@ -38,17 +38,53 @@ no-object-goal packaging guard merely to expose an unqualified lab. Next step is
 a deliberate adapter within the existing task pipeline, with no hidden root force,
 original score denominator and separate ankle telemetry.
 
-**Reconstruction lane:** the frozen pure anchor API's 31 cases and independent
-review pass. New packaging/CLI is not yet published. Supplied camera, surface
-heights and annotated pixels produce conditional coordinates; missing slots remain
-unavailable, and contact/load/grasp remain unknown. Review found a deadline race:
-a late seal could return failure while leaving completed result/manifest files.
-`support_learning` owns the evidence-preserving terminal fix; reconstruction owns
-separate CLI tests and a tiny analytical input fixture. After both freeze, root
-will execute the actual public command once from a committed export plus only
-this lane's overrides, audit its seal/slots/report and publish scoped changes.
-Cooperative deadlines are not hard process/memory isolation. No real-source
-calibration study or automatic-body/floor installation is authorized by this step.
+**Publication:** eight reviewed engine/helper/test/documentation files are committed
+and pushed at `733b802e82f49385b742e859bd25d3a8a9636bb2`; exact live private remote
+verified. `.local/shared-world-feet-publication-01.json`, SHA
+`a417cc7b447ad39acf20183e57f410c182e9c6fdab5169a7d027e7bb0368d0d3`.
+Owned paths were clean, stash empty; 132 independent status/path entries were
+excluded. Current documentation updates are new work, not a whole-tree clean claim.
+
+**Reconstruction lane:** `surface-anchors` now runs through the ordinary public CLI.
+One tiny authored/synthetic descriptor fixture completes in 0.233258 s outer /
+0.014300 s workflow, 84,574,208 B observed waited-child peak RSS, one local geometry
+call. It retains one conditional coordinate and four unavailable slots. Acceptance01
+seal `45eb1462fa0aa0c9f749d300708ded26b2ea4195813f508c4f16b8735abea2ff`.
+The independent saved audit passes 87/88 checks; only the HTML label incorrectly
+called this descriptor an original video. Product text is corrected; a report-only
+repair reuses exact saved coordinates/inputs, no geometry/native/model rerun.
+`artifacts/source-surface-cli-report-02`, seal
+`dd2a38891abbe2fd8daa7a88af03f1071a00917de9e4088631e48c240556c7ae`.
+Repair-only audit passes all 37 checks; receipt
+`.local/source-surface-cli-report-audit-02.json`, SHA
+`224a399ccd4131e0ed1ffbb47fd23281869ee290a6ff1a1ff3686c0637e1f914`.
+No original/runtime reread or new geometry execution. Existing 31 API /35 packaging /18 CLI distinct
+checks pass; no whole-suite or real-video accuracy claim. [Complete handoff and
+source/calibration contract](source-surface-anchors.md).
+
+The terminal deadline/status conflict was fixed and reviewed: late result/manifest
+bytes are preserved under attempted-* names before returning failure; no completed
+canonical result remains for the tested late-write cases. Source camera, surfaces
+and pixel annotations remain supplied/authored, missing slots unavailable, and
+contact/load/grasp unknown. No automatic body/floor installation, inference,
+training, media or paid work in this milestone. Cooperative deadlines are not
+hard process/memory isolation.
+
+**Next adapter work (now frozen for review):** `/root/support_ui` released only new
+`shared_exercise_feet_projection.py` and its test file. It prepares the exact base
+scoring scene, maps 25 rotations plus optional 3 roots explicitly, and projects 28-motor
+samples to the unchanged 22-motor scorer while retaining excluded foot contacts.
+It may not change engine/scorer/gates/lab/recording/UI files. Its preparation helper
+uses existing world validation (which compiles a mass model), so preparation is
+not a native-free hot-path operation; tests mock only analytical mass and block
+native calls. All unknown contacts must reject, new feet receive no old support
+credit, full floor penetration stays intact, and ground-load tasks remain unsupported.
+Its 32 analytical checks pass with native entrypoints blocked and mass substituted
+only in tests; independent read-only review is in progress. Module SHA
+`03d6094a7330e4ff84e1c5949810f2c2896220bd91143b213d492cc841143fe7`,
+tests `7769747b16ba930ae41e718bea1a424cdb7879a1a81dbdbc1677fa6c884bb747`.
+Root owns deliberate integration within the existing exercise pipeline after review. Do not use the first 155 values of a 197-value v5 observation:
+that mixes fields. Preserve explicit task/base-scene/projection/runtime hash bindings.
 
 ## One-command authored-support sandbox — October 31, 2026
 
@@ -1474,7 +1510,7 @@ seals/session inventories remain unchanged. Receipt
 The explicit `proposal_objective="floor_first_v1"` is implemented; 16 new pure
 checks and independent math review pass. Default `image_v1`, all hard gates,
 0.025 floor limit, budgets and fresh final audit remain unchanged. Frozen source
-`fba6b9cb62ce7b2b5cc63efdd24ab2417c5530ea8841f240e8a1977c078ce996`, tests
+`fba6b9cb62ce7b2b5cc63efdd24ab2417c5530ea8841f240e8a 1977c078ce996`, tests
 `e5d53471b886c00d37daf02413455a9cb6234dd778b0202df9b98d9e775c8514`.
 Receipt `.local/whole-body-floor-first-implementation-01.json` records the passed
 tests but honestly predates the final independent review; no code changed after it.

@@ -4,6 +4,32 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Inspect known ground or support points
+
+When you have saved observations, supplied camera calibration and explicit surface
+annotations, `surface-anchors` creates an offline, step-by-step report:
+
+```sh
+.venv-lab/bin/python -m weft surface-anchors \
+  --observation path/to/observations.json --source-sha256 ORIGINAL_VIDEO_SHA256 \
+  --camera path/to/camera.json --surfaces path/to/surfaces.json \
+  --annotations path/to/annotations.json --out artifacts/my-surface-points-01
+```
+
+Open the printed `index.html` path. It shows preserved inputs, assumptions,
+conditional 3D points and missing-frame reasons. The output directory must be new;
+its parent must already exist. The complete timeline stays in `anchors.json`.
+
+This is an optional calibration tool, **not automatic exercise reconstruction**.
+It does not guess the camera, fit a body, install ground or prove contact. Missing
+inputs produce an unavailable diagnostic. Authored inputs stay authored; contact,
+load and grasp stay unknown. [Input schemas and a complete authoring example](handoffs/source-surface-anchors.md#public-api-and-concrete-authoring-example).
+
+The [tiny authored example report](../artifacts/source-surface-cli-report-02/index.html)
+retains one conditional point and four unavailable slots. Its source is a synthetic
+descriptor, not a video or physical-validation result. Existing video sandbox and
+recording workflows below remain separate from this diagnostic.
+
 ## Inspect static-support loads
 
 Open the prepared support example:
