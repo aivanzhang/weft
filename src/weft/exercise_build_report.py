@@ -725,6 +725,39 @@ def _render(summary, artifacts, palette):
             diagnostic_html += '<p>' + link(evidence_link) + '</p>'
         diagnostic_html += '</details><h4>Next steps</h4><ul>' + ''.join('<li>' + text(value) + '</li>' for value in diagnostic["next_steps"]) + '</ul>'
         diagnostic_html += '<details><summary>Diagnostic evidence and limits</summary>' + dump(diagnostic) + '</details>'
+    pixel_html = ""
+    pixel_support = summary.get("pixel_support")
+    if pixel_support is not None:
+        counts = pixel_support["status_counts"]
+        labels = {"contradicted": "Motion disagrees", "not_contradicted": "No disagreement found", "unavailable": "Cannot check"}
+        pixel_html = ('<aside class="notice"><h3>Compare estimated motion with images</h3>'
+            '<p>These saved checks compare small image areas around predicted joints with estimated joint motion. '
+            'A mismatch applies to the original image area; it does not prove that a pose is wrong. '
+            'Agreement does not verify anatomy, hidden joints, or 3D motion.</p>'
+            f'<p>Motion disagrees: {counts.get("contradicted", 0)}; '
+            f'no disagreement found: {counts.get("not_contradicted", 0)}; '
+            f'cannot check: {counts.get("unavailable", 0)}. '
+            f'{pixel_support["processed_slots"]}/{pixel_support["slot_count"]} joint checks across selected image pairs completed.</p>')
+        if pixel_support["status"] == "partial_deadline":
+            pixel_html += '<p><strong>Partial check: the saved time limit left slots unprocessed.</strong></p>'
+        slot_rows = ''.join('<tr><td>' + ' → '.join(f'<a href="#pixel-frame-{frame}">{frame}</a>' for frame in row["frames"]) + '</td><td>'
+            + ' → '.join(f'<a href="#pixel-frame-{frame}">' + text('unknown' if stamp is None else stamp) + '</a>'
+                         for frame, stamp in zip(row["frames"], row["native_time_s"], strict=True))
+            + '</td><td>' + text(row["joint"].replace('_', ' ')) + '</td><td>'
+            + labels[row["status"]] + '</td><td>' + text(row["reason"].replace('_', ' ')) + '</td></tr>'
+            for row in pixel_support["rows"])
+        pixel_html += ('<details><summary>All checked source pairs and joint slots</summary><table><thead><tr>'
+            '<th>Source frames</th><th>Native times (s)</th><th>Joint label</th><th>Patch check</th><th>Reason</th>'
+            '</tr></thead><tbody>' + slot_rows + '</tbody></table></details>')
+        for row in artifacts:
+            if row["source_name"].startswith("pixel_support/images/"):
+                frame = int(PurePosixPath(row["source_name"]).stem.split('-')[-1])
+                pixel_html += (f'<figure id="pixel-frame-{frame}"><img loading="lazy" src="{row["path"]}" alt="{text(row["label"])}">'
+                               f'<figcaption>{text(row["label"])}</figcaption></figure>')
+        pixel_html += ('<p>Only the supplied image pairs were checked. Other frames remain unqualified. '
+            'The saved build status, original poses, confidence and quality gates are unchanged. '
+            'This report reads the saved check; it does not repeat image matching.</p>'
+            '<details><summary>Pixel-check provenance and limits</summary>' + dump(pixel_support) + '</details></aside>')
     source = (dump(summary["source"]) if summary["source"] else "<p>Original source attribution is not available in the inspected sealed files.</p>")
     coverage = summary["coverage"]
     if coverage.get("status") == "available":
@@ -763,7 +796,7 @@ body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55
 <nav><a href="#stages">Stages</a><a href="#original">Original video</a><a href="#body">Body evidence</a><a href="#equipment">Equipment</a><a href="#artifacts">Artifacts</a></nav></header>
 <section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table>{diagnostic_html}<h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
 <section id="original"><h2>2. Original video</h2>{media}<p>Playback uses the copied original. This report does not decode, synchronize, or seek video to inferred pose or equipment times.</p><details><summary>Source identity, attribution and rights</summary>{source}</details></section>
-<section id="body"><h2>3. Body evidence</h2>{coverage_html}{previews}<p>Pose annotations show model-reported observations, not a simulated body, recovered anatomy, or measured muscle activation. Construction-only body seeds are not playable worlds.</p><details><summary>Saved body construction scope</summary>{dump(summary["body"])}</details></section>
+<section id="body"><h2>3. Body evidence</h2>{coverage_html}{previews}{pixel_html}<p>Pose annotations show model-reported observations, not a simulated body, recovered anatomy, or measured muscle activation. Construction-only body seeds are not playable worlds.</p><details><summary>Saved body construction scope</summary>{dump(summary["body"])}</details></section>
 <section id="equipment"><h2>4. Equipment and assumptions</h2><p>Boxes, scale, camera depth, mass, and support are hypotheses. A box matching image edges does not prove physical shape or contact. Rejected candidates remain rejected.</p>{equipment_table}<details><summary>Exact saved geometry, source bindings and clocks</summary>{dump(summary["equipment"])}</details><h3>Saved limitations</h3><ul>{assumptions}</ul><details><summary>Requested options — not proof of execution</summary>{dump(summary.get("requested_options", {}))}</details><details><summary>Saved learning and evaluation outcomes — not rerun here</summary>{dump(summary["learning"])}</details></section>
 <section id="artifacts"><h2>5. Exact copied artifacts</h2><p>Each link opens a local exact-byte copy verified against the supplied source manifest. Other declared files were not independently checked or copied. No external paths or saved scripts are followed.</p>{''.join(groups)}<p><a href="source-manifest.json.txt">Original manifest: all declared paths and hashes</a> · <a href="report.json.txt">Report summary and copy provenance</a></p><p>Source manifest SHA256: <code>{summary["source_manifest_sha256"]}</code></p></section>
 <footer><p>Report generated: {text(summary["created_at"])} (America/Los_Angeles). Report generation does not establish task success or physical accuracy. No simulation, inference, training, API call, or server was started by this report.</p></footer>
@@ -815,7 +848,7 @@ def _output_inventory(fd, expected, deadline):
         raise ValueError("Report outputs changed before sealing")
 
 
-def prepare_exercise_build_report(run, out, *, max_seconds=30):
+def prepare_exercise_build_report(run, out, *, max_seconds=30, pixel_support=None):
     """Copy bounded sealed evidence into a new offline report; never modify the build."""
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= MAX_SECONDS:
         raise ValueError(f"Build inspection requires a 1–{MAX_SECONDS} second bound")
@@ -825,10 +858,23 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30):
     started = time.monotonic()
     deadline = started + max_seconds
     source = _Source(source_path, deadline)
-    output_fd = None
+    output_fd, companion = None, None
     try:
         chosen, body_prefix, video = _selection(source)
         summary = _summary(source, body_prefix, video)
+        if pixel_support is not None:
+            from weft.pose_pixel_support_package import load_pose_pixel_support
+
+            companion_path = _absolute(pixel_support)
+            if target.is_relative_to(companion_path) or companion_path.is_relative_to(target):
+                raise ValueError("Inspection output must be outside its pixel-support companion")
+            if source.receipt_only or body_prefix is None:
+                raise ValueError("Pixel support requires sealed original body-source evidence")
+            evidence_name = body_prefix + "/evidence.json"
+            evidence_raw = source.raw[evidence_name] if evidence_name in source.raw else source.read(evidence_name)
+            companion = load_pose_pixel_support(companion_path, evidence_document=evidence_raw,
+                source_manifest_raw=source.read(body_prefix + "/manifest.json", MAX_MANIFEST_BYTES), deadline=deadline)
+            summary["pixel_support"] = companion.summary
         entities = summary["equipment"].get("source_binding", {}).get("entity_bindings", [])
         if not isinstance(entities, list) or len(entities) > 128 or any(not isinstance(row, dict) for row in entities):
             raise ValueError("Invalid or oversized saved entity bindings")
@@ -850,6 +896,11 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30):
             if size > MAX_FILE_BYTES:
                 raise ValueError("Selected inspection artifact exceeds its byte bound")
             total += size
+        companion_members = ({"manifest.json": companion.manifest_raw,
+            **{name: companion.raw[name] for name in companion.copy_names}} if companion is not None else {})
+        total += sum(map(len, companion_members.values()))
+        if len(chosen) + len(companion_members) > MAX_COPIED_FILES:
+            raise ValueError("Inspection and pixel-support copies exceed the combined file bound")
         if total > MAX_OUTPUT_BYTES - _RESERVE:
             raise ValueError("Selected inspection artifacts exceed the complete output reservation")
         # Brand resources are trusted application bytes, not content from the inspected build.
@@ -879,8 +930,22 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30):
                 _write(output_fd, destination, raw, written, deadline)
             artifacts.append({"source_name": name, "path": destination, "sha256": source.files[name],
                               "bytes": len(raw), "group": group, "label": label})
+        copied_build_files = len(artifacts)
+        for name, raw in companion_members.items():
+            suffix = PurePosixPath(name).suffix
+            _media(raw, suffix)
+            extension = ".png" if suffix == ".png" else suffix + ".txt"
+            destination = "artifacts/" + _sha(raw) + extension
+            if destination not in written:
+                _write(output_fd, destination, raw, written, deadline)
+            label = ("Original saved source pixels: " + PurePosixPath(name).stem if suffix == ".png" else
+                     "Saved pixel-support evidence: " + name)
+            artifacts.append({"source_name": "pixel_support/" + name, "path": destination, "sha256": _sha(raw),
+                              "bytes": len(raw), "group": "Body", "label": label})
+        if companion is not None:
+            summary["copied_companion_files"] = len(companion_members)
         summary.update(artifacts=artifacts, source_directory=str(source_path), source_declared_files=len(source.files),
-                       copied_source_files=len(artifacts), uninspected_declared_files=len(set(source.files) - set(source.pins)),
+                       copied_source_files=copied_build_files, uninspected_declared_files=len(set(source.files) - set(source.pins)),
                        implementation_sha256=_sha(Path(__file__).read_bytes()), palette_sha256=_sha(palette_raw))
         report_raw, html = _bytes(summary), _render(summary, artifacts, palette)
         if len(report_raw) > MAX_REPORT_BYTES or len(html) > MAX_REPORT_BYTES:
@@ -888,6 +953,8 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30):
         _write(output_fd, "report.json.txt", report_raw, written, deadline)
         _write(output_fd, "index.html", html, written, deadline)
         source.recheck()
+        if companion is not None:
+            companion.recheck()
         output_check = _directory(target)
         try:
             if (os.fstat(output_check).st_dev, os.fstat(output_check).st_ino) != (os.fstat(output_fd).st_dev, os.fstat(output_fd).st_ino):
@@ -922,5 +989,7 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30):
         raise
     finally:
         os.close(source.fd)
+        if companion is not None:
+            companion.close()
         if output_fd is not None:
             os.close(output_fd)

@@ -66,6 +66,28 @@ The report shows the stopped stage, exact source artifacts, saved quality checks
 
 Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) for direct access with an explicit local pose model. It uses the same pipeline and assumptions as the launcher, not a separate product. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible.
 
+### Check suspicious motion using saved images
+
+Optional `shared-exercise-pixel-check` compares local image-patch motion with the original estimated joint motion. It accepts sealed pose evidence and a sealed extraction containing two to four original PNG frames; it never decodes the video again, runs a pose model, or changes the body. This is an advanced check on selected frames, not a whole-video accuracy test.
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-pixel-check \
+  --pose-run artifacts/single-leg-person-workflow-01/build/body_source \
+  --extraction-run artifacts/single-leg-source-pixels-01 \
+  --out artifacts/my-pixel-check-01
+
+.venv-lab/bin/python -m weft shared-exercise-inspect \
+  --run artifacts/single-leg-person-workflow-01/build \
+  --pixel-support artifacts/my-pixel-check-01 \
+  --out artifacts/my-pixel-report-01
+```
+
+The separate report card distinguishes local patch disagreement, no detected disagreement, and unavailable evidence. Agreement does not prove that a patch belongs to the correct joint or that the 3D pose is accurate. Occlusion, repeated texture, large motion, unsupported clocks and time limits stay visible; original pose-quality decisions and task results remain unchanged. Every output needs a new directory. The producer's five-second cooperative limit includes packaging; a partial result is not a completed check. The normal report command remains unchanged when `--pixel-support` is omitted.
+
+The checked local [example report](../artifacts/single-leg-pixel-inspection-01/index.html) retains36joint-pair checks:5conditional disagreements,2without disagreement and29unavailable. Diagnostic and report together took0.603seconds with no new video decoding, inference or simulation. This is a selected-frame warning, not a repaired reference or accuracy score.
+
+For other saved extractions, use `source-frame-pixels-v1`: a schema1manifest and `report.json`, both with `status: pixels_extracted`. The report binds `source_sha256`, declares no resampling/automatic repair/API/inference/physics, and lists2–4ordered PNG rows containing `frame`, nominal `time_s`, `decoder_timestamp_s`, `file`, PNG `sha256`, `decoded_rgb_sha256`, `source_sha256`, `width` and `height`. Its manifest must cover the report and exact PNG bytes. Extraction provenance is supplied by that producer, not independently re-established by this checker. The earlier `single-leg-source-pixels-v1` receipt is accepted through an explicit time-field compatibility adapter. This command does not extract frames from a new video.
+
 For a person interacting with equipment, the same launcher accepts `--evidence-run`, `--config` and optional `--source-mapping` instead of `--person-only`. Equipment geometry/camera assumptions remain explicit; it does not silently remove objects. Local build/report processing makes no paid API call and inherits no provider-key environment variables. Native calls run in a bounded child process; native memory is not hard-capped. The user owns any server started with `--serve`.
 
 ## Original full-reference sandbox

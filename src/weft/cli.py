@@ -253,6 +253,12 @@ def main():
     exercise_inspect.add_argument("--run", required=True, help="Existing sealed shared-exercise-build output; never modified")
     exercise_inspect.add_argument("--out", required=True, help="New self-contained inspection directory outside the source")
     exercise_inspect.add_argument("--max-seconds", type=float, default=30)
+    exercise_inspect.add_argument("--pixel-support", help="Optional sealed local image-patch diagnostic; does not rerun or repair source poses")
+    pixel_check = commands.add_parser("shared-exercise-pixel-check", help="Compare saved source PNG motion with original pose estimates; no video decode or inference")
+    pixel_check.add_argument("--pose-run", required=True, help="Sealed original raw pose evidence directory")
+    pixel_check.add_argument("--extraction-run", required=True, help="Sealed source-frame-pixels-v1 receipt and two to four original PNGs")
+    pixel_check.add_argument("--out", required=True, help="New diagnostic companion; never modifies the original evidence")
+    pixel_check.add_argument("--max-seconds", type=float, default=5, help="Cooperative total bound, at most five seconds")
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
     sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
     sw_construct.add_argument("--proposal-run", required=True, help="Sealed ready geometry proposal")
@@ -532,7 +538,11 @@ def main():
                                            file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-inspect":
             from weft.exercise_build_report import prepare_exercise_build_report
-            result = prepare_exercise_build_report(args.run, args.out, max_seconds=args.max_seconds)
+            result = prepare_exercise_build_report(args.run, args.out, max_seconds=args.max_seconds,
+                **({"pixel_support": args.pixel_support} if args.pixel_support is not None else {}))
+        elif args.command == "shared-exercise-pixel-check":
+            from weft.pose_pixel_support_package import prepare_pose_pixel_support
+            result = prepare_pose_pixel_support(args.pose_run, args.extraction_run, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
             result = train_shared_world_policy(
