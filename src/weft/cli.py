@@ -75,6 +75,11 @@ def main():
     pose_model = commands.add_parser("fetch-pose-model", help="Download/verify the pinned local pose model (no inference upload)")
     pose_model.add_argument("--out")
     pose_model.add_argument("--variant", choices=("lite", "full", "heavy"), default="lite", help="Explicit model choice; existing lab default remains lite")
+    pose_recovery = commands.add_parser("exercise-pose-recover", help="Verify saved source-only crop proposals for body preparation; no new inference or simulation")
+    pose_recovery.add_argument("--run", required=True, help="Sealed selective-crop proposal package with its original whole-image evidence")
+    pose_recovery.add_argument("--video", required=True, help="Exact original source video; bytes verified without decoding")
+    pose_recovery.add_argument("--out", required=True, help="New sealed pose-evidence directory outside the inputs")
+    pose_recovery.add_argument("--max-seconds", type=float, default=30)
     body_source = commands.add_parser("exercise-body", help="Prepare body evidence for a shared world without creating or training a body-only lab")
     body_input = body_source.add_mutually_exclusive_group(required=True)
     body_input.add_argument("--video", help="Local exercise video, at most 64 MiB and 60 seconds")
@@ -232,6 +237,10 @@ def main():
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
     exercise_build.add_argument("--max-seconds", type=float,
                                 help="Cooperative total bound: default 90s saved/no training, 270s raw or training, 450s raw plus training")
+    exercise_inspect = commands.add_parser("shared-exercise-inspect", help="Create an offline step-by-step report from a saved exercise build, including rejections")
+    exercise_inspect.add_argument("--run", required=True, help="Existing sealed shared-exercise-build output; never modified")
+    exercise_inspect.add_argument("--out", required=True, help="New self-contained inspection directory outside the source")
+    exercise_inspect.add_argument("--max-seconds", type=float, default=30)
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
     sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
     sw_construct.add_argument("--proposal-run", required=True, help="Sealed ready geometry proposal")
@@ -500,6 +509,9 @@ def main():
                 max_seconds=args.max_seconds,
                 progress=lambda row: print(f"{labels.get(row['stage'], row['stage'].replace('_', ' '))}: {row['status'].replace('_', ' ')}",
                                            file=sys.stderr, flush=True))
+        elif args.command == "shared-exercise-inspect":
+            from weft.exercise_build_report import prepare_exercise_build_report
+            result = prepare_exercise_build_report(args.run, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
             result = train_shared_world_policy(
@@ -604,6 +616,13 @@ def main():
         elif args.command == "fetch-pose-model":
             from weft.exercise_vision import fetch_pose_model
             result = {"path": str(fetch_pose_model(args.out, variant=args.variant))}
+        elif args.command == "exercise-pose-recover":
+            from weft.pose_source_recovery import prepare_pose_source_recovery
+            destination = prepare_pose_source_recovery(args.run, args.out, source_video=args.video,
+                                                       max_seconds=args.max_seconds)
+            result = {"profile": "exercise-pose-recovery-v1", "status": "source_evidence_only",
+                "directory": str(destination), "simulation_ready": False,
+                "new_inference": False, "next_step": "Use exercise-body --evidence-run on this preserved pose package"}
         elif args.command == "exercise-body":
             from weft.exercise_body_source import prepare_exercise_body_source, prepare_exercise_body_source_from_evidence
             def body_progress(stage, detail):

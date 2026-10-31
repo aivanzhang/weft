@@ -1,4 +1,4 @@
-# Build an exercise scene from saved evidence
+# Build and inspect an exercise scene
 
 Use sealed **body-source evidence or a mobile exercise-v3 run/lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. Body-source preparation skips the unrelated body-only lab, control trials and single-joint training. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
 
@@ -32,6 +32,43 @@ Training defaults are two generations, eight candidates, seed 1729 and three eva
 The terminal prints each stage and the result's `launch_arguments` identify the final lab. A rejected/unsupported build exits nonzero and points to its preserved `result.json`; a ready lab with zero task successes still counts as a completed build. With training, inspect `learning_workflow/plan.json`, `training/`, `selected/` and `evaluation/` before opening `learning_workflow/lab/`. Without `--train`, the output remains `lab/`; no learning/evaluation runs. Original body/source packages remain construction-only. No command starts a server until you explicitly run `weft lab --resume`.
 
 New allowances are explicit: raw-only builds allow 512 MiB, training-only 1 GiB and combined builds 1,152 MiB; these are maximums, not expected usage. Local work uses one worker per stage and no paid API. Default cooperative deadlines are 270 seconds for raw or training, 450 seconds for both; saved/no-training stays 90 seconds/384 MiB. Extended builds permit at most 480 seconds. Each helper retains its smaller stage limits, and the learning stage reserves five seconds for finalization. Native calls require an external process deadline for a hard stop. Failures preserve completed evidence and any already completed lab; they do not create a second lab or retry training.
+
+## Inspect a completed or stopped build
+
+Create a local report from an existing build; this does not rerun the video or start a server:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-inspect \
+  --run artifacts/my-trained-exercise-01 \
+  --out artifacts/my-exercise-inspection-01
+```
+
+Open the returned `index.html` yourself. It explains which stages finished, where processing stopped and which stages never ran. Available original video, pose previews, body/equipment documents and assumptions are copied with their saved hashes. The input build stays unchanged. A generated report does **not** make a rejected world playable or prove task success.
+
+For a partial build whose seal covers only its failure receipt, the report shows only that verified receipt; unfinished stage assets remain unverified and are not linked. The report verifies the metadata/media it consumes, not every unneeded member of the source package. It has no script, network dependency or live simulator.
+
+Report preparation is bounded to 30 cooperative seconds and 128 MiB, with 64 MiB per copied file. Choose a new output directory outside the build. The regular lab still handles interaction, training controls and recording for admitted worlds.
+
+## Reuse saved source-only pose recovery
+
+A sealed selective-crop proposal package can now feed ordinary body preparation directly:
+
+```sh
+.venv-lab/bin/python -m weft exercise-pose-recover \
+  --run artifacts/my-saved-crop-proposals \
+  --video /absolute/path/to/original.webm \
+  --out artifacts/my-recovered-poses-01
+
+.venv-lab/bin/python -m weft exercise-body \
+  --evidence-run artifacts/my-recovered-poses-01 \
+  --out artifacts/my-recovered-body-01
+```
+
+Then supply that body to `shared-exercise-build --human-run` with the same explicit equipment/camera inputs. Recovery recomputes the existing fixed crop rules against the original image observations, preserves every accepted/rejected proposal and checks exact source clocks and model identities. It never selects using collisions, task scores or evaluation data. Ambiguous people, missing context and unsupported replacements remain unresolved.
+
+**This command reuses saved proposals; it does not generate new crops from a fresh video.** The supported saved recipe is Full/IMAGE/raw. Ordinary raw-video defaults remain Lite/VIDEO/raw; there is no automatic model/mode contest or fallback. Recovery creates source evidence only. The body constructor still rejects failed pose quality, and construction-only bodies/seeds are not playable environments.
+
+Limits: one worker, 30 cooperative seconds, 128 MiB and 512 output files, 64 MiB per file, and at most 64 crop proposals. Packages retain original video/raw poses, selected evidence, complete selection proof and frozen verifier sources. Inputs and completed outputs are never overwritten.
 
 ## Prepare body evidence without a lab
 
@@ -132,6 +169,10 @@ The saved-input/no-training assembly deadline remains 90 seconds, checked around
 For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Separate [human-only training/evaluation commands](shared-exercise.md) remain available; a ready geometry package is not a successful policy.
 
 ## Verified scope
+
+**Saved recovery and offline inspection:** 174 current scoped checks pass (124 recovery/body/seed, 45 report, five CLI), with older failures retained in `.local/pose-recovery-inspection-tests-01.json`. `artifacts/pose-source-recovery-acceptance-01` preserves all **2,677 decoded slots /1,340 sampled observations /31 proposals /13 replacements** across five previously exposed clips. Squat and push-up match their saved body documents exactly and pass proof-preserving seed preparation. Single-leg squat and lunge remain quality-rejected; jumping-jacks/burpees is source-only here. The study takes **8.576 s**, uses two existing floor-forward calculations and **zero dynamics, decoding, inference, training or API calls**. This verifies reusable saved-evidence handling, not new-video or physical accuracy.
+
+`artifacts/direct-exercise-inspection-01/index.html` is the actual raw-rejection report: **35 source references /38 output files /19,723,382 bytes**, generated in **0.350 s including process startup**. It retains the original rejected build unchanged and explains two completed stages, stopped equipment proposal and unrun downstream stages. Generation latency is not browser playback or visual QA; no browser was opened. [Exact studies and receipts](handoffs/combined.md#saved-pose-recovery-and-offline-inspection--verified).
 
 **Raw input and learning:** 171 distinct scoped checks cover preflight, full-interval training/selection/evaluation, nested seals, failure preservation and CLI outcomes; `.local/exercise-build-checkpoint-01.json` records exact receipts and native-test version limits. An analytical fixture completes one trained lab with recording/export/exact replay; this is software coverage, not real-video accuracy.
 

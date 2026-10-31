@@ -259,9 +259,9 @@ def _failure(target, error, started):
         pass
 
 
-def _implementation(deadline):
+def _implementation(deadline, extra_files=()):
     package = Path(__file__).parent
-    files = {name: _read(package / name, deadline) for name in IMPLEMENTATION_FILES}
+    files = {name: _read(package / name, deadline) for name in dict.fromkeys((*IMPLEMENTATION_FILES, *extra_files))}
     versions = {"python": platform.python_version()}
     for name in ("numpy", "mujoco", "mediapipe", "opencv-contrib-python", "Pillow"):
         try:
@@ -287,7 +287,7 @@ def _model(model, options):
         raise ValueError("Pose model variant conflicts with its pinned bytes")
 
 
-def _validated_pose(raw_files, options, source_sha):
+def _validated_pose(raw_files, options, source_sha, *, deadline=None):
     evidence, raw, audit, model, config, source = (_json(raw_files[name]) for name in
         ("evidence.json", "pose-landmarks.json", "identity-audit.json", "model.json", "run-config.json", "source.json"))
     if (evidence.get("profile") != "exercise-pose-v1" or evidence.get("schema_version") != 1
@@ -298,6 +298,12 @@ def _validated_pose(raw_files, options, source_sha):
     _model(model, options)
     if evidence.get("model") != model or raw.get("model") != model:
         raise ValueError("Raw and derived pose model metadata must remain identical")
+    recovery = "pose-recovery.json" in raw_files
+    if recovery:
+        from weft.pose_source_recovery import validate_pose_recovery_files
+        validate_pose_recovery_files(raw_files, source_sha256=source_sha, deadline=deadline)
+    elif evidence.get("pose_reinference") or any("image_refinement" in row for row in evidence.get("frames", [])):
+        raise ValueError("Crop-derived observations require their explicit complete recovery proof")
     identity = evidence.get("pose_identity", {})
     if (identity.get("mode") != options["pose_identity"] or audit.get("mode") != options["pose_identity"]
             or audit.get("source_sha256") != source_sha or audit.get("raw_artifact") != "pose-landmarks.json"
@@ -335,7 +341,10 @@ def _validated_pose(raw_files, options, source_sha):
         native = row["decoder_timestamp_s"]
         if native is not None and (type(native) not in (int, float) or not math.isfinite(native) or not 0 <= native <= 60):
             raise ValueError("Invalid native decoder timestamp; it cannot be replaced with nominal time")
-        if "identity_raw" in row:
+        if "image_refinement" in row:
+            if not recovery or row.get("image_refinement_raw") != prior:
+                raise ValueError("Crop recovery must retain its exact original detector observation")
+        elif "identity_raw" in row:
             if options["pose_identity"] != "temporal" or row["identity_raw"] != prior:
                 raise ValueError("Temporal pose correction must retain its exact original record")
             repaired.append(row["id"])
@@ -356,10 +365,13 @@ def _validated_pose(raw_files, options, source_sha):
     return evidence, observations, clock
 
 
-def validate_body_source_files(files):
+def validate_body_source_files(files, *, deadline=None):
     """Validate manifest-covered body-source bytes before the existing seed constructor consumes them."""
     required = POSE_FILES | {"body-source.json", "human.json", "observations.json", "source-clock.json",
                             "implementation.json"}
+    if "pose-recovery.json" in files:
+        from weft.pose_source_recovery import PROOF_FILES
+        required |= PROOF_FILES
     if not required <= files.keys():
         raise ValueError("Construction body source lacks required identity-bound artifacts")
     marker = _json(files["body-source.json"])
@@ -385,7 +397,7 @@ def validate_body_source_files(files):
             or _sha(files[source_name]) != source_sha
             or _json(files["source.json"]).get("artifact") != source_name):
         raise ValueError("Body source original video identity is missing or conflicting")
-    evidence, observations, clock = _validated_pose(files, options, source_sha)
+    evidence, observations, clock = _validated_pose(files, options, source_sha, deadline=deadline)
     if files["observations.json"] != _bytes(observations) or files["source-clock.json"] != _bytes(clock):
         raise ValueError("Body source observations/native clocks differ from the original pose evidence")
     human = validate_human(_json(files["human.json"]))
@@ -401,8 +413,12 @@ def validate_body_source_files(files):
 
 def _finish(target, options, source_name, input_kind, input_manifest, pins, implementation, started, deadline, progress):
     source_sha = _sha(_read(target / source_name, deadline))
+    pose_names = set(POSE_FILES)
+    if (target / "pose-recovery.json").exists():
+        from weft.pose_source_recovery import PROOF_FILES
+        pose_names |= PROOF_FILES | {source_name}
     evidence, observations, clock = _validated_pose(
-        {name: _read(target / name, deadline) for name in POSE_FILES}, options, source_sha)
+        {name: _read(target / name, deadline) for name in pose_names}, options, source_sha, deadline=deadline)
     before, _ = _inventory(target, deadline, reserve=True)
     if progress:
         progress("body", {"message": "Preparing a construction-only mobile body; no training or simulated trial"})
@@ -431,7 +447,7 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
         "construction": {"body_model": "mobile", "body_profile": "exercise-v3",
             "original_pose_config": "run-config.json", "original_pose_config_sha256": files["run-config.json"],
             "original_pose_config_scope": "Preserved original pose preparation. Its historical body_model, task and training fields were not executed by this construction stage."},
-        "artifacts": {name: files[name] for name in (*sorted(POSE_FILES), "human.json", "observations.json",
+        "artifacts": {name: files[name] for name in (*sorted(pose_names - {source_name}), "human.json", "observations.json",
                                                   "source-clock.json", "implementation.json")},
         "source_clock": {"basis": clock["nominal_basis"], "status": "assumed",
                          "native_scope": clock["native_scope"], "sampled_slots": len(clock["samples"]),
@@ -451,7 +467,7 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
                    "Observed-frame pose annotations are not simulated-body renders; model weights are identified, not copied"]}
     _write(target, {"body-source.json": _bytes(receipt)}, deadline)
     validate_body_source_files({name: _read(target / name, deadline) for name in
-                               {*receipt["artifacts"], "body-source.json", source_name}})
+                               {*receipt["artifacts"], "body-source.json", source_name}}, deadline=deadline)
     files, total = _inventory(target, deadline)
     manifest = _bytes({"schema_version": 1, "profile": PROFILE, "status": "construction_only",
                        "simulation_ready": False, "files": files})
@@ -540,6 +556,14 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
                 raise ValueError("A failed lab cannot be relabeled as a successful body source")
             pins.append((source / "status.json", _sha(status_raw)))
         kept, total = {}, len(manifest_raw)
+        recovery_files, recovery_implementation = set(), ()
+        if manifest.get("profile") == "exercise-pose-recovery-v1":
+            from weft.pose_source_recovery import PROOF_FILES, IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
+            recovery_files, recovery_implementation = set(PROOF_FILES), RECOVERY_IMPLEMENTATION
+            if not recovery_files <= declared.keys():
+                raise ValueError("Saved pose recovery lacks its complete derivation proof")
+        elif "pose-recovery.json" in declared:
+            raise ValueError("Pose recovery proof requires its explicit sealed package profile")
         for name, expected in sorted(declared.items()):
             raw = _read(run / name, deadline, expected)
             total += len(raw)
@@ -548,11 +572,11 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
             if name in {"status.json", "report.json", "reconstruction.json", "body-source.json"} and _json(raw).get("status") in REJECTED:
                 raise ValueError("Rejected saved artifacts cannot become construction inputs")
             pins.append((run / name, expected))
-            if name in POSE_FILES | OPTIONAL_FILES | {source_name}:
+            if name in POSE_FILES | OPTIONAL_FILES | {source_name} | recovery_files:
                 kept[name] = raw
         config = _json(kept["run-config.json"])
         options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"))
-        snapshots, implementation = _implementation(deadline)
+        snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),
                         **{"implementation-source/" + name: raw for name, raw in snapshots.items()}}, deadline)

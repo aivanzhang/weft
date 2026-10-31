@@ -36,6 +36,8 @@ The current saved example is `session-04b7c0ac12c4`: 262 actions, one reset and 
 
 Older labs and recordings are unchanged. Their exact runtime pins intentionally reject changed physics/learner source: use their archived implementation to rerun them, or prepare a new explicitly evaluated lab. The new runtime reproduced all 68 recorded actions and 70 snapshots/rewards from the previous two-second example exactly; that numerical check does not silently migrate its old policy or transfer its success to the longer task.
 
+A shared exercise build can now be inspected even when it stops before creating a lab. Use [`shared-exercise-inspect`](equipment-proposals.md#inspect-a-completed-or-stopped-build) to make a local HTML report with the original video, pose previews, completed/stopped stages and preserved failure; no server or rerun is needed.
+
 ## Try the saved exercise run
 
 From the repository root:

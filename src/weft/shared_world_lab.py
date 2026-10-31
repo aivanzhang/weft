@@ -644,6 +644,7 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     if _seed_json(manifest_raw).get("status") in REJECTED_SOURCE_STATUSES:
         raise ValueError("Cannot prepare a body seed from a failed or rejected manifest")
     construction_body = "body-source.json" in declared
+    recovery_validator_implementations = {}
     if construction_body:
         from weft.exercise_body_source import PROFILE as BODY_SOURCE_PROFILE, POSE_FILES, validate_body_source_files
 
@@ -658,6 +659,13 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
             raise ValueError("Body-source input requires its explicit construction-only manifest")
         required = POSE_FILES | {"body-source.json", "human.json", "observations.json",
                                  "source-clock.json", "implementation.json"}
+        if "pose-recovery.json" in declared:
+            from weft.pose_source_recovery import PROOF_FILES, IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
+            required |= PROOF_FILES
+            for name in RECOVERY_IMPLEMENTATION:
+                _seed_check(deadline)
+                recovery_validator_implementations[name] = read_package_file(Path(__file__).parent, name,
+                                                                             max_bytes=1024 * 1024)
     else:
         required = {"human.json", "scene.json", "evidence.json"}
     if not required <= declared.keys() or len(declared) + 1 > SEED_MAX_FILES:
@@ -696,7 +704,7 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
             kept[name] = raw
     _seed_check(deadline)
     if construction_body:
-        human, observations = validate_body_source_files(kept)
+        human, observations = validate_body_source_files(kept, deadline=deadline)
     else:
         human, original_scene, evidence = (_seed_json(kept[name]) for name in ("human.json", "scene.json", "evidence.json"))
         if (human.get("profile") != "exercise-v3" or "camera_reference" in human
@@ -728,6 +736,7 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     files["implementation/shared_world_lab.py"] = implementation
     if construction_body:
         files["implementation/exercise_body_source.py"] = body_validator_implementation
+    files.update({"implementation/" + name: raw for name, raw in recovery_validator_implementations.items()})
     if status_snapshot is not None:
         files["inputs/human-source/source-lifecycle.json"] = status_snapshot
     receipt = {"schema_version": 1, "profile": SEED_PROFILE, "status": "construction_only",
@@ -748,6 +757,9 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     if construction_body:
         receipt["input_profile"] = BODY_SOURCE_PROFILE
         receipt["body_source_validator_sha256"] = hashlib.sha256(body_validator_implementation).hexdigest()
+    if recovery_validator_implementations:
+        receipt["pose_recovery_validator_sha256"] = {name: hashlib.sha256(raw).hexdigest()
+                                                     for name, raw in recovery_validator_implementations.items()}
     files["reconstruction.json"] = _seed_bytes({"schema_version": 1, "profile": PROFILE,
         "mode": "construction_seed", "status": "construction_only", "simulation_ready": False,
         "physical_validation": "unverified", "source_sha256": source_sha, "scope": receipt["scope"]})
@@ -787,6 +799,10 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
     if (construction_body and read_package_file(Path(__file__).parent, "exercise_body_source.py",
                                                max_bytes=1024 * 1024) != body_validator_implementation):
         raise ValueError("Body source admission validator changed during seed preparation")
+    for name, raw in recovery_validator_implementations.items():
+        _seed_check(deadline)
+        if read_package_file(Path(__file__).parent, name, max_bytes=1024 * 1024) != raw:
+            raise ValueError("Pose recovery admission implementation changed during seed preparation")
     receipt["seconds"] = time.monotonic() - started
     files["construction-seed.json"] = _seed_bytes(receipt)
     check_output()
