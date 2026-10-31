@@ -482,10 +482,11 @@
         : "No wrist-region contact is required. Passing means body tracking and equipment stability only—not hand support, a completed exercise or grasp."
       : "Contact requirements are unavailable; none are inferred from the image.");
   }
-  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections"};
+  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections", searched_feedback_residuals: "Searched joint feedback"};
   const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
     "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"],
-    "shared-exercise-policy-v3": ["authored_unchanged", "searched_joint_residuals"]};
+    "shared-exercise-policy-v3": ["authored_unchanged", "searched_joint_residuals"],
+    "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"]};
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
     exercisePolicy = data.learned_policy_available === true && typeof policy?.profile === "string"
@@ -493,7 +494,7 @@
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
       && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
       && exercisePolicyKinds[policy.profile].includes(policy.selected_feedback_kind)
-      && (policy.profile !== "shared-exercise-policy-v3" || typeof policy.training_feasible === "boolean")
+      && (!["shared-exercise-policy-v3", "shared-exercise-policy-v4"].includes(policy.profile) || typeof policy.training_feasible === "boolean")
       && policy.privileged_simulator_features === true ? policy : null;
     return exerciseContractReady && exercisePolicy !== null;
   }
@@ -503,6 +504,7 @@
     return `${exerciseFeedbackLabels[kind]}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
       : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
       : kind === "searched_joint_residuals" ? "Training searched small phase-dependent joint corrections on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
+      : kind === "searched_feedback_residuals" ? "Training searched small joint corrections using current position and velocity errors on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
       : "Training searched feedback gains using simulator state and the known body reference."} Equipment has no force controls; root assistance remains the selected task setting.`;
   }
   function exerciseResetDescription() {
@@ -519,7 +521,7 @@
   }
   function showExerciseLearning(data) {
     const available = learnedPolicyAvailable && exercisePolicy !== null;
-    const feasibilityFirst = available && exercisePolicy.profile === "shared-exercise-policy-v3";
+    const feasibilityFirst = available && ["shared-exercise-policy-v3", "shared-exercise-policy-v4"].includes(exercisePolicy.profile);
     text($("policy"), available ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : "Learned controller · unavailable");
     text($("start-learned"), available ? `Try ${exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind].toLowerCase()}` : "Learned controller unavailable");
     text($("exercise-policy-summary"), exerciseFeedbackDescription());

@@ -51,6 +51,7 @@ This uses the existing pipeline, then automatically saves a step-by-step report.
 - `--person-only` declares one selected person, ground-only support, and no task-relevant equipment or obstacles. It does not detect their absence.
 - `--root-assistance` enables three virtual body-position controls; this is not recovered human balance. Omit it to disable that assistance.
 - `--train` runs eight search episodes and compares the result with baselines on three separate starts each. Seeds are fixed, exposed development seeds; successful packaging is not proof of improved learning. Omit it to build an untrained lab.
+- Optional `--policy-family feedback-residual` learns small joint corrections from current position/velocity errors. It requires `--train`, keeps the same eight-episode budget and leaves root assistance authored. Without it, the existing phase-based search remains the default. See [controller differences](shared-exercise.md#train-and-compare-a-frozen-policy).
 - The default is the existing local **Lite / VIDEO / raw** pose recipe. No download or model fallback occurs. Optional `--pose-recovery selective-crop` explicitly selects the local **Full / IMAGE / raw** recipe.
 - Each attempt gets a new `artifacts/video-…/` directory containing `build/`, `report/index.html`, bounded logs and workflow receipts. Inputs and completed builds are never overwritten. Use `--out` to choose a new directory.
 

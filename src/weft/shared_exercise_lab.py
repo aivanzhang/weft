@@ -152,7 +152,7 @@ def _reference_frames(scene, deadline):
         env.close()
 
 
-def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseline=False):
+def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseline=False, deadline=None):
     # Lazy imports keep the learner's existing lab-helper dependency acyclic.
     from weft.shared_exercise_policies import selection_kind, validate_policy
 
@@ -169,8 +169,8 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
         raise ValueError("Exercise policy exceeds its document bound")
     policy_document = _json(files["policy.json"])
     if scene["profile"] == HUMAN_ONLY_PROFILE and (not isinstance(policy_document, dict)
-            or policy_document.get("profile") != "shared-exercise-policy-v2"):
-        raise ValueError("Person-only labs require a newly pinned v2 human residual policy")
+            or policy_document.get("profile") not in {"shared-exercise-policy-v2", "shared-exercise-policy-v4"}):
+        raise ValueError("Person-only labs require a newly pinned v2 or v4 human residual policy")
     policy = validate_policy(policy_document, scene, task)
     training, settings = _json(files["training.json"]), _json(files["settings.json"])
     if (not isinstance(training, dict) or training.get("status") != "trained"
@@ -189,6 +189,14 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
             or any("implementation/" + name not in files or _sha(files["implementation/" + name]) != expected
                    for name, expected in policy["runtime_sha256"].items())):
         raise ValueError("Exercise training source/runtime proof differs from the selected policy")
+    if policy["profile"] == "shared-exercise-policy-v4":
+        from weft.shared_exercise_feedback_learning import verify_shared_exercise_feedback_package
+
+        # New feedback packages require the saved search/action proof, not just matching labels.
+        proof_deadline = time.monotonic() + 30 if deadline is None else deadline
+        _deadline(proof_deadline)
+        verify_shared_exercise_feedback_package(manifest_raw, files, scene, task, deadline=proof_deadline)
+        _deadline(proof_deadline)
     identity = {"policy_sha256": _sha(files["policy.json"]), "learning_manifest_sha256": _sha(manifest_raw),
                 "learning_files_verified": len(files), "policy_runtime_sha256": deepcopy(policy["runtime_sha256"]),
                 "policy_evaluation_scope": "Training completed; independent evaluation success is not attested by this package"}
@@ -314,7 +322,7 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluatio
             "evaluation_successes": deepcopy(evaluation_successes),
             "evaluation_reset_protocol": deepcopy(evaluation_reset_protocol),
             "scope": "Training selection and separate changed-start simulator comparison; neither verifies new-video generalization, grasp or physical accuracy."}
-    if policy["profile"] == "shared-exercise-policy-v3":
+    if policy["profile"] in {"shared-exercise-policy-v3", "shared-exercise-policy-v4"}:
         result.update(selection_objective=policy["selection_objective"],
                       training_feasible=policy["optimization_rank"]["feasible"])
     return result
@@ -370,7 +378,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     policy, policy_identity, learning_files, learning_manifest = None, {}, {}, None
     if learning_source is not None:
         learning_manifest, learning_files = _verified_inputs(learning_source, deadline=deadline)
-        policy, policy_identity = _validate_policy_package(learning_manifest, learning_files, scene, task)
+        policy, policy_identity = _validate_policy_package(learning_manifest, learning_files, scene, task, deadline=deadline)
         collect_shared_source_files(scene, learning_source, expected_manifest_sha256=_sha(learning_manifest))
     evaluation_files, evaluation_manifest, evaluation_successes, evaluation_reset_protocol = {}, None, None, None
     if evaluation_source is not None:
@@ -529,7 +537,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             raise ValueError("Exercise lab learned policy lacks its complete training package")
         learning_files = {name[len("learning-run/"):]: raw for name, raw in files.items()
                           if name.startswith("learning-run/") and name != "learning-run/manifest.json"}
-        policy, identity = _validate_policy_package(files["learning-run/manifest.json"], learning_files, scene, task)
+        policy, identity = _validate_policy_package(files["learning-run/manifest.json"], learning_files, scene, task, deadline=deadline)
         if (files["policy.json"] != learning_files["policy.json"]
                 or any(contract.get(key) != value for key, value in identity.items())):
             raise ValueError("Exercise lab learned-policy identity differs from its sealed contract")

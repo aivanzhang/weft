@@ -41,11 +41,13 @@ FAILED_STATUSES = {"failed", "error", "unsupported", "unsupported_input", "rejec
 
 
 def validate_train_settings(settings):
-    """Resolve bounded v2 settings without IO; evaluation needs an explicitly chosen seed stream."""
-    allowed = {*DEFAULT_TRAIN_SETTINGS, "evaluation_seed"}
+    """Resolve bounded search settings; evaluation needs an explicitly chosen seed stream."""
+    allowed = {*DEFAULT_TRAIN_SETTINGS, "evaluation_seed", "policy_family"}
     if (not isinstance(settings, dict) or set(settings) - allowed or "evaluation_seed" not in settings):
         raise ValueError("Training settings require explicit evaluation_seed and only supported learning fields")
     result = {**DEFAULT_TRAIN_SETTINGS, **settings}
+    if result.get("policy_family", "phase-residual") not in ("phase-residual", "feedback-residual"):
+        raise ValueError("Training policy_family must be phase-residual or feedback-residual")
     for name, low, high in (("generations", 1, 6), ("population", 4, 12), ("trials", 1, 3),
                             ("training_seed", 0, 2**31 - 1), ("evaluation_seed", 0, 2**31 - 1)):
         residual._integer(result[name], name, low, high)
@@ -56,6 +58,20 @@ def validate_train_settings(settings):
         raise ValueError("Evaluation jitter_scale must be finite and in (0,.25]")
     result["jitter_scale"] = float(jitter)
     return result
+
+
+def _learning_backend(settings, scene):
+    if settings.get("policy_family", "phase-residual") == "feedback-residual":
+        from weft import shared_exercise_feedback_learning as feedback
+        from weft import shared_exercise_feedback_residual as actor
+
+        return (actor.POLICY_PROFILE, actor.ALGORITHM, lambda: actor.runtime_hashes(scene),
+                feedback.train_shared_exercise_feedback_policy, feedback.select_shared_exercise_feedback_policy,
+                feedback.evaluate_shared_exercise_feedback_policy)
+    return (residual.POLICY_PROFILE, residual.ALGORITHM,
+            lambda: residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes(),
+            residual.train_shared_exercise_residual_policy, select_feasible_shared_exercise_policy,
+            residual.evaluate_shared_exercise_residual_policy)
 
 
 def _bytes(value):
@@ -337,7 +353,8 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     training_seeds = residual._seed_plan(settings["training_seed"], 2)
     evaluation_seeds = residual._seed_plan(settings["evaluation_seed"], settings["trials"], training_seeds)
     implementation, versions = _runtime()
-    actor_runtime = residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes()
+    policy_profile, algorithm, actor_hashes, train_policy, select_policy, evaluate_policy = _learning_backend(settings, scene)
+    actor_runtime = actor_hashes()
     source_documents = {name: source_names[name] for name in source_names
                         if name in {"scene.json", "exercise-task.json", "report.json", "reconstruction.json", "status.json", "result.json"}}
     if body_admission is not None:
@@ -349,7 +366,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
         "scene_file_sha256": _sha(scene_raw), "task_file_sha256": _sha(task_raw), "gates_sha256": GATES_SHA256,
         "implementation_sha256": implementation, "runtime_versions": versions, "policy_runtime_sha256": actor_runtime,
-        "policy_profile": residual.POLICY_PROFILE, "training_algorithm": residual.ALGORITHM,
+        "policy_profile": policy_profile, "training_algorithm": algorithm,
         "training_settings": settings, "training_seeds": training_seeds, "evaluation_seeds": evaluation_seeds,
         "training_reset_options": list(residual.TRAIN_RESETS),
         "evaluation_reset_options": residual.human_jitter_options(settings["jitter_scale"]),
@@ -385,7 +402,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
             read_package_file(original, name, max_bytes=MAX_METADATA_BYTES, expected_sha256=_sha(raw))
         if supplied_task is not None:
             read_package_file(supplied_task.parent, supplied_task.name, max_bytes=64 * 1024, expected_sha256=_sha(task_raw))
-        current_actor_runtime = residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes()
+        current_actor_runtime = actor_hashes()
         if _runtime() != (implementation, versions) or current_actor_runtime != actor_runtime:
             raise RuntimeError("Workflow frozen implementation or dependency runtime changed")
         read_package_file(target, "plan.json", max_bytes=MAX_METADATA_BYTES, expected_sha256=_sha(_bytes(plan)))
@@ -440,7 +457,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
             **{"input-" + name: raw for name, raw in outer.items()}})
         _metadata(target, "plan.json", plan)
         maximum = allowance("training", maximum_control_steps=training_steps)
-        trained = residual.train_shared_exercise_residual_policy(source, target / "training",
+        trained = train_policy(source, target / "training",
             task_path=target / "exercise-task.json", seed=settings["training_seed"],
             generations=settings["generations"], population=settings["population"], max_seconds=maximum)
         hashes = remember(target / "training", trained["manifest_sha256"], "trained")
@@ -452,7 +469,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         stage("training", "trained", **training_summary)
 
         maximum = allowance("training_selection")
-        selected = select_feasible_shared_exercise_policy(target / "training", target / "selected", max_seconds=maximum)
+        selected = select_policy(target / "training", target / "selected", max_seconds=maximum)
         remember(target / "selected", selected["manifest_sha256"], "trained")
         selection_summary = {name: selected[name] for name in ("manifest_sha256", "policy_sha256", "selection_status",
                             "feasible_candidates", "unique_candidates", "selected_candidate")}
@@ -460,7 +477,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         stage("training_selection", "selected", **selection_summary)
 
         maximum = allowance("independent_evaluation", maximum_control_steps=evaluation_steps)
-        evaluated = residual.evaluate_shared_exercise_residual_policy(target / "selected", target / "evaluation",
+        evaluated = evaluate_policy(target / "selected", target / "evaluation",
             seed=settings["evaluation_seed"], trials=settings["trials"], jitter_scale=settings["jitter_scale"],
             max_seconds=min(maximum, 60 if scene["profile"] in FULLSPAN_PROFILES else 30))
         remember(target / "evaluation", evaluated["manifest_sha256"], "evaluated")

@@ -176,10 +176,11 @@ if (personOnly) {
   for (const field of ['physics_steps','resets','training_episodes','inference_calls','api_calls','video_decodes']) assert.equal(receipt[field], 0);
 } else assert(inspection.geometry.panels.length > 0);
 const hasPolicy = initial.learned_policy_available === true;
-const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback',searched_joint_residuals:'Searched joint corrections'};
+const policyLabels={authored_unchanged:'Selected authored baseline',coast_unchanged:'Selected coast baseline',searched_gains:'Searched human feedback',searched_joint_residuals:'Searched joint corrections',searched_feedback_residuals:'Searched joint feedback'};
 const policyDescriptions={authored_unchanged:/unchanged programmed feedback, not new learned gains/,
   coast_unchanged:/unchanged zero-command baseline, not new learned gains/,searched_gains:/searched feedback gains using simulator state and the known body reference/,
-  searched_joint_residuals:/phase-dependent joint corrections on top of programmed feedback/};
+  searched_joint_residuals:/phase-dependent joint corrections on top of programmed feedback/,
+  searched_feedback_residuals:/joint corrections using current position and velocity errors on top of programmed feedback/};
 let selectedKind=null,expectedScores=[];
 if (hasPolicy) {
   selectedKind=initial.exercise_policy.selected_feedback_kind;assert(Object.hasOwn(policyLabels,selectedKind));
@@ -187,7 +188,7 @@ if (hasPolicy) {
   assert.equal(typeof initial.exercise_policy.training_score_improved_over_authored, 'boolean');
   assert.equal(runManifest.files['policy.json'], initial.exercise_policy.policy_sha256);
   const policy = readJson('policy.json', 64 * 1024, initial.exercise_policy.policy_sha256, run).value;
-  assert(['shared-exercise-policy-v1','shared-exercise-policy-v2','shared-exercise-policy-v3'].includes(policy.profile));
+  assert(['shared-exercise-policy-v1','shared-exercise-policy-v2','shared-exercise-policy-v3','shared-exercise-policy-v4'].includes(policy.profile));
   assert.equal(policy.profile, initial.exercise_policy.profile); assert.equal(policy.task_sha256, initial.snapshot.task_sha256);
   if (['shared-exercise-policy-v2','shared-exercise-policy-v3'].includes(policy.profile)) {
     assert(['authored_unchanged','searched_joint_residuals'].includes(selectedKind));
@@ -197,6 +198,16 @@ if (hasPolicy) {
   if (policy.profile === 'shared-exercise-policy-v3') {
     assert.equal(initial.exercise_policy.training_feasible,policy.optimization_rank.feasible);
     assert.equal(policy.actor_algorithm,'shared_exercise_phase_residual_actor_v1');
+    assert.equal(initial.exercise_policy.selection_objective,policy.selection_objective);
+  }
+  if (policy.profile === 'shared-exercise-policy-v4') {
+    assert(['authored_unchanged','searched_feedback_residuals'].includes(selectedKind));
+    assert.equal(policy.actor_profile,'shared-exercise-bounded-feedback-residual-v1');
+    assert.deepEqual(policy.feature_names,['normalized_position_feedback','normalized_velocity_feedback']);
+    assert.deepEqual(policy.groups,['torso','proximal','distal']);
+    assert.equal(policy.feedback_coefficients.length,3);
+    assert(policy.feedback_coefficients.every(row=>row.length===2&&row.every(value=>Number.isFinite(value)&&Math.abs(value)<=.25)));
+    assert.equal(initial.exercise_policy.training_feasible,policy.optimization_rank.feasible);
     assert.equal(initial.exercise_policy.selection_objective,policy.selection_objective);
   }
   if(initial.exercise_policy.evaluation_status==='evaluated')for(const name of ['coast','random','authored','learned']) {
@@ -308,7 +319,7 @@ if (hasPolicy) {
   assert.equal(ui.ids.get('policy').textContent, policyLabels[selectedKind]);
   assert.match(ui.ids.get('exercise-policy-summary').textContent, policyDescriptions[selectedKind]);
   assert.match(ui.ids.get('learning-description').textContent, /simulator-state and reference features, not video pixels/);
-  if (initial.exercise_policy.profile === 'shared-exercise-policy-v3') {
+  if (['shared-exercise-policy-v3','shared-exercise-policy-v4'].includes(initial.exercise_policy.profile)) {
     assert.match(ui.ids.get('training-caption').textContent,/prioritized task limits before reward/);
     assert.match(ui.ids.get('training-caption').textContent,initial.exercise_policy.training_feasible
       ? /Both training starts passed every task limit/:/At least one training start still failed/);

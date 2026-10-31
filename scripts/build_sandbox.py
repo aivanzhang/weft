@@ -201,6 +201,8 @@ def _arguments(argv):
     parser.add_argument("--pose-recovery", choices=("selective-crop",), help="Explicit Full/IMAGE/raw recipe; no automatic model fallback")
     parser.add_argument("--root-assistance", action="store_true", help="Enable three virtual root controls; not recovered human balance")
     parser.add_argument("--train", action="store_true", help="Eight training episodes, then three separate starts per controller")
+    parser.add_argument("--policy-family", choices=("phase-residual", "feedback-residual"),
+                        help="With --train: existing phase corrections (default) or opt-in joint state-feedback corrections")
     parser.add_argument("--source-note", help="Video attribution or provenance")
     parser.add_argument("--out", help="New directory; default artifacts/video-<local timestamp>-<random suffix>")
     parser.add_argument("--serve", action="store_true", help="After success, start the local sandbox; never opens a browser")
@@ -211,7 +213,7 @@ def _arguments(argv):
         parser.error("--port must be between 0 and 65535")
     if args.inspect_build:
         if any((args.person_only, args.evidence_run, args.config, args.source_mapping, args.pose_model,
-                args.pose_recovery, args.root_assistance, args.train, args.source_note, args.max_seconds is not None)):
+                args.pose_recovery, args.root_assistance, args.train, args.policy_family, args.source_note, args.max_seconds is not None)):
             parser.error("--inspect-build cannot change or rerun saved build settings")
     elif args.person_only:
         if args.evidence_run or args.config or args.source_mapping:
@@ -220,6 +222,8 @@ def _arguments(argv):
         parser.error("Declare --person-only, or supply both --evidence-run and --config")
     if len(args.source_mapping) > 7:
         parser.error("At most seven source mappings are supported")
+    if args.policy_family and not args.train:
+        parser.error("--policy-family requires --train; learning is never enabled implicitly")
     return args
 
 
@@ -274,6 +278,8 @@ def main(argv=None):
         if args.train:
             command += ["--train", "--training-generations", "1", "--training-population", "4",
                         "--training-seed", "1729", "--evaluation-seed", "938401", "--evaluation-trials", "3"]
+            if args.policy_family:
+                command += ["--training-policy-family", args.policy_family]
     root.mkdir(parents=True, mode=0o700)
     report_command = prefix + ["shared-exercise-inspect", "--run", str(build), "--out", str(root / "report")]
     _write(root / "workflow-plan.json", {"profile": "local-video-sandbox-workflow-v1", "created_at": now.isoformat(),

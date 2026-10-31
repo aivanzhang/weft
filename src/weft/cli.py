@@ -242,6 +242,8 @@ def main():
     exercise_build.add_argument("--evaluation-seed", type=int, help="Required with --train: explicit separate seed stream; not automatically a fresh holdout")
     exercise_build.add_argument("--training-generations", type=int, help="With --train; default 2, never shorten the task to fit")
     exercise_build.add_argument("--training-population", type=int, help="With --train; default 8")
+    exercise_build.add_argument("--training-policy-family", choices=("phase-residual", "feedback-residual"),
+        help="With --train: existing phase corrections (default) or opt-in bounded joint state-feedback corrections")
     exercise_build.add_argument("--evaluation-trials", type=int, help="With --train; default 3 changed starts")
     exercise_build.add_argument("--evaluation-jitter", type=float, help="With --train; human-only start variation, default 0.10")
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
@@ -318,11 +320,11 @@ def main():
     exercise_train_choice = exercise_train.add_mutually_exclusive_group()
     exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
     exercise_train_choice.add_argument("--task", help="Exact shared-exercise-task-v1 JSON to train without changing its gates")
-    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual"], default="feedback",
-                                help="Feedback gains (existing default) or bounded joint corrections over authored feedback")
+    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual"], default="feedback",
+                                help="Legacy feedback gains (default), phase corrections, or bounded joint state-feedback corrections")
     exercise_train.add_argument("--seed", type=int, default=1729)
-    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual")
-    exercise_train.add_argument("--population", type=int, help="Default: 8 for feedback, 12 for phase-residual")
+    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for feedback-residual")
+    exercise_train.add_argument("--population", type=int, help="Default: 12 for phase-residual, 8 otherwise")
     exercise_train.add_argument("--max-seconds", type=float, default=60)
     exercise_refine = commands.add_parser("shared-exercise-refine", help="Refine verified residual training by prioritizing unchanged task limits; no evaluation data")
     exercise_refine.add_argument("--learning", required=True, help="Sealed compatible two-generation residual training package")
@@ -511,6 +513,7 @@ def main():
             train_options = {key: value for key, value in (
                 ("training_seed", args.training_seed), ("evaluation_seed", args.evaluation_seed),
                 ("generations", args.training_generations), ("population", args.training_population),
+                ("policy_family", args.training_policy_family),
                 ("trials", args.evaluation_trials), ("jitter_scale", args.evaluation_jitter)) if value is not None}
             if train_options and not args.train:
                 raise ValueError("Training settings require --train; no training is enabled by default")
@@ -556,7 +559,10 @@ def main():
                 task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
                 max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-train":
-            if args.policy_family == "phase-residual":
+            if args.policy_family == "feedback-residual":
+                from weft.shared_exercise_feedback_learning import train_shared_exercise_feedback_policy as train_policy
+                generations, population = 2, 8
+            elif args.policy_family == "phase-residual":
                 from weft.shared_exercise_residual_learning import train_shared_exercise_residual_policy as train_policy
                 generations, population = 6, 12
             else:
@@ -570,8 +576,8 @@ def main():
             from weft.shared_exercise_feasibility_learning import train_shared_exercise_feasibility_policy
             result = train_shared_exercise_feasibility_policy(args.learning, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-select":
-            from weft.shared_exercise_selection import select_feasible_shared_exercise_policy
-            result = select_feasible_shared_exercise_policy(args.learning, args.out, max_seconds=args.max_seconds)
+            from weft.shared_exercise_policies import select_policy
+            result = select_policy(args.learning, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-exercise-policy-evaluate":
             from weft.shared_exercise_policies import evaluate_policy
             result = evaluate_policy(args.learning, args.out, seed=args.seed,
