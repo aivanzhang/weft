@@ -1,5 +1,122 @@
 # Combined Weft implementation handoff
 
+## Guided static-support build — October 31, 2026, 11:31 AM PDT
+
+Goal active. Latest verified private remote is `5b6eda2868c5d075c10215e33ed84b85e941224b`.
+Root owns seven runtime files: `cli.py`, `exercise_support_inputs.py`,
+`exercise_scene_inputs.py`, `exercise_scene_pipeline.py`, `shared_world_support.py`,
+`exercise_learning_pipeline.py` and `exercise_build_report.py`, plus three new
+test files and integration guides. Separate dirty avatar files remain excluded.
+
+The new `--static-supports` route accepts seven-field
+`shared-static-support-priors-v1` JSON. It preserves supplied bytes, then binds the
+actual completed body seal into `support-config.json`. Raw input, optional existing
+source-only crop recovery and saved-body inputs share one pipeline. No body seed,
+person-only inventory or observed-equipment claim. Scale/root settings belong to
+the prior; full reference is mandatory. Load/overlap bounds reject before inference;
+actual-horizon and geometry checks remain in the unchanged constructor/task gates.
+
+Support phase training uses `shared-support-learning-workflow-v1`, reuses the
+optimizer's frozen output and records secondary selection as
+`not_applicable`, `performed:false`. No dummy `selected/` package, scoring change,
+new learned root force or altered support. Inspection links original/resolved
+priors and distinguishes unchanged programmed feedback from searched corrections.
+
+Verification receipts: `.local/static-support-build-tests-01.xml` (26 initial
+passes/one fake-lab failure), `static-support-build-regression-02.xml` (58 passes,
+including eight affected new and 50 legacy), `static-support-constructor-helper-03.xml`
+(30 passes), `static-support-prior-preflight-04.xml` (eight new passes),
+`support-learning-pipeline-tests-01.xml` and `support-learning-pipeline-regression-02.xml`
+(13 new/19 legacy distinct passes), `static-support-build-report-checks-01.json`
+(13 new/111 legacy passes; seven initial fixture-only failures retained).
+`support-learning-legacy-orchestration-03.xml` records three native-dependent cases
+not run, not passed. The new legacy-routing fixtures already pass with native work
+blocked. Report/input contract review found no blocker. Evaluator files unchanged.
+
+**Predeclared acceptance:** `.local/accept_static_support_build_01.py`, SHA
+`dee9ffd147de8673c130eb291fa4cdf6c9a48114004548e2d8114ab15657b6e1`;
+`artifacts/static-support-build-acceptance-01/launch-plan.json`, SHA
+`ad44cf5f544819fbd923f2c10aa54e0d3756731b9aa363ec9da6bf5f077b330f`.
+Frozen runtime `.local/static-support-build-runtime-01` is committed `5b6eda2`
+plus the seven owned overrides; manifest
+`1d16ac12efe03a896497a829080e8dbbee5258912479db17255ad515214d80de`.
+Original source: `artifacts/single-leg-person-workflow-01/build/body_source`, seal
+`b6d9da169c84c0053e1e9715d77f53d3c82f1b0d95b256052c7c215f383d7519`.
+Priors `e8cfce814f9ba603a55f91d2576e9364ed94ce01517ca33b8262a3902778195a`
+reuse the earlier deliberately distant custody-check box unchanged; only constructor
+profile/body-pin packaging changes. This is not a useful support hypothesis or
+recovered equipment. Preserve eight source/sixteen grid floor failures.
+
+One generation/four candidates/two starts: at most 1,872 training controls;
+three fresh matched starts/four controllers: at most 2,808 evaluation controls.
+Full 234-step interval, training seed 1759/evaluation seed 924043. Then one inspector,
+three manual actions, reset 31, six selected-policy actions and exact replay;
+retain early termination without replacement. Outer 120 s / CPU 110 s, 80,000 native
+substeps, 384 MiB / 3,500 files, Python peak 512 MiB checked at native entries (not a
+hard allocation cap or descendant-memory bound). No inference/media-source decode,
+API call, source acquisition, tuning, server or browser. Recording encoder work is
+allowed. Prelaunch review added exact reset/terminal-short-step checks and saved
+report assertions for the eight/sixteen floor failures and honest learning labels.
+Original helper/plan are preserved as `pre-review-helper.py` and
+`pre-review-plan.json` in the acceptance directory. Actual launch helper SHA
+`5c46e78ff4ed8cb5bca191b3229196e06db7c07f8b6a7106b5ba03c76dd975ef`;
+launch-plan SHA `91cfb99143be7efa4e1fda1ec7234cd5b685efa3b499949d0c09c434e5ad6c30`.
+No native action occurred during preparation. Launch command:
+`python3 .local/accept_static_support_build_01.py run`.
+
+**Actual outcome:** worker 84322 is terminal, exit 0. Outer 17.906 s / worker 17.785 s,
+124 models / seven data / 5,255 forwards / 499 resets and 75,152 native substeps;
+Python peak 437,796,864 B (encoder descendants excluded). Root seal
+`087d11565579337a999458d29f5259c405cc4f226002c44859751bb44aad7127`.
+Training uses all 1,872 controls and selects `searched_joint_residuals`, with only
+0.00020871748 training-score difference. All four controllers score 0/3 task
+successes. Authored/coast/selected complete 3/3 intervals; random completes 2/3,
+retaining a 233-control early failure; no reset failures/seed replacement.
+Evaluation uses 2,807 controls / 44,912 substeps. Eight source/sixteen grid floor
+failures and maximum 0.08313043391431332 remain unchanged in the generated report.
+This verifies workflow integration, not a recovered support or successful task.
+
+Build seal `a1c5fd610ef20edad7724c5e0e6535c3bdba5309a766821bf77c23b66f90b3ac`;
+workflow `9296a0c5515635428dd9aee8eac63cbc4509a77caec4a063cff3fc864014669b`;
+training `28fd449a87bafab37964dc0d500b8ef413ce0abf4056127d08aedab2b4c34a86`;
+evaluation `46b76b48e3f3b698eaccef971c823f2e5b9bec5cee932e9b7cf9548766a87ad7`;
+inspection `1f55ba376c7bb30d8a3a2a679e96fb247fda92bdbecfe5a842ea081bdd0ea7c4`;
+lab run `2f41174bb5f24c1853f0d340006a0d8c397a824d20f21e59e3e35c8adaebf050`.
+Policy `bc9af9372d171dd8c9ee79219325a943dd9be0cb03a3d395f4e9f5fde1cdab10`;
+session 042d733de54f seal
+`e8626cfb20f2c1dd7884857c9b4a555c788ecdf21a6d4a538a9dadb0dd1e4158`.
+All nine recorded actions/eleven events replay exactly; six policy decisions
+independently match. Three exact manual elbow commands precede reset 31 and the
+six selected commands. Supports stay fixed; no root force. MP4/GIF/HTML exports
+and replay evidence are ready. Build/lab seals remain immutable after recording.
+
+Saved-only audit `.local/static-support-build-saved-audit-01.json`, SHA
+`391546918dcdec09656b6de9059edb283c0c8d3b88eaa266685fa30c30d2325f`, passes:
+13 manifests / 6,630 member checks, 37 preserved body members, exact frozen runtime,
+scene/task/composite-scorer/policy/inspection pins, matched fresh starts and 11 event
+snapshots. Reads 136,211,397 B / 1,547 files in 0.293 s; cached bytes avoid repeated hash
+reads. No product import, native execution, source decoding or original-source
+read. Substeps reconcile 29,952 train + 44,912 evaluation + 144 record + 144 replay.
+No further execution is needed for this unchanged acceptance.
+
+Play: `.venv-lab/bin/python -m weft lab-console --resume artifacts/static-support-build-acceptance-01/build/learning_workflow/lab`.
+Inspect `artifacts/static-support-build-acceptance-01/inspection/index.html`.
+The supported workflow and prior format are in
+`docs/static-support.md#build-inspect-and-play-in-one-workflow`; the established
+analytical support example remains the useful positive control.
+
+**Parallel reconstruction:** source-equivalence adapter and real saved kettlebell
+study are frozen; handoff `docs/handoffs/exercise-reconstruction.md`. Study seal
+`614621b0792ca5262a99ec0d7f36286046ab15b381b27c1e08b107887b08c31a`;
+1,036 pair slots retained, only two overlapping projected co-motion candidates,
+not contact/grasp/load evidence. Fourteen affected tests pass; independent code
+review found no blocker. No live native process. Agent is investigating the next
+calibration hypothesis read-only in `.local/reconstruction-next-hypothesis-01.md`;
+released publication files must remain unchanged. Shared Meta budget untouched.
+
+Next: publish the tested guided build and separately reviewed reconstruction delta;
+continue the agent's next calibration hypothesis without rerunning this acceptance.
+
 ## Support-policy integration — October 31, 2026, 10:57 AM PDT
 
 The combined goal remains active. Root now owns the frozen support-policy changes in

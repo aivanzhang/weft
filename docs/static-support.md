@@ -4,6 +4,49 @@ Build one shared 3D scene from a sealed exercise body and explicit static-suppor
 
 This path does not infer contact, grasp, depth, materials, or biomechanics. A moving weight or an occluded hand is not evidence of a fixed support. Do not turn a moving object into a static support without declaring that change as a simulator hypothesis.
 
+## Build, inspect and play in one workflow
+
+Use the ordinary exercise builder with a support-prior file. In the [configuration below](#configuration), change `profile` to `shared-static-support-priors-v1` and omit `body_source_manifest_sha256`; the builder fills that identity only after preparing the actual body. Keep the exact original video hash, scale, support shapes, load windows and root-assistance choice. These are authored assumptions, not inferred contact.
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-build \
+  --video /absolute/path/to/exercise.mp4 \
+  --pose-model /absolute/path/to/pose_landmarker_lite.task \
+  --static-supports /absolute/path/to/support-priors.json \
+  --train --training-generations 1 --training-population 4 \
+  --evaluation-seed 924079 \
+  --out artifacts/my-support-build-01
+
+.venv-lab/bin/python -m weft shared-exercise-inspect \
+  --run artifacts/my-support-build-01 --out artifacts/my-support-inspection-01
+
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/my-support-build-01/learning_workflow/lab
+```
+
+To reuse existing inference, replace `--video` and `--pose-model` with `--human-run <construction-only exercise-body-source directory>`. Without `--train`, the final lab is `<build>/lab`. Use `lab` instead of `lab-console` if you want to start the local browser interface yourself. Open the inspection's `index.html` to see original media, retained failures, assumptions and results.
+
+The terminal shows body preparation, support binding, shared-world construction, optional training/evaluation, and one final lab. `support-priors.json` preserves your exact input; `support-config.json` adds the completed body pin. No dummy world or person-only inventory is created. Do not combine this mode with `--person-only`, equipment/config/mapping options or scale/root overrides; those settings belong to the support file. Optional source-only crop recovery uses the same existing Full-model recipe, without inferring supports.
+
+Training keeps the full interval and fixed task. Only the phase-residual policy family is supported. The optimizer's frozen choice goes directly to changed-start evaluation: the older secondary feasibility selector is **not applicable**, not passed. An unchanged authored controller stays labeled unchanged; a ready lab does not imply task success. Choose a separate evaluation seed; the example above is not guaranteed unused.
+
+In the console:
+
+```text
+controls
+record start
+motor left_elbow 0.05
+step 3
+reset 31
+mode learned
+step 6
+record stop
+record evidence
+files
+```
+
+Use `mode reference` instead of `mode learned` when training was omitted. Recording exports and replay evidence come from the same lab. A stopped build remains inspectable and must not be opened as a ready environment.
+
 ## Build a candidate
 
 Start with an existing `exercise-body-source-v1` directory whose manifest says `construction_only`. Supply its exact manifest hash and original video hash in a configuration file:
@@ -117,6 +160,13 @@ An infeasible reference is preserved and reported; construction does not move th
 The constructor has a 30-second cooperative deadline, a 128 MiB input/output envelope, and at most 512 files per package. Original media may be hash-read and copied, but is never decoded here. Native feasibility checks remain bounded by the existing source/reference limits; an outer worker must enforce a hard process deadline when needed.
 
 ## Verified local examples
+
+**Guided real-body integration:** [step-by-step inspection](../artifacts/static-support-build-acceptance-01/inspection/index.html). The saved single-leg source completes build→training→comparison→one lab→record/export/exact replay in 17.9 seconds without repeated video inference. All four controllers score **0/3 support-task successes**; one random trial ends early. Original eight source/sixteen interpolated-grid floor failures remain visible. The distant authored box deliberately tests source custody, not a useful exercise support. Nine recorded manual/selected-policy actions replay exactly; the small training-score change is not independent task improvement.
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/static-support-build-acceptance-01/build/learning_workflow/lab
+```
 
 The analytical support example is playable without a browser or server:
 

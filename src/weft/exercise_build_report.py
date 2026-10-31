@@ -68,6 +68,8 @@ _OTHER_DOCS = {
     "stages.json": ("Build", "Recorded stage history"),
     "input-preflight.json": ("Build", "Original input checks and identities"),
     "person-inventory.json": ("World", "User-declared person/ground scope — absence is not detected"),
+    "support-priors.json": ("World", "Exact supplied static-support assumptions — not recovered contact"),
+    "support-config.json": ("World", "Resolved support assumptions pinned to the original body manifest"),
     "pose_proposals/source.json": ("Original", "Pinned video attribution — original may not be copied"),
     "pose_proposals/report.json": ("Body", "Source-only crop preparation result"),
     "pose_proposals/crop-plan.json": ("Body", "Proposed image crops and eligibility checks"),
@@ -90,6 +92,7 @@ _OTHER_DOCS = {
     "candidate/source-binding-verification.json": ("World", "Verified body/source identities and complete slots"),
     "candidate/scene.json": ("World", "Constructed scene definition — not executed here"),
     "candidate/exercise-task.json": ("World", "Frozen exercise task and gates"),
+    "candidate/inputs/body-source-manifest.json": ("Body", "Exact body-source manifest used for support construction"),
     "learning_workflow/result.json": ("Learning", "Saved learning workflow outcome"),
     "learning_workflow/plan.json": ("Learning", "Frozen training/evaluation plan"),
     "learning_workflow/selected/selection.json": ("Learning", "Training-only policy selection"),
@@ -278,8 +281,9 @@ def _history(result, settings, receipt_only):
             raise ValueError("Invalid or reversed saved stage clock")
         previous = seconds
         history.append({"stage": name, "status": status_, "elapsed_seconds": seconds})
-    latest = {row["stage"]: row for row in history}
+    latest = {row["stage"]: row for row in rows}
     person_only = settings.get("scene_scope") == "human_only"
+    static_supports = settings.get("scene_scope") == "human_static_supports" or "support_priors" in latest
     training = bool(settings.get("training")) or any(name.startswith("learning_") for name in latest)
     recovery = settings.get("pose_recovery") == "selective-crop" or any(
         name in latest for name in ("source_pose_proposals", "source_pose_recovery", "source_body_source"))
@@ -288,9 +292,11 @@ def _history(result, settings, receipt_only):
         ("source_pose_recovery", "Verify accepted pose replacements", True),
         ("source_body_source", "Construct the body from verified poses", True),
     ] if recovery else [("body_source", "Estimate body from video", bool(settings.get("video")) or "body_source" in latest)]
-    definitions = source_steps + [
+    construction_steps = [("support_priors", "Resolve authored static-support assumptions", True)] if static_supports else [
         ("body_seed", "Prepare construction-only body", not person_only and (bool(settings.get("human_run") or settings.get("video")) or "body_seed" in latest)),
         ("equipment_priors", "Propose equipment geometry", not person_only),
+    ]
+    definitions = source_steps + construction_steps + [
         ("shared_world", "Construct the shared world", True),
         ("learning_training", "Train a controller", training),
         ("learning_training_selection", "Select using training evidence", training),
@@ -302,6 +308,9 @@ def _history(result, settings, receipt_only):
         row = latest.get(name)
         state = ("completed" if row["status"] in {"ready", "proposal_ready", "trained", "selected", "evaluated"}
                  else "stopped") if row else ("unknown" if receipt_only else "not_run" if requested else "not_requested")
+        if (static_supports and name == "learning_training_selection" and row
+                and row["status"] == "not_applicable" and row.get("performed") is False):
+            state = "not_applicable"
         stages.append({"stage": name, "label": label, "state": state,
                        "saved_status": row["status"] if row else None,
                        "elapsed_seconds": row["elapsed_seconds"] if row else None})
@@ -331,7 +340,7 @@ def _selection(source):
     if source.receipt_only:
         return chosen, None, None
     chosen.update({name: value for name, value in _OTHER_DOCS.items() if name in source.files})
-    if source.document("settings.json").get("scene_scope") == "human_only":
+    if source.document("settings.json").get("scene_scope") in {"human_only", "human_static_supports"}:
         chosen.update({name: ("World", "Saved final lab scene — not executed here")
                        for name in ("lab/run/scene.json", "learning_workflow/lab/run/scene.json") if name in source.files})
     # A failed body writer can contain metadata but no poses; retain earlier verified source evidence.
@@ -564,7 +573,7 @@ def _reference_feasibility(source, source_sha256=None):
             and audit.get("profile") == "shared-world-feasibility-v1"
             and audit.get("physical_validation") == "unverified", "unsupported audit contract")
     scene_sha = canonical_hash(scene)
-    require(scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3")
+    require(scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4")
             and audit.get("scene_sha256") == scene_sha
             and source.result.get("scene_sha256", scene_sha) == scene_sha, "scene identity differs")
     human, binding, task = scene.get("human_spec"), scene.get("source_binding"), scene.get("task")
@@ -648,6 +657,109 @@ def _reference_feasibility(source, source_sha256=None):
         "floor_limit_model_units": limit, "max_penetration_model_units": peak, **counts,
         "static_conflict_poses": static_poses, "initial_cross_entity_intersections": len(initial),
         "physics_steps": 0, "failure_examples": examples, "failure_examples_omitted": failed - len(examples)}
+
+
+def _static_support_summary(source, settings, source_sha256, body_prefix):
+    declared = source.document("support-priors.json", required=True)
+    fields = {"schema_version", "profile", "source_sha256", "scale", "objects", "support_requirements", "root_assistance"}
+    if (set(declared) != fields or type(declared["schema_version"]) is not int or declared["schema_version"] != 1
+            or declared["profile"] != "shared-static-support-priors-v1"
+            or not isinstance(declared["source_sha256"], str) or not _SHA.fullmatch(declared["source_sha256"])
+            or source_sha256 not in (None, declared["source_sha256"])
+            or settings.get("support_priors_sha256") != source.files["support-priors.json"]
+            or type(declared["root_assistance"]) is not bool
+            or settings.get("root_assistance") is not declared["root_assistance"]
+            or settings.get("body_scale") != declared["scale"] or settings.get("full_reference") is not True):
+        raise ValueError("Static-support declarations differ from saved source/settings identities")
+    _number(declared["scale"], "static-support scale", .5, 2.)
+    objects, requirements = declared["objects"], declared["support_requirements"]
+    if (not isinstance(objects, list) or not 1 <= len(objects) <= 12
+            or not isinstance(requirements, list) or not 1 <= len(requirements) <= 24
+            or any(not isinstance(row, dict) for row in requirements)):
+        raise ValueError("Invalid or oversized saved static-support assumptions")
+    assumptions, identifiers = [], set()
+    for obj in objects:
+        if (not isinstance(obj, dict) or not isinstance(obj.get("id"), str) or obj["id"] in identifiers
+                or obj.get("role") != "static" or not isinstance(obj.get("provenance"), dict)):
+            raise ValueError("Saved support objects must be distinct authored static shapes")
+        _text(obj["id"], 64)
+        identifiers.add(obj["id"])
+        provenance = obj["provenance"]
+        if (provenance.get("mode") != "authored_addition" or provenance.get("calibration_status") != "estimated_prior"
+                or provenance.get("physical_validation") != "unverified" or provenance.get("source_contact_verified") is not False):
+            raise ValueError("Saved static supports cannot claim recovered or verified contact")
+        assumptions.extend(_strings(provenance.get("assumptions", [])))
+    if (any(not isinstance(row.get("object_id"), str) or row["object_id"] not in identifiers for row in requirements)
+            or settings.get("evidence_run") is not None or settings.get("config") is not None
+            or any(name in source.files for name in ("person-inventory.json", "candidate/inventory.json", "proposal/report.json"))):
+        raise ValueError("Static-support scope contradicts equipment or person-only declarations")
+    resolved = source.document("support-config.json")
+    body_manifest_status = "not_resolved"
+    if "support-config.json" in source.files:
+        expected = {**declared, "profile": "shared-static-support-construction-v1",
+                    "body_source_manifest_sha256": resolved.get("body_source_manifest_sha256")}
+        pin = expected["body_source_manifest_sha256"]
+        if resolved != expected or not isinstance(pin, str) or not _SHA.fullmatch(pin):
+            raise ValueError("Resolved support config differs from the declared priors or body identity")
+        body_manifest_status = "pin_only_no_sealed_body_manifest_copy"
+        manifest_name = "candidate/inputs/body-source-manifest.json"
+        if manifest_name in source.files:
+            if source.files[manifest_name] != pin:
+                raise ValueError("Resolved support body-manifest identity differs from its sealed copy")
+            body_manifest_status = "matches_copied_body_manifest"
+    scenes = [name for name in ("candidate/scene.json", "lab/run/scene.json", "learning_workflow/lab/run/scene.json")
+              if name in source.files]
+    for name in scenes:
+        scene = source.document(name, required=True)
+        task, binding = scene.get("task"), scene.get("source_binding")
+        if (not resolved or scene.get("profile") != "shared-world-v4" or scene.get("objects") != objects
+                or scene.get("controlled_id") != "human" or scene.get("target", "missing") is not None or "inventory" in scene
+                or not isinstance(task, dict) or task.get("type") != "human_support_v1" or task.get("object_goal", "missing") is not None
+                or not isinstance(binding, dict) or binding.get("mode") != "source_qualified"
+                or binding.get("source_sha256") != declared["source_sha256"]):
+            raise ValueError("Saved scene contradicts the authored static-support scope")
+        human_name = body_prefix + "/human.json" if body_prefix else None
+        if human_name in source.files and scene.get("human_spec") != source.document(human_name):
+            raise ValueError("Saved static-support scene differs from its preserved body")
+    task_name = "candidate/exercise-task.json"
+    if task_name in source.files:
+        task = source.document(task_name)
+        if (task.get("profile") != "shared-support-task-v1" or task.get("support_requirements") != requirements
+                or task.get("control") != {"root_assistance": "explicit_3_axis" if declared["root_assistance"] else "disabled", "object_forces": "forbidden"}):
+            raise ValueError("Saved static-support task differs from its authored requirements")
+    summary = {"status": "authored_static_supports" if scenes else "declared_static_supports",
+        "declared_priors": _small_fields(declared, tuple(fields)), "declared_priors_sha256": source.files["support-priors.json"],
+        "source_identity": "matches_preserved_source" if source_sha256 else "declared_pin_only",
+        "resolved_config": _small_fields(resolved, tuple(fields | {"body_source_manifest_sha256"})),
+        "resolved_config_sha256": source.files.get("support-config.json"), "body_manifest_identity": body_manifest_status,
+        "saved_scene_consistency": "metadata_only_checked" if scenes else "no_constructed_scene_available",
+        "scope": "Authored static supports and load requirements; not recovered equipment, ground/contact truth or verified equipment absence."}
+    return summary, assumptions
+
+
+def _learning_summary(source, settings):
+    workflow = source.document("learning_workflow/result.json")
+    summary = _small_fields(workflow, ("profile", "status", "training", "selection", "evaluation", "scene_sha256", "task_sha256"))
+    if settings.get("scene_scope") != "human_static_supports" or not workflow:
+        return summary
+    if workflow.get("profile") != "shared-support-learning-workflow-v1":
+        raise ValueError("Saved learning workflow differs from the static-support task")
+    training, selection = workflow.get("training"), workflow.get("selection")
+    if training is not None:
+        if (not isinstance(training, dict) or not isinstance(training.get("selected_feedback_kind"), str)
+                or training["selected_feedback_kind"] not in {"authored_unchanged", "searched_joint_residuals"}
+                or not isinstance(training.get("policy_sha256"), str) or not _SHA.fullmatch(training["policy_sha256"])):
+            raise ValueError("Saved support training is missing its selected feedback identity")
+        summary["training_feedback"] = ("Training selected unchanged programmed feedback, not new learned corrections."
+            if training["selected_feedback_kind"] == "authored_unchanged" else
+            "Training selected small phase-dependent joint corrections on top of programmed feedback; permitted root assistance remains programmed, not learned.")
+    if selection is not None:
+        if (not isinstance(selection, dict) or selection.get("selection_status") != "not_applicable"
+                or selection.get("performed") is not False or selection.get("evaluation_used") is not False
+                or not training or selection.get("policy_sha256") != training.get("policy_sha256")):
+            raise ValueError("Saved support workflow cannot imply a secondary feasibility selection")
+        summary["selection_scope"] = "Secondary training selection: not applicable and not performed. The optimizer's frozen training policy goes directly to independent changed-start evaluation; no feasibility-selection pass is claimed."
+    return summary
 
 
 def _summary(source, body_prefix, video):
@@ -742,9 +854,14 @@ def _summary(source, body_prefix, video):
             "saved_scene_consistency": "metadata_only_checked" if scenes else "no_constructed_scene_available",
             "scope": "No task-relevant equipment or obstacles declared; absence is not detector-verified."}
         result["assumptions"].append("Person-only scope is user-declared. Ground, body scale and depth remain authored or monocular priors.")
+    elif settings.get("scene_scope") == "human_static_supports":
+        result["equipment"], support_assumptions = _static_support_summary(source, settings,
+            result["source"].get("sha256", result["coverage"].get("source_sha256")), body_prefix)
+        result["assumptions"].extend(support_assumptions)
+        result["assumptions"].append("Support shapes, placement and load windows are authored simulator assumptions. The original body and ground are not corrected by this report; physical contact and equipment absence remain unverified.")
+        result["assumptions"] = list(dict.fromkeys(result["assumptions"]))
     result["requested_options"] = _small_fields(settings, ("scene_scope", "pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
-    result["learning"] = _small_fields(source.document("learning_workflow/result.json"),
-        ("status", "training", "selection", "evaluation", "scene_sha256", "task_sha256"))
+    result["learning"] = _learning_summary(source, settings)
     result["reference_feasibility"] = _reference_feasibility(source,
         result["source"].get("sha256", result["coverage"].get("source_sha256")))
     return result
@@ -1007,6 +1124,19 @@ def _render(summary, artifacts, palette):
         equipment_table = "<p>Person-only scene: one selected body and ground, without dummy equipment. Equipment and object-contact gates are not applicable, not passed. Equipment absence is user-declared, not detector-verified.</p>"
     elif summary["equipment"].get("status") == "declared_scope_only":
         equipment_table = "<p>Person-only scope was requested, but no constructed scene is available in the sealed files. Equipment absence is user-declared, not detector-verified.</p>"
+    elif summary["equipment"].get("status") in {"authored_static_supports", "declared_static_supports"}:
+        supports = summary["equipment"]
+        support_rows = "".join(f'<tr><th scope="row">{text(obj["id"])}</th><td>{text(obj.get("shape", "not recorded"))}</td>'
+            f'<td>{text(obj.get("position", "not recorded"))}</td></tr>' for obj in supports["declared_priors"]["objects"])
+        equipment_table = ('<p>Authored static supports: fixed collision shapes and declared segment/load windows, not recovered equipment or contact. '
+            'The original body and source remain separate from these assumptions. This is not a person-only scene or an equipment-absence assertion.</p>'
+            + ('<p>No constructed support scene is available in the sealed files. The saved priors are not a playable environment.</p>'
+               if supports["status"] == "declared_static_supports" else '<p>Saved scene/support metadata agrees; runtime admission and physical validity were not checked by this report.</p>')
+            + '<table><thead><tr><th>Authored support</th><th>Shape</th><th>Position (model units)</th></tr></thead><tbody>'
+            + support_rows + '</tbody></table><p>'
+            + ' · '.join(link(by_name[name]) for name in ("support-priors.json", "support-config.json") if name in by_name) + '</p>')
+    learning_explanation = "".join("<p>" + text(summary["learning"][key]) + "</p>"
+                                   for key in ("training_feedback", "selection_scope") if key in summary["learning"])
     evidence_html = _scorecard_html(summary["evidence_scorecard"], artifacts, summary["source_manifest_sha256"])
     css = palette + """
 body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:32px 20px}h1{font:700 2.5rem/1.1 Georgia,serif}h2{margin-top:0}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:24px;margin:22px 0}a{color:var(--weft-primary)}small{display:block;color:var(--weft-muted);overflow-wrap:anywhere}code,pre{overflow-wrap:anywhere;white-space:pre-wrap}pre{font-size:.82rem;max-height:420px;overflow:auto;padding:14px;background:var(--weft-canvas)}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:10px;border-bottom:1px solid var(--weft-border);vertical-align:top}video,img{max-width:100%;max-height:560px;border-radius:8px}video{width:100%}figure{margin:20px 0}figcaption{color:var(--weft-muted)}summary{cursor:pointer;font-weight:650;padding:10px 0}li{margin:10px 0}.notice{border-left:4px solid var(--weft-primary);padding:12px 16px}.tag{font-weight:700;color:var(--weft-primary)}nav{display:flex;gap:20px;flex-wrap:wrap}@media(max-width:600px){main{padding:20px 12px}section{padding:16px}table{font-size:.85rem}td,th{padding:6px}h1{font-size:2rem}}"""
@@ -1018,7 +1148,7 @@ body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55
 <section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table>{diagnostic_html}<h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
 <section id="original"><h2>2. Original video</h2>{media}<p>Playback uses the copied original. This report does not decode, synchronize, or seek video to inferred pose or equipment times.</p><details><summary>Source identity, attribution and rights</summary>{source}</details></section>
 <section id="body"><h2>3. Body evidence</h2>{coverage_html}{previews}{pixel_html}<p>Pose annotations show model-reported observations, not a simulated body, recovered anatomy, or measured muscle activation. Construction-only body seeds are not playable worlds.</p><details><summary>Saved body construction scope</summary>{dump(summary["body"])}</details></section>
-<section id="equipment"><h2>4. Equipment and assumptions</h2><p>Boxes, scale, camera depth, mass, and support are hypotheses. A box matching image edges does not prove physical shape or contact. Rejected candidates remain rejected.</p>{equipment_table}<details><summary>Exact saved geometry, source bindings and clocks</summary>{dump(summary["equipment"])}</details><h3>Saved limitations</h3><ul>{assumptions}</ul><details><summary>Requested options — not proof of execution</summary>{dump(summary.get("requested_options", {}))}</details><details><summary>Saved learning and evaluation outcomes — not rerun here</summary>{dump(summary["learning"])}</details></section>
+<section id="equipment"><h2>4. Equipment and assumptions</h2><p>Boxes, scale, camera depth, mass, and support are hypotheses. A box matching image edges does not prove physical shape or contact. Rejected candidates remain rejected.</p>{equipment_table}<details><summary>Exact saved geometry, source bindings and clocks</summary>{dump(summary["equipment"])}</details><h3>Saved limitations</h3><ul>{assumptions}</ul><details><summary>Requested options — not proof of execution</summary>{dump(summary.get("requested_options", {}))}</details>{learning_explanation}<details><summary>Saved learning and evaluation outcomes — not rerun here</summary>{dump(summary["learning"])}</details></section>
 {evidence_html}
 <section id="artifacts"><h2>6. Exact copied artifacts</h2><p>Each link opens a local exact-byte copy verified against the supplied source manifest. Other declared files were not independently checked or copied. No external paths or saved scripts are followed.</p>{''.join(groups)}<p><a href="source-manifest.json.txt">Original manifest: all declared paths and hashes</a> · <a href="report.json.txt">Report summary and copy provenance</a></p><p>Source manifest SHA256: <code>{summary["source_manifest_sha256"]}</code></p></section>
 <footer><p>Report generated: {text(summary["created_at"])} (America/Los_Angeles). Report generation does not establish task success or physical accuracy. No simulation, inference, training, API call, or server was started by this report.</p></footer>

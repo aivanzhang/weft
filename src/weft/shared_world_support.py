@@ -91,7 +91,12 @@ def _config(value):
         raise ValueError("Static-support scale prior must be within [0.5, 2.0]")
     if type(config["root_assistance"]) is not bool:
         raise ValueError("Static-support root assistance must be an explicit boolean")
-    objects = config["objects"]
+    validate_authored_supports(config["objects"])
+    return config, raw, path
+
+
+def validate_authored_supports(objects):
+    """Check authoring provenance before inference; world geometry still needs construction admission."""
     if not isinstance(objects, list) or not 1 <= len(objects) <= 12:
         raise ValueError("Static-support config requires 1–12 authored static objects")
     identifiers = set()
@@ -114,7 +119,7 @@ def _config(value):
                 or any(not isinstance(item, str) or not 1 <= len(item) <= 500
                        or any(ord(char) < 32 for char in item) for item in assumptions)):
             raise ValueError("Support provenance requires 1–8 bounded authored assumptions")
-    return config, raw, path
+    return identifiers
 
 
 def _scene(human, observations, binding, config):

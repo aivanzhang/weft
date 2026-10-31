@@ -53,7 +53,7 @@ On a fresh clone, create the analytical fixture and lab without a server:
 .venv-lab/bin/python -m weft shared-exercise-lab --run artifacts/my-support-source --out artifacts/my-support-lab
 ```
 
-For an existing video-derived body, use the [source-pinned support builder](static-support.md).
+For a video or existing video-derived body, use the [guided support build](static-support.md#build-inspect-and-play-in-one-workflow) to construct, optionally train, inspect and open one final lab.
 Support shapes and load requirements remain explicit authored assumptions.
 
 ## Play an object video without training

@@ -16,11 +16,14 @@ from weft.shared_exercise_lab import (
 )
 from weft.shared_exercise_selection import RULE, select_feasible_shared_exercise_policy
 from weft.shared_exercise_task import GATES_SHA256
-from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE
+from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE
 from weft.shared_world_packaging import read_package_file, read_package_manifest, write_package_files
 
 
 PROFILE = "shared-exercise-learning-workflow-v1"
+SUPPORT_PROFILE = "shared-support-learning-workflow-v1"
+SUPPORT_SELECTION_REASON = ("Static-support policies do not support the legacy equipment-feasibility selector; "
+                            "use the optimizer's frozen training policy without secondary selection.")
 MAX_FILES = 2700
 MAX_BYTES = 640 * 1024 * 1024
 MAX_SECONDS = 180
@@ -61,6 +64,11 @@ def validate_train_settings(settings):
 
 
 def _learning_backend(settings, scene):
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        if settings.get("policy_family", "phase-residual") != "phase-residual":
+            raise ValueError("Static-support learning workflow supports only the phase-residual policy family")
+        return (residual.SUPPORT_POLICY_PROFILE, residual.SUPPORT_ALGORITHM, lambda: residual._runtime_hashes(scene),
+                residual.train_shared_exercise_residual_policy, None, residual.evaluate_shared_exercise_residual_policy)
     if settings.get("policy_family", "phase-residual") == "feedback-residual":
         from weft import shared_exercise_feedback_learning as feedback
         from weft import shared_exercise_feedback_residual as actor
@@ -188,7 +196,7 @@ def _seal(root, result, deadline, started, child_manifests=None):
     result = {**result, "seconds": time.monotonic() - started, "seal_scope": "complete_immutable_outputs"}
     result_raw = _bytes(result)
     files["result.json"] = _sha(result_raw)
-    manifest = {"schema_version": 1, "profile": PROFILE, "status": result["status"],
+    manifest = {"schema_version": 1, "profile": result["profile"], "status": result["status"],
                 "seal_scope": result["seal_scope"], "files": files}
     manifest_raw = _bytes(manifest)
     size += len(result_raw) + len(manifest_raw)
@@ -207,7 +215,7 @@ def _failure_receipt(root, result, error, started):
               "unsealed_stage_outputs_preserved": True,
               "sealing_error": {"type": type(error).__name__, "message": str(error)[:2000]}}
     raw = _metadata(root, "result.json", result)
-    _metadata(root, "manifest.json", {"schema_version": 1, "profile": PROFILE, "status": "failed",
+    _metadata(root, "manifest.json", {"schema_version": 1, "profile": result["profile"], "status": "failed",
         "seal_scope": "failure_receipt_only", "unsealed_stage_outputs_preserved": True,
         "files": {"result.json": _sha(raw)}})
 
@@ -228,10 +236,86 @@ def _document(root, name, hashes):
     return _json(read_package_file(root, name, max_bytes=8 * 1024 * 1024, expected_sha256=hashes[name]))
 
 
-def _admit_preserved_body_source(source, manifest_raw, names, scene, deadline):
+def _admit_preserved_support_source(source, manifest_raw, names, scene, task, deadline):
+    from weft import exercise_body_source, shared_world_support
+    from weft.shared_support_task import build_shared_support_task
+
+    failure = "Workflow requires exact completed static-support construction provenance, not a raw body source"
+    manifest = _json(manifest_raw)
+    required = {"reconstruction.json", "inputs/body-source-manifest.json", "inputs/support-config.json",
+                "body-source.json", "human.json", "observations.json", "source-clock.json", "source.json",
+                "construction-evidence.json", "reference-feasibility.json", "source-binding-verification.json", "exercise-task.json"}
+    if (scene["source_binding"]["mode"] != "source_qualified" or manifest.get("profile") != STATIC_SUPPORT_PROFILE
+            or manifest.get("status") != "ready" or manifest.get("simulation_ready") is not False
+            or not required <= names.keys() or "inventory.json" in names):
+        raise ValueError(failure)
+    metadata = required - {"observations.json", "source-clock.json"}
+    documents = {name: _document(source, name, names) for name in sorted(metadata)}
+    if any(not isinstance(value, dict) for value in documents.values()):
+        raise ValueError(failure)
+    parent, marker, report = (documents[name] for name in
+                             ("inputs/body-source-manifest.json", "body-source.json", "reconstruction.json"))
+    config, config_raw, _ = shared_world_support._config(source / "inputs/support-config.json")
+    source_sha = scene["source_binding"]["source_sha256"]
+    parent_files = parent.get("files")
+    verification = report.get("source_verification")
+    preserved = verification.get("preserved_files") if isinstance(verification, dict) else None
+    construction = {"schema_version": 1, "profile": exercise_body_source.PROFILE,
+                    "status": "construction_only", "simulation_ready": False}
+    if (any(type(value.get("schema_version")) is not int or any(value.get(key) != fixed for key, fixed in construction.items())
+            for value in (parent, marker)) or not isinstance(parent_files, dict)
+            or not 1 <= len(parent_files) < shared_world_support.MAX_INPUT_FILES
+            or parent_files != preserved or verification.get("verified_files") != len(parent_files)
+            or shared_world_support._NO_INPUT & parent_files.keys()
+            or any(name == item or name.startswith(item + "/") or item.startswith(name + "/")
+                   for name in parent_files for item in shared_world_support._GENERATED)
+            or any(names.get(name) != expected for name, expected in parent_files.items())
+            or config["source_sha256"] != source_sha or marker.get("source_sha256") != source_sha
+            or config["body_source_manifest_sha256"] != names["inputs/body-source-manifest.json"]
+            or _sha(config_raw) != names["inputs/support-config.json"]):
+        raise ValueError(failure)
+    inputs, total = {}, 0
+    for name, expected in parent_files.items():
+        _check(deadline)
+        raw = read_package_file(source, name, max_bytes=shared_world_support.MAX_FILE_BYTES, expected_sha256=expected)
+        total += len(raw)
+        if total > shared_world_support.MAX_INPUT_BYTES:
+            raise ValueError("Preserved static-support body source exceeds its input bound")
+        inputs[name] = raw
+    human, observations = exercise_body_source.validate_body_source_files(inputs, deadline=deadline)
+    expected_scene = shared_world_support._scene(human, observations, scene["source_binding"], config)
+    expected_task = build_shared_support_task(scene, support_requirements=config["support_requirements"],
+                                              root_assistance=config["root_assistance"])
+    fixed = {"schema_version": 1, "profile": STATIC_SUPPORT_PROFILE, "status": "ready",
+        "mode": "source_body_authored_static_support", "construction_profile": shared_world_support.CONFIG_PROFILE,
+        "readiness": "candidate_constructed_not_lab_admitted", "simulation_ready": False,
+        "lab_status": "not_created", "physical_validation": "unverified", "scene_sha256": canonical_hash(scene),
+        "task_sha256": canonical_hash(task), "task_file_sha256": names["exercise-task.json"], "source_sha256": source_sha,
+        "human_file_sha256": names["human.json"], "source_manifest_sha256": names["inputs/body-source-manifest.json"],
+        "config_sha256": names["inputs/support-config.json"], "support_scope": task["source_scope"],
+        "root_assistance": task["control"]["root_assistance"],
+        "source_binding_verification": documents["source-binding-verification.json"],
+        "reference_feasibility": {key: documents["reference-feasibility.json"].get(key) for key in ("status", "summary")}}
+    runtime = report.get("runtime_sha256")
+    if (expected_scene != scene or expected_task != task or any(report.get(key) != value for key, value in fixed.items())
+            or type(report.get("schema_version")) is not int or report.get("simulation_ready") is not False
+            or not isinstance(runtime, dict) or not set(shared_world_support.IMPLEMENTATION_FILES) <= runtime.keys()
+            or any(names.get("implementation/" + name) != expected for name, expected in runtime.items())):
+        raise ValueError(failure)
+    _check(deadline)
+    return {"scope": "Exact source-bound body plus authored static-support construction; not raw-body, recovered-contact or physics admission",
+            "body_source_sha256": names["body-source.json"], "body_manifest_sha256": names["inputs/body-source-manifest.json"],
+            "reconstruction_sha256": names["reconstruction.json"], "support_config_sha256": names["inputs/support-config.json"],
+            "source_sha256": source_sha, "human_file_sha256": names["human.json"],
+            "identity_documents": {name: names[name] for name in sorted(metadata)}}
+
+
+def _admit_preserved_body_source(source, manifest_raw, names, scene, deadline, *, task=None):
     """A completed v3 candidate retains its raw body receipt; the receipt alone is not admission."""
     if "body-source.json" not in names:
         return None
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        return _admit_preserved_support_source(source, manifest_raw, names, scene, task, deadline)
     failure = "Workflow requires a completed untrained shared world with exact preserved person-only construction identity"
     manifest = _json(manifest_raw)
     required = {"reconstruction.json", "inventory.json", "inputs/body-source-manifest.json",
@@ -334,12 +418,22 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     if supplied_task is not None and "exercise-task.json" in source_names:
         read_package_file(supplied_task.parent, supplied_task.name, max_bytes=64 * 1024,
                           expected_sha256=source_names["exercise-task.json"])
+    declared_scene = (_json(read_package_file(source, "scene.json", max_bytes=64 * 1024 * 1024,
+                                             expected_sha256=source_names["scene.json"]))
+                      if "scene.json" in source_names else None)
+    support = isinstance(declared_scene, dict) and declared_scene.get("profile") == STATIC_SUPPORT_PROFILE
+    if support:
+        if settings.get("policy_family", "phase-residual") != "phase-residual":
+            raise ValueError("Static-support learning workflow supports only the phase-residual policy family")
+        if "exercise-task.json" not in source_names:
+            raise ValueError("Static-support learning workflow requires the exact sealed support task")
     admitted, scene, task, scene_raw, task_raw, manifest, _ = residual._source(
-        source, supplied_task, root_assistance, work_deadline)
+        source, supplied_task, root_assistance, work_deadline, **({"allow_static_support": True} if support else {}))
     if admitted != source or manifest != source_manifest:
         raise ValueError("Workflow source manifest changed during admission")
     residual._terminal_manifest(manifest)
-    body_admission = _admit_preserved_body_source(source, manifest, source_names, scene, work_deadline)
+    body_admission = _admit_preserved_body_source(source, manifest, source_names, scene, work_deadline,
+                                                **({"task": task} if support else {}))
     if outer and any(config.get(name) != expected for name, expected in {
             "manifest_sha256": _sha(manifest), "scene_sha256": canonical_hash(scene),
             "task_sha256": canonical_hash(task)}.items()):
@@ -355,22 +449,29 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
     implementation, versions = _runtime()
     policy_profile, algorithm, actor_hashes, train_policy, select_policy, evaluate_policy = _learning_backend(settings, scene)
     actor_runtime = actor_hashes()
+    workflow_profile = SUPPORT_PROFILE if support else PROFILE
+    actor_contract = residual._contract(scene, actor_runtime) if support else None
     source_documents = {name: source_names[name] for name in source_names
                         if name in {"scene.json", "exercise-task.json", "report.json", "reconstruction.json", "status.json", "result.json"}}
+    if support:
+        source_documents.update({name: source_names[name] for name in
+                                 ("support-config.json", "inputs/support-config.json", "source-clock.json") if name in source_names})
     if body_admission is not None:
         source_documents.update(body_admission["identity_documents"])
-    plan = {"schema_version": 1, "profile": PROFILE, "created_at": local_time(), "input": str(original),
+    plan = {"schema_version": 1, "profile": workflow_profile, "created_at": local_time(), "input": str(original),
         "source_run": str(source), "source_manifest_sha256": _sha(manifest),
         "source_documents": source_documents, "lab_metadata": {name: _sha(raw) for name, raw in outer.items()},
         "supplied_task": str(supplied_task) if supplied_task else None,
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
-        "scene_file_sha256": _sha(scene_raw), "task_file_sha256": _sha(task_raw), "gates_sha256": GATES_SHA256,
+        "scene_file_sha256": _sha(scene_raw), "task_file_sha256": _sha(task_raw),
+        "gates_sha256": actor_contract["gates_sha256"] if support else GATES_SHA256,
         "implementation_sha256": implementation, "runtime_versions": versions, "policy_runtime_sha256": actor_runtime,
         "policy_profile": policy_profile, "training_algorithm": algorithm,
         "training_settings": settings, "training_seeds": training_seeds, "evaluation_seeds": evaluation_seeds,
         "training_reset_options": list(residual.TRAIN_RESETS),
         "evaluation_reset_options": residual.human_jitter_options(settings["jitter_scale"]),
-        "selection_rule": RULE, "evaluation_feedback_to_optimizer": False,
+        "selection_rule": "frozen_optimizer_policy_without_secondary_selection_v1" if support else RULE,
+        "evaluation_feedback_to_optimizer": False,
         "evaluation_scope": "Development comparison independent of this training; not globally fresh evidence or a final holdout",
         "horizon_steps": horizon, "maximum_training_steps": training_steps, "maximum_evaluation_steps": evaluation_steps,
         "maximum_control_steps": training_steps + evaluation_steps,
@@ -382,6 +483,11 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         "deadline_scope": "Cooperative checks; in-flight native/helper calls require a caller process deadline",
         "lab_preparation_scope": "Model construction and reference forward geometry, not additional dynamics",
         "physical_validation": "unverified"}
+    if support:
+        plan.update(evaluator_sha256=actor_contract["evaluator_sha256"],
+                    training_selection={"status": "not_applicable", "performed": False, "reason": SUPPORT_SELECTION_REASON,
+                                        "policy_source": "training"})
+        plan["stage_output_reservations"]["training_selection"] = {"files": 0, "bytes": 0, "seconds": 0}
     if body_admission is not None:
         plan["preserved_body_source_admission"] = body_admission
     if len(_bytes(plan)) > MAX_METADATA_BYTES:
@@ -441,7 +547,7 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         return min(STAGE_LIMITS[name][2], remaining)
 
     def result(status, **detail):
-        return {"schema_version": 1, "profile": PROFILE, "status": status, "stages": stages,
+        return {"schema_version": 1, "profile": workflow_profile, "status": status, "stages": stages,
             "lab_status": "ready" if completed_lab else "not_ready",
             "lab_directory": completed_lab["lab_directory"] if completed_lab else None,
             "launch_arguments": ["lab", "--resume", completed_lab["lab_directory"]] if completed_lab else None,
@@ -464,20 +570,39 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         trained_settings = _document(target / "training", "settings.json", hashes)
         if trained_settings["training_seeds"] != training_seeds or trained_settings["maximum_control_steps"] != training_steps:
             raise ValueError("Trainer changed the frozen workflow seed or work plan")
+        if support:
+            guard()
+            policy = residual.validate_shared_exercise_residual_policy(
+                _document(target / "training", "policy.json", hashes), scene, task)
+            if (hashes["policy.json"] != trained["policy_sha256"] or policy["profile"] != policy_profile
+                    or policy["runtime_sha256"] != actor_runtime):
+                raise ValueError("Support trainer changed the frozen policy identity or runtime")
         training_summary = {name: trained[name] for name in ("policy_sha256", "control_steps", "evaluated_episodes", "completed_generations")}
         training_summary.update(directory=str(target / "training"), manifest_sha256=trained["manifest_sha256"])
+        if support:
+            authored = all(value == 0 for row in policy["residual_coefficients"] for value in row)
+            training_summary["selected_feedback_kind"] = "authored_unchanged" if authored else "searched_joint_residuals"
         stage("training", "trained", **training_summary)
 
-        maximum = allowance("training_selection")
-        selected = select_policy(target / "training", target / "selected", max_seconds=maximum)
-        remember(target / "selected", selected["manifest_sha256"], "trained")
-        selection_summary = {name: selected[name] for name in ("manifest_sha256", "policy_sha256", "selection_status",
-                            "feasible_candidates", "unique_candidates", "selected_candidate")}
-        selection_summary.update(directory=str(target / "selected"), evaluation_used=False)
-        stage("training_selection", "selected", **selection_summary)
+        selected_source = target / ("training" if support else "selected")
+        if support:
+            guard()
+            selected = trained
+            selection_summary = {"manifest_sha256": trained["manifest_sha256"], "policy_sha256": trained["policy_sha256"],
+                "selection_status": "not_applicable", "performed": False, "reason": SUPPORT_SELECTION_REASON,
+                "directory": str(selected_source), "evaluation_used": False}
+            stage("training_selection", "not_applicable", **selection_summary)
+        else:
+            maximum = allowance("training_selection")
+            selected = select_policy(target / "training", selected_source, max_seconds=maximum)
+            remember(selected_source, selected["manifest_sha256"], "trained")
+            selection_summary = {name: selected[name] for name in ("manifest_sha256", "policy_sha256", "selection_status",
+                                "feasible_candidates", "unique_candidates", "selected_candidate")}
+            selection_summary.update(directory=str(selected_source), evaluation_used=False)
+            stage("training_selection", "selected", **selection_summary)
 
         maximum = allowance("independent_evaluation", maximum_control_steps=evaluation_steps)
-        evaluated = evaluate_policy(target / "selected", target / "evaluation",
+        evaluated = evaluate_policy(selected_source, target / "evaluation",
             seed=settings["evaluation_seed"], trials=settings["trials"], jitter_scale=settings["jitter_scale"],
             max_seconds=min(maximum, 60 if scene["profile"] in FULLSPAN_PROFILES else 30))
         remember(target / "evaluation", evaluated["manifest_sha256"], "evaluated")
@@ -493,8 +618,8 @@ def prepare_exercise_learning_pipeline(run, out, *, train_settings=None, task_pa
         stage("independent_evaluation", "evaluated", **evaluation_summary)
 
         maximum = allowance("interactive_lab")
-        prepared_lab = prepare_shared_exercise_lab(target / "selected", target / "lab",
-            task_path=target / "exercise-task.json", policy_run=target / "selected",
+        prepared_lab = prepare_shared_exercise_lab(selected_source, target / "lab",
+            task_path=target / "exercise-task.json", policy_run=selected_source,
             evaluation_run=target / "evaluation", max_seconds=maximum)
         remember(target / "lab/run", prepared_lab["manifest_sha256"], "ready")
         completed_lab = prepared_lab

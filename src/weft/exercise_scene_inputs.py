@@ -17,6 +17,7 @@ from weft.world_evidence import _check_tree, load_world_evidence
 
 PROFILE = "exercise-scene-inputs-v1"
 HUMAN_PROFILE = "exercise-person-inputs-v1"
+SUPPORT_PROFILE = "exercise-static-support-inputs-v1"
 MAX_INPUT_BYTES = 192 * 1024 * 1024
 MAX_FILE_BYTES = 64 * 1024 * 1024
 MAX_EVIDENCE_BYTES = 64 * 1024 * 1024
@@ -263,6 +264,21 @@ def _ready_inputs(reader, receipt, *, video, evidence, config_path, model, pose_
 def preflight_human_scene_inputs(video, *, pose_model, pose_mode=None, pose_identity=None, pose_recovery=None,
                                 source_note=SOURCE_NOTE, max_seconds=30, deadline=None):
     """Declare a person/ground scope against exact source bytes, not detected absence."""
+    return _preflight_declared_scene_inputs(video, pose_model=pose_model, pose_mode=pose_mode,
+        pose_identity=pose_identity, pose_recovery=pose_recovery, source_note=source_note,
+        max_seconds=max_seconds, deadline=deadline)
+
+
+def preflight_support_scene_inputs(video, support_priors, *, pose_model, pose_mode=None, pose_identity=None,
+                                  pose_recovery=None, source_note=SOURCE_NOTE, max_seconds=30, deadline=None):
+    """Pin authored supports to the video without declaring equipment absent or constructing a body."""
+    return _preflight_declared_scene_inputs(video, pose_model=pose_model, pose_mode=pose_mode,
+        pose_identity=pose_identity, pose_recovery=pose_recovery, source_note=source_note,
+        max_seconds=max_seconds, deadline=deadline, support_priors=support_priors)
+
+
+def _preflight_declared_scene_inputs(video, *, pose_model, pose_mode, pose_identity, pose_recovery,
+                                     source_note, max_seconds, deadline, support_priors=None):
     from weft.person_inventory import make_person_inventory
 
     started = time.monotonic()
@@ -273,16 +289,30 @@ def preflight_human_scene_inputs(video, *, pose_model, pose_mode=None, pose_iden
     if video.suffix.lower() not in exercise_body_source.SUFFIXES:
         raise ValueError("Provide a supported local video container")
     reader = _Reader(deadline)
+    support, support_path, support_sha = None, None, None
+    if support_priors is not None:
+        from weft.exercise_support_inputs import MAX_CONFIG_BYTES as SUPPORT_BYTES, validate_support_priors
+
+        support_path = _path(support_priors)
+        support_raw = reader.read(support_path, SUPPORT_BYTES)
+        support = validate_support_priors(support_raw)
+        support_sha = _sha(support_raw)
     raw = reader.read(video)
     if not raw:
         raise ValueError("Raw video input cannot be empty")
     source_sha = _sha(raw)
     del raw
+    if support is not None and support["source_sha256"] != source_sha:
+        raise ValueError("Static-support priors name a different original video")
     dependencies = tuple(dict.fromkeys((*exercise_body_source.IMPLEMENTATION_FILES,
-        "exercise_scene_inputs.py", "person_inventory.py", "shared_world_human.py")))
+        "exercise_scene_inputs.py", "person_inventory.py", "shared_world_human.py",
+        *(("exercise_support_inputs.py", "shared_world_support.py", "shared_support_task.py") if support is not None else ()))))
     provenance, implementation = _model_pins(reader, model, pose_recovery, dependencies)
-    receipt = {"schema_version": 1, "profile": HUMAN_PROFILE, "status": "input_preflight_passed",
-        "scene_scope": "human_only", "inventory": make_person_inventory(source_sha),
+    receipt = {"schema_version": 1, "profile": SUPPORT_PROFILE if support is not None else HUMAN_PROFILE,
+        "status": "input_preflight_passed",
+        "scene_scope": "human_static_supports" if support is not None else "human_only",
+        **({"support_priors_sha256": support_sha, "support_priors": support} if support is not None
+           else {"inventory": make_person_inventory(source_sha)}),
         "source_sha256": source_sha, "source_bytes": reader.pins[video].size,
         "pose_options": {"pose_mode": pose_mode, "pose_identity": pose_identity},
         "pose_model": provenance, "source_note": source_note, "implementation_sha256": implementation,
@@ -291,12 +321,13 @@ def preflight_human_scene_inputs(video, *, pose_model, pose_mode=None, pose_iden
         "limits": {"maximum_input_bytes": MAX_INPUT_BYTES, "maximum_files": MAX_FILES,
                    "maximum_file_bytes": MAX_FILE_BYTES, "maximum_seconds": max_seconds},
         "work": {"video_decodes": 0, "inference_calls": 0, "physics_steps": 0, "api_calls": 0},
-        "scope": "User declares one selected person, ground-only support and no task-relevant equipment or obstacles. Absence is not detector-verified; scale, ground and depth remain priors.",
+        "scope": ("Source-bound body with explicitly authored static supports/load windows; no equipment-absence or recovered-contact claim. Geometry, scale and ground remain unverified."
+                  if support is not None else "User declares one selected person, ground-only support and no task-relevant equipment or obstacles. Absence is not detector-verified; scale, ground and depth remain priors."),
         "remaining_checks": ["Actual video metadata and decode", "Existing body/pose quality admission",
                              "Complete source clock and reference binding", "Unchanged initial geometry and human task gates"],
         "deadline_scope": "Cooperative around bounded local reads; the body stage retains its existing native-call limits.",
         "elapsed_seconds": time.monotonic() - started}
-    return _ready_inputs(reader, receipt, video=video, evidence=None, config_path=None, model=model,
+    return _ready_inputs(reader, receipt, video=video, evidence=None, config_path=support_path, model=model,
         pose_mode=pose_mode, pose_identity=pose_identity, pose_recovery=pose_recovery, source_note=source_note,
         mappings=(), source_sha=source_sha, deadline=deadline)
 

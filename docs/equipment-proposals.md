@@ -4,6 +4,8 @@ Use sealed **body-source evidence or a mobile exercise-v3 run/lab** and a sealed
 
 For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a person-only video, use [the equipment-free declaration below](#person-only-video-without-equipment-files). For a video with equipment, prepare its [equipment tracking evidence](shared-world.md), then use the raw-video route below or reuse a saved body. Keep the original video hash and any original/derivative mapping bundles. Saved-input assembly reuses inference results; neither route requests tracking automatically.
 
+For explicitly authored **fixed supports**, use [`--static-supports` in the same build/train/inspect/lab workflow](static-support.md#build-inspect-and-play-in-one-workflow). This does not require equipment tracking or assert equipment absence; shapes and contact requirements remain declared simulator assumptions, not recovered facts.
+
 ## Person-only video without equipment files
 
 For a video with one selected person, ground-only support, and no task-relevant equipment or obstacles, use `--person-only`. This is **your explicit scene declaration**, not automatic detection of equipment absence. Do not use it for weights, racks, benches or external support that affect the exercise. The same MuJoCo engine, learner, lab and recorder are used; no dummy objects are inserted.
