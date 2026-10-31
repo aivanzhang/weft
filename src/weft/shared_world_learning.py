@@ -12,6 +12,7 @@ import numpy as np
 from weft.io import canonical_hash, digest, local_time, write_json
 from weft.pipeline import verify_artifacts
 from weft.shared_world import (
+    CAMERA_PROFILE,
     HUMAN_ONLY_PROFILE,
     PROFILE as SCENE_PROFILE,
     SharedWorldEnv,
@@ -87,6 +88,8 @@ def _action_from_weights(weights, env):
 
 
 def validate_shared_policy(policy, scene=None):
+    if isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE:
+        raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
     if not isinstance(policy, dict):
         raise ValueError("Shared-world policy must be a JSON object")
     if policy.get("schema_version") != 1 or policy.get("profile") != POLICY_PROFILE or policy.get("algorithm") != ALGORITHM:
@@ -107,6 +110,8 @@ def validate_shared_policy(policy, scene=None):
 
 def policy_action(policy, env):
     # The environment already validated its model; never compile MuJoCo again per action.
+    if env.scene.get("profile") == CAMERA_PROFILE:
+        raise ValueError("Camera-coupled worlds require separately qualified policies; existing coupled policies are unsupported")
     if env.scene.get("profile") == HUMAN_ONLY_PROFILE:
         raise ValueError("Person-only scenes require the shared-exercise residual policy, not a coupled object policy")
     validate_shared_policy(policy)

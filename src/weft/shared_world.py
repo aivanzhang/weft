@@ -28,8 +28,9 @@ FULLSPAN_PROFILE = "shared-world-v2"
 HUMAN_ONLY_PROFILE = "shared-world-v3"
 STATIC_SUPPORT_PROFILE = "shared-world-v4"
 FEET_PROFILE = "shared-world-v5"
-FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, FEET_PROFILE)
-NO_OBJECT_GOAL_PROFILES = (HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE)
+CAMERA_PROFILE = "shared-world-v6"
+FULLSPAN_PROFILES = (FULLSPAN_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, FEET_PROFILE, CAMERA_PROFILE)
+NO_OBJECT_GOAL_PROFILES = (HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, CAMERA_PROFILE)
 MAX_FULLSPAN_STEPS = 1800
 MAX_FULLSPAN_SECONDS = 60.0
 OBJECT_ACTIONS = ("coast", "left", "right", "forward", "back", "up", "down", "brake")
@@ -331,7 +332,7 @@ def action_contract_for_scene(scene):
 
 
 def full_reference_horizon(reference, dt):
-    """Require one complete 30-Hz reference span; never round away an unsupported endpoint."""
+    """Require the complete declared control grid; never round away an unsupported endpoint."""
     duration = reference[-1]["time_s"] - reference[0]["time_s"]
     steps = round(duration / dt)
     if (not 1 <= steps <= MAX_FULLSPAN_STEPS or not 0 < duration <= MAX_FULLSPAN_SECONDS
@@ -355,7 +356,7 @@ def add_feet_to_shared_world(scene, reference_bytes):
 
 
 def validate_shared_world(scene):
-    """Validate legacy coupled worlds or an explicit complete-reference person-only world."""
+    """Validate explicit world profiles without changing their evidence or coordinate frames."""
     if isinstance(scene, dict) and scene.get("profile") == FEET_PROFILE:
         from weft.shared_world_feet import validate_foot_extension
 
@@ -400,9 +401,12 @@ def validate_shared_world(scene):
     optional = {"action_contract", "learned_policy_available"}
     human_only = isinstance(scene, dict) and scene.get("profile") == HUMAN_ONLY_PROFILE
     static_support = isinstance(scene, dict) and scene.get("profile") == STATIC_SUPPORT_PROFILE
-    no_object_goal = human_only or static_support
+    camera_world = isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE
+    no_object_goal = human_only or static_support or camera_world
     if human_only:
         required.add("inventory")
+    if camera_world:
+        required.add("camera_coupling")
     if not isinstance(scene, dict) or not required <= set(scene) or set(scene) - (required | optional):
         raise ValueError("Unsupported shared-world-v1 scene fields")
     if (type(scene["schema_version"]) is not int or scene["schema_version"] != 1
@@ -412,12 +416,33 @@ def validate_shared_world(scene):
         raise ValueError("shared-world-v1 must preserve physical_validation='unverified'")
     if "learned_policy_available" in scene and type(scene["learned_policy_available"]) is not bool:
         raise ValueError("learned_policy_available must be a boolean when supplied")
+    if camera_world:
+        from weft.camera_shared_contract import validate_camera_coupling
+
+        if scene.get("learned_policy_available") is not False:
+            raise ValueError("Camera-coupled worlds have no qualified learned policy")
+        # Bound camera evidence before copying it or compiling any native model.
+        validate_camera_coupling(scene["human_spec"], scene["camera_coupling"], dt=scene["dt"],
+                                 coordinate_frame=scene["coordinate_frame"], source_binding=scene["source_binding"])
+        size = 0
+        try:
+            for chunk in json.JSONEncoder(allow_nan=False, separators=(",", ":")).iterencode(scene):
+                size += len(chunk.encode("utf-8"))
+                if size > (8 << 20) + 500_000:
+                    raise ValueError("Camera shared-world metadata exceeds its byte bound")
+        except (TypeError, RecursionError) as error:
+            raise ValueError("Camera shared-world metadata must be bounded finite JSON") from error
 
     result = deepcopy(scene)
-    result["dt"] = _number(result["dt"], "dt", 1.0 / 30.0 - 1e-12, 1.0 / 30.0 + 1e-12)
-    result["dt"] = 1.0 / 30.0
+    if camera_world:
+        result["dt"] = _number(result["dt"], "camera control dt", 1.0 / 240.0, 1.0 / 5.0)
+    else:
+        result["dt"] = _number(result["dt"], "dt", 1.0 / 30.0 - 1e-12, 1.0 / 30.0 + 1e-12)
+        result["dt"] = 1.0 / 30.0
     if type(result["substeps"]) is not int or not 8 <= result["substeps"] <= 64:
         raise ValueError("shared-world-v1 substeps must be an integer between 8 and 64")
+    if camera_world and result["dt"] / result["substeps"] > 1.0 / 240.0 + 1e-12:
+        raise ValueError("Camera control timing requires enough substeps to retain the physics timestep envelope")
     result["bounds"] = _vector(result["bounds"], 3, "bounds", 0.8, 6.0)
     bx, by, bz = result["bounds"]
     result["gravity"] = _vector(result["gravity"], 3, "gravity", -20.0, 20.0)
@@ -431,11 +456,13 @@ def validate_shared_world(scene):
     contact["damping_ratio"] = _number(contact["damping_ratio"], "contact damping_ratio", 0.5, 2.0)
 
     human_spec = validate_human(result["human_spec"])
+    if camera_world and canonical_hash(human_spec) != canonical_hash(scene["human_spec"]):
+        raise ValueError("Camera coupling requires an already validated body; normalization cannot change its identity")
     if human_spec.get("profile") != "exercise-v3":
         raise ValueError("shared-world-v1 requires a mobile exercise-v3 human_spec")
-    if "camera_reference" in human_spec:
+    if "camera_reference" in human_spec and not camera_world:
         raise ValueError("Camera-world human candidates require trajectory validation before shared-world coupling")
-    if not math.isclose(human_spec["dt"], 1.0 / 30.0, rel_tol=0, abs_tol=1e-12):
+    if not camera_world and not math.isclose(human_spec["dt"], 1.0 / 30.0, rel_tol=0, abs_tol=1e-12):
         raise ValueError("shared-world-v1 requires a 30-Hz human_spec")
     if "ground_plane" in human_spec["mobility"]:
         expected_gravity = -9.81 * ground_normal(human_spec)
@@ -499,8 +526,11 @@ def validate_shared_world(scene):
         "alignment_method",
     }:
         raise ValueError("clock_binding fields differ from contract")
-    clock["control_dt_s"] = _number(clock["control_dt_s"], "control_dt_s", 1.0 / 30.0 - 1e-12, 1.0 / 30.0 + 1e-12)
-    clock["control_dt_s"] = 1.0 / 30.0
+    if camera_world:
+        clock["control_dt_s"] = _number(clock["control_dt_s"], "control_dt_s", result["dt"], result["dt"])
+    else:
+        clock["control_dt_s"] = _number(clock["control_dt_s"], "control_dt_s", 1.0 / 30.0 - 1e-12, 1.0 / 30.0 + 1e-12)
+        clock["control_dt_s"] = 1.0 / 30.0
     if type(clock["physics_substeps"]) is not int or clock["physics_substeps"] != result["substeps"]:
         raise ValueError("clock_binding.physics_substeps must match scene substeps")
     clock["source_fps"] = _number(clock["source_fps"], "source_fps", 5.0, 240.0)
@@ -510,7 +540,7 @@ def validate_shared_world(scene):
     if human_only:
         if result["objects"] != [] or not isinstance(result["objects"], list):
             raise ValueError("shared-world-v3 requires an empty objects list")
-    elif not isinstance(result["objects"], list) or not 1 <= len(result["objects"]) <= 12:
+    elif not isinstance(result["objects"], list) or not (0 if camera_world else 1) <= len(result["objects"]) <= 12:
         raise ValueError("shared-world-v1 requires 1–12 rigid objects alongside the articulated human")
     reserved = _reserved_human_names(human_spec)
     identifiers = set()
@@ -584,6 +614,8 @@ def validate_shared_world(scene):
     dynamic_ids = [obj["id"] for obj in result["objects"] if obj["role"] != "static"]
     if static_support and dynamic_ids:
         raise ValueError("shared-world-v4 requires only static support objects")
+    if camera_world and dynamic_ids:
+        raise ValueError("Camera-coupled worlds currently support only static equipment; dynamic equipment is unqualified")
     if not dynamic_ids and not no_object_goal:
         raise ValueError("shared-world-v1 requires at least one non-static rigid object")
 
@@ -735,7 +767,8 @@ def validate_shared_world(scene):
         "object_goal",
     }:
         raise ValueError("shared-world-v1 task fields differ from contract")
-    task_type = "human_support_v1" if static_support else "human_motion_v1" if human_only else "coupled_human_object_v1"
+    task_type = ("camera_human_motion_v1" if camera_world else "human_support_v1" if static_support
+                 else "human_motion_v1" if human_only else "coupled_human_object_v1")
     if task["type"] != task_type or task["authored_addition"] is not True:
         raise ValueError(f"{result['profile']} task must declare type={task_type!r} and authored_addition=True")
     task["start_offset_s"] = _number(task["start_offset_s"], "start_offset_s", 0.0, 60.0)
@@ -804,8 +837,10 @@ def validate_shared_world(scene):
     result["action_contract"] = expected_contract
 
     # Formatting whitespace is not scene data; bound the compact UTF-8 representation.
-    if len(json.dumps(result, allow_nan=False, separators=(",", ":")).encode("utf-8")) > 500_000:
-        raise ValueError("shared-world-v1 scene metadata exceeds the 500 KB bound")
+    metadata_limit = (8 << 20) + 500_000 if camera_world else 500_000
+    if len(json.dumps(result, allow_nan=False, separators=(",", ":")).encode("utf-8")) > metadata_limit:
+        raise ValueError("Camera shared-world scene metadata exceeds its profile byte bound" if camera_world
+                         else "shared-world-v1 scene metadata exceeds the 500 KB bound")
     return result
 
 
@@ -1117,7 +1152,9 @@ def audit_shared_world_feasibility(scene):
     duration = float(ref_times[-1] - ref_times[0])
     if not 0.0 < duration <= 60.0:
         raise ValueError("Shared-world reference feasibility duration must be within 60 seconds")
-    grid_count = math.floor(duration * 30.0 + 1e-9) + 1
+    camera_world = validated["profile"] == CAMERA_PROFILE
+    grid_dt = validated["dt"]
+    grid_count = math.floor((duration / grid_dt if camera_world else duration * 30.0) + 1e-9) + 1
     if len(ref_times) > 900 or grid_count > 1801:
         raise ValueError("Shared-world reference feasibility exceeds pose/grid bounds")
 
@@ -1153,7 +1190,7 @@ def audit_shared_world_feasibility(scene):
 
     schedule = [("source_pose", float(t), i) for i, t in enumerate(ref_times)]
     schedule += [
-        ("control_grid", min(float(ref_times[-1]), float(ref_times[0] + i / 30.0)), None)
+        ("control_grid", min(float(ref_times[-1]), float(ref_times[0] + (i * grid_dt if camera_world else i / 30.0))), None)
         for i in range(grid_count)
     ]
     rows = []
@@ -1254,12 +1291,15 @@ class SharedWorldEnv(gym.Env):
             raise ValueError("Foot substep observers must explicitly opt into the 28-motor layout")
         self._substep_observer = substep_observer
         self.scene = validate_shared_world(scene)
+        self._camera_identity = (canonical_hash(self.scene["camera_coupling"])
+                                 if self.scene["profile"] == CAMERA_PROFILE else None)
         self.render_mode = render_mode
         self.human_spec = self.scene["human_spec"]
         self.joint_names, self.joint_limits = joint_contract(self.human_spec)
         self.scale = float(self.scene["coordinate_frame"]["scale_bridge"]["body_height_to_world_scale"])
         self.origin_world = np.asarray(self.scene["coordinate_frame"]["scale_bridge"]["origin_world"], dtype=float)
         self.dt = float(self.scene["dt"])
+        self.metadata = {**type(self).metadata, "render_fps": 1.0 / self.dt}
         self.substeps = int(self.scene["substeps"])
         self.horizon_steps = int(self.scene["task"]["horizon_steps"])
         self.start_offset_s = float(self.scene["task"]["start_offset_s"])
@@ -1894,7 +1934,8 @@ class SharedWorldEnv(gym.Env):
         if not np.isfinite(self.data.qpos).all() or not np.isfinite(self.data.qvel).all():
             return "nonfinite_dynamics"
         q, v = self.data.qpos[self._q], self.data.qvel[self._v]
-        if np.max(np.abs(q[:19])) > 8.0 or np.max(np.abs(q[19:22] / self.scale)) > 5.1:
+        root_bound = 50.1 if self.scene["profile"] == CAMERA_PROFILE else 5.1
+        if np.max(np.abs(q[:19])) > 8.0 or np.max(np.abs(q[19:22] / self.scale)) > root_bound:
             return "human_position_envelope_exceeded"
         if np.max(np.abs(v[:19])) > 30.0 or np.max(np.abs(v[19:22] / self.scale)) > 10.0:
             return "human_velocity_envelope_exceeded"
@@ -2171,6 +2212,9 @@ class SharedWorldEnv(gym.Env):
         if "ground_plane" in self.human_spec["mobility"]:
             mobility["floor_normal"] = ground_normal(self.human_spec).tolist()
             mobility["floor_scope"] = "Camera-relative inclined plane hypothesis; first-pose clearance only"
+        if self._camera_identity is not None:
+            mobility["floor_scope"] = "Supplied camera-world ground; original body height retained without floor fitting"
+            mobility["scale_scope"] = "Supplied camera metres with unchanged assumed body dimensions and masses; not measured anatomy"
         return {
             "segments": segments,
             "muscles": muscles,
@@ -2229,6 +2273,8 @@ class SharedWorldEnv(gym.Env):
             "coupled_metrics": metrics,
             "physical_validation": "unverified",
         }
+        if self._camera_identity is not None:
+            state["camera_coupling_sha256"] = self._camera_identity
         if self._failure is not None and 0 < self._last_action_substeps < self.substeps:
             # A failed action consumes only the physics substeps that actually ran.
             state["time_s"] = float(self.data.time)
@@ -2288,6 +2334,7 @@ class SharedWorldEnv(gym.Env):
                       if base_scene_profile(self.scene) == HUMAN_ONLY_PROFILE else
                       "Kinematic human pose projection alongside initial 3D rigid geometry; not dynamic simulation"),
             "physical_validation": "unverified",
+            **({"camera_coupling_sha256": self._camera_identity} if self._camera_identity is not None else {}),
         }
 
     def render(self):
@@ -2336,6 +2383,11 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
     human_only = base_scene_profile(validated_scene) == HUMAN_ONLY_PROFILE
     no_object_goal = _no_object_goal(validated_scene)
     feet = validated_scene["profile"] == FEET_PROFILE
+    position_bound = 64.0 if validated_scene["profile"] == CAMERA_PROFILE else 15.0
+    if validated_scene["profile"] == CAMERA_PROFILE:
+        if (state.get("camera_coupling_sha256") != canonical_hash(validated_scene["camera_coupling"])
+                or state.get("coordinate_frame") != validated_scene["coordinate_frame"]):
+            raise ValueError("Camera snapshot must retain its exact coupling and coordinate frame")
     if no_object_goal and ("target" not in state or state["target"] is not None
                           or state.get("virtual_force") != [0., 0., 0.]):
         raise ValueError("No-object-goal snapshots cannot introduce an object target or virtual object force")
@@ -2386,8 +2438,8 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
     for seg in human["segments"]:
         if not isinstance(seg, dict):
             raise ValueError("Human segment must be an object")
-        _vector(seg.get("a"), 3, "segment start", -15.0, 15.0)
-        _vector(seg.get("b"), 3, "segment end", -15.0, 15.0)
+        _vector(seg.get("a"), 3, "segment start", -position_bound, position_bound)
+        _vector(seg.get("b"), 3, "segment end", -position_bound, position_bound)
         _number(seg.get("radius"), "segment radius", 0.005, 1.0)
     if not isinstance(human.get("muscles"), list) or len(human["muscles"]) != (50 if feet else 38):
         raise ValueError("Shared-world snapshot must retain all declared illustrative muscle bands")
@@ -2531,7 +2583,7 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
                     for name, part in zip(ids, parts))):
                 raise ValueError("Shared-world contact part identity must belong to its exact semantic object")
         pairs.add(tuple(sorted(ids)))
-        _vector(con["position"], 3, "contact position", -15.0, 15.0)
+        _vector(con["position"], 3, "contact position", -position_bound, position_bound)
         _number(con["distance"], "contact distance", -2.0, 2.0)
         _number(con["normal_force"], "contact normal_force", 0.0, 1e9)
     if state.get("contacts") != [list(p) for p in sorted(pairs)]:
@@ -2580,6 +2632,13 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
 
     bounds = np.asarray(scene["bounds"], dtype=float)
     center = bounds / 2.0
+    grid_origin = np.zeros(3)
+    camera_world = scene["profile"] == CAMERA_PROFILE
+    if camera_world:
+        # Camera travel changes the view, never the body's physics coordinates.
+        endpoints = np.array([seg[key] for seg in state["human"]["segments"] for key in ("a", "b")])
+        center = (endpoints.min(axis=0) + endpoints.max(axis=0)) / 2.0
+        grid_origin = center - bounds / 2.0
     scale = min(panel_width * 0.84 / max(bounds[0], bounds[1]), height * 0.76 / max(bounds))
     views = (
         ("Front: x / height", np.array([[1.0, 0.0, 0.0], [0.0, 0.0, -1.0]]), np.array([0.0, 1.0, 0.0])),
@@ -2604,15 +2663,17 @@ def _render_snapshot(state, scene, width=960, *, show_target=True):
             return (np.asarray(points, dtype=float) - center) @ matrix.T * scale + offset
 
         draw.text((round(index * panel_width) + 8, 8), label, fill="#214F50")
+        if camera_world:
+            draw.text((round(index * panel_width) + 8, 23), "Body-follow view · supplied camera coordinates", fill="#214F50")
         if index > 0:
             draw.line((round(index * panel_width), 26, round(index * panel_width), height), fill="#D8C9BA")
 
         # Floor grid across world x/y bounds at floor_z.
         for frac in (0.2, 0.5, 0.8):
-            gx = bounds[0] * frac
-            gy = bounds[1] * frac
-            p1, p2 = project([gx, 0.0, floor_z]), project([gx, bounds[1], floor_z])
-            q1, q2 = project([0.0, gy, floor_z]), project([bounds[0], gy, floor_z])
+            gx = grid_origin[0] + bounds[0] * frac
+            gy = grid_origin[1] + bounds[1] * frac
+            p1, p2 = project([gx, grid_origin[1], floor_z]), project([gx, grid_origin[1] + bounds[1], floor_z])
+            q1, q2 = project([grid_origin[0], gy, floor_z]), project([grid_origin[0] + bounds[0], gy, floor_z])
             draw.line((*p1, *p2), fill="#E6D8C8", width=1)
             draw.line((*q1, *q2), fill="#E6D8C8", width=1)
 

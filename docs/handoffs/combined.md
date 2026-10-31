@@ -1,5 +1,30 @@
 # Combined Weft implementation handoff
 
+## Camera-coupled runtime — October 31, 2026, 2:32 PM PDT
+
+Goal active; both tracks remain owned here. Last published base is
+`12cd7a59ca3cc0f6c4fa0897971a659f892069e0`. Root's new v6 camera runtime, pure
+coupling contract and reviewed calibrated-foot consumer are ready for a scoped
+checkpoint. [Native verification, exact receipts and remaining product work](camera-shared-runtime.md).
+Eight initial native/legacy checks, one original-60-Hz body check and two pure
+policy guards pass; all native jobs are terminal. The protected scorer and
+previous source failures remain unchanged. No ready camera lab, attached calibrated
+feet, scored ground/equipment support or physical-accuracy claim follows.
+
+Parallel ownership now supersedes the older active-assignment paragraphs below:
+the reconstruction agent owns the sealed [camera importer](camera-shared-candidate.md)
+(41 distinct pure cases, independent review pending) and a planned saved-only
+calibrated-foot consumer check. Root owns engine/task/lab/recording integration
+and Git; the review lane checks the importer read-only. The new consumer has
+74 distinct analytical cases covered, including five reproduced and corrected
+source-geometry/gap tampering failures. [Consumer handoff](calibrated-foot-consumer.md).
+
+Keep importer/study work separate until reviewed. Native runs use frozen committed
+exports plus exact owned overrides, excluding all avatar edits. No new paid calls,
+source download/decoding, inference, training, browser, server or deployment.
+Publication state belongs in `.local/camera-runtime-publication-01.json` once complete;
+do not infer publication or whole-worktree cleanliness from this note.
+
 ## Coupled feet and surface workflow — October 31, 2026
 
 Updated **October 31, 2026, 2:08 PM PDT**. Goal active. Starting published base is
