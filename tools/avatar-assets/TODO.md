@@ -4,14 +4,14 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets (core avatar goal remains completed).
-- Recorded: 2026-10-30 17:45:56 PDT.
+- Recorded: 2026-10-30 17:51:17 PDT.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity remains an explicit unsupported fidelity target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. The language step is agent-assisted scene authoring, not an unattended neural generator. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Provider generation calls/spend: **0 / $0**; no recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user subsequently authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
 
-## Migration into Weft — verified locally
+## Migration into Weft — complete
 
 - User explicitly authorized the move, same-session reassignment, commit/push directly to main, and removal of the standalone checkout after the push verifies.
 - Full copy verified: **19,778 filesystem entries / 3,146,153,025 file bytes**, including all original outputs, rejected attempts and local runtimes. Ten virtualenv launch/config files were then rebased with backups; no dependencies were reinstalled.
@@ -20,7 +20,7 @@
 - Headless gallery: 15 grouped checks/all 16 detailed skeletal clips passed, no external page requests; cold ready 4.664s. Largest-model two-second software-WebGL sample advanced 2.167 clip seconds; this is not a sustained FPS guarantee. Migrated Blender independently loaded/moved the panda in 5.699s, sampled peak RSS 360,939,520 bytes.
 - Seven byte-preserving portable media packs total 37,414,959 bytes. Original full packs remain local; omitted frames/logs are listed in each new manifest. Both default and basic catalogs use tracked portable media. Historical `gallery-quality-v2.json` retains the full-media paths.
 - Source/reference hashes and limitations remain unchanged. Read [relocation](docs/relocation.md) and [migration receipt](evidence/weft-migration-v1.json). Selected UV-repair failure/probe folders and other unlisted old outputs remain local, not remotely backed up.
-- Git publication and old-directory removal are the remaining migration steps; verify the receipt status before treating them as complete. No task-owned persistent server or native job remains running.
+- Main implementation commit `05eb8532d1d7d4ff7cf379a931b9f13326199fb5` is verified on the existing private remote. The old `/Users/ivan/kintsugi/avatar-assets` directory is deleted after its unchanged inventory and destination copy were verified. CLI startup still passes after deletion. Final publication receipt: `/Users/ivan/kintsugi/weft/.local/avatar-assets-migration-v1/publication.json`. No task-owned persistent server or native job remains running.
 
 ## Visual-quality follow-up — verified upgrade, fidelity limit explicit
 

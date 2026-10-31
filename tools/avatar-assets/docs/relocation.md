@@ -2,6 +2,8 @@
 
 The user authorized moving the work and current session into Weft, committing and pushing directly to `main`, and removing the old standalone checkout after verification. This supersedes the former ownership boundary; it does not replace Weft's goal or authorize physics changes.
 
+Migration and cleanup are complete. Implementation commit `05eb853` was verified on private remote `main` before the former checkout was removed. The new CLI was checked again after deletion.
+
 ## Locations and preservation
 
 - New tool root: `/Users/ivan/kintsugi/weft/tools/avatar-assets`.

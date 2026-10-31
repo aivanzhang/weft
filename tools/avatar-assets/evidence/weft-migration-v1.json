@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_at_local": "2026-10-30 17:45:56 PDT",
-  "status": "relocated_and_verified_pending_git_publication_and_source_removal",
+  "recorded_at_local": "2026-10-30 17:51:17 PDT",
+  "status": "complete",
   "source_root": "/Users/ivan/kintsugi/avatar-assets",
   "destination_root": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
   "history_path_rule": "Resolve the former root to destination_root; never rewrite immutable historical manifests.",
@@ -196,5 +196,31 @@
     "git_transfer": "Existing private remote; no LFS, new paid storage, deployment or paid generation requested"
   },
   "publication_authorization": "User explicitly chose commit and push directly to main",
-  "source_cleanup": "Pending verified main push; deletion is separately authorized by the user"
+  "source_cleanup": {
+    "status": "removed_after_verified_main_push",
+    "verification": {
+      "schema_version": 1,
+      "recorded_at_local": "2026-10-30 17:51:17 PDT",
+      "old_directory_absent": true,
+      "destination_exists": true,
+      "no_nested_git": true,
+      "post_removal_cli_exit_code": 0,
+      "original_archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "verified_remote_implementation_commit": "05eb8532d1d7d4ff7cf379a931b9f13326199fb5",
+      "branch": "main",
+      "remote": "https://github.com/kintsugi-software/weft.git"
+    },
+    "pre_removal_source_inventory_sha256": "02c3e56b80c9912034b669eac8106dfae53f7f256715fdd0a1b6f0f873deb399"
+  },
+  "publication": {
+    "branch": "main",
+    "implementation_commit": "05eb8532d1d7d4ff7cf379a931b9f13326199fb5",
+    "remote_verified": true,
+    "remote": "https://github.com/kintsugi-software/weft.git",
+    "note": "The final handoff checkpoint follows this implementation commit; see local publication receipt for final HEAD."
+  },
+  "non_semantic_source_cleanup": [
+    "Removed only extra EOF blank lines in live __init__.py, __main__.py and pyproject.toml; immutable snapshots remain byte-exact",
+    "Added .gitattributes to preserve output bytes across Git checkouts"
+  ]
 }
