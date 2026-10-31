@@ -106,6 +106,15 @@ task and scorer fixed. Saved audit:
 `.local/body-reference-crop-cli-saved-audit-01.json`; acceptance seal
 `a154fd6e97b50f11cc22dc2ea6651d9269c47084bb7607db7d4434bc27ff1918`.
 
+**Fixed-task controller trial:** the proposal is now tested as an alternative
+controller without replacing the body or reference used by the scorer. The
+[recorded comparison](../artifacts/reference-controller-trial-cli-01/comparison/index.html)
+finishes in 12.725 seconds, including both 255-frame exports and exact replay of
+all 508 actions. Both controllers still fail equipment stability. Fitted targets
+reduce equipment displacement 0.47628→0.45991 model units, but worsen tracking of
+the original targets 0.15089→0.16134 radians and lower mean reward 0.74746→0.72006.
+Nothing is installed or promoted. [Command and supported limits](local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+
 ## Saved-source whole-body fitting
 
 The opt-in `whole_body_reference_refinement.propose_whole_body_reference_refinement`

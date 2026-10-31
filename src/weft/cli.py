@@ -189,6 +189,16 @@ def main():
                                         help="Image-first default; floor-first is a separate experimental objective")
     body_reference_propose.add_argument("--fit-seconds", type=float, default=30, help="Tighter fitting bound, at most 30 seconds")
     body_reference_propose.add_argument("--max-seconds", type=float, default=60, help="Workflow time bound, 20–60 seconds plus owned cleanup")
+    reference_trial = commands.add_parser("body-reference-trial", help="Compare a fitted reference controller with authored control on an unchanged task; record both")
+    reference_trial.add_argument("--proposal", required=True, help="Completed body-reference-propose proposal/ directory; passing fit gates required")
+    reference_trial.add_argument("--run", required=True, help="Sealed original shared-world source directory; never modified")
+    reference_trial.add_argument("--task", required=True, help="Exact original exercise-task JSON; never regenerated from the proposal")
+    reference_trial.add_argument("--out", required=True, help="New trial, recordings and replay directory")
+    reference_trial.add_argument("--seed", type=int, default=1729, help="Same reset seed for both controllers; exposed development, not final evaluation")
+    reference_trial.add_argument("--max-seconds", type=float, default=60, help="Cooperative workflow bound, at most 120 seconds")
+    reference_trial.add_argument("--proposal-manifest-sha256", help="Optional exact proposal-study seal")
+    reference_trial.add_argument("--scene-manifest-sha256", help="Optional exact original-world seal")
+    reference_trial.add_argument("--task-sha256", help="Optional exact original-task byte hash")
     camera_body = commands.add_parser('camera-body', help='Build a manual camera-aware body lab using supplied calibration; no model calls')
     camera_body.add_argument('--run', required=True, help='Completed original mobile exercise run/ directory')
     camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
@@ -479,6 +489,18 @@ def main():
                 expected_manifest_sha256=args.manifest_sha256,
                 proposal_objective={"image-first": "image_v1", "floor-first": "floor_first_v1"}[args.objective],
                 fit_seconds=args.fit_seconds, max_seconds=args.max_seconds)
+        elif args.command == "body-reference-trial":
+            from weft.shared_exercise_reference_trial import prepare_reference_trial
+
+            def reference_progress(stage, detail):
+                print("weft reference trial: " + json.dumps({"stage": stage, **detail}, allow_nan=False),
+                      file=sys.stderr, flush=True)
+
+            result = prepare_reference_trial(args.proposal, args.run, args.task, args.out,
+                seed=args.seed, max_seconds=args.max_seconds,
+                expected_proposal_manifest_sha256=args.proposal_manifest_sha256,
+                expected_scene_manifest_sha256=args.scene_manifest_sha256,
+                expected_task_sha256=args.task_sha256, progress=reference_progress)
         elif args.command == 'camera-body':
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
@@ -756,6 +778,10 @@ def main():
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "body-reference-propose" and result.get("status") != "completed":
             parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "body-reference-trial" and result.get("inspection_path"):
+            print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
+        if args.command == "body-reference-trial" and result.get("status") != "completed":
+            parser.exit(1, f"weft: reference controller trial stopped; preserved report: {Path(args.out) / 'report.json'}\n")
         if args.command == "shared-world-shape" and result.get("status") == "failed":
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
         if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":

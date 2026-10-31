@@ -21,7 +21,7 @@ from weft.shared_world import validate_shared_world
 PROFILE = "shared-exercise-recording-v1"
 
 
-def recording_scene(scene, task, *, policy_document=None):
+def recording_scene(scene, task, *, policy_document=None, reference_controller_document=None):
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
     result = {"schema_version": 1, "profile": PROFILE, "engine_scene": scene, "exercise_task": task,
@@ -35,12 +35,17 @@ def recording_scene(scene, task, *, policy_document=None):
         validate_policy(_json(policy_document), scene, task)
         result["learned_policy"] = {"document_utf8": policy_document.decode("utf-8"),
                                     "sha256": hashlib.sha256(policy_document).hexdigest()}
+    if reference_controller_document is not None:
+        from weft.shared_exercise_reference_recording import reference_controller_envelope
+
+        result["reference_controller"] = reference_controller_envelope(reference_controller_document, scene, task)
     return result
 
 
 def validate_recording_scene(scene):
     keys = {"schema_version", "profile", "engine_scene", "exercise_task", "dt", "objects"}
-    if (not isinstance(scene, dict) or set(scene) not in (keys, keys | {"learned_policy"})
+    if (not isinstance(scene, dict) or not keys <= set(scene)
+            or set(scene) - keys - {"learned_policy", "reference_controller"}
             or type(scene["schema_version"]) is not int or scene["schema_version"] != 1 or scene["profile"] != PROFILE):
         raise ValueError("Exercise recording envelope differs from its versioned contract")
     policy_document = None
@@ -56,6 +61,11 @@ def validate_recording_scene(scene):
         if hashlib.sha256(policy_document).hexdigest() != policy["sha256"]:
             raise ValueError("Exercise recording policy hash differs from its exact document")
     result = recording_scene(scene["engine_scene"], scene["exercise_task"], policy_document=policy_document)
+    if "reference_controller" in scene:
+        from weft.shared_exercise_reference_recording import validate_reference_controller_envelope
+
+        result["reference_controller"] = validate_reference_controller_envelope(
+            scene["reference_controller"], result["engine_scene"], result["exercise_task"])
     if scene != result:
         raise ValueError("Exercise recording aliases must preserve the exact engine scene and task")
     return result
@@ -88,11 +98,17 @@ def validate_event(event, scene):
             raise ValueError("Exercise learned action requires its pinned policy hash and document")
     elif "policy_sha256" in event:
         raise ValueError("Exercise policy identity belongs only to learned actions")
+    if event.get("controller") == "reference_proposal":
+        if (event["type"] != "step" or "reference_controller" not in scene
+                or event.get("reference_controller_sha256") != scene["reference_controller"]["sha256"]):
+            raise ValueError("Reference-proposal action requires its pinned controller recipe")
+    elif "reference_controller_sha256" in event:
+        raise ValueError("Reference-controller identity belongs only to reference-proposal actions")
     if event["type"] == "step":
         validate_action(event.get("action"), scene)
         if "controller" in event:
-            if event["controller"] not in ("manual", "coast", "authored", "learned"):
-                raise ValueError("Exercise controller metadata must be manual, coast, authored or learned")
+            if event["controller"] not in ("manual", "coast", "authored", "learned", "reference_proposal"):
+                raise ValueError("Exercise controller metadata must be manual, coast, authored, learned or reference_proposal")
             if event["controller"] == "coast" and any(event["action"]):
                 raise ValueError("Exercise coast metadata requires zero human actions")
         if list(event["action"]) != state["last_action"]:
@@ -126,6 +142,10 @@ def validate_event(event, scene):
 
 def replay_view(scene, events):
     return {"scene": scene["engine_scene"], "exercise_task": scene["exercise_task"],
+            **({"reference_controller": {"sha256": scene["reference_controller"]["sha256"],
+                "label": "Source-fit authored controller alternative",
+                "scope": "Original scene, task and scoring targets remain fixed; not a learned policy or repaired geometry."}}
+               if "reference_controller" in scene else {}),
             "events": [{**event, "snapshot": event["snapshot"]["engine_state"],
                         "exercise_metrics": event["snapshot"]["task_metrics"],
                         "engine_state_status": event["snapshot"]["engine_state_status"]}
@@ -185,10 +205,15 @@ def verify_action_replay(directory, *, max_seconds=60):
     env = SharedExerciseTaskEnv(scene["engine_scene"], scene["exercise_task"])
     try:
         policy_action = None
+        reference_action = None
         if "learned_policy" in scene:
             from weft.shared_exercise_lab import _json
             from weft.shared_exercise_policies import prepare_policy
             policy_action = prepare_policy(_json(scene["learned_policy"]["document_utf8"].encode("utf-8")), env)
+        if "reference_controller" in scene:
+            from weft.shared_exercise_reference_recording import prepare_recorded_reference_controller
+
+            reference_action = prepare_recorded_reference_controller(scene["reference_controller"], env)
         if events[0]["snapshot"]["task_metrics"]["evaluator_sha256"] != env.evaluator_sha256:
             raise ValueError("Recorded evaluator differs from this runtime; use the pinned implementation for action replay")
         for event in events:
@@ -201,6 +226,8 @@ def verify_action_replay(directory, *, max_seconds=60):
                     raise ValueError(f"Exercise authored controller replay differs at event {event['index']}")
                 if event.get("controller") == "learned" and (policy_action is None or policy_action().tolist() != event["action"]):
                     raise ValueError(f"Exercise learned controller replay differs at event {event['index']}")
+                if event.get("controller") == "reference_proposal" and (reference_action is None or reference_action().tolist() != event["action"]):
+                    raise ValueError(f"Exercise reference controller replay differs at event {event['index']}")
                 _, reward, terminated, truncated, _ = env.step(event["action"])
                 if (reward, terminated, truncated) != (event["reward"], event["terminated"], event["truncated"]):
                     raise ValueError(f"Exercise outcome replay differs at event {event['index']}")
@@ -214,6 +241,9 @@ def verify_action_replay(directory, *, max_seconds=60):
                 **({"policy_sha256": scene["learned_policy"]["sha256"],
                     "learned_actions_verified": sum(event.get("controller") == "learned" for event in events)}
                    if "learned_policy" in scene else {}),
+                **({"reference_controller_sha256": scene["reference_controller"]["sha256"],
+                    "reference_actions_verified": sum(event.get("controller") == "reference_proposal" for event in events)}
+                   if "reference_controller" in scene else {}),
                 "scope": "Exact simulated action/state/task replay; not physical validation"}
     finally:
         env.close()

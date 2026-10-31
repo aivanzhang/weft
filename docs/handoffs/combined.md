@@ -1,5 +1,138 @@
 # Combined Weft implementation handoff
 
+## Recorded fixed-task comparison — October 31, 2026, 6:52 AM PDT
+
+The first real public-CLI comparison is complete and preserved at
+`artifacts/reference-controller-trial-cli-01`, outer seal
+`986015f46cafa93ebe9c3537882ba772b4a17097fe3301d7f6a8d1f2f8ef25ce`.
+Comparison seal `ee5ce972b231c3850fa1454072d4ca3e78946e4eb3fb5e989c324a741c1757f1`;
+92 comparison files / 59,262,540 bytes. [Open its offline result page](../../artifacts/reference-controller-trial-cli-01/comparison/index.html).
+Helper `.local/run_reference_controller_trial_cli_01.py` froze inputs/code and
+ran the ordinary command once, with a 60-second cooperative workflow and frozen
+75-second outer supervisor. Overall 12.724958 s, child 12.699768 s, observed child
+peak RSS 376,537,088 B; no hard native-memory or UI responsiveness claim.
+
+One trial environment performed 254 original-controller and 254 fitted-reference
+actions from identical complete initial states. It closed before two exports
+and two sequential exact action/state replays. Each export decodes all 255 frames;
+the fitted recipe regenerates all 254 recorded actions exactly. No fit, source
+decode, inference, training, paid call, policy/body installation or retry ran.
+Original raw scene/task hashes remain those recorded below; canonical scene is
+`180ee396689e8777f008799fceefff8f50cc331dc8d8fd8b79b8140fd314221f`, canonical
+task `00120df0f42743d76555d701772805a6b4eb35da5aa8ee687a30ed19ad676d3f`.
+The first source reference is 2/30 seconds; task start_offset_s is 0 relative to
+that reference. Neither clock was shifted. Fitted recipe bytes are SHA
+`8fedec4d805dbd7fe0b3e16943621722866168fc625c1285be1cb3b2a5bfdbbc`.
+
+**Negative task result, not a repair:** both complete the 8.4667-second task and
+fail `equipment_stability:sam-2`. Original→fitted displacement is
+0.47628037→0.45990836 model units; original-target joint RMSE
+0.15088802→0.16133830 radians; mean reward 0.74746422→0.72006481. A better saved
+image fit therefore does not establish better control. No default promotion or
+same-source retuning is justified by this result.
+
+Runner `shared_exercise_reference_trial.py` SHA
+`6f28d90b1541d71f4d9eac18db57e0df7ceacfe6fef26223a665cd0803a6dab7`;
+22 mocked cases pass in `.local/reference-trial-tests-01.xml`, SHA
+`1b09d28654aeffac9b0f46006f84391287dbe863652c62c0296422e534ad0147`.
+Independent static review plus root review passed after fixing the installed
+OpenCV distribution name and the extra source-manifest read accounting. Runtime
+closure is 28 Python files plus the shared-world replay HTML, without dirty avatar
+assets. Selected metadata/source/runtime readbacks total 19,586,184 / 32,908,363 /
+1,992,381 bytes; these counters exclude nested implementation/import I/O.
+
+The earlier saved-only compatibility preflight passed once in 0.365339 s,
+60,145,664 B peak RSS, with 121 references, five crop origins and exact recipe
+roundtrip. Receipt `.local/reference-controller-real-inputs-01.json`, SHA
+`bb9cc8b153055b544cd054bbb40e7e3fdb2a250c660d544755d6a3642cb081f1`.
+No native model/media/process/network operation occurred inside that worker.
+
+**Independent saved audit passed:** `.local/reference-controller-trial-saved-audit-02.json`,
+SHA `4d621d677fc9f75803a16facecdf65f3b9e179651809f4895b9bc0766632fe03`.
+Audit01 verified 97 root members and the completed nested seals, then stopped on
+an audit-only assumption: an archived mapping manifest uses `schema:1`, not
+`schema_version:1`. Its failure receipt/helper remain unchanged. Audit02 accepts
+only that exact historical envelope and reuses the successful hashes, then checks
+36 current code pins, 29 runtime copies, 72 preserved snapshots, source associations,
+unchanged scene/task/recipe, both journals and replay proofs, all 510 exported-frame
+receipts and 16 fixed local page links. Remaining checks read 33,796,505 bytes in
+.167245 s, with no media rehash, decoding, simulation or regenerated output.
+
+All workers are terminal; exec session 29257 ended successfully. Root is publishing
+21 owned files on `main`; exact checkpoint/publication outcomes live in
+`.local/reference-controller-trial-{checkpoint,publication}-01.json`. Fresh
+`git fetch origin` confirmed HEAD/origin/main both 80e0afa before this run, zero
+stashes. All 75 avatar status/path entries match the preceding checkpoint; this
+does not assert an avatar-byte audit or a clean whole worktree. Existing playable
+labs remain unchanged. Next work must address a distinct common-pipeline gap or
+use stronger source/physical evidence; do not repeat the unchanged failed trial
+or promote source-image improvement into physical/task accuracy. Generalized
+reconstruction and independent avatar acceptance remain open.
+
+## Fixed-task controller comparison — October 31, 2026, 6:39 AM PDT
+
+Latest published checkpoint is `80e0afa9a2201c3c21420c0c94608e3c968dc752`
+(`Keep completed sandbox handoffs after build failures`), verified against live
+private `origin/main`. Receipt `.local/crop-cli-preserved-lab-publication-01.json`,
+SHA `67f9b1329ed7556557838256f373c31ab7b9ad18eb2861eb375d8c6158592ec0`.
+Six owned files matched committed bytes; 75 avatar status/path entries and zero
+stashes were preserved. New controller work below is not yet committed. Do not
+stage avatar changes or claim the whole worktree is clean.
+
+**Implemented, not yet exercised on the real simulator:**
+`shared_exercise_reference_controller.py` provides bounded public actions from
+the passed source-fit proposal. It adds the 40/5 position/velocity correction
+before clipping, preserves root actions and uses actual simulation time. Original
+scene, task, scoring targets and physical geometry remain unchanged. The compact
+recipe supports archived execution only; it does not manufacture another passing
+fit report or admit a replacement body. Reviewed human/shared-world runtime pins
+must match. Nominal frame/FPS clocks are supported; unknown/native routes stop.
+
+`shared_exercise_reference_inputs.py` checks complete known source/grid values,
+all eleven saved gates and exact body/scene/task bindings. Its explicit legacy
+constructor route requires sealed reconstruction/binding/feasibility records;
+the original manifest has only `schema_version`/`files`, not a `ready` status.
+Feasible/infeasible completion stays distinct from current runtime admission.
+Loader SHA `4744df81ab81eda53d961593f35bc1ba1d99e19e6ab413da69cb752f3a778bae`.
+Provider SHA `6f656699c08910aecad9bc0f6a03a5106da7c49c250e222032cc57acc059dd90`.
+
+Recording helper and hooks preserve exact recipe/code identity and reject a
+different generated action before stepping replay. The existing four control
+modes remain compatible. The public `body-reference-trial` route requires the
+original task. Its offline `index.html` distinguishes workflow delivery, task
+outcome and exact replay; fixed local links expose only present artifacts. The
+3D viewer labels the fitted-reference mode as programmed, not learned.
+
+**Verification receipts, all under `.local/`:** provider+recipe106 cases in
+`reference-recipe-tests-01.xml`; helper43 in `reference-recording-tests-01.xml`;
+hooks29 in `reference-recording-hooks-tests-01.xml`; existing recording25 in
+`reference-recording-legacy-tests-01.xml`; loader98 distinct across
+`shared-exercise-reference-inputs-tests-{01,02,03}.xml`; CLI11 distinct across
+`reference-trial-cli-tests-{01,02,03}.xml`; report13 distinct across
+`reference-controller-report-tests-{01,02}.xml`; three scripted viewer checks in
+`reference-controller-viewer-tests-01.json` (SHA
+`e12ffe579566c8095a437517729f3cab1a41b59047420b452bb9499f0f1e5c0f`).
+CLI receipt01 preserves one help-wrapping test failure; only that assertion was
+corrected and rerun in02. No provider/recipe/loader/report test performs a real
+source rollout. Existing recording regressions use their short native fixtures.
+
+**Ownership/live work:** `heavy_startup_review` owns only the new paired runner
+and runner tests; root owns CLI, recording hooks, viewer, report and docs.
+`saved_body_acceptance` is preparing one sanitized, metadata-only actual-input
+preflight after independently reviewing the legacy route. Its prior preparation
+note `.local/reference-controller-real-inputs-preparation-01.json` (SHA
+`b6ff1c9888bbba0490aad2b7441c9e751be64a6fc6ca324ffa5ed4920712b2bf`) explicitly
+records no execution. Do not mistake it for an acceptance receipt.
+
+Next: finish that saved-only check; review runner source/runtime admission and
+raw horizon bounds before native validators; freeze one matched authored versus
+fitted-reference trial, followed by two exports and two exact action/state
+replays. Use a new output and the source/task identities below. The old lab has
+four changed runtime files, so its earlier baseline is not a matched comparison.
+No fitting, inference, source selection, training, API calls or default-body
+installation is needed. This does not resolve equipment failures or independent
+physical/generalized reconstruction; the full goal remains active.
+
 ## Real proposal and preserved-lab handoff — October 31, 2026, 6:00 AM PDT
 
 Crop-input integration is published at

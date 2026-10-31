@@ -96,6 +96,7 @@ if(row.type==='reset')return 'Seeded reset · no action applied';
 if(row.controller==='manual')return 'Controller: manual human action';
 if(row.controller==='coast')return 'Controller: coast · all human commands zero';
 if(row.controller==='authored')return 'Controller: authored feedback · programmed, not learned';
+if(row.controller==='reference_proposal'){const hash=typeof row.reference_controller_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.reference_controller_sha256)?row.reference_controller_sha256.slice(0,12):null;return `Controller: fitted-reference alternative · original task unchanged · ${hash?'SHA256 '+hash:'controller identity unavailable'} · programmed, not learned`;}
 if(row.controller==='learned'){const hash=typeof row.policy_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.policy_sha256)?row.policy_sha256.slice(0,12):null;return `Controller: recorded policy · ${hash?'SHA256 '+hash:'policy identity unavailable'} · not a claim of learned improvement`;}
 return 'Controller unspecified · no recognized controller tag in this recording';}
 function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;

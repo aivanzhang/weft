@@ -170,6 +170,25 @@ function untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit()
   }
 }
 
+function referenceProposalNamesFixedTaskAndPreservesExactRecipeIdentity() {
+  const hash='abcd01234567'+'8'.repeat(52);
+  const ui=fixture({eventTags:[{controller:'reference_proposal',reference_controller_sha256:hash},{type:'reset',action:undefined}]});
+  const label=ui.element('controller').textContent;
+  assert.match(label,/fitted-reference alternative · original task unchanged/);
+  assert.match(label,/SHA256 abcd01234567 · programmed, not learned/);
+  assert(!label.includes(hash));
+  assert.equal(ui.selected().reference_controller_sha256,hash);
+  assert.deepEqual(ui.selected(),ui.original.events[0]);
+  assert.match(ui.element('status').textContent,/in progress/);
+  ui.selectFrame(1);
+  assert.equal(ui.element('controller').textContent,'Seeded reset · no action applied');
+  for(const reference_controller_sha256 of [undefined,'<img src=x>']) {
+    const missing=fixture({eventTags:[{controller:'reference_proposal',reference_controller_sha256}]});
+    assert.match(missing.element('controller').textContent,/controller identity unavailable/);
+    assert.doesNotMatch(missing.element('controller').textContent,/SHA256|<img/);
+  }
+}
+
 function fullReferenceV2ReplaysUnclippedIntervalAndIndependentFailure() {
   const ui = fixture({sceneProfile: 'shared-world-v2', horizon: 254, rootAssistance: 'explicit_3_axis',
     stateTime: 254 / 30, metrics: {simulated_duration_s: 254 / 30, observed_substeps: 254 * 16,
@@ -190,6 +209,7 @@ const checks = [exerciseTitleAndAssistanceNeverImplyObjectActuatorsOrGrasp,
   interruptedFailureShowsMeasuredClockAndLastValidGeometryExplicitly,
   controllerLabelsFollowRecordedIntentAcrossFramesAndResets,
   untaggedOldEventsNeverInferCoastAndMissingPolicyIdentityStaysExplicit,
+  referenceProposalNamesFixedTaskAndPreservesExactRecipeIdentity,
   fullReferenceV2ReplaysUnclippedIntervalAndIndependentFailure];
 const requested = new Set(process.argv.slice(2));
 const selected = requested.size ? checks.filter(check => requested.has(check.name)) : checks;

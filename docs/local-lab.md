@@ -135,6 +135,52 @@ Default fitting is image-first;
 `--fit-seconds` can tighten the 30-second fit limit. See
 [bounds and source verification](body-model-options.md#propose-a-correction-from-a-saved-body).
 
+### Compare a fitted reference without changing the task
+
+After a source-fit proposal passes all of its checks, compare it as a **controller
+alternative** on the original world:
+
+```sh
+.venv-lab/bin/python -m weft body-reference-trial \
+  --proposal artifacts/my-body-proposal-01/proposal \
+  --run artifacts/my-shared-world \
+  --task artifacts/my-lab/run/exercise-task.json \
+  --out artifacts/my-reference-trial-01
+```
+
+Use the original sealed world and its existing task; the command never creates
+a new task from the proposed reference. Both programmed controllers use the same
+seed and initial state. Only the fitted controller's joint-target correction
+changes; physical geometry, equipment, root control, scoring targets and scoring
+rules stay fixed. Neither controller is a newly trained policy.
+
+Open the printed `index.html` path yourself. It shows task outcomes separately
+from workflow completion, and links each available 3D replay, video, action/state
+journal and exact replay check. The original world/task, proposal measurements,
+controller recipe and source/runtime identities are retained alongside the result.
+Failed tasks remain failed even when recording and export complete. Partial
+delivery preserves its artifacts and returns a nonzero exit code.
+
+This path requires an unchanged-first-pose proposal with complete source/grid
+checks, the original nominal frame/FPS clock, and at most 900 control steps.
+Unsupported clock/runtime or source bindings stop explicitly. `--seed` defaults
+to 1729; both resets disable jitter. `--max-seconds` defaults to 60 and permits at
+most 120 cooperative seconds, not a hard native-process deadline. At most two
+trials, two exports and two exact replays run; no fitting, inference, training or
+paid calls run. Optional `--proposal-manifest-sha256`,
+`--scene-manifest-sha256` and `--task-sha256` pin known input identities.
+
+This is a saved comparison, not a replacement sandbox or installed body. Continue
+interacting and recording in your existing lab. A source-image improvement or
+exact simulated replay does not establish accurate contacts, anatomy or physical
+behavior on a new video.
+
+The [verified local comparison](../artifacts/reference-controller-trial-cli-01/comparison/index.html)
+finishes in 12.725 seconds with two complete 254-step trials, two 255-frame videos
+and exact replay of both journals. Both controllers still fail equipment
+stability; the fitted version slightly reduces displacement but worsens the
+original-target tracking score. The working sandbox is unchanged.
+
 ### Inspect the lab's saved evidence
 
 Choose **Checks & limits → Evidence and gaps**, then expand a category. The same
