@@ -9,10 +9,10 @@ This is a simulated test, not recovered anatomy, a complete exercise definition 
 From the repository root, start the current full-reference lab:
 
 ```sh
-.venv-lab/bin/python -m weft lab --resume artifacts/feasibility-fullspan-lab-01
+.venv-lab/bin/python scripts/play_sandbox.py
 ```
 
-Open the token-bearing local URL printed by the command. This resumes saved evidence without inference, training or a paid request. The task covers **254 actions / 8.47 seconds**, not only the opening two seconds. It retains 19 joint controls, three explicitly assisted root controls and passive equipment.
+Open the token-bearing local URL printed by the command. The launcher uses this lab's verified frozen runtime while development continues on main. It resumes saved evidence without inference, training or a paid request. The task covers **254 actions / 8.47 seconds**, not only the opening two seconds. It retains 19 joint controls, three explicitly assisted root controls and passive equipment.
 
 1. Use **Original → Tracks → Geometry** to inspect evidence. **Source vs simulation** separates all 257 source slots, the 121 retained poses, the full task window and actual live time. Video playback is independent; its native clock is not silently equated with the pose clock.
 2. Open **Sandbox**. Choose manual movement, coast, authored following or **Searched joint corrections**. Root assistance remains programmed; equipment has no force controls.
@@ -35,6 +35,8 @@ To prepare another saved shared world, choose a new directory:
 Preparation seals the exact scene, task, source evidence and runtime. It does not start a server. Without `--task`, it preserves a sealed input `exercise-task.json` when present, including its assistance and contact requirements. Only when no input task exists does it create a default: 19 joint controls, or 22 with `--root-assistance`. The flag cannot override a sealed joint-only task; that conflict rejects. `--task <file>` is an explicit validated replacement and cannot be combined with `--root-assistance`. Assistance and task selection cannot change inside a prepared lab. Existing coupled labs keep their legacy task and virtual object controls.
 
 For new saved body/tracking evidence, [assemble the world and lab in one command](equipment-proposals.md): use `shared-exercise-build --human-run <mobile-run-or-lab> --body-scale 1.0 --full-reference` with its equipment evidence/configuration. The direct body-preparation stage is bounded and construction-only; it neither runs a throwaway simulation nor creates an intermediate lab. Existing shared-world bases still use `--run`. Camera, scale and shape assumptions remain explicit; this is not automatic recovery of arbitrary equipment.
+
+The same command now accepts `--video <file> --pose-model <local-model>` instead of a prepared body. Add `--train --evaluation-seed <separate-seed>` to connect the existing bounded search, training-only selection, baseline comparison and one trained lab. [Full command, stage artifacts and limits](equipment-proposals.md#video-to-one-trained-lab). No training or inference is silently enabled for saved inputs.
 
 ### Prepare a lab from a geometry alternative
 

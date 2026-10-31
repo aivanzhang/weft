@@ -209,16 +209,29 @@ def main():
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
     exercise_source.add_argument("--human-run", help="Sealed exercise-body output, mobile exercise-v3 run or ready lab")
+    exercise_source.add_argument("--video", help="Local exercise video; requires --pose-model and matching saved equipment evidence")
+    exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
+    exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
+    exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
+    exercise_build.add_argument("--source-note", help="Raw video provenance; default rights not independently verified")
     exercise_build.add_argument("--body-scale", type=float,
-                                help="Only with --human-run: explicit body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
+                                help="With --human-run or --video: body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
     exercise_build.add_argument("--evidence-run", required=True, help="Sealed equipment observation export")
     exercise_build.add_argument("--config", required=True, help="Explicit source-pinned equipment proposal configuration")
     exercise_build.add_argument("--source-mapping", action="append", default=[])
     exercise_build.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root controls")
     exercise_build.add_argument("--full-reference", action="store_true",
                                 help="Run every retained body reference in one continuous episode; preserve missing source poses")
+    exercise_build.add_argument("--train", action="store_true", help="Run bounded joint-policy search, training-only selection and separate evaluation before preparing one lab")
+    exercise_build.add_argument("--training-seed", type=int, help="With --train; default 1729")
+    exercise_build.add_argument("--evaluation-seed", type=int, help="Required with --train: explicit separate seed stream; not automatically a fresh holdout")
+    exercise_build.add_argument("--training-generations", type=int, help="With --train; default 2, never shorten the task to fit")
+    exercise_build.add_argument("--training-population", type=int, help="With --train; default 8")
+    exercise_build.add_argument("--evaluation-trials", type=int, help="With --train; default 3 changed starts")
+    exercise_build.add_argument("--evaluation-jitter", type=float, help="With --train; human-only start variation, default 0.10")
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
-    exercise_build.add_argument("--max-seconds", type=float, default=90)
+    exercise_build.add_argument("--max-seconds", type=float,
+                                help="Cooperative total bound: default 90s saved/no training, 270s raw or training, 450s raw plus training")
     sw_construct = commands.add_parser("shared-world-reconstruct", help="Construct source-linked initial equipment proxies; no API calls or recovered grasp claim")
     sw_construct.add_argument("--run", required=True, help="Sealed source-qualified body/shared-world base")
     sw_construct.add_argument("--proposal-run", required=True, help="Sealed ready geometry proposal")
@@ -464,13 +477,28 @@ def main():
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             labels = {"body_seed": "Prepare source body", "equipment_priors": "Resolve equipment assumptions", "shared_world": "Build shared world",
-                      "interactive_lab": "Prepare interactive lab"}
+                      "interactive_lab": "Prepare interactive lab", "body_source": "Read exercise video and prepare body",
+                      "body_source_progress": "Observe body", "learning_workflow": "Train and compare controllers",
+                      "learning_training": "Train joint controller", "learning_training_selection": "Select using training results",
+                      "learning_independent_evaluation": "Compare frozen controller on separate starts",
+                      "learning_interactive_lab": "Prepare trained interactive lab"}
+            train_options = {key: value for key, value in (
+                ("training_seed", args.training_seed), ("evaluation_seed", args.evaluation_seed),
+                ("generations", args.training_generations), ("population", args.training_population),
+                ("trials", args.evaluation_trials), ("jitter_scale", args.evaluation_jitter)) if value is not None}
+            if train_options and not args.train:
+                raise ValueError("Training settings require --train; no training is enabled by default")
+            if args.train and args.evaluation_seed is None:
+                raise ValueError("--train requires an explicit --evaluation-seed, separate from training")
             result = prepare_exercise_scene(args.run, args.evidence_run, args.config, args.out,
                 human_run=args.human_run, body_scale=args.body_scale,
+                video=args.video, pose_model=args.pose_model, pose_mode=args.pose_mode,
+                pose_identity=args.pose_identity, source_note=args.source_note,
+                train_settings=train_options if args.train else None,
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
                 max_seconds=args.max_seconds,
-                progress=lambda row: print(f"{labels[row['stage']]}: {row['status'].replace('_', ' ')}",
+                progress=lambda row: print(f"{labels.get(row['stage'], row['stage'].replace('_', ' '))}: {row['status'].replace('_', ' ')}",
                                            file=sys.stderr, flush=True))
         elif args.command == "shared-world-train":
             from weft.shared_world_learning import train_shared_world_policy
@@ -621,6 +649,8 @@ def main():
                     print(error)
             result = {"status": "closed"}
         print(json.dumps(result, indent=2, allow_nan=False))
+        if args.command == "shared-exercise-build" and result.get("status") != "ready":
+            parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-world-shape" and result.get("status") == "failed":
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
         if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":

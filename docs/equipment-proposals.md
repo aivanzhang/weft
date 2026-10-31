@@ -2,7 +2,36 @@
 
 Use sealed **body-source evidence or a mobile exercise-v3 run/lab** and a sealed equipment tracking export to build **one shared world and a human-only lab**. Body-source preparation skips the unrelated body-only lab, control trials and single-joint training. Camera/shape assumptions remain explicit; this does not automatically recover arbitrary equipment from a video.
 
-For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, prepare its body below and its [equipment tracking evidence](shared-world.md). Keep the original video hash and any original/derivative mapping bundles. Assembly reuses those saved results; it does not repeat pose inference or request tracking.
+For an immediately playable example, use the [exercise sandbox](shared-exercise.md). For a new video, prepare its [equipment tracking evidence](shared-world.md), then use the raw-video route below or reuse a saved body. Keep the original video hash and any original/derivative mapping bundles. Saved-input assembly reuses inference results; neither route requests tracking automatically.
+
+## Video to one trained lab
+
+The same builder can prepare a raw video and optionally train before creating its **one final lab**:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-build \
+  --video /absolute/path/to/exercise.mp4 \
+  --pose-model /absolute/path/to/pose_landmarker_lite.task \
+  --evidence-run artifacts/my-tracking-evidence \
+  --config /absolute/path/to/equipment-config.json \
+  --full-reference --root-assistance \
+  --train --evaluation-seed 52738961 \
+  --out artifacts/my-trained-exercise-01
+
+.venv-lab/bin/python -m weft lab --resume artifacts/my-trained-exercise-01/learning_workflow/lab
+```
+
+This still requires equipment observations and explicit camera/shape choices; it does not infer unknown equipment or download a model. Before local pose inference, preflight checks the original video hash, selected equipment/frame/partition, local model and any derivative proof. Withheld/missing observations and mismatched sources stop early. A selected equipment frame must also survive body inference; that later check remains unchanged. Input hashes are checked again before construction and finalization.
+
+Raw pose defaults are `--pose-mode video --pose-identity raw`. Changes must be explicit. `--source-note` records attribution; omitting it leaves rights unverified. Saved inputs use `--human-run` or `--run` instead and reject pose overrides rather than repeating inference.
+
+`--train` uses the existing joint-correction learner, selects a controller using **training results only**, then compares the frozen selection against coast, random and authored following on separate changed human starts. Equipment stays passive. All stages keep the exact same task, interval, physics and success limits. A completed search is not proof of improvement: an unchanged authored controller or a policy with zero successful trials remains clearly labeled. Evaluation is a development comparison, not an automatically fresh final holdout or physical validation.
+
+Training defaults are two generations, eight candidates, seed 1729 and three evaluation starts with 0.10 human-start variation. Choose an explicit separate `--evaluation-seed`; the example is not guaranteed unused. Advanced overrides are `--training-seed`, `--training-generations`, `--training-population`, `--evaluation-trials` and `--evaluation-jitter`, all requiring `--train`. Preflight rejects a search exceeding 8,640 training actions or the existing evaluation limit; it never shortens the task. For example, a 254-action interval allows at most 8,128 training and 3,048 evaluation actions with these defaults.
+
+The terminal prints each stage and the result's `launch_arguments` identify the final lab. A rejected/unsupported build exits nonzero and points to its preserved `result.json`; a ready lab with zero task successes still counts as a completed build. With training, inspect `learning_workflow/plan.json`, `training/`, `selected/` and `evaluation/` before opening `learning_workflow/lab/`. Without `--train`, the output remains `lab/`; no learning/evaluation runs. Original body/source packages remain construction-only. No command starts a server until you explicitly run `weft lab --resume`.
+
+New allowances are explicit: raw-only builds allow 512 MiB, training-only 1 GiB and combined builds 1,152 MiB; these are maximums, not expected usage. Local work uses one worker per stage and no paid API. Default cooperative deadlines are 270 seconds for raw or training, 450 seconds for both; saved/no-training stays 90 seconds/384 MiB. Extended builds permit at most 480 seconds. Each helper retains its smaller stage limits, and the learning stage reserves five seconds for finalization. Native calls require an external process deadline for a hard stop. Failures preserve completed evidence and any already completed lab; they do not create a second lab or retry training.
 
 ## Prepare body evidence without a lab
 
@@ -71,7 +100,7 @@ Existing shared-world inputs still use `--run artifacts/my-shared-body` instead 
 
 `--full-reference` builds one continuous episode from the first retained body pose to the last. It uses the existing `shared-world-v2` contract: at most 1,800 actions / 60 seconds, unchanged timestep and no chunk resets. Missing poses and source prefixes stay missing; the selected interval is not necessarily the entire original video. Unsupported endpoints reject instead of being rounded or retimed. Omit the flag to keep the original short-window behavior.
 
-The full-reference choice is made before task/lab packaging, so it creates only one candidate and one lab. It does not attach a short-window policy, run training, change success limits or require a temporary lab. `candidate/reconstruction.json` records the original window and the selected interval; `lab/run/exercise-task.json` binds the new task to that exact scene.
+The full-reference choice is made before task/lab packaging, so it creates only one candidate and one lab. It does not attach a short-window policy, change success limits or require a temporary lab. Training runs only with the explicit `--train` option above. `candidate/reconstruction.json` records the original window and the selected interval; the final lab's `run/exercise-task.json` binds the task to that exact scene.
 
 If tracking used a verified derivative, add `--source-mapping <bundle>`; repeat for distinct derivatives. Canonical root `scene-observations.json` and the older nested layout are supported without moving files. Conflicting sealed copies reject.
 
@@ -84,6 +113,7 @@ An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entir
 | Output | Meaning |
 | --- | --- |
 | `settings.json`, `stages.json`, `result.json` | Requested inputs, completed stages and outcome |
+| `input-preflight.json`, `body_source/` | Raw input only: verified input identities and the construction-only body; raw observations remain distinct from assumptions |
 | `body_seed/construction-seed.json` | Direct mobile input only: verified body/source snapshot and explicit construction-only scope; no intermediate lab |
 | `proposal/input-config.json` | Exact user choices |
 | `proposal/report.json` | Resolved assumptions, exact source bindings and admission/rejection reasons |
@@ -92,14 +122,20 @@ An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entir
 | `candidate/` | Standard shared-world construction, complete source proof and existing reference checks |
 | `lab/run/` | Immutable task, scene, evidence and runtime snapshot |
 | `lab/sessions/` | New interaction recordings, separate from construction evidence |
+| `learning_workflow/plan.json`, `training/`, `selected/`, `evaluation/` | Training opt-in only: frozen budget/task/seeds, all candidates, training-only choice and separate baseline comparison |
+| `learning_workflow/lab/` | The sole final lab when training was requested; its recordings are outside all immutable build seals |
 
 Every output directory must be new. Unsupported input stops before construction or lab creation. Later failures preserve completed stages. If a lab was already successfully prepared before an outer deadline or finalization failure, the failed assembly result explicitly retains `lab_status: ready` and its launch path; it never relabels that completed lab. A failure-only manifest identifies unsealed partial outputs rather than pretending they were verified.
 
-The default assembly deadline is 90 seconds, checked around stages and during final hashing. Native calls and bounded source-verification calls already underway cannot be preempted. Each next stage reserves its complete output allowance before starting: optional body preparation 512 files/128 MiB, proposal 256 files/64 MiB, construction 512 files/128 MiB, lab 1,024 files/192 MiB, within the shared 1,600-file/384 MiB envelope. Body preparation also bounds its input to 512 files/128 MiB, each file to 64 MiB and its cooperative time to 30 seconds or the remaining assembly deadline, whichever is shorter. Oversize input is rejected, not trimmed. No inference, training, provider call or deployment occurs in assembly.
+The saved-input/no-training assembly deadline remains 90 seconds, checked around stages and during final hashing. Native calls and bounded source-verification calls already underway cannot be preempted. Each next stage reserves its complete output allowance before starting: optional body preparation 512 files/128 MiB, proposal 256 files/64 MiB, construction 512 files/128 MiB, lab 1,024 files/192 MiB, within the shared 1,600-file/384 MiB envelope. Body preparation also bounds its input to 512 files/128 MiB, each file to 64 MiB and its cooperative time to 30 seconds or the remaining assembly deadline, whichever is shorter. Oversize input is rejected, not trimmed. This default route runs no inference or training. The raw/training opt-ins have the separate allowances above; neither makes a provider call or deployment.
 
-For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Use [human-only training/evaluation](shared-exercise.md) separately; a ready geometry package is not a successful policy.
+For separate stage control, use `shared-world-propose`, then `shared-world-reconstruct --full-reference`, then `shared-exercise-lab`. The proposal report includes the exact construction arguments. The reconstruction flag is optional and has the same interval semantics. Separate [human-only training/evaluation commands](shared-exercise.md) remain available; a ready geometry package is not a successful policy.
 
 ## Verified scope
+
+**Raw input and learning:** 171 distinct scoped checks cover preflight, full-interval training/selection/evaluation, nested seals, failure preservation and CLI outcomes; `.local/exercise-build-checkpoint-01.json` records exact receipts and native-test version limits. An analytical fixture completes one trained lab with recording/export/exact replay; this is software coverage, not real-video accuracy.
+
+The one real raw-video run, `artifacts/direct-exercise-build-01`, takes **6.874 s /$0** and preserves **257 source slots /129 inference samples /127 body references**. It then rejects an initial **left-knee/kettlebell intersection**. No training or new lab follows. Its 106 files (51,793,908 bytes) retain original video, pose/body evidence, assumptions and rejected geometry; [frozen plan and audit](handoffs/combined.md#raw-input-and-learning-integration--verified-with-rejection). This negative result is not an end-to-end success, and the existing playable lab is unchanged.
 
 **Body preparation without a separate lab:** `artifacts/exercise-body-source-equivalence-01` passes on three saved exercise inputs: single-leg squat **235 source slots /118 body references**, squat **213 /100**, and kettlebell push-up **257 /127**. One uses the public `exercise-body --evidence-run` command, two the API. Bodies, root/floor/body-frame/spatial-pose documents match their originals; source videos, raw poses, model/options, identity audits and sampled native timestamps remain exact. Shared-world seed arithmetic also matches the old pure constructor, with source-binding/object provenance differences explicitly excluded from that comparison.
 
