@@ -16,6 +16,7 @@
   let poseCoverageLoaded = false, poseCoveragePending = false, poseCoverageAttempts = 0;
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   let inspection = null, inspectionLoaded = false, inspectionPending = false, inspectionAttempts = 0;
+  let evidenceScorecardSignature = null;
   let exerciseTask = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
   let exerciseDetailSignature = "", exercisePolicy = null;
   let mediaClockReady = false;
@@ -1298,8 +1299,134 @@
     ["geometry", "world", "geometry-summary"], ["sandbox", "play", "live"], ["recordings", "play", "record-box"]]) {
     $("inspect-" + id).onclick = () => { showPanel(panel); $(target).scrollIntoView({block: "nearest"}); };
   }
+  const evidenceDimensions = [
+    ["execution_actions", "Execution and action validity"], ["perception_identity", "Perception and identity"],
+    ["geometry_camera", "Geometry and camera"], ["temporal_dynamics", "Temporal dynamics"],
+    ["physical_relationships", "Physical relationships"], ["hidden_state_continuity", "Hidden-state continuity"],
+    ["parameter_validity", "Parameter validity"], ["causal_response", "Causal response"],
+    ["long_run_stability", "Long-run stability"], ["robustness_coverage", "Robustness and coverage"],
+    ["uncertainty_abstention", "Uncertainty and abstention"], ["task_learning_utility", "Task and learning utility"],
+    ["reproducibility_integrity", "Reproducibility and integrity"], ["practical_efficiency", "Practical efficiency"],
+  ];
+  const evidenceStatuses = {unavailable: "Unavailable — not measured here", evidence_available: "Evidence available — not a pass", failure_reported: "Failures recorded"};
+  const evidenceText = (value, fallback = "Unknown") => typeof value === "string" && value.length > 0 && value.length <= 2048 ? value : fallback;
+  const evidenceLabel = value => evidenceText(value).replaceAll("_", " ");
+  const evidenceArray = (value, maximum) => Array.isArray(value) ? value.slice(0, maximum) : [];
+  const evidenceNumber = value => typeof value === "number" && Number.isFinite(value);
+  function evidenceValue(metric) {
+    if (!evidenceNumber(metric.value)) return "Unavailable";
+    const ratio = Number.isSafeInteger(metric.numerator) && Number.isSafeInteger(metric.denominator)
+      && metric.numerator >= 0 && metric.denominator >= 0 && metric.numerator <= metric.denominator;
+    return `${ratio ? `${metric.numerator} / ${metric.denominator}` : metric.value} ${evidenceLabel(metric.unit)}`;
+  }
+  function evidenceLocalPath(value) {
+    return typeof value === "string" && value.length <= 512 && !/[\\:\x00-\x1f]/.test(value)
+      && value.split("/").every(part => part !== "" && part !== "." && part !== "..");
+  }
+  function evidencePointers(parent, pointers, verified, manifestSHA) {
+    const entries = evidenceArray(pointers, 8);
+    if (!entries.length) { text(parent, "Exact evidence unavailable"); return; }
+    const list = document.createElement("ul"); list.classList.add("evidence-pointers");
+    for (const pointer of entries) {
+      const item = document.createElement("li"), identity = document.createElement("small");
+      const name = evidenceText(pointer?.source_name, "Unknown artifact"), sha = pointer?.sha256;
+      const match = verified.get(name);
+      const manifest = name === "manifest.json" && pointer?.path === null && sha === manifestSHA;
+      const path = match && match.sha256 === sha && (manifest || match.path === pointer?.path) ? match.path : null;
+      if (path) item.append(link(`${name} · download`, path));
+      else { const label = document.createElement("span"); text(label, `${name} · verified local download unavailable`); item.append(label); }
+      text(identity, typeof sha === "string" && /^[0-9a-f]{64}$/.test(sha) ? `SHA-256: ${sha}` : "SHA-256 unavailable");
+      item.append(identity); list.append(item);
+    }
+    parent.append(list);
+  }
+  function evidenceRowDetails(parent, row, verified, manifestSHA) {
+    const scope = document.createElement("p"); scope.classList.add("hint");
+    text(scope, `Evidence kind: ${evidenceLabel(row?.evidence_kind)}. Partition: ${evidenceLabel(row?.partition)}. Individual measurements retain their own labels below.`);
+    parent.append(scope);
+    const limitsHeading = document.createElement("h4"), limits = document.createElement("ul");
+    text(limitsHeading, "Uncertainty and missing measurements");
+    const missing = evidenceArray(row?.uncertainty_and_missing_measurements, 16);
+    for (const value of missing.length ? missing : ["No saved limits or independently measured result are available in this category."]) {
+      const item = document.createElement("li"); text(item, evidenceText(value, "Measurement details unavailable")); limits.append(item);
+    }
+    parent.append(limitsHeading, limits);
+    const metrics = evidenceArray(row?.metrics, 16).filter(metric => metric && typeof metric === "object");
+    if (metrics.length) {
+      const wrap = document.createElement("div"), table = document.createElement("table"), caption = document.createElement("caption");
+      wrap.classList.add("table-wrap"); text(caption, "Saved measurements; recorded limits are not independently retested here.");
+      const head = document.createElement("thead"), headers = document.createElement("tr"), body = document.createElement("tbody");
+      for (const label of ["Measurement", "Saved value / limit", "Evidence kind / partition", "Exact evidence"]) {
+        const th = document.createElement("th"); th.setAttribute("scope", "col"); text(th, label); headers.append(th);
+      }
+      head.append(headers);
+      for (const metric of metrics) {
+        const tr = document.createElement("tr"), name = document.createElement("th");
+        name.setAttribute("scope", "row"); text(name, evidenceText(metric.label, "Unnamed measurement")); tr.append(name);
+        const value = cell(tr, evidenceValue(metric)), gate = metric.recorded_gate;
+        if (gate != null) {
+          const limit = document.createElement("p"); limit.classList.add("hint");
+          text(limit, evidenceNumber(gate.value) ? `Recorded limit: ${evidenceLabel(gate.name)} ${evidenceText(gate.operator, "operator unavailable")} ${gate.value} ${evidenceLabel(gate.unit)}` : "Recorded limit unavailable");
+          value.append(limit);
+        }
+        cell(tr, `Kind: ${evidenceLabel(metric.evidence_kind)}. Partition: ${evidenceLabel(metric.partition)}.`);
+        evidencePointers(cell(tr, ""), metric.evidence, verified, manifestSHA); body.append(tr);
+      }
+      table.append(caption, head, body); wrap.append(table); parent.append(wrap);
+    } else { const empty = document.createElement("p"); text(empty, "Measurements unavailable in this saved category."); parent.append(empty); }
+    const examples = evidenceArray(row?.failure_examples, 8);
+    if (examples.length) {
+      const heading = document.createElement("h4"), note = document.createElement("p"), saved = document.createElement("pre");
+      text(heading, "Saved failure examples"); note.classList.add("hint");
+      text(note, "Frame IDs and times retain their saved clock labels; they are not synchronized to playback.");
+      text(saved, JSON.stringify(examples, null, 2)); parent.append(heading, note, saved);
+    }
+    if (Number.isSafeInteger(row?.failure_examples_omitted) && row.failure_examples_omitted > 0) {
+      const omitted = document.createElement("p"); text(omitted, `${row.failure_examples_omitted} additional examples omitted; the saved counts retain them.`); parent.append(omitted);
+    }
+    const sourcesHeading = document.createElement("h4"), sources = document.createElement("div");
+    text(sourcesHeading, "Category evidence"); evidencePointers(sources, row?.evidence, verified, manifestSHA); parent.append(sourcesHeading, sources);
+  }
+  function showEvidenceScorecard(result) {
+    const card = result?.evidence_scorecard, received = evidenceArray(card?.rows, 15);
+    const manifestSHA = result?.source_manifest_sha256;
+    const manifestBound = typeof manifestSHA === "string" && /^[0-9a-f]{64}$/.test(manifestSHA)
+      && card?.source_manifest_sha256 === manifestSHA;
+    const knownIds = new Set(evidenceDimensions.map(([id]) => id));
+    const supported = manifestBound && card?.schema_version === 1 && card.profile === "weft-evidence-scorecard-v1"
+      && Array.isArray(card.rows) && received.length <= 14 && received.every(row => knownIds.has(row?.id))
+      && new Set(received.map(row => row.id)).size === received.length;
+    const metadata = evidenceArray(result?.verified_metadata, 128);
+    const signature = supported ? JSON.stringify([manifestSHA, card, metadata]) : "unavailable";
+    if (signature === evidenceScorecardSignature) return;
+    evidenceScorecardSignature = signature;
+    $("evidence-scorecard-rows").replaceChildren();
+    if (!supported) {
+      text($("evidence-scorecard-status"), "Evidence summary unavailable for this saved run. No missing measurement is treated as zero or a pass.");
+      text($("evidence-scorecard-scope"), "Original files and simulation controls are unchanged."); return;
+    }
+    const verified = new Map();
+    for (const item of metadata) {
+      if (evidenceLocalPath(item?.source_name) && item.path === `run/${item.source_name}` && /^[0-9a-f]{64}$/.test(item.sha256)) verified.set(item.source_name, item);
+    }
+    text($("evidence-scorecard-status"), "14 evaluation categories. Expand a category for saved measurements, exact evidence and remaining gaps.");
+    text($("evidence-scorecard-scope"), `${evidenceText(card.scope, "Saved evidence only; no overall grade.")} ${evidenceText(card.identity_scope, "Independent replay and physical validation are unavailable.")}`);
+    const rows = new Map(received.map(row => [row.id, row]));
+    for (const [id, label] of evidenceDimensions) {
+      const candidate = rows.get(id), row = Object.hasOwn(evidenceStatuses, candidate?.status) ? candidate : null;
+      const details = document.createElement("details"), summary = document.createElement("summary"), title = document.createElement("strong"), status = document.createElement("span");
+      details.dataset.category = id; details.dataset.status = row?.status || "unavailable"; details.open = false;
+      text(title, label); text(status, evidenceStatuses[details.dataset.status]); status.classList.add("evidence-row-status");
+      summary.append(title, status); details.append(summary);
+      let populated = false;
+      // Keep hidden tables out of the initial render and preserve them across unchanged refreshes.
+      details.ontoggle = () => { if (details.open && !populated) { populated = true; evidenceRowDetails(details, row, verified, manifestSHA); } };
+      $("evidence-scorecard-rows").append(details);
+    }
+  }
   function applyInspection(data) {
     const source = inspection.source, tracking = inspection.tracking;
+    showEvidenceScorecard(inspection);
     text($("inspection-status"), "Explore the saved source, estimates and assumptions, then interact and record. This is a prepared simulation candidate, not verified automatic reconstruction.");
     text($("inspection-source"), `${source.decoded_frames === null ? "Decoded frame count unavailable" : `${source.decoded_frames} decoded source frames`}. ${source.sha256 ? `Source SHA256: ${source.sha256}.` : "Source identity unavailable."} ${source.scope}`);
     const poses = tracking.pose_status_counts;
@@ -1362,12 +1489,14 @@
       }
       inspectionLoaded = true;
       if (result.status !== "available") {
+        showEvidenceScorecard(null);
         text($("inspection-status"), `Saved inspection summary unavailable: ${result.reason || "no supported metadata"}. Original files and simulation controls are unchanged.`);
         text($("inspection-tracking"), "No validated compact tracking summary is available. Use the saved source files; no completeness claim is made.");
         return;
       }
       inspection = result; applyInspection(data);
     } catch (_) {
+      showEvidenceScorecard(null);
       inspectionLoaded = true; inspectionPending = false; $("inspection-retry").hidden = false;
       text($("inspection-status"), "The saved summary could not be read. The lab and saved files remain available.");
     }

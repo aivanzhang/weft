@@ -100,6 +100,23 @@ def _pointers(summary):
     return result
 
 
+def _learning_pointers(summary, pointers, fallback):
+    if "learning_artifact_names" not in summary:
+        return [pointers[name] for name in ("result.json", "learning_workflow/result.json") if name in pointers] or fallback
+    names = summary["learning_artifact_names"]
+    if not isinstance(names, list) or not 1 <= len(names) <= MAX_POINTERS:
+        raise ValueError("Scorecard learning artifact names require one to eight exact pointers")
+    selected = []
+    seen = set()
+    for value in names:
+        name = _path(value, "learning artifact identity")
+        if name in seen or name not in pointers:
+            raise ValueError("Scorecard learning artifact identities must be unique and present in artifacts")
+        seen.add(name)
+        selected.append(pointers[name])
+    return selected
+
+
 def _metric(identifier, label, value=None, unit="unknown", *, numerator=None, denominator=None, gate=None):
     if numerator is not None or denominator is not None:
         _number(numerator, identifier + " numerator", integer=True)
@@ -290,14 +307,24 @@ def _learning(summary, scene_sha, task_sha):
         if not isinstance(name, str) or not re.fullmatch(r"[a-z][a-z0-9_]{0,31}", name):
             raise ValueError("Scorecard controller identity is invalid")
         row = _object(row, "controller")
-        counts = {key: _number(row.get(key), name + " " + key, integer=True, maximum=trials)
-                  for key in ("successes", "completed_intervals", "reset_failures")}
-        if counts["successes"] > counts["completed_intervals"] or counts["completed_intervals"] + counts["reset_failures"] > trials:
+        counts = {"successes": _number(row.get("successes"), name + " successes", integer=True, maximum=trials)}
+        for key in ("completed_intervals", "reset_failures"):
+            counts[key] = (_number(row[key], name + " " + key, integer=True, maximum=trials)
+                           if row.get(key) is not None else None)
+        completed, resets = counts["completed_intervals"], counts["reset_failures"]
+        if ((completed is not None and counts["successes"] > completed)
+                or (resets is not None and counts["successes"] + resets > trials)
+                or (completed is not None and resets is not None and completed + resets > trials)):
             raise ValueError("Scorecard controller counts contradict each other")
         counts["mean_score"] = _number(row["mean_score"], name + " score", minimum=-1e12) if row.get("mean_score") is not None else None
         records[name] = counts
+    # Compact lab metadata contains successes only; success never fills missing measurements.
+    failed_resets = (sum(row["reset_failures"] for row in records.values())
+                     if records and all(row["reset_failures"] is not None for row in records.values()) else None)
+    if any(row[key] is None for row in records.values() for key in ("completed_intervals", "reset_failures", "mean_score")):
+        selection_note += " Some completion, reset or reward measurements are absent; missing values remain unavailable."
     return {"training": train, "selection": selected, "controllers": records, "trials": trials,
-            "starts": starts, "failed_resets": sum(row["reset_failures"] for row in records.values()),
+            "starts": starts, "failed_resets": failed_resets,
             "evaluation_steps": steps}, "Saved simulation summaries only; matching identities do not independently replay policy or trials." + selection_note
 
 
@@ -336,6 +363,7 @@ def build_evidence_scorecard(summary):
         raise ValueError("Scorecard failure receipt includes unsealed artifact pointers")
     manifest_pointer = ([{"source_name": "manifest.json", "sha256": manifest_sha, "path": None}]
                         if manifest_sha is not None else [])
+    learning_pointers = _learning_pointers(summary, pointers, manifest_pointer)
     rows = {}
     for identifier, label, metric, unit, limit in DIMENSIONS:
         rows[identifier] = {"id": identifier, "label": label, "status": "unavailable", "evidence_kind": "unknown",
@@ -394,13 +422,15 @@ def build_evidence_scorecard(summary):
     if learning:
         rows["task_learning_utility"]["uncertainty_and_missing_measurements"].append(
             "Training or unchanged selection is not evidence of learned improvement over the authored controller.")
-        proof = [pointers[name] for name in ("result.json", "learning_workflow/result.json") if name in pointers] or manifest_pointer
+        proof = learning_pointers
         metrics = []
         for name, value in learning["controllers"].items():
+            completion_count = ({"numerator": value["completed_intervals"], "denominator": learning["trials"]}
+                                if value["completed_intervals"] is not None else {})
             metrics.extend([_metric(name + "_successes", name + " saved simulator successes", value["successes"], "trials",
                                     numerator=value["successes"], denominator=learning["trials"]),
                             _metric(name + "_completed_intervals", name + " completed task intervals", value["completed_intervals"], "trials",
-                                    numerator=value["completed_intervals"], denominator=learning["trials"]),
+                                    **completion_count),
                             _metric(name + "_mean_reward", name + " saved mean reward", value["mean_score"], "reward")])
         metrics.extend(_metric("training_" + key, "Training " + key.replace("_", " "), value,
                                "episodes" if key == "evaluated_episodes" else "actions") for key, value in learning["training"].items())
@@ -415,10 +445,11 @@ def build_evidence_scorecard(summary):
                 failed=any(row["successes"] < learning["trials"] for row in learning["controllers"].values()))
         if learning["controllers"]:
             total = learning["trials"] * len(learning["controllers"])
-            completed = sum(row["completed_intervals"] for row in learning["controllers"].values())
-            _attach(rows["long_run_stability"], [_metric("completed_task_intervals", "Saved completed task intervals across controllers",
-                    completed, "trials", numerator=completed, denominator=total)], proof,
-                    kind="simulated_development", partition="exposed_development", failed=completed < total)
+            if all(row["completed_intervals"] is not None for row in learning["controllers"].values()):
+                completed = sum(row["completed_intervals"] for row in learning["controllers"].values())
+                _attach(rows["long_run_stability"], [_metric("completed_task_intervals", "Saved completed task intervals across controllers",
+                        completed, "trials", numerator=completed, denominator=total)], proof,
+                        kind="simulated_development", partition="exposed_development", failed=completed < total)
             if learning["failed_resets"]:
                 _attach(rows["execution_actions"], [_metric("saved_reset_failures", "Reported simulator reset failures",
                         learning["failed_resets"], "trials", numerator=learning["failed_resets"], denominator=total)], proof,
@@ -437,7 +468,7 @@ def build_evidence_scorecard(summary):
         _attach(rows["robustness_coverage"], [_metric("source_count", "Source videos represented by this build", 1, "sources")],
                 manifest_pointer, kind="construction", partition=partition)
     if manifest_sha is not None:
-        _attach(rows["reproducibility_integrity"], [_metric("copied_artifact_identities", "Selected copied artifact identities",
+        _attach(rows["reproducibility_integrity"], [_metric("copied_artifact_identities", "Selected manifest-verified artifact identities",
                 len(pointers), "artifacts")], manifest_pointer, kind="software_check", partition=partition)
         rows["reproducibility_integrity"]["uncertainty_and_missing_measurements"].append(
             "Build state: " + _text(summary.get("build_status", "unknown"), "build state", 80) + "; readiness is not execution or accuracy.")

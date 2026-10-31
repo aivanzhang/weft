@@ -22,6 +22,13 @@
 .actor-cards article{padding:16px;background:var(--weft-surface);border:1px solid var(--weft-border)}.actor-cards h4{margin:0;font-size:16px}
 .actor-cards p{font-size:13px;margin:8px 0 0;overflow-wrap:anywhere}.actor-cards p.hint{font-size:11px}
 .inspection-links{display:flex;flex-wrap:wrap;gap:10px 18px;font-size:13px;margin:14px 0}
+#evidence-scorecard{margin:24px 0;padding-bottom:24px;border-bottom:1px solid var(--weft-border)}
+#evidence-scorecard details{padding:12px 15px;border:1px solid var(--weft-border);background:var(--weft-surface)}
+#evidence-scorecard summary{color:var(--weft-ink)}.evidence-row-status{display:block;margin:4px 0 0 18px;font-size:12px;color:var(--weft-muted)}
+#evidence-scorecard details[data-status=failure_reported]{border-left:3px solid var(--weft-accent)}
+#evidence-scorecard h4{font-size:14px;margin:18px 0 6px}#evidence-scorecard td,#evidence-scorecard th{min-width:135px;overflow-wrap:anywhere}
+#evidence-scorecard caption{text-align:left;font-size:12px;color:var(--weft-muted)}.evidence-pointers{padding-left:18px;margin:4px 0;font-size:12px}
+.evidence-pointers li{margin:7px 0}.evidence-pointers small{display:block;overflow-wrap:anywhere}#evidence-scorecard pre{max-height:300px}
 #geometry-summary{padding:0 0 24px;margin-bottom:24px;border-bottom:1px solid var(--weft-border)}#geometry-gallery label{font-size:13px}
 #geometry-panel{max-width:100%;padding:7px;margin-left:8px;font:inherit;color:inherit;background:var(--weft-surface);border:1px solid var(--weft-border)}
 #geometry-preview{max-height:580px}#geometry-assumptions{padding-left:22px;font-size:13px}#geometry-assumptions li{margin:6px 0}

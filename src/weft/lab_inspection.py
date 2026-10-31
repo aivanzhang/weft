@@ -16,9 +16,11 @@ import re
 import stat
 
 from weft.io import canonical_hash
+from weft.lab_evidence import build_lab_evidence
 
 
-MAX_SUMMARY_BYTES = 64 * 1024
+MAX_BASE_SUMMARY_BYTES = 64 * 1024
+MAX_SUMMARY_BYTES = 128 * 1024
 MAX_METADATA_BYTES = 8 * 1024 * 1024
 MAX_MANIFEST_BYTES = 1024 * 1024
 MAX_MANIFEST_FILES = 4096
@@ -175,6 +177,7 @@ def _summary(run, profile):
     consumed = 0
     files = {}
     links = {}
+    verified = {}
     try:
         def read(name, limit=256 * 1024):
             nonlocal consumed
@@ -188,11 +191,13 @@ def _summary(run, profile):
             consumed += len(raw)
             if len(raw) != size or len(raw) > limit or consumed > MAX_METADATA_BYTES:
                 raise ValueError('Inspection metadata changed or exceeds its byte limit')
-            if name != 'manifest.json' and hashlib.sha256(raw).hexdigest() != files[name]:
+            digest = hashlib.sha256(raw).hexdigest()
+            if name != 'manifest.json' and digest != files[name]:
                 raise ValueError('Inspection metadata hash does not match the saved manifest')
             result = json.loads(raw, object_pairs_hook=_pairs, parse_constant=_nonfinite, parse_float=_float)
             if not isinstance(result, dict):
                 raise ValueError('Inspection metadata must be an object')
+            verified[name] = {'source_name': name, 'path': 'run/' + name, 'sha256': digest, 'bytes': len(raw)}
             return result
 
         manifest = read('manifest.json', MAX_MANIFEST_BYTES)
@@ -384,19 +389,28 @@ def _summary(run, profile):
                   'initial_hypothesis' if geometry['status'] == 'initial_hypothesis' else 'model_only', 'simulation', 'local_recording']
         for (key, title, panel), state in zip(_STAGES, states):
             stages.append({'id': key, 'title': title, 'panel': panel, 'state': state})
-        return {'schema_version': 1, 'status': 'available', 'profile': 'lab-inspection-v1',
+        contract = read('exercise-lab.json', 128 * 1024)
+        policy = read('policy.json', 64 * 1024) if contract.get('learned_policy_available') is True else {}
+        result = {'schema_version': 1, 'status': 'available', 'profile': 'lab-inspection-v1',
                 'lab_profile': profile, 'source': source, 'stages': stages, 'actors': actors,
                 'tracking': {'reference_poses': reference_poses, 'pose_status_counts': pose_counts,
                              'scope': 'A construction observation is input retained to build the model; it may still be too uncertain for a usable pose. These counts do not verify identity, true visibility or accuracy.'},
                 'timeline': timeline, 'fullspan_preparation': fullspan,
                 'geometry': geometry, 'artifact_links': list(links.values()),
+                'source_manifest_sha256': verified['manifest.json']['sha256'],
+                'verified_metadata': list(verified.values()),
                 'scope': 'Saved manifest-linked inspection only. Simulation, controller availability and recordings use the live lab contract.'}
+        if len(json.dumps(result, allow_nan=False).encode('utf-8')) > MAX_BASE_SUMMARY_BYTES:
+            raise ValueError('Inspection base summary exceeds 64 KiB')
+        result['evidence_scorecard'] = build_lab_evidence(source=source, scene=scene, task=exercise_task,
+            contract=contract, policy=policy, files=files, verified_metadata=result['verified_metadata'])
+        return result
     finally:
         os.close(root_fd)
 
 
 def load_inspection(run, *, profile):
-    """Return at most 64 KiB of metadata, or an explicit unavailable result.
+    """Return at most 128 KiB of metadata and scorecard, or explicit unavailability.
 
     Run once in the lab executor for a completed, immutable run. This helper does
     not enable controllers or assert full media/source-binding verification.
@@ -404,7 +418,7 @@ def load_inspection(run, *, profile):
     try:
         result = _summary(run, _text(profile, 64))
         if len(json.dumps(result, allow_nan=False).encode('utf-8')) > MAX_SUMMARY_BYTES:
-            raise ValueError('Inspection summary exceeds 64 KiB')
+            raise ValueError('Inspection and evidence summary exceed 128 KiB')
         return result
     except (ValueError, OSError, KeyError, TypeError, RecursionError) as error:
         return {'status': 'unavailable', 'reason': str(error)[:300],

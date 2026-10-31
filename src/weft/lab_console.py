@@ -7,10 +7,12 @@ import shlex
 import sys
 
 from weft.lab import Lab
+from weft.evidence_scorecard import DIMENSIONS, MAX_BYTES as SCORECARD_MAX_BYTES, MAX_METRICS, PROFILE as SCORECARD_PROFILE
 
 
 HELP = """Nothing moves until you enter step.
   controls                  List available actions, motors and controllers
+  evidence [1-14]           Show saved checks, or one category's evidence and gaps
   mode manual|learned|reference|coast
   motor NAME VALUE          Select one motor (-1 to 1); all others stay zero
   action NAME_OR_INDEX      Select a discrete action
@@ -134,6 +136,67 @@ def _files(lab, directory):
     return result
 
 
+def _evidence_rows(card, manifest_sha):
+    # Invalid display metadata must not close an active recording or control session.
+    try:
+        rows = card["rows"]
+        if (not isinstance(manifest_sha, str) or len(manifest_sha) != 64
+                or any(char not in "0123456789abcdef" for char in manifest_sha)
+                or card["source_manifest_sha256"] != manifest_sha
+                or card["profile"] != SCORECARD_PROFILE or card["schema_version"] != 1
+                or not isinstance(card["scope"], str) or len(card["scope"]) > 2048
+                or not isinstance(rows, list) or [row["id"] for row in rows] != [item[0] for item in DIMENSIONS]
+                or len(json.dumps(card, ensure_ascii=True, allow_nan=False).encode()) > SCORECARD_MAX_BYTES):
+            raise ValueError
+        for row in rows:
+            if (row["status"] not in ("unavailable", "evidence_available", "failure_reported")
+                    or not isinstance(row["metrics"], list) or len(row["metrics"]) > MAX_METRICS):
+                raise ValueError
+            for metric in row["metrics"]:
+                if (any(not isinstance(metric[key], str) or len(metric[key]) > 512
+                        for key in ("id", "label", "unit", "evidence_kind", "partition"))
+                        or metric["value"] is not None and type(metric["value"]) not in (int, float)
+                        or metric["denominator"] is not None and (type(metric["denominator"]) is not int
+                            or not 0 <= metric["denominator"] <= 10**12)):
+                    raise ValueError
+        return rows
+    except (KeyError, TypeError, ValueError, RecursionError) as error:
+        raise ValueError("Saved evidence summary has an unsupported format") from error
+
+
+def _evidence(lab, selection, output):
+    selected = _integer(selection, 1, len(DIMENSIONS), "Evidence category") - 1 if selection is not None else None
+    # Reuse the lab's immutable-metadata worker/cache without blocking controls.
+    inspection = lab.inspection()
+    if inspection.get("status") == "loading":
+        output("Evidence is loading from saved files; enter evidence again. Nothing moves.")
+        return
+    card = inspection.get("evidence_scorecard")
+    if inspection.get("status") != "available" or not isinstance(card, dict):
+        output("Evidence summary is unavailable for this saved run.")
+        if inspection.get("reason"):
+            _emit(output, {"reason": inspection["reason"]})
+        return
+    rows = _evidence_rows(card, inspection.get("source_manifest_sha256"))
+    if selected is not None:
+        output(f"{selected + 1}. {DIMENSIONS[selected][1]}")
+        _emit(output, {"saved_run": str(lab.root / "run"), "scope": card["scope"], "category": rows[selected]})
+        return
+    output("Saved evidence only: available does not mean passed; unavailable does not mean zero error.")
+    output("Simulator outcomes do not establish physical accuracy.")
+    labels = {"unavailable": "not measured here", "evidence_available": "evidence available, not a pass",
+              "failure_reported": "failures recorded"}
+    for index, row in enumerate(rows):
+        output(f"{index + 1}. {DIMENSIONS[index][1]}: {labels.get(row['status'], 'unavailable')}")
+        available = [metric for metric in row["metrics"] if metric["value"] is not None]
+        successes = [metric for metric in available if metric["id"].endswith("_successes")]
+        for metric in successes or available[:2]:
+            _emit(output, {"measurement": metric["label"], "value": metric["value"], "unit": metric["unit"],
+                **({"out_of": metric["denominator"]} if metric["denominator"] is not None else {}),
+                "evidence_kind": metric["evidence_kind"], "partition": metric["partition"]})
+    output("Enter evidence 1 through evidence 14 for measurements, saved identities, failures and limits.")
+
+
 def _recovery_guidance(root):
     command = [sys.executable, "-m", "weft", "replay", str(root)]
     if (root / "manifest.json").exists():
@@ -178,6 +241,8 @@ def console(root, *, seed=1729, input_fn=input, output_fn=print):
                     output_fn(HELP)
                 elif command == "controls" and not arguments:
                     _emit(output_fn, controls.describe())
+                elif command == "evidence" and len(arguments) <= 1:
+                    _evidence(lab, arguments[0] if arguments else None, output_fn)
                 elif command == "status" and not arguments:
                     _emit(output_fn, {"mode": controls.mode, "recording": bool(lab.recorder), **_brief(session.snapshot())})
                 elif command == "files" and not arguments:

@@ -149,6 +149,119 @@ def test_actual_reset_failure_is_visible_but_cannot_become_action_validation():
     assert metrics(execution)["seeded_execution_trials"]["value"] is None
 
 
+def compact_lab_summary():
+    names = ["exercise-lab.json", "policy.json", "scene.json", "exercise-task.json"]
+    return {
+        "source_manifest_sha256": MANIFEST, "scene_sha256": SCENE, "task_sha256": TASK,
+        "artifacts": [artifact(name, str(index) * 64) for index, name in enumerate(names)],
+        "learning_artifact_names": names,
+        "learning": {"scene_sha256": SCENE, "task_sha256": TASK, "evaluation": {
+            "trials_per_controller": 3, "controllers": {
+                "learned": {"successes": 3}, "authored": {"successes": 3},
+                "coast": {"successes": 0}, "random": {"successes": 0},
+            }}},
+    }
+
+
+@pytest.mark.parametrize("explicit_nulls", [False, True])
+def test_compact_lab_successes_do_not_infer_completion_resets_rewards_or_training(explicit_nulls):
+    summary = compact_lab_summary()
+    if explicit_nulls:
+        for row in summary["learning"]["evaluation"]["controllers"].values():
+            row.update(completed_intervals=None, reset_failures=None, mean_score=None)
+    result = rows(summary)
+    measures = metrics(result["task_learning_utility"])
+    for controller, successes in (("learned", 3), ("authored", 3), ("coast", 0), ("random", 0)):
+        success = measures[controller + "_successes"]
+        assert (success["value"], success["numerator"], success["denominator"]) == (successes, successes, 3)
+        assert success["partition"] == "exposed_development"
+        assert success["evidence_kind"] == "simulated_development"
+        assert success["evidence"] == summary["artifacts"]
+        completion = measures[controller + "_completed_intervals"]
+        assert completion["value"] is completion["numerator"] is completion["denominator"] is None
+        assert measures[controller + "_mean_reward"]["value"] is None
+    assert measures["physical_transfer_trials"]["value"] is None
+    assert "training_control_steps" not in measures
+    assert result["long_run_stability"]["status"] == "unavailable"
+    assert result["execution_actions"]["status"] == "unavailable"
+    assert "completed_task_intervals" not in metrics(result["long_run_stability"])
+    assert "saved_reset_failures" not in metrics(result["execution_actions"])
+    assert "saved_changed_starts" not in metrics(result["robustness_coverage"])
+    assert "missing values remain unavailable" in " ".join(result["task_learning_utility"]["uncertainty_and_missing_measurements"])
+
+
+def test_partial_fields_only_aggregate_when_every_contributing_controller_has_them():
+    summary = compact_lab_summary()
+    controllers = summary["learning"]["evaluation"]["controllers"]
+    controllers["learned"].update(completed_intervals=3, reset_failures=0)
+    controllers["coast"].update(completed_intervals=0, reset_failures=1)
+    partial = rows(summary)
+    assert metrics(partial["task_learning_utility"])["learned_completed_intervals"]["value"] == 3
+    assert "completed_task_intervals" not in metrics(partial["long_run_stability"])
+    assert "saved_reset_failures" not in metrics(partial["execution_actions"])
+    controllers["authored"].update(completed_intervals=3, reset_failures=0)
+    controllers["random"].update(completed_intervals=0, reset_failures=0)
+    complete = rows(summary)
+    completed = metrics(complete["long_run_stability"])["completed_task_intervals"]
+    assert (completed["value"], completed["denominator"]) == (6, 12)
+    reset = metrics(complete["execution_actions"])["saved_reset_failures"]
+    assert (reset["value"], reset["denominator"]) == (1, 12)
+    assert complete["execution_actions"]["status"] == "failure_reported"
+
+
+def test_known_reset_counts_do_not_require_unknown_completion_counts():
+    summary = compact_lab_summary()
+    for name, row in summary["learning"]["evaluation"]["controllers"].items():
+        row["reset_failures"] = 1 if name == "coast" else 0
+    result = rows(summary)
+    assert result["long_run_stability"]["status"] == "unavailable"
+    assert metrics(result["execution_actions"])["saved_reset_failures"]["value"] == 1
+
+
+@pytest.mark.parametrize("field,value", [
+    ("completed_intervals", 2), ("completed_intervals", True),
+    ("completed_intervals", float("nan")), ("reset_failures", 1),
+    ("reset_failures", -1), ("reset_failures", "0"), ("mean_score", float("nan")),
+    ("successes", None),
+])
+def test_partial_controller_metadata_still_rejects_known_invalid_counts(field, value):
+    summary = compact_lab_summary()
+    summary["learning"]["evaluation"]["controllers"]["learned"][field] = value
+    with pytest.raises(ValueError):
+        build_evidence_scorecard(summary)
+
+
+@pytest.mark.parametrize("names", [[], None, "scene.json", ["missing.json"], ["scene.json", "scene.json"],
+                                  ["../scene.json"], ["scene.json"] * 9])
+def test_custom_learning_pointers_must_be_bounded_unique_exact_artifacts(names):
+    summary = compact_lab_summary()
+    summary["learning_artifact_names"] = names
+    with pytest.raises(ValueError):
+        build_evidence_scorecard(summary)
+
+
+def test_custom_pointers_cannot_make_unbound_learning_available():
+    summary = compact_lab_summary()
+    del summary["task_sha256"]
+    assert rows(summary)["task_learning_utility"]["status"] == "unavailable"
+    summary["learning_artifact_names"].append("not-copied.json")
+    with pytest.raises(ValueError, match="present in artifacts"):
+        build_evidence_scorecard(summary)
+
+
+def test_eight_custom_learning_pointers_preserve_exact_order_and_bounds():
+    summary = compact_lab_summary()
+    summary["learning"]["evaluation"]["controllers"] = {"learned": {"successes": 3}}
+    extra = [artifact("proof-" + str(index) + ".json", str(index) * 64) for index in range(4, 8)]
+    summary["artifacts"].extend(extra)
+    summary["learning_artifact_names"].extend(row["source_name"] for row in extra)
+    result = build_evidence_scorecard(summary)
+    learning = next(row for row in result["rows"] if row["id"] == "task_learning_utility")
+    assert learning["evidence"] == summary["artifacts"]
+    assert len(learning["evidence"]) == 8
+    assert len(json.dumps(result).encode()) < 64 * 1024
+
+
 @pytest.mark.parametrize("missing", ["scene_sha256", "task_sha256", "learning_scene", "learning_task"])
 def test_unbound_historical_learning_counts_stay_unavailable(missing):
     summary = saved_summary(trained=True)
