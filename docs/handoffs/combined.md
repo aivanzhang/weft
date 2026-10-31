@@ -1,6 +1,226 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 30, 2026, 10:11 PM PDT
+## Active continuation — October 31, 2026, 1:57 AM PDT
+
+### Common evidence report — implemented and exercised
+
+The existing `shared-exercise-inspect` / `build_sandbox.py --inspect-build` path
+now shows saved full-reference geometry failures prominently, even when the lab
+was prepared successfully. It validates the saved audit's scene/source binding,
+complete source/grid schedule, counts and unchanged 0.025 floor limit; no native
+geometry or dynamics is rerun. Static/initial overlaps are distinct from floor
+failures. Missing audits remain unavailable, never a passed check.
+
+`src/weft/evidence_scorecard.py` supplies the same report with all 14 required
+categories, bounded to 64 KiB /16 metrics /eight examples and pointers per row.
+No I/O, engine or overall grade lives in the core. Null means unmeasured;
+construction, software checks and exposed simulator development retain separate
+labels. A row mixing evidence kinds/partitions is unknown at row level; its
+metrics retain their exact labels. Learning counts require matching sealed
+terminal/learning scene and task identities. This is summary consistency, **not**
+independent policy/trial admission or physical validation. Failure-only receipts
+cannot expose plausible unsealed stage outputs. Multiline failure messages remain
+inspectable and HTML-escaped; links resolve only exact local copied artifacts.
+
+**168 distinct focused checks pass:** 65 pure-core checks and 103 report,
+integration and pixel-report regressions. JUnit
+`.local/evidence-scorecard-report-tests-01.xml` reports 103 tests /0 failures
+in 1.065 s. Independent review `.local/evidence-scorecard-integration-review-01.json`
+SHA `af5176d00cd1ef8848338cf77ee8b491ea77b9dd7542eceb04e47c26c6f69a96`
+has no open findings. Source/test freeze `.local/evidence-scorecard-freeze-01.json`
+SHA `086bd700949e864af92381d3c509a0ff2831903fab8667fe4956f1602e5da442`.
+
+Exactly two new saved-only reports were generated under frozen plan
+`.local/evidence-reports-plan-01.json` SHA
+`78e649b52b8f57fcaa2f0889395b99985441d1712f3fb5c8e30839a277c7f679`
+with 197 input/runtime/worker pins, two workers and 40-second child limits:
+
+- `artifacts/heavy-video-inspection-02`: Heavy candidate is still untrained;
+  8/117 source poses and 14/235 grid poses fail the unchanged floor limit.
+- `artifacts/person-scorecard-inspection-01`: original trained build retains
+  learned/authored 0/3. This is **not** the newer recommended exercise preset's
+  3/3 result; no old report is silently relabeled current.
+
+The single supervisor invocation completed in **0.404070 s**, maximum completed
+child RSS 147,062,784 B (not concurrent aggregate or a hard memory cap), $0.
+Both workers report zero guarded native calls, inference, decoding, dynamics,
+training and API calls. `.local/evidence-reports-process-01.json` preserves the
+process receipts; original builds/reports are untouched. Independent saved-output
+audit `.local/evidence-reports-verification-03.json` SHA
+`cf218e418d0a5f91e96b5ed6c0f22d6c82962b23f25242510607cf1a842c5473`
+passes all 197 pins, 66 report members, 66 source-copy entries and 174 local HTML
+references. All 346 Heavy and 1,525 original trained-build manifest members remain
+exact. Lifecycle/session files are outside those immutable manifests and preserved;
+Heavy lifecycle hashes also match the prior inventory. Audit01's mistaken extra-file
+gate and audit02's counter bookkeeping failure remain saved; audit03 reused completed
+Heavy hashes without repeating reports or physics. Report seals:
+`d6b352dd2c1db76c9d9316ee3ebe14c1d680eb1e1672e0768bdb93f4bf172d42`
+(Heavy) and `91c00cd5d119a11ebcf77da908dbd3263bedd868632737ebb3d894b0ee213220`
+(original trained). [User guide](../local-lab.md#read-evidence-and-failures).
+
+Still required: use this core for common lab/rigid inspection and verified
+evaluation/replay adapters, instead of inventing another pipeline or treating
+build readiness as execution evidence. Independent identity/geometry/parameter
+measurements and physical transfer remain unavailable; the full goal is active.
+Next-slice inventory `.local/common-lab-scorecard-next-01.json` SHA
+`bdffc987bbdcb604e5a06c9876b2e835f261448532bf8868c664eb69483a6879`
+records existing inspection/API/console entry points and the current exercise
+receipt's 3/3 counts. Its compact contract lacks completed/reset/reward counts;
+keep them unavailable. Rigid regimes and return units need a profile-aware
+adapter. The recommended preset exports trusted4ad0153, so presentation changes
+require an explicit new trusted revision with all26policy/18lab runtime pins
+unchanged, no saved-run mutation and no retraining/replay just to show evidence.
+
+### Saved-body launcher — verified
+
+`scripts/build_sandbox.py --human-run` accepts sealed construction-only
+`exercise-body-source-v1` input. It preserves the original source/model/poses,
+uses the existing person or equipment assembler and retains report/console/lab
+handoffs. Raw-only options reject; a ready result must prove that construction
+consumed the exact pinned body metadata and archived original manifest.
+The public constructor remains responsible for complete input admission.
+Saved defaults are 90 seconds untrained/270 trained, maxima 180/480; raw-video
+defaults and pinned exercise presets are unchanged.
+
+57 distinct focused cases pass. Preserve freeze01's review defect: the real
+assembler uses `human_only`, not `person_only`. Freeze02
+`.local/build-sandbox-saved-body-freeze-02.json` SHA
+`c059354d5ca547e27e02c79b08afc87f5aa47b82410f94c6c455c4d34b6215f8`
+records the correction and actual-assembler scope regression. Independent review
+`.local/build-sandbox-saved-body-review-01.json` SHA
+`adfe1d194c5f18752c39ff1654a6b669da0163783082890f3fce1e57da801a4a`
+matches both real constructor contracts without repeated tests or native work.
+
+Exactly one real `artifacts/saved-body-sandbox-01` build/report took **2.222551 s**,
+268,337,152 B observed peak RSS, $0. It retains the original scene/task identities,
+235 source slots, 118 poses, 117 unsampled slots and all 234 task steps/7.8 seconds.
+The lab is deliberately untrained: no new inference, video decode, training,
+simulated actions, interaction or server/browser occurred. Existing static
+model/forward checks are part of construction; this is not a physics-free path.
+Audit `.local/saved-body-sandbox-verification-02.json` SHA
+`acb313954efe44673293523f8c014be7f9bf0c8c8c28a029168176c28fe4054a`
+verifies 373 unique covered members/384 total files/89,288,105 B. Audit01's mistaken
+treatment of an archived source manifest is preserved; no study reran.
+[Usage and report](../local-lab.md#reuse-an-extracted-body).
+
+### Heavy temporal source comparison — audited
+
+`artifacts/heavy-video-single-leg-02` completes the same original single-leg clip
+in Heavy VIDEO/raw mode: 235 decoded frames, 236 reads, 118 model calls, 117 partial
+poses and one low-confidence sample. Pose/root prerequisites pass; no competing
+hypotheses remain. The frame 18→20 inferred joint RMS jump is 0.427881 rad versus
+Lite VIDEO's 1.101390 rad; two adjacent pairs are unavailable, not zero-error.
+This changes model estimates, not verified anatomical truth. Floor is unassessed,
+and no body, physics, learner or default model was changed in this source pass.
+
+Frozen plan02 SHA `771ac9945112c8c58503345ec1a861787d61380f1f8cb4e96c8e6ccd611e35c4`;
+source seal `b12a2e72f5525a44178373c63441cb70886ecc665c20910f1b491a471edff74e`.
+The single completed run took 4.995184 s/448,331,776 B peak RSS/$0 and retained
+120 files/18,476,142 B. All 17 input/97 implementation pins remain unchanged.
+Attempt01 is terminal failed with **zero reads/inferences**: a generic process
+guard fired during cold MediaPipe import. Installed-source review identified
+Matplotlib's optional system-font subprocess scan;02 sets
+`MPL_IGNORE_SYSTEM_FONTS=1` before imports, preserving every process/network/physics
+guard. The historical callback lacks a direct traceback; do not claim otherwise.
+Independent startup review02 SHA
+`35343f57aa20d3240dd7c1540db9f0b9eddc0f22f5bc9a5187da4660b5766943`.
+Saved-only audit `.local/heavy-video-source-verification-02.json` SHA
+`acdacc9446a03a67814183223fdc0937d0d7e658646bc634f60e0664d5c8e3fd`
+passes complete raw/source/native-clock custody, unchanged quality/root arithmetic
+and all 351 candidate/baseline pair slots (343 available vectors). Frame44 remains
+low-confidence. The first verifier's tuple/list serialization mismatch is
+preserved; JSON normalization fixed only that verifier. No inference, media or
+physics reran. Existing-path body/floor qualification is recorded below; any
+packaging failure must reuse this saved evidence rather than repeat inference.
+
+### Heavy body and shared sandbox — prepared, floor checks fail
+
+One existing-path build from saved Heavy02 evidence is complete:
+`artifacts/heavy-video-body-01` → `artifacts/heavy-video-sandbox-01/build/lab`.
+Process **2.922610 s /267,993,088 B peak RSS/$0**, no new model inference, source
+decode, training, dynamics steps or server. Frozen plan SHA
+`8e545292cbcfede6b35e984936375fa9c91c88bbc454387c99cf9dd20c61b331`.
+The counted wrapper ran the ordinary CLI/launcher arguments unchanged: body
+1 model/1 forward; build 11 models/3 data allocations/472 forwards/471 resets;
+report zero native calls. These are static geometry checks, not physical trials.
+
+Independent saved audit `.local/heavy-body-sandbox-verification-01.json` SHA
+`71e4a231d63182fa6d028398b5d3f2def65dde764676ad859b8956754d3c279c`
+verifies 425 files/107,695,300 B, exact original source/model/raw-pose copies,
+117 references/118 sample slots/all 235 original frames and the full 234-step
+7.8-second task. Frame44 stays low-confidence; no pose was substituted.
+All 352 feasibility rows were checked against the unchanged **0.025** floor
+limit: **8/117 source poses and 14/235 control-grid poses fail**, maximum
+penetration **0.07185566666204826 model units**. First-pose floor alignment is
+unchanged; later failures remain. This candidate is untrained and unqualified
+physically, not a replacement for the recommended trained exercise example.
+
+Identities: scene `3c611114ad2798563a6db68b59bb3926dc986cfdd4abe60dfdb056b650df1989`;
+task `2a4647b1e5d3bd7ea0239baf173eaddd4a565ba9f63ebb283c7b31057d94d7ea`;
+body seal `b38ed6570f2fd67ba8bba6eae97192ef43c8bcb742f2c721d649bcb3bfd76232`;
+lab seal `264060d3defb0afdd1967364bb3ba55d1fe2d164918b3bb54fed8807428c338e`.
+All body/world jobs are terminal. The original report's floor audit was linked
+but not summarized beside “Build completed.” The new report above closes that
+visibility gap and adds the 14-dimension evidence summary, preserving the original
+report and every scored artifact. The prior proposal remains in
+`.local/evidence-scorecard-next-01.json` SHA
+`17765543d946a3cfd6c0960a06056a2ddaa54541e4baf7b2c7001da71fdbbff3`;
+broader common-lab/rigid adapters and independent measurements are still required.
+
+### Coupled runtime check and next local work
+
+`artifacts/mixed-clock-control-01/run` is terminal and independently audited:
+three complete 254-action trials, **0/3 success**, only working-object stability
+failing. Mean reward improves 0.7120→0.7477; displacement worsens to
+0.513075/0.472423/0.464707 model units. Human peak tracking errors are unchanged.
+This compares the current common runtime with a saved baseline; nine runtime
+files and the project manifest differ, so it does **not** isolate clock causality.
+No retraining, old-policy migration, geometry change or lab promotion occurred.
+
+Frozen plan `.local/mixed-clock-plan-01.json` SHA
+`3eb9d28da97a0909eda6d56107ac33aed23109f1d2e417ed2fc87893e6674dd9`;
+run seal `e04ab001dbf664144b25552d70fd73759e64afbee6183bd7d25e0295cadb812f`.
+The one process took 2.952 s, 118,980,608 B peak RSS and $0 for
+762 actions/12,192 substeps. Audit
+`.local/mixed-clock-control-verification-02.json` SHA
+`0ef81a769c36ec720265c0ebc59df1c2c21354c1d456dddd8544c02e3d80a0e5`
+verifies 30 covered files/4,719,672 total bytes, 39 input/runtime pins, all starts
+and metrics, plus 294 saved target/velocity vectors. The worker separately
+checked all 762 target positions and found 92 derivative corrections per trial.
+Audit01 is preserved: it incorrectly expected compact originals to equal the
+worker's indented JSON copies byte-for-byte. Audit02 verifies both identities and
+equal parsed content without changing the study or rerunning physics.
+
+### Active implementation ownership
+
+Both delegated tasks are terminal: `/root/heavy_startup_review` completed feasibility
+reporting, independent integration review and the next common-lab adapter inventory;
+`/root/saved_body_acceptance` completed the core and both saved-report audits.
+Root owns integration, docs and publication; no agent owns further code edits at
+this checkpoint. The completed geometry screen found no supported handle/cavity
+or stability repair: only 97 clear exterior image cells are potentially eligible,
+with no proved admissible trim. Preserve `.local/mixed-next-geometry-01.json`
+(SHA `909fabb3ab5bd17f0b20dfeb139b99ade4a60da8d7201e52ee885b0d72ff7d86`);
+do not run a fit or claim those cells are removable physical volume.
+Heavy02 inference is terminal; no native job remains at this checkpoint. Heavy
+IMAGE/raw already failed on the same source; do not repeat it. MotionBERT remains
+unqualified, with no weights/install/inference; see the updated
+[model options](../body-model-options.md#october-30-follow-up-local-temporal-model-options).
+
+The saved-body launcher, tests and usage guide are published as
+**769506584b6378482b434161382c95fcddc56af1**, independently matched on private
+`origin/main`. `.local/saved-body-launcher-publication-01.json` SHA
+`1cdba6062ec530d04efa7f149f671136a2767013c555f6aa29415f89b0feb138`
+records three owned paths clean, three root docs pending and zero stashes.
+The 75 separate avatar-session entries remain untouched. Root owns these docs;
+do not stage avatar files. The recommended exercise preset remains unchanged.
+Remote refresh before scorecard publication confirms zero divergence. The exact
+scoped commit/private remote result for this report/core/tests/docs milestone is
+recorded separately in `.local/evidence-scorecard-publication-01.json`; inspect
+that receipt before considering the milestone published. The predecessor receipt
+alone does not attest this later change.
+
+### Previous verified exercise checkpoint
 
 **Current product:** the new `.venv-lab/bin/python scripts/play_sandbox.py --example exercise` opens the version-pinned 3D exercise lab; add `--console` for terminal controls. The user starts/manages the server. Newly trained and authored controllers each pass **3/3** full-interval changed-start trials. Manual controls, mode switching, a reset, full234-step recording, export and exact replay are verified with task success. Generalized source reconstruction, independent physical accuracy, unfamiliar-video learning and avatar acceptance remain open; the combined goal stays active. Older examples/results are unchanged.
 
@@ -12,7 +232,7 @@
 
 **Publication predecessor:** **`4ad01536dbbfe121b30b82192f96500d33f7108a`** publishes the timing correction,183 scoped checks and causal evidence. Private `origin/main` matched after push; `.local/reference-clock-publication-01.json` SHA `7c31b73ca427aa8d31e82a5609d46b7a9bbe2d570e236c14232cb0b97813d8ca` records seven owned paths clean/stashes0. New exercise launcher/docs publication is recorded separately in `.local/person-clock-playable-publication-01.json`. Old presets keep their original runtimes; never stage or remove avatar-session files.
 
-### Active implementation ownership
+### Previous exercise checkpoint ownership
 
 - Root: timing integration, current-runtime training/lab, complete recording acceptance and independent saved-recording audit are done; saved-payload UI verification passed; scoped launcher/docs publication is the final checkpoint action. No native job remains.
 - `/root/fullspan_backend`: helper/pure tests, workflow closure review and optional exercise launcher with30focused checks complete. No remaining edits/job.
@@ -44,9 +264,9 @@ Root saved-only audit `.local/person-clock-interaction-verification-01.json` SHA
 
 **Saved UI acceptance:** `.local/person-clock-ui-verification-01.json` SHA `b87c538bf2bdd178f35591409de044fa08af69355887f5b57c94e0fb1145f432` passes in0.156686s. The unchanged harness renders the exact new recording/policy payload: “Passed”/“Goal reached”,22controls,235source slots, full234-step outcome, feasible training and learned/authored3/3 versus coast/random0/3. All25pins remain unchanged;19,172,940metadata bytes read under32MiB. No browser/GPU/playback QA, source/video decode, inference, summary regeneration or new physics. All UI/native/launcher jobs are terminal.
 
-**Next safe action:** keep the verified exercise preset usable. The common timing fix should next receive bounded regression coverage on an existing coupled person/equipment case, with source/task/gates and old results preserved. Its archived runtime differs in more than the three timing files, so do not describe a direct comparison as isolated clock causality without proving equivalence. No new mixed study is frozen or launched. Source-qualified reconstruction, fresh final evaluation, independent physical evidence and avatar acceptance remain unresolved; do not mark the complete goal done.
+**Follow-up:** the coupled runtime check is now terminal and recorded above; it still fails equipment stability and is not isolated clock causality. Keep the verified exercise preset usable. Source-qualified reconstruction, fresh final evaluation, independent physical evidence and avatar acceptance remain unresolved; do not mark the complete goal done.
 
-Source research remains unresolved: `.local/cmu-source-followup-01.json` cannot establish original RGB availability, rights, synchronization or calibration for13_29. `.local/body-estimator-next-method-01.json` identifies MotionBERT-Lite only as a candidate; checkpoint rights/hash/size, Python compatibility and a bounded Mac path are unverified. No acquisition, dependency installation, account/agreement, inference or paid call. Do not repeat broad discovery or claim either lead qualifies.
+Source research remains unresolved: `.local/cmu-source-followup-01.json` cannot establish original RGB availability, rights, synchronization or calibration for13_29. MotionBERT follow-up now establishes a published compatible platform wheel, but not application compatibility, exact weight identity/access/terms or measured inference. No acquisition, dependency installation, account/agreement or paid call. See the current model-options note; do not repeat broad discovery or claim either lead qualifies.
 
 ### Trusted feedback launcher — verified
 

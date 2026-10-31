@@ -36,6 +36,52 @@ The [Zenodo metadata/inventory snapshot](../artifacts/calibrated-source-discover
 
 An accessible [Autelica jog-turn sample](https://autelica.com/sample/) supplied one unchanged 11.2-MB video plus small camera/3D reference files under its sample-specific CC BY 4.0 license. [The completed study](multiview-jog.md) tests both inference modes, retains the default rejection and verifies an interactive recording. Its camera/joint data is reconstructed, with height-based scale and stance-foot ground alignment—not independently measured calibration, anatomy or physical contact. Do not substitute its model agreement for laboratory ground truth.
 
+## October 30 follow-up: local temporal-model options
+
+Heavy is already cached and supported by the existing CPU pose path. It was
+evaluated on the exact single-leg source in **IMAGE/raw** mode: 114 of 118 samples
+were usable, but competing hypotheses and a root-motion gap prevented body
+construction. Do not repeat that experiment. Before the October 31 pass below,
+the retained Heavy runs contained no **VIDEO/raw** result. Temporal region reuse
+is a distinct configuration, not a new temporal 3D model. The source, cached model,
+rights-review document and prior results are pinned in
+`.local/mediapipe-heavy-triage-01.json` (SHA-256
+`538d811ff3acaaeb15c977be6be03b994063172bae8dfec82807ccd92ef19d24`).
+
+**October 31 result:** the distinct VIDEO/raw run completed in 4.995 seconds,
+retaining all 235 original frames and 118 sampled slots. It produced 117 usable
+partial poses and one low-confidence sample (frame44), with no competing
+hypotheses; unchanged pose/root prerequisites pass. The large frame18→20 inferred
+joint jump falls from Lite VIDEO's 1.1014 to 0.4279 radians RMS. Missing-pair
+comparisons remain unavailable; these numbers do not measure anatomical error.
+`artifacts/heavy-video-single-leg-02` is independently audited in
+`.local/heavy-video-source-verification-02.json` (SHA-256
+`acdacc9446a03a67814183223fdc0937d0d7e658646bc634f60e0664d5c8e3fd`).
+The subsequent existing-path body/world build preserves all slots but still
+fails the floor limit at eight source poses and fourteen intermediate poses.
+It is an untrained simulator candidate, not qualified physical reconstruction;
+the Lite default is unchanged. Attempt01's zero-frame startup failure is preserved;
+attempt02 only disables an unnecessary system-font scan during model import,
+without allowing subprocess or network access.
+
+[MotionBERT-Lite](https://github.com/Walter0807/MotionBERT) remains an unqualified
+alternative. The nominated artifact is
+`FT_MB_lite_MB_ft_h36m_global_lite/best_epoch.bin`, not the generic pretrained
+Lite model advertised as 61 MB. The review found a published CPython 3.14/macOS
+ARM64 Torch wheel, so the current Python version alone is not a demonstrated
+blocker. That does not establish compatibility of the older application or a
+measured CPU inference cost.
+
+One bounded anonymous metadata chain reached the author-linked OneDrive viewer,
+but its retained HTML prefix did not identify the exact checkpoint, size,
+checksum or weight-specific terms. Do not describe this as a verified download
+or a login requirement. `.local/motionbert-eligibility-01.json` and
+`.local/motionbert-direct-metadata-01.json` through `-04.json` preserve the source
+review, initial DNS failure and later public responses. No weights, dependencies,
+credentials, agreement acceptance or inference were involved. Keep the existing
+environments unchanged; establish the exact artifact and a bounded isolated
+runtime plan before acquisition or execution.
+
 ## Resume without repeating work
 
 1. Reuse the acquired jogging source and frozen comparison for a clearly labeled camera-aware additional-input candidate; exclude reference joints from fitting. Keep its missing poses, full interval and floor failures visible. Stronger independent measurement remains open. Do not repeat gated OpenCap/BioCV/MoVi acquisition paths or download the Zenodo CSV archive expecting RGB video.

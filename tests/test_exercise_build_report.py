@@ -99,6 +99,50 @@ def run(root, out):
     return result, summary
 
 
+def feasibility_fixture(root, *, failure="floor", profile="shared-world-v3"):
+    fixture(root, ready=True)
+    source_sha = json.loads((root / "body_source/source.json").read_bytes())["sha256"]
+    times = [4 / 30, 6 / 30, 8 / 30, 10 / 30]
+    scene = {"schema_version": 1, "profile": profile,
+        "source_binding": {"mode": "source_qualified", "source_sha256": source_sha},
+        "human_spec": {"source_sha256": source_sha, "reference": [{"time_s": stamp} for stamp in times]},
+        "task": {"start_offset_s": 1 / 30 if profile == "shared-world-v1" else 0.,
+                 "horizon_steps": 1 if profile == "shared-world-v1" else 6,
+                 "human_limits": {"max_floor_penetration_model_units": .025}}, "objects": []}
+    scene_sha = sha(json.dumps(scene, sort_keys=True).encode())
+    schedule = [("source_pose", stamp, index) for index, stamp in enumerate(times)]
+    schedule += [("control_grid", min(times[-1], times[0] + index / 30), None) for index in range(7)]
+    rows = []
+    for ordinal, (kind, stamp, index) in enumerate(schedule):
+        penetration = .04 if failure == "all_floor" else (
+            {1: .04, 2: .025, 5: .06, 6: .025}.get(ordinal, 0.) if failure == "floor" else 0.)
+        conflicts = [{"human_geom": "body_geom", "static_object": "box", "distance_world": -.02,
+                      "position": [0., 0., 0.]}] if failure == "static" and ordinal == 1 else []
+        contacts = [{"geom": "body_geom", "distance_world": -penetration,
+                     "penetration_model_units": penetration, "position": [0., 0., 0.]}] if penetration else []
+        rows.append({"kind": kind, "time_s": stamp, "source_reference_index": index,
+            "max_penetration_model_units": penetration, "passes_floor_limit": penetration <= .025,
+            "passes_coupled_preflight": penetration <= .025 and not conflicts,
+            "floor_contact_count": len(contacts), "floor_contacts": contacts,
+            "static_conflict_count": len(conflicts), "static_conflicts": conflicts})
+    initial = [{"first": "body_geom", "second": "box", "distance_world": -.02}] if failure == "initial" else []
+    audit = {"schema_version": 1, "profile": "shared-world-feasibility-v1", "physical_validation": "unverified",
+        "status": "feasible" if failure == "none" else "infeasible", "scene_sha256": scene_sha,
+        "checks": rows, "initial_intersections": initial,
+        "summary": {"source_pose_checks": 4, "control_grid_checks": 7, "checks": 11,
+            "failed_source_poses": sum(row["kind"] == "source_pose" and not row["passes_coupled_preflight"] for row in rows),
+            "failed_control_grid_poses": sum(row["kind"] == "control_grid" and not row["passes_coupled_preflight"] for row in rows),
+            "max_penetration_model_units": max(row["max_penetration_model_units"] for row in rows),
+            "static_conflict_poses": sum(bool(row["static_conflicts"]) for row in rows),
+            "initial_cross_entity_intersections": len(initial), "dynamic_object_count": 0, "physics_steps": 0}}
+    put(root, "candidate/scene.json", scene)
+    put(root, "candidate/reference-feasibility.json", audit)
+    result = json.loads((root / "result.json").read_bytes())
+    put(root, "result.json", {**result, "scene_sha256": scene_sha})
+    seal(root)
+    return root
+
+
 class Links(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -158,6 +202,133 @@ def test_ready_report_keeps_failed_task_results_distinct(tmp_path):
     assert summary["task_success"] == "not_assessed_by_report"
     assert all(row["state"] == "completed" for row in summary["stages"])
     assert "does not load or re-admit" in (tmp_path / "report/index.html").read_text()
+    assert summary["reference_feasibility"]["status"] == "unavailable"
+    assert "source_pose" not in summary["reference_feasibility"]
+    assert "Motion geometry audit unavailable" in (tmp_path / "report/index.html").read_text()
+
+
+@pytest.mark.parametrize("profile", ["shared-world-v1", "shared-world-v2", "shared-world-v3"])
+def test_ready_report_surfaces_saved_floor_failures_without_changing_readiness(tmp_path, profile):
+    source = feasibility_fixture(tmp_path / "build", profile=profile)
+    before = {path.relative_to(source): sha(path.read_bytes()) for path in source.rglob("*") if path.is_file()}
+    out = tmp_path / "report"
+    _, summary = run(source, out)
+    value = summary["reference_feasibility"]
+    assert summary["build_status"] == summary["saved_lab_status"] == "ready"
+    assert summary["reasons"] == [] and summary["task_success"] == "not_assessed_by_report"
+    assert summary["runtime_admission"] == "not_checked" and summary["physical_validation"] == "unverified"
+    assert value["status"] == "infeasible" and value["physical_validation"] == "unverified"
+    assert value["source_pose"] == {"checks": 4, "floor_failures": 1, "failed_preflight": 1}
+    assert value["control_grid"] == {"checks": 7, "floor_failures": 1, "failed_preflight": 1}
+    assert value["max_penetration_model_units"] == .06 and value["floor_limit_model_units"] == .025
+    assert value["source_sha256"] == summary["source"]["sha256"]
+    assert [row["kind"] for row in value["failure_examples"]] == ["source_pose", "control_grid"]
+    copied = next(row for row in summary["artifacts"] if row["source_name"] == value["audit_artifact"])
+    assert copied["sha256"] == value["audit_sha256"]
+    assert (out / copied["path"]).read_bytes() == (source / value["audit_artifact"]).read_bytes()
+    html = (out / "index.html").read_text()
+    assert "Sandbox prepared; motion geometry checks failed" in html
+    assert "Estimated motion intersects the assumed ground" in html.split("<nav>")[0]
+    assert "No failure reason" not in html
+    assert "0.06 model units" in html and "0.025 model units" in html
+    assert f'href="{copied["path"]}"' in html.split("<nav>")[0]
+    assert "Source-pose estimates" in html and "30 Hz control grid" in html
+    assert all(value == 0 for value in summary["work"].values())
+    assert all(sha((source / name).read_bytes()) == digest for name, digest in before.items())
+
+
+@pytest.mark.parametrize("failure", ["static", "initial", "none"])
+def test_feasibility_does_not_mislabel_static_or_initial_conflicts_as_floor_failures(tmp_path, failure):
+    _, summary = run(feasibility_fixture(tmp_path / "build", failure=failure), tmp_path / "report")
+    value = summary["reference_feasibility"]
+    assert value["source_pose"]["floor_failures"] == value["control_grid"]["floor_failures"] == 0
+    assert value["source_pose"]["failed_preflight"] == int(failure == "static")
+    assert value["static_conflict_poses"] == int(failure == "static")
+    assert value["initial_cross_entity_intersections"] == int(failure == "initial")
+    assert value["status"] == ("feasible" if failure == "none" else "infeasible")
+    html = (tmp_path / "report/index.html").read_text()
+    assert "Estimated motion intersects" not in html
+    assert ("Saved motion geometry checks passed" if failure == "none" else "Saved geometry overlaps remain") in html
+    assert "not establish dynamic stability, balance" in html
+
+
+def test_feasibility_failure_examples_are_bounded_without_dropping_counts(tmp_path):
+    _, summary = run(feasibility_fixture(tmp_path / "build", failure="all_floor"), tmp_path / "report")
+    value = summary["reference_feasibility"]
+    assert value["source_pose"]["floor_failures"] == 4 and value["control_grid"]["floor_failures"] == 7
+    assert len(value["failure_examples"]) == 8 and value["failure_examples_omitted"] == 3
+
+
+@pytest.mark.parametrize("change", ["scene_hash", "result_scene_hash", "scene_source", "human_source", "floor_limit",
+    "missing_scene", "missing_binding", "missing_rows", "extra_rows", "missing_index", "wrong_index", "wrong_clock",
+    "reordered_reference", "long_interval", "many_references", "many_contacts", "wrong_flag", "numeric_flag",
+    "contact_count", "contact_peak", "summary_count", "summary_peak", "physics_steps", "status", "physical_validation"])
+def test_contradictory_feasibility_cannot_publish_a_report(tmp_path, change):
+    source = feasibility_fixture(tmp_path / "build")
+    audit = json.loads((source / "candidate/reference-feasibility.json").read_bytes())
+    scene = json.loads((source / "candidate/scene.json").read_bytes())
+    result = json.loads((source / "result.json").read_bytes())
+    scene_changes = {"scene_source", "human_source", "floor_limit", "missing_binding", "reordered_reference",
+                     "long_interval", "many_references"}
+    if change == "scene_hash":
+        audit["scene_sha256"] = "0" * 64
+    elif change == "result_scene_hash":
+        result["scene_sha256"] = "0" * 64
+    elif change == "scene_source":
+        scene["source_binding"]["source_sha256"] = "0" * 64
+    elif change == "human_source":
+        scene["human_spec"]["source_sha256"] = "0" * 64
+    elif change == "floor_limit":
+        scene["task"]["human_limits"]["max_floor_penetration_model_units"] = .1
+    elif change == "missing_binding":
+        del scene["source_binding"]
+    elif change == "reordered_reference":
+        scene["human_spec"]["reference"].reverse()
+    elif change == "long_interval":
+        scene["human_spec"]["reference"][-1]["time_s"] = 61.
+    elif change == "many_references":
+        scene["human_spec"]["reference"] *= 226
+    elif change == "missing_rows":
+        audit["checks"].pop()
+    elif change == "extra_rows":
+        audit["checks"] *= 246
+    elif change == "missing_index":
+        del audit["checks"][-1]["source_reference_index"]
+    elif change == "wrong_index":
+        audit["checks"][0]["source_reference_index"] = False
+    elif change == "wrong_clock":
+        audit["checks"][-1]["time_s"] = .3
+    elif change == "many_contacts":
+        audit["checks"][1]["floor_contacts"] *= 4097
+    elif change == "wrong_flag":
+        audit["checks"][1]["passes_floor_limit"] = True
+    elif change == "numeric_flag":
+        audit["checks"][0]["passes_coupled_preflight"] = 1
+    elif change == "contact_count":
+        audit["checks"][1]["floor_contact_count"] = 0
+    elif change == "contact_peak":
+        audit["checks"][1]["floor_contacts"][0]["penetration_model_units"] = .05
+    elif change == "summary_count":
+        audit["summary"]["failed_control_grid_poses"] = 0
+    elif change == "summary_peak":
+        audit["summary"]["max_penetration_model_units"] = .04
+    elif change == "physics_steps":
+        audit["summary"]["physics_steps"] = 1
+    elif change == "status":
+        audit["status"] = "feasible"
+    elif change == "physical_validation":
+        audit["physical_validation"] = "verified"
+    if change in scene_changes:
+        result["scene_sha256"] = audit["scene_sha256"] = sha(json.dumps(scene, sort_keys=True).encode())
+    put(source, "candidate/scene.json", scene)
+    put(source, "candidate/reference-feasibility.json", audit)
+    put(source, "result.json", result)
+    if change == "missing_scene":
+        (source / "candidate/scene.json").unlink()
+    seal(source)
+    with pytest.raises(ValueError):
+        run(source, tmp_path / "report")
+    assert not (tmp_path / "report").exists()
 
 
 def native_stages(source, *, completed):
@@ -237,6 +408,7 @@ def test_receipt_only_never_reads_or_exposes_unsealed_outputs(tmp_path, monkeypa
     (source / "settings.json").write_bytes(b"not json")
     (source / "proposal/report.json").unlink()
     (source / "proposal/report.json").symlink_to(tmp_path / "does-not-exist")
+    put(source, "candidate/reference-feasibility.json", b"unsealed audit must not be read")
     original = report._open_member
 
     def confined(fd, name):
@@ -249,6 +421,8 @@ def test_receipt_only_never_reads_or_exposes_unsealed_outputs(tmp_path, monkeypa
     assert [row["source_name"] for row in summary["artifacts"]] == ["result.json"]
     assert summary["coverage"]["status"] == "not_available" and summary["source"] == {}
     assert summary["video_artifact"] is None and summary["unsealed_stage_outputs"] == "not_read_or_exposed"
+    assert summary["reference_feasibility"]["status"] == "unavailable"
+    assert "source_pose" not in summary["reference_feasibility"]
     assert next(row for row in summary["stages"] if row["stage"] == "shared_world")["state"] == "unknown"
     assert "Only the failure receipt is sealed" in (tmp_path / "report/index.html").read_text()
 
@@ -463,8 +637,9 @@ def test_saved_image_signature_cannot_hide_an_html_document(tmp_path):
     assert not (tmp_path / "report/manifest.json").exists()
 
 
-def test_report_never_imports_runtime_inference_or_media_decoders(tmp_path):
-    source = fixture(tmp_path / "build")
+@pytest.mark.parametrize("with_feasibility", [False, True])
+def test_report_never_imports_runtime_inference_or_media_decoders(tmp_path, with_feasibility):
+    source = feasibility_fixture(tmp_path / "build") if with_feasibility else fixture(tmp_path / "build")
     code = """
 import importlib.abc, sys
 class Block(importlib.abc.MetaPathFinder):

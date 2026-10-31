@@ -15,8 +15,9 @@ import re
 import stat
 import time
 
+from weft import evidence_scorecard
 from weft.exercise_coverage import summarize_coverage
-from weft.io import local_time
+from weft.io import canonical_hash, local_time
 from weft.lab_inspection import _open as _open_member, _pairs, _nonfinite, _float
 
 
@@ -536,6 +537,119 @@ def _small_fields(value, keys):
     return result
 
 
+def _reference_feasibility(source, source_sha256=None):
+    name = "candidate/reference-feasibility.json"
+    unavailable = {"status": "unavailable", "physical_validation": "unverified",
+                   "reason": "No sealed reference-geometry audit is available; motion feasibility is unknown."}
+    if source.receipt_only or name not in source.files:
+        return unavailable
+    audit = source.document(name, required=True)
+    scene = source.document("candidate/scene.json", required=True)
+
+    def require(condition, message):
+        if not condition:
+            raise ValueError("Invalid saved reference feasibility: " + message)
+
+    def number(value, label, *, integer=False, high=1e6):
+        require(type(value) in ((int,) if integer else (int, float))
+                and 0 <= value <= high and math.isfinite(value), label)
+        return value
+
+    def bounded_rows(value, label, maximum):
+        require(isinstance(value, list) and len(value) <= maximum
+                and all(isinstance(row, dict) for row in value), label)
+        return value
+
+    require(type(audit.get("schema_version")) is int and audit["schema_version"] == 1
+            and audit.get("profile") == "shared-world-feasibility-v1"
+            and audit.get("physical_validation") == "unverified", "unsupported audit contract")
+    scene_sha = canonical_hash(scene)
+    require(scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3")
+            and audit.get("scene_sha256") == scene_sha
+            and source.result.get("scene_sha256", scene_sha) == scene_sha, "scene identity differs")
+    human, binding, task = scene.get("human_spec"), scene.get("source_binding"), scene.get("task")
+    require(all(isinstance(value, dict) for value in (human, binding, task)), "scene metadata missing")
+    bound_sha = binding.get("source_sha256")
+    if binding.get("mode") == "analytic_fixture":
+        require(bound_sha is None and human.get("source_sha256") is None and source_sha256 is None,
+                "analytic audit contradicts source evidence")
+    else:
+        require(binding.get("mode") == "source_qualified" and isinstance(bound_sha, str)
+                and _SHA.fullmatch(bound_sha) and human.get("source_sha256") in (None, bound_sha)
+                and source_sha256 in (None, bound_sha), "source identities differ")
+    limits = task.get("human_limits")
+    require(isinstance(limits, dict), "saved task limits missing")
+    limit = number(limits.get("max_floor_penetration_model_units"), "floor limit")
+    # Audit v1 used this protected gate; importing its producer would load physics.
+    require(limit == 0.025, "audit v1 floor limit differs from its protected gate")
+    references = bounded_rows(human.get("reference"), "source reference bound", 900)
+    require(len(references) >= 2, "source reference interval missing")
+    times = [number(row.get("time_s"), "reference time", high=3600) for row in references]
+    require(all(left < right for left, right in zip(times, times[1:]))
+            and 0 < times[-1] - times[0] <= 60, "source reference order or duration")
+    grid_count = math.floor((times[-1] - times[0]) * 30 + 1e-9) + 1
+    require(grid_count <= 1801, "control-grid bound")
+    # The audit covers the full reference, independently of any shorter task window.
+    schedule = [("source_pose", stamp, index) for index, stamp in enumerate(times)]
+    schedule.extend(("control_grid", min(times[-1], times[0] + index / 30), None)
+                    for index in range(grid_count))
+    rows = bounded_rows(audit.get("checks"), "check row bound", 2701)
+    require(len(rows) == len(schedule), "incomplete source/control-grid checks")
+    initial = bounded_rows(audit.get("initial_intersections"), "initial intersection bound", 4096)
+    counts = {kind: {"checks": 0, "floor_failures": 0, "failed_preflight": 0}
+              for kind in ("source_pose", "control_grid")}
+    peak, static_poses, examples = 0., 0, []
+    for row, (kind, stamp, index) in zip(rows, schedule, strict=True):
+        _check(source.deadline)
+        actual_index = row.get("source_reference_index")
+        require(row.get("kind") == kind
+                and (actual_index is None if index is None else type(actual_index) is int and actual_index == index)
+                and "source_reference_index" in row
+                and math.isclose(number(row.get("time_s"), "check time", high=3600), stamp,
+                                 rel_tol=0, abs_tol=1e-9), "source/control-grid schedule differs")
+        penetration = number(row.get("max_penetration_model_units"), "penetration")
+        contacts = bounded_rows(row.get("floor_contacts"), "floor contact bound", 4096)
+        conflicts = bounded_rows(row.get("static_conflicts"), "static conflict bound", 4096)
+        require(number(row.get("floor_contact_count"), "floor contact count", integer=True) == len(contacts)
+                and number(row.get("static_conflict_count"), "static conflict count", integer=True) == len(conflicts),
+                "contact counts differ")
+        require(penetration == max((number(contact.get("penetration_model_units"), "contact penetration")
+                                   for contact in contacts), default=0.), "contact peak differs")
+        floor_pass = penetration <= limit
+        coupled_pass = floor_pass and not conflicts
+        require(row.get("passes_floor_limit") is floor_pass
+                and row.get("passes_coupled_preflight") is coupled_pass, "saved pass flags contradict measurements")
+        counts[kind]["checks"] += 1
+        counts[kind]["floor_failures"] += not floor_pass
+        counts[kind]["failed_preflight"] += not coupled_pass
+        peak = max(peak, penetration)
+        static_poses += bool(conflicts)
+        if not coupled_pass and len(examples) < 8:
+            examples.append({"kind": kind, "time_s": row["time_s"], "source_reference_index": index,
+                "max_penetration_model_units": penetration, "passes_floor_limit": floor_pass,
+                "static_conflict_count": len(conflicts)})
+    expected = {"source_pose_checks": counts["source_pose"]["checks"],
+        "control_grid_checks": counts["control_grid"]["checks"], "checks": len(rows),
+        "failed_source_poses": counts["source_pose"]["failed_preflight"],
+        "failed_control_grid_poses": counts["control_grid"]["failed_preflight"],
+        "static_conflict_poses": static_poses, "initial_cross_entity_intersections": len(initial), "physics_steps": 0}
+    saved = audit.get("summary")
+    require(isinstance(saved, dict), "count summary missing")
+    require(all(number(saved.get(key), key, integer=True) == value for key, value in expected.items())
+            and number(saved.get("max_penetration_model_units"), "summary penetration") == peak,
+            "summary contradicts check rows")
+    failed = sum(row["failed_preflight"] for row in counts.values())
+    status = "infeasible" if failed or initial else "feasible"
+    require(audit.get("status") == status, "status contradicts check rows or initial intersections")
+    return {"status": status, "physical_validation": "unverified",
+        "scope": "Saved zero-physics geometry preflight only; not dynamic stability, balance, task success or physical accuracy.",
+        "audit_artifact": name, "audit_sha256": source.files[name], "scene_sha256": scene_sha,
+        "source_sha256": bound_sha, "source_binding_mode": binding["mode"],
+        "floor_limit_model_units": limit, "max_penetration_model_units": peak, **counts,
+        "static_conflict_poses": static_poses, "initial_cross_entity_intersections": len(initial),
+        "physics_steps": 0, "failure_examples": examples, "failure_examples_omitted": failed - len(examples)}
+
+
 def _summary(source, body_prefix, video):
     settings = {} if source.receipt_only else source.document("settings.json")
     stages, history = _history(source.result, settings, source.receipt_only)
@@ -554,9 +668,16 @@ def _summary(source, body_prefix, video):
         "media_sync_verified": False, "video_artifact": video,
         "work": {"video_decodes": 0, "inference_calls": 0, "physics_steps": 0, "training_episodes": 0, "api_calls": 0}}
     if source.receipt_only:
+        result["reference_feasibility"] = _reference_feasibility(source)
         result["diagnostics"] = _pose_diagnostics(source, body_prefix, result["coverage"], stages)
         result["assumptions"] = ["Only the terminal failure receipt is sealed. Other preserved stage outputs are unverified and are not exposed."]
         return result
+    for name in ("scene_sha256", "task_sha256"):
+        value = source.result.get(name)
+        if value is not None:
+            if not isinstance(value, str) or not _SHA.fullmatch(value):
+                raise ValueError("Invalid sealed build identity: " + name)
+            result[name] = value
     if video:
         doc_name = str(PurePosixPath(video).parent / "source.json")
         doc = source.document(doc_name, required=True)
@@ -624,6 +745,8 @@ def _summary(source, body_prefix, video):
     result["requested_options"] = _small_fields(settings, ("scene_scope", "pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
     result["learning"] = _small_fields(source.document("learning_workflow/result.json"),
         ("status", "training", "selection", "evaluation", "scene_sha256", "task_sha256"))
+    result["reference_feasibility"] = _reference_feasibility(source,
+        result["source"].get("sha256", result["coverage"].get("source_sha256")))
     return result
 
 
@@ -641,6 +764,69 @@ def _media(raw, suffix):
         valid[suffix] = raw[4:8] == b"ftyp"
     if suffix in valid and not valid[suffix]:
         raise ValueError("Saved inspection media has an unsupported file signature")
+
+
+def _scorecard_html(scorecard, artifacts, manifest_sha):
+    def text(value):
+        return escape(str(value), quote=True)
+
+    by_name = {row["source_name"]: row for row in artifacts}
+
+    def evidence_link(pointer):
+        name = pointer["source_name"]
+        if name == "manifest.json" and pointer["sha256"] == manifest_sha and pointer["path"] is None:
+            path = "source-manifest.json.txt"
+        else:
+            artifact = by_name.get(name)
+            if artifact is None or any(pointer[key] != artifact[key] for key in ("path", "sha256")):
+                raise ValueError("Scorecard evidence does not match an exact copied artifact")
+            path = artifact["path"]
+        return f'<a href="{text(path)}">{text(name)}</a>'
+
+    def metric_value(metric):
+        if metric["value"] is None:
+            return "Unavailable"
+        if metric["denominator"] is not None:
+            value = f'{metric["numerator"]} / {metric["denominator"]}'
+        else:
+            value = format(metric["value"], ".8g")
+        return value + " " + metric["unit"].replace("_", " ")
+
+    status_labels = {"unavailable": "Not measured here", "evidence_available": "Evidence available — not a pass",
+                     "failure_reported": "Failures recorded"}
+    rows = []
+    for row in scorecard["rows"]:
+        available = [metric for metric in row["metrics"] if metric["value"] is not None]
+        highlights = "<br>".join(text(metric["label"]) + ": <strong>" + text(metric_value(metric)) + "</strong>"
+                                  for metric in available[:3]) or "No bound measurement is available."
+        metrics = []
+        for metric in row["metrics"]:
+            gate = metric["recorded_gate"]
+            gate_text = (" Recorded limit: " + json.dumps(gate, sort_keys=True, allow_nan=False)) if gate else ""
+            links = " · ".join(evidence_link(pointer) for pointer in metric["evidence"])
+            metrics.append('<tr><th scope="row">' + text(metric["label"]) + '</th><td>'
+                + text(metric_value(metric)) + text(gate_text) + '</td><td>'
+                + text(metric["evidence_kind"].replace("_", " ")) + '<br>'
+                + text(metric["partition"].replace("_", " ")) + '</td><td>' + (links or "Unavailable") + '</td></tr>')
+        limits = '<ul>' + ''.join('<li>' + text(item) + '</li>' for item in row["uncertainty_and_missing_measurements"]) + '</ul>'
+        examples = ""
+        if row["failure_examples"]:
+            examples = '<h4>Saved failure examples</h4><pre>' + text(json.dumps(row["failure_examples"], indent=2,
+                sort_keys=True, allow_nan=False)) + '</pre>'
+        if row["failure_examples_omitted"]:
+            examples += '<p>' + str(row["failure_examples_omitted"]) + ' additional examples omitted; counts above retain them.</p>'
+        rows.append(f'<tr id="evidence-{text(row["id"])}"><th scope="row">{text(row["label"])}</th><td>'
+            + '<strong>' + text(status_labels[row["status"]]) + '</strong><p>' + highlights + '</p>'
+            + '<details><summary>Measurements, evidence and limits</summary>' + limits
+            + '<table><thead><tr><th>Measurement</th><th>Value</th><th>Evidence kind / partition</th><th>Exact evidence</th>'
+            + '</tr></thead><tbody>' + ''.join(metrics) + '</tbody></table>' + examples + '</details></td></tr>')
+    return ('<section id="evidence"><h2>5. Evidence and remaining gaps</h2>'
+        '<p>All 14 evaluation categories are shown below. Available evidence is not a passed category or a completion percentage. '
+        'Unavailable means not measured here, not zero error. Simulator outcomes do not establish physical accuracy.</p>'
+        '<p>Construction evidence describes how the world was made. Exposed development evidence has already been examined; '
+        'it is not fresh final evaluation. Unknown means the saved summary does not establish that partition.</p>'
+        '<table><thead><tr><th>Category</th><th>What this saved build establishes</th></tr></thead><tbody>'
+        + ''.join(rows) + '</tbody></table><p>' + text(scorecard["identity_scope"]) + '</p></section>')
 
 
 def _render(summary, artifacts, palette):
@@ -684,8 +870,42 @@ def _render(summary, artifacts, palette):
     elif summary["reasons"]:
         reasons = "<ul>" + "".join("<li>" + text(row.get("message", "A stage reported a failure; see its exact saved reason below.")) + "</li>" for row in summary["reasons"]) + "</ul>"
     else:
-        reasons = "<p>No failure reason is recorded in this terminal receipt.</p>"
+        reasons = "<p>No build-stage failure is recorded. This does not establish motion feasibility or task success.</p>"
     reasons += '<details><summary>Exact recorded reason and identifiers</summary>' + dump({"build_status": summary["build_status"], "reasons": summary["reasons"]}) + '</details>'
+    feasibility = summary["reference_feasibility"]
+    if feasibility["status"] == "unavailable":
+        feasibility_html = ('<aside class="notice"><h3>Motion geometry audit unavailable</h3><p>'
+                            + text(feasibility["reason"]) + '</p></aside>')
+    else:
+        floor_failed = any(feasibility[kind]["floor_failures"] for kind in ("source_pose", "control_grid"))
+        if floor_failed:
+            heading = "Estimated motion intersects the assumed ground"
+        elif feasibility["status"] == "infeasible":
+            heading = "Saved geometry overlaps remain"
+        else:
+            heading = "Saved motion geometry checks passed"
+        if summary["build_status"] == "ready" and feasibility["status"] == "infeasible":
+            label = "Sandbox prepared; motion geometry checks failed"
+        check_rows = ''.join('<tr><th scope="row">' + title + '</th><td>' + str(feasibility[kind]["checks"])
+            + '</td><td>' + str(feasibility[kind]["floor_failures"]) + '</td><td>'
+            + str(feasibility[kind]["failed_preflight"]) + '</td></tr>'
+            for kind, title in (("source_pose", "Source-pose estimates"), ("control_grid", "30 Hz control grid")))
+        audit_link = by_name[feasibility["audit_artifact"]]
+        feasibility_html = (f'<aside class="notice"><h3>{heading}</h3>'
+            '<p>This saved preflight checks estimated body geometry against the assumed ground and static objects. '
+            'It covers the complete saved reference, even when the task uses a shorter interval.</p>'
+            '<table><thead><tr><th>Check set</th><th>Poses checked</th><th>Over floor limit</th>'
+            '<th>Failed any geometry check</th></tr></thead><tbody>' + check_rows + '</tbody></table>'
+            f'<p>Maximum ground penetration: <strong>{feasibility["max_penetration_model_units"]:.8g} model units</strong>; '
+            f'unchanged task limit: <strong>{feasibility["floor_limit_model_units"]:.8g} model units</strong>. '
+            'Model units are simulation coordinates, not measured physical distances.</p>'
+            f'<p>Poses with static-object conflicts: {feasibility["static_conflict_poses"]}. '
+            f'Initial cross-entity overlaps: {feasibility["initial_cross_entity_intersections"]}.</p>'
+            '<p>No physics steps were taken by this saved check. It does not establish dynamic stability, balance, '
+            'task success, or physical accuracy. Ground placement and body geometry remain assumptions; '
+            'these results are not an anatomical diagnosis. Lab availability is unchanged.</p><p>'
+            + link(audit_link) + '</p><details><summary>Saved geometry counts, identities and failure examples</summary>'
+            + dump(feasibility) + '</details></aside>')
     diagnostic = summary.get("diagnostics", {})
     diagnostic_html = ""
     if diagnostic.get("status") == "saved_quality_rejected":
@@ -787,18 +1007,20 @@ def _render(summary, artifacts, palette):
         equipment_table = "<p>Person-only scene: one selected body and ground, without dummy equipment. Equipment and object-contact gates are not applicable, not passed. Equipment absence is user-declared, not detector-verified.</p>"
     elif summary["equipment"].get("status") == "declared_scope_only":
         equipment_table = "<p>Person-only scope was requested, but no constructed scene is available in the sealed files. Equipment absence is user-declared, not detector-verified.</p>"
+    evidence_html = _scorecard_html(summary["evidence_scorecard"], artifacts, summary["source_manifest_sha256"])
     css = palette + """
 body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:32px 20px}h1{font:700 2.5rem/1.1 Georgia,serif}h2{margin-top:0}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:24px;margin:22px 0}a{color:var(--weft-primary)}small{display:block;color:var(--weft-muted);overflow-wrap:anywhere}code,pre{overflow-wrap:anywhere;white-space:pre-wrap}pre{font-size:.82rem;max-height:420px;overflow:auto;padding:14px;background:var(--weft-canvas)}table{width:100%;border-collapse:collapse;text-align:left}td,th{padding:10px;border-bottom:1px solid var(--weft-border);vertical-align:top}video,img{max-width:100%;max-height:560px;border-radius:8px}video{width:100%}figure{margin:20px 0}figcaption{color:var(--weft-muted)}summary{cursor:pointer;font-weight:650;padding:10px 0}li{margin:10px 0}.notice{border-left:4px solid var(--weft-primary);padding:12px 16px}.tag{font-weight:700;color:var(--weft-primary)}nav{display:flex;gap:20px;flex-wrap:wrap}@media(max-width:600px){main{padding:20px 12px}section{padding:16px}table{font-size:.85rem}td,th{padding:6px}h1{font-size:2rem}}"""
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file:; media-src 'self' file:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Weft · Build inspection</title><style>{css}</style></head><body><main>
-<header><p class="tag">weft · saved build inspection</p><h1>What happened in this build</h1><p><strong>{text(label)}</strong></p><p>{availability}</p>{receipt}
-<nav><a href="#stages">Stages</a><a href="#original">Original video</a><a href="#body">Body evidence</a><a href="#equipment">Equipment</a><a href="#artifacts">Artifacts</a></nav></header>
+<header><p class="tag">weft · saved build inspection</p><h1>What happened in this build</h1><p><strong>{text(label)}</strong></p><p>{availability}</p>{receipt}{feasibility_html}
+<nav><a href="#stages">Stages</a><a href="#original">Original video</a><a href="#body">Body evidence</a><a href="#equipment">Equipment</a><a href="#evidence">Evidence and gaps</a><a href="#artifacts">Artifacts</a></nav></header>
 <section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table>{diagnostic_html}<h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
 <section id="original"><h2>2. Original video</h2>{media}<p>Playback uses the copied original. This report does not decode, synchronize, or seek video to inferred pose or equipment times.</p><details><summary>Source identity, attribution and rights</summary>{source}</details></section>
 <section id="body"><h2>3. Body evidence</h2>{coverage_html}{previews}{pixel_html}<p>Pose annotations show model-reported observations, not a simulated body, recovered anatomy, or measured muscle activation. Construction-only body seeds are not playable worlds.</p><details><summary>Saved body construction scope</summary>{dump(summary["body"])}</details></section>
 <section id="equipment"><h2>4. Equipment and assumptions</h2><p>Boxes, scale, camera depth, mass, and support are hypotheses. A box matching image edges does not prove physical shape or contact. Rejected candidates remain rejected.</p>{equipment_table}<details><summary>Exact saved geometry, source bindings and clocks</summary>{dump(summary["equipment"])}</details><h3>Saved limitations</h3><ul>{assumptions}</ul><details><summary>Requested options — not proof of execution</summary>{dump(summary.get("requested_options", {}))}</details><details><summary>Saved learning and evaluation outcomes — not rerun here</summary>{dump(summary["learning"])}</details></section>
-<section id="artifacts"><h2>5. Exact copied artifacts</h2><p>Each link opens a local exact-byte copy verified against the supplied source manifest. Other declared files were not independently checked or copied. No external paths or saved scripts are followed.</p>{''.join(groups)}<p><a href="source-manifest.json.txt">Original manifest: all declared paths and hashes</a> · <a href="report.json.txt">Report summary and copy provenance</a></p><p>Source manifest SHA256: <code>{summary["source_manifest_sha256"]}</code></p></section>
+{evidence_html}
+<section id="artifacts"><h2>6. Exact copied artifacts</h2><p>Each link opens a local exact-byte copy verified against the supplied source manifest. Other declared files were not independently checked or copied. No external paths or saved scripts are followed.</p>{''.join(groups)}<p><a href="source-manifest.json.txt">Original manifest: all declared paths and hashes</a> · <a href="report.json.txt">Report summary and copy provenance</a></p><p>Source manifest SHA256: <code>{summary["source_manifest_sha256"]}</code></p></section>
 <footer><p>Report generated: {text(summary["created_at"])} (America/Los_Angeles). Report generation does not establish task success or physical accuracy. No simulation, inference, training, API call, or server was started by this report.</p></footer>
 </main></body></html>'''.encode()
 
@@ -947,6 +1169,8 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30, pixel_support=Non
         summary.update(artifacts=artifacts, source_directory=str(source_path), source_declared_files=len(source.files),
                        copied_source_files=copied_build_files, uninspected_declared_files=len(set(source.files) - set(source.pins)),
                        implementation_sha256=_sha(Path(__file__).read_bytes()), palette_sha256=_sha(palette_raw))
+        summary["evidence_scorecard"] = evidence_scorecard.build_evidence_scorecard(summary)
+        summary["evidence_scorecard_implementation_sha256"] = _sha(Path(evidence_scorecard.__file__).read_bytes())
         report_raw, html = _bytes(summary), _render(summary, artifacts, palette)
         if len(report_raw) > MAX_REPORT_BYTES or len(html) > MAX_REPORT_BYTES:
             raise ValueError("Build inspection summary or HTML exceeds its byte bound")

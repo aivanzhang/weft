@@ -113,6 +113,34 @@ To explain a saved failure **without reprocessing the video**, point to its inne
 
 The report shows the stopped stage, exact source artifacts, saved quality checks and affected original frames when available. Competing pose estimates do not necessarily mean multiple people; nominal video time and saved decoder time remain separate. Existing lab/runtime compatibility checks still apply on reopening after code changes; the fixed example launchers retain their own frozen runtimes.
 
+### Read evidence and failures
+
+Open the generated `report/index.html`, then choose **Evidence and gaps**.
+All 14 evaluation categories show saved measurements, missing measurements,
+failure examples and links to exact artifacts. Expand a category for its limits.
+There is no overall accuracy score: an unavailable measurement is not zero error.
+
+**Sandbox prepared** means construction produced a lab, not that its motion or
+task passed. A saved geometry audit now shows floor conflicts prominently, with
+separate source-pose and intermediate-pose counts and the unchanged task limit.
+These compare estimated geometry with assumed ground; they do not measure anatomy.
+Learning counts appear only when the saved world and task identities match, and
+remain labeled simulator development results rather than physical validation.
+
+Two saved examples demonstrate the report without starting a server:
+
+- [Stronger pose-model candidate](../artifacts/heavy-video-inspection-02/index.html):
+  prepared but untrained; 8/117 source poses and 14/235 intermediate poses fail
+  the existing floor limit.
+- [Earlier training run](../artifacts/person-scorecard-inspection-01/index.html):
+  preserves its 0/3 learned-controller successes. This is **not** the newer
+  [recommended exercise example](#recommended-exercise-sandbox), which passed 3/3.
+
+These reports were generated together in **0.40 seconds**, using only saved
+artifacts, with no decoding, inference, physics, training or API calls. They do
+not replace or modify the original runs. New builds receive this report
+automatically; `--inspect-build` adds it to an older build in a new directory.
+
 Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) for direct access with an explicit local pose model. It uses the same pipeline and assumptions as the launcher, not a separate product. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible.
 
 ### Reuse an extracted body
