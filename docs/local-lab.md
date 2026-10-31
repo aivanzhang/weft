@@ -4,6 +4,24 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Try the complete video-to-lab example
+
+From the repository root:
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example video
+```
+
+Open the complete printed local link and keep the terminal running. Use **Sandbox** for manual or controller-driven movement, then **Record & start → Stop & save**. This example was built from the original kettlebell video through pose recovery, shared-world construction, bounded training/evaluation and one final lab in **29.6 seconds**. It still uses explicit equipment/camera assumptions; it is not automatic arbitrary-video reconstruction. Training found no improvement and task success remains **0/3**.
+
+Open the [step-by-step report](../artifacts/native-crop-inspection-01/index.html) or the [verified recording replay](../artifacts/native-crop-build-02/learning_workflow/lab/sessions/session-658e7650b073/replay.html) independently. Recording acceptance covers 262 actions, one reset, all 254 post-reset steps and 264 exported video frames, with exact replay. These checks do not establish physical accuracy or browser visual quality.
+
+This preset pins trusted Git runtime **`d0cdbe87d9f89b002e13c969ca1ac1549ae20107`** and the v2 lab at `artifacts/native-crop-build-02/learning_workflow/lab`. It checks exactly **21 policy/17 lab source pins** and installed versions; recordings stay in that lab's `sessions/`. The actual `--example video --check` passed in **0.178 seconds** with **190 files /3,602,474 bytes**, `.local/playable-video-launcher-verification-02.json`. It starts no server or physics; complete source/training/evaluation admission runs when opening the lab.
+
+The no-flag shortcut below retains the original sandbox and its separate frozen runtime. `--lab` can select another saved lab only if it matches the chosen preset's exact profile and source pins; neither preset executes artifact-supplied Python or silently replaces a modified cache.
+
+## Original full-reference sandbox
+
 The five inspection shortcuts expose **Original → Tracks → Geometry → Sandbox → Recordings**, including saved initial-geometry panels and compact provenance. The [human-only exercise sandbox](shared-exercise.md) checks body tracking and equipment stability throughout a declared interval, with manual/coast/reference controls, an optional validated policy and exact recorded action replay. Prepare it explicitly with `shared-exercise-lab`; existing labs retain their task and virtual object controls. To combine a saved mobile-body lab with equipment evidence, use [one-command `shared-exercise-build --human-run … --full-reference`](equipment-proposals.md). It prepares the body directly, then creates one continuous task and one lab; no separate shared-world adaptation or intermediate lab is needed. Camera distance, body scale, box shape and unknown depth remain explicit assumptions.
 
 To try the current full-reference human-plus-equipment run, start the lab yourself from the repository root:

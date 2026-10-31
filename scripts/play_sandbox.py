@@ -17,8 +17,10 @@ import uuid
 
 
 TRUSTED_COMMIT = "6396be84018e6cb6525614f07a664cf0bb673b34"
+VIDEO_TRUSTED_COMMIT = "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
+VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"
 EXPORT_PATHS = ("src/weft", "pyproject.toml", "requirements-lab.lock")
 MAX_FILES, MAX_BYTES, MAX_FILE_BYTES = 256, 16 * 1024 * 1024, 2 * 1024 * 1024
 POLICY_FILES = frozenset((
@@ -34,7 +36,26 @@ LAB_RUNTIME_FILES = POLICY_FILES - {
     "shared_exercise_learning.py", "shared_exercise_policies.py", "shared_exercise_residual_learning.py",
     "shared_exercise_selection.py", "whole_body_learning.py",
 }
+VIDEO_POLICY_FILES = POLICY_FILES - {
+    "shared_exercise_feasibility_evaluation.py", "shared_exercise_feasibility_learning.py",
+    "shared_exercise_selection.py",
+}
 DIR_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+
+
+def _preset(example):
+    if example is None:
+        return TRUSTED_COMMIT, DEFAULT_LAB, "shared-exercise-policy-v3", POLICY_FILES
+    if example == "video":
+        return VIDEO_TRUSTED_COMMIT, VIDEO_LAB, "shared-exercise-policy-v2", VIDEO_POLICY_FILES
+    raise ValueError("Unknown sandbox example")
+
+
+def _trusted_commit(value):
+    value = TRUSTED_COMMIT if value is None else value
+    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT}:
+        raise ValueError("Runtime revision must be one of the launcher's fixed trusted examples")
+    return value
 
 
 def _relative(name):
@@ -122,8 +143,9 @@ def _git(project, *args, limit, data=None):
                 cwd=project, env=env, limit=limit, data=data)
 
 
-def _trusted_tree(project):
-    raw = _git(project, "ls-tree", "-rz", "--long", TRUSTED_COMMIT, "--", *EXPORT_PATHS, limit=128 * 1024)
+def _trusted_tree(project, trusted_commit=None):
+    trusted_commit = _trusted_commit(trusted_commit)
+    raw = _git(project, "ls-tree", "-rz", "--long", trusted_commit, "--", *EXPORT_PATHS, limit=128 * 1024)
     rows, total = {}, 0
     for entry in raw.split(b"\0"):
         if not entry:
@@ -200,14 +222,15 @@ def _publish(directory_fd, staged, final):
         raise OSError(error, os.strerror(error))
 
 
-def prepare_runtime(project=PROJECT):
-    rows = _trusted_tree(project)
+def prepare_runtime(project=PROJECT, *, trusted_commit=None):
+    trusted_commit = _trusted_commit(trusted_commit)
+    rows = _trusted_tree(project, trusted_commit)
     parent = Path(project) / ".local/playable-runtime"
     fd = _directory(parent, create=True)
-    runtime = parent / TRUSTED_COMMIT
+    runtime = parent / trusted_commit
     try:
         try:
-            os.stat(TRUSTED_COMMIT, dir_fd=fd, follow_symlinks=False)
+            os.stat(trusted_commit, dir_fd=fd, follow_symlinks=False)
         except FileNotFoundError:
             request = b"".join(oid.encode() + b"\n" for oid, _ in rows.values())
             raw = _git(project, "cat-file", "--batch", data=request,
@@ -231,7 +254,7 @@ def prepare_runtime(project=PROJECT):
             if offset != len(raw):
                 raise ValueError("Git blob export contains unexpected trailing data")
             _verify_cache(parent / staged, rows)
-            _publish(fd, staged, TRUSTED_COMMIT)
+            _publish(fd, staged, trusted_commit)
         hashes = _verify_cache(runtime, rows)
         return runtime, hashes
     finally:
@@ -283,7 +306,8 @@ def _installed_versions(project, runtime):
     return result.get("versions")
 
 
-def check_compatibility(project, runtime, hashes, lab):
+def check_compatibility(project, runtime, hashes, lab, *, example=None):
+    _, _, profile, policy_files = _preset(example)
     manifest_raw = _read(lab, "run/manifest.json", 512 * 1024)
     manifest = _json(manifest_raw)
     sealed = manifest.get("files")
@@ -300,9 +324,9 @@ def check_compatibility(project, runtime, hashes, lab):
     policy, policy_raw = document("policy.json", 64 * 1024)
     contract, _ = document("exercise-lab.json", 128 * 1024)
     config = _json(_read(lab, "lab-config.json", 64 * 1024))
-    pins = {name: hashes.get("src/weft/" + name) for name in POLICY_FILES}
+    pins = {name: hashes.get("src/weft/" + name) for name in policy_files}
     versions = _installed_versions(project, runtime)
-    if (any(value is None for value in pins.values()) or policy.get("profile") != "shared-exercise-policy-v3"
+    if (any(value is None for value in pins.values()) or policy.get("profile") != profile
             or policy.get("runtime_sha256") != pins or contract.get("policy_runtime_sha256") != pins
             or contract.get("runtime_sha256") != {name: pins[name] for name in LAB_RUNTIME_FILES}
             or set(versions or {}) != {"python", "mujoco", "numpy", "gymnasium"}
@@ -325,17 +349,20 @@ def check_compatibility(project, runtime, hashes, lab):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
-    parser.add_argument("--lab", default=DEFAULT_LAB, help="Saved compatible lab (default: %(default)s)")
+    parser.add_argument("--example", choices=("video",), help="Use the video-to-lab example; omitted keeps the original sandbox")
+    parser.add_argument("--lab", help="Override the selected example's lab with another strictly compatible saved lab")
     parser.add_argument("--check", action="store_true", help="Check runtime and lab identity only; no server or physics")
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
-    lab = Path(args.lab)
+    commit, default_lab, _, policy_files = _preset(args.example)
+    lab = Path(args.lab if args.lab is not None else default_lab)
     lab = lab if lab.is_absolute() else PROJECT / lab
     try:
-        runtime, hashes = prepare_runtime(PROJECT)
-        check_compatibility(PROJECT, runtime, hashes, lab)
-        print(f"Verified trusted runtime {TRUSTED_COMMIT[:12]}: {len(hashes)} files, 24 policy pins and dependency versions.", flush=True)
+        runtime, hashes = prepare_runtime(PROJECT, trusted_commit=commit)
+        check_compatibility(PROJECT, runtime, hashes, lab, example=args.example)
+        print(f"Verified trusted runtime {commit[:12]}: {len(hashes)} files, {len(policy_files)} policy pins, "
+              f"{len(LAB_RUNTIME_FILES)} lab pins and dependency versions.", flush=True)
         if args.check:
             print("Check only: sealed runtime/lab metadata identity. No server, physics, session or media reads.")
             print("Complete source, training and evaluation admission still runs when the sandbox opens.")

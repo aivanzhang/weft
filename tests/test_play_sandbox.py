@@ -19,6 +19,7 @@ SPEC = importlib.util.spec_from_file_location("play_sandbox", Path(__file__).par
 launcher = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(launcher)
 ACTUAL_COMMIT = launcher.TRUSTED_COMMIT
+ACTUAL_VIDEO_COMMIT = launcher.VIDEO_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -54,13 +55,14 @@ def json_bytes(value):
     return (json.dumps(value, sort_keys=True) + "\n").encode()
 
 
-def saved_lab(project, hashes):
-    lab = project / launcher.DEFAULT_LAB
+def saved_lab(project, hashes, *, example=None, location=None):
+    _, default_lab, profile, policy_files = launcher._preset(example)
+    lab = project / (location or default_lab)
     (lab / "run").mkdir(parents=True)
     versions = {"python": platform.python_version(), **{name: importlib.metadata.version(name)
                 for name in ("mujoco", "numpy", "gymnasium")}}
-    pins = {name: hashes["src/weft/" + name] for name in launcher.POLICY_FILES}
-    policy = {"profile": "shared-exercise-policy-v3", "runtime_sha256": pins, "runtime_versions": versions,
+    pins = {name: hashes["src/weft/" + name] for name in policy_files}
+    policy = {"profile": profile, "runtime_sha256": pins, "runtime_versions": versions,
               "scene_sha256": "a" * 64, "task_sha256": "b" * 64}
     policy_raw = json_bytes(policy)
     contract = {"schema_version": 1, "profile": "shared-world", "control_profile": "shared_exercise",
@@ -97,6 +99,7 @@ def reseal(lab, name, value):
 
 def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_COMMIT == "6396be84018e6cb6525614f07a664cf0bb673b34"
+    assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2
@@ -346,3 +349,137 @@ def test_subprocess_output_is_actually_bounded(project):
     with pytest.raises(ValueError, match="output bound"):
         launcher._run([sys.executable, "-c", "import sys; sys.stdout.write('x' * 100000)"],
                       cwd=project, env=os.environ.copy(), limit=100)
+
+
+@pytest.fixture
+def video_project(project, monkeypatch):
+    (project / "src/weft/__init__.py").write_text("marker = 'trusted video'\n")
+    (project / "src/weft/shared_world.py").write_text("# Distinct trusted video runtime\n")
+    git(project, "add", "src/weft")
+    git(project, "-c", "commit.gpgsign=false", "commit", "-qm", "Freeze video runtime fixture")
+    monkeypatch.setattr(launcher, "VIDEO_TRUSTED_COMMIT", git(project, "rev-parse", "HEAD"))
+    return project
+
+
+def test_presets_keep_exact_distinct_profiles_and_policy_sets():
+    assert launcher._preset(None) == (ACTUAL_COMMIT, "artifacts/feasibility-fullspan-lab-01",
+                                      "shared-exercise-policy-v3", launcher.POLICY_FILES)
+    assert launcher._preset("video") == (ACTUAL_VIDEO_COMMIT, "artifacts/native-crop-build-02/learning_workflow/lab",
+                                         "shared-exercise-policy-v2", launcher.VIDEO_POLICY_FILES)
+    assert len(launcher.POLICY_FILES) == 24 and len(launcher.VIDEO_POLICY_FILES) == 21
+    assert len(launcher.LAB_RUNTIME_FILES) == 17 and launcher.LAB_RUNTIME_FILES <= launcher.VIDEO_POLICY_FILES
+
+
+@pytest.mark.parametrize("revision", ["HEAD", "main", "0" * 40, "../arbitrary"])
+def test_runtime_helper_cannot_export_an_arbitrary_revision(project, revision):
+    with pytest.raises(ValueError, match="fixed trusted examples"):
+        launcher.prepare_runtime(project, trusted_commit=revision)
+    assert not (project / ".local").exists()
+
+
+def test_video_export_is_separate_trusted_git_not_worktree_or_archive(video_project):
+    project = video_project
+    old_runtime, old_hashes = launcher.prepare_runtime(project)
+    (project / "src/weft/__init__.py").write_text("raise RuntimeError('mutable development code')\n")
+    archive = project / launcher.VIDEO_LAB / "run/implementation"
+    archive.mkdir(parents=True)
+    (archive / "__init__.py").write_text("raise RuntimeError('artifact Python must not run')\n")
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    assert runtime.name == launcher.VIDEO_TRUSTED_COMMIT and old_runtime.name == launcher.TRUSTED_COMMIT
+    assert (runtime / "src/weft/__init__.py").read_text() == "marker = 'trusted video'\n"
+    assert (old_runtime / "src/weft/__init__.py").read_text() == "marker = 'trusted'\n"
+    assert hashes["src/weft/shared_world.py"] != old_hashes["src/weft/shared_world.py"]
+    assert launcher.prepare_runtime(project) == (old_runtime, old_hashes)
+
+
+@pytest.mark.parametrize("override", [False, True])
+def test_video_check_uses_exact_v2_pins_without_server_or_mutation(video_project, monkeypatch, capsys, override):
+    project = video_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    location = "artifacts/custom-compatible-lab" if override else None
+    lab = saved_lab(project, hashes, example="video", location=location)
+    before = {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Check cannot start a server"))
+    args = ["--example", "video", "--check"] + (["--lab", location] if override else [])
+    assert launcher.main(args) == 0
+    output = capsys.readouterr().out
+    assert "21 policy pins, 17 lab pins" in output and launcher.VIDEO_TRUSTED_COMMIT[:12] in output
+    assert "No server, physics, session or media reads" in output
+    assert before == {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    assert not (lab / "sessions").exists() and not list(runtime.rglob("__pycache__"))
+
+
+@pytest.mark.parametrize("selected,lab_example", [(None, "video"), ("video", None)])
+def test_lab_override_cannot_cross_selected_profile(video_project, monkeypatch, capsys, selected, lab_example):
+    project = video_project
+    commit, _, _, _ = launcher._preset(lab_example)
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=commit)
+    lab = saved_lab(project, hashes, example=lab_example)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Wrong profile cannot launch"))
+    args = ["--check", "--lab", str(lab)] + (["--example", selected] if selected else [])
+    assert launcher.main(args) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("change", ["profile", "missing_pin", "extra_pin", "lab_extra_pin"])
+def test_video_metadata_requires_exact_profile_and_pin_sets(video_project, monkeypatch, change):
+    project = video_project
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="video")
+    name = "exercise-lab.json" if change == "lab_extra_pin" else "policy.json"
+    value = json.loads((lab / "run" / name).read_bytes())
+    if change == "profile":value["profile"] = "shared-exercise-policy-v3"
+    elif change == "missing_pin":value["runtime_sha256"].pop("shared_world.py")
+    else:value["runtime_sha256"]["shared_exercise_selection.py"] = "0" * 64
+    reseal(lab, name, value)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Incompatible video policy cannot launch"))
+    assert launcher.main(["--example", "video", "--check"]) == 1
+
+
+@pytest.mark.parametrize("kind", ["symlink", "parent_traversal"])
+def test_video_lab_override_rejects_unsafe_paths(video_project, monkeypatch, kind):
+    project = video_project
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="video")
+    alias = project / "lab-alias"
+    if kind == "symlink":alias.symlink_to(lab, target_is_directory=True)
+    else:
+        alias.mkdir()
+        alias = alias / ".." / launcher.VIDEO_LAB
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Unsafe path cannot launch"))
+    assert launcher.main(["--example", "video", "--lab", str(alias), "--check"]) == 1
+
+
+def test_altered_video_cache_is_not_repaired_or_replaced_by_default(video_project, monkeypatch):
+    project = video_project
+    old_runtime, old_hashes = launcher.prepare_runtime(project)
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    saved_lab(project, hashes, example="video")
+    changed = runtime / "src/weft/__init__.py";changed.write_text("marker = 'changed'\n")
+    before = changed.read_bytes(), changed.stat().st_mtime_ns
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Changed cache cannot launch"))
+    assert launcher.main(["--example", "video", "--check"]) == 1
+    assert (changed.read_bytes(), changed.stat().st_mtime_ns) == before
+    assert launcher.prepare_runtime(project) == (old_runtime, old_hashes)
+
+
+def test_video_launch_keeps_its_recordings_and_frozen_runtime(video_project, monkeypatch):
+    project = video_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="video")
+    calls = []
+    class Replaced(BaseException):pass
+    def replace(python, command, env):calls.append((python, command, env));raise Replaced
+    monkeypatch.setattr(launcher.os, "chdir", lambda path: None)
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    with pytest.raises(Replaced):launcher.main(["--example", "video", "--port", "8766"])
+    _, command, env = calls[0]
+    assert command == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", "lab",
+                       "--resume", str(lab), "--port", "8766"]
+    assert env["PYTHONPATH"] == str(runtime / "src")
+
+
+def test_unknown_example_is_rejected_without_runtime_work(monkeypatch):
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_args, **_kw: pytest.fail("Unknown example must fail before export"))
+    with pytest.raises(SystemExit) as error:launcher.main(["--example", "arbitrary", "--check"])
+    assert error.value.code == 2

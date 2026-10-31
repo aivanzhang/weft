@@ -60,6 +60,8 @@ To prepare proposals alone, use `exercise-pose-prepare --video <video> --pose-mo
 
 **Local verified example:** `artifacts/native-crop-build-02` completes this native pipeline on the existing kettlebell source in **29.6 seconds**, preserving all 257 source slots and producing one 254-action/8.47-second lab. The bounded search finds no feasible improvement and all controllers score **0/3 task successes**. This verifies orchestration and a ready environment, not physical accuracy or arbitrary-video support. Open `artifacts/native-crop-inspection-01/index.html` for its stages, video, poses and results; [exact identities and limitations](handoffs/combined.md#native-video-through-one-final-lab--development-path-works) remain recorded.
 
+To play that saved example while development continues, run `.venv-lab/bin/python scripts/play_sandbox.py --example video`. Its fixed trusted runtime keeps this v2 lab separate from the original no-flag v3 sandbox. [Controls and verification](local-lab.md#try-the-complete-video-to-lab-example).
+
 ## Inspect a completed or stopped build
 
 Create a local report from an existing build; this does not rerun the video or start a server:
