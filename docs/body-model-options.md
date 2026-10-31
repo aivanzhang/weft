@@ -85,6 +85,27 @@ exactly and preserves 147 unavailable endpoints. These checks perform no fit,
 geometry, decoding, inference or physics; they do not qualify a reconstructed
 body. [Receipts and limits](handoffs/combined.md#crop-recovery-integration--october-31-2026-538-am-pdt).
 
+**Real recovered-body workflow:** one first public-command run now also completes
+the fit and report on that saved kettlebell input in **2.663 seconds**, using a
+five-second fitting budget. Mean image-target error falls **13.25875→11.57002 px**
+over 1,305 confident endpoints; 121 source poses and 255 intermediate checks have
+zero floor-limit violations before and after. All eleven unchanged fit gates
+pass. The worker performs two model compilations, four data allocations and
+12,580 geometry forwards, with 98,729,984 B observed peak RSS; no dynamics,
+decoding, inference, training or API call occurs. One macOS startup subprocess
+attempt is denied, not executed.
+
+Open the [saved comparison](../artifacts/body-reference-crop-cli-01/workflow/inspection/index.html).
+Five crop-derived targets, eight missing-reference slots and 147 unavailable
+endpoints remain explicit. The original body, root, first pose, clocks and floor
+are unchanged. Only the proposed reference joint angles differ: **this does not
+change physical geometry or validate equipment contact**. The proposal remains
+unadmitted and uninstalled. Replacing the reference in an existing task would also
+change its scoring target; any controller trial must keep the original scene,
+task and scorer fixed. Saved audit:
+`.local/body-reference-crop-cli-saved-audit-01.json`; acceptance seal
+`a154fd6e97b50f11cc22dc2ea6651d9269c47084bb7607db7d4434bc27ff1918`.
+
 ## Saved-source whole-body fitting
 
 The opt-in `whole_body_reference_refinement.propose_whole_body_reference_refinement`

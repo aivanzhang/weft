@@ -1,5 +1,92 @@
 # Combined Weft implementation handoff
 
+## Real proposal and preserved-lab handoff — October 31, 2026, 6:00 AM PDT
+
+Crop-input integration is published at
+`89e6b2a479658760c9c3fd58d14610028508f583`, independently matched to live private
+`origin/main`. Publication receipt `.local/body-reference-recovery-publication-01.json`,
+SHA `9e823c326388df4a75cbbb876f9b0ff5fee4cc82c9faf5739f06fa76efb49aa9`;
+checkpoint SHA `29114ffa9bcf7e8ea7277eaefae40439091db61341356323e66104f528aca2a2`.
+Exactly thirteen owned files were committed; 75 avatar status/path entries and
+zero stashes were preserved. This is status/path preservation, not an avatar-byte audit.
+
+**First actual recovered-body proposal:** no equivalent 19-axis fit existed for
+this input. Earlier native whole-body studies used Heavy; the first public CLI
+used an authored fixture. Root ran `.local/run_body_reference_crop_cli_01.py`
+once with image-first /fit5s /workflow30s /outer45s, using a frozen copy of the
+committed launcher supervisor so concurrent launcher edits were not loaded.
+`artifacts/body-reference-crop-cli-01`, seal
+`a154fd6e97b50f11cc22dc2ea6651d9269c47084bb7607db7d4434bc27ff1918`.
+Public workflow and actual report complete in 2.662715 s; worker 1.699319 s,
+98,729,984 B observed peak RSS, two models/four data/12,580 forwards. One macOS
+startup subprocess attempt was denied, not executed. No dynamics/reset/media
+decoding/inference/training/API or installation. The normal input adapter replays
+saved source selection once; no extra standalone selector pass was run.
+
+All eleven unchanged fit gates pass. Across 1,305 confident endpoints, image
+error is 13.25875036→11.57001607 px. All 121 source/255 grid checks retain zero
+floor-limit failures; peak penetration .00055884356→0 model units. 119 references
+change; the first pose, root, shape, floor, clocks and all other physical fields
+remain unchanged. Five crop-derived targets, eight missing-reference slots and
+147 unavailable endpoints remain explicit. **Only reference joint angles change,
+not physical geometry**. Status is still `unadmitted_construction_proposal`;
+passed source-fit checks are not task success or physical validation.
+
+Saved-only audit `.local/body-reference-crop-cli-saved-audit-01.json`, SHA
+`5068d18ee2eb2970a45a3d0ebf8d2200a70960202f9203e29d86910c83498d33`, verifies
+all output seals, 30 current implementation/12 frozen runtime pins, 33 source
+members/34 copies, numerical saved gates, HTML data/script and six sealed links.
+No fitting, geometry or report generation was repeated. Actual-page scripted DOM
+receipt `.local/body-reference-crop-cli-ui-01.json`, SHA
+`d4e68579cd932f55a664188b3d15d92238ec1cc89ef723dd2a337b2b01fb4a83`, verifies
+129 source slots/255 grid samples, crop provenance and unknowns. 489 selections
+including 100 repeated updates stay bounded at at most 495 live stub nodes, with
+zero requests/timers/physics calls. One Node process takes .2121 s; no live-browser
+or visual-performance claim. [Open the report](../../artifacts/body-reference-crop-cli-01/workflow/inspection/index.html).
+
+**Late-failure usability fix:** `scripts/build_sandbox.py` and
+`tests/test_build_sandbox.py` are implemented and frozen. Failed builds retain
+exit1 and never auto-launch; a complete preserved lab gets manual commands only
+after bounded parent/run/source/scene/task identity checks. Metadata reads are
+limited to 16 MiB/five cooperative seconds; declared file presence is checked,
+but full artifact/runtime admission remains the resume command's responsibility.
+Mutable lifecycle status is context, not a ready/closed gate; incomplete markers,
+unsafe/missing/mismatched data and receipt-only parent seals do not get commands.
+52 distinct fixture cases pass across `.local/prepared-lab-handoff-tests-{01,02}.xml`;
+successful cases were reused. Root static review passed. A bounded inventory found
+no saved late-failure/ready-child example, so this recovery branch is fixture-
+verified, not claimed as an actual failed-video acceptance. No saved builds changed.
+
+**Next active work:** a pure `shared_exercise_reference_controller.py` provider
+and its tests are assigned to `heavy_startup_review`; root owns later file/seal
+loading, CLI/recording integration and docs. Complete provider checks, source/task/
+runtime admission and frozen work bounds before a rollout. Use the passed proposal as a source-fit
+authored controller alternative through public actions on the original world.
+Never replace `human_spec.reference`: both authored feedback and the independent
+scorer read it, so replacement would redefine success. Keep the source scene/task
+exact, root channels unchanged, delta correction before clipping, and bind the
+current 40/5 feedback and `human.reference_velocity_index` semantics. The provider
+must use actual `simulated_duration_s`, not rounded display step times.
+
+For this saved case, candidate and lab scene bytes match SHA
+`e67ea288be8abda0dac496ebb3182d0e0c85b3cc98fa5fe43f32979b4f24f75c`;
+original task SHA `f99d70659a85bf050285d53c3dc81a16a58dd24d6f90e286bab2b90db3f3e3d4`.
+Scene human equals the original proposal input exactly. Clock is
+`pose_frame_index_over_fps_prior_v1`, offset2/30, fps30, dt1/30, substeps16,
+horizon254, explicit three-axis root assistance. Do not substitute newer native-
+clock semantics, drop equipment or call it person-only. Reuse a baseline only
+when scene/task/reset/runtime match exactly. The shared simulator task still has
+its known equipment failures; no new success has been established.
+
+All acceptance workers are terminal. Root is checkpointing the launcher/report
+milestone while the non-overlapping pure provider is implemented. No paid work,
+key/ledger access, browser, server, deployment or avatar changes occurred.
+Generalized reconstruction and independent physical evidence remain open. A
+read-only check also ruled out thickness-only repair of the worst frozen Heavy
+pose: even zero shin radius leaves .033856 penetration above .025; stronger
+calibration/root evidence is needed. Panoptic had already been screened; no
+repeat source acquisition or broad discovery was started.
+
 ## Crop recovery integration — October 31, 2026, 5:38 AM PDT
 
 The saved-body proposal path now accepts the normal selective-crop recovery
@@ -58,7 +145,8 @@ geometry, media, inference, physics or API work. Both input documents, roots,
 native/nominal clocks and full contract remain unchanged. Eleven code pins match.
 
 These checks verify integration, not anatomical accuracy or physical success.
-No actual crop-body fit/report was generated, and the two rejected Heavy fits
+At that checkpoint no actual crop-body fit/report had been generated; the later
+first run is documented above. The two rejected Heavy fits
 and coupled equipment failures remain unchanged. External API cost is $0 for
 this milestone; the shared Meta ledger was not read or modified. No native
 worker handles remain. Preserve the 75 avatar-session status entries; stashes

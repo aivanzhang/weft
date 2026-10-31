@@ -288,6 +288,13 @@ To explain a saved failure **without reprocessing the video**, point to its inne
 
 The report shows the stopped stage, exact source artifacts, saved quality checks and affected original frames when available. Competing pose estimates do not necessarily mean multiple people; nominal video time and saved decoder time remain separate. Existing lab/runtime compatibility checks still apply on reopening after code changes; the fixed example launchers retain their own frozen runtimes.
 
+If a late failure leaves a complete lab, the launcher checks its saved identity
+metadata and prints manual browser-lab and terminal resume commands. It still
+exits with failure and never auto-starts that lab, even with `--serve` or
+`--console`. Opening it performs the normal full artifact/runtime checks. Missing,
+inconsistent or receipt-only outputs do not get a recovery command; the failed
+build and its report remain unchanged.
+
 ### Read evidence and failures
 
 Open the generated `report/index.html`, then choose **Evidence and gaps**.

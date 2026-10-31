@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shlex
 import subprocess
 import sys
 
@@ -534,3 +535,267 @@ def test_saved_body_output_overlap_and_symlink_reject_without_mutation(project):
     with pytest.raises(ValueError, match="symlink"):
         launcher.main(["--human-run", str(linked), "--person-only"])
     assert before == {p.name: p.read_bytes() for p in body.iterdir()}
+
+
+def preserved_build(path, *, trained=False, lifecycle="ready", preflight=None):
+    """Real packaging metadata shape; no simulator or physical-validity claim."""
+    sha = lambda data: hashlib.sha256(data).hexdigest()
+    canonical = lambda doc: sha(json.dumps(doc, sort_keys=True, allow_nan=False).encode())
+    lab = path / ("learning_workflow/lab" if trained else "lab")
+    source_prefix = "learning_workflow/selected/" if trained else "candidate/"
+    scene = {"schema_version": 1, "profile": "shared-world-v1",
+             "source_binding": {"mode": "source_qualified", "source_sha256":
+                                preflight["source_sha256"] if preflight else "a" * 64}}
+    task = {"schema_version": 1, "profile": "shared-exercise-task-v1", "scene_sha256": canonical(scene)}
+    policy = raw({"profile": "shared-exercise-policy-v2", "scene_sha256": canonical(scene),
+                  "task_sha256": canonical(task)})
+    source_files = {"scene.json": raw(scene), "source.webm": b"fixture media; never read by handoff"}
+    candidate_manifest = raw({"schema_version": 1, "status": "ready",
+                              "files": {name: sha(data) for name, data in source_files.items()}})
+    members = {"candidate/manifest.json": candidate_manifest,
+               **{"candidate/" + name: data for name, data in source_files.items()}}
+    if trained:
+        source_files.update({"exercise-task.json": raw(task), "policy.json": policy})
+        members["learning_workflow/exercise-task.json"] = raw(task)
+    source_manifest = raw({"schema_version": 1, "status": "trained" if trained else "ready",
+                           "files": {name: sha(data) for name, data in source_files.items()}})
+    members.update({source_prefix + "manifest.json": source_manifest,
+                    **{source_prefix + name: data for name, data in source_files.items()}})
+    contract = {"schema_version": 1, "profile": "shared-world", "control_profile": "shared_exercise",
+                "scene_sha256": canonical(scene), "task_sha256": canonical(task),
+                "reset_options": {"jitter": False, "jitter_scale": 0.0}, "learned_policy_available": trained,
+                "source_manifest_sha256": sha(source_manifest), "source_files_verified": len(source_files),
+                "implementation_sha256": {"runtime.py": sha(b"fixture runtime; never imported")},
+                "runtime_sha256": {"runtime.py": sha(b"fixture runtime; never imported")},
+                "runtime_versions": {"python": "fixture", "mujoco": "fixture"}}
+    run = {"scene.json": raw(scene), "exercise-task.json": raw(task), "source-run/manifest.json": source_manifest,
+           **{"source-run/" + name: data for name, data in source_files.items()},
+           "lab-implementation/runtime.py": b"fixture runtime; never imported"}
+    if trained:
+        run.update({"policy.json": policy, "learning-run/manifest.json": source_manifest,
+                    **{"learning-run/" + name: data for name, data in source_files.items()},
+                    "policy-evaluation.json": raw({"status": "evaluated", "physical_validation": "unverified"})})
+        run["policy-evaluation-run/evaluation.json"] = run["policy-evaluation.json"]
+        run["policy-evaluation-run/manifest.json"] = raw({"schema_version": 1, "status": "evaluated",
+            "files": {"evaluation.json": sha(run["policy-evaluation.json"])}})
+        contract.update({"policy_sha256": sha(policy), "learning_manifest_sha256": sha(source_manifest),
+            "policy_evaluation_manifest_sha256": sha(run["policy-evaluation-run/manifest.json"]),
+            "policy_evaluation_sha256": sha(run["policy-evaluation.json"])})
+    run["exercise-lab.json"] = raw(contract)
+    manifest = raw({"schema_version": 1, "status": "ready", "control_profile": "shared_exercise",
+                    "files": {name: sha(data) for name, data in run.items()}})
+    prefix = lab.relative_to(path).as_posix() + "/run/"
+    members.update({prefix + "manifest.json": manifest, **{prefix + name: data for name, data in run.items()}})
+    saved_build(path, ready=True, trained=trained, preflight=preflight, members=members)
+    config = {key: contract[key] for key in ("schema_version", "profile", "control_profile", "scene_sha256",
+        "task_sha256", "reset_options", "learned_policy_available", *(["policy_sha256", "learning_manifest_sha256",
+        "policy_evaluation_manifest_sha256", "policy_evaluation_sha256"] if trained else []))}
+    config.update(source_run=str(path / source_prefix.rstrip("/")), manifest_sha256=sha(manifest))
+    (lab / "lab-config.json").write_bytes(raw(config))
+    (lab / "status.json").write_bytes(raw({"status": lifecycle, "events": [{"stage": "shared_exercise_import"}]}))
+    result = json.loads((path / "result.json").read_bytes())
+    result.update(status="failed", scene_sha256=contract["scene_sha256"], task_sha256=contract["task_sha256"],
+        launch_arguments=["lab", "--resume", str(lab)], physical_validation="unverified",
+        error={"type": "TimeoutError", "message": "Finalization stopped after lab preparation"},
+        stages=[{"stage": "learning_interactive_lab" if trained else "interactive_lab", "status": "ready",
+                 "manifest_sha256": sha(manifest)}])
+    (path / "result.json").write_bytes(raw(result))
+    reseal_preserved(path)
+    return path, lab
+
+
+def reseal_preserved(build):
+    """Reseal fixture mutations so semantic conflicts are tested beyond byte tampering."""
+    result = json.loads((build / "result.json").read_bytes())
+    lab = build / ("learning_workflow/lab" if (build / "learning_workflow/lab").exists() else "lab")
+    manifest = json.loads((lab / "run/manifest.json").read_bytes())
+    manifest["files"] = {name: hashlib.sha256((lab / "run" / name).read_bytes()).hexdigest() for name in manifest["files"]}
+    manifest_raw = raw(manifest)
+    (lab / "run/manifest.json").write_bytes(manifest_raw)
+    run_sha = hashlib.sha256(manifest_raw).hexdigest()
+    config = json.loads((lab / "lab-config.json").read_bytes())
+    config["manifest_sha256"] = run_sha
+    (lab / "lab-config.json").write_bytes(raw(config))
+    result["stages"][0]["manifest_sha256"] = run_sha
+    (build / "result.json").write_bytes(raw(result))
+    parent = json.loads((build / "manifest.json").read_bytes())
+    parent.update(status=result["status"], seal_scope=result["seal_scope"],
+        files={name: hashlib.sha256((build / name).read_bytes()).hexdigest() for name in parent["files"]})
+    (build / "manifest.json").write_bytes(raw(parent))
+
+
+@pytest.mark.parametrize("trained", [False, True])
+@pytest.mark.parametrize("lifecycle", ["ready", "closed"])
+def test_preserved_lab_metadata_accepts_real_shapes_without_media_or_runtime_reads(project, monkeypatch, trained, lifecycle):
+    build, lab = preserved_build(project / "existing", trained=trained, lifecycle=lifecycle)
+    before = {str(p.relative_to(build)): p.read_bytes() for p in build.rglob("*") if p.is_file()}
+    original_read, reads = launcher._read, []
+
+    def metadata_only(path, limit=launcher.MAX_METADATA_BYTES):
+        assert path.suffix == ".json", "Recovery must not scan media or execute saved runtime code"
+        reads.append(path)
+        return original_read(path, limit)
+
+    terminal, seal = launcher._terminal(build)
+    monkeypatch.setattr(launcher, "_read", metadata_only)
+    info = launcher._preserved_lab(build, terminal, seal)
+    assert info["status"] == "identity_metadata_verified" and info["directory"] == str(lab)
+    assert info["lifecycle_status"] == lifecycle and info["runtime_admission"] == "not_checked_by_launcher"
+    assert 0 < info["metadata_bytes_read"] <= launcher.MAX_HANDOFF_BYTES
+    assert all(reads.count(path) == 2 for path in set(reads)), "Read each selected member once plus the final recheck"
+    assert "full artifact and runtime checks" in info["scope"]
+    assert before == {str(p.relative_to(build)): p.read_bytes() for p in build.rglob("*") if p.is_file()}
+
+
+@pytest.mark.parametrize("trained", [False, True])
+@pytest.mark.parametrize("interaction", ["--serve", "--console"])
+def test_preserved_lab_failure_prints_manual_commands_without_launch(project, monkeypatch, capsys, trained, interaction):
+    calls = []
+
+    def run(command, root, name, seconds):
+        calls.append(name)
+        if name == "build":
+            pins = json.loads((root / "workflow-plan.json").read_bytes())["input_sha256"]
+            video, model = (command[command.index(flag) + 1] for flag in ("--video", "--pose-model"))
+            preflight = {"source_sha256": pins[video], "pose_model": {"sha256": pins[model]},
+                         "input_pins": [{"path": p, "sha256": sha} for p, sha in pins.items()]}
+            preserved_build(root / "build", trained=trained, preflight=preflight)
+        else:
+            saved_report(root / "report", root / "build")
+        return {"returncode": 1 if name == "build" else 0, "error": None, "interrupted": False}
+
+    monkeypatch.setattr(launcher, "_run", run)
+    out = project / "attempt $(not-a-command)"
+    args = ["--video", str(project / "video.webm"), "--person-only", interaction, "--port", "8123", "--out", str(out)]
+    assert launcher.main(args + (["--train"] if trained else [])) == 1
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["build_status"] == "failed" and receipt["status"] == "stopped" and receipt["lab"] is None
+    assert receipt["preserved_lab"]["status"] == "identity_metadata_verified" and receipt["report"]
+    assert calls == ["build", "report"]
+    output = capsys.readouterr().out
+    assert "Build stopped, but a prepared lab was preserved" in output
+    assert "compatible-runtime checks still apply" in output and "No playable sandbox" not in output
+    commands = [shlex.split(line) for line in output.splitlines() if " --resume " in line]
+    lab = receipt["preserved_lab"]["directory"]
+    assert len(commands) == 2 and commands[0][-5:] == ["lab", "--resume", lab, "--port", "8123"]
+    assert commands[1][-3:] == ["lab-console", "--resume", lab]
+
+
+def test_preserved_lab_inspect_closed_child_does_not_rerun_build(project, monkeypatch, capsys):
+    build, _ = preserved_build(project / "existing", trained=True, lifecycle="closed")
+    original = {str(p.relative_to(build)): p.read_bytes() for p in build.rglob("*") if p.is_file()}
+    calls = mocked_worker(monkeypatch)
+    out = project / "inspection"
+    assert launcher.main(["--inspect-build", str(build), "--console", "--out", str(out)]) == 1
+    assert [row[1] for row in calls] == ["report"]
+    assert json.loads((out / "workflow-result.json").read_bytes())["preserved_lab"]["lifecycle_status"] == "closed"
+    assert "lab-console --resume" in capsys.readouterr().out
+    assert original == {str(p.relative_to(build)): p.read_bytes() for p in build.rglob("*") if p.is_file()}
+
+
+@pytest.mark.parametrize("matches", [False, True])
+def test_preserved_lab_matches_fresh_saved_body_source_without_video_preflight(project, matches):
+    build, _ = preserved_build(project / "existing")
+    terminal, seal = launcher._terminal(build)
+    expected = "a" * 64 if matches else "b" * 64
+    if matches:
+        assert launcher._preserved_lab(build, terminal, seal, expected_source_sha=expected)["source_sha256"] == expected
+    else:
+        with pytest.raises(ValueError, match="workflow plan"):
+            launcher._preserved_lab(build, terminal, seal, expected_source_sha=expected)
+
+
+@pytest.mark.parametrize("kind", ["failed_run", "failure_marker", "missing_member", "tampered_contract",
+    "source_copy", "wrong_task", "terminal_scene", "config_scene", "config_source", "policy_pin", "source_video"])
+def test_preserved_lab_rejects_failed_tampered_or_mismatched_child(project, monkeypatch, capsys, kind):
+    build, lab = preserved_build(project / "existing", trained=True,
+                                 preflight={"source_sha256": "a" * 64})
+    paths = {"failed_run": lab / "run/manifest.json", "source_copy": lab / "run/source-run/manifest.json",
+             "wrong_task": lab / "run/exercise-task.json", "terminal_scene": build / "result.json",
+             "config_scene": lab / "lab-config.json", "config_source": lab / "lab-config.json",
+             "policy_pin": lab / "lab-config.json", "source_video": build / "input-preflight.json"}
+    if kind == "failure_marker":
+        (lab / "failure.json").write_bytes(raw({"status": "failed"}))
+    elif kind == "missing_member":
+        (lab / "run/lab-implementation/runtime.py").unlink()
+    elif kind == "tampered_contract":
+        with (lab / "run/exercise-lab.json").open("ab") as stream:
+            stream.write(b" ")
+    else:
+        document = json.loads(paths[kind].read_bytes())
+        if kind == "failed_run":
+            document["status"] = "failed"
+        elif kind == "source_copy":
+            document["files"]["scene.json"] = "b" * 64
+        elif kind in ("wrong_task", "terminal_scene", "config_scene"):
+            document["scene_sha256"] = "b" * 64
+        elif kind == "config_source":
+            document["source_run"] = str(project / "different-source")
+        elif kind == "policy_pin":
+            document["policy_sha256"] = "b" * 64
+        else:
+            document["source_sha256"] = "b" * 64
+        paths[kind].write_bytes(raw(document))
+        reseal_preserved(build)
+    mocked_worker(monkeypatch)
+    out = project / "inspection"
+    assert launcher.main(["--inspect-build", str(build), "--serve", "--out", str(out)]) == 1
+    receipt = json.loads((out / "workflow-result.json").read_bytes())
+    assert receipt["report"] and receipt["lab"] is None and receipt["status"] == "stopped"
+    assert receipt["error"] and "preserved_lab" not in receipt
+    assert " --resume " not in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("kind", ["outside_lab", "parent_traversal", "member_escape", "symlink_member",
+    "missing_stage", "parent_member_pin", "receipt_only"])
+def test_preserved_lab_requires_safe_parent_linkage(project, kind):
+    build, lab = preserved_build(project / "existing")
+    parent = json.loads((build / "manifest.json").read_bytes())
+    result = json.loads((build / "result.json").read_bytes())
+    if kind in ("outside_lab", "parent_traversal"):
+        result["lab_directory"] = str(project / "unrelated/lab") if kind == "outside_lab" else str(build / "x/../lab")
+    elif kind == "member_escape":
+        parent["files"]["../escape.json"] = "a" * 64
+    elif kind == "symlink_member":
+        target = lab / "run/lab-implementation/runtime.py"
+        target.unlink()
+        target.symlink_to(project / "video.webm")
+    elif kind == "missing_stage":
+        result["stages"] = []
+    elif kind == "parent_member_pin":
+        parent["files"]["lab/run/scene.json"] = "b" * 64
+    else:
+        parent["seal_scope"] = result["seal_scope"] = "failure_receipt_only"
+        parent["files"] = {}
+    (build / "result.json").write_bytes(raw(result))
+    parent["files"]["result.json"] = hashlib.sha256(raw(result)).hexdigest()
+    (build / "manifest.json").write_bytes(raw(parent))
+    terminal, seal = launcher._terminal(build)
+    with pytest.raises((ValueError, OSError)):
+        launcher._preserved_lab(build, terminal, seal)
+
+
+@pytest.mark.parametrize("kind", ["metadata_bytes", "deadline", "changed_metadata"])
+def test_preserved_lab_checks_are_bounded_and_rechecked(project, monkeypatch, kind):
+    build, lab = preserved_build(project / "existing")
+    terminal, seal = launcher._terminal(build)
+    if kind == "metadata_bytes":
+        monkeypatch.setattr(launcher, "MAX_HANDOFF_BYTES", 20)
+    elif kind == "deadline":
+        clock = iter((0, 6))
+        monkeypatch.setattr(launcher.time, "monotonic", lambda: next(clock))
+    else:
+        original_read, count = launcher._read, 0
+
+        def changing_read(path, limit=launcher.MAX_METADATA_BYTES):
+            nonlocal count
+            data = original_read(path, limit)
+            if path == lab / "lab-config.json":
+                count += 1
+                if count == 2:
+                    return data + b" "
+            return data
+
+        monkeypatch.setattr(launcher, "_read", changing_read)
+    with pytest.raises(ValueError, match="bounded|bound|changed"):
+        launcher._preserved_lab(build, terminal, seal)

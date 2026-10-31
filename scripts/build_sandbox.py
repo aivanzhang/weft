@@ -20,6 +20,7 @@ from zoneinfo import ZoneInfo
 PROJECT = Path(__file__).resolve().parents[1]
 MAX_LOG_BYTES = 1024 * 1024
 MAX_METADATA_BYTES = 2 * 1024 * 1024
+MAX_HANDOFF_BYTES = 16 * 1024 * 1024
 BODY_SOURCE_PROFILE = "exercise-body-source-v1"
 BODY_METADATA = ("manifest.json", "body-source.json", "source.json")
 
@@ -143,6 +144,156 @@ def _terminal(build):
             or manifest.get("status") != result.get("status")):
         raise ValueError("Build terminal receipt is missing or differs from its seal")
     return result, hashlib.sha256(manifest_raw).hexdigest()
+
+
+def _manifest_files(document, maximum):
+    files = document.get("files")
+    if (type(document.get("schema_version")) is not int or document["schema_version"] != 1
+            or not isinstance(files, dict) or not 1 <= len(files) <= maximum or "manifest.json" in files):
+        raise ValueError("Preserved lab requires bounded versioned file manifests")
+    for name, sha in files.items():
+        if (not isinstance(name, str) or len(name) > 512 or "\\" in name
+                or any(ord(c) < 32 or ord(c) == 127 for c in name)
+                or any(part in ("", ".", "..") for part in name.split("/"))
+                or not isinstance(sha, str) or len(sha) != 64 or any(c not in "0123456789abcdef" for c in sha)):
+            raise ValueError("Preserved lab manifest has an unsafe path or invalid hash")
+    return files
+
+
+def _preserved_lab(build, terminal, manifest_sha, *, expected_source_sha=None):
+    # Authenticate the saved handoff, not the runtime or large source/media closure.
+    deadline, used, snapshots = time.monotonic() + 5, 0, {}
+
+    def check():
+        if time.monotonic() >= deadline:
+            raise ValueError("Preserved lab identity check exceeded its five-second bound")
+
+    def read(path):
+        nonlocal used
+        check()
+        if path not in snapshots:
+            data = _read(path, min(MAX_METADATA_BYTES, MAX_HANDOFF_BYTES - used))
+            used += len(data)
+            snapshots[path] = data
+        return snapshots[path]
+
+    parent_raw = read(build / "manifest.json")
+    parent = _json(parent_raw)
+    if (hashlib.sha256(parent_raw).hexdigest() != manifest_sha
+            or parent.get("seal_scope") != "complete_immutable_outputs"
+            or terminal.get("seal_scope") != parent.get("seal_scope") or terminal.get("lab_status") != "ready"):
+        raise ValueError("Preserved lab is not bound by a complete immutable build seal")
+    parent_files = _manifest_files(parent, 6000)
+
+    def covered(name):
+        data = read(build / name)
+        if hashlib.sha256(data).hexdigest() != parent_files.get(name):
+            raise ValueError("Preserved lab metadata differs from its parent build seal: " + name)
+        return data
+
+    if _json(covered("result.json")) != terminal or parent.get("status") != terminal.get("status"):
+        raise ValueError("Preserved lab terminal identity differs from its build")
+    lab = _path(terminal.get("lab_directory", ""))
+    if lab not in (build / "lab", build / "learning_workflow/lab"):
+        raise ValueError("Saved lab path is outside the expected build layout")
+    trained = lab == build / "learning_workflow/lab"
+    prefix = lab.relative_to(build).as_posix() + "/run/"
+    source_prefix = "learning_workflow/selected/" if trained else "candidate/"
+    failure = lab / "failure.json"
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Preserved lab has an incomplete-preparation failure marker")
+    manifest_raw = covered(prefix + "manifest.json")
+    manifest = _json(manifest_raw)
+    files = _manifest_files(manifest, 1024)
+    run_sha = hashlib.sha256(manifest_raw).hexdigest()
+    if (manifest.get("status") != "ready" or manifest.get("control_profile") != "shared_exercise"
+            or "failure.json" in files
+            or {name[len(prefix):]: sha for name, sha in parent_files.items() if name.startswith(prefix)}
+               != {**files, "manifest.json": run_sha}):
+        raise ValueError("Preserved lab run is incomplete or differs from its parent seal")
+    stages = terminal.get("stages")
+    stage_name = "learning_interactive_lab" if trained else "interactive_lab"
+    completed = [row for row in stages if isinstance(row, dict) and row.get("stage") == stage_name
+                 and row.get("status") == "ready"] if isinstance(stages, list) and len(stages) <= 512 else []
+    if len(completed) != 1 or completed[0].get("manifest_sha256") != run_sha:
+        raise ValueError("Preserved lab has no matching completed build stage")
+    total = 0
+    for name in files:
+        check()
+        info = _path(lab / "run" / name).stat()
+        total += info.st_size
+        if not stat.S_ISREG(info.st_mode) or info.st_size > 64 * 1024 * 1024 or total > 192 * 1024 * 1024:
+            raise ValueError("Preserved lab declared files are missing, unsafe or oversized")
+
+    contract = _json(covered(prefix + "exercise-lab.json"))
+    scene = _json(covered(prefix + "scene.json"))
+    task = _json(covered(prefix + "exercise-task.json"))
+    source_raw = covered(prefix + "source-run/manifest.json")
+    source = _json(source_raw)
+    source_files = _manifest_files(source, 512)
+    source_sha = hashlib.sha256(source_raw).hexdigest()
+    if (covered(source_prefix + "manifest.json") != source_raw
+            or source.get("status") != ("trained" if trained else "ready")
+            or type(contract.get("source_files_verified")) is not int
+            or contract["source_files_verified"] != len(source_files)
+            or any(files.get("source-run/" + name) != sha or parent_files.get(source_prefix + name) != sha
+                   for name, sha in source_files.items())
+            or source_files.get("scene.json") != files.get("scene.json")
+            or parent_files.get("candidate/scene.json") != files.get("scene.json")):
+        raise ValueError("Preserved lab source candidate differs from its parent build")
+    if "exercise-task.json" in source_files and source_files["exercise-task.json"] != files["exercise-task.json"]:
+        raise ValueError("Preserved lab task differs from its selected source task")
+    if trained and parent_files.get("learning_workflow/exercise-task.json") != files["exercise-task.json"]:
+        raise ValueError("Preserved lab task differs from its learning workflow")
+    fixed = {"schema_version": 1, "profile": "shared-world", "control_profile": "shared_exercise",
+             "scene_sha256": hashlib.sha256(json.dumps(scene, sort_keys=True, allow_nan=False).encode()).hexdigest(),
+             "task_sha256": hashlib.sha256(json.dumps(task, sort_keys=True, allow_nan=False).encode()).hexdigest(),
+             "reset_options": {"jitter": False, "jitter_scale": 0.0}}
+    config = _json(read(lab / "lab-config.json"))
+    if (any(type(doc.get("schema_version")) is not int or type(doc.get("learned_policy_available")) is not bool
+            or any(doc.get(key) != value for key, value in fixed.items()) for doc in (contract, config))
+            or contract.get("source_manifest_sha256") != source_sha
+            or contract["learned_policy_available"] is not trained or config["learned_policy_available"] is not trained
+            or config.get("source_run") != str(build / source_prefix.rstrip("/"))
+            or config.get("manifest_sha256") != run_sha
+            or task.get("scene_sha256") != fixed["scene_sha256"]
+            or any(terminal.get(key) != fixed[key] for key in ("scene_sha256", "task_sha256"))):
+        raise ValueError("Preserved lab configuration, scene or task identity is inconsistent")
+    policy_pins = {"policy_sha256": "policy.json", "learning_manifest_sha256": "learning-run/manifest.json",
+                   "policy_evaluation_manifest_sha256": "policy-evaluation-run/manifest.json",
+                   "policy_evaluation_sha256": "policy-evaluation.json"}
+    if trained and any(contract.get(key) != files.get(name) or config.get(key) != files.get(name)
+                       or name not in files for key, name in policy_pins.items()):
+        raise ValueError("Preserved lab policy or evaluation identities are incomplete")
+    binding = scene.get("source_binding")
+    if (not isinstance(binding, dict) or binding.get("mode") != "source_qualified"
+            or not isinstance(binding.get("source_sha256"), str) or len(binding["source_sha256"]) != 64
+            or any(c not in "0123456789abcdef" for c in binding["source_sha256"])):
+        raise ValueError("Preserved lab has no bound video source identity")
+    if "input-preflight.json" in parent_files:
+        if _json(covered("input-preflight.json")).get("source_sha256") != binding["source_sha256"]:
+            raise ValueError("Preserved lab video source differs from the build input")
+    if expected_source_sha is not None and binding["source_sha256"] != expected_source_sha:
+        raise ValueError("Preserved lab video source differs from the workflow plan")
+    # Lifecycle files are deliberately outside the immutable seal; closed is not failed preparation.
+    lifecycle = _json(read(lab / "status.json")).get("status")
+    if not isinstance(lifecycle, str) or not 1 <= len(lifecycle) <= 64 or not all(c.isalnum() or c in "_-" for c in lifecycle):
+        raise ValueError("Preserved lab has malformed lifecycle metadata")
+    for path, data in snapshots.items():
+        check()
+        current = _read(path, min(MAX_METADATA_BYTES, MAX_HANDOFF_BYTES - used))
+        used += len(current)
+        if current != data:
+            raise ValueError("Preserved lab identity metadata changed during verification")
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Preserved lab acquired an incomplete-preparation failure marker")
+    check()
+    return {"status": "identity_metadata_verified", "directory": str(lab), "manifest_sha256": run_sha,
+            "source_manifest_sha256": source_sha, "source_sha256": binding["source_sha256"],
+            "scene_sha256": fixed["scene_sha256"], "task_sha256": fixed["task_sha256"],
+            "lifecycle_status": lifecycle, "declared_run_files": len(files), "metadata_bytes_read": used,
+            "runtime_admission": "not_checked_by_launcher",
+            "scope": "Selected sealed identity metadata and declared file presence only; full artifact and runtime checks run on manual resume."}
 
 
 def _report_identity(root, source_sha, build_status):
@@ -437,7 +588,21 @@ def main(argv=None):
             receipt.update(status="ready", lab=str(lab))
             print("3/3 Sandbox ready; task success and physical accuracy are separate checks.", flush=True)
         else:
-            print("3/3 No playable sandbox: the build stopped. The report retains the reason and evidence.", flush=True)
+            if terminal.get("lab_status") == "ready":
+                expected_binding = "sealed_body_source_match_plan" if args.human_run else "sealed_source_and_model_match_plan"
+                if command and receipt["input_binding"] != expected_binding:
+                    raise ValueError("Preserved lab has no sealed input identities matching the workflow plan")
+                expected_source_sha = (body_identity["source_sha256"] if body_identity is not None
+                    else pins[command[command.index("--video") + 1]]) if command else None
+                receipt["preserved_lab"] = _preserved_lab(build, terminal, receipt["build_manifest_sha256"],
+                                                         expected_source_sha=expected_source_sha)
+                lab = receipt["preserved_lab"]["directory"]
+                print("3/3 Build stopped, but a prepared lab was preserved. Its identity metadata is verified; nothing was started.", flush=True)
+                print("Manual resume only; full artifact and compatible-runtime checks still apply. Task success and physical accuracy are not established.", flush=True)
+                print(shlex.join(prefix + ["lab", "--resume", lab, "--port", str(args.port)]), flush=True)
+                print(shlex.join(prefix + ["lab-console", "--resume", lab]), flush=True)
+            else:
+                print("3/3 No playable sandbox: the build stopped. The report retains the reason and evidence.", flush=True)
     except (ValueError, OSError, TypeError, RecursionError) as exc:
         receipt["error"] = {"type": type(exc).__name__, "message": str(exc)[:2000]}
         print(f"Stopped: {exc}. Preserved artifacts: {root}", file=sys.stderr)

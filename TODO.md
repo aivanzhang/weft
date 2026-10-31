@@ -1,5 +1,12 @@
 # Weft iteration backlog
 
+## Real proposal and preserved-lab handoff — October 31, 2026, 6:00 AM PDT
+
+- [x] Run the public body-proposal workflow once on the recovered kettlebell input, not the previously rejected Heavy input. **2.663 s**, five-second fit budget, two models /four data /12,580 forwards; no dynamics, decode, inference, training or API. All eleven unchanged proposal gates pass; image-target error **13.25875→11.57002 px**, with zero floor-limit violations before/after. The proposed reference remains unadmitted and uninstalled. [Actual comparison and limits](docs/body-model-options.md#propose-a-correction-from-a-saved-body).
+- [x] Independently verify the saved source/output/code/report bindings and all saved-value gates. `artifacts/body-reference-crop-cli-01`, seal `a154fd6e97b50f11cc22dc2ea6651d9269c47084bb7607db7d4434bc27ff1918`; audit `.local/body-reference-crop-cli-saved-audit-01.json`. Actual-page scripted DOM checks preserve five crop origins, eight missing-reference slots and 147 unavailable endpoints; 100 repeated updates have no requests/timers. No browser-quality claim.
+- [x] Preserve manual reopen commands when a late build failure leaves a sealed completed lab. Overall failure/exit1 remains; `--serve`/`--console` never auto-start on this path. Bounded metadata verification checks parent/child/source/task identities; full runtime admission still runs on manual resume. **52 distinct fixture checks pass**. No real saved late-failure/ready-child example exists, so that branch is not claimed as a real-source acceptance.
+- [ ] Connect the passed reference proposal as an explicit controller alternative on the **unchanged original scene/task/scorer**. Changing `human_spec.reference` would silently change the task's scoring target and is not an acceptable shortcut. A pure source-pinned controller provider is in progress; no new controller rollout, training or task success is claimed. Preserve nominal versus native clocks and all coupled equipment.
+
 ## Crop-recovered body proposals — October 31, 2026, 5:38 AM PDT
 
 - [x] Connect sealed selective-crop body sources to `body-reference-propose` without repeating inference. Verify the original video, saved crop plans, all accepted/rejected decisions and exact verifier sources; preserve raw and selected estimates. Ordinary metadata-only inputs retain their old bounds. Recovery allows the existing 64-MiB video separately from 32 MiB of metadata. [Command, bounds and evidence](docs/body-model-options.md#propose-a-correction-from-a-saved-body).
