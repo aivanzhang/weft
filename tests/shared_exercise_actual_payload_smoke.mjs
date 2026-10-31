@@ -7,10 +7,17 @@ import vm from 'node:vm';
 import {execFileSync} from 'node:child_process';
 import {Element, html, script} from './lab_ui_smoke.mjs';
 
-const currentUI = process.argv.includes('--current-ui');
-const inspectRecording = process.argv.includes('--recording-diagnostics');
-const args = process.argv.slice(2).filter(arg => !['--current-ui','--recording-diagnostics'].includes(arg));
-assert(args.length <= 2 && !args.some(arg => arg.startsWith('--')), 'Expected study, optional lab, --current-ui and --recording-diagnostics');
+const argv = process.argv.slice(2);
+const savedIndex = argv.indexOf('--recording-inspection-receipt');
+const savedRecordingReceipt = savedIndex < 0 ? null : argv.splice(savedIndex, 2)[1];
+assert(savedIndex < 0 || savedRecordingReceipt && !savedRecordingReceipt.startsWith('--'));
+const currentUI = argv.includes('--current-ui');
+const inspectRecording = argv.includes('--recording-diagnostics');
+const savedInspection = argv.includes('--saved-inspection');
+assert(!savedInspection || currentUI, 'Saved inspection reuse requires explicit current-UI mode');
+assert(!(inspectRecording && savedRecordingReceipt), 'Do not regenerate a supplied recording summary');
+const args = argv.filter(arg => !['--current-ui','--recording-diagnostics','--saved-inspection'].includes(arg));
+assert(args.length <= 2 && !args.some(arg => arg.startsWith('--')), 'Expected study, optional lab and supported inspection options');
 const study = fs.realpathSync(args[0] || 'artifacts/shared-exercise-lab-integration-01');
 const sha = raw => crypto.createHash('sha256').update(raw).digest('hex');
 const inputs = new Map(), artifacts = new Map();
@@ -33,7 +40,7 @@ function readRaw(name, limit, expected, root = study) {
     raw = buffer.subarray(0, length);
   } finally { fs.closeSync(fd); }
   if (expected) assert.equal(sha(raw), expected, `Saved input changed: ${name}`);
-  const label = root === study ? name : 'lab/run/' + name;
+  const label = root === study ? name : root.endsWith(path.sep+'run') ? 'lab/run/'+name : path.relative(process.cwd(), filename);
   inputBytes += raw.length; inputs.set(label, {filename, sha256: sha(raw), bytes: raw.length, root, name});
   return raw;
 }
@@ -59,12 +66,29 @@ const runHash = settings ? settings.run_manifest_sha256 : manifest.files['lab/ru
 assert.match(runHash, /^[0-9a-f]{64}$/);
 const runManifest = readJson('manifest.json', 1024 * 1024, runHash, run).value;
 let recordingInspection = null, recordingDerivation = null;
-if (inspectRecording) {
+if (inspectRecording || savedRecordingReceipt) {
   const report = readSealed('report.json', 64 * 1024).value;
   const recording = fs.realpathSync(report.recording_directory), name = path.basename(recording);
   assert.equal(path.dirname(recording), path.join(lab, 'sessions'));
   assert.match(name, /^session-[0-9a-f]{12}$/);
-  const derived = JSON.parse(execFileSync('.venv-lab/bin/python', ['-c', `import hashlib,json,sys,time
+  let derived;
+  if (savedRecordingReceipt) {
+    const receiptPath=fs.realpathSync(savedRecordingReceipt);
+    const receipt=readJson(path.basename(receiptPath),64*1024,null,path.dirname(receiptPath)).value;
+    assert.equal(receipt.input_unchanged,true);assert.equal(receipt.physics_steps,0);assert.equal(receipt.media_decodes,0);assert.equal(receipt.api_calls,0);
+    const summaryPath=fs.realpathSync(receipt.output);
+    const summary=readJson(path.basename(summaryPath),512*1024,receipt.output_sha256,path.dirname(summaryPath));
+    assert.equal(summary.bytes,receipt.output_bytes);
+    assert.equal(summary.value.session,name);
+    assert.equal(summary.value.timeline.scene_sha256,initial.snapshot.scene_sha256);
+    assert.equal(summary.value.timeline.task_sha256,initial.snapshot.task_sha256);
+    for(const [filename,expected] of Object.entries(receipt.input_sha256)) {
+      const absolute=fs.realpathSync(filename);
+      readRaw(path.basename(absolute),16*1024*1024,expected,path.dirname(absolute));
+    }
+    derived={result:summary.value,source:'reused_verified_saved_summary',reader_seconds:receipt.seconds,
+      receipt_sha256:inputs.get(path.relative(process.cwd(),receiptPath)).sha256,summary_file_sha256:receipt.output_sha256};
+  } else derived = JSON.parse(execFileSync('.venv-lab/bin/python', ['-c', `import hashlib,json,sys,time
 from pathlib import Path
 from weft import lab_inspection,shared_exercise_diagnostics
 modules={module.__name__:hashlib.sha256(Path(module.__file__).read_bytes()).hexdigest() for module in (lab_inspection,shared_exercise_diagnostics)}
@@ -83,7 +107,9 @@ print(json.dumps({'result':result,'seconds':elapsed,'module_sha256':modules}))`,
 const savedHtml = readRaw('lab-implementation/assets/lab.html', 256 * 1024, runManifest.files['lab-implementation/assets/lab.html'], run);
 const savedScript = readRaw('lab-implementation/assets/lab.js', 256 * 1024, runManifest.files['lab-implementation/assets/lab.js'], run);
 let inspectionDerivation = null;
-if (currentUI) {
+if (currentUI && savedInspection) {
+  inspectionDerivation={source:'sealed_saved_inspection',sha256:manifest.files['inspection.json'],new_reader_calls:0};
+} else if (currentUI) {
   // Current presentation is tested against old evidence without relabeling the sealed assets.
   const derived = JSON.parse(execFileSync('.venv-lab/bin/python', ['-c', `import hashlib,json,sys,time
 from pathlib import Path
@@ -118,7 +144,19 @@ assert.equal(typeof final.task_metrics.completed_interval, 'boolean'); assert.eq
 assert.equal(inspection.status, 'available');
 const geometryAlternative = inspection.artifact_links.some(item => item.name === 'geometry-hypothesis.json');
 const fullspanPreparation = inspection.fullspan_preparation?.status === 'preparation_only';
-if (geometryAlternative) {
+const personOnly = initial.scene.profile === 'shared-world-v3';
+if (personOnly) {
+  assert.deepEqual(initial.scene.objects,[]);assert.equal(initial.scene.controlled_id,'human');assert.equal(initial.scene.target,null);
+  assert.equal(initial.scene.task.type,'human_motion_v1');assert.equal(initial.scene.task.object_goal,null);
+  assert.equal(initial.exercise_task.profile,'shared-exercise-task-v2');
+  const inventory=readJson('inventory.json',4096,runManifest.files['inventory.json'],run).value;
+  assert.deepEqual(inventory,initial.scene.inventory);
+  assert.deepEqual(inventory,{schema_version:1,profile:'human-only-inventory-v1',source_sha256:inspection.source.sha256,
+    basis:'user_declared',selected_entity_id:'human',support:'ground_only',task_relevant_equipment:'none_declared',
+    task_relevant_obstacles:'none_declared',absence_verified:false});
+  assert.equal(inspection.geometry.panels.length,0);assert.equal(inspection.geometry.status,'no_saved_comparison');
+  assert(inspection.artifact_links.some(item=>item.name==='inventory.json'));
+} else if (geometryAlternative) {
   assert.equal(inspection.geometry.panels.length, 0, 'New alternatives must not inherit old source-fit panels');
   assert.match(inspection.geometry.scope, /only initial clearance.*unverified/);
   for (const name of ['input-config.json','previous-geometry.json','initial-geometry-check.json','reconstruction.json']) {
@@ -230,14 +268,35 @@ if (recordingInspection) {
   assert.equal(ui.requests.length,before+1);assert.equal(ui.ids.get('recording-diagnosis-content').hidden,false);
   const last=recordingInspection.timeline.episodes.at(-1),first=last.first_equipment_failure;
   assert.equal(ui.ids.get('recording-diagnosis-episode').value,String(recordingInspection.timeline.episodes.length-1));
-  assert.equal(ui.ids.get('recording-diagnosis-crossings').children.length,last.first_crossings.length);
+  assert.equal(ui.ids.get('recording-diagnosis-crossings').children.length,last.first_crossings.length+(last.human_tracking?.first_crossings.length||0));
   if(first){assert(ui.ids.get('recording-diagnosis-first').textContent.includes(first.first_failed_elapsed_s.toFixed(3)+'s'));
     assert(ui.ids.get('recording-diagnosis-clock').textContent.includes(first.reference_clock_s.toFixed(3)+'s'));
     assert.match(ui.ids.get('recording-diagnosis-contacts').textContent,/not proof of cause|no cause is inferred/);}
+  if(last.human_tracking) {
+    const human=last.human_tracking,firstBody=human.first_failure;
+    assert.equal(ui.ids.get('recording-diagnosis-human-metrics').children.length,5);
+    for(const row of human.terminal.filter(row=>row.status==='above_limit')) {
+      assert(ui.ids.get('recording-diagnosis-human').textContent.includes(row.value.toFixed(3)));
+      assert(ui.ids.get('recording-diagnosis-human').textContent.includes(row.threshold.toFixed(3)));
+    }
+    if(firstBody) {
+      assert(ui.ids.get('recording-diagnosis-human-first').textContent.includes(`event ${firstBody.event_index}`));
+      assert(ui.ids.get('recording-diagnosis-human-first').textContent.includes(firstBody.first_failed_elapsed_s.toFixed(3)+'s'));
+      assert(ui.ids.get('recording-diagnosis-links').children[0].textContent.includes(`state ${Math.min(first?.event_index??Infinity,firstBody.event_index)+1}`));
+    }
+    const mean=human.terminal.find(row=>row.metric==='angular_rmse_rad');
+    if(mean.status==='within_limit' && human.first_crossings.some(row=>row.metric===mean.metric)) {
+      assert.match(ui.ids.get('recording-diagnosis-human').textContent,/ended below.*after an earlier crossing/);
+      assert.doesNotMatch(ui.ids.get('recording-diagnosis-human').textContent,/stayed below/);
+      assert(ui.ids.get('recording-diagnosis-crossings').children.some(row=>row.children[0].textContent==='Average body-angle error'));
+    }
+    if(personOnly)assert.match(ui.ids.get('recording-diagnosis-first').textContent,/not applicable.*no success credit/);
+    recordingDerivation.human_tracking=human;
+  }
   recordingDerivation.episodes=recordingInspection.timeline.episodes.length;
   recordingDerivation.selected_episode=recordingInspection.timeline.episodes.length-1;
   recordingDerivation.first_equipment_failure=first;
-  recordingDerivation.scope='Current recording summary derived from the sealed journal; completed-session listing is derived, not part of the old saved initial status. No physics, media decode or server.';
+  recordingDerivation.scope='Verified saved recording summary; completed-session listing is derived, not part of the old saved initial status. No physics, media decode or server; saved-summary mode performs no reader regeneration.';
 }
 assert.equal(ui.ids.get('error').hidden, true, ui.ids.get('error').textContent);
 assert.equal(ui.ids.get('exercise-task-card').hidden, false);
@@ -260,7 +319,7 @@ if (hasPolicy) {
     ? /Attached independent changed-start evaluation/:/Independent evaluation unavailable/);
   if(expectedScores.length)assert.match(ui.ids.get('exercise-evaluation-summary').textContent,
     initial.exercise_policy.evaluation_reset_protocol?.profile==='shared-exercise-human-jitter-v1'
-      ? /human-only perturbations.*exact scene pose and velocity.*not a changed-equipment test/
+      ? personOnly ? /human-only perturbations.*No equipment/ : /human-only perturbations.*exact scene pose and velocity.*not a changed-equipment test/
       : initial.exercise_policy.evaluation_reset_protocol?.profile==='shared-exercise-reset-v1'?/Legacy reset/:/Reset protocol unspecified/);
   assert.deepEqual(ui.ids.get('scores').children.map(row => row.children[0].textContent), expectedScores);
   assert.equal(ui.ids.get('exercise-policy-links').children.length, 1);
@@ -297,10 +356,10 @@ if (inspection.timeline) {
   assert.equal(ui.requests.length, requestCount, 'Reading the player clock must not request or advance physics');
 }
 ui.ids.get('inspect-geometry').click();
-if (geometryAlternative || fullspanPreparation) {
+if (geometryAlternative || fullspanPreparation || personOnly) {
   assert.equal(ui.ids.get('geometry-preview').src, undefined, 'Do not display an old shape-fit image');
   if (geometryAlternative) assert.equal(ui.ids.get('inspection-geometry').textContent, inspection.geometry.scope);
-  else {
+  else if (!personOnly) {
     assert.match(ui.ids.get('inspection-geometry').textContent, /No saved source-to-geometry comparison/);
     assert.match(ui.ids.get('window-task').textContent, /changes the task interval, not the recovered geometry/);
   }

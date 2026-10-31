@@ -20,6 +20,7 @@ launcher = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(launcher)
 ACTUAL_COMMIT = launcher.TRUSTED_COMMIT
 ACTUAL_VIDEO_COMMIT = launcher.VIDEO_TRUSTED_COMMIT
+ACTUAL_PERSON_COMMIT = launcher.PERSON_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -69,7 +70,7 @@ def saved_lab(project, hashes, *, example=None, location=None):
                 "learned_policy_available": True, "policy_sha256": hashlib.sha256(policy_raw).hexdigest(),
                 "scene_sha256": policy["scene_sha256"], "task_sha256": policy["task_sha256"],
                 "policy_runtime_sha256": pins, "runtime_versions": versions,
-                "runtime_sha256": {name: pins[name] for name in launcher.LAB_RUNTIME_FILES},
+                "runtime_sha256": {name: pins[name] for name in launcher._lab_files(example)},
                 "reset_options": {"jitter": False, "jitter_scale": 0}, "learning_manifest_sha256": "c" * 64}
     contract_raw = json_bytes(contract)
     manifest = {"schema_version": 1, "status": "ready", "control_profile": "shared_exercise",
@@ -100,6 +101,7 @@ def reseal(lab, name, value):
 def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_COMMIT == "6396be84018e6cb6525614f07a664cf0bb673b34"
     assert ACTUAL_VIDEO_COMMIT == "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
+    assert ACTUAL_PERSON_COMMIT == "569e99dca81e5be31c100342a15c004dd3503df9"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2
@@ -368,6 +370,12 @@ def test_presets_keep_exact_distinct_profiles_and_policy_sets():
                                          "shared-exercise-policy-v2", launcher.VIDEO_POLICY_FILES)
     assert len(launcher.POLICY_FILES) == 24 and len(launcher.VIDEO_POLICY_FILES) == 21
     assert len(launcher.LAB_RUNTIME_FILES) == 17 and launcher.LAB_RUNTIME_FILES <= launcher.VIDEO_POLICY_FILES
+    assert launcher._preset("person") == (ACTUAL_PERSON_COMMIT, "artifacts/single-leg-person-workflow-01/build/learning_workflow/lab",
+                                          "shared-exercise-policy-v2", launcher.PERSON_POLICY_FILES)
+    assert launcher.PERSON_POLICY_FILES == launcher.VIDEO_POLICY_FILES | {"person_inventory.py"}
+    assert len(launcher.PERSON_POLICY_FILES) == 22 and len(launcher._lab_files("person")) == 18
+    assert launcher._lab_files("person") == launcher.LAB_RUNTIME_FILES | {"person_inventory.py"}
+    assert launcher._lab_files(None) == launcher._lab_files("video") == launcher.LAB_RUNTIME_FILES
 
 
 @pytest.mark.parametrize("revision", ["HEAD", "main", "0" * 40, "../arbitrary"])
@@ -483,3 +491,130 @@ def test_unknown_example_is_rejected_without_runtime_work(monkeypatch):
     monkeypatch.setattr(launcher, "prepare_runtime", lambda *_args, **_kw: pytest.fail("Unknown example must fail before export"))
     with pytest.raises(SystemExit) as error:launcher.main(["--example", "arbitrary", "--check"])
     assert error.value.code == 2
+
+
+@pytest.fixture
+def person_project(video_project, monkeypatch):
+    project = video_project
+    (project / "src/weft/__init__.py").write_text("marker = 'trusted person'\n")
+    (project / "src/weft/shared_world.py").write_text("# Distinct trusted person-only runtime\n")
+    (project / "src/weft/person_inventory.py").write_text("# Trusted person-only inventory validation\n")
+    git(project, "add", "src/weft")
+    git(project, "-c", "commit.gpgsign=false", "commit", "-qm", "Freeze person runtime fixture")
+    monkeypatch.setattr(launcher, "PERSON_TRUSTED_COMMIT", git(project, "rev-parse", "HEAD"))
+    return project
+
+
+@pytest.mark.parametrize("override", [False, True])
+def test_person_check_uses_exact_v2_inventory_pins_without_server_or_mutation(person_project, monkeypatch, capsys, override):
+    project = person_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    location = "artifacts/another-person-lab" if override else None
+    lab = saved_lab(project, hashes, example="person", location=location)
+    before = {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Check cannot start a server"))
+    args = ["--example", "person", "--check"] + (["--lab", location] if override else [])
+    assert launcher.main(args) == 0
+    output = capsys.readouterr().out
+    assert "22 policy pins, 18 lab pins" in output and launcher.PERSON_TRUSTED_COMMIT[:12] in output
+    assert "No server, physics, session or media reads" in output
+    assert before == {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    assert not (lab / "sessions").exists() and not list(runtime.rglob("__pycache__"))
+
+
+@pytest.mark.parametrize("selected,lab_example", [(None, "person"), ("person", None), ("video", "person"), ("person", "video")])
+def test_person_override_cannot_cross_scene_runtime_closure(person_project, monkeypatch, capsys, selected, lab_example):
+    project = person_project
+    commit, _, _, _ = launcher._preset(lab_example)
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=commit)
+    lab = saved_lab(project, hashes, example=lab_example)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Incompatible profile cannot launch"))
+    args = ["--check", "--lab", str(lab)] + (["--example", selected] if selected else [])
+    assert launcher.main(args) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("change", ["policy_missing_inventory", "contract_policy_missing_inventory", "lab_missing_inventory",
+                                   "inventory_hash", "extra_pin", "profile", "unsealed"])
+def test_person_metadata_requires_exact_inventory_closure(person_project, monkeypatch, capsys, change):
+    project = person_project
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="person")
+    name = "exercise-lab.json" if change in {"contract_policy_missing_inventory", "lab_missing_inventory"} else "policy.json"
+    value = json.loads((lab / "run" / name).read_bytes())
+    if change == "contract_policy_missing_inventory":value["policy_runtime_sha256"].pop("person_inventory.py")
+    elif change in {"policy_missing_inventory", "lab_missing_inventory"}:value["runtime_sha256"].pop("person_inventory.py")
+    elif change == "inventory_hash":value["runtime_sha256"]["person_inventory.py"] = "0" * 64
+    elif change == "extra_pin":value["runtime_sha256"]["shared_exercise_selection.py"] = "0" * 64
+    elif change == "profile":value["profile"] = "shared-exercise-policy-v3"
+    else:value["unexpected"] = True
+    if change == "unsealed":(lab / "run" / name).write_bytes(json_bytes(value))
+    else:reseal(lab, name, value)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Incompatible person policy cannot launch"))
+    assert launcher.main(["--example", "person", "--check"]) == 1
+    expected = "Lab metadata differs" if change == "unsealed" else "pins or installed dependency versions differ"
+    assert expected in capsys.readouterr().err
+
+
+def test_person_never_uses_worktree_or_artifact_inventory_code(person_project, monkeypatch, capsys):
+    project = person_project
+    original_runtime, original_hashes = launcher.prepare_runtime(project)
+    video_runtime, video_hashes = launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT)
+    changed = project / "src/weft/person_inventory.py"
+    changed.write_text("raise RuntimeError('Mutable inventory must not be imported')\n")
+    artifact = project / launcher.PERSON_LAB / "run/implementation/person_inventory.py"
+    artifact.parent.mkdir(parents=True)
+    artifact.write_text("raise RuntimeError('Artifact inventory must not run')\n")
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    assert (runtime / "src/weft/person_inventory.py").read_text() == "# Trusted person-only inventory validation\n"
+    lab = saved_lab(project, hashes, example="person", location="artifacts/worktree-pinned-person")
+    policy = json.loads((lab / "run/policy.json").read_bytes())
+    policy["runtime_sha256"]["person_inventory.py"] = hashlib.sha256(changed.read_bytes()).hexdigest()
+    reseal(lab, "policy.json", policy)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Working-tree policy cannot launch"))
+    assert launcher.main(["--example", "person", "--lab", str(lab), "--check"]) == 1
+    assert "pins or installed dependency versions differ" in capsys.readouterr().err
+    assert launcher.prepare_runtime(project) == (original_runtime, original_hashes)
+    assert launcher.prepare_runtime(project, trusted_commit=launcher.VIDEO_TRUSTED_COMMIT) == (video_runtime, video_hashes)
+
+
+@pytest.mark.parametrize("kind", ["symlink", "parent_traversal"])
+def test_person_lab_override_rejects_unsafe_paths(person_project, monkeypatch, kind):
+    project = person_project
+    _, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="person")
+    alias = project / "person-alias"
+    if kind == "symlink":alias.symlink_to(lab, target_is_directory=True)
+    else:
+        alias.mkdir()
+        alias = alias / ".." / launcher.PERSON_LAB
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Unsafe path cannot launch"))
+    assert launcher.main(["--example", "person", "--lab", str(alias), "--check"]) == 1
+
+
+def test_altered_person_cache_is_never_overwritten_or_replaced_by_another_preset(person_project, monkeypatch):
+    project = person_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    saved_lab(project, hashes, example="person")
+    changed = runtime / "src/weft/person_inventory.py"
+    changed.write_text("# Changed cached validator\n")
+    before = changed.read_bytes(), changed.stat().st_mtime_ns
+    monkeypatch.setattr(launcher.os, "execve", lambda *_args: pytest.fail("Changed cache cannot launch"))
+    assert launcher.main(["--example", "person", "--check"]) == 1
+    assert (changed.read_bytes(), changed.stat().st_mtime_ns) == before
+    assert not list(runtime.parent.glob(".stage-*"))
+
+
+def test_person_launch_preserves_selected_lab_and_recording_location(person_project, monkeypatch):
+    project = person_project
+    runtime, hashes = launcher.prepare_runtime(project, trusted_commit=launcher.PERSON_TRUSTED_COMMIT)
+    lab = saved_lab(project, hashes, example="person")
+    calls = []
+    class Replaced(BaseException):pass
+    def replace(python, command, env):calls.append((python, command, env));raise Replaced
+    monkeypatch.setattr(launcher.os, "chdir", lambda path: None)
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    with pytest.raises(Replaced):launcher.main(["--example", "person", "--port", "8767"])
+    _, command, env = calls[0]
+    assert command == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", "lab", "--resume", str(lab), "--port", "8767"]
+    assert env["PYTHONPATH"] == str(runtime / "src")

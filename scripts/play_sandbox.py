@@ -18,9 +18,11 @@ import uuid
 
 TRUSTED_COMMIT = "6396be84018e6cb6525614f07a664cf0bb673b34"
 VIDEO_TRUSTED_COMMIT = "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
+PERSON_TRUSTED_COMMIT = "569e99dca81e5be31c100342a15c004dd3503df9"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
 VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"
+PERSON_LAB = "artifacts/single-leg-person-workflow-01/build/learning_workflow/lab"
 EXPORT_PATHS = ("src/weft", "pyproject.toml", "requirements-lab.lock")
 MAX_FILES, MAX_BYTES, MAX_FILE_BYTES = 256, 16 * 1024 * 1024, 2 * 1024 * 1024
 POLICY_FILES = frozenset((
@@ -40,6 +42,7 @@ VIDEO_POLICY_FILES = POLICY_FILES - {
     "shared_exercise_feasibility_evaluation.py", "shared_exercise_feasibility_learning.py",
     "shared_exercise_selection.py",
 }
+PERSON_POLICY_FILES = VIDEO_POLICY_FILES | {"person_inventory.py"}
 DIR_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
 
 
@@ -48,12 +51,19 @@ def _preset(example):
         return TRUSTED_COMMIT, DEFAULT_LAB, "shared-exercise-policy-v3", POLICY_FILES
     if example == "video":
         return VIDEO_TRUSTED_COMMIT, VIDEO_LAB, "shared-exercise-policy-v2", VIDEO_POLICY_FILES
+    if example == "person":
+        return PERSON_TRUSTED_COMMIT, PERSON_LAB, "shared-exercise-policy-v2", PERSON_POLICY_FILES
     raise ValueError("Unknown sandbox example")
+
+
+def _lab_files(example):
+    _preset(example)
+    return LAB_RUNTIME_FILES | {"person_inventory.py"} if example == "person" else LAB_RUNTIME_FILES
 
 
 def _trusted_commit(value):
     value = TRUSTED_COMMIT if value is None else value
-    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT}:
+    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT}:
         raise ValueError("Runtime revision must be one of the launcher's fixed trusted examples")
     return value
 
@@ -328,7 +338,7 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
     versions = _installed_versions(project, runtime)
     if (any(value is None for value in pins.values()) or policy.get("profile") != profile
             or policy.get("runtime_sha256") != pins or contract.get("policy_runtime_sha256") != pins
-            or contract.get("runtime_sha256") != {name: pins[name] for name in LAB_RUNTIME_FILES}
+            or contract.get("runtime_sha256") != {name: pins[name] for name in _lab_files(example)}
             or set(versions or {}) != {"python", "mujoco", "numpy", "gymnasium"}
             or policy.get("runtime_versions") != versions or contract.get("runtime_versions") != versions):
         raise ValueError("Saved lab policy/runtime pins or installed dependency versions differ from the trusted runtime")
@@ -349,7 +359,7 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
-    parser.add_argument("--example", choices=("video",), help="Use the video-to-lab example; omitted keeps the original sandbox")
+    parser.add_argument("--example", choices=("video", "person"), help="Use a video-to-lab or person-only example; omitted keeps the original sandbox")
     parser.add_argument("--lab", help="Override the selected example's lab with another strictly compatible saved lab")
     parser.add_argument("--check", action="store_true", help="Check runtime and lab identity only; no server or physics")
     args = parser.parse_args(argv)
@@ -362,7 +372,7 @@ def main(argv=None):
         runtime, hashes = prepare_runtime(PROJECT, trusted_commit=commit)
         check_compatibility(PROJECT, runtime, hashes, lab, example=args.example)
         print(f"Verified trusted runtime {commit[:12]}: {len(hashes)} files, {len(policy_files)} policy pins, "
-              f"{len(LAB_RUNTIME_FILES)} lab pins and dependency versions.", flush=True)
+              f"{len(_lab_files(args.example))} lab pins and dependency versions.", flush=True)
         if args.check:
             print("Check only: sealed runtime/lab metadata identity. No server, physics, session or media reads.")
             print("Complete source, training and evaluation admission still runs when the sandbox opens.")

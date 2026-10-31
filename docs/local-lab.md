@@ -20,6 +20,22 @@ This preset pins trusted Git runtime **`d0cdbe87d9f89b002e13c969ca1ac1549ae20107
 
 The no-flag shortcut below retains the original sandbox and its separate frozen runtime. `--lab` can select another saved lab only if it matches the chosen preset's exact profile and source pins; neither preset executes artifact-supplied Python or silently replaces a modified cache.
 
+## Try the person-only 3D example
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example person
+```
+
+This real single-leg squat example uses one 3D body, ground, 22 controls, and the complete **234-step /7.8-second** reference interval, without dummy equipment. Open the printed local link; **Sandbox → a control mode → Start** runs it. The user starts/manages the server. [Inspect the automatic step-by-step report](../artifacts/single-leg-person-workflow-01/report/index.html).
+
+The video→body→world→training/evaluation→lab/report workflow completed in **23.7 seconds**, with 235 original source slots and 118 pose references preserved. The selected controller equals the authored baseline and passes **0/3** task-success trials: peak joint-tracking error is about **0.958 radians**, above the unchanged **0.70** limit. A playable environment is not a successful learned exercise policy or physical reconstruction. Source footage and all these seeds are exposed development evidence.
+
+Use **Record & start → Stop & save** to capture your own actions. The [verified saved replay](../artifacts/single-leg-person-workflow-01/build/learning_workflow/lab/sessions/session-f45b857fbde8/replay.html) and [video](../artifacts/single-leg-person-workflow-01/build/learning_workflow/lab/sessions/session-f45b857fbde8/video.mp4) contain **242 actions, one reset and244 frames**; all 234 post-reset steps replay exactly. The interaction/export/replay check took **8.36 seconds**. Exact simulator replay does not establish physical accuracy or browser visual quality.
+
+Choose **Explain this trial** under a saved recording for body-error values, allowed limits and the first recorded crossing window. In this example, peak angle error crosses its limit between0.633–0.667s after reset (event29, replay state30/244). The running average crosses later but recovers; the peak still fails. Source-video, reference and live clocks remain separate.
+
+The shortcut uses trusted Git runtime **`569e99dca81e5be31c100342a15c004dd3503df9`**, including person-only recording captions. The metadata-only `--example person --check` verified 22 policy/18 lab source pins and 192 exported files in **0.205 seconds**; it did not start a server, run physics or establish browser performance. Full lab/source/policy admission still runs on opening. The original and `--example video` runtimes are unchanged.
+
 ## Build from your person-only exercise video
 
 From the repository root:
@@ -45,9 +61,9 @@ To explain a saved failure **without reprocessing the video**, point to its inne
   --inspect-build artifacts/video-EXAMPLE/build
 ```
 
-The report shows the stopped stage, exact source artifacts, saved quality checks and affected original frames when available. Competing pose estimates do not necessarily mean multiple people; nominal video time and saved decoder time remain separate. Existing lab/runtime compatibility checks still apply on reopening after code changes; the two fixed example launchers above/below retain their own frozen runtimes.
+The report shows the stopped stage, exact source artifacts, saved quality checks and affected original frames when available. Competing pose estimates do not necessarily mean multiple people; nominal video time and saved decoder time remain separate. Existing lab/runtime compatibility checks still apply on reopening after code changes; the fixed example launchers retain their own frozen runtimes.
 
-Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) to declare one selected person with ground-only support and no task-relevant equipment. You supply the video and a local pose model; no equipment/config JSON is needed. The same pipeline creates the body, a shared world with no dummy objects, optional training/evaluation and one recordable lab. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible. This does not replace the two frozen examples above/below.
+Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) for direct access with an explicit local pose model. It uses the same pipeline and assumptions as the launcher, not a separate product. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible.
 
 For a person interacting with equipment, the same launcher accepts `--evidence-run`, `--config` and optional `--source-mapping` instead of `--person-only`. Equipment geometry/camera assumptions remain explicit; it does not silently remove objects. Local build/report processing makes no paid API call and inherits no provider-key environment variables. Native calls run in a bounded child process; native memory is not hard-capped. The user owns any server started with `--serve`.
 

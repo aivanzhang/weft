@@ -1432,16 +1432,53 @@
     displacement_model_units: ["displacement", "model units"], orientation_rad: ["rotation", "rad"],
     speed_model_units_s: ["speed", "model units/s"], angular_speed_rad_s: ["spin", "rad/s"],
   };
+  const humanMetricLabels = {
+    angular_rmse_rad: ["Average body-angle error", "rad", "running_rms"],
+    root_rmse_model_units: ["Average body-position error", "model units", "running_rms"],
+    peak_angular_rmse_rad: ["Peak body-angle error", "rad", "cumulative_peak"],
+    peak_root_rmse_model_units: ["Peak body-position error", "model units", "cumulative_peak"],
+    max_floor_penetration_model_units: ["Peak floor overlap", "model units", "cumulative_peak"],
+  };
+  function humanTimelineValid(value) {
+    if (value === undefined) return true;
+    const metric = row => Object.hasOwn(humanMetricLabels, row?.metric)
+      && row.aggregation === humanMetricLabels[row.metric][2] && Number.isFinite(row.threshold) && row.threshold > 0;
+    const crossing = row => metric(row) && Number.isFinite(row.value) && row.value > row.threshold + 1e-12
+      && (row.previous_value === null || Number.isFinite(row.previous_value) && row.previous_value >= 0)
+      && (row.previous_safe_elapsed_s === null || Number.isFinite(row.previous_safe_elapsed_s) && row.previous_safe_elapsed_s >= 0)
+      && (row.previous_value !== null || row.previous_safe_elapsed_s === null)
+      && Number.isFinite(row.first_failed_elapsed_s) && row.first_failed_elapsed_s >= 0
+      && (row.previous_safe_elapsed_s === null || row.previous_safe_elapsed_s <= row.first_failed_elapsed_s)
+      && Number.isInteger(row.event_index) && row.event_index >= 0 && row.event_index <= 1800
+      && Number.isInteger(row.control_step) && row.control_step >= 0 && row.control_step <= 1800
+      && ["failed_at_reset", "first_observed_boundary", "first_reported_boundary"].includes(row.status);
+    return value?.profile === "shared-exercise-human-tracking-timeline-v1"
+      && Array.isArray(value.terminal) && value.terminal.length === 5
+      && new Set(value.terminal.map(row => row.metric)).size === 5
+      && value.terminal.every(row => metric(row) && (row.status === "unavailable" ? row.value === null
+        : Number.isFinite(row.value) && row.value >= 0 && row.status === (row.value > row.threshold + 1e-12 ? "above_limit" : "within_limit")))
+      && Array.isArray(value.first_crossings) && value.first_crossings.length <= 5
+      && new Set(value.first_crossings.map(row => row.metric)).size === value.first_crossings.length
+      && value.first_crossings.every(crossing)
+      && (value.first_failure === null ? value.first_crossings.length === 0
+        : value.first_failure && Array.isArray(value.first_failure.crossings) && value.first_failure.crossings.length > 0
+          && value.first_failure.crossings.length <= 5 && value.first_failure.crossings.every(row => crossing(row)
+            && row.event_index === value.first_failure.event_index && row.first_failed_elapsed_s === value.first_failure.first_failed_elapsed_s
+            && value.first_crossings.some(saved => JSON.stringify(saved) === JSON.stringify(row))));
+  }
   function recordingTimelineValid(value) {
     const digest = v => typeof v === "string" && /^[0-9a-f]{64}$/.test(v);
     return value?.profile === "shared-exercise-failure-timeline-v1" && [value.scene_sha256, value.task_sha256, value.gates_sha256].every(digest)
       && digest(value.integrity?.manifest_sha256) && value.integrity?.verified_scope === "scene_task_policy_journal_metadata_only"
       && value.integrity?.media_verified === false && value.integrity?.action_replay_performed === false
       && value.source_clock?.kind === "declared_human_reference_clock" && value.source_clock?.native_video_time_available === false
+      && (value.equipment_stability_applicability === undefined || ["applied", "not_applicable"].includes(value.equipment_stability_applicability))
       && Array.isArray(value.episodes) && value.episodes.length > 0 && value.episodes.length <= 64
       && value.episodes.every(episode => Number.isInteger(episode.reset_event_index) && episode.reset_event_index >= 0
         && Array.isArray(episode.first_crossings) && episode.first_crossings.length <= 48 && episode.terminal
         && typeof episode.terminal.completed_interval === "boolean" && typeof episode.terminal.success === "boolean"
+        && humanTimelineValid(episode.human_tracking)
+        && (value.equipment_stability_applicability !== "not_applicable" || episode.first_equipment_failure === null && episode.first_crossings.length === 0)
         && episode.first_crossings.every(crossing => Object.hasOwn(equipmentMetricLabels, crossing.metric)
           && [crossing.value, crossing.threshold, crossing.first_failed_elapsed_s].every(Number.isFinite)
           && Array.isArray(crossing.boundary_contacts) && crossing.boundary_contacts.length <= 64));
@@ -1450,7 +1487,9 @@
     const timeline = recordingDiagnosis?.timeline, index = Number($("recording-diagnosis-episode").value);
     const episode = timeline?.episodes[index];
     if (!episode) return;
-    const terminal = episode.terminal, first = episode.first_equipment_failure;
+    const terminal = episode.terminal, first = episode.first_equipment_failure, human = episode.human_tracking;
+    const noEquipment = timeline.equipment_stability_applicability === "not_applicable";
+    text($("recording-diagnosis-heading"), noEquipment ? "Saved trial: body tracking" : "Saved trial: tracking and equipment stability");
     const counts = Object.entries(episode.controller_counts || {}).map(([controller, count]) => `${controller}: ${count}`).join(", ");
     text($("recording-diagnosis-outcome"), `Episode ${index + 1}: ${terminal.completed_interval
       ? terminal.success ? "Declared task passed." : "Declared interval complete; task did not pass."
@@ -1462,12 +1501,27 @@
     const window = value => Number.isFinite(value.previous_safe_elapsed_s)
       ? `${number(value.previous_safe_elapsed_s)}–${number(value.first_failed_elapsed_s)}s`
       : `first reported ${number(value.first_failed_elapsed_s)}s; previous safe boundary unavailable`;
+    const humanFirst = human?.first_failure;
+    const failedHuman = human?.terminal.filter(row => row.status === "above_limit") || [];
+    const describe = row => `${humanMetricLabels[row.metric][0]}: ${number(row.value)} ${humanMetricLabels[row.metric][1]}; allowed ${number(row.threshold)} ${humanMetricLabels[row.metric][1]}`;
+    const bodyMessage = !human ? "Body-tracking diagnosis is unavailable in this older summary; no body pass or failure timing is inferred."
+      : failedHuman.length ? `Body tracking exceeded ${failedHuman.length === 1 ? "a limit" : "limits"}: ${failedHuman.map(describe).join(". ")}.`
+      : human.terminal.some(row => row.status === "unavailable") ? "Some body-tracking values are unavailable. No missing value is treated as zero or a pass."
+      : "Body-tracking values are within their limits at the end of this episode. The complete task result remains separate.";
+    const mean = human?.terminal.find(row => row.metric === "angular_rmse_rad" && row.status === "within_limit");
+    text($("recording-diagnosis-human"), bodyMessage + (failedHuman.some(row => row.metric === "peak_angular_rmse_rad") && mean
+      ? ` Average body-angle error ${number(mean.value)} rad ended below ${number(mean.threshold)} rad${human.first_crossings.some(row => row.metric === mean.metric) ? " after an earlier crossing" : ""}.` : ""));
+    text($("recording-diagnosis-human-first"), humanFirst
+      ? `First recorded body-limit crossing: ${window(humanFirst)} after reset · step ${humanFirst.control_step}, event ${humanFirst.event_index}. ${humanFirst.crossings.some(row => row.aggregation === "running_rms")
+          ? "Running averages can recover; check the end-of-episode results below." : "Peak values retain earlier deviations even if the pose later improves."}`
+      : human ? "No body-limit crossing was recorded. This alone does not establish task success." : "");
     text($("recording-diagnosis-first"), first && earliest
       ? `First equipment limit reported at ${number(first.first_failed_elapsed_s)}s after reset. ${firstCrossings.map(value => {
           const [label, unit] = equipmentMetricLabels[value.metric] || [value.metric, ""];
           return `${actorLabel(value.object_id)} ${label}: reported peak ${number(value.value)} ${unit}, allowed ${number(value.threshold)} ${unit}`;
         }).join("; ")}.`
-      : "No equipment-limit crossing was recorded in this episode. This does not mean the task passed.");
+      : noEquipment ? "Equipment checks: not applicable — none are declared; no success credit is added."
+        : "No equipment-limit crossing was recorded in this episode. This does not mean the task passed.");
     const bracket = first?.source_frame_bracket, lower = bracket?.lower?.source_frame_index, upper = bracket?.upper?.source_frame_index;
     const frames = Number.isInteger(lower) && Number.isInteger(upper)
       ? `Retained reference frames ${lower}–${upper}${Array.isArray(bracket.frames_without_reference_between) ? `; ${bracket.frames_without_reference_between.length} intervening source frames have no reference pose` : ""}. ` : "Source-frame bracket unavailable. ";
@@ -1475,6 +1529,11 @@
       ? `First crossing window: ${window(first)} (step ${first.control_step}, recording event ${first.event_index}). Saved task time: ${number(first.first_failed_elapsed_s)}s; declared reference clock: ${number(first.reference_clock_s)}s. ${frames}${first.engine_state_status === "last_valid_control_boundary"
           ? `Geometry is the last valid boundary at ${number(first.last_valid_geometry_elapsed_s)}s, not a terminal pose. ` : ""}Native video time is unavailable; this does not seek or synchronize the video or live simulation.`
       : "No failure clock is inferred. Video, declared reference and current live time remain separate.");
+    const bodyBracket = humanFirst?.source_frame_bracket, bodyLower = bodyBracket?.lower?.source_frame_index, bodyUpper = bodyBracket?.upper?.source_frame_index;
+    text($("recording-diagnosis-human-clock"), humanFirst
+      ? `Body crossing window: ${window(humanFirst)}. Declared reference clock: ${number(humanFirst.reference_clock_s)}s. ${Number.isInteger(bodyLower) && Number.isInteger(bodyUpper)
+          ? `Retained reference frames ${bodyLower}–${bodyUpper}; ${bodyBracket.frames_without_reference_between?.length ?? "unknown"} intervening frames have no reference pose. ` : "Source-frame bracket unavailable. "}${humanFirst.engine_state_status === "last_valid_control_boundary"
+          ? `Geometry is the last valid boundary at ${number(humanFirst.last_valid_geometry_elapsed_s)}s, not a terminal pose. ` : ""}No exact substep or cause is inferred. Native video time is unavailable; this does not seek or synchronize the original video or live simulation.` : "");
     const pairs = new Map();
     for (const crossing of firstCrossings) for (const contact of crossing.boundary_contacts || []) {
       if (!Array.isArray(contact.objects) || !contact.objects.includes(crossing.object_id)) continue;
@@ -1486,14 +1545,34 @@
       ? pairs.size ? `Contacts at the saved boundary: ${[...pairs.keys()].join("; ")}. Co-occurrence, not proof of cause.`
         : "No matching contact is saved at this boundary. Contact between recorded boundaries may be missing; no cause is inferred."
       : "No first-failure contact is inferred.");
-    text($("recording-diagnosis-scope"), "Equipment values are recorded maxima since reset, not current object speed or motion. The journal brackets the first reported crossing; it does not retain every physics substep. Collision shapes and model units are assumptions, not measured grasp or physical accuracy.");
+    $("recording-diagnosis-contacts").hidden = noEquipment;
+    $("recording-diagnosis-clock").hidden = noEquipment && !first;
+    text($("recording-diagnosis-limits"), "Saved trial, not the current simulation. Body-angle error combines the evaluated joints; it does not identify a culprit joint. Model units are uncalibrated.");
+    text($("recording-diagnosis-scope"), "Body averages can recover; body and equipment peaks retain earlier deviations. Values are relative to the authored reference and frozen simulator limits, not measured anatomy or physical accuracy. Saved control boundaries bracket crossings but do not retain every physics substep or establish a cause.");
+    $("recording-diagnosis-human-metrics").replaceChildren();
+    for (const value of human?.terminal || []) {
+      const row = document.createElement("tr");
+      for (const entry of [humanMetricLabels[value.metric][0], `${number(value.value)} / ${number(value.threshold)} ${humanMetricLabels[value.metric][1]}`,
+        {within_limit: "Within limit", above_limit: "Above limit", unavailable: "Unavailable — not a pass"}[value.status]]) cell(row, entry);
+      $("recording-diagnosis-human-metrics").append(row);
+    }
     $("recording-diagnosis-crossings").replaceChildren();
+    for (const value of human?.first_crossings || []) {
+      const row = document.createElement("tr");
+      for (const entry of [humanMetricLabels[value.metric][0], `${number(value.value)} / ${number(value.threshold)} ${humanMetricLabels[value.metric][1]}`,
+        window(value), `${value.event_index} · step ${value.control_step}${value.aggregation === "running_rms" ? " · average may recover" : ""}`]) cell(row, entry);
+      $("recording-diagnosis-crossings").append(row);
+    }
     for (const value of crossings) {
       const row = document.createElement("tr"), [label, unit] = equipmentMetricLabels[value.metric];
       for (const entry of [`${actorLabel(value.object_id)} · ${label}`, `${number(value.value)} / ${number(value.threshold)} ${unit}`,
         window(value), `${value.event_index} · step ${value.control_step}`]) cell(row, entry);
       $("recording-diagnosis-crossings").append(row);
     }
+    const replayEvent = [humanFirst, first].filter(value => Number.isInteger(value?.event_index)).sort((a, b) => a.event_index - b.event_index)[0];
+    const replayLabel = replayEvent ? `Interactive replay · select state ${replayEvent.event_index + 1}${Number.isInteger(timeline.events) ? ` of ${timeline.events}` : ""} (event ${replayEvent.event_index})` : "Interactive replay · inspect recorded states";
+    $("recording-diagnosis-links").replaceChildren(link(replayLabel, `sessions/${recordingDiagnosis.session}/replay.html`),
+      link("Exact actions and states", `sessions/${recordingDiagnosis.session}/events.jsonl`), link("Saved task and scene", `sessions/${recordingDiagnosis.session}/scene.json`));
   }
   $("recording-diagnosis-episode").onchange = renderRecordingEpisode;
   function suspendRecordingDiagnosis() {
@@ -1511,8 +1590,6 @@
       text(option, `Episode ${index + 1} · ${index ? "after reset" : "recording start"} · event ${episode.reset_event_index}`); selector.append(option);
     }
     selector.value = String(timeline.episodes.length - 1);
-    $("recording-diagnosis-links").replaceChildren(link("Interactive replay · scrub to the event above", `sessions/${data.session}/replay.html`),
-      link("Exact actions and states", `sessions/${data.session}/events.jsonl`), link("Saved task and scene", `sessions/${data.session}/scene.json`));
     $("recording-diagnosis-content").hidden = false; $("recording-diagnosis-retry").hidden = true;
     renderRecordingEpisode();
   }

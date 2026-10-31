@@ -16,12 +16,17 @@ import time
 from weft.io import canonical_hash, local_time
 from weft.shared_exercise_lab import _json
 from weft.shared_exercise_recording import prepare_snapshot_validator, validate_event, validate_recording_scene
-from weft.shared_exercise_task import GATES, GATES_SHA256
+from weft.shared_exercise_task import GATES, GATES_SHA256, HUMAN_ONLY_TASK_PROFILE
 from weft.shared_world import _HUMAN_SEGMENT_BY_GEOM
 
 
 PROFILE = "shared-exercise-failure-timeline-v1"
 METRICS = ("displacement_model_units", "orientation_rad", "speed_model_units_s", "angular_speed_rad_s")
+HUMAN_METRICS = {
+    "angular_rmse_rad": "running_rms", "root_rmse_model_units": "running_rms",
+    "peak_angular_rmse_rad": "cumulative_peak", "peak_root_rmse_model_units": "cumulative_peak",
+    "max_floor_penetration_model_units": "cumulative_peak",
+}
 MAX_EVENTS = 1801
 MAX_EPISODES = 64
 MAX_SUMMARY_BYTES = 512 * 1024
@@ -154,11 +159,41 @@ def _bounded_summary(result):
     return result
 
 
+def _human_tracking(episode, metrics, previous, timing):
+    summary = episode["human_tracking"]
+    seen = {row["metric"] for row in summary["first_crossings"]}
+    crossings, terminal = [], []
+    old = previous["task_metrics"] if previous else {}
+    for name, aggregation in HUMAN_METRICS.items():
+        value, before, threshold = metrics[name], old.get(name), GATES[name]
+        if aggregation == "cumulative_peak" and before is not None and value < before:
+            raise ValueError("Diagnosis human maxima decreased without a reset")
+        status = "unavailable" if value is None else "above_limit" if value > threshold + 1e-12 else "within_limit"
+        terminal.append({"metric": name, "value": value, "threshold": threshold,
+                         "status": status, "aggregation": aggregation})
+        if status != "above_limit" or name in seen:
+            continue
+        # Running RMS can recover; its first observed value has no preceding safe measurement.
+        crossing = {**timing, "metric": name, "value": value, "previous_value": before,
+                    "threshold": threshold, "aggregation": aggregation,
+                    "previous_safe_elapsed_s": timing["previous_safe_elapsed_s"] if before is not None else None,
+                    "status": "failed_at_reset" if previous is None else
+                              "first_observed_boundary" if before is None else "first_reported_boundary"}
+        crossings.append(crossing)
+        summary["first_crossings"].append(crossing)
+    if crossings and summary["first_failure"] is None:
+        summary["first_failure"] = {**timing, "episode_index": episode["episode_index"],
+            "reset_event_index": episode["reset_event_index"], "crossings": crossings,
+            "previous_safe_elapsed_s": timing["previous_safe_elapsed_s"]
+                if all(row["previous_value"] is not None for row in crossings) else None}
+    summary["terminal"] = terminal
+
+
 def recording_failure_timeline(recording_scene, events, *, max_seconds=5):
     """Validate and reduce saved boundaries without decoding media or stepping physics.
 
-    Equipment values are cumulative maxima. First crossings are bracketed between
-    recorded boundaries; boundary contacts do not locate or explain an earlier substep.
+    Peaks are cumulative; running RMS can recover. Saved boundaries cannot locate
+    a crossing's exact substep or establish its physical cause.
     """
     deadline = _deadline(max_seconds, 10)
     if not isinstance(events, (list, tuple)) or not 1 <= len(events) <= MAX_EVENTS:
@@ -194,6 +229,8 @@ def recording_failure_timeline(recording_scene, events, *, max_seconds=5):
                 raise ValueError("Diagnosis exceeds its 64-episode bound")
             episode = {"episode_index": len(episodes), "reset_event_index": index, "seed": event["seed"],
                        "controller_counts": {}, "first_equipment_failure": None, "first_crossings": [],
+                       "human_tracking": {"profile": "shared-exercise-human-tracking-timeline-v1",
+                                          "first_failure": None, "first_crossings": [], "terminal": []},
                        "resolved_reset_options": deepcopy(state["resolved_reset_options"])}
             episodes.append(episode)
             previous, seen, control_step = None, set(), 0
@@ -217,6 +254,7 @@ def recording_failure_timeline(recording_scene, events, *, max_seconds=5):
                   "first_failed_elapsed_s": elapsed, "last_valid_geometry_elapsed_s": engine["time_s"],
                   "engine_state_status": state["engine_state_status"], "clock_status": metrics["clock_status"],
                   **clock.at(elapsed)}
+        _human_tracking(episode, metrics, previous, timing)
         old_equipment = {row["object_id"]: row for row in previous["task_metrics"]["equipment"]} if previous else {}
         crossings = []
         for row in metrics["equipment"]:
@@ -257,9 +295,10 @@ def recording_failure_timeline(recording_scene, events, *, max_seconds=5):
                          "alignment_method": scene["coordinate_frame"]["clock_binding"]["alignment_method"],
                          "reference_start_s": clock.origin},
         "events": len(events), "episodes": episodes,
+        "equipment_stability_applicability": "not_applicable" if task["profile"] == HUMAN_ONLY_TASK_PROFILE else "applied",
         "first_equipment_failure": next((row["first_equipment_failure"] for row in episodes
                                           if row["first_equipment_failure"] is not None), None),
-        "scope": "Saved simulated cumulative peaks bracket first failures between control boundaries. Boundary contacts are co-occurrence, not causal substep evidence. Reference frame times are declared priors, not native-video synchronization or physical measurements."})
+        "scope": "Saved simulated peaks bracket first reported limit crossings; running RMS can recover. Unavailable values are not crossings. Body errors aggregate joints, not identify a failing joint. Boundary contacts are co-occurrence, not causal substep evidence. Reference frame times are declared priors, not native-video synchronization or physical measurements."})
 
 
 def _recording_inputs(directory, deadline):
