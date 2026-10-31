@@ -35,10 +35,14 @@ The partial-foot saved audit preserves all 240 rows, original six negative gaps
 and exact frame-zero heel rejection; a different partial-endpoint denominator
 must not be presented as better ground contact. [Reconstruction evidence](partial-foot-evidence-jog.md).
 
-Git publication and final saved UI/source audits are tracked in the camera lab
-handoff. Main was freshly fetched and already current at `d1b461f`; index/stash
-were empty before publication preparation. Separate avatar files remain dirty
-and untouched. No browser, server or hosted deployment was started.
+The 68-check saved audit and six actual-payload UI checks pass. All 31 scoped
+paths are published at `cb5f8766ea6a675964716e54c6512f316c12c664`, with exact
+private remote verification at 3:16 PM PDT. Publication receipt
+`.local/camera-lab-publication-01.json` has SHA
+`f60b6ba8a4058e46bcb5474e8cf49c9a6ac774aba9a6210d6ee56a371b0e73fa`.
+Owned paths/index were clean and stash empty; all 1,249 unrelated avatar status
+entries remained preserved. This follow-up records the product publication;
+no product changed afterward. No browser, server or hosted deployment started.
 
 ## Camera-coupled runtime — October 31, 2026, 2:32 PM PDT
 

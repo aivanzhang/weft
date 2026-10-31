@@ -1,7 +1,8 @@
 # Camera-based shared-world lab integration
 
 Updated: October 31, 2026, 3:16 PM PDT. Owner: root. Implementation, combined
-native acceptance and final saved/UI audits passed; scoped publication is next.
+native acceptance and final saved/UI audits passed; the product checkpoint is
+published and the exact private remote hash is verified.
 The combined goal remains active.
 
 ## Scope and ownership
@@ -150,10 +151,15 @@ local saved examples, not files guaranteed in a fresh clone. Next product work
 is useful unfamiliar-video ground/equipment recovery and meaningful learning;
 do not redefine this playable source case as completion of the combined goal.
 
-Git: reviewed previous checkpoint `d1b461fad68974b67828d2eb71e691072a8ee1c2`;
-these integration files and released partial-foot files are uncommitted.
-No staging, stash changes, server, browser or deployment in this milestone yet.
-Remote main was freshly fetched and already current; no merge was needed.
+Git: the 31 reviewed product/test/document paths are published at
+`cb5f8766ea6a675964716e54c6512f316c12c664`, with the exact private remote verified
+on October 31, 2026, 3:16 PM PDT. Owned paths and index were clean, stash empty,
+and all 1,249 prior unrelated avatar status entries remained preserved.
+Receipt `.local/camera-lab-publication-01.json`, SHA
+`f60b6ba8a4058e46bcb5474e8cf49c9a6ac774aba9a6210d6ee56a371b0e73fa`.
+This small follow-up documentation checkpoint records that publication; no
+product file changed afterward. Remote main was refreshed before publication
+and needed no merge. No server, browser, deployment or paid call occurred.
 
 
 ## Independent saved-result audit — reconstruction lane

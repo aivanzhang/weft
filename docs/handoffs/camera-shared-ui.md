@@ -65,6 +65,6 @@ Command: `node .local/camera-shared-ui-actual-01.mjs > .local/camera-shared-ui-a
 
 - [x] Parent’s single frozen native run completed; no edits raced it.
 - [x] Actual 19/22-control saved summaries, receipt views and complete offline event bundles passed presentation checks without source/model/physics reruns.
-- [ ] Parent completes publication and updates the combined handoff. This UI milestone alone does not establish generalized reconstruction, recovered feet/contact or independent physical accuracy.
+- [x] Parent published the verified integration at `cb5f8766ea6a675964716e54c6512f316c12c664`, with exact private remote confirmation. This UI milestone alone does not establish generalized reconstruction, recovered feet/contact or independent physical accuracy. The [combined handoff](combined.md) records current ownership and next work.
 
 The new test module exports `cameraFixture`, `liveFixture` and `replayFixture`. The analytical suite is `node tests/camera_shared_ui_smoke.mjs`; optional trailing function names select affected groups. Backend/state/recording owners retain their files and acceptance obligations. Reuse this passing evidence unless relevant inputs change; do not repeat the native run for a presentation-only change.
