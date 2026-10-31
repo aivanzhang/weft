@@ -8,7 +8,7 @@ from gymnasium import spaces
 import mujoco
 import numpy as np
 
-from weft.human import HumanEnv
+from weft.human import HumanEnv, reference_velocity_index
 from weft.mobile_human import ROOT_AXES
 
 
@@ -87,7 +87,9 @@ class WholeBodyEnv(gym.Env):
         timestamp = float(np.clip(self.source_start + elapsed, self._times[0], self._times[-1]))
         index = min(len(self._times) - 2, max(0, int(np.searchsorted(self._times, timestamp, side="right")) - 1))
         target = self._reference[:, index] + self._slopes[:, index] * (timestamp - self._times[index])
-        velocity = self._slopes[:, index].copy() if timestamp < self._times[-1] else np.zeros(22)
+        velocity_index = reference_velocity_index(
+            self._times, timestamp, elapsed=elapsed, timestep=self.model.opt.timestep, source_start=self.source_start)
+        velocity = self._slopes[:, velocity_index].copy() if velocity_index is not None else np.zeros(22)
         return target, velocity
 
     def target_state(self):

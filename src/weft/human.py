@@ -1,5 +1,6 @@
 """Articulated exercise models; motor commands are not measured muscle forces."""
 
+from bisect import bisect_right
 from copy import deepcopy
 import math
 from pathlib import Path
@@ -21,6 +22,60 @@ JOINT_LIMITS = {name: ([-1.0, 2.9] if "shoulder" in name else [-0.5, 2.3] if "hi
 LENGTH_BOUNDS = {"torso": (0.18, 0.9), "upper_arm": (0.1, 0.65), "forearm": (0.1, 0.65),
                  "thigh": (0.15, 0.85), "shin": (0.15, 0.85), "shoulder_width": (0.15, 0.8), "hip_width": (0.1, 0.6)}
 ACTIONS = ("coast", "flex", "extend", "brake", "hold", "reference servo")
+
+
+def reference_velocity_index(times, timestamp, *, elapsed, timestep, source_start):
+    """Select a derivative only; ``times`` must already be finite and strictly sorted.
+
+    Native clocks add a positive timestep repeatedly. Near an aligned knot, their
+    summation error must not defer the right derivative; positions keep their old lookup.
+    """
+    timestamp, elapsed, timestep, source_start = map(float, (timestamp, elapsed, timestep, source_start))
+    if len(times) < 2 or not all(map(math.isfinite, (timestamp, elapsed, timestep, source_start))) or timestep <= 0:
+        raise ValueError("Reference velocity requires finite clocks, a positive timestep and at least two knots")
+    index = min(len(times) - 2, max(0, bisect_right(times, timestamp) - 1))
+    if timestamp >= times[-1]:
+        return None
+    if elapsed <= 0 or timestamp < times[0] or timestamp != source_start + elapsed:
+        return index
+
+    quotient = elapsed / timestep
+    if not math.isfinite(quotient):
+        return index
+    n = math.ceil(math.nextafter(quotient, math.inf))
+    unit_roundoff = 2.0 ** -53
+    if n * unit_roundoff >= 1:
+        return index
+    gamma = math.nextafter(n * unit_roundoff / (1 - n * unit_roundoff), math.inf)
+    # An uncertain step count cannot identify a unique native-clock boundary.
+    if gamma * n >= .5:
+        return index
+    nearest = round(quotient)
+    if nearest < 1:
+        return index
+    lattice_elapsed = nearest * timestep
+    lattice_timestamp = source_start + lattice_elapsed
+    knot = float(times[index + 1])
+    half_gap = math.nextafter(min(knot - float(times[index]),
+                                 float(times[index + 2]) - knot if index + 2 < len(times) else math.inf) / 2, 0.)
+    # Two timestep roundings cover dt representation and dt/substeps; all terms round outward.
+    step_error = math.nextafter(math.fsum((2 * n * math.ulp(timestep),
+                                          math.nextafter(timestep * math.ulp(quotient), math.inf),
+                                          math.ulp(lattice_elapsed))), math.inf)
+    source_error = math.nextafter(math.fsum((math.ulp(source_start), math.ulp(lattice_timestamp),
+                                            math.ulp(timestamp), math.ulp(knot))), math.inf)
+    lattice_error = math.nextafter(step_error + source_error, math.inf)
+    accumulation_error = math.nextafter(gamma * math.nextafter(n * timestep, math.inf), math.inf)
+    clock_error = math.nextafter(accumulation_error + step_error, math.inf)
+    tolerance = min(1e-9, half_gap, math.nextafter(clock_error + source_error, math.inf))
+    # Reject ambiguous nearby knots and non-native queries, even inside the broad summation bound.
+    if lattice_error >= half_gap or math.nextafter(abs(elapsed - lattice_elapsed), math.inf) > clock_error:
+        return index
+    if math.nextafter(abs(knot - lattice_timestamp), math.inf) > lattice_error:
+        return index
+    if math.nextafter(knot - timestamp, math.inf) > tolerance:
+        return index
+    return index + 1 if index + 1 < len(times) - 1 else None
 
 
 def _finite(value, name, low, high):
@@ -454,7 +509,10 @@ class HumanEnv(gym.Env):
                     timestamp = min(self._reference_times[0] + self.data.time, self._reference_times[-1])
                     index = min(len(self._reference_times) - 2,
                                 max(0, int(np.searchsorted(self._reference_times, timestamp, side="right")) - 1))
-                    velocity = self._reference_slopes[:, index] if timestamp < self._reference_times[-1] else 0
+                    velocity_index = reference_velocity_index(
+                        self._reference_times, timestamp, elapsed=self.data.time,
+                        timestep=self.model.opt.timestep, source_start=self._reference_times[0])
+                    velocity = self._reference_slopes[:, velocity_index] if velocity_index is not None else 0
                     target = self._reference_matrix[:, index] + self._reference_slopes[:, index] * (timestamp - self._reference_times[index])
                     torques = 40 * (target - angles) + 5 * (velocity - speeds)
                 torques += self.data.qfrc_bias[self._v_array]
