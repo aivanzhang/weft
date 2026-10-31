@@ -147,8 +147,8 @@ filename lookup was corrected without reading or altering an incorrect artifact.
 Original media/archive identities reuse the completed full-output checks and exact
 nested member equality; no media decode, source rescan or native/product rerun.
 The audit binds the committed e922 runtime, not the later training-entry changes.
-No product blocker is found. Root owns publication; the training guard below is
-now verified. Authored depth/calibration, meaningful grasp/contact, unfamiliar
+No product blocker is found. Implementation publication and the training guard
+below are verified. Authored depth/calibration, meaningful grasp/contact, unfamiliar
 source qualification and independent physical evidence remain open.
 
 ### Spatial training admission — verified
@@ -200,16 +200,22 @@ to exclude dirty avatar snapshots. Avatar files themselves were not edited or st
 Total: **217 distinct latest-passing focused/regression cases** =102 bridge
 +36 solver +63 guard +3 training CLI +13 legacy, not a full repository suite.
 All described development/verification jobs are terminal; no browser or development
-server was started. Root owns the pending 20-file publication and live remote
-verification. Next product work includes a bounded full training/evaluation case
+server was started. The 20-file implementation publication is live-verified.
+Next product work includes a bounded full training/evaluation case
 from a newly constructed 3D candidate, different-video qualification and independent
 physical accuracy. No full real new-training case occurs in this milestone, and
 the general goal remains active.
 
-Last publication supplied by root is
-`e92202a1da992f4486864b2a9e801ccf802115fe`, matched to live private remote, zero
-stashes, all 75 separate avatar status/path entries unchanged. This checkpoint
-does not freshly reverify Git or claim the current active worktree is clean.
+Implementation publication verified by root on **October 31, 2026, 8:15:43 AM PDT**:
+private `main` and live remote match
+`ccfb12ede2404f405cdcd293576b3357dee27d79`. Receipt
+`.local/spatial-scene-publication-01.json`, SHA
+`5654c201de5cc57bf83eacc8c41edcc719834619499e5fd39c29c4721f0b560f`;
+checkpoint SHA `0c97a96b55822b48412ae5ab61bd5a98054f79650ba50f96a5868950126557a0`.
+All 20 owned files match committed bytes and are clean, zero stashes, all 75
+separate avatar status/path entries unchanged. Avatar bytes were not audited;
+this is not a whole-worktree clean claim. This two-file documentation follow-up
+repeats no tests or native checks and reuses the verified publication receipt.
 Existing playable labs, fixed gates, source bytes and avatar ownership stay intact.
 The documentation owner releases these two files to root after this checkpoint.
 
