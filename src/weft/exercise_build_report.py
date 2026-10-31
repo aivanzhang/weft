@@ -5,6 +5,7 @@ whole-package admission nor a playable world, and never runs source code.
 """
 
 import hashlib
+from collections import Counter
 from html import escape
 import json
 import math
@@ -30,6 +31,8 @@ MAX_JSON_BYTES = 8 * 1024 * 1024
 MAX_JSON_DEPTH = 64
 MAX_JSON_VALUES = 250000
 MAX_REPORT_BYTES = 2 * 1024 * 1024
+MAX_DIAGNOSTIC_BYTES = 128 * 1024
+MAX_DIAGNOSTIC_SPANS = 64
 MAX_SECONDS = 30
 _RESERVE = 5 * 1024 * 1024
 _SHA = re.compile(r"[0-9a-f]{64}")
@@ -91,6 +94,13 @@ _OTHER_DOCS = {
     "learning_workflow/selected/selection.json": ("Learning", "Training-only policy selection"),
     "learning_workflow/evaluation/evaluation.json": ("Learning", "Independent evaluation result"),
 }
+_POSE_ERRORS = {
+    "competing_poses": "Multiple people or competing pose hypotheses were detected; inspect the source and raw poses",
+    "visibility": "Insufficient full-body visibility: need at least 8 usable poses and 65% usable sampled frames",
+    "motion": "Insufficient measurable exercise motion; a repeated still image is not a dynamic exercise video",
+    "duration": "Usable pose sequence must span at least 0.4 seconds",
+}
+_BODY_POSE_REJECTION = "Rejected/unsupported pose evidence cannot become a construction body"
 
 
 def _sha(raw):
@@ -332,6 +342,7 @@ def _selection(source):
                        if body_prefix + "/" + name in source.files})
         chosen.update({body_prefix + "/" + name: ("Body", label) for name, label in _VISUALS.items()
                        if body_prefix + "/" + name in source.files})
+        chosen.update(_diagnostic_paths(source, body_prefix))
     video = None
     for prefix in _PREFIXES:
         candidates = [name for name in source.files if name.startswith(prefix + "/") and _VIDEO.fullmatch(name[len(prefix) + 1:])]
@@ -349,6 +360,171 @@ def _selection(source):
     if len(chosen) > MAX_COPIED_FILES:
         raise ValueError("Selected inspection artifacts exceed the file bound")
     return chosen, body_prefix, video
+
+
+def _diagnostic_paths(source, body_prefix):
+    paths = {}
+    evidence_sha = source.files.get(body_prefix + "/evidence.json")
+    for prefix in _PREFIXES:
+        # A sibling quality file describes this selection only when its evidence bytes match.
+        name = prefix + "/pose-quality.json"
+        if evidence_sha and source.files.get(prefix + "/evidence.json") == evidence_sha and name in source.files:
+            paths[name] = ("Body", "Saved quality checks for these exact pose samples")
+    for prefix in dict.fromkeys((body_prefix, "body_source")):
+        name = prefix + "/failure.json"
+        if name in source.files:
+            paths[name] = ("Body", "Exact failed body-preparation receipt")
+    return paths
+
+
+def _number(value, name, low=0., high=1e6):
+    if type(value) not in (int, float) or not math.isfinite(value) or not low <= value <= high:
+        raise ValueError("Invalid saved pose diagnostic value: " + name)
+    return value
+
+
+def _affected_samples(frames, statuses):
+    groups, group = [], []
+    for row in frames:
+        if row["status"] in statuses:
+            group.append(row)
+        elif group:
+            groups.append(group)
+            group = []
+    if group:
+        groups.append(group)
+    spans = []
+    for rows in groups[:MAX_DIAGNOSTIC_SPANS]:
+        native = [row.get("decoder_timestamp_s") for row in rows]
+        available = all(value is not None for value in native)
+        monotonic = available and all(right >= left for left, right in zip(native, native[1:]))
+        spans.append({"first_frame": rows[0]["frame"], "last_frame": rows[-1]["frame"],
+            "sampled_frames": [row["frame"] for row in rows],
+            "nominal_start_s": rows[0]["time_s"], "nominal_end_s": rows[-1]["time_s"],
+            "native_start_s": native[0] if monotonic else None,
+            "native_end_s": native[-1] if monotonic else None,
+            "native_status": "saved_decoder_timestamps" if monotonic else "unavailable_or_nonmonotonic"})
+    return {"sample_count": sum(len(rows) for rows in groups),
+            "original_frames": [row["frame"] for rows in groups for row in rows],
+            "sample_runs": spans, "total_sample_runs": len(groups),
+            "unlisted_sample_runs": max(0, len(groups) - len(spans)),
+            "scope": "Consecutive affected samples, not continuous failing video intervals. Unsampled frames remain unknown; frame numbers start at zero.",
+            "clock_scope": "Nominal time is frame index / saved fps. Native values are retained decoder timestamps, not calibrated camera time or synchronized playback."}
+
+
+def _pose_diagnostics(source, body_prefix, coverage, stages):
+    result = {"profile": "exercise-build-diagnostics-v1", "status": "not_available", "checks": [],
+              "scope": "Saved source-pose checks only; not a new gate evaluation, verified person count or physical diagnosis.",
+              "next_steps": []}
+    if source.receipt_only or not body_prefix or coverage.get("status") != "available":
+        result["message"] = "No sealed pose-quality details are available. Inspect the exact terminal reason; no cause or measurements are inferred."
+        return result
+    evidence_name = body_prefix + "/evidence.json"
+    evidence = source.document(evidence_name)
+    quality, frames = evidence.get("quality", {}), evidence["frames"]
+    errors = coverage["quality_errors"]
+    if len(set(errors)) != len(errors):
+        raise ValueError("Saved pose-quality errors are duplicated")
+    if "passes" in quality and (type(quality["passes"]) is not bool or quality["passes"] != (not errors)):
+        raise ValueError("Saved pose-quality pass flag and errors disagree")
+    paths = _diagnostic_paths(source, body_prefix)
+    failures = []
+    for name in paths:
+        doc = source.document(name)
+        if name.endswith("/pose-quality.json"):
+            if doc != quality:
+                raise ValueError("Saved pose-quality sidecar differs from its exact pose evidence")
+        else:
+            error = doc.get("error")
+            if (doc.get("profile") != "exercise-body-source-v1" or doc.get("schema_version") != 1
+                    or type(doc.get("schema_version")) is not int or doc.get("status") != "failed"
+                    or doc.get("simulation_ready") is not False or not isinstance(error, dict)):
+                raise ValueError("Invalid saved body failure receipt")
+            failures.append({"source_name": name, "type": _text(error.get("type"), 128),
+                             "message": _text(error.get("message"))})
+    counts = dict(Counter(row["status"] for row in frames))
+    tracked = [row for row in frames if row["status"] in {"tracked", "tracked_partial"}]
+    expected = {"sampled_frames": len(frames), "tracked_frames": len(tracked), "status_counts": counts,
+                "tracked_fraction": len(tracked) / len(frames)}
+    for key, value in expected.items():
+        if key not in quality:
+            continue
+        actual = quality[key]
+        valid = ((isinstance(actual, dict) and all(type(v) is int and v >= 0 for v in actual.values()))
+                 if key == "status_counts" else type(actual) in (int, float) if key == "tracked_fraction" else type(actual) is int)
+        if not valid or actual != value:
+            raise ValueError("Saved pose-quality counts differ from original samples: " + key)
+    stopped = next((row["stage"] for row in stages if row["stage"] in {"source_body_source", "body_source"}
+                    and row["state"] == "stopped"), None)
+    terminal = source.result.get("error", {})
+    if stopped and failures and terminal and any(row["type"] != terminal.get("type") or row["message"] != terminal.get("message") for row in failures):
+        raise ValueError("Saved body failure and terminal reason disagree")
+    result.update(status="saved_quality_rejected" if errors else "no_recorded_pose_quality_failure",
+                  evidence={"source_name": evidence_name, "sha256": source.files[evidence_name],
+                            "source_sha256": coverage["source_sha256"]},
+                  supporting_documents=[{"source_name": name, "sha256": source.files[name]} for name in paths],
+                  saved_errors=errors, sampled_frames=len(frames), usable_samples=len(tracked),
+                  status_counts=counts, saved_failures=failures, stopped_body_stage=stopped,
+                  explains_body_stop=bool(errors and stopped and terminal.get("message") in
+                      (_BODY_POSE_REJECTION, "; ".join(errors))),
+                  message="The saved pose-quality checks rejected this evidence." if errors else
+                          "No pose-quality failure is recorded in these samples; this does not establish body or lab readiness.")
+    if not errors:
+        return result
+    if source.result["lab_status"] == "ready":
+        raise ValueError("Rejected pose evidence conflicts with the saved ready lab")
+
+    def check(identifier, label, observed, required, failed, message, affected=None):
+        if (_POSE_ERRORS[identifier] in errors) != failed:
+            raise ValueError("Saved pose-quality error contradicts its measurements: " + identifier)
+        row = {"id": identifier, "label": label, "status": "failed" if failed else "passed",
+               "observed": observed, "required": required, "message": message}
+        if affected is not None:
+            row["affected_samples"] = affected
+        result["checks"].append(row)
+
+    competing = counts.get("multiple_people", 0)
+    check("competing_poses", "Unresolved pose estimates", {"samples": competing}, {"maximum_samples": 0},
+          competing > 0, f"{competing} sampled frames contain competing pose estimates; this check requires none. This does not prove that multiple people are present.",
+          _affected_samples(frames, {"multiple_people"}) if competing else None)
+    if all(key in quality for key in ("minimum_tracked_frames", "minimum_tracked_fraction")):
+        minimum = _number(quality["minimum_tracked_frames"], "minimum tracked frames", 1, 900)
+        fraction = _number(quality["minimum_tracked_fraction"], "minimum tracked fraction", 0, 1)
+        if type(minimum) is not int:
+            raise ValueError("Saved minimum pose count must be an integer")
+        failed = len(tracked) < minimum or len(tracked) / len(frames) < fraction
+        check("visibility", "Usable pose coverage", {"usable_samples": len(tracked), "sampled_frames": len(frames),
+              "usable_fraction": len(tracked) / len(frames)}, {"minimum_samples": minimum, "minimum_fraction": fraction}, failed,
+              f"{len(tracked)} of {len(frames)} samples ({len(tracked) / len(frames):.1%}) were usable; saved minimums are {minimum} samples and {fraction:.0%}.",
+              _affected_samples(frames, set(counts) - {"tracked", "tracked_partial"}) if failed else None)
+    if "motion_threshold_radians" in quality and "joint_range_radians" in quality:
+        ranges = quality["joint_range_radians"]
+        if not isinstance(ranges, dict) or not 1 <= len(ranges) <= 32:
+            raise ValueError("Invalid saved joint-range diagnostic")
+        largest = max(_number(value, "joint range", 0, 100) for value in ranges.values())
+        minimum = _number(quality["motion_threshold_radians"], "minimum joint range", 0, 100)
+        check("motion", "Recorded movement", {"maximum_joint_range_radians": largest}, {"minimum_radians": minimum}, largest < minimum,
+              f"Largest saved joint-angle range: {largest:.3g} radians; saved minimum: {minimum:.3g}. These are model estimates, not measured anatomy.")
+    if _POSE_ERRORS["duration"] in errors:
+        span = tracked[-1]["time_s"] - tracked[0]["time_s"] if tracked else None
+        if span is None:
+            raise ValueError("Saved duration failure has no usable sample endpoints")
+        check("duration", "Usable motion duration", {"nominal_seconds": span, "first_frame": tracked[0]["frame"],
+              "last_frame": tracked[-1]["frame"]}, {"minimum_seconds": .4}, span < .4,
+              f"Usable samples span {span:.3g} nominal seconds; the saved error requires at least 0.4 seconds. Native timing is not substituted.")
+    explained = {_POSE_ERRORS[row["id"]] for row in result["checks"] if row["status"] == "failed"}
+    result["unquantified_saved_errors"] = [error for error in errors if error not in explained]
+    result["next_steps"] = ["Inspect the listed original frames and saved pose annotations alongside the exact recorded errors."]
+    if competing:
+        result["next_steps"].append("Competing estimates can come from one person; this report cannot decide which estimate is correct. Keep this evidence for identity-resolution work.")
+    if competing or _POSE_ERRORS["visibility"] in errors:
+        result["next_steps"].append("If the estimates are wrong or limbs are hidden, use a clearer recording with the complete person visible, a fixed camera, and less overlap or motion blur. Keep the full intended exercise interval.")
+    if any(_POSE_ERRORS[key] in errors for key in ("motion", "duration")):
+        result["next_steps"].append("Provide a continuous recording of the actual movement, including the full intended exercise interval; a still image or very short usable sequence cannot supply motion evidence.")
+    result["next_steps"].append("Keep this rejected build and its evidence. Do not lower acceptance thresholds, discard failing frames, or treat a crop proposal as resolved identity.")
+    if len(_bytes(result)) > MAX_DIAGNOSTIC_BYTES:
+        raise ValueError("Saved pose diagnostics exceed their summary bound")
+    return result
 
 
 def _small_fields(value, keys):
@@ -378,6 +554,7 @@ def _summary(source, body_prefix, video):
         "media_sync_verified": False, "video_artifact": video,
         "work": {"video_decodes": 0, "inference_calls": 0, "physics_steps": 0, "training_episodes": 0, "api_calls": 0}}
     if source.receipt_only:
+        result["diagnostics"] = _pose_diagnostics(source, body_prefix, result["coverage"], stages)
         result["assumptions"] = ["Only the terminal failure receipt is sealed. Other preserved stage outputs are unverified and are not exposed."]
         return result
     if video:
@@ -407,6 +584,7 @@ def _summary(source, body_prefix, video):
         if marker.get("source_sha256") is not None and result["source"] and marker["source_sha256"] != result["source"]["sha256"]:
             raise ValueError("Body construction and original video identities differ")
         result["assumptions"].extend(_strings(marker.get("limits", [])))
+    result["diagnostics"] = _pose_diagnostics(source, body_prefix, result["coverage"], stages)
     proposal = source.document("proposal/report.json")
     result["equipment"] = _small_fields(proposal, ("status", "promoted", "initial_geometry_only", "full_reference_clearance_checked",
                                                   "physical_validation", "resolved_config", "source_binding"))
@@ -508,6 +686,45 @@ def _render(summary, artifacts, palette):
     else:
         reasons = "<p>No failure reason is recorded in this terminal receipt.</p>"
     reasons += '<details><summary>Exact recorded reason and identifiers</summary>' + dump({"build_status": summary["build_status"], "reasons": summary["reasons"]}) + '</details>'
+    diagnostic = summary.get("diagnostics", {})
+    diagnostic_html = ""
+    if diagnostic.get("status") == "saved_quality_rejected":
+        heading = "Why body construction stopped" if diagnostic["explains_body_stop"] else "Saved pose-quality failures"
+        if diagnostic["explains_body_stop"]:
+            label = "Stopped: source pose quality was rejected"
+        checks = diagnostic["checks"]
+        failed = [row for row in checks if row["status"] == "failed"]
+        diagnostic_html = f'<h3>{heading}</h3><ul>' + ''.join(
+            '<li><strong>' + text(row["label"]) + ':</strong> ' + text(row["message"]) + '</li>' for row in failed) + '</ul>'
+        if diagnostic.get("unquantified_saved_errors"):
+            diagnostic_html += '<p>Other saved failures (no supported numeric explanation is available):</p><ul>' + ''.join(
+                '<li>' + text(value) + '</li>' for value in diagnostic["unquantified_saved_errors"]) + '</ul>'
+        coverage_check = next((row for row in checks if row["id"] == "visibility" and row["status"] == "passed"), None)
+        if coverage_check:
+            diagnostic_html += '<p>Coverage was sufficient for this check: ' + text(coverage_check["message"]) + '</p>'
+        spans_html = ''
+        for row in failed:
+            affected = row.get("affected_samples")
+            if not affected:
+                continue
+            span_rows = ''
+            for span in affected["sample_runs"]:
+                frames = str(span["first_frame"]) if span["first_frame"] == span["last_frame"] else f'{span["first_frame"]}–{span["last_frame"]}'
+                nominal = f'{span["nominal_start_s"]:.3f}–{span["nominal_end_s"]:.3f}'
+                native = (f'{span["native_start_s"]:.3f}–{span["native_end_s"]:.3f}'
+                          if span["native_start_s"] is not None else 'Unavailable; not replaced with nominal time')
+                span_rows += f'<tr><td>{text(frames)}</td><td>{len(span["sampled_frames"])}</td><td>{text(nominal)}</td><td>{text(native)}</td></tr>'
+            spans_html += '<h4>' + text(row["label"]) + '</h4><p>' + text(affected["scope"]) + '</p>'
+            spans_html += '<table><thead><tr><th>Original frames</th><th>Affected samples</th><th>Nominal seconds</th><th>Saved decoder seconds</th></tr></thead><tbody>' + span_rows + '</tbody></table>'
+            if affected["unlisted_sample_runs"]:
+                spans_html += f'<p>{affected["unlisted_sample_runs"]} further sample runs are not tabulated. The exact copied evidence and report retain every affected frame number.</p>'
+            spans_html += '<p>' + text(affected["clock_scope"]) + '</p>'
+        evidence_link = by_name.get(diagnostic["evidence"]["source_name"])
+        diagnostic_html += '<details><summary>Affected original frames and saved clocks</summary>' + (spans_html or '<p>This saved gate does not identify a local failing interval.</p>')
+        if evidence_link:
+            diagnostic_html += '<p>' + link(evidence_link) + '</p>'
+        diagnostic_html += '</details><h4>Next steps</h4><ul>' + ''.join('<li>' + text(value) + '</li>' for value in diagnostic["next_steps"]) + '</ul>'
+        diagnostic_html += '<details><summary>Diagnostic evidence and limits</summary>' + dump(diagnostic) + '</details>'
     source = (dump(summary["source"]) if summary["source"] else "<p>Original source attribution is not available in the inspected sealed files.</p>")
     coverage = summary["coverage"]
     if coverage.get("status") == "available":
@@ -544,7 +761,7 @@ body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55
 <title>Weft · Build inspection</title><style>{css}</style></head><body><main>
 <header><p class="tag">weft · saved build inspection</p><h1>What happened in this build</h1><p><strong>{text(label)}</strong></p><p>{availability}</p>{receipt}
 <nav><a href="#stages">Stages</a><a href="#original">Original video</a><a href="#body">Body evidence</a><a href="#equipment">Equipment</a><a href="#artifacts">Artifacts</a></nav></header>
-<section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table><h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
+<section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table>{diagnostic_html}<h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
 <section id="original"><h2>2. Original video</h2>{media}<p>Playback uses the copied original. This report does not decode, synchronize, or seek video to inferred pose or equipment times.</p><details><summary>Source identity, attribution and rights</summary>{source}</details></section>
 <section id="body"><h2>3. Body evidence</h2>{coverage_html}{previews}<p>Pose annotations show model-reported observations, not a simulated body, recovered anatomy, or measured muscle activation. Construction-only body seeds are not playable worlds.</p><details><summary>Saved body construction scope</summary>{dump(summary["body"])}</details></section>
 <section id="equipment"><h2>4. Equipment and assumptions</h2><p>Boxes, scale, camera depth, mass, and support are hypotheses. A box matching image edges does not prove physical shape or contact. Rejected candidates remain rejected.</p>{equipment_table}<details><summary>Exact saved geometry, source bindings and clocks</summary>{dump(summary["equipment"])}</details><h3>Saved limitations</h3><ul>{assumptions}</ul><details><summary>Requested options — not proof of execution</summary>{dump(summary.get("requested_options", {}))}</details><details><summary>Saved learning and evaluation outcomes — not rerun here</summary>{dump(summary["learning"])}</details></section>

@@ -22,7 +22,34 @@ The no-flag shortcut below retains the original sandbox and its separate frozen 
 
 ## Build from your person-only exercise video
 
+From the repository root:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --video /path/to/exercise.mp4 --person-only \
+  --root-assistance --train --serve
+```
+
+This uses the existing pipeline, then automatically saves a step-by-step report. On success, `--serve` starts the local lab and prints its link; it never opens a browser. Choose **Sandbox → a control mode → Start**, then **Record & start → Stop & save** to export your trial. Without `--serve`, it prints the command to start the lab later. A rejected input still gets a report when its failure is sealed, but no sandbox starts.
+
+- `--person-only` declares one selected person, ground-only support, and no task-relevant equipment or obstacles. It does not detect their absence.
+- `--root-assistance` enables three virtual body-position controls; this is not recovered human balance. Omit it to disable that assistance.
+- `--train` runs eight search episodes and compares the result with baselines on three separate starts each. Seeds are fixed, exposed development seeds; successful packaging is not proof of improved learning. Omit it to build an untrained lab.
+- The default is the existing local **Lite / VIDEO / raw** pose recipe. No download or model fallback occurs. Optional `--pose-recovery selective-crop` explicitly selects the local **Full / IMAGE / raw** recipe.
+- Each attempt gets a new `artifacts/video-…/` directory containing `build/`, `report/index.html`, bounded logs and workflow receipts. Inputs and completed builds are never overwritten. Use `--out` to choose a new directory.
+
+To explain a saved failure **without reprocessing the video**, point to its inner build directory:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --inspect-build artifacts/video-EXAMPLE/build
+```
+
+The report shows the stopped stage, exact source artifacts, saved quality checks and affected original frames when available. Competing pose estimates do not necessarily mean multiple people; nominal video time and saved decoder time remain separate. Existing lab/runtime compatibility checks still apply on reopening after code changes; the two fixed example launchers above/below retain their own frozen runtimes.
+
 Use [`shared-exercise-build --person-only`](equipment-proposals.md#person-only-video-without-equipment-files) to declare one selected person with ground-only support and no task-relevant equipment. You supply the video and a local pose model; no equipment/config JSON is needed. The same pipeline creates the body, a shared world with no dummy objects, optional training/evaluation and one recordable lab. Equipment absence is declared, not detector-verified; pose, geometry or task failures remain visible. This does not replace the two frozen examples above/below.
+
+For a person interacting with equipment, the same launcher accepts `--evidence-run`, `--config` and optional `--source-mapping` instead of `--person-only`. Equipment geometry/camera assumptions remain explicit; it does not silently remove objects. Local build/report processing makes no paid API call and inherits no provider-key environment variables. Native calls run in a bounded child process; native memory is not hard-capped. The user owns any server started with `--serve`.
 
 ## Original full-reference sandbox
 

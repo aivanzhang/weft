@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw
 
 from weft.io import canonical_hash
 from weft.shared_exercise_task import (
+    HUMAN_ONLY_TASK_PROFILE,
     SharedExerciseTaskEnv,
     validate_shared_exercise_snapshot,
     validate_shared_exercise_task,
@@ -155,10 +156,16 @@ def _annotate_frame(frame, snapshot):
     draw = ImageDraw.Draw(image)
     metrics = snapshot["task_metrics"]
     result = "PASSED" if metrics["success"] else "NOT PASSED" if metrics["completed_interval"] or metrics["failure"] else "IN PROGRESS"
-    drift = max((row["displacement_model_units"] for row in metrics["equipment"]), default=0.)
-    draw.text((10, frame.shape[0] + 4), f"HUMAN-ONLY TASK | {result} | maximum equipment drift {drift:.3f} model units", fill="#214F50")
+    person_only = metrics["profile"] == HUMAN_ONLY_TASK_PROFILE
+    if person_only:
+        heading = f"PERSON-ONLY TASK | {result} | equipment/contact: N/A"
+    else:
+        drift = max((row["displacement_model_units"] for row in metrics["equipment"]), default=0.)
+        heading = f"HUMAN-ONLY TASK | {result} | maximum equipment drift {drift:.3f} model units"
+    draw.text((10, frame.shape[0] + 4), heading, fill="#214F50")
     note = (f"Last valid geometry; simulation failed at {metrics['simulated_duration_s']:.3f}s."
             if snapshot["engine_state_status"] != "current" else
+            "Person and ground only. Simulated task success is not verified biomechanics." if person_only else
             "Passive equipment; no object forces. Simulated task success is not verified grasp or biomechanics.")
     draw.text((10, frame.shape[0] + 27), note, fill="#965644")
     return np.asarray(image)

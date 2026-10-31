@@ -30,6 +30,8 @@ The [hosted Weft site](https://weft.ivanzhangofficial.workers.dev/) is temporari
 
 A CLI-launched **local lab** now shows video processing step by step, exposes the evidence and results, runs an interactive Python simulation, and records actions/state with video and offline replay exports.
 
+**Bring a person-only exercise video:** run `.venv-lab/bin/python scripts/build_sandbox.py --video /path/to/video.mp4 --person-only --root-assistance --train --serve`. It builds with the existing local pipeline, saves the step-by-step report, and starts the lab only after success. A rejected input keeps its report and does not become a playable world. `--person-only` is an explicit no-equipment declaration; root assistance is a virtual control, not recovered balance. [Options, failure inspection and recording controls](docs/local-lab.md#build-from-your-person-only-exercise-video).
+
 For a person and equipment in one world, use the [human-only exercise sandbox](docs/shared-exercise.md). The latest lab covers the **complete available 8.47-second body reference**, with 254 continuous actions, passive equipment and recording/replay. Its Source vs simulation card separates video coverage, reference time and live simulation time.
 
 ```sh
