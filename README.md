@@ -24,6 +24,7 @@ included in a fresh clone. Run one command, then open its printed local link:
 | Try | Command |
 | --- | --- |
 | Recommended exercise body | `.venv-lab/bin/python scripts/play_sandbox.py --example exercise` |
+| Guided video → 3D ball with learned control | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-guided-play-acceptance-02/workflow/lab` |
 | Trained 3D tabletop objects | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored` |
 | Trained 3D ramp hypothesis | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp` |
 | Manual object-video lab, no training | `.venv-lab/bin/python -m weft lab --resume artifacts/manual-video-acceptance-01/lab` |
@@ -39,12 +40,18 @@ The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
 
-To connect a saved object-video reconstruction to the same 3D lab, use
-[`spatial-scene`](docs/spatial-scene-construction.md). It preserves the original
-evidence and requires explicit depth, material and task assumptions; it does not
-recover those missing properties automatically.
+For a guided object-video workflow, use
+[`build_sandbox.py --profile spatial`](docs/spatial-scene-construction.md).
+It connects explicit tracking, 3D construction, optional training or saved-policy
+reuse, and lab preparation, with a step-by-step artifact index. The lower-level
+`spatial-scene` command also accepts saved planar runs. Both preserve the original
+evidence and require explicit depth, material and task assumptions; neither
+recovers those missing properties automatically.
 The new ball example has authored zero gravity and no floor; it demonstrates
 construction, controls and verified recording, not recovered rolling physics.
+Its preselected learned policy succeeds on 8/12 changed starts; a fixed untrained
+feedback controller succeeds on 12/12. The complete guided workflow and recording
+pass, but these results do not show a benefit from training.
 
 To inspect the remaining body-fitting errors, open the
 [saved comparison page](artifacts/whole-body-reference-views-01/image-first/index.html).

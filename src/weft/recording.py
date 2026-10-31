@@ -386,7 +386,22 @@ class Recorder:
         self._resets = 0
         self._bytes = 0
         self._metadata = None
+        self._spatial_controller_provenance = False
+        self._spatial_policy_document = None
+        self._spatial_policy = None
         self._journal_limit = 16 * 1024 * 1024 if self.scene.get("profile") == "spatial-rigid-v1" else MAX_JOURNAL_BYTES
+
+    def configure_spatial_controller_provenance(self, policy_document_bytes=None):
+        """Opt a new spatial journal into exact controller identity before its start."""
+        from weft.spatial_recording import MAX_POLICY_BYTES
+
+        if self._started is not None or self.scene.get("profile") != "spatial-rigid-v1":
+            raise ValueError("Controller provenance requires a new spatial recording")
+        if policy_document_bytes is not None and (type(policy_document_bytes) is not bytes
+                                                   or not 0 < len(policy_document_bytes) <= MAX_POLICY_BYTES):
+            raise ValueError("Spatial policy document exceeds its byte bound")
+        self._spatial_controller_provenance = True
+        self._spatial_policy_document = policy_document_bytes
 
     def start(self, initial_snapshot, seed=0, *, reset_options=None):
         if self._started is not None:
@@ -397,16 +412,17 @@ class Recorder:
         event = {"type": "start", "seed": seed, "snapshot": initial_snapshot}
         contract = None
         if self.scene.get("profile") == "spatial-rigid-v1":
-            from weft.spatial_recording import recording_contract, reset_options as spatial_reset_options
+            from weft.spatial_recording import policy_document, recording_contract, reset_options as spatial_reset_options
             if initial_snapshot["steps"] != 0:
                 raise ValueError("Spatial recording must start at a seeded reset")
             event["reset_options"] = spatial_reset_options(reset_options)
-            contract = recording_contract(self.scene)
+            contract = recording_contract(self.scene, controller_provenance=self._spatial_controller_provenance,
+                                          policy_document_bytes=self._spatial_policy_document)
+            self._spatial_policy = policy_document(contract, self.scene)
         elif reset_options is not None:
             raise ValueError("Explicit recording reset options are supported only for spatial rigid scenes")
         if len(_encoded({**event, "index": 0}).encode("utf-8")) + 1 > MAX_EVENT_BYTES:
             raise ValueError("Recording initial state exceeds the event size limit")
-        self.root.mkdir(parents=True, exist_ok=False)
         self._metadata = {
             "schema_version": 1, "profile": self.profile, "created_at": local_time(),
             "scene_sha256": canonical_hash(self.scene), "seed": seed, "status": "recording",
@@ -416,6 +432,9 @@ class Recorder:
         }
         if contract is not None:
             self._metadata["action_replay_contract"] = contract
+            if len(_encoded(self._metadata).encode("utf-8")) > 65536 - 2048:
+                raise ValueError("Spatial recording metadata exceeds its byte bound")
+        self.root.mkdir(parents=True, exist_ok=False)
         write_json(self.root / "scene.json", self.scene)
         _atomic_json(self.root / "recording.json", self._metadata)
         self._stream = (self.root / "events.jsonl").open("x", encoding="utf-8")
@@ -461,6 +480,10 @@ class Recorder:
             if any(type(event.get(key)) is not bool for key in ("terminated", "truncated")):
                 raise ValueError("Recording step requires termination flags")
         _whole_body_event(event, self.scene)
+        contract = self._metadata.get("action_replay_contract")
+        if contract is not None:
+            from weft.spatial_recording import validate_controller_event
+            validate_controller_event(event, contract, self.scene, policy=self._spatial_policy)
         self._write(event)
         return self.summary()
 
@@ -535,6 +558,14 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
             raise ValueError("Exercise recording metadata seed differs from its initial event")
     if metadata["scene_sha256"] != canonical_hash(scene):
         raise ValueError("Recorded scene identity does not match metadata")
+    contract = metadata.get("action_replay_contract")
+    if scene.get("profile") == "spatial-rigid-v1" and isinstance(contract, dict) and contract.get("schema_version") == 2:
+        from weft.spatial_recording import policy_document, validate_contract, validate_controller_event
+        validate_contract(contract, scene)
+        policy = policy_document(contract, scene)
+        for event in events:
+            _check_deadline(deadline)
+            validate_controller_event(event, contract, scene, policy=policy)
     if not allow_incomplete and metadata.get("status") != "closed":
         raise ValueError("Recording has not been closed; use incomplete recovery explicitly")
     if metadata.get("status") == "closed" and metadata.get("events") != len(events):
@@ -846,6 +877,11 @@ def verify_recording(root, *, deadline=None):
             {name: manifest["files"][name] for name in ("scene.json", "recording.json", "events.jsonl")},
             events=len(data["events"]), steps=sum(e["type"] == "step" for e in data["events"]),
             resets=sum(e["type"] == "reset" for e in data["events"]))
+        if proof["schema_version"] == 2:
+            policy = data["metadata"]["action_replay_contract"]["learned_policy"]
+            count = sum(e.get("controller") == "learned" for e in data["events"]) if policy else None
+            if proof["learned_actions_verified"] != count:
+                raise ValueError("Spatial replay learned count differs from the recorded controller modes")
     _check_deadline(deadline)
     return {"directory": str(root), "verified_files": len(required),
             "events": len(data["events"]),

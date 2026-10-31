@@ -156,6 +156,49 @@ async function missingLegacyReceiptAndUnknownFieldsNeverBecomeVerifiedReplay() {
   }
 }
 
+function spatialPolicyEvidenceFixture(learned = 1) {
+  const result = evidenceFixture();
+  result.replay.protocol = 'spatial-rigid-exact-action-state-policy-v2';
+  result.replay.learned_actions_verified = learned;
+  result.identities.task_sha256 = null;
+  if (learned === null) result.identities.policy_sha256 = null;
+  result.verified_metadata = result.verified_metadata.filter(row => row.path !== 'run/exercise-task.json'
+    && (learned !== null || row.path !== 'run/policy.json'));
+  return result;
+}
+
+async function spatialPolicyReceiptsSeparateDecisionsFromManualAndLegacyActions() {
+  for (const learned of [1, 0, null]) {
+    const ui = recordingFixture('spatial-rigid'); await ui.ready();
+    evidenceButton(ui).click(); await resolveEvidence(ui, spatialPolicyEvidenceFixture(learned));
+    assert.equal(ui.ids.get('recording-evidence-content').hidden, false);
+    const text = ui.ids.get('recording-evidence-replay').textContent;
+    assert.match(text, /Exact action replay: verified/);
+    if (learned === null) assert.match(text, /No learned policy was bound/);
+    else assert.match(text, new RegExp(`Learned decisions matched the recorded policy: ${learned}\\. Manual actions are not policy-checked`));
+  }
+  const exercise = recordingFixture(); await exercise.ready();
+  evidenceButton(exercise).click(); await resolveEvidence(exercise, spatialPolicyEvidenceFixture());
+  assert.equal(exercise.ids.get('recording-evidence-content').hidden, true);
+}
+
+async function spatialPolicyReceiptsRejectMissingOrContradictoryDecisionIdentities() {
+  const mutations = [value => value.identities.policy_sha256 = null,
+    value => value.replay.learned_actions_verified = null,
+    value => value.replay.learned_actions_verified = 5,
+    value => value.replay.learned_actions_verified = -1,
+    value => value.replay.learned_actions_verified = 1.5,
+    value => value.identities.task_sha256 = sha('0'),
+    value => value.verified_metadata.find(row => row.path === 'run/policy.json').sha256 = sha('2')];
+  for (const mutate of mutations) {
+    const ui = recordingFixture('spatial-rigid'); await ui.ready();
+    const value = spatialPolicyEvidenceFixture(); mutate(value);
+    evidenceButton(ui).click(); await resolveEvidence(ui, value);
+    assert.equal(ui.ids.get('recording-evidence-content').hidden, true);
+    assert.match(ui.ids.get('recording-evidence-status').textContent, /unavailable.*not verified/);
+  }
+}
+
 async function exactLocalLinksBindSessionAndByteHashesWithoutConfusingCanonicalHashes() {
   const ui = recordingFixture(); await ui.ready(); const result = evidenceFixture();
   result.verified_metadata.push({source_name:'https://example.test/receipt.json',path:'https://example.test/receipt.json',sha256:sha('d'),bytes:1});
@@ -296,6 +339,8 @@ async function unchangedExplicitRefreshKeepsNodesAndDisclosureStateStable() {
 const checks = [explicitSelectionShowsAccessibleReceiptWithoutMovingControls,
   spatialSavedStateExportKeepsUnavailableReplayCountsDistinctFromZero,
   newSpatialReceiptShowsExactActionsWithoutClaimingPolicyDecisionChecks,
+  spatialPolicyReceiptsSeparateDecisionsFromManualAndLegacyActions,
+  spatialPolicyReceiptsRejectMissingOrContradictoryDecisionIdentities,
   missingLegacyReceiptAndUnknownFieldsNeverBecomeVerifiedReplay,
   exactLocalLinksBindSessionAndByteHashesWithoutConfusingCanonicalHashes,
   reasonTextIsEscapedAndMalformedSessionsCannotOfferReads,

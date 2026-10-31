@@ -253,10 +253,18 @@ def exercise_pipeline(out, settings, progress):
     return result
 
 
+def _tighten_limits():
+    # A supervised parent can impose tighter caps; the child must never raise either inherited limit.
+    for kind, requested in ((resource.RLIMIT_CPU, (300, 305)),
+                            (resource.RLIMIT_FSIZE, (512 * 1024 * 1024, 512 * 1024 * 1024))):
+        old_soft, old_hard = resource.getrlimit(kind)
+        hard = requested[1] if old_hard == resource.RLIM_INFINITY else min(requested[1], old_hard)
+        soft = min(requested[0], hard) if old_soft == resource.RLIM_INFINITY else min(requested[0], hard, old_soft)
+        resource.setrlimit(kind, (soft, hard))
+
+
 def main():
-    # Fixed trusted code runs without inherited service credentials and has hard CPU/output limits.
-    resource.setrlimit(resource.RLIMIT_CPU, (300, 305))
-    resource.setrlimit(resource.RLIMIT_FSIZE, (512 * 1024 * 1024, 512 * 1024 * 1024))
+    _tighten_limits()
     raise SystemExit(execute(sys.argv[1]))
 
 

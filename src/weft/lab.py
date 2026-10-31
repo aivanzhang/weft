@@ -2,6 +2,7 @@
 
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
+from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import math
@@ -254,8 +255,18 @@ class WholeBodySession:
 class SpatialSession:
     def __init__(self, root):
         from weft.spatial_rigid import SpatialRigidEnv
+        from weft.spatial_recording import MAX_POLICY_BYTES
         self.scene = json.loads((root / "scene.json").read_text())
-        self.policy = json.loads((root / "policy.json").read_text()) if (root / "policy.json").is_file() else None
+        policy_path = root / "policy.json"
+        self.policy_document = None
+        if policy_path.is_file():
+            if policy_path.stat().st_size > MAX_POLICY_BYTES:
+                raise ValueError("Spatial policy exceeds its recording provenance bound")
+            self.policy_document = policy_path.read_bytes()
+            if len(self.policy_document) > MAX_POLICY_BYTES:
+                raise ValueError("Spatial policy changed beyond its recording provenance bound")
+        self.policy = json.loads(self.policy_document) if self.policy_document is not None else None
+        self.policy_sha256 = sha256(self.policy_document).hexdigest() if self.policy_document is not None else None
         if self.policy is not None and self.policy.get("scene_sha256") != canonical_hash(self.scene):
             raise ValueError("Spatial policy belongs to a different 3D scene")
         self.env = SpatialRigidEnv(self.scene)
@@ -432,10 +443,12 @@ class Lab:
     def start_worker(self):
         self.worker_log = (self.root / "worker.log").open("xb")
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONUNBUFFERED": "1",
+               "PYTHONPATH": str(Path(__file__).resolve().parent.parent), "PYTHONNOUSERSITE": "1",
+               "PYTHONSAFEPATH": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1",
                "MPLCONFIGDIR": str(self.root / "runtime" / "matplotlib")}
         try:
-            self.worker = subprocess.Popen([sys.executable, "-m", "weft.lab_worker", str(self.root)],
+            self.worker = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.lab_worker", str(self.root)],
                                            env=env, stdout=self.worker_log, stderr=subprocess.STDOUT)
         except OSError:
             self.worker_log.close()
@@ -904,6 +917,10 @@ class Lab:
                         {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual"))
                     if event["controller"] == "learned":
                         event["policy_sha256"] = session.policy_sha256
+                elif isinstance(session, SpatialSession):
+                    event["controller"] = "learned" if data.get("policy", False) else "manual"
+                    if event["controller"] == "learned":
+                        event["policy_sha256"] = session.policy_sha256
                 if self.recorder:
                     self.recorder.append(event)
                 transitions.append(event)
@@ -933,6 +950,8 @@ class Lab:
             else:
                 recorder = Recorder(self.root / "sessions" / name, recording_scene, profile=recorder_profile)
             try:
+                if isinstance(session, SpatialSession):
+                    recorder.configure_spatial_controller_provenance(session.policy_document)
                 recorder.start(snapshot, seed=self.seed)
             except Exception:
                 if recorder._stream is not None and not recorder._closed:

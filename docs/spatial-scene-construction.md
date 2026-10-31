@@ -4,6 +4,46 @@
 It preserves the sealed planar run and builds one explicit 3D hypothesis.
 It does **not** infer hidden depth, calibrate a camera or validate physical accuracy.
 
+## Open the guided video result
+
+The explicit direct-video workflow now reaches a lab with a reused learned
+policy and a verified mixed learned/manual recording:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/spatial-guided-play-acceptance-02/workflow/lab
+```
+
+Replace `lab-console` with `lab` to start the browser interface yourself.
+The command performs normal artifact/runtime admission; it does not reprocess
+the source or retrain. [Step-by-step index](../artifacts/spatial-guided-play-acceptance-02/workflow/index.html)
+and [saved recording](../artifacts/spatial-guided-play-acceptance-02/workflow/lab/sessions/session-9a414378073d/replay.html)
+are available in this workspace, not in a fresh clone.
+
+The run completed in **3.429 seconds**, including source tracking, explicit 3D
+construction, policy reuse, lab preparation and a recording with **51 learned
+actions, three manual actions, one reset and 56 exported frames**. Exact action
+replay and saved policy decisions pass. No new training or paid request occurred;
+these are short local observations, not a sustained performance benchmark.
+The independent saved-output audit passes: source/runtime bindings, all saved
+recording events, exact replay receipts and learned-policy identities agree.
+That audit performs no new physics replay or source processing.
+Tracking still covers only the declared frames 39–60: 21 measured/model slots
+at 40–60, with initialization slot 39 preserved as missing. All 157 decoded
+source slots remain visible; they were not all tracked.
+
+This ball hypothesis still has authored zero gravity and no floor. In the
+separate three-seed study, learned policies achieved **8/12, 5/12 and 4/12**
+changed-start successes; a fixed untrained authored controller achieved **12/12**.
+The policy used here, seed 1729, was selected before those results. The workflow
+is playable, but these results do not show learning superiority, recovered
+rolling physics or transfer to a real object.
+
+The first guided attempt remains saved as failed01. It stopped before tracking
+because worker startup exceeded inherited CPU limits and lost the frozen package
+path. The bounded startup fix respects both; successful02 uses a new output
+directory. [Exact receipts and limits](handoffs/combined.md#guided-object-workflow--october-31-2026-904-am-pdt).
+
 ## Open the verified local result
 
 ```sh
@@ -23,6 +63,75 @@ tracking or 2D simulation. Its declared tracking interval is frames 39–60;
 the original 157-frame video remains unchanged. The sphere, zero gravity,
 initial spin, lateral position and parking task are authored assumptions.
 There is no reconstructed floor or wall.
+
+### Guided construction, optional learning and lab
+
+The common builder now connects these existing stages and saves a local index:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --planar-run artifacts/manual-video-acceptance-01/lab/run \
+  --config examples/spatial-ball-hypothesis.json \
+  --out artifacts/my-object-workflow-01 --train
+```
+
+Open the printed `index.html` to see each stage, the exact assumptions, logs,
+source identities and saved controller counts. The resulting `lab/` supports
+manual or available learned controls, reset and recording. The command prints
+both browser-lab and terminal resume commands; it starts neither by default.
+Add `--console` or `--serve` explicitly to start one after a successful handoff.
+Neither option opens a browser.
+
+Omit `--train` for a manual-only lab. To reuse completed learning without
+retraining, replace it with `--learning /path/to/sealed/spatial-policy`.
+The policy must match the constructed scene and pass normal lab admission;
+the two options cannot be combined. Failed or incomplete requested learning
+stops the workflow instead of silently substituting a manual lab. A completed
+policy can still fail every task trial: its saved results remain visible and
+are not relabeled successful because the lab is playable.
+
+Guided training uses three generations, eight candidates, training seed 1729,
+evaluation seed 20261031 and twelve changed-start trials per controller, plus
+one nominal trial. These are exposed development settings, not a final holdout.
+The default training limit is 60 seconds; `--training-max-seconds` accepts 1–180.
+No claim of superiority over authored control follows from completing training.
+
+The launcher supervises every child process: construction is capped at 25 seconds
+(20 seconds cooperative inside the constructor), training at its limit plus five
+seconds, and lab preparation at 45 seconds. `--max-seconds` bounds the complete
+workflow, default 180 seconds from saved input or 300 from video, maximum 360.
+Cleanup time is reserved before starting each process; native memory is not
+hard-capped. No stage retries, overwrites, paid calls or default promotion occur.
+Each run uses a new directory and retains failed stages alongside its receipt.
+
+For a nested saved scene, add `--scene-artifact selected/scene.json`; the exact
+path must belong to the source manifest. This does not select a new best candidate.
+
+### Explicit direct-video route
+
+If both tracking settings and matching 3D assumptions are already prepared:
+
+```sh
+.venv-lab/bin/python scripts/build_sandbox.py \
+  --profile spatial --video /path/to/video.mp4 \
+  --tracking-profile appearance --tracking-config /path/to/tracking.json \
+  --config /path/to/source-pinned-3d.json \
+  --out artifacts/my-video-object-workflow-01
+```
+
+Use `--tracking-profile planar` for the existing color-tracking configuration.
+This first runs ordinary `lab --no-train --no-serve`, capped at 120 seconds,
+then requires the extracted scene's canonical hash to equal
+`config.source_scene_sha256`. The launcher never rewrites that pin or invents
+depth, materials, floor geometry or a task. A mismatch preserves
+`planar-lab/run/scene.json` and stops before 3D construction.
+
+For a first unfamiliar video, use the manual planar workflow below, inspect its
+scene, and author the explicit 3D configuration before using `--planar-run`.
+That route reuses the saved extraction rather than decoding or tracking again.
+The direct route is not automatic arbitrary-video reconstruction.
+
+### Individual stage commands
 
 Choose new output names for every build:
 

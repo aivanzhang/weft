@@ -1806,9 +1806,13 @@
       && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null);
     const spatialReplay = scene?.profile === "spatial-rigid-v1" && replay?.protocol === "spatial-rigid-exact-action-state-v1"
       && data.identities.task_sha256 === null && data.identities.policy_sha256 === null && replay.learned_actions_verified === null;
+    const spatialPolicyReplay = scene?.profile === "spatial-rigid-v1" && replay?.protocol === "spatial-rigid-exact-action-state-policy-v2"
+      && data.identities.task_sha256 === null && (data.identities.policy_sha256 === null
+        ? replay.learned_actions_verified === null
+        : digest(data.identities.policy_sha256) && count(replay.learned_actions_verified));
     const exerciseReplay = sharedExercise() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
       && digest(data.identities.task_sha256);
-    return (spatialReplay || exerciseReplay) && replay.status === "passed"
+    return (spatialReplay || spatialPolicyReplay || exerciseReplay) && replay.status === "passed"
       && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
       && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
         && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
@@ -1827,6 +1831,10 @@
       text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
       const policyProof = replay.protocol === "spatial-rigid-exact-action-state-v1"
         ? "Recorded actions were replayed; learned-policy decisions were not re-evaluated."
+        : replay.protocol === "spatial-rigid-exact-action-state-policy-v2"
+          ? replay.learned_actions_verified === null
+            ? "No learned policy was bound to this recording; manual actions have no policy-decision check."
+            : `Learned decisions matched the recorded policy: ${replay.learned_actions_verified}. Manual actions are not policy-checked.`
         : `Learned actions verified: ${replay.learned_actions_verified ?? "unavailable"}.`;
       text($("recording-evidence-replay"), replay.status === "passed"
         ? `Exact action replay: verified in the saved receipt. Checked ${replay.actions_checked} actions, ${replay.resets_checked} resets and ${replay.events_checked} events against saved states and task results. ${policyProof}`

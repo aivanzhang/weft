@@ -437,17 +437,24 @@ def _input_identity(build, command, pins, source_sha, body_identity=None):
 def _arguments(argv):
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--video", help="Local exercise video; never uploaded")
+    source.add_argument("--video", help="Local exercise video, or explicit --profile spatial input; never uploaded")
+    source.add_argument("--planar-run", help="Sealed planar reconstruction for the explicit 3D object workflow")
     source.add_argument("--human-run", help="Sealed construction-only exercise-body output; reuses saved poses without inference (not a saved lab)")
     source.add_argument("--inspect-build", help="Saved build to report without rerunning video processing")
     parser.add_argument("--person-only", action="store_true", help="Declare one person, ground-only support and no task-relevant equipment")
     parser.add_argument("--evidence-run", help="Otherwise, sealed equipment observations")
-    parser.add_argument("--config", help="Otherwise, explicit camera/equipment configuration")
+    parser.add_argument("--config", help="Explicit camera/equipment configuration, or source-pinned 3D object hypotheses")
+    parser.add_argument("--profile", choices=("exercise", "spatial"), help="Exercise by default; --planar-run implies spatial")
+    parser.add_argument("--scene-artifact", help="With --planar-run: exact sealed scene path (default scene.json)")
+    parser.add_argument("--tracking-profile", choices=("planar", "appearance"), help="Required for spatial raw video; never selected automatically")
+    parser.add_argument("--tracking-config", help="With spatial raw video: explicit existing tracking/task JSON")
+    parser.add_argument("--training-max-seconds", type=float, help="Spatial --train cooperative limit, 1–180 seconds (default 60)")
+    parser.add_argument("--learning", help="Spatial only: reuse a sealed same-scene policy instead of training again")
     parser.add_argument("--source-mapping", action="append", default=[])
     parser.add_argument("--pose-model", help="Local model; default .local/models/pose_landmarker_lite.task")
     parser.add_argument("--pose-recovery", choices=("selective-crop",), help="Explicit Full/IMAGE/raw recipe; no automatic model fallback")
     parser.add_argument("--root-assistance", action="store_true", help="Enable three virtual root controls; not recovered human balance")
-    parser.add_argument("--train", action="store_true", help="Eight training episodes, then three separate starts per controller")
+    parser.add_argument("--train", action="store_true", help="Explicit bounded training and separate-start evaluation; resolved settings are saved")
     parser.add_argument("--policy-family", choices=("phase-residual", "feedback-residual"),
                         help="With --train: existing phase corrections (default) or opt-in joint state-feedback corrections")
     parser.add_argument("--source-note", help="Video attribution or provenance")
@@ -460,6 +467,27 @@ def _arguments(argv):
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
+    args.spatial = args.profile == "spatial" or args.planar_run is not None
+    if args.spatial:
+        if args.profile == "exercise" or args.human_run or args.inspect_build:
+            parser.error("Spatial workflow requires --planar-run or --profile spatial --video")
+        if any((args.person_only, args.evidence_run, args.source_mapping, args.pose_model,
+                args.pose_recovery, args.root_assistance, args.policy_family)):
+            parser.error("Spatial workflow cannot include exercise/equipment extraction options")
+        if not args.config:
+            parser.error("Spatial workflow requires --config with explicit source-pinned 3D assumptions")
+        if args.planar_run:
+            if not args.planar_run.strip() or any((args.tracking_config, args.tracking_profile, args.source_note)):
+                parser.error("--planar-run reuses saved evidence; raw tracking/source options are not allowed")
+        elif not args.video or not args.tracking_profile or not args.tracking_config or args.scene_artifact:
+            parser.error("Spatial video requires --tracking-profile and --tracking-config; --scene-artifact is saved-source only")
+        if args.training_max_seconds is not None and not args.train:
+            parser.error("--training-max-seconds requires spatial --train")
+        if args.learning and args.train:
+            parser.error("--learning and --train are mutually exclusive; completed learning is never repeated implicitly")
+        return args
+    if any((args.scene_artifact, args.tracking_profile, args.tracking_config, args.learning, args.training_max_seconds is not None)):
+        parser.error("Spatial tracking, scene and training options require the spatial workflow")
     if args.human_run is not None and not args.human_run.strip():
         parser.error("--human-run requires a sealed exercise-body output directory")
     if args.human_run and any(value is not None for value in (args.pose_model, args.pose_recovery, args.source_note)):
@@ -487,6 +515,16 @@ def main(argv=None):
         raise ValueError("Missing .venv-lab/bin/python; this launcher does not install dependencies")
     now = datetime.now(ZoneInfo("America/Los_Angeles"))
     root = _path(args.out or PROJECT / "artifacts" / (now.strftime("video-%Y%m%d-%H%M%S-") + os.urandom(3).hex()))
+    if args.spatial:
+        import importlib.util
+        from types import SimpleNamespace
+
+        spec = importlib.util.spec_from_file_location("_weft_spatial_sandbox_workflow", Path(__file__).with_name("spatial_sandbox_workflow.py"))
+        workflow = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(workflow)
+        host = SimpleNamespace(project=PROJECT, path=_path, read=_read, parse=_json, write=_write,
+                               run=_run, environment=_environment, launch=subprocess.call)
+        return workflow.run_workflow(args, root, python, now.isoformat(), host)
     if root.exists():
         saved = root / "build" if (root / "build").is_dir() else root
         command = [str(python), str(Path(__file__).absolute()), "--inspect-build", str(saved)]

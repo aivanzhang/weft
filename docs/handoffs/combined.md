@@ -1,5 +1,182 @@
 # Combined Weft implementation handoff
 
+## Guided object workflow — October 31, 2026, 9:04 AM PDT
+
+The full goal remains active, with exercise still a priority in one common
+pipeline. This section supersedes the earlier pending ball-candidate training
+step and live ownership, not older frozen results or physical limitations.
+All jobs and audits are terminal; the direct-video and recording acceptance and
+its independent saved-only audit passed. No tests or native checks are repeated
+for this documentation update. The scoped Git publication is the next action.
+
+### Three-seed learning result — completed and audited
+
+`artifacts/spatial-scene-learning-acceptance-01` is sealed at
+`7cb449258e8262bff1fffba98accc2ba080db866988e799736235939f6b9ca20`.
+The frozen study takes **2.120 seconds**, with 34,539 control calls,
+1,174,326 native steps, 385 resets and four models/data. Maximum observed worker
+RSS is **106,053,632 B**, not a hard memory cap. API cost is zero.
+
+| Controller | Nominal start | Changed-start successes |
+| --- | --- | --- |
+| Learned, training seed 1729 | Pass | 8/12 |
+| Learned, training seed 1733 | Pass | 5/12 |
+| Learned, training seed 1739 | Pass | 4/12 |
+| Predeclared untrained authored feedback | Pass | 12/12 |
+| Random /coast /brake, each | Fail | 0/12 |
+
+There are **twelve unique changed physical simulator states**, reused across
+policies and baselines; these are exposed development evidence, not independent
+physical trials or a final holdout. The authored controller outperforms the
+learned policies here. All nineteen failed learned changed-start trials miss
+position; ten also miss speed. Sixteen terminate unsuccessfully and three reach
+the horizon. Complete trajectories exist only for nominal and first changed
+starts, so unsaved trajectory causes remain unknown. Scene-width distance units
+must not be relabeled metres because historical field names contain `_m`.
+
+Independent saved-only audit:
+`.local/spatial-scene-learning-saved-audit-01.json`, SHA
+`261cda75fca98dbf73cc4d8f6b95fdda28f888bdc8c75dcd510934021e4af2d1`.
+All 50 files /1,002,191 B and three child seals pass, with source/task identities,
+counts and saved trial arithmetic checked. No native or media work is repeated.
+The source remains an authored zero-gravity sphere without a floor: successful
+simulator control does not establish recovered rolling physics or learning benefit.
+
+### Guided launcher — frozen, real routing acceptance passed
+
+Owned files are `scripts/build_sandbox.py`, new
+`scripts/spatial_sandbox_workflow.py`, new
+`tests/test_spatial_sandbox_workflow.py` and `docs/spatial-scene-construction.md`.
+Frozen launcher SHA `e417070f35f0c22dbaadd4fa1e0af6c303a852ef93b1b8791a9a4bf4113b99b7`;
+helper SHA `10f557877dda8165f86119c14c59b288d6586440baf8516801d49c95c1acc16e`.
+An independent read-only review found no blocker. Implementation receipt
+`.local/spatial-sandbox-launcher-implementation-01.json`, SHA
+`8e4b7e2933d9f16ab9add93411a6d1fc54fef065fd1cc2b767f06c7b80901ff7`.
+
+**158 distinct checks pass**: 45 guarded/mocked spatial cases and 113 existing
+exercise-launcher regressions. First receipt
+`.local/spatial-sandbox-launcher-tests-01.xml` has 153 passes; the second,
+`.local/spatial-sandbox-launcher-tests-02.xml`, has six selected passes with one
+overlap. No actual video processing, training, model construction or browser
+verification occurred in these checks.
+
+The builder accepts `--planar-run` plus explicit source-pinned `--config`, or
+`--profile spatial --video` plus explicit `--tracking-profile` and
+`--tracking-config`. Existing commands perform tracking without learning,
+construction, optional learning and normal lab admission. `--learning` reuses a
+sealed same-scene policy and is mutually exclusive with `--train`. Failed requested
+learning does not silently produce a manual substitute. The saved stage index
+shows assumptions, logs, evidence identities, actual controller counts and resume
+commands. Nothing launches unless `--serve` or `--console` is explicit.
+
+Guided fresh training is fixed at three generations ×eight candidates, seed
+1729, evaluation seed 20261031, twelve changed-start trials/controller plus one
+nominal trial, with a default 60-second cooperative limit. These settings were
+declared from the completed study, not tuned to a new result. The existing
+standalone `spatial-train` default remains unchanged. The launcher has per-stage
+process caps and a total budget, bounded logs and no automatic retries; native
+memory is not hard-capped. Full options are in the [construction guide](../spatial-scene-construction.md).
+
+### Actual direct-video acceptance and ownership
+
+Root completed the supervised public-main invocation using:
+`data/general/rolling-ball-grayscale.avi`, appearance settings
+`data/general/annotations/rolling-grayscale.scene.json`, unchanged
+`examples/spatial-ball-hypothesis.json`, and the **preselected** policy
+`artifacts/spatial-scene-learning-acceptance-01/1729/policy`, seal
+`af1c83b80949d1e100b89eef6e3ca027f5e2fbbbb840e6485eca034b60724163`.
+One completed fresh tracking pass exercises the new route; there is no retraining.
+The extracted scene matches the unchanged configuration. The preselected policy
+and original task are unchanged; no result-dependent replacement or promotion occurs.
+Source evidence remains exactly SHA
+`6143c9aa6465ece432b94e5fd0e3fadb14f2f607562e82c48bd84e093c42a4c0`:
+157 decoded slots, 22 requested frames 39–60, 21 measured/model slots 40–60.
+Initialization slot 39 remains missing. There are 135 outside-requested slots
+and 136 excluded from the modeled interval including initialization; no claim
+of full-video tracking follows from preserving the complete source.
+
+The first attempt is preserved failed at
+`artifacts/spatial-guided-play-acceptance-01`, seal
+`3fca086173ce01cc1351c17d144f20d5a9ff2b6e2de5456108897a484366614b`.
+Before tracking, worker startup attempted CPU soft/hard limits 300/305
+above inherited 90/95 and stripped the frozen `PYTHONPATH`, selecting editable
+workspace code. No tracking, training or recording occurred. The narrow startup
+fix takes the minimum of requested and inherited resource limits and preserves
+the trusted package path; sixteen focused checks include isolated startup.
+Changed-path acceptance uses a new directory, never a retry into failed01.
+
+**Passed02:** `artifacts/spatial-guided-play-acceptance-02`, parent seal
+`4f19a87f13357c394caeb9f7c5e16ae368f1a71d73b834bd462718be4f0ea3ab`.
+Total **3.429 s** (build 2.521 s /play 0.887 s); maximum observed child RSS
+**202,293,248 B**, not a hard memory guarantee. The pre-report inventory is
+1,045 files /53,333,045 B. No new training, paid API call, server or browser.
+Root loads the exact launcher/helper with workspace `PROJECT`, overriding only
+the subprocess environment to use the frozen package runtime. Public arguments,
+CLI stages and normal admission are unchanged. Runtime02 seal
+`ef576ef89bb3d2997d30ca04f9eb87836037318645757e6ba38cc2ff6cd46709`
+contains committed base `ca66` plus eight owned overrides, excluding dirty avatar
+snapshots. This acceptance is not evidence about unrelated mutable workspace bytes.
+
+The accepted lab is `artifacts/spatial-guided-play-acceptance-02/workflow/lab`,
+immutable run seal
+`801e36d7494d7d4ab2b0482d34af5f0177b6f72228227e2d3b4eab4b88e9438e`.
+Session `session-9a414378073d`, seal
+`3d1179f946f65a86a81130dac3fcaaf293143f10a3ed60ab6c560c36da6f67ae`,
+contains **54 actions: 51 learned /three manual**, one reset and 56 exported
+frames. Exact replay passes, including the saved learned-policy decisions.
+Play-only native work is two models/data, 108 calls /3,672 substeps /six resets;
+these figures exclude the construction/lab admission probes. Recording provenance
+distinguishes learned from manual actions and binds the policy rather than
+claiming manual actions came from learning.
+The compact receipt reader is standard-library-only. The standalone policy-decision
+verifier can import numerical/native validators for box scenes but constructs no
+environment/model and performs no additional physics replay; do not broaden that
+boundary into a claim that it imports no native libraries.
+
+Open the [step index](../../artifacts/spatial-guided-play-acceptance-02/workflow/index.html)
+or [saved interactive recording](../../artifacts/spatial-guided-play-acceptance-02/workflow/lab/sessions/session-9a414378073d/replay.html).
+To interact without a server:
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/spatial-guided-play-acceptance-02/workflow/lab
+```
+
+**353 distinct current passing checks** = Python **339** (158 launcher +44
+provenance +121 legacy lab/recording regressions +16 startup) and Node **14**,
+not a full repository suite. Legacy receipt
+`.local/spatial-policy-provenance-regressions-01.xml`; UI receipt
+`.local/spatial-policy-recording-ui-checks-01.json`, SHA
+`533a58ce02d22c51e8988b618230b837a48a498b156e3fbf153da9ef3fcabdbd`.
+Separately, the actual saved payload passes the scripted-DOM integration in
+`.local/spatial-policy-recording-saved-ui-02.json`, SHA
+`6653734b5bfdafbff1093bb259d125d62a541d7fc331542eda43d73957340c72`:
+one metadata request, **9.605 ms**, 54 actions and 51 matched policy decisions
+displayed with no control movement. This does not add to the 353 unit/regression
+count or establish browser visuals, sustained responsiveness or physical accuracy.
+Independent saved-only acceptance audit **passed**:
+`.local/spatial-guided-play-saved-audit-02.json`, SHA
+`76d23533d95d8eedb7ee090f3a19cfc378386b0c21e3eddc292c3324d69ed392`
+(8,855 B). It hashes all **1,048 new files /53,335,326 B**, verifies eight seals
+and 215 frozen runtime files, and checks both produced 213-member implementation
+archives against runtime02, including the startup fixes. Exact source coverage,
+recording counts and unchanged failed01 are preserved. One audit-only correction
+accepted the public wrapper's documented additional identity keys; no product
+defect, new replay, native run or overwritten acceptance resulted. The final
+inventory is distinct from the earlier pre-report count above.
+
+Root independently deduplicated seven JUnit receipts to confirm the 339 Python
+cases; Node remains fourteen, total 353. All jobs and audits are terminal.
+No product check remains for this checkpoint. Root next stages/publishes the
+18 owned files and verifies live remote identity; no new Git claim is made yet.
+
+This documentation lane releases TODO, this handoff and the construction guide
+to root; root owns execution/publication, README and local-lab.
+Different-video qualification, control robustness, depth/calibration, meaningful
+exercise/grasp/contact and independent physical evidence remain open. Earlier
+failures and separate avatar work remain intact. Prior publication is preserved
+below; this local checkpoint makes no whole-tree clean or new remote claim.
+
 ## Latest parallel results — October 31, 2026, 8:12 AM PDT
 
 This is the current ownership/job checkpoint; older live-state statements below

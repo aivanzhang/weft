@@ -41,6 +41,31 @@ lab's explicit `jitter: false`, without reprocessing or exporting the video.
 This is a 2D simulation with declared regions and assumptions, not reconstructed
 3D physics. [Verification](../artifacts/manual-video-verification-01/report.json).
 
+## Run the guided video-to-3D workflow
+
+The existing builder now supports explicit object tracking, 3D assumptions,
+optional training or saved-policy reuse, and a stage-by-stage artifact index.
+Use the [complete command guide](spatial-scene-construction.md), or open the
+verified local result without processing or training again:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/spatial-guided-play-acceptance-02/workflow/lab
+```
+
+Replace `lab` with `lab-console` for terminal controls. The
+[saved workflow index](../artifacts/spatial-guided-play-acceptance-02/workflow/index.html)
+links the source evidence, 3D assumptions and controller comparison. This example
+uses an explicit segment of a ball video, authored zero gravity and no floor;
+it is not recovered rolling physics. The learned policy passes 8/12 changed
+starts, versus 12/12 for the separately tested fixed feedback controller.
+
+The end-to-end check took 3.43 seconds, reusing the saved policy. Its recording
+preserves 54 actions, one reset and 56 exported frames. One exact physics replay
+passes; all 51 learned decisions also match the bound policy using the preceding
+saved state. Three manual actions have no policy-decision claim. New spatial
+recordings expose these separate checks under **Recording evidence**; legacy
+recordings retain their original, narrower verification.
+
 ## Try the trained 3D object labs
 
 Open either prepared lab without rebuilding or retraining:

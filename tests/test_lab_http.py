@@ -240,7 +240,10 @@ def test_worker_start_failure_closes_log_and_does_not_inherit_credentials(tmp_pa
             lab.start_worker()
         assert lab.worker_log.closed
         assert "EXAMPLE_SERVICE_SECRET" not in captured["env"]
-        assert set(captured["env"]) <= {"PATH", "PYTHONUNBUFFERED", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MPLCONFIGDIR"}
+        assert set(captured["env"]) <= {"PATH", "PYTHONUNBUFFERED", "OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MPLCONFIGDIR",
+                                        "PYTHONPATH", "PYTHONNOUSERSITE", "PYTHONSAFEPATH", "PYTHONDONTWRITEBYTECODE"}
+        import weft.lab as lab_module
+        assert captured["env"]["PYTHONPATH"] == str(Path(lab_module.__file__).resolve().parent.parent)
         assert Path(captured["env"]["MPLCONFIGDIR"]).is_relative_to(lab.root)
     finally:
         lab.close()
