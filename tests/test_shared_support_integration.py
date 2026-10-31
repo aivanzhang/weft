@@ -295,7 +295,8 @@ def test_recording_envelope_and_events_retain_support_unknowns_and_original_scen
 @pytest.mark.parametrize("keyword", ["policy_document", "reference_controller_document"])
 def test_unqualified_controller_documents_cannot_enter_support_recordings(analytical, keyword):
     scene, task = analytical
-    with pytest.raises(ValueError, match="separate qualification"):
+    message = "separately qualified" if keyword == "policy_document" else "separate qualification"
+    with pytest.raises(ValueError, match=message):
         recording.recording_scene(scene, task, **{keyword: b"{}"})
 
 

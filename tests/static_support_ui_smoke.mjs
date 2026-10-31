@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {Element, html, script, drain} from './lab_ui_smoke.mjs';
+import {Element, html, script, drain, fixture as exerciseFixture} from './lab_ui_smoke.mjs';
 
 const root=fileURLToPath(new URL('..',import.meta.url));
 const python=`import importlib.abc,json,sys
@@ -35,6 +35,15 @@ const fixtures=JSON.parse(execFileSync(`${root}/.venv-lab/bin/python`,['-I','-B'
   cwd:root,timeout:5000,maxBuffer:128*1024,env:{PATH:process.env.PATH||'/usr/bin:/bin',PYTHONDONTWRITEBYTECODE:'1'},encoding:'utf8'}));
 const copy=value=>JSON.parse(JSON.stringify(value));
 const content=node=>[node.textContent,...node.children.map(content)].join('\n');
+function attachedSupportPolicy(kind='searched_joint_residuals',overrides={}){
+  return {profile:'shared-support-policy-v1',policy_sha256:'c'.repeat(64),selected_feedback_kind:kind,
+    privileged_simulator_features:true,training_score:.7,training_score_improved_over_authored:kind!=='authored_unchanged',
+    evaluation_status:'evaluated',evaluation_successes:Object.fromEntries(['coast','random','authored','learned'].map(name=>[name,{episodes:2,successes:['authored','learned'].includes(name)?1:0}])),
+    evaluation_reset_protocol:{profile:'shared-support-reset-v1',human_jitter_scale:.1,object_position_jitter_world:0,
+      object_velocity_jitter_world_s:0,equipment_stability_reference:'not_applicable',static_support_reset_state:'unchanged_scene_pose_and_velocity'},
+    ...overrides};
+}
+const withPolicy=(data=fixtures[0],policy=attachedSupportPolicy())=>({...copy(data),learned_policy_available:true,exercise_policy:policy});
 function elementsFrom(source){
   const elements=[],ids=new Map();
   for(const match of source.matchAll(/<([a-z][a-z0-9-]*)\b([^>]*)>/gi)){
@@ -57,8 +66,8 @@ function liveFixture(original=fixtures[0],metric='initial'){
   const state=()=>{const engine=geometry(data,currentMetric);geometryChange(engine);return {profile:'shared-exercise-state-v1',engine_state:engine,engine_state_status:'current',
     task_metrics:currentMetric,terminated:currentMetric.success||Boolean(currentMetric.failure),truncated:currentMetric.completed_interval&&!currentMetric.success&&!currentMetric.failure};};
   const status=()=>({status:'ready',profile:'shared-world',control_profile:'shared_exercise',scene:data.scene,exercise_task:data.task,
-    action_contract:data.action_contract,learned_policy_available:false,exercise_policy:null,snapshot:state(),recording,sessions:[],
-    events:[],artifacts:['human-reference.json','repair-ledger.json','reconstruction.json','exercise-task.json'].map(name=>({name,bytes:100}))});
+    action_contract:data.action_contract,learned_policy_available:data.learned_policy_available??false,exercise_policy:data.exercise_policy??null,snapshot:state(),recording,sessions:[],
+    events:[],artifacts:['human-reference.json','repair-ledger.json','reconstruction.json','exercise-task.json',...(data.exercise_policy?['policy.json']:[])].map(name=>({name,bytes:100}))});
   const summary=new Element('summary'),header=new Element('tr'),hint=new Element('p'),equipmentWrap=new Element('div');
   ids.get('exercise-metrics-details').querySelector=selector=>selector==='summary'?summary:null;
   ids.get('exercise-equipment').closest=selector=>selector==='.table-wrap'?equipmentWrap:null;
@@ -152,6 +161,76 @@ async function recordResetAndExportStillUseExistingEndpoints(){
   ui.ids.get('stop-record').click();await drain();assert(ui.pending.some(r=>r.path==='/api/record/stop'));await ui.reply('/api/record/stop','active');
   assert(!ui.requests.some(r=>/train|replay|policy\.json/.test(r.path)));
 }
+async function supportPolicySelectionDisclosesTrainingAndUnchangedSupports(){
+  for(const data of fixtures)for(const kind of ['searched_joint_residuals','authored_unchanged']){
+    const ui=liveFixture(withPolicy(data,attachedSupportPolicy(kind)));await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,false);assert.equal(ui.ids.get('start-learned').disabled,false);
+    assert.equal(ui.ids.get('policy').textContent,kind==='authored_unchanged'?'Selected authored baseline':'Searched joint corrections');
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,kind==='authored_unchanged'
+      ?/unchanged programmed feedback, not new learned gains/:/phase-dependent joint corrections.*root assistance remains programmed, not learned/);
+    assert.match(ui.ids.get('learning-description').textContent,/simulator-state and reference features, not video pixels/);
+    assert.match(ui.ids.get('start-help').textContent,/attached selected policy/);
+    assert.equal(ui.ids.get('joint').children.length,data.action_contract.names.length);
+    assert.equal(ui.ids.get('actor-controls').hidden,true);assert.equal(ui.ids.get('actor').disabled,true);
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/matched starts, frozen policy/);
+    assert.match(ui.ids.get('exercise-evaluation-summary').textContent,/human-only perturbations.*static supports keep their exact scene poses.*not a changed-support test/);
+    assert.equal(ui.ids.get('scores').children.length,4);assert.match(content(ui.ids.get('scores')),/1\/2/);
+    assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+    assert.equal(ui.ids.get('learning-curve').hidden,true);assert.equal(ui.ids.get('exercise-policy-links').children.length,1);
+    ui.ids.get('policy').click();ui.ids.get('step').click();await drain();
+    assert.deepEqual(ui.pending[0].data,{steps:1,policy:true});await ui.reply('/api/step','active');
+    assert.match(ui.ids.get('mode-description').textContent,/Equipment has no force controls/);
+    assert(!ui.requests.some(r=>/\/api\/(actor|joint)|\/(policy|training|rl-evaluation)\.json/.test(r.path)));
+  }
+  const unevaluated=liveFixture(withPolicy(fixtures[0],attachedSupportPolicy('authored_unchanged',{evaluation_status:'not_attached',evaluation_successes:null,evaluation_reset_protocol:null})));
+  await unevaluated.ready();assert.equal(unevaluated.ids.get('policy').disabled,false);
+  assert.equal(unevaluated.ids.get('scores').children.length,0);assert.match(unevaluated.ids.get('exercise-evaluation-summary').textContent,/Independent evaluation unavailable.*Training is not an evaluation pass/);
+}
+async function invalidSupportPolicyDisablesOnlyLearnedControls(){
+  for(const policy of [attachedSupportPolicy('searched_joint_residuals',{profile:'shared-exercise-policy-v2'}),attachedSupportPolicy('searched_joint_residuals',{policy_sha256:'invalid'})]){
+    const ui=liveFixture(withPolicy(fixtures[0],policy));await ui.ready();
+    assert.equal(ui.ids.get('policy').disabled,true);assert.equal(ui.ids.get('start-learned').disabled,true);
+    for(const id of ['mode-manual','mode-coast','reference-servo','record','toggle'])assert.equal(ui.ids.get(id).disabled,false,id);
+    assert.equal(ui.ids.get('exercise-policy-links').hidden,true);assert.equal(ui.ids.get('scores').children.length,0);
+    assert.match(ui.ids.get('exercise-policy-summary').textContent,/No validated human-only policy/);
+    const requests=ui.requests.length;ui.ids.get('policy').click();ui.ids.get('start-learned').click();await drain();assert.equal(ui.requests.length,requests);
+    ui.action(1);await drain();assert.equal(ui.pending[0].data.action.length,19);assert.equal(ui.pending[0].data.action[0],.25);
+    assert(ui.pending[0].data.action.slice(1).every(value=>value===0));await ui.reply('/api/step','active');
+    assert.match(ui.ids.get('exercise-outcome').textContent,/In progress/);
+  }
+  const wrongScene=exerciseFixture('shared-world',{sharedExercise:true,exercisePolicyAvailable:true,exercisePolicy:attachedSupportPolicy()});
+  await wrongScene.ready();assert.equal(wrongScene.ids.get('policy').disabled,true);assert.equal(wrongScene.ids.get('reference-servo').disabled,false);
+}
+async function learnedSupportControlsSerializeFreshStartsAndRecording(){
+  const ui=liveFixture(withPolicy());await ui.ready();ui.open();
+  ui.ids.get('start-learned').click();ui.ids.get('start-learned').click();await drain();
+  assert.deepEqual(ui.pending.map(r=>[r.path,r.data]),[['/api/reset',{}]]);
+  assert.equal(ui.ids.get('record').disabled,true);assert.equal(ui.ids.get('policy').disabled,true);
+  await ui.reply('/api/reset');assert.deepEqual(ui.pending.map(r=>r.data),[{steps:3,policy:true}]);
+  ui.ids.get('step').click();ui.ids.get('step').click();ui.ids.get('record').click();await drain();
+  assert.deepEqual(ui.pending.map(r=>r.path),['/api/step']);assert.equal(ui.ids.get('start-learned').disabled,true);
+  await ui.reply('/api/step','active');assert.deepEqual(ui.pending.map(r=>[r.path,r.data]),[['/api/record/start',{}]]);
+  await ui.reply('/api/record/start','initial');assert.deepEqual(ui.pending.map(r=>r.data),[{steps:3,policy:true}]);
+  assert.equal(ui.ids.get('record').disabled,true);assert.equal(ui.ids.get('joint').disabled,true);
+  ui.ids.get('reset').click();ui.ids.get('reset').click();await drain();assert.deepEqual(ui.pending.map(r=>r.path),['/api/step']);
+  await ui.reply('/api/step','active');await ui.reply('/api/reset','initial');
+  assert.match(ui.ids.get('record-status').textContent,/Recording/);
+  let row;const requests=ui.requests.length,started=performance.now();
+  for(let i=0;i<50;i++){
+    ui.ids.get('step').click();ui.ids.get('step').click();await drain();assert.deepEqual(ui.pending.map(r=>r.data),[{steps:1,policy:true}]);
+    await ui.reply('/api/step','active');row??=ui.ids.get('exercise-contacts').children[0];assert.equal(ui.ids.get('exercise-contacts').children[0],row);
+  }
+  assert.equal(ui.requests.length-requests,50);assert(ui.timers.size<=1);assert.equal(ui.pending.length,0);
+  console.log(`MEASURE ${JSON.stringify({case:'same-support-metrics-learned-steps',updates:50,elapsed_ms:Number((performance.now()-started).toFixed(3)),requests:50,max_pending_steps:1,retained_timers:ui.timers.size,reused_detail_row:true,scope:'scripted DOM only; no browser or physics'})}`);
+  ui.ids.get('step').click();ui.ids.get('stop-record').click();ui.ids.get('stop-record').click();await drain();
+  assert.deepEqual(ui.pending.map(r=>r.path),['/api/step']);assert.equal(ui.ids.get('policy').disabled,true);
+  await ui.reply('/api/step','active');assert.deepEqual(ui.pending.map(r=>[r.path,r.data]),[['/api/record/stop',{}]]);
+  await ui.reply('/api/record/stop','active');assert.equal(ui.pending.length,0);assert.match(ui.ids.get('record-status').textContent,/Saving recording/);
+  const mutations=ui.requests.filter(r=>r.data!==null);
+  assert(mutations.every(r=>['/api/reset','/api/step','/api/record/start','/api/record/stop'].includes(r.path)));
+  assert(mutations.filter(r=>r.path==='/api/step').every(r=>r.data.policy===true&&Object.keys(r.data).length===2));
+  assert.equal(mutations.filter(r=>r.path==='/api/record/start').length,1);assert.equal(mutations.filter(r=>r.path==='/api/record/stop').length,1);
+}
 async function realActiveAndTerminalMetricsStaySeparateFromLegacyScores(){
   const ui=liveFixture();await ui.ready();ui.open();await ui.inject('active');
   assert.match(content(ui.ids.get('exercise-contacts')),/Current 10\.0%.*qualifying now/);
@@ -238,6 +317,7 @@ function replayRepeatedViewChangesDoNotRebuildMetricsOrAdvance(){
 }
 
 const checks=[declaredSupportScopeAndUnknownInitialLoads,manualCoastAndReferenceKeepExactHumanOnlyPayloads,
+  supportPolicySelectionDisclosesTrainingAndUnchangedSupports,invalidSupportPolicyDisablesOnlyLearnedControls,learnedSupportControlsSerializeFreshStartsAndRecording,
   recordResetAndExportStillUseExistingEndpoints,realActiveAndTerminalMetricsStaySeparateFromLegacyScores,
   malformedOrCrossProfileSupportCannotEnableControls,missingOrForeignMetricsPauseWithoutInventingZeros,unknownCoverageCannotClaimSatisfiedSupport,repeatedDetailsAreStableAndTextIsSafe,
   replayShowsSavedSupportLoadsAndNoObjectGoal,replayMalformedMetricIsUnavailableNotASuccess,replayRepeatedViewChangesDoNotRebuildMetricsOrAdvance,

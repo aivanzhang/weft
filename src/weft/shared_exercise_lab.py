@@ -174,6 +174,9 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
     if len(files["policy.json"]) > 64 * 1024:
         raise ValueError("Exercise policy exceeds its document bound")
     policy_document = _json(files["policy.json"])
+    if scene["profile"] == STATIC_SUPPORT_PROFILE and (not isinstance(policy_document, dict)
+            or policy_document.get("profile") != "shared-support-policy-v1"):
+        raise ValueError("Static-support labs require a newly pinned support policy")
     if scene["profile"] == HUMAN_ONLY_PROFILE and (not isinstance(policy_document, dict)
             or policy_document.get("profile") not in {"shared-exercise-policy-v2", "shared-exercise-policy-v4"}):
         raise ValueError("Person-only labs require a newly pinned v2 or v4 human residual policy")
@@ -314,8 +317,12 @@ def _validate_policy_evaluation(manifest_raw, files, learning_manifest, learning
 
         comparison_identity = validate_previous_reward_comparison(manifest_raw, files, learning_files, policy,
             evaluation, scene, task, standard_control_steps=total_steps)
+    reset_protocol = describe_reset_protocol(resets)
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        from weft.shared_exercise_task import _support_reset_protocol
+        reset_protocol = _support_reset_protocol(resets)
     return {"policy_evaluation_manifest_sha256": _sha(manifest_raw), "policy_evaluation_sha256": _sha(files["evaluation.json"]),
-            "policy_evaluation_files_verified": len(files), **comparison_identity}, successes, describe_reset_protocol(resets)
+            "policy_evaluation_files_verified": len(files), **comparison_identity}, successes, reset_protocol
 
 
 def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluation_reset_protocol=None):
@@ -367,8 +374,6 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             if isinstance(document, dict) and document.get("status") in REJECTED_STATUSES:
                 raise ValueError(f"Exercise lab source artifact {name} has unsuccessful status")
     scene = validate_shared_world(_json(inputs["scene.json"]))
-    if scene["profile"] == STATIC_SUPPORT_PROFILE and learning_source is not None:
-        raise ValueError("Static-support labs do not yet accept learned-policy packages")
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(input_manifest))
     task_raw = None
     if task_path is None and "exercise-task.json" in inputs:

@@ -381,7 +381,7 @@ def main():
     exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
     exercise_train_choice.add_argument("--task", help="Exact shared-exercise-task-v1 JSON to train without changing its gates")
     exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual"], default="feedback",
-                                help="Legacy feedback gains (default), phase corrections, or bounded joint state-feedback corrections")
+                                help="Legacy feedback gains (default), phase corrections (also static supports), or joint state-feedback corrections")
     exercise_train.add_argument("--seed", type=int, default=1729)
     exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for feedback-residual")
     exercise_train.add_argument("--population", type=int, help="Default: 12 for phase-residual, 8 otherwise")

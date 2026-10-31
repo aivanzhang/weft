@@ -697,8 +697,8 @@ def describe_capabilities(
                 "Measured muscle activation, verified object absence or physical transfer",
             ]
         if static_support:
-            if learned_policy_available:
-                raise ValueError("Static-support tasks do not yet have a qualified learned-policy contract")
+            if learned_policy_available and exercise_task is None:
+                raise ValueError("A static-support learned policy requires its attached support task")
             doc["entities"].update(multi_target_selection_endpoint=None, support="declared_static_collision_geometry")
             doc["action_contract"]["discrete_actions"] = []
             doc["observation_contract"].update(dimension=155 + 13 * len(static_objs), components=[
@@ -709,7 +709,7 @@ def describe_capabilities(
                 success_criteria={"human_limits": deepcopy(task["human_limits"]), "object_goal": None},
                 termination_conditions=["nonfinite_dynamics", "human_position_or_velocity_envelope_exceeded"])
             doc["unsupported_capabilities"] = [
-                "Movable equipment, object-force controls and learned support policies",
+                "Movable equipment, object-force controls and learning without a pinned support task/policy",
                 "Avatar recording for this static-support profile",
                 "Ground-force load requirements, finger grasping or measured muscle activation",
                 "Recovered support geometry, verified physical contact or physical transfer",
@@ -765,7 +765,7 @@ def describe_capabilities(
                     success_criteria={"frozen_gates": dict(SUPPORT_GATES), "support_requirements": requirements,
                         "complete_substep_interval_required": True, "equipment_stability": "not_applicable"})
                 doc["unsupported_capabilities"] = [
-                    "Movable equipment, object-force controls and learned support policies",
+                    "Movable equipment, object-force controls and policies not pinned to this support task",
                     "Avatar recording for this static-support profile",
                     "Ground-force load requirements, finger grasping or measured muscle activation",
                     "Recovered support geometry, verified physical contact or physical transfer",

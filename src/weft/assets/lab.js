@@ -568,6 +568,7 @@
   }
   const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections", searched_feedback_residuals: "Searched joint feedback"};
   const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
+    "shared-support-policy-v1": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v3": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"]};
@@ -575,6 +576,7 @@
     const policy = data.exercise_policy;
     exercisePolicy = data.learned_policy_available === true && typeof policy?.profile === "string"
       && Object.hasOwn(exercisePolicyKinds, policy.profile)
+      && (staticSupport() ? policy.profile === "shared-support-policy-v1" : policy.profile !== "shared-support-policy-v1")
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
       && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
       && exercisePolicyKinds[policy.profile].includes(policy.selected_feedback_kind)
@@ -595,6 +597,11 @@
     const reset = exercisePolicy?.evaluation_reset_protocol;
     const values = [reset?.human_jitter_scale, reset?.object_position_jitter_world, reset?.object_velocity_jitter_world_s];
     if (!values.every(value => typeof value === "number" && Number.isFinite(value) && value >= 0)) return "Reset protocol unspecified in this saved comparison.";
+    if (staticSupport() && reset.profile === "shared-support-reset-v1"
+      && reset.static_support_reset_state === "unchanged_scene_pose_and_velocity"
+      && reset.object_position_jitter_world === 0 && reset.object_velocity_jitter_world_s === 0) {
+      return `Changed starts: human-only perturbations (scale ${number(reset.human_jitter_scale, 2)}); static supports keep their exact scene poses. This is not a changed-support test.`;
+    }
     if (reset.profile === "shared-exercise-human-jitter-v1" && reset.equipment_reset_state === "unchanged_scene_pose_and_velocity"
       && reset.object_position_jitter_world === 0 && reset.object_velocity_jitter_world_s === 0) {
       return personOnly() ? `Changed starts: human-only perturbations (scale ${number(reset.human_jitter_scale, 2)}); the ground remains unchanged. No equipment is declared.`
@@ -1236,7 +1243,7 @@
         text($("world-heading"), "One 3D world: human body and authored static supports.");
         text($("world-description"), "The articulated body contacts fixed, authored collision shapes in one simulated world. Only human motors are controlled. Support shapes, load directions and thresholds are declared assumptions, not recovered physical contact.");
         text($("evidence-boundary"), "Authored static-support task. Original body/source clocks remain separate from these added support assumptions; physical validation is unverified.");
-        text($("start-help"), "Inspect the authored support requirements, then try manual human motors, coast or programmed reference feedback. Record a trial to inspect its simulated loads and complete-interval result.");
+        text($("start-help"), `Inspect the authored support requirements, then try manual human motors, coast or programmed reference feedback${learnedPolicyAvailable ? ", or the attached selected policy" : ""}. Record a trial to inspect its simulated loads and complete-interval result.`);
         text($("control-help"), `Choose one of ${humanMotorNames.length || "the declared"} human motors. Tap + or −, or start and hold. Release sets all commands to zero. Static supports cannot be selected, moved or pushed.`);
         text($("play-boundary"), "Body tracking and authored segment/load windows are evaluated over the fixed interval. Root assistance is explicit; equipment drift is not scored. This does not establish wrist support, grasp, anatomy, unassisted balance or physical accuracy.");
         $("live").setAttribute("aria-label", "Human simulation with authored static supports. Only human motors are controlled. Escape pauses.");

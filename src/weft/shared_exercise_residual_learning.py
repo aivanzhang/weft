@@ -15,12 +15,14 @@ from weft.shared_exercise_learning import (
 )
 from weft.shared_exercise_reset import human_jitter_options
 from weft.shared_exercise_task import GATES_SHA256, SharedExerciseTaskEnv, prepare_shared_exercise_snapshot_validator
-from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE
+from weft.shared_world import FULLSPAN_PROFILES, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file
 
 
 POLICY_PROFILE = "shared-exercise-policy-v2"
 ALGORITHM = "shared_exercise_phase_residual_cem_v1"
+SUPPORT_POLICY_PROFILE = "shared-support-policy-v1"
+SUPPORT_ALGORITHM = "shared_support_phase_residual_cem_v1"
 BASIS_PROFILE = "shared-exercise-phase-basis-v1"
 FEATURE_NAMES = ("authored_reference_feedback", "declared_interval_elapsed_fraction")
 POLICY_RUNTIME_FILES = (*BASE_RUNTIME_FILES, "shared_exercise_residual_learning.py", "shared_exercise_policies.py")
@@ -38,6 +40,12 @@ SCOPE = ("Reward-driven search over bounded phase-conditioned joint-action resid
          "the task's explicit authored feedback and equipment forces remain forbidden. Zero residual selects authored "
          "unchanged, not learned improvement. Changed starts in the full fixed development interval are not new videos, "
          "a temporal holdout, recovered grasp, measured muscle activation or physical transfer.")
+SUPPORT_SCOPE = ("Reward-driven search over bounded phase-conditioned joint-action residuals on unchanged authored reference feedback. "
+                 "Reference targets, simulator bias forces and simulated state are privileged features; any explicit root assistance "
+                 "remains unchanged and object-force channels remain forbidden. Static support geometry, declared load requirements, "
+                 "task gates and reset rules stay fixed. Zero residual selects authored unchanged, not learned improvement. "
+                 "Changed-start development evaluation is not a new video, a temporal holdout, recovered contact or grasp, "
+                 "measured muscle activation, unassisted human balance or physical transfer.")
 
 
 def _check(deadline):
@@ -47,8 +55,28 @@ def _check(deadline):
 
 def _runtime_hashes(scene=None):
     package = Path(__file__).parent
-    names = (*POLICY_RUNTIME_FILES, "person_inventory.py") if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE else POLICY_RUNTIME_FILES
+    names = POLICY_RUNTIME_FILES
+    if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE:
+        names = (*names, "person_inventory.py")
+    elif scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:
+        names = (*names, "shared_support_task.py")
     return {name: digest(package / name) for name in names}
+
+
+def _scene_runtime_hashes(scene):
+    return _runtime_hashes(scene) if scene["profile"] in {HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE} else _runtime_hashes()
+
+
+def _contract(scene, hashes):
+    if scene["profile"] == STATIC_SUPPORT_PROFILE:
+        from weft.shared_support_task import GATES_SHA256 as support_gates, evaluator_identity
+
+        evaluator = evaluator_identity({name: hashes[name] for name in ("shared_exercise_task.py", "shared_support_task.py")})
+        return {"profile": SUPPORT_POLICY_PROFILE, "algorithm": SUPPORT_ALGORITHM, "gates_sha256": support_gates,
+                "evaluator_sha256": evaluator, "scope": SUPPORT_SCOPE, "observation_profile": "shared-support-observation-v1"}
+    return {"profile": POLICY_PROFILE, "algorithm": ALGORITHM, "gates_sha256": GATES_SHA256,
+            "evaluator_sha256": hashes["shared_exercise_task.py"], "scope": SCOPE,
+            "observation_profile": "shared-exercise-observation-v1"}
 
 
 def _coefficients(value):
@@ -80,27 +108,32 @@ def _action(coefficients, env):
 
 
 def validate_shared_exercise_residual_policy(policy, scene, task):
-    scene, task, count = _context(scene, task)
+    support = isinstance(scene, dict) and scene.get("profile") == STATIC_SUPPORT_PROFILE
+    support_policy = isinstance(policy, dict) and policy.get("profile") == SUPPORT_POLICY_PROFILE
+    if support != support_policy:
+        raise ValueError("Static-support learning requires a separately qualified support policy")
+    scene, task, count = _context(scene, task, allow_static_support=True)
+    hashes = _scene_runtime_hashes(scene)
+    contract = _contract(scene, hashes)
     keys = {"schema_version", "profile", "algorithm", "scene_sha256", "task_sha256", "evaluator_sha256",
             "gates_sha256", "runtime_sha256", "runtime_versions", "action_names", "feature_names",
             "residual_coefficients", "residual_bound", "basis_profile", "root_assistance", "training_seed",
             "training_score", "privileged_simulator_features", "scope"}
     if (not isinstance(policy, dict) or set(policy) != keys or type(policy["schema_version"]) is not int
-            or policy["schema_version"] != 1 or policy["profile"] != POLICY_PROFILE or policy["algorithm"] != ALGORITHM
+            or policy["schema_version"] != 1 or policy["profile"] != contract["profile"] or policy["algorithm"] != contract["algorithm"]
             or len(_bytes(policy)) > 64 * 1024):
         raise ValueError("Exercise residual policy differs from its bounded versioned contract")
     _coefficients(policy["residual_coefficients"])
-    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
     if (policy["scene_sha256"] != canonical_hash(scene) or policy["task_sha256"] != canonical_hash(task)
-            or policy["gates_sha256"] != GATES_SHA256 or policy["runtime_sha256"] != hashes
-            or policy["evaluator_sha256"] != hashes["shared_exercise_task.py"]
+            or policy["gates_sha256"] != contract["gates_sha256"] or policy["runtime_sha256"] != hashes
+            or policy["evaluator_sha256"] != contract["evaluator_sha256"]
             or policy["runtime_versions"] != _runtime_versions()):
         raise ValueError("Exercise residual policy task, scene, evaluator or runtime differs")
     if (policy["action_names"] != scene["action_contract"]["names"][:count]
             or policy["feature_names"] != list(FEATURE_NAMES) or policy["basis_profile"] != BASIS_PROFILE
             or type(policy["residual_bound"]) not in (int, float) or policy["residual_bound"] != RESIDUAL_BOUND
             or policy["root_assistance"] != task["control"]["root_assistance"]
-            or policy["privileged_simulator_features"] is not True or policy["scope"] != SCOPE):
+            or policy["privileged_simulator_features"] is not True or policy["scope"] != contract["scope"]):
         raise ValueError("Exercise residual policy cannot add forces, change its basis or hide privileged features")
     _integer(policy["training_seed"], "training seed", 0, 2**31 - 1)
     if type(policy["training_score"]) not in (int, float) or not math.isfinite(policy["training_score"]):
@@ -112,7 +145,7 @@ def prepare_shared_exercise_residual_policy(policy, env):
     """Validate and detach once; the action path only reads current feedback and public phase."""
     policy = validate_shared_exercise_residual_policy(policy, env.scene, env.task)
     if (policy["evaluator_sha256"] != env.evaluator_sha256
-            or env.observation_contract()["profile"] != "shared-exercise-observation-v1"):
+            or env.observation_contract()["profile"] != _contract(env.scene, policy["runtime_sha256"])["observation_profile"]):
         raise ValueError("Exercise environment evaluator or observation contract differs from its residual policy")
     coefficients = _coefficients(policy["residual_coefficients"])
     return lambda: _action(coefficients, env)
@@ -123,14 +156,15 @@ def policy_action(policy, env):
 
 
 def _policy(env, coefficients, seed, score, hashes):
-    return {"schema_version": 1, "profile": POLICY_PROFILE, "algorithm": ALGORITHM,
+    contract = _contract(env.scene, hashes)
+    return {"schema_version": 1, "profile": contract["profile"], "algorithm": contract["algorithm"],
             "scene_sha256": env.scene_sha256, "task_sha256": env.task_sha256,
-            "evaluator_sha256": env.evaluator_sha256, "gates_sha256": GATES_SHA256,
+            "evaluator_sha256": env.evaluator_sha256, "gates_sha256": contract["gates_sha256"],
             "runtime_sha256": hashes, "runtime_versions": _runtime_versions(),
             "action_names": list(env.action_names), "feature_names": list(FEATURE_NAMES),
             "residual_coefficients": coefficients.tolist(), "residual_bound": RESIDUAL_BOUND,
             "basis_profile": BASIS_PROFILE, "root_assistance": env.task["control"]["root_assistance"],
-            "training_seed": seed, "training_score": score, "privileged_simulator_features": True, "scope": SCOPE}
+            "training_seed": seed, "training_score": score, "privileged_simulator_features": True, "scope": contract["scope"]}
 
 
 def _terminal_manifest(raw):
@@ -141,7 +175,11 @@ def _terminal_manifest(raw):
 
 
 def source_view_names(scene=None):
-    return SOURCE_VIEWS | {"inventory.json", "source-clock.json"} if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE else SOURCE_VIEWS
+    if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE:
+        return SOURCE_VIEWS | {"inventory.json", "source-clock.json"}
+    if scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:
+        return SOURCE_VIEWS | {"support-config.json", "inputs/support-config.json", "source-clock.json"}
+    return SOURCE_VIEWS
 
 
 def _source_views(source, manifest, scene=None):
@@ -149,8 +187,11 @@ def _source_views(source, manifest, scene=None):
     names = sorted(source_view_names(scene) & set(hashes))
     if len([name for name in names if name in SOURCE_VIEWS and name != "source.json"]) > 1:
         raise ValueError("Residual learning source contains ambiguous original video views")
-    return {name: read_package_file(source, name, max_bytes=64 * 1024 * 1024,
+    files = {name: read_package_file(source, name, max_bytes=64 * 1024 * 1024,
                                     expected_sha256=hashes[name]) for name in names}
+    if {"support-config.json", "inputs/support-config.json"} <= files.keys() and files["support-config.json"] != files["inputs/support-config.json"]:
+        raise ValueError("Static-support configuration views differ")
+    return files
 
 
 def _input_unchanged(source, manifest, deadline, *, task_path=None, task_raw=None):
@@ -291,18 +332,20 @@ def train_shared_exercise_residual_policy(run, out, *, task_path=None, root_assi
     out = _output_path(run, out)
     started = time.monotonic()
     deadline = started + max_seconds
-    source, scene, task, scene_raw, task_raw, manifest, proof = _source(run, task_path, root_assistance, deadline)
+    source, scene, task, scene_raw, task_raw, manifest, proof = _source(
+        run, task_path, root_assistance, deadline, allow_static_support=True)
     _terminal_manifest(manifest)
     maximum_steps = generations * population * len(TRAIN_RESETS) * task["interval"]["horizon_steps"]
     if maximum_steps > MAX_CONTROL_STEPS:
         raise ValueError("Residual training exceeds 8640 actions; do not shorten the fixed task interval")
-    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
+    hashes = _scene_runtime_hashes(scene)
+    contract = _contract(scene, hashes)
     views = _source_views(source, manifest, scene)
     _check(deadline)
     _initialize(out, scene_raw, task_raw, manifest, proof, views)
     training_seeds = _seed_plan(seed, 2)
-    settings = {"schema_version": 1, "algorithm": ALGORITHM, "created_at": local_time(), "seed": seed,
-        "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "gates_sha256": GATES_SHA256,
+    settings = {"schema_version": 1, "algorithm": contract["algorithm"], "created_at": local_time(), "seed": seed,
+        "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "gates_sha256": contract["gates_sha256"],
         "runtime_sha256": hashes, "source_manifest_sha256": _sha(manifest), "training_seeds": training_seeds,
         "source_views_sha256": {name: _sha(raw) for name, raw in views.items()},
         "training_reset_options": list(TRAIN_RESETS), "generations": generations, "population": population,
@@ -313,7 +356,7 @@ def train_shared_exercise_residual_policy(run, out, *, task_path=None, root_assi
         "selection_objective": "mean(task mean_reward -1 for incomplete intervals); reset failure score=-2; loss=-score",
         "candidate_anchors": ["zero_residual_authored", "previous_best_after_first_generation"],
         "action_accounting": "All anchors and candidates are in population; identical cached trials issue zero new actions; no retries",
-        "root_residual_channels": [], "equipment_force_channels": [], "source_scope": task["source_scope"], "scope": SCOPE}
+        "root_residual_channels": [], "equipment_force_channels": [], "source_scope": task["source_scope"], "scope": contract["scope"]}
     training = {"status": "running", "history": [], "completed_generations": 0, "evaluated_episodes": 0,
                 "control_steps": 0, "cache_hits": 0, "active_candidates": [], "failure": None}
     env, budget = None, _Budget(maximum_steps)
@@ -369,7 +412,7 @@ def train_shared_exercise_residual_policy(run, out, *, task_path=None, root_assi
             _write(out, "policy.json", policy)
             _write(out, "training.json", training)
         _input_unchanged(source, manifest, deadline, task_path=task_path, task_raw=task_raw)
-        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != hashes:
+        if _scene_runtime_hashes(scene) != hashes:
             raise RuntimeError("Residual policy/evaluator runtime changed during training")
         _check(deadline)
         authored = not bool(np.any(best))
@@ -415,10 +458,11 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
     if _json(manifest).get("status") != "trained" or not required <= set(files):
         raise ValueError("Residual evaluation requires completed sealed training, never a failed checkpoint")
     scene_raw, task_raw, policy_raw = files["scene.json"], files["exercise-task.json"], files["policy.json"]
-    scene, task, _ = _context(_json(scene_raw), _json(task_raw))
+    scene, task, _ = _context(_json(scene_raw), _json(task_raw), allow_static_support=True)
     fullspan = scene["profile"] in FULLSPAN_PROFILES
     _seconds(max_seconds, 60 if fullspan else 30)
-    hashes = _runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()
+    hashes = _scene_runtime_hashes(scene)
+    contract = _contract(scene, hashes)
     policy = validate_shared_exercise_residual_policy(_json(policy_raw), scene, task)
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
     training_seeds = settings.get("training_seeds")
@@ -444,7 +488,7 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
         "seed": seed, "evaluation_seeds": seeds, "training_seeds": training_seeds, "excluded_seeds": excluded,
         "reset_options": reset, "horizon_steps": task["interval"]["horizon_steps"], "maximum_control_steps": maximum_steps,
         "max_seconds": max_seconds, "workers": 1, "external_api_usd": 0, "control_steps": 0,
-        "evaluation_feedback_to_optimizer": False, "source_scope": task["source_scope"], "scope": SCOPE,
+        "evaluation_feedback_to_optimizer": False, "source_scope": task["source_scope"], "scope": contract["scope"],
         "controllers": {}, "initial_states": {}}
     if fullspan:
         evaluation["evaluation_protocol"] = "shared-exercise-full-reference-evaluation-v1"
@@ -488,7 +532,7 @@ def evaluate_shared_exercise_residual_policy(learning_dir, out, *, seed=924017, 
                 reset_failures=sum(row["status"] == "reset_failed" for row in rows), mean_score=_score(rows))
             _write(out, "evaluation.json", evaluation)
         _input_unchanged(source, manifest, deadline)
-        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != hashes:
+        if _scene_runtime_hashes(scene) != hashes:
             raise RuntimeError("Frozen residual policy or evaluator runtime changed during evaluation")
         read_package_file(out, "policy.json", max_bytes=64 * 1024, expected_sha256=_sha(policy_raw))
         read_package_file(out, "pre-evaluation-freeze.json", max_bytes=64 * 1024, expected_sha256=_sha(_bytes(freeze)))

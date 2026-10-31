@@ -78,8 +78,8 @@ def _groups(names):
                        1 if "shoulder" in name or "hip" in name else 2 for name in names], dtype=int)
 
 
-def _context(scene, task):
-    if isinstance(scene, dict) and scene.get("profile") == "shared-world-v4":
+def _context(scene, task, *, allow_static_support=False):
+    if isinstance(scene, dict) and scene.get("profile") == "shared-world-v4" and allow_static_support is not True:
         raise ValueError("Static-support learning requires a separately qualified policy contract")
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
@@ -151,7 +151,7 @@ def policy_action(policy, env):
     return prepare_shared_exercise_policy(policy, env)()
 
 
-def _source(run, task_path, root_assistance, deadline):
+def _source(run, task_path, root_assistance, deadline, *, allow_static_support=False):
     if type(root_assistance) is not bool or task_path is not None and root_assistance:
         raise ValueError("Choose the supplied task or default-task assistance, not both")
     root = Path(run).resolve()
@@ -160,7 +160,7 @@ def _source(run, task_path, root_assistance, deadline):
     if "scene.json" not in files:
         raise ValueError("Exercise learning requires a sealed shared-world scene")
     scene_raw = files["scene.json"]
-    if _json(scene_raw).get("profile") == "shared-world-v4":
+    if _json(scene_raw).get("profile") == "shared-world-v4" and allow_static_support is not True:
         raise ValueError("Static-support learning requires a separately qualified policy contract")
     scene = validate_shared_world(_json(scene_raw))
     if "exercise-lab.json" in files:
@@ -175,6 +175,8 @@ def _source(run, task_path, root_assistance, deadline):
         if root_assistance and task["control"]["root_assistance"] != "explicit_3_axis":
             raise ValueError("Do not override the sealed task's root assistance")
     else:
+        if scene["profile"] == "shared-world-v4":
+            raise ValueError("Static-support learning requires an explicit sealed support task")
         task = build_shared_exercise_task(scene, root_assistance=root_assistance)
         task_raw = _bytes(task)
     proof = collect_shared_source_files(scene, root, expected_manifest_sha256=_sha(manifest))

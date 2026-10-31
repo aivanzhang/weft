@@ -125,8 +125,55 @@ The analytical support example is playable without a browser or server:
   --resume artifacts/static-support-play-acceptance-01/present/lab
 ```
 
-The recorded positive control passes its two-second authored task. Lowering only the support by 0.6 world units fails root and sustained-support criteria under the same starting state and rules. Both recordings export and replay exactly: 65 frames in the present case, 61 in the lowered case. Root assistance is disabled, but authored torso actuators remain; this is not free-floating human balance or physical validation. Native support learning, ground-force requirements, grasp and avatar recording for this profile are not supported.
+The recorded positive control passes its two-second authored task. Lowering only the support by 0.6 world units fails root and sustained-support criteria under the same starting state and rules. Both recordings export and replay exactly: 65 frames in the present case, 61 in the lowered case. Root assistance is disabled, but authored torso actuators remain; this is not free-floating human balance or physical validation. Ground-force requirements, grasp and avatar recording for this profile are not supported.
 
 The genuine saved single-leg body also passes the new **constructor custody check** in `artifacts/shared-support-real-body-01`. Its distant box is deliberately not a recovered support. All original source/body bytes, 235 source slots, 118 references and 234 task steps are preserved. The candidate remains **unadmitted**, with the exact original floor failures: eight source poses and sixteen control-grid poses exceed the unchanged 0.025 model-unit limit; peak penetration is 0.0831304. No rollout or support-task success is claimed for it.
 
 Saved audits and precise bounds are in the [current handoff](handoffs/combined.md#static-support-interaction--october-31-2026-1001-am-pdt). These examples establish bounded construction, declared simulator contact accounting and recording/replay—not arbitrary-video reconstruction, recovered anatomy or measured contact forces.
+
+## Train, compare and record a support policy
+
+Static supports use the existing **phase-residual** learner: it searches small joint-command corrections on top of authored reference feedback. It cannot move supports, add object forces, change task thresholds, shorten the interval, or learn root assistance. Its support-specific policy pins both evaluator files and the exact scene/task. The legacy feedback learners and feasibility selectors do not accept this profile.
+
+The verified example is ready to play without training again:
+
+```bash
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/static-support-policy-acceptance-01/lab
+```
+
+Use `controls`, `mode learned`, `record start`, `step 6`, and `record stop`.
+For manual control, use `mode manual` and `motor left_elbow 0.05` before stepping.
+`record evidence` shows the saved replay check; `files` lists the exports.
+The same lab can be opened by the user with `weft lab --resume <lab-directory>`.
+
+This small development run searched four candidates over two training starts
+(480 actions), then compared coast, random, authored and selected controllers
+on three fresh matched human starts. Supports stayed fixed. The search selected
+**the unchanged authored baseline**, with zero training improvement. Selected
+and authored controls each passed 3/3 tasks; coast passed 0/3, and random
+terminated early in all three trials. These failures remain in the comparison.
+The recorded three manual plus sixty selected-policy actions export and replay
+exactly. This verifies integration, not improved learning or unfamiliar-video recovery.
+
+To train a different admitted candidate, use new output directories:
+
+```bash
+.venv-lab/bin/python -m weft shared-exercise-train \
+  --run artifacts/my-static-support --out artifacts/my-support-training \
+  --policy-family phase-residual --generations 1 --population 4 --max-seconds 30
+
+.venv-lab/bin/python -m weft shared-exercise-policy-evaluate \
+  --learning artifacts/my-support-training --out artifacts/my-support-evaluation \
+  --trials 3 --jitter-scale 0.10 --max-seconds 30
+
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/my-static-support --learning artifacts/my-support-training \
+  --evaluation artifacts/my-support-evaluation --out artifacts/my-support-lab
+```
+
+Inspect `training.json`, `evaluation.json`, and the lab's comparison before
+interpreting success. The task preserves its entire declared interval; larger
+inputs can exceed the fixed action/time budget and fail explicitly. Failed
+resets must not be replaced with easier seeds. A selected authored baseline is
+available through the policy control mode but is not labeled a learned gain.

@@ -1,5 +1,104 @@
 # Combined Weft implementation handoff
 
+## Support-policy integration — October 31, 2026, 10:57 AM PDT
+
+The combined goal remains active. Root now owns the frozen support-policy changes in
+`shared_exercise_learning.py`, `shared_exercise_residual_learning.py`,
+`shared_exercise_policies.py`, `shared_exercise_lab.py`, `shared_exercise_recording.py`,
+`capabilities.py`, `cli.py`, `assets/lab.js` and their scoped tests. The existing
+phase-residual learner accepts the separately versioned `shared-support-policy-v1`;
+support task gates, fixed geometry, complete intervals and 19/explicit-22 human
+channels remain unchanged. Two evaluator files are pinned together. A selected
+zero residual is explicitly `authored_unchanged`, not a learning gain.
+
+Nineteen focused learner/legacy checks, thirteen backend integration checks,
+sixteen support UI checks and seven affected legacy UI checks pass. Receipts:
+`.local/shared-support-learning-tests-01.xml`,
+`.local/shared-support-learning-regression-02.xml`,
+`.local/shared-support-policy-integration-tests-01.xml`, and
+`.local/shared-support-policy-ui-tests-01.json`. Preserve the learner's failed
+regex expectation and corrected-case receipt. Read-only integration review found
+no blocking defect. Native acceptance and saved-output audit are complete.
+
+Original pre-review preparation: `.local/accept_static_support_policy_01.py` SHA
+`c3724347bb6c47036346300fb0c76a2fd5fc6780f172fde396ffea95d477d450`;
+`artifacts/static-support-policy-acceptance-01/plan.json` SHA
+`6396ac103b183fca07685babaac2aec4fcb138ec3d99507112c1e0044df95ca6`;
+frozen runtime manifest SHA
+`1641b5f3fccada7274306fb8083830e85bc9ecce6f0f38255023025e96066443`.
+The runtime is committed `356cecd` plus eight explicit overrides, excluding dirty
+avatar/reconstruction changes. Reuse the sealed present-support fixture; do not
+regenerate it. One generation/four candidates/two training starts/full 60 steps
+allows 480 training actions; four controllers/three fresh matched starts allows
+720 evaluation actions. Console adds three manual and sixty selected-policy
+actions plus exact replay. Outer bounds: 120 s wall, 110 s CPU, 24,000 native
+substeps, 192 MiB/1,800 output files and 512 MiB self peak checked at native
+entries (not a hard allocation cap; encoder descendants excluded). No API cost,
+source inference, new support tuning, seed replacement or gate changes.
+
+**Prelaunch review:** the original helper/plan remain in the acceptance directory.
+The reviewed helper additionally requires three exact manual elbow commands and
+sixty policy-hash-bound learned actions, independently verified during replay.
+Actual launch helper SHA `00c28b8e2547fca44c5923c6cb8ffdf5796d7a5df1075cb853fa8279e6d39693`;
+`launch-plan.json` SHA `31db5fb46bb126b76e7083b0cefc9c8bae6a942b0480363a1f857e237561be1b`.
+No native action was performed during preparation or review.
+
+**Actual acceptance:** process 77151 is terminal, exit 0; outer 6.2588525 s,
+worker 5.8678337 s, 116 models/six data, 1,302 forwards/88 resets and 18,497 native
+substeps. Observed Python peak RSS 225,968,128 B; no hard allocation cap or
+encoder-descendant memory claim. Root seal
+`7e1244635206dc9a3dd4929df7d172efe8c63fc8fd07aefdd86fda28235d9078`.
+Training used 480 actions and selected `authored_unchanged`, zero improvement.
+Three fresh matched human starts: authored/selected 3/3 success, coast 0/3,
+random 0/3 with three retained terminal failures; no reset failures or replaced
+seeds. Evaluation used 552 controls, below its 720 maximum. Substeps reconcile:
+7,680 training + 8,801 evaluation + 1,008 interaction + 1,008 exact replay.
+All geometry, task gates, support poses and root-assistance choice stayed fixed.
+
+Training seal `969c8c5b7a231b8334e43b8a851cfd795b5cdddcc2fd9c0ef3338704d47e324b`;
+evaluation `3fdd8c9665fb344467d9d6842e9550b478b6549c16ed0139fc4abd55d2b895f5`;
+lab run `e73b88f5fb2381b9afdb9935a41b544ced31e434f827bc80de2499f61fee318d`;
+policy `c55544d612aef54fee5795411720e5292b554c0a45f7d7107bf86968973826b3`.
+Session `0669779c24c9` seal
+`99f7c4da6c2abfd3b4e2d0268ac031fe94234ed4fb3485e5d1cb1a7d87a2e082`
+contains three exact manual elbow actions, one reset and sixty hash-bound
+selected-policy actions; all 63 actions/65 events replay exactly, with sixty
+policy decisions independently verified. Exports and evidence receipt are ready.
+User command: `.venv-lab/bin/python -m weft lab-console --resume artifacts/static-support-policy-acceptance-01/lab`.
+Guide: `docs/static-support.md#train-compare-and-record-a-support-policy`.
+
+**Saved-only audit:** `.local/static-support-policy-saved-audit-03.json`, SHA
+`22caa302c3947306b46c7c30a1e5229ff2f3d9680395443ef327e4b8beb4785e`.
+Verified 1,156 root members, nine manifests/2,746 member-hash checks, exact
+runtime/scene/task/policy/source-copy pins, 89 saved snapshots with unchanged
+supports, independent matched starts and all interaction/replay counts.
+Random trials failed at 21, 37 and 103 native substeps; full trials account for
+the other 8,640 evaluation substeps. All failures remain explicit.
+Cumulative audit reads 44,308,318 B/1,217 files in about 0.33 s; no native
+execution, inference, original-source reads, decoding or full runtime rescan.
+Receipts 01/02 retain auditor-only canonical-JSON and force-field-location
+assumptions; their passing stages were reused, not rerun. Final audit passes.
+
+**Parallel reconstruction update:** all native jobs are terminal. Interval03
+completed in 11.965 s: 1,543 decoded frames/772 Full IMAGE/raw calls; all native
+clocks match and the 1,544-frame metadata discrepancy remains. Seal
+`bec762dd6747c01f540f617fc3d76b5f8b4a90cd506debc5e2f04954db3d7614`.
+Frozen pooled plane rejects; the new stationary-selected candidate passes its
+unchanged screening on 126/463 construction poses (337 rejected; 309 later
+poses retained/excluded). This is only a conditional orientation candidate,
+tilted 73.57 degrees from camera-up, with no ground height, gravity calibration,
+body admission or recovered contact/grasp. The first two attempts remain
+startup failures with zero frames/inference. The older four-source selector
+study still abstains on every clip. Before publication, the owner is fixing a
+review-identified oversized-input serialization bound without repeating this
+inference. Exact settings/results and ownership remain in
+`docs/handoffs/exercise-reconstruction.md`. Separate avatar work is untouched.
+Last read-only remote check: `main` is still `356cecd`, stash empty, October 31,
+2026, 10:57 AM PDT. Next: finish reconstruction's review fix and bounded source
+study, update evidence, and checkpoint only reviewed owned files. No API
+calls or hosted deployment. This milestone does not complete generalized
+reconstruction, full exercise learning, ground-force/grasp or physical validation.
+
 ## Source-bound camera/root inspection — October 31, 2026, 10:29 AM PDT
 
 **Goal/ownership:** one combined pipeline, still active. Root owns current camera/root workflow, simulator/lab/recording and Git publication. `/root/exercise_reconstruction` was explicitly started at the user's request for unfamiliar-exercise reconstruction including ground/equipment contact; it owns `exercise_support_evidence.py`, the opt-in existing `ground_orientation.py` path, their focused tests and ground-orientation docs. Its durable note is `docs/handoffs/exercise-reconstruction.md`; initial planning SHA `3c4417fbb086675ca494b0b5d0367c556412b05c99d222cbc318e28959f0c279` is included in this checkpoint by its owner’s permission. Do not duplicate that agent's jobs or edit its accepted files. Separate avatar work remains untouched.

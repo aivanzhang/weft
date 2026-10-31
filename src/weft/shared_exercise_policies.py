@@ -4,13 +4,15 @@
 def _profile(policy):
     if not isinstance(policy, dict) or policy.get("profile") not in {
         "shared-exercise-policy-v1", "shared-exercise-policy-v2", "shared-exercise-policy-v3", "shared-exercise-policy-v4",
+        "shared-support-policy-v1",
     }:
         raise ValueError("Unsupported human-only exercise policy profile")
     return policy["profile"]
 
 
 def validate_policy(policy, scene, task):
-    if isinstance(scene, dict) and scene.get("profile") == "shared-world-v4":
+    if (isinstance(scene, dict) and scene.get("profile") == "shared-world-v4"
+            and (not isinstance(policy, dict) or policy.get("profile") != "shared-support-policy-v1")):
         raise ValueError("Static-support learning requires a separately qualified policy contract")
     # Lazy imports keep the learners' lab-helper dependency acyclic.
     if _profile(policy) == "shared-exercise-policy-v4":
@@ -27,7 +29,8 @@ def validate_policy(policy, scene, task):
 
 
 def prepare_policy(policy, env):
-    if env.scene.get("profile") == "shared-world-v4":
+    if (env.scene.get("profile") == "shared-world-v4"
+            and (not isinstance(policy, dict) or policy.get("profile") != "shared-support-policy-v1")):
         raise ValueError("Static-support learning requires a separately qualified policy contract")
     if _profile(policy) == "shared-exercise-policy-v4":
         from weft.shared_exercise_feedback_residual import prepare_shared_exercise_feedback_policy
@@ -47,7 +50,7 @@ def selection_kind(policy):
     if _profile(policy) == "shared-exercise-policy-v4":
         authored = all(value == 0 for row in policy["feedback_coefficients"] for value in row)
         return ("authored_unchanged" if authored else "searched_feedback_residuals"), authored, False
-    if _profile(policy) in {"shared-exercise-policy-v2", "shared-exercise-policy-v3"}:
+    if _profile(policy) in {"shared-exercise-policy-v2", "shared-exercise-policy-v3", "shared-support-policy-v1"}:
         authored = all(value == 0 for row in policy["residual_coefficients"] for value in row)
         return ("authored_unchanged" if authored else "searched_joint_residuals"), authored, False
     authored = all(value == 1 for row in policy["weights"] for value in row)
@@ -89,4 +92,6 @@ def select_policy(learning_dir, out, **options):
     if _profile(policy) == "shared-exercise-policy-v2":
         from weft.shared_exercise_selection import select_feasible_shared_exercise_policy
         return select_feasible_shared_exercise_policy(learning_dir, out, **options)
+    if _profile(policy) == "shared-support-policy-v1":
+        raise ValueError("Static-support policies do not support the legacy equipment-feasibility selector")
     raise ValueError("Saved-only selection supports phase-residual v2 or feedback-residual v4 training")

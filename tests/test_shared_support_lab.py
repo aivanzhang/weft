@@ -43,8 +43,12 @@ def test_support_capabilities_describe_real_controls_loads_and_no_equipment_rewa
     assert result["task_contract"]["success_criteria"]["support_requirements"] == task["support_requirements"]
     assert result["task_contract"]["success_criteria"]["equipment_stability"] == "not_applicable"
     assert result["controllers"]["learned_policy_available"] is False
-    with pytest.raises(ValueError, match="learned-policy"):
-        describe_capabilities(scene, exercise_task=task, learned_policy_available=True)
+    trained = describe_capabilities(scene, exercise_task=task, learned_policy_available=True)
+    assert trained["controllers"]["learned_policy_available"] is True
+    assert trained["controllers"]["trained_target_id"] == "human"
+    assert trained["action_contract"] == result["action_contract"]
+    with pytest.raises(ValueError, match="attached support task"):
+        describe_capabilities(scene, learned_policy_available=True)
 
 
 def test_support_learning_rejects_before_native_scene_admission(monkeypatch):

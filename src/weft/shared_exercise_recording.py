@@ -25,8 +25,8 @@ PROFILE = "shared-exercise-recording-v1"
 def recording_scene(scene, task, *, policy_document=None, reference_controller_document=None):
     scene = validate_shared_world(scene)
     task = validate_shared_exercise_task(task, scene)
-    if task["profile"] == SUPPORT_TASK_PROFILE and (policy_document is not None or reference_controller_document is not None):
-        raise ValueError("Static-support learned/reference-proposal controllers require separate qualification")
+    if task["profile"] == SUPPORT_TASK_PROFILE and reference_controller_document is not None:
+        raise ValueError("Static-support reference-proposal controllers require separate qualification")
     result = {"schema_version": 1, "profile": PROFILE, "engine_scene": scene, "exercise_task": task,
               "dt": scene["dt"], "objects": deepcopy(scene["objects"])}
     if policy_document is not None:
