@@ -1,0 +1,87 @@
+{
+  "artifacts": [
+    {
+      "bytes": 31381,
+      "path": "fox.json",
+      "sha256": "04d39b3aafaa69c36fcb124a642e12752ea5f20713628ee575c9426a33bc0fb0"
+    },
+    {
+      "bytes": 30733,
+      "path": "panda.json",
+      "sha256": "2fa59bf76ee6e0be23e78fca321765dd0ea8ea2d5bfde84fd8ad8d03fc5486f7"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 13138,
+      "path": "sources/scene.py",
+      "sha256": "fb8e11543ef314b625ec610ac94326b5605a79d44452dd631b7e6e4d44fe7d74"
+    },
+    {
+      "bytes": 32954,
+      "path": "sources/three_d.py",
+      "sha256": "dcdf14d62c5c618e2dd5c3fd121551b9ee76bf59441debf327d78e60f1ec3828"
+    },
+    {
+      "bytes": 19451,
+      "path": "sources/verify_quality_assets.py",
+      "sha256": "ac797efbe573ab4c27edfe0990b670885c534da65249a98a777e6874b0d73f69"
+    }
+  ],
+  "command": [
+    "scripts/verify_quality_assets.py",
+    "--pack",
+    "panda=outputs/muse-panda-quality-build-v6",
+    "--pack",
+    "fox=outputs/fox-quality-build-v4",
+    "--output",
+    "outputs/quality-attribute-proof-v1/final-organic",
+    "--timeout",
+    "120",
+    "--memory-mb",
+    "1024"
+  ],
+  "elapsed_seconds": 1.9423,
+  "error": null,
+  "kind": "independent_quality_attribute_proof",
+  "limits": {
+    "decoded_work_scalars_per_glb": 6000000,
+    "existing_glb_validator_limits_unchanged": true,
+    "exported_vertices": 100000,
+    "png_bytes_each": 4194304,
+    "png_pixels_total_per_glb": 16777216,
+    "process_rss_mb": 1024,
+    "unique_scalars_per_glb": 3000000,
+    "wall_seconds": 120
+  },
+  "process_peak_rss_bytes": 122814464,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reports": [
+    {
+      "id": "panda",
+      "model_sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+      "report": "panda.json",
+      "status": "passed",
+      "triangles": 68788,
+      "vertices": 85952
+    },
+    {
+      "id": "fox",
+      "model_sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+      "report": "fox.json",
+      "status": "passed",
+      "triangles": 60476,
+      "vertices": 68518
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "tools": {
+    "Pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "evidence": [
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/contact-sheets/idle.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/contact-sheets/making_something.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/contact-sheets/milestone_level_up.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/contact-sheets/working.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/portrait.png"
+  ],
+  "fallback_checks": [
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "eea3afea1ab1a9012d60f1cbd299195dff648e2bebbb52c74b2d8eb6bece1831",
+      "state": "idle"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "6ad6b56d04dce5864d53c43fb30ff2aabe0ff6f48be7d322483664a679b3f0b5",
+      "state": "making_something"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "62bb6465f8aded616f29b314d64d449aa057889233ce8a9fdb86283ae08a4010",
+      "state": "milestone_level_up"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "54d5122481624653de12840ef7acd002c18ce3c69dff1b5909216030c8c928b7",
+      "state": "working"
+    }
+  ],
+  "limits": "Visual review sampled each state; no claim of every-frame manual inspection or target-app import.",
+  "manifest_sha256": "e75ab7caea65eac79349aeb684254b31a30910d122b7de172d7780c1ed1b32ff",
+  "observations": [
+    "Red fox, sea-green scarf, sketchbook and pencil remain present with stable scale/camera/background.",
+    "Idle has ear/tail movement; crafting moves the pencil over the held book; milestone lifts the tools and body; working brings the book up for reading.",
+    "No framing cutoff in all nine decoded samples per state. Action gestures are authored; no dynamic ink is created.",
+    "Opaque output. Reduced-motion uses verified static PNGs. No seamless loop or velocity-continuity claim."
+  ],
+  "reviewer": "Local authoring agent; sampled contact-sheet visual review and decoded-frame measurements",
+  "schema_version": 1,
+  "verdict": "accepted"
+}

@@ -1,0 +1,125 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Fixed authored torso-shoulder attachment. Dragon descendants retain local rest transforms; no independent dragon body, wing or head control is inferred by the Weft mapping.",
+      "child_bone": "dragon_root",
+      "name": "shoulder_dragon",
+      "parent_bone": "right_shoulder",
+      "placement": "Anatomical right shoulder, world -X, viewer-left in front view. Dragon rest root [-0.56,-0.02,1.66] meters; camera faces the panda from negative Y."
+    },
+    {
+      "authored_assumption": "New action prop, not present in the supplied reference. Shape remains constant.",
+      "child_bone": "craft_orb",
+      "name": "golden_craft_orb",
+      "parent_bone": "hand_right",
+      "placement": "Between paws at rest; follows right hand during celebration."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "dragon_root",
+      "parent_bone": "right_shoulder",
+      "placement": "Anatomical right shoulder, world -X, viewer-left in front view. Dragon rest root [-0.56,-0.02,1.66] meters; camera faces the panda from negative Y.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        -0.1599999964237213,
+        0.19999992847442627,
+        0.019999999552965164
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "craft_orb",
+      "parent_bone": "hand_right",
+      "placement": "Between paws at rest; follows right hand during celebration.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.2800000011920929,
+        0.05000007152557373,
+        0.06999999284744263
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "Stylized 3D interpretation of the supplied Muse panda-and-dragon image, not reconstruction of unavailable geometry or fur.",
+    "Hidden back surfaces, full limb lengths, elbows, knees, topology, joint pivots and one-bone rigid skin weights are authored assumptions.",
+    "Anatomical left is world +X and anatomical right is world -X for the authored -Y-facing character; the shoulder dragon is on world -X/viewer-left.",
+    "right_shoulder is an unmapped helper attached to torso. dragon_root is its fixed descendant; raising the independently mapped upper_arm_right does not roll the dragon with that arm.",
+    "The golden sphere is a new fixed-shape action prop absent from the supplied reference; no material fabrication or physics is simulated.",
+    "Only the ten mapped body bones are keyed in these local clips. Head, hands, feet and dragon descendants keep their authored local rest pose; no finger/head/dragon actuation is inferred.",
+    "Weft uses its simulated body frames for appearance. Authored clips are retained as provenance and are not substituted for simulation actions or task rewards.",
+    "All colors are opaque diffuse factors with metallic=0 and roughness=1; the appearance is matte toy sculpture rather than recovered fur or scales.",
+    "Keyframe rotation/translation offsets use model rest axes, X right/Y rear/Z up; the builder converts through each bone rest basis."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "craft_orb": "craft_orb",
+    "dragon_head": "dragon_head",
+    "dragon_root": "dragon_root",
+    "dragon_tail": "dragon_tail",
+    "dragon_wing_inner": "dragon_wing_inner",
+    "dragon_wing_outer": "dragon_wing_outer",
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "right_shoulder": "right_shoulder",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "craft_orb",
+      "dragon_head",
+      "dragon_root",
+      "dragon_tail",
+      "dragon_wing_inner",
+      "dragon_wing_outer",
+      "foot_left",
+      "foot_right",
+      "forearm_left",
+      "forearm_right",
+      "hand_left",
+      "hand_right",
+      "head",
+      "right_shoulder",
+      "root",
+      "shin_left",
+      "shin_right",
+      "thigh_left",
+      "thigh_right",
+      "torso",
+      "upper_arm_left",
+      "upper_arm_right"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "unverified: authoritative consumer joint schema not supplied"
+}

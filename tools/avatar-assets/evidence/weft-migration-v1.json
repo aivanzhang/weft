@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "recorded_at_local": "2026-10-30 17:45:56 PDT",
+  "status": "relocated_and_verified_pending_git_publication_and_source_removal",
+  "source_root": "/Users/ivan/kintsugi/avatar-assets",
+  "destination_root": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "history_path_rule": "Resolve the former root to destination_root; never rewrite immutable historical manifests.",
+  "copy_verification": {
+    "schema_version": 1,
+    "all_entries_identical": true,
+    "destination": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+    "entries": 19778,
+    "file_bytes": 3146153025,
+    "inventory_sha256": "02c3e56b80c9912034b669eac8106dfae53f7f256715fdd0a1b6f0f873deb399"
+  },
+  "runtime_changes": {
+    "schema_version": 1,
+    "changed_launch_files": [
+      {
+        "path": ".venv/pyvenv.cfg",
+        "old_sha256": "0c0158add909227df5cea98a157ede167bd46093637dfcdb84d6a684d091de95",
+        "new_sha256": "8b2ab160f38400404b4d4f807d4d6d22af25eb47fa5f367dac55faa0793074a2"
+      },
+      {
+        "path": ".venv/bin/pip3.14",
+        "old_sha256": "dae68ba25eeda1d6e8a5b80b0c3bdff0879eff2ec245b5dd655aa01223fc8eb1",
+        "new_sha256": "adabbb751185fe3ac461cbe02c4ac66c9c79d0d76c2d8acaba86120bff112956"
+      },
+      {
+        "path": ".venv/bin/pip3",
+        "old_sha256": "dae68ba25eeda1d6e8a5b80b0c3bdff0879eff2ec245b5dd655aa01223fc8eb1",
+        "new_sha256": "adabbb751185fe3ac461cbe02c4ac66c9c79d0d76c2d8acaba86120bff112956"
+      },
+      {
+        "path": ".venv/bin/activate.fish",
+        "old_sha256": "a9115f409bf11693849121157882395265a48c2f49fb898da2e8e18369e19685",
+        "new_sha256": "bc400c10cdfba2c60dbc584f113a03988ea6f407320cf93b33a97afd32fe049f"
+      },
+      {
+        "path": ".venv/bin/f2py",
+        "old_sha256": "06fad6e7cc9f75ee8a44dbeac71ee582422c1894da9d9a00e4cbc7ea1f51d02e",
+        "new_sha256": "13b2d991976b5f3ce7fe4d685325350d8280d96ced1acd29fe8e9825fd73d764"
+      },
+      {
+        "path": ".venv/bin/pip",
+        "old_sha256": "dae68ba25eeda1d6e8a5b80b0c3bdff0879eff2ec245b5dd655aa01223fc8eb1",
+        "new_sha256": "adabbb751185fe3ac461cbe02c4ac66c9c79d0d76c2d8acaba86120bff112956"
+      },
+      {
+        "path": ".venv/bin/pyav",
+        "old_sha256": "996b19c98e0d2795df0d6a5f875bc2f6f7f5169431bd297ecceaa9659888f84b",
+        "new_sha256": "3919f0964f69c5aca1529851dabe629dac61fef6f13392fe5fa03c692f2ff8f9"
+      },
+      {
+        "path": ".venv/bin/activate",
+        "old_sha256": "3b562479a3e4cfb95be2f86febaec0b47694a0c79b4072e676f91d985bbc4f7b",
+        "new_sha256": "a4319fd09e619a03dc1da031950cdcf508914adfd3b4161ed4babb455521e11f"
+      },
+      {
+        "path": ".venv/bin/numpy-config",
+        "old_sha256": "d832b62bf99832fc40e71cf4eb025df458945ad77d1a3788d66c092078aba1b6",
+        "new_sha256": "e761a5bfa0255da3b2b23ad95d4f57c1f35780048028f4d6c3499cefde091297"
+      },
+      {
+        "path": ".venv/bin/activate.csh",
+        "old_sha256": "704bc9325a61a826d144263e7cfc6120bd5f43ecf10ec1ff1db0671ae00a1fef",
+        "new_sha256": "1449ce0a241904fcbcc8e42b6a6fbe1f2ec26b25a708339c0eee1d269ccfca7d"
+      }
+    ],
+    "packages_reinstalled": false,
+    "downloads": 0,
+    "external_calls": 0
+  },
+  "session": {
+    "thread_id": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+    "target_project_id": "01a17f4d-0658-7703-ac20-f288be33a645",
+    "target_cwd": "/Users/ivan/kintsugi/weft",
+    "verified": {
+      "same_thread": true,
+      "same_session": true,
+      "project_assignment": true,
+      "persisted_thread_cwd": true,
+      "model_provider_unchanged": true,
+      "goal_identity_preserved": true
+    },
+    "current_turn_cwd_changed": false,
+    "setting_scope": "subsequent turns"
+  },
+  "preservation": {
+    "all_original_outputs_and_rejected_attempts": "Preserved locally under the destination root",
+    "original_archive": "/Users/ivan/Downloads/Poo avatar assets.zip",
+    "original_archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+    "original_git_history": "No commits or remote; exact metadata tar retained locally",
+    "full_inventory_local": "/Users/ivan/kintsugi/weft/.local/avatar-assets-migration-v1/source-inventory.json",
+    "git_metadata_local": "/Users/ivan/kintsugi/weft/.local/avatar-assets-migration-v1/standalone-git-metadata.tar"
+  },
+  "remote_selection": {
+    "complete_packs": [
+      "muse-panda-quality-build-v6",
+      "workshop-robot-quality-build-v3",
+      "fox-quality-build-v4",
+      "lamp-quality-build-v4",
+      "muse-panda-weft-build-v1",
+      "humanoid-robot-weft-build-v1",
+      "fox-refined-v2",
+      "lamp-refined-v1",
+      "weft-muse-panda-v1",
+      "weft-humanoid-robot-v1",
+      "reference-v1",
+      "reference-v2",
+      "muse-panda-quality-reload-v6",
+      "workshop-robot-quality-reload-v3",
+      "fox-quality-reload-v5",
+      "lamp-quality-reload-v4",
+      "muse-panda-weft-reload-v1",
+      "humanoid-robot-weft-reload-v1",
+      "quality-media-verification-v1",
+      "quality-gallery-browser-v2",
+      "quality-visual-review-v1",
+      "weft-import-proof-v1",
+      "weft-model-visual-review-v1",
+      "reference-3d-unsupported-v1",
+      "muse-fidelity-limit-v1",
+      "quality-weft-profile-unsupported-v1",
+      "quality-release-v2",
+      "core-v1-source-snapshot",
+      "browser-gallery-release-v1",
+      "muse-panda-quality-media-v6-portable-v1",
+      "workshop-robot-quality-media-v3-portable-v1",
+      "fox-quality-media-v4-portable-v1",
+      "lamp-quality-media-v4-portable-v1",
+      "fox-muse-v1-portable-v1",
+      "lamp-muse-v2-portable-v1",
+      "robot-preview-v1-portable-v1",
+      "portable-media-proof-v1",
+      "weft-relocation-proof-v1",
+      "weft-relocation-native-v1"
+    ],
+    "partial_proof": [
+      "quality-attribute-proof-v1/final-organic",
+      "quality-attribute-proof-v1/final-mechanical",
+      "quality-attribute-proof-v1/SUMMARY.md"
+    ],
+    "reports": [
+      "quality-python-tests-v3.txt",
+      "quality-gallery-tests-v4.txt"
+    ],
+    "portable_media_sources": [
+      "muse-panda-quality-media-v6",
+      "workshop-robot-quality-media-v3",
+      "fox-quality-media-v4",
+      "lamp-quality-media-v4",
+      "fox-muse-v1",
+      "lamp-muse-v2",
+      "robot-preview-v1"
+    ],
+    "non_pack_evidence": [
+      "weft-relocation-browser-v1"
+    ]
+  },
+  "local_only": [
+    ".tools",
+    ".venv",
+    "browser/node_modules",
+    "scratch",
+    "all outputs not explicitly allowed by .gitignore, including full native media frames and UV-repair probe attempts"
+  ],
+  "verification": {
+    "python_tests": {
+      "passed": 144,
+      "elapsed_seconds": 3.161
+    },
+    "exact_recipe_checks": [
+      "panda",
+      "robot",
+      "fox",
+      "lamp"
+    ],
+    "portable_complete_packs_verified": 33,
+    "catalogs_verified": 2,
+    "legacy_consumer_imports_and_reloads": 2,
+    "browser": "outputs/weft-relocation-browser-v1/browser-test.json",
+    "native": "outputs/weft-relocation-native-v1/manifest.json",
+    "proof": "outputs/weft-relocation-proof-v1/manifest.json"
+  },
+  "limits_unchanged": [
+    "Muse fidelity parity unsupported",
+    "Detailed PBR editions exceed Weft profile",
+    "Real simulation alignment not verified",
+    "Seamless loops not certified"
+  ],
+  "cost": {
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "new_services_or_subscriptions": 0,
+    "git_transfer": "Existing private remote; no LFS, new paid storage, deployment or paid generation requested"
+  },
+  "publication_authorization": "User explicitly chose commit and push directly to main",
+  "source_cleanup": "Pending verified main push; deletion is separately authorized by the user"
+}

@@ -1,0 +1,116 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Fixed painted guide traces, not a simulated circuit or newly drawn marks.",
+      "child_bone": "workpiece",
+      "name": "circuit_workpiece",
+      "parent_bone": "hand_left",
+      "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest."
+    },
+    {
+      "authored_assumption": "Rigid toy assembly probe; no inferred finger control or physical tool interaction.",
+      "child_bone": "probe",
+      "name": "assembly_probe",
+      "parent_bone": "hand_right",
+      "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "workpiece",
+      "parent_bone": "hand_left",
+      "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        -0.26999998092651367,
+        0.019999980926513672,
+        0.09999999403953552
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "probe",
+      "parent_bone": "hand_right",
+      "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.04999998211860657,
+        0.0700000524520874,
+        0.06000000238418579
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "All geometry, hidden surfaces, mechanical details and material finishes are authored locally; no image-to-3D recovery or external assets are used.",
+    "The original blue/cream robot identity, all 17 bone names, parent relationships, major pivots, left-hand board and right-hand probe are retained.",
+    "Anatomical left is world +X, right is world -X, the rest-facing direction is -Y and units are meters with Z up before glTF export.",
+    "Closed body lofts and beveled panels are overlapping manufactured components, not one welded watertight outer surface.",
+    "The visible grip fingers and thumb are rigidly weighted to each hand bone; they are not independent finger joints or finger controls.",
+    "Board traces, pads and chip pins are static decorative geometry; probe motion and inspection are authored gestures, not contact-constrained manufacturing or a circuit simulation.",
+    "The four clips have matching authored endpoints as loop intent only. Rendered loop boundaries and state quality require downstream verification.",
+    "This general-profile revision uses real metallic-roughness PBR and richer geometry. It is not the matte diffuse weft-v1 deliverable and has not been validated against Weft.",
+    "Original bone rests are retained, while new shell surfaces, backside panels and small surface patterns are deliberate design assumptions.",
+    "Keyframe rotations and translations use model-rest axes; the backend converts them through bone rest bases."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "probe": "probe",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right",
+    "workpiece": "workpiece"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "foot_left",
+      "foot_right",
+      "forearm_left",
+      "forearm_right",
+      "hand_left",
+      "hand_right",
+      "head",
+      "probe",
+      "root",
+      "shin_left",
+      "shin_right",
+      "thigh_left",
+      "thigh_right",
+      "torso",
+      "upper_arm_left",
+      "upper_arm_right",
+      "workpiece"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "Not evaluated by this local-control contract; use separate Weft metadata and its frozen importer"
+}

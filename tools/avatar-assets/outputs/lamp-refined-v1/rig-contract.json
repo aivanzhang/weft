@@ -1,0 +1,93 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Part of the local toy vignette, not an external physical object.",
+      "child_bone": "work_pad",
+      "name": "work_pad",
+      "parent_bone": "root",
+      "placement": "Static paper pad in front-right of the lamp base."
+    },
+    {
+      "authored_assumption": "A rigid rotary drafting-tool attachment. Fixed guide geometry is present in every state; no new marks, simulated contact or illumination are claimed.",
+      "child_bone": "trace_stylus",
+      "name": "tracing_stylus",
+      "parent_bone": "trace_rotor",
+      "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "work_pad",
+      "parent_bone": "root",
+      "placement": "Static paper pad in front-right of the lamp base.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.44999998807907104,
+        0.02000001072883606,
+        0.44999998807907104
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "trace_stylus",
+      "parent_bone": "trace_rotor",
+      "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.17000001668930054,
+        0,
+        0
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "Original full 3D design assembled from smooth primitives; no external reference.",
+    "All joints are authored mechanical pivots with rigid weights, not a simulated linkage constraint system.",
+    "The warm bulb is opaque colored geometry, not volumetric light or a luminous beam.",
+    "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+    "Revision v2 adds a base-supported rotary stylus with explicit joint motion over a fixed guide. The stylus is lowered only during making_something; no new marks, physical contact simulation or beam illumination are produced."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "lower_arm": "lower_arm",
+    "root": "root",
+    "shade": "shade",
+    "trace_rotor": "trace_rotor",
+    "trace_stylus": "trace_stylus",
+    "turntable": "turntable",
+    "upper_arm": "upper_arm",
+    "work_pad": "work_pad"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "lower_arm",
+      "root",
+      "shade",
+      "trace_rotor",
+      "trace_stylus",
+      "turntable",
+      "upper_arm",
+      "work_pad"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "unverified: authoritative consumer joint schema not supplied"
+}

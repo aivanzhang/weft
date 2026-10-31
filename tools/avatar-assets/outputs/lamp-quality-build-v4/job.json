@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/sources/blender_build.py",
+    "--",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4",
+    "512",
+    "16"
+  ],
+  "elapsed_seconds": 34.086,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 20460690,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "wall_seconds": 600
+  },
+  "pid": 72444,
+  "sampled_peak_rss_bytes": 679608320,
+  "sampling_interval_seconds": 0.25
+}

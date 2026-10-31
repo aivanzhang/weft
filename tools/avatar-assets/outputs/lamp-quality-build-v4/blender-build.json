@@ -1,0 +1,963 @@
+{
+  "blender": "4.5.13 LTS",
+  "vertices": 23031,
+  "polygons": 44754,
+  "scene_schema_version": 2,
+  "exported_vertices": 37762,
+  "parts": [
+    {
+      "name": "base_body",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 384,
+      "surface_faces": 338,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_upper_ring",
+      "shape": "torus",
+      "control_vertices": 0,
+      "surface_vertices": 960,
+      "surface_faces": 960,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "turntable",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upright_stem",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_display",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_eye_left",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 610,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_eye_right",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 610,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "work_pad_cover",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "work_pad_paper",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_blueprint_ring",
+      "shape": "torus",
+      "control_vertices": 0,
+      "surface_vertices": 640,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_mount",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 610,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_support",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_hub",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 610,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_radial_arm",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_pen_holder",
+      "shape": "torus",
+      "control_vertices": 0,
+      "surface_vertices": 640,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_pen_shaft",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_pen_tip",
+      "shape": "cone",
+      "control_vertices": 0,
+      "surface_vertices": 33,
+      "surface_faces": 33,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "trace_pen_cap",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 610,
+      "surface_faces": 640,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_base_plinth",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 512,
+      "surface_faces": 450,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_lower_trim",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 512,
+      "surface_faces": 450,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_upper_step",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 512,
+      "surface_faces": 450,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "turntable_bearing",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 384,
+      "surface_faces": 338,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_foot_0",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "underside_screw_0",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 48,
+      "surface_faces": 26,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_foot_1",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "underside_screw_1",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 48,
+      "surface_faces": 26,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_foot_2",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "underside_screw_2",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 48,
+      "surface_faces": 26,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_foot_3",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "underside_screw_3",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 48,
+      "surface_faces": 26,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_enamel_rail_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_rail_inlay_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_enamel_rail_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_rail_inlay_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_cord",
+      "shape": "mesh",
+      "control_vertices": 110,
+      "surface_vertices": 110,
+      "surface_faces": 104,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "lower_coil_spring",
+      "shape": "mesh",
+      "control_vertices": 681,
+      "surface_vertices": 681,
+      "surface_faces": 588,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_enamel_rail_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_rail_inlay_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_enamel_rail_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_rail_inlay_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_cord",
+      "shape": "mesh",
+      "control_vertices": 110,
+      "surface_vertices": 110,
+      "surface_faces": 104,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_coil_spring",
+      "shape": "mesh",
+      "control_vertices": 681,
+      "surface_vertices": 681,
+      "surface_faces": 588,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_hinge_barrel",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_hinge_washer_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_axle_cap_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_screw_slot_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_hinge_washer_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_axle_cap_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "base_screw_slot_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_hinge_barrel",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_hinge_washer_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_axle_cap_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_screw_slot_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_hinge_washer_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_axle_cap_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_screw_slot_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_hinge_barrel",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_hinge_washer_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_axle_cap_front",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_screw_slot_front",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_hinge_washer_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 320,
+      "surface_faces": 282,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_axle_cap_back",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_screw_slot_back",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 56,
+      "surface_faces": 54,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "enamel_bell_shade",
+      "shape": "mesh",
+      "control_vertices": 343,
+      "surface_vertices": 343,
+      "surface_faces": 288,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "interior_reflector",
+      "shape": "mesh",
+      "control_vertices": 343,
+      "surface_vertices": 343,
+      "surface_faces": 288,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_lip",
+      "shape": "torus",
+      "control_vertices": 0,
+      "surface_vertices": 576,
+      "surface_faces": 576,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_top_cap",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 482,
+      "surface_faces": 512,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "bulb_socket",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "warm_bulb",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 1082,
+      "surface_faces": 1120,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_0",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_1",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_2",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_3",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_4",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_5",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_6",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shade_vent_7",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 178,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_brow_left",
+      "shape": "mesh",
+      "control_vertices": 101,
+      "surface_vertices": 101,
+      "surface_faces": 96,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_brow_right",
+      "shape": "mesh",
+      "control_vertices": 101,
+      "surface_vertices": 101,
+      "surface_faces": 96,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_smile",
+      "shape": "mesh",
+      "control_vertices": 119,
+      "surface_vertices": 119,
+      "surface_faces": 112,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "power_button",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "power_button_center",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 48,
+      "surface_faces": 26,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_power_lead",
+      "shape": "mesh",
+      "control_vertices": 57,
+      "surface_vertices": 57,
+      "surface_faces": 60,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "cord_grommet",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 362,
+      "surface_faces": 384,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_rule_0",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 8,
+      "surface_faces": 6,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_rule_1",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 8,
+      "surface_faces": 6,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_rule_2",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 8,
+      "surface_faces": 6,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_rule_3",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 8,
+      "surface_faces": 6,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pad_clip",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    }
+  ],
+  "mixed_weight_vertices": 0,
+  "fur_strands": 0,
+  "textures": [
+    {
+      "material": "brass",
+      "kind": "basecolor",
+      "path": "textures/brass-basecolor.png",
+      "sha256": "5de34302d40ff967b65b571398df16eefcc9e0ecde749ace8caec629aab4702f",
+      "bytes": 167544,
+      "resolution": 512,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.16,
+      "seed": 71
+    },
+    {
+      "material": "brass",
+      "kind": "normal",
+      "path": "textures/brass-normal.png",
+      "sha256": "881647479ae236a7f419e3ea828c478bde8bc1ac778eb1e94c64462faddc8a45",
+      "bytes": 413443,
+      "resolution": 512,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.16,
+      "seed": 71
+    }
+  ],
+  "embedded_images": 2,
+  "embedded_normal_maps": 1,
+  "control_vertices": 2646,
+  "uv_repair": {
+    "degenerate_faces_removed": 240,
+    "uv_degenerate_faces_reprojected": 0,
+    "ambiguous_tangent_faces_reprojected": 64,
+    "tangent_repair_passes": 1,
+    "minimum_absolute_uv_determinant": 1.3400772562732755e-06,
+    "minimum_geometric_edge_m": 1e-06,
+    "minimum_relative_triangle_area": 1e-06,
+    "method": "Per-loop geometric-plane UV projection for collapsed UVs or cancelling UV fans; other UV seams unchanged. Tangents are computed by Blender MikkTSpace, not replaced."
+  },
+  "color_management": "AgX",
+  "bones": [
+    "root",
+    "turntable",
+    "lower_arm",
+    "upper_arm",
+    "shade",
+    "work_pad",
+    "trace_rotor",
+    "trace_stylus"
+  ],
+  "actions": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "render_engine": "CYCLES",
+  "device": "CPU",
+  "samples": 16,
+  "render_resolution": 512,
+  "preview_only": true,
+  "previews_rendered": true
+}

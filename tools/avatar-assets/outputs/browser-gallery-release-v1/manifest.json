@@ -1,0 +1,233 @@
+{
+  "artifacts": [
+    {
+      "bytes": 11788,
+      "path": "catalog.json",
+      "sha256": "4f9b40d626b1cd0d54d366c48cac9d219fac1c8ee0247ad3803858d3988fb3dc"
+    },
+    {
+      "bytes": 10331,
+      "path": "sources/README.md",
+      "sha256": "fdcf7834f7491f3dedfd8d8ad3739e55bd33243e4702a40cfc433e9616b86f34"
+    },
+    {
+      "bytes": 15463,
+      "path": "sources/TODO.md",
+      "sha256": "80a8a499ffb42a81068d8b00ee4c4a39778770b9b59d0bce5225ed08c48f92f8"
+    },
+    {
+      "bytes": 9467,
+      "path": "sources/avatar_assets/cli.py",
+      "sha256": "eaed09d200735a0cf3668f7d05e2be5f4384ab8d96204e4b6d6c4b4a79334a4e"
+    },
+    {
+      "bytes": 24730,
+      "path": "sources/avatar_assets/gallery.py",
+      "sha256": "166fa60f1c57eeacc4fcdb1a7ac4a56e1712c8b503efcbf985eb1cc3c8729fd4"
+    },
+    {
+      "bytes": 14429,
+      "path": "sources/browser/app.js",
+      "sha256": "8db1f434f91066002d9350429af5a204ee823e87bf371f10e022cd702eaf1216"
+    },
+    {
+      "bytes": 375,
+      "path": "sources/browser/favicon.svg",
+      "sha256": "0ff4d8c10809760fe155b11f54bfba6bb101e58fb1b58c61ceb9463cb0bd6a88"
+    },
+    {
+      "bytes": 1566,
+      "path": "sources/browser/gallery.json",
+      "sha256": "c65becb5f1688459afa168405389f85aeeef98de8287d64800e2d713bea5316e"
+    },
+    {
+      "bytes": 5056,
+      "path": "sources/browser/index.html",
+      "sha256": "e19bcdc5262abd2cfffb4957c8658a3eb35879978af2e61f1887192998451fb0"
+    },
+    {
+      "bytes": 5647,
+      "path": "sources/browser/package-lock.json",
+      "sha256": "dce4356d38b4b095aefb6513242fb5151d8f6105a265ac37bc4fd246ba76af37"
+    },
+    {
+      "bytes": 255,
+      "path": "sources/browser/package.json",
+      "sha256": "1de368503b47904eec8efdcfb222ad4ed4d868032bbc5cffbe768064e7ae9f1a"
+    },
+    {
+      "bytes": 9964,
+      "path": "sources/browser/styles.css",
+      "sha256": "3637bfede050ab8412c928583cc55e83d4280e4153d58233473eac0c5cf08861"
+    },
+    {
+      "bytes": 12627,
+      "path": "sources/browser/tests/gallery.mjs",
+      "sha256": "2fda5c508e1851971db78f9a80e6fc7710f52cdb28ad3b682cbb75321ca3b4b5"
+    },
+    {
+      "bytes": 4894,
+      "path": "sources/docs/browser-gallery.md",
+      "sha256": "53e4c3f451fe3e07e8ea9b2063c32290924278e72e57378e8602e00e2bfbb268"
+    },
+    {
+      "bytes": 6184,
+      "path": "sources/skills/avatar-asset-workflow/SKILL.md",
+      "sha256": "4c90595849b257da154d3f1f52e0333ecced11f8cc8d7cd0fc4a835a31ae0719"
+    },
+    {
+      "bytes": 16770,
+      "path": "sources/tests/test_gallery.py",
+      "sha256": "dcda322e0cdd2f79b06c3586659b5635496b41501b5e80a7be06032457552bac"
+    },
+    {
+      "bytes": 1545,
+      "path": "visual-review.json",
+      "sha256": "707f2483fbfb39d08be71b5b2c70e79c5591b75c49164cb844966cc9894527ea"
+    }
+  ],
+  "cost": {
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_service_cost_usd": 0
+  },
+  "dependencies": [
+    {
+      "bytes": 5647,
+      "path": "/Users/ivan/kintsugi/avatar-assets/browser/package-lock.json",
+      "sha256": "dce4356d38b4b095aefb6513242fb5151d8f6105a265ac37bc4fd246ba76af37"
+    },
+    {
+      "bytes": 1068903,
+      "path": "/Users/ivan/kintsugi/avatar-assets/browser/node_modules/@google/model-viewer/dist/model-viewer.min.js",
+      "sha256": "283b0672384614b4847636c306fc93fe4b1fcadc76d668b4e47f0ca76bcf033b"
+    }
+  ],
+  "evidence": [
+    {
+      "bytes": 13621,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-python-tests-v2.txt",
+      "sha256": "8cb490b339285c4744a729713c77387402803be171c36108f24a8f1978b776f5"
+    },
+    {
+      "bytes": 1443,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-browser-v6/browser-test.json",
+      "sha256": "cba21851023c24a83195c96d2b56fb1b44091d0cabd6defcd3053c81fb527a0f"
+    },
+    {
+      "bytes": 4377,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/core-v1-source-snapshot/manifest.json",
+      "sha256": "916796aabb9ef585c4630285f38c90fc02585e1965a18a4567978492c84256c8"
+    }
+  ],
+  "failures_preserved": [
+    "outputs/gallery-browser-v1 (sandbox bind denied)",
+    "outputs/gallery-browser-v2 (scoped vendor route rejected; fixed)",
+    "outputs/gallery-browser-v3 (camera test assumption and embedded WebAssembly CSP; fixed)"
+  ],
+  "kind": "local_browser_gallery_release",
+  "later_passes": [
+    "outputs/gallery-browser-v4",
+    "outputs/gallery-browser-v5",
+    "outputs/gallery-browser-v6"
+  ],
+  "limits": [
+    "Headless Chrome software-WebGL measurements are host-specific snapshots, not sustained/total browser-resource guarantees.",
+    "Default catalog contains accepted examples, not all historical rejected attempts.",
+    "Preview animation is not Weft physics or alignment verification."
+  ],
+  "ownership": "This workspace only; no Weft changes, physics/render/replay duplication, publication, remote Git or uploads",
+  "recorded_at": "2026-10-30 16:23:09 PDT",
+  "schema_version": 1,
+  "server_left_running": false,
+  "source_archive_unchanged": true,
+  "start_command": ".venv/bin/python -m avatar_assets gallery",
+  "status": "verified",
+  "tests": {
+    "browser": "156.0.8078.76",
+    "browser_grouped_checks": 14,
+    "external_page_requests": [],
+    "idle_snapshot": {
+      "js_heap_bytes": 8339272,
+      "models_in_dom": 1,
+      "renderer_task_seconds": 0.025573000000000002,
+      "seconds": 1
+    },
+    "initial_ready_ms": 4069,
+    "python_passed": 103,
+    "python_seconds": 1.692,
+    "scope": "Four real GLBs/all16 native clips, existing videos, static fallback, mobile viewport, reduced motion, camera and failure recovery; injected async race cases labeled separately",
+    "warm_asset_loads_ms": [
+      {
+        "asset": "robot",
+        "ms": 67
+      },
+      {
+        "asset": "panda",
+        "ms": 115
+      },
+      {
+        "asset": "fox",
+        "ms": 126
+      },
+      {
+        "asset": "lamp",
+        "ms": 121
+      }
+    ]
+  },
+  "thread": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+  "unchanged_original_bundles": [
+    {
+      "bytes": 20447,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2/manifest.json",
+      "sha256": "5af39de8d8e41b79fec50283df6744fe22d1527d51cded5b3ba21f241a77add8"
+    },
+    {
+      "bytes": 19843,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/manifest.json",
+      "sha256": "21a378b8bd41c9b650a12400708d03da31299cf722e3caadae0f36e28a007707"
+    },
+    {
+      "bytes": 137591,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/manifest.json",
+      "sha256": "e75ab7caea65eac79349aeb684254b31a30910d122b7de172d7780c1ed1b32ff"
+    },
+    {
+      "bytes": 137666,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/manifest.json",
+      "sha256": "a76550a24f059306942ad6f8c77513ec9c4b4eab74daa5e7007e7ff7e1b65120"
+    },
+    {
+      "bytes": 23237,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/manifest.json",
+      "sha256": "730d59564bcdd9478ceba83689a42ade141c0f04f8bb1b43e69e61411f73fda2"
+    },
+    {
+      "bytes": 21204,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/manifest.json",
+      "sha256": "c3928969499c8d9297f7a6f8714a4f0b2fc3278c1bb17c01fe995427ec6f6e53"
+    },
+    {
+      "bytes": 1345,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-muse-panda-v1/manifest.json",
+      "sha256": "67f9f9159e85259a71e6945c8feafb17aede74545903ef321b72535dda61e046"
+    },
+    {
+      "bytes": 1347,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-humanoid-robot-v1/manifest.json",
+      "sha256": "8ca07c02557c11418380c6fc7f6335edfe70aaf8f56d8da71b15a962e541f039"
+    },
+    {
+      "bytes": 31987,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/manifest.json",
+      "sha256": "2dc8690ef53602d998bb86011438e60681dd695d3dc4b0266d5219324caa1d44"
+    },
+    {
+      "bytes": 4000,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/manifest.json",
+      "sha256": "c3bf537bdee5a9c9a6287a28b7ce871bdf9063539fd23d0eea08ae0ec52d6054"
+    }
+  ],
+  "url": "http://127.0.0.1:8765/"
+}

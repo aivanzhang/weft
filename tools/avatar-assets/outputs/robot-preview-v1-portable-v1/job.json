@@ -1,0 +1,35 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/sources/blender_render.py",
+    "--",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/source.blend",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1",
+    "256",
+    "512",
+    "1",
+    "4",
+    "false"
+  ],
+  "elapsed_seconds": 17.604,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 9061574,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "wall_seconds": 1200
+  },
+  "pid": 57016,
+  "sampled_peak_rss_bytes": 363446272,
+  "sampling_interval_seconds": 0.25
+}

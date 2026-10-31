@@ -1,0 +1,46 @@
+{
+  "evidence": [
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/contact-sheets/idle.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/contact-sheets/making_something.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/contact-sheets/milestone_level_up.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/contact-sheets/working.png",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/portrait.png"
+  ],
+  "fallback_checks": [
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "2db613952ec2cf44df404ac66c8025f01739436d404cf0f21b9166dd1663ff07",
+      "state": "idle"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "721117a1b4856787c14a5d4436e769d25dfa46f427150d6f9b1d0f858908c84f",
+      "state": "making_something"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "2821e758732b276efa0c0e63ccbde9a4f754ad57b85510c550b8a6182ae74bfe",
+      "state": "milestone_level_up"
+    },
+    {
+      "has_transparency": false,
+      "matches_first_render": true,
+      "sha256": "25c8c396046d12b00edffc230fb60ea4913c284e1503182b60e468cfe8c79960",
+      "state": "working"
+    }
+  ],
+  "limits": "Visual review sampled each state; no claim of every-frame manual inspection or target-app import.",
+  "manifest_sha256": "a76550a24f059306942ad6f8c77513ec9c4b4eab74daa5e7007e7ff7e1b65120",
+  "observations": [
+    "Burgundy-and-brass lamp geometry, hinges, pad and tracing stylus remain consistent across states.",
+    "Idle looks around; making_something traces a fixed guide with the stylus; milestone straightens and nods; working sweeps the shade while the stylus is parked.",
+    "No framing cutoff in all nine decoded samples per state. The fixed drawing guide is not newly fabricated geometry.",
+    "Opaque output. Reduced-motion uses verified static PNGs. No seamless loop or velocity-continuity claim."
+  ],
+  "reviewer": "Local authoring agent; sampled contact-sheet visual review and decoded-frame measurements",
+  "schema_version": 1,
+  "verdict": "accepted"
+}

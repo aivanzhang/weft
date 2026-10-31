@@ -1,0 +1,3140 @@
+{
+  "non_pack_evidence_folders": [
+    "quality-gallery-browser-v2",
+    "weft-import-proof-v1",
+    "weft-model-visual-review-v1",
+    "reference-3d-unsupported-v1"
+  ],
+  "verified": [
+    {
+      "manifest_sha256": "c2f983a91fbf6d48e565692f3610549e05aae98806b3a9519f3aa33a9e8ebdee",
+      "pack": "muse-panda-quality-build-v6",
+      "result": {
+        "artifact_hashes_verified": 61,
+        "render_attributes": {
+          "checks": [
+            "finite normals/UV0/tangents",
+            "matching counts",
+            "unit normals/tangents",
+            "orthogonal normal/tangent frames",
+            "tangent handedness",
+            "normal-map UV0 binding"
+          ],
+          "decoded_scalar_values": 773568,
+          "limits": {
+            "decoded_surface_values": 900000,
+            "normal_tangent_squared_length_tolerance": 0.001,
+            "orthogonality_tolerance": 0.002,
+            "vertices": 100000
+          },
+          "primitives": [
+            {
+              "material": "charcoal",
+              "normal_mapped": true,
+              "normal_squared_length_error": 2.3205541044291067e-07,
+              "normal_tangent_dot_error": 0.00013797213660460272,
+              "tangent_squared_length_error": 0.00014351003292034648,
+              "vertices": 34065
+            },
+            {
+              "material": "ivory",
+              "normal_mapped": true,
+              "normal_squared_length_error": 2.1234806379943905e-07,
+              "normal_tangent_dot_error": 0.0007725665225564171,
+              "tangent_squared_length_error": 0.00015793712266898297,
+              "vertices": 34465
+            },
+            {
+              "material": "ear_inner",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.4688746308166856e-07,
+              "normal_tangent_dot_error": 7.99150982685598e-05,
+              "tangent_squared_length_error": 9.8053002639098e-05,
+              "vertices": 846
+            },
+            {
+              "material": "sclera",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.765616375326573e-07,
+              "normal_tangent_dot_error": 9.861406180311505e-05,
+              "tangent_squared_length_error": 0.00012440034561223,
+              "vertices": 2228
+            },
+            {
+              "material": "iris",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.4823127814089787e-07,
+              "normal_tangent_dot_error": 0.00010803235921144627,
+              "tangent_squared_length_error": 0.00011521792965307753,
+              "vertices": 1382
+            },
+            {
+              "material": "pupil",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8067260754150993e-07,
+              "normal_tangent_dot_error": 0.00011167869774312764,
+              "tangent_squared_length_error": 0.00012701514572199812,
+              "vertices": 2228
+            },
+            {
+              "material": "nose",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9581743293528575e-07,
+              "normal_tangent_dot_error": 0.0005659979455322484,
+              "tangent_squared_length_error": 0.00013720919679727217,
+              "vertices": 1341
+            },
+            {
+              "material": "dragon_green",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.9661537198345513e-07,
+              "normal_tangent_dot_error": 0.0009061203085263259,
+              "tangent_squared_length_error": 0.00013959374206606867,
+              "vertices": 5997
+            },
+            {
+              "material": "dragon_belly",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.967496601196217e-07,
+              "normal_tangent_dot_error": 0.00010798020184996093,
+              "tangent_squared_length_error": 0.0001104762870600684,
+              "vertices": 1659
+            },
+            {
+              "material": "dragon_horn",
+              "normal_mapped": false,
+              "normal_squared_length_error": 2.162006618178225e-07,
+              "normal_tangent_dot_error": 0.00011079688151660605,
+              "tangent_squared_length_error": 0.00012473659735601217,
+              "vertices": 248
+            },
+            {
+              "material": "horn",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9582932964112842e-07,
+              "normal_tangent_dot_error": 0.000732905036621212,
+              "tangent_squared_length_error": 0.00011149677133559521,
+              "vertices": 326
+            },
+            {
+              "material": "wing",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.4760844480044e-07,
+              "normal_tangent_dot_error": 0.00010001514046464877,
+              "tangent_squared_length_error": 0.00013397894669520127,
+              "vertices": 144
+            },
+            {
+              "material": "gold",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8437120719028144e-07,
+              "normal_tangent_dot_error": 7.072173098521262e-05,
+              "tangent_squared_length_error": 0.00010350911947298869,
+              "vertices": 1023
+            }
+          ],
+          "schema_version": 1,
+          "sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+          "status": "validated_render_attributes",
+          "vertices": 85952
+        },
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "dragon_root",
+              "parent_bone": "right_shoulder",
+              "placement": "Anatomical right/viewer-left shoulder; dragon root [-0.57,-0.045,1.40] meters in author Z-up space.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                -0.13999998569488525,
+                0.07999992370605469,
+                0.04500000178813934
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "craft_orb",
+              "parent_bone": "hand_right",
+              "placement": "Small golden orb at the right paw; follows the right hand through actual skeletal transforms.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0,
+                0.029999971389770508,
+                0.09000000357627869
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "The supplied opaque 2D portrait supplies appearance only; back, underside, rig, topology, UVs, weights and fur placement are newly authored.",
+            "Fur is a bounded short triangular-blade groom plus embedded surface textures, not a physically simulated or film-density hair system.",
+            "Arms and legs have continuous meshes with blended two-bone skinning. Torso, head, paws and facial components remain separate authored surfaces.",
+            "Eyes, eyelids, nose, mouth and paw digits are modeled geometry, not independently actuated facial muscles or fingers.",
+            "The green dragon stays attached to the torso-side anatomical-right shoulder helper; head, tail and wings have local authored controls only.",
+            "The golden orb is an authored action prop, not part of the reference portrait. Crafting gestures do not change its geometry or simulate manufacture.",
+            "General PBR edition: embedded normal maps, short fur and glossy surfaces have not been reduced to or approved by the Weft diffuse-only profile.",
+            "All native glTF transforms are authored meters/Y-up/+Z-front after Blender export; scale is not calibrated to the live simulator.",
+            "The neutral pose is arms resting beside the rounded body, feet flat, face forward; it is not an observed simulator pose."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "craft_orb": "craft_orb",
+            "dragon_head": "dragon_head",
+            "dragon_root": "dragon_root",
+            "dragon_tail": "dragon_tail",
+            "dragon_wing_inner": "dragon_wing_inner",
+            "dragon_wing_outer": "dragon_wing_outer",
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "right_shoulder": "right_shoulder",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right"
+          },
+          "bones": [
+            "head",
+            "craft_orb",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "dragon_head",
+            "dragon_tail",
+            "dragon_wing_outer",
+            "dragon_wing_inner",
+            "dragon_root",
+            "right_shoulder",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "torso",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 13,
+          "mesh_vertices": 85952,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.04450872476149497,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.5389261301989805,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.1719147512137227,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.7244451646468762,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 121
+          },
+          "primitive_count": 13,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 21,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "f12374ef85aaa223db578dad09cb05b49c030e7df2faf818d19998f8b3e0f7da",
+      "pack": "workshop-robot-quality-build-v3",
+      "result": {
+        "artifact_hashes_verified": 52,
+        "render_attributes": {
+          "checks": [
+            "finite normals/UV0/tangents",
+            "matching counts",
+            "unit normals/tangents",
+            "orthogonal normal/tangent frames",
+            "tangent handedness",
+            "normal-map UV0 binding"
+          ],
+          "decoded_scalar_values": 428796,
+          "limits": {
+            "decoded_surface_values": 900000,
+            "normal_tangent_squared_length_tolerance": 0.001,
+            "orthogonality_tolerance": 0.002,
+            "vertices": 100000
+          },
+          "primitives": [
+            {
+              "material": "blue",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9806665041421923e-07,
+              "normal_tangent_dot_error": 0.0001262729517934602,
+              "tangent_squared_length_error": 0.00013845032026305049,
+              "vertices": 10051
+            },
+            {
+              "material": "graphite",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.801148787894391e-07,
+              "normal_tangent_dot_error": 0.00013945349089183878,
+              "tangent_squared_length_error": 0.00014849681966921935,
+              "vertices": 12535
+            },
+            {
+              "material": "cream",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.951345929285253e-07,
+              "normal_tangent_dot_error": 0.0001296027336219474,
+              "tangent_squared_length_error": 0.00013771544603358166,
+              "vertices": 9224
+            },
+            {
+              "material": "metal",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.9197447187480066e-07,
+              "normal_tangent_dot_error": 0.0001316160304836167,
+              "tangent_squared_length_error": 0.00014087564642029093,
+              "vertices": 7990
+            },
+            {
+              "material": "visor",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.7771409699385288e-07,
+              "normal_tangent_dot_error": 0.00013021971474280747,
+              "tangent_squared_length_error": 0.00012602830863883696,
+              "vertices": 916
+            },
+            {
+              "material": "brass",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.9678812535062207e-07,
+              "normal_tangent_dot_error": 0.00013835826937125262,
+              "tangent_squared_length_error": 0.00013016641563878828,
+              "vertices": 3911
+            },
+            {
+              "material": "eye",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9678812535062207e-07,
+              "normal_tangent_dot_error": 0.00013793404702866496,
+              "tangent_squared_length_error": 0.00013448177794428418,
+              "vertices": 1306
+            },
+            {
+              "material": "blue_edge",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.909889804085907e-07,
+              "normal_tangent_dot_error": 0.0001289576480860699,
+              "tangent_squared_length_error": 0.0001230503353313317,
+              "vertices": 1022
+            },
+            {
+              "material": "circuit",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.5601997538361445e-07,
+              "normal_tangent_dot_error": 0.00012444656188988212,
+              "tangent_squared_length_error": 0.00011837386905622083,
+              "vertices": 549
+            },
+            {
+              "material": "copper",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.084314007471221e-07,
+              "normal_tangent_dot_error": 0.00013933427920065355,
+              "tangent_squared_length_error": 0.00012096216132118087,
+              "vertices": 140
+            }
+          ],
+          "schema_version": 1,
+          "sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+          "status": "validated_render_attributes",
+          "vertices": 47644
+        },
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "workpiece",
+              "parent_bone": "hand_left",
+              "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                -0.26999998092651367,
+                0.019999980926513672,
+                0.09999999403953552
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "probe",
+              "parent_bone": "hand_right",
+              "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.04999998211860657,
+                0.0700000524520874,
+                0.06000000238418579
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "All geometry, hidden surfaces, mechanical details and material finishes are authored locally; no image-to-3D recovery or external assets are used.",
+            "The original blue/cream robot identity, all 17 bone names, parent relationships, major pivots, left-hand board and right-hand probe are retained.",
+            "Anatomical left is world +X, right is world -X, the rest-facing direction is -Y and units are meters with Z up before glTF export.",
+            "Closed body lofts and beveled panels are overlapping manufactured components, not one welded watertight outer surface.",
+            "The visible grip fingers and thumb are rigidly weighted to each hand bone; they are not independent finger joints or finger controls.",
+            "Board traces, pads and chip pins are static decorative geometry; probe motion and inspection are authored gestures, not contact-constrained manufacturing or a circuit simulation.",
+            "The four clips have matching authored endpoints as loop intent only. Rendered loop boundaries and state quality require downstream verification.",
+            "This general-profile revision uses real metallic-roughness PBR and richer geometry. It is not the matte diffuse weft-v1 deliverable and has not been validated against Weft.",
+            "Original bone rests are retained, while new shell surfaces, backside panels and small surface patterns are deliberate design assumptions.",
+            "Keyframe rotations and translations use model-rest axes; the backend converts them through bone rest bases."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "probe": "probe",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right",
+            "workpiece": "workpiece"
+          },
+          "bones": [
+            "head",
+            "probe",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "workpiece",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "torso",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 10,
+          "mesh_vertices": 47644,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.026073865416640255,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.0787583666720354,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.9306627990247136,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.0655040927236883,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 118
+          },
+          "primitive_count": 10,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 16,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "5f794fe2170584df15e571a57c37dd590ec400bae8f9a9cc809d137543dc1a36",
+      "pack": "fox-quality-build-v4",
+      "result": {
+        "artifact_hashes_verified": 56,
+        "render_attributes": {
+          "checks": [
+            "finite normals/UV0/tangents",
+            "matching counts",
+            "unit normals/tangents",
+            "orthogonal normal/tangent frames",
+            "tangent handedness",
+            "normal-map UV0 binding"
+          ],
+          "decoded_scalar_values": 616662,
+          "limits": {
+            "decoded_surface_values": 900000,
+            "normal_tangent_squared_length_tolerance": 0.001,
+            "orthogonality_tolerance": 0.002,
+            "vertices": 100000
+          },
+          "primitives": [
+            {
+              "material": "coat",
+              "normal_mapped": true,
+              "normal_squared_length_error": 2.0518640142519473e-07,
+              "normal_tangent_dot_error": 0.0003181611995015654,
+              "tangent_squared_length_error": 0.00015659801807288432,
+              "vertices": 32999
+            },
+            {
+              "material": "cream",
+              "normal_mapped": true,
+              "normal_squared_length_error": 2.0811492906780416e-07,
+              "normal_tangent_dot_error": 0.00021994152109519214,
+              "tangent_squared_length_error": 0.00014163966596569821,
+              "vertices": 12456
+            },
+            {
+              "material": "nose",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.811164134224441e-07,
+              "normal_tangent_dot_error": 0.0001908715621361523,
+              "tangent_squared_length_error": 0.0001320956763182224,
+              "vertices": 2212
+            },
+            {
+              "material": "eye_white",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8649664212944117e-07,
+              "normal_tangent_dot_error": 0.00010971835367400845,
+              "tangent_squared_length_error": 0.0001235975477991147,
+              "vertices": 2812
+            },
+            {
+              "material": "iris",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.7156809861695876e-07,
+              "normal_tangent_dot_error": 9.794229744825543e-05,
+              "tangent_squared_length_error": 0.00010091643434506636,
+              "vertices": 1382
+            },
+            {
+              "material": "pupil",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.6028638794018946e-07,
+              "normal_tangent_dot_error": 8.674173296085996e-05,
+              "tangent_squared_length_error": 0.00011423708917457365,
+              "vertices": 1382
+            },
+            {
+              "material": "ear_inner",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.849501138906362e-07,
+              "normal_tangent_dot_error": 0.00011345099571191675,
+              "tangent_squared_length_error": 0.00012029409566949312,
+              "vertices": 256
+            },
+            {
+              "material": "dark",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.9531507522430047e-07,
+              "normal_tangent_dot_error": 0.0001321965019966953,
+              "tangent_squared_length_error": 0.00014213520824313264,
+              "vertices": 10374
+            },
+            {
+              "material": "scarf",
+              "normal_mapped": true,
+              "normal_squared_length_error": 1.904166051502898e-07,
+              "normal_tangent_dot_error": 0.00011350295116940856,
+              "tangent_squared_length_error": 0.00012424333763139117,
+              "vertices": 1433
+            },
+            {
+              "material": "scarf_seam",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.7305606547779462e-07,
+              "normal_tangent_dot_error": 0.0009307761208937615,
+              "tangent_squared_length_error": 0.00011574169155181835,
+              "vertices": 523
+            },
+            {
+              "material": "book",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8593948780676328e-07,
+              "normal_tangent_dot_error": 0.00011899470285403613,
+              "tangent_squared_length_error": 0.00012221036649728845,
+              "vertices": 864
+            },
+            {
+              "material": "paper",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8031609627655598e-07,
+              "normal_tangent_dot_error": 0.00011321144872233901,
+              "tangent_squared_length_error": 0.00011673628976804906,
+              "vertices": 551
+            },
+            {
+              "material": "page_edge",
+              "normal_mapped": false,
+              "normal_squared_length_error": 9.664481481763687e-08,
+              "normal_tangent_dot_error": 3.867094932674675e-05,
+              "tangent_squared_length_error": 2.00753763246464e-05,
+              "vertices": 168
+            },
+            {
+              "material": "gold",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9366606207604775e-07,
+              "normal_tangent_dot_error": 0.00012913716095031003,
+              "tangent_squared_length_error": 0.00012958732085821545,
+              "vertices": 1024
+            },
+            {
+              "material": "pencil_wood",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.7749479686024472e-07,
+              "normal_tangent_dot_error": 7.901545080946093e-05,
+              "tangent_squared_length_error": 0.00011499985085960951,
+              "vertices": 49
+            },
+            {
+              "material": "graphite",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.733051364638527e-07,
+              "normal_tangent_dot_error": 8.793135713469624e-05,
+              "tangent_squared_length_error": 0.00013263075465985708,
+              "vertices": 33
+            }
+          ],
+          "schema_version": 1,
+          "sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+          "status": "validated_render_attributes",
+          "vertices": 68518
+        },
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "sketchbook",
+              "parent_bone": "hand_left",
+              "placement": "Held against left paw, visible in front of chest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.12000000476837158,
+                -0.059999942779541016,
+                0.09000000357627869
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "pencil",
+              "parent_bone": "hand_right",
+              "placement": "Held diagonally in right paw toward sketchbook.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.009999990463256836,
+                0.060000061988830566,
+                0.04999998211860657
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "This is a new authored 3D interpretation of the existing original fox design, not recovered geometry or a neural text-to-3D result.",
+            "Complete hidden surfaces and twenty-bone rest layout are authored; the original fox left/right bone names are preserved as identifiers.",
+            "The continuous arm and leg lofts use explicit multi-bone skin blends around elbows and knees; they are not muscle or cloth simulations.",
+            "The shoulder roots are rounded and buried within the torso, with torso/arm weight blending; skin is not a single watertight anatomical retopology.",
+            "Short fur is bounded opaque tapered triangle geometry attached with interpolated skin weights, plus embedded procedural albedo/normal textures. It is not a strand groom or dynamically simulated fur.",
+            "The scarf, eyelids, fingers and face are sculpted fixed geometry without independent expressions or cloth dynamics.",
+            "The book drawings and pencil strokes remain authored gestures: no new ink or page simulation is claimed.",
+            "This PBR browser-quality variant is separate from Weft's restricted diffuse-only importer profile.",
+            "The preserved four skeletal actions are authored animation, not learned behavior or Weft physics."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "ear_left": "ear_left",
+            "ear_right": "ear_right",
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "pencil": "pencil",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "sketchbook": "sketchbook",
+            "tail": "tail",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right"
+          },
+          "bones": [
+            "ear_left",
+            "ear_right",
+            "head",
+            "tail",
+            "sketchbook",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "pencil",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "torso",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 16,
+          "mesh_vertices": 68518,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.09496740183478074,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.13857804381303795,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.868278809049425,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.1886858816856982,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 127
+          },
+          "primitive_count": 16,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 19,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "28c2932719c18f5356dfada1403f678591801678651b0456206c153fdd9fa6a7",
+      "pack": "lamp-quality-build-v4",
+      "result": {
+        "artifact_hashes_verified": 50,
+        "render_attributes": {
+          "checks": [
+            "finite normals/UV0/tangents",
+            "matching counts",
+            "unit normals/tangents",
+            "orthogonal normal/tangent frames",
+            "tangent handedness",
+            "normal-map UV0 binding"
+          ],
+          "decoded_scalar_values": 339858,
+          "limits": {
+            "decoded_surface_values": 900000,
+            "normal_tangent_squared_length_tolerance": 0.001,
+            "orthogonality_tolerance": 0.002,
+            "vertices": 100000
+          },
+          "primitives": [
+            {
+              "material": "body",
+              "normal_mapped": false,
+              "normal_squared_length_error": 2.0318038096434066e-07,
+              "normal_tangent_dot_error": 0.00013605682641770755,
+              "tangent_squared_length_error": 0.00012731243258889968,
+              "vertices": 10617
+            },
+            {
+              "material": "brass",
+              "normal_mapped": true,
+              "normal_squared_length_error": 2.065588302624377e-07,
+              "normal_tangent_dot_error": 0.00012695469967294315,
+              "tangent_squared_length_error": 0.00012904933166790755,
+              "vertices": 10656
+            },
+            {
+              "material": "joint",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8803501400377343e-07,
+              "normal_tangent_dot_error": 0.00011403901751450007,
+              "tangent_squared_length_error": 0.00014597777675717793,
+              "vertices": 5941
+            },
+            {
+              "material": "display",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.4717813123787948e-07,
+              "normal_tangent_dot_error": 9.577005775973646e-05,
+              "tangent_squared_length_error": 0.00011703720855749111,
+              "vertices": 551
+            },
+            {
+              "material": "bulb",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8181481653556375e-07,
+              "normal_tangent_dot_error": 0.0004138496215062015,
+              "tangent_squared_length_error": 0.00014060622966827196,
+              "vertices": 2944
+            },
+            {
+              "material": "paper",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.8370760779262696e-07,
+              "normal_tangent_dot_error": 0.00012092319894074777,
+              "tangent_squared_length_error": 0.00012041797864004167,
+              "vertices": 551
+            },
+            {
+              "material": "ink",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.5015216625613448e-07,
+              "normal_tangent_dot_error": 7.071119437451756e-05,
+              "tangent_squared_length_error": 9.842350962974145e-05,
+              "vertices": 693
+            },
+            {
+              "material": "rubber",
+              "normal_mapped": false,
+              "normal_squared_length_error": 2.1264824057176668e-07,
+              "normal_tangent_dot_error": 0.00010422984058067186,
+              "tangent_squared_length_error": 0.0001388504990380568,
+              "vertices": 3568
+            },
+            {
+              "material": "steel",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.7623006698386234e-07,
+              "normal_tangent_dot_error": 0.00019266110202574398,
+              "tangent_squared_length_error": 0.00013523324180653162,
+              "vertices": 1802
+            },
+            {
+              "material": "reflector",
+              "normal_mapped": false,
+              "normal_squared_length_error": 1.9203416479207647e-07,
+              "normal_tangent_dot_error": 9.381117175522036e-05,
+              "tangent_squared_length_error": 0.00012543992745306376,
+              "vertices": 343
+            },
+            {
+              "material": "page_line",
+              "normal_mapped": false,
+              "normal_squared_length_error": 0.0,
+              "normal_tangent_dot_error": 0.0,
+              "tangent_squared_length_error": 0.0,
+              "vertices": 96
+            }
+          ],
+          "schema_version": 1,
+          "sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+          "status": "validated_render_attributes",
+          "vertices": 37762
+        },
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "work_pad",
+              "parent_bone": "root",
+              "placement": "Static paper pad in front-right of the lamp base.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.44999998807907104,
+                0.02000001072883606,
+                0.44999998807907104
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "trace_stylus",
+              "parent_bone": "trace_rotor",
+              "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.17000001668930054,
+                0,
+                0
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "This is an original detailed interpretation of the existing lamp, not a scanned or recovered industrial product.",
+            "The eight named joints and their rest coordinates are preserved; all hidden hardware, cord routing and shade interior are authored.",
+            "The open shade includes separate outer and interior wall surfaces, aperture trim, rear cap and bulb; the warm diffuser is geometry, not an emitted simulated light.",
+            "Arms, hinge caps, springs and cord sections use explicit rigid or blended skin weights; no mechanical spring, cable or electrical simulation is claimed.",
+            "The pad retains a fixed circular guide; the stylus traces gestures without dynamically creating ink.",
+            "Opaque PBR metal/roughness and embedded procedural brushed textures target the browser, not Weft's restricted diffuse-only profile.",
+            "The four skeletal actions are authored local animations and do not duplicate a simulator or change Weft actions or rewards."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "lower_arm": "lower_arm",
+            "root": "root",
+            "shade": "shade",
+            "trace_rotor": "trace_rotor",
+            "trace_stylus": "trace_stylus",
+            "turntable": "turntable",
+            "upper_arm": "upper_arm",
+            "work_pad": "work_pad"
+          },
+          "bones": [
+            "shade",
+            "upper_arm",
+            "lower_arm",
+            "turntable",
+            "work_pad",
+            "trace_stylus",
+            "trace_rotor",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 11,
+          "mesh_vertices": 37762,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.07036973898335795,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.3211442892846819,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.3692032516571483,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.25017975887995636,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 119
+          },
+          "primitive_count": 11,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 7,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "730d59564bcdd9478ceba83689a42ade141c0f04f8bb1b43e69e61411f73fda2",
+      "pack": "muse-panda-weft-build-v1",
+      "result": {
+        "artifact_hashes_verified": 46,
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "dragon_root",
+              "parent_bone": "right_shoulder",
+              "placement": "Anatomical right shoulder, world -X, viewer-left in front view. Dragon rest root [-0.56,-0.02,1.66] meters; camera faces the panda from negative Y.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                -0.1599999964237213,
+                0.19999992847442627,
+                0.019999999552965164
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "craft_orb",
+              "parent_bone": "hand_right",
+              "placement": "Between paws at rest; follows right hand during celebration.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.2800000011920929,
+                0.05000007152557373,
+                0.06999999284744263
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "Stylized 3D interpretation of the supplied Muse panda-and-dragon image, not reconstruction of unavailable geometry or fur.",
+            "Hidden back surfaces, full limb lengths, elbows, knees, topology, joint pivots and one-bone rigid skin weights are authored assumptions.",
+            "Anatomical left is world +X and anatomical right is world -X for the authored -Y-facing character; the shoulder dragon is on world -X/viewer-left.",
+            "right_shoulder is an unmapped helper attached to torso. dragon_root is its fixed descendant; raising the independently mapped upper_arm_right does not roll the dragon with that arm.",
+            "The golden sphere is a new fixed-shape action prop absent from the supplied reference; no material fabrication or physics is simulated.",
+            "Only the ten mapped body bones are keyed in these local clips. Head, hands, feet and dragon descendants keep their authored local rest pose; no finger/head/dragon actuation is inferred.",
+            "Weft uses its simulated body frames for appearance. Authored clips are retained as provenance and are not substituted for simulation actions or task rewards.",
+            "All colors are opaque diffuse factors with metallic=0 and roughness=1; the appearance is matte toy sculpture rather than recovered fur or scales.",
+            "Keyframe rotation/translation offsets use model rest axes, X right/Y rear/Z up; the builder converts through each bone rest basis."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "craft_orb": "craft_orb",
+            "dragon_head": "dragon_head",
+            "dragon_root": "dragon_root",
+            "dragon_tail": "dragon_tail",
+            "dragon_wing_inner": "dragon_wing_inner",
+            "dragon_wing_outer": "dragon_wing_outer",
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "right_shoulder": "right_shoulder",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right"
+          },
+          "bones": [
+            "head",
+            "craft_orb",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "dragon_head",
+            "dragon_tail",
+            "dragon_wing_outer",
+            "dragon_wing_inner",
+            "dragon_root",
+            "right_shoulder",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "torso",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 6,
+          "mesh_vertices": 11036,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.04115229459403759,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.21967629476694128,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.8296069442030563,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.1398658933930728,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 115
+          },
+          "primitive_count": 6,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 21,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "c3928969499c8d9297f7a6f8714a4f0b2fc3278c1bb17c01fe995427ec6f6e53",
+      "pack": "humanoid-robot-weft-build-v1",
+      "result": {
+        "artifact_hashes_verified": 45,
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "workpiece",
+              "parent_bone": "hand_left",
+              "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                -0.26999998092651367,
+                0.019999980926513672,
+                0.09999999403953552
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "probe",
+              "parent_bone": "hand_right",
+              "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.04999998211860657,
+                0.0700000524520874,
+                0.06000000238418579
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "Original robot design without an image reference; all visible and hidden surfaces, proportions and mechanics are authored.",
+            "The biped has real independently weighted torso, upper arms, forearms, thighs and shins, with rigid toy-like joints rather than deforming soft skin.",
+            "Anatomical left is world +X and right is world -X for the -Y-facing rest pose.",
+            "Head, hands, feet and held-tool descendants are unbound rest transforms under the ten controlled body bones; no finger, visor or antenna actuation is inferred.",
+            "The workpiece and assembly probe are rigid held props. Probe strokes and inspection are gestures; no circuit simulation, generated marks or manufacturing occurs.",
+            "Weft retargeting uses the existing simulated body frames; authored clips are provenance and not alternate simulation actions.",
+            "Materials are explicitly opaque matte diffuse with metallic=0 and roughness=1. Gold is a paint color, not a metallic shader.",
+            "Keyframe rotations/translations use model rest axes and are converted through bone rest bases by the builder."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "probe": "probe",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right",
+            "workpiece": "workpiece"
+          },
+          "bones": [
+            "head",
+            "probe",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "workpiece",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "torso",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 6,
+          "mesh_vertices": 8338,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.02965728321380409,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.15376772069043415,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.862696127199604,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.10958347969387354,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 116
+          },
+          "primitive_count": 6,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 16,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "5af39de8d8e41b79fec50283df6744fe22d1527d51cded5b3ba21f241a77add8",
+      "pack": "fox-refined-v2",
+      "result": {
+        "artifact_hashes_verified": 45,
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "sketchbook",
+              "parent_bone": "hand_left",
+              "placement": "Held against left paw, visible in front of chest.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.12000000476837158,
+                -0.059999942779541016,
+                0.09000000357627869
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "pencil",
+              "parent_bone": "hand_right",
+              "placement": "Held diagonally in right paw toward sketchbook.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.009999990463256836,
+                0.060000061988830566,
+                0.04999998211860657
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "Original primitive-based full 3D design; no source mesh or photographic reconstruction.",
+            "Soft toy proportions and unseen back surfaces are authored.",
+            "Each visible part is rigidly weighted to one articulated bone; this is a controllable toy rig, not deforming skin or physical simulation.",
+            "Sketchbook pages are solid geometry; pencil motion conveys sketching without creating a dynamic ink texture.",
+            "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+            "Revision v2 uses visible toy elbow/knee joints and jointly authored shoulder/forearm/hand poses for a raised-tool celebration."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "ear_left": "ear_left",
+            "ear_right": "ear_right",
+            "foot_left": "foot_left",
+            "foot_right": "foot_right",
+            "forearm_left": "forearm_left",
+            "forearm_right": "forearm_right",
+            "hand_left": "hand_left",
+            "hand_right": "hand_right",
+            "head": "head",
+            "pencil": "pencil",
+            "root": "root",
+            "shin_left": "shin_left",
+            "shin_right": "shin_right",
+            "sketchbook": "sketchbook",
+            "tail": "tail",
+            "thigh_left": "thigh_left",
+            "thigh_right": "thigh_right",
+            "torso": "torso",
+            "upper_arm_left": "upper_arm_left",
+            "upper_arm_right": "upper_arm_right"
+          },
+          "bones": [
+            "ear_left",
+            "ear_right",
+            "head",
+            "tail",
+            "sketchbook",
+            "hand_left",
+            "forearm_left",
+            "upper_arm_left",
+            "foot_left",
+            "shin_left",
+            "thigh_left",
+            "pencil",
+            "hand_right",
+            "forearm_right",
+            "upper_arm_right",
+            "foot_right",
+            "shin_right",
+            "thigh_right",
+            "torso",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 6,
+          "mesh_vertices": 8007,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.10142033665089102,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.13423934413602168,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 1.4741339839348988,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.15637314985775133,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 120
+          },
+          "primitive_count": 6,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "8caaa137ded76709f0a9804447e90993d4fee8c0fb7b402c857f9496f3d1701e",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 19,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "21a378b8bd41c9b650a12400708d03da31299cf722e3caadae0f36e28a007707",
+      "pack": "lamp-refined-v1",
+      "result": {
+        "artifact_hashes_verified": 45,
+        "rig": {
+          "attachments": [
+            {
+              "mode": "rigid_child",
+              "node": "work_pad",
+              "parent_bone": "root",
+              "placement": "Static paper pad in front-right of the lamp base.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.44999998807907104,
+                0.02000001072883606,
+                0.44999998807907104
+              ]
+            },
+            {
+              "mode": "rigid_child",
+              "node": "trace_stylus",
+              "parent_bone": "trace_rotor",
+              "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered.",
+              "rotation_xyzw": [
+                0,
+                0,
+                0,
+                1
+              ],
+              "translation_m": [
+                0.17000001668930054,
+                0,
+                0
+              ]
+            }
+          ],
+          "authored_assumptions": [
+            "Original full 3D design assembled from smooth primitives; no external reference.",
+            "All joints are authored mechanical pivots with rigid weights, not a simulated linkage constraint system.",
+            "The warm bulb is opaque colored geometry, not volumetric light or a luminous beam.",
+            "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+            "Revision v2 adds a base-supported rotary stylus with explicit joint motion over a fixed guide. The stylus is lowered only during making_something; no new marks, physical contact simulation or beam illumination are produced."
+          ],
+          "axes": {
+            "forward": "+Z",
+            "handedness": "right",
+            "up": "+Y"
+          },
+          "bone_to_simulated_joint": {
+            "lower_arm": "lower_arm",
+            "root": "root",
+            "shade": "shade",
+            "trace_rotor": "trace_rotor",
+            "trace_stylus": "trace_stylus",
+            "turntable": "turntable",
+            "upper_arm": "upper_arm",
+            "work_pad": "work_pad"
+          },
+          "bones": [
+            "shade",
+            "upper_arm",
+            "lower_arm",
+            "turntable",
+            "work_pad",
+            "trace_stylus",
+            "trace_rotor",
+            "root"
+          ],
+          "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+          "limits": {
+            "accessor_values": 2000000,
+            "file_bytes": 67108864,
+            "motion_probe_vertices": 128,
+            "nodes": 256,
+            "vertices": 100000
+          },
+          "loading_verified": true,
+          "material_count": 6,
+          "mesh_vertices": 7399,
+          "motion": {
+            "animation_verified": true,
+            "animations": [
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.0660023410465692,
+                "motion_observed": true,
+                "name": "idle",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.3289709328270935,
+                "motion_observed": true,
+                "name": "making_something",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.3261201918000984,
+                "motion_observed": true,
+                "name": "milestone_level_up",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              },
+              {
+                "loop": "not_claimed",
+                "max_sampled_displacement_m": 0.21617422673432257,
+                "motion_observed": true,
+                "name": "working",
+                "sample_count": 33,
+                "sample_times_seconds": [
+                  0.0,
+                  0.02083333395421505,
+                  0.25,
+                  0.2708333283662796,
+                  0.5,
+                  0.5208333432674408,
+                  0.75,
+                  0.7708333432674408,
+                  1.0,
+                  1.0208333134651184,
+                  1.25,
+                  1.2708333134651184,
+                  1.5,
+                  1.5208333134651184,
+                  1.75,
+                  1.7708333134651184,
+                  2.0,
+                  2.020833373069763,
+                  2.25,
+                  2.270833373069763,
+                  2.5,
+                  2.520833373069763,
+                  2.75,
+                  2.770833373069763,
+                  3.0,
+                  3.020833373069763,
+                  3.25,
+                  3.270833373069763,
+                  3.5,
+                  3.520833373069763,
+                  3.75,
+                  3.770833373069763,
+                  4.0
+                ]
+              }
+            ],
+            "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+            "probe_vertices": 121
+          },
+          "primitive_count": 6,
+          "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+          "schema_version": 1,
+          "sha256": "6c4edc7179499e0c6edb6e170c93b4cda670c229d39c79147d9dfe846198b6e7",
+          "skeleton_roots": [
+            {
+              "name": "root",
+              "node": 7,
+              "source": "derived_common_ancestor"
+            }
+          ],
+          "skin_count": 1,
+          "status": "validated_local_structure",
+          "units": "meters",
+          "visual_review": "required; materials/textures are not rendered by this validator",
+          "weft_runtime_verified": false
+        },
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "67f9f9159e85259a71e6945c8feafb17aede74545903ef321b72535dda61e046",
+      "pack": "weft-muse-panda-v1",
+      "result": {
+        "artifact_hashes_verified": 5,
+        "rig_verification": "Hashes only; use the frozen Weft importer for this consumer bundle",
+        "schema_version": 1,
+        "status": "provisional_alignment"
+      }
+    },
+    {
+      "manifest_sha256": "8ca07c02557c11418380c6fc7f6335edfe70aaf8f56d8da71b15a962e541f039",
+      "pack": "weft-humanoid-robot-v1",
+      "result": {
+        "artifact_hashes_verified": 5,
+        "rig_verification": "Hashes only; use the frozen Weft importer for this consumer bundle",
+        "schema_version": 1,
+        "status": "provisional_alignment"
+      }
+    },
+    {
+      "manifest_sha256": "d44646d424b026d7881eee953f6eef0e49f9a3e4a3715b1bdc866685c7c21983",
+      "pack": "reference-v1",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "inspected"
+      }
+    },
+    {
+      "manifest_sha256": "d44646d424b026d7881eee953f6eef0e49f9a3e4a3715b1bdc866685c7c21983",
+      "pack": "reference-v2",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "inspected"
+      }
+    },
+    {
+      "manifest_sha256": "8693643293d0c50bfbe4a9d0d44a9dd05570db657b13c269aafcb2c2cf30dd54",
+      "pack": "muse-panda-quality-reload-v6",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "e1296c73f7b51f2a32ac130ed7b5e3ebb7d66d04f79e32b76ea1123e89a31ee5",
+      "pack": "workshop-robot-quality-reload-v3",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "4d0ad29f6087160c9b02302e1125dd625c445304ccea085fb47db0ca7cbef260",
+      "pack": "fox-quality-reload-v5",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "9210f623072d85c4ef15e6b806623cc651b95f4c9c73319ef6d446d992010ede",
+      "pack": "lamp-quality-reload-v4",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "6cadd7c481d704c50a8ddcc3ac9d6aff8419812ad7b730e04a0da3dba97b18a0",
+      "pack": "muse-panda-weft-reload-v1",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "3418f3a7cacf40f41a74a18723cd6185b91b7fcd32b4fb3b9dc6caf9617cc4be",
+      "pack": "humanoid-robot-weft-reload-v1",
+      "result": {
+        "artifact_hashes_verified": 9,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "5e7012fc2ee265fc772f5cbe474b687a982daaab6da9cfc5f8325fcd0e9a1735",
+      "pack": "quality-media-verification-v1",
+      "result": {
+        "artifact_hashes_verified": 1,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    },
+    {
+      "manifest_sha256": "7a484a15eabd96f489cf88999f231a9fca6da77201455bcb012abf431dc84441",
+      "pack": "quality-visual-review-v1",
+      "result": {
+        "artifact_hashes_verified": 1,
+        "schema_version": 1,
+        "status": "reviewed_with_explicit_fidelity_limit"
+      }
+    },
+    {
+      "manifest_sha256": "fe3f9e3671dedeb3e25f55c36d99bc54b1fd7ce5f4f232dacd7a56dfc54c4a93",
+      "pack": "muse-fidelity-limit-v1",
+      "result": {
+        "artifact_hashes_verified": 1,
+        "schema_version": 1,
+        "status": "unsupported"
+      }
+    },
+    {
+      "manifest_sha256": "104118dde416c238f4a5beb38823cae2e7ec88910540991db9e91539e931291b",
+      "pack": "quality-weft-profile-unsupported-v1",
+      "result": {
+        "artifact_hashes_verified": 1,
+        "schema_version": 1,
+        "status": "unsupported"
+      }
+    },
+    {
+      "manifest_sha256": "c8b4cf3beefa2502cb42a278d79d8916e46d2ce6afba672d1386795b612e9980",
+      "pack": "quality-release-v2",
+      "result": {
+        "artifact_hashes_verified": 74,
+        "schema_version": 1,
+        "status": "verified_stylized_upgrade_with_explicit_fidelity_limit"
+      }
+    },
+    {
+      "manifest_sha256": "916796aabb9ef585c4630285f38c90fc02585e1965a18a4567978492c84256c8",
+      "pack": "core-v1-source-snapshot",
+      "result": {
+        "artifact_hashes_verified": 25,
+        "schema_version": 1,
+        "status": "all_25_original_source_hashes_match"
+      }
+    },
+    {
+      "manifest_sha256": "5e4c05d75144ab64c33d9288153cfe7594d1e8897207143e71d18ebf23d9e5a2",
+      "pack": "browser-gallery-release-v1",
+      "result": {
+        "artifact_hashes_verified": 17,
+        "schema_version": 1,
+        "status": "verified"
+      }
+    },
+    {
+      "manifest_sha256": "598ce730213d0cd0218806b9dbb0b09cb1ac6a55561f2eea22d8b50509d491ca",
+      "pack": "muse-panda-quality-media-v6-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 27,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "cdc2bfa0a9059507126c4285ccfb186960e39fda2a914ac4774ad7ede9a5d1eb",
+      "pack": "workshop-robot-quality-media-v3-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 27,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "8122d186bbda69d8102848be71a5e4e3257c84e6c46eb2e022cb6d4fa13ec548",
+      "pack": "fox-quality-media-v4-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 27,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "c22afc1a4944dfaf76d6343c28c3ef770ee3a43fc520c8baaf8b95dac560b48a",
+      "pack": "lamp-quality-media-v4-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 27,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "9c44352430757a43e74c2b1360dd8b75e78101fb0e8f035b0eafb3c5b88ec2e2",
+      "pack": "fox-muse-v1-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 21,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "4c3161e163fe476131ad80e80640c696950bb88e7aabf645a8bd565c12f935d6",
+      "pack": "lamp-muse-v2-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 21,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "1f62ddce7cf572cf95e5633f88213480e1febf2e02d312b9492a6da1aa4e8bae",
+      "pack": "robot-preview-v1-portable-v1",
+      "result": {
+        "artifact_hashes_verified": 27,
+        "schema_version": 1,
+        "status": "needs_visual_review"
+      }
+    },
+    {
+      "manifest_sha256": "d7230513f738502ab6564661b5b03c3ccaa68acf5e5514b7c982582a7acfdc18",
+      "pack": "portable-media-proof-v1",
+      "result": {
+        "artifact_hashes_verified": 2,
+        "schema_version": 1,
+        "status": "passed"
+      }
+    }
+  ]
+}

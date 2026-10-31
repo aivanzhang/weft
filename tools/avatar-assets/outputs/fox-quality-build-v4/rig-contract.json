@@ -1,0 +1,121 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Rigid held prop; no page-turning simulation.",
+      "child_bone": "sketchbook",
+      "name": "sketchbook",
+      "parent_bone": "hand_left",
+      "placement": "Held against left paw, visible in front of chest."
+    },
+    {
+      "authored_assumption": "Rigid tool; short wrist rotations convey drawing.",
+      "child_bone": "pencil",
+      "name": "pencil",
+      "parent_bone": "hand_right",
+      "placement": "Held diagonally in right paw toward sketchbook."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "sketchbook",
+      "parent_bone": "hand_left",
+      "placement": "Held against left paw, visible in front of chest.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.12000000476837158,
+        -0.059999942779541016,
+        0.09000000357627869
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "pencil",
+      "parent_bone": "hand_right",
+      "placement": "Held diagonally in right paw toward sketchbook.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.009999990463256836,
+        0.060000061988830566,
+        0.04999998211860657
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "This is a new authored 3D interpretation of the existing original fox design, not recovered geometry or a neural text-to-3D result.",
+    "Complete hidden surfaces and twenty-bone rest layout are authored; the original fox left/right bone names are preserved as identifiers.",
+    "The continuous arm and leg lofts use explicit multi-bone skin blends around elbows and knees; they are not muscle or cloth simulations.",
+    "The shoulder roots are rounded and buried within the torso, with torso/arm weight blending; skin is not a single watertight anatomical retopology.",
+    "Short fur is bounded opaque tapered triangle geometry attached with interpolated skin weights, plus embedded procedural albedo/normal textures. It is not a strand groom or dynamically simulated fur.",
+    "The scarf, eyelids, fingers and face are sculpted fixed geometry without independent expressions or cloth dynamics.",
+    "The book drawings and pencil strokes remain authored gestures: no new ink or page simulation is claimed.",
+    "This PBR browser-quality variant is separate from Weft's restricted diffuse-only importer profile.",
+    "The preserved four skeletal actions are authored animation, not learned behavior or Weft physics."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "ear_left": "ear_left",
+    "ear_right": "ear_right",
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "pencil": "pencil",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "sketchbook": "sketchbook",
+    "tail": "tail",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "ear_left",
+      "ear_right",
+      "foot_left",
+      "foot_right",
+      "forearm_left",
+      "forearm_right",
+      "hand_left",
+      "hand_right",
+      "head",
+      "pencil",
+      "root",
+      "shin_left",
+      "shin_right",
+      "sketchbook",
+      "tail",
+      "thigh_left",
+      "thigh_right",
+      "torso",
+      "upper_arm_left",
+      "upper_arm_right"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "Not evaluated by this local-control contract; use separate Weft metadata and its frozen importer"
+}

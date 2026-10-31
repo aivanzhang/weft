@@ -1,0 +1,72 @@
+{
+  "binary_differing_bytes": 34504,
+  "decoded_accessor_differences": [
+    {
+      "accessor": 5,
+      "changed_values": 7524,
+      "component": 5123,
+      "count": 9996,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    },
+    {
+      "accessor": 11,
+      "changed_values": 12540,
+      "component": 5123,
+      "count": 13344,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    },
+    {
+      "accessor": 17,
+      "changed_values": 1254,
+      "component": 5123,
+      "count": 1392,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    },
+    {
+      "accessor": 19,
+      "changed_values": 9,
+      "component": 5126,
+      "count": 1081,
+      "max_absolute_difference": 8.559226989746094e-05,
+      "type": "VEC3"
+    },
+    {
+      "accessor": 23,
+      "changed_values": 3762,
+      "component": 5123,
+      "count": 4620,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    },
+    {
+      "accessor": 25,
+      "changed_values": 6,
+      "component": 5126,
+      "count": 1453,
+      "max_absolute_difference": 9.334087371826172e-05,
+      "type": "VEC3"
+    },
+    {
+      "accessor": 29,
+      "changed_values": 6270,
+      "component": 5123,
+      "count": 6876,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    },
+    {
+      "accessor": 35,
+      "changed_values": 1254,
+      "component": 5123,
+      "count": 1320,
+      "max_absolute_difference": 268.0,
+      "type": "SCALAR"
+    }
+  ],
+  "glb_json_identical": true,
+  "schema_version": 1,
+  "scope": "Exact file hashes differ; numerical and layout analysis shown, not a bitwise reproducibility claim"
+}

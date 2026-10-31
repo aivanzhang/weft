@@ -1,0 +1,851 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "muse-panda-weft-v1_skinned_mesh": 0.042637515158650344
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.042637515158650344,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/craft_orb",
+        "AvatarRig/dragon_head",
+        "AvatarRig/dragon_root",
+        "AvatarRig/dragon_tail",
+        "AvatarRig/dragon_wing_inner",
+        "AvatarRig/dragon_wing_outer",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/right_shoulder",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "muse-panda-weft-v1_skinned_mesh": 0.19994301365940975
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.19994301365940975,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/craft_orb",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right"
+      ],
+      "name": "making_something",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "muse-panda-weft-v1_skinned_mesh": 1.858934956960045
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.858934956960045,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/craft_orb",
+        "AvatarRig/dragon_head",
+        "AvatarRig/dragon_root",
+        "AvatarRig/dragon_tail",
+        "AvatarRig/dragon_wing_inner",
+        "AvatarRig/dragon_wing_outer",
+        "AvatarRig/foot_left",
+        "AvatarRig/foot_right",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/right_shoulder",
+        "AvatarRig/root",
+        "AvatarRig/shin_left",
+        "AvatarRig/shin_right",
+        "AvatarRig/thigh_left",
+        "AvatarRig/thigh_right",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right"
+      ],
+      "name": "milestone_level_up",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "muse-panda-weft-v1_skinned_mesh": 0.13686646364563654
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.13686646364563654,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/craft_orb",
+        "AvatarRig/dragon_head",
+        "AvatarRig/dragon_root",
+        "AvatarRig/dragon_tail",
+        "AvatarRig/dragon_wing_inner",
+        "AvatarRig/dragon_wing_outer",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/right_shoulder",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right"
+      ],
+      "name": "working",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.0,
+            0.05000000074505806
+          ],
+          "name": "root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            2.0879413753505105e-08,
+            0.6600000262260437
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            2.0879410200791426e-08,
+            0.6599999666213989
+          ],
+          "name": "torso",
+          "parent": "root",
+          "tail_local": [
+            0.0,
+            5.1494353670022974e-08,
+            1.554427146911621
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            5.4765664003753045e-08,
+            1.6499998569488525
+          ],
+          "name": "head",
+          "parent": "torso",
+          "tail_local": [
+            0.0,
+            8.538060569662775e-08,
+            2.5444271564483643
+          ]
+        },
+        {
+          "head_local": [
+            -0.4000000059604645,
+            4.826224397902479e-08,
+            1.459999918937683
+          ],
+          "name": "right_shoulder",
+          "parent": "torso",
+          "tail_local": [
+            -0.4000000059604645,
+            5.705571481939842e-08,
+            1.7169045209884644
+          ]
+        },
+        {
+          "head_local": [
+            -0.4000000059604645,
+            4.826224397902479e-08,
+            1.459999918937683
+          ],
+          "name": "upper_arm_right",
+          "parent": "right_shoulder",
+          "tail_local": [
+            -0.4000000059604645,
+            6.083861592287576e-08,
+            1.8274234533309937
+          ]
+        },
+        {
+          "head_local": [
+            -0.550000011920929,
+            -0.05999996140599251,
+            1.1299998760223389
+          ],
+          "name": "forearm_right",
+          "parent": "upper_arm_right",
+          "tail_local": [
+            -0.550000011920929,
+            -0.059999946504831314,
+            1.5435214042663574
+          ]
+        },
+        {
+          "head_local": [
+            -0.2800000011920929,
+            -0.35999995470046997,
+            1.0399998426437378
+          ],
+          "name": "hand_right",
+          "parent": "forearm_right",
+          "tail_local": [
+            -0.2800000011920929,
+            -0.35999995470046997,
+            1.332916259765625
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.4299999475479126,
+            1.0899999141693115
+          ],
+          "name": "craft_orb",
+          "parent": "hand_right",
+          "tail_local": [
+            0.0,
+            -0.4299999475479126,
+            1.3829163312911987
+          ]
+        },
+        {
+          "head_local": [
+            -0.5600000023841858,
+            -0.019999945536255836,
+            1.6599998474121094
+          ],
+          "name": "dragon_root",
+          "parent": "right_shoulder",
+          "tail_local": [
+            -0.5600000023841858,
+            -0.01999993994832039,
+            1.830073356628418
+          ]
+        },
+        {
+          "head_local": [
+            -0.5899999737739563,
+            -0.08999992907047272,
+            1.9099998474121094
+          ],
+          "name": "dragon_head",
+          "parent": "dragon_root",
+          "tail_local": [
+            -0.5899999737739563,
+            -0.08999992161989212,
+            2.080073356628418
+          ]
+        },
+        {
+          "head_local": [
+            -0.5600000023841858,
+            0.09000004082918167,
+            1.529999852180481
+          ],
+          "name": "dragon_tail",
+          "parent": "dragon_root",
+          "tail_local": [
+            -0.5600000023841858,
+            0.09000004827976227,
+            1.7000733613967896
+          ]
+        },
+        {
+          "head_local": [
+            -0.6600000262260437,
+            0.025000056251883507,
+            1.7899998426437378
+          ],
+          "name": "dragon_wing_outer",
+          "parent": "dragon_root",
+          "tail_local": [
+            -0.6600000262260437,
+            0.025000061839818954,
+            1.9600733518600464
+          ]
+        },
+        {
+          "head_local": [
+            -0.46000000834465027,
+            0.025000056251883507,
+            1.7899998426437378
+          ],
+          "name": "dragon_wing_inner",
+          "parent": "dragon_root",
+          "tail_local": [
+            -0.46000000834465027,
+            0.025000061839818954,
+            1.9600733518600464
+          ]
+        },
+        {
+          "head_local": [
+            0.4000000059604645,
+            4.826224397902479e-08,
+            1.459999918937683
+          ],
+          "name": "upper_arm_left",
+          "parent": "torso",
+          "tail_local": [
+            0.4000000059604645,
+            6.083861592287576e-08,
+            1.8274234533309937
+          ]
+        },
+        {
+          "head_local": [
+            0.550000011920929,
+            -0.05999996140599251,
+            1.1299998760223389
+          ],
+          "name": "forearm_left",
+          "parent": "upper_arm_left",
+          "tail_local": [
+            0.550000011920929,
+            -0.059999946504831314,
+            1.5435214042663574
+          ]
+        },
+        {
+          "head_local": [
+            0.2800000011920929,
+            -0.35999995470046997,
+            1.0399998426437378
+          ],
+          "name": "hand_left",
+          "parent": "forearm_left",
+          "tail_local": [
+            0.2800000011920929,
+            -0.35999995470046997,
+            1.4535212516784668
+          ]
+        },
+        {
+          "head_local": [
+            -0.23999997973442078,
+            2.2248549669257045e-08,
+            0.6999998688697815
+          ],
+          "name": "thigh_right",
+          "parent": "root",
+          "tail_local": [
+            -0.23999997973442078,
+            3.050119801173423e-08,
+            0.9411040544509888
+          ]
+        },
+        {
+          "head_local": [
+            -0.25499996542930603,
+            -0.017499996349215508,
+            0.4599999189376831
+          ],
+          "name": "shin_right",
+          "parent": "thigh_right",
+          "tail_local": [
+            -0.25499996542930603,
+            -0.01749998889863491,
+            0.7011041641235352
+          ]
+        },
+        {
+          "head_local": [
+            -0.26999998092651367,
+            -0.03500000014901161,
+            0.21999993920326233
+          ],
+          "name": "foot_right",
+          "parent": "shin_right",
+          "tail_local": [
+            -0.26999998092651367,
+            -0.034999992698431015,
+            0.461104154586792
+          ]
+        },
+        {
+          "head_local": [
+            0.23999997973442078,
+            2.2248549669257045e-08,
+            0.6999998688697815
+          ],
+          "name": "thigh_left",
+          "parent": "root",
+          "tail_local": [
+            0.23999997973442078,
+            3.050119801173423e-08,
+            0.9411040544509888
+          ]
+        },
+        {
+          "head_local": [
+            0.25499996542930603,
+            -0.017499996349215508,
+            0.4599999189376831
+          ],
+          "name": "shin_left",
+          "parent": "thigh_left",
+          "tail_local": [
+            0.25499996542930603,
+            -0.01749998889863491,
+            0.7011041641235352
+          ]
+        },
+        {
+          "head_local": [
+            0.26999998092651367,
+            -0.03500000014901161,
+            0.21999993920326233
+          ],
+          "name": "foot_left",
+          "parent": "shin_left",
+          "tail_local": [
+            0.26999998092651367,
+            -0.034999992698431015,
+            0.461104154586792
+          ]
+        }
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      1.6201668977737427,
+      1.0600000619888306,
+      2.490000009536743
+    ],
+    "max": [
+      0.690000057220459,
+      0.45000001788139343,
+      2.5
+    ],
+    "min": [
+      -0.9301668405532837,
+      -0.6100000739097595,
+      0.009999990463256836
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.02955683507025242,
+        0.028426039963960648,
+        0.03560131415724754,
+        1.0
+      ],
+      "name": "black",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.715693473815918,
+        0.3967552185058594,
+        0.0802198201417923,
+        1.0
+      ],
+      "name": "gold",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.10461648553609848,
+        0.3324515223503113,
+        0.09989872574806213,
+        1.0
+      ],
+      "name": "green",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.052860647439956665,
+        0.15896083414554596,
+        0.05951123684644699,
+        1.0
+      ],
+      "name": "horn",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.8713670969009399,
+        0.8549926280975342,
+        0.7912979125976562,
+        1.0
+      ],
+      "name": "white",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.3915724754333496,
+        0.6038273572921753,
+        0.20507873594760895,
+        1.0
+      ],
+      "name": "wing",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "AvatarRig",
+      "materials": [
+        "white",
+        "black",
+        "gold",
+        "green",
+        "horn",
+        "wing"
+      ],
+      "name": "muse-panda-weft-v1_skinned_mesh",
+      "polygons": 17784,
+      "unweighted_vertices": 0,
+      "vertices": 11036,
+      "weighted_vertices": 11036
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "white",
+      "material_index": 0,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        0,
+        64,
+        129,
+        193,
+        258,
+        322,
+        387,
+        451,
+        516,
+        580,
+        645,
+        709,
+        774,
+        838,
+        903,
+        967,
+        1032,
+        1096,
+        1161,
+        1225,
+        1290,
+        1354
+      ]
+    },
+    {
+      "material": "black",
+      "material_index": 1,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        1355,
+        1703,
+        2052,
+        2400,
+        2749,
+        3097,
+        3445,
+        3794,
+        4142,
+        4490,
+        4839,
+        5187,
+        5536,
+        5884,
+        6232,
+        6581,
+        6929,
+        7277,
+        7626,
+        7974,
+        8323,
+        8671
+      ]
+    },
+    {
+      "material": "gold",
+      "material_index": 2,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        8672,
+        8686,
+        8699,
+        8712,
+        8726,
+        8740,
+        8753,
+        8766,
+        8780,
+        8794,
+        8807,
+        8820,
+        8834,
+        8848,
+        8861,
+        8874,
+        8888,
+        8902,
+        8915,
+        8928,
+        8942
+      ]
+    },
+    {
+      "material": "green",
+      "material_index": 3,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        8943,
+        9024,
+        9105,
+        9187,
+        9268,
+        9349,
+        9431,
+        9512,
+        9593,
+        9674,
+        9755,
+        9837,
+        9918,
+        9999,
+        10081,
+        10162,
+        10243,
+        10324,
+        10405,
+        10487,
+        10568
+      ]
+    },
+    {
+      "material": "horn",
+      "material_index": 4,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        10569,
+        10574,
+        10579,
+        10584,
+        10588,
+        10593,
+        10598,
+        10603,
+        10608,
+        10613,
+        10617,
+        10622,
+        10627,
+        10632,
+        10637,
+        10642,
+        10647,
+        10651,
+        10656,
+        10661,
+        10666
+      ]
+    },
+    {
+      "material": "wing",
+      "material_index": 5,
+      "object": "muse-panda-weft-v1_skinned_mesh",
+      "probe_vertices": [
+        10667,
+        10685,
+        10704,
+        10722,
+        10741,
+        10759,
+        10777,
+        10796,
+        10814,
+        10833,
+        10851,
+        10869,
+        10888,
+        10906,
+        10925,
+        10943,
+        10961,
+        10980,
+        10998,
+        11017,
+        11035
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        -0.12008339166641235,
+        -7.550000190734863,
+        2.002000093460083
+      ],
+      "camera_target_blender_z_up": [
+        -0.12008339166641235,
+        -0.08000002801418304,
+        1.2549999952316284
+      ],
+      "path": "independent-front.png",
+      "sha256": "63dfdd2db607ca06beda7a46867fb712c27868e2bd4465f891b38ab32950a937",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        -0.12008339166641235,
+        7.390000343322754,
+        2.002000093460083
+      ],
+      "camera_target_blender_z_up": [
+        -0.12008339166641235,
+        -0.08000002801418304,
+        1.2549999952316284
+      ],
+      "path": "independent-back.png",
+      "sha256": "fce0fb30c5e7b8bb59208f7c1b289d56634bf1de706abccd4c95e7dc24cd7cda",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        7.349916934967041,
+        -0.08000002801418304,
+        2.002000093460083
+      ],
+      "camera_target_blender_z_up": [
+        -0.12008339166641235,
+        -0.08000002801418304,
+        1.2549999952316284
+      ],
+      "path": "independent-side.png",
+      "sha256": "c0db4c438f972f2f98d97d6a5acca1d99b22b47f722de5e0f1768a2cd6ca7ad4",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/model.glb",
+  "source_sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 0.37943958304822445,
+  "weft_runtime_verified": false
+}

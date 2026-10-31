@@ -1,0 +1,111 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 339858,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "body",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.0318038096434066e-07,
+      "normal_tangent_dot_error": 0.00013605682641770755,
+      "tangent_squared_length_error": 0.00012731243258889968,
+      "vertices": 10617
+    },
+    {
+      "material": "brass",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.065588302624377e-07,
+      "normal_tangent_dot_error": 0.00012695469967294315,
+      "tangent_squared_length_error": 0.00012904933166790755,
+      "vertices": 10656
+    },
+    {
+      "material": "joint",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8803501400377343e-07,
+      "normal_tangent_dot_error": 0.00011403901751450007,
+      "tangent_squared_length_error": 0.00014597777675717793,
+      "vertices": 5941
+    },
+    {
+      "material": "display",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.4717813123787948e-07,
+      "normal_tangent_dot_error": 9.577005775973646e-05,
+      "tangent_squared_length_error": 0.00011703720855749111,
+      "vertices": 551
+    },
+    {
+      "material": "bulb",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8181481653556375e-07,
+      "normal_tangent_dot_error": 0.0004138496215062015,
+      "tangent_squared_length_error": 0.00014060622966827196,
+      "vertices": 2944
+    },
+    {
+      "material": "paper",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8370760779262696e-07,
+      "normal_tangent_dot_error": 0.00012092319894074777,
+      "tangent_squared_length_error": 0.00012041797864004167,
+      "vertices": 551
+    },
+    {
+      "material": "ink",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.5015216625613448e-07,
+      "normal_tangent_dot_error": 7.071119437451756e-05,
+      "tangent_squared_length_error": 9.842350962974145e-05,
+      "vertices": 693
+    },
+    {
+      "material": "rubber",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1264824057176668e-07,
+      "normal_tangent_dot_error": 0.00010422984058067186,
+      "tangent_squared_length_error": 0.0001388504990380568,
+      "vertices": 3568
+    },
+    {
+      "material": "steel",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.7623006698386234e-07,
+      "normal_tangent_dot_error": 0.00019266110202574398,
+      "tangent_squared_length_error": 0.00013523324180653162,
+      "vertices": 1802
+    },
+    {
+      "material": "reflector",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9203416479207647e-07,
+      "normal_tangent_dot_error": 9.381117175522036e-05,
+      "tangent_squared_length_error": 0.00012543992745306376,
+      "vertices": 343
+    },
+    {
+      "material": "page_line",
+      "normal_mapped": false,
+      "normal_squared_length_error": 0.0,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "vertices": 96
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+  "status": "validated_render_attributes",
+  "vertices": 37762
+}

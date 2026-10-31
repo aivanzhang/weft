@@ -1,0 +1,196 @@
+{
+  "active_owned_jobs": [],
+  "archive": {
+    "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+    "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+    "unchanged": true
+  },
+  "authoring_model": "Agent-assisted code/scene authoring; exact assistant model build identifier not exposed in asset tooling",
+  "exact_muse_finish_claimed": false,
+  "kind": "quality_workflow_release",
+  "manifests": [
+    {
+      "path": "outputs/quality-attribute-proof-v1/manifest.json",
+      "sha256": "9c58b547d690dea6be8ad9524abbf184c1bb327b5f3df0a33e7355b8127794f7"
+    },
+    {
+      "path": "outputs/quality-visual-review-v1/manifest.json",
+      "sha256": "7a484a15eabd96f489cf88999f231a9fca6da77201455bcb012abf431dc84441"
+    },
+    {
+      "path": "outputs/quality-media-verification-v1/manifest.json",
+      "sha256": "5e7012fc2ee265fc772f5cbe474b687a982daaab6da9cfc5f8325fcd0e9a1735"
+    },
+    {
+      "path": "outputs/muse-fidelity-limit-v1/manifest.json",
+      "sha256": "fe3f9e3671dedeb3e25f55c36d99bc54b1fd7ce5f4f232dacd7a56dfc54c4a93"
+    },
+    {
+      "path": "outputs/quality-weft-profile-unsupported-v1/manifest.json",
+      "sha256": "104118dde416c238f4a5beb38823cae2e7ec88910540991db9e91539e931291b"
+    },
+    {
+      "path": "outputs/quality-runner-incident-v1/manifest.json",
+      "sha256": "5c27bb5fdcf4da75b56376963208a6367788a48b1961e57604d0c19c7fa4478a"
+    },
+    {
+      "path": "outputs/muse-panda-quality-build-v6/manifest.json",
+      "sha256": "c2f983a91fbf6d48e565692f3610549e05aae98806b3a9519f3aa33a9e8ebdee"
+    },
+    {
+      "path": "outputs/workshop-robot-quality-build-v3/manifest.json",
+      "sha256": "f12374ef85aaa223db578dad09cb05b49c030e7df2faf818d19998f8b3e0f7da"
+    },
+    {
+      "path": "outputs/fox-quality-build-v4/manifest.json",
+      "sha256": "5f794fe2170584df15e571a57c37dd590ec400bae8f9a9cc809d137543dc1a36"
+    },
+    {
+      "path": "outputs/lamp-quality-build-v4/manifest.json",
+      "sha256": "28c2932719c18f5356dfada1403f678591801678651b0456206c153fdd9fa6a7"
+    },
+    {
+      "path": "outputs/muse-panda-quality-media-v6/manifest.json",
+      "sha256": "0f8467097ec3df896c5b562cc35254fa8249dd961a4fa673171225b6f5c759a2"
+    },
+    {
+      "path": "outputs/workshop-robot-quality-media-v3/manifest.json",
+      "sha256": "316513e42bc07840b135effb4b80ff25b5e657cf3f7f62749197e3546f63888d"
+    },
+    {
+      "path": "outputs/fox-quality-media-v4/manifest.json",
+      "sha256": "775e2a76a1631696b77ebe7f5ae689dd49c82494f955f64143576da40600c3c3"
+    },
+    {
+      "path": "outputs/lamp-quality-media-v4/manifest.json",
+      "sha256": "e92fa73fe17a82640f7d964dcaa466290ed56f61b7aa1c18c74ac1c624c327d7"
+    },
+    {
+      "path": "outputs/muse-panda-quality-reload-v6/manifest.json",
+      "sha256": "8693643293d0c50bfbe4a9d0d44a9dd05570db657b13c269aafcb2c2cf30dd54"
+    },
+    {
+      "path": "outputs/workshop-robot-quality-reload-v3/manifest.json",
+      "sha256": "e1296c73f7b51f2a32ac130ed7b5e3ebb7d66d04f79e32b76ea1123e89a31ee5"
+    },
+    {
+      "path": "outputs/fox-quality-reload-v5/manifest.json",
+      "sha256": "4d0ad29f6087160c9b02302e1125dd625c445304ccea085fb47db0ca7cbef260"
+    },
+    {
+      "path": "outputs/lamp-quality-reload-v4/manifest.json",
+      "sha256": "9210f623072d85c4ef15e6b806623cc651b95f4c9c73319ef6d446d992010ede"
+    }
+  ],
+  "next_safe_action": "User can restart the local gallery and review the detailed editions. More faithful Muse finish requires separately scoped groom/sculpt work; no remote publication or provider spending is implied.",
+  "paid_work": {
+    "external_uploads": 0,
+    "provider_cost_usd": 0,
+    "provider_generation_calls": 0,
+    "recurring_services": 0
+  },
+  "persistent_server_started": false,
+  "prior_weft_models_unchanged": {
+    "outputs/humanoid-robot-weft-build-v1/model.glb": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd",
+    "outputs/muse-panda-weft-build-v1/model.glb": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012"
+  },
+  "recipe_reproducibility": [
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/author_quality_panda.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "Panda recipe matches the saved scene exactly"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/author_quality_robot.py",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"path\": \"/Users/ivan/kintsugi/avatar-assets/examples/scenes/workshop-robot-quality-v2.json\", \"check\": true, \"parts\": 112, \"bones\": 17, \"materials\": 10, \"explicit_vertices\": 3974, \"explicit_faces\": 4134, \"bytes\": 1080073, \"sha256\": \"725f76775bbabd20d7262f8ba470cdf09b68cd16845e25942ffb8bcafea5fece\"}"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/author_quality_companions.py",
+        "--only",
+        "fox",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"id\": \"fox-quality-v4\", \"exact_scene_match\": true}"
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/author_quality_companions.py",
+        "--only",
+        "lamp",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"id\": \"lamp-quality-v3\", \"exact_scene_match\": true}"
+    }
+  ],
+  "recorded_at": "2026-10-30 17:22:06 PDT",
+  "schema_version": 1,
+  "source_snapshot_files": 73,
+  "status": "verified_stylized_upgrade_with_explicit_fidelity_limit",
+  "tools": {
+    "blender": "4.5.13",
+    "dependency_locks": [
+      "requirements.lock",
+      "requirements-dev.lock",
+      "browser/package-lock.json"
+    ],
+    "model_viewer": "4.3.1",
+    "playwright_core": "1.64.1",
+    "python": "3.14.7"
+  },
+  "user_requests": [
+    "ok nice but why are these assets not as high quality as the Muse one? Can you make them as nice as them",
+    "make sur eto have fur and all other necessary components"
+  ],
+  "verification": [
+    {
+      "path": "outputs/quality-gallery-browser-v2/browser-test.json",
+      "sha256": "2d5bb62212416466de2082cdd1cf4c0fc43d6103253bfc0d306cb7634a5e104b"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/desktop.png",
+      "sha256": "24c1d983693b355497fc3bb32f98433ffbadd5afd5ef384c3dd3e03e7e338b00"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/mobile.png",
+      "sha256": "a70e5d5e23aae06a0493c176e16d2b521d8202018ef73f172683e463026e4e22"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/panda-celebrate.png",
+      "sha256": "f5542a4a08ddb1bd6a80e9cda359f54aeaf6f4df608a46bbdf90cbc99408c2fd"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/robot-celebrate.png",
+      "sha256": "02595785c3c29de895d81f2d4abb0a2bfe13389807a748bc450f0dbc1888e695"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/fox-celebrate.png",
+      "sha256": "fea8c4ba62c69637db1f0200615d489f94f3299af3dcacbbbc9c9f75de127e3a"
+    },
+    {
+      "path": "outputs/quality-gallery-browser-v2/lamp-celebrate.png",
+      "sha256": "bf6e9f38ffce3876f13242aaa807f08c08a7c25b28d90e9ff62d30397f4e8215"
+    },
+    {
+      "path": "outputs/quality-python-tests-v3.txt",
+      "sha256": "872553dfefb5c92b066a852a7b63a8b5a5bf0e21c526b5644e1f7184f8b02089"
+    },
+    {
+      "path": "outputs/quality-gallery-tests-v4.txt",
+      "sha256": "563c5c56c3b4afd67e8ec61a427dcf2ece5c6f66ee4d3324151ed2a0f51b1188"
+    }
+  ]
+}

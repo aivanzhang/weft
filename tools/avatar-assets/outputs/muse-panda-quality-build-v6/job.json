@@ -1,0 +1,31 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/sources/blender_build.py",
+    "--",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6",
+    "512",
+    "24"
+  ],
+  "elapsed_seconds": 60.038,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 35710558,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "wall_seconds": 600
+  },
+  "pid": 72288,
+  "sampled_peak_rss_bytes": 802848768,
+  "sampling_interval_seconds": 0.25
+}

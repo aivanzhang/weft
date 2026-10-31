@@ -1,0 +1,30 @@
+{
+  "browser_report": {
+    "bytes": 1443,
+    "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-browser-v6/browser-test.json",
+    "sha256": "cba21851023c24a83195c96d2b56fb1b44091d0cabd6defcd3053c81fb527a0f"
+  },
+  "prior_core_sources": {
+    "bytes": 4377,
+    "path": "/Users/ivan/kintsugi/avatar-assets/outputs/core-v1-source-snapshot/manifest.json",
+    "sha256": "916796aabb9ef585c4630285f38c90fc02585e1965a18a4567978492c84256c8"
+  },
+  "provider_cost_usd": 0,
+  "python_tests": {
+    "bytes": 13621,
+    "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-python-tests-v2.txt",
+    "sha256": "8cb490b339285c4744a729713c77387402803be171c36108f24a8f1978b776f5"
+  },
+  "recorded_at": "2026-10-30 16:23:09 PDT",
+  "release_manifest": {
+    "bytes": 8139,
+    "path": "/Users/ivan/kintsugi/avatar-assets/outputs/browser-gallery-release-v1/manifest.json",
+    "sha256": "5e4c05d75144ab64c33d9288153cfe7594d1e8897207143e71d18ebf23d9e5a2"
+  },
+  "schema_version": 1,
+  "server_running": false,
+  "source_snapshot": "/Users/ivan/kintsugi/avatar-assets/outputs/browser-gallery-release-v1/sources",
+  "start_command": ".venv/bin/python -m avatar_assets gallery",
+  "status": "verified",
+  "user_open_url": "http://127.0.0.1:8765/"
+}

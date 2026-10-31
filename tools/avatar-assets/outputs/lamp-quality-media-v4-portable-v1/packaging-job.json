@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+    "-m",
+    "avatar_assets.packaging",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/output-spec.json"
+  ],
+  "elapsed_seconds": 2.099,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 53378240,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 768,
+    "wall_seconds": 180
+  },
+  "pid": 74216,
+  "sampled_peak_rss_bytes": 134004736,
+  "sampling_interval_seconds": 0.25
+}

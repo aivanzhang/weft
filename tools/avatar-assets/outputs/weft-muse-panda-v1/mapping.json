@@ -1,0 +1,233 @@
+{
+  "asset_id": "muse-panda-weft-v1",
+  "display_name": "Muse-style panda with shoulder dragon",
+  "provenance": {
+    "assumptions": [
+      "Stylized 3D interpretation of the supplied Muse panda-and-dragon image, not reconstruction of unavailable geometry or fur.",
+      "Hidden back surfaces, full limb lengths, elbows, knees, topology, joint pivots and one-bone rigid skin weights are authored assumptions.",
+      "Anatomical left is world +X and anatomical right is world -X for the authored -Y-facing character; the shoulder dragon is on world -X/viewer-left.",
+      "right_shoulder is an unmapped helper attached to torso. dragon_root is its fixed descendant; raising the independently mapped upper_arm_right does not roll the dragon with that arm.",
+      "The golden sphere is a new fixed-shape action prop absent from the supplied reference; no material fabrication or physics is simulated.",
+      "Only the ten mapped body bones are keyed in these local clips. Head, hands, feet and dragon descendants keep their authored local rest pose; no finger/head/dragon actuation is inferred.",
+      "Weft uses its simulated body frames for appearance. Authored clips are retained as provenance and are not substituted for simulation actions or task rewards.",
+      "All colors are opaque diffuse factors with metallic=0 and roughness=1; the appearance is matte toy sculpture rather than recovered fur or scales.",
+      "Keyframe rotation/translation offsets use model rest axes, X right/Y rear/Z up; the builder converts through each bone rest basis.",
+      "Neutral frame matrices and Z-up/-Y-front orientation are a user-authorized authoring proposal, NOT observed Weft state or metric calibration.",
+      "Visual alignment with Weft remains unverified. Recompute offsets using its actual neutral frame matrices before claiming aligned integration.",
+      "Weft has 19 joint angles plus root translation. Unmapped head, hands, fingers and accessories do not acquire independent simulated anatomy.",
+      "Authored clips are provenance; they must not override simulated pose."
+    ],
+    "neutral_proposal_sha256": "e594f636af2bc1b48e039fe4ff7eb132335accce14e0b054a66b63818f9702eb",
+    "prompt_history": [
+      "Create a complete editable matte 3D interpretation of the user-supplied Muse panda reference: white face and belly, charcoal eye patches, ears, limbs and small tail, and a small green dragon on the anatomical right shoulder/world -X/viewer-left. Preserve that side and palette. Author unseen surfaces and a controllable toy rig explicitly. Include independently weighted upper arms, forearms, thighs and shins on both sides, with visible rounded elbow and knee joints. Use opaque diffuse materials only: metallic=0 and roughness=1 exactly. Provide idle, working, making_something and milestone_level_up authored clips through the ten body controls. Head, hands and dragon remain rest descendants without inferred finger/head control. A small golden craft sphere is a declared new action prop; no dynamic sculpting or physical simulation. Produce scene data for the weft-v1 output profile, not a replacement for Weft physics or its importer."
+    ],
+    "references": [
+      {
+        "inspection": {
+          "alpha_extrema": [
+            255,
+            255
+          ],
+          "bytes": 236554,
+          "format": "WEBP",
+          "frames": 1,
+          "has_transparency": false,
+          "height": 1600,
+          "kind": "image",
+          "metadata_keys": [
+            "background",
+            "duration",
+            "loop",
+            "timestamp",
+            "xmp"
+          ],
+          "mode": "RGB",
+          "sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2",
+          "width": 1600
+        },
+        "path": "sources/reference-0.webp",
+        "role": "User-supplied Muse appearance reference; authored stylized interpretation, not recovered geometry"
+      }
+    ],
+    "tools": [
+      {
+        "name": "Blender",
+        "version": "4.5.13 LTS"
+      },
+      {
+        "name": "avatar-assets",
+        "source_manifest_sha256": "730d59564bcdd9478ceba83689a42ade141c0f04f8bb1b43e69e61411f73fda2",
+        "version": "0.1.0"
+      }
+    ]
+  },
+  "retargeting": {
+    "bindings": [
+      {
+        "body": "mobile_root",
+        "node": 23,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "body": "left_elbow_body",
+        "node": 12,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.10000001192092894,
+          -0.059999998658895756,
+          0.029999984055757642
+        ]
+      },
+      {
+        "body": "right_elbow_body",
+        "node": 3,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          -0.10000001192092894,
+          -0.059999998658895756,
+          0.029999984055757642
+        ]
+      },
+      {
+        "body": "left_knee_body",
+        "node": 19,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.10499999523162842,
+          -0.01750000007450591,
+          -0.04000000283122052
+        ]
+      },
+      {
+        "body": "right_knee_body",
+        "node": 16,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          -0.10499999523162842,
+          -0.01750000007450591,
+          -0.04000000283122052
+        ]
+      },
+      {
+        "body": "left_hip_body",
+        "node": 20,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.08999999463558198,
+          -1.5543121831900212e-16,
+          -0.20000002309679976
+        ]
+      },
+      {
+        "body": "right_hip_body",
+        "node": 17,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          -0.08999999463558198,
+          -1.5543121831900212e-16,
+          -0.20000002309679976
+        ]
+      },
+      {
+        "body": "torso",
+        "node": 14,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.0,
+          -1.4654944259233034e-16,
+          -0.3399999849498271
+        ]
+      },
+      {
+        "body": "left_shoulder_body",
+        "node": 13,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          0.15000000596046448,
+          -3.2418512917933334e-16,
+          0.06000002697110207
+        ]
+      },
+      {
+        "body": "right_shoulder_body",
+        "node": 4,
+        "rotation_xyzw": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "translation": [
+          -0.15000000596046448,
+          -3.2418512917933334e-16,
+          0.06000002697110207
+        ]
+      }
+    ],
+    "orientation_xyzw": [
+      0.7071067811865476,
+      0,
+      0,
+      0.7071067811865476
+    ],
+    "profile": "weft-avatar-retarget-v1",
+    "root_node": 23,
+    "scale": 1
+  },
+  "rights": {
+    "declaration": "User requested local authoring and integration. No independent ownership, license or redistribution permission for referenced designs is asserted.",
+    "holder": "unknown",
+    "license": "unknown",
+    "source": "New locally authored procedural model; selected reference hashes in provenance"
+  }
+}

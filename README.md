@@ -216,6 +216,16 @@ Intended entry: **Indie Developer / Push the Frontier** at the Meta Global AI De
 
 The submission deadline is **November 4, 2026, at 6:00 p.m. PST**. Source snapshots retain the organizers' original timezone wording; planning documents use America/Los_Angeles.
 
+## Avatar authoring
+
+The [avatar workflow and browser library](docs/avatar-authoring.md) now live in `tools/avatar-assets/`, with editable panda/dragon, robot, fox and lamp models, portable previews, a reusable skill and verification records. Its environment stays separate from Weft's simulator dependencies.
+
+```sh
+tools/avatar-assets/run gallery
+```
+
+Open `http://127.0.0.1:8765/` yourself. These are appearance previews; detailed fur/PBR assets are not silently substituted into Weft physics or its constrained renderer.
+
 ## Repository boundaries
 
 - Private GitHub repository: `kintsugi-software/weft`. No public release or hackathon submission. The separately hosted website remains intentionally offline.

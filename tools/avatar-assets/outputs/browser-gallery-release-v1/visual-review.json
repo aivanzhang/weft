@@ -1,0 +1,33 @@
+{
+  "images": [
+    {
+      "bytes": 346791,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-browser-v6/desktop.png",
+      "sha256": "ddcabfd84c11765f9b5703522a98753be4dc8ab8758e0c4f5f7cf28949c746dc"
+    },
+    {
+      "bytes": 154534,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-browser-v6/mobile.png",
+      "sha256": "7757bf576e22b5abee4fd5d92dac8e392d230ab54257570f955e8a85558f9c80"
+    },
+    {
+      "bytes": 355748,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/gallery-browser-v6/panda-celebrate.png",
+      "sha256": "a447cd0b2b8e64d75ee07979ed6b422b300a29922da4166775be1de125daa58b"
+    }
+  ],
+  "limits": [
+    "Browser lighting differs from offline Blender renders.",
+    "No every-frame visual review, touchscreen hardware or non-Chromium engine verification claimed."
+  ],
+  "observations": [
+    "Desktop library and labels readable; robot is visible as real shaded geometry, with whole silhouette and controls separated.",
+    "390px layout has horizontally scrollable collection, no document overflow, no obscured model feet, and readable animation/video controls.",
+    "Panda celebration shows the attached green shoulder dragon at viewer-left and a complete raised-arm pose without clipping.",
+    "Earlier v4 fox/lamp views were also inspected; their final structural/action behavior is covered by v6 checks."
+  ],
+  "reviewed_at": "2026-10-30 16:23:09 PDT",
+  "reviewer": "Agent inspection, not user approval",
+  "schema_version": 1,
+  "status": "sampled_visual_pass"
+}

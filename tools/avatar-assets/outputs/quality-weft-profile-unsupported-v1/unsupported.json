@@ -1,0 +1,36 @@
+{
+  "converted_model_created": false,
+  "existing_real_geometry_and_skins": true,
+  "next_action": "Author an explicitly reviewed lower-detail consumer variant and a new node mapping; do not reuse the previous mapping or modify Weft physics/actions/rewards to fit these meshes.",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reason": "Every detailed edition exceeds 20,000 exported vertices and uses material features outside the diffuse-only profile. Reducing these to the frozen profile without losing the added fur/surface detail has not been implemented or verified. Existing v1 matte panda/robot deliveries remain available and unchanged.",
+  "requested_conversion": "Use the detailed general/PBR editions unchanged under the frozen Weft profile",
+  "schema_version": 1,
+  "sources": [
+    {
+      "folder": "outputs/muse-panda-quality-build-v6",
+      "model_sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+      "vertices": 85952
+    },
+    {
+      "folder": "outputs/workshop-robot-quality-build-v3",
+      "model_sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+      "vertices": 47644
+    },
+    {
+      "folder": "outputs/fox-quality-build-v4",
+      "model_sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+      "vertices": 68518
+    },
+    {
+      "folder": "outputs/lamp-quality-build-v4",
+      "model_sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+      "vertices": 37762
+    }
+  ],
+  "status": "unsupported",
+  "target_contract_read_only": "/Users/ivan/kintsugi/weft/docs/avatars.md",
+  "target_contract_sha256_at_recording": "e03897de484ff0429dc6e92eb0ddbcc30f00534f146ddda18ce4e516dfbd6d34",
+  "weft_modified": false
+}

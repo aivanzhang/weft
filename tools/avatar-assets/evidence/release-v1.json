@@ -1,0 +1,1530 @@
+{
+  "bundles": [
+    {
+      "artifact_bytes": 8024996,
+      "artifact_count": 45,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2",
+      "editable_source": {
+        "bytes": 1989890,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2/source.blend",
+        "sha256": "101be786e2da890bf2c3eafee63dd9bd7c5fc2a159c07d38ef2e2497f30c6706"
+      },
+      "job.json": {
+        "elapsed_seconds": 16.24,
+        "evidence": {
+          "bytes": 766,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2/job.json",
+          "sha256": "41b9aaddeb7693fa54122986be3fd081f67d48b7521a2907ae19bf00ba5a593d"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "pid": 53343,
+        "sampled_peak_rss_bytes": 460357632,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 20447,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2/manifest.json",
+        "sha256": "5af39de8d8e41b79fec50283df6744fe22d1527d51cded5b3ba21f241a77add8"
+      },
+      "model": {
+        "bytes": 562212,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-refined-v2/model.glb",
+        "sha256": "8caaa137ded76709f0a9804447e90993d4fee8c0fb7b402c857f9496f3d1701e"
+      },
+      "name": "fox-refined-v2"
+    },
+    {
+      "artifact_bytes": 7120959,
+      "artifact_count": 45,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1",
+      "editable_source": {
+        "bytes": 1599702,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/source.blend",
+        "sha256": "c3612841df7d53d882450f27160de323bedbe99fee285a062a2517d461320720"
+      },
+      "job.json": {
+        "elapsed_seconds": 19.352,
+        "evidence": {
+          "bytes": 770,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/job.json",
+          "sha256": "e7678ef7ed0ee8617ff28bfaa7388a4fc31b44499aa7bb7f5c1c443656d697bf"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "pid": 52815,
+        "sampled_peak_rss_bytes": 469893120,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 19843,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/manifest.json",
+        "sha256": "21a378b8bd41c9b650a12400708d03da31299cf722e3caadae0f36e28a007707"
+      },
+      "model": {
+        "bytes": 494056,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/model.glb",
+        "sha256": "6c4edc7179499e0c6edb6e170c93b4cda670c229d39c79147d9dfe846198b6e7"
+      },
+      "name": "lamp-refined-v1"
+    },
+    {
+      "artifact_bytes": 424549957,
+      "artifact_count": 793,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1",
+      "job.json": {
+        "elapsed_seconds": 1122.54,
+        "evidence": {
+          "bytes": 872,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/job.json",
+          "sha256": "a96d66d76f2a929b20ddec1007915b76705bdd0214e4594f0cb137da939aa1cb"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 53605,
+        "sampled_peak_rss_bytes": 936394752,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 137591,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/manifest.json",
+        "sha256": "e75ab7caea65eac79349aeb684254b31a30910d122b7de172d7780c1ed1b32ff"
+      },
+      "media": {
+        "clips": [
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 534917,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "eea3afea1ab1a9012d60f1cbd299195dff648e2bebbb52c74b2d8eb6bece1831",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "idle",
+            "inspection": {
+              "adjacent_mae_max": 0.000262,
+              "adjacent_mae_mean": 0.00017,
+              "audio": false,
+              "boundary_mae": 0.000474,
+              "bytes": 229905,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "3cda0c71334d0379a802a4fb18d8cdda0e7dbcabd14a36cb6e0537a44799ca72",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Quiet attentive breathing, alternating ear twitches and a slow tail sway."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 532499,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "6ad6b56d04dce5864d53c43fb30ff2aabe0ff6f48be7d322483664a679b3f0b5",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "making_something",
+            "inspection": {
+              "adjacent_mae_max": 0.000236,
+              "adjacent_mae_mean": 0.000164,
+              "audio": false,
+              "boundary_mae": 0.000355,
+              "bytes": 174880,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "77d785d702ba6bde9f976c31f3ddac46fbde9d7393de3d249cbd7c940d567ccc",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Looks down at the sketchbook and draws a craft pattern with several short pencil strokes."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 534917,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "62bb6465f8aded616f29b314d64d449aa057889233ce8a9fdb86283ae08a4010",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "milestone_level_up",
+            "inspection": {
+              "adjacent_mae_max": 0.004763,
+              "adjacent_mae_mean": 0.002763,
+              "audio": false,
+              "boundary_mae": 0.001977,
+              "bytes": 495602,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "6e2169253e62634178782a101ecb3b565059473ec9e3eeb06e9f23944c0cacd0",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Raises both paws clearly above shoulder level, displaying the sketchbook and pencil during one delighted hop, then returns to rest."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 530363,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "54d5122481624653de12840ef7acd002c18ce3c69dff1b5909216030c8c928b7",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "working",
+            "inspection": {
+              "adjacent_mae_max": 0.000206,
+              "adjacent_mae_mean": 0.000152,
+              "audio": false,
+              "boundary_mae": 0.000246,
+              "bytes": 164766,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "eecd16dc715bfba5ce242b35344d0c913d34c144b05e2c20a20793af59a88cce",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Raises the sketchbook toward its face and reads it with a pronounced downward gaze and slow page scan; pencil hand stays resting."
+          }
+        ],
+        "portrait": {
+          "alpha_extrema": [
+            255,
+            255
+          ],
+          "bytes": 1139274,
+          "format": "WEBP",
+          "frames": 1,
+          "has_transparency": false,
+          "height": 1600,
+          "kind": "image",
+          "metadata_keys": [
+            "background",
+            "duration",
+            "loop",
+            "timestamp"
+          ],
+          "mode": "RGB",
+          "sha256": "51bb8359bfcc1e8021267ec4eac7b418a404020f932ceb1e3c087db2edc89cc7",
+          "width": 1600
+        }
+      },
+      "name": "fox-muse-v1"
+    },
+    {
+      "artifact_bytes": 399071834,
+      "artifact_count": 793,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2",
+      "job.json": {
+        "elapsed_seconds": 1097.05,
+        "evidence": {
+          "bytes": 876,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/job.json",
+          "sha256": "1ca6cf516a8edfa98284dde87c38241bafdf2498c81db755fdca270e6ad57f26"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 53606,
+        "sampled_peak_rss_bytes": 935673856,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 137666,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/manifest.json",
+        "sha256": "a76550a24f059306942ad6f8c77513ec9c4b4eab74daa5e7007e7ff7e1b65120"
+      },
+      "media": {
+        "clips": [
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 507349,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "2db613952ec2cf44df404ac66c8025f01739436d404cf0f21b9166dd1663ff07",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "idle",
+            "inspection": {
+              "adjacent_mae_max": 0.000132,
+              "adjacent_mae_mean": 8.2e-05,
+              "audio": false,
+              "boundary_mae": 0.000216,
+              "bytes": 99347,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "d3c1237c0c0e15643dec55578303865b9709e466da2beaf068844b5a734d38f6",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 501147,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "721117a1b4856787c14a5d4436e769d25dfa46f427150d6f9b1d0f858908c84f",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "making_something",
+            "inspection": {
+              "adjacent_mae_max": 0.000106,
+              "adjacent_mae_mean": 5.7e-05,
+              "audio": false,
+              "boundary_mae": 0.00016,
+              "bytes": 72584,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "370d4da7b33e29ccd7861157f2aa01f75a6f1d434f9f74035a47ad401e0ee7d2",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 507349,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "2821e758732b276efa0c0e63ccbde9a4f754ad57b85510c550b8a6182ae74bfe",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "milestone_level_up",
+            "inspection": {
+              "adjacent_mae_max": 0.000815,
+              "adjacent_mae_mean": 0.000439,
+              "audio": false,
+              "boundary_mae": 0.000881,
+              "bytes": 142529,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "5710c2316023077e80331e95a66ec71076a461c1b5cbfa92887482cb0dab1d5e",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 501502,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "25c8c396046d12b00edffc230fb60ea4913c284e1503182b60e468cfe8c79960",
+              "width": 720
+            },
+            "fallback_matches_first_frame": true,
+            "id": "working",
+            "inspection": {
+              "adjacent_mae_max": 0.000385,
+              "adjacent_mae_mean": 0.000264,
+              "audio": false,
+              "boundary_mae": 0.000302,
+              "bytes": 131620,
+              "codec": "h264",
+              "duration_seconds": 8.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 192,
+              "has_transparency": false,
+              "height": 720,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "83dcee9ce6e2c9516bca9be106f793ec133a6e5d34b41093bb9a30297f0e6e4e",
+              "unique_thumbnails": 192,
+              "width": 720
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state."
+          }
+        ],
+        "portrait": {
+          "alpha_extrema": [
+            255,
+            255
+          ],
+          "bytes": 960714,
+          "format": "WEBP",
+          "frames": 1,
+          "has_transparency": false,
+          "height": 1600,
+          "kind": "image",
+          "metadata_keys": [
+            "background",
+            "duration",
+            "loop",
+            "timestamp"
+          ],
+          "mode": "RGB",
+          "sha256": "4d6e263600a931e4cd11bb5d27441f10a646cf774fd23ed1e50a5c4e346a14de",
+          "width": 1600
+        }
+      },
+      "name": "lamp-muse-v2"
+    },
+    {
+      "artifact_bytes": 7472095,
+      "artifact_count": 46,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1",
+      "editable_source": {
+        "bytes": 2437648,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/source.blend",
+        "sha256": "4d1ad193adeae229b235b6f850f4a97d6ac4955f262d332b15137b2b0f219d4f"
+      },
+      "job.json": {
+        "elapsed_seconds": 20.889,
+        "evidence": {
+          "bytes": 830,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/job.json",
+          "sha256": "37f005241c5aeea2bbdc08528650a62b3feeb6ca554829b2f43e72b46f017f84"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 6907181,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 300
+        },
+        "pid": 56064,
+        "sampled_peak_rss_bytes": 474103808,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 23237,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/manifest.json",
+        "sha256": "730d59564bcdd9478ceba83689a42ade141c0f04f8bb1b43e69e61411f73fda2"
+      },
+      "model": {
+        "bytes": 742196,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/model.glb",
+        "sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012"
+      },
+      "name": "muse-panda-weft-build-v1"
+    },
+    {
+      "artifact_bytes": 6721206,
+      "artifact_count": 45,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1",
+      "editable_source": {
+        "bytes": 1898845,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/source.blend",
+        "sha256": "d94c9eab78e91d53d0a77406842416ef996c347fc75be573a01c759e0e40e0ab"
+      },
+      "job.json": {
+        "elapsed_seconds": 20.645,
+        "evidence": {
+          "bytes": 842,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/job.json",
+          "sha256": "54859c69f3d9ecac2c3b8ab1438a9788c3a22ad15ade094edc49fc400177c42a"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 6162424,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 300
+        },
+        "pid": 56070,
+        "sampled_peak_rss_bytes": 461324288,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 21204,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/manifest.json",
+        "sha256": "c3928969499c8d9297f7a6f8714a4f0b2fc3278c1bb17c01fe995427ec6f6e53"
+      },
+      "model": {
+        "bytes": 561508,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/model.glb",
+        "sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd"
+      },
+      "name": "humanoid-robot-weft-build-v1"
+    },
+    {
+      "artifact_bytes": 765558,
+      "artifact_count": 5,
+      "creation_status": "provisional_alignment",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-muse-panda-v1",
+      "manifest": {
+        "bytes": 1345,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-muse-panda-v1/manifest.json",
+        "sha256": "67f9f9159e85259a71e6945c8feafb17aede74545903ef321b72535dda61e046"
+      },
+      "model": {
+        "bytes": 742196,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-muse-panda-v1/model.glb",
+        "sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012"
+      },
+      "name": "weft-muse-panda-v1"
+    },
+    {
+      "artifact_bytes": 581557,
+      "artifact_count": 5,
+      "creation_status": "provisional_alignment",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-humanoid-robot-v1",
+      "manifest": {
+        "bytes": 1347,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-humanoid-robot-v1/manifest.json",
+        "sha256": "8ca07c02557c11418380c6fc7f6335edfe70aaf8f56d8da71b15a962e541f039"
+      },
+      "model": {
+        "bytes": 561508,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-humanoid-robot-v1/model.glb",
+        "sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd"
+      },
+      "name": "weft-humanoid-robot-v1"
+    },
+    {
+      "artifact_bytes": 9764674,
+      "artifact_count": 127,
+      "creation_status": "needs_visual_review",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1",
+      "job.json": {
+        "elapsed_seconds": 17.604,
+        "evidence": {
+          "bytes": 932,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/job.json",
+          "sha256": "5910bf42133d91f0536a6593e6c13a7fc17d03d7833bca0e0d6a14af576a285a"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 9061574,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 57016,
+        "sampled_peak_rss_bytes": 363446272,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 31987,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/manifest.json",
+        "sha256": "2dc8690ef53602d998bb86011438e60681dd695d3dc4b0266d5219324caa1d44"
+      },
+      "media": {
+        "clips": [
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 81779,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "584a43fab8c4911a94376223ec0e9dd40120323b7f1b8c49a6f6186e4f485f33",
+              "width": 256
+            },
+            "fallback_matches_first_frame": true,
+            "id": "idle",
+            "inspection": {
+              "adjacent_mae_max": 0.000764,
+              "adjacent_mae_mean": 0.000574,
+              "audio": false,
+              "boundary_mae": 0.001292,
+              "bytes": 15002,
+              "codec": "h264",
+              "duration_seconds": 1.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 24,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "ec23226e004ef4ae515f36377a31ab4f3c620ef82f6d181e5d4ffba054a905ca",
+              "unique_thumbnails": 23,
+              "width": 256
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Friendly attentive body rock with tools held at waist height and both feet planted."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 81089,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "09c93de28f340dc3738ed75da3096ea59299117caf0b70dcb491e5a64a01eac9",
+              "width": 256
+            },
+            "fallback_matches_first_frame": true,
+            "id": "working",
+            "inspection": {
+              "adjacent_mae_max": 0.002745,
+              "adjacent_mae_mean": 0.002474,
+              "audio": false,
+              "boundary_mae": 0.002776,
+              "bytes": 20738,
+              "codec": "h264",
+              "duration_seconds": 1.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 24,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "e64df7eda979453671a325938698b60a428c2999f57e770ece6761290774bbe2",
+              "unique_thumbnails": 24,
+              "width": 256
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Raises the circuit workpiece toward the face and leans forward to inspect it while the probe hand rests."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 81647,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "e553c232fd6fa92655edef4e1597fe555f2fcf5f12b9ed7da35f0f4a2de45c91",
+              "width": 256
+            },
+            "fallback_matches_first_frame": true,
+            "id": "making_something",
+            "inspection": {
+              "adjacent_mae_max": 0.000782,
+              "adjacent_mae_mean": 0.000688,
+              "audio": false,
+              "boundary_mae": 0.000768,
+              "bytes": 12781,
+              "codec": "h264",
+              "duration_seconds": 1.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 24,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "51301cfa291effb04c420001e5d771a59bccd84636ab45428259a2fe78303b66",
+              "unique_thumbnails": 22,
+              "width": 256
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Uses repeated short probe strokes toward the waist-held circuit guide while the left arm steadies it; guide marks remain fixed."
+          },
+          {
+            "exact_endpoint_mae": 0.0,
+            "fallback": {
+              "alpha_extrema": [
+                255,
+                255
+              ],
+              "bytes": 81779,
+              "format": "PNG",
+              "frames": 1,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "image",
+              "metadata_keys": [
+                "Camera",
+                "Date",
+                "File",
+                "Frame",
+                "RenderTime",
+                "Scene",
+                "Time",
+                "cycles.ViewLayer.render_time",
+                "cycles.ViewLayer.samples",
+                "cycles.ViewLayer.synchronization_time",
+                "cycles.ViewLayer.total_time",
+                "dpi",
+                "exif"
+              ],
+              "mode": "RGBA",
+              "sha256": "88eb433998ac8f4248af6fe6088a7f3b41902ef06cd817bcccfe98e30b5f8226",
+              "width": 256
+            },
+            "fallback_matches_first_frame": true,
+            "id": "milestone_level_up",
+            "inspection": {
+              "adjacent_mae_max": 0.024668,
+              "adjacent_mae_mean": 0.014667,
+              "audio": false,
+              "boundary_mae": 0.009057,
+              "bytes": 35726,
+              "codec": "h264",
+              "duration_seconds": 1.0,
+              "format": "MP4",
+              "fps": 24.0,
+              "frames": 24,
+              "has_transparency": false,
+              "height": 256,
+              "kind": "video",
+              "loop": "unverified",
+              "metadata": {
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf63.1.102",
+                "major_brand": "isom",
+                "minor_version": "512"
+              },
+              "motion_detected": true,
+              "pixel_format": "yuv420p",
+              "sha256": "273ad96adb4268510817291b4bf31abe7036dd16d9e2afc08b1cd05f49f636b3",
+              "unique_thumbnails": 24,
+              "width": 256
+            },
+            "loop_declaration": "not_certified; visual seam review required",
+            "meaning": "Raises both tools above shoulder level with one cheerful hop and a preparatory knee bend."
+          }
+        ],
+        "portrait": {
+          "alpha_extrema": [
+            255,
+            255
+          ],
+          "bytes": 123680,
+          "format": "WEBP",
+          "frames": 1,
+          "has_transparency": false,
+          "height": 512,
+          "kind": "image",
+          "metadata_keys": [
+            "background",
+            "duration",
+            "loop",
+            "timestamp"
+          ],
+          "mode": "RGB",
+          "sha256": "5457d674cfe392e94d3eca5737c999d73d59fe0bf375d6f481e23a16bf11e5f0",
+          "width": 512
+        }
+      },
+      "name": "robot-preview-v1",
+      "packaging-job.json": {
+        "elapsed_seconds": 0.793,
+        "evidence": {
+          "bytes": 707,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/packaging-job.json",
+          "sha256": "7021bd3e31212ee76f9406fe9e6c2c74bb7006803c548079be940dc28d71eae3"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 9763967,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 57055,
+        "sampled_peak_rss_bytes": 97370112,
+        "sampling_interval_seconds": 0.25
+      }
+    },
+    {
+      "artifact_bytes": 1272764,
+      "artifact_count": 24,
+      "creation_status": "passed",
+      "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2",
+      "job.json": {
+        "elapsed_seconds": 0.769,
+        "evidence": {
+          "bytes": 731,
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/job.json",
+          "sha256": "5fc15736d6fe5ca8fbbda60b05045fa94df135f85c20e132ed0a4b4394f98374"
+        },
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 1272033,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 58725,
+        "sampled_peak_rss_bytes": 98123776,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest": {
+        "bytes": 4000,
+        "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/manifest.json",
+        "sha256": "c3bf537bdee5a9c9a6287a28b7ce871bdf9063539fd23d0eea08ae0ec52d6054"
+      },
+      "name": "robot-packaging-proof-v2"
+    }
+  ],
+  "code": [
+    {
+      "bytes": 97,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/__init__.py",
+      "sha256": "4b6c6a7cc1a33181f1d38daf2f7940fe047db295d52e8f4c038e78578e667566"
+    },
+    {
+      "bytes": 44,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/__main__.py",
+      "sha256": "1779ec7171c5c58b0e811a55641c37ade9dc83b83fdcd5e5e11e3995eba8285e"
+    },
+    {
+      "bytes": 4525,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 6683,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/build3d.py",
+      "sha256": "44ba4c47759a8c5aaefdb0ec2c0c14919e72b441cba1db5cdb93f59c6499da5d"
+    },
+    {
+      "bytes": 9036,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/cli.py",
+      "sha256": "3bf14363eb2364d0785ff330ea8a103ba8ce244ce3826add8e989dad8a003df1"
+    },
+    {
+      "bytes": 4829,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/export2d.py",
+      "sha256": "88446e79c1b3d7196f87ca35e9c7a07c3a61d252a4b5585b24fd1101d1e6eb2e"
+    },
+    {
+      "bytes": 8912,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 2900,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/packaging.py",
+      "sha256": "81b2cadc08424ce1c943b3ef0a4b0324750915b1ce6572a4289a9e4feb9d4314"
+    },
+    {
+      "bytes": 2955,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 4322,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/runner.py",
+      "sha256": "13ebf512eda64144a764b2a2f9b5afbea9e5bbe3e7b4c9aca04229862fad4c59"
+    },
+    {
+      "bytes": 3759,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 6679,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/scene.py",
+      "sha256": "b5ec8ed9de8c356ad1c508d0df60448694b7bd82faf3123cbbf3c1592ce3eb93"
+    },
+    {
+      "bytes": 29325,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/three_d.py",
+      "sha256": "9778ef1321305833d0b49cda3915622657c9aff070dfefc2a1840d4b83ca3354"
+    },
+    {
+      "bytes": 7723,
+      "path": "/Users/ivan/kintsugi/avatar-assets/avatar_assets/weft_metadata.py",
+      "sha256": "47c05f714d8727ce2a6c158d8aacb91789e08998e4623bde5b9778731cdfeaf2"
+    },
+    {
+      "bytes": 440,
+      "path": "/Users/ivan/kintsugi/avatar-assets/pyproject.toml",
+      "sha256": "5d48043a002a55a26029707fed6c96d2764b0eee010cbc927b20b9f53dc6132c"
+    },
+    {
+      "bytes": 93,
+      "path": "/Users/ivan/kintsugi/avatar-assets/requirements-dev.lock",
+      "sha256": "2cc1d1455a4e80d0c948da49d27394a7777ed12f9e07fcf338117de770d98aba"
+    },
+    {
+      "bytes": 276,
+      "path": "/Users/ivan/kintsugi/avatar-assets/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 10261,
+      "path": "/Users/ivan/kintsugi/avatar-assets/scripts/blender_build.py",
+      "sha256": "5e37914c609322900fb2ab345ef3673bb87d2d3855da45ca895a1dfb0b7f257f"
+    },
+    {
+      "bytes": 2530,
+      "path": "/Users/ivan/kintsugi/avatar-assets/scripts/blender_render.py",
+      "sha256": "462a63d27d44bbcef9732c3396631476c48796d637bf9000d2e973875f9964c6"
+    },
+    {
+      "bytes": 18248,
+      "path": "/Users/ivan/kintsugi/avatar-assets/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11491,
+      "path": "/Users/ivan/kintsugi/avatar-assets/tests/test_media_safety.py",
+      "sha256": "8463011db39b708094d8a37ae9b9130d27f174d7779083da40561389badea02e"
+    },
+    {
+      "bytes": 3587,
+      "path": "/Users/ivan/kintsugi/avatar-assets/tests/test_packaging.py",
+      "sha256": "036307527d20b1d937bcb8252921200ac79cd6bff4a3e4b7f3925dea405a3b13"
+    },
+    {
+      "bytes": 8731,
+      "path": "/Users/ivan/kintsugi/avatar-assets/tests/test_scene.py",
+      "sha256": "370f6121d9e8967ea663478c535ea9bb871029c87d281587ec19fe4177fc8ee2"
+    },
+    {
+      "bytes": 9803,
+      "path": "/Users/ivan/kintsugi/avatar-assets/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 6498,
+      "path": "/Users/ivan/kintsugi/avatar-assets/tests/test_workflow.py",
+      "sha256": "fb76beeeb8bd3f79baabd06e8420dc7db20131faec96aad4fc24f51ede453248"
+    }
+  ],
+  "cost": {
+    "local_compute": "Existing host only; electricity and hardware depreciation not measured",
+    "paid_batch_proposed_not_executed": true,
+    "provider_cost_usd": 0,
+    "provider_generation_calls": 0,
+    "recurring_service_cost_usd": 0,
+    "weft_credentials_or_budget_used": false
+  },
+  "limits": {
+    "archive_bytes": 134217728,
+    "archive_entries": 32,
+    "archive_expanded_bytes": 268435456,
+    "compression_ratio": 200,
+    "fps": 60,
+    "frames": 600,
+    "input_bytes": 67108864,
+    "json_bytes": 1048576,
+    "output_bytes": 536870912,
+    "pixels": 16777216,
+    "rss_bytes": 1610612736,
+    "seconds": 20,
+    "states": 12,
+    "video_pixels": 2073600,
+    "wall_seconds": 180
+  },
+  "limits_of_claim": [
+    "Weft frozen importer accepted both bundles, but actual simulation pose alignment/display/replay remains unverified and belongs to the integration session.",
+    "Neutral body transforms, target axes and scale are an explicitly user-authorized authoring proposal, not recovered Weft state.",
+    "All models use stylized intersecting closed primitives with rigid-part weights, not guaranteed manifold manufacturing meshes, fur, realistic anatomy, smooth skin or cloth.",
+    "Model byte-level rebuild reproducibility is not guaranteed; immutable accepted originals and exact source artifacts are retained.",
+    "No seamless loop is certified; endpoint equality does not prove velocity continuity.",
+    "Visual review is sampled agent inspection, not human approval or every-frame playback.",
+    "Original reference rights, exact source prompts and original rig are unavailable; metadata is provenance only.",
+    "Initial full media runs predate the separate packaging worker. A real full-length lamp clip and all four short robot clips verify its bounded path separately.",
+    "The final Muse default equals the measured full-export settings; larger overrides may hit bounds rather than complete."
+  ],
+  "next_safe_action": "Use the reusable skill for new text requests in new output folders. Weft owner may consume the immutable model/mapping paths and verify actual neutral/articulated alignment without changing physics.",
+  "presets": {
+    "muse": {
+      "portrait": 1600,
+      "samples": 8,
+      "seconds": 8,
+      "size": 720
+    },
+    "preview": {
+      "portrait": 640,
+      "samples": 8,
+      "seconds": 4,
+      "size": 320
+    }
+  },
+  "recorded_at": "2026-10-30 15:45:48 PDT",
+  "reference_manifest_byte_identical": true,
+  "release": "local-avatar-workflow-v1",
+  "schema_version": 1,
+  "scope": "Agent-assisted text-to-scene authoring, local real rigged GLB/.blend, native reload, 2D media, material skins and provisional Weft mapping; no standalone neural prompt model or physics simulator",
+  "session_thread": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+  "source_archive": {
+    "bytes": 2667322,
+    "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+    "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+  },
+  "source_archive_matches_expected": true,
+  "status": "local_workflow_verified_with_disclosed_limits",
+  "tools": {
+    "blender": "4.5.13 LTS arm64",
+    "blender_installer_sha256": "663ce944257c61ff1d6aa09e15c8f57bbd8d59023adb2fa7edde33a9ed960b53",
+    "encoder": "libx264",
+    "encoder_options": {
+      "crf": 18,
+      "preset": "medium",
+      "threads": 1
+    },
+    "ffmpeg_libraries": {
+      "libavcodec": [
+        63,
+        1,
+        102
+      ],
+      "libavdevice": [
+        63,
+        1,
+        102
+      ],
+      "libavfilter": [
+        12,
+        1,
+        102
+      ],
+      "libavformat": [
+        63,
+        1,
+        102
+      ],
+      "libavutil": [
+        61,
+        1,
+        102
+      ],
+      "libswresample": [
+        7,
+        1,
+        102
+      ],
+      "libswscale": [
+        10,
+        1,
+        102
+      ]
+    },
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "pyav": "19.0.2",
+    "python": "3.14.7"
+  },
+  "unit_tests": {
+    "duration_seconds": 1.542,
+    "failed": 0,
+    "fixtures": "Analytic fixtures are not counted as authored examples",
+    "passed": 82
+  },
+  "unsupported": {
+    "bytes": 943,
+    "path": "/Users/ivan/kintsugi/avatar-assets/outputs/reference-3d-unsupported-v1/unsupported.json",
+    "sha256": "0d60397c084435c6a7947004c74cdb7ed7d237a8555021271b7229c92698497b"
+  },
+  "verification_evidence": [
+    {
+      "bytes": 7769,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/reference-v1/manifest.json",
+      "sha256": "d44646d424b026d7881eee953f6eef0e49f9a3e4a3715b1bdc866685c7c21983"
+    },
+    {
+      "bytes": 7769,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/reference-v2/manifest.json",
+      "sha256": "d44646d424b026d7881eee953f6eef0e49f9a3e4a3715b1bdc866685c7c21983"
+    },
+    {
+      "bytes": 1211,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/reference-v2-execution/manifest.json",
+      "sha256": "d25e9779ab98d9a4c90cca16cd69dfcc070801e9f47bf8ca881d4337bcf83275"
+    },
+    {
+      "bytes": 2475,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-reload-v1/manifest.json",
+      "sha256": "c5552e948fa111e8a691baf05822201afa6af3facaeedb1e0b58e04edb5a6adb"
+    },
+    {
+      "bytes": 2477,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-reload-v1/manifest.json",
+      "sha256": "653c170a584c39b49e4c64605b80c708d910b00a8d21cb97d1fc38c0ee86df95"
+    },
+    {
+      "bytes": 2543,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1/manifest.json",
+      "sha256": "6cadd7c481d704c50a8ddcc3ac9d6aff8419812ad7b730e04a0da3dba97b18a0"
+    },
+    {
+      "bytes": 2555,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/manifest.json",
+      "sha256": "3418f3a7cacf40f41a74a18723cd6185b91b7fcd32b4fb3b9dc6caf9617cc4be"
+    },
+    {
+      "bytes": 3161,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1-review-v1/review.json",
+      "sha256": "66430f774f2e225e155fad4621bb1841912b44c80d6d12bfb04946da031bd6c7"
+    },
+    {
+      "bytes": 3179,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2-review-v1/review.json",
+      "sha256": "6f2b9b89e6066d83458788fda8f85cc66ab2f3f08e9ab0bf3bbaafd5ff8c0f95"
+    },
+    {
+      "bytes": 4538,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/refinement-review-v1/review.json",
+      "sha256": "ccb0cc7db27d00a160e2fa1270043f689952ea8b29ea04000237eb09b8a97009"
+    },
+    {
+      "bytes": 15083,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-model-visual-review-v1/review.json",
+      "sha256": "c893baeb5b11c2b4c175be8bdaa8187ad888cee424f8370beebb38f24cf055da"
+    },
+    {
+      "bytes": 1779,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-import-proof-v1/results.json",
+      "sha256": "6ec90fecc0a1ef9910fe2678907e8cdbaf213a256a7d1ca39d1f450c234b156a"
+    },
+    {
+      "bytes": 1452,
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/skill-forward-v1/forward-test-result.json",
+      "sha256": "d2e8bbea2c257536efe0084a4ccfaa20bd91bb87e3fee7ac48d9df8d4bd4596b"
+    },
+    {
+      "bytes": 2175,
+      "path": "/Users/ivan/kintsugi/avatar-assets/evidence/final-visual-review-v1.json",
+      "sha256": "fa2274496acbfff34fc8153ad2d79d4b96b95c4422aebee24f12394e1a01bfe0"
+    },
+    {
+      "bytes": 11051,
+      "path": "/Users/ivan/kintsugi/avatar-assets/evidence/tests-final-v2.txt",
+      "sha256": "82b03ee7e5401fc8a129f4309be6d40165b410d464172b0b8d4697e85507df64"
+    },
+    {
+      "bytes": 633,
+      "path": "/Users/ivan/kintsugi/avatar-assets/evidence/default-preset-v1.json",
+      "sha256": "ab4c01989a2499e98bcf40026ce67e9771a90549f73d9c4b385f0583463daeb6"
+    },
+    {
+      "bytes": 6985,
+      "path": "/Users/ivan/kintsugi/avatar-assets/evidence/rejected-attempts-v1.json",
+      "sha256": "e0ff8b47b513229b9e86764504bcf6322b75542331a6f91291ab891554bc9d76"
+    },
+    {
+      "bytes": 564,
+      "path": "/Users/ivan/kintsugi/avatar-assets/evidence/reproducibility-final-v1.json",
+      "sha256": "143627b3fe58370273086c814c62298eaefaa5863b0269ccf077c17dbfdc403a"
+    }
+  ],
+  "workspace": "/Users/ivan/kintsugi/avatar-assets"
+}

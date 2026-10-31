@@ -1,0 +1,10 @@
+{
+  "check": "same authored scene and backend reproduce GLB bytes across preview-quality settings",
+  "identical": false,
+  "original": "outputs/humanoid-robot-weft-build-v1/model.glb",
+  "original_sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd",
+  "repeat": "outputs/robot-reproducibility-v1/model.glb",
+  "repeat_sha256": "3de7b51125468fc7d810e000722b233199a589106807b1c41f99fe5f194df56b",
+  "schema_version": 1,
+  "scope": "GLB bytes only; .blend timestamps/render outputs/manifests are not claimed byte-identical"
+}

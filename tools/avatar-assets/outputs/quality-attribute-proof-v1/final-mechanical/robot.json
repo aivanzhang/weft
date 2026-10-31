@@ -1,0 +1,777 @@
+{
+  "automatic_surface_gate": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 428796,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "blue",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9806665041421923e-07,
+        "normal_tangent_dot_error": 0.0001262729517934602,
+        "tangent_squared_length_error": 0.00013845032026305049,
+        "vertices": 10051
+      },
+      {
+        "material": "graphite",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.801148787894391e-07,
+        "normal_tangent_dot_error": 0.00013945349089183878,
+        "tangent_squared_length_error": 0.00014849681966921935,
+        "vertices": 12535
+      },
+      {
+        "material": "cream",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.951345929285253e-07,
+        "normal_tangent_dot_error": 0.0001296027336219474,
+        "tangent_squared_length_error": 0.00013771544603358166,
+        "vertices": 9224
+      },
+      {
+        "material": "metal",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9197447187480066e-07,
+        "normal_tangent_dot_error": 0.0001316160304836167,
+        "tangent_squared_length_error": 0.00014087564642029093,
+        "vertices": 7990
+      },
+      {
+        "material": "visor",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7771409699385288e-07,
+        "normal_tangent_dot_error": 0.00013021971474280747,
+        "tangent_squared_length_error": 0.00012602830863883696,
+        "vertices": 916
+      },
+      {
+        "material": "brass",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9678812535062207e-07,
+        "normal_tangent_dot_error": 0.00013835826937125262,
+        "tangent_squared_length_error": 0.00013016641563878828,
+        "vertices": 3911
+      },
+      {
+        "material": "eye",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9678812535062207e-07,
+        "normal_tangent_dot_error": 0.00013793404702866496,
+        "tangent_squared_length_error": 0.00013448177794428418,
+        "vertices": 1306
+      },
+      {
+        "material": "blue_edge",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.909889804085907e-07,
+        "normal_tangent_dot_error": 0.0001289576480860699,
+        "tangent_squared_length_error": 0.0001230503353313317,
+        "vertices": 1022
+      },
+      {
+        "material": "circuit",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.5601997538361445e-07,
+        "normal_tangent_dot_error": 0.00012444656188988212,
+        "tangent_squared_length_error": 0.00011837386905622083,
+        "vertices": 549
+      },
+      {
+        "material": "copper",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.084314007471221e-07,
+        "normal_tangent_dot_error": 0.00013933427920065355,
+        "tangent_squared_length_error": 0.00012096216132118087,
+        "vertices": 140
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+    "status": "validated_render_attributes",
+    "vertices": 47644
+  },
+  "clips": [
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.026073865416640255,
+      "motion_observed": true,
+      "name": "idle",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.0787583666720354,
+      "motion_observed": true,
+      "name": "making_something",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.9306627990247136,
+      "motion_observed": true,
+      "name": "milestone_level_up",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.0655040927236883,
+      "motion_observed": true,
+      "name": "working",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.4883,
+  "embedded_images": [
+    {
+      "bytes": 96109,
+      "height": 256,
+      "mode": "RGBA",
+      "name": "metal-normal",
+      "sha256": "ae4bdbe62f6c43c4c03b2f1eeb56dabf7e42d6fa72144deaea4d5f8fc02d6abd",
+      "width": 256
+    },
+    {
+      "bytes": 33569,
+      "height": 256,
+      "mode": "RGBA",
+      "name": "metal-basecolor",
+      "sha256": "53de030c3757240ffaf2375d9fea182f9a2e39e133c70bf9a43b11ca25febbf0",
+      "width": 256
+    },
+    {
+      "bytes": 96189,
+      "height": 256,
+      "mode": "RGBA",
+      "name": "brass-normal",
+      "sha256": "7ea03bf055b744af9e96a8ae1912ff22d2b71ddff44fac2b76a03fac58af6a79",
+      "width": 256
+    },
+    {
+      "bytes": 22022,
+      "height": 256,
+      "mode": "RGBA",
+      "name": "brass-basecolor",
+      "sha256": "0157f8780a0adacd8b65b55f0ac21a28060ef3e12e1ff0aa688638a83b4c0a0d",
+      "width": 256
+    }
+  ],
+  "embedded_png_hashes_equal_preserved_sources": true,
+  "fur": {
+    "distinction": "Strand count comes from hash-verified backend metadata. Slender isolated triangles are independent geometry evidence, not recovered strand labels; small non-fur details can also match.",
+    "geometry_criterion": "Unshared triangle indices; shortest edge0.0002–0.005m, longest0.001–0.052m, aspect>=3",
+    "independent_isolated_slender_triangles": 64,
+    "source_reported_strand_vertices": 0,
+    "source_reported_strands": 0
+  },
+  "id": "robot",
+  "input_hashes": {
+    "backend_report": "6504579ce3b09515a0a043fb74d113768aac10eaa739a0ce9ae6ec279e496a83",
+    "blend": "fd1e24bbafd4fc7a7c2f0f87ad056d5b05b3a5f3b8080eded3c4750200ee8cf6",
+    "manifest": "f12374ef85aaa223db578dad09cb05b49c030e7df2faf818d19998f8b3e0f7da",
+    "model": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+    "scene": "be9e65d9c138fba37d613987a0d285eb304a27bfeb120d3f5e1f4600e01e4c7e"
+  },
+  "joints": 17,
+  "materials": [
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.14000000059604645,
+      "name": "blue",
+      "normal_texture": false,
+      "roughness": 0.30000001192092896
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.05999999865889549,
+      "name": "graphite",
+      "normal_texture": false,
+      "roughness": 0.6499999761581421
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.019999999552965164,
+      "name": "cream",
+      "normal_texture": false,
+      "roughness": 0.3400000035762787
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "metallic": 0.7799999713897705,
+      "name": "metal",
+      "normal_texture": true,
+      "roughness": 0.3100000023841858
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.10000000149011612,
+      "name": "visor",
+      "normal_texture": false,
+      "roughness": 0.1899999976158142
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "metallic": 0.7200000286102295,
+      "name": "brass",
+      "normal_texture": true,
+      "roughness": 0.3100000023841858
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0,
+      "name": "eye",
+      "normal_texture": false,
+      "roughness": 0.3100000023841858
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.11999999731779099,
+      "name": "blue_edge",
+      "normal_texture": false,
+      "roughness": 0.4300000071525574
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.05000000074505806,
+      "name": "circuit",
+      "normal_texture": false,
+      "roughness": 0.550000011920929
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "metallic": 0.699999988079071,
+      "name": "copper",
+      "normal_texture": false,
+      "roughness": 0.3400000035762787
+    }
+  ],
+  "mixed_weight_vertices_exported": 0,
+  "model_bytes": 3792380,
+  "normal_mapped_material_count": 2,
+  "not_verified_here": [
+    "Native render appearance",
+    "Reference likeness",
+    "Weft runtime alignment",
+    "Seamless loops"
+  ],
+  "pack": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3",
+  "pbr_material_count": 10,
+  "preserved_textures": [
+    {
+      "absolute_path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/textures/brass-basecolor.png",
+      "algorithm": "brushed_v1",
+      "bytes": 22022,
+      "kind": "basecolor",
+      "material": "brass",
+      "path": "textures/brass-basecolor.png",
+      "pattern": "brushed",
+      "resolution": 256,
+      "seed": 271,
+      "sha256": "0157f8780a0adacd8b65b55f0ac21a28060ef3e12e1ff0aa688638a83b4c0a0d",
+      "strength": 0.12
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/textures/brass-normal.png",
+      "algorithm": "brushed_v1",
+      "bytes": 96189,
+      "kind": "normal",
+      "material": "brass",
+      "path": "textures/brass-normal.png",
+      "pattern": "brushed",
+      "resolution": 256,
+      "seed": 271,
+      "sha256": "7ea03bf055b744af9e96a8ae1912ff22d2b71ddff44fac2b76a03fac58af6a79",
+      "strength": 0.12
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/textures/metal-basecolor.png",
+      "algorithm": "brushed_v1",
+      "bytes": 33569,
+      "kind": "basecolor",
+      "material": "metal",
+      "path": "textures/metal-basecolor.png",
+      "pattern": "brushed",
+      "resolution": 256,
+      "seed": 173,
+      "sha256": "53de030c3757240ffaf2375d9fea182f9a2e39e133c70bf9a43b11ca25febbf0",
+      "strength": 0.12
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/textures/metal-normal.png",
+      "algorithm": "brushed_v1",
+      "bytes": 96109,
+      "kind": "normal",
+      "material": "metal",
+      "path": "textures/metal-normal.png",
+      "pattern": "brushed",
+      "resolution": 256,
+      "seed": 173,
+      "sha256": "ae4bdbe62f6c43c4c03b2f1eeb56dabf7e42d6fa72144deaea4d5f8fc02d6abd",
+      "strength": 0.12
+    }
+  ],
+  "primitives": [
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 10051
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 1798,
+      "material": 0,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9806665041421923e-07,
+      "normal_tangent_dot_error": 0.0001262729517934602,
+      "tangent_squared_length_error": 0.00013845032026305049,
+      "triangles": 7944,
+      "uv0_bounds": [
+        [
+          -0.14688527584075928,
+          1.0
+        ],
+        [
+          -0.2384319305419922,
+          1.1286576986312866
+        ]
+      ],
+      "vertices": 10051,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 12535
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 24,
+      "isolated_triangles": 1466,
+      "material": 1,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.801148787894391e-07,
+      "normal_tangent_dot_error": 0.00013945349089183878,
+      "tangent_squared_length_error": 0.00014849681966921935,
+      "triangles": 10328,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 12535,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 9224
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 2116,
+      "material": 2,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.951345929285253e-07,
+      "normal_tangent_dot_error": 0.0001296027336219474,
+      "tangent_squared_length_error": 0.00013771544603358166,
+      "triangles": 6028,
+      "uv0_bounds": [
+        [
+          -0.13477247953414917,
+          1.0
+        ],
+        [
+          -0.229874849319458,
+          1.123055100440979
+        ]
+      ],
+      "vertices": 9224,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 7990
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 668,
+      "material": 3,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9197447187480066e-07,
+      "normal_tangent_dot_error": 0.0001316160304836167,
+      "tangent_squared_length_error": 0.00014087564642029093,
+      "triangles": 7176,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          -1.6689300537109375e-06,
+          1.0
+        ]
+      ],
+      "vertices": 7990,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 916
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 280,
+      "material": 4,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.7771409699385288e-07,
+      "normal_tangent_dot_error": 0.00013021971474280747,
+      "tangent_squared_length_error": 0.00012602830863883696,
+      "triangles": 312,
+      "uv0_bounds": [
+        [
+          0.1249999925494194,
+          0.8750000596046448
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 916,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 3911
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 136,
+      "material": 5,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9678812535062207e-07,
+      "normal_tangent_dot_error": 0.00013835826937125262,
+      "tangent_squared_length_error": 0.00013016641563878828,
+      "triangles": 4394,
+      "uv0_bounds": [
+        [
+          -2.8331515977697563e-07,
+          1.0000007152557373
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 3911,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1306
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 40,
+      "isolated_triangles": 280,
+      "material": 6,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9678812535062207e-07,
+      "normal_tangent_dot_error": 0.00013793404702866496,
+      "tangent_squared_length_error": 0.00013448177794428418,
+      "triangles": 808,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1306,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1022
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 132,
+      "material": 7,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.909889804085907e-07,
+      "normal_tangent_dot_error": 0.0001289576480860699,
+      "tangent_squared_length_error": 0.0001230503353313317,
+      "triangles": 760,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1022,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 549
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 172,
+      "material": 8,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.5601997538361445e-07,
+      "normal_tangent_dot_error": 0.00012444656188988212,
+      "tangent_squared_length_error": 0.00011837386905622083,
+      "triangles": 188,
+      "uv0_bounds": [
+        [
+          0.125,
+          0.8750000596046448
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 549,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 140
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 9,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.084314007471221e-07,
+      "normal_tangent_dot_error": 0.00013933427920065355,
+      "tangent_squared_length_error": 0.00012096216132118087,
+      "triangles": 120,
+      "uv0_bounds": [
+        [
+          0.25211724638938904,
+          0.36039498448371887
+        ],
+        [
+          0.8274735808372498,
+          0.8806706666946411
+        ]
+      ],
+      "vertices": 140,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    }
+  ],
+  "process_cumulative_peak_rss_bytes": 78823424,
+  "reader": {
+    "method": "Existing _GLB.accessor decoder with cache released per attribute; compact cross-attribute arrays only.",
+    "total_decoded_work_scalars": 1074630,
+    "unique_decoded_scalars": 1074630
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "triangles": 38058,
+  "validation_failures": [],
+  "vertices": 47644
+}

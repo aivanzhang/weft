@@ -1,0 +1,37 @@
+{
+  "evidence": [
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-muse-v1/portrait.png",
+      "sha256": "7b5486f23fecce8f14d35fcff459f425b53893ccf8c8d1239278d74395b5d5b6"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-muse-v2/portrait.png",
+      "sha256": "4a56a0dfa9d5db2d9d03b681c027f49efa3fed360e3a75548eee8ddb4a78d252"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/contact-sheets/idle.png",
+      "sha256": "1bc39e24dada9c6d5702e09e9460945a14dbb391826a0261c6babf5732a90178"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/contact-sheets/making_something.png",
+      "sha256": "0c3980e2a03cba6ff61a1279b615d2b0639d37910501e34d6636a38c669dadf7"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/contact-sheets/milestone_level_up.png",
+      "sha256": "23b4fe5e0c8a94e6fd169404fd41d33eabd5e8fd1b7eca26b2a3eed0f0d8b1e9"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/avatar-assets/outputs/robot-packaging-proof-v2/contact-sheets/working.png",
+      "sha256": "e5d07f7e1b68f10911b367f2fe057be2e2966902bdf413e7ea45149a4f3861fe"
+    }
+  ],
+  "observations": [
+    "Viewed both native 1600-square portraits: entire fox including ears, boots and tail, and entire lamp including shade, base and work pad remain in frame. Palette and accessories match their reviewed clips. Slight CPU sample grain remains; no photorealism claim.",
+    "Viewed all four revised robot contact sheets with twelve interior/end samples. Stable cream/blue identity and framing; idle rocks gently, making_something moves the probe by the fixed circuit board, working holds the board closer to the visor, celebration raises both arms and tools.",
+    "The one-second robot clips are fast technical previews, not the delivered eight-second Muse packs. No continuous-playback, every-frame visual or seamless-loop certification."
+  ],
+  "reviewed_at": "2026-10-30 15:44:23 PDT",
+  "reviewer": "Agent visual inspection; not human approval",
+  "schema_version": 1,
+  "verdict": "sampled_visual_pass_with_limits"
+}

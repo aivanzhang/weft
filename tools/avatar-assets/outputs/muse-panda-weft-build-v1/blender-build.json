@@ -1,0 +1,40 @@
+{
+  "blender": "4.5.13 LTS",
+  "vertices": 8980,
+  "polygons": 9700,
+  "bones": [
+    "root",
+    "torso",
+    "head",
+    "right_shoulder",
+    "upper_arm_right",
+    "forearm_right",
+    "hand_right",
+    "craft_orb",
+    "dragon_root",
+    "dragon_head",
+    "dragon_tail",
+    "dragon_wing_outer",
+    "dragon_wing_inner",
+    "upper_arm_left",
+    "forearm_left",
+    "hand_left",
+    "thigh_right",
+    "shin_right",
+    "foot_right",
+    "thigh_left",
+    "shin_left",
+    "foot_left"
+  ],
+  "actions": [
+    "idle",
+    "working",
+    "making_something",
+    "milestone_level_up"
+  ],
+  "render_engine": "CYCLES",
+  "device": "CPU",
+  "samples": 12,
+  "render_resolution": 320,
+  "preview_only": true
+}

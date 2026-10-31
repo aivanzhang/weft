@@ -1,0 +1,2197 @@
+{
+  "attachments": [
+    {
+      "authored_assumption": "Part of the local toy vignette, not an external physical object.",
+      "child_bone": "work_pad",
+      "name": "work_pad",
+      "parent_bone": "root",
+      "placement": "Static paper pad in front-right of the lamp base."
+    },
+    {
+      "authored_assumption": "A rigid rotary drafting-tool attachment. Fixed guide geometry is present in every state; no new marks, simulated contact or illumination are claimed.",
+      "child_bone": "trace_stylus",
+      "name": "tracing_stylus",
+      "parent_bone": "trace_rotor",
+      "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered."
+    }
+  ],
+  "authored_assumptions": [
+    "Original full 3D design assembled from smooth primitives; no external reference.",
+    "All joints are authored mechanical pivots with rigid weights, not a simulated linkage constraint system.",
+    "The warm bulb is opaque colored geometry, not volumetric light or a luminous beam.",
+    "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+    "Revision v2 adds a base-supported rotary stylus with explicit joint motion over a fixed guide. The stylus is lowered only during making_something; no new marks, physical contact simulation or beam illumination are produced."
+  ],
+  "background": [
+    0.93,
+    0.95,
+    0.96,
+    1
+  ],
+  "bones": [
+    {
+      "head": [
+        0,
+        0,
+        0.04
+      ],
+      "name": "root",
+      "parent": null,
+      "tail": [
+        0,
+        0,
+        0.27999999999999997
+      ]
+    },
+    {
+      "head": [
+        0,
+        0,
+        0.2
+      ],
+      "name": "turntable",
+      "parent": "root",
+      "tail": [
+        0,
+        0,
+        0.44
+      ]
+    },
+    {
+      "head": [
+        0,
+        0,
+        0.58
+      ],
+      "name": "lower_arm",
+      "parent": "turntable",
+      "tail": [
+        0,
+        0,
+        0.82
+      ]
+    },
+    {
+      "head": [
+        0.3,
+        0,
+        1.25
+      ],
+      "name": "upper_arm",
+      "parent": "lower_arm",
+      "tail": [
+        0.3,
+        0,
+        1.49
+      ]
+    },
+    {
+      "head": [
+        -0.1,
+        0,
+        1.9
+      ],
+      "name": "shade",
+      "parent": "upper_arm",
+      "tail": [
+        -0.1,
+        0,
+        2.1399999999999997
+      ]
+    },
+    {
+      "head": [
+        0.45,
+        -0.45,
+        0.06
+      ],
+      "name": "work_pad",
+      "parent": "root",
+      "tail": [
+        0.45,
+        -0.45,
+        0.3
+      ]
+    },
+    {
+      "head": [
+        0.53,
+        -0.57,
+        0.5
+      ],
+      "name": "trace_rotor",
+      "parent": "root",
+      "tail": [
+        0.53,
+        -0.57,
+        0.75
+      ]
+    },
+    {
+      "head": [
+        0.7,
+        -0.57,
+        0.5
+      ],
+      "name": "trace_stylus",
+      "parent": "trace_rotor",
+      "tail": [
+        0.7,
+        -0.57,
+        0.75
+      ]
+    }
+  ],
+  "camera": {
+    "orthographic_scale": 3.05,
+    "position": [
+      3.5,
+      -6,
+      2.9
+    ],
+    "target": [
+      0.08,
+      -0.05,
+      1.12
+    ]
+  },
+  "id": "articulated-lamp-v2",
+  "materials": {
+    "body": {
+      "color": [
+        0.4470588235294118,
+        0.23529411764705882,
+        0.29411764705882354,
+        1
+      ],
+      "metallic": 0.35,
+      "roughness": 0.38
+    },
+    "brass": {
+      "color": [
+        0.8392156862745098,
+        0.6470588235294118,
+        0.2901960784313726,
+        1
+      ],
+      "metallic": 0.7,
+      "roughness": 0.28
+    },
+    "bulb": {
+      "color": [
+        1.0,
+        0.8980392156862745,
+        0.6313725490196078,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.4
+    },
+    "ink": {
+      "color": [
+        0.27450980392156865,
+        0.4196078431372549,
+        0.4745098039215686,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.55
+    },
+    "joint": {
+      "color": [
+        0.20784313725490197,
+        0.21176470588235294,
+        0.2627450980392157,
+        1
+      ],
+      "metallic": 0.4,
+      "roughness": 0.4
+    },
+    "paper": {
+      "color": [
+        0.9411764705882353,
+        0.8941176470588236,
+        0.8117647058823529,
+        1
+      ],
+      "metallic": 0,
+      "roughness": 0.55
+    }
+  },
+  "parts": [
+    {
+      "bone": "root",
+      "location": [
+        0,
+        0,
+        0.16
+      ],
+      "material": "body",
+      "name": "base_body",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.48,
+        0.48,
+        0.12
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "turntable",
+      "location": [
+        0,
+        0,
+        0.268
+      ],
+      "material": "brass",
+      "name": "base_upper_ring",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.375,
+        0.375,
+        0.033
+      ],
+      "shape": "torus"
+    },
+    {
+      "bone": "turntable",
+      "location": [
+        0,
+        0,
+        0.3
+      ],
+      "material": "joint",
+      "name": "turntable",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.23,
+        0.23,
+        0.055
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "turntable",
+      "location": [
+        0.0,
+        0.0,
+        0.45999999999999996
+      ],
+      "material": "brass",
+      "name": "upright_stem",
+      "rotation": [
+        0.0,
+        0.0,
+        0
+      ],
+      "scale": [
+        0.09,
+        0.09,
+        0.11999999999999997
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "lower_arm",
+      "location": [
+        0,
+        0,
+        0.58
+      ],
+      "material": "body",
+      "name": "lower_hinge",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.15,
+        0.12,
+        0.15
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "upper_arm",
+      "location": [
+        0.3,
+        0,
+        1.25
+      ],
+      "material": "body",
+      "name": "elbow_hinge",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.15,
+        0.13,
+        0.15
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        0,
+        1.9
+      ],
+      "material": "joint",
+      "name": "shade_hinge",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.13,
+        0.12,
+        0.13
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        -0.04,
+        2.02
+      ],
+      "material": "brass",
+      "name": "shade_shell",
+      "rotation": [
+        -0.38,
+        0,
+        0
+      ],
+      "scale": [
+        0.4,
+        0.4,
+        0.23
+      ],
+      "shape": "cone"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        -0.125,
+        1.806
+      ],
+      "material": "body",
+      "name": "shade_rim",
+      "rotation": [
+        -0.38,
+        0,
+        0
+      ],
+      "scale": [
+        0.32,
+        0.32,
+        0.035
+      ],
+      "shape": "torus"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        -0.16,
+        1.79
+      ],
+      "material": "bulb",
+      "name": "warm_bulb",
+      "rotation": [
+        -0.38,
+        0,
+        0
+      ],
+      "scale": [
+        0.23,
+        0.2,
+        0.06
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0,
+        -0.453,
+        0.155
+      ],
+      "material": "joint",
+      "name": "base_display",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.17,
+        0.017,
+        0.058
+      ],
+      "shape": "cube"
+    },
+    {
+      "bone": "root",
+      "location": [
+        -0.065,
+        -0.472,
+        0.16
+      ],
+      "material": "bulb",
+      "name": "display_eye_left",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.022,
+        0.009,
+        0.029
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0.065,
+        -0.472,
+        0.16
+      ],
+      "material": "bulb",
+      "name": "display_eye_right",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.022,
+        0.009,
+        0.029
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "work_pad",
+      "location": [
+        0.53,
+        -0.57,
+        0.065
+      ],
+      "material": "body",
+      "name": "work_pad_cover",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.29,
+        0.24,
+        0.025
+      ],
+      "shape": "cube"
+    },
+    {
+      "bone": "work_pad",
+      "location": [
+        0.53,
+        -0.57,
+        0.096
+      ],
+      "material": "paper",
+      "name": "work_pad_paper",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.265,
+        0.215,
+        0.012
+      ],
+      "shape": "cube"
+    },
+    {
+      "bone": "work_pad",
+      "location": [
+        0.53,
+        -0.57,
+        0.111
+      ],
+      "material": "ink",
+      "name": "pad_blueprint_ring",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.17,
+        0.17,
+        0.005
+      ],
+      "shape": "torus"
+    },
+    {
+      "bone": "lower_arm",
+      "location": [
+        0.15,
+        -0.09,
+        0.915
+      ],
+      "material": "body",
+      "name": "lower_bar_front",
+      "rotation": [
+        -0.0,
+        0.4209905742522457,
+        0
+      ],
+      "scale": [
+        0.048,
+        0.048,
+        0.36704904304465913
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "upper_arm",
+      "location": [
+        0.09999999999999999,
+        -0.09,
+        1.575
+      ],
+      "material": "body",
+      "name": "upper_bar_front",
+      "rotation": [
+        -0.0,
+        -0.5516549825285469,
+        0
+      ],
+      "scale": [
+        0.048,
+        0.048,
+        0.3816084380618437
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "lower_arm",
+      "location": [
+        0,
+        -0.1278,
+        0.58
+      ],
+      "material": "brass",
+      "name": "lower_cap_front",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.07,
+        0.035,
+        0.07
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "upper_arm",
+      "location": [
+        0.3,
+        -0.135,
+        1.25
+      ],
+      "material": "brass",
+      "name": "elbow_cap_front",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.07,
+        0.035,
+        0.07
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        -0.11699999999999999,
+        1.9
+      ],
+      "material": "brass",
+      "name": "shade_cap_front",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.06,
+        0.03,
+        0.06
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "lower_arm",
+      "location": [
+        0.15,
+        0.09,
+        0.915
+      ],
+      "material": "body",
+      "name": "lower_bar_back",
+      "rotation": [
+        -0.0,
+        0.4209905742522457,
+        0
+      ],
+      "scale": [
+        0.048,
+        0.048,
+        0.36704904304465913
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "upper_arm",
+      "location": [
+        0.09999999999999999,
+        0.09,
+        1.575
+      ],
+      "material": "body",
+      "name": "upper_bar_back",
+      "rotation": [
+        -0.0,
+        -0.5516549825285469,
+        0
+      ],
+      "scale": [
+        0.048,
+        0.048,
+        0.3816084380618437
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "lower_arm",
+      "location": [
+        0,
+        0.1278,
+        0.58
+      ],
+      "material": "brass",
+      "name": "lower_cap_back",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.07,
+        0.035,
+        0.07
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "upper_arm",
+      "location": [
+        0.3,
+        0.135,
+        1.25
+      ],
+      "material": "brass",
+      "name": "elbow_cap_back",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.07,
+        0.035,
+        0.07
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "shade",
+      "location": [
+        -0.1,
+        0.11699999999999999,
+        1.9
+      ],
+      "material": "brass",
+      "name": "shade_cap_back",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.06,
+        0.03,
+        0.06
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        -0.28,
+        -0.26,
+        0.045
+      ],
+      "material": "joint",
+      "name": "base_foot_1",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.09,
+        0.09,
+        0.045
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        -0.28,
+        0.26,
+        0.045
+      ],
+      "material": "joint",
+      "name": "base_foot_2",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.09,
+        0.09,
+        0.045
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0.28,
+        -0.26,
+        0.045
+      ],
+      "material": "joint",
+      "name": "base_foot_3",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.09,
+        0.09,
+        0.045
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0.28,
+        0.26,
+        0.045
+      ],
+      "material": "joint",
+      "name": "base_foot_4",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.09,
+        0.09,
+        0.045
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0.34,
+        -0.16,
+        0.28
+      ],
+      "material": "body",
+      "name": "trace_mount",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.075,
+        0.075,
+        0.075
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "root",
+      "location": [
+        0.43500000000000005,
+        -0.365,
+        0.39
+      ],
+      "material": "brass",
+      "name": "trace_support",
+      "rotation": [
+        0.9540574859064423,
+        0.7123575980943291,
+        0
+      ],
+      "scale": [
+        0.03,
+        0.03,
+        0.25129663746258124
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "trace_rotor",
+      "location": [
+        0.53,
+        -0.57,
+        0.5
+      ],
+      "material": "body",
+      "name": "trace_hub",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.055,
+        0.055,
+        0.055
+      ],
+      "shape": "sphere"
+    },
+    {
+      "bone": "trace_rotor",
+      "location": [
+        0.615,
+        -0.57,
+        0.5
+      ],
+      "material": "brass",
+      "name": "trace_radial_arm",
+      "rotation": [
+        -0.0,
+        1.5707963267948966,
+        0
+      ],
+      "scale": [
+        0.027,
+        0.027,
+        0.08499999999999996
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "trace_rotor",
+      "location": [
+        0.7,
+        -0.57,
+        0.5
+      ],
+      "material": "body",
+      "name": "trace_pen_holder",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.035,
+        0.035,
+        0.055
+      ],
+      "shape": "torus"
+    },
+    {
+      "bone": "trace_stylus",
+      "location": [
+        0.7,
+        -0.57,
+        0.405
+      ],
+      "material": "body",
+      "name": "trace_pen_shaft",
+      "rotation": [
+        -0.0,
+        3.141592653589793,
+        0
+      ],
+      "scale": [
+        0.019,
+        0.019,
+        0.225
+      ],
+      "shape": "cylinder"
+    },
+    {
+      "bone": "trace_stylus",
+      "location": [
+        0.7,
+        -0.57,
+        0.15
+      ],
+      "material": "brass",
+      "name": "trace_pen_tip",
+      "rotation": [
+        3.141592653589793,
+        0,
+        0
+      ],
+      "scale": [
+        0.027,
+        0.027,
+        0.03
+      ],
+      "shape": "cone"
+    },
+    {
+      "bone": "trace_stylus",
+      "location": [
+        0.7,
+        -0.57,
+        0.65
+      ],
+      "material": "brass",
+      "name": "trace_pen_cap",
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.033,
+        0.033,
+        0.035
+      ],
+      "shape": "sphere"
+    }
+  ],
+  "prompt": "Create a complete editable desk-lamp robot, distinct from a creature or humanoid. Use a stable burgundy circular base, twin-bar lower and upper arms, brass hinge caps, a tapered brass shade and an opaque warm-colored bulb. Keep the base, arm lengths and shade proportions consistent in all states. Idle is a small curious look-around; making_something is a precise repeated shade-tip tracing gesture over its work pad; working is a slow wide inspection scan; milestone_level_up is a proud upright stretch and double head nod. Author hidden mechanical surfaces, pivots and rigid skin weights explicitly. Do not claim real light emission, dynamic ink, physical dynamics or reference reconstruction. Revision: preserve the burgundy/brass lamp identity, silhouette and fixed camera. Add a slim base-supported rotary tracing arm and vertically sliding stylus over the cream work pad. The visible stylus must follow the existing circular guide in making_something, then remain visibly lifted and stowed in idle, working and milestone_level_up. The guide is pre-existing geometry, not newly generated ink. Keep the mechanism legible and subordinate to the lamp.",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration": 4,
+      "id": "idle",
+      "keyframes": [
+        {
+          "bones": {
+            "shade": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 0
+        },
+        {
+          "bones": {
+            "shade": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                0.1
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.035,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 24
+        },
+        {
+          "bones": {
+            "shade": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 48
+        },
+        {
+          "bones": {
+            "shade": {
+              "rotation": [
+                0.1,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.1
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                -0.035,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 72
+        },
+        {
+          "bones": {
+            "shade": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 96
+        }
+      ],
+      "loop": true,
+      "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts."
+    },
+    {
+      "duration": 4,
+      "id": "making_something",
+      "keyframes": [
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 0
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 12
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                1
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 24
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 36
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 48
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 60
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                1
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 72
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 84
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.1,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.12
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.22,
+                -0.06,
+                0
+              ]
+            }
+          },
+          "frame": 96
+        }
+      ],
+      "loop": true,
+      "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated."
+    },
+    {
+      "duration": 4,
+      "id": "milestone_level_up",
+      "keyframes": [
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 0
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                -0.08,
+                -0.32,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                -0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0.72,
+                0
+              ]
+            }
+          },
+          "frame": 24
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                -0.08,
+                -0.32,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.18,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0.72,
+                0
+              ]
+            }
+          },
+          "frame": 36
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                -0.08,
+                -0.32,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                -0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0.72,
+                0
+              ]
+            }
+          },
+          "frame": 48
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                -0.08,
+                -0.32,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.18,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0.72,
+                0
+              ]
+            }
+          },
+          "frame": 60
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                -0.08,
+                -0.32,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                -0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0.72,
+                0
+              ]
+            }
+          },
+          "frame": 72
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 96
+        }
+      ],
+      "loop": true,
+      "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back."
+    },
+    {
+      "duration": 4,
+      "id": "working",
+      "keyframes": [
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.18,
+                0.08,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.25
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 0
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.08,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.1
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.2,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 24
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.18,
+                0.08,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                0.1
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 48
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.2,
+                0.08,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.1
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.2,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 72
+        },
+        {
+          "bones": {
+            "lower_arm": {
+              "rotation": [
+                0.18,
+                0.08,
+                0
+              ]
+            },
+            "shade": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "trace_rotor": {
+              "rotation": [
+                0,
+                0,
+                -1.2
+              ]
+            },
+            "trace_stylus": {
+              "location": [
+                0,
+                0,
+                0.17
+              ]
+            },
+            "turntable": {
+              "rotation": [
+                0,
+                0,
+                -0.25
+              ]
+            },
+            "upper_arm": {
+              "rotation": [
+                0.16,
+                0,
+                0
+              ]
+            }
+          },
+          "frame": 96
+        }
+      ],
+      "loop": true,
+      "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state."
+    }
+  ],
+  "style": "Polished retro-industrial desk toy with rounded joints, metallic brass details and readable mechanical articulation.",
+  "subject": "A burgundy articulated desk-lamp robot with a brass shade, warm bulb, paired hinge bars and a cream work pad. A small base-mounted rotary stylus traces a fixed guide on the pad."
+}

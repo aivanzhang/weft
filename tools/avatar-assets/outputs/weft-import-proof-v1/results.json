@@ -1,0 +1,39 @@
+{
+  "frozen_source_hashes": {
+    "avatar_assets.py": "ba86a5b9710b751a4f7410ea26bd3bd792ef5cdcabd514c5b2ea7832c4dc17d3",
+    "avatar_gltf.py": "c505fc42e7f9265be3e0e8c3540f94fb347e769e9e501c56ce2d3835d92a76c5"
+  },
+  "results": [
+    {
+      "alignment": "provisional; no actual Weft pose or render tested",
+      "result": {
+        "asset_id": "muse-panda-weft-v1",
+        "bytes": 2811619,
+        "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-import-proof-v1/weft-muse-panda-v1",
+        "files": 4,
+        "manifest_sha256": "d4f09371590bc17d0cf94426209da8b43fb2f5077ae7b2323058ca43988544d0",
+        "render_sha256": "a741836916e1256841a02d71036f9bd2a69226330ab4c91e75ae081215975166",
+        "source_manifest_sha256": "3737a35f513fa07ab1d5568a99deba09a9a9fc4079ab17585f5e817e34e876c0"
+      },
+      "source": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-muse-panda-v1",
+      "status": "accepted_by_frozen_importer"
+    },
+    {
+      "alignment": "provisional; no actual Weft pose or render tested",
+      "result": {
+        "asset_id": "humanoid-robot-weft-v1",
+        "bytes": 2073315,
+        "directory": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-import-proof-v1/weft-humanoid-robot-v1",
+        "files": 4,
+        "manifest_sha256": "e0fe435ab66f48f53aa3a56d003b82f292367a4651b6e878dc7a61d74d69f953",
+        "render_sha256": "29075bb9f53c13fd74f63d66b8f1b1e87ceb8d18346845ef2e0e8c76e1f9e284",
+        "source_manifest_sha256": "2dfa2287be13f4e81bd702794e596e2d5a0576f45d42b37139bd2269051247f1"
+      },
+      "source": "/Users/ivan/kintsugi/avatar-assets/outputs/weft-humanoid-robot-v1",
+      "status": "accepted_by_frozen_importer"
+    }
+  ],
+  "schema_version": 1,
+  "target_runtime_verified": false,
+  "weft_modified": false
+}

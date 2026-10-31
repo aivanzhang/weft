@@ -1,0 +1,19 @@
+{
+  "browser_report": "outputs/quality-gallery-browser-v2/browser-test.json",
+  "fidelity_limit": "outputs/muse-fidelity-limit-v1/unsupported.json",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "recorded_at": "2026-10-30 17:22:06 PDT",
+  "release_details": "outputs/quality-release-v2/release.json",
+  "release_manifest": {
+    "path": "outputs/quality-release-v2/manifest.json",
+    "sha256": "c8b4cf3beefa2502cb42a278d79d8916e46d2ce6afba672d1386795b612e9980"
+  },
+  "schema_version": 1,
+  "server_running_by_this_task": false,
+  "source_snapshot": "outputs/quality-release-v2/sources",
+  "start_command": ".venv/bin/python -m avatar_assets gallery",
+  "status": "verified_stylized_upgrade_with_explicit_fidelity_limit",
+  "url": "http://127.0.0.1:8765/",
+  "weft_conversion_limit": "outputs/quality-weft-profile-unsupported-v1/unsupported.json"
+}

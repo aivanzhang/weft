@@ -1,0 +1,87 @@
+{
+  "artifacts": [
+    {
+      "bytes": 20895,
+      "path": "lamp.json",
+      "sha256": "0f27e6b4332bd4524e2c78ac28146539cf9b8c2c28217c6b3242ad65f0793bc5"
+    },
+    {
+      "bytes": 21369,
+      "path": "robot.json",
+      "sha256": "609450e2748ac56afbb436b4d0a5118c1e134ab37c38c465420749eea27c7b51"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 13138,
+      "path": "sources/scene.py",
+      "sha256": "fb8e11543ef314b625ec610ac94326b5605a79d44452dd631b7e6e4d44fe7d74"
+    },
+    {
+      "bytes": 32954,
+      "path": "sources/three_d.py",
+      "sha256": "dcdf14d62c5c618e2dd5c3fd121551b9ee76bf59441debf327d78e60f1ec3828"
+    },
+    {
+      "bytes": 19451,
+      "path": "sources/verify_quality_assets.py",
+      "sha256": "ac797efbe573ab4c27edfe0990b670885c534da65249a98a777e6874b0d73f69"
+    }
+  ],
+  "command": [
+    "scripts/verify_quality_assets.py",
+    "--pack",
+    "robot=outputs/workshop-robot-quality-build-v3",
+    "--pack",
+    "lamp=outputs/lamp-quality-build-v4",
+    "--output",
+    "outputs/quality-attribute-proof-v1/final-mechanical",
+    "--timeout",
+    "120",
+    "--memory-mb",
+    "1024"
+  ],
+  "elapsed_seconds": 0.9201,
+  "error": null,
+  "kind": "independent_quality_attribute_proof",
+  "limits": {
+    "decoded_work_scalars_per_glb": 6000000,
+    "existing_glb_validator_limits_unchanged": true,
+    "exported_vertices": 100000,
+    "png_bytes_each": 4194304,
+    "png_pixels_total_per_glb": 16777216,
+    "process_rss_mb": 1024,
+    "unique_scalars_per_glb": 3000000,
+    "wall_seconds": 120
+  },
+  "process_peak_rss_bytes": 80969728,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reports": [
+    {
+      "id": "robot",
+      "model_sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+      "report": "robot.json",
+      "status": "passed",
+      "triangles": 38058,
+      "vertices": 47644
+    },
+    {
+      "id": "lamp",
+      "model_sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+      "report": "lamp.json",
+      "status": "passed",
+      "triangles": 44754,
+      "vertices": 37762
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "tools": {
+    "Pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  }
+}

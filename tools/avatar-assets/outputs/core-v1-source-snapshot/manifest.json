@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "bytes": 97,
+      "path": "avatar_assets/__init__.py",
+      "sha256": "4b6c6a7cc1a33181f1d38daf2f7940fe047db295d52e8f4c038e78578e667566"
+    },
+    {
+      "bytes": 44,
+      "path": "avatar_assets/__main__.py",
+      "sha256": "1779ec7171c5c58b0e811a55641c37ade9dc83b83fdcd5e5e11e3995eba8285e"
+    },
+    {
+      "bytes": 4525,
+      "path": "avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 6683,
+      "path": "avatar_assets/build3d.py",
+      "sha256": "44ba4c47759a8c5aaefdb0ec2c0c14919e72b441cba1db5cdb93f59c6499da5d"
+    },
+    {
+      "bytes": 9036,
+      "path": "avatar_assets/cli.py",
+      "sha256": "3bf14363eb2364d0785ff330ea8a103ba8ce244ce3826add8e989dad8a003df1"
+    },
+    {
+      "bytes": 4829,
+      "path": "avatar_assets/export2d.py",
+      "sha256": "88446e79c1b3d7196f87ca35e9c7a07c3a61d252a4b5585b24fd1101d1e6eb2e"
+    },
+    {
+      "bytes": 8912,
+      "path": "avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 2900,
+      "path": "avatar_assets/packaging.py",
+      "sha256": "81b2cadc08424ce1c943b3ef0a4b0324750915b1ce6572a4289a9e4feb9d4314"
+    },
+    {
+      "bytes": 2955,
+      "path": "avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 4322,
+      "path": "avatar_assets/runner.py",
+      "sha256": "13ebf512eda64144a764b2a2f9b5afbea9e5bbe3e7b4c9aca04229862fad4c59"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 6679,
+      "path": "avatar_assets/scene.py",
+      "sha256": "b5ec8ed9de8c356ad1c508d0df60448694b7bd82faf3123cbbf3c1592ce3eb93"
+    },
+    {
+      "bytes": 29325,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "9778ef1321305833d0b49cda3915622657c9aff070dfefc2a1840d4b83ca3354"
+    },
+    {
+      "bytes": 7723,
+      "path": "avatar_assets/weft_metadata.py",
+      "sha256": "47c05f714d8727ce2a6c158d8aacb91789e08998e4623bde5b9778731cdfeaf2"
+    },
+    {
+      "bytes": 440,
+      "path": "pyproject.toml",
+      "sha256": "5d48043a002a55a26029707fed6c96d2764b0eee010cbc927b20b9f53dc6132c"
+    },
+    {
+      "bytes": 93,
+      "path": "requirements-dev.lock",
+      "sha256": "2cc1d1455a4e80d0c948da49d27394a7777ed12f9e07fcf338117de770d98aba"
+    },
+    {
+      "bytes": 276,
+      "path": "requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 10261,
+      "path": "scripts/blender_build.py",
+      "sha256": "5e37914c609322900fb2ab345ef3673bb87d2d3855da45ca895a1dfb0b7f257f"
+    },
+    {
+      "bytes": 2530,
+      "path": "scripts/blender_render.py",
+      "sha256": "462a63d27d44bbcef9732c3396631476c48796d637bf9000d2e973875f9964c6"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11491,
+      "path": "tests/test_media_safety.py",
+      "sha256": "8463011db39b708094d8a37ae9b9130d27f174d7779083da40561389badea02e"
+    },
+    {
+      "bytes": 3587,
+      "path": "tests/test_packaging.py",
+      "sha256": "036307527d20b1d937bcb8252921200ac79cd6bff4a3e4b7f3925dea405a3b13"
+    },
+    {
+      "bytes": 8731,
+      "path": "tests/test_scene.py",
+      "sha256": "370f6121d9e8967ea663478c535ea9bb871029c87d281587ec19fe4177fc8ee2"
+    },
+    {
+      "bytes": 9803,
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 6498,
+      "path": "tests/test_workflow.py",
+      "sha256": "fb76beeeb8bd3f79baabd06e8420dc7db20131faec96aad4fc24f51ede453248"
+    }
+  ],
+  "kind": "historical_source_snapshot",
+  "notes": "CLI pre-gallery bytes reconstructed by removing only the new gallery parser/dispatch; exact v1 hash verified. Other source bytes unchanged. Original output packs are untouched.",
+  "schema_version": 1,
+  "source_release_manifest_sha256": "cd9b07798d84c0626f460f3c661873a3de6558c611f6a98b8bde165d9181b85b",
+  "status": "all_25_original_source_hashes_match"
+}

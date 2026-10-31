@@ -1,0 +1,26 @@
+{
+  "blender": "4.5.13 LTS",
+  "vertices": 5732,
+  "polygons": 5848,
+  "bones": [
+    "root",
+    "turntable",
+    "lower_arm",
+    "upper_arm",
+    "shade",
+    "work_pad",
+    "trace_rotor",
+    "trace_stylus"
+  ],
+  "actions": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "render_engine": "CYCLES",
+  "device": "CPU",
+  "samples": 24,
+  "render_resolution": 384,
+  "preview_only": true
+}

@@ -1,0 +1,1226 @@
+{
+  "blender": "4.5.13 LTS",
+  "vertices": 19629,
+  "polygons": 38058,
+  "scene_schema_version": 2,
+  "exported_vertices": 47644,
+  "parts": [
+    {
+      "name": "tapered_body_shell",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "chest_panel_gasket",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "ivory_chest_armor",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "recessed_control_bezel",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "control_glass",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "power_ring",
+      "shape": "torus",
+      "control_vertices": 0,
+      "surface_vertices": 192,
+      "surface_faces": 192,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "power_indicator",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 64,
+      "surface_faces": 34,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "display_meter",
+      "shape": "mesh",
+      "control_vertices": 24,
+      "surface_vertices": 24,
+      "surface_faces": 18,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "chest_recessed_vents",
+      "shape": "mesh",
+      "control_vertices": 24,
+      "surface_vertices": 24,
+      "surface_faces": 18,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "chest_fasteners",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_hatch_gasket",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_service_hatch",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_hatch_vents",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_hatch_latch",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_hatch_fasteners",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "waist_flexible_seal",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "waist_upper_collar",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pelvis_enclosure",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "pelvis_front_guard",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "neck_gimbal",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "neck_upper_collar",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "head_main_enclosure",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "crown_parting_seam",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "blue_crown_shell",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "visor_gasket",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "recessed_visor",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "warm_eye_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "eye_glint_right",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 114,
+      "surface_faces": 128,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "temple_gasket_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "temple_disc_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "warm_eye_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "eye_glint_left",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 114,
+      "surface_faces": 128,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "temple_gasket_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "temple_disc_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "curved_smile",
+      "shape": "mesh",
+      "control_vertices": 170,
+      "surface_vertices": 170,
+      "surface_faces": 176,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rear_head_vent_array",
+      "shape": "mesh",
+      "control_vertices": 40,
+      "surface_vertices": 40,
+      "surface_faces": 30,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "antenna_socket",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "antenna_telescoping_stem",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "antenna_brass_tip",
+      "shape": "sphere",
+      "control_vertices": 0,
+      "surface_vertices": 482,
+      "surface_faces": 512,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_gimbal_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_outer_collar_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_shell_cap_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "tapered_upper_arm_right",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_arm_cuff_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_bearing_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_outer_hub_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_hub_center_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "tapered_forearm_shell_right",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "wrist_seal_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "wrist_blue_cuff_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "hand_palm_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_right_0",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_right_1",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_right_2",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_thumb_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "hip_bearing_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "thigh_shell_right",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "thigh_lower_trim_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_bearing_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_front_guard_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_guard_fastener_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shin_armor_right",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shin_inset_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "ankle_collar_right",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_sole_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "boot_shell_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "ivory_toe_cap_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "heel_guard_right",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "sole_tread_right",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_gimbal_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_outer_collar_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shoulder_shell_cap_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "tapered_upper_arm_left",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "upper_arm_cuff_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_bearing_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_outer_hub_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "elbow_hub_center_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "tapered_forearm_shell_left",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "wrist_seal_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "wrist_blue_cuff_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "hand_palm_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_left_0",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_left_1",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_grip_finger_left_2",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "static_thumb_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "hip_bearing_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "thigh_shell_left",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "thigh_lower_trim_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_bearing_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_front_guard_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "knee_guard_fastener_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shin_armor_left",
+      "shape": "mesh",
+      "control_vertices": 322,
+      "surface_vertices": 322,
+      "surface_faces": 352,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "shin_inset_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "ankle_collar_left",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "rubber_sole_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "boot_shell_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "ivory_toe_cap_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "heel_guard_left",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "sole_tread_left",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "board_frame",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "board_substrate",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "board_microchip",
+      "shape": "cube",
+      "control_vertices": 0,
+      "surface_vertices": 96,
+      "surface_faces": 98,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "fixed_copper_trace_network",
+      "shape": "mesh",
+      "control_vertices": 80,
+      "surface_vertices": 80,
+      "surface_faces": 60,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "chip_pin_array",
+      "shape": "mesh",
+      "control_vertices": 144,
+      "surface_vertices": 144,
+      "surface_faces": 108,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "board_edge_contacts",
+      "shape": "mesh",
+      "control_vertices": 80,
+      "surface_vertices": 80,
+      "surface_faces": 60,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "board_corner_fasteners",
+      "shape": "mesh",
+      "control_vertices": 32,
+      "surface_vertices": 32,
+      "surface_faces": 24,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_contact_pad",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 64,
+      "surface_faces": 34,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_soft_grip",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_painted_barrel",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_brass_collar",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_metal_shaft",
+      "shape": "cylinder",
+      "control_vertices": 0,
+      "surface_vertices": 256,
+      "surface_faces": 226,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    },
+    {
+      "name": "probe_tapered_contact_tip",
+      "shape": "cone",
+      "control_vertices": 0,
+      "surface_vertices": 33,
+      "surface_faces": 33,
+      "fur_strands": 0,
+      "fur_vertices": 0,
+      "mixed_weight_vertices": 0
+    }
+  ],
+  "mixed_weight_vertices": 0,
+  "fur_strands": 0,
+  "textures": [
+    {
+      "material": "brass",
+      "kind": "basecolor",
+      "path": "textures/brass-basecolor.png",
+      "sha256": "0157f8780a0adacd8b65b55f0ac21a28060ef3e12e1ff0aa688638a83b4c0a0d",
+      "bytes": 22022,
+      "resolution": 256,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.12,
+      "seed": 271
+    },
+    {
+      "material": "brass",
+      "kind": "normal",
+      "path": "textures/brass-normal.png",
+      "sha256": "7ea03bf055b744af9e96a8ae1912ff22d2b71ddff44fac2b76a03fac58af6a79",
+      "bytes": 96189,
+      "resolution": 256,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.12,
+      "seed": 271
+    },
+    {
+      "material": "metal",
+      "kind": "basecolor",
+      "path": "textures/metal-basecolor.png",
+      "sha256": "53de030c3757240ffaf2375d9fea182f9a2e39e133c70bf9a43b11ca25febbf0",
+      "bytes": 33569,
+      "resolution": 256,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.12,
+      "seed": 173
+    },
+    {
+      "material": "metal",
+      "kind": "normal",
+      "path": "textures/metal-normal.png",
+      "sha256": "ae4bdbe62f6c43c4c03b2f1eeb56dabf7e42d6fa72144deaea4d5f8fc02d6abd",
+      "bytes": 96109,
+      "resolution": 256,
+      "pattern": "brushed",
+      "algorithm": "brushed_v1",
+      "strength": 0.12,
+      "seed": 173
+    }
+  ],
+  "embedded_images": 4,
+  "embedded_normal_maps": 2,
+  "control_vertices": 3974,
+  "uv_repair": {
+    "degenerate_faces_removed": 512,
+    "uv_degenerate_faces_reprojected": 640,
+    "ambiguous_tangent_faces_reprojected": 0,
+    "tangent_repair_passes": 0,
+    "minimum_absolute_uv_determinant": 1.2979879171481912e-08,
+    "minimum_geometric_edge_m": 1e-06,
+    "minimum_relative_triangle_area": 1e-06,
+    "method": "Per-loop geometric-plane UV projection for collapsed UVs or cancelling UV fans; other UV seams unchanged. Tangents are computed by Blender MikkTSpace, not replaced."
+  },
+  "color_management": "AgX",
+  "bones": [
+    "root",
+    "torso",
+    "head",
+    "upper_arm_right",
+    "forearm_right",
+    "hand_right",
+    "probe",
+    "upper_arm_left",
+    "forearm_left",
+    "hand_left",
+    "workpiece",
+    "thigh_right",
+    "shin_right",
+    "foot_right",
+    "thigh_left",
+    "shin_left",
+    "foot_left"
+  ],
+  "actions": [
+    "idle",
+    "working",
+    "making_something",
+    "milestone_level_up"
+  ],
+  "render_engine": "CYCLES",
+  "device": "CPU",
+  "samples": 16,
+  "render_resolution": 512,
+  "preview_only": true,
+  "previews_rendered": true
+}

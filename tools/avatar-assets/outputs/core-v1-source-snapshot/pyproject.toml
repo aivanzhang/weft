@@ -1,0 +1,17 @@
+[project]
+name = "avatar-assets"
+version = "0.1.0"
+description = "Bounded local avatar media packaging, inspection, provenance, and review"
+requires-python = ">=3.12"
+dependencies = ["Pillow==13.0.0", "av==19.0.2", "numpy==2.5.4"]
+
+[project.scripts]
+avatar-assets = "avatar_assets.cli:main"
+
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["avatar_assets*"]
+

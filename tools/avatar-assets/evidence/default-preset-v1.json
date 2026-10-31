@@ -1,0 +1,22 @@
+{
+  "muse_default": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 8,
+    "size": 720
+  },
+  "reason": "Use the measured successful eight-sample settings within the existing 1200-second render budget; no new full renders needed",
+  "schema_version": 1,
+  "verified_against": [
+    {
+      "matches": true,
+      "path": "outputs/fox-muse-v1/manifest.json",
+      "sha256": "e75ab7caea65eac79349aeb684254b31a30910d122b7de172d7780c1ed1b32ff"
+    },
+    {
+      "matches": true,
+      "path": "outputs/lamp-muse-v2/manifest.json",
+      "sha256": "a76550a24f059306942ad6f8c77513ec9c4b4eab74daa5e7007e7ff7e1b65120"
+    }
+  ]
+}

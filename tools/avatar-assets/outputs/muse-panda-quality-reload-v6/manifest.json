@@ -1,0 +1,83 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "5bace9ba237b19566aa69a080ce82a0f63fb27288ab4e15a96dd1bfcc08fb0ba"
+    },
+    {
+      "bytes": 18248,
+      "path": "blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 73144,
+      "path": "independent-back.png",
+      "sha256": "5d82e25a41f945f2dd96589d58464446074e018f96b520dd5c3178afef4109ff"
+    },
+    {
+      "bytes": 76202,
+      "path": "independent-front.png",
+      "sha256": "ee9d0a1940284773a89d9de98e8f7a27f5d4dae65b922cae326ff0fecddb3fa9"
+    },
+    {
+      "bytes": 66981,
+      "path": "independent-side.png",
+      "sha256": "4af17753e7aec6a7074f9a3f307e40cac9c46648ad16adeb1368859782e87f26"
+    },
+    {
+      "bytes": 21885,
+      "path": "independent_reload.json",
+      "sha256": "f2ddedc6f79901b9ff1f5b131e8861e75584a05840d21d2ec900ece9090dca86"
+    },
+    {
+      "bytes": 802,
+      "path": "job.json",
+      "sha256": "f07e6caf870e12860ef994e166d1260704ee4f3fd7a5a5335e7093c7ac8da964"
+    },
+    {
+      "bytes": 482,
+      "path": "reload-handle.json",
+      "sha256": "5adfbc9526963e364d66e1264c8a635ee95ef49cdeebeec82baf1ca8a472fed2"
+    },
+    {
+      "bytes": 19794,
+      "path": "reload.log",
+      "sha256": "f37eb30dbed9880183059fe0e7edb748357aea2713cafb7c712ec7ce1800d2bd"
+    }
+  ],
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-reload-v6/blender_verify.py",
+      "--",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/model.glb",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-reload-v6"
+    ],
+    "elapsed_seconds": 1.279,
+    "exit_code": 0,
+    "failure": null,
+    "final_output_bytes": 276857,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "pid": 72697,
+    "sampled_peak_rss_bytes": 356614144,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "independent_3d_reload",
+  "schema_version": 1,
+  "source_manifest_sha256": "c2f983a91fbf6d48e565692f3610549e05aae98806b3a9519f3aa33a9e8ebdee",
+  "source_model_sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+  "status": "passed"
+}

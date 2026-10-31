@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "status": "authored_proposal_not_weft_measurement",
+  "units": "authoring_meters_not_calibrated",
+  "axes": {
+    "up": "+Z",
+    "forward": "-Y",
+    "handedness": "right"
+  },
+  "orientation_xyzw": [
+    0.7071067811865476,
+    0,
+    0,
+    0.7071067811865476
+  ],
+  "scale": 1,
+  "frames": {
+    "mobile_root": {
+      "translation": [
+        0,
+        0,
+        0
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "torso": {
+      "translation": [
+        0,
+        0,
+        1.0
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "left_shoulder_body": {
+      "translation": [
+        0.25,
+        0,
+        1.4
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "right_shoulder_body": {
+      "translation": [
+        -0.25,
+        0,
+        1.4
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "left_elbow_body": {
+      "translation": [
+        0.45,
+        0,
+        1.1
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "right_elbow_body": {
+      "translation": [
+        -0.45,
+        0,
+        1.1
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "left_hip_body": {
+      "translation": [
+        0.15,
+        0,
+        0.9
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "right_hip_body": {
+      "translation": [
+        -0.15,
+        0,
+        0.9
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "left_knee_body": {
+      "translation": [
+        0.15,
+        0,
+        0.5
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "right_knee_body": {
+      "translation": [
+        -0.15,
+        0,
+        0.5
+      ],
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ]
+    }
+  },
+  "authorization": "The user asked the asset-authoring session to define a neutral convention. These frame placements are design choices, not observations of Weft.",
+  "frame_space": "Proposed world-space transforms at an authored standing visual neutral; column-major matrices when serialized.",
+  "source_axes": {
+    "up": "+Y",
+    "forward": "+Z",
+    "handedness": "right"
+  },
+  "side_convention": "At the proposed front view, +X is viewer-right and anatomical left; -X is viewer-left and anatomical right.",
+  "actual_joint_state": {
+    "joint_angle_count": 19,
+    "actual_q0": null,
+    "joint_order": null,
+    "actual_root_translation": null,
+    "zero_q_is_confirmed": false
+  },
+  "mapping_equation": {
+    "G": "R(orientation_xyzw) * S(scale)",
+    "model_alignment_M": "G",
+    "binding_C": "inverse(F0_body) * G * B_world * inverse(G)",
+    "live_J": "F_body(q) * C * G",
+    "neutral_result": "J(q0_proposed) = G * B_world",
+    "B_world": "Actual exported glTF global default/bind transform of the bound node, not its local transform or its name."
+  },
+  "assumptions": [
+    "All ten proposed target frame rotations are identity; this does not assert that any Weft joint angle vector is zero or canonical.",
+    "Coordinates suggest a standing figure with arms angled outward/downward; they do not recover anatomy or change the source authored bind pose.",
+    "Uniform scale 1 is an explicit visual choice, not metric calibration of simulation units.",
+    "Offsets preserve the source authored bind pose under this proposal; actual Weft frame origins and rotations remain unverified.",
+    "Use actual glTF node indices. AvatarRig must contain the rendered mesh and all skin joints and is bound to mobile_root.",
+    "Only ten supplied body frames drive visuals. Unmapped descendants retain their local rest transforms; no independent head, hand, finger or dragon physics is invented.",
+    "No Weft physics, actions, rewards, recording code or importer is modified by this proposal."
+  ],
+  "consumer_correction": "Once actual neutral world transforms F_actual(q0) are available, recompute each C_actual = inverse(F_actual(q0)) * G * B_world * inverse(G), retaining model/rig/geometry/inverse-bind data. Verify neutral skinning and live joint/root perturbations before claiming alignment.",
+  "algebra_check": {
+    "method": "In-memory matrix identity check across all ten proposed F0 frames using an independently constructed translated/rotated source transform; not a Weft runtime test.",
+    "max_absolute_residual": 5.551115123125783e-17,
+    "source_up_maps_to": [
+      0,
+      0,
+      1
+    ],
+    "source_forward_maps_to": [
+      0,
+      -1,
+      0
+    ]
+  }
+}

@@ -1,0 +1,377 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7402,
+      "path": "release.json",
+      "sha256": "357953dc3b444d96de9eec1c1b69c268d4a3eb537d6d7c4c18753e2ae68e9ec2"
+    },
+    {
+      "bytes": 85,
+      "path": "sources/.gitignore",
+      "sha256": "5f5bb4443a04112d936449a19cfcc28d76b4349bb45ac7d939208fbcc0ef6a8c"
+    },
+    {
+      "bytes": 13161,
+      "path": "sources/README.md",
+      "sha256": "a6191f735d694556b9a3e09c211a4c16a9d31d2cb318ace671b54075074728ca"
+    },
+    {
+      "bytes": 22434,
+      "path": "sources/TODO.md",
+      "sha256": "492bd2d1a047d2d1877c889336e09805517bedcd619e9f003a991a843b962ba9"
+    },
+    {
+      "bytes": 97,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "4b6c6a7cc1a33181f1d38daf2f7940fe047db295d52e8f4c038e78578e667566"
+    },
+    {
+      "bytes": 44,
+      "path": "sources/avatar_assets/__main__.py",
+      "sha256": "1779ec7171c5c58b0e811a55641c37ade9dc83b83fdcd5e5e11e3995eba8285e"
+    },
+    {
+      "bytes": 4525,
+      "path": "sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b"
+    },
+    {
+      "bytes": 7170,
+      "path": "sources/avatar_assets/build3d.py",
+      "sha256": "75fae812cac7254ab2bb36b9c5542881f3d5ad07bf0ff919efc6cb3a31941379"
+    },
+    {
+      "bytes": 9659,
+      "path": "sources/avatar_assets/cli.py",
+      "sha256": "5ac1515b017274687a3c1a2794b8f2d2e8619f2481fb5e807bbc140ec2967814"
+    },
+    {
+      "bytes": 4873,
+      "path": "sources/avatar_assets/export2d.py",
+      "sha256": "a98b24df0fa48decb66df3b2442298a3b2211d3a7f8b47e660fbcf312e7b00e3"
+    },
+    {
+      "bytes": 24883,
+      "path": "sources/avatar_assets/gallery.py",
+      "sha256": "0d52b2d1b27e669026298a76265d8307ef87b849527ed3fb5499f7151aad1119"
+    },
+    {
+      "bytes": 8912,
+      "path": "sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52"
+    },
+    {
+      "bytes": 2944,
+      "path": "sources/avatar_assets/packaging.py",
+      "sha256": "c7bde3c223f49bd9ddfff2fadbc38e1750da99556eaaa84a2f5c1174c8bd0b1d"
+    },
+    {
+      "bytes": 2955,
+      "path": "sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62"
+    },
+    {
+      "bytes": 4322,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "13ebf512eda64144a764b2a2f9b5afbea9e5bbe3e7b4c9aca04229862fad4c59"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 13138,
+      "path": "sources/avatar_assets/scene.py",
+      "sha256": "fb8e11543ef314b625ec610ac94326b5605a79d44452dd631b7e6e4d44fe7d74"
+    },
+    {
+      "bytes": 32954,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "dcdf14d62c5c618e2dd5c3fd121551b9ee76bf59441debf327d78e60f1ec3828"
+    },
+    {
+      "bytes": 7723,
+      "path": "sources/avatar_assets/weft_metadata.py",
+      "sha256": "47c05f714d8727ce2a6c158d8aacb91789e08998e4623bde5b9778731cdfeaf2"
+    },
+    {
+      "bytes": 14453,
+      "path": "sources/browser/app.js",
+      "sha256": "a1dfbd22f3c42510fd9416861606c491eed43b1a60ded0608696e3171e3b6650"
+    },
+    {
+      "bytes": 375,
+      "path": "sources/browser/favicon.svg",
+      "sha256": "0ff4d8c10809760fe155b11f54bfba6bb101e58fb1b58c61ceb9463cb0bd6a88"
+    },
+    {
+      "bytes": 1566,
+      "path": "sources/browser/gallery-basic-v1.json",
+      "sha256": "c65becb5f1688459afa168405389f85aeeef98de8287d64800e2d713bea5316e"
+    },
+    {
+      "bytes": 1814,
+      "path": "sources/browser/gallery-quality-v2.json",
+      "sha256": "7a2737624a217f2dc789fb44ee36efa54a2f0e3331042314760da314256991bd"
+    },
+    {
+      "bytes": 1814,
+      "path": "sources/browser/gallery.json",
+      "sha256": "7a2737624a217f2dc789fb44ee36efa54a2f0e3331042314760da314256991bd"
+    },
+    {
+      "bytes": 5056,
+      "path": "sources/browser/index.html",
+      "sha256": "e19bcdc5262abd2cfffb4957c8658a3eb35879978af2e61f1887192998451fb0"
+    },
+    {
+      "bytes": 5647,
+      "path": "sources/browser/package-lock.json",
+      "sha256": "dce4356d38b4b095aefb6513242fb5151d8f6105a265ac37bc4fd246ba76af37"
+    },
+    {
+      "bytes": 255,
+      "path": "sources/browser/package.json",
+      "sha256": "1de368503b47904eec8efdcfb222ad4ed4d868032bbc5cffbe768064e7ae9f1a"
+    },
+    {
+      "bytes": 9964,
+      "path": "sources/browser/styles.css",
+      "sha256": "3637bfede050ab8412c928583cc55e83d4280e4153d58233473eac0c5cf08861"
+    },
+    {
+      "bytes": 14943,
+      "path": "sources/browser/tests/gallery.mjs",
+      "sha256": "2d16a55d3a5a6a1ba9c9eee63e0a041f4ee6f606bd01c860b4d8202b166db10f"
+    },
+    {
+      "bytes": 5589,
+      "path": "sources/docs/browser-gallery.md",
+      "sha256": "f34df1a0fea4c8f56ba687e7f25322ccd20853e8e52c2a2b36bd8a45580394a0"
+    },
+    {
+      "bytes": 9849,
+      "path": "sources/docs/quality-pass-v2.md",
+      "sha256": "72e339f80997c48749375fa97cb0b59da5f652c3ffb279a20bcee85bcf58b649"
+    },
+    {
+      "bytes": 8037,
+      "path": "sources/docs/scene-contract.md",
+      "sha256": "e2732363488dfb1ae3f4cb31c1c41f926191d5b0c6de8a23ca7ba10042862fb3"
+    },
+    {
+      "bytes": 3505,
+      "path": "sources/docs/scene-examples.md",
+      "sha256": "ea16c341dadedcfc01c202af876c02b724c4cb2f7a17e54987e12fa5f414cdc0"
+    },
+    {
+      "bytes": 9366,
+      "path": "sources/docs/three-d.md",
+      "sha256": "c349c661e8df400236b0a9233bdc8a55478ce5532c413112a65f9d2efb61b9fc"
+    },
+    {
+      "bytes": 6728,
+      "path": "sources/docs/weft-authored-designs.md",
+      "sha256": "0a8b4ddede077950935ee6c3dadec7adec89bfe7f5f9ea3d6df112a5bd167ce5"
+    },
+    {
+      "bytes": 4917,
+      "path": "sources/docs/weft-delivery-v1.md",
+      "sha256": "53e78831164a4e3cf181d96981d8cb07b2a9865136a23b6e42481ebc39566c56"
+    },
+    {
+      "bytes": 6309,
+      "path": "sources/docs/weft-neutral-proposal.md",
+      "sha256": "706cfcc084c1f6467e1ed93c540cf08bd42753687cb3f06d71316498b229d965"
+    },
+    {
+      "bytes": 42333,
+      "path": "sources/examples/scenes/articulated-lamp-v2.json",
+      "sha256": "92f2d3b1194ebc852d173668a5e21780b04d26c42a4c802594d7da4bc5ae757e"
+    },
+    {
+      "bytes": 30501,
+      "path": "sources/examples/scenes/articulated-lamp.json",
+      "sha256": "b36c153705a69c6a3b9f8679b48aa9e0e93d33377d1270e1f256235ce0bc749f"
+    },
+    {
+      "bytes": 42992,
+      "path": "sources/examples/scenes/fox-craftsperson-v2.json",
+      "sha256": "44be37c80abda75b8774d28b52aeaa4508259b078475481693dfaef24d18d536"
+    },
+    {
+      "bytes": 34534,
+      "path": "sources/examples/scenes/fox-craftsperson.json",
+      "sha256": "3756a8c85eba892e856d5d913a33c2737b4fde16c24a37d6a2bbc40e9c174a48"
+    },
+    {
+      "bytes": 346352,
+      "path": "sources/examples/scenes/fox-quality-v3.json",
+      "sha256": "ebb99aae04c33cad15efdbec0289d3e18c3d015f92ebf27217e85dd984f9b87c"
+    },
+    {
+      "bytes": 670730,
+      "path": "sources/examples/scenes/fox-quality-v4.json",
+      "sha256": "c9faa2cb99bcca6646b7518a66ffdb400570958bbf806e01d6abe6dc8dec169c"
+    },
+    {
+      "bytes": 47927,
+      "path": "sources/examples/scenes/humanoid-robot-weft-v1.json",
+      "sha256": "169a37eb6cfdad21d6140855ff35d5ad8f6ec9996a9e6c8a19956ecf3ee66e70"
+    },
+    {
+      "bytes": 221709,
+      "path": "sources/examples/scenes/lamp-quality-v3.json",
+      "sha256": "a1af78edb5a88f3a916f88ebe680180380e74fe99c13725031f0bfc7b1e7b9d8"
+    },
+    {
+      "bytes": 484931,
+      "path": "sources/examples/scenes/muse-panda-quality-v2.json",
+      "sha256": "45b7f3a78ee086ae4fb3cd5af0c044c1c6d6096d8abc028bdc6f17ff3c61f205"
+    },
+    {
+      "bytes": 497433,
+      "path": "sources/examples/scenes/muse-panda-quality-v3.json",
+      "sha256": "f2183f4ac5d55c71ead5415e68c35145dcfb97a93ff1b9238e3a36c49a8524d0"
+    },
+    {
+      "bytes": 497374,
+      "path": "sources/examples/scenes/muse-panda-quality-v4.json",
+      "sha256": "8b7389d515987c7e04b139f27ccfed69070b2315ddcc725820a774770750318d"
+    },
+    {
+      "bytes": 501506,
+      "path": "sources/examples/scenes/muse-panda-quality-v5.json",
+      "sha256": "b09a8ed91056405a0546525f25da89d5315e940e46d7dbdef4f39f7565b965bd"
+    },
+    {
+      "bytes": 47678,
+      "path": "sources/examples/scenes/muse-panda-weft-v1.json",
+      "sha256": "1605f8800e894bcde32fcc0969cbe89e1271f2c61b7d7d765f662f1f166a912f"
+    },
+    {
+      "bytes": 40259,
+      "path": "sources/examples/scenes/panda-shoulder-dragon.json",
+      "sha256": "cb5848f43a3dc28ec241cddf07b612aca9b9ff194de361deb9631bfa4e551caf"
+    },
+    {
+      "bytes": 1080073,
+      "path": "sources/examples/scenes/workshop-robot-quality-v2.json",
+      "sha256": "725f76775bbabd20d7262f8ba470cdf09b68cd16845e25942ffb8bcafea5fece"
+    },
+    {
+      "bytes": 608,
+      "path": "sources/examples/weft/humanoid-robot-weft-v1-mapping-design.json",
+      "sha256": "d6842af456f6ee12ec83840be3e970082b93277e7bef8523e0c0a249a57a3524"
+    },
+    {
+      "bytes": 622,
+      "path": "sources/examples/weft/muse-panda-weft-v1-mapping-design.json",
+      "sha256": "46e054268919b9beb13a4ce2e393ece7f139fbbf4c574af2ab3d272aabe0f3a2"
+    },
+    {
+      "bytes": 4782,
+      "path": "sources/examples/weft/neutral-proposal-v1.json",
+      "sha256": "e594f636af2bc1b48e039fe4ff7eb132335accce14e0b054a66b63818f9702eb"
+    },
+    {
+      "bytes": 440,
+      "path": "sources/pyproject.toml",
+      "sha256": "5d48043a002a55a26029707fed6c96d2764b0eee010cbc927b20b9f53dc6132c"
+    },
+    {
+      "bytes": 93,
+      "path": "sources/requirements-dev.lock",
+      "sha256": "2cc1d1455a4e80d0c948da49d27394a7777ed12f9e07fcf338117de770d98aba"
+    },
+    {
+      "bytes": 276,
+      "path": "sources/requirements.lock",
+      "sha256": "e415d41e7a44bfa4a38418156489fef2fa77b630eca4bb08325375c2eddd2448"
+    },
+    {
+      "bytes": 32513,
+      "path": "sources/scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273"
+    },
+    {
+      "bytes": 25166,
+      "path": "sources/scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68"
+    },
+    {
+      "bytes": 27045,
+      "path": "sources/scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285"
+    },
+    {
+      "bytes": 11687,
+      "path": "sources/scripts/blender_build.py",
+      "sha256": "4d2578a6d8db974ccae7e5e6658f04e83c379572bfdbb365fb5dbed2a76a6ebc"
+    },
+    {
+      "bytes": 18887,
+      "path": "sources/scripts/blender_geometry.py",
+      "sha256": "2bd5a113d07d07a237ec3c4a0024de20800fb59680ea79bd1645e290c5f80698"
+    },
+    {
+      "bytes": 2530,
+      "path": "sources/scripts/blender_render.py",
+      "sha256": "462a63d27d44bbcef9732c3396631476c48796d637bf9000d2e973875f9964c6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 19451,
+      "path": "sources/scripts/verify_quality_assets.py",
+      "sha256": "ac797efbe573ab4c27edfe0990b670885c534da65249a98a777e6874b0d73f69"
+    },
+    {
+      "bytes": 6741,
+      "path": "sources/skills/avatar-asset-workflow/SKILL.md",
+      "sha256": "9f6b3778b12b18eb43f51f4b211ab694d7ddcf568e2cbab41f08ee3a7c1b1a19"
+    },
+    {
+      "bytes": 17681,
+      "path": "sources/tests/test_gallery.py",
+      "sha256": "0d63dcc45e62914b481ebe544ccb5eacfd78a79cdcf7c65e5f834695fe147bd0"
+    },
+    {
+      "bytes": 11491,
+      "path": "sources/tests/test_media_safety.py",
+      "sha256": "8463011db39b708094d8a37ae9b9130d27f174d7779083da40561389badea02e"
+    },
+    {
+      "bytes": 3587,
+      "path": "sources/tests/test_packaging.py",
+      "sha256": "036307527d20b1d937bcb8252921200ac79cd6bff4a3e4b7f3925dea405a3b13"
+    },
+    {
+      "bytes": 8731,
+      "path": "sources/tests/test_scene.py",
+      "sha256": "370f6121d9e8967ea663478c535ea9bb871029c87d281587ec19fe4177fc8ee2"
+    },
+    {
+      "bytes": 18387,
+      "path": "sources/tests/test_scene_quality.py",
+      "sha256": "e879a98567cad571235af27e5be232021b15d094e1480ffcf8688d15429abe89"
+    },
+    {
+      "bytes": 9803,
+      "path": "sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 6498,
+      "path": "sources/tests/test_workflow.py",
+      "sha256": "fb76beeeb8bd3f79baabd06e8420dc7db20131faec96aad4fc24f51ede453248"
+    }
+  ],
+  "kind": "versioned_quality_source_and_evidence",
+  "schema_version": 1,
+  "status": "verified_stylized_upgrade_with_explicit_fidelity_limit"
+}

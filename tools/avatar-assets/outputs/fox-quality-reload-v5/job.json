@@ -1,0 +1,29 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-reload-v5/blender_verify.py",
+    "--",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/model.glb",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-reload-v5"
+  ],
+  "elapsed_seconds": 1.044,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 285604,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "wall_seconds": 180
+  },
+  "pid": 73158,
+  "sampled_peak_rss_bytes": 328810496,
+  "sampling_interval_seconds": 0.25
+}

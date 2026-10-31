@@ -1,0 +1,701 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "lamp-quality-v3_skinned_mesh": 0.06857468661214315
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.06857468661214315,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/lower_arm",
+        "AvatarRig/shade",
+        "AvatarRig/turntable",
+        "AvatarRig/upper_arm"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "lamp-quality-v3_skinned_mesh": 0.25001644801257733
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.25001644801257733,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/trace_rotor",
+        "AvatarRig/trace_stylus"
+      ],
+      "name": "making_something",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "lamp-quality-v3_skinned_mesh": 0.32767460486046324
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.32767460486046324,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/lower_arm",
+        "AvatarRig/shade",
+        "AvatarRig/upper_arm"
+      ],
+      "name": "milestone_level_up",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "lamp-quality-v3_skinned_mesh": 0.2696457309613318
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.2696457309613318,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/lower_arm",
+        "AvatarRig/shade",
+        "AvatarRig/turntable",
+        "AvatarRig/upper_arm"
+      ],
+      "name": "working",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.0,
+            0.03999999910593033
+          ],
+          "name": "root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            5.476568087914302e-09,
+            0.20000001788139343
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            5.476567643825092e-09,
+            0.20000001788139343
+          ],
+          "name": "turntable",
+          "parent": "root",
+          "tail_local": [
+            0.0,
+            1.8483415686887383e-08,
+            0.5800000429153442
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            1.8483415686887383e-08,
+            0.5800000429153442
+          ],
+          "name": "lower_arm",
+          "parent": "turntable",
+          "tail_local": [
+            0.0,
+            4.361052674539678e-08,
+            1.3140981197357178
+          ]
+        },
+        {
+          "head_local": [
+            0.30000001192092896,
+            4.141653420219882e-08,
+            1.2499998807907104
+          ],
+          "name": "upper_arm",
+          "parent": "lower_arm",
+          "tail_local": [
+            0.30000001192092896,
+            6.754033421429995e-08,
+            2.013216733932495
+          ]
+        },
+        {
+          "head_local": [
+            -0.09999999403953552,
+            6.366508387145586e-08,
+            1.899999737739563
+          ],
+          "name": "shade",
+          "parent": "upper_arm",
+          "tail_local": [
+            -0.09999999403953552,
+            8.978888388355699e-08,
+            2.6632165908813477
+          ]
+        },
+        {
+          "head_local": [
+            0.44999995827674866,
+            -0.4499998986721039,
+            0.060000039637088776
+          ],
+          "name": "work_pad",
+          "parent": "root",
+          "tail_local": [
+            0.44999995827674866,
+            -0.4499998986721039,
+            0.22000005841255188
+          ]
+        },
+        {
+          "head_local": [
+            0.5299999117851257,
+            -0.5699998736381531,
+            0.5
+          ],
+          "name": "trace_rotor",
+          "parent": "root",
+          "tail_local": [
+            0.5299999117851257,
+            -0.5699998736381531,
+            0.6700000166893005
+          ]
+        },
+        {
+          "head_local": [
+            0.6999999284744263,
+            -0.5699998736381531,
+            0.5
+          ],
+          "name": "trace_stylus",
+          "parent": "trace_rotor",
+          "tail_local": [
+            0.6999999284744263,
+            -0.5699998736381531,
+            0.6700000166893005
+          ]
+        }
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      1.2999999523162842,
+      1.4580769538879395,
+      2.253246784210205
+    ],
+    "max": [
+      0.8199999332427979,
+      0.6480770111083984,
+      2.252746820449829
+    ],
+    "min": [
+      -0.47999998927116394,
+      -0.8100000023841858,
+      -0.0005000000819563866
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.177888423204422,
+        0.045186202973127365,
+        0.07036009430885315,
+        1.0
+      ],
+      "name": "body",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "brass",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        1.0,
+        0.7991027235984802,
+        0.4507857859134674,
+        1.0
+      ],
+      "name": "bulb",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.006048833020031452,
+        0.013702083379030228,
+        0.024157632142305374,
+        1.0
+      ],
+      "name": "display",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.05126945674419403,
+        0.1384316086769104,
+        0.18782077729701996,
+        1.0
+      ],
+      "name": "ink",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.02955683507025242,
+        0.03433980792760849,
+        0.05448027700185776,
+        1.0
+      ],
+      "name": "joint",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.46207699179649353,
+        0.47353148460388184,
+        0.40724021196365356,
+        1.0
+      ],
+      "name": "page_line",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.8713670969009399,
+        0.7912979125976562,
+        0.6444796919822693,
+        1.0
+      ],
+      "name": "paper",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.7758222222328186,
+        0.6653872728347778,
+        0.47353148460388184,
+        1.0
+      ],
+      "name": "reflector",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.013702083379030228,
+        0.019382361322641373,
+        0.02955683507025242,
+        1.0
+      ],
+      "name": "rubber",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.3967552185058594,
+        0.41788506507873535,
+        0.4507857859134674,
+        1.0
+      ],
+      "name": "steel",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "AvatarRig",
+      "materials": [
+        "body",
+        "brass",
+        "joint",
+        "display",
+        "bulb",
+        "paper",
+        "ink",
+        "rubber",
+        "steel",
+        "reflector",
+        "page_line"
+      ],
+      "name": "lamp-quality-v3_skinned_mesh",
+      "polygons": 44754,
+      "unweighted_vertices": 0,
+      "vertices": 37762,
+      "weighted_vertices": 37762
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "body",
+      "material_index": 0,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        0,
+        965,
+        1930,
+        2895,
+        3860,
+        4825,
+        5791,
+        6756,
+        7721,
+        8686,
+        9651,
+        10616
+      ]
+    },
+    {
+      "material": "brass",
+      "material_index": 1,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        10617,
+        11586,
+        12554,
+        13523,
+        14492,
+        15460,
+        16429,
+        17397,
+        18366,
+        19335,
+        20303,
+        21272
+      ]
+    },
+    {
+      "material": "joint",
+      "material_index": 2,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        21273,
+        21813,
+        22353,
+        22893,
+        23433,
+        23973,
+        24513,
+        25053,
+        25593,
+        26133,
+        26673,
+        27213
+      ]
+    },
+    {
+      "material": "display",
+      "material_index": 3,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        27214,
+        27264,
+        27314,
+        27364,
+        27414,
+        27464,
+        27514,
+        27564,
+        27614,
+        27664,
+        27714,
+        27764
+      ]
+    },
+    {
+      "material": "bulb",
+      "material_index": 4,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        27765,
+        28033,
+        28300,
+        28568,
+        28835,
+        29103,
+        29370,
+        29638,
+        29905,
+        30173,
+        30440,
+        30708
+      ]
+    },
+    {
+      "material": "paper",
+      "material_index": 5,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        30709,
+        30759,
+        30809,
+        30859,
+        30909,
+        30959,
+        31009,
+        31059,
+        31109,
+        31159,
+        31209,
+        31259
+      ]
+    },
+    {
+      "material": "ink",
+      "material_index": 6,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        31260,
+        31323,
+        31386,
+        31449,
+        31512,
+        31575,
+        31637,
+        31700,
+        31763,
+        31826,
+        31889,
+        31952
+      ]
+    },
+    {
+      "material": "rubber",
+      "material_index": 7,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        31953,
+        32310,
+        32666,
+        33023,
+        33380,
+        33737,
+        34093,
+        34450,
+        34807,
+        35163,
+        35520
+      ]
+    },
+    {
+      "material": "steel",
+      "material_index": 8,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        35521,
+        35701,
+        35881,
+        36061,
+        36241,
+        36421,
+        36602,
+        36782,
+        36962,
+        37142,
+        37322
+      ]
+    },
+    {
+      "material": "reflector",
+      "material_index": 9,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        37323,
+        37357,
+        37391,
+        37426,
+        37460,
+        37494,
+        37528,
+        37562,
+        37597,
+        37631,
+        37665
+      ]
+    },
+    {
+      "material": "page_line",
+      "material_index": 10,
+      "object": "lamp-quality-v3_skinned_mesh",
+      "probe_vertices": [
+        37666,
+        37676,
+        37685,
+        37694,
+        37704,
+        37714,
+        37723,
+        37732,
+        37742,
+        37752,
+        37761
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.16999997198581696,
+        -6.840702056884766,
+        1.8020975589752197
+      ],
+      "camera_target_blender_z_up": [
+        0.16999997198581696,
+        -0.08096149563789368,
+        1.1261234283447266
+      ],
+      "path": "independent-front.png",
+      "sha256": "64f2a20eed405e128e0a89ac357821d7c5fc4b6f412548da37c8b9657d668bbb",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.16999997198581696,
+        6.678778648376465,
+        1.8020975589752197
+      ],
+      "camera_target_blender_z_up": [
+        0.16999997198581696,
+        -0.08096149563789368,
+        1.1261234283447266
+      ],
+      "path": "independent-back.png",
+      "sha256": "d5c3964627c0e098fe4b59fb0b1b572b316a2ece8cdc6b592272eb162ea27010",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        6.9297404289245605,
+        -0.08096149563789368,
+        1.8020975589752197
+      ],
+      "camera_target_blender_z_up": [
+        0.16999997198581696,
+        -0.08096149563789368,
+        1.1261234283447266
+      ],
+      "path": "independent-side.png",
+      "sha256": "163e937dd5b6882253cb7db7699e2f203acfcad4d59ab970b91a43024a1ef1d0",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/model.glb",
+  "source_sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 0.4784879582002759,
+  "weft_runtime_verified": false
+}

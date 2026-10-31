@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "robot",
+      "title": "Workshop robot",
+      "description": "A blue-and-cream humanoid robot with a circuit workpiece and assembly probe.",
+      "kind": "authored_3d",
+      "pack": "outputs/humanoid-robot-weft-build-v1",
+      "media_pack": "outputs/robot-preview-v1",
+      "mapping_pack": "outputs/weft-humanoid-robot-v1"
+    },
+    {
+      "id": "panda",
+      "title": "Muse-inspired panda",
+      "description": "An authored panda with a green shoulder dragon and golden crafting sphere, inspired by the supplied reference.",
+      "kind": "authored_3d",
+      "pack": "outputs/muse-panda-weft-build-v1",
+      "mapping_pack": "outputs/weft-muse-panda-v1"
+    },
+    {
+      "id": "fox",
+      "title": "Fox craftsperson",
+      "description": "An articulated fox with a teal scarf, sketchbook and pencil.",
+      "kind": "authored_3d",
+      "pack": "outputs/fox-refined-v2",
+      "media_pack": "outputs/fox-muse-v1"
+    },
+    {
+      "id": "lamp",
+      "title": "Articulated desk lamp",
+      "description": "A burgundy-and-brass lamp with a moving shade, mechanical joints and tracing stylus.",
+      "kind": "authored_3d",
+      "pack": "outputs/lamp-refined-v1",
+      "media_pack": "outputs/lamp-muse-v2"
+    },
+    {
+      "id": "reference",
+      "title": "Original panda reference",
+      "description": "The supplied portrait and four original video clips. This reference pack contains no 3D mesh or rig.",
+      "kind": "reference_2d",
+      "pack": "outputs/reference-v1"
+    }
+  ]
+}

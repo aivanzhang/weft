@@ -1,0 +1,17 @@
+{
+  "bitwise_rebuild_supported": false,
+  "cause": "Exporter triangle ordering and small floating-point normal differences remain; integrate immutable hashed originals.",
+  "changed_hypothesis": "Fixed triangulation preserved tested topology but did not produce identical bytes; no further unchanged reruns.",
+  "json_identical": true,
+  "max_observed_normal_delta": 7.557868957519531e-05,
+  "same_source_and_backend": true,
+  "schema_version": 1,
+  "triangle_vertex_sets_identical_by_primitive": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ]
+}

@@ -1,0 +1,200 @@
+{
+  "loops": "Not certified. Endpoint equality alone is insufficient.",
+  "models": [
+    {
+      "evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/portrait.png",
+          "sha256": "3d3737441329c8ea152dd8e45bd224004edd84ad1970c1857c16860c87c9ceb4"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/idle-contact.png",
+          "sha256": "3c04825cb6e021ac03062a50a7a4688e7437269cd8b963daa843a5bb6c93969b"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/making_something-contact.png",
+          "sha256": "7bf823aa877efe34086e0c1147e01319702fe8462f310b1476d87d6d2dd16cc1"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/milestone_level_up-contact.png",
+          "sha256": "0937307b8e7f1a6b549cca1210b9d0ad96b96578e5a32cb88bda1ee8a56a40c8"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/working-contact.png",
+          "sha256": "001be7dc77661af2b22fb08d2ce016769669f7be8e38d8132438634d0d724b84"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-reload-v6/independent-front.png",
+          "sha256": "ee9d0a1940284773a89d9de98e8f7a27f5d4dae65b922cae326ff0fecddb3fa9"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-reload-v6/independent-side.png",
+          "sha256": "4af17753e7aec6a7074f9a3f307e40cac9c46648ad16adeb1368859782e87f26"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-reload-v6/independent-back.png",
+          "sha256": "5d82e25a41f945f2dd96589d58464446074e018f96b520dd5c3178afef4109ff"
+        }
+      ],
+      "id": "panda",
+      "manifest_sha256": "c2f983a91fbf6d48e565692f3610549e05aae98806b3a9519f3aa33a9e8ebdee",
+      "model_sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+      "native_reload_manifest_sha256": "8693643293d0c50bfbe4a9d0d44a9dd05570db657b13c269aafcb2c2cf30dd54",
+      "observations": [
+        "Compact broad-headed panda retains ivory/black identity and anatomical-right/viewer-left shoulder dragon. Fur blades are visible, especially at the head silhouette; the coat is a short sparse real-time approximation, not the dense Muse groom.",
+        "Eyes, eyelids, nose, mouth crease, paws/toes and rear tail are modeled. Dragon has actual wings/spars, horns/frills, scaled-surface textures, belly ridges, claws and tail.",
+        "Continuous weighted arms replace stacked joints. Crafting brings the orb between paws; working lifts it toward the face; celebration lifts both arms and keeps the orb visible after wrist correction. The dragon remains attached.",
+        "Side/back native views contain authored surfaces. All hidden anatomy is an assumption; no original Muse rig or skin was recovered."
+      ],
+      "pack": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6",
+      "verdict": "accepted_as_stylized_upgrade_not_muse_parity"
+    },
+    {
+      "evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/portrait.png",
+          "sha256": "0d87c4d4502070d9bb6e6fa181ec6a91a5fe1d7821999d3eb8709767f74ca3f4"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/idle-contact.png",
+          "sha256": "b8b0cd1a9a66299557ba37b15c953968aa857c532f2b16da190d4ced7d779e10"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/making_something-contact.png",
+          "sha256": "3a603dbd7e60aadaee6b439e16d1282606dfde0438b4e03009d24f2a9d4f6c4e"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/milestone_level_up-contact.png",
+          "sha256": "82eefc66e06d55fb2f859c9cb5af942cb8d82eaa126890bd198aac3834ddc5fe"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/working-contact.png",
+          "sha256": "560f732a92a0bf078e4b11b9c25c5ddbb15f32505dd3425611132ae34dd45139"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-reload-v3/independent-front.png",
+          "sha256": "10504e23b754113bba9763410473cc393f230f34bd5416685664d249f181af01"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-reload-v3/independent-side.png",
+          "sha256": "76171f312d504406219ca60200be1dbcf323e3d48fecfcd4f9f80b96029397b9"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-reload-v3/independent-back.png",
+          "sha256": "2f7f6571262437ac44c1bf76d1a653fb119885e403543936c279a460ad23c85c"
+        }
+      ],
+      "id": "robot",
+      "manifest_sha256": "f12374ef85aaa223db578dad09cb05b49c030e7df2faf818d19998f8b3e0f7da",
+      "model_sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+      "native_reload_manifest_sha256": "e1296c73f7b51f2a32ac130ed7b5e3ebb7d66d04f79e32b76ea1123e89a31ee5",
+      "observations": [
+        "Blue/cream identity preserved; beveled shells, layered joint hardware, back panel, visor, static fingers and detailed board/probe are visible from multiple views.",
+        "Crafting makes small probe strokes at the held board; working holds the board higher for inspection; celebration lifts both tools with the authored body movement. Idle is distinct.",
+        "Rigid mechanical-part skinning is intentional. This is an authored toy-like robot, not simulated electronics, recovered anatomy or functioning tools."
+      ],
+      "pack": "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3",
+      "verdict": "accepted_as_stylized_upgrade_not_muse_parity"
+    },
+    {
+      "evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/portrait.png",
+          "sha256": "025b019f8f92ecf207c2f28475922fe69869da600e75bc6db4f4b35ea6eb6cbf"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/idle-contact.png",
+          "sha256": "5f8bfe68ae6ccf5faee9c2717e75d30c8dac295f0760a15d1cefafb572231975"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/making_something-contact.png",
+          "sha256": "80c8cbf6c124155a42fd17730fe17b07927c228ca20b4671f1bb2c1b3e005d6b"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/milestone_level_up-contact.png",
+          "sha256": "5aba952bcd51cd46745c710256f3bb379a2a0a9b12adfc6a4190f3e40dcb4252"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/working-contact.png",
+          "sha256": "3e98dfef55b77698931d05a0338e50aed9e58c526b10476fb157e7a5f52590d7"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-reload-v5/independent-front.png",
+          "sha256": "d7780213c746b925efdef80e401de4fb87d8493fe87a84bc40ea0a149ea2deb2"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-reload-v5/independent-side.png",
+          "sha256": "d175b2c144027c92c1f9399ae1af6b6ffeabb9bb7855f02e07e52d2d1685df70"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-reload-v5/independent-back.png",
+          "sha256": "bdef5348c1344bb3e97e04a2a2c313aef359177cc4f76c054624a6add1e774dc"
+        }
+      ],
+      "id": "fox",
+      "manifest_sha256": "5f794fe2170584df15e571a57c37dd590ec400bae8f9a9cc809d137543dc1a36",
+      "model_sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+      "native_reload_manifest_sha256": "4d0ad29f6087160c9b02302e1125dd625c445304ccea085fb47db0ca7cbef260",
+      "observations": [
+        "Orange/cream coat, teal scarf, pointed ears, shaped muzzle and curled two-tone tail remain consistent. Exported fur is a short geometric approximation; not film-quality fur.",
+        "Shoulder caps are rounded into the torso and elbows are blended. Sampled celebration does not expose the previous flat shoulder cuts.",
+        "Crafting moves the pencil at the book; working holds the book closer to the face; celebration raises both props; idle holds the baseline pose with motion. Printed page marks are static, not newly generated writing.",
+        "Native side/back views verify the shaped snout, tail, scarf and complete hidden surfaces; fingers and facial details are static authored geometry."
+      ],
+      "pack": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4",
+      "verdict": "accepted_as_stylized_upgrade_not_muse_parity"
+    },
+    {
+      "evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/portrait.png",
+          "sha256": "6feb6489792d08d3f850292044cf21666f82d8563dd742dfe92dc79dc7b7e8bb"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/idle-contact.png",
+          "sha256": "56dec6a3d516b7e2e0dd06112794f1d256baf2b0ba30c667ee45487294f26ccc"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/making_something-contact.png",
+          "sha256": "54c52770a7f2bf5712787d7740ca9d981de8e4752d6de1652581824fa9085eb2"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/milestone_level_up-contact.png",
+          "sha256": "297509af055138af8a3e4f787307c0fd0f014c06673d4d5c0f28871a15da75c5"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/working-contact.png",
+          "sha256": "687acd8d8862afdc55530ed514f882ffa99d507a136e61b35a0320dbc857ed36"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-reload-v4/independent-front.png",
+          "sha256": "64f2a20eed405e128e0a89ac357821d7c5fc4b6f412548da37c8b9657d668bbb"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-reload-v4/independent-side.png",
+          "sha256": "163e937dd5b6882253cb7db7699e2f203acfcad4d59ab970b91a43024a1ef1d0"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-reload-v4/independent-back.png",
+          "sha256": "d5c3964627c0e098fe4b59fb0b1b572b316a2ece8cdc6b592272eb162ea27010"
+        }
+      ],
+      "id": "lamp",
+      "manifest_sha256": "28c2932719c18f5356dfada1403f678591801678651b0456206c153fdd9fa6a7",
+      "model_sha256": "f9805443920731541ff34d02dc87aa35fd85dcff7146c922163601bf51df33eb",
+      "native_reload_manifest_sha256": "9210f623072d85c4ef15e6b806623cc651b95f4c9c73319ef6d446d992010ede",
+      "observations": [
+        "Burgundy/brass identity preserved. Hollow shade/rim/reflector, bulb geometry, hinges, springs, leads, base controls and tracing stylus are visible.",
+        "The stylus traces the fixed work-pad guide during crafting; working lowers/directs the shade, celebration raises the arm/shade, and idle makes restrained articulated motion. No new ink or illumination physics is claimed.",
+        "Front/back/side views show an open underside and modeled rear parts; rigid mechanical weights are intentional."
+      ],
+      "pack": "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4",
+      "verdict": "accepted_as_stylized_upgrade_not_muse_parity"
+    }
+  ],
+  "recorded_at": "2026-10-30 17:13:41 PDT",
+  "reference_comparison": "The original Muse image has a denser groom, more organic facial/dragon modeling and more polished cinematic shading. Equivalent finish is not demonstrated; see outputs/muse-fidelity-limit-v1.",
+  "reviewer": "Assistant sampled visual inspection; not user approval or every-frame playback",
+  "schema_version": 1,
+  "scope": "Native geometry and sampled action review, not Weft alignment, physics, appearance replay or recording."
+}

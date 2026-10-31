@@ -1,0 +1,35 @@
+{
+  "blender": "4.5.13 LTS",
+  "vertices": 6356,
+  "polygons": 6578,
+  "bones": [
+    "root",
+    "torso",
+    "head",
+    "upper_arm_right",
+    "forearm_right",
+    "hand_right",
+    "probe",
+    "upper_arm_left",
+    "forearm_left",
+    "hand_left",
+    "workpiece",
+    "thigh_right",
+    "shin_right",
+    "foot_right",
+    "thigh_left",
+    "shin_left",
+    "foot_left"
+  ],
+  "actions": [
+    "idle",
+    "working",
+    "making_something",
+    "milestone_level_up"
+  ],
+  "render_engine": "CYCLES",
+  "device": "CPU",
+  "samples": 12,
+  "render_resolution": 320,
+  "preview_only": true
+}

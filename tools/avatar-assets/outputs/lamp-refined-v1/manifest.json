@@ -1,0 +1,663 @@
+{
+  "artifacts": [
+    {
+      "bytes": 431,
+      "path": "blender-build.json",
+      "sha256": "be283c557755763299e6067a364559defe97c3b1fd5636d201b10edf5dd1c56d"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "fedb520eb121b53bbd9f2fe14cfd4537296f0457be5d2703275e84172efe3d90"
+    },
+    {
+      "bytes": 473,
+      "path": "build-handle.json",
+      "sha256": "27e0b2fb4f0a7b74b3648299d448682fa03fff2fbdb9e0a9886dcf32ba0d5b0e"
+    },
+    {
+      "bytes": 153859,
+      "path": "build.log",
+      "sha256": "2afe391e62e74d085a85e2e15a9eb4f0b778510012b2a9199e8c09b760c4af4a"
+    },
+    {
+      "bytes": 74333,
+      "path": "idle-contact.png",
+      "sha256": "f721e043428fbbbc1ee92602cd129f4758feccaf644b0c81964a2eb4d7a9d73a"
+    },
+    {
+      "bytes": 770,
+      "path": "job.json",
+      "sha256": "e7678ef7ed0ee8617ff28bfaa7388a4fc31b44499aa7bb7f5c1c443656d697bf"
+    },
+    {
+      "bytes": 58731,
+      "path": "making_something-contact.png",
+      "sha256": "ddad0a0f17828a2639a32f685741d370c1d186bfcb97bcf7cd0b609743a642b0"
+    },
+    {
+      "bytes": 74112,
+      "path": "milestone_level_up-contact.png",
+      "sha256": "2af9b77b36125c7fc7e9cd431f88c2a3c59a7a7b230f0be89c7a9bd1d5e69983"
+    },
+    {
+      "bytes": 494056,
+      "path": "model.glb",
+      "sha256": "6c4edc7179499e0c6edb6e170c93b4cda670c229d39c79147d9dfe846198b6e7"
+    },
+    {
+      "bytes": 157226,
+      "path": "portrait.png",
+      "sha256": "e6d1ad7d97bec188c64b0f297891347a1fc396a4054ff15ef27ae07d95de41fc"
+    },
+    {
+      "bytes": 157226,
+      "path": "renders/idle/0000.png",
+      "sha256": "531735a946b587fb029d09d0a31daa031ce2239d2bf1614964e050040dd7be04"
+    },
+    {
+      "bytes": 157156,
+      "path": "renders/idle/0019.png",
+      "sha256": "7225341676ad5e0e6fddb02e3d9c0696f7b6ff036ed5c5cc9d63b9320026d87b"
+    },
+    {
+      "bytes": 156964,
+      "path": "renders/idle/0038.png",
+      "sha256": "aedf2fb096340183f3ea85511d7221e73d02eaa40e96c58fc6f1f53ef00c7c91"
+    },
+    {
+      "bytes": 157396,
+      "path": "renders/idle/0057.png",
+      "sha256": "3798344e9e25a115bcfd8e4d2253ddc09831f71e8501f015bb130dfef0717b6f"
+    },
+    {
+      "bytes": 156867,
+      "path": "renders/idle/0076.png",
+      "sha256": "92e8a308679e45c897bb84bb12bff96cf5aac0c5fbb93814070bf89aaba6db42"
+    },
+    {
+      "bytes": 157356,
+      "path": "renders/idle/0095.png",
+      "sha256": "6bb4dc51fa69571f7d6d8cd6fc7cc0ab542cd56129e097b17c0f578ffe352ba0"
+    },
+    {
+      "bytes": 157226,
+      "path": "renders/idle/0096.png",
+      "sha256": "7044b0d8aea17f6e47c074bb889cd90cc2da5832426351da088abbd685e297ec"
+    },
+    {
+      "bytes": 154693,
+      "path": "renders/making_something/0000.png",
+      "sha256": "44af16f18d318d7a6e73b72283084c9ca7006ce9e0e37462189da03b1b2167a6"
+    },
+    {
+      "bytes": 155016,
+      "path": "renders/making_something/0019.png",
+      "sha256": "d288a3e0791a845d58fe791775bf75eae9382ec6fa0a50a6bf4c6e36c4d322f1"
+    },
+    {
+      "bytes": 155090,
+      "path": "renders/making_something/0038.png",
+      "sha256": "0ce7b2d28445c908ace4db59a44bcdcb96cb65c8282be61bad428133bbc64ee0"
+    },
+    {
+      "bytes": 155095,
+      "path": "renders/making_something/0057.png",
+      "sha256": "96c94cf64d88fc7d49f311a7d3ee87a492705fcfec37d05b7810ff74ecf8b16e"
+    },
+    {
+      "bytes": 155182,
+      "path": "renders/making_something/0076.png",
+      "sha256": "ad62fa751d175e5e03d4b3108b04fffae641d8156ec0db91ad582ecebd19f01f"
+    },
+    {
+      "bytes": 154895,
+      "path": "renders/making_something/0095.png",
+      "sha256": "12ece2f978f3fffb472328d7731ba0f968644fe3e62482f8e5832fa1ab105a03"
+    },
+    {
+      "bytes": 154693,
+      "path": "renders/making_something/0096.png",
+      "sha256": "6536c848a9648a3f1e477edbb8129ffdf6bd5a4b764540b412a3a4a996326d36"
+    },
+    {
+      "bytes": 157226,
+      "path": "renders/milestone_level_up/0000.png",
+      "sha256": "396bf2e0c2c76762d1fdf2bfb3bdfa4cc7b023229a9b0a76296a66bb641ad72c"
+    },
+    {
+      "bytes": 157296,
+      "path": "renders/milestone_level_up/0019.png",
+      "sha256": "6a8b624f63489dab590973d8a5aba662f3d8909a6418cc7ccb79f3f24a33f763"
+    },
+    {
+      "bytes": 156051,
+      "path": "renders/milestone_level_up/0038.png",
+      "sha256": "c90adbba1f1f9620c091b4d15a71a1486cf2dd03669e61615367548cb685b77c"
+    },
+    {
+      "bytes": 156247,
+      "path": "renders/milestone_level_up/0057.png",
+      "sha256": "19f31648e01f527ae3ed0278482321f1d79611bed1772e70ad2146e1f1116d38"
+    },
+    {
+      "bytes": 157004,
+      "path": "renders/milestone_level_up/0076.png",
+      "sha256": "bf932ba2add1bd43821f7ac00950bc45d552087ce308fcd2ab090c7cac7888d5"
+    },
+    {
+      "bytes": 157079,
+      "path": "renders/milestone_level_up/0095.png",
+      "sha256": "dfbfa3eb65e1539f23ab2d59382d035d26634fd5e82ff9be2fda2da9517a2e86"
+    },
+    {
+      "bytes": 157226,
+      "path": "renders/milestone_level_up/0096.png",
+      "sha256": "b5a0e0c3bddcb3114c774232370422585bac73c344dfea5b1cb6189c75a44329"
+    },
+    {
+      "bytes": 155313,
+      "path": "renders/working/0000.png",
+      "sha256": "98c991376b00ae812460b8787e2ddd87c708c526892bfcd3b17495cb8701ce02"
+    },
+    {
+      "bytes": 154782,
+      "path": "renders/working/0019.png",
+      "sha256": "5195c5cbffe0813c4f129456183713aa56dff6215d5e9cf98404287aa14d2669"
+    },
+    {
+      "bytes": 154441,
+      "path": "renders/working/0038.png",
+      "sha256": "29a4df741a84bcd8f367ce3483a0582f9b2bdece2a4b3454c0fc60b71ef594d0"
+    },
+    {
+      "bytes": 154766,
+      "path": "renders/working/0057.png",
+      "sha256": "0e4b1fef6fe4386bf5575d888b5c52af679078b1857c10e38f30f9d0bf72a54a"
+    },
+    {
+      "bytes": 154849,
+      "path": "renders/working/0076.png",
+      "sha256": "6a21d5d98e609184a17878d2615c3be1e0c71e57e1131efc569ff4368a791ba4"
+    },
+    {
+      "bytes": 155467,
+      "path": "renders/working/0095.png",
+      "sha256": "73825e4db8c9a6646cafcf99ca9a17d11b67b9dae7c724fbead12d553579e5ed"
+    },
+    {
+      "bytes": 155313,
+      "path": "renders/working/0096.png",
+      "sha256": "3f4a31e72b4195efbe0491ab2d1195a3050c2bca5881b751fe1746b1759c385a"
+    },
+    {
+      "bytes": 3123,
+      "path": "rig-contract.json",
+      "sha256": "f13d53c189d890fe250c488b285d357c75d4fee2518368d9785a48c0d7714b97"
+    },
+    {
+      "bytes": 7024,
+      "path": "rig-verification.json",
+      "sha256": "01d8f76d516e271da7215ce12ebe73fd83c535bd6ed51662991f7f5dda656efe"
+    },
+    {
+      "bytes": 1599702,
+      "path": "source.blend",
+      "sha256": "c3612841df7d53d882450f27160de323bedbe99fee285a062a2517d461320720"
+    },
+    {
+      "bytes": 8933,
+      "path": "sources/blender_build.py",
+      "sha256": "439012bf56835aa69b9573ae983bab4aefc39cb1c5fb6c27ee17108c8a4da61c"
+    },
+    {
+      "bytes": 1155,
+      "path": "sources/prompt.txt",
+      "sha256": "8d41be164f6eecb7141a44bb0cd493f9a678b68d5a6fd33dd72ce22e80dd6dbb"
+    },
+    {
+      "bytes": 42333,
+      "path": "sources/scene.json",
+      "sha256": "88bb71b6ae53f17c9e64382d75c5d6e89c6f7a43356ccfa9783fee515313a404"
+    },
+    {
+      "bytes": 76662,
+      "path": "working-contact.png",
+      "sha256": "c079079787eec6cc2fe177422d36ae8e92ed91b84a6584f167c37caeb70d2a4f"
+    }
+  ],
+  "authored_assumptions": [
+    "Original full 3D design assembled from smooth primitives; no external reference.",
+    "All joints are authored mechanical pivots with rigid weights, not a simulated linkage constraint system.",
+    "The warm bulb is opaque colored geometry, not volumetric light or a luminous beam.",
+    "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+    "Revision v2 adds a base-supported rotary stylus with explicit joint motion over a fixed guide. The stylus is lowered only during making_something; no new marks, physical contact simulation or beam illumination are produced."
+  ],
+  "generation": {
+    "local_compute": "CPU, up to 4 threads; resource usage in job.json",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_service_cost_usd": 0
+  },
+  "id": "articulated-lamp-v2",
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/sources/blender_build.py",
+      "--",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1/sources/scene.json",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-refined-v1",
+      "384",
+      "24"
+    ],
+    "elapsed_seconds": 19.352,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "pid": 52815,
+    "sampled_peak_rss_bytes": 469893120,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "authored_3d_avatar",
+  "origin": "Agent-authored procedural geometry and skeletal keyframes; not neural reconstruction or an analytic fixture",
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 157226,
+    "format": "PNG",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 384,
+    "kind": "image",
+    "metadata_keys": [
+      "Camera",
+      "Date",
+      "File",
+      "Frame",
+      "RenderTime",
+      "Scene",
+      "Time",
+      "cycles.ViewLayer.render_time",
+      "cycles.ViewLayer.samples",
+      "cycles.ViewLayer.synchronization_time",
+      "cycles.ViewLayer.total_time",
+      "dpi",
+      "exif"
+    ],
+    "mode": "RGBA",
+    "sha256": "e6d1ad7d97bec188c64b0f297891347a1fc396a4054ff15ef27ae07d95de41fc",
+    "width": 384
+  },
+  "rejected_attempts": [],
+  "rig_verification": {
+    "attachments": [
+      {
+        "mode": "rigid_child",
+        "node": "work_pad",
+        "parent_bone": "root",
+        "placement": "Static paper pad in front-right of the lamp base.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          0.44999998807907104,
+          0.02000001072883606,
+          0.44999998807907104
+        ]
+      },
+      {
+        "mode": "rigid_child",
+        "node": "trace_stylus",
+        "parent_bone": "trace_rotor",
+        "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          0.17000001668930054,
+          0,
+          0
+        ]
+      }
+    ],
+    "authored_assumptions": [
+      "Original full 3D design assembled from smooth primitives; no external reference.",
+      "All joints are authored mechanical pivots with rigid weights, not a simulated linkage constraint system.",
+      "The warm bulb is opaque colored geometry, not volumetric light or a luminous beam.",
+      "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms.",
+      "Revision v2 adds a base-supported rotary stylus with explicit joint motion over a fixed guide. The stylus is lowered only during making_something; no new marks, physical contact simulation or beam illumination are produced."
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "lower_arm": "lower_arm",
+      "root": "root",
+      "shade": "shade",
+      "trace_rotor": "trace_rotor",
+      "trace_stylus": "trace_stylus",
+      "turntable": "turntable",
+      "upper_arm": "upper_arm",
+      "work_pad": "work_pad"
+    },
+    "bones": [
+      "shade",
+      "upper_arm",
+      "lower_arm",
+      "turntable",
+      "work_pad",
+      "trace_stylus",
+      "trace_rotor",
+      "root"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 1000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 6,
+    "mesh_vertices": 7399,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.0660023410465692,
+          "motion_observed": true,
+          "name": "idle",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.3289709328270935,
+          "motion_observed": true,
+          "name": "making_something",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.3261201918000984,
+          "motion_observed": true,
+          "name": "milestone_level_up",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.21617422673432257,
+          "motion_observed": true,
+          "name": "working",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 121
+    },
+    "primitive_count": 6,
+    "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+    "schema_version": 1,
+    "sha256": "6c4edc7179499e0c6edb6e170c93b4cda670c229d39c79147d9dfe846198b6e7",
+    "skeleton_roots": [
+      {
+        "name": "root",
+        "node": 7,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "New locally authored shapes/materials; reference resemblance is not independent rights verification",
+  "scene_sha256": "88bb71b6ae53f17c9e64382d75c5d6e89c6f7a43356ccfa9783fee515313a404",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration_seconds": 4,
+      "id": "idle",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "making_something",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "milestone_level_up",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "working",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Polished retro-industrial desk toy with rounded joints, metallic brass details and readable mechanical articulation.",
+  "subject": "A burgundy articulated desk-lamp robot with a brass shade, warm bulb, paired hinge bars and a cream work pad. A small base-mounted rotary stylus traces a fixed guide on the pad.",
+  "tools": {
+    "encoder": "libx264",
+    "encoder_options": {
+      "crf": 18,
+      "preset": "medium",
+      "threads": 1
+    },
+    "ffmpeg_libraries": {
+      "libavcodec": [
+        63,
+        1,
+        102
+      ],
+      "libavdevice": [
+        63,
+        1,
+        102
+      ],
+      "libavfilter": [
+        12,
+        1,
+        102
+      ],
+      "libavformat": [
+        63,
+        1,
+        102
+      ],
+      "libavutil": [
+        61,
+        1,
+        102
+      ],
+      "libswresample": [
+        7,
+        1,
+        102
+      ],
+      "libswscale": [
+        10,
+        1,
+        102
+      ]
+    },
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "pyav": "19.0.2",
+    "python": "3.14.7"
+  }
+}

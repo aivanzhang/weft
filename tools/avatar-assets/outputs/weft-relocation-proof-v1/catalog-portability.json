@@ -1,0 +1,19 @@
+{
+  "catalogs": [
+    {
+      "all_non_dependency_routes_in_git_selection": true,
+      "assets": 5,
+      "catalog": "browser/gallery.json",
+      "routes": 83,
+      "sha256": "a123649cf815bc90a198c245f538ac6d50f04f0f59c061a77d6f1ce27598b503"
+    },
+    {
+      "all_non_dependency_routes_in_git_selection": true,
+      "assets": 5,
+      "catalog": "browser/gallery-basic-v1.json",
+      "routes": 80,
+      "sha256": "300c372cf625fd7f70e52467da27e3ebe5ce4ad668c83657022ee117684aeb48"
+    }
+  ],
+  "installed_dependency": "browser/node_modules/@google/model-viewer"
+}

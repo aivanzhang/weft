@@ -1,0 +1,1128 @@
+{
+  "packs": [
+    {
+      "artifact_hashes_verified": 415,
+      "clips": [
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "idle",
+          "inspection": {
+            "adjacent_mae_max": 0.000972,
+            "adjacent_mae_mean": 0.000565,
+            "audio": false,
+            "boundary_mae": 0.001725,
+            "bytes": 61614,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "e4f6fecaca449bdaca6955debe375b59b2220e1fb0ffe374cf6d85ffca28d1ac",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "making_something",
+          "inspection": {
+            "adjacent_mae_max": 0.00297,
+            "adjacent_mae_mean": 0.002048,
+            "audio": false,
+            "boundary_mae": 0.002408,
+            "bytes": 79604,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "7056c13583986c8af0d19e94ad8b934990a01887950289e9e2df2633dc327228",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "working",
+          "inspection": {
+            "adjacent_mae_max": 0.004023,
+            "adjacent_mae_mean": 0.002533,
+            "audio": false,
+            "boundary_mae": 0.002571,
+            "bytes": 83911,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "8612a730cbc31863e54fe3f5ab2d4a9091e63b9f47b2d02150b8b34579e9a7d7",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "milestone_level_up",
+          "inspection": {
+            "adjacent_mae_max": 0.005219,
+            "adjacent_mae_mean": 0.003183,
+            "audio": false,
+            "boundary_mae": 0.002404,
+            "bytes": 89263,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "7706ebdad6ee86a03500e4861cdda77fd92463a1160d52c7e09620f3df0d474b",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        }
+      ],
+      "folder": "outputs/muse-panda-quality-media-v6",
+      "job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6/sources/blender_render.py",
+          "--",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-build-v6/source.blend",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6",
+          "320",
+          "1600",
+          "4",
+          "8",
+          "false"
+        ],
+        "elapsed_seconds": 190.796,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 57376207,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 73243,
+        "sampled_peak_rss_bytes": 701284352,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest_sha256": "0f8467097ec3df896c5b562cc35254fa8249dd961a4fa673171225b6f5c759a2",
+      "output_spec": {
+        "portrait": 1600,
+        "samples": 8,
+        "seconds": 4,
+        "size": 320
+      },
+      "packaging_job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets.packaging",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-quality-media-v6/sources/output-spec.json"
+        ],
+        "elapsed_seconds": 3.13,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 60401202,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 73864,
+        "sampled_peak_rss_bytes": 201228288,
+        "sampling_interval_seconds": 0.25
+      },
+      "portrait": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 1322764,
+        "format": "WEBP",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 1600,
+        "kind": "image",
+        "metadata_keys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "mode": "RGB",
+        "sha256": "054f17001209c8335a1f8f8c080eceb8c027c52ed3af6dbb480b7fe17c565886",
+        "width": 1600
+      }
+    },
+    {
+      "artifact_hashes_verified": 415,
+      "clips": [
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "idle",
+          "inspection": {
+            "adjacent_mae_max": 0.000318,
+            "adjacent_mae_mean": 0.000227,
+            "audio": false,
+            "boundary_mae": 0.000714,
+            "bytes": 45584,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "b3d09442696360fc45c86b9a111a52b39915034a8ef7bcc1239cd8485d2f26b0",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "working",
+          "inspection": {
+            "adjacent_mae_max": 0.000259,
+            "adjacent_mae_mean": 0.000162,
+            "audio": false,
+            "boundary_mae": 0.000608,
+            "bytes": 35773,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "22575f19f88f26d25f1bf2e5d200d52c7e6aaea6b8b8e40e88923607015b27ca",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "making_something",
+          "inspection": {
+            "adjacent_mae_max": 0.000138,
+            "adjacent_mae_mean": 0.000102,
+            "audio": false,
+            "boundary_mae": 0.000225,
+            "bytes": 22500,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "716576d1d22b1139b4af6f46cd93e010d0df8744131efdd781dd3c6a40a0ad43",
+            "unique_thumbnails": 95,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "milestone_level_up",
+          "inspection": {
+            "adjacent_mae_max": 0.009118,
+            "adjacent_mae_mean": 0.003684,
+            "audio": false,
+            "boundary_mae": 0.002247,
+            "bytes": 128507,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "b161642b27e40ff5451bc0cef695cc934d0b45a69b6985d49d89dcda17070da1",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        }
+      ],
+      "folder": "outputs/workshop-robot-quality-media-v3",
+      "job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/blender_render.py",
+          "--",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/source.blend",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3",
+          "320",
+          "640",
+          "4",
+          "8",
+          "false"
+        ],
+        "elapsed_seconds": 134.682,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 50625515,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 74004,
+        "sampled_peak_rss_bytes": 471318528,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest_sha256": "316513e42bc07840b135effb4b80ff25b5e657cf3f7f62749197e3546f63888d",
+      "output_spec": {
+        "portrait": 640,
+        "samples": 8,
+        "seconds": 4,
+        "size": 320
+      },
+      "packaging_job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets.packaging",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/output-spec.json"
+        ],
+        "elapsed_seconds": 2.334,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 51972312,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 74203,
+        "sampled_peak_rss_bytes": 140853248,
+        "sampling_interval_seconds": 0.25
+      },
+      "portrait": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 174498,
+        "format": "WEBP",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 640,
+        "kind": "image",
+        "metadata_keys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "mode": "RGB",
+        "sha256": "7b42a443f78591c917dbb893d5607512ed216077ac55ae9d2163b7d94bcc36c4",
+        "width": 640
+      }
+    },
+    {
+      "artifact_hashes_verified": 415,
+      "clips": [
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "idle",
+          "inspection": {
+            "adjacent_mae_max": 0.00067,
+            "adjacent_mae_mean": 0.00039,
+            "audio": false,
+            "boundary_mae": 0.001586,
+            "bytes": 56051,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "3eb08490af332c57dbe58381ccceb8b52acdc789e913ba743c6bba67cc510fcb",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "making_something",
+          "inspection": {
+            "adjacent_mae_max": 0.000602,
+            "adjacent_mae_mean": 0.000379,
+            "audio": false,
+            "boundary_mae": 0.001123,
+            "bytes": 42502,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "553522332863af8ea8e266af8fb616eb28f052c7c34b14aeb9ca420497fe4af3",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "milestone_level_up",
+          "inspection": {
+            "adjacent_mae_max": 0.008087,
+            "adjacent_mae_mean": 0.004886,
+            "audio": false,
+            "boundary_mae": 0.004522,
+            "bytes": 143249,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "9b2aa3f29dd12eef7209d4ba38bed4e39155f67896f183f48c7848ebeedc4829",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "working",
+          "inspection": {
+            "adjacent_mae_max": 0.000576,
+            "adjacent_mae_mean": 0.000449,
+            "audio": false,
+            "boundary_mae": 0.00117,
+            "bytes": 49805,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "ace9edd17af2bc6e72c7cf921033bed559c4cac51f4240674634678661916680",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        }
+      ],
+      "folder": "outputs/fox-quality-media-v4",
+      "job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4/sources/blender_render.py",
+          "--",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/source.blend",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4",
+          "320",
+          "1600",
+          "4",
+          "8",
+          "false"
+        ],
+        "elapsed_seconds": 179.133,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 57947877,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 73244,
+        "sampled_peak_rss_bytes": 699006976,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest_sha256": "775e2a76a1631696b77ebe7f5ae689dd49c82494f955f64143576da40600c3c3",
+      "output_spec": {
+        "portrait": 1600,
+        "samples": 8,
+        "seconds": 4,
+        "size": 320
+      },
+      "packaging_job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets.packaging",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-media-v4/sources/output-spec.json"
+        ],
+        "elapsed_seconds": 3.618,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 60753021,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 73695,
+        "sampled_peak_rss_bytes": 219152384,
+        "sampling_interval_seconds": 0.25
+      },
+      "portrait": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 1263612,
+        "format": "WEBP",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 1600,
+        "kind": "image",
+        "metadata_keys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "mode": "RGB",
+        "sha256": "31664d175a58020f846f736aeb1c466101219049c2efddbe42b5a13f68c78ce6",
+        "width": 1600
+      }
+    },
+    {
+      "artifact_hashes_verified": 415,
+      "clips": [
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "idle",
+          "inspection": {
+            "adjacent_mae_max": 0.000475,
+            "adjacent_mae_mean": 0.000262,
+            "audio": false,
+            "boundary_mae": 0.001005,
+            "bytes": 50254,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "43aef850d947912de7e686fbf18253ec0232eb476e82113341c9fcc32f0221fb",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "making_something",
+          "inspection": {
+            "adjacent_mae_max": 0.000323,
+            "adjacent_mae_mean": 0.000148,
+            "audio": false,
+            "boundary_mae": 0.000491,
+            "bytes": 32387,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "e675cb0ff0c9535cb9da1b4a2d2cf589943b59633d2197236d027e9cb432406d",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "milestone_level_up",
+          "inspection": {
+            "adjacent_mae_max": 0.001729,
+            "adjacent_mae_mean": 0.000855,
+            "audio": false,
+            "boundary_mae": 0.002091,
+            "bytes": 61467,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "bfd09d78158926a5f7d12efede7853d40493410d060635fb88cef3612ed506d8",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        },
+        {
+          "endpoint_mae": 0.0,
+          "fallback_matches_first_render": true,
+          "id": "working",
+          "inspection": {
+            "adjacent_mae_max": 0.000958,
+            "adjacent_mae_mean": 0.000652,
+            "audio": false,
+            "boundary_mae": 0.001194,
+            "bytes": 62452,
+            "codec": "h264",
+            "contact_sample_frames": [
+              0,
+              8,
+              16,
+              24,
+              32,
+              40,
+              52,
+              60,
+              68,
+              76,
+              84,
+              95
+            ],
+            "duration_seconds": 4.0,
+            "format": "MP4",
+            "fps": 24.0,
+            "frames": 96,
+            "has_transparency": false,
+            "height": 320,
+            "kind": "video",
+            "loop": "unverified",
+            "metadata": {
+              "compatible_brands": "isomiso2avc1mp41",
+              "encoder": "Lavf63.1.102",
+              "major_brand": "isom",
+              "minor_version": "512"
+            },
+            "motion_detected": true,
+            "pixel_format": "yuv420p",
+            "sha256": "502c1d575f2fe102a32f30ad6070549abf2c3268bb36470204a07ed52ecc14b0",
+            "unique_thumbnails": 96,
+            "width": 320
+          },
+          "loop_declaration": "not_certified; visual seam review required"
+        }
+      ],
+      "folder": "outputs/lamp-quality-media-v4",
+      "job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/blender_render.py",
+          "--",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-build-v4/source.blend",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4",
+          "320",
+          "640",
+          "4",
+          "8",
+          "false"
+        ],
+        "elapsed_seconds": 134.751,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 51989229,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 1200
+        },
+        "pid": 74031,
+        "sampled_peak_rss_bytes": 464273408,
+        "sampling_interval_seconds": 0.25
+      },
+      "manifest_sha256": "e92fa73fe17a82640f7d964dcaa466290ed56f61b7aa1c18c74ac1c624c327d7",
+      "output_spec": {
+        "portrait": 640,
+        "samples": 8,
+        "seconds": 4,
+        "size": 320
+      },
+      "packaging_job": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets.packaging",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/scene.json",
+          "/Users/ivan/kintsugi/avatar-assets/outputs/lamp-quality-media-v4/sources/output-spec.json"
+        ],
+        "elapsed_seconds": 2.099,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 53378240,
+        "limits": {
+          "output_mb": 512,
+          "rss_mb": 768,
+          "wall_seconds": 180
+        },
+        "pid": 74216,
+        "sampled_peak_rss_bytes": 134004736,
+        "sampling_interval_seconds": 0.25
+      },
+      "portrait": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 177200,
+        "format": "WEBP",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 640,
+        "kind": "image",
+        "metadata_keys": [
+          "background",
+          "duration",
+          "loop",
+          "timestamp"
+        ],
+        "mode": "RGB",
+        "sha256": "09d0733cff13aa5c46cad3325a05f6f4c537d4967c1e98cc7caa07291fc7fcea",
+        "width": 640
+      }
+    }
+  ],
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "schema_version": 1,
+  "status": "passed"
+}

@@ -1,0 +1,146 @@
+{
+  "mode": "write",
+  "thread_id": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+  "target_cwd": "/Users/ivan/kintsugi/weft",
+  "status": "same_thread_project_and_future_cwd_verified",
+  "mutations_acknowledged": [
+    "thread/settings/update",
+    "thread/metadata/update"
+  ],
+  "current_turn_cwd_changed": false,
+  "limitation": "cwd applies to subsequent turns; current-turn settings and sandbox remain unchanged",
+  "server_user_agent": "codex-tui/0.166.0 (Mac OS 27.0.1; arm64) ghostty/1.3.1 (avatar_session_migration; 1)",
+  "before": {
+    "id": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+    "cwd": "/Users/ivan/kintsugi/avatar-assets",
+    "projectId": null,
+    "status": {
+      "type": "active",
+      "activeFlags": []
+    },
+    "modelProvider": "openai",
+    "sessionId": "01a18ebe-a17c-7cc0-9117-06ca476fb31c"
+  },
+  "matching_projects": [
+    {
+      "id": "01a17f4d-0658-7703-ac20-f288be33a645",
+      "name": "Weft",
+      "roots": [
+        {
+          "path": "/Users/ivan/kintsugi/weft"
+        }
+      ]
+    }
+  ],
+  "project_list_complete": true,
+  "project_count_examined": 2,
+  "planned_calls": [
+    {
+      "method": "thread/settings/update",
+      "params": {
+        "threadId": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+        "cwd": "/Users/ivan/kintsugi/weft"
+      }
+    },
+    {
+      "method": "thread/metadata/update",
+      "params": {
+        "threadId": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+        "projectId": "01a17f4d-0658-7703-ac20-f288be33a645"
+      }
+    }
+  ],
+  "after": {
+    "id": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+    "cwd": "/Users/ivan/kintsugi/weft",
+    "projectId": "01a17f4d-0658-7703-ac20-f288be33a645",
+    "status": {
+      "type": "active",
+      "activeFlags": []
+    },
+    "modelProvider": "openai",
+    "sessionId": "01a18ebe-a17c-7cc0-9117-06ca476fb31c"
+  },
+  "goal_identity_preserved": true,
+  "goal_identity": {
+    "threadId": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+    "createdAt": 1793396220,
+    "status": "complete",
+    "tokenBudget": null,
+    "objective_sha256": "3e3e71083e0ecea07f9b4f74789aaff4d70ed78d4e7879318e71d9af5888d772"
+  },
+  "verified": {
+    "same_thread": true,
+    "same_session": true,
+    "project_assignment": true,
+    "persisted_thread_cwd": true,
+    "model_provider_unchanged": true,
+    "goal_identity_preserved": true
+  },
+  "requests": [
+    {
+      "method": "initialize",
+      "fields": [
+        "capabilities",
+        "clientInfo"
+      ]
+    },
+    {
+      "method": "thread/read",
+      "fields": [
+        "includeTurns",
+        "threadId"
+      ]
+    },
+    {
+      "method": "project/list",
+      "fields": [
+        "limit"
+      ]
+    },
+    {
+      "method": "project/read",
+      "fields": [
+        "projectId"
+      ]
+    },
+    {
+      "method": "thread/goal/get",
+      "fields": [
+        "threadId"
+      ]
+    },
+    {
+      "method": "thread/settings/update",
+      "fields": [
+        "cwd",
+        "threadId"
+      ]
+    },
+    {
+      "method": "thread/metadata/update",
+      "fields": [
+        "projectId",
+        "threadId"
+      ]
+    },
+    {
+      "method": "thread/read",
+      "fields": [
+        "includeTurns",
+        "threadId"
+      ]
+    },
+    {
+      "method": "thread/goal/get",
+      "fields": [
+        "threadId"
+      ]
+    }
+  ],
+  "notification_methods": [
+    "remoteControl/status/changed",
+    "account/updated",
+    "thread/project/updated"
+  ]
+}

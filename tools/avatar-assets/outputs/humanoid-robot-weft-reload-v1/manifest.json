@@ -1,0 +1,83 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "01d5ed78e197df1dd80adebad6049a41f0cc8211e6a8f33ee9d3cb9b7ecfd743"
+    },
+    {
+      "bytes": 18248,
+      "path": "blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 73772,
+      "path": "independent-back.png",
+      "sha256": "3583844a7e4744083422a59d40fc596a0ff3d0d762fed3ca6de80de1418c27e4"
+    },
+    {
+      "bytes": 77114,
+      "path": "independent-front.png",
+      "sha256": "32d2bea10e2f06abcca5d9f0b2cd0ba5350b4fed21e7bf94d3b73a9580154b34"
+    },
+    {
+      "bytes": 68276,
+      "path": "independent-side.png",
+      "sha256": "f4589a2c6faa52aec758c328496517f4eaaa581641a4ca78ce1f61e7e85eb79d"
+    },
+    {
+      "bytes": 16977,
+      "path": "independent_reload.json",
+      "sha256": "cc877b2848e7a744f9566ec6ce6fea0661e05f4cc932a9598a2e6c96afa46b84"
+    },
+    {
+      "bytes": 805,
+      "path": "job.json",
+      "sha256": "8c89466f79ec850581136a225b9c8bf42a54b7f17af8846fa7cd0b5197cbed24"
+    },
+    {
+      "bytes": 485,
+      "path": "reload-handle.json",
+      "sha256": "7e78bd727ba9782ca0dac69826acca3ff0b720ed0897dc1c3772372d2aa3cc36"
+    },
+    {
+      "bytes": 15221,
+      "path": "reload.log",
+      "sha256": "af9dc1652f22ed8413f60514432af68f4e82ce8fcc202c1410f9e07b2f80c908"
+    }
+  ],
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/blender_verify.py",
+      "--",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/model.glb",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1"
+    ],
+    "elapsed_seconds": 1.021,
+    "exit_code": 0,
+    "failure": null,
+    "final_output_bytes": 270214,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "pid": 56430,
+    "sampled_peak_rss_bytes": 247037952,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "independent_3d_reload",
+  "schema_version": 1,
+  "source_manifest_sha256": "c3928969499c8d9297f7a6f8714a4f0b2fc3278c1bb17c01fe995427ec6f6e53",
+  "source_model_sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd",
+  "status": "passed"
+}

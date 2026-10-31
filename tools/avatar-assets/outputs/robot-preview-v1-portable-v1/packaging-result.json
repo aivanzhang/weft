@@ -1,0 +1,293 @@
+{
+  "clips": [
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/idle.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 81779,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "584a43fab8c4911a94376223ec0e9dd40120323b7f1b8c49a6f6186e4f485f33",
+        "width": 256
+      },
+      "id": "idle",
+      "inspection": {
+        "adjacent_mae_max": 0.000764,
+        "adjacent_mae_mean": 0.000574,
+        "audio": false,
+        "boundary_mae": 0.001292,
+        "bytes": 15002,
+        "codec": "h264",
+        "duration_seconds": 1.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 24,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "ec23226e004ef4ae515f36377a31ab4f3c620ef82f6d181e5d4ffba054a905ca",
+        "unique_thumbnails": 23,
+        "width": 256
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": true,
+      "meaning": "Friendly attentive body rock with tools held at waist height and both feet planted.",
+      "path": "animations/idle.mp4",
+      "source_clip_seconds": 4
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/working.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 81089,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "09c93de28f340dc3738ed75da3096ea59299117caf0b70dcb491e5a64a01eac9",
+        "width": 256
+      },
+      "id": "working",
+      "inspection": {
+        "adjacent_mae_max": 0.002745,
+        "adjacent_mae_mean": 0.002474,
+        "audio": false,
+        "boundary_mae": 0.002776,
+        "bytes": 20738,
+        "codec": "h264",
+        "duration_seconds": 1.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 24,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "e64df7eda979453671a325938698b60a428c2999f57e770ece6761290774bbe2",
+        "unique_thumbnails": 24,
+        "width": 256
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": true,
+      "meaning": "Raises the circuit workpiece toward the face and leans forward to inspect it while the probe hand rests.",
+      "path": "animations/working.mp4",
+      "source_clip_seconds": 4
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/making_something.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 81647,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "e553c232fd6fa92655edef4e1597fe555f2fcf5f12b9ed7da35f0f4a2de45c91",
+        "width": 256
+      },
+      "id": "making_something",
+      "inspection": {
+        "adjacent_mae_max": 0.000782,
+        "adjacent_mae_mean": 0.000688,
+        "audio": false,
+        "boundary_mae": 0.000768,
+        "bytes": 12781,
+        "codec": "h264",
+        "duration_seconds": 1.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 24,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "51301cfa291effb04c420001e5d771a59bccd84636ab45428259a2fe78303b66",
+        "unique_thumbnails": 22,
+        "width": 256
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": true,
+      "meaning": "Uses repeated short probe strokes toward the waist-held circuit guide while the left arm steadies it; guide marks remain fixed.",
+      "path": "animations/making_something.mp4",
+      "source_clip_seconds": 4
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/milestone_level_up.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 81779,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "88eb433998ac8f4248af6fe6088a7f3b41902ef06cd817bcccfe98e30b5f8226",
+        "width": 256
+      },
+      "id": "milestone_level_up",
+      "inspection": {
+        "adjacent_mae_max": 0.024668,
+        "adjacent_mae_mean": 0.014667,
+        "audio": false,
+        "boundary_mae": 0.009057,
+        "bytes": 35726,
+        "codec": "h264",
+        "duration_seconds": 1.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 24,
+        "has_transparency": false,
+        "height": 256,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "273ad96adb4268510817291b4bf31abe7036dd16d9e2afc08b1cd05f49f636b3",
+        "unique_thumbnails": 24,
+        "width": 256
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": true,
+      "meaning": "Raises both tools above shoulder level with one cheerful hop and a preparatory knee bend.",
+      "path": "animations/milestone_level_up.mp4",
+      "source_clip_seconds": 4
+    }
+  ],
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 123680,
+    "format": "WEBP",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 512,
+    "kind": "image",
+    "metadata_keys": [
+      "background",
+      "duration",
+      "loop",
+      "timestamp"
+    ],
+    "mode": "RGB",
+    "sha256": "5457d674cfe392e94d3eca5737c999d73d59fe0bf375d6f481e23a16bf11e5f0",
+    "width": 512
+  }
+}

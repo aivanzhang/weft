@@ -1,0 +1,114 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Fixed painted guide traces, not a simulated circuit or newly drawn marks.",
+      "child_bone": "workpiece",
+      "name": "circuit_workpiece",
+      "parent_bone": "hand_left",
+      "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest."
+    },
+    {
+      "authored_assumption": "Rigid toy assembly probe; no inferred finger control or physical tool interaction.",
+      "child_bone": "probe",
+      "name": "assembly_probe",
+      "parent_bone": "hand_right",
+      "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "workpiece",
+      "parent_bone": "hand_left",
+      "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        -0.26999998092651367,
+        0.019999980926513672,
+        0.09999999403953552
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "probe",
+      "parent_bone": "hand_right",
+      "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.04999998211860657,
+        0.0700000524520874,
+        0.06000000238418579
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "Original robot design without an image reference; all visible and hidden surfaces, proportions and mechanics are authored.",
+    "The biped has real independently weighted torso, upper arms, forearms, thighs and shins, with rigid toy-like joints rather than deforming soft skin.",
+    "Anatomical left is world +X and right is world -X for the -Y-facing rest pose.",
+    "Head, hands, feet and held-tool descendants are unbound rest transforms under the ten controlled body bones; no finger, visor or antenna actuation is inferred.",
+    "The workpiece and assembly probe are rigid held props. Probe strokes and inspection are gestures; no circuit simulation, generated marks or manufacturing occurs.",
+    "Weft retargeting uses the existing simulated body frames; authored clips are provenance and not alternate simulation actions.",
+    "Materials are explicitly opaque matte diffuse with metallic=0 and roughness=1. Gold is a paint color, not a metallic shader.",
+    "Keyframe rotations/translations use model rest axes and are converted through bone rest bases by the builder."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "probe": "probe",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right",
+    "workpiece": "workpiece"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "foot_left",
+      "foot_right",
+      "forearm_left",
+      "forearm_right",
+      "hand_left",
+      "hand_right",
+      "head",
+      "probe",
+      "root",
+      "shin_left",
+      "shin_right",
+      "thigh_left",
+      "thigh_right",
+      "torso",
+      "upper_arm_left",
+      "upper_arm_right",
+      "workpiece"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "unverified: authoritative consumer joint schema not supplied"
+}

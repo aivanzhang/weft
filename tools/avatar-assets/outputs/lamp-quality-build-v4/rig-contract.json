@@ -1,0 +1,95 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Part of the local toy vignette, not an external physical object.",
+      "child_bone": "work_pad",
+      "name": "work_pad",
+      "parent_bone": "root",
+      "placement": "Static paper pad in front-right of the lamp base."
+    },
+    {
+      "authored_assumption": "A rigid rotary drafting-tool attachment. Fixed guide geometry is present in every state; no new marks, simulated contact or illumination are claimed.",
+      "child_bone": "trace_stylus",
+      "name": "tracing_stylus",
+      "parent_bone": "trace_rotor",
+      "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "work_pad",
+      "parent_bone": "root",
+      "placement": "Static paper pad in front-right of the lamp base.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.44999998807907104,
+        0.02000001072883606,
+        0.44999998807907104
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "trace_stylus",
+      "parent_bone": "trace_rotor",
+      "placement": "A vertically sliding stylus held at radius0.17m around the work-pad guide, with its tip at0.12m when lowered.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0.17000001668930054,
+        0,
+        0
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "This is an original detailed interpretation of the existing lamp, not a scanned or recovered industrial product.",
+    "The eight named joints and their rest coordinates are preserved; all hidden hardware, cord routing and shade interior are authored.",
+    "The open shade includes separate outer and interior wall surfaces, aperture trim, rear cap and bulb; the warm diffuser is geometry, not an emitted simulated light.",
+    "Arms, hinge caps, springs and cord sections use explicit rigid or blended skin weights; no mechanical spring, cable or electrical simulation is claimed.",
+    "The pad retains a fixed circular guide; the stylus traces gestures without dynamically creating ink.",
+    "Opaque PBR metal/roughness and embedded procedural brushed textures target the browser, not Weft's restricted diffuse-only profile.",
+    "The four skeletal actions are authored local animations and do not duplicate a simulator or change Weft actions or rewards."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "lower_arm": "lower_arm",
+    "root": "root",
+    "shade": "shade",
+    "trace_rotor": "trace_rotor",
+    "trace_stylus": "trace_stylus",
+    "turntable": "turntable",
+    "upper_arm": "upper_arm",
+    "work_pad": "work_pad"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "lower_arm",
+      "root",
+      "shade",
+      "trace_rotor",
+      "trace_stylus",
+      "turntable",
+      "upper_arm",
+      "work_pad"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "Not evaluated by this local-control contract; use separate Weft metadata and its frozen importer"
+}

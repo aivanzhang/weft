@@ -1,0 +1,18 @@
+{
+  "asset_id": "humanoid-robot-weft-v1",
+  "bindings": {
+    "AvatarRig": "mobile_root",
+    "forearm_left": "left_elbow_body",
+    "forearm_right": "right_elbow_body",
+    "shin_left": "left_knee_body",
+    "shin_right": "right_knee_body",
+    "thigh_left": "left_hip_body",
+    "thigh_right": "right_hip_body",
+    "torso": "torso",
+    "upper_arm_left": "left_shoulder_body",
+    "upper_arm_right": "right_shoulder_body"
+  },
+  "display_name": "Blue workshop robot",
+  "root_node": "AvatarRig",
+  "root_note": "Containing AvatarRig node maps mobile_root; source root bone remains its rest descendant."
+}

@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+    "-m",
+    "avatar_assets.packaging",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-media-v3/sources/output-spec.json"
+  ],
+  "elapsed_seconds": 2.334,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 51972312,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 768,
+    "wall_seconds": 180
+  },
+  "pid": 74203,
+  "sampled_peak_rss_bytes": 140853248,
+  "sampling_interval_seconds": 0.25
+}

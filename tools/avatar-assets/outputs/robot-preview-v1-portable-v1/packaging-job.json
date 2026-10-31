@@ -1,0 +1,23 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+    "-m",
+    "avatar_assets.packaging",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/sources/scene.json",
+    "/Users/ivan/kintsugi/avatar-assets/outputs/robot-preview-v1/sources/output-spec.json"
+  ],
+  "elapsed_seconds": 0.793,
+  "exit_code": 0,
+  "failure": null,
+  "final_output_bytes": 9763967,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 768,
+    "wall_seconds": 180
+  },
+  "pid": 57055,
+  "sampled_peak_rss_bytes": 97370112,
+  "sampling_interval_seconds": 0.25
+}

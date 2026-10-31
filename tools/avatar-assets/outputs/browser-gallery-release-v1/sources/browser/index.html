@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Avatar library</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="/" aria-label="Avatar library home"><img src="/favicon.svg" alt="" width="34" height="34"><span>Avatar library<small>Your characters, in motion.</small></span></a>
+    <span class="local-badge"><span></span> Local workspace</span>
+  </header>
+  <main class="workspace">
+    <aside class="library" aria-label="Asset collection">
+      <div class="library-heading"><h1>Collection</h1><span id="asset-count">—</span></div>
+      <label class="search-label"><span class="sr-only">Find an asset</span><input id="search" type="search" placeholder="Find an asset…" autocomplete="off"></label>
+      <div id="asset-list" class="asset-list" aria-label="Choose an asset"></div>
+      <p id="empty-search" hidden>No matching assets.</p>
+      <div class="library-foot"><span class="connection-dot"></span> Files stay on this computer</div>
+    </aside>
+    <section class="detail" aria-label="Asset preview">
+      <div class="detail-heading"><div><p id="asset-kind" class="eyebrow">YOUR COLLECTION</p><h2 id="asset-title">Loading library…</h2></div><a id="download-model" class="quiet-button" hidden download>Download GLB <span aria-hidden="true">↗</span></a></div>
+      <div class="preview-shell">
+        <div class="stage-toolbar">
+          <div class="segmented" role="group" aria-label="Preview mode">
+            <button type="button" data-mode="model" aria-pressed="true">3D model</button>
+            <button type="button" data-mode="video" aria-pressed="false">Rendered clip</button>
+            <button type="button" data-mode="portrait" aria-pressed="false">Portrait</button>
+          </div>
+          <button id="fullscreen" type="button" class="stage-button" aria-label="Toggle fullscreen preview" title="Fullscreen">⛶</button>
+        </div>
+        <div id="stage" class="stage">
+          <model-viewer id="model" alt="Interactive 3D avatar" camera-controls interaction-prompt="none" loading="eager" reveal="auto" shadow-intensity="0.8" shadow-softness="1" exposure="1.15" environment-image="neutral" camera-orbit="25deg 75deg 125%" min-camera-orbit="auto 5deg 55%" max-camera-orbit="auto 175deg 250%" field-of-view="28deg" animation-crossfade-duration="0" touch-action="pan-y"></model-viewer>
+          <video id="video" hidden playsinline preload="metadata"></video>
+          <img id="portrait" hidden alt="" decoding="async">
+          <div id="loading" class="stage-status" role="status">Preparing your collection…</div>
+          <div id="error" class="stage-error" role="alert" hidden></div>
+          <span id="preview-badge" class="preview-badge">INTERACTIVE 3D</span>
+          <div id="camera-tools" class="camera-tools" role="group" aria-label="Camera view"><button type="button" data-view="front">Front</button><button type="button" data-view="side">Side</button><button type="button" data-view="back">Back</button><button type="button" id="reset-camera">Reset view</button></div>
+          <span id="orbit-hint" class="orbit-hint">Drag to orbit · Scroll to zoom</span>
+        </div>
+        <div class="animation-panel">
+          <div class="state-heading"><span class="eyebrow">ANIMATION STATES</span><span id="duration-note"></span></div>
+          <div id="state-list" class="state-list" role="group" aria-label="Animation state"></div>
+          <div class="transport">
+            <button id="play" type="button" class="play-button" disabled aria-label="Play animation"><span id="play-icon" aria-hidden="true">▶</span><span id="play-label">Play</span></button>
+            <input id="seek" type="range" min="0" max="1" step="0.01" value="0" disabled aria-label="Animation position">
+            <output id="time" for="seek">0.0 / 0.0 s</output>
+            <label class="speed"><span class="sr-only">Playback speed</span><select id="speed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label>
+            <label class="repeat"><input id="repeat" type="checkbox"> Repeat</label>
+          </div>
+          <p id="state-meaning" class="state-meaning"></p>
+        </div>
+      </div>
+      <div class="information"><p id="description"></p><dl id="facts"></dl></div>
+      <p id="notice" class="notice"></p>
+      <div class="detail-footer"><span id="motion-note">Playback starts paused. Repeating does not certify a seamless loop.</span><a id="download-manifest" hidden download>Asset manifest ↗</a></div>
+    </section>
+  </main>
+  <noscript>This local gallery needs JavaScript to display interactive models.</noscript>
+</body>
+</html>

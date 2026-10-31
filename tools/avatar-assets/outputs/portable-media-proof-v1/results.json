@@ -1,0 +1,294 @@
+{
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "results": [
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/muse-panda-quality-media-v6-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 27,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 27,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/muse-panda-quality-media-v6",
+        "--out",
+        "outputs/muse-panda-quality-media-v6-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.166,
+      "output": "outputs/muse-panda-quality-media-v6-portable-v1",
+      "source": "outputs/muse-panda-quality-media-v6",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/muse-panda-quality-media-v6-portable-v1\", \"artifacts\": 27, \"artifact_bytes\": 7838167, \"manifest_sha256\": \"598ce730213d0cd0218806b9dbb0b09cb1ac6a55561f2eea22d8b50509d491ca\", \"omitted_artifacts\": 389, \"omitted_bytes\": 52644230, \"elapsed_seconds\": 0.133}\n",
+      "summary": {
+        "artifact_bytes": 7838167,
+        "artifacts": 27,
+        "elapsed_seconds": 0.133,
+        "manifest_sha256": "598ce730213d0cd0218806b9dbb0b09cb1ac6a55561f2eea22d8b50509d491ca",
+        "omitted_artifacts": 389,
+        "omitted_bytes": 52644230,
+        "output": "outputs/muse-panda-quality-media-v6-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/workshop-robot-quality-media-v3-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 27,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 27,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/workshop-robot-quality-media-v3",
+        "--out",
+        "outputs/workshop-robot-quality-media-v3-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.156,
+      "output": "outputs/workshop-robot-quality-media-v3-portable-v1",
+      "source": "outputs/workshop-robot-quality-media-v3",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/workshop-robot-quality-media-v3-portable-v1\", \"artifacts\": 27, \"artifact_bytes\": 2999134, \"manifest_sha256\": \"cdc2bfa0a9059507126c4285ccfb186960e39fda2a914ac4774ad7ede9a5d1eb\", \"omitted_artifacts\": 389, \"omitted_bytes\": 49054400, \"elapsed_seconds\": 0.122}\n",
+      "summary": {
+        "artifact_bytes": 2999134,
+        "artifacts": 27,
+        "elapsed_seconds": 0.122,
+        "manifest_sha256": "cdc2bfa0a9059507126c4285ccfb186960e39fda2a914ac4774ad7ede9a5d1eb",
+        "omitted_artifacts": 389,
+        "omitted_bytes": 49054400,
+        "output": "outputs/workshop-robot-quality-media-v3-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/fox-quality-media-v4-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 27,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 27,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/fox-quality-media-v4",
+        "--out",
+        "outputs/fox-quality-media-v4-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.162,
+      "output": "outputs/fox-quality-media-v4-portable-v1",
+      "source": "outputs/fox-quality-media-v4",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/fox-quality-media-v4-portable-v1\", \"artifacts\": 27, \"artifact_bytes\": 8308993, \"manifest_sha256\": \"8122d186bbda69d8102848be71a5e4e3257c84e6c46eb2e022cb6d4fa13ec548\", \"omitted_artifacts\": 389, \"omitted_bytes\": 52524948, \"elapsed_seconds\": 0.128}\n",
+      "summary": {
+        "artifact_bytes": 8308993,
+        "artifacts": 27,
+        "elapsed_seconds": 0.128,
+        "manifest_sha256": "8122d186bbda69d8102848be71a5e4e3257c84e6c46eb2e022cb6d4fa13ec548",
+        "omitted_artifacts": 389,
+        "omitted_bytes": 52524948,
+        "output": "outputs/fox-quality-media-v4-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/lamp-quality-media-v4-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 27,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 27,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/lamp-quality-media-v4",
+        "--out",
+        "outputs/lamp-quality-media-v4-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.172,
+      "output": "outputs/lamp-quality-media-v4-portable-v1",
+      "source": "outputs/lamp-quality-media-v4",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/lamp-quality-media-v4-portable-v1\", \"artifacts\": 27, \"artifact_bytes\": 2693984, \"manifest_sha256\": \"c22afc1a4944dfaf76d6343c28c3ef770ee3a43fc520c8baaf8b95dac560b48a\", \"omitted_artifacts\": 389, \"omitted_bytes\": 50765278, \"elapsed_seconds\": 0.138}\n",
+      "summary": {
+        "artifact_bytes": 2693984,
+        "artifacts": 27,
+        "elapsed_seconds": 0.138,
+        "manifest_sha256": "c22afc1a4944dfaf76d6343c28c3ef770ee3a43fc520c8baaf8b95dac560b48a",
+        "omitted_artifacts": 389,
+        "omitted_bytes": 50765278,
+        "output": "outputs/lamp-quality-media-v4-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/fox-muse-v1-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 21,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 21,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/fox-muse-v1",
+        "--out",
+        "outputs/fox-muse-v1-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.58,
+      "output": "outputs/fox-muse-v1-portable-v1",
+      "source": "outputs/fox-muse-v1",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/fox-muse-v1-portable-v1\", \"artifacts\": 21, \"artifact_bytes\": 7532302, \"manifest_sha256\": \"9c44352430757a43e74c2b1360dd8b75e78101fb0e8f035b0eafb3c5b88ec2e2\", \"omitted_artifacts\": 773, \"omitted_bytes\": 417155246, \"elapsed_seconds\": 0.545}\n",
+      "summary": {
+        "artifact_bytes": 7532302,
+        "artifacts": 21,
+        "elapsed_seconds": 0.545,
+        "manifest_sha256": "9c44352430757a43e74c2b1360dd8b75e78101fb0e8f035b0eafb3c5b88ec2e2",
+        "omitted_artifacts": 773,
+        "omitted_bytes": 417155246,
+        "output": "outputs/fox-muse-v1-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/lamp-muse-v2-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 21,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 21,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/lamp-muse-v2",
+        "--out",
+        "outputs/lamp-muse-v2-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.583,
+      "output": "outputs/lamp-muse-v2-portable-v1",
+      "source": "outputs/lamp-muse-v2",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/lamp-muse-v2-portable-v1\", \"artifacts\": 21, \"artifact_bytes\": 6049620, \"manifest_sha256\": \"4c3161e163fe476131ad80e80640c696950bb88e7aabf645a8bd565c12f935d6\", \"omitted_artifacts\": 773, \"omitted_bytes\": 393159880, \"elapsed_seconds\": 0.549}\n",
+      "summary": {
+        "artifact_bytes": 6049620,
+        "artifacts": 21,
+        "elapsed_seconds": 0.549,
+        "manifest_sha256": "4c3161e163fe476131ad80e80640c696950bb88e7aabf645a8bd565c12f935d6",
+        "omitted_artifacts": 773,
+        "omitted_bytes": 393159880,
+        "output": "outputs/lamp-muse-v2-portable-v1"
+      }
+    },
+    {
+      "cli_verify": {
+        "command": [
+          "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+          "-m",
+          "avatar_assets",
+          "verify",
+          "outputs/robot-preview-v1-portable-v1"
+        ],
+        "exit_code": 0,
+        "result": {
+          "artifact_hashes_verified": 27,
+          "schema_version": 1,
+          "status": "needs_visual_review"
+        },
+        "stderr": "",
+        "stdout": "{\n  \"artifact_hashes_verified\": 27,\n  \"schema_version\": 1,\n  \"status\": \"needs_visual_review\"\n}\n"
+      },
+      "command": [
+        "/Users/ivan/kintsugi/avatar-assets/.venv/bin/python",
+        "scripts/package_portable_media.py",
+        "outputs/robot-preview-v1",
+        "--out",
+        "outputs/robot-preview-v1-portable-v1"
+      ],
+      "exit_code": 0,
+      "observed_wall_seconds": 0.071,
+      "output": "outputs/robot-preview-v1-portable-v1",
+      "source": "outputs/robot-preview-v1",
+      "stderr": "",
+      "stdout": "{\"output\": \"outputs/robot-preview-v1-portable-v1\", \"artifacts\": 27, \"artifact_bytes\": 1051321, \"manifest_sha256\": \"1f62ddce7cf572cf95e5633f88213480e1febf2e02d312b9492a6da1aa4e8bae\", \"omitted_artifacts\": 101, \"omitted_bytes\": 8745340, \"elapsed_seconds\": 0.038}\n",
+      "summary": {
+        "artifact_bytes": 1051321,
+        "artifacts": 27,
+        "elapsed_seconds": 0.038,
+        "manifest_sha256": "1f62ddce7cf572cf95e5633f88213480e1febf2e02d312b9492a6da1aa4e8bae",
+        "omitted_artifacts": 101,
+        "omitted_bytes": 8745340,
+        "output": "outputs/robot-preview-v1-portable-v1"
+      }
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,83 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "9cb299b2ab19dc1c841023c0f52fc4ad6f96658ce8ac086bdad31d7f0011f0a1"
+    },
+    {
+      "bytes": 18248,
+      "path": "blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 73144,
+      "path": "independent-back.png",
+      "sha256": "fcdaf88f5c165ee1d29011b07493fd4720ca9ea4c963552ba21d7c2cf9091699"
+    },
+    {
+      "bytes": 76202,
+      "path": "independent-front.png",
+      "sha256": "2674a74d692e62fae1386509588bcd9f2badd2c97211332dfd7d37c0ce99c75b"
+    },
+    {
+      "bytes": 66981,
+      "path": "independent-side.png",
+      "sha256": "e3347cadb4e1a8b8c1dee1fba6b00823bc9c3e17284fc6d0a28934661a7eac22"
+    },
+    {
+      "bytes": 21896,
+      "path": "independent_reload.json",
+      "sha256": "25a2bf38a8bf52a9c629f62993959f39eda958c3edab355d58fa38f3abfb83ec"
+    },
+    {
+      "bytes": 840,
+      "path": "job.json",
+      "sha256": "dc27c2319d90f8b33975ed89d079aa07bdcc555987328e395c6a6443faf80a5a"
+    },
+    {
+      "bytes": 520,
+      "path": "reload-handle.json",
+      "sha256": "103053438bd8272d3aec76a8c4846f930c4ff982e3f4a4024e41d99c688495d8"
+    },
+    {
+      "bytes": 19951,
+      "path": "reload.log",
+      "sha256": "bff27fc9591b8f8e125742e5c7ae1b576e4775c332960d07fc4c4083ea25aa59"
+    }
+  ],
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/weft-relocation-native-v1/blender_verify.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-quality-build-v6/model.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/weft-relocation-native-v1"
+    ],
+    "elapsed_seconds": 5.699,
+    "exit_code": 0,
+    "failure": null,
+    "final_output_bytes": 277063,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "pid": 79687,
+    "sampled_peak_rss_bytes": 360939520,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "independent_3d_reload",
+  "schema_version": 1,
+  "source_manifest_sha256": "c2f983a91fbf6d48e565692f3610549e05aae98806b3a9519f3aa33a9e8ebdee",
+  "source_model_sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+  "status": "passed"
+}

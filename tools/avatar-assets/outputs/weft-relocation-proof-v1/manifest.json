@@ -1,0 +1,93 @@
+{
+  "artifacts": [
+    {
+      "bytes": 571,
+      "path": "catalog-portability.json",
+      "sha256": "e598bc399f91ab0dcfd8297d748e16fd0f8af22df9ac4d7fffafa20d185acfeb"
+    },
+    {
+      "bytes": 2101,
+      "path": "consumer-loading.json",
+      "sha256": "9100a8f20ab46742bb384f7c8f86623038ca2066d1ac303baa64d78f68e3eb8a"
+    },
+    {
+      "bytes": 263,
+      "path": "copy-verification.json",
+      "sha256": "beada7853bf3e7681bb945b2ff69a61d0eaeca7823baa612cf9f0549f999e385"
+    },
+    {
+      "bytes": 111691,
+      "path": "pack-verification.json",
+      "sha256": "73fecc833d0bbd25354cc5678ec8996ac6891d1086d5e53b7fd5811163578cc6"
+    },
+    {
+      "bytes": 19808,
+      "path": "python-tests.txt",
+      "sha256": "63dde7413dc2a755adec070258abeb7535318d8871a4a719ab1caafa7be23e7a"
+    },
+    {
+      "bytes": 2365,
+      "path": "runtime-relocation.json",
+      "sha256": "fe0bd8052c3f9102c68bf3e312cd424cd9f1cd317b533b205a56590051d525ab"
+    },
+    {
+      "bytes": 3410,
+      "path": "session-move.json",
+      "sha256": "47425b7edd2c0e0ae5f2fd147c9cf5c884a1836aaf05f0da92b51dbdc25a20e1"
+    },
+    {
+      "bytes": 3795,
+      "path": "verify_relocation.py",
+      "sha256": "20ded82e68399e86a1d8d560b4000c31d1630e97158d493e8479082a56bfeb12"
+    },
+    {
+      "bytes": 888,
+      "path": "weft-humanoid-robot-v1/manifest.json",
+      "sha256": "e0fe435ab66f48f53aa3a56d003b82f292367a4651b6e878dc7a61d74d69f953"
+    },
+    {
+      "bytes": 4949,
+      "path": "weft-humanoid-robot-v1/originals/avatar.json",
+      "sha256": "2dfa2287be13f4e81bd702794e596e2d5a0576f45d42b37139bd2269051247f1"
+    },
+    {
+      "bytes": 561508,
+      "path": "weft-humanoid-robot-v1/originals/model.glb",
+      "sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd"
+    },
+    {
+      "bytes": 1505970,
+      "path": "weft-humanoid-robot-v1/render.json",
+      "sha256": "29075bb9f53c13fd74f63d66b8f1b1e87ceb8d18346845ef2e0e8c76e1f9e284"
+    },
+    {
+      "bytes": 884,
+      "path": "weft-muse-panda-v1/manifest.json",
+      "sha256": "d4f09371590bc17d0cf94426209da8b43fb2f5077ae7b2323058ca43988544d0"
+    },
+    {
+      "bytes": 5743,
+      "path": "weft-muse-panda-v1/originals/avatar.json",
+      "sha256": "3737a35f513fa07ab1d5568a99deba09a9a9fc4079ab17585f5e817e34e876c0"
+    },
+    {
+      "bytes": 742196,
+      "path": "weft-muse-panda-v1/originals/model.glb",
+      "sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012"
+    },
+    {
+      "bytes": 2062796,
+      "path": "weft-muse-panda-v1/render.json",
+      "sha256": "a741836916e1256841a02d71036f9bd2a69226330ab4c91e75ae081215975166"
+    }
+  ],
+  "catalogs_verified": 2,
+  "consumer_models_verified": 2,
+  "elapsed_seconds": 2.203,
+  "kind": "weft_avatar_relocation_verification",
+  "packages_verified": 33,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "schema_version": 1,
+  "status": "passed"
+}

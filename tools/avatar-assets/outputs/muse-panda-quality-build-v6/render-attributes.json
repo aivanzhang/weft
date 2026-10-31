@@ -1,0 +1,127 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 773568,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "charcoal",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.3205541044291067e-07,
+      "normal_tangent_dot_error": 0.00013797213660460272,
+      "tangent_squared_length_error": 0.00014351003292034648,
+      "vertices": 34065
+    },
+    {
+      "material": "ivory",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.1234806379943905e-07,
+      "normal_tangent_dot_error": 0.0007725665225564171,
+      "tangent_squared_length_error": 0.00015793712266898297,
+      "vertices": 34465
+    },
+    {
+      "material": "ear_inner",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.4688746308166856e-07,
+      "normal_tangent_dot_error": 7.99150982685598e-05,
+      "tangent_squared_length_error": 9.8053002639098e-05,
+      "vertices": 846
+    },
+    {
+      "material": "sclera",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.765616375326573e-07,
+      "normal_tangent_dot_error": 9.861406180311505e-05,
+      "tangent_squared_length_error": 0.00012440034561223,
+      "vertices": 2228
+    },
+    {
+      "material": "iris",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.4823127814089787e-07,
+      "normal_tangent_dot_error": 0.00010803235921144627,
+      "tangent_squared_length_error": 0.00011521792965307753,
+      "vertices": 1382
+    },
+    {
+      "material": "pupil",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8067260754150993e-07,
+      "normal_tangent_dot_error": 0.00011167869774312764,
+      "tangent_squared_length_error": 0.00012701514572199812,
+      "vertices": 2228
+    },
+    {
+      "material": "nose",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9581743293528575e-07,
+      "normal_tangent_dot_error": 0.0005659979455322484,
+      "tangent_squared_length_error": 0.00013720919679727217,
+      "vertices": 1341
+    },
+    {
+      "material": "dragon_green",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.9661537198345513e-07,
+      "normal_tangent_dot_error": 0.0009061203085263259,
+      "tangent_squared_length_error": 0.00013959374206606867,
+      "vertices": 5997
+    },
+    {
+      "material": "dragon_belly",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.967496601196217e-07,
+      "normal_tangent_dot_error": 0.00010798020184996093,
+      "tangent_squared_length_error": 0.0001104762870600684,
+      "vertices": 1659
+    },
+    {
+      "material": "dragon_horn",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.162006618178225e-07,
+      "normal_tangent_dot_error": 0.00011079688151660605,
+      "tangent_squared_length_error": 0.00012473659735601217,
+      "vertices": 248
+    },
+    {
+      "material": "horn",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9582932964112842e-07,
+      "normal_tangent_dot_error": 0.000732905036621212,
+      "tangent_squared_length_error": 0.00011149677133559521,
+      "vertices": 326
+    },
+    {
+      "material": "wing",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.4760844480044e-07,
+      "normal_tangent_dot_error": 0.00010001514046464877,
+      "tangent_squared_length_error": 0.00013397894669520127,
+      "vertices": 144
+    },
+    {
+      "material": "gold",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8437120719028144e-07,
+      "normal_tangent_dot_error": 7.072173098521262e-05,
+      "tangent_squared_length_error": 0.00010350911947298869,
+      "vertices": 1023
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "fe0a039154a120461b573b4a8465a8846836d9eb59587f1f70a705e4d489f5d4",
+  "status": "validated_render_attributes",
+  "vertices": 85952
+}

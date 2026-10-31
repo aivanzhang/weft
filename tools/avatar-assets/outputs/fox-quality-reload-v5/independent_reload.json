@@ -1,0 +1,994 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "fox-quality-v4_skinned_mesh": 0.1121964132902836
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.1121964132902836,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/ear_left",
+        "AvatarRig/ear_right",
+        "AvatarRig/foot_left",
+        "AvatarRig/foot_right",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/pencil",
+        "AvatarRig/shin_left",
+        "AvatarRig/shin_right",
+        "AvatarRig/sketchbook",
+        "AvatarRig/tail",
+        "AvatarRig/thigh_left",
+        "AvatarRig/thigh_right",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "fox-quality-v4_skinned_mesh": 0.13452076305950647
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.13452076305950647,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/ear_left",
+        "AvatarRig/ear_right",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/pencil"
+      ],
+      "name": "making_something",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "fox-quality-v4_skinned_mesh": 1.7786984489407143
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.7786984489407143,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/ear_left",
+        "AvatarRig/ear_right",
+        "AvatarRig/foot_left",
+        "AvatarRig/foot_right",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/pencil",
+        "AvatarRig/root",
+        "AvatarRig/shin_left",
+        "AvatarRig/shin_right",
+        "AvatarRig/sketchbook",
+        "AvatarRig/tail",
+        "AvatarRig/thigh_left",
+        "AvatarRig/thigh_right",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right"
+      ],
+      "name": "milestone_level_up",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "fox-quality-v4_skinned_mesh": 0.18591644885358563
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.18591644885358563,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/ear_left",
+        "AvatarRig/ear_right",
+        "AvatarRig/head"
+      ],
+      "name": "working",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.0,
+            0.05999999865889549
+          ],
+          "name": "root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            2.3275411820122827e-08,
+            0.7400000095367432
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            2.3275408267409148e-08,
+            0.7399999499320984
+          ],
+          "name": "torso",
+          "parent": "root",
+          "tail_local": [
+            0.0,
+            3.231848566542794e-08,
+            1.0041968822479248
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            5.442338490979637e-08,
+            1.649999976158142
+          ],
+          "name": "head",
+          "parent": "torso",
+          "tail_local": [
+            0.0,
+            7.510264765642205e-08,
+            2.254152297973633
+          ]
+        },
+        {
+          "head_local": [
+            -0.28999999165534973,
+            7.25645179500134e-08,
+            2.180000066757202
+          ],
+          "name": "ear_left",
+          "parent": "head",
+          "tail_local": [
+            -0.28999999165534973,
+            9.32437771439254e-08,
+            2.7841525077819824
+          ]
+        },
+        {
+          "head_local": [
+            0.28999999165534973,
+            7.25645179500134e-08,
+            2.180000066757202
+          ],
+          "name": "ear_right",
+          "parent": "head",
+          "tail_local": [
+            0.28999999165534973,
+            9.32437771439254e-08,
+            2.7841525077819824
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            0.18000002205371857,
+            0.9800000190734863
+          ],
+          "name": "tail",
+          "parent": "torso",
+          "tail_local": [
+            0.0,
+            0.18000003695487976,
+            1.244196891784668
+          ]
+        },
+        {
+          "head_local": [
+            -0.38999995589256287,
+            4.928909902446321e-08,
+            1.4999998807907104
+          ],
+          "name": "upper_arm_left",
+          "parent": "torso",
+          "tail_local": [
+            -0.38999995589256287,
+            6.063109481146967e-08,
+            1.8313606977462769
+          ]
+        },
+        {
+          "head_local": [
+            -0.5399999618530273,
+            -0.11999993771314621,
+            1.2299998998641968
+          ],
+          "name": "forearm_left",
+          "parent": "upper_arm_left",
+          "tail_local": [
+            -0.5399999618530273,
+            -0.11999992281198502,
+            1.6153569221496582
+          ]
+        },
+        {
+          "head_local": [
+            -0.2799999415874481,
+            -0.3999999165534973,
+            1.179999828338623
+          ],
+          "name": "hand_left",
+          "parent": "forearm_left",
+          "tail_local": [
+            -0.2799999415874481,
+            -0.3999999165534973,
+            1.3415547609329224
+          ]
+        },
+        {
+          "head_local": [
+            -0.15999993681907654,
+            -0.489999920129776,
+            1.119999885559082
+          ],
+          "name": "sketchbook",
+          "parent": "hand_left",
+          "tail_local": [
+            -0.15999993681907654,
+            -0.489999920129776,
+            1.2815548181533813
+          ]
+        },
+        {
+          "head_local": [
+            -0.23000000417232513,
+            2.7725119977617396e-08,
+            0.8700000047683716
+          ],
+          "name": "thigh_left",
+          "parent": "torso",
+          "tail_local": [
+            -0.23000000417232513,
+            4.107863915692178e-08,
+            1.260128140449524
+          ]
+        },
+        {
+          "head_local": [
+            -0.23000000417232513,
+            -0.01000000536441803,
+            0.4800000786781311
+          ],
+          "name": "shin_left",
+          "parent": "thigh_left",
+          "tail_local": [
+            -0.23000000417232513,
+            -0.009999995119869709,
+            0.7806659936904907
+          ]
+        },
+        {
+          "head_local": [
+            -0.23000000417232513,
+            -0.03000001050531864,
+            0.18000009655952454
+          ],
+          "name": "foot_left",
+          "parent": "shin_left",
+          "tail_local": [
+            -0.23000000417232513,
+            -0.030000001192092896,
+            0.48066604137420654
+          ]
+        },
+        {
+          "head_local": [
+            0.38999995589256287,
+            4.928909902446321e-08,
+            1.4999998807907104
+          ],
+          "name": "upper_arm_right",
+          "parent": "torso",
+          "tail_local": [
+            0.38999995589256287,
+            6.063109481146967e-08,
+            1.8313606977462769
+          ]
+        },
+        {
+          "head_local": [
+            0.5399999618530273,
+            -0.11999993771314621,
+            1.2299998998641968
+          ],
+          "name": "forearm_right",
+          "parent": "upper_arm_right",
+          "tail_local": [
+            0.5399999618530273,
+            -0.11999992281198502,
+            1.6132752895355225
+          ]
+        },
+        {
+          "head_local": [
+            0.2799999415874481,
+            -0.3999998867511749,
+            1.2599998712539673
+          ],
+          "name": "hand_right",
+          "parent": "forearm_right",
+          "tail_local": [
+            0.2799999415874481,
+            -0.3999998867511749,
+            1.3387399911880493
+          ]
+        },
+        {
+          "head_local": [
+            0.28999993205070496,
+            -0.4499998688697815,
+            1.3199999332427979
+          ],
+          "name": "pencil",
+          "parent": "hand_right",
+          "tail_local": [
+            0.28999993205070496,
+            -0.4499998688697815,
+            1.3987400531768799
+          ]
+        },
+        {
+          "head_local": [
+            0.23000000417232513,
+            2.7725119977617396e-08,
+            0.8700000047683716
+          ],
+          "name": "thigh_right",
+          "parent": "torso",
+          "tail_local": [
+            0.23000000417232513,
+            4.107863915692178e-08,
+            1.260128140449524
+          ]
+        },
+        {
+          "head_local": [
+            0.23000000417232513,
+            -0.01000000536441803,
+            0.4800000786781311
+          ],
+          "name": "shin_right",
+          "parent": "thigh_right",
+          "tail_local": [
+            0.23000000417232513,
+            -0.009999995119869709,
+            0.7806659936904907
+          ]
+        },
+        {
+          "head_local": [
+            0.23000000417232513,
+            -0.03000001050531864,
+            0.18000009655952454
+          ],
+          "name": "foot_right",
+          "parent": "shin_right",
+          "tail_local": [
+            0.23000000417232513,
+            -0.030000001192092896,
+            0.48066604137420654
+          ]
+        }
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      1.7627477645874023,
+      1.2020549774169922,
+      2.6453802585601807
+    ],
+    "max": [
+      1.0846083164215088,
+      0.5690549612045288,
+      2.657496213912964
+    ],
+    "min": [
+      -0.6781395077705383,
+      -0.6329999566078186,
+      0.01211594883352518
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.01850022003054619,
+        0.04373503103852272,
+        0.09989872574806213,
+        1.0
+      ],
+      "name": "book",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "coat",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "cream",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "dark",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.6795424818992615,
+        0.35640013217926025,
+        0.25015828013420105,
+        1.0
+      ],
+      "name": "ear_inner",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        1.0,
+        0.9559733271598816,
+        0.8307698965072632,
+        1.0
+      ],
+      "name": "eye_white",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.7230551242828369,
+        0.47353148460388184,
+        0.10702310502529144,
+        1.0
+      ],
+      "name": "gold",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.02955683507025242,
+        0.03433980792760849,
+        0.04666508734226227,
+        1.0
+      ],
+      "name": "graphite",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.34191441535949707,
+        0.10702310502529144,
+        0.021219009533524513,
+        1.0
+      ],
+      "name": "iris",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.03071344457566738,
+        0.015208514407277107,
+        0.01850022003054619,
+        1.0
+      ],
+      "name": "nose",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.5088813304901123,
+        0.4019777774810791,
+        0.24228112399578094,
+        1.0
+      ],
+      "name": "page_edge",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.8796223998069763,
+        0.7758222222328186,
+        0.5906188488006592,
+        1.0
+      ],
+      "name": "paper",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.68668532371521,
+        0.46207699179649353,
+        0.2158605009317398,
+        1.0
+      ],
+      "name": "pencil_wood",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.006995410192757845,
+        0.006512090563774109,
+        0.01032982300966978,
+        1.0
+      ],
+      "name": "pupil",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "scarf",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.11953842639923096,
+        0.38642942905426025,
+        0.35153260827064514,
+        1.0
+      ],
+      "name": "scarf_seam",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "AvatarRig",
+      "materials": [
+        "coat",
+        "cream",
+        "nose",
+        "eye_white",
+        "iris",
+        "pupil",
+        "ear_inner",
+        "dark",
+        "scarf",
+        "scarf_seam",
+        "book",
+        "paper",
+        "page_edge",
+        "gold",
+        "pencil_wood",
+        "graphite"
+      ],
+      "name": "fox-quality-v4_skinned_mesh",
+      "polygons": 60476,
+      "unweighted_vertices": 0,
+      "vertices": 68518,
+      "weighted_vertices": 68518
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "coat",
+      "material_index": 0,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        0,
+        4714,
+        9428,
+        14142,
+        18856,
+        23570,
+        28284,
+        32998
+      ]
+    },
+    {
+      "material": "cream",
+      "material_index": 1,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        32999,
+        34778,
+        36558,
+        38337,
+        40116,
+        41895,
+        43675,
+        45454
+      ]
+    },
+    {
+      "material": "nose",
+      "material_index": 2,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        45455,
+        45771,
+        46087,
+        46403,
+        46718,
+        47034,
+        47350,
+        47666
+      ]
+    },
+    {
+      "material": "eye_white",
+      "material_index": 3,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        47667,
+        48069,
+        48470,
+        48872,
+        49273,
+        49675,
+        50076,
+        50478
+      ]
+    },
+    {
+      "material": "iris",
+      "material_index": 4,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        50479,
+        50676,
+        50874,
+        51071,
+        51268,
+        51465,
+        51663,
+        51860
+      ]
+    },
+    {
+      "material": "pupil",
+      "material_index": 5,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        51861,
+        52058,
+        52256,
+        52453,
+        52650,
+        52847,
+        53045,
+        53242
+      ]
+    },
+    {
+      "material": "ear_inner",
+      "material_index": 6,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        53243,
+        53279,
+        53316,
+        53352,
+        53389,
+        53425,
+        53462,
+        53498
+      ]
+    },
+    {
+      "material": "dark",
+      "material_index": 7,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        53499,
+        54981,
+        56463,
+        57945,
+        59426,
+        60908,
+        62390,
+        63872
+      ]
+    },
+    {
+      "material": "scarf",
+      "material_index": 8,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        63873,
+        64078,
+        64282,
+        64487,
+        64691,
+        64896,
+        65100,
+        65305
+      ]
+    },
+    {
+      "material": "scarf_seam",
+      "material_index": 9,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        65306,
+        65381,
+        65455,
+        65530,
+        65604,
+        65679,
+        65753,
+        65828
+      ]
+    },
+    {
+      "material": "book",
+      "material_index": 10,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        65829,
+        65952,
+        66076,
+        66199,
+        66322,
+        66445,
+        66569,
+        66692
+      ]
+    },
+    {
+      "material": "paper",
+      "material_index": 11,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        66693,
+        66772,
+        66850,
+        66929,
+        67007,
+        67086,
+        67164,
+        67243
+      ]
+    },
+    {
+      "material": "page_edge",
+      "material_index": 12,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        67244,
+        67268,
+        67292,
+        67316,
+        67339,
+        67363,
+        67387,
+        67411
+      ]
+    },
+    {
+      "material": "gold",
+      "material_index": 13,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        67412,
+        67558,
+        67704,
+        67850,
+        67997,
+        68143,
+        68289,
+        68435
+      ]
+    },
+    {
+      "material": "pencil_wood",
+      "material_index": 14,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        68436,
+        68443,
+        68450,
+        68457,
+        68463,
+        68470,
+        68477,
+        68484
+      ]
+    },
+    {
+      "material": "graphite",
+      "material_index": 15,
+      "object": "fox-quality-v4_skinned_mesh",
+      "probe_vertices": [
+        68485,
+        68490,
+        68494,
+        68499,
+        68503,
+        68508,
+        68512,
+        68517
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.20323440432548523,
+        -7.968113422393799,
+        2.128420114517212
+      ],
+      "camera_target_blender_z_up": [
+        0.20323440432548523,
+        -0.0319724977016449,
+        1.3348060846328735
+      ],
+      "path": "independent-front.png",
+      "sha256": "d7780213c746b925efdef80e401de4fb87d8493fe87a84bc40ea0a149ea2deb2",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.20323440432548523,
+        7.904168605804443,
+        2.128420114517212
+      ],
+      "camera_target_blender_z_up": [
+        0.20323440432548523,
+        -0.0319724977016449,
+        1.3348060846328735
+      ],
+      "path": "independent-back.png",
+      "sha256": "bdef5348c1344bb3e97e04a2a2c313aef359177cc4f76c054624a6add1e774dc",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        8.139375686645508,
+        -0.0319724977016449,
+        2.128420114517212
+      ],
+      "camera_target_blender_z_up": [
+        0.20323440432548523,
+        -0.0319724977016449,
+        1.3348060846328735
+      ],
+      "path": "independent-side.png",
+      "sha256": "d175b2c144027c92c1f9399ae1af6b6ffeabb9bb7855f02e07e52d2d1685df70",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/avatar-assets/outputs/fox-quality-build-v4/model.glb",
+  "source_sha256": "7122209a2274bceaacf5a57c7705f2b65f38f27bb13e802fff9ad8f6b5cb2157",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 0.674505207920447,
+  "weft_runtime_verified": false
+}

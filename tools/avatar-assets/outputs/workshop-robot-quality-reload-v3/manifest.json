@@ -1,0 +1,83 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "7a84f7a0b4657fbe1f03134102feb6209d6b30e0cfaaa6d7d7c2bc804a0ec75a"
+    },
+    {
+      "bytes": 18248,
+      "path": "blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 77648,
+      "path": "independent-back.png",
+      "sha256": "2f7f6571262437ac44c1bf76d1a653fb119885e403543936c279a460ad23c85c"
+    },
+    {
+      "bytes": 80941,
+      "path": "independent-front.png",
+      "sha256": "10504e23b754113bba9763410473cc393f230f34bd5416685664d249f181af01"
+    },
+    {
+      "bytes": 71123,
+      "path": "independent-side.png",
+      "sha256": "76171f312d504406219ca60200be1dbcf323e3d48fecfcd4f9f80b96029397b9"
+    },
+    {
+      "bytes": 18534,
+      "path": "independent_reload.json",
+      "sha256": "696da792e08b1f7490fdb7348d28e362751108442b5013b5008fba74b0c22843"
+    },
+    {
+      "bytes": 814,
+      "path": "job.json",
+      "sha256": "d9c814de351d7389ec6c3b54df0a435e58a5bb0759884e73653ef51f327ccc79"
+    },
+    {
+      "bytes": 494,
+      "path": "reload-handle.json",
+      "sha256": "8a31a95d42727fabd29b90b5d635c093b9419f804717f9bb6f7ac3ba86da65d0"
+    },
+    {
+      "bytes": 16206,
+      "path": "reload.log",
+      "sha256": "28c0e4dbef68bfc112226c8d1d3637c6d218b5799256b78f6d31050257ec18ad"
+    }
+  ],
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-reload-v3/blender_verify.py",
+      "--",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-build-v3/model.glb",
+      "/Users/ivan/kintsugi/avatar-assets/outputs/workshop-robot-quality-reload-v3"
+    ],
+    "elapsed_seconds": 1.045,
+    "exit_code": 0,
+    "failure": null,
+    "final_output_bytes": 283315,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "pid": 73134,
+    "sampled_peak_rss_bytes": 283541504,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "independent_3d_reload",
+  "schema_version": 1,
+  "source_manifest_sha256": "f12374ef85aaa223db578dad09cb05b49c030e7df2faf818d19998f8b3e0f7da",
+  "source_model_sha256": "b42d0c97ca727ed59829a805cade420f1ccc45ff9a021fd63416a1d4e1e3b821",
+  "status": "passed"
+}

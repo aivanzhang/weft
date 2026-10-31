@@ -1,0 +1,290 @@
+{
+  "assets": [
+    {
+      "description": "A blue-and-cream humanoid robot with a circuit workpiece and assembly probe.",
+      "downloads": {
+        "blend": "/asset/robot/blend",
+        "manifest": "/asset/robot/manifest",
+        "mapping": "/asset/robot/mapping",
+        "model": "/asset/robot/model"
+      },
+      "facts": {
+        "animations": 4,
+        "bones": 17,
+        "vertices": 8338
+      },
+      "id": "robot",
+      "kind": "authored_3d",
+      "model": "/asset/robot/model",
+      "notice": "Authored 3D; seamless loops are not certified. Video timing may differ from 3D clips. Weft alignment remains unverified.",
+      "poster": "/asset/robot/poster",
+      "states": [
+        {
+          "contact": "/asset/robot/contact-idle",
+          "duration_seconds": 1.0,
+          "id": "idle",
+          "label": "Idle",
+          "meaning": "Friendly attentive body rock with tools held at waist height and both feet planted.",
+          "poster": "/asset/robot/still-idle",
+          "video": "/asset/robot/video-idle"
+        },
+        {
+          "contact": "/asset/robot/contact-working",
+          "duration_seconds": 1.0,
+          "id": "working",
+          "label": "Working",
+          "meaning": "Raises the circuit workpiece toward the face and leans forward to inspect it while the probe hand rests.",
+          "poster": "/asset/robot/still-working",
+          "video": "/asset/robot/video-working"
+        },
+        {
+          "contact": "/asset/robot/contact-making_something",
+          "duration_seconds": 1.0,
+          "id": "making_something",
+          "label": "Making something",
+          "meaning": "Uses repeated short probe strokes toward the waist-held circuit guide while the left arm steadies it; guide marks remain fixed.",
+          "poster": "/asset/robot/still-making_something",
+          "video": "/asset/robot/video-making_something"
+        },
+        {
+          "contact": "/asset/robot/contact-milestone_level_up",
+          "duration_seconds": 1.0,
+          "id": "milestone_level_up",
+          "label": "Milestone level up",
+          "meaning": "Raises both tools above shoulder level with one cheerful hop and a preparatory knee bend.",
+          "poster": "/asset/robot/still-milestone_level_up",
+          "video": "/asset/robot/video-milestone_level_up"
+        }
+      ],
+      "title": "Workshop robot"
+    },
+    {
+      "description": "An authored panda with a green shoulder dragon and golden crafting sphere, inspired by the supplied reference.",
+      "downloads": {
+        "blend": "/asset/panda/blend",
+        "manifest": "/asset/panda/manifest",
+        "mapping": "/asset/panda/mapping",
+        "model": "/asset/panda/model"
+      },
+      "facts": {
+        "animations": 4,
+        "bones": 22,
+        "vertices": 11036
+      },
+      "id": "panda",
+      "kind": "authored_3d",
+      "model": "/asset/panda/model",
+      "notice": "Authored 3D; seamless loops are not certified. Weft alignment remains unverified.",
+      "poster": "/asset/panda/poster",
+      "states": [
+        {
+          "contact": "/asset/panda/contact-idle",
+          "duration_seconds": 4,
+          "id": "idle",
+          "label": "Idle",
+          "meaning": "Gentle attentive upper-body sway while both paws support the sphere and the shoulder dragon remains securely perched.",
+          "poster": "/asset/panda/still-idle",
+          "video": null
+        },
+        {
+          "contact": "/asset/panda/contact-working",
+          "duration_seconds": 4,
+          "id": "working",
+          "label": "Working",
+          "meaning": "Lifts the sphere toward its face with the anatomical right arm and leans in to inspect it; fingers and head remain rest descendants.",
+          "poster": "/asset/panda/still-working",
+          "video": null
+        },
+        {
+          "contact": "/asset/panda/contact-making_something",
+          "duration_seconds": 4,
+          "id": "making_something",
+          "label": "Making something",
+          "meaning": "Alternates small forearm strokes around the sphere in a crafting gesture. The sphere remains fixed-shape; no new material is generated.",
+          "poster": "/asset/panda/still-making_something",
+          "video": null
+        },
+        {
+          "contact": "/asset/panda/contact-milestone_level_up",
+          "duration_seconds": 4,
+          "id": "milestone_level_up",
+          "label": "Milestone level up",
+          "meaning": "Raises both paws and the sphere above shoulder level during one joyful hop, with a small preparatory knee bend and fixed shoulder dragon.",
+          "poster": "/asset/panda/still-milestone_level_up",
+          "video": null
+        }
+      ],
+      "title": "Muse-inspired panda"
+    },
+    {
+      "description": "An articulated fox with a teal scarf, sketchbook and pencil.",
+      "downloads": {
+        "blend": "/asset/fox/blend",
+        "manifest": "/asset/fox/manifest",
+        "model": "/asset/fox/model"
+      },
+      "facts": {
+        "animations": 4,
+        "bones": 20,
+        "vertices": 8007
+      },
+      "id": "fox",
+      "kind": "authored_3d",
+      "model": "/asset/fox/model",
+      "notice": "Authored 3D; seamless loops are not certified. Video timing may differ from 3D clips.",
+      "poster": "/asset/fox/poster",
+      "states": [
+        {
+          "contact": "/asset/fox/contact-idle",
+          "duration_seconds": 8.0,
+          "id": "idle",
+          "label": "Idle",
+          "meaning": "Quiet attentive breathing, alternating ear twitches and a slow tail sway.",
+          "poster": "/asset/fox/still-idle",
+          "video": "/asset/fox/video-idle"
+        },
+        {
+          "contact": "/asset/fox/contact-making_something",
+          "duration_seconds": 8.0,
+          "id": "making_something",
+          "label": "Making something",
+          "meaning": "Looks down at the sketchbook and draws a craft pattern with several short pencil strokes.",
+          "poster": "/asset/fox/still-making_something",
+          "video": "/asset/fox/video-making_something"
+        },
+        {
+          "contact": "/asset/fox/contact-milestone_level_up",
+          "duration_seconds": 8.0,
+          "id": "milestone_level_up",
+          "label": "Milestone level up",
+          "meaning": "Raises both paws clearly above shoulder level, displaying the sketchbook and pencil during one delighted hop, then returns to rest.",
+          "poster": "/asset/fox/still-milestone_level_up",
+          "video": "/asset/fox/video-milestone_level_up"
+        },
+        {
+          "contact": "/asset/fox/contact-working",
+          "duration_seconds": 8.0,
+          "id": "working",
+          "label": "Working",
+          "meaning": "Raises the sketchbook toward its face and reads it with a pronounced downward gaze and slow page scan; pencil hand stays resting.",
+          "poster": "/asset/fox/still-working",
+          "video": "/asset/fox/video-working"
+        }
+      ],
+      "title": "Fox craftsperson"
+    },
+    {
+      "description": "A burgundy-and-brass lamp with a moving shade, mechanical joints and tracing stylus.",
+      "downloads": {
+        "blend": "/asset/lamp/blend",
+        "manifest": "/asset/lamp/manifest",
+        "model": "/asset/lamp/model"
+      },
+      "facts": {
+        "animations": 4,
+        "bones": 8,
+        "vertices": 7399
+      },
+      "id": "lamp",
+      "kind": "authored_3d",
+      "model": "/asset/lamp/model",
+      "notice": "Authored 3D; seamless loops are not certified. Video timing may differ from 3D clips.",
+      "poster": "/asset/lamp/poster",
+      "states": [
+        {
+          "contact": "/asset/lamp/contact-idle",
+          "duration_seconds": 8.0,
+          "id": "idle",
+          "label": "Idle",
+          "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts.",
+          "poster": "/asset/lamp/still-idle",
+          "video": "/asset/lamp/video-idle"
+        },
+        {
+          "contact": "/asset/lamp/contact-making_something",
+          "duration_seconds": 8.0,
+          "id": "making_something",
+          "label": "Making something",
+          "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated.",
+          "poster": "/asset/lamp/still-making_something",
+          "video": "/asset/lamp/video-making_something"
+        },
+        {
+          "contact": "/asset/lamp/contact-milestone_level_up",
+          "duration_seconds": 8.0,
+          "id": "milestone_level_up",
+          "label": "Milestone level up",
+          "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back.",
+          "poster": "/asset/lamp/still-milestone_level_up",
+          "video": "/asset/lamp/video-milestone_level_up"
+        },
+        {
+          "contact": "/asset/lamp/contact-working",
+          "duration_seconds": 8.0,
+          "id": "working",
+          "label": "Working",
+          "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state.",
+          "poster": "/asset/lamp/still-working",
+          "video": "/asset/lamp/video-working"
+        }
+      ],
+      "title": "Articulated desk lamp"
+    },
+    {
+      "description": "The supplied portrait and four original video clips. This reference pack contains no 3D mesh or rig.",
+      "downloads": {
+        "manifest": "/asset/reference/manifest"
+      },
+      "facts": {
+        "animations": 0,
+        "bones": 0,
+        "vertices": 0
+      },
+      "id": "reference",
+      "kind": "reference_2d",
+      "model": null,
+      "notice": "2D reference only: no 3D model or rig. Filename labels do not verify actions or seamless loops.",
+      "poster": "/asset/reference/poster",
+      "states": [
+        {
+          "contact": "/asset/reference/contact-reference-1",
+          "duration_seconds": 8.0,
+          "id": "reference-1",
+          "label": "Original clip 1",
+          "meaning": "Filename label only: avatar-1792879257185832992-2-attempt-24f0dce8e9fb.mp4. Motion meaning and seamless looping are unverified.",
+          "poster": "/asset/reference/poster",
+          "video": "/asset/reference/video-reference-1"
+        },
+        {
+          "contact": "/asset/reference/contact-reference-2",
+          "duration_seconds": 8.0,
+          "id": "reference-2",
+          "label": "Original clip 2",
+          "meaning": "Filename label only: avatar-1792879257185832992-2-making_something-attempt-10c7605fadef.mp4. Motion meaning and seamless looping are unverified.",
+          "poster": "/asset/reference/poster",
+          "video": "/asset/reference/video-reference-2"
+        },
+        {
+          "contact": "/asset/reference/contact-reference-3",
+          "duration_seconds": 8.0,
+          "id": "reference-3",
+          "label": "Original clip 3",
+          "meaning": "Filename label only: avatar-1792879257185832992-2-milestone_level_up-attempt-a1b69deb1120.mp4. Motion meaning and seamless looping are unverified.",
+          "poster": "/asset/reference/poster",
+          "video": "/asset/reference/video-reference-3"
+        },
+        {
+          "contact": "/asset/reference/contact-reference-4",
+          "duration_seconds": 8.0,
+          "id": "reference-4",
+          "label": "Original clip 4",
+          "meaning": "Filename label only: avatar-1792879257185832992-2-working-attempt-b5b712092c99.mp4. Motion meaning and seamless looping are unverified.",
+          "poster": "/asset/reference/poster",
+          "video": "/asset/reference/video-reference-4"
+        }
+      ],
+      "title": "Original panda reference"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,261 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-30 15:31:11 PDT",
+  "reviewer": "Agent visual inspection; not human approval",
+  "scope": "Read-only examination of16 requested portrait/contact/reload images plus5 selected full-resolution action frames. New review file only; no source/model modifications.",
+  "reviewed_image_count": 21,
+  "overall_verdict": "sampled_visual_pass_with_limits",
+  "blocking_visual_defects_found": [],
+  "models": [
+    {
+      "asset": "muse-panda",
+      "build_folder": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1",
+      "reload_folder": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1",
+      "visual_verdict": "sampled_visual_pass_with_explicit_limits",
+      "reviewed_visual_evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/portrait.png",
+          "sha256": "272b76330952def9d7034c762cfebf84a7e52f785b3356c6d9b9a8c945fb67e2",
+          "bytes": 113197
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/idle-contact.png",
+          "sha256": "2ab6e6f131a22e1f85bd6aa0de76ce1a3be86d3be4eb46618c5fdd9556d68c45",
+          "bytes": 135293
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/working-contact.png",
+          "sha256": "70131fafa1fa08ad08e1873047feb858c11f75960b096a4a87d38a32ac6fc84a",
+          "bytes": 141560
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/making_something-contact.png",
+          "sha256": "b9b273f601d8123cbdca5f56dfc9d0be76ddd2b7acb028ac09a3f1811cd50fa7",
+          "bytes": 110002
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/milestone_level_up-contact.png",
+          "sha256": "f760b06e50da042cf53560a3c0b6f4f632041b20e7c2bfac452129d465405f02",
+          "bytes": 163824
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1/independent-front.png",
+          "sha256": "63dfdd2db607ca06beda7a46867fb712c27868e2bd4465f891b38ab32950a937",
+          "bytes": 75066
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1/independent-back.png",
+          "sha256": "fce0fb30c5e7b8bb59208f7c1b289d56634bf1de706abccd4c95e7dc24cd7cda",
+          "bytes": 71471
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1/independent-side.png",
+          "sha256": "c0db4c438f972f2f98d97d6a5acca1d99b22b47f722de5e0f1768a2cd6ca7ad4",
+          "bytes": 66756
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/renders/making_something/0000.png",
+          "sha256": "10cf1cc6d28092689e9eb2c11f1d4aaebef3c4c0e1bd26efacf9584a0bedcb84",
+          "bytes": 112270
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/renders/making_something/0038.png",
+          "sha256": "dc81555193ecf273327088a83eccddfd94aab61da4515b7543abbcfef711a3c3",
+          "bytes": 112543
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/renders/milestone_level_up/0038.png",
+          "sha256": "dbb8b8334e876f4018b929d61e55544867686247bb62ae584fc1851a2d226481",
+          "bytes": 113604
+        }
+      ],
+      "bound_context": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/model.glb",
+          "sha256": "b32e5cc08510035aa7c778dff33635ac8850af42536ac13daac9bfb92954f012"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/sources/scene.json",
+          "sha256": "0307b38c4bd50beea09abccf87ea5f11a218eb08fe6111e473c714f2d2a1dbae"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-build-v1/manifest.json",
+          "sha256": "730d59564bcdd9478ceba83689a42ade141c0f04f8bb1b43e69e61411f73fda2"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/muse-panda-weft-reload-v1/independent_reload.json",
+          "sha256": "b26a1f267da248a7c5b495bc0c622f11e83c713d6a4fefdbd26f37e0dd306e03"
+        }
+      ],
+      "framing": {
+        "status": "pass_at_reviewed_samples",
+        "observation": "Entire subject, feet, antenna or ears, held accessories and raised tools remain inside image boundaries in the portrait, contact samples and independent views. This is not an all-frame clipping audit."
+      },
+      "geometry": {
+        "status": "complete_stylized_3d_form_visually_supported",
+        "observation": "Independent front, back and side reload views show consistent depth, rear surfaces and articulated limbs rather than a flat image or billboard. This visual review does not substitute for structural GLB/skin validation."
+      },
+      "seamless_loop_verified": false,
+      "full_temporal_playback_reviewed": false,
+      "actual_weft_frame_alignment_verified": false,
+      "identity": {
+        "status": "pass_as_declared_stylized_interpretation",
+        "observation": "White-and-charcoal panda with round ears, dark eye patches and limbs, black tail, golden held sphere and small green dragon. Shape/palette/accessories remain consistent across samples. This is a smooth matte toy interpretation, not recovered fur, photorealistic Muse geometry or exact reference proportions."
+      },
+      "attachment": {
+        "status": "correct_side_in_reviewed_samples",
+        "observation": "Dragon appears on viewer-left in front/portrait views and the opposite screen side in the back view, consistent with anatomical right/world -X. It remains next to the same shoulder during reviewed actions. The far-side dragon is naturally hidden in the independent side view. Raised arm partly occludes its body/wing during peak celebration; head remains visible, with no visible side swap or detachment."
+      },
+      "state_meaning": {
+        "idle": {
+          "status": "visible_low_amplitude_gesture",
+          "observation": "Quiet waist-level sphere hold with small upper-body sway; this is not a still-image duplicate claim."
+        },
+        "working": {
+          "status": "visibly_distinct_pose",
+          "observation": "Sphere is raised to face level in the anatomical right hand; plausible inspection gesture, distinct from waist-level handling. Exact intent is inferred from pose, not an objectively verified task outcome."
+        },
+        "making_something": {
+          "status": "visible_manipulation_gesture_not_fabrication",
+          "observation": "Full-resolution frames0000 and0038 show changed paw/sphere positions around the low-held sphere. Reads as handling or shaping a ball; the fixed-size sphere does not show actual material creation or deformation. Subtle at contact-sheet scale."
+        },
+        "milestone_level_up": {
+          "status": "clear_celebration_gesture",
+          "observation": "Both paws rise above shoulders and the sphere is held high during a visible body hop; feet and accessories stay in frame."
+        }
+      },
+      "nonblocking_observations": [
+        "Legs and elbows intentionally read as segmented rigid toy joints, not continuous organic skin.",
+        "Dragon body/wing is partly hidden by the raised arm at peak celebration; this review does not prove collision-free meshes between sampled poses."
+      ]
+    },
+    {
+      "asset": "humanoid-robot",
+      "build_folder": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1",
+      "reload_folder": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1",
+      "visual_verdict": "sampled_visual_pass_with_explicit_limits",
+      "reviewed_visual_evidence": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/portrait.png",
+          "sha256": "1e60550eddebd9b771172aef9bfe287ecdf56899a1887026e331388e0749f4fd",
+          "bytes": 119990
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/idle-contact.png",
+          "sha256": "50c65111e27b473d6b9a8b923a332da7a1f48826b69627711e9a872e80af23ab",
+          "bytes": 135899
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/working-contact.png",
+          "sha256": "3793a6495391a062f5496f9e7ca272baf692cc9630fadc330e31a17c8452420b",
+          "bytes": 138285
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/making_something-contact.png",
+          "sha256": "c0e01aadf497fd7e378b7338b1b9789889cd3c46504bbcd387622a697a3a8ded",
+          "bytes": 100686
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/milestone_level_up-contact.png",
+          "sha256": "6a3ebcc4799260f5ec9f78d8eee3ee8d1f5dbe22f7d1731ba538ceebc0c8db53",
+          "bytes": 171235
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/independent-front.png",
+          "sha256": "32d2bea10e2f06abcca5d9f0b2cd0ba5350b4fed21e7bf94d3b73a9580154b34",
+          "bytes": 77114
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/independent-back.png",
+          "sha256": "3583844a7e4744083422a59d40fc596a0ff3d0d762fed3ca6de80de1418c27e4",
+          "bytes": 73772
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/independent-side.png",
+          "sha256": "f4589a2c6faa52aec758c328496517f4eaaa581641a4ca78ce1f61e7e85eb79d",
+          "bytes": 68276
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/renders/making_something/0000.png",
+          "sha256": "c1aebe69da5a75c17b5b78454ba21ca736313929c4c29f54429cecb368bdff0b",
+          "bytes": 119485
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/renders/making_something/0038.png",
+          "sha256": "d42149d0e5f238e6ffbcf6eb163d3fcb4e551e2344489cbf4bc09e9ff6988e89",
+          "bytes": 119846
+        }
+      ],
+      "bound_context": [
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/model.glb",
+          "sha256": "48cc6156fff0200b76c24c4ef785113da2389bdbb0924e121ba45e69ac7cf6cd"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/sources/scene.json",
+          "sha256": "80a902827aa3e519112a127a15ad21d9e9aab3627671bf7fc76773bbb8bfc44f"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-build-v1/manifest.json",
+          "sha256": "c3928969499c8d9297f7a6f8714a4f0b2fc3278c1bb17c01fe995427ec6f6e53"
+        },
+        {
+          "path": "/Users/ivan/kintsugi/avatar-assets/outputs/humanoid-robot-weft-reload-v1/independent_reload.json",
+          "sha256": "cc877b2848e7a744f9566ec6ce6fea0661e05f4cc932a9598a2e6c96afa46b84"
+        }
+      ],
+      "framing": {
+        "status": "pass_at_reviewed_samples",
+        "observation": "Entire subject, feet, antenna or ears, held accessories and raised tools remain inside image boundaries in the portrait, contact samples and independent views. This is not an all-frame clipping audit."
+      },
+      "geometry": {
+        "status": "complete_stylized_3d_form_visually_supported",
+        "observation": "Independent front, back and side reload views show consistent depth, rear surfaces and articulated limbs rather than a flat image or billboard. This visual review does not substitute for structural GLB/skin validation."
+      },
+      "seamless_loop_verified": false,
+      "full_temporal_playback_reviewed": false,
+      "actual_weft_frame_alignment_verified": false,
+      "identity": {
+        "status": "pass_original_humanoid_design",
+        "observation": "New blue/cream humanoid biped with friendly dark visor and warm eyes, antenna, body panel, solid hands, broad feet, elbow/knee joints, circuit workpiece and probe. It is visibly neither an animal reskin nor the earlier desk lamp."
+      },
+      "attachment": {
+        "status": "held_props_stable_at_reviewed_samples",
+        "observation": "Workpiece follows anatomical left hand/world +X, and probe follows anatomical right hand/world -X in rest and raised-tool samples. No visible prop detachment at reviewed poses."
+      },
+      "state_meaning": {
+        "idle": {
+          "status": "visible_low_amplitude_gesture",
+          "observation": "Neutral waist-level tool hold with small body rock; silhouette and joints remain consistent."
+        },
+        "working": {
+          "status": "visibly_distinct_pose",
+          "observation": "Workpiece is raised and tilted toward the visor for inspection while probe hand rests. The task interpretation is authored body language, not a simulated circuit result."
+        },
+        "making_something": {
+          "status": "visible_probe_strokes_not_fabrication",
+          "observation": "Full-resolution frames0000 and0038 show the probe at different positions across the fixed workpiece guide. This is a concrete assembly/trace gesture but generates no new guide marks or circuit behavior."
+        },
+        "milestone_level_up": {
+          "status": "clear_celebration_gesture",
+          "observation": "Both arms lift the probe and workpiece above shoulders during a hop; broad feet and antenna remain visible."
+        }
+      },
+      "nonblocking_observations": [
+        "All metallic-looking accent colors are matte paint in the declared diffuse profile.",
+        "Rest head/hand descendants limit expressive gaze and fingers by design; no independent control is inferred."
+      ]
+    }
+  ],
+  "limits": [
+    "Review covers sampled stills, not full temporal playback or every animation frame.",
+    "Matching endpoint pictures do not prove seamless timing or motion boundaries; seamless loops remain unverified here.",
+    "Independent reload views support complete stylized3D form, not accurate recovery of unseen surfaces, fur or scales from the reference.",
+    "Frozen importer acceptance is not visual quality proof, a live simulator test or measured body-frame alignment.",
+    "The user-authorized neutral proposal is authored alignment evidence, not an actual simulation measurement. No actual Weft alignment is claimed by this review.",
+    "No physical collisions, tasks, actions, rewards, model import implementation or Weft files were changed.",
+    "Low-resolution reload images contain sampling noise; this is preview rendering evidence, not a texture defect assessment."
+  ],
+  "provider_calls": 0,
+  "provider_cost_usd": 0
+}
