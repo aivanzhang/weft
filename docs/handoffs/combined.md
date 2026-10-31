@@ -1,6 +1,76 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 31, 2026, 1:57 AM PDT
+## Active continuation — October 31, 2026, 2:28 AM PDT
+
+### Common lab and terminal evidence — verified
+
+The report/core milestone is published as
+`180ed5238bb3a2d635bf43e921b1de0dc6517c11`, independently matched on private
+`origin/main`. Publication receipt `.local/evidence-scorecard-publication-01.json`
+SHA `c7cc2b0080901a611c01e07a670e52d148cf9f9983c47ad555eae31ceb4e19c4`
+records nine owned files clean, 75 avatar-session entries preserved and zero stashes.
+
+The same core now runs through existing cached lab inspection,
+**Checks & limits → Evidence and gaps**, and terminal `evidence [1-14]`.
+All 14 categories use lazy native disclosures; unchanged refreshes preserve open
+content without new polling or control actions. Exact manifest binding and
+hash-read metadata determine links, not merely listed artifacts. Invalid console
+metadata produces a handled error without closing an active recording. Missing
+completion/reset/reward measurements stay null. The 64 KiB base/core envelopes
+remain separate, with 128 KiB combined. Rigid learning remains unavailable until
+its profile/regime/return mapping qualifies; no task hashes or success counts
+are invented to fit an exercise adapter.
+
+Interface source checkpoint: **`3afaf855365f3741748a161c4dbe5c5aabcf4f4d`**.
+**321 distinct latest-passing Python checks** comprise 86 core, 35 backend and 200 root
+cases (199 initial + one new console identity regression; 16 of 17 follow-up console
+cases overlap). Nine new UI checks plus five existing inspection/control and four
+appearance checks pass. Source/test freeze `.local/common-lab-evidence-freeze-01.json`
+SHA `0e04c9a6a10faee6fa322864bdfcfedb291b18166a4aad88ea2396518faa747c`.
+Backend receipt `.local/common-lab-scorecard-backend-implementation-01.json` SHA
+`75055534dc6c299d5bf14e51e6b6c4f02efcbe97e1d7cec710542f4bef11d5e9`.
+
+One real saved-only metadata/console acceptance covers the current exercise,
+Heavy untrained lab and authored spatial-rigid lab. Frozen plan SHA
+`5d39249c0977280abc3208a24ffc92622c6d14b149595d038c1866c1c6f62519`;
+output `artifacts/common-lab-evidence-01`, 14 files / 80,629 B, seal
+`e56216511feb7b6748f5b75039a8c5c2ee8db1985d95fb6fdad0325ad64a3a62`.
+It took **0.314580 s**, 99,909,632 B observed maximum child RSS, $0. All ten guarded
+native/media/inference/network/subprocess/lab-lifecycle counters stay zero.
+Exactly three metadata loads and six cached terminal views read 13 metadata files
+(1,550,946 B), preserving every consumed source identity. Current learned/authored
+results are 3/3; coast/random 0/3. The other two learning summaries remain unavailable.
+No source video, model, trial, recording or full native admission reran.
+
+Actual saved-payload scripted UI acceptance also passes, receipt
+`.local/common-lab-evidence-ui-01.json` SHA
+`4434dbc1f3a88a351b6ef945fb387ca5d179c4108a88ccccc162cbc8a8582e6c`:
+three cases, 58/6/2 exact evidence-link occurrences, preserved unknowns and no
+control or state change. Node process 0.119590 s; scripted work 0.027862 s is **not**
+browser timing or sustained-use evidence. Preserve process01's zero-child launch
+failure: the supervisor's restricted PATH omitted Homebrew Node. Process02 changes
+only the executable to `/opt/homebrew/bin/node`; snapshots and verifier are unchanged.
+Independent audit `.local/common-lab-evidence-verification-01.json` SHA
+`3d944398e831aea0c367ff83fc0db2c1888145145b6fff7f1731527b63f3f934`
+passes 200 pins, all outputs, selected metadata, canonical identities, counts,
+terminal views and UI receipts; it does not claim full source/lifecycle inspection.
+
+The recommended exercise launcher now pins 3afaf85. Its real metadata-only
+`--example exercise --console --check` passes in **0.470006 s**: 200 runtime files /
+3,923,998 B, unchanged 26 policy / 18 lab pins and dependency versions, exact original
+scene/task/policy/lab metadata. Receipt
+`.local/common-lab-evidence-preset-verification-01.json` SHA
+`4c438eb5bc1bdceeeaeca755b9d1c19f7d4398ecbf98a9b5f9a1d8895553865c`.
+No server, physics, session or media starts. Other preset revisions stay unchanged.
+Final private publication confirmation belongs in
+`.local/common-lab-evidence-publication-01.json`; source commit alone is not that
+confirmation. All delegated edits, checks and audits are terminal; root owns the
+final checkpoint. Separate 75 avatar-session status entries remain untouched.
+
+Next: qualify existing rigid evaluation regimes/return units and saved replay
+evidence for the same core, then continue evidence-backed reconstruction and
+coupled equipment control. Do not repeat these presentation checks, retrain the
+unchanged policy or revive failed model/geometry studies to populate a summary.
 
 ### Common evidence report — implemented and exercised
 
@@ -58,18 +128,16 @@ Heavy hashes without repeating reports or physics. Report seals:
 (Heavy) and `91c00cd5d119a11ebcf77da908dbd3263bedd868632737ebb3d894b0ee213220`
 (original trained). [User guide](../local-lab.md#read-evidence-and-failures).
 
-Still required: use this core for common lab/rigid inspection and verified
-evaluation/replay adapters, instead of inventing another pipeline or treating
-build readiness as execution evidence. Independent identity/geometry/parameter
-measurements and physical transfer remain unavailable; the full goal is active.
+The common-lab delivery is now verified above. Still required: qualified rigid
+evaluation/replay adapters, instead of treating build readiness as execution
+evidence. Independent identity/geometry/parameter measurements and physical
+transfer remain unavailable; the full goal is active.
 Next-slice inventory `.local/common-lab-scorecard-next-01.json` SHA
 `bdffc987bbdcb604e5a06c9876b2e835f261448532bf8868c664eb69483a6879`
-records existing inspection/API/console entry points and the current exercise
-receipt's 3/3 counts. Its compact contract lacks completed/reset/reward counts;
-keep them unavailable. Rigid regimes and return units need a profile-aware
-adapter. The recommended preset exports trusted4ad0153, so presentation changes
-require an explicit new trusted revision with all26policy/18lab runtime pins
-unchanged, no saved-run mutation and no retraining/replay just to show evidence.
+records the now-completed common-lab slice and still-relevant rigid regime/return
+requirements. Its compact exercise contract lacks completed/reset/reward counts;
+they remain unavailable. The new3afaf85 presentation revision preserves all26policy/
+18lab runtime pins; original4ad0153 and its old cache remain retained.
 
 ### Saved-body launcher — verified
 
@@ -213,7 +281,8 @@ The saved-body launcher, tests and usage guide are published as
 `1cdba6062ec530d04efa7f149f671136a2767013c555f6aa29415f89b0feb138`
 records three owned paths clean, three root docs pending and zero stashes.
 The 75 separate avatar-session entries remain untouched. Root owns these docs;
-do not stage avatar files. The recommended exercise preset remains unchanged.
+do not stage avatar files. The exercise simulation and policy remain unchanged;
+the updated presentation snapshot is recorded above.
 Remote refresh before scorecard publication confirms zero divergence. The exact
 scoped commit/private remote result for this report/core/tests/docs milestone is
 recorded separately in `.local/evidence-scorecard-publication-01.json`; inspect
