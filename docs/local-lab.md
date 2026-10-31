@@ -92,14 +92,46 @@ For an existing sealed two-view body with supplied ground:
 This preserves the body, both camera/evidence documents and original video timing.
 It writes `scene.json`, `camera-coupling.json`, `source-verification.json` and exact
 input copies. `manifest.json` records whether construction succeeded. Each output
-must be new. This does not accept an arbitrary raw video or launch a playable lab;
-camera task, recording and foot integration are still in progress.
+must be new. This importer does not accept arbitrary raw video. To make its
+camera-based candidate interactive, use the existing lab:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/my-camera-world --out artifacts/my-camera-lab
+.venv-lab/bin/python -m weft lab-console --resume artifacts/my-camera-lab
+```
+
+Default controls are 19 body motors, with no virtual root forces. Add
+`--root-assistance` when building the lab to explicitly enable three extra forces
+that help the body follow its recorded path. This is assistance, not learned or
+unassisted balance. In the console, use `controls`, `record start`, `mode reference`,
+`step 6`, `reset 29`, `record stop` and `quit`. To inspect the graphical lab,
+run `lab --resume` instead of `lab-console --resume`, then open the printed local
+address yourself.
 
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to
 inspect it. Its body geometry passes the source/grid check but floats above the
 ground. Foot attachment remains unavailable because the original starting right
 heel is inconsistent across cameras. [Evidence and limits](handoffs/camera-shared-runtime.md).
+
+Two already-verified labs let you try this without rebuilding:
+
+```sh
+# Assisted tracking: all original tracking gates passed in the saved trial.
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/camera-shared-play-01/roots-on/lab
+
+# No virtual root forces: the saved trial completed but failed root tracking.
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/camera-shared-play-01/roots-off/lab
+```
+
+Each retains the original 238-step / 7.94-second interval. Both recorded 240
+actions (two manual, reset, 238 authored) and replayed them exactly, with video,
+interactive replay and saved evidence receipts. Results remain simulation-only:
+feet, ground/equipment contact, learned policies and avatar skins are not
+qualified for this camera profile. [Verification and remaining work](handoffs/camera-shared-lab.md).
 
 ## Inspect static-support loads
 

@@ -490,9 +490,9 @@ class Lab:
                     raise ValueError("Human-only shared exercise requires a shared-world lab")
                 from weft.shared_exercise_lab import SharedExerciseSession
                 session = SharedExerciseSession(self.root / "run", config=self.config)
-                if self.avatars.packages and session.scene_profile in ("shared-world-v4", "shared-world-v5"):
+                if self.avatars.packages and session.scene_profile in ("shared-world-v4", "shared-world-v5", "shared-world-v6"):
                     session.env.close()
-                    raise ValueError("Static-support/coupled-feet avatar recording is not yet qualified; launch this lab without avatar options")
+                    raise ValueError("Static-support/coupled-feet/camera avatar recording is not yet qualified; launch this lab without avatar options")
                 self.session = session
                 self.artifacts = self.session.artifacts
                 return self.session
@@ -802,8 +802,8 @@ class Lab:
         session = self.load_session()
         if path == "/api/appearance":
             from weft.avatar_lab import validate_appearance
-            if getattr(session, "scene_profile", None) in ("shared-world-v4", "shared-world-v5"):
-                raise ValueError("Static-support/coupled-feet avatar recording is not yet qualified")
+            if getattr(session, "scene_profile", None) in ("shared-world-v4", "shared-world-v5", "shared-world-v6"):
+                raise ValueError("Static-support/coupled-feet/camera avatar recording is not yet qualified")
             if not _shared_exercise(session) and not isinstance(session, SharedWorldSession):
                 raise ValueError("This lab has no supported avatar body")
             settings = validate_appearance(data, self.avatars.packages)

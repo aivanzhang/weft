@@ -362,7 +362,7 @@ def main():
     exercise_lab.add_argument("--evaluation", help="Optional separate comparison for the exact installed policy; requires --learning")
     exercise_lab_choice = exercise_lab.add_mutually_exclusive_group()
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
-    exercise_lab_choice.add_argument("--task", help="Explicit shared-exercise-task-v1 JSON; otherwise preserve a sealed input task before using defaults")
+    exercise_lab_choice.add_argument("--task", help="Exact task JSON for this scene profile; otherwise preserve a sealed input task before using defaults")
     exercise_lab.add_argument("--max-seconds", type=float, default=60)
     shared_feet = commands.add_parser("shared-feet-build",
         help="Add source-bound feet to one existing exercise world; preserve its original task and evidence")

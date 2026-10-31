@@ -140,6 +140,11 @@ def describe_capabilities(
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
+    if scene_profile == "shared-world-v6":
+        from weft.camera_shared_capabilities import describe_camera_capabilities
+        return describe_camera_capabilities(scene, exercise_task, lab_profile=lab_profile,
+            learned_policy_available=learned_policy_available, trained_target_id=trained_target_id,
+            source_video_present=source_video_present, reference_available=reference_available)
     if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v5"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])

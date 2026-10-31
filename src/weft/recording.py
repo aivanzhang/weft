@@ -27,11 +27,15 @@ DIRECT_PROFILES = {WHOLE_BODY_PROFILE: (19, "whole_body_reference_tracking"),
 
 
 FEET_RECORDING_PROFILE = "shared-exercise-feet-recording-v1"
-EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE})
+CAMERA_RECORDING_PROFILE = "camera-shared-recording-v1"
+EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE})
 FEET_EVENT_BYTES = 512 * 1024
 
 
 def _exercise_recording_adapter(scene):
+    if scene.get("profile") == CAMERA_RECORDING_PROFILE:
+        from weft import camera_shared_recording
+        return camera_shared_recording
     if scene.get("profile") == FEET_RECORDING_PROFILE:
         from weft import shared_exercise_feet_recording
         return shared_exercise_feet_recording
@@ -42,8 +46,8 @@ def _exercise_recording_adapter(scene):
 
 
 def _event_size_limit(scene):
-    # Feet retain bounded extra substep contacts; the total journal cap stays unchanged.
-    return FEET_EVENT_BYTES if scene.get("profile") == FEET_RECORDING_PROFILE else MAX_EVENT_BYTES
+    # Detailed contacts retain bounded headroom; the total journal cap stays unchanged.
+    return FEET_EVENT_BYTES if scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE) else MAX_EVENT_BYTES
 
 
 def _encoded(value):
@@ -385,7 +389,7 @@ class Recorder:
         object_limit = MAX_HUMAN_PARTS if human else 12
         person_only = self.scene.get("profile") == "shared-world-v3" or (
             self.scene.get("profile") in EXERCISE_RECORDING_PROFILES
-            and self.scene["engine_scene"].get("base_profile", self.scene["engine_scene"]["profile"]) == "shared-world-v3")
+            and self.scene["engine_scene"].get("base_profile", self.scene["engine_scene"]["profile"]) in ("shared-world-v3", "shared-world-v6"))
         minimum_objects = 0 if person_only else 1
         if not isinstance(self.scene.get("objects"), list) or not minimum_objects <= len(self.scene["objects"]) <= object_limit:
             raise ValueError(f"A recording requires {minimum_objects}–{object_limit} scene objects")
@@ -446,7 +450,7 @@ class Recorder:
             "limits": {"max_events": MAX_EVENTS, "max_wall_seconds": MAX_SECONDS,
                        "max_journal_bytes": self._journal_limit},
         }
-        if self.scene.get("profile") == FEET_RECORDING_PROFILE:
+        if self.scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE):
             self._metadata["limits"]["max_event_bytes"] = self._event_limit
         if contract is not None:
             self._metadata["action_replay_contract"] = contract
@@ -574,11 +578,11 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
         _seed(metadata.get("seed"))
         if metadata["seed"] != events[0]["seed"]:
             raise ValueError("Exercise recording metadata seed differs from its initial event")
-    if scene.get("profile") == FEET_RECORDING_PROFILE:
+    if scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE):
         limits = metadata.get("limits")
         if (not isinstance(limits, dict) or limits.get("max_event_bytes") != FEET_EVENT_BYTES
                 or limits.get("max_journal_bytes") != MAX_JOURNAL_BYTES):
-            raise ValueError("Feet recording limits differ from the bounded journal contract")
+            raise ValueError("Detailed exercise recording limits differ from the bounded journal contract")
     if metadata["scene_sha256"] != canonical_hash(scene):
         raise ValueError("Recorded scene identity does not match metadata")
     contract = metadata.get("action_replay_contract")

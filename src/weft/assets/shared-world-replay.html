@@ -10,6 +10,7 @@ canvas{width:100%;background:#FBF7F1;border:1px solid #D8C9BA}button,input{font:
 <p id="controller" hidden></p>
 <p id="exercise-scope" hidden></p>
 <section id="support-panel" aria-labelledby="support-heading" hidden><h2 id="support-heading">Saved simulated support loads</h2><p id="support-status"></p><div id="support-requirements"></div></section>
+<section id="camera-panel" hidden><h2>Camera priors and source clock</h2><p id="camera-status"></p></section>
 <section id="feet-panel" aria-labelledby="feet-heading" hidden><h2 id="feet-heading">Unscored ankles and foot contacts</h2><p id="feet-status"></p><details id="feet-details"><summary>Episode foot/object contact aggregates</summary><pre id="feet-aggregates"></pre></details></section>
 <canvas id="view" width="1080" height="420" aria-label="Three views of the same recorded coupled 3D world"></canvas>
 <p><button id="play" disabled>Play</button> <input id="scrub" aria-label="Recorded state" type="range" min="0" value="0" disabled> <output id="frame"></output></p>
@@ -26,12 +27,112 @@ const details=document.getElementById('details'),detail=document.getElementById(
 const zoom=document.getElementById('zoom'),muscles=document.getElementById('muscles');
 let scene=null,exerciseTask=null,feetTask=null,event=null,count=0,timer=null,busy=false,wanted=0,requested=0,closed=false;
 let supportSignature=null,supportValid=false;
+let cameraIdentity=null,cameraTaskValid=false,cameraDisplayedEvent=null,cameraValid=false;
+const cameraScene=()=>scene?.profile==='shared-world-v6';
 let feetDisplayedEvent=null,feetDetailsOpen=null,feetValid=false;
 const feetScene=()=>scene?.profile==='shared-world-v5';
 const baseProfile=()=>feetScene()?scene.base_profile:scene?.profile;
 const supportScene=()=>baseProfile()==='shared-world-v4';
 const number=(value,places=3)=>typeof value==='number'&&Number.isFinite(value)?value.toFixed(places):'unavailable';
 const digest=value=>typeof value==='string'&&/^[0-9a-f]{64}$/.test(value);
+const supportDigest=digest,nonnegative=value=>typeof value==='number'&&Number.isFinite(value)&&value>=0;
+const sameArray=(value,expected)=>Array.isArray(value)&&value.length===expected.length&&value.every((item,i)=>item===expected[i]);
+const cameraPins = ["scene_sha256", "camera_coupling_sha256", "source_sha256", "body_sha256", "source_clock_sha256",
+  "metric_context_sha256", "kernel_evaluator_sha256", "adapter_implementation_sha256", "evaluator_sha256"];
+// Presentation joins are not a substitute for the server's sealed task/state validation.
+function validCameraTask(world, task, identity) {
+  const clock = world?.camera_coupling?.clock, context = task?.metric_context, scope = task?.scope;
+  const empty = value => Array.isArray(value) && value.length === 0;
+  return world?.profile === "shared-world-v6" && task?.schema_version === 1 && task.profile === "camera-shared-task-v1"
+    && identity && cameraPins.every(key => supportDigest(task[key]) && identity[key] === task[key]) && supportDigest(identity.task_sha256)
+    && Array.isArray(world.bounds) && world.bounds.length === 3 && world.bounds.every(value => Number.isFinite(value) && value > 0)
+    && empty(world.objects) && world.target === null && world.task?.object_goal === null && world.learned_policy_available === false
+    && world.foot_extension === undefined && task.base_task === undefined && task.equipment_ids === undefined && task.contact_requirements === undefined
+    && world.action_contract?.human_motor_count === 22 && world.action_contract.object_force_channels === 0
+    && empty(world.action_contract.dynamic_object_ids) && Array.isArray(world.action_contract.names) && world.action_contract.names.length === 22
+    && new Set(world.action_contract.names).size === 22 && world.action_contract.names.every(name => typeof name === "string" && name.length > 0 && name.length < 160)
+    && ["disabled", "explicit_3_axis"].includes(task.control?.root_assistance) && task.control.object_forces === "forbidden"
+    && Number.isSafeInteger(task.interval?.horizon_steps) && task.interval.horizon_steps > 0 && task.interval.horizon_steps <= 10000
+    && task.interval.horizon_steps === world.task.horizon_steps && task.interval.start_offset_s === world.task.start_offset_s
+    && task.interval.start_offset_s === 0 && nonnegative(clock?.source_time_offset_s)
+    && Number.isFinite(world.dt) && world.dt > 0 && world.dt === clock.control_dt_s
+    && Number.isFinite(clock.source_fps) && clock.source_fps > 0 && Math.abs(world.dt * clock.source_fps - 1) < 1e-8
+    && Number.isInteger(world.substeps) && world.substeps >= 8 && world.substeps <= 64
+    && ["source_sha256", "body_sha256", "source_clock_sha256"].every(key => task[key] === world.camera_coupling[key])
+    && context?.profile === "camera-shared-metric-context-v1" && context.scene_sha256 === task.scene_sha256
+    && context.valid_legacy_task === false && context.kernel_branch === "shared-exercise-task-v2"
+    && context.kernel === "weft.shared_exercise_task._ExerciseMetrics" && context.projection === "identity_22_motor_samples_without_equipment"
+    && context.control_dt_s === world.dt && context.source_body_dt_s === world.human_spec?.dt && context.source_body_dt_s > 0
+    && context.substeps === world.substeps && supportDigest(context.kernel_arguments_sha256)
+    && context.kernel_arguments?.profile === "shared-exercise-task-v2" && empty(context.kernel_arguments.equipment_ids) && empty(context.kernel_arguments.contact_requirements)
+    && context.kernel_arguments.interval?.start_offset_s === task.interval.start_offset_s && context.kernel_arguments.interval?.horizon_steps === task.interval.horizon_steps
+    && context.kernel_arguments.control?.root_assistance === task.control.root_assistance && context.kernel_arguments.control.object_forces === "forbidden"
+    && scope && Object.keys(scope).every(key => context.kernel_arguments.source_scope?.[key] === scope[key])
+    && task.gate_profile === "shared-exercise-gates-v1" && supportDigest(task.gates_sha256)
+    && scope?.success_scope === "authored_simulated_camera_tracking_criteria" && scope.physical_validation === "unverified"
+    && scope.source_contact_verified === false && scope.ground_support_verified === false && scope.equipment_scoring === "unsupported"
+    && scope.foot_controls === "unsupported" && scope.learning === "unqualified"
+    && scope.clock_alignment === "original_source_grid_with_unchanged_body_period";
+}
+function validCameraFrame(world, task, identity, geometry, m, status) {
+  const empty = value => Array.isArray(value) && value.length === 0, count = value => Number.isSafeInteger(value) && value >= 0;
+  const close = (a, b) => Number.isFinite(a) && Number.isFinite(b) && Math.abs(a - b) <= 1e-8;
+  const maximum = task.interval.horizon_steps * world.substeps, tick = world.dt / world.substeps;
+  const vector = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite);
+  const line = value => value && vector(value.a) && vector(value.b);
+  if (geometry?.profile !== "shared-world-v6" || geometry.camera_coupling_sha256 !== identity.camera_coupling_sha256
+    || geometry.controlled_id !== "human" || geometry.human?.reference === true || geometry.target !== null || !empty(geometry.objects)
+    || !sameArray(geometry.human?.action_names, world.action_contract.names) || !nonnegative(geometry.time_s)
+    || !Array.isArray(geometry.human.segments) || geometry.human.segments.length === 0 || geometry.human.segments.length > 32
+    || !geometry.human.segments.every(value => line(value) && nonnegative(value.radius))
+    || !Array.isArray(geometry.human.muscles) || geometry.human.muscles.length > 38
+    || !geometry.human.muscles.every(value => line(value) && nonnegative(value.activation) && value.activation <= 1)
+    || !Array.isArray(geometry.contact_details) || geometry.contact_details.length > 256
+    || !geometry.contact_details.every(value => value && vector(value.position))
+    || !close(geometry.source_time_s, world.camera_coupling.clock.source_time_offset_s + geometry.time_s)
+    || !Array.isArray(geometry.normalized_action) || geometry.normalized_action.length !== 22
+    || !geometry.normalized_action.every(value => Number.isFinite(value) && Math.abs(value) <= 1)
+    || task.control.root_assistance === "disabled" && geometry.normalized_action.slice(19).some(value => value !== 0)
+    || !["current", "last_valid_control_boundary"].includes(status)
+    || m?.profile !== "camera-shared-metrics-v1" || m.kernel_branch !== "shared-exercise-task-v2" || m.task_sha256 !== identity.task_sha256
+    || !cameraPins.filter(key => key !== "source_sha256").every(key => m[key] === identity[key])
+    || m.gate_profile !== task.gate_profile || m.gates_sha256 !== task.gates_sha256
+    || m.reward_profile !== "human_tracking_effort_v1" || m.root_assistance !== task.control.root_assistance || m.virtual_object_forces !== "forbidden"
+    || m.gate_applicability?.human_tracking !== "applied" || m.gate_applicability.equipment_stability !== "not_applicable"
+    || m.gate_applicability.contact_requirements !== "not_applicable" || !empty(m.equipment) || !empty(m.contact_requirements)
+    || !Object.keys(task.scope).every(key => m.source_scope?.[key] === task.scope[key])
+    || typeof m.success !== "boolean" || typeof m.completed_interval !== "boolean" || !(m.failure === null || typeof m.failure === "string" && m.failure.length <= 240)
+    || !Array.isArray(m.failed_gates) || m.failed_gates.length > 40 || !m.failed_gates.every(value => typeof value === "string" && value.length < 200)
+    || !count(m.observed_substeps) || m.observed_substeps > maximum || !count(m.valid_substeps) || m.valid_substeps > m.observed_substeps
+    || !["simulated_duration_s", "valid_observed_duration_s", "declared_duration_s", "peak_angular_rmse_rad", "peak_root_rmse_model_units",
+      "max_floor_penetration_model_units", "joint_effort_mean_squared", "root_assistance_mean_squared"].every(key => nonnegative(m[key]))
+    || !close(m.declared_duration_s, task.interval.horizon_steps * world.dt) || !close(m.valid_observed_duration_s, m.valid_substeps * tick)
+    || m.simulated_duration_s < m.valid_observed_duration_s - 1e-8 || m.simulated_duration_s > m.observed_substeps * tick + 1e-8
+    || !close(m.observed_source_time_s, world.camera_coupling.clock.source_time_offset_s + m.simulated_duration_s)
+    || !["observed", "invalid_substep_clock", "unavailable_after_last_observed_time"].includes(m.clock_status)
+    || m.clock_status !== "observed" && m.failure === null || status === "last_valid_control_boundary" && (m.failure === null || geometry.time_s > m.simulated_duration_s + 1e-8)
+    || status === "current" && !close(geometry.time_s, m.simulated_duration_s)
+    || !["angular_rmse_rad", "root_rmse_model_units"].every(key => m.valid_substeps ? nonnegative(m[key]) && m[key] <= m[`peak_${key}`] + 1e-8 : m[key] === null)
+    || !["reward_integral", "mean_reward", "failure_reward_penalty"].every(key => Number.isFinite(m[key]))
+    || m.joint_effort_mean_squared > 1 + 1e-8 || m.root_assistance_mean_squared > 1 + 1e-8
+    || task.control.root_assistance === "disabled" && m.root_assistance_mean_squared !== 0
+    || m.completed_interval && (m.valid_substeps !== maximum || m.observed_substeps !== maximum || m.failure !== null)
+    || m.success && (!m.completed_interval || m.failed_gates.length || m.failure !== null)) return false;
+  return true;
+}
+function showCamera(){
+if(!cameraScene())return true;
+if(event===cameraDisplayedEvent)return cameraValid;
+cameraDisplayedEvent=event;
+const m=event?.exercise_metrics,state=event?.snapshot;
+cameraValid=Boolean(cameraTaskValid&&['start','reset','step'].includes(event.type)
+&&(event.type!=='step'||['manual','coast','authored'].includes(event.controller||'manual'))
+&&validCameraFrame(scene,exerciseTask,cameraIdentity,state,m,event.engine_state_status));
+const output=document.getElementById('camera-status');
+if(!cameraValid){stop();play.disabled=true;output.textContent='Camera task identity, clock or metrics unavailable. Playback is paused; no zero error or successful task is inferred.';return false;}
+play.disabled=false;
+output.textContent=`Source clock ${number(m.observed_source_time_s)}s at the observed task boundary; displayed geometry ${number(state.time_s)}s elapsed / ${number(state.source_time_s)}s source time${event.engine_state_status==='last_valid_control_boundary'?' (last valid boundary after failure)':''}. ${m.valid_substeps} valid / ${m.observed_substeps} observed substeps; ${number(m.valid_observed_duration_s)}s accepted coverage. Body error mean ${number(m.angular_rmse_rad)} / peak ${number(m.peak_angular_rmse_rad)} rad. Camera scale and ground are supplied priors. Feet, ground support and equipment contact remain unqualified. This viewer checks saved metadata consistency, not action replay or per-frame cryptographic identity.`;
+return true;}
 function showFeet(){
 if(!feetScene())return true;
 const opened=document.getElementById('feet-details').open;
@@ -120,7 +221,7 @@ coverage.textContent=`${r.qualifying_fraction===null?'Qualifying fraction unavai
 summary.textContent='Declared support identity';hash.textContent=scope.supports.find(o=>o.object_id===r.object_id).object_sha256;identity.append(summary,hash);block.append(heading,requirement,load,coverage,identity);list.append(block);}
 return true;}
 const faces=[[0,1,3,2],[4,6,7,5],[0,4,5,1],[2,3,7,6],[0,2,6,4],[1,5,7,3]];
-const workerSource=`let bundle;onmessage=({data})=>{try{if(data.type==='init'){bundle=JSON.parse(data.raw);postMessage({type:'ready',scene:bundle.scene,exercise_task:bundle.exercise_task,count:bundle.events.length});}else{postMessage({type:'frame',index:data.index,event:bundle.events[data.index]});}}catch(error){postMessage({type:'error',message:String(error)});}};`;
+const workerSource=`let bundle;onmessage=({data})=>{try{if(data.type==='init'){bundle=JSON.parse(data.raw);postMessage({type:'ready',scene:bundle.scene,exercise_task:bundle.exercise_task,camera_identity:bundle.camera_identity,count:bundle.events.length});}else{postMessage({type:'frame',index:data.index,event:bundle.events[data.index]});}}catch(error){postMessage({type:'error',message:String(error)});}};`;
 const url=URL.createObjectURL(new Blob([workerSource],{type:'application/javascript'}));
 const worker=new Worker(url);
 function stop(){if(timer!==null)clearTimeout(timer);timer=null;play.textContent='Play';}
@@ -195,10 +296,10 @@ if(row.controller==='authored')return 'Controller: authored feedback · programm
 if(row.controller==='reference_proposal'){const hash=typeof row.reference_controller_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.reference_controller_sha256)?row.reference_controller_sha256.slice(0,12):null;return `Controller: fitted-reference alternative · original task unchanged · ${hash?'SHA256 '+hash:'controller identity unavailable'} · programmed, not learned`;}
 if(row.controller==='learned'){const hash=typeof row.policy_sha256==='string'&&/^[0-9a-f]{64}$/.test(row.policy_sha256)?row.policy_sha256.slice(0,12):null;return `Controller: recorded policy · ${hash?'SHA256 '+hash:'policy identity unavailable'} · not a claim of learned improvement`;}
 return 'Controller unspecified · no recognized controller tag in this recording';}
-function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);const state=event.snapshot||{},feetReady=showFeet(),supportReady=supportScene()&&feetReady?showSupport():false,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;
+function draw(){if(!scene||!event)return;ctx.clearRect(0,0,canvas.width,canvas.height);if(cameraScene()&&!showCamera()){status.textContent='Camera task result unavailable; no valid geometry or pass is inferred.';document.getElementById('controller').textContent='Controller unavailable for this inconsistent frame.';if(details.open)detail.textContent=JSON.stringify(event,null,2);return;}const state=event.snapshot||{},feetReady=showFeet(),supportReady=supportScene()&&feetReady?showSupport():false,cy=Math.cos(Number(yaw.value)),sy=Math.sin(Number(yaw.value)),cp=Math.cos(.5),sp=Math.sin(.5),pane=canvas.width/3;
 const scale=Number(zoom.value)*Math.min(pane*.84/Math.max(scene.bounds[0],scene.bounds[1]),canvas.height*.76/Math.max(...scene.bounds));
 const center=scene.bounds.map(v=>v/2),floorZ=state.human?.mobility?.floor_height??0,goalTol=scene.task?.object_goal?.position_tolerance||.05;
-const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:supportScene()?'3D: human and static supports':baseProfile()==='shared-world-v3'?'3D: human and ground':'3D: coupled world',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
+const views=[{name:'Front: x / height',matrix:[[1,0,0],[0,0,-1]],depth:[0,1,0]},{name:'Top: x / depth',matrix:[[1,0,0],[0,-1,0]],depth:[0,0,1]},{name:cameraScene()?'3D: camera body and supplied ground':supportScene()?'3D: human and static supports':baseProfile()==='shared-world-v3'?'3D: human and ground':'3D: coupled world',matrix:[[cy,-sy,0],[sy*sp,cy*sp,-cp]],depth:[sy*cp,cy*cp,sp]}];
 const dot=(a,b)=>a.reduce((sum,v,i)=>sum+v*b[i],0),geometry=sharedGeometry(supportScene()&&!supportReady?[]:state.objects);
 views.forEach((view,index)=>{ctx.save();ctx.beginPath();ctx.rect(index*pane,0,pane,canvas.height);ctx.clip();
 if(index>0){ctx.strokeStyle='#E9DED1';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(index*pane,0);ctx.lineTo(index*pane,canvas.height);ctx.stroke();}
@@ -218,13 +319,14 @@ ctx.restore();});
 document.getElementById('frame').textContent=`${Number(slider.value)+1} / ${count}`;
 const ho=state.contact_summary?.human_object??0,cm=state.coupled_metrics||{};
 status.textContent=supportScene()?'Static-support task result unavailable.':baseProfile()==='shared-world-v3'?`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} simulated ground contacts · equipment not applicable · substeps ${state.substeps}`:`${event.type} · ${state.time_s.toFixed(3)}s · ${state.contact_count} contacts (${ho} human↔object) · object dist ${(cm.object_distance_world??0).toFixed(3)} · substeps ${state.substeps}`;
-if(exerciseTask&&!supportScene()){const m=event.exercise_metrics||{},drift=Math.max(0,...(m.equipment||[]).map(o=>o.displacement_model_units||0)),outcome=m.success?'passed':m.failure||m.completed_interval?'not passed':'in progress';status.textContent=`Human-only task · ${(m.simulated_duration_s??0).toFixed(3)}s · ${outcome} · ${baseProfile()==='shared-world-v3'?'equipment and contact requirements not applicable':`maximum equipment drift ${drift.toFixed(3)} model units`} · ${m.observed_substeps??0} measured substeps`;if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
+if(exerciseTask&&!supportScene()&&!cameraScene()){const m=event.exercise_metrics||{},drift=Math.max(0,...(m.equipment||[]).map(o=>o.displacement_model_units||0)),outcome=m.success?'passed':m.failure||m.completed_interval?'not passed':'in progress';status.textContent=`Human-only task · ${(m.simulated_duration_s??0).toFixed(3)}s · ${outcome} · ${baseProfile()==='shared-world-v3'?'equipment and contact requirements not applicable':`maximum equipment drift ${drift.toFixed(3)} model units`} · ${m.observed_substeps??0} measured substeps`;if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
 if(supportScene()){const m=event.exercise_metrics;status.textContent=supportReady?`Authored static-support task · ${number(m.simulated_duration_s)} / ${number(m.declared_duration_s)}s · ${m.failure?'not passed · simulation failed':m.completed_interval?m.success?'passed · interval complete':'not passed · interval complete':'in progress · interval incomplete'} · ${m.valid_substeps} valid / ${m.observed_substeps} observed simulated substeps`:'Static-support task result unavailable; no success or zero load is inferred.';if(event.engine_state_status==='last_valid_control_boundary')status.textContent+=' · showing last valid geometry after simulation failure';}
+if(cameraScene()){const m=event.exercise_metrics;status.textContent=`Camera-conditioned task · ${number(m.simulated_duration_s)} / ${number(m.declared_duration_s)}s · ${m.failure?'not passed · simulation failed':m.completed_interval?m.success?'passed · interval complete':'not passed · interval complete':'in progress · interval incomplete'} · clock: ${m.clock_status}`;}
 if(feetScene()){document.getElementById('support-panel').hidden=!feetReady||!supportScene();}if(feetScene()&&!feetReady)status.textContent='Feet task result unavailable; no pass is inferred.';
 if(exerciseTask){const label=document.getElementById('controller');label.hidden=false;label.textContent=controllerLabel(event);}
 if(details.open)detail.textContent=JSON.stringify(event,null,2);}
 function tick(){if(document.hidden||closed){stop();return;}if(Number(slider.value)>=count-1){stop();return;}slider.value=Number(slider.value)+1;requestFrame(Number(slider.value));timer=setTimeout(tick,1000*scene.dt);}
-worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;feetTask=feetScene()?data.exercise_task:null;exerciseTask=feetTask?feetTask.base_task:data.exercise_task||null;count=data.count;slider.max=count-1;play.disabled=slider.disabled=false;if(exerciseTask&&!supportScene()){document.getElementById('recording-title').textContent='Human-only exercise task replay';const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Equipment stays passive: no virtual object forces. Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Stability is checked throughout the declared interval; this is an authored simulation task, not verified grasp or biomechanics.`;document.getElementById('contact-explanation').textContent='Turning the view does not change physics. Dots show simulated body contacts, not necessarily qualifying wrist-region support. Only the declared wrist-region requirements count toward this task.';}if(baseProfile()==='shared-world-v3'){
+worker.onmessage=({data})=>{if(closed)return;if(data.type==='error'){stop();status.textContent='Could not load recording: '+data.message;return;}if(data.type==='ready'){URL.revokeObjectURL(url);scene=data.scene;cameraIdentity=data.camera_identity;feetTask=feetScene()?data.exercise_task:null;exerciseTask=feetTask?feetTask.base_task:data.exercise_task||null;count=data.count;cameraTaskValid=cameraScene()&&validCameraTask(scene,exerciseTask,cameraIdentity);slider.max=count-1;play.disabled=slider.disabled=false;if(exerciseTask&&!supportScene()&&!cameraScene()){document.getElementById('recording-title').textContent='Human-only exercise task replay';const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Equipment stays passive: no virtual object forces. Root assistance: ${exerciseTask.control.root_assistance==='disabled'?'disabled':'three explicit virtual controls'}. Stability is checked throughout the declared interval; this is an authored simulation task, not verified grasp or biomechanics.`;document.getElementById('contact-explanation').textContent='Turning the view does not change physics. Dots show simulated body contacts, not necessarily qualifying wrist-region support. Only the declared wrist-region requirements count toward this task.';}if(baseProfile()==='shared-world-v3'){
 document.getElementById('recording-title').textContent='Person-only 3D task replay';
 document.getElementById('world-scope').textContent='One simulated human body and ground, seen from the front, above and at an angle. No equipment or obstacles are declared; object absence is not visually verified. This is an offline state replay, not live controls. Muscle colors are illustrative motor commands; physical validation remains unverified.';
 canvas.setAttribute('aria-label','Three views of the same recorded human and ground');
@@ -236,6 +338,14 @@ document.getElementById('world-scope').textContent='One simulated human body wit
 canvas.setAttribute('aria-label','Three views of the same recorded human and authored static supports');
 document.getElementById('contact-explanation').textContent='Turning the view does not advance physics or alter the recording. Contact dots alone do not satisfy a support-load window. No object target, wrist-region or grasp requirement is inferred.';
 const scope=document.getElementById('exercise-scope');scope.hidden=false;scope.textContent=`Only human motors are controlled; static supports cannot be moved or actuated. Root assistance: ${exerciseTask?.control?.root_assistance==='disabled'?feetScene()?'disabled · 25 joint motors (19 body + 6 ankle)':'disabled · 19 joint motors':exerciseTask?.control?.root_assistance==='explicit_3_axis'?feetScene()?'three explicit virtual controls · 28 channels':'three explicit virtual controls · 22 channels':'unavailable'}. Body limits and authored load windows cover the declared interval; equipment drift is not scored.`;
+}if(cameraScene()){
+document.getElementById('recording-title').textContent='Camera-conditioned body task replay';
+document.getElementById('world-scope').textContent='Saved simulated movement from supplied camera scale and ground priors, retaining the original body shape and authored mass. This is offline state playback, not the source video or live control. Muscle colors are illustrative motor commands; physical accuracy is unverified.';
+document.getElementById('camera-panel').hidden=false;
+const scope=document.getElementById('exercise-scope');scope.hidden=false;
+scope.textContent=`Root assistance: ${exerciseTask?.control?.root_assistance==='disabled'?'disabled · 19 joint motors':exerciseTask?.control?.root_assistance==='explicit_3_axis'?'three explicit virtual controls · 22 channels':'unavailable'}. Source grid ${number(scene.camera_coupling?.clock?.source_fps,6)} frames/s; control period ${number(scene.dt,6)}s; unchanged body-reference period ${number(scene.human_spec?.dt,6)}s. Only body tracking/floor limits are scored. No equipment inventory is inferred; feet, ground support and equipment contact are unqualified. Learning and avatars are unsupported.`;
+document.getElementById('contact-explanation').textContent='Turning the view does not advance physics or alter saved states. Contact dots are simulated geometry, not recovered support or contact evidence. Source video, kinematic replay and simulated state remain distinct. Raw events and the saved replay receipt retain authoritative identities.';
+canvas.setAttribute('aria-label','Three views of the same saved camera-conditioned body simulation');
 }if(feetScene()){document.getElementById('recording-title').textContent='Body and feet task replay';document.getElementById('exercise-scope').textContent+=' Original 19-joint scoring is unchanged. Six extra ankle motors hold original-start angles, not video foot motion; optional root controls stay explicit. Foot contacts and ankle effort add no score or support credit. Learned policies, avatars and ground-load qualification are unsupported.';document.getElementById('contact-explanation').textContent+=' Foot/object contacts are unscored simulated diagnostics, not support evidence.';}requestFrame(0);return;}busy=false;if(data.index===wanted){event=data.event;draw();}else requestFrame(wanted);};
 worker.onerror=()=>{stop();status.textContent='Could not start the local recording reader.';};
 {const input=document.getElementById('data');worker.postMessage({type:'init',raw:input.textContent});input.remove();}

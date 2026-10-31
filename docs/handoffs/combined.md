@@ -1,5 +1,45 @@
 # Combined Weft implementation handoff
 
+## Playable camera-based body — October 31, 2026, 3:10 PM PDT
+
+Both tracks remain owned here and the complete goal stays active. The parallel
+reconstruction lane finished inspectable partial ankle/toe evidence, preserving
+missing heels and unknown contact; root integrated actual camera-based v6 tasks
+into the existing lab/CLI, controls, recording/export and exact replay. This
+supersedes the earlier pending camera-task integration notes, not their failures
+or uncertainty boundaries. [Current implementation, ownership and receipts](camera-shared-lab.md).
+
+The frozen committed runtime plus 14 reviewed overrides completed both original
+238-step jogging intervals. Each recording contains 240 actions and one reset;
+all 480 actions replay exactly. Explicit virtual root assistance passes authored
+body tracking; roots-off completes but fails mean/peak root tracking. Ground and
+equipment contact, calibrated feet, camera learning, avatars for this profile and
+physical accuracy remain unqualified. No scorer, floor, body or timing was tuned.
+
+Acceptance `artifacts/camera-shared-play-01`, seal
+`cd53ccda6f9f180e3afb07223f2252ec85ec6d67c7a7cb46ecd829e849c68bc3`:
+17.484 s, 960 live/replay controls, 8,640 native substeps, 512,344,064 B observed
+child peak RSS; 658 files /144,869,914 bytes. Two output-video integrity decodes
+occurred; no source decode, inference, training, paid call or network operation.
+All native jobs are terminal. Reuse the saved labs, do not repeat this study.
+
+Start the assisted console with:
+
+```sh
+.venv-lab/bin/python -m weft lab-console --resume artifacts/camera-shared-play-01/roots-on/lab
+```
+
+Use `roots-off` to inspect the no-virtual-force comparison. [Commands and
+controls](../local-lab.md#import-a-camera-based-body-experimental).
+The partial-foot saved audit preserves all 240 rows, original six negative gaps
+and exact frame-zero heel rejection; a different partial-endpoint denominator
+must not be presented as better ground contact. [Reconstruction evidence](partial-foot-evidence-jog.md).
+
+Git publication and final saved UI/source audits are tracked in the camera lab
+handoff. Main was freshly fetched and already current at `d1b461f`; index/stash
+were empty before publication preparation. Separate avatar files remain dirty
+and untouched. No browser, server or hosted deployment was started.
+
 ## Camera-coupled runtime — October 31, 2026, 2:32 PM PDT
 
 Goal active; both tracks remain owned here. The thirteen-file runtime/contract/

@@ -2339,7 +2339,8 @@ class SharedWorldEnv(gym.Env):
 
     def render(self):
         state = self.snapshot()
-        _validate_shared_snapshot(state, self.scene, self._ankle_hold if self.ankle_names else None)
+        _validate_shared_snapshot(state, self.scene, self._ankle_hold if self.ankle_names else None,
+                                  camera_identity=self._camera_identity)
         return _render_snapshot(state, self.scene)
 
     def close(self):
@@ -2368,10 +2369,12 @@ def prepare_shared_snapshot_validator(scene):
         initial += [float(value) * scale for value in spec["root_reference"][0]["translation"]]
         # Derive once for the recording, not once per frame or from untrusted snapshot targets.
         foot_hold = _initial_foot_hold(model, data, validated_scene, q_indices, initial)
-    return lambda state: _validate_shared_snapshot(state, validated_scene, foot_hold)
+    camera_identity = (canonical_hash(validated_scene["camera_coupling"])
+                       if validated_scene["profile"] == CAMERA_PROFILE else None)
+    return lambda state: _validate_shared_snapshot(state, validated_scene, foot_hold, camera_identity=camera_identity)
 
 
-def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
+def _validate_shared_snapshot(state, validated_scene, foot_hold=None, *, camera_identity=None):
     if (
         not isinstance(state, dict)
         or state.get("profile") != validated_scene["profile"]
@@ -2385,7 +2388,8 @@ def _validate_shared_snapshot(state, validated_scene, foot_hold=None):
     feet = validated_scene["profile"] == FEET_PROFILE
     position_bound = 64.0 if validated_scene["profile"] == CAMERA_PROFILE else 15.0
     if validated_scene["profile"] == CAMERA_PROFILE:
-        if (state.get("camera_coupling_sha256") != canonical_hash(validated_scene["camera_coupling"])
+        expected = camera_identity if camera_identity is not None else canonical_hash(validated_scene["camera_coupling"])
+        if (state.get("camera_coupling_sha256") != expected
                 or state.get("coordinate_frame") != validated_scene["coordinate_frame"]):
             raise ValueError("Camera snapshot must retain its exact coupling and coordinate frame")
     if no_object_goal and ("target" not in state or state["target"] is not None

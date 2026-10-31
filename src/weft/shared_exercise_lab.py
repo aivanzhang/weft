@@ -14,7 +14,7 @@ from weft.io import canonical_hash, local_time
 from weft.shared_exercise_recording import recording_scene, validate_action, verify_action_replay
 from weft.shared_exercise_reset import describe_reset_protocol, resolve_reset_options
 from weft.shared_exercise_task import SharedExerciseTaskEnv, build_shared_exercise_task, validate_shared_exercise_task
-from weft.shared_world import FEET_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, SharedWorldEnv, validate_shared_world
+from weft.shared_world import CAMERA_PROFILE, FEET_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, SharedWorldEnv, validate_shared_world
 from weft.shared_world_packaging import (
     collect_shared_source_files, read_package_file, read_package_manifest, validate_package_layout, write_package_files,
 )
@@ -38,6 +38,12 @@ FEET_RUNTIME_FILES = (
     "shared_exercise_feet_projection.py", "shared_exercise_feet_task.py", "shared_exercise_feet_state.py",
     "shared_exercise_feet_recording.py", "shared_exercise_recording.py", "recording.py", "shared_support_task.py",
 )
+CAMERA_RUNTIME_FILES = (
+    "camera_shared_task.py", "camera_shared_state.py", "camera_shared_recording.py", "camera_shared_contract.py",
+    "camera_body.py", "camera_ground.py", "camera_pose.py", "multiview_root.py", "multiview_body.py", "multiview_pose.py",
+    "multiview_segments.py", "shared_exercise_recording.py", "recording.py", "camera_shared_receipt.py",
+    "shared_exercise_feet_state.py", "shared_exercise_feet_projection.py", "shared_support_task.py",
+)
 
 
 def _base_profile(scene):
@@ -45,6 +51,9 @@ def _base_profile(scene):
 
 
 def _validate_task(task, scene):
+    if scene["profile"] == CAMERA_PROFILE:
+        from weft.camera_shared_task import validate_camera_shared_task
+        return validate_camera_shared_task(task, scene)
     if scene["profile"] == FEET_PROFILE:
         from weft.shared_exercise_feet_task import validate_shared_exercise_feet_task
         return validate_shared_exercise_feet_task(task, scene)
@@ -53,6 +62,8 @@ def _validate_task(task, scene):
 
 def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
+    if scene["profile"] == CAMERA_PROFILE:
+        return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES)
     if scene["profile"] == FEET_PROFILE:
         inventory = ("person_inventory.py",) if _base_profile(scene) == HUMAN_ONLY_PROFILE else ()
         return (*RUNTIME_FILES, *FEET_RUNTIME_FILES, *inventory)
@@ -139,6 +150,28 @@ def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=
                                       expected_sha256=hashes["scene.json"])
         scene = _json(scene_raw)
         fetched = {"scene.json": scene_raw}
+        if isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE:
+            if policy_run is not None or evaluation_run is not None:
+                raise ValueError("Camera-based tasks have no qualified policies or learning evaluation")
+            for name, maximum in (("exercise-task.json", 64 << 10), ("exercise-lab.json", 128 << 10)):
+                if name in hashes:
+                    fetched[name] = read_package_file(directory, name, max_bytes=maximum, expected_sha256=hashes[name])
+            if "exercise-lab.json" in fetched:
+                contract = _json(fetched["exercise-lab.json"])
+                if (contract.get("learned_policy_available") is not False
+                        or any(key in contract for key in ("policy_sha256", "exercise_policy", "policy_evaluation_sha256"))):
+                    raise ValueError("Camera-based tasks cannot expose unqualified learning")
+            if any(name in {"policy.json", "policy-evaluation.json"}
+                   or name.startswith(("learning-run/", "policy-evaluation-run/")) for name in hashes):
+                raise ValueError("Camera-based tasks cannot import unqualified learning")
+            if "camera-coupling.json" not in hashes:
+                raise ValueError("Camera lab requires its exact displayed coupling")
+            raw = read_package_file(directory, "camera-coupling.json", max_bytes=64 << 10,
+                                    expected_sha256=hashes["camera-coupling.json"])
+            if _json(raw) != scene.get("camera_coupling"):
+                raise ValueError("Displayed camera coupling differs from the simulated source binding")
+            fetched["camera-coupling.json"] = raw
+            return fetched
         if not isinstance(scene, dict) or scene.get("profile") != FEET_PROFILE:
             return fetched
         if policy_run is not None or evaluation_run is not None:
@@ -218,6 +251,8 @@ def _reference_frames(scene, deadline):
                 "reference_poses_total": count, "reference_poses_included": len(frames),
                 "scope": ("Kinematic body projection with fixed original-start ankle hold; no video ankle tracking, physics actions or contact inference."
                           if scene["profile"] == FEET_PROFILE else
+                          "Kinematic camera-based body at original source times; no recovered feet, equipment or ground contact."
+                          if scene["profile"] == CAMERA_PROFILE else
                           "Kinematic body projection with ground only; no physics actions or equipment inference."
                           if scene["profile"] == HUMAN_ONLY_PROFILE else
                           "Kinematic body projection with authored static supports; no physics actions or contact inference."
@@ -461,7 +496,11 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     elif task_path is None:
         if feet:
             raise ValueError("Coupled feet require an explicit source-bound task; base requirements cannot be replaced by defaults")
-        task = build_shared_exercise_task(scene, root_assistance=root_assistance)
+        if scene["profile"] == CAMERA_PROFILE:
+            from weft.camera_shared_task import build_camera_shared_task
+            task = build_camera_shared_task(scene, root_assistance=root_assistance)
+        else:
+            task = build_shared_exercise_task(scene, root_assistance=root_assistance)
     else:
         path = Path(task_path).absolute()
         task_raw = read_package_file(path.parent, path.name, max_bytes=(128 if feet else 64) * 1024)
@@ -497,6 +536,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                 "runtime_versions": _runtime_versions(),
                 "scope": ("Coupled feet with original body scoring and unscored ankle diagnostics; no video ankle tracking, foot support credit, ground-load qualification or physical validation."
                           if feet else
+                          "Camera-based body with original clocks and unchanged body scoring; no recovered feet, equipment, contact, learning or physical validation."
+                          if scene["profile"] == CAMERA_PROFILE else
                           "Authored human/static-support load task; no recovered contact, grasp or physical validation."
                           if scene["profile"] == STATIC_SUPPORT_PROFILE else
                           "Independent authored human-only simulator task; no recovered grasp or physical validation.")}
@@ -508,6 +549,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
              if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")
              or base_profile == HUMAN_ONLY_PROFILE and name in {"inventory.json", "source-clock.json"}
              or base_profile == STATIC_SUPPORT_PROFILE and name in {"support-config.json", "source-clock.json"}
+             or base_profile == CAMERA_PROFILE and name in {"camera-coupling.json", "camera.json", "ground.json",
+                 "ground-clearance.json", "two-view-triangulation.json", "camera-provenance.json"}
              or feet and name in {"foot-reference.json", "feet-migration.json"}}
     if feet:
         views["foot-reference.json"] = scene["foot_extension"]["reference_json"].encode("utf-8")
@@ -551,7 +594,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     manifest = _bytes({"schema_version": 1, "created_at": local_time(), "status": "ready",
                        "control_profile": CONTROL_PROFILE, "files": {name: _sha(raw) for name, raw in files.items()}})
     event = {"stage": "shared_exercise_import", "message": ("Verified coupled-feet task; original body scoring and separate unscored ankle diagnostics"
-             if feet else "Verified immutable person-only task and ground-only inventory"
+             if feet else "Verified camera-based body task; ground/equipment contact and learning remain unqualified"
+             if scene["profile"] == CAMERA_PROFILE else "Verified immutable person-only task and ground-only inventory"
              if scene["profile"] == HUMAN_ONLY_PROFILE else "Verified immutable human task and declared static supports"
              if scene["profile"] == STATIC_SUPPORT_PROFILE else "Verified immutable human-only task and passive equipment"),
              "time": local_time()}
@@ -641,11 +685,11 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
         raise ValueError("Exercise lab cannot rewrite the original engine scene")
     policy = None
     evaluation_successes, evaluation_reset_protocol = None, None
-    if scene["profile"] == FEET_PROFILE and (contract["learned_policy_available"]
+    if scene["profile"] in (FEET_PROFILE, CAMERA_PROFILE) and (contract["learned_policy_available"]
             or any(name in files for name in ("policy.json", "policy-evaluation.json"))
             or any(name.startswith(("learning-run/", "policy-evaluation-run/")) for name in files)
             or any(name in contract for name in ("policy_sha256", "exercise_policy", "policy_evaluation_sha256"))):
-        raise ValueError("Coupled-feet labs cannot expose unqualified policies or policy evaluation")
+        raise ValueError("Coupled-feet/camera labs cannot expose unqualified policies or policy evaluation")
     if contract["learned_policy_available"]:
         if not {"policy.json", "learning-run/manifest.json"} <= set(files):
             raise ValueError("Exercise lab learned policy lacks its complete training package")
@@ -718,7 +762,13 @@ class SharedExerciseSession:
         self.policy = loaded.get("policy")
         self.policy_sha256 = loaded["contract"].get("policy_sha256")
         self._exercise_policy = loaded["contract"].get("exercise_policy")
-        if self.scene_profile == FEET_PROFILE:
+        if self.scene_profile == CAMERA_PROFILE:
+            from weft.camera_shared_recording import recording_scene as camera_recording_scene
+            from weft.camera_shared_task import CameraSharedTaskEnv
+
+            self._recording_scene = camera_recording_scene(self._scene, self._task)
+            self.env = CameraSharedTaskEnv(self._scene, self._task)
+        elif self.scene_profile == FEET_PROFILE:
             from weft.shared_exercise_feet_recording import recording_scene as feet_recording_scene
             from weft.shared_exercise_feet_task import SharedExerciseFeetTaskEnv
 
@@ -777,7 +827,10 @@ class SharedExerciseSession:
         return self.env.authored_action().tolist()
 
     def resolve_action(self, action):
-        if self.scene_profile == FEET_PROFILE:
+        if self.scene_profile == CAMERA_PROFILE:
+            from weft.camera_shared_recording import validate_action as validate_camera_action
+            validate_camera_action(action, self._recording_scene)
+        elif self.scene_profile == FEET_PROFILE:
             from weft.shared_exercise_feet_recording import validate_action as validate_feet_action
             validate_feet_action(action, self._recording_scene)
         else:
@@ -796,6 +849,9 @@ class SharedExerciseSession:
 def verify_shared_exercise_action_replay(root, *, max_seconds=60):
     root = Path(root)
     envelope = _json(read_package_file(root, "scene.json", max_bytes=16 * 1024 * 1024))
+    if isinstance(envelope, dict) and envelope.get("profile") == "camera-shared-recording-v1":
+        from weft.camera_shared_recording import verify_action_replay as verify_camera_replay
+        return verify_camera_replay(root, max_seconds=max_seconds)
     if isinstance(envelope, dict) and envelope.get("profile") == "shared-exercise-feet-recording-v1":
         from weft.shared_exercise_feet_recording import verify_action_replay as verify_feet_replay
         return verify_feet_replay(root, max_seconds=max_seconds)
