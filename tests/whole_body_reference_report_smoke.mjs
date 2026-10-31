@@ -48,13 +48,36 @@ assert.equal(el('previous').disabled, true);
 assert.match(el('identity').textContent, /Retained source slot 1\/3.*decoder time Unknown/);
 assert.match(el('source-id').textContent, /:frame:0$/);
 assert.equal(rowText('points')[1][4], 'Unknown');
+// One source-level descriptor is visible only for the selected crop, never for grid/unknown targets.
+const origin = data.source[0].target_origin;
+if (origin) {
+  assert.equal(el('target-label').textContent, 'Selected crop estimate, mapped to source image');
+  assert.equal(el('target-details').hidden, false);
+  assert.equal(el('target-metadata').children.length, 12);
+  for (const key of ['method', 'original_observation_sha256', 'proposal_sha256', 'decision_sha256']) {
+    assert(el('target-metadata').textContent.includes(origin[key]));
+  }
+  assert(el('target-metadata').textContent.includes('Landmark JSON pathlandmarks'));
+  assert(!el('target-metadata').textContent.includes('image_refinement.landmarks'));
+  el('target-details').open = true;
+  const provenanceNodes = liveNodes();
+  el('sample').fire('change');
+  assert.equal(el('target-details').open, true);
+  assert.equal(liveNodes(), provenanceNodes);
+} else {
+  assert.equal(el('target-label').textContent, 'Inferred whole-frame estimate');
+  assert.equal(el('target-details').hidden, true);
+}
 const lines = el('lines').children.slice();
 assert.equal(lines.length, 3);
 assert.equal((lines[1].getAttribute('d').match(/ M/g) || []).length, 2, 'Missing geometry breaks the chart path');
 el('next').click();
 assert.equal(el('sample').value, 1);
 assert.match(el('context').textContent, /No body reference/);
-assert.match(el('penetration').textContent, /Original source: Unknown; candidate: Unknown/);
+assert.match(el('penetration').textContent, /Input body: Unknown; Proposed body: Unknown/);
+assert.equal(el('target-details').hidden, true);
+assert.equal(el('target-metadata').children.length, 0);
+assert.match(el('target-label').textContent, /Unavailable/);
 assert.equal(el('before-dot').style.display, 'none');
 assert.equal(el('after-dot').style.display, 'none');
 assert(rowText('gaps').every(cells => cells[2] === 'Unknown' && cells[3] === 'Unknown'));
@@ -85,6 +108,9 @@ assert.match(el('identity').textContent, /Control-grid check 1\/3/);
 assert.match(el('source-id').textContent, /No direct source observation ID/);
 assert.match(el('context').textContent, /Body reference .*:frame:0 at 0\.00000 s/);
 assert.match(rowText('points')[0][0], /Unavailable.*no source endpoint targets/);
+assert.equal(el('target-details').hidden, true);
+assert.equal(el('target-metadata').children.length, 0);
+assert.match(el('target-label').textContent, /Unavailable/);
 assert.notEqual(el('lines').children[1], lines[1]);
 el('next').click();
 assert.match(el('context').textContent, /:frame:0.*:frame:2/);
@@ -97,5 +123,5 @@ assert.equal(liveNodes(), baseline);
 assert.equal(el('lines').children[1], gridLine);
 assert.equal(fetches, 0); assert.equal(timers, 0);
 assert(!/\b(?:fetch|XMLHttpRequest|WebSocket|setInterval|requestAnimationFrame)\s*\(/.test(scripts[1][1]));
-process.stdout.write(JSON.stringify({checks:4, fetches, timers, live_nodes:liveNodes(), created_nodes:created,
+process.stdout.write(JSON.stringify({checks:5, fetches, timers, live_nodes:liveNodes(), created_nodes:created,
   seconds:(performance.now() - start) / 1000, measurement:'scripted DOM only; not browser responsiveness'}) + '\n');

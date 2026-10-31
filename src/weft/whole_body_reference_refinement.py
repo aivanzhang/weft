@@ -76,6 +76,31 @@ def _settings(values):
     return result
 
 
+def _target_origin(frame):
+    if 'image_refinement' not in frame:
+        _require('image_refinement_raw' not in frame, 'crop original lacks its selection marker')
+        return None
+    marker, original = frame['image_refinement'], frame.get('image_refinement_raw')
+    _require('identity_raw' not in frame and isinstance(marker, dict)
+             and marker.get('method') == 'single-view-selective-crop-v1'
+             and marker.get('anatomical_identity_verified') is False, 'unsupported or mixed crop target provenance')
+    fields = ('id', 'frame', 'time_s', 'decoder_timestamp_s')
+    _require(isinstance(original, dict)
+             and all(key in original and key in frame and original[key] == frame[key] for key in fields)
+             and not any(key in original for key in ('identity_raw', 'image_refinement', 'image_refinement_raw')),
+             'crop original identity, clocks or unmodified provenance differ')
+    hashes = ('original_observation_sha256', 'proposal_sha256', 'decision_sha256')
+    _require(all(isinstance(marker.get(key), str) and len(marker[key]) == 64
+                 and all(c in '0123456789abcdef' for c in marker[key]) for key in hashes),
+             'crop target provenance requires exact SHA256 identities')
+    proposal = {key: value for key, value in frame.items() if key not in ('image_refinement', 'image_refinement_raw')}
+    _require(marker['original_observation_sha256'] == canonical_hash(original)
+             and marker['proposal_sha256'] == canonical_hash(proposal), 'crop target observation identity differs')
+    # Full decision/mapping authentication belongs to the source adapter; targets stay unchanged.
+    return {'kind': 'selected_crop_estimate_mapped_to_source', 'method': marker['method'],
+            **{key: marker[key] for key in hashes}, 'anatomical_identity_verified': False}
+
+
 def _targets(frame, origin, width, height, scale):
     targets, weights, details = np.zeros((12, 2)), np.zeros(12), []
     raw = frame.get('identity_raw', frame)
@@ -166,9 +191,11 @@ def _prepare(spec, evidence):
         _require(isinstance(record, dict) and reference['time_s'] == record.get('time_s') == origin['time_s']
                  and record.get('evidence_id') == origin['evidence_id'], 'source identity/clock differs')
         frame = frames[origin['evidence_id']]
+        target_origin = _target_origin(frame)
         target, weights, points = _targets(frame, origin, width, height, root['scale']['model_units_per_pixel'])
         prepared.append({'target': target, 'weights': weights, 'points': points, 'evidence_id': origin['evidence_id'],
-                         'frame': frame['frame'], 'time_s': origin['time_s'], 'root_status': origin['status']})
+                         'frame': frame['frame'], 'time_s': origin['time_s'], 'root_status': origin['status'],
+                         **({'target_origin': target_origin} if target_origin is not None else {})})
     return np.array(times), np.array(angles), np.array([row['translation'] for row in expected]), prepared, root
 
 
@@ -495,7 +522,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         source_rows.append({key: row[key] for key in ('evidence_id', 'frame', 'time_s', 'root_status')} | {
             'status': 'frozen_first_reference' if i == 0 else 'unchanged_missing_source_targets' if not np.any(row['weights']) else
                       'changed_inferred_proposal' if np.any(changes[i]) else 'unchanged_no_accepted_step',
-            'points': points, 'correction_rad': dict(zip(NAMES, changes[i].tolist()))})
+            'points': points, 'correction_rad': dict(zip(NAMES, changes[i].tolist())),
+            **({'target_origin': deepcopy(row['target_origin'])} if 'target_origin' in row else {})})
     failures = [key for key, passed in gates.items() if not passed]
     status = 'partial_budget_exhausted' if expired else 'rejected_construction_proposal' if failures else 'unadmitted_construction_proposal'
     candidate['whole_body_reference_refinement'] = {

@@ -99,6 +99,32 @@ def generated(tmp_path, documents=None, *, pinned=True):
     return source, out, seal, result
 
 
+def bind_evidence(documents):
+    identity = digest(encode(documents['inputs/evidence-derived.json']))
+    documents['report.json']['input_evidence_sha256'] = identity
+    candidate = documents['candidate-human.json']
+    candidate['whole_body_reference_refinement']['input_evidence_sha256'] = identity
+    documents['report.json']['candidate_sha256'] = digest(json.dumps(candidate, sort_keys=True, allow_nan=False).encode())
+
+
+def crop_documents():
+    documents = fixture_documents()
+    frame = documents['inputs/evidence-derived.json']['frames'][0]
+    frame['landmarks'] = [{'x': .5, 'y': .25}]
+    preserved = deepcopy(frame)
+    frame['landmarks'][0]['x'] = .6
+    canonical = lambda value: digest(json.dumps(value, sort_keys=True, allow_nan=False).encode())
+    meta = {'method': 'single-view-selective-crop-v1', 'crop': {'box_xyxy': [10, 20, 200, 300]},
+            'original_observation_sha256': canonical(preserved), 'proposal_sha256': canonical(frame),
+            'decision_sha256': 'd' * 64, 'anatomical_identity_verified': False}
+    frame.update(image_refinement=meta, image_refinement_raw=preserved)
+    ref = documents['report.json']['references'][0]
+    ref['target_origin'] = {'kind': 'selected_crop_estimate_mapped_to_source', **{k: v for k, v in meta.items() if k != 'crop'}}
+    for point in ref['points']: point['landmark_source'] = 'landmarks'
+    bind_evidence(documents)
+    return documents
+
+
 def test_rejected_report_preserves_unknowns_selected_bytes_and_distinct_counts(tmp_path):
     source, out, seal, result = generated(tmp_path)
     data, page = json.loads((out / 'report.json').read_bytes()), (out / 'index.html').read_text()
@@ -316,8 +342,87 @@ def test_html_escaping_and_scripted_navigation(tmp_path):
     run = subprocess.run(['node', str(smoke), str(out / 'index.html')], capture_output=True, text=True, timeout=10)
     assert run.returncode == 0, run.stderr
     result = json.loads(run.stdout)
-    assert result['checks'] == 4 and result['fetches'] == 0 and result['timers'] == 0
+    assert result['checks'] == 5 and result['fetches'] == 0 and result['timers'] == 0
     assert result['measurement'] == 'scripted DOM only; not browser responsiveness'
+
+
+def test_selected_crop_targets_keep_exact_provenance_and_same_target_body_labels(tmp_path):
+    documents = crop_documents()
+    attack = '</script><img src=x onerror="throw 1">'
+    saved = documents['report.json']
+    saved['support_names'][2] = attack + ':0.0'
+    saved['support_primitive_names'][2] = attack
+    _, out, _, _ = generated(tmp_path, documents)
+    data, page = json.loads((out / 'report.json').read_bytes()), (out / 'index.html').read_text()
+    assert data['source'][0]['target_origin'] == saved['references'][0]['target_origin']
+    assert data['source'][0]['target_label'] == 'Selected crop estimate, mapped to source image'
+    assert data['source'][0]['target_landmark_source'] == 'landmarks'
+    assert data['source'][1]['target_origin'] is None and data['source'][1]['target_landmark_source'] is None
+    assert data['source'][2]['target_origin'] is None and data['source'][2]['target_label'] == 'Inferred whole-frame estimate'
+    assert all(row['target_origin'] is None and row['target_landmark_source'] is None for row in data['grid'])
+    assert 'Input body: teal line. Proposed body: clay line.' in page
+    assert 'same selected source-image targets' in page and 'not before/after crop-detector accuracy' in page
+    assert 'supplied input body (after any pose recovery), not a body from before crop selection' in page
+    assert 'Original source:' not in page and 'image_refinement.landmarks' not in page
+    assert 'decision bytes and image pixels are not read or independently verified' in page
+    smoke = Path(__file__).with_name('whole_body_reference_report_smoke.mjs')
+    run = subprocess.run(['node', str(smoke), str(out / 'index.html')], capture_output=True, text=True, timeout=10)
+    assert run.returncode == 0, run.stderr
+    assert json.loads(run.stdout)['checks'] == 5
+
+
+@pytest.mark.parametrize('change, message', [
+    (lambda frame, ref: ref.pop('target_origin'), 'exact target_origin'),
+    (lambda frame, ref: ref['target_origin'].update(proposal_sha256='b' * 64), 'exact target_origin'),
+    (lambda frame, ref: ref['target_origin'].update(anatomical_identity_verified=0), 'exact target_origin'),
+    (lambda frame, ref: frame['image_refinement'].update(method='unknown-crop-method'), 'Unsupported selected crop'),
+    (lambda frame, ref: frame['image_refinement'].update(decision_sha256='<script>'), 'exact SHA256'),
+    (lambda frame, ref: frame.update(identity_raw=deepcopy(frame['image_refinement_raw'])), 'cannot mix identity repair'),
+    (lambda frame, ref: frame['image_refinement_raw'].update(identity_raw=None), 'cannot mix identity repair'),
+    (lambda frame, ref: frame['image_refinement_raw'].update(time_s=.01), 'identities or clocks'),
+    (lambda frame, ref: frame['image_refinement_raw']['landmarks'][0].update(x=.8), 'raw proposal identity'),
+    (lambda frame, ref: frame['landmarks'][0].update(x=.8), 'raw proposal identity'),
+    (lambda frame, ref: ref['points'][0].update(landmark_source='image_refinement.landmarks'), 'actual selected JSON path'),
+    (lambda frame, ref: ref['points'][0].pop('landmark_source'), 'actual selected JSON path'),
+])
+def test_crop_target_mismatch_or_missing_provenance_never_becomes_whole_frame_label(tmp_path, change, message):
+    documents = crop_documents()
+    change(documents['inputs/evidence-derived.json']['frames'][0], documents['report.json']['references'][0])
+    bind_evidence(documents)
+    source, out = tmp_path / 'source', tmp_path / 'out'
+    seal = save_study(source, documents)
+    with pytest.raises(ValueError, match=message):
+        report.prepare_whole_body_reference_report(source, out, expected_manifest_sha256=seal)
+    assert not out.exists()
+
+
+def test_crop_provenance_cannot_be_attached_to_an_ordinary_source_frame(tmp_path):
+    descriptor = crop_documents()['report.json']['references'][0]['target_origin']
+    documents = fixture_documents()
+    documents['report.json']['references'][0]['target_origin'] = descriptor
+    source = tmp_path / 'source'
+    seal = save_study(source, documents)
+    with pytest.raises(ValueError, match='crop absent'):
+        report.prepare_whole_body_reference_report(source, tmp_path / 'out', expected_manifest_sha256=seal)
+
+
+def test_identity_raw_targets_stay_whole_frame_and_crop_unknown_errors_stay_unknown(tmp_path):
+    documents = crop_documents()
+    evidence, saved = documents['inputs/evidence-derived.json'], documents['report.json']
+    frame = evidence['frames'][2]
+    frame['identity_raw'] = deepcopy(frame)
+    for point in saved['references'][1]['points']: point['landmark_source'] = 'identity_raw.landmarks'
+    for point in saved['references'][0]['points']:
+        point.update(weight=0., error_before_px=None, error_after_px=None, status='unavailable_source_endpoint')
+    saved['image_summary']['confident_source_endpoint_pairs'] = 1
+    bind_evidence(documents)
+    _, out, _, _ = generated(tmp_path, documents)
+    data = json.loads((out / 'report.json').read_bytes())
+    assert data['source'][2]['target_origin'] is None
+    assert data['source'][2]['target_landmark_source'] == 'identity_raw.landmarks'
+    assert 'preserved before identity processing' in data['source'][2]['target_label']
+    assert data['source'][0]['target_origin'] == saved['references'][0]['target_origin']
+    assert all(point['error_before_px'] is None and point['error_after_px'] is None for point in data['source'][0]['points'])
 
 
 def test_import_is_metadata_only():

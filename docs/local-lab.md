@@ -124,8 +124,13 @@ were saved, **not** that the candidate passed or was installed.
 
 The input must be a supported, sealed `exercise-body` construction output.
 It reuses saved poses, without decoding video, running inference or making API
-calls. Unknown producer versions, crop-recovered poses, supplied cameras and
-already-corrected bodies currently stop explicitly. Default fitting is image-first;
+calls. The normal selective-crop recovery output is supported when its complete
+proof is present. Weft checks the original video hash and every saved crop
+decision; the report identifies targets from accepted crops. Both displayed
+bodies use the same selected targets, so their errors are not a comparison of
+the detector before and after cropping. Unknown producer versions, incomplete
+recovery proofs, supplied cameras and already-corrected bodies stop explicitly.
+Default fitting is image-first;
 `--objective floor-first` selects the experimental alternative, not a fallback.
 `--fit-seconds` can tighten the 30-second fit limit. See
 [bounds and source verification](body-model-options.md#propose-a-correction-from-a-saved-body).

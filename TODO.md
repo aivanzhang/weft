@@ -1,5 +1,13 @@
 # Weft iteration backlog
 
+## Crop-recovered body proposals — October 31, 2026, 5:38 AM PDT
+
+- [x] Connect sealed selective-crop body sources to `body-reference-propose` without repeating inference. Verify the original video, saved crop plans, all accepted/rejected decisions and exact verifier sources; preserve raw and selected estimates. Ordinary metadata-only inputs retain their old bounds. Recovery allows the existing 64-MiB video separately from 32 MiB of metadata. [Command, bounds and evidence](docs/body-model-options.md#propose-a-correction-from-a-saved-body).
+- [x] Preserve selected source-coordinate targets through fitting and report them explicitly. **Input body → Proposed body** uses the same targets; fixed root/shape/floor refers to the supplied recovered body, not the pre-crop estimates. No fit math, admission gate, default body or policy changes. **157 distinct focused cases pass**, including existing input regressions, bounded media packaging and report navigation.
+- [x] Verify one real saved recovery package in **0.510 s**, without decoding, inference, fitting or physics: `artifacts/body-reference-recovery-inputs-01`, seal `0f8b8e7e70b953cf88934a915a938259f9ef5d34d0fc1bee23c05686c40daaca`. Preserve 129 sampled slots /257 decoded /259 container-declared frames, 121 body references /8 unavailable slots and 5 accepted /7 rejected crops. Independent saved-only audit passes; original video and body seal are unchanged.
+- [x] Check the actual saved inputs at the fitter boundary once in **0.212 s**: all 1,305 confident endpoints exactly match the selected source-coordinate formula; 147 unavailable endpoints remain unavailable. Roots, clocks and the 0.025 model-unit floor gate are unchanged. No optimizer or geometry ran. Receipts and exact pins: [current handoff](docs/handoffs/combined.md#crop-recovery-integration--october-31-2026-538-am-pdt).
+- [ ] Continue the integrated user journey and source-supported reconstruction. This adapter does not resolve the rejected Heavy fits, coupled equipment failures, independent physical evidence or generalized-video accuracy. Keep existing playable labs and the separate avatar session intact.
+
 ## Reusable body proposal workflow — October 31, 2026, 5:04 AM PDT
 
 - [x] Expose `body-reference-propose --run <sealed-body> --out <new-directory>` through the ordinary CLI. Reuse the existing fitter and report; do not install candidates or change gates. The saved-input adapter preserves exact raw poses/clocks and checks reviewed decoder provenance without reading video. [Usage and supported envelope](docs/body-model-options.md#propose-a-correction-from-a-saved-body).

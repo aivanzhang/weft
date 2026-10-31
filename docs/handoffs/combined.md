@@ -1,5 +1,74 @@
 # Combined Weft implementation handoff
 
+## Crop recovery integration — October 31, 2026, 5:38 AM PDT
+
+The saved-body proposal path now accepts the normal selective-crop recovery
+output. This supersedes the preceding milestone's recovery rejection and next
+adapter task. Input, fitter-target, report and parent-package changes are frozen;
+no selector recipe, fitting math, physics, default, policy or admission gate changed.
+Root owns documentation and scoped publication on `main`. Prior HEAD and refreshed
+`origin/main` both match `100c2e3e0f4215a629a1f66a15291384a0855714`.
+
+The loader verifies the complete saved proof once with the unchanged ten-file
+recovery recipe, including original video bytes, original/selected/raw poses,
+crop mappings and every accepted/rejected candidate. Later rechecks only hash
+inputs/code. Recovery has a separate 64-MiB exact-video allowance plus 32 MiB of
+metadata, 8 MiB per metadata member; parent packaging allows 160 MiB/96 files.
+Ordinary input/package limits remain unchanged. The report labels selected
+source-coordinate estimates and compares Input body/Proposed body against the
+same targets. Root/shape/floor remain fixed relative to the supplied recovered body.
+
+**Verification:** 157 distinct passing cases across
+`.local/reference-recovery-inputs-tests-{01,02,03}.xml`,
+`reference-recovery-legacy-inputs-01.xml`,
+`reference-recovery-pipeline-tests-{01,02}.xml`,
+`reference-target-origin-tests-01.xml` and
+`reference-target-report-tests-{01,02}.xml` (all under `.local/`). Counts are
+deduplicated, not summed repeated runs. The 9-MiB adapter and 17-MiB parent cases
+exercise the separate media allowance. Independent static review passed.
+
+One real saved-proof acceptance used
+`.local/run_reference_recovery_inputs_01.py` and
+`artifacts/native-crop-build-02/body_source`, source seal
+`a1816eb4f56ba6f3fab74390b40a9eedbdac50cebbee698f45a161af7dfe9641`.
+Output `artifacts/body-reference-recovery-inputs-01`, seal
+`0f8b8e7e70b953cf88934a915a938259f9ef5d34d0fc1bee23c05686c40daaca`:
+0.510105 s outer /0.461283 s worker, 135,299,072 B observed peak RSS,
+33 exact source members /34 copied inputs /17,000,398 copied bytes. Original video
+is unchanged at 1,251,790 B. Counts remain 129 sampled /257 saved decoded /259
+container-declared frames, 121 body references /8 unavailable slots and 5 accepted
+/7 rejected crops. One validator/derivation replay, 129 plans and 12 recorded
+journal-candidate assessments; internal accepted-row rechecks are not separately
+counted. Numerical/image libraries load, but no frames are decoded and no new
+inference, fitting, physics, API call or promotion occurs. This small case does
+not measure maximum-size performance.
+
+Saved-only independent audit: `.local/body-reference-recovery-inputs-audit-01.json`,
+SHA `2b39184af32b6ad09f1393cd35b046cbfcaa970538f097d7a0b52ae632dd3764`:
+41 terminal members, 33 source copies, 19 implementation pins and ten recipe pins
+verify; derived evidence differs only by dimension provenance. No selector rerun.
+Separate fitter-target preflight:
+`.local/body-reference-recovery-target-preflight-01.json`, SHA
+`9d6b8dbe11836ccb45e1fe6af5f599465c211b55f5a4707a2b63024eb571d804`:
+0.211763 s outer /0.139509 s child, 62,308,352 B observed peak RSS; two document
+reads, one `_prepare`/root derivation, 121 targets including five mapped-crop rows.
+All 1,305 confident endpoints have exactly zero coordinate-conversion error;
+147 unavailable endpoints stay unavailable. No second crop mapping, optimizer,
+geometry, media, inference, physics or API work. Both input documents, roots,
+native/nominal clocks and full contract remain unchanged. Eleven code pins match.
+
+These checks verify integration, not anatomical accuracy or physical success.
+No actual crop-body fit/report was generated, and the two rejected Heavy fits
+and coupled equipment failures remain unchanged. External API cost is $0 for
+this milestone; the shared Meta ledger was not read or modified. No native
+worker handles remain. Preserve the 75 avatar-session status entries; stashes
+are empty. The full goal stays active.
+
+Next safe work: finish scoped publication, then advance an actual reconstruction
+or user-journey gap. Read-only parallel scoping is underway for a new supported
+reconstruction hypothesis and a missing video-to-play handoff. Do not repeat
+unchanged fits, tighten a source claim without evidence, or change fixed gates.
+
 ## Public body proposal workflow — October 31, 2026, 5:04 AM PDT
 
 Prior publication `9e43f99c3f50ff007fc31ed3ba72d7fa6771cef8` was refreshed with

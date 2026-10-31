@@ -8,6 +8,7 @@ import os
 from pathlib import Path, PurePosixPath
 import re
 import stat
+import sys
 import time
 
 
@@ -16,6 +17,8 @@ BODY_PROFILE = "exercise-body-source-v1"
 MAX_JSON_BYTES = 8 * 1024 * 1024
 MAX_MANIFEST_BYTES = 128 * 1024
 MAX_INPUT_BYTES = 32 * 1024 * 1024
+MAX_MEDIA_BYTES = 64 * 1024 * 1024
+MAX_RECOVERY_BYTES = 96 * 1024 * 1024
 MAX_MEMBERS = 512
 _SHA = re.compile(r"[0-9a-f]{64}")
 _POSE = {"evidence.json", "pose-landmarks.json", "identity-audit.json", "model.json",
@@ -29,6 +32,14 @@ _DECODERS = {"7a40f269189246ea07dddb416610d6419b78092824960c1ece6e4255810de3d3":
              "opencv-fixed-resolution-complete-exercise-decode-v1"}
 _PRODUCER = "implementation-source/exercise_vision.py"
 _SOURCE_PRODUCERS = (_PRODUCER, "implementation-src--weft--exercise_vision.py")
+_RECOVERY_IMPLEMENTATION = ("pose_source_recovery.py", "pose_crop_selection.py", "pose_crop.py", "exercise_vision.py",
+    "io.py", "errors.py", "exercise_source.py", "shared_world_packaging.py", "world_evidence.py", "observations.py")
+_RECOVERY_PROOF = frozenset({"pose-recovery.json", "recovery/input-manifest.json", "recovery/implementation.json",
+    "recovery/baseline-evidence.json", "recovery/baseline-identity-audit.json", "recovery/plans.json",
+    "recovery/candidates.jsonl", "recovery/decisions.json",
+    *("recovery/implementation-source/" + name for name in _RECOVERY_IMPLEMENTATION)})
+_RECOVERY_PRODUCER = "recovery/" + _PRODUCER
+_RECOVERY_MEDIA_SCOPE = "Exact original source bytes read and SHA256-verified for saved crop proof; no video decode or new inference"
 
 
 def _require(condition, message):
@@ -136,16 +147,22 @@ def _root_fd(root, expected=None):
 class _Reader:
     def __init__(self, root, deadline, identity=None):
         self.root, self.deadline = root, deadline
-        self.pins, self.total = {}, 0
+        self.pins, self.total, self.media_bytes, self.media_name = {}, 0, 0, None
         _check(deadline)
         fd, self.identity = _root_fd(root, identity)
         os.close(fd)
 
-    def read(self, name, expected=None, maximum=MAX_JSON_BYTES):
+    def read(self, name, expected=None, maximum=MAX_JSON_BYTES, *, media=False):
         _check(self.deadline)
         _name(name)
         _require(name not in self.pins, "A selected source member must be read only once")
-        limit = min(maximum, MAX_INPUT_BYTES - self.total)
+        if media:
+            _require(self.media_name is None and name in {"source" + suffix for suffix in
+                     (".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv")}, "Only one original source may use the media allowance")
+            limit = min(maximum, MAX_MEDIA_BYTES, MAX_RECOVERY_BYTES - self.total)
+        else:
+            limit = min(maximum, MAX_JSON_BYTES, MAX_INPUT_BYTES - (self.total - self.media_bytes),
+                        MAX_RECOVERY_BYTES - self.total)
         _require(limit > 0, "Selected input aggregate byte bound exceeded")
         root_fd, _ = _root_fd(self.root, self.identity)
         parent = os.dup(root_fd)
@@ -176,11 +193,13 @@ class _Reader:
         _require(expected is None or digest == expected, "Selected input differs from its sealed SHA256")
         self.pins[name] = digest
         self.total += len(raw)
+        if media:
+            self.media_bytes, self.media_name = len(raw), name
         _check(self.deadline)
         return raw
 
 
-def _pose_bindings(documents, raw_files, marker):
+def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
     evidence, human = documents["evidence.json"], documents["human.json"]
     raw, audit, clock = (documents[name] for name in ("pose-landmarks.json", "identity-audit.json", "source-clock.json"))
     model, config = documents["model.json"], documents["run-config.json"]
@@ -230,9 +249,13 @@ def _pose_bindings(documents, raw_files, marker):
                  and all(key in frame and frame[key] == original.get(key) for key in
                          ("id", "frame", "time_s", "decoder_timestamp_s"))
                  and (native is None or type(native) in (int, float) and 0 <= native <= 60), "Raw pose clocks/identities differ")
-        _require("image_refinement" not in frame and not evidence.get("pose_reinference"),
+        _require(recovery_verified or "image_refinement" not in frame and not evidence.get("pose_reinference"),
                  "Recovered crop evidence needs a separate supported provenance adapter")
-        if "identity_raw" in frame:
+        if "image_refinement" in frame:
+            _require(recovery_verified and options["pose_identity"] == "raw"
+                     and frame.get("image_refinement_raw") == original and "identity_raw" not in frame,
+                     "Verified crop must retain its exact original whole-frame observation")
+        elif "identity_raw" in frame:
             _require(options["pose_identity"] == "temporal" and frame["identity_raw"] == original,
                      "Temporal identity must preserve the exact raw record")
             repaired.append(frame["id"])
@@ -257,6 +280,91 @@ def _pose_bindings(documents, raw_files, marker):
              "Body reference does not cover the original usable pose slots")
 
 
+def _verified_recovery(reader, declared, selected, documents, marker, source_manifest, producer_sha):
+    _require(marker.get("input_kind") == "sealed_pose_evidence"
+             and source_manifest.get("profile") == "exercise-pose-recovery-v1"
+             and source_manifest.get("status") == "source_evidence_only"
+             and source_manifest.get("simulation_ready") is False, "Recovery requires its original source-only seal")
+    parent_files = source_manifest["files"]
+    _require(_RECOVERY_PROOF <= parent_files.keys()
+             and all(parent_files[name] == declared[name] for name in _RECOVERY_PROOF), "Recovery proof differs from its parent seal")
+    for name in sorted(_RECOVERY_PROOF):
+        selected[name] = reader.read(name, declared[name],
+                                     MAX_MANIFEST_BYTES if name == "recovery/input-manifest.json" else MAX_JSON_BYTES)
+    _, proposal_files = _manifest(selected["recovery/input-manifest.json"])
+    producers = [name for name in _SOURCE_PRODUCERS if name in proposal_files]
+    _require(producers and all(proposal_files[name] == producer_sha for name in producers)
+             and declared[_RECOVERY_PRODUCER] == producer_sha, "Original crop decoder producer binding differs")
+    _require(proposal_files.get("whole_image/evidence.json") == declared["recovery/baseline-evidence.json"]
+             and proposal_files.get("selected/evidence.json") == declared["evidence.json"],
+             "Original and selected crop evidence seals differ")
+    source_name = marker["source_artifact"]
+    selected[source_name] = reader.read(source_name, marker["source_sha256"], MAX_MEDIA_BYTES, media=True)
+    _require(bool(selected[source_name]), "Recovery source media cannot be empty")
+    implementation = _json(selected["recovery/implementation.json"])
+    code_pins = implementation.get("files")
+    _require(isinstance(code_pins, dict) and set(code_pins) == set(_RECOVERY_IMPLEMENTATION),
+             "Recovery verifier source closure is incomplete")
+    runtime = _Reader(Path(__file__).parent.absolute(), reader.deadline)
+    for name, expected in code_pins.items():
+        _require(expected == declared["recovery/implementation-source/" + name], "Recovery code identity differs from its body seal")
+    # Only this route loads the existing numerical verifier; ordinary inputs remain stdlib-only.
+    from weft import pose_source_recovery as recovery
+    _require(recovery.PROOF_FILES == _RECOVERY_PROOF and tuple(recovery.IMPLEMENTATION_FILES) == _RECOVERY_IMPLEMENTATION,
+             "Recovery verifier contract differs from the supported proof closure")
+    for name in _RECOVERY_IMPLEMENTATION:
+        module = sys.modules.get("weft." + name.removesuffix(".py"))
+        _require(module is not None and Path(module.__file__).absolute() == runtime.root / name,
+                 "Recovery verifier module loaded outside its pinned source directory")
+    proof = {name: selected[name] for name in _RECOVERY_PROOF | _POSE | {source_name}}
+    _check(reader.deadline)
+    verified = recovery.validate_pose_recovery_files(proof, source_sha256=marker["source_sha256"], deadline=reader.deadline)
+    _check(reader.deadline)
+    _require(verified == documents["evidence.json"], "Validated crop evidence differs from the selected body input")
+    # The unchanged verifier checks its code before replay; seal the same bytes after replay.
+    for name, expected in code_pins.items():
+        remaining = min(MAX_INPUT_BYTES - (reader.total - reader.media_bytes) - runtime.total,
+                        MAX_RECOVERY_BYTES - reader.total - runtime.total)
+        _require(remaining > 0, "Recovery source and verifier exceed the aggregate byte bound")
+        raw = runtime.read(name, expected, min(MAX_JSON_BYTES, remaining))
+        _require(raw == selected["recovery/implementation-source/" + name], "Recovery verifier bytes differ from the preserved recipe")
+    _require(reader.total - reader.media_bytes + runtime.total <= MAX_INPUT_BYTES
+             and reader.total + runtime.total <= MAX_RECOVERY_BYTES, "Recovery source and verifier exceed the aggregate byte bound")
+    recovery_marker = _json(selected["pose-recovery.json"])
+    descriptor = {"profile": "verified-saved-selective-crop-inputs-v1", "status": "saved_derivation_verified",
+        "method": recovery_marker["method"], "summary": deepcopy(recovery_marker["result"]),
+        "marker_sha256": declared["pose-recovery.json"], "selected_evidence_sha256": declared["evidence.json"],
+        "baseline_evidence_sha256": declared["recovery/baseline-evidence.json"],
+        "raw_pose_sha256": declared["pose-landmarks.json"], "plans_sha256": declared["recovery/plans.json"],
+        "candidate_journal_sha256": declared["recovery/candidates.jsonl"], "decisions_sha256": declared["recovery/decisions.json"],
+        "proposal_manifest_sha256": declared["recovery/input-manifest.json"],
+        "decoder_producer_sha256": producer_sha, "original_decoder_manifest_member": producers[0],
+        "media": {"artifact": "inputs/" + source_name, "sha256": marker["source_sha256"],
+                  "bytes": len(selected[source_name]), "scope": _RECOVERY_MEDIA_SCOPE},
+        "bounds": {"metadata_member_bytes": MAX_JSON_BYTES, "metadata_total_bytes": MAX_INPUT_BYTES,
+                   "original_media_bytes": MAX_MEDIA_BYTES, "recovery_total_bytes": MAX_RECOVERY_BYTES},
+        "verifier_runtime": {"source_root": {"path": str(runtime.root), "device": runtime.identity[0], "inode": runtime.identity[1]},
+                             "files": dict(runtime.pins), "read_bytes": runtime.total},
+        "scope": "Unchanged saved crop plans, mappings and decisions reverified once; accepted mapped estimates remain targets, original whole-frame records remain provenance. No new perception or physical validation."}
+    return descriptor
+
+
+def _recheck_recovery_runtime(descriptor, *, deadline, maximum_bytes=MAX_INPUT_BYTES):
+    binding = descriptor["verifier_runtime"]
+    location, pins = binding["source_root"], binding["files"]
+    _require(location["path"] == str(Path(__file__).parent.absolute())
+             and set(pins) == set(_RECOVERY_IMPLEMENTATION), "Recovery verifier recheck requires its exact source closure")
+    reader = _Reader(_root_path(location["path"]), deadline, (location["device"], location["inode"]))
+    for name, expected in pins.items():
+        _require(isinstance(expected, str) and _SHA.fullmatch(expected), "Invalid recovery verifier code pin")
+        remaining = maximum_bytes - reader.total
+        _require(remaining > 0, "Recovery recheck exceeds its aggregate byte bound")
+        reader.read(name, expected, min(MAX_JSON_BYTES, remaining))
+    fd, _ = _root_fd(reader.root, reader.identity)
+    os.close(fd)
+    return reader.total
+
+
 def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline):
     """Snapshot selected sealed metadata; simulator admission and media custody remain separate."""
     _check(deadline)
@@ -270,7 +378,9 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
              and manifest.get("simulation_ready") is False and not (_CONFLICTS & declared.keys())
              and _REQUIRED | {"body-source.json", _PRODUCER} <= declared.keys(),
              "A sealed construction-only exercise body is required")
-    _require("pose-recovery.json" not in declared, "Recovered crop packages are not supported by this input adapter")
+    recovering = "pose-recovery.json" in declared
+    required = _REQUIRED | (_RECOVERY_PROOF if recovering else set())
+    _require(required <= declared.keys(), "Construction body lacks its complete crop proof")
     selected = {name: reader.read(name, declared[name]) for name in sorted(_REQUIRED | {"body-source.json", _PRODUCER})}
     documents = {name: _json(raw) for name, raw in selected.items() if name.endswith(".json")}
     marker, source_meta, implementation = (documents[name] for name in ("body-source.json", "source.json", "implementation.json"))
@@ -283,8 +393,8 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
              and declared.get(source_name) == source_sha == source_meta.get("sha256")
              and source_meta.get("artifact") == source_name, "Sealed media identity metadata conflicts")
     artifacts = marker.get("artifacts")
-    _require(isinstance(artifacts, dict) and set(artifacts) == _REQUIRED
-             and all(artifacts[name] == declared[name] for name in _REQUIRED), "Body marker member identities conflict")
+    _require(isinstance(artifacts, dict) and set(artifacts) == required
+             and all(artifacts[name] == declared[name] for name in required), "Body marker member identities conflict")
     construction = marker.get("construction", {})
     _require(construction.get("body_model") == "mobile" and construction.get("body_profile") == "exercise-v3"
              and construction.get("original_pose_config") == "run-config.json"
@@ -292,28 +402,30 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
     producer_sha = declared[_PRODUCER]
     _require(producer_sha in _DECODERS and implementation.get("files", {}).get("exercise_vision.py") == producer_sha,
              "Unsupported saved decoder producer version")
-    _pose_bindings(documents, selected, marker)
     original = documents["evidence.json"]
     _require("image_dimension_provenance" not in original,
              "Existing dimension claims require a separately supported authenticated provenance adapter")
     input_kind, source_manifest_sha = marker.get("input_kind"), _sha(manifest_raw)
-    source_producer = _PRODUCER
+    source_producer, recovery_descriptor = _PRODUCER, None
     if input_kind == "sealed_pose_evidence":
         name = "inputs/source-manifest.json"
         _require(name in declared and marker.get("input_manifest_sha256") == declared[name], "Original source manifest is missing or unbound")
         source_manifest_raw = reader.read(name, declared[name], MAX_MANIFEST_BYTES)
-        _, source_files = _manifest(source_manifest_raw)
+        source_manifest, source_files = _manifest(source_manifest_raw)
         _require(all(source_files.get(name) == declared[name] for name in _POSE | {source_name}),
                  "Copied original source manifest differs from retained source metadata")
-        producers = [name for name in _SOURCE_PRODUCERS if name in source_files]
+        producers = [name for name in ((_RECOVERY_PRODUCER,) if recovering else _SOURCE_PRODUCERS) if name in source_files]
         _require(producers and all(source_files[name] == producer_sha for name in producers),
                  "Original source manifest lacks the reviewed decoder producer binding")
         source_producer = producers[0]
         source_manifest_sha = _sha(source_manifest_raw)
+        if recovering:
+            recovery_descriptor = _verified_recovery(reader, declared, selected, documents, marker, source_manifest, producer_sha)
     else:
-        _require(input_kind == "local_video" and marker.get("input_manifest_sha256") is None,
+        _require(not recovering and input_kind == "local_video" and marker.get("input_manifest_sha256") is None,
                  "Unsupported original body input route")
         source_manifest_raw = None
+    _pose_bindings(documents, selected, marker, recovery_verified=recovery_descriptor is not None)
     derived = deepcopy(original)
     derived["image_dimension_provenance"] = {
         "method": "sealed_decoder_metadata", "source_sha256": source_sha,
@@ -328,7 +440,10 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
     files.update({"inputs/body-manifest.json": manifest_raw, "inputs/evidence-derived.json": derived_raw})
     if source_manifest_raw is not None:
         files["inputs/source-manifest.json"] = source_manifest_raw
-    _require(sum(map(len, files.values())) <= MAX_INPUT_BYTES, "Selected input copies exceed their aggregate byte bound")
+    copy_bytes = sum(map(len, files.values()))
+    _require(copy_bytes - reader.media_bytes <= MAX_INPUT_BYTES
+             and copy_bytes <= (MAX_RECOVERY_BYTES if recovering else MAX_INPUT_BYTES),
+             "Selected input copies exceed their aggregate byte bound")
     identity = {"schema_version": 1, "profile": PROFILE, "status": "metadata_verified",
         "source_root": {"path": str(reader.root), "device": reader.identity[0], "inode": reader.identity[1]},
         "body_manifest_sha256": _sha(manifest_raw), "expected_manifest_supplied": expected_manifest_sha256 is not None,
@@ -342,6 +457,9 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
         "media_verification": "Declared sealed media identity only; media bytes were not read or decoded",
         "scope": "Selected metadata hash custody and reviewed saved decoder contract; not external authenticity, calibrated imagery, physical accuracy or simulator admission",
         "dimension_derivation": "Only image_dimension_provenance is added; raw evidence, identities and native/nominal clocks are preserved"}
+    if recovery_descriptor is not None:
+        identity.update(recovery=recovery_descriptor, media_verification=_RECOVERY_MEDIA_SCOPE,
+            scope="Selected source/proof byte custody and unchanged saved crop derivation verified; not external authenticity, calibrated imagery, physical accuracy or simulator admission")
     snapshot = {"files": files, "identity": identity,
                 "pins": [(reader.root / name, digest) for name, digest in reader.pins.items()]}
     _check(deadline)
@@ -360,12 +478,23 @@ def recheck_reference_inputs(snapshot, *, deadline):
     reader = _Reader(root, deadline, (identity["device"], identity["inode"]))
     pins = snapshot.get("pins")
     _require(isinstance(pins, list) and 1 <= len(pins) <= MAX_MEMBERS, "Invalid selected input pins")
+    recovery = snapshot["identity"].get("recovery")
+    media_name = snapshot["identity"]["source_artifact"] if recovery is not None else None
+    if recovery is not None:
+        _require(recovery["media"]["artifact"] == "inputs/" + media_name
+                 and recovery["media"]["sha256"] == snapshot["identity"]["source_sha256"], "Recovery media recheck binding differs")
     for path, digest in pins:
         _require(isinstance(path, Path) and path.is_absolute() and isinstance(digest, str) and _SHA.fullmatch(digest),
                  "Invalid selected input pin")
         name = path.relative_to(root).as_posix()
-        maximum = MAX_MANIFEST_BYTES if name in {"manifest.json", "inputs/source-manifest.json"} else MAX_JSON_BYTES
-        reader.read(name, digest, maximum)
+        maximum = (MAX_MEDIA_BYTES if name == media_name else MAX_MANIFEST_BYTES if name in
+                   {"manifest.json", "inputs/source-manifest.json", "recovery/input-manifest.json"} else MAX_JSON_BYTES)
+        reader.read(name, digest, maximum, media=name == media_name)
     fd, _ = _root_fd(root, reader.identity)
     os.close(fd)
+    if recovery is not None:
+        remaining = min(MAX_INPUT_BYTES - (reader.total - reader.media_bytes), MAX_RECOVERY_BYTES - reader.total)
+        runtime_bytes = _recheck_recovery_runtime(recovery, deadline=deadline, maximum_bytes=remaining)
+        _require(reader.total - reader.media_bytes + runtime_bytes <= MAX_INPUT_BYTES
+                 and reader.total + runtime_bytes <= MAX_RECOVERY_BYTES, "Recovery recheck exceeds its aggregate byte bound")
     _check(deadline)

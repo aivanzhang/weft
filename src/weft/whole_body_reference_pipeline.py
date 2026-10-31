@@ -20,6 +20,9 @@ from weft.shared_world_packaging import read_package_file, write_package_files
 PROFILE = "whole-body-reference-workflow-v1"
 STUDY_PROFILE = "whole-body-reference-candidate-study-v1"
 MAX_BYTES = 64 * 1024 * 1024
+MAX_RECOVERY_BYTES = 160 * 1024 * 1024
+MAX_RECOVERY_INPUT_BYTES = 96 * 1024 * 1024
+MAX_MEDIA_BYTES = 64 * 1024 * 1024
 MAX_FILES = 96
 MAX_LOG_BYTES = 256 * 1024
 RUNTIME_MODULES = (
@@ -117,7 +120,7 @@ def _run_worker(study, plan_sha, seconds):
             "command": command, "environment_keys": sorted(_environment(study))}
 
 
-def _inventory(root, deadline):
+def _inventory(root, deadline, *, max_bytes=MAX_BYTES, media_name=None):
     files, total, directories = {}, 0, [root]
     visits = 0
     while directories:
@@ -131,21 +134,22 @@ def _inventory(root, deadline):
                 if stat.S_ISDIR(info.st_mode):
                     directories.append(path)
                     continue
-                if not stat.S_ISREG(info.st_mode) or info.st_size > 16 * 1024 * 1024:
+                name = path.relative_to(root).as_posix()
+                limit = MAX_MEDIA_BYTES if name == media_name else 16 * 1024 * 1024
+                if not stat.S_ISREG(info.st_mode) or info.st_size > limit:
                     raise ValueError("Proposal output must contain bounded regular files")
                 total += info.st_size
-                if total > MAX_BYTES or len(files) >= MAX_FILES - 1:
+                if total > max_bytes or len(files) >= MAX_FILES - 1:
                     raise ValueError("Proposal output exceeds its package bound")
-                name = path.relative_to(root).as_posix()
                 raw = read_package_file(root, name, max_bytes=max(1, info.st_size))
                 files[name] = sha256(raw).hexdigest()
     return files, total
 
 
-def _seal(root, profile, status, deadline):
-    files, total = _inventory(root, deadline)
+def _seal(root, profile, status, deadline, *, max_bytes=MAX_BYTES, media_name=None):
+    files, total = _inventory(root, deadline, max_bytes=max_bytes, media_name=media_name)
     raw = _bytes({"schema_version": 1, "profile": profile, "status": status, "files": files})
-    if total + len(raw) > MAX_BYTES:
+    if total + len(raw) > max_bytes:
         raise ValueError("Proposal seal exceeds its output reservation")
     write_package_files(root, {"manifest.json": raw})
     return sha256(raw).hexdigest()
@@ -181,7 +185,20 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         raise ValueError("Malformed body-source metadata; expected the sealed body-source schema") from error
     runtime, versions = _runtime()
     initial = {**snapshot["files"], **runtime}
-    if len(initial) > 64 or sum(map(len, initial.values())) > 32 * 1024 * 1024:
+    recovery = snapshot["identity"].get("recovery")
+    media_name, output_limit = None, MAX_BYTES
+    input_limit = 32 * 1024 * 1024
+    if recovery is not None:
+        media = snapshot["identity"].get("source_artifact")
+        if media not in {"source" + suffix for suffix in (".mp4", ".webm", ".mov", ".m4v", ".avi", ".mkv")}:
+            raise ValueError("Recovery requires its exact original source container")
+        media_name, output_limit = "inputs/" + media, MAX_RECOVERY_BYTES
+        if recovery.get("media", {}).get("artifact") != media_name:
+            raise ValueError("Recovery media copy differs from its verified source artifact")
+        if media_name not in initial or len(initial[media_name]) > MAX_MEDIA_BYTES:
+            raise ValueError("Recovery source exceeds its existing 64-MiB media bound")
+        input_limit = MAX_RECOVERY_INPUT_BYTES + sum(map(len, runtime.values()))
+    if len(initial) > 64 or sum(map(len, initial.values())) > input_limit:
         raise ValueError("Proposal input snapshot exceeds its reservation")
     _check(deadline)
     out.mkdir(parents=True, mode=0o700)
@@ -205,7 +222,9 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
                              "maximum_geometry_calls": 120000, "maximum_sweeps": 2},
                 "source": snapshot["identity"],
                 "bounds": {"worker_wall_seconds": 45, "workflow_seconds": max_seconds,
-                           "output_bytes": MAX_BYTES, "output_files": MAX_FILES, "log_bytes_per_stream": MAX_LOG_BYTES,
+                           "output_bytes": output_limit, "output_files": MAX_FILES, "log_bytes_per_stream": MAX_LOG_BYTES,
+                           "copied_input_bytes": sum(map(len, snapshot["files"].values())),
+                           "source_media_bytes": len(initial[media_name]) if media_name else 0,
                            "memory_scope": "Bounded input, geometry calls and output; observed RSS, not a hard RSS cap",
                            "execution_scope": "Reviewed trusted fitter in a restricted child, not an OS sandbox for generated code"},
                 "physical_validation": "unverified", "promoted": False, "external_api_usd": 0}
@@ -231,7 +250,7 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
             _check(deadline)
             read_package_file(study, name, max_bytes=max(1, len(raw)), expected_sha256=sha256(raw).hexdigest())
         read_package_file(study, "plan.json", max_bytes=len(plan_raw), expected_sha256=sha256(plan_raw).hexdigest())
-        study_sha = _seal(study, STUDY_PROFILE, "completed", deadline)
+        study_sha = _seal(study, STUDY_PROFILE, "completed", deadline, max_bytes=output_limit, media_name=media_name)
         result["proposal_manifest_sha256"] = study_sha
         stage = "inspection"
         inspection = prepare_whole_body_reference_report(study, out / "inspection", expected_manifest_sha256=study_sha,
@@ -243,11 +262,13 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         # A killed worker has unknown in-flight counts, not an invented zero-work result.
         if not (study / "manifest.json").exists():
             try:
-                result["proposal_manifest_sha256"] = _seal(study, STUDY_PROFILE, "failed", time.monotonic() + 5)
+                result["proposal_manifest_sha256"] = _seal(study, STUDY_PROFILE, "failed", time.monotonic() + 5,
+                                                          max_bytes=output_limit, media_name=media_name)
             except Exception as seal_error:
                 result["proposal_seal_error"] = {"type": type(seal_error).__name__, "message": str(seal_error)[:1000]}
     try:
-        files, total = _inventory(out, time.monotonic() + 5)
+        files, total = _inventory(out, time.monotonic() + 5, max_bytes=output_limit,
+                                  media_name="proposal/" + media_name if media_name else None)
         result["seal_scope"] = "complete_immutable_outputs"
     except Exception as error:
         files, total = {}, 0
@@ -255,7 +276,7 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
                       seal_error={"type": type(error).__name__, "message": str(error)[:1000]})
     result["seconds"] = time.monotonic() - started
     result_raw = _bytes(result)
-    if len(files) + 2 > MAX_FILES or total + len(result_raw) + 128 * 1024 > MAX_BYTES:
+    if len(files) + 2 > MAX_FILES or total + len(result_raw) + 128 * 1024 > output_limit:
         files = {}
         result.update(status="failed", seal_scope="failure_receipt_only",
                       seal_error={"type": "ValueError", "message": "No space reserved for the terminal seal"})

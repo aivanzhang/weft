@@ -87,6 +87,63 @@ def test_parent_plan_satisfies_actual_worker_contract(workflow, monkeypatch):
     assert plan["settings"]["maximum_seconds"] == .1
 
 
+def test_verified_recovery_can_preserve_original_media_larger_than_json_limit(workflow):
+    source, out, snapshot, _ = workflow
+    media = b"authored byte-custody fixture\n" + b"x" * (16 * 1024 * 1024)
+    snapshot["files"]["inputs/source.webm"] = media
+    snapshot["identity"].update(source_artifact="source.webm", recovery={"media": {"artifact": "inputs/source.webm"}})
+    result = pipeline.prepare_whole_body_reference_proposal(source, out)
+    assert result["status"] == "completed"
+    plan = json.loads((out / "proposal/plan.json").read_bytes())
+    assert plan["bounds"]["source_media_bytes"] == len(media)
+    assert plan["bounds"]["output_bytes"] == 160 * 1024 * 1024
+    assert pipeline.MAX_MEDIA_BYTES == 64 * 1024 * 1024
+    assert pipeline.MAX_RECOVERY_INPUT_BYTES == 96 * 1024 * 1024
+    assert verify_seal(out)["files"]["proposal/inputs/source.webm"] == sha256(media).hexdigest()
+    assert verify_seal(out / "proposal")["files"]["inputs/source.webm"] == sha256(media).hexdigest()
+
+
+def test_recovery_media_reservation_does_not_expand_ordinary_package_limits(workflow):
+    source, out, _, _ = workflow
+    result = pipeline.prepare_whole_body_reference_proposal(source, out)
+    plan = json.loads((out / "proposal/plan.json").read_bytes())
+    assert result["status"] == "completed"
+    assert plan["bounds"]["output_bytes"] == 64 * 1024 * 1024
+    assert plan["bounds"]["source_media_bytes"] == 0
+
+
+def test_recovery_media_limit_is_checked_before_creating_output(workflow, monkeypatch):
+    source, out, snapshot, _ = workflow
+    snapshot["identity"].update(source_artifact="source.webm", recovery={"media": {"artifact": "inputs/source.webm"}})
+    snapshot["files"]["inputs/source.webm"] = b"x" * 17
+    monkeypatch.setattr(pipeline, "MAX_MEDIA_BYTES", 16)
+    with pytest.raises(ValueError, match="media bound"):
+        pipeline.prepare_whole_body_reference_proposal(source, out)
+    assert not out.exists()
+
+
+def test_actual_recovery_adapter_connects_to_parent_with_exact_media_copy(tmp_path, monkeypatch):
+    from test_whole_body_reference_recovery_inputs import make_recovery_body
+    from weft import whole_body_reference_report as report
+    source = make_recovery_body(tmp_path / "body")
+    out = tmp_path / "workflow"
+    monkeypatch.setattr(pipeline, "_runtime", lambda: ({"runtime/weft/__init__.py": b"# fixture\n"}, {"python": "fixture"}))
+    def run(study, digest, seconds):
+        (study / "worker.json").write_bytes(encode({"status": "completed", "plan_sha256": digest}))
+        return {"returncode": 0, "error": None, "seconds": .01}
+    def inspect(study, target, **kwargs):
+        target.mkdir()
+        (target / "index.html").write_text("No fitting occurred in this boundary test")
+        return {"proposal_status": "unadmitted_construction_proposal"}
+    monkeypatch.setattr(pipeline, "_run_worker", run)
+    monkeypatch.setattr(report, "prepare_whole_body_reference_report", inspect)
+    result = pipeline.prepare_whole_body_reference_proposal(source, out)
+    assert result["status"] == "completed"
+    assert result["source"]["recovery"]["media"]["artifact"] == "inputs/source.webm"
+    assert (out / "proposal/inputs/source.webm").read_bytes() == (source / "source.webm").read_bytes()
+    assert verify_seal(out)["status"] == "completed"
+
+
 @pytest.mark.parametrize("options", [{"fit_seconds": 0}, {"fit_seconds": 31}, {"fit_seconds": True},
                                     {"fit_seconds": float("nan")}, {"max_seconds": 19}, {"max_seconds": 61},
                                     {"max_seconds": float("inf")}, {"proposal_objective": "automatic"}])

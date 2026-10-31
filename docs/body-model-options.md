@@ -17,12 +17,30 @@ directory must be new. It never starts a server or opens a browser.
 The default is `--objective image-first`. `floor-first` is an explicit experimental
 alternative, not an automatic retry. `--manifest-sha256` binds a previously known
 body-source seal; without it, the selected local seal is frozen and rechecked,
-not independently authenticated. Source-media bytes are not read: the loader
-verifies selected metadata, complete retained pose slots, raw-pose identities,
-clocks and an explicitly reviewed saved decoder version. It adds only dimension
-provenance to a separate evidence copy. This is not fresh decoding or physical
-validation. Unknown decoder versions, crop recovery, existing dimension claims,
-supplied cameras and stacked corrections require separate adapters and fail closed.
+not independently authenticated. For ordinary bodies, source-media bytes are
+not read: the loader verifies selected metadata, retained pose slots, raw-pose
+identities, clocks and an explicitly reviewed saved decoder version. It adds
+only dimension provenance to a separate evidence copy. Unknown decoder versions,
+existing dimension claims, supplied cameras and stacked corrections require
+separate adapters and fail closed.
+
+Bodies from the normal **selective-crop recovery** pipeline use the same command.
+This route reads and hashes the original video bytes, then replays the existing
+source-only derivation once: all crop plans, source-coordinate mappings,
+accepted/rejected decisions and selected estimates must match their saved proof.
+It does not decode frames, rerun a detector, fit a body or consult simulation
+outcomes during selection. Original whole-frame estimates, all candidates,
+decisions, original video and ten exact verifier-source snapshots are copied.
+Later rechecks verify hashes without repeating selection. Missing proof or a
+changed verifier version stops the proposal; no fallback discards the history.
+
+The report identifies **Selected crop estimate, mapped to source image** and
+shows the preserved observation, proposal and decision hashes. It compares
+**Input body → Proposed body** against the same selected image targets. These
+are fitting errors, not before/after detector accuracy. Fixed root/shape/floor
+means fixed relative to the supplied body after any pose recovery. The original
+pre-crop estimates remain provenance; they do not silently replace accepted
+targets. None of this establishes calibrated imagery or physical accuracy.
 
 The fit retains its fixed 0.025 model-unit floor gate, first pose, shape, root,
 clocks and motor settings. No candidate is installed, including one whose saved
@@ -36,10 +54,18 @@ deadline; 60-second workflow checks plus bounded owned cleanup/sealing. Options
 can only tighten time bounds. One worker, two model compilations, six data
 allocations, 120,010 native forward calls, zero dynamics/reset/training/inference
 or paid calls. Inputs are bounded, logs are capped at 256 KiB per stream, proposal
-JSON at 16 MiB combined, and the workflow package at 64 MiB/96 files. CPU and
-per-file limits are enforced; peak memory is observed, not hard-capped. The
+JSON at 16 MiB combined. Ordinary input snapshots remain 32 MiB and workflow
+packages 64 MiB/96 files. Recovery preserves the body-source allowance of one
+64-MiB original video, separately from 32 MiB of metadata (8 MiB per metadata
+file): at most 96 MiB of inputs plus the bounded fitting-code snapshot, and a
+160-MiB/96-file workflow package. The larger file allowance applies only to that
+exact video copy, not arbitrary files or metadata. CPU and per-file child limits
+are enforced; peak memory is observed, not hard-capped. The
 allowlisted environment excludes caller credentials and Python startup hooks.
 These are restrictions on reviewed trusted code, not an OS sandbox for generated code.
+Saved recovery checks are synchronous CLI preparation and load the existing
+numerical/image libraries without invoking decoding or inference; UI integrations
+must call this workflow from their background worker, not a request/UI thread.
 
 **Verified composition:** `artifacts/body-reference-cli-01` runs the ordinary CLI
 once on five authored poses, then verifies exact inputs, code pins and all output
@@ -50,6 +76,14 @@ checks pass, but the candidate stays unadmitted and uninstalled. MuJoCo's macOS
 startup attempts one system lookup; the worker blocks it and records the denied
 attempt. This fixture verifies product composition, not reconstruction accuracy.
 Seal: `a5919d1ece9bf17d9c5d522eade9f56b2f095d0d012149416b0c3141e5de23eb`.
+
+**Verified recovery input:** the saved kettlebell body passes this adapter in
+0.510 seconds, preserving its 129 sampled slots, 121 usable references, eight
+unavailable poses and all five accepted/seven rejected crops. A separate
+0.212-second fitter-input check verifies all 1,305 confident endpoint coordinates
+exactly and preserves 147 unavailable endpoints. These checks perform no fit,
+geometry, decoding, inference or physics; they do not qualify a reconstructed
+body. [Receipts and limits](handoffs/combined.md#crop-recovery-integration--october-31-2026-538-am-pdt).
 
 ## Saved-source whole-body fitting
 

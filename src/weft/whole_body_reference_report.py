@@ -24,6 +24,8 @@ MEMBERS = {"candidate-human.json": "candidate-human.json.txt", "report.json": "p
            "inputs/human.json": "source-human.json.txt", "inputs/evidence-derived.json": "evidence-derived.json.txt"}
 MAX_BYTES, MAX_HTML = 16 * 1024 * 1024, 2 * 1024 * 1024
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
+_TARGET_HASHES = ('original_observation_sha256', 'proposal_sha256', 'decision_sha256')
+_CROP_METHOD = 'single-view-selective-crop-v1'
 _COUNTERS = {'floor_qp_calls', 'image_qp_calls', 'floor_descent_accepts', 'image_tiebreak_accepts',
              'invalid_directions', 'zero_directions', 'backtrack_trials', 'rejected_backtracks', 'qp_status_counts'}
 _QP_STATUSES = {'optimal', 'iteration_limit', 'time_limit', 'unsupported_infeasible_initial', 'dependent_active_set',
@@ -88,6 +90,45 @@ def _support_label(name, primitive):
     return f'{label} · {suffix}'
 
 
+def _target_info(frame, reference):
+    descriptor = reference.get('target_origin')
+    selected = 'image_refinement' in frame or 'image_refinement_raw' in frame
+    path = 'identity_raw.landmarks' if 'identity_raw' in frame else 'landmarks'
+    if selected:
+        meta, raw = frame.get('image_refinement'), frame.get('image_refinement_raw')
+        _require('identity_raw' not in frame and isinstance(meta, dict) and isinstance(raw, dict)
+                 and not any(key in raw for key in ('identity_raw', 'image_refinement', 'image_refinement_raw')),
+                 'Selected crop targets cannot mix identity repair or omit preserved raw evidence')
+        _require(meta.get('method') == _CROP_METHOD and meta.get('anatomical_identity_verified') is False,
+                 'Unsupported selected crop provenance')
+        _require(all(isinstance(meta.get(key), str) and _SHA.fullmatch(meta[key]) for key in _TARGET_HASHES),
+                 'Crop provenance requires exact SHA256 identifiers')
+        _require(all(key in frame and key in raw and frame[key] == raw[key]
+                     for key in ('id', 'frame', 'time_s', 'decoder_timestamp_s')), 'Crop source identities or clocks differ')
+        _require(_canonical(raw) == meta['original_observation_sha256']
+                 and _canonical({k: v for k, v in frame.items() if k not in {'image_refinement', 'image_refinement_raw'}})
+                 == meta['proposal_sha256'], 'Crop preserved/raw proposal identity differs')
+        expected = {'kind': 'selected_crop_estimate_mapped_to_source', 'method': _CROP_METHOD,
+                    **{key: meta[key] for key in _TARGET_HASHES}, 'anatomical_identity_verified': False}
+        _require(type(descriptor) is dict and descriptor.get('anatomical_identity_verified') is False and descriptor == expected,
+                 'Selected crop source requires its exact target_origin descriptor')
+        label = 'Selected crop estimate, mapped to source image'
+    else:
+        _require(descriptor is None, 'Target origin claims a crop absent from its source frame')
+        if 'identity_raw' in frame:
+            raw = frame['identity_raw']
+            _require(isinstance(raw, dict) and not any(key in raw for key in ('image_refinement', 'image_refinement_raw'))
+                     and all(raw.get(key) == frame.get(key) for key in ('id', 'frame', 'time_s')),
+                     'Preserved whole-frame target identity differs or mixes crop provenance')
+        label = ('Inferred whole-frame estimate (preserved before identity processing)' if 'identity_raw' in frame
+                 else 'Inferred whole-frame estimate')
+    for point in reference['points']:
+        recorded = point.get('landmark_source')
+        _require(recorded == path if selected else recorded is None or recorded == path,
+                 'Endpoint landmark_source must name its actual selected JSON path')
+    return {'target_origin': descriptor, 'target_label': label, 'target_landmark_source': path}
+
+
 def _model(documents, hashes, check):
     report, candidate = documents["report.json"], documents["candidate-human.json"]
     source, evidence = documents["inputs/human.json"], documents["inputs/evidence-derived.json"]
@@ -142,7 +183,8 @@ def _model(documents, hashes, check):
     _require(slots == [{k: row.get(k) for k in ("id", "frame", "time_s", "decoder_timestamp_s", "status")} for row in frames],
              "Retained source slots differ from the exact input evidence")
     _require(len({row.get("id") for row in slots}) == len(slots), "Duplicate retained source identity")
-    by_id = {}
+    by_id, target_info = {}, {}
+    frames_by_id = {row['id']: row for row in frames}
     for index, ref in enumerate(references):
         check()
         identity = _text(ref.get("evidence_id"))
@@ -161,6 +203,8 @@ def _model(documents, hashes, check):
                 _require(point.get("error_before_px") is None and point.get("error_after_px") is None,
                          "Missing or low-confidence endpoint errors must stay unknown")
         by_id[identity] = (index, ref)
+        _require(identity in frames_by_id, 'A target reference has no source frame')
+        target_info[identity] = _target_info(frames_by_id[identity], ref)
     support_names, primitive_names = report.get("support_names"), report.get("support_primitive_names")
     _require(isinstance(support_names, list) and isinstance(primitive_names, list)
              and 1 <= len(support_names) == len(primitive_names) <= 64 and len(set(support_names)) == len(support_names),
@@ -202,7 +246,9 @@ def _model(documents, hashes, check):
         return {"time_s": slot.get("time_s"), "decoder_timestamp_s": slot.get("decoder_timestamp_s"),
                 "frame": slot.get("frame"), "evidence_id": slot.get("id"), "source_status": slot.get("status"),
                 "geometry": geometry, "points": ref.get("points") if ref else None,
-                "reference_status": ref.get("status") if ref else "No body reference for this retained source slot"}
+                "reference_status": ref.get("status") if ref else "No body reference for this retained source slot",
+                **(target_info[ref['evidence_id']] if ref else {'target_origin': None, 'target_landmark_source': None,
+                    'target_label': 'Unavailable — no saved source endpoint targets for this sample'})}
 
     source_rows = []
     for slot in slots:
@@ -330,12 +376,14 @@ function chart(){const svg=el('chart'),layer=el('lines');layer.replaceChildren()
  for(const side of ['before','after']){let path='',open=false;for(const r of rows){const v=r.geometry?.[side+'_max_penetration_model_units'];if(v===null||v===undefined||r.time_s===null){open=false;continue;}path+=(open?' L':' M')+x(r.time_s)+' '+y(v);open=true;}line(path,side);}
  el('ymax').textContent=num(ymax);el('tfirst').textContent=num(first)+' s';el('tlast').textContent=num(last)+' s';
 }
-function detail(){const row=rows[Number(select.value)],geometry=row?.geometry;el('gaps').replaceChildren();el('points').replaceChildren();
+function detail(){const row=rows[Number(select.value)],geometry=row?.geometry;el('gaps').replaceChildren();el('points').replaceChildren();el('target-metadata').replaceChildren();el('target-details').hidden=true;el('target-label').textContent='Unavailable — no saved source endpoint targets for this sample';
  if(!row){el('identity').textContent='No saved samples available.';return;}
  el('identity').textContent=`${mode.value==='source'?'Retained source slot':'Control-grid check'} ${Number(select.value)+1}/${rows.length} · nominal time ${num(row.time_s)} s · decoder time ${num(row.decoder_timestamp_s)} s · frame ${row.frame??'unavailable'}`;
  el('source-id').textContent=row.evidence_id||'No direct source observation ID for this interpolated control sample';
  el('context').textContent=[row.source_status,row.reference_status,...(row.bracketing_references||[]).map(v=>`Body reference ${v.evidence_id} at ${num(v.time_s)} s`)].join(' · ');
- el('penetration').textContent=`Original source: ${num(geometry?.before_max_penetration_model_units)}; candidate: ${num(geometry?.after_max_penetration_model_units)} model units. Fixed limit: 0.025. Unknown is not zero.`;
+ el('penetration').textContent=`Input body: ${num(geometry?.before_max_penetration_model_units)}; Proposed body: ${num(geometry?.after_max_penetration_model_units)} model units. Fixed limit: 0.025. Unknown is not zero.`;
+ el('target-label').textContent=row.target_label;
+ if(row.target_origin){el('target-details').hidden=false;for(const [label,value]of[['Method',row.target_origin.method],['Preserved whole-frame observation SHA256',row.target_origin.original_observation_sha256],['Selected crop proposal SHA256',row.target_origin.proposal_sha256],['Saved decision SHA256',row.target_origin.decision_sha256],['Landmark JSON path',row.target_landmark_source],['Anatomical identity','Not independently verified']]){const term=document.createElement('dt'),detail=document.createElement('dd');term.textContent=label;detail.textContent=value;el('target-metadata').append(term,detail);}}
  let shown=0;for(let i=0;i<data.support_names.length;i++){const a=geometry?.before_floor_support_gaps?.[i],b=geometry?.after_floor_support_gaps?.[i],known=a!==null&&a!==undefined&&b!==null&&b!==undefined;
  if(el('affected').checked&&known&&a===b&&a>=0&&b>=0)continue;
  const tr=textRow(el('gaps'),[data.support_labels[i],'',num(a),num(b),!known?'Unknown':b>a?'Gap increased':b<a?'Gap decreased':'Unchanged']);
@@ -375,16 +423,16 @@ def _render(summary, palette):
 <title>Weft · Reference proposal</title><style>{palette}{css}</style></head><body><main>
 <header><p>weft · saved reference proposal</p><h1>{labels[summary['status']]}</h1><p class="notice">The floor penetration limit remains <strong>0.025 model units</strong>. Fewer failures or smaller image error do not make a proposal pass. Source image estimates are <strong>not measured truth</strong>. No geometry, physics, policy, model or media processing runs in this report.</p><p>Method: <code>{esc(summary['method'])}</code></p></header>
 <section><h2>What changed, and what did not</h2><p>Source slots: {fmt(summary['source_counts'].get('retained_pose_slots'))}; body references: {fmt(summary['source_counts'].get('body_reference_knots'))}; retained slots without a body reference: {summary['source_slots_without_body_reference']}. Declared decoded frames: {fmt(summary['source_counts'].get('declared_decoded_frames'))}; container frame count: {fmt(summary['source_counts'].get('declared_frame_count'))}.</p>
-<div class="scroll"><table><thead><tr><th>Sampling view</th><th>Checks</th><th>Original failures</th><th>Candidate failures</th><th>Unknown original / candidate</th></tr></thead><tbody>{counts}</tbody></table></div><p>Counts cover saved checks only. Body references without saved geometry: {summary['source_references_without_geometry']}. The grid schedule is not re-created here; missing checks do not imply success. Source and grid checks overlap in time: {summary['unique_sample_times']} unique nominal sampled times. They are <strong>not distinct physical poses</strong> and not a continuous-time collision check. Root, shape, floor, clocks and nonreference fields match the original input.</p>
-<p>Reported worst floor penetration: {fmt(summary['saved_floor_summary'].get('before_maximum_penetration_model_units'))} → {fmt(summary['saved_floor_summary'].get('after_maximum_penetration_model_units'))} model units. Reported confident endpoint error: {fmt(summary['image_summary'].get('mean_error_before_px'))} → {fmt(summary['image_summary'].get('mean_error_after_px'))} pixels; reported pairs: {fmt(summary['image_summary'].get('confident_source_endpoint_pairs'))}. Missing targets remain unknown.</p>{objective_html}<details><summary>Saved gate outcomes — not a new evaluation</summary><table><tbody>{gates}</tbody></table></details></section>
+<div class="scroll"><table><thead><tr><th>Sampling view</th><th>Checks</th><th>Input body failures</th><th>Proposed body failures</th><th>Unknown input / proposed</th></tr></thead><tbody>{counts}</tbody></table></div><p>Counts cover saved checks only. Body references without saved geometry: {summary['source_references_without_geometry']}. The grid schedule is not re-created here; missing checks do not imply success. Source and grid checks overlap in time: {summary['unique_sample_times']} unique nominal sampled times. They are <strong>not distinct physical poses</strong> and not a continuous-time collision check. Root, shape, floor, clocks and nonreference fields match the supplied input body (after any pose recovery), not a body from before crop selection.</p>
+<p>Input body → Proposed body. Reported worst floor penetration: {fmt(summary['saved_floor_summary'].get('before_maximum_penetration_model_units'))} → {fmt(summary['saved_floor_summary'].get('after_maximum_penetration_model_units'))} model units. Reported confident endpoint error: {fmt(summary['image_summary'].get('mean_error_before_px'))} → {fmt(summary['image_summary'].get('mean_error_after_px'))} pixels; reported pairs: {fmt(summary['image_summary'].get('confident_source_endpoint_pairs'))}. Both bodies are compared against the <strong>same selected source-image targets</strong>. These are body-fitting errors, not before/after crop-detector accuracy. Missing targets remain unknown.</p>{objective_html}<details><summary>Saved gate outcomes — not a new evaluation</summary><table><tbody>{gates}</tbody></table></details></section>
 <section><h2>Floor penetration by saved sample</h2><label>Sampling view <select id="mode"><option value="source">Retained source slots</option><option value="grid">Control grid</option></select></label>
-<p>Original source: teal line. Candidate: clay line. Dashed line: unchanged 0.025 limit. Missing values break the line; they are not plotted as zero.</p>
-<svg id="chart" viewBox="0 0 950 290" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Original and candidate maximum floor penetration</title><desc id="chart-description">Model-unit penetration by nominal time. Use the sample selector for exact values and unknowns.</desc><path d="M50 35V250H900" fill="none" stroke="currentColor"/><text x="5" y="20">model units</text><text id="ymax" x="5" y="43"></text><text x="28" y="254">0</text><text id="tfirst" x="50" y="278"></text><text id="tlast" x="800" y="278"></text><g id="lines"></g><circle id="before-dot" r="4" class="dot-before"/><circle id="after-dot" r="4" class="dot-after"/></svg>
+<p>Input body: teal line. Proposed body: clay line. Dashed line: unchanged 0.025 limit. Missing values break the line; they are not plotted as zero.</p>
+<svg id="chart" viewBox="0 0 950 290" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Input body and proposed body maximum floor penetration</title><desc id="chart-description">Model-unit penetration by nominal time. Use the sample selector for exact values and unknowns.</desc><path d="M50 35V250H900" fill="none" stroke="currentColor"/><text x="5" y="20">model units</text><text id="ymax" x="5" y="43"></text><text x="28" y="254">0</text><text id="tfirst" x="50" y="278"></text><text id="tlast" x="800" y="278"></text><g id="lines"></g><circle id="before-dot" r="4" class="dot-before"/><circle id="after-dot" r="4" class="dot-after"/></svg>
 <label>Sample <select id="sample"></select></label><button id="previous" type="button">Previous</button> <button id="next" type="button">Next</button>
 <p id="identity" aria-live="polite"></p><p id="source-id" class="identity"></p><p id="context" class="identity"></p><p id="penetration"></p>
 <h3>Signed support gaps</h3><p>Negative means below the authored floor; positive means above it. A larger signed gap alone does not establish support or contact. Capsule endpoints −1 and +1 and the center sample 0 are points on saved shapes, not extra body parts. Labels describe authored collision shapes, not recovered anatomy.</p><label><input id="affected" type="checkbox" checked> Show changed, below-floor or unknown gaps</label>
-<div class="scroll"><table><thead><tr><th>Authored shape / support point</th><th>Saved identity</th><th>Original gap</th><th>Candidate gap</th><th>Change</th></tr></thead><tbody id="gaps"></tbody></table></div>
-<h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Original error (px)</th><th>Candidate error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
+<div class="scroll"><table><thead><tr><th>Authored shape / support point</th><th>Saved identity</th><th>Input body gap</th><th>Proposed body gap</th><th>Change</th></tr></thead><tbody id="gaps"></tbody></table></div>
+<h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p><p id="target-label"></p><details id="target-details" hidden><summary>Selected target provenance</summary><dl id="target-metadata" class="identity"></dl><p>Preserved observation and selected proposal hashes match the copied input. The decision hash is a saved identifier; decision bytes and image pixels are not read or independently verified here. Original whole-frame estimates remain provenance, not alternative fitting targets.</p></details><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Input body error (px)</th><th>Proposed body error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
 <section><h2>Exact copied evidence</h2><p>Only four selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
 </main><script id="data" type="application/json">{data}</script><script>{_SCRIPT}</script></body></html>'''.encode()
 
