@@ -161,3 +161,150 @@ root-off controls, retain 197 human observation values, and bind actual/base/tas
 projection/reference identities. Pure tests only until root freezes a bounded
 native acceptance. Root owns strict snapshot/recording/lab integration; no existing
 scorer/gate/UI file may change in that lane. No public v5 task/lab claim yet.
+
+## Feet task and recording preparation
+
+Recorded **October 31, 2026, 1:27 PM PDT**. Published base is
+`4b0bad9940cda425d1813bae323d8285acc72424`. New task/state/recording files and
+the generic recorder dispatch are reviewed, tested at their stated boundaries,
+and uncommitted. Root owns the next frozen native acceptance and lab integration.
+Independent avatar work is excluded. No native job is running.
+
+The versioned `shared-exercise-feet-task-v1` uses one actual v5 world and the
+unchanged base task accumulator. Public actions are 25 rotations plus optional
+three root translations; root assistance defaults off and object forces stay zero.
+Observations retain all 197 human values. Snapshot identities distinguish the
+actual engine from derived base scene/task scoring. Ankle hold/effort and excluded
+foot contacts are unscored diagnostics: latest substep plus bounded per-pair
+aggregates, not a full force history or recovered physical contact.
+
+The dedicated state validator preserves original metric-validation algebra while
+validating the actual v5 engine separately. It prepares models/hashes once, checks
+all reset/failure/clock/action/null semantics, and rejects snapshots above 480 KiB.
+Independent task and state reviews found no core blocker. The original scorer
+`shared_exercise_task.py` remains SHA
+`c71a53dec0f10a13fce7b868d810eb66dc56e2e51783cd892c130fcd864c24eb`.
+
+New `shared-exercise-feet-recording-v1` allows only manual/coast/authored controls,
+exact event schemas and full-state/base-score replay. Learned policies, reference
+proposals and avatars remain unsupported. Its per-event limit is 512 KiB; the
+128 MiB journal and all legacy limits stay unchanged. Direct task rendering caches
+the dedicated PIL renderer, still validating each current snapshot.
+
+### Preparation evidence
+
+- Task: 23 distinct analytical cases; initial maximum-contact fixture failure and
+  its correction are retained. Final receipt
+  `.local/shared-exercise-feet-task-checks-01.json`, SHA
+  `8e2c83a9ae9234533b9aca651e7680d82d8fb621e8b2529c9a70c7f77a64ce6e`.
+  The cached-renderer replacement test separately passes once, 0.158 s:
+  `.local/shared-exercise-feet-task-render-checks-01.json`, SHA
+  `59f3622b5759de9c2b37adb2407f0b7078d4ad5b65b17e9d1f89b5dfd097e655`.
+- State: 22 analytical cases, 0.585 s,
+  `.local/shared-exercise-feet-state-tests-01.xml`. Maximum analytical state is
+  71,353 B with 256 latest contacts/24 pairs. A 32-validation measurement took
+  0.127 s with the native engine guard replaced; not native/UI performance.
+- Recording: original 115 mocked cases pass,
+  `.local/shared-exercise-feet-recording-tests-01.xml`, SHA
+  `b0dc9517347bdabeed78cf4bd32bc9dcf87041252cf851839d94defe4f928d5d`.
+  Independent review then found arbitrary controller/avatar event metadata could
+  pass through to exports. Nine expected failing regressions are preserved in
+  `.local/feet-recording-event-contract-before-01.xml`, SHA
+  `192b8c9917371029bd7a4c9f26cd620385dd71f3d38b99fc4a0adf7c30569f34`.
+  The exact feet-only event schema passes all 76 new/affected cases, 0.133 s,
+  `.local/feet-recording-event-contract-after-01.xml`, SHA
+  `ebb19915569d0c520c1b04ffa1892d1dcbef7d42f908a125451420521de78afd`.
+  There are 136 distinct recording cases after 21 additions, not 191.
+- Legacy dispatch: all 65 `test_recording.py` / `test_shared_exercise_recording.py`
+  checks pass, including short authored exports/exact replay/recovery. Frozen
+  `.local/feet-recording-legacy-runtime-01` contains committed 4b0bad9 plus only
+  `recording.py`; manifest SHA
+  `4e8ecbe8b92fbbdae77d5b1f71c2c377300f10135dd8e6e838e957ad0e2a925c`.
+  `.local/feet-recording-legacy-plan-01.json` SHA
+  `940261808ebc62f524000b8f973a835f48ae4620c414e015a58d888896688a04`;
+  `.local/feet-recording-legacy-process-01.json` records exit 0 /2.358554 s /
+  164,397,056 B waited-child peak RSS. Bounds: 60 s wall, 45 s CPU, 1 MiB per
+  log; memory observed, not hard-capped. No real source decode/inference/training.
+
+Frozen product SHA-256 identities before native acceptance:
+
+- Task `a6de8094d36a77e2f9c7fef472475aa2007f6e4f29376bf7dad5b07191c8eecf`.
+- State `e80c1b9fe3f25924c8f274dd8c3f9669764a2f8916f3284446b07182f635ba86`.
+- Task/projection/state combined adapter
+  `d007e0d021a927e183acdb88522c45261103ddb1986a8e463613dbb4b483b87f`.
+- Feet recorder `0d2c719fb60b0743781336abed0b6a8bd20e34511ea3c1b9f95c3591e70a7a51`.
+- Generic recorder `3db0f025815a56cbaa7448841e89197d8dad653f72656fc16e35975ff1f46477`.
+
+Next: freeze the six-case test with these implementations, then root executes
+once. Bases v2/v3/v4 × roots off/on, two manual steps/reset/two authored steps
+and exact replay per case (48 controls maximum across six cases). Only v3/root-off
+exports six frames through ordinary PIL/MP4/GIF/HTML and checks direct render.
+Preserve physical failures/early termination without fixture or gate tuning.
+No source inference, training, network, browser/native GL, paid calls or avatars.
+Lab/CLI/UI integration and grounded source recovery remain unfinished.
+
+## Native task and recording checkpoint
+
+Completed **October 31, 2026, 1:30:09 PM PDT**. All six authored cases pass:
+v2/v3/v4 bases × roots off/on. Each records two manual ankle actions, reset29,
+two authored actions, then replays the full state/base scores/diagnostics exactly.
+Across six cases: 24 recorded +24 replayed controls, six recorded resets, 36 events.
+The v3/root-off case also checks two identical live renders without physics advance
+and exports six frames through ordinary PIL/MP4/GIF/HTML. No full-interval task
+success or source reconstruction claim is made by these short fixtures.
+
+Preserved failures, with all product bytes unchanged:
+
+- Failed01 incorrectly expected the derived scoring scene to equal original
+  bytes; the derived scene explicitly adds learned_policy_available=false. Six
+  cases stopped before task construction/actions. 0.650367 s /126,337,024 B RSS.
+  Receipt `.local/feet-task-native-tests-01.xml`, SHA
+  `e706b77230119faf7188e01e8229aec4928606c9a181afd23a7c25c7fe031325`.
+- Failed02 then expected nonexistent engine scene_profile/scene_sha256 fields.
+  Actual snapshots use profile; the outer task pins the actual scene. Six cases
+  stopped at initial snapshots before controls. 0.766905 s /131,170,304 B RSS.
+  Receipt `.local/feet-task-native-tests-02.xml`, SHA
+  `55e232b4394f399ba978e7c2b0565e110d2f1c2ad0df6e55f26eac39e3cd18a7`.
+- Corrected only those test assertions, statically inspected the remaining
+  assertions against actual producers, then ran03. All six pass in 1.776699 s /
+  155,746,304 B waited-child peak RSS. Receipt `.local/feet-task-native-tests-03.xml`,
+  SHA `4b5ea3017b3b2b8083285b8acd45e79bfceb2dacd39a58586d6b55c9eca60910`.
+  Final native test SHA
+  `f93793993a8612924c85be311aba8abc9f388aef586f2daa9c28afdb71fd00aa`.
+
+Runtime03 is committed4b0bad9 plus only the four explicit task/state/recording
+product overrides and native test; no dirty avatars or later lab/UI/receipt work.
+`.local/feet-task-native-runtime-03/runtime-manifest.json` SHA
+`22164ea6269adc04cd233b1d4d58aa1a71575598cf19bde5351972acaebd5a9b`.
+Plan `.local/feet-task-native-plan-03.json` SHA
+`c1dfec420cc521478cc41fa796ec90a069a1d0a64d4ae36022e8e97b4ab6c7cf`.
+Process `.local/feet-task-native-process-03.json` SHA
+`7a7b719adb1c6b97851f86718dfaa597e2d64de9e738f61376c47484a8a80515`
+pins all 28 output files /1,643,411 B. Bound60 s wall/45 s CPU/1 MiB logs/
+64 MiB128files aggregate; each case enforces eight controls including replay.
+Memory is observed, not hard-capped. All jobs are terminal.
+
+Saved outcomes live under `.local/feet-task-native-output-03/test_native_feet_task_record_l0`
+through `...l5`; ignore pytest's duplicate current symlink when counting cases.
+All retain four actions and no early simulation failure. At saved boundaries,
+v2/v3 roots-off/on record16/8 foot-floor contact details; v4 records16/8
+foot-static contact details. These are snapshot counts, not unique physical events
+or measured forces. Ankle diagnostics remain unscored and v4 requirements still
+refer only to the original left forearm. Every object-force channel is zero.
+
+The exported recording is `.../test_native_feet_task_record_l2/recording/`,
+six-member manifest SHA
+`895ef2626eb80515a2e2948ff2a5aafa711b352ff5d06799431e308c1024a7dc`.
+After this run, only the replay receipt return gained foot_reference_sha256; its
+one affected mocked replay test passes, receipt
+`.local/feet-recording-reference-receipt-01.xml`, SHA
+`1efd6f96e0775fd88ca5f744bfa44afd6f741b4237b3d3705c47b2a5b01808dc`.
+No physics/state/scorer/adapter identity changed and the native study was not rerun.
+
+Next ownership: root owns shared_exercise_lab.py/lab.py/cli.py and sealed candidate
+construction. support_ui owns capabilities.py/lab.js/replay HTML/lab_console.py
+and focused mocked tests. support_learning owns recording_receipt.py and feet
+receipt tests. exercise_reconstruction resumes the source-backed unfamiliar-video
+calibration/contact lane; no new source study is authorized until its bounded
+hypothesis is reviewed. This native checkpoint does not establish lab/UI readiness,
+learned policies, recovered ground/equipment contact or physical accuracy.

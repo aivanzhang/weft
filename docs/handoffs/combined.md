@@ -2,12 +2,12 @@
 
 ## Coupled feet and surface workflow — October 31, 2026
 
-Updated **October 31, 2026, 12:59 PM PDT**. Goal active. Published base is
-`9abbdffb7b6405475f25b9ad16bbe8f0c2585b81`. Root owns integration, CLI, coordination
-and Git. Reconstruction released its source-surface API/pipeline/CLI tests/fixture;
-`support_learning` owns the new v5 task adapter and focused tests. The saved
-report repair and task projection primitive are reviewed and frozen. No native job
-is running. Independent avatar work remains excluded; stash was empty at the last
+Updated **October 31, 2026, 1:35 PM PDT**. Goal active. Published base is
+`4b0bad9940cda425d1813bae323d8285acc72424`. Root owns integration, CLI, coordination
+and Git. Six frozen native task/recording/replay cases now pass. Root owns backend
+lab/CLI/candidate integration; interface lane owns capabilities/display/console;
+receipt lane owns saved-only recording proof; reconstruction resumes source work.
+No native job is running. Independent avatar work remains excluded; stash was empty at the last
 publication. No new paid call, key/ledger read, media download, inference, training,
 browser, server or deployment.
 
@@ -88,18 +88,34 @@ an unknown-geometry/known-segment alias; the canonical-pair fix passes 16 affect
 cases, with 21 earlier cases reused (37 distinct). Tests block native execution and
 substitute analytical mass only. [Exact receipts and next boundary](shared-world-feet.md#task-projection-checkpoint).
 
-**Active next work:** `/root/support_learning` owns only new
-`shared_exercise_feet_task.py` plus its focused tests; it must send/freeze a strict
-versioned task/snapshot interface before root wires recording. It may reuse the
-unchanged original metric accumulators but cannot alter scorer/gates or edit existing
-engine/lab/recording/UI files. It creates one actual v5 engine and separates actual
-world identity from the derived base scoring scene/task. Ankle effort/hold errors
-stay unscored diagnostics; no foot support credit or ground-load qualification.
-Default root assistance remains off, object forces zero, human observation 197.
-Only pure tests are authorized in that lane; root coordinates later native runs.
-Root owns strict snapshot validation, recording and existing-lab integration.
-All prior native/process acceptances are terminal. Do not rerun unchanged passing
-studies or recopy avatar WIP into runtime archives.
+**Task/recording preparation:** 23 analytical task cases and 22 strict state cases
+pass. A cached dedicated renderer replaces the temporary unsupported render path;
+its one affected mocked test passes. The new recorder has 136 distinct passing
+mocked cases. Review exposed unsupported controller/avatar event fields; nine
+expected failures remain saved, then 76 affected cases pass after a feet-only
+schema fix. All 65 affected legacy journal/export/replay cases pass on committed
+4b0bad9 plus only the generic recorder override, in 2.359 s. These are distinct
+scoped groups, not a full-suite or native feet result.
+
+**Native result:** six authored cases pass across v2/v3/v4 bases and roots off/on.
+All 24 recorded and 24 replay controls, six recorded resets and 36 events complete;
+one six-frame PIL/MP4/GIF/HTML export and cached direct rendering pass. Frozen03
+takes 1.776699 s /155,746,304 B waited-child peak RSS. Preserved failed01/02 are
+test-only schema assumptions and stopped before any action; no product/gate tuning.
+Foot contacts are observed in the simulator, not recovered physical contacts.
+[Exact artifacts and limits](shared-world-feet.md#native-task-and-recording-checkpoint).
+
+**Active next work:** existing lab integration and a source-sealed feet candidate,
+not a second control product. Original scorers/gates remain
+unchanged; actual v5 identity and derived base scoring identity stay separate.
+Ankle effort/hold errors remain unscored, foot support credit and ground-load
+qualification unsupported. Default roots remain off and object forces zero.
+No lab/UI/learner admission is claimed yet. [Frozen pins, receipts and plan](shared-world-feet.md#feet-task-and-recording-preparation).
+All earlier native/process acceptances are terminal. Do not rerun unchanged
+passing studies or copy avatar WIP into runtime archives. Projection publication
+receipt `.local/shared-exercise-feet-projection-publication-01.json` verified the
+exact remote, owned files clean, stash empty and 131 excluded status/path entries;
+the whole worktree is not clean.
 
 ## One-command authored-support sandbox — October 31, 2026
 

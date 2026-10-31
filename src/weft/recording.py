@@ -26,6 +26,26 @@ DIRECT_PROFILES = {WHOLE_BODY_PROFILE: (19, "whole_body_reference_tracking"),
                    FOOT_BODY_PROFILE: (25, "starting_pose_hold")}
 
 
+FEET_RECORDING_PROFILE = "shared-exercise-feet-recording-v1"
+EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE})
+FEET_EVENT_BYTES = 512 * 1024
+
+
+def _exercise_recording_adapter(scene):
+    if scene.get("profile") == FEET_RECORDING_PROFILE:
+        from weft import shared_exercise_feet_recording
+        return shared_exercise_feet_recording
+    if scene.get("profile") == "shared-exercise-recording-v1":
+        from weft import shared_exercise_recording
+        return shared_exercise_recording
+    raise ValueError("Scene is not a versioned shared exercise recording")
+
+
+def _event_size_limit(scene):
+    # Feet retain bounded extra substep contacts; the total journal cap stays unchanged.
+    return FEET_EVENT_BYTES if scene.get("profile") == FEET_RECORDING_PROFILE else MAX_EVENT_BYTES
+
+
 def _encoded(value):
     return json.dumps(value, allow_nan=False, separators=(",", ":"))
 
@@ -136,9 +156,8 @@ def _whole_body_contract(scene):
 
 
 def _action(action, scene):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import validate_action
-        validate_action(action, scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        _exercise_recording_adapter(scene).validate_action(action, scene)
         return
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         from weft.shared_world import validate_shared_world
@@ -154,9 +173,8 @@ def _action(action, scene):
 
 
 def _whole_body_event(event, scene):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import validate_event
-        validate_event(event, scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        _exercise_recording_adapter(scene).validate_event(event, scene)
         return
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         normalized = event["snapshot"]["normalized_action"]
@@ -245,9 +263,8 @@ def _human_snapshot(human):
 
 
 def _snapshot(snapshot, scene):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import validate_snapshot
-        validate_snapshot(snapshot, scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        _exercise_recording_adapter(scene).validate_snapshot(snapshot, scene)
         _encoded(snapshot)
         return
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
@@ -333,9 +350,8 @@ def _snapshot(snapshot, scene):
 
 
 def _snapshot_validator(scene):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import prepare_snapshot_validator
-        return prepare_snapshot_validator(scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        return _exercise_recording_adapter(scene).prepare_snapshot_validator(scene)
     return lambda snapshot: _snapshot(snapshot, scene)
 
 
@@ -361,16 +377,15 @@ class Recorder:
         if self.scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
             from weft.shared_world import validate_shared_world
             self.scene = validate_shared_world(self.scene)
-        if self.scene.get("profile") == "shared-exercise-recording-v1":
-            from weft.shared_exercise_recording import validate_recording_scene
-            self.scene = validate_recording_scene(self.scene)
+        if self.scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+            self.scene = _exercise_recording_adapter(self.scene).validate_recording_scene(self.scene)
         human = profile in {"human", "exercise"} or self.scene.get("profile") in {"exercise-v1", "exercise-v2", "exercise-v3", *DIRECT_PROFILES}
         if self.scene.get("profile") in DIRECT_PROFILES:
             _whole_body_contract(self.scene)
         object_limit = MAX_HUMAN_PARTS if human else 12
         person_only = self.scene.get("profile") == "shared-world-v3" or (
-            self.scene.get("profile") == "shared-exercise-recording-v1"
-            and self.scene["engine_scene"]["profile"] == "shared-world-v3")
+            self.scene.get("profile") in EXERCISE_RECORDING_PROFILES
+            and self.scene["engine_scene"].get("base_profile", self.scene["engine_scene"]["profile"]) == "shared-world-v3")
         minimum_objects = 0 if person_only else 1
         if not isinstance(self.scene.get("objects"), list) or not minimum_objects <= len(self.scene["objects"]) <= object_limit:
             raise ValueError(f"A recording requires {minimum_objects}–{object_limit} scene objects")
@@ -390,6 +405,7 @@ class Recorder:
         self._spatial_policy_document = None
         self._spatial_policy = None
         self._journal_limit = 16 * 1024 * 1024 if self.scene.get("profile") == "spatial-rigid-v1" else MAX_JOURNAL_BYTES
+        self._event_limit = _event_size_limit(self.scene)
 
     def configure_spatial_controller_provenance(self, policy_document_bytes=None):
         """Opt a new spatial journal into exact controller identity before its start."""
@@ -421,7 +437,7 @@ class Recorder:
             self._spatial_policy = policy_document(contract, self.scene)
         elif reset_options is not None:
             raise ValueError("Explicit recording reset options are supported only for spatial rigid scenes")
-        if len(_encoded({**event, "index": 0}).encode("utf-8")) + 1 > MAX_EVENT_BYTES:
+        if len(_encoded({**event, "index": 0}).encode("utf-8")) + 1 > self._event_limit:
             raise ValueError("Recording initial state exceeds the event size limit")
         self._metadata = {
             "schema_version": 1, "profile": self.profile, "created_at": local_time(),
@@ -430,6 +446,8 @@ class Recorder:
             "limits": {"max_events": MAX_EVENTS, "max_wall_seconds": MAX_SECONDS,
                        "max_journal_bytes": self._journal_limit},
         }
+        if self.scene.get("profile") == FEET_RECORDING_PROFILE:
+            self._metadata["limits"]["max_event_bytes"] = self._event_limit
         if contract is not None:
             self._metadata["action_replay_contract"] = contract
             if len(_encoded(self._metadata).encode("utf-8")) > 65536 - 2048:
@@ -446,7 +464,7 @@ class Recorder:
         record = dict(event, index=self._count)
         line = _encoded(record) + "\n"
         length = len(line.encode("utf-8"))
-        if length > MAX_EVENT_BYTES or self._bytes + length > self._journal_limit:
+        if length > self._event_limit or self._bytes + length > self._journal_limit:
             raise ValueError("Recording size limit reached; stop and save this session")
         # Flush each action batch to keep completed lines available after interruption.
         self._stream.write(line)
@@ -460,7 +478,7 @@ class Recorder:
         if self._stream is None or self._closed:
             raise RuntimeError("Recording is not active")
         if (self._count >= MAX_EVENTS or time.monotonic() - self._started > MAX_SECONDS
-                or self._bytes + MAX_EVENT_BYTES > self._journal_limit):
+                or self._bytes + self._event_limit > self._journal_limit):
             raise ValueError("Recording limit reached; stop and save this session")
 
     def append(self, event):
@@ -519,19 +537,19 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         from weft.shared_world import validate_shared_world
         scene = validate_shared_world(scene)
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import validate_recording_scene
-        scene = validate_recording_scene(scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        scene = _exercise_recording_adapter(scene).validate_recording_scene(scene)
     metadata = json.loads((root / "recording.json").read_text())
     validate_snapshot = _snapshot_validator(scene)
+    event_limit = _event_size_limit(scene)
     journal = root / "events.jsonl"
     if journal.stat().st_size > MAX_JOURNAL_BYTES:
         raise ValueError("Recording exceeds journal read bound")
     events, incomplete = [], False
     with journal.open("rb") as stream:
-        while line := stream.readline(MAX_EVENT_BYTES + 1):
+        while line := stream.readline(event_limit + 1):
             _check_deadline(deadline)
-            if len(line) > MAX_EVENT_BYTES:
+            if len(line) > event_limit:
                 raise ValueError("Recording event exceeds read bound")
             if not line.endswith(b"\n"):
                 if allow_incomplete and not stream.read(1):
@@ -552,10 +570,15 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
                 raise ValueError("Recording exceeds event read bound")
     if not events:
         raise ValueError("Recording has no complete events")
-    if scene.get("profile") == "shared-exercise-recording-v1":
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
         _seed(metadata.get("seed"))
         if metadata["seed"] != events[0]["seed"]:
             raise ValueError("Exercise recording metadata seed differs from its initial event")
+    if scene.get("profile") == FEET_RECORDING_PROFILE:
+        limits = metadata.get("limits")
+        if (not isinstance(limits, dict) or limits.get("max_event_bytes") != FEET_EVENT_BYTES
+                or limits.get("max_journal_bytes") != MAX_JOURNAL_BYTES):
+            raise ValueError("Feet recording limits differ from the bounded journal contract")
     if metadata["scene_sha256"] != canonical_hash(scene):
         raise ValueError("Recorded scene identity does not match metadata")
     contract = metadata.get("action_replay_contract")
@@ -648,9 +671,8 @@ def _render_human(snapshot, width):
 
 
 def render_snapshot(snapshot, scene, width=640):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import render_snapshot as render_exercise
-        return render_exercise(snapshot, scene, width=width)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        return _exercise_recording_adapter(scene).render_snapshot(snapshot, scene, width=width)
     if scene.get("profile") in ("shared-world-v1", "shared-world-v2", "shared-world-v3"):
         from weft.shared_world import render_snapshot as render_shared
         return render_shared(snapshot, scene, width=width)
@@ -699,9 +721,8 @@ def render_snapshot(snapshot, scene, width=640):
 
 
 def _replay_html(scene, events):
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import replay_view
-        data = _encoded(replay_view(scene, events)).replace("<", "\\u003c")
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        data = _encoded(_exercise_recording_adapter(scene).replay_view(scene, events)).replace("<", "\\u003c")
         template = Path(__file__).parent / "assets/shared-world-replay.html"
         return template.read_text().replace("__WEFT_DATA__", data)
     data = _encoded({"scene": scene, "events": events}).replace("<", "\\u003c")
@@ -802,9 +823,8 @@ def export_recording(root, *, deadline=None, max_output_bytes=None):
     dt = scene.get("dt", 1 / 30)
     if type(dt) not in (int, float) or not math.isfinite(dt) or not 1/240 <= dt <= 1:
         raise ValueError("Recording scene timestep is unsupported")
-    if scene.get("profile") == "shared-exercise-recording-v1":
-        from weft.shared_exercise_recording import prepare_renderer
-        render = prepare_renderer(scene)
+    if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
+        render = _exercise_recording_adapter(scene).prepare_renderer(scene)
     else:
         render = lambda snapshot: render_snapshot(snapshot, scene)
     first = render(events[0]["snapshot"])
@@ -920,12 +940,13 @@ def recover_incomplete_recording(source_dir, out_dir, *, export=True):
     events = loaded["events"]
     source_meta = dict(loaded["metadata"])
     journal_limit = 16 * 1024 * 1024 if scene.get("profile") == "spatial-rigid-v1" else MAX_JOURNAL_BYTES
+    event_limit = _event_size_limit(scene)
 
     encoded_lines = []
     journal_bytes = 0
     for event in events:
         line = (_encoded(event) + "\n").encode("utf-8")
-        if len(line) > MAX_EVENT_BYTES or journal_bytes + len(line) > journal_limit:
+        if len(line) > event_limit or journal_bytes + len(line) > journal_limit:
             raise ValueError("Recovered journal exceeds recording size bound")
         encoded_lines.append(line)
         journal_bytes += len(line)
