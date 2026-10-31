@@ -14,7 +14,7 @@ from weft.io import canonical_hash, local_time
 from weft.shared_exercise_recording import recording_scene, validate_action, verify_action_replay
 from weft.shared_exercise_reset import describe_reset_protocol, resolve_reset_options
 from weft.shared_exercise_task import SharedExerciseTaskEnv, build_shared_exercise_task, validate_shared_exercise_task
-from weft.shared_world import HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, SharedWorldEnv, validate_shared_world
+from weft.shared_world import FEET_PROFILE, HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, SharedWorldEnv, validate_shared_world
 from weft.shared_world_packaging import (
     collect_shared_source_files, read_package_file, read_package_manifest, validate_package_layout, write_package_files,
 )
@@ -33,10 +33,29 @@ RUNTIME_FILES = (
     "source_equivalence.py", "world_evidence.py", "observations.py", "human.py", "mobile_human.py",
     "whole_body.py", "spatial_rigid.py", "body_frame.py", "spatial_pose.py", "root_motion.py", "errors.py", "io.py",
 )
+FEET_RUNTIME_FILES = (
+    "shared_world_feet.py", "foot_body.py", "foot_reference.py", "whole_body_feasibility.py",
+    "shared_exercise_feet_projection.py", "shared_exercise_feet_task.py", "shared_exercise_feet_state.py",
+    "shared_exercise_feet_recording.py", "shared_exercise_recording.py", "recording.py", "shared_support_task.py",
+)
+
+
+def _base_profile(scene):
+    return scene["base_profile"] if scene["profile"] == FEET_PROFILE else scene["profile"]
+
+
+def _validate_task(task, scene):
+    if scene["profile"] == FEET_PROFILE:
+        from weft.shared_exercise_feet_task import validate_shared_exercise_feet_task
+        return validate_shared_exercise_feet_task(task, scene)
+    return validate_shared_exercise_task(task, scene)
 
 
 def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
+    if scene["profile"] == FEET_PROFILE:
+        inventory = ("person_inventory.py",) if _base_profile(scene) == HUMAN_ONLY_PROFILE else ()
+        return (*RUNTIME_FILES, *FEET_RUNTIME_FILES, *inventory)
     if scene["profile"] == HUMAN_ONLY_PROFILE:
         return (*RUNTIME_FILES, "person_inventory.py")
     if scene["profile"] == STATIC_SUPPORT_PROFILE:
@@ -86,13 +105,14 @@ def _deadline(deadline):
         raise TimeoutError("Exercise lab operation exceeded its cooperative wall-time bound")
 
 
-def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maximum_bytes=MAX_INPUT_BYTES):
+def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maximum_bytes=MAX_INPUT_BYTES, preflight=None):
     manifest_raw, hashes = read_package_manifest(directory)
     manifest = _json(manifest_raw)
     if manifest.get("status") in REJECTED_STATUSES:
         raise ValueError("Cannot prepare or resume an unsuccessful exercise lab input")
     if len(hashes) > maximum_files:
         raise ValueError("Exercise lab input exceeds its file-count bound")
+    prefetched = preflight(directory, hashes) if preflight is not None else {}
     files, total = {}, len(manifest_raw)
     for name, expected in hashes.items():
         _deadline(deadline)
@@ -100,14 +120,61 @@ def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maxi
         if (any(part.startswith(".") or part == "__pycache__" for part in Path(name).parts)
                 or name.endswith(".pyc") or name.endswith(".log") and not required_log):
             raise ValueError("Exercise lab inputs must exclude hidden files, caches and logs")
-        raw = read_package_file(directory, name, max_bytes=min(MAX_FILE_BYTES, max(1, maximum_bytes - total)),
-                                expected_sha256=expected)
+        raw = (prefetched[name] if name in prefetched else
+               read_package_file(directory, name, max_bytes=min(MAX_FILE_BYTES, max(1, maximum_bytes - total)),
+                                 expected_sha256=expected))
         total += len(raw)
         if total > maximum_bytes:
             raise ValueError("Exercise lab input exceeds its byte bound")
         files[name] = raw
     _deadline(deadline)
     return manifest_raw, files
+
+
+def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=None, resume=False):
+    def read(directory, hashes):
+        if "scene.json" not in hashes:
+            return {}
+        scene_raw = read_package_file(directory, "scene.json", max_bytes=MAX_FILE_BYTES,
+                                      expected_sha256=hashes["scene.json"])
+        scene = _json(scene_raw)
+        fetched = {"scene.json": scene_raw}
+        if not isinstance(scene, dict) or scene.get("profile") != FEET_PROFILE:
+            return fetched
+        if policy_run is not None or evaluation_run is not None:
+            raise ValueError("Coupled-feet learned policies and evaluation attachments are not yet qualified")
+        if "exercise-task.json" in hashes:
+            fetched["exercise-task.json"] = read_package_file(directory, "exercise-task.json", max_bytes=128 << 10,
+                                                               expected_sha256=hashes["exercise-task.json"])
+        elif task_path is None:
+            raise ValueError("Coupled feet require an explicit source-bound task; base requirements cannot be replaced by defaults")
+        if task_path is not None:
+            path = Path(task_path).absolute()
+            read_package_file(path.parent, path.name, max_bytes=128 << 10)
+        if "exercise-lab.json" in hashes:
+            fetched["exercise-lab.json"] = read_package_file(directory, "exercise-lab.json", max_bytes=128 << 10,
+                                                              expected_sha256=hashes["exercise-lab.json"])
+            contract = _json(fetched["exercise-lab.json"])
+            if (contract.get("learned_policy_available") is not False
+                    or any(key in contract for key in ("policy_sha256", "exercise_policy", "policy_evaluation_sha256"))):
+                raise ValueError("Coupled-feet labs cannot expose unqualified policies or policy evaluation")
+        if resume and any(name in {"policy.json", "policy-evaluation.json"}
+                          or name.startswith(("learning-run/", "policy-evaluation-run/")) for name in hashes):
+            raise ValueError("Coupled-feet labs cannot expose unqualified policies or policy evaluation")
+        if "foot-reference.json" in hashes:
+            raw = read_package_file(directory, "foot-reference.json", max_bytes=8 << 20,
+                                    expected_sha256=hashes["foot-reference.json"])
+            extension = scene.get("foot_extension", {})
+            text = extension.get("reference_json")
+            if (not isinstance(text, str) or raw != text.encode("utf-8")
+                    or _sha(raw) != extension.get("reference_sha256")):
+                raise ValueError("Displayed foot reference differs from the exact simulated reference")
+            fetched["foot-reference.json"] = raw
+        elif resume:
+            raise ValueError("Coupled-feet lab is missing its exact displayed foot reference")
+        return fetched
+
+    return read
 
 
 def _implementation_snapshot():
@@ -149,7 +216,9 @@ def _reference_frames(scene, deadline):
             frames.append(env.reference_snapshot(index))
         return {"schema_version": 1, "profile": "shared-world-kinematic-reference-v1", "frames": frames,
                 "reference_poses_total": count, "reference_poses_included": len(frames),
-                "scope": ("Kinematic body projection with ground only; no physics actions or equipment inference."
+                "scope": ("Kinematic body projection with fixed original-start ankle hold; no video ankle tracking, physics actions or contact inference."
+                          if scene["profile"] == FEET_PROFILE else
+                          "Kinematic body projection with ground only; no physics actions or equipment inference."
                           if scene["profile"] == HUMAN_ONLY_PROFILE else
                           "Kinematic body projection with authored static supports; no physics actions or contact inference."
                           if scene["profile"] == STATIC_SUPPORT_PROFILE else
@@ -363,7 +432,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     source = source / "run" if (source / "run" / "manifest.json").is_file() else source
     started = time.monotonic()
     deadline = started + max_seconds
-    input_manifest, inputs = _verified_inputs(source, deadline=deadline)
+    input_manifest, inputs = _verified_inputs(source, deadline=deadline,
+        preflight=_feet_metadata_preflight(task_path=task_path, policy_run=policy_run, evaluation_run=evaluation_run))
     if "construction-seed.json" in inputs:
         raise ValueError("Construction seed is not a simulation; finish equipment construction before preparing a lab")
     if "scene.json" not in inputs:
@@ -374,20 +444,28 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             if isinstance(document, dict) and document.get("status") in REJECTED_STATUSES:
                 raise ValueError(f"Exercise lab source artifact {name} has unsuccessful status")
     scene = validate_shared_world(_json(inputs["scene.json"]))
+    feet = scene["profile"] == FEET_PROFILE
+    base_profile = _base_profile(scene)
+    if feet and (policy_run is not None or evaluation_run is not None):
+        raise ValueError("Coupled-feet learned policies and evaluation attachments are not yet qualified")
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(input_manifest))
     task_raw = None
     if task_path is None and "exercise-task.json" in inputs:
         # Geometry alternatives retain custom contact/control requirements, not just default gates.
         task_raw = inputs["exercise-task.json"]
-        task = validate_shared_exercise_task(_json(task_raw), scene)
+        if feet and len(task_raw) > 128 * 1024:
+            raise ValueError("Coupled-feet task exceeds its 128 KiB document bound")
+        task = _validate_task(_json(task_raw), scene)
         if root_assistance and task["control"]["root_assistance"] != "explicit_3_axis":
             raise ValueError("Root assistance conflicts with the sealed input task; provide an explicit replacement task")
     elif task_path is None:
+        if feet:
+            raise ValueError("Coupled feet require an explicit source-bound task; base requirements cannot be replaced by defaults")
         task = build_shared_exercise_task(scene, root_assistance=root_assistance)
     else:
         path = Path(task_path).absolute()
-        task_raw = read_package_file(path.parent, path.name, max_bytes=64 * 1024)
-        task = validate_shared_exercise_task(_json(task_raw), scene)
+        task_raw = read_package_file(path.parent, path.name, max_bytes=(128 if feet else 64) * 1024)
+        task = _validate_task(_json(task_raw), scene)
     policy, policy_identity, learning_files, learning_manifest = None, {}, {}, None
     if learning_source is not None:
         learning_manifest, learning_files = _verified_inputs(learning_source, deadline=deadline)
@@ -402,6 +480,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         collect_shared_source_files(scene, evaluation_source, expected_manifest_sha256=_sha(evaluation_manifest))
     generated = {"manifest.json", "source-run", "lab-implementation", "scene.json", "exercise-task.json",
                  "exercise-lab.json", "source-verification.json", "human-reference.json", "input-task.json"}
+    if feet:
+        generated.update({"foot-reference.json", "feet-migration.json"})
     if policy is not None:
         generated.update({"learning-run", "policy.json"})
     if evaluation_manifest is not None:
@@ -415,7 +495,9 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                 "implementation_sha256": {name: _sha(raw) for name, raw in implementation.items()},
                 "runtime_sha256": {name: _sha(implementation[name]) for name in runtime_files(scene)},
                 "runtime_versions": _runtime_versions(),
-                "scope": ("Authored human/static-support load task; no recovered contact, grasp or physical validation."
+                "scope": ("Coupled feet with original body scoring and unscored ankle diagnostics; no video ankle tracking, foot support credit, ground-load qualification or physical validation."
+                          if feet else
+                          "Authored human/static-support load task; no recovered contact, grasp or physical validation."
                           if scene["profile"] == STATIC_SUPPORT_PROFILE else
                           "Independent authored human-only simulator task; no recovered grasp or physical validation.")}
     contract.update(policy_identity)
@@ -424,11 +506,14 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol)
     views = {name: raw for name, raw in inputs.items()
              if name in SOURCE_VIEWS or name.startswith("geometry-inspection/")
-             or scene["profile"] == HUMAN_ONLY_PROFILE and name in {"inventory.json", "source-clock.json"}
-             or scene["profile"] == STATIC_SUPPORT_PROFILE and name in {"support-config.json", "source-clock.json"}}
+             or base_profile == HUMAN_ONLY_PROFILE and name in {"inventory.json", "source-clock.json"}
+             or base_profile == STATIC_SUPPORT_PROFILE and name in {"support-config.json", "source-clock.json"}
+             or feet and name in {"foot-reference.json", "feet-migration.json"}}
+    if feet:
+        views["foot-reference.json"] = scene["foot_extension"]["reference_json"].encode("utf-8")
     if "geometry-hypothesis.json" in views and "input-config.json" in inputs:
         views["input-config.json"] = inputs["input-config.json"]
-    if scene["profile"] == STATIC_SUPPORT_PROFILE and "inputs/support-config.json" in inputs:
+    if base_profile == STATIC_SUPPORT_PROFILE and "inputs/support-config.json" in inputs:
         if "support-config.json" in views and views["support-config.json"] != inputs["inputs/support-config.json"]:
             raise ValueError("Static-support lab has conflicting configuration artifacts")
         views["support-config.json"] = inputs["inputs/support-config.json"]
@@ -465,7 +550,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     _deadline(deadline)
     manifest = _bytes({"schema_version": 1, "created_at": local_time(), "status": "ready",
                        "control_profile": CONTROL_PROFILE, "files": {name: _sha(raw) for name, raw in files.items()}})
-    event = {"stage": "shared_exercise_import", "message": ("Verified immutable person-only task and ground-only inventory"
+    event = {"stage": "shared_exercise_import", "message": ("Verified coupled-feet task; original body scoring and separate unscored ankle diagnostics"
+             if feet else "Verified immutable person-only task and ground-only inventory"
              if scene["profile"] == HUMAN_ONLY_PROFILE else "Verified immutable human task and declared static supports"
              if scene["profile"] == STATIC_SUPPORT_PROFILE else "Verified immutable human-only task and passive equipment"),
              "time": local_time()}
@@ -509,14 +595,16 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
     root = Path(root)
     deadline = time.monotonic() + 60 if deadline is None else deadline
     manifest_raw, files = _verified_inputs(root, deadline=deadline, maximum_files=MAX_OUTPUT_FILES,
-                                           maximum_bytes=MAX_OUTPUT_BYTES)
+                                           maximum_bytes=MAX_OUTPUT_BYTES, preflight=_feet_metadata_preflight(resume=True))
     if _json(manifest_raw).get("control_profile") != CONTROL_PROFILE:
         raise ValueError("Exercise lab manifest must explicitly select human-only control")
     required = {"scene.json", "exercise-task.json", "exercise-lab.json", "source-run/manifest.json"}
     if not required <= set(files):
         raise ValueError("Exercise lab is missing its pinned scene, task or source identity")
     scene = validate_shared_world(_json(files["scene.json"]))
-    task = validate_shared_exercise_task(_json(files["exercise-task.json"]), scene)
+    if scene["profile"] == FEET_PROFILE and len(files["exercise-task.json"]) > 128 * 1024:
+        raise ValueError("Coupled-feet task exceeds its 128 KiB document bound")
+    task = _validate_task(_json(files["exercise-task.json"]), scene)
     contract = _json(files["exercise-lab.json"])
     fixed = {"schema_version": 1, "profile": "shared-world", "control_profile": CONTROL_PROFILE,
              "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
@@ -553,6 +641,11 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
         raise ValueError("Exercise lab cannot rewrite the original engine scene")
     policy = None
     evaluation_successes, evaluation_reset_protocol = None, None
+    if scene["profile"] == FEET_PROFILE and (contract["learned_policy_available"]
+            or any(name in files for name in ("policy.json", "policy-evaluation.json"))
+            or any(name.startswith(("learning-run/", "policy-evaluation-run/")) for name in files)
+            or any(name in contract for name in ("policy_sha256", "exercise_policy", "policy_evaluation_sha256"))):
+        raise ValueError("Coupled-feet labs cannot expose unqualified policies or policy evaluation")
     if contract["learned_policy_available"]:
         if not {"policy.json", "learning-run/manifest.json"} <= set(files):
             raise ValueError("Exercise lab learned policy lacks its complete training package")
@@ -625,8 +718,15 @@ class SharedExerciseSession:
         self.policy = loaded.get("policy")
         self.policy_sha256 = loaded["contract"].get("policy_sha256")
         self._exercise_policy = loaded["contract"].get("exercise_policy")
-        self._recording_scene = recording_scene(self._scene, self._task, policy_document=loaded.get("policy_document"))
-        self.env = SharedExerciseTaskEnv(self._scene, self._task)
+        if self.scene_profile == FEET_PROFILE:
+            from weft.shared_exercise_feet_recording import recording_scene as feet_recording_scene
+            from weft.shared_exercise_feet_task import SharedExerciseFeetTaskEnv
+
+            self._recording_scene = feet_recording_scene(self._scene, self._task)
+            self.env = SharedExerciseFeetTaskEnv(self._scene, self._task)
+        else:
+            self._recording_scene = recording_scene(self._scene, self._task, policy_document=loaded.get("policy_document"))
+            self.env = SharedExerciseTaskEnv(self._scene, self._task)
         try:
             self.reset(0)
             self._policy_action = None
@@ -677,7 +777,11 @@ class SharedExerciseSession:
         return self.env.authored_action().tolist()
 
     def resolve_action(self, action):
-        validate_action(action, self._recording_scene)
+        if self.scene_profile == FEET_PROFILE:
+            from weft.shared_exercise_feet_recording import validate_action as validate_feet_action
+            validate_feet_action(action, self._recording_scene)
+        else:
+            validate_action(action, self._recording_scene)
         return [float(value) for value in action]
 
     def step(self, action):
@@ -689,11 +793,20 @@ class SharedExerciseSession:
         return self.env.snapshot()
 
 
+def verify_shared_exercise_action_replay(root, *, max_seconds=60):
+    root = Path(root)
+    envelope = _json(read_package_file(root, "scene.json", max_bytes=16 * 1024 * 1024))
+    if isinstance(envelope, dict) and envelope.get("profile") == "shared-exercise-feet-recording-v1":
+        from weft.shared_exercise_feet_recording import verify_action_replay as verify_feet_replay
+        return verify_feet_replay(root, max_seconds=max_seconds)
+    return verify_action_replay(root, max_seconds=max_seconds)
+
+
 def export_shared_exercise_session(root):
     from weft.recording import export_recording
 
     deadline = time.monotonic() + 180
     exported = export_recording(root, deadline=deadline, max_output_bytes=128 * 1024 * 1024)
     _deadline(deadline)
-    replay = verify_action_replay(root, max_seconds=deadline - time.monotonic())
+    replay = verify_shared_exercise_action_replay(root, max_seconds=deadline - time.monotonic())
     return {**exported, "action_replay": replay}

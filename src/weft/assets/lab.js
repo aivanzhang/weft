@@ -17,7 +17,8 @@
   let poseIssues = [], poseIssueIndex = -1, pendingSourceSeek = null;
   let inspection = null, inspectionLoaded = false, inspectionPending = false, inspectionAttempts = 0;
   let evidenceScorecardSignature = null;
-  let exerciseTask = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
+  let exerciseTask = null, exerciseEnvelope = null, exerciseIdentity = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
+  let feetPanel = null, feetSummary = null, feetCoverage = null, feetDetails = null, feetRows = null, feetDetailSignature = "";
   let exerciseDetailSignature = "", exercisePolicy = null;
   let mediaClockReady = false;
   let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
@@ -30,11 +31,13 @@
   const actorLabel = (id) => inspectionActors.get(id)?.label || scene?.objects?.find(obj => obj.id === id)?.label || id;
   const wholeBody = () => scene?.profile === "exercise-imitation-v1";
   const spatialRigid = () => scene?.profile === "spatial-rigid-v1";
-  const sharedWorld = () => ["shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"].includes(scene?.profile);
-  const personOnly = () => scene?.profile === "shared-world-v3";
-  const staticSupport = () => scene?.profile === "shared-world-v4";
+  const sharedFeet = () => scene?.profile === "shared-world-v5";
+  const sharedWorld = () => ["shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v5"].includes(scene?.profile);
+  const baseSceneProfile = () => sharedFeet() ? scene.base_profile : scene?.profile;
+  const personOnly = () => baseSceneProfile() === "shared-world-v3";
+  const staticSupport = () => baseSceneProfile() === "shared-world-v4";
   const sharedExercise = () => current?.control_profile === "shared_exercise" || staticSupport();
-  const engineState = state => state?.profile === "shared-exercise-state-v1" ? state.engine_state : state;
+  const engineState = state => ["shared-exercise-state-v1", "shared-exercise-feet-state-v1"].includes(state?.profile) ? state.engine_state : state;
   const exerciseMetrics = () => sharedExercise() && exerciseStateReady ? snapshot.task_metrics : null;
   const sharedHumanTarget = () => sharedWorld() && (sharedExercise() || (snapshot?.controlled_id || scene?.controlled_id) === "human");
   const sharedObjectTarget = () => sharedWorld() && !sharedHumanTarget();
@@ -465,6 +468,94 @@
   const supportDigest = value => typeof value === "string" && /^[0-9a-f]{64}$/.test(value);
   const nonnegative = value => typeof value === "number" && Number.isFinite(value) && value >= 0;
   const nullableNonnegative = value => value === null || nonnegative(value);
+  const feetIdentityKeys = ["scene_sha256", "base_scene_sha256", "base_task_sha256", "projection_contract_sha256", "adapter_implementation_sha256", "foot_reference_sha256"];
+  const sameArray = (value, expected) => Array.isArray(value) && value.length === expected.length && value.every((item, i) => item === expected[i]);
+  function validFeetEnvelope() {
+    const task = exerciseEnvelope, identity = exerciseIdentity, assisted = exerciseTask?.control?.root_assistance === "explicit_3_axis";
+    const indices = [...Array.from({length: 19}, (_, i) => i), ...Array.from({length: 6}, (_, i) => i + 22), ...(assisted ? [19, 20, 21] : [])];
+    return task?.schema_version === 1 && task.profile === "shared-exercise-feet-task-v1"
+      && ["shared-world-v2", "shared-world-v3", "shared-world-v4"].includes(scene.base_profile)
+      && identity && feetIdentityKeys.every(key => supportDigest(task[key]) && identity[key] === task[key]) && supportDigest(identity.task_sha256)
+      && task.projection_profile === "shared-exercise-feet-projection-v1" && identity.projection_profile === task.projection_profile
+      && task.base_scene_sha256 === exerciseTask?.scene_sha256 && task.foot_reference_sha256 === scene.foot_extension?.reference_sha256
+      && task.control?.root_assistance === exerciseTask.control.root_assistance && task.control.object_forces === "forbidden"
+      && task.control.ankle_target_mode === "authored_initial_angle_hold" && exerciseActions?.ankle_target_mode === task.control.ankle_target_mode
+      && task.interval?.horizon_steps === exerciseTask.interval?.horizon_steps
+      && task.scope?.success_scope === "unchanged_base_task_simulated_criteria" && task.scope.ankle_metrics === "unscored_diagnostics"
+      && task.scope.foot_support_credit === false && task.scope.ground_load_requirements === "unsupported"
+      && task.scope.learning === "unsupported" && task.scope.physical_validation === "unverified"
+      && sameArray(exerciseActions.engine_motor_indices, indices)
+      && sameArray(exerciseActions.names, indices.map(i => scene.action_contract?.names?.[i]))
+      && sameArray(exerciseActions.joint_channels, Array.from({length: 25}, (_, i) => i))
+      && sameArray(exerciseActions.body_joint_channels, Array.from({length: 19}, (_, i) => i))
+      && sameArray(exerciseActions.ankle_channels, [19, 20, 21, 22, 23, 24])
+      && sameArray(exerciseActions.root_assistance_channels, assisted ? [25, 26, 27] : []);
+  }
+  function validFeetDiagnostics(d, m) {
+    const count = value => Number.isSafeInteger(value) && value >= 0;
+    if (d?.profile !== "shared-exercise-feet-diagnostics-v1" || d.source !== "simulated_engine_substeps"
+      || d.target_mode !== "authored_initial_angle_hold" || d.scored !== false || d.foot_support_credit !== false
+      || d.ground_load_requirements !== "unsupported" || d.retention !== "latest_observed_substep_plus_episode_aggregates"
+      || !count(d.observed_substeps) || d.observed_substeps !== m.observed_substeps || !count(d.valid_substeps)
+      || d.valid_substeps !== m.valid_substeps || d.valid_substeps > d.observed_substeps
+      || d.observed_substeps > exerciseTask.interval.horizon_steps * scene.substeps
+      || !nonnegative(d.valid_observed_duration_s) || d.valid_observed_duration_s !== m.valid_observed_duration_s
+      || !count(d.excluded_foot_contact_records) || !Array.isArray(d.contact_aggregates)
+      || d.contact_aggregates.length !== scene.objects.length * 2 || d.contact_aggregates.length > 24) return false;
+    const errors = [d.ankle_hold_error_rmse_rad, d.peak_ankle_hold_error_rmse_rad, d.ankle_effort_mean_squared];
+    if (!(d.valid_substeps ? errors.every(nonnegative) && errors[0] <= errors[1] + 1e-8 : errors.every(value => value === null))) return false;
+    if (!d.contact_aggregates.every((row, i) => row?.object_id === scene.objects[Math.floor(i / 2)].id
+      && row.human_segment === (i % 2 ? "right_foot" : "left_foot") && count(row.contact_records)
+      && (row.contact_records ? Number.isFinite(row.first_contact_time_s) && Number.isFinite(row.last_contact_time_s) && nonnegative(row.peak_normal_force)
+        : [row.first_contact_time_s, row.last_contact_time_s, row.peak_normal_force].every(value => value === null)))
+      || d.contact_aggregates.reduce((sum, row) => sum + row.contact_records, 0) !== d.excluded_foot_contact_records) return false;
+    const latest = d.latest_substep;
+    return d.observed_substeps === 0 ? latest === null : latest && Number.isSafeInteger(latest.step_index)
+      && Number.isSafeInteger(latest.substep_index) && Number.isFinite(latest.interval_start_s) && Number.isFinite(latest.contact_time_s)
+      && (latest.interval_end_s === null || Number.isFinite(latest.interval_end_s)) && typeof latest.valid === "boolean"
+      && (latest.failure === null || typeof latest.failure === "string" && latest.failure.length <= 240)
+      && Array.isArray(latest.excluded_foot_contacts) && latest.excluded_foot_contacts.length <= 256
+      && ((!latest.valid || latest.failure !== null || latest.interval_end_s === null) ? !!m.failure : true);
+  }
+  function validFeetState(state) {
+    return feetIdentityKeys.every(key => state[key] === exerciseIdentity[key]) && state.task_sha256 === exerciseIdentity.task_sha256
+      && state.projection_profile === exerciseEnvelope.projection_profile
+      && state.engine_state?.profile === scene.profile
+      && state.engine_state.human?.feet?.reference_sha256 === exerciseIdentity.foot_reference_sha256
+      && state.task_metrics?.scene_sha256 === exerciseIdentity.base_scene_sha256 && state.task_metrics.task_sha256 === exerciseIdentity.base_task_sha256
+      && sameArray(state.engine_state.human?.action_names, scene.action_contract.names.slice(0, 28))
+      && validFeetDiagnostics(state.ankle_diagnostics, state.task_metrics);
+  }
+  function configureFeetDiagnostics() {
+    if (feetPanel) return;
+    feetPanel = document.createElement("section");
+    const heading = document.createElement("h3"), summary = document.createElement("summary");
+    text(heading, "Unscored ankles and foot contacts"); text(summary, "Episode foot/object contact aggregates");
+    feetSummary = document.createElement("p"); feetCoverage = document.createElement("p");
+    feetDetails = document.createElement("details"); feetRows = document.createElement("pre");
+    feetDetails.append(summary, feetRows); feetPanel.append(heading, feetSummary, feetCoverage, feetDetails);
+    $("exercise-results").append(feetPanel);
+    feetDetails.ontoggle = () => updateFeetDiagnostics(snapshot);
+  }
+  function updateFeetDiagnostics(state) {
+    if (!feetPanel) return;
+    if (!exerciseStateReady) {
+      text(feetSummary, "Ankle diagnostics unavailable; no zero error or contact is inferred.");
+      text(feetCoverage, "Controls paused because the task/state contract is inconsistent."); text(feetRows, "Unavailable."); feetDetailSignature = ""; return;
+    }
+    const d = state.ankle_diagnostics, latest = d.latest_substep;
+    const unchangedText = (element, value) => { if (element.textContent !== value) text(element, value); };
+    unchangedText(feetSummary, `Original-start ankle hold · error mean ${number(d.ankle_hold_error_rmse_rad)} / peak ${number(d.peak_ankle_hold_error_rmse_rad)} rad · mean squared normalized ankle command ${number(d.ankle_effort_mean_squared)}. Unscored simulated readings; no foot support credit or ground-load qualification.`);
+    unchangedText(feetCoverage, `${d.valid_substeps} accepted / ${d.observed_substeps} observed substeps · ${number(d.valid_observed_duration_s)}s accepted coverage. ${latest
+      ? `Latest contact clock ${number(latest.contact_time_s)}s; sample ${number(latest.interval_start_s)}–${number(latest.interval_end_s)}s (${latest.valid && latest.failure === null ? "valid engine sample" : "failed/invalid engine sample"}).`
+      : "No substep observed yet."} Geometry clock ${number(state.engine_state.time_s)}s${state.engine_state_status === "last_valid_control_boundary" ? " (last valid boundary)" : ""}. ${d.excluded_foot_contact_records} excluded foot/object contact records; only the latest sample and episode aggregates are retained, not a full trace.`);
+    if (!feetDetails.open) return;
+    const signature = JSON.stringify(d.contact_aggregates);
+    if (signature === feetDetailSignature) return;
+    feetDetailSignature = signature;
+    text(feetRows, d.contact_aggregates.length ? d.contact_aggregates.map(row => `${row.human_segment.replaceAll("_", " ")} / ${actorLabel(row.object_id)}: ${row.contact_records} records · first ${number(row.first_contact_time_s)}s · last ${number(row.last_contact_time_s)}s · peak normal force ${number(row.peak_normal_force)} model force units`).join("\n")
+      : "No objects are declared. Ground-load readings are unsupported; this is not evidence of absent foot/ground contact.");
+  }
   const supportDirection = value => Array.isArray(value) && value.length === 3 && value.every(Number.isFinite) && Math.abs(Math.hypot(...value) - 1) <= 1e-9;
   const supportVector = (value, length) => Array.isArray(value) && value.length === length && value.every(Number.isFinite);
   const validStaticSupports = objects => Array.isArray(objects) && objects.length > 0 && objects.length <= 12
@@ -534,10 +625,12 @@
     if (hint) text(hint, "Loads come from simulated contacts, expressed as fractions of simulated body weight. Coverage and gaps use the declared windows; an early stop leaves the interval incomplete. These authored checks do not verify real contact or grasp.");
   }
   function configureExerciseTask(data) {
-    exerciseTask = data.exercise_task; exerciseActions = data.action_contract;
-    const rootMode = exerciseTask?.control?.root_assistance, expected = rootMode === "disabled" ? 19 : rootMode === "explicit_3_axis" ? 22 : 0;
+    exerciseEnvelope = data.exercise_task; exerciseTask = sharedFeet() ? exerciseEnvelope?.base_task : exerciseEnvelope;
+    exerciseIdentity = data.capabilities?.task_contract?.identity; exerciseActions = data.action_contract;
+    const joints = sharedFeet() ? 25 : 19;
+    const rootMode = exerciseTask?.control?.root_assistance, expected = rootMode === "disabled" ? joints : rootMode === "explicit_3_axis" ? joints + 3 : 0;
     const names = exerciseActions?.names;
-    exerciseContractReady = exerciseTask?.profile === (staticSupport() ? "shared-support-task-v1" : personOnly() ? "shared-exercise-task-v2" : "shared-exercise-task-v1") && exerciseTask.control?.object_forces === "forbidden"
+    exerciseContractReady = (!sharedFeet() || validFeetEnvelope()) && exerciseTask?.profile === (staticSupport() ? "shared-support-task-v1" : personOnly() ? "shared-exercise-task-v2" : "shared-exercise-task-v1") && exerciseTask.control?.object_forces === "forbidden"
       && expected > 0 && Array.isArray(names) && names.length === expected && new Set(names).size === expected
       && names.every(name => typeof name === "string" && name.length > 0 && name.length < 160)
       && exerciseActions.root_assistance === rootMode && Array.isArray(exerciseActions.object_force_channels) && exerciseActions.object_force_channels.length === 0
@@ -553,8 +646,8 @@
         : personOnly() ? `Track the body reference over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). Only human and ground are modeled; equipment and contact-requirement checks do not apply. Unsampled source motion remains unknown.`
         : `Track the body reference while every equipment object stays stable over ${number(duration, 2)} seconds (${exerciseTask.interval.horizon_steps} control steps). This declared task interval is not necessarily the whole source video.`
       : "The saved human-only task/control contract is unavailable or inconsistent. Task controls are disabled; no legacy task is substituted.");
-    text($("exercise-assistance"), rootMode === "disabled" ? "Root assistance: OFF · 19 joint motors. The body has no virtual root-force controls."
-      : rootMode === "explicit_3_axis" ? "Root assistance: 3 explicit virtual controls · 19 joint motors + 3 root-force channels. This is not unassisted balance."
+    text($("exercise-assistance"), rootMode === "disabled" ? `Root assistance: OFF · ${joints} joint motors${sharedFeet() ? " (19 body + 6 ankle)" : ""}. The body has no virtual root-force controls.`
+      : rootMode === "explicit_3_axis" ? `Root assistance: 3 explicit virtual controls · ${joints} joint motors${sharedFeet() ? " (19 body + 6 ankle)" : ""} + 3 root-force channels. This is not unassisted balance.`
       : "Root assistance: unavailable.");
     const requirements = staticSupport() ? exerciseTask?.support_requirements : exerciseTask?.contact_requirements;
     text($("exercise-contact-scope"), staticSupport() ? exerciseContractReady
@@ -565,6 +658,11 @@
       : personOnly() ? "Equipment and wrist-region requirements: not applicable. This declared inventory is not verified object absence. Passing checks simulated body tracking, not real exercise completion."
         : "No wrist-region contact is required. Passing means body tracking and equipment stability only—not hand support, a completed exercise or grasp."
       : "Contact requirements are unavailable; none are inferred from the image.");
+    if (sharedFeet()) {
+      configureFeetDiagnostics();
+      text($("exercise-task-heading"), "Original body task + unscored ankle controls");
+      text($("exercise-task-scope"), $("exercise-task-scope").textContent + " The original 19-joint score is unchanged. Six ankle motors hold authored original-start angles, not later video foot poses. Foot contacts receive no support credit.");
+    }
   }
   const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections", searched_feedback_residuals: "Searched joint feedback"};
   const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
@@ -574,7 +672,7 @@
     "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"]};
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
-    exercisePolicy = data.learned_policy_available === true && typeof policy?.profile === "string"
+    exercisePolicy = !sharedFeet() && data.learned_policy_available === true && typeof policy?.profile === "string"
       && Object.hasOwn(exercisePolicyKinds, policy.profile)
       && (staticSupport() ? policy.profile === "shared-support-policy-v1" : policy.profile !== "shared-support-policy-v1")
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
@@ -702,7 +800,8 @@
   function updateExerciseSnapshot(state) {
     snapshot = state;
     const m = state?.task_metrics, geometry = state?.engine_state;
-    exerciseStateReady = exerciseContractReady && state?.profile === "shared-exercise-state-v1" && !!geometry?.human && Array.isArray(geometry?.objects)
+    exerciseStateReady = exerciseContractReady && state?.profile === (sharedFeet() ? "shared-exercise-feet-state-v1" : "shared-exercise-state-v1") && !!geometry?.human && Array.isArray(geometry?.objects)
+      && (!sharedFeet() || validFeetState(state))
       && ["current", "last_valid_control_boundary"].includes(state.engine_state_status)
       && typeof state.terminated === "boolean" && typeof state.truncated === "boolean"
       && m?.profile === exerciseTask?.profile && typeof m.completed_interval === "boolean" && typeof m.success === "boolean"
@@ -719,6 +818,7 @@
       $("exercise-equipment").replaceChildren(); $("exercise-contacts").replaceChildren(); exerciseDetailSignature = "";
       text($("exercise-failure"), "The selected task, control contract or state metrics are unavailable. Any visible geometry is the previous display, not a new verified state."); $("exercise-failure").hidden = false;
       text($("readout"), "Exercise task state unavailable. Reset or reload before continuing.");
+      if (sharedFeet()) updateFeetDiagnostics(state);
       updateWindowClocks();
       return;
     }
@@ -745,6 +845,7 @@
       : `Explicit virtual root forces [${(geometry.human.mobility?.support_force || []).map(value => number(value, 1)).join(", ")}] · model force units, not measured human forces.`);
     text($("muscle-readout"), staticSupport() ? "Illustrative muscle bands show motor commands, not measured activation. Contact dots alone do not meet the declared simulated support-load requirements."
       : "Illustrative muscle bands show motor commands, not measured activation. Contact dots do not automatically qualify as wrist support.");
+    if (sharedFeet()) updateFeetDiagnostics(state);
     $("spatial-readout").hidden = true;
     exerciseDetails(m); updateControls();
     if (state.terminated || state.truncated || m.failure) pause();
@@ -841,7 +942,7 @@
         : "Across the complete declared interval: track the body reference, stay within the body/floor limits, and keep equipment stable. Only explicitly required wrist-region checks count. This is not a target-object task or proof of grasp.");
       text($("mode-description"), mode === "coast" ? staticSupport() ? "Coast: every joint and root-force command is zero. Authored supports remain fixed; gravity and simulated contacts still act."
         : personOnly() ? "Coast: every joint and root-force command is zero. Gravity and simulated ground contacts still act." : "Coast: every joint and root-force command is zero. Equipment remains passive; gravity and simulated contacts still act."
-        : mode === "reference" ? `Authored feedback follows the body reference using ${exerciseActions?.names?.length || "the declared"} human channels. This is programmed control, not learned behavior; equipment has no force controls.`
+        : mode === "reference" ? `Authored feedback follows the body reference using ${exerciseActions?.names?.length || "the declared"} human channels.${sharedFeet() ? " Six ankle motors hold original-start angles; they do not follow video foot motion." : ""} This is programmed control, not learned behavior; equipment has no force controls.`
         : mode === "learned" ? exerciseFeedbackDescription()
         : `Move one of ${exerciseActions?.names?.length || "the declared"} human motors with +0.25 or −0.25; all other commands stay zero. Root assistance is ${exerciseTask?.control?.root_assistance === "disabled" ? "disabled" : "explicit, not automatic"}. Equipment has no force controls.`);
     } else if (sharedWorld()) {
@@ -1090,7 +1191,7 @@
 
   function rootAppearanceAvailable() { return typeof globalThis.WeftLabAppearance?.create === "function"; }
   function configureAppearance(data) {
-    if (!data.appearance || !rootAppearanceAvailable()) return;
+    if (sharedFeet() || !data.appearance || !rootAppearanceAvailable()) return;
     appearanceView = globalThis.WeftLabAppearance.create({token, pause,
       send: async settings => (await request("/api/appearance", settings)).appearance,
       redraw: () => { if (snapshot) draw($("live"), snapshot); },
@@ -1247,6 +1348,16 @@
         text($("control-help"), `Choose one of ${humanMotorNames.length || "the declared"} human motors. Tap + or −, or start and hold. Release sets all commands to zero. Static supports cannot be selected, moved or pushed.`);
         text($("play-boundary"), "Body tracking and authored segment/load windows are evaluated over the fixed interval. Root assistance is explicit; equipment drift is not scored. This does not establish wrist support, grasp, anatomy, unassisted balance or physical accuracy.");
         $("live").setAttribute("aria-label", "Human simulation with authored static supports. Only human motors are controlled. Escape pauses.");
+      }
+      if (sharedFeet()) {
+        text($("world-heading"), "One 3D world: body with explicit ankle controls");
+        text($("world-description"), `The body and feet share the same simulated world${staticSupport() ? " with fixed authored supports" : personOnly() ? " and ground; no equipment is declared" : " with passive equipment"}. Six added ankle motors use authored shapes and original-start angle holds, not recovered anatomy or video foot motion.`);
+        text($("start-help"), "Try manual body/ankle motors, coast or authored feedback, then record a trial. Original body criteria remain unchanged. Ankle errors and foot contacts are unscored; learned policies and avatars are unsupported for this task.");
+        text($("play-boundary"), "The original 19-joint body score and existing task requirements are unchanged. Ankle effort and foot contacts add no score or support credit. Ground-load qualification, learned policies and avatars are unsupported; physical validation is unverified.");
+        text($("learning-description"), "Learning is unsupported for this feet task. Manual, coast and authored original-start ankle holds are available.");
+        text($("training-caption"), "Not trained · no existing policy is qualified for these added ankle controls.");
+        text($("exercise-evaluation-summary"), "No learned-policy evaluation is available for this feet task. Recorded trial results use the unchanged original body task.");
+        $("live").setAttribute("aria-label", "Body and foot simulation. Select one explicit body or ankle motor. Escape pauses.");
       }
     }
     if (data.profile === "spatial-rigid") {
@@ -1898,6 +2009,8 @@
     recording_scene_sha256: "Recording scene · canonical JSON", engine_scene_sha256: "Engine scene · canonical JSON",
     task_sha256: "Task · canonical JSON", policy_sha256: "Policy · file bytes",
   };
+  const feetRecordingIdentityLabels = {base_scene_sha256: "Original scoring scene · canonical JSON", base_task_sha256: "Original task · canonical JSON",
+    projection_contract_sha256: "Scoring projection contract", adapter_implementation_sha256: "Feet adapter implementation", foot_reference_sha256: "Exact foot reference"};
   function recordingEvidencePointer(data, path, digest) {
     const matches = data.verified_metadata.filter(row => row?.source_name === path && row.path === path);
     return matches.length === 1 && /^[0-9a-f]{64}$/.test(matches[0].sha256) && (digest === undefined || matches[0].sha256 === digest)
@@ -1913,6 +2026,9 @@
       || data.recorded.events !== 1 + data.recorded.actions + data.recorded.resets) return false;
     if (!Object.keys(recordingIdentityLabels).every(key => digest(data.identities[key])
       || ["task_sha256", "policy_sha256"].includes(key) && data.identities[key] === null)) return false;
+    if (sharedFeet() && (!exerciseIdentity || data.identities.policy_sha256 !== null
+      || data.identities.engine_scene_sha256 !== exerciseIdentity.scene_sha256 || data.identities.task_sha256 !== exerciseIdentity.task_sha256
+      || !Object.keys(feetRecordingIdentityLabels).every(key => digest(data.identities[key]) && data.identities[key] === exerciseIdentity[key]))) return false;
     const paths = {source_run_manifest_sha256: "run/manifest.json", recording_manifest_sha256: `sessions/${name}/manifest.json`,
       receipt_manifest_sha256: `sessions/${name}/evidence/manifest.json`, receipt_sha256: `sessions/${name}/evidence/receipt.json`,
       recording_scene_sha256: `sessions/${name}/scene.json`, engine_scene_sha256: "run/scene.json",
@@ -1929,9 +2045,10 @@
       && data.identities.task_sha256 === null && (data.identities.policy_sha256 === null
         ? replay.learned_actions_verified === null
         : digest(data.identities.policy_sha256) && count(replay.learned_actions_verified));
-    const exerciseReplay = sharedExercise() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
+    const exerciseReplay = sharedExercise() && !sharedFeet() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
       && digest(data.identities.task_sha256);
-    return (spatialReplay || spatialPolicyReplay || exerciseReplay) && replay.status === "passed"
+    const feetReplay = sharedFeet() && replay?.protocol === "shared-exercise-feet-full-state-replay-v1" && replay.learned_actions_verified === null;
+    return (spatialReplay || spatialPolicyReplay || exerciseReplay || feetReplay) && replay.status === "passed"
       && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
       && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
         && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
@@ -1948,7 +2065,9 @@
       recordingEvidenceSignature = signature;
       const counts = data.recorded, replay = data.replay;
       text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
-      const policyProof = replay.protocol === "spatial-rigid-exact-action-state-v1"
+      const policyProof = replay.protocol === "shared-exercise-feet-full-state-replay-v1"
+        ? "Actual feet state, original body scores and unscored ankle diagnostics matched. Learned policies and foot support qualification are unsupported."
+        : replay.protocol === "spatial-rigid-exact-action-state-v1"
         ? "Recorded actions were replayed; learned-policy decisions were not re-evaluated."
         : replay.protocol === "spatial-rigid-exact-action-state-policy-v2"
           ? replay.learned_actions_verified === null
@@ -1960,7 +2079,7 @@
         : "Exact action replay: not performed. Replay-check counts are unavailable, not zero. A saved-state export is not an exact action replay check.");
       text($("recording-evidence-session"), `Selected recording: ${data.session}`);
       $("recording-evidence-identities").replaceChildren();
-      for (const [key, label] of Object.entries(recordingIdentityLabels)) {
+      for (const [key, label] of Object.entries({...recordingIdentityLabels, ...(sharedFeet() ? feetRecordingIdentityLabels : {})})) {
         const row = document.createElement("tr"), heading = document.createElement("th");
         heading.setAttribute("scope", "row"); text(heading, label); row.append(heading);
         cell(row, data.identities[key] === null ? "Unavailable — not recorded" : data.identities[key]);

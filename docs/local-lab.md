@@ -30,6 +30,56 @@ retains one conditional point and four unavailable slots. Its source is a synthe
 descriptor, not a video or physical-validation result. Existing video sandbox and
 recording workflows below remain separate from this diagnostic.
 
+## Add feet to an existing world (experimental)
+
+`shared-feet-build` adds two simulated feet and six ankle controls to an existing
+person, equipment or static-support world. It preserves the original exercise
+task, source clip, body, ground and scoring. Supply a foot-reference file bound to
+that exact body; this command does not extract feet from a new video.
+
+```sh
+.venv-lab/bin/python -m weft shared-feet-build \
+  --run path/to/sealed-world --foot-reference path/to/foot-reference.json \
+  --task path/to/original-exercise-task.json --out artifacts/my-feet-candidate
+.venv-lab/bin/python -m weft shared-exercise-lab \
+  --run artifacts/my-feet-candidate --out artifacts/my-feet-lab
+.venv-lab/bin/python -m weft lab-console --resume artifacts/my-feet-lab
+```
+
+Each output directory must be new. Omit `--task` only when the source package
+already contains its explicit exercise task. Successful candidate packaging is
+not successful lab admission: incompatible initial geometry still rejects.
+
+In an admitted lab, try:
+
+```text
+controls
+record start
+motor left_ankle_z 0.1
+step
+reset
+mode reference
+step 6
+status
+record stop
+files
+record evidence
+```
+
+The original 19-joint body score stays unchanged. Ankle error and foot contacts
+are separate, unscored diagnostics; the reference controller holds the starting
+ankle angles, not later video foot poses. Root assistance stays exactly as the
+original task declared. Learned policies, avatar skins, foot-support credit and
+ground-load tasks are unavailable for this experimental extension.
+
+Both authored static-support integration cases (root assistance off/on) passed
+candidate → lab → console → export → exact replay → saved receipt → resume.
+The real saved single-leg candidate **did not pass admission**: its right foot
+starts inside the unchanged floor. It remains preserved at
+`artifacts/coupled-feet-lab-acceptance-01`; no controls or replay ran on that clip.
+Use the [recommended exercise sandbox](#recommended-exercise-sandbox) for the
+existing playable video example. [Evidence and remaining reconstruction gap](handoffs/combined.md#lab-integration-preparation--october-31-2026-154-pm-pdt).
+
 ## Inspect static-support loads
 
 Open the prepared support example:

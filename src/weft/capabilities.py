@@ -1,10 +1,11 @@
 """Shared environment, control and RL task capability descriptor across Weft profiles."""
 
 from copy import deepcopy
+from hashlib import sha256
 import json
 from pathlib import Path
 
-from weft.io import digest, write_json
+from weft.io import canonical_hash, digest, write_json
 from weft.pipeline import verify_artifacts
 
 
@@ -91,7 +92,12 @@ def validate_capabilities(doc):
     if not isinstance(frame, dict) or frame.get("dimensions") not in (2, 3) or not isinstance(frame.get("units"), dict):
         raise ValueError("Capabilities coordinate_frame must specify 2 or 3 dimensions and explicit units")
     entities = doc["entities"]
-    expected_mixed = doc["scene_profile"] in ("shared-world-v1", "shared-world-v2", "shared-world-v4")
+    base_profile = (doc["task_contract"].get("base_scene_profile")
+                    if doc["scene_profile"] == "shared-world-v5" and isinstance(doc["task_contract"], dict)
+                    else doc["scene_profile"])
+    if doc["scene_profile"] == "shared-world-v5" and base_profile not in ("shared-world-v2", "shared-world-v3", "shared-world-v4"):
+        raise ValueError("Feet capabilities require their explicit base scene profile")
+    expected_mixed = base_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v4")
     if (
         not isinstance(entities, dict)
         or type(entities.get("total_count")) is not int
@@ -134,7 +140,7 @@ def describe_capabilities(
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
         raise ValueError("Scene must be an object with a profile string")
     scene_profile = scene["profile"]
-    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"):
+    if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v5"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])
 
@@ -575,12 +581,21 @@ def describe_capabilities(
         }
         return validate_capabilities(doc)
 
-    if scene_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4"):
+    if scene_profile in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v5"):
         from weft.shared_world import HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE, OBJECT_ACTIONS, validate_shared_world
 
-        validated = validate_shared_world(scene)
-        human_only = scene_profile == HUMAN_ONLY_PROFILE
-        static_support = scene_profile == STATIC_SUPPORT_PROFILE
+        feet_task = None
+        if scene_profile == "shared-world-v5":
+            from weft.shared_exercise_feet_task import prepare_shared_exercise_feet_task
+
+            if exercise_task is None or learned_policy_available or trained_target_id is not None:
+                raise ValueError("Feet capabilities require an explicit feet task without learned policies or trained targets")
+            validated, _, feet_task = prepare_shared_exercise_feet_task(exercise_task, scene)
+        else:
+            validated = validate_shared_world(scene)
+        base_profile = validated["base_profile"] if feet_task else scene_profile
+        human_only = base_profile == HUMAN_ONLY_PROFILE
+        static_support = base_profile == STATIC_SUPPORT_PROFILE
         no_object_goal = human_only or static_support
         dyn_objs = [obj for obj in validated["objects"] if obj["role"] != "static"]
         static_objs = [obj for obj in validated["objects"] if obj["role"] == "static"]
@@ -717,17 +732,26 @@ def describe_capabilities(
         if exercise_task is not None:
             from weft.shared_exercise_task import GATES, HUMAN_ONLY_GATE_APPLICABILITY, validate_shared_exercise_task
 
-            exercise = validate_shared_exercise_task(exercise_task, validated)
-            count = 22 if exercise["control"]["root_assistance"] == "explicit_3_axis" else 19
+            exercise = feet_task["base_task"] if feet_task else validate_shared_exercise_task(exercise_task, validated)
+            assisted = exercise["control"]["root_assistance"] == "explicit_3_axis"
+            count = (25 if feet_task else 19) + (3 if assisted else 0)
+            if feet_task:
+                from weft.shared_exercise_feet_projection import task_motor_indices
+
+                indices = task_motor_indices(root_assistance=assisted)
+            else:
+                indices = tuple(range(count))
             doc["entities"].update(controllable_actors=[{
                 "id": "human", "label": f"Human ({count} explicit motors)", "kind": "articulated_human"}],
                 active_control_target="human", multi_target_selection_endpoint=None)
             doc["action_contract"].update(dimension=count, discrete_actions=[],
-                actuator_names=contract["names"][:count], physical_units=contract["units"][:count],
-                joint_channels=list(range(19)), root_assistance_channels=list(range(19, count)), object_force_channels=[])
+                actuator_names=[contract["names"][index] for index in indices],
+                physical_units=[contract["units"][index] for index in indices],
+                joint_channels=list(range(25 if feet_task else 19)),
+                root_assistance_channels=list(range(25 if feet_task else 19, count)), object_force_channels=[])
             equipment_ids = [] if static_support else exercise["equipment_ids"]
             requirements = exercise["support_requirements"] if static_support else exercise["contact_requirements"]
-            doc["observation_contract"].update(dimension=156 + 17 * len(equipment_ids)
+            doc["observation_contract"].update(dimension=(198 if feet_task else 156) + 17 * len(equipment_ids)
                                                + 6 * len(requirements),
                 components=["human_reference_conditioned_state", "passive_equipment_reset_relative_state",
                             "declared_contact_requirement_coverage_and_gaps", "elapsed_fraction"])
@@ -770,6 +794,25 @@ def describe_capabilities(
                     "Ground-force load requirements, finger grasping or measured muscle activation",
                     "Recovered support geometry, verified physical contact or physical transfer",
                 ]
+            if feet_task:
+                doc["action_contract"].update(body_joint_channels=list(range(19)), ankle_channels=list(range(19, 25)),
+                    engine_motor_indices=list(indices), root_assistance=exercise["control"]["root_assistance"],
+                    ankle_target_mode=feet_task["control"]["ankle_target_mode"])
+                doc["task_contract"].update(task_type=feet_task["profile"], base_task_type=exercise["profile"],
+                    base_scene_profile=base_profile,
+                    identity={**{name: feet_task[name] for name in ("scene_sha256", "base_scene_sha256", "base_task_sha256",
+                        "projection_profile", "projection_contract_sha256", "adapter_implementation_sha256", "foot_reference_sha256")},
+                        "task_sha256": canonical_hash(feet_task)},
+                    diagnostics={"source": "simulated_engine_substeps", "ankle_target_mode": feet_task["control"]["ankle_target_mode"],
+                        "scored": False, "foot_support_credit": False, "ground_load_requirements": "unsupported",
+                        "retention": "latest_observed_substep_plus_episode_aggregates"})
+                doc["task_contract"]["reward_summary"] += " Original 19-joint scoring is unchanged; ankle effort and foot contacts add no score or support credit."
+                doc["controllers"].update(learned_policy_available=False, trained_target_id=None)
+                doc["unsupported_capabilities"] += [
+                    "Learned policies and avatar skins for this feet task",
+                    "Video-derived ankle tracking; ankles use authored original-start angle holds",
+                    "Foot support credit, ground-load requirements or a complete saved substep contact trace",
+                ]
         return validate_capabilities(doc)
 
     raise ValueError(f"Unsupported scene profile for capability inspection: {scene_profile!r}")
@@ -795,13 +838,33 @@ def describe_run_capabilities(directory, *, out=None):
         finally:
             lab.close()
     else:
-        exercise_task, exercise_policy = None, None
+        exercise_task, exercise_policy, task_manifest_sha = None, None, None
+        scene_raw = (target / "scene.json").read_bytes() if (target / "scene.json").is_file() else None
+        scene = json.loads(scene_raw) if scene_raw is not None else None
         if (target / "exercise-lab.json").is_file():
             from weft.shared_exercise_lab import load_shared_exercise_lab
             loaded = load_shared_exercise_lab(target)
             exercise_task, exercise_policy = loaded["task"], loaded.get("policy")
         else:
-            verify_artifacts(target)
+            if scene is not None and scene.get("profile") == "shared-world-v5":
+                from weft.shared_world_packaging import read_package_file, read_package_manifest
+                from weft.world_evidence import _nonfinite, _unique_object
+
+                # Bound task bytes before the existing verifier hashes every package member.
+                raw_manifest, members = read_package_manifest(target)
+                task_manifest_sha = sha256(raw_manifest).hexdigest()
+                if (members.get("scene.json") != sha256(scene_raw).hexdigest()
+                        or "exercise-task.json" not in members):
+                    raise ValueError("Feet capability inspection requires the same sealed scene and explicit task manifest")
+                raw_task = read_package_file(target, "exercise-task.json", max_bytes=128 * 1024,
+                                             expected_sha256=members["exercise-task.json"])
+                try:
+                    exercise_task = json.loads(raw_task, object_pairs_hook=_unique_object, parse_constant=_nonfinite)
+                except (UnicodeError, json.JSONDecodeError, RecursionError) as error:
+                    raise ValueError("Feet capability inspection requires bounded strict task JSON") from error
+            verified_manifest = verify_artifacts(target)
+            if task_manifest_sha is not None and task_manifest_sha != verified_manifest["manifest_sha256"]:
+                raise ValueError("Feet task manifest changed during capability verification")
         has_video = any((target / f"source.{ext}").is_file() for ext in ("mp4", "webm", "mov", "m4v", "avi", "mkv"))
         has_reference = (target / "human-reference.json").is_file()
         has_policy = (target / "policy.json").is_file()
@@ -813,8 +876,7 @@ def describe_run_capabilities(directory, *, out=None):
                     trained_target = "coupled_human_and_" + str(policy.get("target_object_id", "object"))
                 else:
                     trained_target = policy.get("selected_joint") or policy.get("controlled_id")
-        if (target / "scene.json").is_file():
-            scene = json.loads((target / "scene.json").read_text())
+        if scene_raw is not None:
             if scene.get("profile") in ("planar-rigid-v1", "planar-rigid-v2"):
                 planar_training_enabled(target)
             if trained_target is None and has_policy:

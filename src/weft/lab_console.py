@@ -119,6 +119,17 @@ def _brief(snapshot):
             "object_id", "human_segment", "direction_world", "minimum_load_body_weight_fraction",
             "load_body_weight_fraction", "qualifying_fraction", "max_gap_s", "satisfied")}
             for row in metrics["support_requirements"]]
+    if snapshot.get("profile") == "shared-exercise-feet-state-v1":
+        diagnostics = snapshot["ankle_diagnostics"]
+        latest = diagnostics["latest_substep"]
+        result["unscored_ankle_diagnostics"] = {key: diagnostics[key] for key in (
+            "source", "target_mode", "scored", "foot_support_credit", "ground_load_requirements", "retention",
+            "observed_substeps", "valid_substeps", "valid_observed_duration_s", "ankle_hold_error_rmse_rad",
+            "peak_ankle_hold_error_rmse_rad", "ankle_effort_mean_squared", "excluded_foot_contact_records", "contact_aggregates")}
+        result["unscored_ankle_diagnostics"]["latest_sample"] = (None if latest is None else
+            {key: latest[key] for key in ("step_index", "substep_index", "interval_start_s", "interval_end_s",
+                                        "contact_time_s", "valid", "failure")})
+        result["feet_scope"] = "Original 19-joint score unchanged; simulated foot/object aggregates are not support credit or a complete force trace. Ground loads, learned policies and avatars are unsupported."
     return result
 
 

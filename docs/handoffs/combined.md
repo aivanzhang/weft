@@ -2,12 +2,15 @@
 
 ## Coupled feet and surface workflow — October 31, 2026
 
-Updated **October 31, 2026, 1:35 PM PDT**. Goal active. Published base is
-`4b0bad9940cda425d1813bae323d8285acc72424`. Root owns integration, CLI, coordination
-and Git. Six frozen native task/recording/replay cases now pass. Root owns backend
-lab/CLI/candidate integration; interface lane owns capabilities/display/console;
-receipt lane owns saved-only recording proof; reconstruction resumes source work.
-No native job is running. Independent avatar work remains excluded; stash was empty at the last
+Updated **October 31, 2026, 2:08 PM PDT**. Goal active. Starting published base is
+`3cbb4eaeb7898196c3d59dba05923d37b3887458`. Root owns integration, CLI, coordination
+and Git. Native lab/recording acceptance and actual-payload presentation checks
+are terminal; the real single-leg feet candidate was rejected before controls.
+Candidate/interface/receipt lanes are frozen/released. Reconstruction continues
+only the new pure calibrated-foot consumer adapter/test/handoff, excluded from this
+checkpoint until reviewed. No native job is running. The scoped publication is
+recorded in `.local/feet-lab-publication-01.json` when completed.
+Independent avatar work remains excluded; stash was empty at the last
 publication. No new paid call, key/ledger read, media download, inference, training,
 browser, server or deployment.
 
@@ -31,12 +34,139 @@ runtime03 manifest `a8cf0be3c9bf29dffeea7217f27c4d0f7ee2b9e7a9bbc2bb048b3d0bdd3c
 Independent engine review found no further blocker. [Exact receipts and remaining
 integration](shared-world-feet.md#coupled-engine-checkpoint--october-31-2026-1248-pm-pdt).
 
-**Still unsupported:** v5 task/lab/recording/learning admission. Its substep observer
-requires explicit 28-motor opt-in, so legacy 22-motor scorers cannot silently consume
-new channels. No protected evaluator or gate changed. Do not bypass the existing
-no-object-goal packaging guard merely to expose an unqualified lab. Next step is
-a deliberate adapter within the existing task pipeline, with no hidden root force,
-original score denominator and separate ankle telemetry.
+**Admission status:** v5 task/state/recording are published and native-verified.
+Candidate/lab/CLI/capabilities/receipt integration passes the authored native cases
+and corrected actual-payload UI checks. The real single-leg candidate still fails
+initial geometry admission. Learning, avatar recording and ground-load task criteria
+remain unsupported. Explicit 28-motor opt-in prevents legacy 22-motor scorers from
+silently consuming new channels. No protected evaluator, score denominator, gate or
+no-object-goal admission guard was weakened.
+
+### Lab integration preparation — October 31, 2026, 1:54 PM PDT
+
+- Core publication receipt `.local/feet-task-publication-01.json`, SHA
+  `7d26e79ca117eb2538febce466e13e4619ac008b87280cebc215537b91d1f97d`, verifies
+  exact remote `3cbb4ea`; 11 owned paths clean, stash empty, 136 independent entries
+  excluded. This is not a whole-worktree clean claim.
+- Candidate packaging: 29 distinct pure cases pass; receipt
+  `.local/shared-exercise-feet-candidate-checks-01.json` SHA
+  `a235427d1226685ca4650e6f00b5202225e6f9a20d2d8bc250edea5cd3aa83f5`.
+  Exact original task/reference/source bytes, one explicit scene-pin rebinding and
+  complete runtime custody; no automatic replacement task or policy installation.
+- Backend: 22 distinct pure cases pass across the plumbing/CLI/preflight receipts.
+  Independent review found and confirmed fixes for mismatched displayed references
+  and late task/policy checks. Latest 13 affected cases pass in
+  `.local/feet-lab-preflight-tests-01.xml`; no remaining review blocker.
+  Seven earlier affected legacy native cases pass (2.073 s), preserved under
+  `.local/feet-lab-legacy-*01`; only two reader-adjacent cases need the new run.
+- Presentation: 15 new Python/7 scripted UI/15 affected legacy checks pass;
+  `.local/shared-exercise-feet-presentation-checks-01.json`. Saved-only receipts:
+  20 new/7 affected legacy cases pass; `.local/shared-exercise-feet-receipt-checks-01.json`.
+  Scripted DOM timings are not browser or sustained-performance evidence.
+- Prepared combined runtime `.local/feet-lab-combined-runtime-01`, manifest SHA
+  `e5e9d559f5b66ea0333a42962a259387e41de0e24dbc371fb19f26804439878e`:
+  committed `3cbb4ea` plus 11 exact owned overrides; no dirty avatar/reconstruction
+  bytes. Plan `.local/feet-lab-combined-plan-01.json`; run
+  `python3 .local/run_feet_lab_combined_01.py run` **once**. Two authored v4 roots-off/on
+  cases traverse candidate CLI → lab → console → recording/export/exact replay →
+  saved receipt → resume, plus two affected legacy checks. Bounds: 16 total feet
+  controls including replay, 60 s wall/45 s CPU, 256 MiB output, 8,192 files,
+  1 MiB/log, no source decoding/inference/training/network/API. Distant support is
+  deliberately unsuccessful; do not tune it into success.
+- Real saved source is prepared, not played: `artifacts/coupled-feet-source-input-01`,
+  seal `169be0b3e9400535a549f5dc5d5a6432d6556f617ebd787cad1ab1308e46f095`.
+  Uses the exact compact single-leg candidate body, not the incompatible older foot
+  reference: 118 retained/235 decoded poses, 117 unsampled; right foot has three
+  unavailable estimates. One pure 0.067 s preparation, no inference/native actions.
+  Audit `.local/feet-real-source-audit-01.json` verifies all ten members. Later
+  acceptance must use the 66-member compact candidate plus the exact original task;
+  the trained 805-member lab exceeds candidate bounds and must not be substituted.
+- Parallel reconstruction: root reviewed the frozen adapter and authorized one
+  saved-only jogging study, with 32 MiB input/8 MiB output/10 s compute/30 s outer
+  bounds and $0 spend. No native/model/triangulation/third-view/consumer work.
+  [Exact pins, retained denominators and ownership](multiview-foot-reference.md).
+
+**Combined native result:** all four cases passed once at 1:55 PM PDT (two new
+v4 roots-off/on and two affected legacy task-reader cases), 2.029 s /167,247,872 B
+observed child peak RSS, 1,253 files /28,502,142 B. JUnit
+`.local/feet-lab-combined-tests-01.xml`; process `.local/feet-lab-combined-process-01.json`.
+No source video, training, inference or paid work; earlier passing suites were not repeated.
+
+**Real-source run, now terminal and rejected:** one saved single-leg acceptance
+in `artifacts/coupled-feet-lab-acceptance-01`. Plan SHA
+`e16cd5f223c831cdc174f9142ce096786d9b2a984b6ff61bd0979563b2fb6798` pins all 78
+input members and the combined runtime above. Run
+`python3 .local/run_feet_real_lab_01.py` ran once. Planned: three manual ankle actions, reset31,
+then up to the original 234 authored steps, retaining early termination/failure;
+one export/replay and saved-only receipt inspection. Original explicit three-axis
+root assistance, full task/gates/body/floor/source remain unchanged. Bounds: 474
+total controls including replay, 10,000 native substeps, 120 s wall/90 s CPU,
+512 MiB/8,192 output files, 2 MiB/log. Native memory is observed, not hard-capped.
+Source decode/inference/network/training/paid calls are forbidden. Do not rerun or
+alter inputs to turn a retained task failure into success.
+
+At **1:57 PM PDT**, candidate construction passed; lab admission rejected
+`Initial shared-world geometries 'right_foot_geom' and 'mobile_floor' intersect`.
+**Zero controls, zero native substeps, one reset, no lab/export/replay**. Parent
+1.747 s /228,458,496 B observed child peak RSS. Failed seal
+`8df1993d1962b4892533b8da7a7244e4583710f2b4773d645d891e15845b1fc9` preserves
+127 members /39,328,545 B. No source/body/root/floor/task/gate was changed.
+Do not rerun this acceptance unchanged. The parallel reconstruction lane now owns
+a native-free source/attachment diagnosis in `docs/handoffs/foot-admission-gap.md`;
+shared consumers remain root-owned. Existing playable exercise preset is unchanged.
+
+**Presentation follow-up complete:** root's independent diff review found that
+the new UI fixtures invented engine `scene_profile`/`scene_sha256` fields. Actual
+engine snapshots use `profile`, with identity on the outer task state; flattened
+offline replays retain no per-frame scene hash. Interface lane owns only a
+presentation/fixture repair and actual saved-payload regression. The fix keeps outer live
+identity checks and the real foot-reference pin; do not change the engine, scorer,
+recording payload or existing native exports. Four actual saved-payload checks fail
+before and pass after; six affected pure cases and all seven feet scripted UI cases
+also pass. Two production hunks only; no native rerun. Receipt
+`.local/feet-ui-native-payload-fix-01.json`, SHA
+`b1898504081445ee1dcf02786f1a0d26316b24a4848447937376244319dde57b`.
+The frozen runtime and its old exported HTML still contain the earlier UI; the
+new regression exercises their unchanged payloads with current scripts. Do not
+claim the old HTML was repaired or new browser visual acceptance occurred.
+
+**Parallel reconstruction study complete:** one calibrated two-view saved call
+retains 240 source/480 foot/1,440 endpoint slots: 94 conditional references,
+50 sampled unavailable, 144 unsampled and 192 later-excluded foot slots.
+API 0.282 s /67,977,216 B observed peak RSS; no new inference/triangulation/physics.
+Study seal `48fffcb9b529730faac556f993eec8ecb8e4c28610dd0989ca1cfd3076c37ae0`;
+saved audit `.local/multiview-foot-saved-audit-01.json`, SHA
+`9fc5e945ca52f5d5b699bc8b5c5a529bbb316e2bd0280e46c62c9f3339466023`.
+Six negative conditional ground gaps remain unclipped (minimum −0.1762053430 m).
+This is not measured penetration/contact or automatic body admission; the distinct
+reference profile is not yet accepted by body consumers.
+
+**Saved audit and source-gap diagnosis:** `.local/feet-lab-combined-saved-audit-01.json`
+(SHA `0e27dc7ca689eb8a8cc249a0711d8d0cf045aeb08d07f951a2c193cfc09cf702`)
+retains **157/158 checks passing**, not an all-green audit. All requested new
+acceptance boundaries pass: 25 current seals, exact selected source/task/runtime,
+four live +four replay actions/one reset per authored lab, unchanged v4 evaluator
+and support criteria, and the preserved real-source rejection. The extra failing
+check incorrectly treated an older body-source manifest as a complete nested
+package. Its `body-frame.json`, `human.xml` and `spatial-pose.json` were already
+absent from the selected 66-member constructor input; none was lost by this feet
+candidate. Do not claim completeness of that historical ancestor package.
+
+The source-only first-pose diagnosis explains the real rejection: old shin gap
+0.005, right-foot capsule gap **−0.10389564** versus unchanged **−0.025** world-unit
+limit. Rotations/attachment offsets agree to numerical precision; no supported
+attachment bug was found. No native rerun or geometry change. Receipt
+`.local/foot-admission-analytic-01.json`, SHA
+`229fd1c39057df96b10e373ac6d804a16d6716f4c768e801bfe26249372d5067`;
+[exact calculation, assumptions and remaining gap](foot-admission-gap.md).
+
+**Next ownership:** root finishes scoped publication and retains all existing
+playable presets. `/root/exercise_reconstruction` owns only new
+`calibrated_foot_reference.py`, its test and `calibrated-foot-consumer.md`, first
+resolving frame/binding conventions before any consumer integration. No existing
+consumer edits, source study, native work or automatic body/floor installation is
+authorized in that lane. Source-supported reconstruction, useful ground/equipment
+contact and independent physical evidence remain open across the full goal.
 
 **Publication:** eight reviewed engine/helper/test/documentation files are committed
 and pushed at `733b802e82f49385b742e859bd25d3a8a9636bb2`; exact live private remote

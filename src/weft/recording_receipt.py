@@ -19,6 +19,22 @@ SEAL_PROFILE = "recording-evidence-seal-v1"
 VIEW_PROFILE = "recording-evidence-v1"
 PROTOCOL = "shared-exercise-exact-action-state-task-v1"
 SHARED_PROFILE = "shared-exercise-recording-v1"
+FEET_PROFILE = "shared-exercise-feet-recording-v1"
+FEET_PROTOCOL = "shared-exercise-feet-full-state-replay-v1"
+FEET_IDENTITIES = ("base_scene_sha256", "base_task_sha256", "projection_contract_sha256",
+                   "adapter_implementation_sha256", "foot_reference_sha256")
+FEET_ADAPTER_FILES = ("shared_exercise_feet_task.py", "shared_exercise_feet_projection.py", "shared_exercise_feet_state.py")
+FEET_IMPLEMENTATIONS = frozenset((*FEET_ADAPTER_FILES, "shared_exercise_feet_recording.py"))
+# Saved inspection cannot import the lab: these versioned prerequisites match its v5 closure.
+FEET_RUNTIME_REQUIRED = frozenset({
+    "shared_exercise_task.py", "shared_exercise_reset.py", "shared_world.py", "shared_world_observation.py",
+    "shared_world_evidence.py", "source_equivalence.py", "world_evidence.py", "observations.py", "human.py",
+    "mobile_human.py", "whole_body.py", "spatial_rigid.py", "body_frame.py", "spatial_pose.py", "root_motion.py",
+    "errors.py", "io.py", "shared_world_feet.py", "foot_body.py", "foot_reference.py", "whole_body_feasibility.py",
+    "shared_exercise_recording.py", "recording.py", "shared_support_task.py",
+}) | FEET_IMPLEMENTATIONS
+LEGACY_SCENE_BYTES = 4 * 1024 * 1024
+FEET_SCENE_BYTES = 16 * 1024 * 1024
 SPATIAL_PROTOCOL = "spatial-rigid-exact-action-state-v1"
 SPATIAL_POLICY_PROTOCOL = "spatial-rigid-exact-action-state-policy-v2"
 MAX_JOURNAL_BYTES = 16 * 1024 * 1024
@@ -161,6 +177,72 @@ def _versions(value):
     return {name: _text(item, 100) for name, item in value.items()}
 
 
+def _feet_bindings(scene, task, envelope, contract, native, members):
+    """Check saved identity relationships, not fresh native task/geometry qualification."""
+    profiles = {"shared-world-v2": "shared-exercise-task-v1", "shared-world-v3": "shared-exercise-task-v2",
+                "shared-world-v4": "shared-support-task-v1"}
+    base_profile = scene.get("base_profile")
+    _require(scene.get("profile") == "shared-world-v5" and isinstance(base_profile, str) and base_profile in profiles,
+             "Feet receipts require an explicit v5 scene and original base profile")
+    _require(type(envelope.get("schema_version")) is int and envelope["schema_version"] == 1
+             and set(envelope) == {"schema_version", "profile", "engine_scene", "exercise_task", "dt", "objects"},
+             "Feet recording fields differ; policies and avatars are unsupported")
+    _require(set(task) == {"schema_version", "profile", "scene_sha256", "base_scene_sha256", "base_task_sha256",
+                           "base_task", "projection_profile", "projection_contract_sha256", "adapter_implementation_sha256",
+                           "foot_reference_sha256", "interval", "control", "scope"}
+             and type(task.get("schema_version")) is int and task["schema_version"] == 1
+             and task.get("profile") == "shared-exercise-feet-task-v1"
+             and task.get("projection_profile") == "shared-exercise-feet-projection-v1",
+             "Feet receipt requires its distinct task/projection envelope")
+    _require(contract.get("policy_sha256") is None and "policy.json" not in members
+             and not any(key in document for document in (scene, contract)
+                         for key in ("avatar", "avatar_asset", "avatar_sha256", "learned_policy")),
+             "Feet receipts do not support policies or avatars")
+    required = FEET_RUNTIME_REQUIRED | ({"person_inventory.py"} if base_profile == "shared-world-v3" else set())
+    _require(required <= native.keys(), "Feet runtime lacks its complete task/recording/transitive identity closure")
+    identities = {key: _hash(task.get(key)) for key in FEET_IDENTITIES}
+    _require(all(contract[key] == value for key, value in identities.items() if key in contract),
+             "Feet lab metadata contradicts the original task identities")
+    original = task.get("base_task")
+    _require(isinstance(original, dict) and type(original.get("schema_version")) is int and original["schema_version"] == 1
+             and original.get("profile") == profiles[base_profile]
+             and _canonical(original) == identities["base_task_sha256"]
+             and original.get("scene_sha256") == identities["base_scene_sha256"],
+             "Feet original task or its base-scoring scene identity differs")
+    original_fields = {"schema_version", "profile", "scene_sha256", "gate_profile", "gates_sha256", "interval",
+                       "control", "source_scope"}
+    original_fields.update({"support_requirements", "reward_profile", "authored_addition"} if base_profile == "shared-world-v4" else
+                           {"equipment_ids", "contact_requirements"})
+    _require(set(original) == original_fields, "Feet original scorer task fields differ; policies and avatars are unsupported")
+    _require(base_profile != "shared-world-v4" or original["authored_addition"] is True,
+             "Feet support task must retain its authored scope")
+    control = original.get("control")
+    interval = scene.get("task")
+    _require(isinstance(control, dict) and set(control) == {"root_assistance", "object_forces"}
+             and control.get("root_assistance") in ("disabled", "explicit_3_axis") and control.get("object_forces") == "forbidden"
+             and task.get("control") == {**control, "ankle_target_mode": "authored_initial_angle_hold"}
+             and isinstance(interval, dict)
+             and task.get("interval") == original.get("interval") == {
+                 "start_offset_s": interval.get("start_offset_s"), "horizon_steps": interval.get("horizon_steps")},
+             "Feet receipt changed original controls or interval")
+    _require(_canonical({name: native[name] for name in FEET_ADAPTER_FILES}) == identities["adapter_implementation_sha256"],
+             "Feet adapter identity differs from the frozen runtime triple")
+    extension, body = scene.get("foot_extension"), scene.get("human_spec")
+    _require(isinstance(extension, dict) and isinstance(body, dict)
+             and extension.get("profile") == "shared-world-feet-v1"
+             and isinstance(extension.get("reference_json"), str), "Feet source reference binding is missing")
+    raw_reference = extension["reference_json"].encode("utf-8")
+    _require(0 < len(raw_reference) <= 8 << 20
+             and sha256(raw_reference).hexdigest() == extension.get("reference_sha256") == identities["foot_reference_sha256"],
+             "Feet original reference bytes differ from their pinned identity")
+    reference = _json(raw_reference)
+    _require(extension.get("body_model_sha256") == _canonical(body) == reference.get("body_model_sha256")
+             and _hash(extension.get("source_sha256")) == body.get("source_sha256") == reference.get("source_sha256")
+             and extension.get("reference_canonical_sha256") == _canonical(reference),
+             "Feet reference source/body/canonical identities differ")
+    return identities, base_profile
+
+
 def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=None, expected_task=None,
               sealed=False):
     metadata = {}
@@ -173,7 +255,10 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
         return _json(raw) if keep else identity
 
     session_prefix = f"sessions/{session.name}/"
-    envelope = read(session, "scene.json", 4 * 1024 * 1024, session_prefix)
+    envelope = read(session, "scene.json", FEET_SCENE_BYTES, session_prefix)
+    feet = envelope.get("profile") == FEET_PROFILE
+    _require(feet or metadata[session_prefix + "scene.json"]["bytes"] <= LEGACY_SCENE_BYTES,
+             "Legacy recording scene exceeds its unchanged 4 MiB bound")
     closed = read(session, "recording.json", 64 * 1024, session_prefix)
     _require(type(closed.get("schema_version")) is int and closed["schema_version"] == 1 and closed.get("status") == "closed",
              "Recording must be closed before evidence is captured")
@@ -193,17 +278,21 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
         _require(name in members, "Required source metadata is not sealed")
         return read(run, name, maximum, "run/", _hash(members[name]))
 
-    scene = source("scene.json", 4 * 1024 * 1024)
+    scene = source("scene.json", FEET_SCENE_BYTES if feet else LEGACY_SCENE_BYTES)
     engine_scene = _canonical(scene)
     _text(scene.get("profile"), 100)
+    _require(scene["profile"] != "shared-world-v5" or feet, "Feet scenes require their explicit recording profile")
     native, versions, task_sha, policy_sha = {}, {}, None, None
     spatial_contract, spatial_proof = None, None
-    shared = envelope.get("profile") == SHARED_PROFILE
+    shared = envelope.get("profile") == SHARED_PROFILE or feet
+    foot_identities, base_profile = {}, None
     if shared:
         _require(_canonical(envelope.get("engine_scene")) == engine_scene
                  and envelope.get("dt") == scene.get("dt") and envelope.get("objects") == scene.get("objects"),
                  "Recording envelope differs from the selected engine scene")
-        task = source("exercise-task.json", 64 * 1024)
+        task = source("exercise-task.json", (128 if feet else 64) * 1024)
+        _require(task.get("profile") != "shared-exercise-feet-task-v1" or feet,
+                 "Feet tasks cannot use the legacy recording protocol")
         task_sha = _canonical(task)
         _require(_canonical(envelope.get("exercise_task")) == task_sha and task.get("scene_sha256") == engine_scene,
                  "Recording envelope differs from the selected task")
@@ -213,6 +302,9 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
         native = _hashes(contract.get("runtime_sha256"))
         versions = _versions(contract.get("runtime_versions"))
         _require("shared_exercise_task.py" in native, "Exercise runtime lacks its evaluator identity")
+        if feet:
+            foot_identities, base_profile = _feet_bindings(scene, task, envelope, contract, native, members)
+            budget.check()
         if scene["profile"] == "shared-world-v4":
             _require(task.get("profile") == "shared-support-task-v1" and "shared_support_task.py" in native,
                      "Static-support runtime lacks its distinct task/evaluator identity")
@@ -263,7 +355,7 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
             _require(_hash(expected) == actual, "Expected source identity differs from selected run")
     identities = {"source_run_manifest_sha256": metadata["run/manifest.json"]["sha256"],
                   "recording_scene_sha256": recording_scene, "engine_scene_sha256": engine_scene,
-                  "task_sha256": task_sha, "policy_sha256": policy_sha}
+                  "task_sha256": task_sha, "policy_sha256": policy_sha, **foot_identities}
     if sealed:
         base = read(session, "manifest.json", 64 * 1024, session_prefix)
         files = base.get("files")
@@ -286,12 +378,14 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
                 events=events, steps=spatial_proof.get("steps"), resets=spatial_proof.get("resets"))
         identities["recording_manifest_sha256"] = metadata[session_prefix + "manifest.json"]["sha256"]
     return {"identities": identities, "metadata": metadata, "native_sha256": native, "runtime_versions": versions,
-            "events": events, "shared": shared, "engine_profile": scene["profile"],
+            "events": events, "shared": shared, "feet": feet, "base_profile": base_profile, "engine_profile": scene["profile"],
             "spatial_contract": spatial_contract, "spatial_proof": spatial_proof}
 
 
 def _evaluator_identity(binding):
     hashes = binding["native_sha256"]
+    if binding.get("feet") and binding["base_profile"] == "shared-world-v4":
+        return _canonical({name: hashes[name] for name in ("shared_exercise_task.py", "shared_support_task.py")})
     if binding["shared"] and binding["engine_profile"] == "shared-world-v4":
         from weft.shared_support_task import evaluator_identity
 
@@ -304,6 +398,8 @@ def _runtime(binding, budget):
     names = {"recording.py", "recording_receipt.py", "io.py"}
     if binding["shared"]:
         names.update({"shared_exercise_lab.py", "shared_exercise_recording.py"})
+        if binding.get("feet"):
+            names.update(FEET_IMPLEMENTATIONS)
     elif binding["engine_profile"] == "spatial-rigid-v1":
         names.add("spatial_rigid.py")
         if binding.get("spatial_contract") is not None:
@@ -341,7 +437,7 @@ def _replay(value, recorded, binding):
     if value["status"] == "not_performed":
         _require(all(value[name] is None for name in keys - {"status"}), "Unperformed replay cannot claim checked counts")
     else:
-        shared = binding["shared"] and value["protocol"] == PROTOCOL
+        shared = binding["shared"] and value["protocol"] == (FEET_PROTOCOL if binding.get("feet") else PROTOCOL)
         spatial = (binding.get("spatial_proof") is not None
                    and value["protocol"] in {SPATIAL_PROTOCOL, SPATIAL_POLICY_PROTOCOL}
                    and value["protocol"] == binding["spatial_proof"]["protocol"])
@@ -386,13 +482,13 @@ def _from_export(result, binding, export, session):
         _require(getattr(export, "__module__", None) == "weft.shared_exercise_lab"
                  and getattr(export, "__qualname__", None) == "export_shared_exercise_session",
                  "Exact replay result requires its existing trusted exporter")
-        for name in ("scene_sha256", "task_sha256", "policy_sha256"):
+        for name in ("scene_sha256", "task_sha256", "policy_sha256", *(FEET_IDENTITIES if binding.get("feet") else ())):
             target = "engine_scene_sha256" if name == "scene_sha256" else name
             _require(returned.get(name) == binding["identities"][target], "Returned replay identities differ from recording")
         _require(type(returned.get("events")) is int and returned["events"] == recorded["events"]
                  and type(returned.get("steps")) is int and returned["steps"] == recorded["actions"],
                  "Returned replay counts differ from recording")
-        replay = {"status": "passed", "protocol": PROTOCOL, "events_checked": returned["events"],
+        replay = {"status": "passed", "protocol": FEET_PROTOCOL if binding.get("feet") else PROTOCOL, "events_checked": returned["events"],
                   "actions_checked": returned["steps"], "resets_checked": recorded["resets"],
                   "learned_actions_verified": returned.get("learned_actions_verified")}
     return recorded, _replay(replay, recorded, binding)
@@ -554,11 +650,17 @@ def load_recording_evidence(lab_root, session_name, *, expected_run_manifest_sha
         required = {"recording.py", "recording_receipt.py", "io.py"}
         if bound["shared"]:
             required.update({"shared_exercise_lab.py", "shared_exercise_recording.py"})
+            if bound.get("feet"):
+                required.update(FEET_IMPLEMENTATIONS)
         elif bound["engine_profile"] == "spatial-rigid-v1":
             required.add("spatial_rigid.py")
             if bound.get("spatial_contract") is not None:
                 required.update(bound["native_sha256"])
         _require(set(implementations) == required, "Saved export implementation identity is incomplete")
+        if bound.get("feet"):
+            _require(all(implementations[name] == bound["native_sha256"][name]
+                         for name in implementations.keys() & bound["native_sha256"].keys()),
+                     "Saved feet implementation identities differ from the frozen lab runtime")
         versions = _versions(runtime.get("versions"))
         _require(runtime.get("evaluator_sha256") == _evaluator_identity(bound),
                  "Saved evaluator identity differs from source runtime")

@@ -364,6 +364,13 @@ def main():
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
     exercise_lab_choice.add_argument("--task", help="Explicit shared-exercise-task-v1 JSON; otherwise preserve a sealed input task before using defaults")
     exercise_lab.add_argument("--max-seconds", type=float, default=60)
+    shared_feet = commands.add_parser("shared-feet-build",
+        help="Add source-bound feet to one existing exercise world; preserve its original task and evidence")
+    shared_feet.add_argument("--run", required=True, help="Sealed v2/v3/v4 shared world with an explicit exercise task")
+    shared_feet.add_argument("--foot-reference", required=True, help="Exact body-bound foot-reference JSON")
+    shared_feet.add_argument("--task", help="Explicit original task; otherwise retain the sealed input task")
+    shared_feet.add_argument("--out", required=True, help="New candidate directory; no input is overwritten")
+    shared_feet.add_argument("--max-seconds", type=float, default=60)
     support_build = commands.add_parser("shared-support-build",
         help="Bind a sealed video body to explicitly authored static supports and load requirements")
     support_build.add_argument("--body-source", required=True)
@@ -690,6 +697,10 @@ def main():
             result = prepare_shared_exercise_lab(args.run, args.out, root_assistance=args.root_assistance,
                 task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
                 max_seconds=args.max_seconds)
+        elif args.command == "shared-feet-build":
+            from weft.shared_exercise_feet_candidate import prepare_shared_feet_candidate
+            result = prepare_shared_feet_candidate(args.run, args.foot_reference, args.out,
+                                                  task_path=args.task, max_seconds=args.max_seconds)
         elif args.command == "shared-support-build":
             from weft.shared_world_support import construct_static_support_run
             result = construct_static_support_run(args.body_source, args.config, args.out, max_seconds=args.max_seconds)
@@ -773,8 +784,8 @@ def main():
                     raise ValueError("--out is supported only with --recover-incomplete")
                 result = export_recording(args.directory) if args.export else verify_recording(args.directory)
             if args.verify_actions:
-                from weft.shared_exercise_recording import verify_action_replay
-                result["action_replay"] = verify_action_replay(args.out if args.recover_incomplete else args.directory)
+                from weft.shared_exercise_lab import verify_shared_exercise_action_replay
+                result["action_replay"] = verify_shared_exercise_action_replay(args.out if args.recover_incomplete else args.directory)
         elif args.command == "demo":
             from weft.demo import create_demo
             result = create_demo(args.out)

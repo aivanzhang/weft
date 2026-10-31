@@ -1,5 +1,13 @@
 # Shared-world feet integration
 
+Current root integration: task/state/recording are published at `3cbb4ea`; the
+candidate/lab/CLI/receipt workflow now passes two authored native roots-off/on
+cases and corrected actual-payload UI checks. The real single-leg candidate is
+preserved but **rejected before controls** for right-foot/floor overlap. No scorer,
+floor or source retuning. [Current evidence, failures and ownership](combined.md#lab-integration-preparation--october-31-2026-154-pm-pdt)
+supersedes the initial helper-only status below. Learning/avatars/ground-load task
+criteria remain unsupported.
+
 Owner: `/root/support_learning`. Workspace: `/Users/ivan/kintsugi/weft`. Recorded **2026-10-31 12:32:54 PDT**. Pure implementation is tested, frozen and released to root. Root owns shared-world engine, task, lab, recording, native acceptance and Git. This lane owns only `foot_body.py`, `shared_world_feet.py`, its new contract tests and this handoff. No live study or native job exists in this lane.
 
 Git at release: `foot_body.py` is modified; the new module, test and this handoff are untracked. No Git mutation or other product-file edit was performed by this lane. Root publishes these changes with its coordinated integration; do not overwrite concurrent engine or avatar work.
@@ -43,8 +51,9 @@ The new test's `inputs()`/`raw()` helpers are stable analytical fixtures for roo
 
 - [x] Complete focused pure contract checks and record immutable receipts/hashes here.
 - [x] Root integrates explicit v5/base-profile admission, 28-channel engine layout, fixed initial targets, complete mass accounting and separate ankle telemetry in the one shared model/clock; see the checkpoint below.
-- [ ] Root preserves original task gates/source interval, disabled root-force defaults, manual interaction and exact recording/replay; any unsupported learned mode must reject clearly.
-- [ ] Root coordinates one bounded native acceptance after freezing the full integration. Preserve original source/root/floor and every failed admission or floor check; do not run a new source reconstruction study.
+- [x] Root preserves original task gates/source interval, disabled root-force defaults, manual interaction and exact recording/replay; unsupported learned modes reject clearly.
+- [x] Root coordinates frozen native core/lab acceptances. Preserve original source/root/floor and every failed admission; the separate real single-leg attempt remains rejected and is not a successful video reconstruction.
+- [ ] Resolve source-supported body/foot/ground compatibility before claiming a playable video-derived feet lab or ground-contact accuracy. Use the preserved diagnosis, not another unchanged native attempt.
 
 Completion requires the focused pure checks plus root's separately recorded coupled-runtime acceptance. Neither completion of the helper nor adding foot geometry establishes recovered ground/contact or video ankle imitation.
 
