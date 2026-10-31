@@ -1,7 +1,6 @@
 """Bounded CEM policy search and changed-initial-condition evaluation for 3D rigid scenes."""
 
 from copy import deepcopy
-import json
 import math
 from pathlib import Path
 import shutil
@@ -260,7 +259,7 @@ def train_spatial_policy(
     velocity_jitter=0.15,
     max_seconds=90,
 ):
-    """Train and independently evaluate a bounded 3D rigid policy into a new sealed directory."""
+    """Train from an admitted sealed run or explicit authored scene dict into a new sealed directory."""
     if type(seed) is not int or not 0 <= seed < 2**31:
         raise ValueError("Invalid spatial training seed")
     if type(eval_seed) is not int or not 0 <= eval_seed < 2**31 or seed == eval_seed:
@@ -281,15 +280,13 @@ def train_spatial_policy(
         source_dir = Path(source_run_or_scene).resolve()
         if out == source_dir or out.is_relative_to(source_dir):
             raise ValueError("Choose a new output directory outside the immutable source run")
-        verified = verify_artifacts(source_dir)
-        scene_path = source_dir / "scene.json"
-        if not scene_path.is_file():
-            raise ValueError("Source 3D directory must contain a sealed scene.json")
-        scene = json.loads(scene_path.read_text())
+        from weft.spatial_lab import _read_spatial_source
+
+        verified, _, source_files, _, scene, _ = _read_spatial_source(source_dir)
         source_provenance = {
             "source_directory": str(source_dir),
             "source_manifest_sha256": verified["manifest_sha256"],
-            "source_scene_sha256": digest(scene_path),
+            "source_scene_sha256": source_files["scene.json"],
         }
     elif isinstance(source_run_or_scene, dict):
         scene = deepcopy(source_run_or_scene)

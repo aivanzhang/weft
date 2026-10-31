@@ -1,0 +1,56 @@
+{
+  "assumptions": [
+    "The manually tracked circular image region is hypothesized as a sphere with unknown depth, not recovered geometry.",
+    "Gravity remains zero as in the authored planar model. No floor or walls are added; this is an unsupported free-moving object, not verified tabletop rolling.",
+    "Zero initial spin, constant lateral center and materials are authored assumptions; no spin was measured by planar-v1.",
+    "Parking controls and target are authored. Appearance tracking covers declared frames39\u201360 only, with all original source frames preserved.",
+    "Existing grayscale source and original metadata remain unchanged; this is development integration, not a new independent physical trial."
+  ],
+  "boundary_mode": "open_3d_bounds_termination",
+  "bounds": [
+    1.0,
+    0.6,
+    0.8
+  ],
+  "contact": {
+    "damping_ratio": 1.0,
+    "time_constant": 0.01
+  },
+  "dt": 0.03333333333333333,
+  "gravity": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "image_top_z": 0.8,
+  "motion_embedding": "front_plane_only",
+  "objects": [
+    {
+      "angular_velocity_y": 0.0,
+      "friction": [
+        0.3,
+        0.001,
+        0.0001
+      ],
+      "id": "ball",
+      "lateral_center": 0.3,
+      "mass": 1.0,
+      "output_id": "ball",
+      "shape": "sphere"
+    }
+  ],
+  "profile": "planar-to-spatial-hypothesis-v1",
+  "schema_version": 1,
+  "source_scene_sha256": "534460f5ec4a4381cdcf74fb110b0fabb84bf649445d2e9ac5ed37551c7d65ed",
+  "target": [
+    0.75,
+    0.3,
+    0.5
+  ],
+  "task": {
+    "acceleration": 2.0,
+    "max_steps": 300,
+    "position_tolerance": 0.06,
+    "speed_tolerance": 0.15
+  }
+}

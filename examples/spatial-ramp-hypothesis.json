@@ -1,0 +1,95 @@
+{
+  "assumptions": [
+    "Reuses the previously declared positive-offset ramp hypothesis; this is not a newly selected best candidate.",
+    "Depths, lateral centers, relative masses, contact response and parking controls are authored, not measured.",
+    "Original source front geometry, color and planar angular motion are preserved. The planar walls are not carried into 3D.",
+    "Source media is absent from this planar archive. Its saved frames and complete slot records remain archived, not decoded again.",
+    "No physical accuracy, recovered metric scale, automatic depth recovery or learned control is established."
+  ],
+  "boundary_mode": "open_3d_bounds_termination",
+  "bounds": [
+    1,
+    0.6,
+    0.6
+  ],
+  "contact": {
+    "damping_ratio": 1.0,
+    "time_constant": 0.01
+  },
+  "dt": 0.016683333333333335,
+  "gravity": [
+    0,
+    0,
+    -9.3968449388024
+  ],
+  "image_top_z": 0.4115533639679114,
+  "motion_embedding": "front_plane_only",
+  "objects": [
+    {
+      "depth": 0.04,
+      "friction": [
+        0.25,
+        0.001,
+        0.0001
+      ],
+      "id": "wood-block",
+      "lateral_center": 0.315,
+      "mass": 1.0,
+      "output_id": "wood-block",
+      "shape": "box"
+    },
+    {
+      "depth": 0.08,
+      "friction": [
+        0.25,
+        0.001,
+        0.0001
+      ],
+      "id": "green-box",
+      "lateral_center": 0.3,
+      "mass": 1.0,
+      "output_id": "green-box",
+      "shape": "box"
+    },
+    {
+      "depth": 0.35,
+      "friction": [
+        0.25,
+        0.001,
+        0.0001
+      ],
+      "id": "ramp",
+      "lateral_center": 0.3,
+      "mass": 1.0,
+      "output_id": "ramp",
+      "shape": "box"
+    },
+    {
+      "depth": 0.55,
+      "friction": [
+        0.25,
+        0.001,
+        0.0001
+      ],
+      "id": "table",
+      "lateral_center": 0.3,
+      "mass": 1.0,
+      "output_id": "table",
+      "shape": "box"
+    }
+  ],
+  "profile": "planar-to-spatial-hypothesis-v1",
+  "schema_version": 1,
+  "source_scene_sha256": "052ac382a695a451fc2f306ccab2c8c311cdcd5ec6083f232699b43f3ff85704",
+  "target": [
+    0.82,
+    0.3,
+    0.1149814848572577
+  ],
+  "task": {
+    "acceleration": 5,
+    "max_steps": 900,
+    "position_tolerance": 0.025,
+    "speed_tolerance": 0.05
+  }
+}

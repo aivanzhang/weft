@@ -1,5 +1,218 @@
 # Combined Weft implementation handoff
 
+## Latest parallel results — October 31, 2026, 8:12 AM PDT
+
+This is the current ownership/job checkpoint; older live-state statements below
+are historical. The combined goal remains active. The earlier recorded
+comparison delivers a usable inspection path but does not complete reconstruction,
+equipment interaction, independent physical validation or generalization.
+
+### Solver-resolution diagnostic
+
+`scripts/studies/check_shared_solver_resolution.py` is frozen at SHA
+`80af8f7a11af27d0bcfe4f0bd12eda085265cea2d66789f0981951f3203a6891` and independently
+reviewed. Thirty-six distinct mocked cases pass: initial receipt
+`.local/shared-solver-resolution-tests-01.xml`, SHA
+`af37e19c53840c9378a9dd555bd7895956257c01ff0cd1f8a1ff98a88444ee71`; final six-case
+subset (five new, one affected repeat) `.local/shared-solver-resolution-tests-02.xml`,
+SHA `57d2df08fe8ebba826d5415a345f232e9abc8bd0ba0a345947b642042fd1f05e`.
+The final seal rejects untracked/nonregular files and changed output sizes.
+
+The sole live study was launched by root after the October 31, 2026, 7:37:22 AM PDT
+pin check and is now **terminal**, exec session 72228, exit 0. Helper
+`.local/run_shared_solver_resolution_01.py` writes the frozen plan and supervises
+`artifacts/shared-solver-resolution-acceptance-01`; parent seal
+`e6bb71df141e245e2801b2d0a0b4f18a0d564ed33e8bb8a5e54582dfd3ddfa0e`.
+The verified saved result records 3.913187 s, 508 controls /24,384 native steps,
+two sequential environments/resets and 161,071,104 B observed child peak RSS.
+Both finer trials complete all 254 controls but fail the four angular/root
+average/peak gates. Maximum root-position differences from the saved16 trajectory
+are 4.412084 /5.723277 model units. Stable equipment in these diverged trajectories
+does not repair the original failed task. No convergence or task-success claim.
+
+Frozen baseline: `artifacts/reference-controller-trial-cli-01/comparison`, seal
+`ee5ce972b231c3850fa1454072d4ca3e78946e4eb3fb5e989c324a741c1757f1`. Reuse its
+254 original authored actions literally at 32 and 64 substeps; the 16-substep
+baseline is saved-only. Only substep metadata and the required task scene-hash
+binding may change. Original physics parameters, task/gates, starting physical
+state, reference clocks and action vectors remain fixed. Compare common 30-Hz
+boundaries; baseline raw qpos/qvel and within-step measurements stay unavailable.
+Bounds are 508 new controls /24,384 native steps, one live environment at a time,
+30-second study /45-second outer supervisor, no baseline rerun, fitting, source
+admission/media reread, training, export/replay or API work.
+
+Saved-only audit `.local/shared-solver-resolution-saved-audit-01.json`, SHA
+`74dc4b75969b74133225669f0fb40c4e683f48b50f81eb2bf7d73a0a9c95acfa`, passes in
+0.089288 s: 74 parent members /68 nested members, 32 selected input bindings,
+20 current runtime source files and exact metadata/count/aggregate/clock/failure
+checks. Reads total 26,056,344 B across 130 unique files; peak RSS 55,115,776 B.
+Journal bytes are freshly hashed; action/force/start semantics reuse the separate
+independent diagnosis below rather than repeating its parse. No source-media scan
+or native work occurs, and the original large journal's study-time recheck is reused.
+
+Independent diagnosis `.local/shared-solver-resolution-diagnosis-01.json`, SHA
+`4ab2cc5ef893b441f327a6d84bba29feda9ce00fa5ad1826e5f0035f445a7b4e`, verifies all
+254 normalized actions and applied motor-force vectors across 16/32/64, identical
+initial public physical state, and equal new 32/64 raw starting arrays. First-action
+finer/coarser differences are 0.500716 for root position and 0.504072 for maximum
+joint angle. The recorded forces do not adapt to the diverging states: the result
+shows **open-loop replay sensitivity**, not a proved solver defect, certified
+convergence, closed-loop controller performance, physical accuracy or repair.
+No saved contract flaw is identified; do not promote a default or repeat this run.
+Both read-only reviews are terminal. Root owns any distinct next hypothesis.
+
+The earlier 30-Hz first-crossing diagnosis is preserved in
+`.local/reference-controller-first-crossings-01.json`, SHA
+`6f07c688b368a6ec12c2382f4c27db4fb06e02bffa5c4982105c9ea0b293af9b`; its fitted
+step-38 boundary has no unique within-step causal diagnosis.
+
+### Generic planar-to-3D bridge — construction and interaction verified
+
+Pure adapter `src/weft/spatial_scene_inputs.py` is frozen at SHA
+`9a79e5b568349a8a2d2efa8f52b532cfac38d7237c1a8b471bca512ad749869c`; packaging
+pipeline `src/weft/spatial_scene_pipeline.py` at
+`b0bec1b62d13fc2b06bb4374520f548163c2e45ee1edd16e043244a3caef9bda`.
+It preserves the planar scene, front-view geometry, IDs/colors and v2 spin.
+Depth, materials, boundaries and motion assumptions are explicit authored inputs,
+not automatically recovered 3D truth or equivalent planar physics. Original source
+failures and unavailable evidence are retained; no policy is borrowed or trained.
+
+All **102 distinct focused checks** pass, with no skipped cases: 54 input,
+41 pipeline and seven CLI. Saved receipts respectively are
+`.local/spatial-scene-inputs-tests-01.xml` SHA
+`13bb35ef0678e07692c3c4e362b0e5630c67ec63c568153cecb77de57179a238`,
+`.local/spatial-scene-pipeline-tests-01.xml` SHA
+`59cb2b2d6f9cca7dafe2873cd8c48ad5e0993c7207882c6c86e9b255f4ddd14b`, and
+`.local/spatial-scene-cli-tests-01.xml` SHA
+`9f9fb26dbb3136cbbf3f6a735ddf6da90f8d1e19a67d2ad441845615382c97c6`.
+The solver's 36 mocked checks are separate and reused, not new bridge checks.
+
+Two pure public-CLI constructions run once in parallel under frozen plans:
+`artifacts/spatial-scene-construction-acceptance-01`, parent seal
+`32eb4220af63d2a0f51923fa28caa9b4bc4dadfefe16834e84dd299ff7f95cc7`.
+Total 0.587854 s, 116,834,304 B observed child peak RSS. Both report zero
+environment/model constructions, fits, inference calls and physics steps.
+
+| Case | Exact source preserved | Candidate result | Candidate seal |
+| --- | --- | --- | --- |
+| Ramp | 170 members; four objects; original video explicitly unavailable | 192 files /7,113,933 B; 0.172894 s | `46775835ae4a3708c7b76a7e463b5499b417bcbe7c81be48ad09381b4a9a0b4d` |
+| Ball | 229 members; one object; exact saved video, 2D evidence and previews | 256 files /15,768,164 B; 0.220379 s | `765d9ea6c50c45469250082a4379a797e09ac3d2b60a5b4f22188bd02feae785` |
+
+The ball's published `source.json` explicitly adds the known legacy `source.avi`
+alias; original metadata remains archived unchanged. Original source SHA is
+`7784d66cf0ed300e306c831481b223845b7455abf04a8a3fe558dd202cf778a0`.
+Image/2D evidence is not relabeled as observation of authored 3D motion. Each
+construction is bounded to 20 cooperative /30 outer seconds, 64 MiB selected
+input including rechecks, 64 MiB output /320 files and 4 MiB runtime snapshot;
+at most two children. No source decode, inference, training or API work occurs.
+
+The ball candidate then passes the ordinary `spatial-lab` CLI and existing console
+path once: `artifacts/spatial-scene-lab-acceptance-01`, parent seal
+`21b7c09973fc3654bed3824dc32acd8124157d05b4aaa1acba77aad885bae14c`.
+Process 0.738469 s, worker 0.629675 s, child peak RSS 134,397,952 B. Twelve manual
+actions, one recorded reset and fourteen events/video frames export and replay
+exactly. Existing admission contributes twelve additional control probes: totals
+are 36 native step calls /1,224 substeps /three models /three data /17 resets.
+Bounds remain 64 calls /16,384 substeps /four models /six data /32 resets,
+30 cooperative /45 outer seconds, one export and one exact-action replay.
+Recording export decodes its new video; original source media is not decoded.
+
+Only committed `e92202a1da992f4486864b2a9e801ccf802115fe` supplies the lab runtime:
+`.local/spatial-scene-lab-runtime-01`, seal
+`5c098968c9f70be9134343834d9ced225b599eca2d8e2d1e845ed0b1bc71f8e5`,
+214 files /4,266,981 B. No dirty avatar source was snapshotted. The sealed worker
+report binds immutable lab `run/` seal
+`85916ca7b5b26a1872b8c8aa2c898a557620373f6dd84c7462e2f28bc13c549f`
+and recording `session-8faf924ec3bc` seal
+`f99af11f7ae265fcaba69ea143b34cdd4970a05eb2d75f9d5ba764f24d44b8a7`.
+Lifecycle metadata and future sessions remain outside the immutable run seal.
+
+Open the ready terminal sandbox without rebuilding:
+
+```sh
+.venv-lab/bin/python -m weft lab-console --resume artifacts/spatial-scene-lab-acceptance-01/lab
+```
+
+No browser/server was started; no browser-quality or sustained-responsiveness
+claim follows from this short local acceptance. No learned-policy, task-success
+or physical-accuracy claim is made.
+
+Independent saved-only audit `.local/spatial-scene-end-to-end-audit-01.json`, SHA
+`2508ece26d4b45fb076b12f62259cb348ba277da836746f45e863ce7d1eca69b`, passes selected
+front-geometry arithmetic, source aliases, immutable scene/task/source bindings,
+all fourteen recording events and the exact twelve-action replay receipt. It
+reads 783,746 B across forty selected metadata paths, including one explicitly
+accounted concise recovery after tool-output truncation. A missing runtime-manifest
+filename lookup was corrected without reading or altering an incorrect artifact.
+Original media/archive identities reuse the completed full-output checks and exact
+nested member equality; no media decode, source rescan or native/product rerun.
+The audit binds the committed e922 runtime, not the later training-entry changes.
+No product blocker is found. Root owns publication; the training guard below is
+now verified. Authored depth/calibration, meaningful grasp/contact, unfamiliar
+source qualification and independent physical evidence remain open.
+
+### Spatial training admission — verified
+
+The separate training-entry gap is fixed: the shared lab admission helper requires
+sealed `scene.json` membership and rejects failed/incomplete report/candidate
+inputs before training output or environment creation. `evidence_ui` completed
+`src/weft/spatial_lab.py`, `src/weft/spatial_learning.py` and
+`tests/test_spatial_training_admission.py`; root review passes. No learning
+algorithm or native default changes. Final source hashes respectively are
+`a77c68ba8fc989337a2bed09cc25566ef80001184a6e972428f3216a30a69af1` and
+`28c3ed8321844c9f8cc36b06fb413c6bd1caac52da8b798c05f2c16d477b9e1e`.
+All 63 pure guarded cases pass in `.local/spatial-training-admission-tests-01.xml`,
+SHA `0f3cfe0bee27ffd502823d09c5216922c83fbc4deab9b93efcb2d40b63703540`.
+
+One real saved-input preflight covers both constructed candidates and the new
+ball lab: **0.128578 s, 47,508,881 declared archive bytes**, native/model/training
+functions forbidden, zero new loader output or media decoding. Receipt
+`.local/spatial-training-real-admission-01.json`, SHA
+`3490873d92f4981a367b3b91f27021f9b5654463be4f0b37c04692c23da2ff35`.
+This checks input compatibility, not a full new-source training run. The earlier
+construction/manual-lab acceptance remains bound to its frozen e922 runtime and
+is not repeated for this entry-point change.
+
+Root also exposes the existing learner deadline through
+`spatial-train --max-seconds`: unchanged default 90 seconds, allowed 1–180.
+Three new no-training CLI checks pass in `.local/spatial-training-cli-tests-01.xml`;
+these are separate from the 102 bridge checks, 36 solver checks and 63 admission
+checks. Root owns `cli.py` and `tests/test_spatial_training_cli.py`. This
+CLI-only addition occurs after the pure construction acceptance; it leaves that
+constructor route/function and native algorithm unchanged. The original seven
+construction CLI checks remain valid and no native acceptance is repeated.
+
+Thirteen distinct existing `test_spatial_lab.py` /`test_spatial_learning.py`
+regressions have latest passes. First receipt
+`.local/spatial-admission-regressions-01.xml`, SHA
+`a85380bb08cd4a1c1e91a7d5ea9e303b665312c717e29ee13e95d13e559d92bc`, retains twelve
+passes and one sandbox socket-binding failure. Only the failed HTTP case is rerun
+with narrowly escalated ephemeral `127.0.0.1` access; it passes in
+`.local/spatial-admission-http-regression-01.xml`, SHA
+`38c370e0b37def50e6f46217f5520c796d6b7e5344fa25a3f0fcdc99dadf6832`.
+Its temporary server is closed. The rerun uses committed e922 plus five reviewed
+modules in `.local/spatial-admission-test-runtime-01`, seal
+`4497eaba6965f93846367538e337d7318d9182bd4d2bb57af7090f3624f55135`,
+216 files /4,309,355 B. The first regression group used disposable fixtures from
+the mutable workspace; only the actual acceptance and isolated rerun are asserted
+to exclude dirty avatar snapshots. Avatar files themselves were not edited or staged.
+
+Total: **217 distinct latest-passing focused/regression cases** =102 bridge
++36 solver +63 guard +3 training CLI +13 legacy, not a full repository suite.
+All described development/verification jobs are terminal; no browser or development
+server was started. Root owns the pending 20-file publication and live remote
+verification. Next product work includes a bounded full training/evaluation case
+from a newly constructed 3D candidate, different-video qualification and independent
+physical accuracy. No full real new-training case occurs in this milestone, and
+the general goal remains active.
+
+Last publication supplied by root is
+`e92202a1da992f4486864b2a9e801ccf802115fe`, matched to live private remote, zero
+stashes, all 75 separate avatar status/path entries unchanged. This checkpoint
+does not freshly reverify Git or claim the current active worktree is clean.
+Existing playable labs, fixed gates, source bytes and avatar ownership stay intact.
+The documentation owner releases these two files to root after this checkpoint.
+
 ## Controller checkpoint published
 
 Implementation commit `9ea1b1ae9e23aca6d52bf301fc3269719957a741` is pushed and

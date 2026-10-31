@@ -211,6 +211,13 @@ def main():
     camera_body.add_argument('--out', required=True, help='New candidate lab; no server or training is started')
     spatial_fixture = commands.add_parser("spatial-fixture", help="Write a verified analytic spatial-rigid-v1 fixture run; no API calls")
     spatial_fixture.add_argument("--out", required=True, help="New sealed 3D scene directory")
+    spatial_scene = commands.add_parser("spatial-scene", help="Build a 3D hypothesis from a sealed planar scene and explicit depth/material assumptions; no simulation")
+    spatial_scene.add_argument("--run", required=True, help="Sealed planar reconstruction directory; preserved unchanged")
+    spatial_scene.add_argument("--config", required=True, help="Explicit source-pinned 3D assumptions JSON")
+    spatial_scene.add_argument("--scene-artifact", default="scene.json", help="Exact sealed relative scene path; no automatic candidate selection")
+    spatial_scene.add_argument("--out", required=True, help="New 3D candidate directory outside the input")
+    spatial_scene.add_argument("--manifest-sha256", help="Optional exact source-manifest hash")
+    spatial_scene.add_argument("--max-seconds", type=float, default=20, help="Cooperative construction bound, at most 20 seconds")
     spatial_lab = commands.add_parser("spatial-lab", help="Package a verified spatial-rigid-v1 run into a new local lab; no server started")
     spatial_lab.add_argument("--run", required=True, help="Existing verified spatial-rigid-v1 run directory")
     spatial_lab.add_argument("--learning", help="Optional verified spatial policy directory for the same scene")
@@ -223,6 +230,7 @@ def main():
     spatial_train.add_argument("--generations", type=int, default=8)
     spatial_train.add_argument("--population", type=int, default=16)
     spatial_train.add_argument("--eval-episodes", type=int, default=12)
+    spatial_train.add_argument("--max-seconds", type=float, default=90, help="Cooperative training/evaluation limit, 1–180 seconds")
     body_eval = commands.add_parser("body-evaluate", help="Evaluate a sealed whole-body policy across changed initial conditions and matched baselines")
     body_eval.add_argument("--learning", required=True, help="Existing verified whole-body learning directory")
     body_eval.add_argument("--out", required=True, help="New evaluation output directory")
@@ -508,6 +516,11 @@ def main():
         elif args.command == "spatial-fixture":
             from weft.spatial_lab import write_sealed_spatial_fixture
             result = write_sealed_spatial_fixture(args.out)
+        elif args.command == "spatial-scene":
+            from weft.spatial_scene_pipeline import prepare_spatial_scene
+            result = prepare_spatial_scene(args.run, args.config, args.out,
+                scene_artifact=args.scene_artifact, expected_manifest_sha256=args.manifest_sha256,
+                max_seconds=args.max_seconds)
         elif args.command == "spatial-lab":
             from weft.spatial_lab import prepare_spatial_lab
             result = prepare_spatial_lab(args.run, args.out, policy_run=args.learning)
@@ -521,6 +534,7 @@ def main():
                 generations=args.generations,
                 population=args.population,
                 eval_episodes=args.eval_episodes,
+                max_seconds=args.max_seconds,
             )
         elif args.command == "body-evaluate":
             from weft.whole_body_learning import evaluate_changed_conditions
@@ -782,6 +796,8 @@ def main():
             print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("status") != "completed":
             parser.exit(1, f"weft: reference controller trial stopped; preserved report: {Path(args.out) / 'report.json'}\n")
+        if args.command == "spatial-scene" and result.get("status") != "constructed_hypothesis":
+            parser.exit(1, f"weft: 3D construction stopped; inspect preserved output: {args.out}\n")
         if args.command == "shared-world-shape" and result.get("status") == "failed":
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
         if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":

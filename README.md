@@ -27,6 +27,7 @@ included in a fresh clone. Run one command, then open its printed local link:
 | Trained 3D tabletop objects | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored` |
 | Trained 3D ramp hypothesis | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp` |
 | Manual object-video lab, no training | `.venv-lab/bin/python -m weft lab --resume artifacts/manual-video-acceptance-01/lab` |
+| 3D ball hypothesis with source video, manual only | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-scene-lab-acceptance-01/lab` |
 
 Choose manual or learned control where available, start movement, and use
 **Record & start → Stop & save** to save actions, video and interactive replay.
@@ -37,6 +38,13 @@ control, add `--console` to the exercise launcher or replace `lab` with
 The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
+
+To connect a saved object-video reconstruction to the same 3D lab, use
+[`spatial-scene`](docs/spatial-scene-construction.md). It preserves the original
+evidence and requires explicit depth, material and task assumptions; it does not
+recover those missing properties automatically.
+The new ball example has authored zero gravity and no floor; it demonstrates
+construction, controls and verified recording, not recovered rolling physics.
 
 To inspect the remaining body-fitting errors, open the
 [saved comparison page](artifacts/whole-body-reference-views-01/image-first/index.html).

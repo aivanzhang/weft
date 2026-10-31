@@ -596,6 +596,12 @@ The appearance profile additionally supports [explicit sections of longer videos
 
 ## 3D rigid-object scenes (`spatial-rigid-v1`)
 
+To turn a sealed planar video scene into an explicit 3D hypothesis, use
+[`spatial-scene`](spatial-scene-construction.md), then the existing
+`spatial-lab` / `lab-console` workflow. Original evidence is preserved; depth,
+materials and missing spin require explicit assumptions. This is not automatic
+3D recovery.
+
 Verified 3D rigid-object runs can be opened directly in the same local lab without modifying their sealed inputs or claiming physical validation:
 
 ```sh

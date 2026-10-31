@@ -90,6 +90,15 @@ Before replacing the fixture, specify and validate:
 
 Do not infer new physical evidence from agreement between generated environments. Candidate disagreement suggests a useful experiment. Without an observed outcome, retain the uncertainty. A plausible dog jump is not proof of that dog's true response.
 
+`spatial_scene_inputs.py` and `spatial_scene_pipeline.py` connect sealed planar
+video scenes to the existing 3D lab through `spatial-scene`. They archive the full
+input and preserve front geometry, identity, colors and inherited planar spin.
+Depth, lateral placement, materials and task remain explicit authored choices;
+the package is not admitted until ordinary `spatial-lab` checks run. Known video
+metadata migrations retain exact media and original sidecars. No old planar
+policy is reused and no physical equivalence is claimed.
+[Construction contract and commands](spatial-scene-construction.md).
+
 ## Evaluation levels
 
 1. **Observed replay:** match positions, identities, motion, event timing, and eventually silhouettes/contact events—not only pixels.

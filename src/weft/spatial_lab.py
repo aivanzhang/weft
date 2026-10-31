@@ -12,7 +12,11 @@ from weft.pipeline import _implementation_files, verify_artifacts
 from weft.spatial_rigid import ACTIONS, PROFILE, UNITS, SpatialRigidEnv, validate_scene
 
 
-REJECTED_SOURCE_STATUSES = frozenset({"failed", "error", "unsupported", "rejected", "cancelled"})
+COMPLETED_SOURCE_STATUSES = frozenset({
+    "completed", "ready", "ready_spatial_lab", "authored_analytic_fixture", "constructed_hypothesis",
+    "frozen_source_linked_spatial_hypothesis", "frozen_unverified_hypothesis", "executable_hypothesis",
+    "completed_diagnostic_replay", "development_comparison_complete_not_promoted",
+})
 REQUIRED_POLICY_FILES = frozenset({"scene.json", "policy.json", "training.json", "rl-evaluation.json", "policy-rollout.json"})
 
 
@@ -160,6 +164,49 @@ def _read_sealed_bundle(root, *, label):
     return verified, manifest_bytes, files, read_json
 
 
+def _read_spatial_source(source_run):
+    """Admit saved source metadata; callers still validate geometry before native work."""
+    source_run = Path(source_run).resolve()
+    failure = source_run / "failure.json"
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Cannot import 3D run with a preserved failure.json")
+    verified, manifest_bytes, files, read_json = _read_sealed_bundle(source_run, label="Source 3D run")
+    if "scene.json" not in files:
+        raise ValueError("scene.json must belong to the sealed 3D run")
+    for sidecar in ("report.json", "candidate.json"):
+        path = source_run / sidecar
+        if (path.exists() or path.is_symlink()) and sidecar not in files:
+            raise ValueError(f"Unsealed {sidecar} present in source run")
+
+    scene = read_json("scene.json")
+    if scene.get("profile") != PROFILE:
+        raise ValueError(f"Spatial source requires profile {PROFILE!r}, got {scene.get('profile')!r}")
+    report = read_json("report.json") if "report.json" in files else None
+    candidate = read_json("candidate.json") if "candidate.json" in files else None
+    scene_hash = canonical_hash(scene)
+    # Old sealed fixtures omit status; an explicit unfinished or failed status is never admission.
+    for name, document in (("manifest.json", json.loads(manifest_bytes)), ("report.json", report), ("candidate.json", candidate)):
+        if document is None:
+            continue
+        if "status" in document and (not isinstance(document["status"], str)
+                                      or document["status"] not in COMPLETED_SOURCE_STATUSES):
+            raise ValueError(f"Cannot import failed or rejected or incomplete 3D run ({name}: {document['status']!r})")
+        if document.get("physical_validation", "unverified") != "unverified" or document.get("physics_ready") is True:
+            raise ValueError("Spatial source requires imported 3D scenes to remain explicitly physically unverified")
+        if "scene_sha256" in document and document["scene_sha256"] != scene_hash:
+            raise ValueError(f"{name} scene hash differs from sealed scene.json")
+    if report is not None:
+        if ("candidate_sha256" in report or "assumptions_sha256" in report) and candidate is None:
+            raise ValueError("Candidate export is missing its sealed candidate.json")
+        if "candidate_sha256" in report and report["candidate_sha256"] != canonical_hash(candidate):
+            raise ValueError("Candidate and export report hashes differ")
+    if candidate is not None and "scene" in candidate and candidate["scene"] != scene:
+        raise ValueError("Candidate scene differs from sealed scene.json")
+    if failure.exists() or failure.is_symlink():
+        raise ValueError("Cannot import 3D run with a preserved failure.json")
+    return verified, manifest_bytes, files, read_json, scene, report
+
+
 def _probe_controls(scene):
     env = SpatialRigidEnv(scene)
     try:
@@ -247,38 +294,8 @@ def prepare_spatial_lab(source_run, out, *, policy_run=None):
         if out == policy_run or out.is_relative_to(policy_run):
             raise ValueError("Keep the new lab outside the immutable policy run")
 
-    source_verified, source_manifest_bytes, source_files, read_source_json = _read_sealed_bundle(
-        source_run, label="Source 3D run"
-    )
-    if "scene.json" not in source_files:
-        raise ValueError("scene.json must belong to the sealed 3D run")
-    for sidecar in ("report.json", "candidate.json"):
-        if (source_run / sidecar).exists() and sidecar not in source_files:
-            raise ValueError(f"Unsealed {sidecar} present in source run")
-
-    scene = read_source_json("scene.json")
-    if scene.get("profile") != PROFILE:
-        raise ValueError(f"Spatial lab requires profile {PROFILE!r}, got {scene.get('profile')!r}")
+    source_verified, source_manifest_bytes, source_files, read_source_json, scene, source_report = _read_spatial_source(source_run)
     validate_scene(scene)
-
-    source_report = read_source_json("report.json") if "report.json" in source_files else None
-    source_candidate = read_source_json("candidate.json") if "candidate.json" in source_files else None
-    if source_report is not None:
-        status_value = source_report.get("status")
-        if isinstance(status_value, str) and status_value in REJECTED_SOURCE_STATUSES:
-            raise ValueError(f"Cannot import failed or rejected 3D run ({status_value})")
-        if source_report.get("physical_validation", "unverified") != "unverified" or source_report.get("physics_ready") is True:
-            raise ValueError("Spatial lab requires imported 3D scenes to remain explicitly physically unverified")
-        if ("candidate_sha256" in source_report or "assumptions_sha256" in source_report) and source_candidate is None:
-            raise ValueError("Candidate export is missing its sealed candidate.json")
-    if source_candidate is not None:
-        if source_candidate.get("physical_validation", "unverified") != "unverified" or source_candidate.get("physics_ready") is True:
-            raise ValueError("Candidate 3D export must remain explicitly physically unverified")
-        if source_report is not None and "candidate_sha256" in source_report:
-            if source_report["candidate_sha256"] != canonical_hash(source_candidate):
-                raise ValueError("Candidate and export report hashes differ")
-        if "scene" in source_candidate and source_candidate["scene"] != scene:
-            raise ValueError("Candidate scene differs from sealed scene.json")
 
     policy_verified = policy_manifest_bytes = policy_files = None
     learned_policy_available = False
