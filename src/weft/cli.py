@@ -176,6 +176,11 @@ def main():
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
     body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
     body_lab.add_argument("--out", required=True, help="New lab directory; does not start a server")
+    body_reference_report = commands.add_parser("body-reference-report", help="Inspect a saved body-fitting proposal without rerunning inference or physics")
+    body_reference_report.add_argument("--run", required=True, help="Sealed whole-body reference proposal study")
+    body_reference_report.add_argument("--out", required=True, help="New offline report directory")
+    body_reference_report.add_argument("--manifest-sha256", help="Optional exact source-manifest hash")
+    body_reference_report.add_argument("--max-seconds", type=float, default=10)
     camera_body = commands.add_parser('camera-body', help='Build a manual camera-aware body lab using supplied calibration; no model calls')
     camera_body.add_argument('--run', required=True, help='Completed original mobile exercise run/ directory')
     camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
@@ -456,6 +461,10 @@ def main():
         elif args.command == "body-lab":
             from weft.whole_body_lab import prepare_whole_body_lab
             result = prepare_whole_body_lab(args.source_lab, args.learning, args.out)
+        elif args.command == "body-reference-report":
+            from weft.whole_body_reference_report import prepare_whole_body_reference_report
+            result = prepare_whole_body_reference_report(args.run, args.out,
+                expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds)
         elif args.command == 'camera-body':
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,

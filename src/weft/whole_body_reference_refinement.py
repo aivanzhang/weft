@@ -32,6 +32,7 @@ CONTRACT = {
     'sampling_scope': 'Complete source and 30 Hz checks, not continuous-time collision proof',
     'deadline_scope': 'Cooperative checks between bounded calls, not native-call preemption',
 }
+FLOOR_FIRST_METHOD = 'blocked-whole-body-floor-first-reference-v1'
 NAMES = SPATIAL_JOINT_NAMES
 POINTS = {'left_shoulder': 11, 'right_shoulder': 12, 'left_elbow': 13, 'right_elbow': 14,
           'left_wrist': 15, 'right_wrist': 16, 'left_hip': 23, 'right_hip': 24,
@@ -256,9 +257,23 @@ def _loss(row, positions, delta, neighbors):
     return float(cost)
 
 
-def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None, settings=None):
+def _floor_loss(states):
+    return .5 * sum(float(np.square(np.minimum(0., state['gaps'] + .025)).sum()) for state in states)
+
+
+def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None,
+                                            settings=None, proposal_objective='image_v1'):
     """Return a separately proposed body; no source, default runtime or policy is modified."""
     started = time.monotonic(); limits = _settings(settings)
+    _require(isinstance(proposal_objective, str) and proposal_objective in ('image_v1', 'floor_first_v1'), 'unknown proposal objective')
+    floor_first = proposal_objective == 'floor_first_v1'
+    method = FLOOR_FIRST_METHOD if floor_first else CONTRACT['method']
+    diagnostic = {'floor_qp_calls': 0, 'image_qp_calls': 0, 'floor_descent_accepts': 0, 'image_tiebreak_accepts': 0,
+                  'invalid_directions': 0, 'zero_directions': 0, 'backtrack_trials': 0,
+                  'rejected_backtracks': 0, 'qp_status_counts': {name: 0 for name in (
+                      'optimal', 'iteration_limit', 'time_limit', 'unsupported_infeasible_initial',
+                      'dependent_active_set', 'kkt_verification_failed', 'solution_bound',
+                      'numerical_feasibility_loss', 'dependent_blocker', 'other')}} if floor_first else None
     spec, evidence = _document(human_document), _document(evidence_document)
     mask = NAMES if joint_mask is None else joint_mask
     _require(isinstance(mask, (list, tuple)) and 1 <= len(mask) <= 19 and all(isinstance(n, str) for n in mask)
@@ -343,6 +358,10 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                     lo = np.maximum(lo[columns] - changes[i, columns], -.10)
                     hi = np.minimum(hi[columns] - changes[i, columns], .10)
                     matrix, bounds = [*np.eye(n), *-np.eye(n)], [*lo, *-hi]
+                    floor_proposal = False
+                    if floor_first:
+                        floor_cost = _floor_loss(samples[j]['current'] for j, _ in affected[i])
+                        floor_hessian, floor_gradient = np.eye(n) * 1e-6, np.zeros(n)
                     for j, weight in affected[i]:
                         sample = samples[j]; value = at(sample, changes, geometry, True)
                         threshold = np.maximum(np.minimum(0., sample['before']['gaps']), np.minimum(0., sample['current']['gaps']))
@@ -352,6 +371,14 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                         depth_jac = value['point_jac'][:, 1, :][:, columns] * weight
                         matrix.extend(depth_jac); bounds.extend(-.08 - depth - tolerance)
                         matrix.extend(-depth_jac); bounds.extend(depth - .08 - tolerance)
+                        if floor_first:
+                            violating = value['gaps'] < -.025
+                            if np.any(violating):
+                                floor_proposal = True
+                                floor_jac = value['gap_jac'][violating][:, columns] * weight
+                                # Gap zero avoids asymptotically approaching the unchanged strict -.025 gate.
+                                floor_hessian += floor_jac.T @ floor_jac
+                                floor_gradient += floor_jac.T @ value['gaps'][violating]
                     for point in np.flatnonzero(row['weights']):
                         r = residual.reshape(12, 2)[point]; pj = jac.reshape(12, 2, n)[point]
                         norm = float(np.linalg.norm(r))
@@ -362,14 +389,25 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                             matrix.extend(-pj); bounds.extend([-tolerance / 2] * 2)
                     a, b = np.asarray(matrix), np.asarray(bounds)
                     check(); qp_calls += 1
+                    if floor_first:
+                        diagnostic['floor_qp_calls' if floor_proposal else 'image_qp_calls'] += 1
+                        if floor_proposal:
+                            hessian, gradient = floor_hessian, floor_gradient
                     solved = solve_feasible_qp(hessian, gradient, a, b, initial=np.zeros(n),
                         settings={'maximum_seconds': max(.001, min(.5, deadline - time.monotonic()))})
+                    if floor_first:
+                        outcome = solved['status'] if solved['status'] in diagnostic['qp_status_counts'] else 'other'
+                        diagnostic['qp_status_counts'][outcome] += 1
                     if solved['status'] != 'optimal':
                         rejected += 1; continue
                     direction = np.asarray(solved['step'], dtype=float)
                     if direction.shape != (n,) or not np.isfinite(direction).all() or np.max(b - a @ direction, initial=0.) > 1e-10:
+                        if floor_first:
+                            diagnostic['invalid_directions'] += 1
                         rejected += 1; continue
                     if np.max(abs(direction), initial=0.) < 1e-10:
+                        if floor_first:
+                            diagnostic['zero_directions'] += 1
                         continue
                     for backtrack in range(CONTRACT['maximum_backtracks']):
                         check(); trial = changes.copy(); trial[i, columns] += direction * .5 ** backtrack
@@ -383,11 +421,26 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                         point_state = next(value for j, value in states if j == lookup[float(times[i])])
                         errors = np.linalg.norm(_project(point_state['points']) - row['target'], axis=1)
                         valid &= bool(np.all(errors[row['weights'] > 0] <= image_limit[row['weights'] > 0] + tolerance))
-                        if valid and _loss(row, point_state['points'], trial[i], neighbors) < cost - 1e-14:
+                        if floor_first:
+                            diagnostic['backtrack_trials'] += 1
+                        improves = False
+                        if valid:
+                            image_improves = _loss(row, point_state['points'], trial[i], neighbors) < cost - 1e-14
+                            if floor_first:
+                                trial_floor_cost = _floor_loss(value for _, value in states)
+                                floor_improves = trial_floor_cost < floor_cost - 1e-14
+                                improves = floor_improves or (trial_floor_cost <= floor_cost and image_improves)
+                            else:
+                                improves = image_improves
+                        if improves:
                             changes = trial; accepted += 1
+                            if floor_first:
+                                diagnostic['floor_descent_accepts' if floor_improves else 'image_tiebreak_accepts'] += 1
                             for j, value in states:
                                 samples[j]['current'] = value
                             break
+                        if floor_first:
+                            diagnostic['rejected_backtracks'] += 1
                         rejected += 1
     except TimeoutError as error:
         expired, failure = True, str(error)
@@ -446,14 +499,14 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     failures = [key for key, passed in gates.items() if not passed]
     status = 'partial_budget_exhausted' if expired else 'rejected_construction_proposal' if failures else 'unadmitted_construction_proposal'
     candidate['whole_body_reference_refinement'] = {
-        'schema_version': 1, 'method': CONTRACT['method'], 'status': status, 'promoted': False,
+        'schema_version': 1, 'method': method, 'status': status, 'promoted': False,
         'input_human_sha256': sha256(human_document).hexdigest(), 'input_evidence_sha256': sha256(evidence_document).hexdigest()}
     before_peak = max(row['before_max_penetration_model_units'] for row in checks)
     after_peak = max(row['after_max_penetration_model_units'] for row in checks)
     image_pairs = [(row['before_errors'][j], row['after_errors'][j])
                    for row in rows for j in np.flatnonzero(row['weights'])]
     image_mean = np.mean(image_pairs, axis=0) / root_audit['scale']['model_units_per_pixel'] if image_pairs else (None, None)
-    report = {'schema_version': 1, 'profile': CONTRACT['method'], 'status': status, 'contract': deepcopy(CONTRACT),
+    report = {'schema_version': 1, 'profile': method, 'status': status, 'contract': dict(deepcopy(CONTRACT), method=method),
         'work_limits': limits, 'input_human_sha256': sha256(human_document).hexdigest(),
         'input_evidence_sha256': sha256(evidence_document).hexdigest(), 'candidate_sha256': canonical_hash(candidate),
         'source_sha256': spec['source_sha256'], 'root_audit_sha256': canonical_hash(root_audit),
@@ -484,6 +537,15 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         'seconds': time.monotonic() - started, 'budget_reason': failure, 'physics_steps': 0, 'promoted': False,
         'physical_validation': 'unverified', 'geometry_admission': 'unadmitted_pending_independent_current_scene_checks',
         'scope': 'Source-estimate agreement and sampled authored-floor constraints only; missing endpoints stay unknown. No equipment, anatomy, contact, balance or continuous-time qualification.'}
+    if floor_first:
+        report['objective'] = {'profile': proposal_objective,
+            'primary': 'Half sum of squared excess penetration beyond .025 over unique sampled times/supports',
+            'units': 'model_units_squared', 'proposal_target_gap_model_units': 0.,
+            'primary_before': _floor_loss(sample['before'] for sample in samples),
+            'primary_after': _floor_loss(final.values()), 'unique_samples': len(samples),
+            'acceptance': 'Primary decreases by more than 1e-14, or primary does not increase and image/regularization loss decreases by more than 1e-14; every original nonlinear gate still applies',
+            'counters': diagnostic,
+            'scope': 'Gap-zero quadratic directions are local proposals, not exact nonlinear or global lexicographic optima'}
     result = {'status': status, 'human_candidate': candidate, 'report': report}
     check()
     _require(len(json.dumps(result, allow_nan=False).encode()) <= CONTRACT['maximum_output_bytes'], 'complete output exceeds bound')

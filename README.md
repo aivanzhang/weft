@@ -38,6 +38,10 @@ The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
 
+To inspect the remaining body-fitting errors, open the
+[saved comparison page](artifacts/whole-body-reference-views-01/image-first/index.html).
+It preserves missing estimates and rejected results; it does not replace the working sandbox.
+
 ## Brand assets
 
 The selected logo, deep-clay palette, and mascot animation sources are in [assets/brand](assets/brand/README.md). Open [the mascot preview](assets/brand/preview.html) locally to watch the on-load weave formation and try the blink and wave sprites. The local evidence viewer uses the approved logo and palette; saved experiment folders remain unchanged.

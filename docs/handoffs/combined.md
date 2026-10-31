@@ -1,5 +1,84 @@
 # Combined Weft implementation handoff
 
+## Next reconstruction step
+
+Checkpoint `b0d536ee9dc0ad37d93e2e8ffacaa769117c8bc3` is pushed and independently
+matched on private `origin/main`; publication receipt
+`.local/spatial-body-publication-01.json` has SHA
+`0935534430fe916352ac44413569177cc18e9719068fb41397ea77a1d7a7614b`.
+The real current-runtime terminal entrypoints for both new spatial labs also
+pass `controls`, `status`, `quit` without steps, recording or export; original
+seals/session inventories remain unchanged. Receipt
+`.local/spatial-console-entrypoint-01.json`, SHA
+`7a4d5b49586decd082f81db0a8d1b322c5b8ea56d4cb561ad52d630c044bd3e5`.
+
+The explicit `proposal_objective="floor_first_v1"` is implemented; 16 new pure
+checks and independent math review pass. Default `image_v1`, all hard gates,
+0.025 floor limit, budgets and fresh final audit remain unchanged. Frozen source
+`fba6b9cb62ce7b2b5cc63efdd24ab2417c5530ea8841f240e8a1977c078ce996`, tests
+`e5d53471b886c00d37daf02413455a9cb6234dd778b0202df9b98d9e775c8514`.
+Receipt `.local/whole-body-floor-first-implementation-01.json` records the passed
+tests but honestly predates the final independent review; no code changed after it.
+
+One source fit completed via `.local/run_whole_body_floor_first_01.py`, using
+`.local/whole-body-floor-first-runtime-01` and unchanged original Heavy inputs.
+Output `artifacts/whole-body-floor-first-01`, seal
+`af5836b30d64624522eb09ab80f4ce8656097c7ab2b4a86242a9c6a5ca5b817b`, plan
+`159f9f3c2d3907211984b0f01e625252dc59054c0889e3fa617c666a94b8984b`.
+1.488 s supervised, two models/four data objects/10,259 forwards, 88,621,056 B
+observed peak RSS, no dynamics/reset/inference/source decode/API. **Rejected**:
+floor failures 22→19 versus image-first's 14; mean image error 3.98639 versus
+3.86933 px; worst penetration unchanged. No install, default change or retry.
+
+Independent saved audit `.local/whole-body-floor-first-saved-audit-01.json`, SHA
+`f06c4e22945a0a2cbe84756c9556eaa8ebb74091684c035a3ae2f0ece3ca8ad3`, verifies
+13 terminal members/6,641,928 B, 48 selected pins, all 352 rows and 235 unique
+times × 23 supports. Recomputed squared excess-floor loss: original 0.00248993,
+image-first 0.00157098, floor-first 0.00222621. Eight floor/371 image acceptances,
+669 optimal/27 dependent-blocker QPs reconcile; no per-update ledger means no
+independent proof of each optimizer decision. The bounded pure duplicate-
+constraint check found no solver defect; preserve
+`.local/constrained-qp-dependent-counterexample-01.json`, SHA
+`a00f309943f7da0fc6c2b332730e9e5681cf0c847e0215cdc2a53d59b72a7d6d`.
+Do not rerun the same fit or infer infeasibility from aggregate solver statuses.
+
+User-facing report is complete: `whole_body_reference_report.py`, lazy
+`body-reference-report --run --out [--manifest-sha256] [--max-seconds]` and
+focused tests. 27 distinct Python cases pass, including four Node navigation
+groups. Initial collection-brace and expected-message errors remain in
+`.local/whole-body-reference-report-tests-{01,02,03}.xml`; unaffected successes
+were not repeated. Independent review fixed contradictory floor labels and
+out-of-span grid references before execution. Frozen producer
+`2c14344ec2aeb04e7db0f0c8a7de70aa1bab7df97b222fbf3eeaa34b66061b6a`.
+
+Actual ordinary CLI acceptance completed once per study via
+`.local/run_body_reference_views_01.py`: 0.533 s supervised/102,072,320 B observed
+peak RSS, zero blocked operations or imported heavy model modules. Output
+`artifacts/whole-body-reference-views-01`, seal
+`05906bb23c2fbd140359cc0c23e90a7836659eee4fc4e9a5007cd274e9ef0c91`.
+Its `image-first/index.html` and `floor-first/index.html` preserve the rejected
+proposals, signed support gaps, separate source/grid rows, 207 unknown endpoint
+pairs and missing frame 44. Each report has eight files; exact supporting JSON
+is downloadable. No model, fitting, physics, source media, browser/server or API
+work. Root's supervisor guards and all current Python/palette pins remained stable.
+
+Independent saved audit `.local/whole-body-reference-views-saved-audit-01.json`,
+SHA `5417024351b56cfd2358dfe1f37363ac87b6f897d22bba947556f22a46b4d971`,
+verifies 23 terminal members/13,974,136 B, 189 code pins, eight exact input copies,
+12 local links and embedded JSON/script/CSP identities. Actual-page scripted DOM
+receipt `.local/whole-body-reference-views-ui-01.json`, SHA
+`a2b439b1f821dd4f4e2bd41d28e8af5e3f34128435de5d086aec1c7f33907c9c`,
+passes both 118-slot/235-grid pages, missing frame 44, support labels and 100 detail
+updates with stable 472 live nodes/no requests or timers. No live-browser claim.
+
+All workers are terminal; there are no active handles. Next safe action:
+checkpoint/push these completed changes, then continue a genuinely new,
+source-supported reconstruction/physical-evidence workstream. Do not repeat
+either rejected objective or the non-counterexample solver check unchanged.
+Keep the user-ready exercise and trained spatial labs available and preserve
+the 75 separate avatar entries. Generalized reconstruction and stable coupled
+equipment behavior remain open; no goal completion or physical promotion.
+
 ## Current verified milestone — October 31, 2026, 4:00 AM PDT
 
 Publication checkpoint `172f1a06b6ec439340d376bdda42adc0c320966b` is independently

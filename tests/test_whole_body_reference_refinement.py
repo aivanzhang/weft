@@ -313,6 +313,196 @@ def test_nonfinite_solver_direction_is_rejected(monkeypatch):
     assert result['human_candidate']['reference'] == spec['reference']
 
 
+class FloorObjectiveGeometry(ToyGeometry):
+    def __init__(self, evidence, mode='neutral', final_shift=0.):
+        super().__init__(evidence, mode, final_shift)
+        self.base[10, 0] += .08
+
+    def evaluate(self, q, root, derivatives=False):
+        knee, torso = (refinement.NAMES.index(name) for name in ('left_knee', 'torso_flex'))
+        points, pj, gj = self.base.copy(), np.zeros((12, 3, 19)), np.zeros((2, 19))
+        gaps = np.array([.02 - q[knee], .2]); gj[0, knee] = -1.
+        if self.mode == 'image_regression':
+            points[10, 0] += q[knee] - .06; pj[10, 0, knee] = 1.
+        elif self.mode == 'primitive_tradeoff':
+            gaps[1] = q[knee] - .09; gj[1, knee] = 1.
+        elif self.mode == 'grid_only':
+            gaps[0] = q[torso] ** 2 - .04 + q[knee]
+            gj[0, knee], gj[0, torso] = 1., 2 * q[torso]
+        elif self.mode == 'depth':
+            points[11, 1] += 3 * (q[knee] - .1); pj[11, 1, knee] = 3.
+        elif self.mode == 'curved':
+            gaps[0] -= 100 * (q[knee] - .06) ** 2
+            gj[0, knee] -= 200 * (q[knee] - .06)
+        elif self.mode == 'fixed_violation':
+            gaps[0] = -.025 - 1e-6; gj[0, knee] = 0.
+        gaps += self.final_shift
+        return {'points': points, 'gaps': gaps, 'point_jac': pj if derivatives else None, 'gap_jac': gj if derivatives else None}
+
+
+def floor_fixture(count=3, angle=.06):
+    spec, evidence = fixture(count)
+    for row in spec['reference'][1:]:
+        row['joints']['left_knee'] = angle
+    return spec, evidence
+
+
+def run_floor(monkeypatch, spec, evidence, mode='neutral', final_shift=0., **kwargs):
+    engines = []
+    def create(_):
+        engine = FloorObjectiveGeometry(evidence, mode, final_shift if engines else 0.)
+        engines.append(engine); return engine
+    monkeypatch.setattr(refinement, '_make_geometry', create)
+    result = refinement.propose_whole_body_reference_refinement(encode(spec), encode(evidence),
+        joint_mask=['left_knee'], **({'proposal_objective': 'floor_first_v1'} | kwargs))
+    assert len(engines) == 2 and all(engine.closed for engine in engines)
+    return result
+
+
+def assert_floor_counters(report):
+    objective = report['objective']; counters = objective['counters']
+    assert counters['floor_qp_calls'] + counters['image_qp_calls'] == report['qp_calls']
+    assert sum(counters['qp_status_counts'].values()) == report['qp_calls']
+    assert counters['floor_descent_accepts'] + counters['image_tiebreak_accepts'] == report['accepted_updates']
+    assert counters['backtrack_trials'] == report['accepted_updates'] + counters['rejected_backtracks']
+    assert report['qp_calls'] <= report['work_limits']['maximum_sweeps'] * (len(report['references']) - 1) * len(report['blocks'])
+    assert counters['backtrack_trials'] <= 6 * report['qp_calls']
+    unique = {}
+    for row in report['geometry_checks']:
+        values = (row['before_floor_support_gaps'], row['after_floor_support_gaps'])
+        assert row['time_s'] not in unique or unique[row['time_s']] == values
+        unique[row['time_s']] = values
+    for side, index in (('before', 0), ('after', 1)):
+        loss = .5 * sum(min(0., gap + .025) ** 2 for values in unique.values() for gap in values[index])
+        assert objective['primary_' + side] == pytest.approx(loss, rel=0, abs=1e-15)
+    assert objective['unique_samples'] == len(unique)
+
+
+def test_floor_first_image_neutral_direction_can_clear_violations_without_native_work(monkeypatch):
+    spec, evidence = floor_fixture(); prior = deepcopy(spec)
+    image_only = run_floor(monkeypatch, spec, evidence, proposal_objective='image_v1')
+    result = run_floor(monkeypatch, spec, evidence)
+    report, candidate = result['report'], result['human_candidate']
+    assert image_only['report']['accepted_updates'] == 0 and image_only['human_candidate']['reference'] == spec['reference']
+    assert result['status'] == 'unadmitted_construction_proposal' and all(report['gates'].values())
+    assert report['objective']['primary_before'] > report['objective']['primary_after'] == 0.
+    assert report['objective']['counters']['floor_descent_accepts'] > 0
+    assert report['image_summary']['mean_error_after_px'] == report['image_summary']['mean_error_before_px']
+    assert candidate['reference'][0] == spec['reference'][0] and spec == prior
+    assert all(candidate[key] == value for key, value in spec.items() if key != 'reference')
+    assert report['profile'] == report['contract']['method'] == candidate['whole_body_reference_refinement']['method'] == refinement.FLOOR_FIRST_METHOD
+    assert report['floor_summary']['after_failures'] == 0 and report['contract']['floor_penetration_limit_model_units'] == .025
+    assert report['physics_steps'] == report['image_summary']['grid_image_targets'] == 0
+    assert not report['promoted'] and report['physical_validation'] == 'unverified'
+    assert_floor_counters(report)
+
+
+def test_floor_first_default_and_explicit_image_v1_keep_identical_output_and_calls(monkeypatch):
+    spec, evidence = fixture()
+    monkeypatch.setattr(refinement.time, 'monotonic', lambda: 0.)
+    default = run_toy(monkeypatch, spec, evidence)
+    explicit = run_toy(monkeypatch, spec, evidence, proposal_objective='image_v1')
+    assert default == explicit
+    assert default['report']['contract'] == refinement.CONTRACT
+    assert 'objective' not in default['report']
+    assert default['report']['profile'] == 'blocked-whole-body-floor-reference-v1'
+
+
+@pytest.mark.parametrize('mode', ['image_regression', 'primitive_tradeoff'])
+def test_floor_first_gain_cannot_override_individual_image_or_support_gates(monkeypatch, mode):
+    spec, evidence = floor_fixture()
+    result = run_floor(monkeypatch, spec, evidence, mode)
+    report = result['report']
+    assert report['gates']['source_endpoint_image_nonregression'] and report['gates']['pointwise_floor_nonregression']
+    assert not report['gates']['floor_feasibility'] and result['status'] == 'rejected_construction_proposal'
+    assert all(abs(row['joints']['left_knee'] - .06) <= 1.1e-8 for row in result['human_candidate']['reference'][1:])
+    assert_floor_counters(report)
+
+
+def test_floor_first_uses_grid_only_violations_without_grid_image_targets(monkeypatch):
+    spec, evidence = fixture()
+    for row, value in zip(spec['reference'], (-.2, .2, .2), strict=True):
+        row['joints']['torso_flex'] = value
+    result = run_floor(monkeypatch, spec, evidence, 'grid_only')
+    report = result['report']
+    assert all(row['before_max_penetration_model_units'] <= .025 for row in report['geometry_checks'] if row['kind'] == 'source_pose')
+    assert any(row['before_max_penetration_model_units'] > .025 for row in report['geometry_checks'] if row['kind'] == 'control_grid')
+    assert report['gates']['floor_feasibility'] and report['objective']['counters']['floor_descent_accepts'] > 0
+    assert report['image_summary']['grid_image_targets'] == 0
+    assert_floor_counters(report)
+
+
+def test_floor_first_nonlinear_backtracking_still_checks_every_support(monkeypatch):
+    spec, evidence = floor_fixture()
+    spec['reference'][0]['joints']['left_knee'] = .06
+    result = run_floor(monkeypatch, spec, evidence, 'curved')
+    report = result['report']
+    assert report['objective']['counters']['rejected_backtracks'] > 0
+    assert report['objective']['counters']['floor_descent_accepts'] > 0
+    assert report['gates']['pointwise_floor_nonregression'] and report['gates']['first_reference_frozen']
+    assert not report['gates']['floor_feasibility']
+    assert_floor_counters(report)
+
+
+def test_floor_first_keeps_depth_caps_even_for_an_image_neutral_endpoint(monkeypatch):
+    spec, evidence = floor_fixture(angle=.1)
+    result = run_floor(monkeypatch, spec, evidence, 'depth')
+    report = result['report']
+    assert report['gates']['endpoint_depth_change'] and report['gates']['source_endpoint_image_nonregression']
+    assert report['objective']['primary_after'] < report['objective']['primary_before']
+    assert max(row['maximum_depth_change_model_units'] for row in report['geometry_checks']) <= .08 + 1e-8
+    assert not report['gates']['floor_feasibility']
+    assert_floor_counters(report)
+
+
+def test_floor_first_preserves_missing_targets_first_pose_root_and_correction_caps(monkeypatch):
+    spec, evidence = floor_fixture(5, angle=.6)
+    evidence['frames'][2].update(status='missing', landmarks=None)
+    bind_root(spec, evidence)
+    result = run_floor(monkeypatch, spec, evidence)
+    report, candidate = result['report'], result['human_candidate']
+    assert candidate['reference'][0] == spec['reference'][0] and candidate['reference'][2] == spec['reference'][2]
+    assert candidate['root_reference'] == spec['root_reference'] and candidate['mobility'] == spec['mobility']
+    assert report['gates']['angle_correction'] and report['gates']['correction_rate'] and report['gates']['joint_limits']
+    assert all(point['error_after_px'] is None for point in report['references'][2]['points'])
+    assert report['references'][2]['status'] == 'unchanged_missing_source_targets'
+    assert_floor_counters(report)
+
+
+def test_floor_first_cannot_relax_the_exact_floor_limit(monkeypatch):
+    spec, evidence = floor_fixture()
+    result = run_floor(monkeypatch, spec, evidence, 'fixed_violation')
+    assert not result['report']['gates']['floor_feasibility']
+    assert result['report']['objective']['primary_after'] > 0
+    assert result['status'] == 'rejected_construction_proposal'
+    assert_floor_counters(result['report'])
+
+
+def test_floor_first_reserves_the_original_call_budget_for_the_fresh_final_audit(monkeypatch):
+    spec, evidence = floor_fixture()
+    result = run_floor(monkeypatch, spec, evidence, settings={'maximum_geometry_calls': 11})
+    assert result['status'] == 'partial_budget_exhausted'
+    assert result['report']['geometry_calls'] == 11 and len(result['report']['geometry_checks']) == 8
+    assert not result['report']['gates']['complete_bounded_solve']
+    assert_floor_counters(result['report'])
+
+
+def test_floor_first_fresh_final_geometry_can_still_reject_a_cached_candidate(monkeypatch):
+    spec, evidence = floor_fixture()
+    result = run_floor(monkeypatch, spec, evidence, final_shift=-.1)
+    assert result['status'] == 'rejected_construction_proposal'
+    assert not result['report']['gates']['pointwise_floor_nonregression']
+    assert_floor_counters(result['report'])
+
+
+@pytest.mark.parametrize('objective', [None, False, [], 'floor', 'floor_first_v2'])
+def test_floor_first_unknown_objective_fails_before_geometry(monkeypatch, objective):
+    spec, evidence = fixture()
+    monkeypatch.setattr(refinement, '_make_geometry', lambda _: pytest.fail('Invalid objective cannot construct geometry'))
+    with pytest.raises(ValueError, match='unknown proposal objective'):
+        refinement.propose_whole_body_reference_refinement(encode(spec), encode(evidence), proposal_objective=objective)
+
+
 def test_native_full_body_support_jacobian_uses_all_19_axes_without_steps(monkeypatch, record_property):
     import mujoco
     from weft import mobile_human

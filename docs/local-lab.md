@@ -94,6 +94,19 @@ This single-leg squat example has a 3D body, illustrative muscles, 22 joint/root
 
 The preset pins trusted snapshot **`225a53c8c0a9fb25f03b8473adfdf7f2754e037d`** and `artifacts/person-clock-workflow-01/lab`. Its updated evidence views and recording receipts preserve the original 26 policy/18 lab simulation-source pins, scene, task and policy. The actual metadata-only `--console --check` passes with 202 runtime files, no server or physics. It does not retrain or modify older examples. The original training/evaluation/lab run took 30.7 seconds with no API charge. The [verified full recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames; the full 234-step post-reset trial passes and replays exactly. That older export predates durable receipts and is not backfilled. [Current evidence and limits](handoffs/combined.md#recording-receipt--verified).
 
+### Inspect body-fitting proposals
+
+The [image-first comparison](../artifacts/whole-body-reference-views-01/image-first/index.html)
+and [floor-first comparison](../artifacts/whole-body-reference-views-01/floor-first/index.html)
+show the latest saved body-fitting results without running another simulation.
+Switch between retained source slots and control-grid checks, select a sample,
+and inspect the original/candidate floor gaps and available joint-image errors.
+Missing estimates remain unknown. Both proposals still fail the unchanged floor
+limit and are **not installed in the working sandbox**.
+
+Use `body-reference-report --run <sealed-study> --out <new-directory>` to build
+another offline page. [Full command and verification](body-model-options.md#inspect-the-saved-proposals).
+
 ### Inspect the lab's saved evidence
 
 Choose **Checks & limits → Evidence and gaps**, then expand a category. The same

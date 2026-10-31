@@ -39,6 +39,79 @@ endpoint positions. Thirty pure checks and one 39-forward fixed-pose Jacobian
 fixture verify the new implementation. Equipment/contact/balance and independent
 physical accuracy remain outside this trial.
 
+### Floor-priority follow-up
+
+An explicit `proposal_objective="floor_first_v1"` changes only the proposal
+objective. It preserves the image-first default, every hard constraint, the
+0.025 floor limit, work bounds and final fresh geometry audit. Its local QP
+targets zero gap, but actual acceptance prioritizes reducing squared penetration
+**beyond the unchanged limit**; image/prior loss only breaks ties.
+
+The single follow-up is also **rejected and uninstalled**:
+
+| Saved result | Failed floor checks | Mean image error | Excess-floor loss |
+| --- | ---: | ---: | ---: |
+| Original body | 22 | 5.13984 px | 0.002490 |
+| Image-first proposal | 14 | 3.86933 px | 0.001571 |
+| Floor-first proposal | 19 | 3.98639 px | 0.002226 |
+
+Loss is half the sum of squared excess penetration over 235 unique sampled times
+and 23 support endpoints, in squared model units. Source/grid checks may share
+a time; they are not extra independent poses. Worst penetration stays 0.0718557
+in every result. Floor-first underperforms image-first on all three metrics;
+neither qualifies. No default, body, task or policy is replaced.
+
+Sixteen new pure cases and independent math review pass. The one source fit
+takes **1.488 seconds**, two models/four data objects/10,259 forwards, zero
+dynamics or new inference, and 88,621,056 bytes observed peak RSS. Saved counters
+record eight floor-descent and 371 image-tie-break acceptances, with 27 QPs
+returning `dependent_blocker`. Individual QP inputs are not saved; a bounded
+independent duplicate-constraint example found no solver defect. Do not treat
+those statuses as proven infeasibility or justification for an unchanged retry.
+
+[Follow-up report](../artifacts/whole-body-floor-first-01/report.json), seal
+`af5836b30d64624522eb09ab80f4ce8656097c7ab2b4a86242a9c6a5ca5b817b`;
+[independent saved audit](../.local/whole-body-floor-first-saved-audit-01.json).
+The audit checks final values and counter arithmetic, not every optimizer
+decision or physical validity.
+
+### Inspect the saved proposals
+
+Open the [image-first comparison](../artifacts/whole-body-reference-views-01/image-first/index.html)
+or [floor-first comparison](../artifacts/whole-body-reference-views-01/floor-first/index.html).
+Choose retained source slots or the control grid, then select a sample or use
+Previous/Next. The chart compares floor penetration; the tables show signed
+support gaps and available source-endpoint errors. Exact saved IDs remain in
+details. Frame 44's missing body estimate stays selectable and unknown; grid
+samples never acquire source-image targets. Both pages retain **rejected—not promoted**.
+
+Create a new report from either sealed proposal with the ordinary CLI:
+
+```sh
+.venv-lab/bin/python -m weft body-reference-report \
+  --run artifacts/whole-body-reference-candidate-01 \
+  --out artifacts/my-body-reference-report-01
+```
+
+No server, browser, inference, media processing or physics starts. An optional
+`--manifest-sha256` binds an expected seal; without it, the selected local seal
+is frozen and rechecked, not externally authenticated. Reports copy the four
+supporting JSON files without altering them and require a new output directory.
+
+Both real CLI reports completed together in **0.533 seconds**, with
+102,072,320 bytes observed peak RSS and no paid calls. Independent audit verifies
+23 terminal files, 189 code pins, eight exact source copies and 12 local links;
+both retain 118 pose slots/117 references/235 grid samples, 1,197 known and 207 unknown
+endpoint pairs. Actual saved-page scripted DOM checks preserve unknowns, sample
+navigation and chart identity across 100 detail updates, with no requests/timers.
+These are not live-browser responsiveness measurements.
+
+[Report acceptance](../artifacts/whole-body-reference-views-01/worker.json), seal
+`05906bb23c2fbd140359cc0c23e90a7836659eee4fc4e9a5007cd274e9ef0c91`;
+[saved audit](../.local/whole-body-reference-views-saved-audit-01.json).
+
+## Previously reviewed model options
+
 Model options reviewed **October 28, 2026, 8:29 PM PDT**; public-data access findings updated **October 28, 2026, 9:44 PM PDT**. No model weights were downloaded, dependencies installed, agreements accepted or paid requests made. The separately linked jogging study acquired one small public video and reconstructed reference files.
 
 ## Meta SAM 3D Body
@@ -89,7 +162,7 @@ rights-review document and prior results are pinned in
 
 **October 31 result:** the distinct VIDEO/raw run completed in 4.995 seconds,
 retaining all 235 original frames and 118 sampled slots. It produced 117 usable
-partial poses and one low-confidence sample (frame44), with no competing
+partial poses and one low-confidence sample (frame 44), with no competing
 hypotheses; unchanged pose/root prerequisites pass. The large frame18→20 inferred
 joint jump falls from Lite VIDEO's 1.1014 to 0.4279 radians RMS. Missing-pair
 comparisons remain unavailable; these numbers do not measure anatomical error.
