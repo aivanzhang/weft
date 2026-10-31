@@ -28,11 +28,18 @@ DIRECT_PROFILES = {WHOLE_BODY_PROFILE: (19, "whole_body_reference_tracking"),
 
 FEET_RECORDING_PROFILE = "shared-exercise-feet-recording-v1"
 CAMERA_RECORDING_PROFILE = "camera-shared-recording-v1"
-EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE})
+CAMERA_POLICY_RECORDING_PROFILE = "camera-shared-policy-recording-v1"
+EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE,
+                                       CAMERA_RECORDING_PROFILE, CAMERA_POLICY_RECORDING_PROFILE})
+DETAILED_EXERCISE_PROFILES = frozenset({FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE,
+                                       CAMERA_POLICY_RECORDING_PROFILE})
 FEET_EVENT_BYTES = 512 * 1024
 
 
 def _exercise_recording_adapter(scene):
+    if scene.get("profile") == CAMERA_POLICY_RECORDING_PROFILE:
+        from weft import camera_shared_policy_recording
+        return camera_shared_policy_recording
     if scene.get("profile") == CAMERA_RECORDING_PROFILE:
         from weft import camera_shared_recording
         return camera_shared_recording
@@ -47,7 +54,7 @@ def _exercise_recording_adapter(scene):
 
 def _event_size_limit(scene):
     # Detailed contacts retain bounded headroom; the total journal cap stays unchanged.
-    return FEET_EVENT_BYTES if scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE) else MAX_EVENT_BYTES
+    return FEET_EVENT_BYTES if scene.get("profile") in DETAILED_EXERCISE_PROFILES else MAX_EVENT_BYTES
 
 
 def _encoded(value):
@@ -450,7 +457,7 @@ class Recorder:
             "limits": {"max_events": MAX_EVENTS, "max_wall_seconds": MAX_SECONDS,
                        "max_journal_bytes": self._journal_limit},
         }
-        if self.scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE):
+        if self.scene.get("profile") in DETAILED_EXERCISE_PROFILES:
             self._metadata["limits"]["max_event_bytes"] = self._event_limit
         if contract is not None:
             self._metadata["action_replay_contract"] = contract
@@ -578,7 +585,7 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
         _seed(metadata.get("seed"))
         if metadata["seed"] != events[0]["seed"]:
             raise ValueError("Exercise recording metadata seed differs from its initial event")
-    if scene.get("profile") in (FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE):
+    if scene.get("profile") in DETAILED_EXERCISE_PROFILES:
         limits = metadata.get("limits")
         if (not isinstance(limits, dict) or limits.get("max_event_bytes") != FEET_EVENT_BYTES
                 or limits.get("max_journal_bytes") != MAX_JOURNAL_BYTES):

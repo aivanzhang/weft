@@ -1,6 +1,6 @@
 # Additional-view landmark evidence
 
-Updated October 31, 2026, 3:46 PM PDT. Owner:
+Published multiview checkpoint: `9dae370`. Owner:
 `/root/exercise_reconstruction`. Both strict adapter and explicit numerical prior
 passed review and focused analytical checks. Study 01 remains an immutable camera
 admission failure. The single approved study 02 completed, but the original-start
@@ -8,7 +8,142 @@ right heel still fails the unchanged all-view consistency gate. Numerical
 compatibility improved; heel/contact recovery did not. No inference, decoder,
 physics or paid call ran. Root owns integration, coordination and Git.
 
-## Scope and ownership
+## Source-surface envelope milestone — frozen October 31, 2026, 4:20 PM PDT
+
+Root approved only new `src/weft/source_surface_envelopes.py`,
+`tests/test_source_surface_envelopes.py` and this handoff for the next slice.
+The published multiview/rotation files remain unchanged. No source study or
+native/model/media/network operation is authorized or running.
+
+Existing wrist/box co-motion, mask/contact projection and silhouette-band
+construction already address projected proximity/shape; do not duplicate them
+or invent cavities/contact from mask absence. The next reusable improvement is
+an explicit static-support/ground **height interval** plus authored pixel
+rectangle, producing a conditional 3D anchor enclosure without choosing a
+nominal height or pretending a manual constraint was recovered automatically.
+
+Reuse the source-surface source, camera, annotation and world/evidence validators.
+For undistorted pinhole calibration, constant-sign ray/plane denominators imply
+coordinate extrema at four pixel corners × two height endpoints. Exact rational
+arithmetic on supplied numeric coefficients and outward-rounded floats bound
+the modeled geometry; calibration accuracy itself is not certified. Raw camera
+R is inverted algebraically, never silently normalized. Missing inputs, radial
+distortion without a bound proof, horizon crossing or support-domain mismatch
+abstain. All original source/channel slots, clocks and partitions remain.
+
+Bounds: existing observation-loader caps (eight documents / 64 MiB), 4 MiB
+additional JSON, 1,800 original source slots, 900 annotated frames / 12 channels,
+8 MiB cached output and ten-second cooperative preparation. No hard OS memory
+claim. Pure tests cover analytic extrema, widening, point-limit agreement,
+nonidentity transforms, missing/rejected inputs and bounded cached queries.
+The plain JSON consumer contract exposes outer bounds and exact input pins,
+not a midpoint measurement. Existing construction still needs an explicit
+world/body join and interval-aware objective; no automatic install is planned.
+
+Root independently reviewed the exact fractional inverse, corner-extrema proof,
+outward rounding, source admission, clocks/partitions and consumer limitations;
+no blocker was found. Current pins:
+
+- `src/weft/source_surface_envelopes.py`, 17,784 B, SHA
+  `60c85dd3df9e0e638052d60df2635f342430554e71fa340678426af9499e8383`.
+- `tests/test_source_surface_envelopes.py`, 15,167 B, SHA
+  `f7656ec6a5904400cf53d90fbbb8243b86ca4b22ed6cefc064f0b331d8043987`.
+
+### Public API and concrete interval input
+
+Reuse the exact observation/camera/annotation bytes accepted by the existing
+`surface-anchors` workflow. The annotation schema is unchanged; its channel's
+`surface_id` must name the supplied interval surface. Minimal example:
+
+```python
+from hashlib import sha256
+import json
+from weft.source_surface_envelopes import prepare_source_surface_envelopes
+
+# Example user-authored range, not a measurement or inference from a video.
+intervals = {
+    "schema_version": 1, "profile": "source-horizontal-surface-intervals-v1",
+    "source_sha256": original_source_sha256,
+    "calibration_sha256": sha256(camera_bytes).hexdigest(),
+    "world_frame": {"id": "supplied-room", "length_unit": "m",
+                    "axes": "x_right_y_away_z_up"},
+    "calibration_evidence_refs": [],
+    "surfaces": [{"id": "bench_top", "kind": "static_support",
+                  "height_interval_m": [0.4, 0.5],
+                  "bounds_xy_m": [-0.5, -0.5, 0.5, 0.5],
+                  "quality": "authored", "provenance": "Example user-supplied range",
+                  "evidence_refs": []}],
+}
+prepared = prepare_source_surface_envelopes(
+    observation_documents, source_sha256=original_source_sha256,
+    camera_document=camera_bytes,
+    surface_interval_document=json.dumps(intervals).encode(),
+    annotation_document=annotation_bytes,  # Channel surface_id: bench_top.
+)
+metadata = prepared.describe()
+original_slot = prepared.frame(0)
+complete_rows = prepared.iter_frame_bytes()
+```
+
+`SourceSurfaceEnvelopes` retains exact inputs once; queries return defensive
+cached JSON, without reloading evidence or recomputing geometry. Its exported
+`AxisAlignedEnvelope` typed/plain JSON contract has `minimum`, `maximum`,
+`unit: "m"`, `kind: "outer_axis_aligned_enclosure"` and an arithmetic certificate.
+Available rows use `status: "conditional_surface_envelope"` and preserve qualified
+entity/observation/annotation/surface IDs, partitions and exact source times.
+Unavailable rows give a reason and `world_envelope_m: null`. No chosen height,
+point or midpoint is returned. Unknown height uses `null` / `quality: "unknown"`;
+measured intervals are unsupported, not guessed. Measured camera claims still
+require the existing exact evidence receipt.
+
+The arithmetic certifies the enclosure of a **conditional mathematical model**
+using the supplied finite coefficients. It does not certify calibration/metre
+accuracy, normalize rotations or establish physical support membership. The
+axis-aligned box is an outer set: arbitrary combinations of its coordinates
+need not be attainable by the original pixel/height ranges.
+
+### Exact construction boundary
+
+Current `source_surface_anchors` emits points; existing CLI/construction
+consumers do **not** consume intervals. A future join must retain this new
+profile and exact source/entity/frame/clock pins, map the body endpoint into
+the declared world through qualified `world-alignment-v1`, and use an
+interval-aware objective such as distance outside the lower/upper bounds.
+It must not copy the midpoint into a point-target field or treat zero interval
+error as contact/feasibility proof. No body/floor, CLI/UI, native consumer, policy
+or scorer was installed or changed here.
+
+### Verification and limits
+
+```sh
+PYTHONPATH=src .venv-lab/bin/python -m pytest -q tests/test_source_surface_envelopes.py -o junit_family=legacy --junitxml=.local/source-surface-envelope-tests-01.xml
+PYTHONPATH=src .venv-lab/bin/python -m pytest -q tests/test_source_surface_envelopes.py::test_complete_frame_cap_precedes_camera_geometry -o junit_family=legacy --junitxml=.local/source-surface-envelope-tests-02.xml
+```
+
+Receipt 01 SHA `1629ae6aedd685169c785bb57dd67b9a0367741ba3669cadc15b74a84dfc2517`
+retains 30 passes / one test-only error-text assertion failure (0.355 s pytest).
+The upstream validator correctly rejected `metadata_frames` before the new
+module's redundant cap; the assertion expected only the new message. No
+production code changed. Only that assertion was corrected/rerun in receipt 02,
+SHA `d90c53eed23484e2d716a2f25157350cf967533e53201948d8652147ae13010b`:
+one pass / 0.039 s pytest. All **31 distinct cases** now pass; no unchanged suite
+rerun. Cases cover exact/outward arithmetic, oblique transforms, interval
+widening, point-limit agreement, raw near-rotation nonmutation, missing/excluded
+slots, clock mismatches, unsupported claims, caps, deadlines and cached queries.
+Native/model/media/network and process work were blocked.
+
+Representative analytical workload: 600 source frames / 1,200 envelopes,
+834,871 B input, 1,294,368 B cache, 0.190679 s preparation and 0.000171 s for
+twenty cached queries. This is not sustained-service or physical-accuracy
+evidence. The ten-second bound is cooperative, not OS isolation. No real-source
+study was needed; all existing contact/heel failures remain unchanged.
+
+Live handles: none. These two new files and this handoff are released for root
+publication. Previous modules/shared files are untouched; no Git mutation
+occurred. Next is the explicit interval-aware consumer join above, if selected,
+not another unchanged source fit.
+
+## Published scope and ownership
 
 Own `src/weft/multiview_landmark_evidence.py`,
 `tests/test_multiview_landmark_evidence.py`, new `src/weft/camera_rotation_prior.py`,

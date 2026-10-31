@@ -1,5 +1,14 @@
 # Weft iteration backlog
 
+## Current milestone — October 31, 2026, 4:28 PM PDT
+
+- [x] Attach the existing camera research policy to the local lab with distinct runtime admission, plain control labels, recording/export and exact learned-action replay. One frozen native check passed: all 246 actions replayed exactly, including 240 learned decisions; full original interval, mixed controls, reset and resumed lab verified. 13.4 seconds, 153.6 MB output, no retraining or paid work. Try `lab-console --resume artifacts/camera-shared-policy-play-01/lab`. [Evidence and ownership](docs/handoffs/combined.md#recorded-camera-policies--october-31-2026-428-pm-pdt).
+- [x] Parallel reconstruction: conditional surface-position envelopes preserve explicit pixel/height intervals, original evidence clocks and unknown contact. All 31 focused checks and independent review pass. This does not recover missing equipment depth or qualify the rejected heel.
+- [x] Independently audit the saved policy-play outcome and receipt without rerunning physics or reading media. One journal stream verifies all counts and exact original/current identities; receipt `.local/camera-policy-play-saved-audit-02.json`, SHA `df7aadb33e587971e004aee12a5061adf2b47e1e3e96d7a2d3086d1129f5745b`.
+- [x] Prepare the reviewed scoped checkpoint; `.local/camera-policy-publication-01.json` records the actual push result and exact remote head when present. Preserve unrelated avatar work; never discard it for a clean status.
+- [x] Add the interval-aware construction objective and adapter for the existing kinematics/Jacobian output: 35 analytical cases and independent review pass. Exact source/body/world/clock joins remain required. This is callable, not installed in optimization; it makes no new source-fit or contact claim. [Next integration](docs/handoffs/source-surface-interval-construction.md).
+- [ ] Install the opt-in interval objective into a suitable construction fitter and verify a justified source case. No midpoint substitution, floor shifts, relaxed scoring or unsupported contact claims.
+
 ## Parallel reconstruction and learning — October 31, 2026, 3:45 PM PDT
 
 - [ ] Reconstruction owner `/root/exercise_reconstruction`: the bounded adapter passes 29 analytical cases and independent review. Saved check 01 stopped before a point estimate because the original camera matrices exceed the solver's stricter rotation tolerance. All inputs/failure evidence are preserved and independently audited. An explicit opt-in numerical prior now passes 23 new/four affected analytical checks and root review; raw cameras and downstream limits stay unchanged. Check 02 completed once: all 240 frames and 1,440 landmark slots remain, but the original-start right heel still fails all-view consistency. Its saved evidence is independently audited. [Protocol and exact identities](docs/handoffs/multiview-landmark-evidence.md).

@@ -19,7 +19,7 @@
   let evidenceScorecardSignature = null;
   let exerciseTask = null, exerciseEnvelope = null, exerciseIdentity = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
   let feetPanel = null, feetSummary = null, feetCoverage = null, feetDetails = null, feetRows = null, feetDetailSignature = "";
-  let exerciseDetailSignature = "", exercisePolicy = null;
+  let exerciseDetailSignature = "", exercisePolicy = null, cameraPolicyView = null;
   let mediaClockReady = false;
   let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
   let recordingReadAttempts = 0;
@@ -560,15 +560,33 @@
   }
   function validCameraEnvelope(data) {
     const count = exerciseTask?.control?.root_assistance === "explicit_3_axis" ? 22 : 19, capability = data.capabilities;
+    const modes = capability?.controllers;
+    const policyReady = modes?.learned_policy_available === true && modes.trained_target_id === "human"
+      && validCameraPolicyView(modes.camera_policy_admission);
+    const noPolicy = modes?.learned_policy_available === false && modes.trained_target_id === null
+      && modes.camera_policy_admission == null;
     return validCameraTask(scene, exerciseTask, exerciseIdentity) && data.control_profile === "shared_exercise"
       && capability?.scene_profile === scene.profile && capability.task_contract?.task_type === exerciseTask.profile
-      && capability.controllers?.learned_policy_available === false && capability.controllers.trained_target_id === null
+      && (policyReady || noPolicy)
       && capability.controllers.manual === true && capability.controllers.coast === true && capability.controllers.authored_reference_controller === true
       && sameArray(exerciseActions?.names, scene.action_contract.names.slice(0, count))
       && sameArray(exerciseActions.joint_channels, Array.from({length: 19}, (_, i) => i))
       && sameArray(exerciseActions.root_assistance_channels, count === 22 ? [19, 20, 21] : [])
       && capability.action_contract?.dimension === count && sameArray(capability.action_contract.actuator_names, exerciseActions.names)
       && sameArray(capability.action_contract.object_force_channels, []);
+  }
+  function validCameraPolicyView(view) {
+    const summary = view?.summary;
+    return view?.profile === "camera-shared-policy-admission-v1" && view.status === "admitted"
+      && view.privileged_simulator_features === true
+      && cameraPins.every(key => supportDigest(view[key]) && view[key] === exerciseIdentity?.[key])
+      && view.task_sha256 === exerciseIdentity?.task_sha256
+      && ["admission_sha256", "policy_sha256", "training_manifest_sha256", "compatibility_sha256",
+        "original_runtime_identity_sha256", "execution_runtime_identity_sha256"].every(key => supportDigest(view[key]))
+      && (view.evaluation_manifest_sha256 === null || supportDigest(view.evaluation_manifest_sha256))
+      && Number.isSafeInteger(summary?.nonzero_coefficients) && summary.nonzero_coefficients >= 0 && summary.nonzero_coefficients <= 12
+      && summary.selected_feedback_kind === (summary.nonzero_coefficients ? "searched_phase_feedback_residuals" : "authored_unchanged")
+      && summary.root_assistance === exerciseTask?.control?.root_assistance && summary.learning_qualification === "unqualified_research";
   }
   function validCameraState(state) {
     const count = exerciseActions.names.length;
@@ -736,6 +754,8 @@
   function configureExerciseTask(data) {
     exerciseEnvelope = data.exercise_task; exerciseTask = sharedFeet() ? exerciseEnvelope?.base_task : exerciseEnvelope;
     exerciseIdentity = data.capabilities?.task_contract?.identity; exerciseActions = data.action_contract;
+    const admission = data.capabilities?.controllers?.camera_policy_admission;
+    cameraPolicyView = cameraWorld() && validCameraPolicyView(admission) ? admission : null;
     const joints = sharedFeet() ? 25 : 19;
     const rootMode = exerciseTask?.control?.root_assistance, expected = rootMode === "disabled" ? joints : rootMode === "explicit_3_axis" ? joints + 3 : 0;
     const names = exerciseActions?.names;
@@ -782,7 +802,7 @@
       text($("exercise-task-scope"), $("exercise-task-scope").textContent + " The original 19-joint score is unchanged. Six ankle motors hold authored original-start angles, not later video foot poses. Foot contacts receive no support credit.");
     }
   }
-  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections", searched_feedback_residuals: "Searched joint feedback"};
+  const exerciseFeedbackLabels = {coast_unchanged: "Selected coast baseline", authored_unchanged: "Selected authored baseline", searched_gains: "Searched human feedback", searched_joint_residuals: "Searched joint corrections", searched_feedback_residuals: "Searched joint feedback", searched_phase_feedback_residuals: "Experimental trained controller"};
   const exercisePolicyKinds = {"shared-exercise-policy-v1": ["coast_unchanged", "authored_unchanged", "searched_gains"],
     "shared-support-policy-v1": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"],
@@ -790,6 +810,18 @@
     "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"]};
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
+    if (cameraWorld()) {
+      const view = cameraPolicyView;
+      exercisePolicy = data.learned_policy_available === true && view && policy?.profile === "camera-shared-policy-v1"
+        && policy.admission_profile === view.profile && policy.admission_sha256 === view.admission_sha256
+        && policy.policy_sha256 === view.policy_sha256 && policy.selected_feedback_kind === view.summary.selected_feedback_kind
+        && policy.root_assistance === view.summary.root_assistance && policy.learning_qualification === "unqualified_research"
+        && policy.privileged_simulator_features === true && Number.isFinite(policy.training_score)
+        && typeof policy.training_score_improved_over_authored === "boolean"
+        && ["evaluated", "not_attached"].includes(policy.evaluation_status)
+        && (policy.evaluation_status === "evaluated") === (view.evaluation_manifest_sha256 !== null) ? policy : null;
+      return exerciseContractReady && exercisePolicy !== null;
+    }
     exercisePolicy = !sharedFeet() && !cameraWorld() && data.learned_policy_available === true && typeof policy?.profile === "string"
       && Object.hasOwn(exercisePolicyKinds, policy.profile)
       && (staticSupport() ? policy.profile === "shared-support-policy-v1" : policy.profile !== "shared-support-policy-v1")
@@ -803,6 +835,9 @@
   function exerciseFeedbackDescription() {
     if (!exercisePolicy || !learnedPolicyAvailable) return "No validated human-only policy is available.";
     const kind = exercisePolicy.selected_feedback_kind;
+    if (cameraWorld()) return `${kind === "authored_unchanged" ? "The search selected unchanged programmed feedback; it did not learn new joint corrections."
+      : "The experimental trained controller makes small corrections to the 19 joint commands."} It uses the simulated body and known motion reference, not video pixels. ${exerciseTask.control.root_assistance === "disabled"
+      ? "Body-position assistance is disabled." : "Body-position assistance remains programmed, not learned."} Ground/equipment contact is not verified. This does not establish learned balance or physical accuracy.`;
     return `${exerciseFeedbackLabels[kind]}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
       : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
       : kind === "searched_joint_residuals" ? "Training searched small phase-dependent joint corrections on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
@@ -813,6 +848,11 @@
     const reset = exercisePolicy?.evaluation_reset_protocol;
     const values = [reset?.human_jitter_scale, reset?.object_position_jitter_world, reset?.object_velocity_jitter_world_s];
     if (!values.every(value => typeof value === "number" && Number.isFinite(value) && value >= 0)) return "Reset protocol unspecified in this saved comparison.";
+    if (cameraWorld() && reset.profile === "shared-exercise-human-jitter-v1"
+      && reset.equipment_reset_state === "unchanged_scene_pose_and_velocity"
+      && reset.object_position_jitter_world === 0 && reset.object_velocity_jitter_world_s === 0) {
+      return `Changed starts: human-only perturbations (scale ${number(reset.human_jitter_scale, 2)}); the supplied camera and ground priors remain fixed. This is not a new-video or changed-ground test.`;
+    }
     if (staticSupport() && reset.profile === "shared-support-reset-v1"
       && reset.static_support_reset_state === "unchanged_scene_pose_and_velocity"
       && reset.object_position_jitter_world === 0 && reset.object_velocity_jitter_world_s === 0) {
@@ -1476,12 +1516,15 @@
         text($("world-heading"), "One simulated body with supplied camera and ground priors");
         text($("world-description"), "The camera-conditioned body keeps the original monocular shape and authored mass. Camera scale and ground placement are supplied assumptions, not independently measured anatomy or physical accuracy. No equipment inventory is inferred.");
         text($("evidence-boundary"), "Original video, kinematic body reference and live simulated movement are separate. Missing feet, ground support and equipment contact remain unqualified.");
-        text($("start-help"), "Inspect the source and camera assumptions, then try manual motors, coast or authored body feedback. Record a trial to inspect actions, saved states and exact replay evidence. Learning and avatars are unsupported.");
+        text($("start-help"), learnedPolicyAvailable ? "Try manual controls, coast, programmed feedback or the experimental trained controller. It adjusts joints; body-position assistance stays programmed when enabled. Record a trial to inspect actions and replay results. Ground/equipment contact is not verified."
+          : "Inspect the source and camera assumptions, then try manual motors, coast or authored body feedback. Record a trial to inspect actions, saved states and exact replay evidence. Learning and avatars are unsupported.");
         text($("control-help"), `Choose one of ${humanMotorNames.length || "the declared"} human motors. Release sets every command to zero. No object-force, foot or avatar controls are available.`);
         text($("play-boundary"), "Actual camera-conditioned simulation with unchanged body tracking/floor gates and explicit root assistance. Feet, equipment contact and ground support are unqualified. Passing does not establish physical accuracy or exercise completion.");
-        text($("learning-description"), "Learned policies and avatars are unsupported for this camera task. Manual, coast and authored body feedback are available.");
-        text($("training-caption"), "Not trained · no policy is qualified for this camera-conditioned task.");
-        text($("exercise-evaluation-summary"), "Recorded trials report the authored simulated body task. No learned-policy evaluation or physical validation is attached.");
+        if (!learnedPolicyAvailable) {
+          text($("learning-description"), "No trained controller is attached. Manual, coast and programmed body feedback remain available. Ground/equipment contact is not verified; avatars are unsupported.");
+          text($("training-caption"), "No trained controller attached · manual and programmed controls are available.");
+          text($("exercise-evaluation-summary"), "Recorded trials report the authored simulated body task. No verified learned-policy evaluation or physical validation is attached.");
+        }
         $("live").setAttribute("aria-label", "Camera-conditioned human simulation. Select an explicit human motor; Escape pauses.");
       }
       if (sharedFeet()) {
@@ -2167,16 +2210,20 @@
     if (sharedFeet() && (!exerciseIdentity || data.identities.policy_sha256 !== null
       || data.identities.engine_scene_sha256 !== exerciseIdentity.scene_sha256 || data.identities.task_sha256 !== exerciseIdentity.task_sha256
       || !Object.keys(feetRecordingIdentityLabels).every(key => digest(data.identities[key]) && data.identities[key] === exerciseIdentity[key]))) return false;
-    if (cameraWorld() && (!exerciseIdentity || data.identities.policy_sha256 !== null
+    if (cameraWorld() && (!exerciseIdentity
+      || (cameraPolicyView ? data.identities.policy_sha256 !== cameraPolicyView.policy_sha256
+        || data.identities.policy_admission_sha256 !== cameraPolicyView.admission_sha256
+        : data.identities.policy_sha256 !== null || data.identities.policy_admission_sha256 !== undefined)
       || data.identities.engine_scene_sha256 !== exerciseIdentity.scene_sha256 || data.identities.task_sha256 !== exerciseIdentity.task_sha256
       || !Object.keys(cameraRecordingIdentityLabels).every(key => digest(data.identities[key]) && data.identities[key] === exerciseIdentity[key]))) return false;
     const paths = {source_run_manifest_sha256: "run/manifest.json", recording_manifest_sha256: `sessions/${name}/manifest.json`,
       receipt_manifest_sha256: `sessions/${name}/evidence/manifest.json`, receipt_sha256: `sessions/${name}/evidence/receipt.json`,
       recording_scene_sha256: `sessions/${name}/scene.json`, engine_scene_sha256: "run/scene.json",
-      task_sha256: "run/exercise-task.json", policy_sha256: "run/policy.json"};
+      task_sha256: "run/exercise-task.json", policy_sha256: "run/policy.json",
+      ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "run/camera-policy-admission.json"} : {})};
     // Canonical JSON identities differ from exact file-byte hashes; the reader checks both.
     if (!Object.entries(paths).every(([key, path]) => data.identities[key] === null || recordingEvidencePointer(data, path,
-      ["recording_scene_sha256", "engine_scene_sha256", "task_sha256"].includes(key) ? undefined : data.identities[key]))) return false;
+      ["recording_scene_sha256", "engine_scene_sha256", "task_sha256", "policy_admission_sha256"].includes(key) ? undefined : data.identities[key]))) return false;
     const replay = data.replay;
     if (replay?.status === "not_performed") return replay.protocol === null
       && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null);
@@ -2189,8 +2236,10 @@
     const exerciseReplay = sharedExercise() && !sharedFeet() && !cameraWorld() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
       && digest(data.identities.task_sha256);
     const feetReplay = sharedFeet() && replay?.protocol === "shared-exercise-feet-full-state-replay-v1" && replay.learned_actions_verified === null;
-    const cameraReplay = cameraWorld() && replay?.protocol === "camera-shared-full-state-replay-v1" && replay.learned_actions_verified === null;
-    return (spatialReplay || spatialPolicyReplay || exerciseReplay || feetReplay || cameraReplay) && replay.status === "passed"
+    const cameraReplay = cameraWorld() && !cameraPolicyView && replay?.protocol === "camera-shared-full-state-replay-v1" && replay.learned_actions_verified === null;
+    const cameraPolicyReplay = cameraWorld() && Boolean(cameraPolicyView) && replay?.protocol === "camera-shared-policy-full-state-replay-v1"
+      && count(replay.learned_actions_verified);
+    return (spatialReplay || spatialPolicyReplay || exerciseReplay || feetReplay || cameraReplay || cameraPolicyReplay) && replay.status === "passed"
       && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
       && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
         && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
@@ -2207,7 +2256,9 @@
       recordingEvidenceSignature = signature;
       const counts = data.recorded, replay = data.replay;
       text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
-      const policyProof = replay.protocol === "camera-shared-full-state-replay-v1"
+      const policyProof = replay.protocol === "camera-shared-policy-full-state-replay-v1"
+        ? `Exact external policy decisions matched: ${replay.learned_actions_verified}. Manual actions are not policy-checked. Original policy bytes and current execution admission remain distinct; root assistance stays authored and physical accuracy remains unverified.`
+        : replay.protocol === "camera-shared-full-state-replay-v1"
         ? "Actual camera state and body task results matched. No learned-policy check was performed; supplied priors and physical accuracy remain unverified."
         : replay.protocol === "shared-exercise-feet-full-state-replay-v1"
         ? "Actual feet state, original body scores and unscored ankle diagnostics matched. Learned policies and foot support qualification are unsupported."
@@ -2223,7 +2274,8 @@
         : "Exact action replay: not performed. Replay-check counts are unavailable, not zero. A saved-state export is not an exact action replay check.");
       text($("recording-evidence-session"), `Selected recording: ${data.session}`);
       $("recording-evidence-identities").replaceChildren();
-      for (const [key, label] of Object.entries({...recordingIdentityLabels, ...(sharedFeet() ? feetRecordingIdentityLabels : cameraWorld() ? cameraRecordingIdentityLabels : {})})) {
+      for (const [key, label] of Object.entries({...recordingIdentityLabels, ...(sharedFeet() ? feetRecordingIdentityLabels : cameraWorld() ? cameraRecordingIdentityLabels : {}),
+        ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "External policy admission · canonical JSON"} : {})})) {
         const row = document.createElement("tr"), heading = document.createElement("th");
         heading.setAttribute("scope", "row"); text(heading, label); row.append(heading);
         cell(row, data.identities[key] === null ? "Unavailable — not recorded" : data.identities[key]);

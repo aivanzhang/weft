@@ -481,13 +481,13 @@ def _saved_trial(row, scene, task, weights, controller, seed, reset, files, vali
     _require(row["applied_residual"] == expected_delta, "Saved camera realized action deltas differ")
 
 
-def verify_camera_shared_training(manifest_raw, files, scene, task, *, deadline):
+def verify_camera_shared_training(manifest_raw, files, scene, task, *, deadline, historical_runtime_sha256=None):
     """Verify saved search/selection and structural custody; no native readmission or rollout."""
     _package_identity(manifest_raw, files, "trained", deadline)
     _require(_json(files["scene.json"]) == scene and _json(files["exercise-task.json"]) == task
              and files["input-task.json"] == files["exercise-task.json"], "Saved camera scene/task bytes differ")
     _, validator = _saved_context(scene, task)
-    hashes = actor.runtime_hashes(scene)
+    hashes = actor.runtime_hashes(scene) if historical_runtime_sha256 is None else historical_runtime_sha256
     for name, pin in hashes.items():
         _require("implementation/" + name in files and _sha(files["implementation/" + name]) == pin,
                  "Saved camera implementation differs from its pinned runtime")
@@ -690,12 +690,13 @@ def evaluate_camera_shared_policy(training_dir, out, *, seed=924017, trials=3, j
             env.close()
 
 
-def verify_camera_shared_evaluation(manifest_raw, files, scene, task, *, deadline):
+def verify_camera_shared_evaluation(manifest_raw, files, scene, task, *, deadline, historical_runtime_sha256=None):
     """Verify matched saved outcomes and unchanged policy without rerunning the engine."""
     _package_identity(manifest_raw, files, "evaluated", deadline)
     parent = files["input-manifest.json"]
     parent_files = {name: files[TRAINING_ALIASES.get(name, name)] for name in _json(parent)["files"]}
-    training = verify_camera_shared_training(parent, parent_files, scene, task, deadline=deadline)
+    training = verify_camera_shared_training(parent, parent_files, scene, task, deadline=deadline,
+                                            historical_runtime_sha256=historical_runtime_sha256)
     _, validator = _saved_context(scene, task)
     policy, settings = _json(files["policy.json"]), _json(files["training-settings.json"])
     freeze, evaluation = _json(files["pre-evaluation-freeze.json"]), _json(files["evaluation.json"])

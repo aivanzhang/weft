@@ -135,6 +135,7 @@ def describe_capabilities(
     source_video_present=False,
     reference_available=False,
     exercise_task=None,
+    camera_policy_admission=None,
 ):
     """Build a validated environment-capabilities-v1 summary for any supported Weft scene."""
     if not isinstance(scene, dict) or not isinstance(scene.get("profile"), str):
@@ -144,7 +145,10 @@ def describe_capabilities(
         from weft.camera_shared_capabilities import describe_camera_capabilities
         return describe_camera_capabilities(scene, exercise_task, lab_profile=lab_profile,
             learned_policy_available=learned_policy_available, trained_target_id=trained_target_id,
-            source_video_present=source_video_present, reference_available=reference_available)
+            source_video_present=source_video_present, reference_available=reference_available,
+            camera_policy_admission=camera_policy_admission)
+    if camera_policy_admission is not None:
+        raise ValueError("Camera policy admission requires its actual camera scene")
     if exercise_task is not None and scene_profile not in ("shared-world-v1", "shared-world-v2", "shared-world-v3", "shared-world-v4", "shared-world-v5"):
         raise ValueError("Human-only exercise tasks require a shared-world scene")
     objects = scene.get("objects", [])

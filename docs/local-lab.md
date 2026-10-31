@@ -119,12 +119,21 @@ The current assisted lab is ready without rebuilding:
 
 ```sh
 .venv-lab/bin/python -m weft lab-console \
-  --resume artifacts/camera-shared-learning-01/lab
+  --resume artifacts/camera-shared-policy-play-01/lab
 ```
 
-It retains the original 238-step / 7.94-second interval, with manual, coast and
-authored reference controls. Its current runtime was prepared and resumed during
-the bounded learning study. No learned policy is attached to this lab yet.
+It retains the original 238-step / 7.94-second interval. Try `controls`,
+`mode learned`, `record start`, `step 6`, `reset 29`, `record stop`, then
+`record evidence`. Manual, coast and programmed reference controls also work.
+The experimental trained controller adjusts joints; body-position assistance
+stays programmed. The source, task and original policy have not been rewritten.
+
+The complete console check recorded 246 actions, including 240 learned-controller
+decisions, and replayed every action and full state exactly. Preparation, play,
+export and resume took 13.4 seconds locally. Open the saved
+[interactive replay](../artifacts/camera-shared-policy-play-01/lab/sessions/session-d730c17b1e7b/replay.html)
+or run `lab --resume` with the same directory for the graphical sandbox.
+No browser was automated; graphical behavior has mock-based checks, not live-browser QA.
 
 The earlier roots-on/off recordings remain unchanged under their archived runtime:
 240 actions each, all 480 actions replayed exactly. Assisted tracking passed;
@@ -156,8 +165,11 @@ The saved study selected nonzero corrections and increased average reward from
 0.826211 to 0.827368 on three separate starts. Both learned and authored controls
 passed all three trials; average joint error fell slightly, but peak joint error
 and average root error rose. This is a small, mixed simulated-control result,
-not learned balance or unfamiliar-video validation. Camera policy attachment,
-recording and exact policy replay remain unfinished. [Results, bounds and exact evidence](handoffs/camera-shared-learning.md).
+not learned balance or unfamiliar-video validation. The prepared lab above attaches
+that exact policy and retains one evaluation archive with its embedded training
+evidence. Its recording verifies learned decisions as well as full simulated
+state. Ground/equipment contact and unfamiliar-video reconstruction remain
+unfinished. [Results, bounds and exact evidence](handoffs/camera-shared-learning.md).
 
 ## Inspect static-support loads
 

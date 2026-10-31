@@ -1,4 +1,4 @@
-"""Expose camera task controls without advertising recovered contact or learned policies."""
+"""Expose camera controls while keeping external policies separate from source qualification."""
 
 from copy import deepcopy
 
@@ -12,12 +12,23 @@ IDENTITIES = ("scene_sha256", "camera_coupling_sha256", "source_sha256", "body_s
 
 
 def describe_camera_capabilities(scene, task, *, lab_profile, learned_policy_available, trained_target_id,
-                                 source_video_present, reference_available):
+                                 source_video_present, reference_available, camera_policy_admission=None):
     from weft.capabilities import CAPABILITY_PROFILE, validate_capabilities
 
-    if task is None or learned_policy_available or trained_target_id is not None:
-        raise ValueError("Camera capabilities require an explicit camera task with no learned policy or trained target")
+    if task is None or type(learned_policy_available) is not bool:
+        raise ValueError("Camera capabilities require an explicit task and controller availability")
+    if camera_policy_admission is None:
+        if learned_policy_available or trained_target_id is not None:
+            raise ValueError("Camera learned controls require a distinct exact policy admission")
+    elif learned_policy_available is not True or trained_target_id != "human":
+        raise ValueError("An admitted camera policy must target the explicit human controller")
     actual, task = prepare_camera_shared_task(task, scene)
+    policy_view = None
+    if camera_policy_admission is not None:
+        from weft.camera_shared_policy_receipt import admission_view, validate_camera_policy_admission
+
+        admitted = validate_camera_policy_admission(camera_policy_admission, actual, task)
+        policy_view = admission_view(admitted)
     assisted = task["control"]["root_assistance"] == "explicit_3_axis"
     count = 22 if assisted else 19
     names, units = actual["action_contract"]["names"], actual["action_contract"]["units"]
@@ -51,14 +62,18 @@ def describe_camera_capabilities(scene, task, *, lab_profile, learned_policy_ava
         "reset_contract": {"deterministic_seeded_reset": True, "supports_jitter": False,
             "supports_explicit_perturbation": False, "default_lab_jitter": False},
         "controllers": {"manual": True, "coast": True, "kinematic_pose_replay": bool(reference_available),
-            "authored_reference_controller": True, "learned_policy_available": False, "trained_target_id": None},
+            "authored_reference_controller": True, "learned_policy_available": policy_view is not None,
+            "trained_target_id": "human" if policy_view is not None else None,
+            "camera_policy_admission": policy_view},
         "evidence_separation": {"physical_validation": "unverified", "source_video_present": bool(source_video_present),
             "muscle_display": "illustrative_motor_command_not_measured_activation", "kinematic_vs_dynamic_distinct": True,
             "object_absence_verified": False, "source_contact_verified": False, "ground_support_verified": False,
-            "source_clock_sha256": task["source_clock_sha256"]},
+            "source_clock_sha256": task["source_clock_sha256"], "source_learning_qualified": False,
+            "external_policy_attached": policy_view is not None},
         "unsupported_capabilities": [
             "Recovered feet, ground support, equipment contact, grasp or physical accuracy",
-            "Learned policies, custom avatars and equipment scoring for this camera task",
+            ("Source learning qualification, custom avatars and equipment scoring for this camera task"
+             if policy_view is not None else "Learned policies without exact admission, custom avatars and equipment scoring for this camera task"),
             "Unassisted balance, measured muscle activation or recovered anatomy",
         ],
     })

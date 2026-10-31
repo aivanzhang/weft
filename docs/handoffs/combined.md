@@ -1,5 +1,70 @@
 # Combined Weft implementation handoff
 
+## Recorded camera policies — October 31, 2026, 4:28 PM PDT
+
+Implemented, native-verified and independently audited. Publication outcome and
+exact local/remote heads are recorded in `.local/camera-policy-publication-01.json`;
+an absent receipt means publication is still pending. Root owns common lab/recording/receipt integration and
+`camera_shared_policy_lab.py`; 11 new focused checks and 101 affected lab/receipt
+cases pass. `/root/support_learning` owns the new policy
+admission/recording adapters and the minimal historical-context parameter on saved
+verifiers. `/root/support_ui` owns camera capabilities, lab/replay display, and the
+new standard-library receipt helper. Admission/recording has 18 analytical passes;
+presentation has 36 Python passes and 13 UI groups. Independent code review is
+clear, including the fixed replay roundoff boundary. Preserve the original v1 policy and source/
+task/scorer bytes; permit only an explicit reviewed integration-runtime bridge.
+Package one evaluation archive with its exact embedded training aliases instead
+of duplicating both archives. No new training, source inference or paid call.
+
+The reconstruction agent independently owns new `source_surface_envelopes.py`,
+its tests, and its existing handoff: conditional pixel/height interval geometry,
+not invented exact support depth or verified contact. All 31 focused cases pass;
+1,200 exact envelopes prepared in 0.191 seconds with a 1.29-MB cache. Root review
+is clear. The separate interval-aware construction term is complete as a callable
+boundary, with 35 analytical passes and root review. It joins exact body/source/
+world clocks and restores the existing kinematics producer's removed pelvis
+position and derivative. It is **not installed in optimization**, does not choose
+a midpoint and has no new source-fit or contact result. [Next integration](source-surface-interval-construction.md).
+
+The checkpoint starts from published `9dae370`; a fresh pre-release fetch confirmed
+that exact remote head. The publication receipt records the resulting commit,
+owned-path/index/stash state and preserved unrelated avatar changes. The new
+policy-bearing lab is prepared/resumed at `artifacts/camera-shared-policy-play-01/lab`;
+older pinned labs still require their archived runtime. Next: verify the publication
+receipt exists, then install the opt-in interval constraint into an appropriate
+construction fitter without altering independent scoring or inventing source geometry.
+Do not rerun training or silently repin old labs. The complete generalized goal
+and reliable unfamiliar-video ground/equipment reconstruction remain unfinished.
+
+Frozen native acceptance plan: `.local/camera-shared-policy-play-plan-01.json`,
+SHA `7b99ac4f6992da2cfa9447cdb44f712da7ffdfdb14b6574743e774ab347fb663`.
+Committed `9dae370` plus 13 reviewed integration overrides, excluding unrelated
+avatar and unfinished source work. One 238-step learned interval plus eight mixed
+control steps and one reset: 246 recorded actions and 246 exact replay actions.
+Limits: 500 controls/4,500 substeps, 120 seconds wall/100 CPU, 256 MiB/1,500 files;
+observed rather than hard-capped RSS, no source inference, training, API or server.
+It ran once; handle `20273` is terminal. Result: 13.376184 seconds, 492 controls/
+4,428 native substeps, 508 files/153,643,253 bytes, 585,711,616 bytes observed peak
+RSS. All 246 actions replayed exactly, including all 240 learned decisions; 239
+had nonzero joint corrections. The full 238-step assisted interval passes the
+unchanged simulated body task. No new training or physical claim is made.
+
+Study seal `0738410612c195ff44c89a9ae2d5051e8d32291f9345f3b262a3acbd6eb67739`;
+process receipt `.local/camera-shared-policy-play-process-01.json`, SHA
+`a5cb908bd2e18d0f1ee942c37203d198201352692ef8823b1613cfa081297b4e`.
+Current lab seal `a407d79e19ea980b75ea93b75153d06ab9ad5e122a6b1f74ab76c9717b8929dd`;
+admission `d3e3e2ed44eb4611a0de7080e1196744402405eeca29b90b9059406c56e566c7`.
+Original policy remains `0729a16239c57c7fbd90aaeb59f0e1dfb23f645edbde387d781008eb4dfdef8a`.
+Independent saved audit passes: `.local/camera-policy-play-saved-audit-02.json`,
+SHA `df7aadb33e587971e004aee12a5061adf2b47e1e3e96d7a2d3086d1129f5745b`.
+One 6,124,082-byte journal stream verifies all 248 events and control/reset counts;
+original/current runtime namespaces and the saved exact-replay receipt agree.
+It reuses the parent's 508-member hash map, with 25 unique inputs/8,644,049 bytes
+read. The initial audit's exporter-subset assertion failure is preserved; its
+completed checks were reused. No new native replay or media read was performed.
+No native/source/media/API job, server or deployment is active. All three agents
+released their reviewed paths; no unfinished files are included in this checkpoint.
+
 ## Parallel source reconstruction and learning — October 31, 2026, 3:45 PM PDT
 
 The user explicitly requested parallel work on unfamiliar exercise reconstruction,

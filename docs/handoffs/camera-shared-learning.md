@@ -146,3 +146,246 @@ remote verification. Receipt `.local/camera-learning-publication-01.json`, SHA
 paths/index were clean and stash empty; all 1,249 unrelated avatar status entries
 were preserved. See [combined next steps](combined.md); no study is live or should
 be repeated merely to resume work.
+
+## External-policy attachment — analytical implementation released
+
+The existing study policy is now supported by a **distinct integration contract**.
+Native lab acceptance and the independent saved-output audit passed; exact
+terminal evidence appears below. Do not retrain or repin study01. Its original policy SHA remains
+`0729a16239c57c7fbd90aaeb59f0e1dfb23f645edbde387d781008eb4dfdef8a`.
+The actual v6 scene still has `learned_policy_available=false`; the original v1
+task still says `scope.learning=unqualified`. Admission enables an external
+research controller in the lab, not reconstructed contact, balance, anatomy,
+source qualification or physical validation. Original camera recording-v1 still
+rejects policies and is byte-unchanged.
+
+### Ownership and stable APIs
+
+- This lane owns new `camera_shared_policy_admission.py`,
+  `camera_shared_policy_recording.py`, their two new test files, the minimal
+  saved-verifier parameter changes in `camera_shared_learning.py`, and this note.
+- Root owns common lab/CLI/recording/receipt/capabilities dispatch and new
+  `camera_shared_policy_lab.py`, including evidence packaging, resume and the
+  separately bounded native acceptance. No native handle is active in this lane.
+- The presentation lane owns new stdlib-only `camera_shared_policy_receipt.py`,
+  `camera_shared_capabilities.py`, UI presentation and their focused checks.
+
+Admission exports:
+
+```python
+prepare_camera_policy_admission(
+    scene, task, *, training_manifest_raw, training_files,
+    evaluation_manifest_raw=None, evaluation_files=None, deadline,
+)  # complete saved evidence verification; no new native/source admission
+validate_camera_policy_admission(admission, scene, task, policy_document)
+prepare_camera_policy_sampler(policy_document, admission, env)
+execution_runtime_hashes(scene)
+```
+
+The sampler freezes original coefficients/groups once and returns
+`(action, {phase, authored_action, applied_joint_delta})`. `applied_joint_delta`
+contains 19 exact post-clipping differences from the authored action; root
+channels, when explicitly enabled, remain authored and unchanged. Sampling uses
+one existing observation and one existing feedback-feature read, with no runtime
+file reads, source hashes, model preparation or future observations. Nonzero
+coefficients and realized action changes are distinct from improvement.
+
+### Runtime bridge and historical evidence
+
+Profile `camera-shared-policy-admission-v1` binds actual scene/task and all eight
+camera identities, exact original policy bytes, training/evaluation manifest
+hashes, original and execution runtime maps, runtime versions, compatibility,
+the coefficient-derived selection label, explicit root authority and
+`unqualified_research`. The canonical admission hash is the public identity;
+the lab manifest separately hashes the exact saved JSON bytes. No creation time
+enters admission, allowing exact regeneration during resume.
+
+Every original actor/physics/scorer/source dependency must still match. Only
+`shared_exercise_lab.py`, `recording.py`, and the saved-verifier-only change to
+`camera_shared_learning.py` may differ. The admission records exact old/current
+hash pairs; every original implementation remains in the retained evidence.
+New execution modules are additions, never fabricated original hashes. The
+execution closure adds admission, policy recording, policy receipt, policy lab,
+camera capabilities, common receipt, `lab.py`, and common capabilities. It uses
+the shared receipt helper's exact original/execution sets without recursively
+calling the common runtime dispatcher. Runtime reads are bounded to 96 regular
+files, 2 MiB per source, 16 MiB total.
+
+The only learner edits add optional `historical_runtime_sha256=None` to the two
+saved verifiers, select that map for saved training verification, and forward it
+from saved evaluation. Defaults remain current-runtime strict. Training,
+evaluation, actor, gates and scoring arithmetic are unchanged. Admission first
+compares the **entire** historical/current learner AST, normalizing only those
+four declared plumbing changes. Other syntax changes reject. No historical
+source is executed. The actual retained study source `77d47aee…` was compared
+with current `b9d0a05a…`; normalized AST SHA:
+`d83c6d85295843edb9d066d2701462d62206ccb8e2ba33de0dc2e20a070164ce`.
+
+When evaluation is supplied, its exact embedded training inventory/bytes must
+match the requested training, then the saved evaluation verifier runs once and
+verifies training internally. Without evaluation, the training verifier runs
+once. Evidence is bounded to 512 files/128 MiB per complete package. Root retains
+one `policy-evidence-run/` package—evaluation when present, otherwise training—
+instead of duplicating source-bearing training and evaluation archives. Original
+manifests, policy and source proofs are unchanged.
+
+Standalone admission/recording validation checks current runtime, policy and
+structural identities; it does **not** independently certify historical search
+outcomes. Root's prepare/resume path reconstructs admission from the complete
+retained package and compares the exact result. Saved-only receipt inspection
+likewise reports its narrower metadata/integrity scope rather than claiming a
+fresh source or native admission.
+
+### Policy-bearing journals and exact replay
+
+`camera-shared-policy-recording-v1` retains the actual v6 scene and exact camera
+task, plus `learned_policy={document_utf8, sha256}` and `policy_admission`.
+It exposes the same recording API as camera recording-v1. No avatars,
+reference-proposal controller or cancellation journal event is accepted.
+
+Manual/coast/authored events retain their existing fields. Each learned event
+additionally requires `policy_sha256`, `policy_admission_sha256`, and
+`policy_sample={phase, authored_action, applied_joint_delta}`. Those fields are
+forbidden on other event types/controllers. Root caches each actual sampler
+decision, verifies its emitted action and clears the cache at reset. This
+adapter uses only a temporary validation view to reuse original non-policy
+event/outcome checks; it never saves or replays a learned event as manual.
+
+Replay prepares one actual camera environment and one admitted sampler. It
+regenerates every learned action **and** diagnostic exactly, regenerates authored
+actions, and compares all rewards, flags and full actual/task snapshots across
+manual/coast/reference/learned transitions and resets. Partial failures remain
+failures. Protocol is `camera-shared-policy-full-state-replay-v1`; results include
+scene/task/eight camera pins, policy/admission identities and integer
+`learned_actions_verified` (zero when no learned actions occurred). The engine
+closes on success, mismatch and deadline; cooperative replay bound is at most
+180 seconds. Existing 480 KiB snapshot, 512 KiB event and 128 MiB journal limits
+remain unchanged.
+
+Offline replay exposes the unchanged `camera_identity`, exact full
+`camera_policy_admission`, its canonical hash, exact policy hash and bounded
+`camera_policy_summary`. Flattened events retain their learned metadata. UI
+display is not independent verification of actor arithmetic or physical truth.
+Renderer/state preparation is cached once; repeated frames perform no runtime
+hashing or model preparation.
+
+### Focused verification and freeze
+
+Receipt: `.local/camera-shared-policy-recording-checks-01.json`, SHA
+`8c8b0a9a155a9375b913171799136cbd8507c5421bc7cf05cb5a565afa1d23cc`.
+**18 distinct analytical cases pass**, with native/model/media/network/process
+entrypoints blocked. The tests exercise real saved-verifier orchestration on a
+tiny authored analytical fixture, bounded journal write/load, both 19/22-channel
+replay paths, control transitions, reset, manual partial failure, forged policy
+decisions/deltas/reward/state, default strict verifier behavior, runtime drift,
+missing original source, deadline checks and cached rendering. This is not a
+native study, performance benchmark or physical evidence.
+
+The initial 18-case run retained 14 passes and four test-only failures: cleanup
+assertions referenced nonexistent `.engine` rather than `._engine`; tamper
+rejection itself succeeded. That XML is preserved. Only six affected cases
+reran after correcting the assertion and adding the training-only/default
+verifier assertions; all six passed. No unchanged suite was rerun.
+
+| Frozen file | SHA-256 |
+| --- | --- |
+| `src/weft/camera_shared_policy_admission.py` | `390e671c4e3bb27f7aec4561ec665c80f3c986cad857cb95552b3699d253124e` |
+| `src/weft/camera_shared_policy_recording.py` | `31440fd3a7d71a05a1d62bb6d86d89ce5c2484e27af26690fcb502f9fd56efd3` |
+| `src/weft/camera_shared_learning.py` | `b9d0a05a778759028997c310f4c202972ba6ebc80c4b6a49e310f16e016ac15e` |
+| `tests/test_camera_shared_policy_admission.py` | `355039868f1710ad2fe9c23f1014e67941acc11dcae657de824ee363d2ce94f7` |
+| `tests/test_camera_shared_policy_recording.py` | `42ec45d5b0ba84a11a10e5fb0772aa06872212c1185da80148a90db6de9d4fa3` |
+
+The receipt contains exact commands, both XML hashes, timing, unchanged original
+actor/recording/scorer hashes and the historical AST comparison. Receipt
+preparation read 11 files/239,109 bytes in 0.022278 seconds, importing no product
+modules and executing no saved code. Root's independent review found no blocker;
+the presentation lane's review and the parent-owned native attachment acceptance
+remain separate. No Git mutation, paid call, source decode or retraining occurred
+in this lane. Next safe action: finish root integration review, freeze the full
+execution closure, then let the parent run its single prepared native acceptance.
+
+## Native policy-play acceptance and saved audit — October 31, 2026, 4:26 PM PDT
+
+**Passed:** `artifacts/camera-shared-policy-play-01`. The single parent-owned
+worker is terminal; no duplicate acceptance or training is needed. It attached
+the unchanged searched study01 policy, opened the existing console, recorded
+manual/coast/reference/learned controls and a reset, exported media/replay,
+verified exact action/full-state replay, and resumed the policy-bearing lab.
+The scene/task source qualification remains unchanged and unverified.
+
+| Evidence | SHA-256 |
+| --- | --- |
+| Acceptance root manifest | `0738410612c195ff44c89a9ae2d5051e8d32291f9345f3b262a3acbd6eb67739` |
+| Acceptance result | `32acd670e6b82f49de67596f49059a88342d0bf0d1b41e2f46695c39f429fe04` |
+| Parent process receipt | `a5cb908bd2e18d0f1ee942c37203d198201352692ef8823b1613cfa081297b4e` |
+| Frozen execution plan | `7b99ac4f6992da2cfa9447cdb44f712da7ffdfdb14b6574743e774ab347fb663` |
+| Frozen runtime manifest | `2d649f20080497ef3d365e0af59f5c862b45ffa6149d361a0468d4f295603f36` |
+| New immutable lab run | `a407d79e19ea980b75ea93b75153d06ab9ad5e122a6b1f74ab76c9717b8929dd` |
+| Canonical policy admission | `d3e3e2ed44eb4611a0de7080e1196744402405eeca29b90b9059406c56e566c7` |
+| Session manifest | `f65f0a28c5f991f2ad8f8c5d9bc2d09c6d19daa0f463cad918af1e34b769d417` |
+| Exact replay evidence receipt | `2147faa24f2ce2f389c86c044de3ea60ee936bf66824b18135f83c378c566db6` |
+
+Prepared lab: `artifacts/camera-shared-policy-play-01/lab`. Session and offline
+replay: `lab/sessions/session-d730c17b1e7b/replay.html` under that acceptance root.
+The recorded journal has **248 events, 246 actions and one reset**: two manual,
+two coast, two authored-reference and 240 learned actions. Seed 19's eight-action
+exploration is followed by reset 29 and the complete original **238-step learned
+interval**. All 240 learned decisions retain exact policy/admission identities,
+previous-observed phase, authored action and post-clipping joint correction;
+239 caused a realized nonzero joint correction. The three explicitly authorized
+root channels stay authored. No object-force channel, new support/contact score,
+avatar or physical claim was introduced.
+
+The complete interval retains 2,142 valid substeps and the original
+7.9412666667-second source horizon. Original tracking criteria passed, with mean
+reward 0.8273664367; this is an interaction/replay check on the existing exposed
+development clip, **not** new independent learning evidence or a generalization
+claim. It does not alter study01's mixed-result conclusion or its authored-root
+assistance limitation.
+
+Parent process: **13.376184 seconds**, 508 files/153,643,253 bytes, observed peak
+RSS 585,711,616 bytes. The actual control count is 492: 246 recorded plus 246 replayed.
+Each has nine substeps, accounting for all **4,428 native substeps**. The parent
+also recorded 620 forwards, 120 native resets and one output-video check; these
+include preparation/validation work and are not journal reset counts. No hard
+memory-cap claim is made. The run stayed within its planned 120-second wall,
+500-control, 4,500-substep and 256-MiB output bounds. No paid calls, download,
+source decode/inference or retraining occurred.
+
+### Independent saved-only audit
+
+Final receipt `.local/camera-policy-play-saved-audit-02.json`, SHA
+`df7aadb33e587971e004aee12a5061adf2b47e1e3e96d7a2d3086d1129f5745b`.
+It joins the root/nested seals to the parent's already-hashed 508-member map,
+checks original source/task/policy/training/evaluation identities, compares the
+46-file original runtime separately from the 54-file execution runtime, and
+streams the 6,124,082-byte journal once. All action modes, decision identities,
+exact realized deltas, root authority, reset, full source interval and saved
+exact-replay counts agree. Only the three declared integration files differ in
+the original runtime; actor, dynamics and scoring pins are unchanged. The full
+evaluation bundle retains the 148 original training members through exact aliases;
+training and evaluation media were not copied into duplicate evidence packages.
+
+The first receipt `.local/camera-policy-play-saved-audit-01.json` is preserved,
+SHA `261b4b71cf227fe020930954888ceb7bf701c783f9a875400fe8ade2ee0aacd8`.
+It stopped **before reading the journal** on an auditor assumption: the receipt's
+13 exporter/validator implementation pins were incorrectly compared to the lab's
+entire 246-file snapshot. All 13 match their corresponding lab entries, and the
+separate full 54-file native runtime map matches exactly. The continuation fixed
+only that subset assertion, reused completed metadata checks and read the
+journal once. This was not a product failure or a repeated native experiment.
+
+Across discovery and both audit passes, 25 unique input files/8,644,049 bytes were
+read. The final continuation took 0.042061 seconds; initial metadata discovery
+was not separately timed, so this is not total audit latency or a performance
+benchmark. Per-member assertions are integrity checks, not independent behavioral
+tests. No product imports, actor inference, native replay, media reads, source
+reconstruction or network calls occurred in this audit. Exact replay is the
+already-sealed native result, not a fresh saved-only replay claim. Reproducible
+helpers and metadata checkpoints remain under `.local/audit_camera_policy_play_*`
+and `.local/camera-policy-play-audit-inputs-*`.
+
+Owned product/test files remain at the released pins above. Root owns scoped
+Git publication and user-facing completion notes; unrelated reconstruction and
+avatar work remains separate. This lane has no live handles or outstanding
+acceptance work.

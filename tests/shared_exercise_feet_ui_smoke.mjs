@@ -37,7 +37,8 @@ function liveFixture(original=fixtures[0],change=()=>{}){
   const status=()=>({status:'ready',profile:'shared-world',control_profile:'shared_exercise',scene:data.scene,exercise_task:data.task,
     action_contract:data.action_contract,capabilities:data.capabilities,learned_policy_available:true,
     exercise_policy:{profile:'shared-exercise-policy-v4',policy_sha256:'c'.repeat(64)},appearance:{enabled:true},snapshot:currentState,
-    recording,sessions:[],events:[],artifacts:['human-reference.json','repair-ledger.json','reconstruction.json','exercise-task.json'].map(name=>({name,bytes:100}))});
+    recording,sessions:[],events:[],artifacts:['human-reference.json','repair-ledger.json','reconstruction.json','exercise-task.json'].map(name=>({name,bytes:100})),
+    ...(data.status_overlay||{})});
   ids.get('exercise-metrics-details').querySelector=()=>new Element('summary');
   ids.get('exercise-equipment').closest=()=>new Element('div');
   ids.get('exercise-contacts').closest=()=>({querySelector:()=>new Element('tr')});

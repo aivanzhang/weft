@@ -178,7 +178,7 @@ async function repeatedUpdatesReuseClockTextAndOfflineValidation(){
 const checks=[manualCoastAuthoredUseOnlyExplicitHumanChannels,malformedIdentitiesAndMetricsPauseWithoutRelabeling,sourceAndFailureClocksRemainDistinct,
   recordingWaitsForActionsAndResets,receiptRequiresCameraPinsAndNoLearnedProof,offlineReplayRequiresActualProfilesAndExplicitBundleIdentity,
   repeatedUpdatesReuseClockTextAndOfflineValidation];
-export {cameraFixture,liveFixture,replayFixture};
+export {cameraFixture,cameraReceipt,liveFixture,replayFixture};
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){
   const selected=checks.filter(check=>process.argv.length<3||process.argv.slice(2).includes(check.name));
   assert(selected.length);let failed=0;

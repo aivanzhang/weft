@@ -923,6 +923,8 @@ class Lab:
                         {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual"))
                     if event["controller"] == "learned":
                         event["policy_sha256"] = session.policy_sha256
+                        if session.scene_profile == "shared-world-v6":
+                            event.update(session.policy_recording_metadata(chosen))
                 elif isinstance(session, SpatialSession):
                     event["controller"] = "learned" if data.get("policy", False) else "manual"
                     if event["controller"] == "learned":
