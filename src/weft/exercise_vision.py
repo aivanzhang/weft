@@ -326,11 +326,14 @@ def _quality(evidence):
 
 
 
-def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw", artifact_sink=None):
+def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video", pose_identity="raw",
+                     artifact_sink=None, max_preview_frames=None):
     if pose_mode not in {"video", "image"}:
         raise ValueError("Pose mode must be video or image")
     if pose_identity not in {"raw", "temporal"}:
         raise ValueError("Pose identity must be raw or temporal")
+    if max_preview_frames is not None and (type(max_preview_frames) is not int or not 1 <= max_preview_frames <= 48):
+        raise ValueError("Optional preview retention must be 1–48 frames")
     video, out, model_path = Path(video), Path(out), Path(model_path)
     provenance = model_provenance(model_path) | {"running_mode": pose_mode.upper(),
                                                "temporal_tracking": pose_mode == "video",
@@ -368,6 +371,7 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         if pose_mode == "video" else
         "IMAGE mode infers each sampled frame independently; temporal tracking regions are not reused.")
     previews, preview_times = [], []
+    preview_frames, omitted_previews = [], 0
     decoded, sampled = 0, 0
     try:
         mp, detector = _detector(model_path, pose_mode)
@@ -403,8 +407,14 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
                                                      "inference_seconds": time.perf_counter() - inference_started}
                 evidence["frames"].append(record)
                 if sampled % preview_stride == 0:
-                    previews.append(_draw_pose(resized, record))
-                    preview_times.append(record["time_s"])
+                    # Container undercounts cannot expand an explicitly bounded preview buffer.
+                    if max_preview_frames is None or len(previews) < max_preview_frames:
+                        previews.append(_draw_pose(resized, record))
+                        preview_times.append(record["time_s"])
+                        if max_preview_frames is not None:
+                            preview_frames.append(frame_index)
+                    else:
+                        omitted_previews += 1
                 sampled += 1
                 if progress and (sampled == 1 or sampled % 15 == 0):
                     progress("tracking", {"message": "Local CPU pose estimation", "decoded_frames": decoded,
@@ -426,6 +436,10 @@ def inspect_exercise(video, out, model_path, progress=None, *, pose_mode="video"
         cap.release()
         evidence["decoded_frames"] = decoded
         evidence["elapsed_seconds"] = time.perf_counter() - started
+        if max_preview_frames is not None:
+            evidence["preview_retention"] = {"maximum_frames": max_preview_frames,
+                "retained_source_frames": preview_frames, "omitted_scheduled_previews": omitted_previews,
+                "scope": "Baseline annotated previews only; first scheduled previews, not uniform full-clip coverage. All sampled observations remain in evidence."}
         try:
             evidence["model"]["mediapipe_version"] = importlib.metadata.version("mediapipe")
         except importlib.metadata.PackageNotFoundError:

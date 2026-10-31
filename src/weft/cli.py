@@ -80,6 +80,12 @@ def main():
     pose_recovery.add_argument("--video", required=True, help="Exact original source video; bytes verified without decoding")
     pose_recovery.add_argument("--out", required=True, help="New sealed pose-evidence directory outside the inputs")
     pose_recovery.add_argument("--max-seconds", type=float, default=30)
+    pose_proposals = commands.add_parser("exercise-pose-prepare", help="Generate bounded source-only crop proposals from video using explicit Full/IMAGE/raw inference")
+    pose_proposals.add_argument("--video", required=True, help="Local exercise video; source bytes and clocks stay unchanged")
+    pose_proposals.add_argument("--pose-model", required=True, help="Pinned local Full model; no model download or automatic alternative")
+    pose_proposals.add_argument("--source-note", default="Rights not independently verified; user-provided local video")
+    pose_proposals.add_argument("--out", required=True, help="New sealed proposal directory outside the inputs; not a playable lab")
+    pose_proposals.add_argument("--max-seconds", type=float, default=180)
     body_source = commands.add_parser("exercise-body", help="Prepare body evidence for a shared world without creating or training a body-only lab")
     body_input = body_source.add_mutually_exclusive_group(required=True)
     body_input.add_argument("--video", help="Local exercise video, at most 64 MiB and 60 seconds")
@@ -218,6 +224,8 @@ def main():
     exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
     exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
     exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
+    exercise_build.add_argument("--pose-recovery", choices=("selective-crop",),
+        help="Raw video only: explicit Full/IMAGE/raw baseline and bounded source-only crops; requires the local Full model")
     exercise_build.add_argument("--source-note", help="Raw video provenance; default rights not independently verified")
     exercise_build.add_argument("--body-scale", type=float,
                                 help="With --human-run or --video: body-height-to-world scale prior in [0.5, 2.0] (default 1.0)")
@@ -236,7 +244,7 @@ def main():
     exercise_build.add_argument("--evaluation-jitter", type=float, help="With --train; human-only start variation, default 0.10")
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
     exercise_build.add_argument("--max-seconds", type=float,
-                                help="Cooperative total bound: default 90s saved/no training, 270s raw or training, 450s raw plus training")
+                                help="Cooperative total bound: defaults 90s saved, 270s raw or training, 450s both; selective-crop uses 450s or 600s with training")
     exercise_inspect = commands.add_parser("shared-exercise-inspect", help="Create an offline step-by-step report from a saved exercise build, including rejections")
     exercise_inspect.add_argument("--run", required=True, help="Existing sealed shared-exercise-build output; never modified")
     exercise_inspect.add_argument("--out", required=True, help="New self-contained inspection directory outside the source")
@@ -490,7 +498,9 @@ def main():
                       "body_source_progress": "Observe body", "learning_workflow": "Train and compare controllers",
                       "learning_training": "Train joint controller", "learning_training_selection": "Select using training results",
                       "learning_independent_evaluation": "Compare frozen controller on separate starts",
-                      "learning_interactive_lab": "Prepare trained interactive lab"}
+                      "learning_interactive_lab": "Prepare trained interactive lab",
+                      "source_pose_proposals": "Observe full frames and selected crops",
+                      "source_pose_recovery": "Verify source-only pose recovery", "source_body_source": "Prepare recovered body evidence"}
             train_options = {key: value for key, value in (
                 ("training_seed", args.training_seed), ("evaluation_seed", args.evaluation_seed),
                 ("generations", args.training_generations), ("population", args.training_population),
@@ -502,7 +512,7 @@ def main():
             result = prepare_exercise_scene(args.run, args.evidence_run, args.config, args.out,
                 human_run=args.human_run, body_scale=args.body_scale,
                 video=args.video, pose_model=args.pose_model, pose_mode=args.pose_mode,
-                pose_identity=args.pose_identity, source_note=args.source_note,
+                pose_identity=args.pose_identity, source_note=args.source_note, pose_recovery=args.pose_recovery,
                 train_settings=train_options if args.train else None,
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
@@ -616,6 +626,15 @@ def main():
         elif args.command == "fetch-pose-model":
             from weft.exercise_vision import fetch_pose_model
             result = {"path": str(fetch_pose_model(args.out, variant=args.variant))}
+        elif args.command == "exercise-pose-prepare":
+            from weft.pose_crop_pipeline import prepare_pose_crop_proposals
+            destination = prepare_pose_crop_proposals(args.video, args.out, pose_model=args.pose_model,
+                source_note=args.source_note, max_seconds=args.max_seconds,
+                progress=lambda name, detail: print(detail.get("message", name.replace("_", " ")),
+                                                    file=sys.stderr, flush=True))
+            result = {"profile": "exercise-pose-crop-proposals-v1", "status": "source_evidence_only",
+                "directory": str(destination), "simulation_ready": False,
+                "next_step": "Use exercise-pose-recover with this package and the original video"}
         elif args.command == "exercise-pose-recover":
             from weft.pose_source_recovery import prepare_pose_source_recovery
             destination = prepare_pose_source_recovery(args.run, args.out, source_video=args.video,

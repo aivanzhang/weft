@@ -160,6 +160,77 @@ def test_ready_report_keeps_failed_task_results_distinct(tmp_path):
     assert "does not load or re-admit" in (tmp_path / "report/index.html").read_text()
 
 
+def native_stages(source, *, completed):
+    result = json.loads((source / "result.json").read_bytes())
+    result["stages"] = [
+        {"stage": "source_pose_proposals", "status": "ready", "elapsed_seconds": .1},
+        {"stage": "source_pose_recovery", "status": "ready" if completed else "running", "elapsed_seconds": .2},
+    ] + ([{"stage": "source_body_source", "status": "ready", "elapsed_seconds": .3}] + result["stages"] if completed else [])
+    if not completed:
+        result.update(status="failed", lab_status="not_ready", reasons=[], error={"type": "ValueError", "message": "Pose recovery rejected"})
+    put(source, "result.json", result)
+    put(source, "stages.json", {"stages": result["stages"]})
+    settings = json.loads((source / "settings.json").read_bytes())
+    put(source, "settings.json", {**settings, "pose_recovery": "selective-crop"})
+
+
+def test_native_recovery_stages_do_not_duplicate_body_preparation(tmp_path):
+    source = fixture(tmp_path / "build")
+    native_stages(source, completed=True)
+    seal(source)
+    _, summary = run(source, tmp_path / "report")
+    stages = {row["stage"]: row for row in summary["stages"]}
+    assert "body_source" not in stages
+    assert all(stages[name]["state"] == "completed" for name in (
+        "source_pose_proposals", "source_pose_recovery", "source_body_source"))
+    assert stages["equipment_priors"]["state"] == "stopped"
+    assert summary["requested_options"]["pose_recovery"] == "selective-crop"
+
+
+@pytest.mark.parametrize("prefix", ["recovered_poses", "pose_proposals/selected", "pose_proposals/whole_image"])
+def test_native_failure_retains_pose_evidence_before_body_exists(tmp_path, prefix):
+    source = fixture(tmp_path / "build")
+    native_stages(source, completed=False)
+    original = json.loads((source / "body_source/source.json").read_bytes())
+    target = source / prefix
+    target.parent.mkdir(parents=True, exist_ok=True)
+    (source / "body_source").rename(target)
+    # Source-only proposals pin the external original without copying or following it.
+    (target / "source.webm").unlink()
+    (target / "body-source.json").unlink()
+    put(source, "pose_proposals/source.json", {**original, "path": "/never-follow-external/source.webm"})
+    put(source, "pose_proposals/report.json", {"status": "source_evidence_only", "simulation_ready": False})
+    put(source, "pose_proposals/crop-plan.json", {"plans": []})
+    put(source, "pose_proposals/decisions.json", [])
+    put(source, "pose_proposals/decode-audit.json", {"second_pass": "not_needed"})
+    put(source, "body_source/body-source.json", {"status": "failed"})
+    seal(source)
+    _, summary = run(source, tmp_path / "report")
+    assert summary["video_artifact"] is None and summary["saved_lab_status"] == "not_ready"
+    assert summary["source"]["sha256"] == original["sha256"]
+    assert summary["coverage"]["usable_samples"] == 29
+    stages = {row["stage"]: row["state"] for row in summary["stages"]}
+    assert stages["source_pose_proposals"] == "completed"
+    assert stages["source_pose_recovery"] == "stopped" and stages["source_body_source"] == "not_run"
+    copied = {row["source_name"] for row in summary["artifacts"]}
+    assert prefix + "/evidence.json" in copied and prefix + "/tracks-contact-sheet.png" in copied
+    assert "pose_proposals/decisions.json" in copied
+    html = (tmp_path / "report/index.html").read_text()
+    assert "No sealed original video" in html and "/never-follow-external" not in html
+    assert summary["body"] == {} and all(value == 0 for value in summary["work"].values())
+
+
+def test_native_receipt_only_uses_stage_history_not_unsealed_settings(tmp_path):
+    source = fixture(tmp_path / "build", receipt_only=True)
+    native_stages(source, completed=False)
+    seal(source, receipt_only=True)
+    (source / "settings.json").write_bytes(b"unsealed malformed metadata")
+    _, summary = run(source, tmp_path / "report")
+    assert len(summary["artifacts"]) == 1 and summary["coverage"]["status"] == "not_available"
+    stages = {row["stage"]: row["state"] for row in summary["stages"]}
+    assert "body_source" not in stages and stages["source_body_source"] == "unknown"
+
+
 def test_receipt_only_never_reads_or_exposes_unsealed_outputs(tmp_path, monkeypatch):
     source = fixture(tmp_path / "build", receipt_only=True)
     (source / "body_source/source.webm").write_bytes(b"unverified and corrupt")

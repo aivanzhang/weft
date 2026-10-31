@@ -33,6 +33,33 @@ The terminal prints each stage and the result's `launch_arguments` identify the 
 
 New allowances are explicit: raw-only builds allow 512 MiB, training-only 1 GiB and combined builds 1,152 MiB; these are maximums, not expected usage. Local work uses one worker per stage and no paid API. Default cooperative deadlines are 270 seconds for raw or training, 450 seconds for both; saved/no-training stays 90 seconds/384 MiB. Extended builds permit at most 480 seconds. Each helper retains its smaller stage limits, and the learning stage reserves five seconds for finalization. Native calls require an external process deadline for a hard stop. Failures preserve completed evidence and any already completed lab; they do not create a second lab or retry training.
 
+### Explicit source-only pose recovery
+
+For a fresh video, add `--pose-recovery selective-crop` and supply the pinned **Full** model instead of Lite. This uses one fixed IMAGE/raw recipe, not an automatic choice between models:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-build \
+  --video /absolute/path/to/exercise.mp4 \
+  --pose-model .local/models/pose_landmarker_full.task \
+  --pose-recovery selective-crop \
+  --source-note "Your source attribution and rights" \
+  --evidence-run artifacts/my-tracking-evidence \
+  --config /absolute/path/to/equipment-config.json \
+  --full-reference --root-assistance \
+  --train --evaluation-seed 52738961 \
+  --out artifacts/my-recovered-exercise-01
+```
+
+The same build now exposes three source stages: **inspect original poses and image crops → verify pose replacements → construct the body**. Inspect `pose_proposals/`, `recovered_poses/` and `body_source/`; accepted and rejected replacements stay available. Missing or ambiguous poses remain explicit. Recovery does not use simulated collisions or rewards, invent missing poses, or guarantee body/world admission. Explicit VIDEO/temporal overrides and non-Full models reject before inference.
+
+This option permits at most two sequential decodes, 900 full-frame and 64 crop inferences, and 48 annotation previews per pass. Every sampled pose and source clock remains; the preview cap is not a data cap. Too many eligible crops rejects instead of choosing a convenient subset. Proposal outputs plus the pinned original fit 128 MiB; the proposal stage pins but does not copy the original. Recovery then preserves its original-video copy and proof. No model download, upload or paid API occurs.
+
+The three source packages reserve 384 MiB/1,536 files and 240 seconds together. Outer bounds become 768 MiB/3,136 files without training, or 1,408 MiB/5,632 files with training; default cooperative time is 450 or 600 seconds (maximum 660). Other routes retain their existing limits. Completed child hashes remain pinned through final packaging, and progress observers cannot change saved identities. The offline report below shows these stages separately, including retained pose evidence when later body construction stops.
+
+To prepare proposals alone, use `exercise-pose-prepare --video <video> --pose-model <full.task> --out <new-directory>`, then the saved recovery command below. A proposal package is source evidence, not a playable environment.
+
+**Local verified example:** `artifacts/native-crop-build-02` completes this native pipeline on the existing kettlebell source in **29.6 seconds**, preserving all 257 source slots and producing one 254-action/8.47-second lab. The bounded search finds no feasible improvement and all controllers score **0/3 task successes**. This verifies orchestration and a ready environment, not physical accuracy or arbitrary-video support. Open `artifacts/native-crop-inspection-01/index.html` for its stages, video, poses and results; [exact identities and limitations](handoffs/combined.md#native-video-through-one-final-lab--development-path-works) remain recorded.
+
 ## Inspect a completed or stopped build
 
 Create a local report from an existing build; this does not rerun the video or start a server:

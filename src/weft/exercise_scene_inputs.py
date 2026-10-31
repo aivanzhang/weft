@@ -10,7 +10,7 @@ import time
 from weft import exercise_body_source, exercise_vision
 from weft.equipment_proposal import validate_proposal_config
 from weft.shared_world_evidence import _verify_document_clock
-from weft.shared_world_packaging import read_package_file, validate_package_layout
+from weft.shared_world_packaging import read_package_file, read_package_manifest, validate_package_layout
 from weft.source_equivalence import load_source_equivalence
 from weft.world_evidence import _check_tree, load_world_evidence
 
@@ -28,6 +28,9 @@ MAX_SOURCE_FILES = 256
 MAX_MAPPINGS = 7
 MAX_PREFLIGHT_SECONDS = 30
 MAX_BODY_SECONDS = 180
+MAX_RECOVERY_BODY_SECONDS = 240
+RECOVERY_STAGE_SECONDS = 30
+RECOVERY_METHOD = "selective-crop"
 SOURCE_NOTE = "Rights not independently verified; user-provided local video"
 REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupported"}
 IMPLEMENTATION_FILES = tuple(dict.fromkeys((*exercise_body_source.IMPLEMENTATION_FILES,
@@ -108,6 +111,7 @@ class RawExerciseInputs:
     pose_model: Path
     pose_mode: str
     pose_identity: str
+    pose_recovery: str | None
     source_note: str
     source_mappings: tuple[Path, ...]
     source_sha256: str
@@ -194,12 +198,18 @@ def recheck_exercise_scene_inputs(inputs, *, deadline):
 
 
 def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_model,
-                                   pose_mode="video", pose_identity="raw", source_note=SOURCE_NOTE,
+                                   pose_mode=None, pose_identity=None, pose_recovery=None, source_note=SOURCE_NOTE,
                                    source_mappings=(), max_seconds=30, deadline=None):
     """Check source, model and exact construction frames without decoding or inference."""
     started = time.monotonic()
     deadline = _deadline(max_seconds, MAX_PREFLIGHT_SECONDS, deadline)
     _check(deadline)
+    if pose_recovery is not None and pose_recovery != RECOVERY_METHOD:
+        raise ValueError("Pose recovery must be omitted or explicitly selective-crop")
+    if pose_recovery is not None and (pose_mode not in (None, "image") or pose_identity not in (None, "raw")):
+        raise ValueError("Selective-crop recovery requires IMAGE mode and raw identity; conflicting options are not replaced")
+    pose_mode = ("image" if pose_recovery is not None else "video") if pose_mode is None else pose_mode
+    pose_identity = "raw" if pose_identity is None else pose_identity
     if (not isinstance(pose_mode, str) or not isinstance(pose_identity, str)
             or pose_mode not in {"video", "image"} or pose_identity not in {"raw", "temporal"}):
         raise ValueError("Pose options require video/image and explicit raw/temporal identity")
@@ -305,8 +315,19 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
     provenance = exercise_vision.model_provenance(model)
     if provenance.get("sha256") != model_sha or provenance.get("bytes") != model_size:
         raise ValueError("Pose model changed during preflight")
+    dependencies = IMPLEMENTATION_FILES
+    if pose_recovery is not None:
+        full = exercise_vision.MODEL_VARIANTS["full"]
+        if (model_sha != full["sha256"] or model_size != full["bytes"]
+                or provenance.get("variant") != "full" or provenance.get("model_version") != "float16/1"
+                or provenance.get("delegate") != "CPU" or provenance.get("network_inference") is not False):
+            raise ValueError("Selective-crop recovery requires the exact pinned official Full CPU model")
+        from weft import pose_crop_pipeline, pose_source_recovery
+
+        dependencies = tuple(dict.fromkeys((*dependencies, *pose_crop_pipeline.IMPLEMENTATION_FILES,
+                                            *pose_source_recovery.IMPLEMENTATION_FILES)))
     implementation = {}
-    for name in IMPLEMENTATION_FILES:
+    for name in dependencies:
         path = Path(__file__).with_name(name)
         implementation[name] = _sha(reader.read(path))
     receipt = {"schema_version": 1, "profile": PROFILE, "status": "input_preflight_passed",
@@ -331,12 +352,22 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
                              "Body/equipment clock and dimension agreement", "Unchanged strict geometry/task admission"],
         "deadline_scope": "Cooperative around bounded local reads; the body stage retains its existing native-call limits.",
         "elapsed_seconds": time.monotonic() - started}
+    if pose_recovery is not None:
+        receipt["pose_recovery"] = pose_recovery
+        receipt["recovery_contract"] = {
+            "recipe": "Pinned Full / IMAGE / raw, then one source-only selective-crop pass",
+            "maximum_combined_seconds": MAX_RECOVERY_BODY_SECONDS,
+            "stage_seconds": {"pose_proposals": MAX_BODY_SECONDS, "pose_recovery": RECOVERY_STAGE_SECONDS,
+                              "body_source": RECOVERY_STAGE_SECONDS},
+            "body_gate": "Existing body-source admission is unchanged; recovery does not guarantee a body or world",
+            "retries": 0, "model_selection": False, "task_or_geometry_feedback": False}
     encoded = _bytes(receipt)
     if len(encoded) > MAX_RECEIPT_BYTES:
         raise ValueError("Scene input receipt exceeds its bounded output size")
     result = object.__new__(RawExerciseInputs)
     for name, value in {"video": video, "evidence_run": evidence, "config_path": config_path, "pose_model": model,
                         "pose_mode": pose_mode, "pose_identity": pose_identity, "source_note": source_note,
+                        "pose_recovery": pose_recovery,
                         "source_mappings": mappings, "source_sha256": source_sha,
                         "_pins": tuple(reader.pins.values()), "_receipt": encoded}.items():
         object.__setattr__(result, name, value)
@@ -344,16 +375,63 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
     return result
 
 
-def prepare_exercise_scene_body(inputs, out, *, max_seconds=180, deadline=None, progress=None):
+def _generated_pin(root, profile, status, deadline):
+    _check(deadline)
+    root = _path(root)
+    _not_failed(root)
+    raw, files = read_package_manifest(root)
+    manifest = _json(raw)
+    if (manifest.get("profile") != profile or manifest.get("status") != status or manifest.get("simulation_ready") is not False
+            or "failure.json" in files or len(files) + 1 > exercise_body_source.MAX_FILES):
+        raise ValueError("Recovery composition requires an unrejected bounded sealed stage")
+    _check(deadline)
+    return root, raw, files
+
+
+def _recheck_generated(pins, deadline, *, complete=False):
+    for root, manifest, files in pins:
+        _check(deadline)
+        root = _path(root)
+        _not_failed(root)
+        read_package_file(root, "manifest.json", max_bytes=MAX_MANIFEST_BYTES, expected_sha256=_sha(manifest))
+        if complete:
+            total = len(manifest)
+            for name, expected in files.items():
+                _check(deadline)
+                remaining = exercise_body_source.MAX_BYTES - total
+                if remaining < 1:
+                    raise ValueError("Generated recovery stage exceeds its retained-byte bound")
+                raw = read_package_file(root, name, max_bytes=min(MAX_FILE_BYTES, remaining), expected_sha256=expected)
+                total += len(raw)
+        _not_failed(root)
+    _check(deadline)
+
+
+def prepare_exercise_scene_body(inputs, out, *, pose_proposals_out=None, recovered_pose_out=None,
+                                max_seconds=180, deadline=None, progress=None):
     """Prepare one existing body source; changed inputs stop the enclosing scene assembly."""
     if not isinstance(inputs, RawExerciseInputs):
         raise ValueError("Raw body preparation requires verified scene inputs")
-    deadline = _deadline(max_seconds, MAX_BODY_SECONDS, deadline)
+    recovering = inputs.pose_recovery == RECOVERY_METHOD
+    deadline = _deadline(max_seconds, MAX_RECOVERY_BODY_SECONDS if recovering else MAX_BODY_SECONDS, deadline)
     target = _path(out)
     sources = (inputs.video, inputs.pose_model, inputs.evidence_run, inputs.config_path, *inputs.source_mappings)
-    if target.exists() or any(target.is_relative_to(path) or path.is_relative_to(target) for path in sources):
+    outputs = [target]
+    if recovering:
+        if pose_proposals_out is None or recovered_pose_out is None:
+            raise ValueError("Selective-crop requires explicit proposal and recovered-pose output paths")
+        outputs += [_path(pose_proposals_out), _path(recovered_pose_out)]
+        if any(path.parent != target.parent for path in outputs):
+            raise ValueError("Recovery proposal, recovered-pose and body outputs must be sibling packages")
+    elif pose_proposals_out is not None or recovered_pose_out is not None:
+        raise ValueError("Recovery output paths require explicit selective-crop recovery")
+    if (any(path.exists() or path.is_symlink() for path in outputs)
+            or any(path.is_relative_to(source) or source.is_relative_to(path) for path in outputs for source in sources)
+            or any(a.is_relative_to(b) or b.is_relative_to(a) for i, a in enumerate(outputs) for b in outputs[i + 1:])):
         raise ValueError("Body output must be new and outside every input")
     _recheck(inputs, deadline)
+    if recovering:
+        return _prepare_recovered_body(inputs, target, outputs[1], outputs[2], deadline, progress)
     remaining = deadline - time.monotonic()
     if remaining < 1:
         raise TimeoutError("Raw body preparation has no remaining shared time budget")
@@ -362,3 +440,68 @@ def prepare_exercise_scene_body(inputs, out, *, max_seconds=180, deadline=None, 
         source_note=inputs.source_note, max_seconds=min(MAX_BODY_SECONDS, remaining), progress=progress)
     _recheck(inputs, deadline)
     return body
+
+
+def _prepare_recovered_body(inputs, target, proposals, recovered, deadline, progress):
+    from weft import pose_crop_pipeline, pose_source_recovery
+
+    pins = []
+
+    def guard(*, complete=False):
+        _recheck(inputs, deadline)
+        _recheck_generated(pins, deadline, complete=complete)
+
+    def emit(stage, status, message, **details):
+        if progress is not None:
+            progress(stage, {"status": status, "message": message, **details})
+        guard()
+
+    def remaining(maximum, reserve=0):
+        left = deadline - time.monotonic() - reserve
+        if left < 1:
+            raise TimeoutError("Recovery composition has no remaining shared time budget")
+        return min(maximum, left)
+
+    def updates(prefix):
+        if progress is None:
+            return None
+
+        def update(stage, detail):
+            raw = _bytes(detail)
+            if len(raw) > MAX_RECEIPT_BYTES:
+                raise ValueError("Recovery progress exceeds its metadata bound")
+            progress(prefix + "_" + stage, json.loads(raw))
+        return update
+
+    def keep(root, expected, profile, status):
+        if _path(root) != expected:
+            raise ValueError("Recovery producer returned a different output directory")
+        pin = _generated_pin(expected, profile, status, deadline)
+        pins.append(pin)
+        return _sha(pin[1])
+
+    # Reserve the existing source-verification and body stages before new inference.
+    proposal_seconds = remaining(MAX_BODY_SECONDS, 2 * RECOVERY_STAGE_SECONDS)
+    emit("pose_proposals", "running", "Estimate original Full IMAGE poses and one bounded selective-crop pass")
+    result = pose_crop_pipeline.prepare_pose_crop_proposals(inputs.video, proposals,
+        pose_model=inputs.pose_model, source_note=inputs.source_note,
+        max_seconds=proposal_seconds, deadline=deadline, progress=updates("pose_proposals"))
+    seal = keep(result, proposals, pose_crop_pipeline.PROFILE, "source_evidence_only")
+    emit("pose_proposals", "ready", "Original poses, crop candidates and unchanged selection decisions are sealed",
+         manifest_sha256=seal)
+
+    emit("pose_recovery", "running", "Verify the saved crop derivation without new inference")
+    result = pose_source_recovery.prepare_pose_source_recovery(proposals, recovered, source_video=inputs.video,
+        max_seconds=remaining(RECOVERY_STAGE_SECONDS, RECOVERY_STAGE_SECONDS))
+    seal = keep(result, recovered, pose_source_recovery.PROFILE, "source_evidence_only")
+    emit("pose_recovery", "ready", "Verified source pose evidence is sealed; body admission is still required",
+         manifest_sha256=seal)
+
+    emit("body_source", "running", "Apply the existing body and movement gates to the verified source poses")
+    result = exercise_body_source.prepare_exercise_body_source_from_evidence(recovered, target,
+        max_seconds=remaining(RECOVERY_STAGE_SECONDS), progress=updates("body_source"))
+    seal = keep(result, target, exercise_body_source.PROFILE, "construction_only")
+    emit("body_source", "ready", "One construction-only body is sealed; no world, task or intermediate lab was created",
+         manifest_sha256=seal)
+    guard(complete=True)
+    return result

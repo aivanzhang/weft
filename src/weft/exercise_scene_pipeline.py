@@ -94,7 +94,7 @@ def _reserve_stage(root, name, deadline, *, limits=None, allowance=None):
         raise ValueError(f"Exercise assembly cannot reserve the complete {name} output within its aggregate bound")
 
 
-def _seal(root, result, *, deadline, started, limits=None):
+def _seal(root, result, *, deadline, started, limits=None, retained_stages=None):
     maximum_files, maximum_bytes = limits or (MAX_FILES, MAX_BYTES)
     seal_started = time.monotonic()
     inventory, _ = _inventory(root, deadline, immutable_only=True, limits=limits)
@@ -105,6 +105,10 @@ def _seal(root, result, *, deadline, started, limits=None):
         _check_deadline(deadline)
         total += len(raw)
         files[name] = hashlib.sha256(raw).hexdigest()
+    for prefix, expected in (retained_stages or {}).items():
+        actual = {name[len(prefix) + 1:]: digest for name, digest in files.items() if name.startswith(prefix + "/")}
+        if actual != expected:
+            raise ValueError("Completed recovery stage changed before assembly sealing")
     result = {**result, "seconds": time.monotonic() - started,
               "sealing_seconds": time.monotonic() - seal_started, "seal_scope": "complete_immutable_outputs"}
     result_raw = _bytes(result)
@@ -139,14 +143,16 @@ def _failure_receipt(root, result, sealing_error, started):
 def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_mappings=(),
                            human_run=None, body_scale=None, root_assistance=False, full_reference=False,
                            video=None, pose_model=None, pose_mode=None, pose_identity=None, source_note=None,
-                           train_settings=None, max_seconds=None, progress=None):
+                           pose_recovery=None, train_settings=None, max_seconds=None, progress=None):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
     if sum(value is not None for value in (base_run, human_run, video)) != 1:
         raise ValueError("Provide exactly one shared-world base, mobile human run or raw video")
     if human_run is None and video is None and body_scale is not None:
         raise ValueError("Body scale applies only to a mobile human run; existing worlds keep their scale")
-    if video is None and any(value is not None for value in (pose_model, pose_mode, pose_identity, source_note)):
+    if video is None and any(value is not None for value in (pose_model, pose_mode, pose_identity, source_note, pose_recovery)):
         raise ValueError("Pose model/options apply only to raw --video input; saved evidence is never reinferred")
+    if pose_recovery is not None and pose_recovery != "selective-crop":
+        raise ValueError("Pose recovery requires the explicit selective-crop recipe")
     if video is not None and pose_model is None:
         raise ValueError("Raw exercise video requires an explicit local pose model")
     learning, learning_allowance = None, None
@@ -165,8 +171,11 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         raise ValueError("Full-reference assembly must be explicitly enabled or disabled")
     extended = video is not None or learning is not None
     if max_seconds is None:
-        max_seconds = 450 if video is not None and learning is not None else 270 if extended else 90
-    maximum_seconds = 480 if extended else 180
+        if pose_recovery is not None:
+            max_seconds = 600 if learning is not None else 450
+        else:
+            max_seconds = 450 if video is not None and learning is not None else 270 if extended else 90
+    maximum_seconds = 660 if pose_recovery is not None else 480 if extended else 180
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= maximum_seconds:
         raise ValueError(f"Exercise assembly requires a cooperative 1–{maximum_seconds} second bound")
     if not isinstance(source_mappings, (tuple, list)) or len(source_mappings) > 7:
@@ -187,9 +196,12 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         limits = (4608, 1152 * 1024 * 1024) if video is not None else (4096, 1024 * 1024 * 1024)
     elif video is not None:
         limits = (2112, 512 * 1024 * 1024)
+    if pose_recovery is not None:
+        limits = (limits[0] + 1024, limits[1] + 256 * 1024 * 1024)
     reservations = dict(STAGE_LIMITS)
+    body_allowance = (1536, 384 * 1024 * 1024) if pose_recovery is not None else (512, 128 * 1024 * 1024)
     if video is not None:
-        reservations["body_source"] = (512, 128 * 1024 * 1024)
+        reservations["body_source"] = body_allowance
     if learning is not None:
         reservations.pop("interactive_lab")
         reservations["learning_workflow"] = learning_allowance
@@ -198,7 +210,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         from weft.exercise_scene_inputs import preflight_exercise_scene_inputs
 
         raw_options = {key: value for key, value in (("pose_mode", pose_mode), ("pose_identity", pose_identity),
-                                                    ("source_note", source_note)) if value is not None}
+                                                    ("source_note", source_note), ("pose_recovery", pose_recovery)) if value is not None}
         raw_inputs = preflight_exercise_scene_inputs(source, evidence, config, pose_model=pose_model,
             source_mappings=source_mappings, deadline=deadline, **raw_options)
     target.mkdir(parents=True, exist_ok=False)
@@ -208,6 +220,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         "base_run": str(source) if human_run is None and video is None else None,
         "human_run": str(source) if human_run is not None else None,
         "video": str(source) if video is not None else None,
+        "pose_recovery": pose_recovery,
         "body_scale": float(resolved_scale) if human_run is not None or video is not None else None,
         "body_scale_scope": "Explicit body-height-to-world prior; not measured scale" if human_run is not None or video is not None else None,
         "evidence_run": str(evidence), "config": str(config),
@@ -221,6 +234,18 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         "api_calls": 0, "training": learning if learning is not None else False,
         "scope": "Explicit initial camera/shape priors, shared-world construction and lab packaging; not automatic video reconstruction."}))
 
+    recovery_pins = []
+
+    def guard_recovery():
+        if recovery_pins:
+            from weft.exercise_scene_inputs import _recheck_generated
+
+            _recheck_generated(recovery_pins, deadline)
+
+    def retained_recovery():
+        return {path.relative_to(target).as_posix(): {**files, "manifest.json": hashlib.sha256(raw).hexdigest()}
+                for path, raw, files in recovery_pins}
+
     def remaining():
         left = deadline - time.monotonic()
         if left < 1:
@@ -228,11 +253,13 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
         return left
 
     def stage(name, status, **detail):
+        guard_recovery()
         row = {"stage": name, "status": status, "elapsed_seconds": time.monotonic() - started, **detail}
         stages.append(row)
         _write_metadata(target, "stages.json", _bytes({"stages": stages}))
         if progress is not None:
-            progress(dict(row))
+            progress(json.loads(_bytes(row)))
+        guard_recovery()
 
     def lab_detail():
         if completed_lab is None:
@@ -244,6 +271,7 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
     def finish(status, **detail):
         nonlocal finalization_started
         finalization_started = True
+        guard_recovery()
         if raw_inputs is not None:
             from weft.exercise_scene_inputs import recheck_exercise_scene_inputs
 
@@ -252,18 +280,38 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                   "physical_validation": "unverified", **lab_detail(), **detail}
         if completed_learning is not None:
             result["learning_workflow"] = completed_learning
-        return _seal(target, result, deadline=deadline, started=started, limits=limits)
+        return _seal(target, result, deadline=deadline, started=started, limits=limits,
+                     retained_stages=retained_recovery())
 
     try:
         if raw_inputs is not None:
             from weft.exercise_scene_inputs import prepare_exercise_scene_body
 
+            def body_progress(name, detail):
+                if pose_recovery is not None and name in {"pose_proposals", "pose_recovery", "body_source"}:
+                    if detail.get("status") == "ready":
+                        from weft.exercise_scene_inputs import _generated_pin
+
+                        package, profile, status = {
+                            "pose_proposals": ("pose_proposals", "exercise-pose-crop-proposals-v1", "source_evidence_only"),
+                            "pose_recovery": ("recovered_poses", "exercise-pose-recovery-v1", "source_evidence_only"),
+                            "body_source": ("body_source", "exercise-body-source-v1", "construction_only"),
+                        }[name]
+                        # Pin before exposing ready; observers cannot replace a completed child's evidence.
+                        pin = _generated_pin(target / package, profile, status, deadline)
+                        if detail.get("manifest_sha256") != hashlib.sha256(pin[1]).hexdigest():
+                            raise ValueError("Recovery stage identity differs from its ready event")
+                        recovery_pins.append(pin)
+                    stage("source_" + name, detail.get("status", "running"), detail=detail)
+                else:
+                    stage("body_source_progress", name, detail=detail)
+
             _write_metadata(target, "input-preflight.json", _bytes(raw_inputs.receipt()))
-            _reserve_stage(target, "body_source", deadline, limits=limits, allowance=(512, 128 * 1024 * 1024))
+            _reserve_stage(target, "body_source", deadline, limits=limits, allowance=body_allowance)
             stage("body_source", "running")
+            extra = {"pose_proposals_out": target / "pose_proposals", "recovered_pose_out": target / "recovered_poses"} if pose_recovery is not None else {}
             source = prepare_exercise_scene_body(raw_inputs, target / "body_source", deadline=deadline,
-                max_seconds=min(180, remaining()),
-                progress=lambda name, detail: stage("body_source_progress", name, detail=detail))
+                max_seconds=min(240 if pose_recovery is not None else 180, remaining()), progress=body_progress, **extra)
             stage("body_source", "ready")
         if human_run is not None or raw_inputs is not None:
             from weft.shared_world_lab import prepare_shared_world_seed
@@ -331,7 +379,9 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                 _failure_receipt(target, result, error, started)
             else:
                 try:
-                    _seal(target, result, deadline=deadline, started=started, limits=limits)
+                    guard_recovery()
+                    _seal(target, result, deadline=deadline, started=started, limits=limits,
+                          retained_stages=retained_recovery())
                 except Exception as sealing_error:
                     _failure_receipt(target, result, sealing_error, started)
         except Exception as receipt_error:

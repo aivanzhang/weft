@@ -23,7 +23,7 @@ PROFILE = "shared-exercise-build-report-v1"
 MAX_OUTPUT_BYTES = 128 * 1024 * 1024
 MAX_FILE_BYTES = 64 * 1024 * 1024
 MAX_COPIED_FILES = 128
-MAX_MANIFEST_FILES = 4608
+MAX_MANIFEST_FILES = 5632
 MAX_MANIFEST_BYTES = 1024 * 1024
 MAX_METADATA_BYTES = 24 * 1024 * 1024
 MAX_JSON_BYTES = 8 * 1024 * 1024
@@ -34,7 +34,8 @@ MAX_SECONDS = 30
 _RESERVE = 5 * 1024 * 1024
 _SHA = re.compile(r"[0-9a-f]{64}")
 _VIDEO = re.compile(r"source\.(webm|mp4|m4v|mov|mkv|avi)")
-_PREFIXES = ("body_source", "body_seed", "candidate", "lab/run", "learning_workflow/lab/run")
+_PREFIXES = ("body_source", "recovered_poses", "pose_proposals/selected", "pose_proposals/whole_image",
+             "body_seed", "candidate", "lab/run", "learning_workflow/lab/run")
 _BODY_DOCS = {
     "body-source.json": "Body construction receipt",
     "source.json": "Original video attribution and identity",
@@ -62,6 +63,12 @@ _OTHER_DOCS = {
     "settings.json": ("Build", "Requested options — execution is listed separately"),
     "stages.json": ("Build", "Recorded stage history"),
     "input-preflight.json": ("Build", "Original input checks and identities"),
+    "pose_proposals/source.json": ("Original", "Pinned video attribution — original may not be copied"),
+    "pose_proposals/report.json": ("Body", "Source-only crop preparation result"),
+    "pose_proposals/crop-plan.json": ("Body", "Proposed image crops and eligibility checks"),
+    "pose_proposals/decisions.json": ("Body", "Accepted and rejected pose replacements"),
+    "pose_proposals/decode-audit.json": ("Body", "Independent decode and original-clock checks"),
+    "recovered_poses/pose-recovery.json": ("Body", "Verified pose recovery — not a body or playable world"),
     "body_seed/construction-seed.json": ("Body", "Construction-only seed receipt — not a lab"),
     "body_seed/source-binding-verification.json": ("Body", "Body/source binding checks"),
     "proposal/report.json": ("Equipment", "Equipment proposal result and limitations"),
@@ -258,8 +265,14 @@ def _history(result, settings, receipt_only):
         history.append({"stage": name, "status": status_, "elapsed_seconds": seconds})
     latest = {row["stage"]: row for row in history}
     training = bool(settings.get("training")) or any(name.startswith("learning_") for name in latest)
-    definitions = [
-        ("body_source", "Estimate body from video", bool(settings.get("video")) or "body_source" in latest),
+    recovery = settings.get("pose_recovery") == "selective-crop" or any(
+        name in latest for name in ("source_pose_proposals", "source_pose_recovery", "source_body_source"))
+    source_steps = [
+        ("source_pose_proposals", "Inspect original poses and propose image crops", True),
+        ("source_pose_recovery", "Verify accepted pose replacements", True),
+        ("source_body_source", "Construct the body from verified poses", True),
+    ] if recovery else [("body_source", "Estimate body from video", bool(settings.get("video")) or "body_source" in latest)]
+    definitions = source_steps + [
         ("body_seed", "Prepare construction-only body", bool(settings.get("human_run") or settings.get("video")) or "body_seed" in latest),
         ("equipment_priors", "Propose equipment geometry", True),
         ("shared_world", "Construct the shared world", True),
@@ -302,7 +315,10 @@ def _selection(source):
     if source.receipt_only:
         return chosen, None, None
     chosen.update({name: value for name, value in _OTHER_DOCS.items() if name in source.files})
-    body_prefix = next((prefix for prefix in _PREFIXES if any(prefix + "/" + name in source.files for name in _BODY_DOCS)), None)
+    # A failed body writer can contain metadata but no poses; retain earlier verified source evidence.
+    body_prefix = next((prefix for prefix in _PREFIXES if prefix + "/evidence.json" in source.files), None)
+    if body_prefix is None:
+        body_prefix = next((prefix for prefix in _PREFIXES if any(prefix + "/" + name in source.files for name in _BODY_DOCS)), None)
     if body_prefix:
         chosen.update({body_prefix + "/" + name: ("Body", label) for name, label in _BODY_DOCS.items()
                        if body_prefix + "/" + name in source.files})
@@ -362,6 +378,11 @@ def _summary(source, body_prefix, video):
         if doc.get("sha256") != source.files[video] or doc.get("artifact") not in (None, PurePosixPath(video).name):
             raise ValueError("Original video identity differs from saved provenance")
         result["source"] = _small_fields(doc, ("sha256", "title", "author", "license", "license_url", "source_page", "url", "changes", "derived_overlays"))
+    elif "pose_proposals/source.json" in source.files:
+        doc = source.document("pose_proposals/source.json")
+        if not isinstance(doc.get("sha256"), str) or not _SHA.fullmatch(doc["sha256"]):
+            raise ValueError("Invalid pinned video identity in pose proposal provenance")
+        result["source"] = _small_fields(doc, ("sha256", "title", "author", "license", "license_url", "source_page", "url", "changes", "derived_overlays"))
     if body_prefix:
         evidence_name, root_name = body_prefix + "/evidence.json", body_prefix + "/root-motion.json"
         if evidence_name in source.files:
@@ -388,7 +409,7 @@ def _summary(source, body_prefix, video):
         result["equipment"]["candidate"] = _small_fields(geometry, ("status", "camera_hypothesis", "equipment"))
         result["assumptions"].extend(_strings(geometry.get("assumptions", [])))
     result["assumptions"] = list(dict.fromkeys(result["assumptions"]))
-    result["requested_options"] = _small_fields(settings, ("body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
+    result["requested_options"] = _small_fields(settings, ("pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
     result["learning"] = _small_fields(source.document("learning_workflow/result.json"),
         ("status", "training", "selection", "evaluation", "scene_sha256", "task_sha256"))
     return result
