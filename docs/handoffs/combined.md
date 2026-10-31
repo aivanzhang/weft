@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 31, 2026, 2:51 AM PDT
+## Active continuation — October 31, 2026, 3:03 AM PDT
 
 ### Saved rigid evaluation — verified
 
@@ -28,26 +28,68 @@ imports, training or paid call. Duration 0.020872 s; observed process peak RSS
 Its plan pins all six imported project modules and selected inputs, unchanged
 afterward. Do not repeat the evaluation to populate a view.
 
-### Recording receipt — active implementation
+### Recording receipt — verified
 
-Root owns lab export/cache/API/console wiring and documentation. The receipt
-delegate owns new `recording_receipt.py` and focused tests; UI delegate owns
-the selected-recording panel and new scripted tests. The third delegate prepares
-one bounded six-action recording/export acceptance; **not run yet**. All are
-outside the 26 policy/18 lab simulation pins. No native admission is weakened.
+Recording/interface source checkpoint **225a53c8c0a9fb25f03b8473adfdf7f2754e037d**
+contains the receipt writer/reader, ordinary lab export/cache/API integration,
+terminal `record evidence [SESSION]`, and selected-recording UI. All delegated
+ownership is released and jobs are terminal. Root owns final launcher/docs
+publication. All 26 policy/18 lab simulation pins remain unchanged; no native
+admission was weakened. Existing recording manifests and old sessions remain
+unchanged, with new evidence in a separately sealed `evidence/` directory.
 
-The wrapper must call the ordinary exporter once and seal its existing replay
-result separately from the unchanged recording manifest. Old completed sessions
-are not backfilled. Missing or unsupported proof remains unavailable; spatial
-saved-state export is not action replay. Reader work is off-thread, selected,
-byte/time bounded and separate from immutable run inspection. Journal hashing
-is allowed; no event parsing, media rehash or replay occurs during inspection.
+The wrapper calls the ordinary exporter once and saves its existing exact-replay
+result. Receipt failures do not invalidate a successful video export. Old exports
+are not backfilled; missing proof stays unavailable. Spatial saved-state export
+is not action replay. The selected-session reader has 10-second/40-MiB bounds,
+a 16-MiB streaming journal-hash limit and 32-KiB view limit. No journal parsing,
+media read, native import or replay occurs during inspection. One cached worker
+and bounded cancellable UI reads do not enter immutable run inspection or change
+live controls. Appearance export remains outside the physical receipt wrapper.
 
-Console/cache/endpoint integration has 63 latest-passing scoped checks, separate
-from the 253 above. Preserve the initial console syntax collection error and
-sandbox-denied HTTP bind; the corrected console suite passes53, nine cache/queue
-cases pass, and the single ephemeral-loopback auth test passes under narrow
-permission. No development server or browser was started.
+**135 distinct Python checks** pass: 72 receipt, 53 console and 10 cache/queue/auth.
+Eleven new UI checks plus seven overlapping recording/visibility checks pass.
+Preserve the initial console collection error, receipt-test manifest-whitespace
+assumption and sandbox-denied HTTP bind; the corrected focused checks pass.
+Receipt implementation note `.local/recording-receipt-implementation-01.json`
+SHA `98a89ee49cb034153f1876ee350a059951e66957bf7833c63d6dd25c2da9fd34`.
+
+One ordinary console recording/export acceptance took **2.753516 s supervised**
+(worker 2.698322 s; observed peak RSS 258,129,920 B, not a hard cap), $0.
+`artifacts/recording-receipt-acceptance-01`, seal
+`e5a31346caa98b59c7394261393f787e1c87a1b3e9ff7bbacb700b369970cf2e`,
+pins 56 source/input files. New session **session-d10a22aa4d5a** has nine files/
+1,698,258 B: 6 live actions, 6 existing-exporter replay actions, one reset, eight
+frames, 192 substeps, one export and one replay. Three actions use the learned
+policy; three coast. No extra physics/decoding occurs while reading the receipt.
+Reader: 1,694,429 B read, 162,063 journal bytes hashed, 0.025741 s. Original eight
+lab metadata hashes and old session manifest/member stat identities are unchanged;
+this does not claim a new full-content audit of old media. The short recording
+does not replace the earlier 244-frame complete-task acceptance.
+
+New physical export seal:
+`17fead450ad6d89de9b15a834f0ca94814c88d371f00b70cdff6ec28c7ae4971`.
+Separate evidence seal:
+`8b85ac4ce7d4a9af401f2f9722379ca2ac935901095f4ec6f4d85d7bcf4a3933`.
+Root verifies all eight study members, nine new-session members and 56 unchanged
+pins without another export/replay. Actual saved-payload UI acceptance covers
+this recording and both rigid evaluations; `.local/recording-rigid-evidence-ui-01.json`
+SHA `65f22c13a3c2b52b99f079e039c73aae6a12980a9faf1c891f47773b1dccacab`.
+Three cases pass in 0.098761 s supervised; scripted DOM timing is not browser
+responsiveness. No browser/development server, inference, training or paid call.
+
+The exercise preset now pins 225a53c. Its one actual `--console --check` passes:
+202 trusted runtime files, unchanged 26 policy/18 lab pins and dependency versions,
+no server/physics/session/media work. Receipt
+`.local/recording-evidence-preset-verification-01.json` SHA
+`105db3d4ffab276770e102a7f658db210eb8c01502213a12e6f8abe28063aa24`.
+Final remote confirmation belongs in `.local/recording-evidence-publication-01.json`.
+The rigid checkpoint is already published as 01d8fde; receipt
+`.local/rigid-lab-evidence-publication-01.json` SHA
+`001d881f50c9ba20c33d3be06a24509308608d7b7b32e1c37df5e7c88658158a`.
+Keep all 75 separate avatar-session status entries untouched. Next work is
+evidence-backed reconstruction/physical qualification, not another receipt or
+unchanged controller study. The overall goal remains active.
 
 Coupled equipment diagnosis found no confirmed software repair. Note
 `.local/coupled-equipment-control-diagnosis-01.json`, SHA
@@ -71,6 +113,8 @@ adapter and equipment diagnosis are complete. Preserve saved artifacts and
 avatar work; the publication receipt below predates this new implementation.
 
 ### Common lab and terminal evidence — verified
+
+Historical 3afaf85/1abe540 milestone; current delivery is recorded above.
 
 The report/core milestone is published as
 `180ed5238bb3a2d635bf43e921b1de0dc6517c11`, independently matched on private
@@ -123,17 +167,17 @@ Independent audit `.local/common-lab-evidence-verification-01.json` SHA
 passes 200 pins, all outputs, selected metadata, canonical identities, counts,
 terminal views and UI receipts; it does not claim full source/lifecycle inspection.
 
-The recommended exercise launcher now pins 3afaf85. Its real metadata-only
+At this earlier milestone the exercise launcher pinned 3afaf85. Its real metadata-only
 `--example exercise --console --check` passes in **0.470006 s**: 200 runtime files /
 3,923,998 B, unchanged 26 policy / 18 lab pins and dependency versions, exact original
 scene/task/policy/lab metadata. Receipt
 `.local/common-lab-evidence-preset-verification-01.json` SHA
 `4c438eb5bc1bdceeeaeca755b9d1c19f7d4398ecbf98a9b5f9a1d8895553865c`.
 No server, physics, session or media starts. Other preset revisions stay unchanged.
-Final private publication confirmation belongs in
-`.local/common-lab-evidence-publication-01.json`; source commit alone is not that
-confirmation. All delegated edits, checks and audits are terminal; root owns the
-final checkpoint. Separate 75 avatar-session status entries remain untouched.
+Private publication was independently confirmed at 1abe540 in
+`.local/common-lab-evidence-publication-01.json`. All milestone jobs are terminal.
+The newer recording checkpoint above supersedes this launcher pin without
+changing its simulation/policy. Separate avatar-session work remains untouched.
 
 Next: qualify existing rigid evaluation regimes/return units and saved replay
 evidence for the same core, then continue evidence-backed reconstruction and

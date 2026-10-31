@@ -16,7 +16,7 @@ For terminal controls without a server, add `--console`. Nothing moves until you
 
 This single-leg squat example has a 3D body, illustrative muscles, 22 joint/root controls and the full 234-step/7.8-second reference. The newly trained controller and authored reference controller each pass **3/3 changed-start trials**; coast and random actions pass 0/3. Learned reward is 0.9206 versus 0.9167 authored, but learned peak joint error is slightly worse (0.667 versus 0.649 rad). Root assistance is explicit. These are simulator results on one exposed clip, not accurate anatomy, unassisted balance or arbitrary-video reconstruction.
 
-The preset pins trusted snapshot **`3afaf855365f3741748a161c4dbe5c5aabcf4f4d`** and `artifacts/person-clock-workflow-01/lab`. Its updated evidence views preserve the original 26 policy/18 lab simulation-source pins, scene, task, policy and recordings. The metadata-only `--console --check` passed in **0.470 seconds**: 200 runtime files/3,923,998 bytes, no server or physics. It does not retrain or modify older examples. The original training/evaluation/lab run took 30.7 seconds with no API charge. The [verified recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames; the full 234-step post-reset trial passes and replays exactly. [Current evidence and limits](handoffs/combined.md#common-lab-and-terminal-evidence--verified).
+The preset pins trusted snapshot **`225a53c8c0a9fb25f03b8473adfdf7f2754e037d`** and `artifacts/person-clock-workflow-01/lab`. Its updated evidence views and recording receipts preserve the original 26 policy/18 lab simulation-source pins, scene, task and policy. The actual metadata-only `--console --check` passes with 202 runtime files, no server or physics. It does not retrain or modify older examples. The original training/evaluation/lab run took 30.7 seconds with no API charge. The [verified full recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames; the full 234-step post-reset trial passes and replays exactly. That older export predates durable receipts and is not backfilled. [Current evidence and limits](handoffs/combined.md#recording-receipt--verified).
 
 ### Inspect the lab's saved evidence
 
@@ -52,6 +52,23 @@ Saved-payload checks cover this trained exercise, the untrained stronger-model
 candidate and a rigid-object lab. Metadata/terminal snapshots took **0.315 seconds**
 with zero native/media/API calls. The actual saved payloads also passed scripted
 UI checks; no browser visual or sustained-use performance claim is implied.
+
+### Check a recording's replay evidence
+
+Use **Record & start**, interact, then **Stop & save**. Once export finishes,
+choose **Recording evidence** beside that recording. It shows saved action/reset
+counts, source identities and whether actions were replayed exactly. **Not
+performed** is different from passing. Old exports without a receipt remain
+unavailable; watching a video does not prove physics replay or physical accuracy.
+
+In the terminal, use `record evidence` for the recording you just made, or
+`record evidence session-d10a22aa4d5a` for the verified short example. If loading,
+enter the command again. Reading evidence never moves the live body or reruns
+the recording. Receipt and manifest links are available in the same panel.
+
+The new short example verified six actions, one reset, eight frames and exact
+replay in **2.75 seconds**, with one export and no extra replay for the receipt.
+It tests recording/export/inspection, not complete exercise success. No API cost.
 
 ## Try the complete video-to-lab example
 
