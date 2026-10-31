@@ -2,28 +2,42 @@
 
 ## Camera-coupled runtime — October 31, 2026, 2:32 PM PDT
 
-Goal active; both tracks remain owned here. Last published base is
-`12cd7a59ca3cc0f6c4fa0897971a659f892069e0`. Root's new v6 camera runtime, pure
-coupling contract and reviewed calibrated-foot consumer are ready for a scoped
-checkpoint. [Native verification, exact receipts and remaining product work](camera-shared-runtime.md).
+Goal active; both tracks remain owned here. The thirteen-file runtime/contract/
+consumer checkpoint is published at `6a29850ef4ac2184fbb149d29c00f87fe87b90cb`,
+exact remote verified at **2:36 PM PDT**. Its owned paths and index were clean,
+stash empty and all 1,252 prior unrelated status entries preserved. Publication
+receipt `.local/camera-runtime-publication-01.json`, SHA
+`b60b6113a12771f73f04bbbfad12c35bec2518b11765f2b9130f7376148b1e1f`.
+[Native verification, exact receipts and remaining product work](camera-shared-runtime.md).
 Eight initial native/legacy checks, one original-60-Hz body check and two pure
 policy guards pass; all native jobs are terminal. The protected scorer and
 previous source failures remain unchanged. No ready camera lab, attached calibrated
 feet, scored ground/equipment support or physical-accuracy claim follows.
 
-Parallel ownership now supersedes the older active-assignment paragraphs below:
-the reconstruction agent owns the sealed [camera importer](camera-shared-candidate.md)
-(41 distinct pure cases, independent review pending) and a planned saved-only
-calibrated-foot consumer check. Root owns engine/task/lab/recording integration
-and Git; the review lane checks the importer read-only. The new consumer has
+The reviewed [camera importer](camera-shared-candidate.md) has 41 distinct pure
+cases and one actual saved-source/native pass at **2:39 PM PDT**: 54 sealed files,
+240 slots/112 poses, a 238-action original-clock horizon and 351 zero-physics geometry
+checks. The body remains floating, not balanced or physically qualified. The
+separate saved-foot check remains unavailable at frame 0 because the right heel's
+camera rays disagree; no later frame or invented heel replaces it.
+
+Parallel ownership supersedes the older assignments below: reconstruction owns
+new partial-foot evidence without invented heel geometry; the task lane owns a
+new camera task with an explicit pinned context for the unchanged scorer; root
+owns lab/recording/CLI integration and Git. The review lane audits saved source
+custody without rerunning physics. The new consumer has
 74 distinct analytical cases covered, including five reproduced and corrected
 source-geometry/gap tampering failures. [Consumer handoff](calibrated-foot-consumer.md).
 
-Keep importer/study work separate until reviewed. Native runs use frozen committed
+Importer review is closed; the independent saved-source audit passes all 72 scoped
+checks, `.local/camera-shared-source-saved-audit-01.json` (SHA
+`0f05eae277d4c754e4c4347cdccfc12cc8f3a6ea1f9d9f12a463542629b3ae19`).
+The CLI has a bounded `camera-shared-build` entry point; help was checked without
+repeating source construction. Native runs use frozen committed
 exports plus exact owned overrides, excluding all avatar edits. No new paid calls,
 source download/decoding, inference, training, browser, server or deployment.
-Publication state belongs in `.local/camera-runtime-publication-01.json` once complete;
-do not infer publication or whole-worktree cleanliness from this note.
+New importer/study publication state belongs in `.local/camera-source-publication-01.json`
+once complete. Do not infer whole-worktree cleanliness from either checkpoint.
 
 ## Coupled feet and surface workflow — October 31, 2026
 

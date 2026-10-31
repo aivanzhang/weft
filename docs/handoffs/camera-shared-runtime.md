@@ -81,11 +81,66 @@ All jobs are terminal. Each had 60-second wall/45-second CPU bounds, 32 MiB/1,02
 output limits and no source decoding, encoder, inference, network, provider,
 training or browser activity. Bodies remain inferred/authored; contacts are simulated.
 
+## Actual saved-source admission — October 31, 2026, 2:39 PM PDT
+
+The reviewed camera importer ran once on the original sealed jogging camera-body
+bundle. A fixed-eight-substeps bug was caught by independent review before this
+run: 29.97-Hz footage now uses nine substeps, without changing the timestep bound,
+body timing or source timestamps. Forty-one distinct pure importer cases remain
+covered; the two reproduced fractional-rate failures and three corrected focused
+passes are preserved in the [importer handoff](camera-shared-candidate.md).
+
+`artifacts/camera-shared-admission-jog-01/candidate` is **constructed and sealed**:
+54 files/26,145,833 bytes, manifest
+`29fef74cb9ed1c0bf454b78f1a32b4d845277461ed8948a70d620da0dd08d1db`.
+All 240 source slots and 112 original body poses remain; the full original body
+interval is a 238-action horizon at `1001/30000` seconds, with body `dt=1/30` unchanged.
+Body raw SHA `849ece268cc6b091cf85460f3e22ecee172aa5323c4db88dac3e221e367d0867`;
+scene SHA `5626deea3a709cf1a20e996b1f0bb5c89e0f61d2382e7a50ad78e54628be8666`.
+
+The shared-model zero-physics audit checks 112 source poses and 239 control-grid
+poses: **351 feasible geometry checks**, no initial overlap or floor penetration.
+This does not mean contact or useful balance: the previously documented floating
+camera-body gap remains. No action, rollout, learning or task evaluation ran.
+The source scene still has no attached calibrated feet or recovered equipment.
+
+Frozen runtime `.local/camera-shared-source-runtime-01` is committed `6a29850`
+plus only importer `095555cd8af80eaf527b3d0e66367776e71a350ab76f0c3975d6c415fc34fa67`;
+manifest `b68c25a5960c75d6e4e1b2cb87aabc4059001a020a468b8a6cd77df63d73e37a`.
+Plan `.local/camera-shared-source-plan-01.json`, SHA
+`f1e9246be4a96d6277badd15aa96837bbe0b362f708542a4ab91c9e3ff099cd5`;
+process/result pins are in `.local/camera-shared-source-process-01.json`.
+Elapsed: 0.738501 s importer /0.820989 s worker /1.250118 s parent;
+observed child peak RSS 202,326,016 bytes. Exactly 352 native forwards and 352
+kinematic resets, **zero physics steps**; 57 outer files/26,280,097 bytes.
+
+The importer verifies eighteen selected original files/20,641,152 bytes, not all
+242 historical bundle members. Secondary media/rights remain unavailable and
+explicit. Primary media is copied exactly without decoding; no new source/model/
+provider work. All jobs are terminal. Do not rerun this unchanged successful input.
+
+Independent saved-only audit: **72 checks passed**, receipt
+`.local/camera-shared-source-saved-audit-01.json`, SHA
+`0f05eae277d4c754e4c4347cdccfc12cc8f3a6ea1f9d9f12a463542629b3ae19`.
+It read each candidate file once. An auditor-only truncated metadata output and
+redundant hashing from cached bytes are disclosed; neither is a source/candidate
+failure or reason to rerun physics. Conservative total: 35,064,850 bytes/72 reads.
+
+The existing CLI now exposes `camera-shared-build --run ... --out ...
+--max-seconds 30`; help parsing passed. This thin entry point calls the verified
+importer without starting a server or claiming a lab. The saved-source run above
+used the API, not a second CLI invocation. [User instructions](../local-lab.md#import-a-camera-based-body-experimental).
+
+Separately, the reviewed foot consumer retains all 240/480/1,440 source/foot/endpoint
+slots but remains **unavailable at original frame 0**: the right heel has
+`inconsistent_image_rays`. Six negative conditional source gaps remain. No later
+start or invented heel replaced it. [Exact saved-only check](calibrated-foot-consumer-jog.md).
+
 ## Remaining product work
 
-The importer must preserve both available camera/evidence documents, root
+The importer preserves both available camera/evidence documents, root
 triangulation and ground, original primary media/rights, all source slots and
 missing secondary media/rights explicitly. Candidate construction is not physical
-admission. A subsequent independently pinned task/recording/lab integration must
+qualification. A subsequent independently pinned task/recording/lab integration must
 make controls and exact replay usable without weakening the protected scorer.
 Calibrated feet and useful ground/equipment contact remain unverified.

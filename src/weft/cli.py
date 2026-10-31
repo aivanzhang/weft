@@ -371,6 +371,11 @@ def main():
     shared_feet.add_argument("--task", help="Explicit original task; otherwise retain the sealed input task")
     shared_feet.add_argument("--out", required=True, help="New candidate directory; no input is overwritten")
     shared_feet.add_argument("--max-seconds", type=float, default=60)
+    camera_shared = commands.add_parser("camera-shared-build",
+        help="Import an unchanged sealed two-view camera body into the shared simulator; no lab or training")
+    camera_shared.add_argument("--run", required=True, help="Sealed grounded two-view-root camera-body run")
+    camera_shared.add_argument("--out", required=True, help="New immutable candidate directory")
+    camera_shared.add_argument("--max-seconds", type=float, default=30)
     support_build = commands.add_parser("shared-support-build",
         help="Bind a sealed video body to explicitly authored static supports and load requirements")
     support_build.add_argument("--body-source", required=True)
@@ -701,6 +706,9 @@ def main():
             from weft.shared_exercise_feet_candidate import prepare_shared_feet_candidate
             result = prepare_shared_feet_candidate(args.run, args.foot_reference, args.out,
                                                   task_path=args.task, max_seconds=args.max_seconds)
+        elif args.command == "camera-shared-build":
+            from weft.camera_shared_candidate import prepare_camera_shared_candidate
+            result = prepare_camera_shared_candidate(args.run, args.out, max_seconds=args.max_seconds)
         elif args.command == "shared-support-build":
             from weft.shared_world_support import construct_static_support_run
             result = construct_static_support_run(args.body_source, args.config, args.out, max_seconds=args.max_seconds)

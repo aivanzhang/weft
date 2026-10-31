@@ -80,6 +80,27 @@ starts inside the unchanged floor. It remains preserved at
 Use the [recommended exercise sandbox](#recommended-exercise-sandbox) for the
 existing playable video example. [Evidence and remaining reconstruction gap](handoffs/combined.md#lab-integration-preparation--october-31-2026-154-pm-pdt).
 
+## Import a camera-based body (experimental)
+
+For an existing sealed two-view body with supplied ground:
+
+```sh
+.venv-lab/bin/python -m weft camera-shared-build \
+  --run path/to/sealed-camera-body/run --out artifacts/my-camera-world
+```
+
+This preserves the body, both camera/evidence documents and original video timing.
+It writes `scene.json`, `camera-coupling.json`, `source-verification.json` and exact
+input copies. `manifest.json` records whether construction succeeded. Each output
+must be new. This does not accept an arbitrary raw video or launch a playable lab;
+camera task, recording and foot integration are still in progress.
+
+The saved jogging candidate is already available at
+`artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to
+inspect it. Its body geometry passes the source/grid check but floats above the
+ground. Foot attachment remains unavailable because the original starting right
+heel is inconsistent across cameras. [Evidence and limits](handoffs/camera-shared-runtime.md).
+
 ## Inspect static-support loads
 
 Open the prepared support example:
