@@ -1,5 +1,56 @@
 # Body-model options and access
 
+## Propose a correction from a saved body
+
+```sh
+.venv-lab/bin/python -m weft body-reference-propose \
+  --run artifacts/my-exercise-body --out artifacts/my-body-proposal-01
+```
+
+This reuses `exercise-body` output in one local workflow: verify saved metadata,
+freeze exact inputs and fitting code, run a bounded child, then generate the
+existing offline comparison. Open `inspection/index.html`; inspect
+`proposal/plan.json`, `proposal/worker.json`, `proposal/report.json` and
+`result.json` for exact settings, work counts and failure reasons. Each output
+directory must be new. It never starts a server or opens a browser.
+
+The default is `--objective image-first`. `floor-first` is an explicit experimental
+alternative, not an automatic retry. `--manifest-sha256` binds a previously known
+body-source seal; without it, the selected local seal is frozen and rechecked,
+not independently authenticated. Source-media bytes are not read: the loader
+verifies selected metadata, complete retained pose slots, raw-pose identities,
+clocks and an explicitly reviewed saved decoder version. It adds only dimension
+provenance to a separate evidence copy. This is not fresh decoding or physical
+validation. Unknown decoder versions, crop recovery, existing dimension claims,
+supplied cameras and stacked corrections require separate adapters and fail closed.
+
+The fit retains its fixed 0.025 model-unit floor gate, first pose, shape, root,
+clocks and motor settings. No candidate is installed, including one whose saved
+gates all pass. Rejected and partial proposals remain inspectable. A failed
+worker returns nonzero with preserved receipts; an interrupted worker's missing
+counts stay unknown. Successful delivery of a rejected proposal returns zero
+and explicitly reports `proposal_status`, not simulation readiness.
+
+Bounds: 30 seconds fitting plus 8 seconds final checks; a 45-second hard child
+deadline; 60-second workflow checks plus bounded owned cleanup/sealing. Options
+can only tighten time bounds. One worker, two model compilations, six data
+allocations, 120,010 native forward calls, zero dynamics/reset/training/inference
+or paid calls. Inputs are bounded, logs are capped at 256 KiB per stream, proposal
+JSON at 16 MiB combined, and the workflow package at 64 MiB/96 files. CPU and
+per-file limits are enforced; peak memory is observed, not hard-capped. The
+allowlisted environment excludes caller credentials and Python startup hooks.
+These are restrictions on reviewed trusted code, not an OS sandbox for generated code.
+
+**Verified composition:** `artifacts/body-reference-cli-01` runs the ordinary CLI
+once on five authored poses, then verifies exact inputs, code pins and all output
+seals. The process takes 0.455 seconds; the child uses two models, four data objects
+and 215 geometry forwards, with 74,317,824 B observed peak RSS. It performs no
+dynamics, media decoding, inference, training or API calls. The five-pose/nine-grid
+checks pass, but the candidate stays unadmitted and uninstalled. MuJoCo's macOS
+startup attempts one system lookup; the worker blocks it and records the denied
+attempt. This fixture verifies product composition, not reconstruction accuracy.
+Seal: `a5919d1ece9bf17d9c5d522eade9f56b2f095d0d012149416b0c3141e5de23eb`.
+
 ## Saved-source whole-body fitting
 
 The opt-in `whole_body_reference_refinement.propose_whole_body_reference_refinement`

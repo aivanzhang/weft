@@ -181,6 +181,14 @@ def main():
     body_reference_report.add_argument("--out", required=True, help="New offline report directory")
     body_reference_report.add_argument("--manifest-sha256", help="Optional exact source-manifest hash")
     body_reference_report.add_argument("--max-seconds", type=float, default=10)
+    body_reference_propose = commands.add_parser("body-reference-propose", help="Fit one saved body in a bounded worker and save an offline comparison; never install it")
+    body_reference_propose.add_argument("--run", required=True, help="Sealed construction-only exercise-body source")
+    body_reference_propose.add_argument("--out", required=True, help="New proposal and inspection directory")
+    body_reference_propose.add_argument("--manifest-sha256", help="Optional exact body-source manifest hash")
+    body_reference_propose.add_argument("--objective", choices=("image-first", "floor-first"), default="image-first",
+                                        help="Image-first default; floor-first is a separate experimental objective")
+    body_reference_propose.add_argument("--fit-seconds", type=float, default=30, help="Tighter fitting bound, at most 30 seconds")
+    body_reference_propose.add_argument("--max-seconds", type=float, default=60, help="Workflow time bound, 20–60 seconds plus owned cleanup")
     camera_body = commands.add_parser('camera-body', help='Build a manual camera-aware body lab using supplied calibration; no model calls')
     camera_body.add_argument('--run', required=True, help='Completed original mobile exercise run/ directory')
     camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
@@ -465,6 +473,12 @@ def main():
             from weft.whole_body_reference_report import prepare_whole_body_reference_report
             result = prepare_whole_body_reference_report(args.run, args.out,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds)
+        elif args.command == "body-reference-propose":
+            from weft.whole_body_reference_pipeline import prepare_whole_body_reference_proposal
+            result = prepare_whole_body_reference_proposal(args.run, args.out,
+                expected_manifest_sha256=args.manifest_sha256,
+                proposal_objective={"image-first": "image_v1", "floor-first": "floor_first_v1"}[args.objective],
+                fit_seconds=args.fit_seconds, max_seconds=args.max_seconds)
         elif args.command == 'camera-body':
             from weft.camera_body_lab import prepare_camera_body_lab
             result = prepare_camera_body_lab(args.run, args.camera, args.out, ground_path=args.ground,
@@ -740,6 +754,8 @@ def main():
             parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
         if args.command == "shared-exercise-build" and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "body-reference-propose" and result.get("status") != "completed":
+            parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "shared-world-shape" and result.get("status") == "failed":
             parser.exit(1, f"weft: shape preparation failed; preserved report: {result['report_path']}\n")
         if args.command == "shared-exercise-fullspan" and result.get("status") == "failed":

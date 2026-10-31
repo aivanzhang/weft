@@ -1,6 +1,82 @@
 # Combined Weft implementation handoff
 
-## Next reconstruction step
+## Public body proposal workflow — October 31, 2026, 5:04 AM PDT
+
+Prior publication `9e43f99c3f50ff007fc31ed3ba72d7fa6771cef8` was refreshed with
+`git fetch origin main`; local and remote-tracking `main` matched. This milestone
+adds `whole_body_reference_inputs.py`, `whole_body_reference_worker.py`,
+`whole_body_reference_pipeline.py`, three focused test modules and the ordinary
+`body-reference-propose` CLI. [Command and bounds](../body-model-options.md#propose-a-correction-from-a-saved-body).
+
+The public path uses standalone sealed `exercise-body-source-v1` inputs, an
+explicit reviewed decoder-version registry and exact source/raw/clock bindings.
+It copies raw evidence unchanged and adds only dimension provenance to a new
+input. Media bytes remain unread; metadata custody is not external authenticity
+or physical validation. Unsupported recovery/camera/stacked-correction/producer
+routes stop explicitly. The child runs a frozen 12-module fitter closure, with
+allowlisted environment, counted native calls, CPU/file limits and owned hard
+wall termination. Parent rechecks inputs and the exact plan before sealing.
+No thresholds, default bodies, policies or old scored artifacts change.
+
+Verification: 52 input, 36 worker and 26 parent/CLI distinct cases pass across
+`.local/reference-inputs-tests-{01,02,03}.xml`,
+`.local/reference-worker-tests-{01,02,03}.xml` and
+`.local/reference-pipeline-tests-{01,02,03,04}.xml`. Input receipts01/02 preserve
+collection errors; worker01 preserves three fixture errors corrected in02.
+Worker03 adds invalid-status receipt sanitization. Unchanged successful cases
+were reused. Independent review passed, including the fixed post-worker plan
+readback and parent integer finalization-setting contract.
+
+One actual public-command acceptance completed via
+`.local/run_body_reference_cli_acceptance_01.py`:
+`artifacts/body-reference-cli-01`, seal
+`a5919d1ece9bf17d9c5d522eade9f56b2f095d0d012149416b0c3141e5de23eb`.
+Five authored poses/ten declared synthetic slots, not an acquired video; no
+native/source work was repeated from prior studies. Outer process 0.45504 s,
+workflow 0.26364 s, child 0.17997 s/74,317,824 B observed peak RSS, two models,
+four data objects and 215 forwards; zero steps/resets/media/inference/API.
+All five-source/nine-grid gates pass; status remains
+`unadmitted_construction_proposal`, promoted false, simulation-ready false.
+One macOS `sysctl` startup attempt is blocked and recorded, not executed.
+The offline page is `workflow/inspection/index.html`; the study and workflow
+have separate seals. There is no browser/server/visual-rendering verification.
+
+Independent saved-only audit02 passes: `.local/body-reference-cli-saved-audit-02.json`,
+SHA `98aa4efdd7364ff953042f8adbcfbfe85ca3756460eb744c5a2284dbdd2c2b27`.
+All 64 acceptance members, 14 exact source copies, 322 support pairs, 60 endpoint
+targets/errors, eleven gates and six report links match. Audit01's schema-only
+assertion error remains preserved;02 finishes the display checks and reuses
+earlier successful checks without more native work.
+
+After that native acceptance, root fixed only malformed-metadata exception
+translation before worker startup: TypeError/KeyError/AttributeError now become
+a concise ValueError. Four focused cases, including the ordinary CLI with a
+malformed sealed body, pass in pipeline04. The accepted parent source is saved
+unchanged at `.local/body-reference-cli-pipeline-01.py`, SHA
+`2729b8eedefa633d96c6430bc94ffe080591685845afd0b8dd1813dcff283a82`.
+Its earlier code-pin audit does not describe the modified parent file; the
+successful path and frozen fitter/worker/report are unchanged, so no native
+acceptance was repeated.
+
+Current code/test/evidence pins and the exact scoped delta are recorded in
+`.local/body-reference-cli-checkpoint-01.json`, SHA
+`b422b8d9bf87bdb55392dda042019efc5f01c4720149cab900327249fc28263c`.
+
+All workers/reviewers are terminal; no handles remain. Root owns the scoped
+checkpoint/publication. Keep the two rejected Heavy fits unchanged and
+the 75 separate avatar entries untouched. Stashes remain empty. The full goal
+stays active: generalized reconstruction, stable source-qualified equipment
+interaction and independent physical evidence are still open.
+
+Next safe product step: inspect the existing crop-recovery provenance contract
+for a reusable adapter into this saved-body proposal path, using current saved
+proofs only. The normal exercise build already uses crop recovery, while this
+first adapter deliberately rejects it. Do not merely remove the rejection:
+preserve original/crop/selected estimates, coordinate mappings, clocks and every
+decision; stop when those bindings cannot be established. No new inference,
+same-source fit retry or changed gate is implied by that adapter review.
+
+## Previous reconstruction checkpoint
 
 Checkpoint `b0d536ee9dc0ad37d93e2e8ffacaa769117c8bc3` is pushed and independently
 matched on private `origin/main`; publication receipt

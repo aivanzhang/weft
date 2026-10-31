@@ -107,6 +107,29 @@ limit and are **not installed in the working sandbox**.
 Use `body-reference-report --run <sealed-study> --out <new-directory>` to build
 another offline page. [Full command and verification](body-model-options.md#inspect-the-saved-proposals).
 
+To propose a correction for **your own saved body**, use the normal CLI:
+
+```sh
+.venv-lab/bin/python -m weft body-reference-propose \
+  --run artifacts/my-exercise-body \
+  --out artifacts/my-body-proposal-01
+```
+
+Open the printed `inspection/index.html` path yourself. It shows source samples,
+control-grid checks, missing estimates, image errors, floor gaps and rejection
+reasons. `proposal/` preserves the original inputs, separate candidate, frozen
+code/settings, worker counts and logs. This command never changes the body,
+policy or working sandbox. A completed command means the proposal and report
+were saved, **not** that the candidate passed or was installed.
+
+The input must be a supported, sealed `exercise-body` construction output.
+It reuses saved poses, without decoding video, running inference or making API
+calls. Unknown producer versions, crop-recovered poses, supplied cameras and
+already-corrected bodies currently stop explicitly. Default fitting is image-first;
+`--objective floor-first` selects the experimental alternative, not a fallback.
+`--fit-seconds` can tighten the 30-second fit limit. See
+[bounds and source verification](body-model-options.md#propose-a-correction-from-a-saved-body).
+
 ### Inspect the lab's saved evidence
 
 Choose **Checks & limits → Evidence and gaps**, then expand a category. The same

@@ -41,6 +41,7 @@ Successful simulated tasks and exact replay do not establish accurate reconstruc
 To inspect the remaining body-fitting errors, open the
 [saved comparison page](artifacts/whole-body-reference-views-01/image-first/index.html).
 It preserves missing estimates and rejected results; it does not replace the working sandbox.
+For your own saved body, [run a bounded proposal and generate its comparison](docs/body-model-options.md#propose-a-correction-from-a-saved-body).
 
 ## Brand assets
 
