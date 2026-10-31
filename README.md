@@ -16,6 +16,28 @@ The original application used the name Loom. Historical application text and sou
 
 These describe the target and its presentation. The implementation status below remains separate.
 
+## Start locally
+
+These saved examples are ready in this workspace; their local artifacts are not
+included in a fresh clone. Run one command, then open its printed local link:
+
+| Try | Command |
+| --- | --- |
+| Recommended exercise body | `.venv-lab/bin/python scripts/play_sandbox.py --example exercise` |
+| Trained 3D tabletop objects | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored` |
+| Trained 3D ramp hypothesis | `.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp` |
+| Manual object-video lab, no training | `.venv-lab/bin/python -m weft lab --resume artifacts/manual-video-acceptance-01/lab` |
+
+Choose manual or learned control where available, start movement, and use
+**Record & start → Stop & save** to save actions, video and interactive replay.
+**Recording evidence** shows what was actually verified. For terminal-only
+control, add `--console` to the exercise launcher or replace `lab` with
+`lab-console` in the other commands. [Controls and your own video](docs/local-lab.md).
+
+The exercise body has illustrative muscles and virtual root assistance. The
+tabletop scene is authored; the ramp geometry remains physically unverified.
+Successful simulated tasks and exact replay do not establish accurate reconstruction.
+
 ## Brand assets
 
 The selected logo, deep-clay palette, and mascot animation sources are in [assets/brand](assets/brand/README.md). Open [the mascot preview](assets/brand/preview.html) locally to watch the on-load weave formation and try the blink and wave sprites. The local evidence viewer uses the approved logo and palette; saved experiment folders remain unchanged.

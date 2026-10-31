@@ -1,5 +1,44 @@
 # Body-model options and access
 
+## Saved-source whole-body fitting
+
+The opt-in `whole_body_reference_refinement.propose_whole_body_reference_refinement`
+API fits the existing 19 joint axes in blocks of at most 8 variables. It preserves
+the first pose, body shape, root, floor, source clocks and missing estimates.
+Every accepted change must keep confident source-endpoint image errors and all
+affected source/grid floor gaps no worse, with bounded angle, correction-rate
+and depth changes. A separate final geometry instance checks all samples.
+This is an unpromoted construction proposal, not a new default or recovered anatomy.
+
+One Heavy VIDEO/raw saved-source trial completed in **1.478 seconds**, with
+10,262 geometry forwards, two models, no dynamics/reset/video decode/inference,
+88,522,752 bytes observed peak RSS and no API cost. Mean image-endpoint error falls
+**5.13984→3.86933 pixels** across 1,197 confident endpoint pairs. Floor failures fall
+**22→14 checks**:117 source + 235 control-grid checks retain 5 source and 9 grid failures.
+The worst penetration remains **0.0718557 model units**, above the unchanged 0.025
+limit. The candidate is **rejected and not installed**.
+
+Frame 8's right-shin primitive remains the worst case. Its relevant corrections
+are zero, not at angle/rate/joint bounds. Saved results do not identify which
+optimizer constraint prevented a useful direction; do not infer that no repair
+is possible or that more fitting would necessarily help.
+
+Original sealed evidence lacks dimension provenance. The trial authenticates
+its exact bytes through the source/body manifests, then adds only a
+`sealed_decoder_metadata` declaration in a new derived input. This reuses saved
+decoder metadata; it does not decode the video again or verify physical scale.
+All 118 retained pose slots, 117 body knots and declared 235 decoded frames remain
+distinct from the container's 236 frame count.
+
+[Saved report](../artifacts/whole-body-reference-candidate-01/report.json), seal
+`42f43355225785365baffbfa77cf559a7e94aca951ed75d19176df0d4c2f235a`;
+[saved-only audit](../.local/whole-body-candidate-saved-audit-01.json).
+The audit verifies 13 output files and 46 ordinary pins and recomputes saved floor
+arrays and gates; it does not independently reconstruct native geometry or
+endpoint positions. Thirty pure checks and one 39-forward fixed-pose Jacobian
+fixture verify the new implementation. Equipment/contact/balance and independent
+physical accuracy remain outside this trial.
+
 Model options reviewed **October 28, 2026, 8:29 PM PDT**; public-data access findings updated **October 28, 2026, 9:44 PM PDT**. No model weights were downloaded, dependencies installed, agreements accepted or paid requests made. The separately linked jogging study acquired one small public video and reconstructed reference files.
 
 ## Meta SAM 3D Body

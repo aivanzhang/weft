@@ -111,6 +111,30 @@ async function spatialSavedStateExportKeepsUnavailableReplayCountsDistinctFromZe
   assert.match(ui.ids.get('recording-evidence-status').textContent, /unavailable.*not verified/);
 }
 
+async function newSpatialReceiptShowsExactActionsWithoutClaimingPolicyDecisionChecks() {
+  const ui = recordingFixture('spatial-rigid'); await ui.ready();
+  const result = evidenceFixture();
+  result.replay.protocol = 'spatial-rigid-exact-action-state-v1';
+  result.replay.learned_actions_verified = null;
+  result.identities.task_sha256 = result.identities.policy_sha256 = null;
+  result.verified_metadata = result.verified_metadata.filter(row => !['run/exercise-task.json','run/policy.json'].includes(row.path));
+  const before = ui.backendState();
+  evidenceButton(ui).click(); await resolveEvidence(ui, result);
+  assert.equal(ui.ids.get('recording-evidence-content').hidden, false);
+  assert.match(ui.ids.get('recording-evidence-replay').textContent, /verified in the saved receipt.*4 actions, 2 resets and 7 events/);
+  assert.match(ui.ids.get('recording-evidence-replay').textContent, /learned-policy decisions were not re-evaluated/);
+  assert.deepEqual(ui.backendState(), before);
+  for (const change of [value => value.replay.learned_actions_verified = 1,
+    value => value.identities.task_sha256 = sha('0'), value => value.replay.actions_checked--]) {
+    const bad = copy(result); change(bad);
+    evidenceButton(ui).click(); await resolveEvidence(ui, bad);
+    assert.equal(ui.ids.get('recording-evidence-content').hidden, true);
+  }
+  const exercise = recordingFixture(); await exercise.ready();
+  evidenceButton(exercise).click(); await resolveEvidence(exercise, result);
+  assert.equal(exercise.ids.get('recording-evidence-content').hidden, true);
+}
+
 async function missingLegacyReceiptAndUnknownFieldsNeverBecomeVerifiedReplay() {
   const ui = recordingFixture(); await ui.ready(); evidenceButton(ui).click();
   await resolveEvidence(ui, {status:'unavailable',session:firstSession,reason:'Legacy export has no receipt'});
@@ -271,6 +295,7 @@ async function unchangedExplicitRefreshKeepsNodesAndDisclosureStateStable() {
 
 const checks = [explicitSelectionShowsAccessibleReceiptWithoutMovingControls,
   spatialSavedStateExportKeepsUnavailableReplayCountsDistinctFromZero,
+  newSpatialReceiptShowsExactActionsWithoutClaimingPolicyDecisionChecks,
   missingLegacyReceiptAndUnknownFieldsNeverBecomeVerifiedReplay,
   exactLocalLinksBindSessionAndByteHashesWithoutConfusingCanonicalHashes,
   reasonTextIsEscapedAndMalformedSessionsCannotOfferReads,

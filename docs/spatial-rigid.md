@@ -87,6 +87,43 @@ simulated control, not physical accuracy or arbitrary-video generalization.
 `b1679bf2af02408ba105cfccd75995f94c7b8f07f853c5473dbdbc21a21b5a9a`;
 [independent saved-output audit](../.local/spatial-v2-saved-audit-01.json).
 
+### Ready trained labs and exact recordings
+
+The predeclared seed-1729 policy for each scene is packaged and ready:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored
+.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp
+```
+
+Replace `lab` with `lab-console` for terminal controls. Each main recording
+contains three manual actions, three learned actions, an in-recording reset,
+then a complete successful learned nominal trial:96 post-reset actions on the
+tabletop and 54 on the ramp. A separate two-action recording controls the tabletop's
+companion object, with actor changes correctly rejected during recording.
+
+New spatial recordings use `spatial-rigid-exact-action-state-v1`: start-time
+scene/actor and six implementation-file hashes, dependency versions, explicit
+reset options, exact actions/rewards/flags/full-state checks. Export performs
+one replay before writing media/sealing. Existing sealed exports are verified
+without new replay or proof backfill. Legacy journals without the start-time
+contract remain saved-state-only. `learned_actions_verified` is unavailable:
+replaying actual actions is not re-running policy decisions.
+
+Acceptance: **2.393 seconds**,164 live +164 replayed actions,24 packaging probes,
+4,224 native substeps, three exports,169 encoded/decoded frames. Observed peak RSS
+185,073,664 bytes is not a hard memory cap. All source/policy pins and 45 selected
+native-file pins stayed unchanged. Receipt/cache reads added no work. No training,
+new source decode, browser, server or paid call. Three actual public receipts also
+pass scripted UI checks; this does not measure browser responsiveness.
+
+[Acceptance report](../artifacts/spatial-v2-play-01/report.json), seal
+`e6e88c7257e6523b1b9d1cf3bf8f1206b5a34f408b4670e46ef71a2b8fa88365`.
+[Tabletop replay](../artifacts/spatial-v2-play-01/authored/sessions/session-77df0e3f7588/replay.html),
+[ramp replay](../artifacts/spatial-v2-play-01/ramp/sessions/session-df82440866e6/replay.html).
+These remain exposed-development simulations; the ramp's rejected physical
+geometry hypothesis is not promoted by successful control.
+
 ## What the environment contains
 
 `spatial_rigid.py` implements the separate `spatial-rigid-v1` contract; planar and human profiles retain their own contracts.

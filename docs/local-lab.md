@@ -41,6 +41,45 @@ lab's explicit `jitter: false`, without reprocessing or exporting the video.
 This is a 2D simulation with declared regions and assumptions, not reconstructed
 3D physics. [Verification](../artifacts/manual-video-verification-01/report.json).
 
+## Try the trained 3D object labs
+
+Open either prepared lab without rebuilding or retraining:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/authored
+# Or use the source-linked, physically unverified ramp hypothesis:
+.venv-lab/bin/python -m weft lab --resume artifacts/spatial-v2-play-01/ramp
+```
+
+Use manual controls to push an object, or select the learned controller and
+start it. Change the view without changing physics. Record a trial, reset while
+recording if desired, then stop/save and inspect **Recording evidence**. Actor
+selection is locked during a recording. These examples use the preselected
+seed-1729 policies, not the best policy chosen after evaluation.
+
+For terminal-only interaction, replace `lab` with `lab-console` and try:
+
+```text
+controls
+record start
+action right
+step 3
+reset
+mode learned
+step 6
+record stop
+record evidence
+files
+quit
+```
+
+Both main examples passed their complete nominal simulated task. The integration
+check took **2.39 seconds**:164 live actions +164 exact replays,24 existing packaging
+probes, two recorded resets and three exports/169 frames, including a two-action
+alternate-object recording. The alternate-object check is not a task success.
+No retraining, source-video decode or API call occurred. The receipt reader added
+no simulation or media work. [Learning results and scope](spatial-rigid.md#v2-learning-qualification).
+
 ## Recommended exercise sandbox
 
 ```sh
@@ -97,6 +136,12 @@ choose **Recording evidence** beside that recording. It shows saved action/reset
 counts, source identities and whether actions were replayed exactly. **Not
 performed** is different from passing. Old exports without a receipt remain
 unavailable; watching a video does not prove physics replay or physical accuracy.
+
+New 3D rigid-object recordings pin their runtime when recording starts and verify
+actions, seeded resets, selected actor, rewards, terminal flags and complete
+states before export. This verifies the recorded actions—not a fresh evaluation
+of the learned policy's decisions. Old recordings without this start-time
+contract remain saved-state-only; already sealed exports are never backfilled.
 
 In the terminal, use `record evidence` for the recording you just made, or
 `record evidence session-d10a22aa4d5a` for the verified short example. If loading,

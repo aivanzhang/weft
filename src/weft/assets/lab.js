@@ -1804,8 +1804,11 @@
     const replay = data.replay;
     if (replay?.status === "not_performed") return replay.protocol === null
       && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null);
-    return sharedExercise() && replay?.status === "passed" && replay.protocol === "shared-exercise-exact-action-state-task-v1"
-      && digest(data.identities.task_sha256)
+    const spatialReplay = scene?.profile === "spatial-rigid-v1" && replay?.protocol === "spatial-rigid-exact-action-state-v1"
+      && data.identities.task_sha256 === null && data.identities.policy_sha256 === null && replay.learned_actions_verified === null;
+    const exerciseReplay = sharedExercise() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
+      && digest(data.identities.task_sha256);
+    return (spatialReplay || exerciseReplay) && replay.status === "passed"
       && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
       && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
         && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
@@ -1822,8 +1825,11 @@
       recordingEvidenceSignature = signature;
       const counts = data.recorded, replay = data.replay;
       text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
+      const policyProof = replay.protocol === "spatial-rigid-exact-action-state-v1"
+        ? "Recorded actions were replayed; learned-policy decisions were not re-evaluated."
+        : `Learned actions verified: ${replay.learned_actions_verified ?? "unavailable"}.`;
       text($("recording-evidence-replay"), replay.status === "passed"
-        ? `Exact action replay: verified in the saved receipt. Checked ${replay.actions_checked} actions, ${replay.resets_checked} resets and ${replay.events_checked} events against saved states and task results. Learned actions verified: ${replay.learned_actions_verified ?? "unavailable"}.`
+        ? `Exact action replay: verified in the saved receipt. Checked ${replay.actions_checked} actions, ${replay.resets_checked} resets and ${replay.events_checked} events against saved states and task results. ${policyProof}`
         : "Exact action replay: not performed. Replay-check counts are unavailable, not zero. A saved-state export is not an exact action replay check.");
       text($("recording-evidence-session"), `Selected recording: ${data.session}`);
       $("recording-evidence-identities").replaceChildren();

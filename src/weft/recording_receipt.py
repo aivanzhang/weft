@@ -19,6 +19,7 @@ SEAL_PROFILE = "recording-evidence-seal-v1"
 VIEW_PROFILE = "recording-evidence-v1"
 PROTOCOL = "shared-exercise-exact-action-state-task-v1"
 SHARED_PROFILE = "shared-exercise-recording-v1"
+SPATIAL_PROTOCOL = "spatial-rigid-exact-action-state-v1"
 MAX_JOURNAL_BYTES = 16 * 1024 * 1024
 MAX_READ_BYTES = 40 * 1024 * 1024
 MAX_SECONDS = 10
@@ -195,6 +196,7 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
     engine_scene = _canonical(scene)
     _text(scene.get("profile"), 100)
     native, versions, task_sha, policy_sha = {}, {}, None, None
+    spatial_contract, spatial_proof = None, None
     shared = envelope.get("profile") == SHARED_PROFILE
     if shared:
         _require(_canonical(envelope.get("engine_scene")) == engine_scene
@@ -228,6 +230,20 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
                 native[name] = digest
         else:
             _require(embedded is None and "policy.json" not in members, "Unbound recording policy")
+    elif scene["profile"] == "spatial-rigid-v1" and "action_replay_contract" in closed:
+        from weft.spatial_recording import validate_contract
+
+        spatial_contract = validate_contract(closed["action_replay_contract"], envelope)
+        actor = spatial_contract["controlled_id"]
+        objects = scene.get("objects")
+        _require(isinstance(objects, list) and sum(obj.get("id") == actor and obj.get("role") in {"active", "passive"}
+                 for obj in objects) == 1, "Spatial recording must select one dynamic source object")
+        selected = {**scene, "controlled_id": actor, "objects": [
+            {**obj, "role": "active" if obj["id"] == actor else "passive"} if obj["role"] != "static" else obj
+            for obj in objects]}
+        _require(recording_scene == engine_scene or _canonical(selected) == recording_scene,
+                 "Spatial recording changed source fields beyond actor selection")
+        native, versions = _hashes(spatial_contract["runtime_sha256"]), _versions(spatial_contract["runtime_versions"])
     else:
         _require(recording_scene == engine_scene, "Recording does not belong to the selected source scene")
     for expected, actual in ((expected_scene, engine_scene), (expected_task, task_sha)):
@@ -248,9 +264,18 @@ def _bindings(run, session, budget, *, expected_manifest=None, expected_scene=No
                 _require(digest == metadata[session_prefix + name]["sha256"], "Recording member differs from its original seal")
         _require(type(base.get("video_frames")) is int and base["video_frames"] == events,
                  "Recording frame count differs from its closed event count")
+        if spatial_contract is not None and base.get("action_replay") is not None:
+            from weft.spatial_recording import validate_replay_result
+
+            spatial_proof = base["action_replay"]
+            _require(isinstance(spatial_proof, dict), "Invalid spatial replay proof")
+            validate_replay_result(spatial_proof, spatial_contract, envelope,
+                {name: metadata[session_prefix + name]["sha256"] for name in ("scene.json", "recording.json", "events.jsonl")},
+                events=events, steps=spatial_proof.get("steps"), resets=spatial_proof.get("resets"))
         identities["recording_manifest_sha256"] = metadata[session_prefix + "manifest.json"]["sha256"]
     return {"identities": identities, "metadata": metadata, "native_sha256": native, "runtime_versions": versions,
-            "events": events, "shared": shared, "engine_profile": scene["profile"]}
+            "events": events, "shared": shared, "engine_profile": scene["profile"],
+            "spatial_contract": spatial_contract, "spatial_proof": spatial_proof}
 
 
 def _runtime(binding, budget):
@@ -259,6 +284,8 @@ def _runtime(binding, budget):
         names.update({"shared_exercise_lab.py", "shared_exercise_recording.py"})
     elif binding["engine_profile"] == "spatial-rigid-v1":
         names.add("spatial_rigid.py")
+        if binding.get("spatial_contract") is not None:
+            names.update(binding["native_sha256"])
     observed = {}
     for name in sorted(names | set(binding["native_sha256"])):
         _, item = budget.read(_PACKAGE, name, 1024 * 1024, keep=False)
@@ -272,7 +299,7 @@ def _runtime(binding, budget):
             versions[name] = version(name)
         except PackageNotFoundError:
             versions[name] = "unavailable"
-    if binding["shared"]:
+    if binding["shared"] or binding.get("spatial_contract") is not None:
         _require(versions == binding["runtime_versions"], "Export dependency versions differ from the source lab")
     return {"implementation_sha256": {name: observed[name] for name in sorted(names)},
             "native_sha256": dict(binding["native_sha256"]), "versions": versions,
@@ -292,11 +319,17 @@ def _replay(value, recorded, binding):
     if value["status"] == "not_performed":
         _require(all(value[name] is None for name in keys - {"status"}), "Unperformed replay cannot claim checked counts")
     else:
-        _require(value["status"] == "passed" and binding["shared"] and value["protocol"] == PROTOCOL,
-                 "Exact replay requires the shared exercise protocol")
+        shared = binding["shared"] and value["protocol"] == PROTOCOL
+        spatial = binding.get("spatial_proof") is not None and value["protocol"] == SPATIAL_PROTOCOL
+        _require(value["status"] == "passed" and (shared or spatial), "Exact replay requires its bound supported protocol")
         for name in ("events", "actions", "resets"):
             _require(_integer(value[name + "_checked"], "replay count") == recorded[name], "Replay count differs from recording")
         learned = value["learned_actions_verified"]
+        if spatial:
+            _require(learned is None, "Spatial action replay does not verify policy decisions")
+            proof = binding["spatial_proof"]
+            _require(proof["events"] == recorded["events"] and proof["steps"] == recorded["actions"]
+                     and proof["resets"] == recorded["resets"], "Spatial proof counts differ from the receipt")
         if learned is not None:
             _require(binding["identities"]["policy_sha256"] is not None, "Learned replay count requires a bound policy")
             _integer(learned, "learned replay actions", recorded["actions"])
@@ -315,7 +348,13 @@ def _from_export(result, binding, export, session):
     replay = {"status": "not_performed", "protocol": None, "events_checked": None, "actions_checked": None,
               "resets_checked": None, "learned_actions_verified": None}
     returned = result.get("action_replay")
-    if returned is not None:
+    if binding.get("spatial_proof") is not None:
+        _require(returned == binding["spatial_proof"] and getattr(export, "__module__", None) == "weft.recording"
+                 and getattr(export, "__qualname__", None) == "export_recording",
+                 "Spatial exact replay requires its sealed proof and trusted exporter")
+        replay = {"status": "passed", "protocol": SPATIAL_PROTOCOL, "events_checked": returned["events"],
+                  "actions_checked": returned["steps"], "resets_checked": returned["resets"], "learned_actions_verified": None}
+    elif returned is not None:
         _require(binding["shared"] and isinstance(returned, dict) and returned.get("exact_state_replay") is True,
                  "Exporter did not return complete exact replay success")
         _require(getattr(export, "__module__", None) == "weft.shared_exercise_lab"
@@ -431,7 +470,7 @@ def export_recording_with_receipt(directory, *, export, run_directory, expected_
         comparison = {**after, "identities": {key: value for key, value in after["identities"].items()
                                               if key != "recording_manifest_sha256"},
                       "metadata": {key: value for key, value in after["metadata"].items()
-                                   if key != f"sessions/{name}/manifest.json"}}
+                                   if key != f"sessions/{name}/manifest.json"}, "spatial_proof": None}
         _require(comparison == before, "Source or recording changed during export")
         runtime_after = _runtime(after, budget)
         _require(runtime_before == runtime_after, "Export runtime changed while generating the recording")
@@ -491,14 +530,18 @@ def load_recording_evidence(lab_root, session_name, *, expected_run_manifest_sha
             required.update({"shared_exercise_lab.py", "shared_exercise_recording.py"})
         elif bound["engine_profile"] == "spatial-rigid-v1":
             required.add("spatial_rigid.py")
+            if bound.get("spatial_contract") is not None:
+                required.update(bound["native_sha256"])
         _require(set(implementations) == required, "Saved export implementation identity is incomplete")
         versions = _versions(runtime.get("versions"))
         _require(runtime.get("evaluator_sha256") == bound["native_sha256"].get("shared_exercise_task.py"),
                  "Saved evaluator identity differs from source runtime")
-        if bound["shared"]:
+        if bound["shared"] or bound.get("spatial_contract") is not None:
             _require(versions == bound["runtime_versions"], "Saved dependency versions differ from the sealed lab")
         if receipt["replay"]["status"] == "passed":
-            _require(receipt.get("exporter") == {"module": "weft.shared_exercise_lab", "name": "export_shared_exercise_session"},
+            expected_exporter = ({"module": "weft.shared_exercise_lab", "name": "export_shared_exercise_session"}
+                                 if bound["shared"] else {"module": "weft.recording", "name": "export_recording"})
+            _require(receipt.get("exporter") == expected_exporter,
                      "Saved exact replay requires its existing trusted exporter")
         seals = {"manifest.json": seal_identity, "receipt.json": identity}
         return _view(name, receipt, bound["metadata"], seals, budget)

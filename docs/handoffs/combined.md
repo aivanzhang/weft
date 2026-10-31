@@ -1,5 +1,67 @@
 # Combined Weft implementation handoff
 
+## Current verified milestone — October 31, 2026, 4:00 AM PDT
+
+Publication checkpoint `172f1a06b6ec439340d376bdda42adc0c320966b` is independently
+verified on private `origin/main`. The 75 separate avatar entries remain untouched.
+
+- Root completed `.local/run_whole_body_candidate_01.py` and
+  `.local/whole_body_candidate_01.py` once, output
+  `artifacts/whole-body-reference-candidate-01`, terminal seal
+  `42f43355225785365baffbfa77cf559a7e94aca951ed75d19176df0d4c2f235a`. The final
+  implementation receipt is `.local/whole-body-reference-implementation-02.json`
+  (`09e195386e19d245797f310e514330347cbad8b12462d97100c7ba412d721edd`).
+  Plan `e6a3bbc224a3a8028823a71cf2933db347839242875aca07ad0bac83cd29cf1a`
+  authenticates source/body evidence before adding only dimension provenance.
+  Frozen 11-module closure; 1.478 s supervised, two models/four data objects,
+  10,262 forwards, 88,522,752 B observed peak RSS, no dynamics/reset/inference/
+  source decode/API. Mean image error 5.13984→3.86933 px; floor failures 22→14
+  out of 117 source +235 grid checks. Worst penetration stays 0.0718557 versus
+  unchanged 0.025. **Rejected and uninstalled**. All other gates pass.
+- Body saved-only audit `.local/whole-body-candidate-saved-audit-01.json`, SHA
+  `9d791d0c0c577cffc00caeae9a72c656b9b4be13ec44118014fb8515618d2ed5`,
+  checks 13 members/46 ordinary pins and every saved floor/source/angle/rate gate.
+  It checks image/depth summaries, not independently reconstructed native points.
+  Remaining failures: five source/nine grid. Worst is right shin at nominal
+  0.2666667 s, frame 8/native 0.281 s; relevant corrections are zero with no
+  saturated angle/rate/joint bound. Per-direction rejection reasons are absent;
+  do not infer impossibility. A read-only floor-priority objective design is
+  under consideration; no second fit or changed scorer has been authorized by
+  an implementation decision yet. Preserve the first experiment unchanged.
+- Spatial exact-action implementation and deadline review are complete. New
+  recordings pin six source hashes/dependency versions at start and replay
+  exact reset options, actions, rewards, flags and snapshots before export.
+  Old journals/exports retain their original saved-state-only status. No
+  learned-policy decision proof is claimed. 31 new focused, 72 existing receipt
+  and one existing spatial-control case pass; root's 12 scripted UI checks pass.
+- Actual acceptance: `.local/run_spatial_play_acceptance_01.py` supervises
+  `.local/spatial_play_acceptance_01.py`, output `artifacts/spatial-v2-play-01`,
+  seal `e6e88c7257e6523b1b9d1cf3bf8f1206b5a34f408b4670e46ef71a2b8fa88365`.
+  Runtime `.local/spatial-play-runtime-01`: 200 base package files + new module,
+  exact published manual overlays and reviewed recording/UI overlays, no avatar
+  work. Tabletop and ramp seed-1729 policies reach unchanged successful nominal
+  states after 96/54 post-reset actions. Three recordings, 164 live + 164 replay
+  actions + 24 ordinary probes, 4,224 native substeps, 169 frames, 172 decode reads,
+  2.393 s supervised/185,073,664 B observed peak RSS/$0. The two-action alternate
+  actor recording is a control check, not a task success. No retraining, source
+  decode, browser or server. No live worker remains.
+- Independent saved audit `.local/spatial-play-saved-audit-01.json`, SHA
+  `cc74d5980c0443954e5bf96a03550d69a1ab928eaa876602982e7fe810af0ceb`,
+  verifies 491 terminal members/12,618,675 B, 31 input pins/six training manifests,
+  201 runtime members, three recording/receipt seals, 24 metadata pointers and 169
+  journal events. It reuses authenticated supervisor custody for the 45 native
+  file pins, without another binary scan or media decode. Root's actual-payload
+  scripted UI audit passes all three receipts:
+  `.local/spatial-play-payload-ui-01.json`, SHA
+  `5eee9b431c27f3b55f28715cefae1fad443557ccf283c56bb0c5f0291bb8cf84`.
+  No extra physics or live-browser verification.
+
+Use the [new ready-lab commands](../local-lab.md#try-the-trained-3d-object-labs).
+The exercise preset remains unchanged. Generalized unfamiliar-video reconstruction,
+stable source-supported human/equipment interaction and independent physical
+evidence remain open. Stashes were empty at this milestone. Checkpoint/push these
+owned tested changes; preserve all 75 avatar-session entries and saved evidence.
+
 ## Current implementation — October 31, 2026, 3:33 AM PDT
 
 The overall goal stays active. Git fetch confirms local/origin `main` at

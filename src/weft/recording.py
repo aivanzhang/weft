@@ -388,14 +388,23 @@ class Recorder:
         self._metadata = None
         self._journal_limit = 16 * 1024 * 1024 if self.scene.get("profile") == "spatial-rigid-v1" else MAX_JOURNAL_BYTES
 
-    def start(self, initial_snapshot, seed=0):
+    def start(self, initial_snapshot, seed=0, *, reset_options=None):
         if self._started is not None:
             raise RuntimeError("Recording has already started")
         _seed(seed)
         self._validate_snapshot(initial_snapshot)
         _whole_body_event({"type": "start", "seed": seed, "snapshot": initial_snapshot}, self.scene)
-        if len(_encoded({"type": "start", "seed": seed, "snapshot": initial_snapshot,
-                         "index": 0}).encode("utf-8")) + 1 > MAX_EVENT_BYTES:
+        event = {"type": "start", "seed": seed, "snapshot": initial_snapshot}
+        contract = None
+        if self.scene.get("profile") == "spatial-rigid-v1":
+            from weft.spatial_recording import recording_contract, reset_options as spatial_reset_options
+            if initial_snapshot["steps"] != 0:
+                raise ValueError("Spatial recording must start at a seeded reset")
+            event["reset_options"] = spatial_reset_options(reset_options)
+            contract = recording_contract(self.scene)
+        elif reset_options is not None:
+            raise ValueError("Explicit recording reset options are supported only for spatial rigid scenes")
+        if len(_encoded({**event, "index": 0}).encode("utf-8")) + 1 > MAX_EVENT_BYTES:
             raise ValueError("Recording initial state exceeds the event size limit")
         self.root.mkdir(parents=True, exist_ok=False)
         self._metadata = {
@@ -405,11 +414,13 @@ class Recorder:
             "limits": {"max_events": MAX_EVENTS, "max_wall_seconds": MAX_SECONDS,
                        "max_journal_bytes": self._journal_limit},
         }
+        if contract is not None:
+            self._metadata["action_replay_contract"] = contract
         write_json(self.root / "scene.json", self.scene)
         _atomic_json(self.root / "recording.json", self._metadata)
         self._stream = (self.root / "events.jsonl").open("x", encoding="utf-8")
         self._started = time.monotonic()
-        self._write({"type": "start", "seed": seed, "snapshot": initial_snapshot})
+        self._write(event)
         return self.summary()
 
     def _write(self, event):
@@ -440,6 +451,9 @@ class Recorder:
         self._validate_snapshot(event.get("snapshot"))
         if event["type"] == "reset":
             _seed(event.get("seed"))
+            if self.scene.get("profile") == "spatial-rigid-v1":
+                from weft.spatial_recording import reset_options
+                event = {**event, "reset_options": reset_options(event.get("reset_options"))}
         else:
             _action(event.get("action"), self.scene)
             if type(event.get("reward")) not in (int, float) or not math.isfinite(event["reward"]):
@@ -749,6 +763,11 @@ def export_recording(root, *, deadline=None, max_output_bytes=None):
     for name in ("video.mp4", "video.partial.mp4", "replay.html", "preview.gif"):
         if (root / name).exists():
             raise FileExistsError(f"Partial export exists; preserve it and inspect before retrying: {root / name}")
+    action_replay = None
+    if scene.get("profile") == "spatial-rigid-v1" and "action_replay_contract" in data["metadata"]:
+        from weft.spatial_recording import verify_action_replay
+        action_replay = verify_action_replay(root, deadline=deadline)
+        check_budget()
     dt = scene.get("dt", 1 / 30)
     if type(dt) not in (int, float) or not math.isfinite(dt) or not 1/240 <= dt <= 1:
         raise ValueError("Recording scene timestep is unsupported")
@@ -796,6 +815,11 @@ def export_recording(root, *, deadline=None, max_output_bytes=None):
     manifest = {"schema_version": 1, "created_at": local_time(), "video_frames": decoded,
                 "files": {name: digest(root / name) for name in
                           ("scene.json", "events.jsonl", "recording.json", "video.mp4", "replay.html", "preview.gif")}}
+    if action_replay is not None:
+        # Bind the proof to the same journal bytes that are sealed after rendering.
+        if any(manifest["files"][name] != value for name, value in action_replay["source_sha256"].items()):
+            raise ValueError("Spatial recording changed during export; partial files are preserved")
+        manifest["action_replay"] = action_replay
     _atomic_json(root / "manifest.json", manifest)
     return verify_recording(root, deadline=deadline)
 
@@ -815,6 +839,13 @@ def verify_recording(root, *, deadline=None):
     data = load_recording(root, deadline=deadline)
     if manifest.get("video_frames") != len(data["events"]):
         raise ValueError("Recording frame count does not match the journal")
+    proof = manifest.get("action_replay")
+    if proof is not None:
+        from weft.spatial_recording import validate_replay_result
+        validate_replay_result(proof, data["metadata"].get("action_replay_contract"), data["scene"],
+            {name: manifest["files"][name] for name in ("scene.json", "recording.json", "events.jsonl")},
+            events=len(data["events"]), steps=sum(e["type"] == "step" for e in data["events"]),
+            resets=sum(e["type"] == "reset" for e in data["events"]))
     _check_deadline(deadline)
     return {"directory": str(root), "verified_files": len(required),
             "events": len(data["events"]),
@@ -822,6 +853,7 @@ def verify_recording(root, *, deadline=None):
             "resets": sum(e["type"] == "reset" for e in data["events"]),
             "video_frames": manifest["video_frames"], "manifest_sha256": digest(root / "manifest.json"),
             "replay": str(root / "replay.html"), "video": str(root / "video.mp4"),
+            **({"action_replay": proof} if proof is not None else {}),
             "scope": "File integrity and complete recorded-state replay; not physical validation"}
 
 
