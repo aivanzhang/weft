@@ -391,6 +391,16 @@ def _summary(run, profile):
             stages.append({'id': key, 'title': title, 'panel': panel, 'state': state})
         contract = read('exercise-lab.json', 128 * 1024)
         policy = read('policy.json', 64 * 1024) if contract.get('learned_policy_available') is True else {}
+        rigid_task, rigid_evaluation = None, None
+        if (scene.get('profile') == 'spatial-rigid-v1' and scene.get('schema_version') == 1
+                and isinstance(scene.get('task'), dict) and isinstance(scene.get('controlled_id'), str)
+                and {'policy.json', 'rl-evaluation.json'} <= files.keys()):
+            policy = read('policy.json', 64 * 1024)
+            rigid_task = read('task.json', 64 * 1024) if 'task.json' in files else None
+            rigid_evaluation = read('rl-evaluation.json', 1024 * 1024)
+            for name, label in [('policy.json', 'Saved rigid controller'), ('task.json', 'Authored rigid task'),
+                                ('rl-evaluation.json', 'Saved nominal and changed-start evaluation')]:
+                artifact(name, label)
         result = {'schema_version': 1, 'status': 'available', 'profile': 'lab-inspection-v1',
                 'lab_profile': profile, 'source': source, 'stages': stages, 'actors': actors,
                 'tracking': {'reference_poses': reference_poses, 'pose_status_counts': pose_counts,
@@ -403,7 +413,8 @@ def _summary(run, profile):
         if len(json.dumps(result, allow_nan=False).encode('utf-8')) > MAX_BASE_SUMMARY_BYTES:
             raise ValueError('Inspection base summary exceeds 64 KiB')
         result['evidence_scorecard'] = build_lab_evidence(source=source, scene=scene, task=exercise_task,
-            contract=contract, policy=policy, files=files, verified_metadata=result['verified_metadata'])
+            contract=contract, policy=policy, files=files, verified_metadata=result['verified_metadata'],
+            rigid_task=rigid_task, rigid_evaluation=rigid_evaluation)
         return result
     finally:
         os.close(root_fd)

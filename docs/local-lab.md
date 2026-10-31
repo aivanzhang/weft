@@ -40,6 +40,14 @@ simulator success is not physical validation. **Failures recorded** can include
 comparison controllers; inspect each controller's counts. Object scenes use the same summary;
 learning results without a supported evidence mapping remain unavailable.
 
+Current-source inspection also supports saved spatial-rigid controller evaluations.
+**Task and learning utility** shows the original-start trials; **Robustness and
+coverage** shows changed-start trials. Each keeps its own success denominator and
+mean **episode return** (summed step rewards). Distances/jitter use relative
+scene-width units, not measured metres. The two inspected saved studies retain
+0/12 and 1/12 changed-start successes; these are not new training results. Older
+pinned launcher snapshots retain their original views until explicitly updated.
+
 Saved-payload checks cover this trained exercise, the untrained stronger-model
 candidate and a rigid-object lab. Metadata/terminal snapshots took **0.315 seconds**
 with zero native/media/API calls. The actual saved payloads also passed scripted

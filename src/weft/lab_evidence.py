@@ -5,6 +5,7 @@ import re
 
 from weft.evidence_scorecard import build_evidence_scorecard
 from weft.io import canonical_hash
+from weft.rigid_lab_evidence import normalize_rigid_lab_evidence
 
 
 _SHA = re.compile(r"[0-9a-f]{64}")
@@ -78,7 +79,8 @@ def _shared_exercise(summary, scene, task, contract, policy, files):
     summary["learning_artifact_names"] = ["exercise-lab.json", "policy.json", "scene.json", "exercise-task.json"]
 
 
-def build_lab_evidence(*, source, scene, task, contract, policy, files, verified_metadata):
+def build_lab_evidence(*, source, scene, task, contract, policy, files, verified_metadata,
+                       rigid_task=None, rigid_evaluation=None):
     """Keep partial saved summaries partial; linked files are not verified reads."""
     _require(isinstance(verified_metadata, list) and len(verified_metadata) <= 128, "verified metadata bound")
     pointers = {row["source_name"]: row for row in verified_metadata}
@@ -106,4 +108,8 @@ def build_lab_evidence(*, source, scene, task, contract, policy, files, verified
         if contract.get("learned_policy_available") is True:
             _require("policy.json" in pointers, "exercise policy was not verified")
         _shared_exercise(summary, scene, task, contract, policy, files)
+    if rigid_evaluation is not None:
+        _require("exercise-lab.json" not in pointers, "conflicting exercise and rigid contracts")
+        summary["rigid_learning"] = normalize_rigid_lab_evidence(scene=scene, task=rigid_task,
+            policy=policy, evaluation=rigid_evaluation, verified_metadata=verified_metadata)
     return build_evidence_scorecard(summary)

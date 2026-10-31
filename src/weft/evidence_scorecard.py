@@ -342,6 +342,109 @@ def _stage_time(summary):
     return previous
 
 
+def _attach_rigid_learning(rows, value, scene_sha, pointers):
+    value = _object(value, "rigid learning")
+    if value.get("profile") != "spatial-rigid-evidence-v1":
+        raise ValueError("Scorecard rigid learning profile is unsupported")
+    notes = value.get("limitations", [])
+    if not isinstance(notes, list) or len(notes) > 8:
+        raise ValueError("Scorecard rigid limitations exceed their bound")
+    row = rows["task_learning_utility"]
+    row["uncertainty_and_missing_measurements"].extend(_text(note, "rigid limitation") for note in notes)
+    if value.get("status") in ("unavailable", "unsupported"):
+        if value.get("reason") is not None:
+            row["uncertainty_and_missing_measurements"].append(_text(value["reason"], "rigid unavailability reason"))
+        row["uncertainty_and_missing_measurements"].append("Saved rigid learning measurements are unavailable in this adapter.")
+        return
+    if (value.get("status") != "available" or scene_sha is None
+            or value.get("scene_sha256") != scene_sha
+            or value.get("return_unit") != "episode_return"
+            or value.get("physical_validation") != "unverified"
+            or value.get("evidence_kind") != "simulated_development"
+            or value.get("partition") != "exposed_development"):
+        raise ValueError("Scorecard rigid learning identity, units or evidence boundary differs")
+    _hash(value.get("policy_sha256"), "rigid policy")
+    if pointers.get("policy.json", {}).get("sha256") != value["policy_sha256"]:
+        raise ValueError("Scorecard rigid policy identity differs from verified metadata")
+    evidence = value.get("evidence")
+    if not isinstance(evidence, list) or not 3 <= len(evidence) <= MAX_POINTERS:
+        raise ValueError("Scorecard rigid learning needs exact evidence pointers")
+    proof, names = [], set()
+    for item in evidence:
+        item = _object(item, "rigid evidence")
+        name = item.get("source_name")
+        if (not isinstance(name, str) or name in names or name not in pointers
+                or any(item.get(key) != pointers[name][key] for key in ("source_name", "sha256", "path"))):
+            raise ValueError("Scorecard rigid evidence differs from verified metadata")
+        names.add(name)
+        proof.append(pointers[name])
+    if not {"scene.json", "policy.json", "rl-evaluation.json"} <= names:
+        raise ValueError("Scorecard rigid learning is missing its scene, policy or evaluation")
+    regimes = _object(value.get("regimes"), "rigid regimes")
+    if set(regimes) != {"nominal_exact", "changed_initial_conditions"}:
+        raise ValueError("Scorecard rigid evaluation regimes differ")
+    controller_names = None
+    for regime_name, row_name, label in (("nominal_exact", "task_learning_utility", "Nominal start"),
+                                        ("changed_initial_conditions", "robustness_coverage", "Changed starts")):
+        regime = _object(regimes[regime_name], "rigid regime")
+        trials = _number(regime.get("episodes_per_controller"), "rigid trial count", integer=True, minimum=1, maximum=2000)
+        controllers = _object(regime.get("controllers"), "rigid controllers")
+        if (not 1 <= len(controllers) <= 4 or not set(controllers) <= {"learned", "coast", "random", "brake"}
+                or (controller_names is not None and set(controllers) != controller_names)):
+            raise ValueError("Scorecard rigid controller sets differ")
+        controller_names = set(controllers)
+        metrics, failed, failure_count = [], False, 0
+        for name, controller in sorted(controllers.items()):
+            controller = _object(controller, "rigid controller")
+            if type(controller.get("episodes")) is not int or controller["episodes"] != trials:
+                raise ValueError("Scorecard rigid controller denominator differs")
+            successes = _number(controller.get("successes"), "rigid successes", integer=True, maximum=trials)
+            mean_return = _number(controller.get("mean_episode_return"), "rigid episode return", minimum=-1e12)
+            prefix = regime_name + "_" + name
+            metrics.extend([_metric(prefix + "_successes", f"{label}: {name} successes", successes, "trials",
+                                    numerator=successes, denominator=trials),
+                            _metric(prefix + "_mean_episode_return", f"{label}: {name} mean episode return",
+                                    mean_return, "episode_return")])
+            failed = failed or successes < trials
+            failure_count += trials - successes
+        if "failure_examples" in regime:
+            examples = regime["failure_examples"]
+            omitted = _number(regime.get("failure_examples_omitted"), "rigid omitted failures", integer=True)
+            if not isinstance(examples, list) or len(examples) > MAX_EXAMPLES or len(examples) + omitted != failure_count:
+                raise ValueError("Scorecard rigid failure examples contradict counts")
+            selected = []
+            for example in examples:
+                example = _object(example, "rigid failure example")
+                if (example.get("regime") != regime_name or not isinstance(example.get("controller"), str)
+                        or example["controller"] not in controllers
+                        or example.get("kind") not in ("execution_failure", "task_not_successful")):
+                    raise ValueError("Scorecard rigid failure example differs from the regime")
+                shortened = example.get("failure_text_truncated", False)
+                if type(shortened) is not bool:
+                    raise ValueError("Scorecard rigid failure truncation flag must be boolean")
+                failure = _text(example["failure"], "rigid failure", 2000) if example.get("failure") is not None else None
+                selected.append({"regime": regime_name, "controller": example["controller"], "kind": example["kind"],
+                    "seed": _number(example.get("seed"), "rigid failure seed", integer=True, maximum=2**31 - 1),
+                    "failure": failure[:512] if failure is not None else None,
+                    "failure_text_truncated": shortened or (failure is not None and len(failure) > 512)})
+            rows[row_name]["failure_examples"], rows[row_name]["failure_examples_omitted"] = selected, omitted
+        if regime_name == "changed_initial_conditions":
+            for key, unit in (("position_jitter", "scene_width"), ("velocity_jitter", "scene_width_per_second")):
+                if key in regime:
+                    if regime.get(key + "_unit") != unit:
+                        raise ValueError("Scorecard rigid perturbation units differ")
+                    metrics.append(_metric("saved_" + key, "Declared " + key.replace("_", " "),
+                        _number(regime[key], "rigid perturbation", maximum=10), unit))
+            if "distinct_seed_count" in regime:
+                metrics.append(_metric("saved_changed_regime_seeds", "Distinct saved changed-regime seeds",
+                    _number(regime["distinct_seed_count"], "rigid seed count", integer=True, maximum=trials), "seeds"))
+        _attach(rows[row_name], metrics, proof, kind="simulated_development", partition="exposed_development", failed=failed)
+    row["uncertainty_and_missing_measurements"].append(
+        "Nominal outcomes appear here; changed-start outcomes are in Robustness and coverage. Episode return is the sum of step rewards, not mean step reward.")
+    rows["robustness_coverage"]["uncertainty_and_missing_measurements"].append(
+        "Saved changed-start simulator trials are exposed development evidence, not unfamiliar-video or physical generalization.")
+
+
 def build_evidence_scorecard(summary):
     """Summarize caller-verified report facts; unknown or unbound measures stay null."""
     summary = _object(summary, "summary")
@@ -412,7 +515,10 @@ def build_evidence_scorecard(summary):
         _attach(rows["parameter_validity"], [_metric("authored_body_scale_prior", "Authored body-to-world scale prior", scale,
                 "model_unit_scale")], manifest_pointer, kind="construction", partition=partition)
     learning, learning_note = _learning(summary, scene_sha, task_sha)
-    rows["task_learning_utility"]["uncertainty_and_missing_measurements"].append(learning_note)
+    if "rigid_learning" not in summary:
+        rows["task_learning_utility"]["uncertainty_and_missing_measurements"].append(learning_note)
+    elif learning:
+        raise ValueError("Scorecard cannot combine exercise and rigid learning contracts")
     if "root_assistance" in options:
         if type(options["root_assistance"]) is not bool:
             raise ValueError("Scorecard root assistance must be an explicit boolean")
@@ -464,6 +570,8 @@ def build_evidence_scorecard(summary):
             _attach(rows["practical_efficiency"], [_metric("training_actions", "Saved training control actions",
                     learning["training"]["control_steps"], "actions")], proof,
                     kind="simulated_development", partition="exposed_development")
+    if "rigid_learning" in summary:
+        _attach_rigid_learning(rows, summary["rigid_learning"], scene_sha, pointers)
     if source_sha is not None:
         _attach(rows["robustness_coverage"], [_metric("source_count", "Source videos represented by this build", 1, "sources")],
                 manifest_pointer, kind="construction", partition=partition)

@@ -1,6 +1,74 @@
 # Combined Weft implementation handoff
 
-## Active continuation — October 31, 2026, 2:28 AM PDT
+## Active continuation — October 31, 2026, 2:51 AM PDT
+
+### Saved rigid evaluation — verified
+
+`rigid_lab_evidence.py` now qualifies selected spatial-v1/v2 policy/evaluation
+metadata without a simulator. It checks canonical scene and embedded/sidecar
+task association, policy bytes, matched reset protocols, regime/trial/aggregate
+counts and returns. The common core separates nominal outcomes in task/learning
+from changed-start outcomes in robustness; episode return is not mean step
+reward, scene-width units are not metres, seed counts are not distinct starts.
+Unknown physical/execution/completion/reset measurements remain unavailable.
+Failure examples retain truncation labels and exact selected-file pointers.
+
+**253 distinct focused checks** pass: 86 retained core, 25 new core, 41 new
+normalizer and 101 loader/integration cases. Independent read-only review found
+no blocker; its truncation-label finding is fixed and tested. Adapter receipt:
+`.local/rigid-lab-evidence-implementation-01.json`, SHA
+`eacf5e6e19bfe3322693b0df5cbb5f9302f2c12b7da5a97c981c42093baf620c`.
+
+One saved-only acceptance, `artifacts/rigid-lab-evidence-01`, consumes two old
+evaluations once, 9 metadata files/305,520 B. Both nominal learned results are
+0/1; changed starts remain authored 0/12 and ramp 1/12. No replay, native/media
+imports, training or paid call. Duration 0.020872 s; observed process peak RSS
+25,952,256 B, not a hard cap. Output 96,757 B, manifest SHA
+`1bb454398b223863de2d33373edfa7c10b785b024ff0c8695861aba0f14f339b`.
+Its plan pins all six imported project modules and selected inputs, unchanged
+afterward. Do not repeat the evaluation to populate a view.
+
+### Recording receipt — active implementation
+
+Root owns lab export/cache/API/console wiring and documentation. The receipt
+delegate owns new `recording_receipt.py` and focused tests; UI delegate owns
+the selected-recording panel and new scripted tests. The third delegate prepares
+one bounded six-action recording/export acceptance; **not run yet**. All are
+outside the 26 policy/18 lab simulation pins. No native admission is weakened.
+
+The wrapper must call the ordinary exporter once and seal its existing replay
+result separately from the unchanged recording manifest. Old completed sessions
+are not backfilled. Missing or unsupported proof remains unavailable; spatial
+saved-state export is not action replay. Reader work is off-thread, selected,
+byte/time bounded and separate from immutable run inspection. Journal hashing
+is allowed; no event parsing, media rehash or replay occurs during inspection.
+
+Console/cache/endpoint integration has 63 latest-passing scoped checks, separate
+from the 253 above. Preserve the initial console syntax collection error and
+sandbox-denied HTTP bind; the corrected console suite passes53, nine cache/queue
+cases pass, and the single ephemeral-loopback auth test passes under narrow
+permission. No development server or browser was started.
+
+Coupled equipment diagnosis found no confirmed software repair. Note
+`.local/coupled-equipment-control-diagnosis-01.json`, SHA
+`193a70b8c329c36b109a4289b174c6ea4edc225a5817b76e470de3c6f3c00d8f`,
+preserves the older trace's substep failure before the next action boundary;
+it is not timing evidence for the latest sparse mixed study. Do not rerun a
+reaction-only controller or invent a hidden handle cavity. Independent shape,
+depth and contact-order evidence remains missing.
+
+### Current publication and ownership
+
+Common lab/terminal evidence and the exercise launcher are published at
+`1abe540ee74e0ff91f446541c08d8d51ca3ff60b`, independently matched on private
+`origin/main`. `.local/common-lab-evidence-publication-01.json` SHA
+`76ed8871e45fae76829c605dc805480fa1df673cbb5edfd17506b5108d28a799`
+records all 15 owned paths clean, zero stashes and the 75 avatar-session entries
+preserved. The interface/preset verification below remains valid.
+
+Current ownership and new receipt acceptance are recorded above. The rigid
+adapter and equipment diagnosis are complete. Preserve saved artifacts and
+avatar work; the publication receipt below predates this new implementation.
 
 ### Common lab and terminal evidence — verified
 
