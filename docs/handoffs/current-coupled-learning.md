@@ -1,73 +1,99 @@
-# Current coupled learning — attempt 01 failed before controls
+# Current coupled learning — no feasible policy
 
-## Terminal attempt 01; correction 02 pending
+## Terminal result
 
-Root's one reviewed invocation through `supervisor.py` (SHA prefix `b0911c43…`) is **terminal failed and reaped**, after 1.144 seconds. Exact launcher selection remains in `.local/fullspan-feedback-current-01/root-execution.json`; execution-plan pin `ee228f1dc63be736be2aa7da6deafcfa0119b5b979d83ec3d8c443aee5585ceb`. The failed output `artifacts/fullspan-feedback-current-01` retains 14 files / 178,008 bytes, seal `50af1a9f644a67c5b98fe39389be33dc5a84fa5d9be660d2b8d7418ad4bfbbd4`.
+The three public production stages completed once on **2026-11-01 (PST)** using the frozen **046261b** runtime. Root-owned handle `89403` is terminal, exit 0 and reaped; **no job is live**. The existing **v4 feedback policy on a shared-world-v2 scene** is executable, but this run does **not** demonstrate useful coupled learning: all four controllers score **0/3 task success** on matched changed starts.
 
-- **No live job:** former root-owned handle `73650` is closed. Two counted model compilations; **zero data allocations, forwards, resets, controls or physics substeps**. Selection/evaluation never started; there is no learned-control result.
-- The terminal worker receipt SHA is `33e873a222c1ba3fade81ef92b206da316fee88e3c1c3a32285f546e136a8f41`; its 57-byte stderr (`3eb5634ede3fc6b26d1e66cae18c0cb0ec77c67cc890a070446e9be59b847d86`) says `Package destination is missing, occupied or unsafe`.
-- Recorded denials are the known, still-blocked MuJoCo startup probe and a filesystem mutation outside the output guard. Static package code creates nested directories with `os.mkdir(part, dir_fd=fd)` and files with descriptor-relative `os.open`; the harness incorrectly interpreted those relative names against its working directory. The first guard did not save the exact relative filename. This is a packaging-guard failure, not a scored task/body/floor failure.
-- **Next preparation:** a new `.local/fullspan-feedback-current-02` helper/plan will resolve real directory descriptors and bound exact targets to a new output; `open` auditing also needs the wrapper's descriptor context, and writable `fdopen` must not accept arbitrary descriptors. No blanket relative-path exception, changed source/runtime/seeds/gates, or permission to execute a native rerun follows from this diagnosis.
-- Attempt 01, all frozen helpers and failures remain immutable. Root owns any reviewed 02 supervisor/execution. The historical preparation below is retained, not a success claim.
+`artifacts/fullspan-feedback-current-02` retains 1,046 files / 120,573,956 bytes; root seal `228a4c757046716874f22f6318b9a728c9890fd42c656390a8d1d028e723211c`. Caller time was 61.578710 seconds; supervisor time 61.496514 seconds. Actual work was **9,525 controls / 152,394 physics substeps / 40 resets / 34 model compilations / 2 data allocations**. Peak observed RSS was 284,377,088 bytes. External cost was **$0**; no source decoding, new inference, fitting, replay or rendering ran.
 
-## Next bounded check
+| Evaluation controller | Complete intervals | Task success | Mean score |
+| --- | ---: | ---: | ---: |
+| Coast | 3/3 | 0/3 | 0.369632 |
+| Random | 0/3 | 0/3 | -0.942994 |
+| Authored | 3/3 | 0/3 | 0.747771 |
+| Learned | 3/3 | 0/3 | 0.733232 |
 
-Use the existing **v4 feedback-residual policy on the original shared-world-v2 scene**. This is not a new scene, policy family, scorer, or training pipeline. No training, simulation, model, source decoding, or paid call has run in this preparation.
+All starts and failures remain recorded. Random stops after 82, 4 and 41 controls with `human_velocity_envelope_exceeded`; actual substeps are 1,311, 61 and 654, preserving partial-control failure accounting. Coast completes but fails angular/root mean and peak error gates. Its equipment stays stable. Completion alone is not task success.
 
-The previous full-span coupled study completed but learned/authored each scored **0/3 success**, failing `sam-2` stability. Its human/world/scorer implementation pins differ from the current runtime. Preserve that result as historical evidence; do not repin its policy or call it a matched current baseline. Current person-only and camera learners each match authored **3/3**, with modest reward changes and mixed error tradeoffs—not a task-success advantage or useful whole-body learning demonstration.
+### Exact remaining gate failure
 
-The cheapest unresolved check is the existing six-parameter learner on the full coupled task. It learns three joint groups × position/velocity feedback coefficients, bounded ±.25, around unchanged authored feedback. Root assistance remains explicit and unchanged. No equipment-state features or equipment forces are added.
+Authored and learned controls pass **every body and floor gate** on all three evaluation starts. Both fail only `equipment_stability:sam-2`; all four constituent equipment limits fail on every start. `sam-3` stays within every limit. Values below are ranges of each trial's accumulated maxima, not measured physical motion.
 
-## Frozen inputs and runtime
+| `sam-2` metric | Fixed limit | Authored range | Learned range |
+| --- | ---: | ---: | ---: |
+| Displacement, model units | 0.03 | 0.4645–0.4999 | 0.3888–0.4563 |
+| Orientation change, radians | 0.15 | 0.7938–1.1331 | 0.9244–1.4258 |
+| Speed, model units/s | 0.15 | 1.1835–1.3570 | 1.2331–1.2802 |
+| Angular speed, radians/s | 0.75 | 5.1677–5.7713 | 6.7562–7.6054 |
 
-- Plan: `.local/fullspan-feedback-current-01/plan.json`, SHA `358832885a36ed436edd70af81781ec764c0a7023037801fbfeb69935377cb28`.
-- Runtime: exact committed `046261b6922f1b42318a6cfe48ff888d041d754b`, **no overrides**; 291 files / 6,292,000 bytes. Runtime manifest SHA `e3806cc1ee2fa9ec8ae38b2b81b544202323f6e6207672978d765708dc2ea4c6`. Archive and extracted files are under the preparation directory.
-- Original source: `artifacts/fullspan-exercise-source-01`, seal `f300b46cfb71697ed2ec4cdf4746c96ceda7bf0995a77412f0835d274b6d055f`; 192 declared members / 67,977,626 bytes. Only its manifest/scene/task were read; other named members were statted. Full payload/proof rechecks remain with production.
-- Exact scene bytes: `1d16db133a81bcc55b7093d961446a686f2867e4e565a4b44335c4b7a72eb209`; task bytes: `ca9f9b6e22f00119fac65c508a6691eca154e523525ac0843e0742cccb30045f`. Canonical scene/task pins are in the plan.
+Learning lowers displacement, but worsens rotation and spin. Mean angular RMSE worsens **0.150644→0.159059 radians**; root RMSE **0.019607→0.020751 model units**; mean squared joint effort **0.148154→0.257590**. Peak body errors improve slightly while remaining below their gates. These mixed tradeoffs and lower reward are **not a control-quality improvement**.
+
+### Why the lower-reward policy was selected
+
+Training evaluated **28 episodes / 7,112 controls**, with two cache hits and **14 unique candidates, none feasible**. Generation 1 candidate 4 is the exact least-violating choice under the unchanged training-only rule: first minimize the largest positive normalized gate excess, then its mean, then maximize original reward.
+
+The worst training term is `sam-2` displacement on seed `137031775`: authored **0.515633** versus selected **0.422929**, against **0.03**. Consequently, the largest normalized excess falls **16.187768→13.097629**. Mean normalized excess worsens **2.817281→2.985644**, and training reward falls **0.747648→0.734517**. Each candidate still violates eight of 26 training gate terms. The primary rank criterion wins; this is the declared selection rule, not a hidden reward improvement or a selector defect.
+
+The separate selection stage reports `retained_training_infeasible_selection`, performs **zero new controls**, and does not use evaluation. The policy remains unqualified; no promotion or attachment was performed.
+
+### Real learning, without success
+
+The selected six coefficients are nonzero. Saved live-actor instrumentation confirms **all 762 learned evaluation actions** changed at least one joint command relative to authored control evaluated at that same state. Root and bias rules were unchanged; **zero learned root corrections** were observed. Across training and evaluation, 7,366 live samples changed joint commands.
+
+All 762 paired saved trajectory joint actions also differ. Later root actions differ because the trajectories reach different states under the same root-feedback rule; that is not learned root control. Trajectory action differences must not be confused with the ±0.25 same-state residual bound.
+
+Exact policy bytes remain unchanged through selection/evaluation: `e62722f8b575e3be26c9225f0c481dff8cf0d51ddfcba497f607c056043b2b62`.
+
+## Evidence and saved-only diagnosis
+
+- Training manifest: `06751632c3df28c713ad614aaac960a551b8980cd2174ffb45f5fd268e7ab57d`.
+- Root terminal custody audit: `.local/fullspan-feedback-current-02/terminal-custody-audit.json` (SHA prefix `33ccc2d7…`). It joins all three stage seals, same policy, reaped zero-exit workers and exact runtime; no duplicate custody pass was needed.
+- Independent interpretation: `.local/fullspan-feedback-current-02/saved-interpretation-01.json`, SHA `acbc6ff8c162fb69733657b9c244f83a13e0777f0f43a58945485197907bc76b`. This checks saved gate/rank arithmetic, seed/reset/state joins, policy/runtime/source identities and realized-action evidence; it is not another experiment or replay.
+- Selected metadata: **15 unique files / 4,556,455 bytes**. Cached summaries omit raw diagnostic streams and initial/final state arrays; no original source, full 1,046-file readback, or 18,897,401-byte diagnostics scan occurred. Cache SHA `56a7f40170ca22cd368693f479f42893c42d4756215fca57684243490aed37e1`.
+- The first saved checker expected `result.json`, but this supervisor uses `supervision.json`. Its missing-path failure is preserved in `saved-checker-failure-01.json`; only the root manifest was read before that failure. Conservative extra charge: 1 MiB, yielding **5,605,031 charged saved-artifact bytes**, below the 12 MiB allowance. Corrected arithmetic reused the cache; no study rerun occurred.
+
+## Immutable inputs and runtime
+
+- Runtime: exact committed `046261b6922f1b42318a6cfe48ff888d041d754b`, **no product overrides**; 291 files / 6,292,000 bytes under `.local/fullspan-feedback-current-01/runtime`. Manifest SHA `e3806cc1ee2fa9ec8ae38b2b81b544202323f6e6207672978d765708dc2ea4c6`. Do not repin this evidence to later UI or avatar commits.
+- Original source: `artifacts/fullspan-exercise-source-01`, seal `f300b46cfb71697ed2ec4cdf4746c96ceda7bf0995a77412f0835d274b6d055f`; 192 declared members / 67,977,626 bytes. Production retained its before/after hash checks, and root compared named source stat identities before/after.
+- Scene raw/canonical: `1d16db133a81bcc55b7093d961446a686f2867e4e565a4b44335c4b7a72eb209` / `d8e3e6df7bf640f0bcc1d9088cd96edd70bfad00ac0e161d08b3d0a80a36564d`.
+- Task raw/canonical: `ca9f9b6e22f00119fac65c508a6691eca154e523525ac0843e0742cccb30045f` / `031105ec0c2deb0f633211f3f4dfa58ed789b4a2f181957f0b6b1dbd5e0b12da`.
 - Protected scorer: `c71a53dec0f10a13fce7b868d810eb66dc56e2e51783cd892c130fcd864c24eb`; gates `063a93773406db92b583daf947855098727e34009bf645e82e0a5a2e044e0002`.
 
-The task retains 257 source slots, 121 original body references, the entire supported frame-2→256 reference interval, **254 controls at 30 Hz / 16 substeps**, two passive objects, and no contact requirements. Original floor, geometry, masses, source clocks, root trajectory, body angles and gates remain untouched. The six-frame equipment initialization gap remains an authored static extrapolation, not observed contact.
+The task retains **257 original source slots, 121 body references, the full frame-2→256 interval, 254 controls at 30 Hz / 16 substeps**, two passive objects and no contact requirements. Observation remains size 190; actions remain 19 joints plus three explicit roots. Object-force channels are forbidden. Source clocks, angles, trajectory, geometry, masses, floor and gates are untouched. Equipment starts from a six-frame authored static extrapolation; neither grasp nor source contact is verified. Physical accuracy remains unverified.
 
-### Metadata checks and deferred admission
+Training seeds are `1263521311`, `137031775`, with the original human jitter 0/.05. Evaluation seeds are `1841308058`, `1870335751`, `203828300`, with jitter .10 and unchanged equipment reset state. All four controllers share each exact initial-state hash; these three states and seeds differ from training. This is independent changed-start **development evaluation**, not unfamiliar-video or physical holdout evidence.
 
-The unchanged pure human/task/interval/reset validators accept the exact metadata without human/task canonical changes. No metadata migration is indicated. Observation remains `shared-exercise-observation-v1`, size 190; actions remain 19 joints + three explicit roots. The task excludes the engine's six object-force channels.
+## Exact public journey and bounds
 
-Complete world admission is **not** a pure metadata operation: rigid corners call `mju_quat2Mat`, then action limits compile the human mass model. The first preflight's inert MuJoCo guard blocked that quaternion lookup; `metadata-preflight-failure.json` preserves it. No native call executed and no replacement quaternion/mass math was used. The changed-scope receipt `metadata-preflight-02.json` checks only the exact human/task/interval metadata; it does not claim native floor/collision/reset or source-proof admission.
+Attempt 02 input plan: `adaf954c3d118a3ce4811eee42f4619675ef0923af26b65934c7229722a3ecf9`; execution plan: `7d24d179b66445b6e48bcb397ed1f988507a3525e9a45d5b0d7c1ada0316f084`; worker: `4d1d57718adb2cffdcdff84603e750ac920140d0a99d9ed9905140d8d938a563`. All are under `.local/fullspan-feedback-current-02`; `root-execution.json` pins root's selected supervisor and reviews. Release receipt: `abc265de806da194e56b61d15b61b81ca4ee222520489888484b8f1855024982`.
 
-Production order remains `_verified_inputs` → `validate_shared_world` → exact task validation → actual source-equivalence collection → unchanged `SharedExerciseTaskEnv`/`SharedWorldEnv` → resets/controls. Stop and retain any failure; do not migrate or weaken the scene to make the run pass.
-
-## Frozen study and commands
-
-One sequential public journey, not yet launched:
+These commands already ran through that frozen-only launcher; **do not repeat them unchanged**:
 
 ```text
-python -m weft shared-exercise-train --run artifacts/fullspan-exercise-source-01 --out artifacts/fullspan-feedback-current-01/training --policy-family feedback-residual --seed 2026110101 --generations 2 --population 8 --max-seconds 60
-python -m weft shared-exercise-select --learning artifacts/fullspan-feedback-current-01/training --out artifacts/fullspan-feedback-current-01/selected --max-seconds 15
-python -m weft shared-exercise-policy-evaluate --learning artifacts/fullspan-feedback-current-01/selected --out artifacts/fullspan-feedback-current-01/evaluation --seed 2026110102 --trials 3 --jitter-scale 0.10 --max-seconds 60
+python -m weft shared-exercise-train --run artifacts/fullspan-exercise-source-01 --out artifacts/fullspan-feedback-current-02/training --policy-family feedback-residual --seed 2026110101 --generations 2 --population 8 --max-seconds 60
+python -m weft shared-exercise-select --learning artifacts/fullspan-feedback-current-02/training --out artifacts/fullspan-feedback-current-02/selected --max-seconds 15
+python -m weft shared-exercise-policy-evaluate --learning artifacts/fullspan-feedback-current-02/selected --out artifacts/fullspan-feedback-current-02/evaluation --seed 2026110102 --trials 3 --jitter-scale 0.10 --max-seconds 60
 ```
 
-Commands must run through a separately reviewed frozen-only launcher, never the mutable checkout. Omit `--task`/`--root-assistance`: the exact sealed task already supplies both authority and assistance.
+Reserved limits were 11,176 controls / 178,816 substeps; one CLI process at a time; hard walls 70/20/70 seconds and 180 overall; CPU 65/18/65 seconds per process; observed RSS acceptance 512 MiB. Each stage retained its 128 MiB / 512-file cap; outer acceptance was 400 MiB / 1,900 files, not a hard live disk quota. The reviewed stream addendum `47b639c74ca468fe286afd15fc3ef7cdfc315ff17afb3be9953d51787069e7b4` allowed 5 MiB combined streams per CLI. Diagnostic and metadata caps remained 24 MiB aggregate / 8 MiB per diagnostic file / 8 KiB per line / 4 MiB per metadata file. Selection was capped at zero task controls. The blocked, pinned MuJoCo startup `sysctl` attempt was recorded once per CLI; no permission was added and no child process executed.
 
-- Train resets: seeds `1263521311`, `137031775`, existing human jitter 0/.05. Two generations × eight candidates × two resets reserve 32 trials / 8,128 controls. Existing zero/prior-best caching permits at most 28 new episodes; failed starts stay recorded.
-- Evaluation: **four controllers**—`coast`, `random`, `authored`, `learned`—on three matched human-jitter-.10 starts: `1841308058`, `1870335751`, `203828300`. Equipment reset state stays unchanged. The 12 episodes reserve 3,048 controls. Seeds differ from training and known prior saved-study seeds.
-- Selection preserves the original training-only feasible/least-violating choice; it performs no new controls. Evaluation is frozen afterward and never feeds back into search.
-- Maximum reserved work: **11,176 controls / 178,816 substeps**; one process at a time, at most three CLI calls, no replay/render/export or extra baseline run.
-- Cooperative limits 60/15/60 seconds; hard process walls 70/20/70 plus at most three seconds cleanup each; 180 seconds overall. Hard CPU limits 65/18/65 seconds per process; no child launches. Peak RSS acceptance 512 MiB is observed, not hard memory isolation.
-- Existing output caps stay 128 MiB / 512 files per stage. Aggregate acceptance is 400 MiB / 1,900 files including frozen runtime/receipts, not a hard live disk quota. Streams ≤1 MiB per CLI; diagnostic 24 MiB aggregate, 8 MiB/file, 8 KiB/line; metadata 4 MiB/file.
-- External cost **$0**. Existing sealed media may be hashed/copied for custody; no acquisition, decoding, inference, fitting, browser/server, installation, or API access.
+## Preserved attempt 01 and preparation limits
 
-## Interpretation and next action
+Attempt 01 failed and was reaped after 1.144 seconds: `artifacts/fullspan-feedback-current-01`, 14 files / 178,008 bytes, seal `50af1a9f644a67c5b98fe39389be33dc5a84fa5d9be660d2b8d7418ad4bfbbd4`. It compiled two counted models but allocated no data and performed **zero forwards, resets, controls or substeps**. Its 57-byte error was `Package destination is missing, occupied or unsafe`; receipt `33e873a222c1ba3fade81ef92b206da316fee88e3c1c3a32285f546e136a8f41`, stderr `3eb5634ede3fc6b26d1e66cae18c0cb0ec77c67cc890a070446e9be59b847d86`.
 
-Retain all failed resets/episodes and original denominators. Compare current matched success counts and body/equipment errors, not just reward. Verify nonzero selected coefficients and realized action changes from saved diagnostics. An unchanged authored selection, equal success counts, or a higher reward with worse errors does not establish the remaining whole-body learning goal. Changed starts are development evaluation, not new-video or physical holdout evidence.
+The harness misinterpreted descriptor-relative package writes against its working directory. No exact leaf was recorded, so no filename is inferred. The corrected guard `1a37cde2e6f3508e2b136d3b7a6275239b14bbca0e519c4c38462dca4a454673` resolves actual Darwin descriptors with `F_GETPATH`/`fstat`, confines writes to the new output, rejects symlink/outside/descriptor-reuse paths, and preserves syscall arguments/errors. Eight tiny authored filesystem checks passed in .003819 seconds, receipt `9648be197ca960866ba79d8334b0219d960a94f0b032589b016cb2f87930f046`. No scientific runtime, task, seed or gate changed. Attempt 01 and all original helpers remain immutable.
 
-**Next owner: root.** Review the exact plan/runtime and original native-admission path, then prepare/review the bounded launcher before authorizing one run. No live handle exists. The old failure, initial metadata-check failure, source inputs and preparation scripts remain immutable. No product files, scorer, Git state, or historical artifact was changed by this lane.
+Initial metadata preparation also deliberately stopped at the native quaternion/mass boundary; `metadata-preflight-failure.json` and corrected pure-scope `metadata-preflight-02.json` remain under attempt 01 preparation. Neither was a native admission claim. The actual production admission path ran in attempt 02. Historical full-span policies used different runtime pins and are not matched current baselines.
 
-## Execution-helper preparation (still unexecuted)
+## Next distinct hypothesis — proposed only
 
-Root requested a guarded worker after the input-plan review. `worker.py` is frozen at `fbc9c2924e9bff826fc0c962ece6ce670a234563125f5fe3a973a9164a0f117b`; `execution-plan.json` at `ee228f1dc63be736be2aa7da6deafcfa0119b5b979d83ec3d8c443aee5585ceb`, both under the preparation directory. Root separately owns `supervisor.py` and its review/receipt. The unused `supervise.py` draft is not an approved launcher; its optional pin in this execution-plan draft does not bind root's separate supervisor.
+**Do not rerun unchanged CEM with more seeds or budget.** The current actor ties shoulders and hips into one proximal group, and elbows/knees into one distal group (`shared_exercise_learning._groups`; `shared_exercise_feedback_residual.action_sample`). That forces arm and leg feedback corrections to change together. The saved tradeoff is consistent with a capacity limitation, but aggregate metrics do not identify the responsible limb/contact or prove that the task is feasible.
 
-The worker invokes the original public CLI once per declared stage. Frozen-only imports, exact installed versions, source-seal guards, unchanged actor/scorer bytes, zero object-force channels, and counted task/native calls are enforced. The worker compares the original manifest before/after; unchanged production code hashes each stage's complete inputs before/after its work. The preparation's named source-stat inventory is separate: root's supervisor must explicitly implement that comparison before claiming it. Per-stage caps additionally allow at most 256 model compilations / 128 data allocations; selection permits zero task resets or physics steps. These are guard ceilings, not predictions. `MUJOCO_GL=disable` avoids rendering. All process/network attempts are denied. Only the exact diagnosed, pinned MuJoCo initializer's blocked Darwin `sysctl` attempt may be recorded separately; it never executes.
+The smallest proposed algorithm change is an **explicit opt-in arm/leg split**: torso, arm-proximal, arm-distal, leg-proximal, leg-distal, each retaining the two existing normalized position/velocity features—**10 coefficients instead of six**. Reuse the current trainer, feasibility rule and evaluator; version/pin the new actor contract. Keep saved v4 artifacts unchanged and preserve default v4 numerical/action behavior; new implementation identities must remain truthful. Do not tie groups to `sam-2`, hardcode this clip, add equipment forces or new privileged features, retime references, alter reset distributions, change root/bias control, increase residual bounds, or modify scorer/reward/gates.
 
-Root approved a necessary stream addendum, SHA `47b639c74ca468fe286afd15fc3ef7cdfc315ff17afb3be9953d51787069e7b4`: **5 MiB combined stdout/stderr per CLI**, replacing the original plan's 1 MiB. Existing saved evaluation metadata is 3,480,011–4,127,305 bytes and the CLI prints the full document. Valid logs must remain complete. Producer metadata/output caps are unchanged; the entire new output, including logs and receipts, must remain ≤400 MiB. The runtime is an external frozen input, not a repeated output copy.
+- [ ] Root coordinates the narrow implementation and analytical group-routing/zero-anchor/old-profile regressions; no implementation or new native run belongs to this completed slice.
+- [ ] Only after review, freeze a distinct bounded study with training-only selection and new independent changed starts under the same task. Retain all candidates and failures. Require real action changes and report every original gate, not only the rank or reward.
+- [ ] Useful coupled-learning evidence still requires passing body **and** equipment gates and a matched-baseline benefit without hidden tradeoffs; source/physical generalization remains a separate unverified goal.
 
-Only syntax parsing and source/code inspection verified these local helpers. No process, solver, native model, training stage, or new admission ran. Root must close its exact supervisor/worker review before execution; preserve any later failure instead of rerunning unchanged.
+**Next owner: root.** Checkpoint this terminal diagnosis, preserve both attempts and current policy, then decide the distinct opt-in algorithm test. No current result is promoted, and no live handle or further source/native work remains in this lane.

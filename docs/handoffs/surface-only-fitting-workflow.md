@@ -196,3 +196,67 @@ actual commit/private-remote result belongs in
 that receipt is absent. Preserve both separate avatar edits and the empty stash
 list. Complete reviewed learning-helper02 integration next; the entire generalized
 video→3D→RL goal remains active, especially unfamiliar-source physical accuracy.
+
+## Terminal current-runtime learning comparison
+
+Reviewed helper02 completed the original three production stages; root handle
+`89403` exited zero and was reaped in **61.578710 seconds**. Output
+`artifacts/fullspan-feedback-current-02`: 1,046 files/120,573,956 bytes, seal
+`228a4c757046716874f22f6318b9a728c9890fd42c656390a8d1d028e723211c`.
+The experiment is completed; the task is **not solved**. Training has 28 episodes,
+14 unique candidates and zero feasible candidates; four controllers each score
+0/3 on their three matched changed starts. Learned mean reward 0.733232 is lower
+than original 0.747771. The least-violating selection stays an exposed-development
+failure, not a promoted policy or physical result.
+
+All three worker processes are reaped. Aggregate work is 9,525 controls /152,394
+native substeps /34 models /two data allocations. Peak stage RSS is 284,377,088
+bytes. Learned joint corrections actually execute; authored root controls stay
+unchanged. All 192 original source-file identities match before/after; the policy
+bytes are identical through training, selection and evaluation. Three exact
+startup probes were blocked, not run; no unexpected forbidden operation.
+Root saved-only metadata join audit:
+`.local/fullspan-feedback-current-02/terminal-custody-audit.json`, SHA
+`33ccc2d79fc00ee3ca53c47c7375edb4349ee59a532e89d48cbbdf7d89fc60d6`.
+The learning lane owns bounded saved gate-level diagnosis and the next distinct
+hypothesis. No more fitting, training, rendering, source or API work is authorized
+by this already completed study. The broader user goal remains active.
+
+### Specific remaining controller gap
+
+In the current simulator, original and learned controllers complete all three
+254-step trials and pass every body/floor check; both fail only equipment
+stability for `sam-2`. `sam-3` stays within limits. Coast keeps both objects stable
+but fails the mean/peak body-angle and root-position checks. Random controls
+terminate early on the human velocity envelope. These matched development
+controls narrow the software problem; they do not validate real equipment contact.
+
+The selected learner reduces the worst training normalized gate excess
+`16.18777→13.09763`, while mean excess and reward worsen. That is permitted by
+the unchanged min-max feasibility-first rule; it is not a full-task improvement.
+In evaluation, `sam-2` displacement improves but rotation/spin worsen and all
+four equipment metrics remain outside their original limits.
+
+Next distinct implementation hypothesis: an **opt-in split arm/leg feedback
+mapping**, ten coefficients rather than six, with the same existing
+simulator-state features, bounded joint correction, authored root controls,
+trainer and independent evaluator. Preserve exact default/v4 behavior and all
+old frozen runtime/policy artifacts. Do not hardcode an equipment ID, change
+task thresholds, add object forces, expand privileged observations or simply
+repeat the same search with more seeds. Review pure compatibility/group mapping
+checks before a separately frozen and budgeted development comparison. The
+aggregate results do not establish that shared limb gains caused the failure.
+
+The final saved interpretation is
+`.local/fullspan-feedback-current-02/saved-interpretation-01.json`, SHA
+`acbc6ff8c162fb69733657b9c244f83a13e0777f0f43a58945485197907bc76b`.
+Its fifteen selected files total 4,556,455 unique bytes; the preserved initial
+checker naming failure has a conservative extra 1-MiB charge. No source, raw
+training diagnostics or numerical run was repeated. All 762 learned evaluation
+actions differ from their same-state authored joint action; zero root corrections
+are learned. [Full gate-level diagnosis](current-coupled-learning.md).
+
+The original single-joint README example is now explicitly labeled legacy, and
+the current full-body/fitted-control routes are linked. Final result/doc
+publication receipt: `.local/fullspan-current-learning-publication-01.json`.
+All scientific processes are terminal. The broader goal is active, not complete.

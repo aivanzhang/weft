@@ -37,6 +37,11 @@ Choose manual or learned control where available, start movement, and use
 control, add `--console` to the exercise launcher or replace `lab` with
 `lab-console` in the other commands. [Controls and your own video](docs/local-lab.md).
 
+To compare original and fitted joint targets, use the
+[fitted-control sandbox](docs/local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+It keeps the same body and task, shows the saved comparison, and records your
+actions. Fitted targets are programmed controls, not a learned policy.
+
 The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
@@ -201,15 +206,18 @@ The optional [inclined-floor implementation](docs/ground-orientation.md) keeps b
 
 The initial two reasoning requests used approximately $0.03951 of the $5 application budget; the later tracking calls are included in the total above. The first truncated response is retained; the second produced hypotheses that were independently checked, including rejected coordinate/confidence claims. No model suggestion was automatically applied.
 
-### Try it now
+### Original single-joint demo
 
-The full environment, pose model, licensed exercise clip, and completed run are prepared locally:
+This older anchored demo controls one joint. For the current full-body workflow,
+use [Start locally](#start-locally) and the
+[person-only video guide](docs/local-lab.md#build-from-your-person-only-exercise-video).
+The original pose model, licensed clip and completed run remain available:
 
 ```sh
 .venv-lab/bin/python -m weft lab --resume artifacts/exercise-lab-03
 ```
 
-Open the local URL printed in the terminal. To process your own video:
+Open the printed local URL. To process a video through this **legacy single-joint** workflow:
 
 ```sh
 .venv-lab/bin/python -m weft lab --video /path/to/exercise.mp4 --out artifacts/my-exercise-01

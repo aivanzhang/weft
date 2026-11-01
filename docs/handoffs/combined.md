@@ -1,5 +1,28 @@
 # Combined Weft implementation handoff
 
+## Published fitting/UI checkpoint and current learning check — November 1, 2026, PST
+
+Published and independently private-remote verified:
+`6462086aeb279260eda777cb2ebb4e1d6cc58eb5`, fifteen reviewed files; receipt
+`.local/surface-only-fitting-publication-01.json`, SHA
+`1d23b954d0195d8c1ce3d39bb3cf7f6abc769869ccca8c3d8c2ecc3f36d74662`.
+Owned scope/index were clean and stash empty; separate avatar edits preserved.
+Root attempt02 is terminal and reaped: **61.578710 seconds**, 1,046 files /
+120,573,956 bytes, seal `228a4c757046716874f22f6318b9a728c9890fd42c656390a8d1d028e723211c`.
+Training ran 28 episodes; none of fourteen unique candidates passed every gate.
+Four controls on three matched changed starts each produced **0/3 successes**.
+The learned reward (0.733232) is below the original controller (0.747771); no
+policy is promoted. Source/runtime/task/seeds/gates stayed unchanged. The narrow
+file-guard correction passed eight authored checks and independent review.
+Saved diagnosis: original/learned pass body/floor checks but fail only `sam-2`
+equipment stability; coast preserves equipment but loses body tracking. Next
+distinct hypothesis is opt-in separate arm/leg feedback groups with unchanged
+features, limits, root controls and scorer. No causal guarantee or new run yet.
+The old failed01 and its two pre-training model compilations remain preserved.
+[Exact gate diagnosis, evidence and next safe action](current-coupled-learning.md).
+Terminal-result publication is recorded in `.local/fullspan-current-learning-publication-01.json`;
+no current policy is promoted and no native job remains.
+
 ## Missing-frame fitting and usable fitted controls — November 1, 2026, PST
 
 Previous turn = **progress**. Floor calibration is published at
