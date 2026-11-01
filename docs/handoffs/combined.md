@@ -1,5 +1,48 @@
 # Combined Weft implementation handoff
 
+## Camera-aware fitting and parallel surface inputs — October 31, 2026, 6:12 PM PDT
+
+The existing CLI, source loader, worker and offline report now support the
+opt-in fixed-camera surface objective. **173 distinct scoped tests pass** and
+independent reviews are clear. Output is an uninstalled angle overlay, not a
+replacement body or contact proof. [Exact files, commands, receipts, bounds and
+next actions](camera-surface-workflow.md). The protected scorer and existing
+playable camera-policy lab are unchanged; no retraining or repinning is needed.
+
+Actual saved analytical output passed the real metadata loader/report with
+explicitly synthetic sidecars. Those sidecars do not authenticate historical
+source ancestry. The first native workflow check is preserved as **failed before
+model/geometry work**: its analytical body-frame fixture lacks the native schema.
+A separately frozen corrected authored fixture passed the actual public workflow
+once in 0.371 seconds: two models/147 forwards, ten updates, all fourteen gates
+true, zero physics/inference/training/API work. It produces an offline report
+and uninstalled proposal, not physical validation. Root's exact plan, source
+changes, receipts and seals are in the linked handoff. Independent saved audit
+passes for all 81 files/1,280,889 bytes, source clocks, arithmetic, saved gates
+and offline links: `.local/camera-surface-native-saved-audit-02.json`, SHA
+`b58da89d5fabd57a55444129a4efc5dc18a2cf1e0376895fafa7643b53d8ba63`.
+The auditor-only first schema assumption remains preserved. No re-execution;
+all native handles are terminal and check 01 remains failed.
+
+Parallel source reconstruction owner `/root/exercise_reconstruction` released
+new `exercise_surface_inputs.py`, its tests and `exercise-surface-inputs.md`.
+Its thin collection/compiler has thirty focused passes and root review, bringing
+the combined checkpoint to **203 distinct scoped passes**. It makes missing pixel,
+surface-height, equipment-extent and body/world inputs actionable without inventing
+them. Final release details live in its own handoff; root's CLI routing is next.
+No shared-file, native-job or source
+inference overlap with root. Previous camera fitter/loader/report owners have
+released those reviewed paths for root's checkpoint.
+
+Pre-release base/fetched remote match `61af0d6`; stash/index were empty. The actual
+twenty-two-path commit/remote outcome is recorded in
+`.local/camera-surface-publication-01.json`; absence means publication is unfinished.
+The released surface-input paths are included; preserve all 1,249 unrelated avatar status entries,
+saved failures and all original source evidence. No API or source-processing job,
+server, browser, deployment or submission is part of this milestone. Generalized
+unfamiliar-video reconstruction, runnable refined-body admission and independent
+ground/equipment contact accuracy remain unfinished; the combined goal is active.
+
 ## Radial envelopes and worker diagnostics — October 31, 2026, 5:24 PM PDT
 
 The dedicated reconstruction lane remains active, independent of root's
@@ -43,9 +86,10 @@ eleven protected gates are unchanged. Receipt
 `655515ff34230dca39838b844d50de6b38ffa9570cb0d935ce6e1d093cdfa8cd`.
 These **55 distinct scoped checks** are not a whole-repository or live-UI result.
 
-Freshly fetched `origin/main` and local base match `259cfc2`. Root owns the
-eleven-path checkpoint and `.local/radial-diagnostics-publication-01.json` will
-record its actual commit/remote result; absence means publication is pending.
+The eleven-path checkpoint was published at `61af0d6f37dff21310589e062308024b08db55de`
+and the exact private remote verified at 5:28 PM PDT. Receipt
+`.local/radial-diagnostics-publication-01.json`, SHA
+`57ec98b8b567c3edb258c599edaee39fe6129bb82c03ae0ad9b4e747e1dc38dd`.
 Preserve the unrelated avatar changes, saved failures and source artifacts.
 No deployment, server, training, new source inference or paid call occurred.
 All native jobs are terminal; the existing recorded camera-policy lab is outside

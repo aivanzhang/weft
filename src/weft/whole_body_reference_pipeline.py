@@ -159,11 +159,16 @@ def _seal(root, profile, status, deadline, *, max_bytes=MAX_BYTES, media_name=No
     return sha256(raw).hexdigest()
 
 
-def _runtime(*, surface=False):
+def _runtime(*, surface=False, camera=False):
     modules = RUNTIME_MODULES
     if surface:
         from weft.source_surface_fit_inputs import RUNTIME_MODULES as surface_modules
         modules = (*modules, *surface_modules)
+    if camera:
+        if not surface:
+            raise ValueError("Camera fitting requires the surface-input runtime")
+        from weft.source_surface_fit_inputs import CAMERA_RUNTIME_MODULES
+        modules = (*modules, *CAMERA_RUNTIME_MODULES)
     source = Path(__file__).parent
     files = {f"runtime/weft/{name}.py": read_package_file(source, name + ".py", max_bytes=2 * 1024 * 1024)
              for name in modules}
@@ -171,15 +176,25 @@ def _runtime(*, surface=False):
 
 
 def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha256=None,
-                                          proposal_objective="image_v1", fit_seconds=30., max_seconds=60., surface_config=None):
+                                          proposal_objective="image_v1", fit_seconds=30., max_seconds=60., surface_config=None,
+                                          camera_image_scale=None):
     """Deliver a proposal and report, never install a body or change any acceptance gate."""
-    from weft.whole_body_reference_inputs import prepare_reference_inputs, recheck_reference_inputs
     from weft.whole_body_reference_report import prepare_whole_body_reference_report
 
-    if proposal_objective not in {"image_v1", "floor_first_v1", "surface_interval_v1"}:
+    camera_mode = proposal_objective == "camera_surface_interval_v1"
+    if proposal_objective not in {"image_v1", "floor_first_v1", "surface_interval_v1", "camera_surface_interval_v1"}:
         raise ValueError("Unknown body proposal objective")
-    if (proposal_objective == "surface_interval_v1") != (surface_config is not None):
+    if (proposal_objective in {"surface_interval_v1", "camera_surface_interval_v1"}) != (surface_config is not None):
         raise ValueError("Surface-interval fitting requires an explicit surface config and matching objective")
+    if camera_mode:
+        if type(camera_image_scale) not in (int, float) or not math.isfinite(camera_image_scale) or not 1e-6 <= camera_image_scale <= 1:
+            raise ValueError("Camera image scale must be explicit within [1e-6,1] authored loss units per pixel")
+        from weft.camera_body_reference_inputs import prepare_camera_reference_inputs as prepare_reference_inputs
+        from weft.camera_body_reference_inputs import recheck_camera_reference_inputs as recheck_reference_inputs
+    else:
+        if camera_image_scale is not None:
+            raise ValueError("Camera image scale is only supported with camera-surface-interval fitting")
+        from weft.whole_body_reference_inputs import prepare_reference_inputs, recheck_reference_inputs
     if (type(fit_seconds) not in (int, float) or not math.isfinite(fit_seconds) or not .001 <= fit_seconds <= 30
             or type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 20 <= max_seconds <= 60):
         raise ValueError("Fit time must be 0.001–30 seconds; workflow time must be 20–60 seconds")
@@ -198,7 +213,13 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         from weft.source_surface_fit_inputs import prepare_surface_fit_inputs
         surface_files, surface_descriptor = prepare_surface_fit_inputs(surface_config,
             source_sha256=snapshot["identity"]["source_sha256"], deadline=deadline)
-    runtime, versions = _runtime(surface=True) if surface_config is not None else _runtime()
+    if camera_mode:
+        if ("inputs/surface-camera.json" not in surface_files
+                or surface_files["inputs/surface-camera.json"] != snapshot["files"].get("inputs/source-camera.json")):
+            raise ValueError("Surface config camera must match the exact original camera-body source bytes")
+        runtime, versions = _runtime(surface=True, camera=True)
+    else:
+        runtime, versions = _runtime(surface=True) if surface_config is not None else _runtime()
     initial = {**snapshot["files"], **surface_files, **runtime}
     recovery = snapshot["identity"].get("recovery")
     media_name, output_limit = None, MAX_BYTES
@@ -246,6 +267,10 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         if surface_descriptor is not None:
             plan["surface_constraints"] = surface_descriptor
             result["surface_constraints"] = surface_descriptor
+        if camera_mode:
+            plan["camera_image_scale"] = camera_image_scale
+            result.update(camera_image_scale=camera_image_scale, candidate_kind="camera-body-angle-proposal-v1",
+                          installation="unsupported_angle_overlay_not_a_human_spec")
         plan_raw = _bytes(plan)
         write_package_files(study, {"plan.json": plan_raw})
         stage = "proposal"

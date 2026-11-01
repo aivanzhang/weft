@@ -145,10 +145,15 @@ def _targets(frame, origin, width, height, scale):
     return targets, weights, details
 
 
-def _prepare(spec, evidence):
-    _require(spec.get('profile') == 'exercise-v3' and spec.get('schema_version') == 3 and spec.get('dt') == 1 / 30,
-             'only original 30 Hz mobile bodies are supported')
-    _require('camera_reference' not in spec and not any('refinement' in key or 'alignment' in key for key in spec),
+def _prepare(spec, evidence, *, camera_fit=None):
+    period = spec.get('dt')
+    period_ok = (type(period) in (int, float) and math.isfinite(period) and 1 / 120 <= period <= 1 / 20
+                 if camera_fit is not None else period == 1 / 30)
+    _require(spec.get('profile') == 'exercise-v3' and spec.get('schema_version') == 3 and period_ok,
+             'only original camera mobile bodies with the declared bounded clock are supported' if camera_fit is not None
+             else 'only original 30 Hz mobile bodies are supported')
+    _require((camera_fit is not None or 'camera_reference' not in spec)
+             and not any('refinement' in key or 'alignment' in key for key in spec),
              'supplied-camera and stacked corrections are unsupported')
     source = spec.get('source_sha256')
     _require(isinstance(source, str) and len(source) == 64 and all(c in '0123456789abcdef' for c in source)
@@ -156,11 +161,11 @@ def _prepare(spec, evidence):
     width, height = evidence.get('width'), evidence.get('height')
     provenance = evidence.get('image_dimension_provenance', {})
     _require(all(type(v) is int and 16 <= v <= 8192 for v in (width, height))
-             and isinstance(provenance, dict) and provenance.get('method') in
+             and isinstance(provenance, dict) and (camera_fit is not None or provenance.get('method') in
              ('verified_source_video', 'authored_analytic_fixture', 'sealed_decoder_metadata')
              and provenance.get('source_sha256') == source and provenance.get('width') == width
-             and provenance.get('height') == height, 'source dimensions are not bound')
-    if provenance['method'] == 'sealed_decoder_metadata':
+             and provenance.get('height') == height), 'source dimensions are not bound')
+    if provenance.get('method') == 'sealed_decoder_metadata':
         keys = ('source_evidence_sha256', 'source_evidence_canonical_sha256', 'source_manifest_sha256')
         _require(all(isinstance(provenance.get(key), str) and len(provenance[key]) == 64
                      and all(c in '0123456789abcdef' for c in provenance[key]) for key in keys),
@@ -184,6 +189,9 @@ def _prepare(spec, evidence):
                      and SPATIAL_JOINT_LIMITS[name][0] <= value <= SPATIAL_JOINT_LIMITS[name][1], 'joint bounds')
         times.append(stamp); angles.append([joints[name] for name in NAMES])
     _require(isinstance(spec.get('lengths'), dict) and 'torso' in spec['lengths'], 'fixed original torso length required')
+    if camera_fit is not None:
+        return (np.array(times), np.array(angles), np.array([row['translation'] for row in spec['root_reference']]),
+                camera_fit.rows(), camera_fit.describe())
     root = build_root_reference(evidence, torso_length=spec['lengths']['torso'])
     expected = [{'time_s': row['time_s'], 'translation': row['translation']} for row in root['reference']]
     _require(root['status'] == 'ready' and expected == spec.get('root_reference')
@@ -287,8 +295,8 @@ def _project(points):
     return points[:, [0, 2]] * [1., -1.]
 
 
-def _loss(row, positions, delta, neighbors):
-    residual = _project(positions) - row['target']
+def _loss(row, positions, delta, neighbors, *, projected=False):
+    residual = (positions if projected else _project(positions)) - row['target']
     norms = np.linalg.norm(residual, axis=1); huber = CONTRACT['huber_delta_model_units']
     cost = np.sum(row['weights'] * np.where(norms <= huber, .5 * norms ** 2, huber * (norms - .5 * huber)))
     cost += .5 * CONTRACT['original_angle_regularization'] * (delta @ delta)
@@ -303,7 +311,7 @@ def _floor_loss(states):
 class _SurfaceIntervalFit:
     """Bound the opt-in term and retain every source slot and attempted correction."""
 
-    def __init__(self, objective, human_raw, evidence, rows, weight, settings):
+    def __init__(self, objective, human_raw, evidence, rows, weight, settings, *, source_frame_count=None):
         # Lazy import avoids a cycle with the released consumer's endpoint inventory.
         from weft.source_surface_interval_construction import SurfaceIntervalObjective
 
@@ -320,7 +328,8 @@ class _SurfaceIntervalFit:
         self.objective, self.weight, self.limits = objective, float(weight), limits
         self.inputs = objective.describe()
         _require(self.inputs['source_sha256'] == evidence['source_sha256']
-                 and objective.frame_count == evidence['frame_count'], 'surface and complete original pose source differ')
+                 and objective.frame_count == (evidence['frame_count'] if source_frame_count is None else source_frame_count),
+                 'surface and complete original pose source differ')
         self.body_hash, self.coordinate_frame = sha256(human_raw).hexdigest(), objective.coordinate_frame
         self.keys = [{'reference_index': i, 'source_frame': row['frame'], 'evidence_id': row['evidence_id'], 'time_s': row['time_s']}
                      for i, row in enumerate(rows)]
@@ -450,12 +459,17 @@ class _SurfaceIntervalFit:
 
 def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None,
                                             settings=None, proposal_objective='image_v1', surface_interval_objective=None,
-                                            surface_interval_weight=None, surface_interval_settings=None):
+                                            surface_interval_weight=None, surface_interval_settings=None,
+                                            camera_document=None, camera_image_scale=None):
     """Return a separately proposed body; no source, default runtime or policy is modified."""
     started = time.monotonic(); limits = _settings(settings)
-    _require(isinstance(proposal_objective, str) and proposal_objective in ('image_v1', 'floor_first_v1', 'surface_interval_v1'), 'unknown proposal objective')
+    _require(isinstance(proposal_objective, str) and proposal_objective in
+             ('image_v1', 'floor_first_v1', 'surface_interval_v1', 'camera_surface_interval_v1'), 'unknown proposal objective')
     floor_first = proposal_objective == 'floor_first_v1'
-    surface_mode = proposal_objective == 'surface_interval_v1'
+    camera_mode = proposal_objective == 'camera_surface_interval_v1'
+    surface_mode = proposal_objective in ('surface_interval_v1', 'camera_surface_interval_v1')
+    _require(camera_mode or camera_document is None and camera_image_scale is None,
+             'camera inputs require explicit camera_surface_interval_v1 objective')
     _require(surface_mode or all(value is None for value in (surface_interval_objective, surface_interval_weight, surface_interval_settings)),
              'surface interval inputs require explicit surface_interval_v1 objective')
     method = SURFACE_INTERVAL_METHOD if surface_mode else FLOOR_FIRST_METHOD if floor_first else CONTRACT['method']
@@ -465,22 +479,33 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                       'optimal', 'iteration_limit', 'time_limit', 'unsupported_infeasible_initial',
                       'dependent_active_set', 'kkt_verification_failed', 'solution_bound',
                       'numerical_feasibility_loss', 'dependent_blocker', 'other')}} if floor_first else None
-    spec, evidence = _document(human_document), _document(evidence_document)
+    camera = None
+    if camera_mode:
+        from weft.camera_body_fit import METHOD, prepare_camera_body_fit
+        camera = prepare_camera_body_fit(human_document, evidence_document, camera_document, image_scale=camera_image_scale,
+                                         surface_objective=surface_interval_objective)
+        spec, evidence, method = camera.body, camera.evidence, METHOD
+    else:
+        spec, evidence = _document(human_document), _document(evidence_document)
     mask = NAMES if joint_mask is None else joint_mask
     _require(isinstance(mask, (list, tuple)) and 1 <= len(mask) <= 19 and all(isinstance(n, str) for n in mask)
              and len(set(mask)) == len(mask) and set(mask) <= set(NAMES), 'joint mask must select unique existing axes')
     blocks = [np.array([NAMES.index(name) for name in block if name in mask]) for block in BLOCKS]
     blocks = [block for block in blocks if len(block)]
-    times, original, roots, rows, root_audit = _prepare(spec, evidence)
+    times, original, roots, rows, root_audit = _prepare(spec, evidence, **({'camera_fit': camera} if camera_mode else {}))
     surface = _SurfaceIntervalFit(surface_interval_objective, human_document, evidence, rows,
-                                 surface_interval_weight, surface_interval_settings) if surface_mode else None
+                                 surface_interval_weight, surface_interval_settings,
+                                 **({'source_frame_count': root_audit['complete_source_frame_slots']} if camera_mode else {})) if surface_mode else None
+    if camera_mode:
+        camera.validate_intervals(surface.inputs)
+    image_scale = 1. if camera_mode else root_audit['scale']['model_units_per_pixel']
     schedule, samples, lookup = _schedule(times)
     _require(limits['maximum_geometry_calls'] >= 2 * len(samples), 'work bound cannot cover baseline and final audit')
     changes = np.zeros_like(original); affected = [[] for _ in times]
     for j, sample in enumerate(samples):
         for index, weight in sample['weights']:
             affected[index].append((j, weight))
-    calls, accepted, rejected, qp_calls = 0, 0, 0, 0
+    calls, accepted, rejected, qp_calls, projection_calls = 0, 0, 0, 0, 0
     expired = False; failure = None; phase = 'fit'
     deadline = started + limits['maximum_seconds']; final_deadline = deadline + limits['finalization_seconds']
     tolerance = CONTRACT['numerical_tolerance']
@@ -516,6 +541,33 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         root = sum(roots[i] * w for i, w in sample['weights'])
         return state(engine, q, root, derivatives)
 
+    def camera_projection(index, value, derivatives=False):
+        nonlocal projection_calls
+        cache = value.setdefault('_camera_projection', {})
+        key = (index, derivatives)
+        if key not in cache:
+            check()
+            limit = limits['maximum_geometry_calls'] - (len(rows) if phase == 'fit' else 0)
+            if projection_calls >= limit:
+                raise TimeoutError('camera projection bound exhausted; final source audit reserved')
+            projection_calls += 1
+            cache[key] = camera.project(index, value, derivatives=derivatives)
+            check()
+        return cache[key]
+
+    def image(index, value):
+        return camera_projection(index, value)['image'] if camera_mode else _project(value['points'])
+
+    def loss(index, value, delta, neighbors):
+        return (_loss(rows[index], image(index, value), delta, neighbors, projected=True) if camera_mode
+                else _loss(rows[index], value['points'], delta, neighbors))
+
+    def image_errors(index, value):
+        if camera_mode:
+            residual = camera_projection(index, value)['pixels'] - rows[index]['target_pixels']
+            return np.hypot(residual[:, 0], residual[:, 1])
+        return np.linalg.norm(_project(value['points']) - rows[index]['target'], axis=1)
+
     try:
         _require(1 <= len(support_names) <= CONTRACT['maximum_floor_supports'] and len(set(support_names)) == len(support_names)
                  and len(primitive_names) == len(support_names), 'complete unique geometry support identities required')
@@ -523,7 +575,12 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             sample['before'] = at(sample, changes, geometry)
             sample['current'] = sample['before']
         for i, row in enumerate(rows):
-            row['before_errors'] = np.linalg.norm(_project(samples[lookup[float(times[i])]]['before']['points']) - row['target'], axis=1)
+            before = samples[lookup[float(times[i])]]['before']
+            row['before_errors'] = image_errors(i, before)
+            if camera_mode:
+                row['before_projection'] = camera_projection(i, before)
+                _require(np.all(row['before_projection']['valid'][row['weights'] > 0]),
+                         'known original camera endpoints are outside the fixed projection/depth domain')
             if surface_mode:
                 surface.save_audit(i, surface.evaluate(i, samples[lookup[float(times[i])]]['before']))
         lower = np.maximum(-.15, np.array([SPATIAL_JOINT_LIMITS[n][0] for n in NAMES]) - original)
@@ -540,14 +597,16 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                     if surface_mode:
                         surface.reserve_journal()
                     current = samples[lookup[float(times[i])]]['current']
-                    current_errors = np.linalg.norm(_project(current['points']) - row['target'], axis=1)
+                    current_errors = image_errors(i, current)
                     image_limit = np.minimum(row['before_errors'], current_errors)
-                    cost = _loss(row, current['points'], changes[i], neighbors)
+                    cost = loss(i, current, changes[i], neighbors)
                     if surface_mode:
                         cost += surface.weight * surface.cost(surface.current[i])
                     full = state(geometry, original[i] + changes[i], roots[i], True)
-                    residual = (_project(full['points']) - row['target']).ravel()
-                    jac = np.take(full['point_jac'][:, [0, 2], :] * np.array([1., -1.])[None, :, None], columns, axis=2).reshape(24, n)
+                    projection = camera_projection(i, full, True) if camera_mode else None
+                    residual = ((projection['image'] if camera_mode else _project(full['points'])) - row['target']).ravel()
+                    jac = (np.take(projection['image_jac'], columns, axis=2).reshape(24, n) if camera_mode else
+                           np.take(full['point_jac'][:, [0, 2], :] * np.array([1., -1.])[None, :, None], columns, axis=2).reshape(24, n))
                     robust = row['weights'] * np.minimum(1., .05 / np.maximum(np.linalg.norm(residual.reshape(12, 2), axis=1), 1e-15))
                     diagonal = np.repeat(robust, 2)
                     prior, temporal = .001, .0005
@@ -567,6 +626,11 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                     lo = np.maximum(lo[columns] - changes[i, columns], -.10)
                     hi = np.minimum(hi[columns] - changes[i, columns], .10)
                     matrix, bounds = [*np.eye(n), *-np.eye(n)], [*lo, *-hi]
+                    if camera_mode:
+                        depth = projection['camera_depth'] - row['before_projection']['camera_depth']
+                        depth_jac = projection['camera_depth_jac'][:, columns]
+                        matrix.extend(depth_jac); bounds.extend(-.08 - depth - tolerance)
+                        matrix.extend(-depth_jac); bounds.extend(depth - .08 - tolerance)
                     floor_proposal = False
                     if floor_first:
                         floor_cost = _floor_loss(samples[j]['current'] for j, _ in affected[i])
@@ -589,8 +653,9 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                                 floor_hessian += floor_jac.T @ floor_jac
                                 floor_gradient += floor_jac.T @ value['gaps'][violating]
                     for point in np.flatnonzero(row['weights']):
-                        r = residual.reshape(12, 2)[point]; pj = jac.reshape(12, 2, n)[point]
-                        norm = float(np.linalg.norm(r))
+                        r = (projection['pixels'][point] - row['target_pixels'][point] if camera_mode else residual.reshape(12, 2)[point])
+                        pj = projection['pixel_jac'][point][:, columns] if camera_mode else jac.reshape(12, 2, n)[point]
+                        norm = float(np.hypot(r[0], r[1])) if camera_mode else float(np.linalg.norm(r))
                         if norm > 1e-12:
                             matrix.append(-r @ pj / norm); bounds.append(norm - image_limit[point] - tolerance)
                         else:
@@ -639,7 +704,10 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                                 'interval_before_m2': surface.current[i]['objective_m2'], 'interval_after_m2': None,
                                 'gate_results': {key: None for key in ('floor_nonregression', 'endpoint_depth', 'source_image_nonregression', 'surface_interval_nonregression')},
                                 'accepted': False, 'outcome': 'evaluation_incomplete', 'floor_min_margin_model_units': None,
-                                'maximum_depth_change_model_units': None, 'maximum_source_image_excess_model_units': None})
+                                'maximum_depth_change_model_units': None,
+                                **({'maximum_source_image_excess_px': None, 'camera_projection_valid': None,
+                                    'maximum_camera_depth_change_supplied_units': None, 'camera_depth_bound_satisfied': None} if camera_mode
+                                   else {'maximum_source_image_excess_model_units': None})})
                         states = []; valid = True
                         floor_margin, depth_change = math.inf, 0.
                         for j, _ in affected[i]:
@@ -652,10 +720,16 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                                 depth_change = max(depth_change, float(np.max(abs(value['points'][:, 1] - sample['before']['points'][:, 1]))))
                             states.append((j, value))
                         point_state = next(value for j, value in states if j == lookup[float(times[i])])
-                        errors = np.linalg.norm(_project(point_state['points']) - row['target'], axis=1)
+                        errors = image_errors(i, point_state)
                         valid &= bool(np.all(errors[row['weights'] > 0] <= image_limit[row['weights'] > 0] + tolerance))
+                        camera_valid, camera_depth_change = True, None
+                        if camera_mode:
+                            trial_projection = camera_projection(i, point_state)
+                            camera_depth_change = float(np.max(abs(trial_projection['camera_depth'] - row['before_projection']['camera_depth'])))
+                            camera_valid = bool(np.all(trial_projection['valid'][row['weights'] > 0]))
+                            valid &= camera_valid and camera_depth_change <= .08 + tolerance
                         trial_surface = None
-                        trial_cost = _loss(row, point_state['points'], trial[i], neighbors) if surface_mode or valid else None
+                        trial_cost = loss(i, point_state, trial[i], neighbors) if surface_mode or valid else None
                         if surface_mode:
                             trial_surface = surface.evaluate(i, point_state)
                             interval_ok = surface.nonregression(surface.current[i], trial_surface)
@@ -680,7 +754,11 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                                     'surface_interval_nonregression': interval_ok}, accepted=bool(improves),
                                 outcome='accepted' if improves else 'rejected_gate' if not valid else 'rejected_objective',
                                 floor_min_margin_model_units=floor_margin, maximum_depth_change_model_units=depth_change,
-                                maximum_source_image_excess_model_units=float(np.max(errors[row['weights'] > 0] - image_limit[row['weights'] > 0], initial=0.)))
+                                **({'maximum_source_image_excess_px': float(np.max(errors[row['weights'] > 0] - image_limit[row['weights'] > 0], initial=0.)),
+                                    'camera_projection_valid': camera_valid,
+                                    'maximum_camera_depth_change_supplied_units': camera_depth_change,
+                                    'camera_depth_bound_satisfied': camera_depth_change <= .08 + tolerance} if camera_mode else
+                                   {'maximum_source_image_excess_model_units': float(np.max(errors[row['weights'] > 0] - image_limit[row['weights'] > 0], initial=0.))}))
                         if improves:
                             changes = trial; accepted += 1
                             if floor_first:
@@ -720,7 +798,9 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                 'before_max_penetration_model_units': float(np.maximum(0., -baseline['gaps']).max()),
                 'after_max_penetration_model_units': float(np.maximum(0., -after['gaps']).max())})
         for i, row in enumerate(rows):
-            row['after_errors'] = np.linalg.norm(_project(final[float(times[i])]['points']) - row['target'], axis=1)
+            row['after_errors'] = image_errors(i, final[float(times[i])])
+            if camera_mode:
+                row['after_projection'] = camera_projection(i, final[float(times[i])])
             if surface_mode:
                 surface.save_audit(i, surface.evaluate(i, final[float(times[i])]), final=True)
     finally:
@@ -744,11 +824,25 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         'source_endpoint_image_nonregression': bool(image_ok)}
     if surface_mode:
         gates['surface_interval_nonregression'] = all(surface.nonregression(surface.before[i], surface.after[i]) for i in range(len(rows)))
+    if camera_mode:
+        gates['camera_projection_domain'] = all(bool(np.all(row['after_projection']['valid'][row['weights'] > 0])) for row in rows)
+        gates['camera_endpoint_depth_change'] = all(float(np.max(abs(row['after_projection']['camera_depth'] - row['before_projection']['camera_depth'])))
+                                                    <= .08 + tolerance for row in rows)
+        gates['source_endpoint_image_nonregression'] &= gates['camera_projection_domain']
     source_rows = []
     for i, row in enumerate(rows):
-        points = [dict(point, error_before_px=float(row['before_errors'][j] / root_audit['scale']['model_units_per_pixel']) if point['weight'] else None,
-                       error_after_px=float(row['after_errors'][j] / root_audit['scale']['model_units_per_pixel']) if point['weight'] else None)
+        points = [dict(point, error_before_px=float(row['before_errors'][j] / image_scale) if point['weight'] else None,
+                       error_after_px=float(row['after_errors'][j] / image_scale) if point['weight']
+                       and (not camera_mode or row['after_projection']['valid'][j]) else None)
                   for j, point in enumerate(row['points'])]
+        if camera_mode:
+            for j, point in enumerate(points):
+                point['projection_before'] = 'valid' if row['before_projection']['valid'][j] else 'unavailable_camera_domain'
+                point['projection_after'] = 'valid' if row['after_projection']['valid'][j] else 'unavailable_camera_domain'
+                for when in ('before', 'after'):
+                    value = row[when + '_projection']
+                    point['predicted_' + when + '_px'] = value['pixels'][j].tolist() if value['valid'][j] else None
+                    point['depth_' + when + '_supplied_camera_units'] = float(value['camera_depth'][j])
         source_rows.append({key: row[key] for key in ('evidence_id', 'frame', 'time_s', 'root_status')} | {
             'status': 'frozen_first_reference' if i == 0 else 'unchanged_missing_source_targets' if not np.any(row['weights']) else
                       'changed_inferred_proposal' if np.any(changes[i]) else 'unchanged_no_accepted_step',
@@ -766,7 +860,12 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     after_peak = max(row['after_max_penetration_model_units'] for row in checks)
     image_pairs = [(row['before_errors'][j], row['after_errors'][j])
                    for row in rows for j in np.flatnonzero(row['weights'])]
-    image_mean = np.mean(image_pairs, axis=0) / root_audit['scale']['model_units_per_pixel'] if image_pairs else (None, None)
+    image_mean = np.mean(image_pairs, axis=0) / image_scale if image_pairs else (None, None)
+    if camera_mode:
+        # An overlay preserves the original camera/shape pins; it is deliberately not a mutated human document.
+        candidate = camera.overlay(candidate['reference'], candidate['whole_body_reference_refinement'])
+        if not gates['camera_projection_domain']:
+            image_mean = (image_mean[0], None)
     report = {'schema_version': 1, 'profile': method, 'status': status, 'contract': dict(deepcopy(CONTRACT), method=method),
         'work_limits': limits, 'input_human_sha256': sha256(human_document).hexdigest(),
         'input_evidence_sha256': sha256(evidence_document).hexdigest(), 'candidate_sha256': canonical_hash(candidate),
@@ -778,14 +877,17 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             'declared_frame_count': evidence['frame_count'], 'declared_decoded_frames': evidence.get('decoded_frames'),
             'scope': 'Retained inference slots only; unsampled decoded slots and missing decoder timestamps are not reconstructed'},
         'image_dimensions': {'width': evidence['width'], 'height': evidence['height'],
-            'provenance': deepcopy(evidence['image_dimension_provenance']),
+            'provenance': ({'method': 'supplied_camera_and_pose_metadata',
+                'camera_raw_sha256': root_audit['input_bindings']['camera_raw_sha256'],
+                'source_sha256': spec['source_sha256'], 'width': evidence['width'], 'height': evidence['height'],
+                'decoder_verification': 'unavailable_no_decode_performed'} if camera_mode else deepcopy(evidence['image_dimension_provenance'])),
             'verification_scope': 'Caller-supplied provenance identifiers; this function does not authenticate an external manifest or decode video'},
         'references': source_rows, 'geometry_checks': checks, 'gates': gates, 'failures': failures,
         'accepted_updates': accepted, 'rejected_trials_or_directions': rejected, 'qp_calls': qp_calls, 'geometry_calls': calls,
         'changed_references': int(np.count_nonzero(np.max(abs(changes), axis=1))), 'maximum_correction_rate_rad_s': rate,
         'image_summary': {'confident_source_endpoint_pairs': len(image_pairs),
-            'mean_error_before_px': float(image_mean[0]) if image_pairs else None,
-            'mean_error_after_px': float(image_mean[1]) if image_pairs else None,
+            'mean_error_before_px': float(image_mean[0]) if image_mean[0] is not None else None,
+            'mean_error_after_px': float(image_mean[1]) if image_mean[1] is not None else None,
             'grid_image_targets': 0},
         'floor_summary': {'checks': len(checks), 'before_failures': sum(row['before_max_penetration_model_units'] > .025 for row in checks),
             'after_failures': sum(row['after_max_penetration_model_units'] > .025 for row in checks),
@@ -814,7 +916,19 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             'weight': surface.weight, 'weight_status': 'authored', 'interval_units': 'supplied_world_metre_squared',
             'acceptance': 'Combined loss decreases by >1e-14; every existing nonlinear gate and per-channel interval nonregression apply',
             'grid_interval_targets': 0}
-    result = {'status': status, 'human_candidate': candidate, 'report': report}
+    if camera_mode:
+        report['camera_fit'] = root_audit | {'projection_calls': projection_calls,
+            'maximum_projection_calls': limits['maximum_geometry_calls'], 'grid_camera_projection_calls': 0}
+        report['candidate_kind'] = 'camera-body-angle-proposal-v1'
+        report['geometry_admission'] = 'unsupported_angle_overlay_not_a_human_spec'
+        report['contract']['image_constraint'] = 'Confident source-knot pixels through unchanged supplied K/R/t/k; no grid-camera interpolation'
+        report['contract']['endpoint_displacement_scope'] = 'Legacy pelvis-relative local-y plus source-knot supplied-camera depth, each <=0.08; no depth recovery'
+        report['surface_intervals']['weight_units'] = 'authored_camera_loss_units_squared_per_supplied_world_metre_squared'
+        report['objective']['primary'] = 'Fixed-camera pixel residual in explicit authored loss units plus angular regularization and weighted outside-envelope loss'
+        report['image_summary']['invalid_final_known_endpoints'] = sum(int(np.count_nonzero((row['weights'] > 0) & ~row['after_projection']['valid'])) for row in rows)
+        result = {'status': status, 'human_candidate': None, 'angle_proposal': candidate, 'report': report}
+    else:
+        result = {'status': status, 'human_candidate': candidate, 'report': report}
     check()
     _require(len(json.dumps(result, allow_nan=False).encode()) <= CONTRACT['maximum_output_bytes'], 'complete output exceeds bound')
     check()

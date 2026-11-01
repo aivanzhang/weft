@@ -22,6 +22,8 @@ MAX_BODY_BYTES, MAX_BINDING_BYTES = 8 << 20, 64 << 10
 MAX_CACHE_BYTES, MAX_ROW_BYTES = 8 << 20, 128 << 10
 MAX_SECONDS, MAX_QUERY_SECONDS = 5., .25
 MAX_FRAMES, MAX_REFERENCES, MAX_CHANNELS = 1800, 900, 12
+IMAGE_ADMISSION_PROFILE = "source-surface-body-image-admission-v1"
+MAX_IMAGE_ADMISSION_BYTES, MAX_IMAGE_ADMISSION_ROW_BYTES = 2 << 20, 4 << 10
 
 
 def _require(value, message):
@@ -139,6 +141,36 @@ def _transform(alignment, mapping):
     return tuple(tuple(row) for row in np.column_stack(columns)), tuple(zero["position"])
 
 
+def _image_admission(frame, reference, entity, observations, evidence, decoded_frames, binding_reason):
+    observed = observations.get((entity["document_sha256"], entity["object_id"], frame)) if entity is not None else None
+    evidence_ref = ({"document_sha256": entity["document_sha256"], "evidence_id": reference["evidence_id"]}
+                    if entity is not None and reference is not None else None)
+    record = evidence.get((entity["document_sha256"], reference["evidence_id"])) if evidence_ref is not None else None
+    reason = binding_reason
+    if reason is None:
+        if frame >= decoded_frames:
+            reason = "metadata_only_not_decoded"
+        elif observed is None:
+            reason = "missing_source_observation"
+        elif observed["admission"] != "included" or observed["partition"] != "construction":
+            reason = "not_construction_source_evidence"
+        elif observed["visibility"] not in ("detected", "partial"):
+            reason = "source_entity_unavailable"
+        elif reference is None:
+            reason = "original_body_reference_unavailable"
+        elif (evidence_ref not in observed["evidence_refs"] or record is None
+              or record["object_id"] != entity["object_id"] or record["frame"] != frame):
+            reason = "body_reference_not_in_source_entity_evidence"
+        elif record["time_s"] != observed["time_s"] or reference["body_time_s"] != observed["time_s"]:
+            reason = "body_evidence_source_clock_differs"
+    return {"schema_version": 1, "profile": IMAGE_ADMISSION_PROFILE, "source_frame": frame,
+            "status": "construction_image_source_ready" if reason is None else "unavailable", "reason": reason,
+            "human_entity_ref": entity, "body_reference": reference, "evidence_ref": evidence_ref,
+            "observation_ref": None if observed is None else {"document_sha256": entity["document_sha256"], "observation_id": observed["id"]},
+            "source_time_s": None if observed is None else observed["time_s"],
+            "source_partition": None if observed is None else observed["partition"]}
+
+
 @dataclass(frozen=True)
 class SurfaceIntervalObjective:
     """Immutable source joins; queries use one cached frame, never the whole evidence tree."""
@@ -152,6 +184,7 @@ class SurfaceIntervalObjective:
     _body_frame: tuple
     _matrix: tuple | None
     _translation: tuple | None
+    _image_admission: tuple[bytes, ...] = ()
 
     @property
     def frame_count(self):
@@ -169,6 +202,12 @@ class SurfaceIntervalObjective:
         result = json.loads(self._rows[index])
         result["source_envelopes"] = self.envelopes.frame(index)
         return result
+
+    def image_admission(self, index):
+        """Read cached image-source custody independently of interval geometry availability."""
+        _require(type(index) is int and 0 <= index < self.frame_count, "original source frame outside range")
+        _require(len(self._image_admission) == self.frame_count, "image admission was not explicitly prepared")
+        return json.loads(self._image_admission[index])
 
     def _query(self, frame, body_sha256, body_time_s, coordinate_frame):
         _require(type(frame) is int and 0 <= frame < self.frame_count, "original source frame outside range")
@@ -272,7 +311,7 @@ class SurfaceIntervalObjective:
             jacobians=jacobians, parameter_names=parameters)
 
 
-def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=None):
+def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=None, include_image_admission=False):
     """Prepare a callable construction term, not an installed optimizer or physical admission.
 
     Accept the trusted envelope API's prepared object; do not reconstruct its geometry.
@@ -280,6 +319,7 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
     the trusted producer's responsibility, not a consequence of a matching hash.
     """
     deadline = time.monotonic() + MAX_SECONDS
+    _require(type(include_image_admission) is bool, "image admission preparation must be explicitly boolean")
     _require(type(body_bytes) is bytes and 0 < len(body_bytes) <= MAX_BODY_BYTES
              and (binding_bytes is None or type(binding_bytes) is bytes and 0 < len(binding_bytes) <= MAX_BINDING_BYTES),
              "bounded exact input bytes required")
@@ -309,6 +349,17 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
     entity = binding["human_entity_ref"] if binding is not None else None
     if entity is not None and (entity["document_sha256"], entity["object_id"], 0) not in observations:
         global_reason = global_reason or "human_entity_not_in_exact_source"
+    image_binding_reason = body_reason
+    if include_image_admission:
+        if binding is None:
+            image_binding_reason = image_binding_reason or "missing_explicit_body_binding"
+        elif binding["body_sha256"] != body_hash or binding["source_sha256"] != metadata["source_sha256"]:
+            image_binding_reason = image_binding_reason or "binding_body_or_source_identity_differs"
+        elif binding["envelope_bindings"] != metadata["bindings"]:
+            image_binding_reason = image_binding_reason or "binding_envelope_inputs_differ"
+        elif (entity["document_sha256"], entity["object_id"], 0) not in observations:
+            image_binding_reason = image_binding_reason or "human_entity_not_in_exact_source"
+    admissions, admission_bytes = [], 0
     rows, counts, cache_bytes = [], Counter(), 0
     digest = sha256(b"source-surface-envelope-cache-v1\0")
     digest.update(len(envelopes._metadata).to_bytes(8, "big")); digest.update(envelopes._metadata)
@@ -319,6 +370,12 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
         _require(row.get("source_frame") == index and type(row.get("anchors")) is list
                  and len(row["anchors"]) == len(metadata["channels"]), "envelope source slots or channel denominator differ")
         reference = body_rows.get(index)
+        if include_image_admission:
+            admission = _image_admission(index, reference, entity, observations, evidence, source["decoded_frames"], image_binding_reason)
+            encoded_admission = _encode(admission, MAX_IMAGE_ADMISSION_ROW_BYTES, deadline)
+            admission_bytes += len(encoded_admission)
+            _require(admission_bytes <= MAX_IMAGE_ADMISSION_BYTES, "complete image admission cache exceeds two MiB; no slots dropped")
+            admissions.append(encoded_admission)
         joined = []
         for anchor, declaration in zip(row["anchors"], metadata["channels"], strict=True):
             _require(anchor["channel_id"] == declaration["id"] and anchor["entity_ref"] == declaration["entity_ref"],
@@ -393,8 +450,15 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
                    "body_bytes": MAX_BODY_BYTES, "binding_bytes": MAX_BINDING_BYTES, "cache_bytes": MAX_CACHE_BYTES,
                    "source_frames": MAX_FRAMES, "body_references": MAX_REFERENCES, "channels": MAX_CHANNELS,
                    "derivative_columns": len(NAMES)}}
+    if include_image_admission:
+        description["source_image_admission"] = {"profile": IMAGE_ADMISSION_PROFILE, "slots": len(admissions),
+            "row_cache_bytes": admission_bytes, "ordinary_join_row_cache_bytes": cache_bytes,
+            "combined_row_cache_bytes": admission_bytes + cache_bytes,
+            "shared_envelope_cache_bytes": len(envelopes._metadata) + sum(map(len, envelopes.iter_frame_bytes())),
+            "maximum_additional_cache_bytes": MAX_IMAGE_ADMISSION_BYTES,
+            "scope": "Source/body/entity/evidence/frame/clock construction custody only; independent of annotations, height, world alignment or envelope availability"}
     encoded = _encode(description, MAX_ROW_BYTES, deadline)
     _require(cache_bytes + len(encoded) <= MAX_CACHE_BYTES, "complete metadata/join cache exceeds 8 MiB")
     _check(deadline)
     return SurfaceIntervalObjective(envelopes, body_bytes, binding_bytes, encoded, tuple(rows), body_hash,
-                                    tuple(body_frame.items()), matrix, translation)
+                                    tuple(body_frame.items()), matrix, translation, tuple(admissions))

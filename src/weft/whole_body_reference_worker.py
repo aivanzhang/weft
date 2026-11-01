@@ -29,6 +29,8 @@ RUNTIME_MODULES = {'__init__', 'body_frame', 'body_refinement', 'constrained_qp'
 RUNTIME_FILES = {f'runtime/weft/{name}.py' for name in RUNTIME_MODULES}
 SURFACE_MODULES = {'source_surface_fit_inputs', 'source_surface_envelopes', 'source_surface_interval_construction',
                    'source_surface_anchors', 'camera_pose', 'camera_ground', 'world_alignment', 'world_evidence', 'observations'}
+CAMERA_MODULES = {'camera_body_fit', 'camera_shared_contract', 'camera_body', 'camera_reference',
+                  'multiview_root', 'multiview_body', 'multiview_pose', 'multiview_segments'}
 SURFACE_ROLES = {'camera': 'inputs/surface-camera.json', 'surface_intervals': 'inputs/surface-intervals.json',
                  'annotations': 'inputs/surface-annotations.json', 'body_binding': 'inputs/surface-body-binding.json'}
 SETTINGS = {'finalization_seconds': 8, 'maximum_geometry_calls': 120000, 'maximum_sweeps': 2}
@@ -110,7 +112,7 @@ def _read(root_fd, name, bound, expected=None):
 
 def _write(root_fd, name, raw, bound):
     _require(type(raw) is bytes and 0 < len(raw) <= bound, 'Worker output exceeds its byte bound')
-    _require(name in {'candidate-human.json', 'report.json', 'worker.json'}, 'Unexpected worker output')
+    _require(name in {'candidate-human.json', 'angle-proposal.json', 'report.json', 'worker.json'}, 'Unexpected worker output')
     fd = os.open(name, os.O_RDWR | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600, dir_fd=root_fd)
     with os.fdopen(fd, 'w+b') as stream:
         stream.write(raw); stream.flush(); stream.seek(0)
@@ -121,9 +123,11 @@ def _plan(raw):
     plan = _json(raw)
     _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
              and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen', 'Frozen worker plan required')
-    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1', 'surface_interval_v1'}, 'Unsupported proposal objective')
+    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1', 'surface_interval_v1', 'camera_surface_interval_v1'}, 'Unsupported proposal objective')
+    camera_mode = plan['proposal_objective'] == 'camera_surface_interval_v1'
+    surface_mode = plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}
     input_files, runtime_files = INPUT_FILES, RUNTIME_FILES
-    if plan['proposal_objective'] == 'surface_interval_v1':
+    if surface_mode:
         surface = plan.get('surface_constraints')
         _require(type(surface) is dict and set(surface) == {'profile', 'config_sha256', 'source_sha256',
                  'weight', 'observation_count', 'optional_inputs'} and surface['profile'] == 'source-surface-fit-config-v1',
@@ -141,13 +145,21 @@ def _plan(raw):
         runtime_files = RUNTIME_FILES | {f'runtime/weft/{name}.py' for name in SURFACE_MODULES}
     else:
         _require('surface_constraints' not in plan, 'Default fitting cannot silently consume surface constraints')
+    if camera_mode:
+        scale = plan.get('camera_image_scale')
+        _require(type(scale) in (int, float) and math.isfinite(scale) and 1e-6 <= scale <= 1,
+                 'Explicit camera image scale must be within [1e-6,1]')
+        _require('camera' in plan['surface_constraints']['optional_inputs'], 'Camera fitting requires its exact supplied camera')
+        runtime_files = runtime_files | {f'runtime/weft/{name}.py' for name in CAMERA_MODULES}
+    else:
+        _require('camera_image_scale' not in plan, 'Other objectives cannot silently consume a camera image scale')
     for key, names in (('input_files', input_files), ('runtime_files', runtime_files)):
         values = plan.get(key)
         _require(type(values) is dict and set(values) == names, 'Worker requires the exact bounded ' + key)
         for name, value in values.items():
             _parts(name)
             _require(isinstance(value, str) and _SHA.fullmatch(value), 'Worker file identity must be an exact SHA256')
-    if plan['proposal_objective'] == 'surface_interval_v1':
+    if surface_mode:
         _require(plan['surface_constraints']['config_sha256'] == plan['input_files']['inputs/surface-config.json'],
                  'Frozen surface config identity differs')
     settings = plan.get('settings')
@@ -343,11 +355,16 @@ def _verify_files(root_fd, plan, check):
 
 
 def _result(result, plan):
-    _require(type(result) is dict and set(result) == {'status', 'human_candidate', 'report'}, 'Unexpected fitter result shape')
-    candidate, report = result['human_candidate'], result['report']
+    camera_mode = plan['proposal_objective'] == 'camera_surface_interval_v1'
+    keys = {'status', 'human_candidate', 'report'} | ({'angle_proposal'} if camera_mode else set())
+    _require(type(result) is dict and set(result) == keys, 'Unexpected fitter result shape')
+    if camera_mode:
+        _require(result['human_candidate'] is None, 'Camera angle proposals cannot replace the original human body')
+    candidate, report = result['angle_proposal'] if camera_mode else result['human_candidate'], result['report']
     method = {'image_v1': 'blocked-whole-body-floor-reference-v1',
               'floor_first_v1': 'blocked-whole-body-floor-first-reference-v1',
-              'surface_interval_v1': 'blocked-whole-body-surface-interval-reference-v1'}[plan['proposal_objective']]
+              'surface_interval_v1': 'blocked-whole-body-surface-interval-reference-v1',
+              'camera_surface_interval_v1': 'blocked-camera-body-surface-interval-reference-v1'}[plan['proposal_objective']]
     _require(type(candidate) is dict and type(report) is dict and result['status'] in
              {'partial_budget_exhausted', 'rejected_construction_proposal', 'unadmitted_construction_proposal'}, 'Unsupported proposal result')
     _require(report.get('status') == result['status'] and report.get('profile') == method and report.get('promoted') is False
@@ -359,8 +376,24 @@ def _result(result, plan):
              and marker.get('promoted') is False, 'Candidate must remain explicitly unpromoted')
     for key, name in (('input_human_sha256', 'inputs/human.json'), ('input_evidence_sha256', 'inputs/evidence-derived.json')):
         _require(report.get(key) == marker.get(key) == plan['input_files'][name], 'Returned input identity differs')
+    if camera_mode:
+        scope = 'unsupported_angle_overlay_not_a_human_spec'
+        _require(type(candidate.get('schema_version')) is int and candidate['schema_version'] == 1
+                 and candidate.get('profile') == report.get('candidate_kind') == 'camera-body-angle-proposal-v1'
+                 and candidate.get('installation') == report.get('geometry_admission') == scope
+                 and all(candidate.get(key) is False for key in ('body_installed', 'raw_camera_changed', 'root_or_floor_changed', 'promoted'))
+                 and candidate.get('contact') == 'unknown' and candidate.get('physical_validation') == 'unverified',
+                 'Camera angle overlay must remain uninstalled with original camera/root/floor unchanged')
+        bindings, camera = candidate.get('input_bindings'), report.get('camera_fit')
+        _require(type(bindings) is dict and type(camera) is dict and camera.get('input_bindings') == bindings
+                 and type(camera.get('image_loss_scale_per_pixel')) in (int, float)
+                 and camera.get('image_loss_scale_per_pixel') == plan['camera_image_scale']
+                 and camera.get('image_loss_scale_status') == 'authored', 'Camera fitting identity or authored scale differs')
+        for key, name in (('body_raw_sha256', 'inputs/human.json'), ('evidence_raw_sha256', 'inputs/evidence-derived.json'),
+                          ('camera_raw_sha256', 'inputs/surface-camera.json')):
+            _require(bindings.get(key) == plan['input_files'][name], 'Returned raw camera/body/evidence identity differs')
     _require(report.get('candidate_sha256') == _canonical(candidate), 'Returned canonical candidate identity differs')
-    output = {'candidate-human.json': _encode(candidate), 'report.json': _encode(report)}
+    output = {'angle-proposal.json' if camera_mode else 'candidate-human.json': _encode(candidate), 'report.json': _encode(report)}
     _require(sum(len(raw) for raw in output.values()) <= OUTPUT_LIMIT, 'Combined proposal output exceeds 16 MiB')
     return output
 
@@ -382,7 +415,7 @@ def run_worker(study, expected_plan_sha256):
         path = path.resolve(strict=True)
         _require(len(path.parts) <= 64, 'Study directory exceeds path depth bound')
         root_fd = os.open(path, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
-        for name in ('worker.json', 'candidate-human.json', 'report.json'):
+        for name in ('worker.json', 'candidate-human.json', 'angle-proposal.json', 'report.json'):
             try: os.stat(name, dir_fd=root_fd, follow_symlinks=False)
             except FileNotFoundError: continue
             raise FileExistsError('Worker output already exists: ' + name)
@@ -392,8 +425,10 @@ def run_worker(study, expected_plan_sha256):
         plan_raw = _read(root_fd, 'plan.json', PLAN_LIMIT, expected_plan_sha256)
         plan_sha = sha256(plan_raw).hexdigest()
         plan = _plan(plan_raw)
-        if plan['proposal_objective'] == 'surface_interval_v1':
+        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}:
             guards.runtime_modules = RUNTIME_MODULES | SURFACE_MODULES
+        if plan['proposal_objective'] == 'camera_surface_interval_v1':
+            guards.runtime_modules = guards.runtime_modules | CAMERA_MODULES
         worker = Path(__file__).resolve(strict=True)
         _require(worker == path / 'runtime/weft/whole_body_reference_worker.py', 'Worker must execute from this frozen runtime')
         _verify_files(root_fd, plan, guards.check)
@@ -404,9 +439,10 @@ def run_worker(study, expected_plan_sha256):
         guards.check()
         fit = _load_runtime(worker.parent.parent, guards, versions)
         surface_options = {}
-        if plan['proposal_objective'] == 'surface_interval_v1':
+        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}:
             from weft.source_surface_fit_inputs import prepare_surface_fit_objective
-            surface_options = prepare_surface_fit_objective(inputs, plan['surface_constraints'])
+            surface_options = prepare_surface_fit_objective(inputs, plan['surface_constraints'],
+                **({'camera_image_scale': plan['camera_image_scale']} if plan['proposal_objective'] == 'camera_surface_interval_v1' else {}))
         guards.check(); guards.counts['fitter_calls'] += 1
         result = fit(inputs['inputs/human.json'], inputs['inputs/evidence-derived.json'],
                      proposal_objective=plan['proposal_objective'], settings=plan['settings'], **surface_options)

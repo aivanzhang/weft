@@ -21,6 +21,10 @@ RUNTIME_MODULES = (
     "source_surface_fit_inputs", "source_surface_envelopes", "source_surface_interval_construction",
     "source_surface_anchors", "camera_pose", "camera_ground", "world_alignment", "world_evidence", "observations",
 )
+CAMERA_RUNTIME_MODULES = (
+    "camera_body_fit", "camera_shared_contract", "camera_body", "camera_reference",
+    "multiview_root", "multiview_body", "multiview_pose", "multiview_segments",
+)
 FIT_SETTINGS = {"maximum_evaluations": 20000, "maximum_journal_bytes": 4 << 20}
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
 
@@ -145,11 +149,17 @@ def prepare_surface_fit_inputs(config_path, *, source_sha256, deadline):
     return files, descriptor
 
 
-def prepare_surface_fit_objective(files, descriptor):
+def prepare_surface_fit_objective(files, descriptor, *, camera_image_scale=None):
     from weft.source_surface_envelopes import prepare_source_surface_envelopes
     from weft.source_surface_interval_construction import prepare_surface_interval_objective
 
     config = validate_surface_fit_snapshot(files, descriptor)
+    camera_options = {}
+    if camera_image_scale is not None:
+        _require(type(camera_image_scale) in (int, float) and math.isfinite(camera_image_scale)
+                 and 1e-6 <= camera_image_scale <= 1, "camera image scale must be explicit within [1e-6,1]")
+        _require(OPTIONAL_MEMBERS["camera"] in files, "camera fitting requires the exact supplied camera")
+        camera_options = {"camera_document": files[OPTIONAL_MEMBERS["camera"]], "camera_image_scale": camera_image_scale}
     body = files["inputs/human.json"]
     _require(_json(body).get("source_sha256") == config["source_sha256"], "surface source differs from the original body")
     documents = {entry["sha256"]: files[name] for name, entry in _members(config).items()
@@ -159,6 +169,7 @@ def prepare_surface_fit_objective(files, descriptor):
         surface_interval_document=files.get(OPTIONAL_MEMBERS["surface_intervals"]),
         annotation_document=files.get(OPTIONAL_MEMBERS["annotations"]))
     objective = prepare_surface_interval_objective(envelopes, body_bytes=body,
-        binding_bytes=files.get(OPTIONAL_MEMBERS["body_binding"]))
+        binding_bytes=files.get(OPTIONAL_MEMBERS["body_binding"]),
+        **({"include_image_admission": True} if camera_image_scale is not None else {}))
     return {"surface_interval_objective": objective, "surface_interval_weight": config["weight"],
-            "surface_interval_settings": dict(FIT_SETTINGS)}
+            "surface_interval_settings": dict(FIT_SETTINGS), **camera_options}

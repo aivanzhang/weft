@@ -58,6 +58,34 @@ The fitter completed; its outer checker failed on one blocked subprocess attempt
 The linked saved-only inspection preserves that failure and does not rerun or
 promote the fit. It is not a new-video accuracy result.
 
+### Use an existing camera-based body
+
+For a sealed `two-view-root-body-v1` body, select the camera-aware mode:
+
+```sh
+.venv-lab/bin/python -m weft body-reference-propose \
+  --run path/to/sealed-camera-body --objective camera-surface-intervals \
+  --surface-config path/to/surface-config.json --camera-image-scale 0.01 \
+  --out artifacts/my-camera-surface-fit-01
+```
+
+The config must contain the **exact original camera bytes**. The example scale
+is an explicit fitting choice, not calibration or a pixel-to-metre conversion;
+allowed values are `0.000001`–`1`. Original camera, root motion, floor, first pose
+and source times stay fixed. Supported positive radial distortion is preserved.
+
+The report shows image error, supplied surface ranges, missing evidence and each
+accepted or rejected correction. `proposal/angle-proposal.json` is an inspectable
+angle overlay, **not a replacement body**. It cannot yet be installed in the lab
+or used by `body-reference-trial`. Missing support height does not discard usable
+image evidence, but it cannot establish support or contact. Moving equipment and
+unknown body-to-world mappings remain unsupported.
+
+[Implementation, verification and remaining work](handoffs/camera-surface-workflow.md).
+[Inspect the completed authored native example](../artifacts/camera-surface-fit-native-02/inspection/index.html).
+This example verifies the workflow, not accuracy on an unfamiliar exercise video.
+The existing playable labs below are unchanged by this proposal workflow.
+
 ## Add feet to an existing world (experimental)
 
 `shared-feet-build` adds two simulated feet and six ankle controls to an existing
