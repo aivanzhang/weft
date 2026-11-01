@@ -175,6 +175,15 @@ def main():
     feet_build.add_argument("--run", required=True, help="Completed mobile exercise lab run/ directory")
     feet_build.add_argument("--out", required=True, help="New candidate directory outside the source run")
     feet_build.add_argument("--image-directions", action="store_true", help="Opt into bounded image-direction correction; remains unverified")
+    floor_calibration = commands.add_parser("floor-calibrate", help="Check measured camera/floor references and retain nominal calibration alternatives")
+    floor_calibration.add_argument("--observation", action="append", required=True, help="Exact source observation JSON; repeat up to eight times")
+    floor_calibration.add_argument("--source-sha256", required=True, help="Original video SHA256 shared by the source observations")
+    floor_calibration.add_argument("--request", required=True, help="Source-pinned calibration mode, measurement references and explicit construction frames")
+    floor_calibration.add_argument("--measurement", action="append", default=[], help="Exact measurement JSON with provenance and uncertainty; repeat up to eight times")
+    floor_calibration.add_argument("--camera", help="Original camera sidecar for the explicitly requested supplied mode")
+    floor_calibration.add_argument("--ground", help="Original matching ground sidecar; never applied to a body automatically")
+    floor_calibration.add_argument("--out", required=True, help="New output directory under an existing parent")
+    floor_calibration.add_argument("--max-seconds", type=float, default=30., help="Packaging limit of 10–30 seconds; numerical work runs in one bounded child")
     surface_anchors = commands.add_parser("surface-anchors", help="Map annotated video points onto supplied calibrated surfaces; save conditional coordinates and a report")
     surface_anchors.add_argument("--observation", action="append", required=True, help="Exact qualified observation JSON; repeat up to eight times")
     surface_anchors.add_argument("--source-sha256", required=True, help="Original source video SHA256 shared by the observations")
@@ -586,6 +595,14 @@ def main():
         elif args.command == "feet-build":
             from weft.foot_candidate import build_candidate
             result = build_candidate(args.run, args.out, image_directions=args.image_directions)
+        elif args.command == "floor-calibrate":
+            from weft.floor_target_calibration_pipeline import prepare_floor_target_calibration_package
+            labels = {"inputs": "Read source and measurements", "calibration": "Check camera and floor alternatives",
+                      "report": "Explain geometry and uncertainty", "seal": "Save calibration evidence"}
+            result = prepare_floor_target_calibration_package(args.observation, args.out,
+                source_sha256=args.source_sha256, request=args.request, measurements=args.measurement,
+                camera=args.camera, ground=args.ground, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "surface-anchors":
             from weft.source_surface_pipeline import prepare_source_surface_anchors
             labels = {"inputs": "Preserve source and assumptions", "anchors": "Resolve conditional 3D points", "report": "Save evidence and limits"}
@@ -1057,6 +1074,21 @@ def main():
                 print("Proposal saved; viewer generation failed. Do not repeat fitting.\n"
                       "Recover the saved viewer with a new output directory:\n" + recovery, file=sys.stderr)
             parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "floor-calibrate":
+            pin = result.get("manifest_sha256")
+            if (result.get("profile") != "floor-target-calibration-package-v1" or result.get("sealed") is not True
+                    or type(pin) is not str or len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin)
+                    or type(result.get("report_path")) is not str or not result["report_path"]):
+                parser.exit(1, f"weft: calibration did not publish a complete package; inspect preserved output: {args.out}\n")
+            if result.get("status") != "qualified_nominal":
+                parser.exit(1, f"weft: calibration {result.get('status', 'unavailable')}; inspect alternatives: {result['report_path']}\n")
+            if (type(result.get("output_path")) is not str or not result["output_path"]
+                    or result.get("camera_path") != str(Path(result["output_path"]) / "camera.json")
+                    or result.get("ground_path") != str(Path(result["output_path"]) / "ground.json")):
+                parser.exit(1, f"weft: calibration lacks its exact nominal output pair; inspect: {result['report_path']}\n")
+            print(f"Saved calibration report: {result['report_path']}\n"
+                  "Nominal geometry only; no body or floor has been changed.\n"
+                  f"Camera: {result['camera_path']}\nGround: {result['ground_path']}", file=sys.stderr)
         if args.command == "surface-anchors":
             if result.get("status") != "completed" or result.get("sealed") is not True:
                 parser.exit(1, f"weft: surface anchors stopped; inspect preserved output: {args.out}\n")

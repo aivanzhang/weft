@@ -1,6 +1,17 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: guided shared-world setup
+## Current milestone — November 1, 2026: measured floor calibration
+
+- [x] Publish and independently verify guided setup as `bf661cd6e8fccd58b22ac324a5374823dee7c9e2`; the previous turn made concrete implementation and acceptance progress. Fresh remote fetch matches. Preserve two independent avatar edits and the empty stash list.
+- [x] Implement and independently review the source-bound floor-target adapter, isolated numerical worker, public `floor-calibrate` command and complete offline inspector. Reuse existing camera/ground contracts; never automatically shift a body/floor or infer contact. [Ownership, bounds and current checks](docs/handoffs/floor-target-calibration-workflow.md).
+- [x] Pass 130 distinct focused checks: 43 core, 31 worker, 19 report, 21 package and 16 CLI. These use an authored/mocked numerical boundary. Preserve the reproduced guard, hash, rank and report-compatibility failures and targeted corrections.
+- [x] Add the [plain-language calibration guide](docs/floor-calibration.md) and local-lab entry point. Calibration is optional for playing; missing physical measurements are not inferred.
+- [x] Pass all four genuine public numerical cases once in 1.003870 seconds: 189 files / 2,431,160 bytes; outer seal `4af92dec9c72b9b83fa08ea39d382478c3f8c18cc35dad1d7d32679bc06baf56`. Metre/mm geometry is identical, both ambiguous alternatives remain, supplied bytes stay exact with no solve. All twelve metadata/eleven decoded slots remain. [Inspect the synthetic example](artifacts/floor-target-numerical-02/case-01/inspection/index.html). No media/model/physics/API work ran.
+- [x] Independently audit the saved reports and process records without repeating numerical work: 48 frame views, six alternatives, 144 displayed point comparisons, 48 links and all eight reaped processes. Three IPPE calls total, zero forbidden attempts. Preserve unexecuted plan01 and the corrected root-cleanup review finding; unchanged runtime/inputs/criteria were used by plan02.
+- [ ] Publish the reviewed eighteen-path calibration checkpoint. `.local/floor-target-calibration-publication-01.json` records the actual commit/private-remote result; absence means unfinished. Preserve the two separate avatar edits, all saved evidence and empty stash list.
+- [ ] Independently measured unfamiliar-video floor/equipment/contact accuracy remains unfinished; no calibrated source qualified in the bounded search. Nominal calibration and synthetic controls are not physical validation.
+
+## Historical milestone — November 1, 2026: guided shared-world setup
 
 - [x] Publish the twelve-path ordinary pose/equipment workflow as `7d604e4fada2fd8939752efffb2557056b6525ef`; exact private remote verified. Receipt `.local/exercise-equipment-publication-01.json`, SHA `e9ba56cbbc26572e58d650419e43531e7602d0ab9e8982a40cbd6f1a3bd66f2b`. Published scope/index clean and stash empty; two independent avatar edits preserved.
 - [x] Add bounded saved-input discovery/request-resume and an offline setup page for the existing `shared-exercise-build`. Keep all choices and physical assumptions explicit; configuration readiness is not body/world admission. [Current ownership and next action](docs/handoffs/shared-exercise-config-workflow.md).

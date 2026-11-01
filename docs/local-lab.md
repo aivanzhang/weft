@@ -14,6 +14,14 @@ For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide
 The ground, equipment and second-camera sections below are optional advanced
 workflows, not prerequisites for trying the sandbox.
 
+## Check camera and floor measurements
+
+Use [`floor-calibrate`](floor-calibration.md) when you have source-linked camera
+and floor measurements. It checks an existing pair without solving again, or
+uses a measured target to calculate nominal camera geometry. The offline report
+keeps every alternative and missing frame; ambiguous geometry is not selected.
+This does not measure an unknown floor, move a body or establish contact.
+
 ## Collect missing ground or equipment inputs
 
 Use `surface-inputs` when you have saved video observations but need help preparing

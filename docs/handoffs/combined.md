@@ -1,5 +1,39 @@
 # Combined Weft implementation handoff
 
+## Floor calibration adapter — November 1, 2026 (America/Los_Angeles)
+
+Current work is the measured floor-target→existing camera/ground adapter,
+isolated worker, public `floor-calibrate` command and offline inspector. All
+130 distinct focused checks pass, with independent product reviews closed.
+All four genuine public numerical cases pass once in **1.003870 seconds**:
+189 files / 2,431,160 bytes; outer seal
+`4af92dec9c72b9b83fa08ea39d382478c3f8c18cc35dad1d7d32679bc06baf56`.
+Metre/mm geometry is identical, the far-camera ambiguity stays unselected and
+supplied sidecars remain exact with zero solve. All twelve metadata/eleven
+decoded slots remain. These are synthetic analytical points, not video or
+independent physical evidence. [Inspect the nominal example](../../artifacts/floor-target-numerical-02/case-01/inspection/index.html).
+Frozen plan, independent reviews and exact results are in the
+[workflow handoff](floor-target-calibration-workflow.md).
+Preserve all reproduced guard, canonical-hash, projected-rank and report-compatibility
+failures; their narrow corrections pass. Preserve the unexecuted first acceptance
+plan and its root-cleanup correction; product/runtime/inputs/criteria did not
+change. Independent saved-report and process audits pass; all eight command/worker
+processes are terminal and reaped. Source/model/physics/API work remains zero.
+The [user guide](../floor-calibration.md) explains both optional routes; no automatic
+floor detection, calibration-input wizard or body installation is implied.
+
+Previous goal turn was progress: guided setup is published as
+`bf661cd6e8fccd58b22ac324a5374823dee7c9e2`, exact private remote verified.
+Receipt `.local/shared-exercise-config-publication-01.json`, SHA
+`8631f091109442ff98197bd23d24b43db8458557d5ea5af42d42e7674b25d7bd`.
+Fresh fetch still matches; only new floor-calibration work and the two preserved
+avatar edits are dirty. No stash cleanup or goal-prompt file is needed.
+The eighteen-path calibration publication outcome is recorded in
+`.local/floor-target-calibration-publication-01.json`; absence means unfinished.
+Do not repeat the numerical study, report generation or already passing checks.
+The overall video→world→RL goal stays active, including independent physical
+accuracy and unfamiliar-source coverage; this adapter does not redefine it.
+
 ## Guided shared-world setup — November 1, 2026, PDT
 
 The twelve-path ordinary evidence workflow is published as
