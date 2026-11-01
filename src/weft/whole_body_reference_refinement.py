@@ -460,7 +460,8 @@ class _SurfaceIntervalFit:
 def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None,
                                             settings=None, proposal_objective='image_v1', surface_interval_objective=None,
                                             surface_interval_weight=None, surface_interval_settings=None,
-                                            camera_document=None, camera_image_scale=None, camera_secondary_view=None):
+                                            camera_document=None, camera_image_scale=None, camera_secondary_view=None,
+                                            missing_image_policy='preserve'):
     """Return a separately proposed body; no source, default runtime or policy is modified."""
     started = time.monotonic(); limits = _settings(settings)
     _require(isinstance(proposal_objective, str) and proposal_objective in
@@ -470,6 +471,10 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     multiview_mode = proposal_objective == 'camera_multiview_surface_interval_v1'
     camera_mode = multiview_mode or proposal_objective == 'camera_surface_interval_v1'
     surface_mode = camera_mode or proposal_objective == 'surface_interval_v1'
+    _require(type(missing_image_policy) is str and missing_image_policy in ('preserve', 'qualified_surfaces'),
+             'unknown missing-image policy')
+    surface_only = missing_image_policy == 'qualified_surfaces'
+    _require(not surface_only or surface_mode, 'qualified_surfaces missing-image policy requires a surface objective')
     _require(multiview_mode or camera_secondary_view is None, 'secondary view requires explicit camera_multiview_surface_interval_v1 objective')
     _require(camera_mode or camera_document is None and camera_image_scale is None,
              'camera inputs require explicit camera_surface_interval_v1 objective')
@@ -512,6 +517,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         _require(limits['maximum_geometry_calls'] >= 2 * camera.projection_count * len(rows),
                  'projection work bound cannot cover both view baseline and final audits')
     changes = np.zeros_like(original); affected = [[] for _ in times]
+    surface_only_eligible = [False] * len(rows) if surface_only else None
+    surface_only_attempted = [False] * len(rows) if surface_only else None
     for j, sample in enumerate(samples):
         for index, weight in sample['weights']:
             affected[index].append((j, weight))
@@ -581,6 +588,12 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             return np.hypot(residual[:, 0], residual[:, 1])
         return np.linalg.norm(_project(value['points']) - rows[index]['target'], axis=1)
 
+    def positive_surface(index):
+        term = surface.current[index]
+        loss = term['objective_m2']
+        return (term['counts']['evaluated_channels'] > 0 and type(loss) in (int, float)
+                and math.isfinite(loss) and loss > 0.)
+
     try:
         _require(1 <= len(support_names) <= CONTRACT['maximum_floor_supports'] and len(set(support_names)) == len(support_names)
                  and len(primitive_names) == len(support_names), 'complete unique geometry support identities required')
@@ -596,16 +609,22 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                          'known original camera endpoints are outside the fixed projection/depth domain')
             if surface_mode:
                 surface.save_audit(i, surface.evaluate(i, samples[lookup[float(times[i])]]['before']))
+            if surface_only:
+                surface_only_eligible[i] = bool(i > 0 and not np.any(row['weights']) and positive_surface(i))
         lower = np.maximum(-.15, np.array([SPATIAL_JOINT_LIMITS[n][0] for n in NAMES]) - original)
         upper = np.minimum(.15, np.array([SPATIAL_JOINT_LIMITS[n][1] for n in NAMES]) - original)
 
         for _ in range(limits['maximum_sweeps']):
             for i in range(1, len(rows)):
                 check(); row = rows[i]
-                if not np.any(row['weights']):
+                missing_image = not np.any(row['weights'])
+                if missing_image and (not surface_only or not positive_surface(i)):
                     continue
                 adjacent = [j for j in (i - 1, i + 1) if 0 <= j < len(rows) and abs(times[j] - times[i]) <= .25 + 1e-9]
                 for columns in blocks:
+                    # An earlier accepted block can satisfy the only qualified interval.
+                    if missing_image and not positive_surface(i):
+                        break
                     check(); n = len(columns); neighbors = [changes[j] for j in adjacent]
                     if surface_mode:
                         surface.reserve_journal()
@@ -682,6 +701,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                         diagnostic['floor_qp_calls' if floor_proposal else 'image_qp_calls'] += 1
                         if floor_proposal:
                             hessian, gradient = floor_hessian, floor_gradient
+                    if surface_only and missing_image:
+                        surface_only_attempted[i] = True
                     solved = solve_feasible_qp(hessian, gradient, a, b, initial=np.zeros(n),
                         settings={'maximum_seconds': max(.001, min(.5, deadline - time.monotonic()))})
                     if floor_first:
@@ -862,11 +883,16 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                     value = row[when + '_projection']
                     point['predicted_' + when + '_px'] = value['pixels'][j].tolist() if value['valid'][j] else None
                     point['depth_' + when + '_supplied_camera_units'] = float(value['camera_depth'][j])
+        row_status = ('frozen_first_reference' if i == 0 else 'unchanged_missing_source_targets' if not np.any(row['weights']) else
+                      'changed_inferred_proposal' if np.any(changes[i]) else 'unchanged_no_accepted_step')
+        if surface_only and surface_only_eligible[i]:
+            row_status = 'changed_surface_only_proposal' if np.any(changes[i]) else 'unchanged_no_accepted_surface_step'
         source_rows.append({key: row[key] for key in ('evidence_id', 'frame', 'time_s', 'root_status')} | {
-            'status': 'frozen_first_reference' if i == 0 else 'unchanged_missing_source_targets' if not np.any(row['weights']) else
-                      'changed_inferred_proposal' if np.any(changes[i]) else 'unchanged_no_accepted_step',
+            'status': row_status,
             'points': points, 'correction_rad': dict(zip(NAMES, changes[i].tolist())),
-            **({'target_origin': deepcopy(row['target_origin'])} if 'target_origin' in row else {})})
+            **({'target_origin': deepcopy(row['target_origin'])} if 'target_origin' in row else {}),
+            **({'surface_only_eligible': surface_only_eligible[i], 'surface_only_attempted': surface_only_attempted[i]}
+               if surface_only else {})})
     failures = [key for key, passed in gates.items() if not passed]
     status = 'partial_budget_exhausted' if expired else 'rejected_construction_proposal' if failures else 'unadmitted_construction_proposal'
     candidate['whole_body_reference_refinement'] = {
@@ -875,6 +901,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     if surface_mode:
         surface_marker, surface_report = surface.report()
         candidate['whole_body_reference_refinement']['surface_intervals'] = surface_marker
+    if surface_only:
+        candidate['whole_body_reference_refinement']['missing_image_policy'] = missing_image_policy
     before_peak = max(row['before_max_penetration_model_units'] for row in checks)
     after_peak = max(row['after_max_penetration_model_units'] for row in checks)
     image_pairs = [(row['before_errors'][j], row['after_errors'][j])
@@ -935,6 +963,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             'weight': surface.weight, 'weight_status': 'authored', 'interval_units': 'supplied_world_metre_squared',
             'acceptance': 'Combined loss decreases by >1e-14; every existing nonlinear gate and per-channel interval nonregression apply',
             'grid_interval_targets': 0}
+        if surface_only:
+            report['objective']['missing_image_policy'] = missing_image_policy
     if camera_mode:
         report['camera_fit'] = root_audit | {'projection_calls': projection_calls,
             'maximum_projection_calls': limits['maximum_geometry_calls'], 'grid_camera_projection_calls': 0}

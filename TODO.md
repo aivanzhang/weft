@@ -1,6 +1,17 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: measured floor calibration
+## Current milestone — November 1, 2026: missing-frame fitting and fitted controls
+
+- [x] Preserve the published floor-calibration checkpoint; the prior turn made progress. Main and freshly fetched origin match `046261b`; stash is empty and two separate avatar edits remain untouched.
+- [x] Extend existing surface fitting with explicit `missing_image_policy: qualified_surfaces`, preserving old defaults, exact source bindings and every original first-pose/root/floor/image gate. Core has 31 distinct focused passes; config/worker/report have 20 new plus 21 affected passes. Two report-validation regressions were reproduced and fixed; independent delta review is closed.
+- [x] Expose the attached fitted joint-target controller and its distinct replay proof in the existing graphical lab: four new and seven affected scripted checks pass. This is programmed control, not learning or physical validation. [Ownership and evidence](docs/handoffs/surface-only-fitting-workflow.md).
+- [x] Pass one separately frozen public native fit on five authored references/ten source slots: missing-image interval loss `0.0163805→0.001038643913`, all twelve unchanged gates, 0.608321 seconds/67 files. This is authored fixture evidence, not unfamiliar physical accuracy.
+- [x] Pass actual saved-summary/receipt presentation (22 controls, 246 actions/240 fitted decisions) without rerunning physics; prepare the new JS-only compatible runtime and documented graphical launch command.
+- [ ] Run a bounded current-runtime full-span feedback-learning comparison with matched controls and distinct changed-start evaluation. Old results used different runtime/scorer pins; do not call a runtime change a learning gain. Attempt01 is preserved and terminal before any controls (descriptor-relative file-write guard failure, two models only). Prepare/review helper02; keep source, scorer, seeds and all budgets unchanged.
+- [ ] Publish the reviewed scoped checkpoint; preserve avatar edits and all saved source/scientific evidence. No paid work, key/ledger changes, deployment or server launch is part of this slice.
+- [ ] Unfamiliar-video reconstruction, independent ground/equipment/contact accuracy and broader learning utility remain unfinished; keep the complete goal active.
+
+## Historical milestone — November 1, 2026: measured floor calibration
 
 - [x] Publish and independently verify guided setup as `bf661cd6e8fccd58b22ac324a5374823dee7c9e2`; the previous turn made concrete implementation and acceptance progress. Fresh remote fetch matches. Preserve two independent avatar edits and the empty stash list.
 - [x] Implement and independently review the source-bound floor-target adapter, isolated numerical worker, public `floor-calibrate` command and complete offline inspector. Reuse existing camera/ground contracts; never automatically shift a body/floor or infer contact. [Ownership, bounds and current checks](docs/handoffs/floor-target-calibration-workflow.md).
@@ -8,7 +19,7 @@
 - [x] Add the [plain-language calibration guide](docs/floor-calibration.md) and local-lab entry point. Calibration is optional for playing; missing physical measurements are not inferred.
 - [x] Pass all four genuine public numerical cases once in 1.003870 seconds: 189 files / 2,431,160 bytes; outer seal `4af92dec9c72b9b83fa08ea39d382478c3f8c18cc35dad1d7d32679bc06baf56`. Metre/mm geometry is identical, both ambiguous alternatives remain, supplied bytes stay exact with no solve. All twelve metadata/eleven decoded slots remain. [Inspect the synthetic example](artifacts/floor-target-numerical-02/case-01/inspection/index.html). No media/model/physics/API work ran.
 - [x] Independently audit the saved reports and process records without repeating numerical work: 48 frame views, six alternatives, 144 displayed point comparisons, 48 links and all eight reaped processes. Three IPPE calls total, zero forbidden attempts. Preserve unexecuted plan01 and the corrected root-cleanup review finding; unchanged runtime/inputs/criteria were used by plan02.
-- [ ] Publish the reviewed eighteen-path calibration checkpoint. `.local/floor-target-calibration-publication-01.json` records the actual commit/private-remote result; absence means unfinished. Preserve the two separate avatar edits, all saved evidence and empty stash list.
+- [x] Publish the reviewed eighteen-path calibration checkpoint as `046261b6922f1b42318a6cfe48ff888d041d754b`; fresh private-remote fetch matches. `.local/floor-target-calibration-publication-01.json` records the actual commit/private-remote result; absence means unfinished. Preserve the two separate avatar edits, all saved evidence and empty stash list.
 - [ ] Independently measured unfamiliar-video floor/equipment/contact accuracy remains unfinished; no calibrated source qualified in the bounded search. Nominal calibration and synthetic controls are not physical validation.
 
 ## Historical milestone — November 1, 2026: guided shared-world setup

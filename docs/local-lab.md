@@ -311,6 +311,13 @@ supplied ranges and missing evidence, and see rejected corrections. The body is
 apply; unavailable inputs remain unknown. The numeric weight is an authored
 tradeoff, not a physical measurement.
 
+By default, a pose without usable image landmarks stays unchanged. To let
+qualified support ranges guide it, add `"missing_image_policy": "qualified_surfaces"`
+to the existing surface config. This does not invent missing image observations:
+the report labels eligible, attempted and changed poses separately. The first
+pose, root, floor and every original acceptance limit stay fixed. Missing or
+excluded support evidence still leaves the pose unchanged.
+
 This is an optional assisted-construction path, not automatic contact recovery
 from an unfamiliar video. Moving equipment, unsupported camera distortion and
 missing calibration remain unsupported. [Exact config and bounds](handoffs/surface-interval-workflow.md#exact-configuration).
@@ -721,15 +728,24 @@ and [simulation comparison](../artifacts/camera-reference-real-01/trial-03/index
 Both recordings cover all 238 steps and replay exactly. Fitted angles improve
 agreement with detected image points, but fitted controls score slightly worse
 on the original simulator task. Neither result verifies ground/equipment contact.
-The interactive fitted sandbox is also ready. Use its verified frozen runtime so
-ongoing reconstruction edits cannot silently change this saved environment:
+The interactive fitted sandbox is also ready. From the repository root, start
+its local graphical lab and open the printed loopback address yourself:
 
 ```sh
-PYTHONPATH="$PWD/.local/camera-reference-play-runtime-01/src" \
-  .venv-lab/bin/python -B -P -m weft lab-console \
+PYTHONPATH="$PWD/.local/camera-reference-gui-runtime-01/src" \
+  .venv-lab/bin/python -B -P -m weft lab \
   --resume artifacts/camera-reference-play-01/lab
 ```
 
+In the task card, choose **Fitted joint targets**, then **Start** or **Step**.
+**Original joint targets** runs the original programmed controller; fitted is
+neither learned nor necessarily better. Use **Record & start** and **Stop & save**
+to capture a new trial. The replay-evidence panel distinguishes verified fitted
+decisions from manual actions. This local runtime changes only the interface;
+all saved Python physics/controller files remain exact. It is prepared on this
+computer, not downloaded automatically by a fresh clone.
+
+For terminal controls, use the same command with `lab-console` instead of `lab`.
 Try `mode fitted`, `record start`, `step 6`, then `record stop` and `record evidence`.
 Use `controls` to list motors, `motor left_elbow 0.1` for manual control,
 `mode reference` for the original programmed controller, and `reset 29` to restart.

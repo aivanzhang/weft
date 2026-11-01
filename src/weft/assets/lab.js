@@ -20,6 +20,7 @@
   let exerciseTask = null, exerciseEnvelope = null, exerciseIdentity = null, exerciseActions = null, exerciseContractReady = false, exerciseStateReady = false;
   let feetPanel = null, feetSummary = null, feetCoverage = null, feetDetails = null, feetRows = null, feetDetailSignature = "";
   let exerciseDetailSignature = "", exercisePolicy = null, cameraPolicyView = null;
+  let fittedReference = null, fittedButton = null, fittedSummary = null, fittedComparison = null;
   let mediaClockReady = false;
   let recordingDiagnosis = null, requestedRecording = null, recordingReadPending = false, recordingRetryTimer = null;
   let recordingReadAttempts = 0;
@@ -567,7 +568,7 @@
       && modes.camera_policy_admission == null;
     return validCameraTask(scene, exerciseTask, exerciseIdentity) && data.control_profile === "shared_exercise"
       && capability?.scene_profile === scene.profile && capability.task_contract?.task_type === exerciseTask.profile
-      && (policyReady || noPolicy)
+      && (policyReady || noPolicy) && !(modes.fitted_reference_controller === true && policyReady)
       && capability.controllers.manual === true && capability.controllers.coast === true && capability.controllers.authored_reference_controller === true
       && sameArray(exerciseActions?.names, scene.action_contract.names.slice(0, count))
       && sameArray(exerciseActions.joint_channels, Array.from({length: 19}, (_, i) => i))
@@ -832,6 +833,61 @@
       && policy.privileged_simulator_features === true ? policy : null;
     return exerciseContractReady && exercisePolicy !== null;
   }
+  const fittedReferencePins = ["reference_controller_sha256", "reference_trial_manifest_sha256", "reference_proposal_manifest_sha256"];
+  const fittedReferenceFields = ["profile", ...fittedReferencePins, "kind", "learned", "root_assistance", "saved_trial_outcomes",
+    "saved_replay_scope", "physical_validation", "scope"];
+  function validFittedReference(value) {
+    const outcomes = value?.saved_trial_outcomes;
+    return value && Object.keys(value).length === fittedReferenceFields.length && fittedReferenceFields.every(key => Object.hasOwn(value, key))
+      && value.profile === "camera-reference-lab-attachment-v1" && fittedReferencePins.every(key => supportDigest(value[key]))
+      && value.kind === "source_fit_authored_controller" && value.learned === false && value.physical_validation === "unverified"
+      && value.root_assistance === exerciseTask?.control?.root_assistance
+      && typeof value.saved_replay_scope === "string" && value.saved_replay_scope.length <= 512
+      && typeof value.scope === "string" && value.scope.length <= 1024
+      && outcomes && Object.keys(outcomes).length === 2 && ["authored", "reference_proposal"].every(name => {
+        const row = outcomes[name];
+        return row && Object.keys(row).length === 3 && ["steps", "success", "mean_reward"].every(key => Object.hasOwn(row, key))
+          && Number.isSafeInteger(row.steps) && row.steps > 0 && row.steps <= exerciseTask.interval.horizon_steps
+          && typeof row.success === "boolean" && (row.mean_reward === null || Number.isFinite(row.mean_reward));
+      });
+  }
+  function fittedReferenceKey(value) {
+    return JSON.stringify([...fittedReferenceFields.filter(key => key !== "saved_trial_outcomes").map(key => value[key]),
+      ...["authored", "reference_proposal"].flatMap(name => ["steps", "success", "mean_reward"].map(key => value.saved_trial_outcomes[name][key]))]);
+  }
+  function fittedDescription() {
+    return "Fitted joint targets follow the attached angle proposal. They are not learned and are not necessarily better than original controls. "
+      + (fittedReference?.root_assistance === "disabled" ? "Body-position assistance is disabled. " : "Body-position assistance stays programmed. ")
+      + "The original body, floor and task stay unchanged; contact is not verified.";
+  }
+  function configureFittedReference(data) {
+    fittedReference = null;
+    if (!cameraWorld()) return;
+    const view = data.capabilities?.fitted_reference, declared = data.capabilities?.controllers?.fitted_reference_controller;
+    if (exerciseContractReady && declared === true && data.learned_policy_available === false && data.exercise_policy == null
+      && !cameraPolicyView && data.capabilities.controllers.learned_policy_available === false
+      && validFittedReference(view) && validFittedReference(data.exercise_reference)
+      && fittedReferenceKey(view) === fittedReferenceKey(data.exercise_reference)) fittedReference = view;
+    if (!fittedButton) {
+      const controls = document.createElement("div"); controls.classList.add("controls");
+      fittedButton = document.createElement("button"); fittedButton.id = "mode-fitted"; fittedButton.type = "button";
+      fittedButton.setAttribute("aria-pressed", "false"); fittedButton.onclick = () => selectMode("fitted"); controls.append(fittedButton);
+      fittedSummary = document.createElement("p"); fittedSummary.id = "fitted-reference-summary"; fittedSummary.classList.add("hint");
+      fittedComparison = document.createElement("p"); fittedComparison.id = "fitted-reference-comparison"; fittedComparison.classList.add("hint");
+      $("exercise-task-card").append(controls, fittedSummary, fittedComparison);
+    }
+    text($("reference-servo"), "Original joint targets");
+    text(fittedButton, fittedReference ? "Fitted joint targets" : "Fitted targets unavailable");
+    text(fittedSummary, fittedReference ? fittedDescription() : declared || view != null || data.exercise_reference != null
+      ? "Fitted targets are unavailable: attachment details are missing or inconsistent. Other valid controls remain available."
+      : "No fitted controller is attached to this lab. Original joint targets and manual controls remain separate from learning.");
+    fittedComparison.hidden = !fittedReference;
+    if (fittedReference) {
+      const describe = (name, label) => { const row = fittedReference.saved_trial_outcomes[name];
+        return `${label}: ${row.success ? "passed" : "not passed"}, mean reward ${number(row.mean_reward)} over ${row.steps} steps`; };
+      text(fittedComparison, `Saved comparison, not this trial — ${describe("authored", "Original")}; ${describe("reference_proposal", "fitted")}. A fitted result is not necessarily an improvement.`);
+    }
+  }
   function exerciseFeedbackDescription() {
     if (!exercisePolicy || !learnedPolicyAvailable) return "No validated human-only policy is available.";
     const kind = exercisePolicy.selected_feedback_kind;
@@ -1088,7 +1144,7 @@
     if (state.terminated || state.truncated) pause();
   }
   function updateControls() {
-    const taskMetrics = exerciseMetrics(), blockedTask = sharedExercise() && (!exerciseContractReady || !exerciseStateReady);
+    const taskMetrics = exerciseMetrics(), blockedTask = sharedExercise() && (!exerciseContractReady || !exerciseStateReady || mode === "fitted" && !fittedReference);
     const ended = snapshot?.terminated || snapshot?.truncated || (sharedExercise() && !!taskMetrics?.failure);
     const success = sharedExercise() ? taskMetrics?.success && taskMetrics.completed_interval && !taskMetrics.failure : snapshot?.success;
     text($("toggle"), running ? "Pause" : ended ? "Start again" : "Start");
@@ -1102,10 +1158,11 @@
         : staticSupport() ? "Across the complete declared interval: track the body reference, stay within body/floor limits and meet every authored segment/load window. Static supports have no controls or equipment-drift score. These are simulated criteria, not physical contact verification."
         : personOnly() ? "Across the complete declared interval: track the body reference and stay within the body/floor limits. Equipment and wrist-contact requirements do not apply. This is simulated tracking, not verified exercise completion."
         : "Across the complete declared interval: track the body reference, stay within the body/floor limits, and keep equipment stable. Only explicitly required wrist-region checks count. This is not a target-object task or proof of grasp.");
-      text($("mode-description"), mode === "coast" ? cameraWorld() ? "Coast: all joint and root-force commands are zero. Gravity and the supplied simulated ground still act; contact is not physically qualified." : staticSupport() ? "Coast: every joint and root-force command is zero. Authored supports remain fixed; gravity and simulated contacts still act."
+      windowText("mode-description", mode === "coast" ? cameraWorld() ? "Coast: all joint and root-force commands are zero. Gravity and the supplied simulated ground still act; contact is not physically qualified." : staticSupport() ? "Coast: every joint and root-force command is zero. Authored supports remain fixed; gravity and simulated contacts still act."
         : personOnly() ? "Coast: every joint and root-force command is zero. Gravity and simulated ground contacts still act." : "Coast: every joint and root-force command is zero. Equipment remains passive; gravity and simulated contacts still act."
         : mode === "reference" ? `Authored feedback follows the body reference using ${exerciseActions?.names?.length || "the declared"} human channels.${sharedFeet() ? " Six ankle motors hold original-start angles; they do not follow video foot motion." : ""} This is programmed control, not learned behavior; equipment has no force controls.`
         : mode === "learned" ? exerciseFeedbackDescription()
+        : mode === "fitted" ? fittedDescription()
         : `Move one of ${exerciseActions?.names?.length || "the declared"} human motors with +0.25 or −0.25; all other commands stay zero. Root assistance is ${exerciseTask?.control?.root_assistance === "disabled" ? "disabled" : "explicit, not automatic"}. Equipment has no force controls.`);
     } else if (sharedWorld()) {
       const goalObj = scene.task?.object_goal?.target_object_id || "ball";
@@ -1134,6 +1191,11 @@
       $(id).disabled = !scene || controlBusy || blockedTask || (value === "coast" && !sharedExercise()) || (value === "learned" && (!learnedPolicyAvailable || (current?.profile === "exercise" && (wholeBody() ? !wholeBodyPolicyReady : !trainedJoint))));
     }
     if (sharedExercise()) $("start-learned").disabled = controlBusy || blockedTask || !learnedPolicyAvailable;
+    if (fittedButton) {
+      const disabled = !fittedReference || controlBusy || blockedTask, pressed = String(mode === "fitted");
+      if (fittedButton.disabled !== disabled) fittedButton.disabled = disabled;
+      if (fittedButton.getAttribute("aria-pressed") !== pressed) fittedButton.setAttribute("aria-pressed", pressed);
+    }
     for (const button of document.querySelectorAll("[data-action]")) {
       const code = Number(button.dataset.action);
       const isSpatialExtra = button.dataset.spatial === "true";
@@ -1161,14 +1223,14 @@
   }
   function step(count = 1) {
     if (requestPending || controlBusy || !scene || document.hidden) return;
-    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || snapshot.terminated || snapshot.truncated || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable)) return;
+    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || snapshot.terminated || snapshot.truncated || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable || mode === "fitted" && !fittedReference)) return;
     requestPending = true;
     stepPromise = (async () => {
     try {
       let payload = {action, steps: count, policy: usePolicy};
       if (sharedExercise()) {
         const vector = exerciseActions.names.map(name => mode === "manual" && name === selectedMotor ? (action === 1 ? .25 : action === 2 ? -.25 : 0) : 0);
-        payload = mode === "learned" ? {steps: count, policy: true} : mode === "reference" ? {steps: count, controller: "reference"} : mode === "coast" ? {steps: count, controller: "coast"} : {steps: count, action: vector};
+        payload = mode === "learned" ? {steps: count, policy: true} : mode === "reference" ? {steps: count, controller: "reference"} : mode === "fitted" ? {steps: count, controller: "reference_proposal"} : mode === "coast" ? {steps: count, controller: "coast"} : {steps: count, action: vector};
       } else if (wholeBody()) {
         const names = scene.action_contract.names;
         const vector = names.map(name => name === selectedMotor ? (action === 1 ? .25 : action === 2 ? -.25 : 0) : 0);
@@ -1200,13 +1262,13 @@
   }
   function start() {
     if (!scene || controlBusy || document.hidden || activePanel !== "play" || snapshot.terminated || snapshot.truncated) return;
-    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable)) return;
+    if (sharedExercise() && (!exerciseContractReady || !exerciseStateReady || exerciseMetrics()?.failure || mode === "learned" && !learnedPolicyAvailable || mode === "fitted" && !fittedReference)) return;
     usePolicy = mode === "learned"; action = mode === "reference" ? 5 : 0;
     running = true; clearError(); updateControls(); tick(++playbackGeneration);
   }
   function selectMode(value) {
     if (controlBusy) return;
-    if (sharedExercise() ? !["manual", "coast", "reference", "learned"].includes(value) || value === "learned" && !learnedPolicyAvailable : value === "coast") return;
+    if (sharedExercise() ? !["manual", "coast", "reference", "learned", "fitted"].includes(value) || value === "learned" && !learnedPolicyAvailable || value === "fitted" && !fittedReference : ["coast", "fitted"].includes(value)) return;
     pause(); mode = value; usePolicy = mode === "learned"; updateControls();
   }
   async function mutate(path, data = {}, prepareLearned = false) {
@@ -1399,6 +1461,7 @@
     const noLearnedPolicy = sharedExercise() ? !configureExercisePolicy(data) : data.learned_policy_available === false || scene.learned_policy_available === false;
     learnedPolicyAvailable = !noLearnedPolicy;
     if (data.capabilities) updateCapabilities(data.capabilities);
+    configureFittedReference(data);
     if (data.evidence_provenance?.layers) {
       const prov = data.evidence_provenance, layers = prov.layers, src = prov.source_evidence || {};
       const missing = src.missing_or_uncertain_summary ? ` · Gaps/uncertainty: ${src.missing_or_uncertain_summary}.` : "";
@@ -2216,17 +2279,24 @@
         : data.identities.policy_sha256 !== null || data.identities.policy_admission_sha256 !== undefined)
       || data.identities.engine_scene_sha256 !== exerciseIdentity.scene_sha256 || data.identities.task_sha256 !== exerciseIdentity.task_sha256
       || !Object.keys(cameraRecordingIdentityLabels).every(key => digest(data.identities[key]) && data.identities[key] === exerciseIdentity[key]))) return false;
+    if (fittedReference ? data.identities.reference_controller_sha256 !== fittedReference.reference_controller_sha256
+      : data.identities.reference_controller_sha256 !== undefined) return false;
     const paths = {source_run_manifest_sha256: "run/manifest.json", recording_manifest_sha256: `sessions/${name}/manifest.json`,
       receipt_manifest_sha256: `sessions/${name}/evidence/manifest.json`, receipt_sha256: `sessions/${name}/evidence/receipt.json`,
       recording_scene_sha256: `sessions/${name}/scene.json`, engine_scene_sha256: "run/scene.json",
       task_sha256: "run/exercise-task.json", policy_sha256: "run/policy.json",
-      ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "run/camera-policy-admission.json"} : {})};
+      ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "run/camera-policy-admission.json"} : {}),
+      ...(fittedReference ? {reference_controller_sha256: "run/reference-controller.json"} : {})};
     // Canonical JSON identities differ from exact file-byte hashes; the reader checks both.
     if (!Object.entries(paths).every(([key, path]) => data.identities[key] === null || recordingEvidencePointer(data, path,
       ["recording_scene_sha256", "engine_scene_sha256", "task_sha256", "policy_admission_sha256"].includes(key) ? undefined : data.identities[key]))) return false;
+    if (fittedReference && (!recordingEvidencePointer(data, "run/reference-trial/manifest.json", fittedReference.reference_trial_manifest_sha256)
+      || !recordingEvidencePointer(data, "run/reference-attachment.json"))) return false;
     const replay = data.replay;
+    if (!fittedReference && replay?.reference_actions_verified !== undefined) return false;
     if (replay?.status === "not_performed") return replay.protocol === null
-      && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null);
+      && ["events_checked", "actions_checked", "resets_checked", "learned_actions_verified"].every(key => replay[key] === null)
+      && (!fittedReference || replay.reference_actions_verified === null);
     const spatialReplay = scene?.profile === "spatial-rigid-v1" && replay?.protocol === "spatial-rigid-exact-action-state-v1"
       && data.identities.task_sha256 === null && data.identities.policy_sha256 === null && replay.learned_actions_verified === null;
     const spatialPolicyReplay = scene?.profile === "spatial-rigid-v1" && replay?.protocol === "spatial-rigid-exact-action-state-policy-v2"
@@ -2236,10 +2306,12 @@
     const exerciseReplay = sharedExercise() && !sharedFeet() && !cameraWorld() && replay?.protocol === "shared-exercise-exact-action-state-task-v1"
       && digest(data.identities.task_sha256);
     const feetReplay = sharedFeet() && replay?.protocol === "shared-exercise-feet-full-state-replay-v1" && replay.learned_actions_verified === null;
-    const cameraReplay = cameraWorld() && !cameraPolicyView && replay?.protocol === "camera-shared-full-state-replay-v1" && replay.learned_actions_verified === null;
+    const cameraReplay = cameraWorld() && !cameraPolicyView && !fittedReference && replay?.protocol === "camera-shared-full-state-replay-v1" && replay.learned_actions_verified === null;
     const cameraPolicyReplay = cameraWorld() && Boolean(cameraPolicyView) && replay?.protocol === "camera-shared-policy-full-state-replay-v1"
       && count(replay.learned_actions_verified);
-    return (spatialReplay || spatialPolicyReplay || exerciseReplay || feetReplay || cameraReplay || cameraPolicyReplay) && replay.status === "passed"
+    const fittedReplay = cameraWorld() && Boolean(fittedReference) && !cameraPolicyView && replay?.protocol === "camera-shared-reference-full-state-replay-v1"
+      && replay.learned_actions_verified === null && count(replay.reference_actions_verified) && replay.reference_actions_verified <= data.recorded.actions;
+    return (spatialReplay || spatialPolicyReplay || exerciseReplay || feetReplay || cameraReplay || cameraPolicyReplay || fittedReplay) && replay.status === "passed"
       && ["events", "actions", "resets"].every(key => replay[`${key}_checked`] === data.recorded[key])
       && (replay.learned_actions_verified == null || count(replay.learned_actions_verified)
         && replay.learned_actions_verified <= data.recorded.actions && digest(data.identities.policy_sha256));
@@ -2258,6 +2330,8 @@
       text($("recording-evidence-counts"), `Recorded: ${counts.actions} actions · ${counts.resets} resets · ${counts.events} total events, including the start event.`);
       const policyProof = replay.protocol === "camera-shared-policy-full-state-replay-v1"
         ? `Exact external policy decisions matched: ${replay.learned_actions_verified}. Manual actions are not policy-checked. Original policy bytes and current execution admission remain distinct; root assistance stays authored and physical accuracy remains unverified.`
+        : replay.protocol === "camera-shared-reference-full-state-replay-v1"
+        ? `Fitted decisions matched: ${replay.reference_actions_verified}. Manual and original-target actions are not fitted-decision checks. This is not a learned policy or proof of improved control; body-position assistance stays programmed when enabled. Physical accuracy remains unverified.`
         : replay.protocol === "camera-shared-full-state-replay-v1"
         ? "Actual camera state and body task results matched. No learned-policy check was performed; supplied priors and physical accuracy remain unverified."
         : replay.protocol === "shared-exercise-feet-full-state-replay-v1"
@@ -2275,7 +2349,8 @@
       text($("recording-evidence-session"), `Selected recording: ${data.session}`);
       $("recording-evidence-identities").replaceChildren();
       for (const [key, label] of Object.entries({...recordingIdentityLabels, ...(sharedFeet() ? feetRecordingIdentityLabels : cameraWorld() ? cameraRecordingIdentityLabels : {}),
-        ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "External policy admission · canonical JSON"} : {})})) {
+        ...(cameraWorld() && cameraPolicyView ? {policy_admission_sha256: "External policy admission · canonical JSON"} : {}),
+        ...(fittedReference ? {reference_controller_sha256: "Fitted controller recipe · file bytes"} : {})})) {
         const row = document.createElement("tr"), heading = document.createElement("th");
         heading.setAttribute("scope", "row"); text(heading, label); row.append(heading);
         cell(row, data.identities[key] === null ? "Unavailable — not recorded" : data.identities[key]);

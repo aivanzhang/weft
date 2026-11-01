@@ -61,11 +61,20 @@ def _entry(value):
     _require(type(digest) is str and _SHA.fullmatch(digest), "exact input SHA256 required")
 
 
+def _missing_image_policy(document):
+    if "missing_image_policy" not in document:
+        return {}
+    policy = document["missing_image_policy"]
+    _require(type(policy) is str and policy in {"preserve", "qualified_surfaces"}, "invalid missing-image policy")
+    return {"missing_image_policy": policy}
+
+
 def parse_surface_fit_config(raw):
     _require(type(raw) is bytes and 0 < len(raw) <= MAX_CONFIG_BYTES, "config must be at most 64 KiB")
     config = _json(raw)
-    _require(set(config) == {"schema_version", "profile", "source_sha256", "weight", "observations", *OPTIONAL_MEMBERS},
+    _require(set(config) - {"missing_image_policy"} == {"schema_version", "profile", "source_sha256", "weight", "observations", *OPTIONAL_MEMBERS},
              "unexpected config fields")
+    _missing_image_policy(config)
     _require(type(config["schema_version"]) is int and config["schema_version"] == 1 and config["profile"] == PROFILE,
              "versioned config required")
     _require(type(config["source_sha256"]) is str and _SHA.fullmatch(config["source_sha256"]), "exact source SHA256 required")
@@ -91,12 +100,14 @@ def _members(config):
 def _descriptor(config, raw):
     return {"profile": PROFILE, "config_sha256": sha256(raw).hexdigest(), "source_sha256": config["source_sha256"],
             "weight": config["weight"], "observation_count": len(config["observations"]),
-            "optional_inputs": [role for role in OPTIONAL_MEMBERS if config[role] is not None]}
+            "optional_inputs": [role for role in OPTIONAL_MEMBERS if config[role] is not None],
+            **_missing_image_policy(config)}
 
 
 def surface_fit_member_names(descriptor):
-    _require(type(descriptor) is dict and set(descriptor) == {
+    _require(type(descriptor) is dict and set(descriptor) - {"missing_image_policy"} == {
         "profile", "config_sha256", "source_sha256", "weight", "observation_count", "optional_inputs"}, "invalid frozen surface descriptor")
+    _missing_image_policy(descriptor)
     _require(descriptor["profile"] == PROFILE, "invalid frozen surface profile")
     for key in ("config_sha256", "source_sha256"):
         _require(type(descriptor[key]) is str and _SHA.fullmatch(descriptor[key]), "invalid frozen surface identity")
@@ -172,4 +183,4 @@ def prepare_surface_fit_objective(files, descriptor, *, camera_image_scale=None)
         binding_bytes=files.get(OPTIONAL_MEMBERS["body_binding"]),
         **({"include_image_admission": True} if camera_image_scale is not None else {}))
     return {"surface_interval_objective": objective, "surface_interval_weight": config["weight"],
-            "surface_interval_settings": dict(FIT_SETTINGS), **camera_options}
+            "surface_interval_settings": dict(FIT_SETTINGS), **camera_options, **_missing_image_policy(config)}

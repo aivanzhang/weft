@@ -1,5 +1,37 @@
 # Combined Weft implementation handoff
 
+## Missing-frame fitting and usable fitted controls — November 1, 2026, PST
+
+Previous turn = **progress**. Floor calibration is published at
+`046261b6922f1b42318a6cfe48ff888d041d754b`, independently remote-verified and
+matched by this turn's fresh fetch. The index/stash were empty; two unrelated
+avatar edits stay preserved. No goal-prompt files or browser/server work.
+
+The current implementation adds optional surface-only corrections when image
+landmarks are missing, plus the already-supported fitted controller in the
+existing graphical lab. Original body/floor/start/source gates and independent
+scorer remain unchanged. Core has 31 distinct passing cases; config/worker/report
+have 20 new +21 affected passes; UI has four new +seven affected passes. Preserve
+the two reproduced report bypasses and their narrow passing corrections.
+Independent report/UI source review is closed. These are analytical/mocked
+checks, not native reconstruction or physical accuracy.
+
+[Exact ownership, contract and next actions](surface-only-fitting-workflow.md).
+The real public authored native case now passes: all twelve gates, missing-row
+interval loss `0.0163805→0.001038643913`, all ten source slots; 67 files /1,184,687
+bytes in 0.608321 seconds. Source/first/root/floor remain exact. Its process is
+terminal and reaped; independent saved report audit passes all frames and links. Real saved
+GUI composition also passes without physics rerun (22 controls; 246 actions/240
+fitted decisions). A new compatible JS-only runtime and user launch command
+are ready. Current-commit learning attempt01 stopped before any controls: its
+study helper misresolved descriptor-relative package paths. Two models compiled;
+zero resets/steps, no trained policy. The failure and exact source custody are
+preserved; handle `73650` is terminal/reaped. A narrow helper02 correction is being
+prepared with identical runtime/source/task/seeds/bounds, not a new learner or
+looser success rule. Actual checkpoint publication is recorded in
+`.local/surface-only-fitting-publication-01.json`; preserve both avatar edits. No paid call, provider/key/ledger operation or source
+acquisition occurred. The full generalizable video→world→RL goal remains active.
+
 ## Floor calibration adapter — November 1, 2026 (America/Los_Angeles)
 
 Current work is the measured floor-target→existing camera/ground adapter,

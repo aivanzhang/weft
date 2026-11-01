@@ -159,9 +159,12 @@ def _plan(raw):
     input_files, runtime_files = INPUT_FILES, RUNTIME_FILES
     if surface_mode:
         surface = plan.get('surface_constraints')
-        _require(type(surface) is dict and set(surface) == {'profile', 'config_sha256', 'source_sha256',
+        _require(type(surface) is dict and set(surface) - {'missing_image_policy'} == {'profile', 'config_sha256', 'source_sha256',
                  'weight', 'observation_count', 'optional_inputs'} and surface['profile'] == 'source-surface-fit-config-v1',
                  'Frozen surface input descriptor required')
+        _require('missing_image_policy' not in surface or type(surface['missing_image_policy']) is str
+                 and surface['missing_image_policy'] in {'preserve', 'qualified_surfaces'},
+                 'Invalid frozen missing-image policy')
         count, roles, weight = surface['observation_count'], surface['optional_inputs'], surface['weight']
         _require(type(count) is int and 1 <= count <= 8 and type(roles) is list
                  and all(type(role) is str and role in SURFACE_ROLES for role in roles)

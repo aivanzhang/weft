@@ -478,6 +478,59 @@ def _surface_result(result, slot, body_hash):
     return losses, distances
 
 
+def _surface_row_policy(report, candidate, source, config, check):
+    policy = config.get('missing_image_policy', 'preserve')
+    _require(type(policy) is str and policy in {'preserve', 'qualified_surfaces'}, 'Invalid saved missing-image policy')
+    marker = candidate['whole_body_reference_refinement']
+    objective = report['objective']
+    keys = {'surface_only_eligible', 'surface_only_attempted'}
+    rows = report['references']
+    reference_key = 'reference_candidate' if report['profile'] in CAMERA_METHODS else 'reference'
+    if policy == 'preserve':
+        _require('missing_image_policy' not in marker and 'missing_image_policy' not in objective
+                 and all(not keys.intersection(row) and row.get('status') not in
+                         {'changed_surface_only_proposal', 'unchanged_no_accepted_surface_step'} for row in rows),
+                 'Surface-only fitting was not requested')
+        _require(all(any(type(point.get('weight')) in (int, float) and point['weight'] > 0 for point in row['points'])
+                     or source['reference'][index]['joints'] == candidate[reference_key][index]['joints']
+                     for index, row in enumerate(rows)), 'Missing-image joints changed under the preserve policy')
+        return {}
+    _require(marker.get('missing_image_policy') == objective.get('missing_image_policy') == policy,
+             'Missing-image policy differs from the exact requested config')
+    surface = report['surface_intervals']
+    attempted = {row['reference_index'] for row in surface['trial_journal'] if row['kind'] == 'qp'}
+    eligible_count, attempted_count, changed_count = 0, 0, 0
+    for index, row in enumerate(rows):
+        check()
+        before = surface['references'][index]['before']
+        missing = all(point['weight'] == 0 for point in row['points'])
+        loss = before['objective_m2']
+        eligible = (index > 0 and missing and before['counts']['evaluated_channels'] > 0
+                    and type(loss) in (int, float) and math.isfinite(loss) and loss > 0)
+        _require(type(row.get('surface_only_eligible')) is bool and row['surface_only_eligible'] == eligible
+                 and type(row.get('surface_only_attempted')) is bool,
+                 'Surface-only row eligibility differs from its saved interval evidence')
+        tried = row['surface_only_attempted']
+        _require(not tried or eligible, 'Ineligible surface-only row was attempted')
+        if report['status'] == 'partial_budget_exhausted':
+            _require(not (missing and index in attempted) or tried, 'Saved QP lacks its surface-only attempt label')
+        else:
+            _require(tried == (missing and index in attempted), 'Surface-only attempt differs from the saved QP journal')
+        changed = source['reference'][index]['joints'] != candidate[reference_key][index]['joints']
+        if missing and changed:
+            _require(eligible and tried and row['status'] == 'changed_surface_only_proposal',
+                     'Missing-image correction lacks its qualified surface-only origin')
+            changed_count += 1
+        else:
+            _require(row['status'] != 'changed_surface_only_proposal', 'Unchanged/image-supported row mislabeled surface-only')
+        _require((row['status'] == 'unchanged_no_accepted_surface_step') == (eligible and not changed),
+                 'Surface-only unchanged label differs from row eligibility and joint changes')
+        eligible_count += eligible
+        attempted_count += tried
+    return {'missing_image_policy': policy, 'surface_only_rows': {
+        'eligible': eligible_count, 'attempted': attempted_count, 'changed': changed_count}}
+
+
 def _surface_model(report, candidate, source, documents, hashes, check):
     surface = report.get('surface_intervals')
     camera_mode = report['profile'] in CAMERA_METHODS
@@ -678,11 +731,12 @@ def _surface_model(report, candidate, source, documents, hashes, check):
     _require(type(surface.get('journal_bytes')) is int and surface['journal_bytes'] == journal_bytes
              and journal_bytes <= work['maximum_journal_bytes'],
              'Surface journal byte count exceeds its bound')
+    row_policy = _surface_row_policy(report, candidate, source, config, check)
     return {'profile': SURFACE_PROFILE, 'weight': weight, 'weight_units': weight_units, 'summary': summary, 'source_status_counts': dict(status_counts),
         'source_slots': display, 'work_limits': work, 'evaluations': surface['evaluations'], 'journal_records': len(journal),
         'journal_bytes': surface['journal_bytes'], 'config_sha256': plan['surface_constraints']['config_sha256'],
         'body_binding': inputs['binding'], 'world_frame': inputs.get('world_frame'), 'contact': 'unknown',
-        'physical_validation': 'unverified', 'saved_geometry_recomputed': False}
+        'physical_validation': 'unverified', 'saved_geometry_recomputed': False, **row_policy}
 
 
 def _model(documents, hashes, check):
@@ -817,6 +871,8 @@ def _model(documents, hashes, check):
                 "frame": slot.get("frame"), "evidence_id": slot.get("id"), "source_status": slot.get("status"),
                 "geometry": geometry, "points": ref.get("points") if ref else None,
                 "reference_status": ref.get("status") if ref else "No body reference for this retained source slot",
+                **({key: ref[key] for key in ('surface_only_eligible', 'surface_only_attempted')}
+                   if ref and 'surface_only_eligible' in ref else {}),
                 **(target_info[ref['evidence_id']] if ref else {'target_origin': None, 'target_landmark_source': None,
                     'target_label': 'Unavailable — no saved source endpoint targets for this sample'})}
 
@@ -916,6 +972,8 @@ def _model(documents, hashes, check):
     if surface is None:
         _require('surface_intervals' not in report and 'surface_intervals' not in marker,
                  'Legacy profile cannot silently claim surface constraints')
+        _require('missing_image_policy' not in marker and all('surface_only_eligible' not in row and
+                 'surface_only_attempted' not in row for row in references), 'Legacy fitting cannot claim surface-only corrections')
     image = report.get('image_summary', {})
     _require(isinstance(image, dict) and image.get('grid_image_targets') in (None, 0), "Grid image targets must remain unavailable")
     for name in ('mean_error_before_px', 'mean_error_after_px'): _number(image.get(name), low=0, high=1_000_000)
@@ -1072,6 +1130,11 @@ def _render(summary, palette, members=None, *, packed_payload=None):
         '<p>The existing image and regularization objective includes an authored surface-range term at original source knots only. No surface targets are assigned to the control grid. The unchanged floor and source-image gates still apply.</p>'
         if objective.get('profile') in {'surface_interval_v1', 'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'} else
         f'<p>Saved squared <strong>excess above 0.025</strong>: {fmt(objective.get("primary_before"))} → {fmt(objective.get("primary_after"))} model units² over {fmt(objective.get("unique_samples"))} unique sampled times. Lower is not a pass; zero would mean no saved excess above the limit, not zero penetration or contact.</p><details><summary>Saved floor-first counters</summary><pre>{esc(json.dumps(objective.get("counters"),indent=2))}</pre><p>Backtrack counts cover completed trials only. Interrupted trials may still add geometry calls. No per-update ledger was saved; these aggregates do not establish each optimization step.</p></details>')
+    if objective and objective.get('missing_image_policy') == 'qualified_surfaces':
+        rows = summary['surface_intervals']['surface_only_rows']
+        objective_html += (f'<p><strong>Missing-image fitting was explicitly enabled.</strong> Qualified support ranges were available for '
+            f'{rows["eligible"]} poses without usable image landmarks; {rows["attempted"]} were attempted and {rows["changed"]} changed. '
+            'These are inferred pose corrections, not recovered image observations or measured contact. The original first pose, root and floor stay fixed.</p>')
     data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029') if packed_payload is None else packed_payload.decode()
     script_hash = base64.b64encode(sha256(script.encode()).digest()).decode()
     payload_notice = ''
