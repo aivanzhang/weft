@@ -1,0 +1,131 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6812,
+      "path": "analytic.glb",
+      "sha256": "4cb22cf0a1bab0e8ff5cf9241dd3aa1fda50c45337df4d9415e491290d5d6ce7"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "c5b6a6c7075141522e52109fbafea4bbf1098b04832be7f1da5d9acb9e7203a6"
+    },
+    {
+      "bytes": 1412,
+      "path": "job.json",
+      "sha256": "4c8bc77eb572712ece23b5068f6dc9f096986ec86265494d30c4946553818920"
+    },
+    {
+      "bytes": 497,
+      "path": "probe-handle.json",
+      "sha256": "0348e902bbc934c842e35721ae0a44a992ee638b6064df37248e16035089d6ac"
+    },
+    {
+      "bytes": 1282,
+      "path": "probe-monitor.json",
+      "sha256": "7a296c4c42c48ac6224084cc8c5cc28c5b67dd678752d7ccededa06e565129d0"
+    },
+    {
+      "bytes": 791,
+      "path": "probe.log",
+      "sha256": "ff69c56a7823f7a70f6c604c0b7eebfcfbbf12642b625abda23a634daeb768c3"
+    },
+    {
+      "bytes": 64943,
+      "path": "sources/__pycache__/blender_finish_generated.cpython-311.pyc",
+      "sha256": "9b3a1f2e031c00b160893242df371d1c8670aa82976babee3174afeffe0dce4c"
+    },
+    {
+      "bytes": 44375,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "d9ce92b6c74dde86f65fe7d96bf3392fdde351e73f4828537a3067ede63524ac"
+    },
+    {
+      "bytes": 37915,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "0d0199d2ec02949e76c254035de230e1b8f236c1a027e7d4cfaefac2131d6ca7"
+    },
+    {
+      "bytes": 9458,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "440b45f7fba974bb9f34a68d7183afdd60726bc73f19ffe351a22127057047e1"
+    },
+    {
+      "bytes": 35468,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "3be651d008f39ec67857c7ddf822aa1591aaf877736ec8f505b40766f920b942"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 6524,
+      "path": "sources/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 1081,
+      "path": "verification.json",
+      "sha256": "3da60993b36e03bb9daae7ba5eb79601b9b7137f846aa2fb936bd2d6fa095608"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "2",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v3/sources/blender_verify_motion_controls.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v3"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.523,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 257274,
+    "last_rss_sample_elapsed_seconds": 0.262,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 768,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "probe-monitor.json",
+    "monitor_errors": [],
+    "pid": 27487,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 257274,
+    "sampled_peak_rss_bytes": 182239232,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "analytic_fixture_not_generated_avatar"
+}

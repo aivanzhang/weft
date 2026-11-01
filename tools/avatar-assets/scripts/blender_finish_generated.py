@@ -4,6 +4,7 @@ import json
 import math
 from pathlib import Path
 import sys
+import time
 
 import bpy
 import numpy as np
@@ -155,7 +156,7 @@ def constrain_weights(obj, rig, points, low, span, config):
 def author_actions(rig, designs):
     for design in designs:
         for key in design['keys']:
-            if not set(key['rotations']) <= set(rig.pose.bones.keys()):
+            if not (set(key['rotations']) | set(key.get('translations_m', {}))) <= set(rig.pose.bones.keys()):
                 raise ValueError('Action names an absent bone; refusing silently ignored controls')
     if rig.animation_data:
         rig.animation_data_clear()
@@ -163,20 +164,79 @@ def author_actions(rig, designs):
         bpy.data.actions.remove(action)
     rig.animation_data_create()
     bpy.context.scene.render.fps = 24
+    translated = {name for design in designs for key in design['keys'] for name in key.get('translations_m', {})}
     for design in designs:
         action = bpy.data.actions.new(design['id'])
         rig.animation_data.action = action
         for key in design['keys']:
             for bone in rig.pose.bones:
-                world_basis = (rig.matrix_world @ bone.bone.matrix_local).to_3x3().normalized()
+                full_basis = (rig.matrix_world @ bone.bone.matrix_local).to_3x3()
+                world_basis = full_basis.normalized()
                 rotation = Euler([math.radians(x) for x in key['rotations'].get(bone.name, [0, 0, 0])]).to_matrix()
                 bone.rotation_mode = 'QUATERNION'
                 bone.rotation_quaternion = (world_basis.inverted() @ rotation @ world_basis).to_quaternion()
-                bone.location = (0, 0, 0)
+                # Meter offsets use rest axes and follow the animated parent; retain object scale conversion.
+                bone.location = full_basis.inverted() @ Vector(key.get('translations_m', {}).get(bone.name, [0, 0, 0]))
                 bone.scale = (1, 1, 1)
                 bone.keyframe_insert(data_path='rotation_quaternion', frame=key['second']*24, group=bone.name)
+                if bone.name in translated:
+                    bone.keyframe_insert(data_path='location', frame=key['second']*24, group=bone.name)
+        if design.get('interpolation') == 'LINEAR':
+            for curve in action.fcurves:
+                for point in curve.keyframe_points:
+                    point.interpolation = 'LINEAR'
         action.use_fake_user = True
     rig.animation_data.action = None
+
+
+def motion_bounds(obj, rig, actions, bindings, owners, designs):
+    """Fit one fixed camera to bounded pose samples; never claim continuous-motion coverage."""
+    start = time.monotonic()
+    scene = bpy.context.scene
+    previous_frame = scene.frame_current + scene.frame_subframe
+    low, high = np.full(3, np.inf), np.full(3, -np.inf)
+    frames_by_action = {}
+    lookup = {design['id']: design for design in designs}
+    hidden = [(other, other.hide_get()) for other in scene.objects if other.type == 'MESH' and other != obj]
+    try:
+        # Bounds need only the base skin, not repeated particle/card dependency work.
+        for other, _ in hidden:
+            other.hide_set(True)
+        rig.data.pose_position = 'POSE'
+        for action in actions:
+            keys = [key['second'] for key in lookup[action.name]['keys']]
+            seconds = sorted(set(keys + [(a+b)/2 for a, b in zip(keys, keys[1:])]))
+            if len(seconds) > 63:
+                raise ValueError('Motion framing exceeds 63 samples per action')
+            bind_action(action, bindings, owners, [rig])
+            for second in seconds:
+                if time.monotonic()-start > 30:
+                    raise ValueError('Motion framing exceeds 30 seconds')
+                set_frame(second*scene.render.fps/scene.render.fps_base)
+                evaluated = obj.evaluated_get(bpy.context.evaluated_depsgraph_get())
+                mesh = evaluated.to_mesh()
+                try:
+                    points = np.empty((len(mesh.vertices), 3), dtype=np.float64)
+                    mesh.vertices.foreach_get('co', points.ravel())
+                    matrix = np.asarray(evaluated.matrix_world)
+                    points = points@matrix[:3, :3].T + matrix[:3, 3]
+                    if not len(points) or not np.isfinite(points).all():
+                        raise ValueError('Invalid posed framing geometry')
+                    low = np.minimum(low, points.min(axis=0))
+                    high = np.maximum(high, points.max(axis=0))
+                finally:
+                    evaluated.to_mesh_clear()
+            frames_by_action[action.name] = seconds
+    finally:
+        clear_actions(owners, [rig])
+        rig.data.pose_position = 'REST'
+        set_frame(previous_frame)
+        for other, was_hidden in hidden:
+            other.hide_set(was_hidden)
+    return low, high, {'sample_seconds': frames_by_action,
+        'world_bounds_m': {'min': low.tolist(), 'max': high.tolist()},
+        'elapsed_seconds': time.monotonic()-start,
+        'scope': 'Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics'}
 
 
 def portable_coat(obj, rig, mask, colors, config, out):
@@ -281,6 +341,10 @@ def finish(config, output):
     if transform_error > 1e-6:
         raise ValueError("Applying emitter scale changed the world rest geometry")
     low, high = points.min(axis=0), points.max(axis=0)
+    part_rigs = None
+    if cfg.get('part_rigs'):
+        from blender_part_rigs import apply_part_rigs
+        part_rigs = apply_part_rigs(obj, rig, points, low, high, cfg['part_rigs'], cfg['authored_rig'])
     base = obj.data.materials[0]
     color_node = shared_color_texture(obj.data.materials)
     if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):
@@ -317,7 +381,7 @@ def finish(config, output):
     report = {"schema_version": 1, "source_sha256": cfg["source_sha256"], "blender_version": bpy.app.version_string,
               "normal_strength": cfg["normal_strength"], "groom": None, "attachment": None,
               "smoothing": smoothing, 'authored_rig': authored_rig, 'surface_profiles': surface_profiles,
-              'color_corrections': color_corrections,
+              'color_corrections': color_corrections, 'part_rigs': part_rigs,
               "emitter_scale_applied": True, "world_rest_position_max_error": transform_error,
               "source_bounds_blender_z_up": {"min": low.tolist(), "max": high.tolist()},
               "animation_verified": False, "weft_runtime_verified": False}
@@ -474,6 +538,23 @@ def finish(config, output):
         camera.location += right*(float((horizontal.min()+horizontal.max())/2)-center.dot(right))
         camera.location += up*(float((vertical.min()+vertical.max())/2)-center.dot(up))
     report['camera'] = {'view':cfg.get('camera_view','front'), 'orthographic_scale':camera_data.ortho_scale}
+    if cfg.get('camera_fit') == 'motion':
+        motion_low, motion_high, bounds_report = motion_bounds(obj, rig, actions, bindings, owners, cfg['authored_actions'])
+        # The base skin excludes strands/cards; add their configured extent before the framing margin.
+        fur_margin = max(cfg.get('groom', {}).get('length', 0)*3,
+                         cfg.get('portable_fur', {}).get('settings', {}).get('length', 0))
+        motion_low = np.minimum(motion_low, low)-fur_margin
+        motion_high = np.maximum(motion_high, high)+fur_margin
+        corners = np.array([[x,y,z] for x in (motion_low[0], motion_high[0])
+                            for y in (motion_low[1], motion_high[1]) for z in (motion_low[2], motion_high[2])])
+        basis = camera.rotation_euler.to_matrix()
+        right, up = basis@Vector((1,0,0)), basis@Vector((0,1,0))
+        horizontal, vertical = corners@np.array(right), corners@np.array(up)
+        camera_data.ortho_scale = max(float(np.ptp(horizontal)), float(np.ptp(vertical)))*1.2
+        camera.location += right*(float((horizontal.min()+horizontal.max())/2)-camera.location.dot(right))
+        camera.location += up*(float((vertical.min()+vertical.max())/2)-camera.location.dot(up))
+        report['camera'].update(fit='motion', orthographic_scale=camera_data.ortho_scale,
+                                fur_margin_m=fur_margin, motion_envelope=bounds_report)
     scene.render.filepath = str(out/"portrait.png")
     bpy.ops.render.render(write_still=True)
     if cfg.get('sample_states'):

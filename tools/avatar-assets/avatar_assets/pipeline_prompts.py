@@ -53,8 +53,8 @@ CRITIC_SCHEMA = _object({
 })
 
 AUTHOR_FIELDS = frozenset({
-    "authored_rig", "authored_actions", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections",
+    "authored_rig", "authored_actions", "part_rigs", "smoothing", "weight_constraints", "attachment", "groom",
+    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections",
 })
 
 
@@ -106,6 +106,8 @@ If requested state IDs exist, preserve their exact order and names; otherwise ch
 Each state needs a concrete visible meaning. Choose actions suitable to the actual subject, not humanoid motions for objects.
 Default actions should be achievable with modest skeletal rotations: idle, inspection, greeting, appendage motion or a celebration.
 This backend supports skinned rigid/soft bone articulation, static textures, optional native hair and browser fur cards.
+Bounded authored travel can depict takeoff or dance without simulating forces. A welded accessory first needs a reviewed
+separation derivative; the unattended pipeline does not automatically repair hidden contact geometry.
 It does not author new interacting props, facial blendshapes, lip sync, cloth/hair dynamics, physical flight or Weft physics.
 Do not rename a requested impossible action into an easy gesture. Return unsupported with a concrete reason when the
 essential request cannot be delivered by this backend. Do not treat exact reconstruction from a single image as supported.
@@ -147,11 +149,12 @@ def validate_plan(response, request):
 
 _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
-authored_rig, authored_actions, smoothing, weight_constraints, attachment, groom, groom_exclusions,
-fur_max_chroma, fur_clump, portable_fur, camera_view, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections. authored_actions is mandatory for ready.
+authored_rig, authored_actions, part_rigs, smoothing, weight_constraints, attachment, groom, groom_exclusions,
+fur_max_chroma, fur_clump, portable_fur, camera_view, camera_fit, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Fixed local render settings are512px/8samples. Clips run from0 to4seconds; shorter media presets retime the full curves.
 camera_view is front, three_quarter or three_quarter_left. Favor an angle that reveals accessories/tails without clipping.
+camera_fit is rest (default) or motion. Use motion for travel/takeoff: one fixed camera fits all keys and midpoints plus fur margin.
 
 RIG: Inspect the actual images and geometry report. For an unrigged model include authored_rig; for a pre-existing skin,
 do not replace it and use its exact observed bone names. Placement is subject-specific, not a species-name template.
@@ -169,13 +172,21 @@ Each required moving appendage must have substantial coverage, not a handful of 
 from its visible area (often50–100or more), rather than1 merely to bypass missing coverage. Repair findings include counts.
 For hard-surface objects use rigid single-bone regions with zero or very small feather at real joints, not broad blended panels.
 If geometry overlaps so a requested action cannot deform credibly, report unsupported rather than disguising the action.
+For a VERIFIED disjoint source part, optional part_rigs overrides only its weights using ORIGINAL whole-mesh bounds.
+Use1–4 objects {name,materials,root_bone,layers,min_vertices,max_vertices}; name is a unique safe slug;
+materials lists1–8 exact observed material names, uniquely owned. A selected vertex cannot be shared with outside faces.
+root_bone and descendants are the only allowed part bones; layers use the rig layer schema; vertex bounds are1–100000.
+Requires authored_rig and excludes the old attachment pass. Do not invent material labels or assume fused geometry is disjoint.
 
-MOTIONS: authored_actions is one object per planned state, in the same order: {id,keys}.
-Each keys list has2–32 objects {second,rotations}; times strictly increase from0 to4 inclusive.
+MOTIONS: authored_actions is one object per planned state, in the same order: {id,keys}, optionally interpolation:LINEAR.
+Each keys list has2–32 objects {second,rotations}, optionally translations_m; times strictly increase from0 to4 inclusive.
 rotations maps actual bone names to[X,Y,Z] Euler degrees in Blender world axes relative to rest, each angle within±60.
-An omitted bone is at rest at that key, not held from the previous key. Every state must have real changing rotations;
+An omitted bone is at rest at that key, not held from the previous key. Every state must have real changing rotations or translations;
 do not repeat the same curve under different labels. Use modest rotations first, keeping planted feet/root stable where applicable.
-No translation, scaling, mesh replacement or material-animation field is supported. Endpoints may return to rest but are not certified loops.
+translations_m maps actual bones to[X,Y,Z] metre offsets in rest-world axes, each component within±2; require interpolation:LINEAR.
+Offsets follow the animated parent, not absolute world paths; omit a translation at a key to return that control to zero.
+Never translate a fused accessory: first use an explicitly verified disjoint geometry and part rig. No scale, mesh replacement,
+material animation or physical flight is supported. Endpoints may return to rest but are not certified loops.
 Use at most eight informative keys per state when possible: review images include those actual key poses, not only integer seconds.
 Make the intended action readable in full-body contact sheets without excessive rotation or hidden/subpixel gestures.
 
@@ -284,8 +295,10 @@ def finish_config(response, request, plan, source, iteration):
         for action in actions:
             keys = action["keys"]
             require(keys[0]["second"] == 0 and keys[-1]["second"] == 4, "Authored actions must span0–4seconds")
-            names = sorted({name for key in keys for name in key["rotations"]})
-            poses = [[[float(value) for value in key["rotations"].get(name, [0, 0, 0])] for name in names] for key in keys]
+            names = sorted({(channel, name) for key in keys for channel in ('rotations', 'translations_m')
+                            for name in key.get(channel, {})})
+            poses = [[[float(value) for value in key.get(channel, {}).get(name, [0, 0, 0])]
+                      for channel, name in names] for key in keys]
             require(names and any(pose != poses[0] for pose in poses[1:]), "Constant poses are not animation")
             signature = json.dumps([{"second": float(key["second"]), "pose": pose} for key, pose in zip(keys, poses)], sort_keys=True)
             # Bone identity is part of a curve; distinct controls can express distinct states.

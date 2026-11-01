@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T11:14:05.179732-08:00",
+  "exact_user_request": "looks awesome! lets save this. canw e make teh panda and dragon so something more complicated? like teh dragon flying and the panda dancing?",
+  "clarification": "Shoulder dragon takes off while panda dances",
+  "accepted_checkpoint": "4ade45a06b4de9b8382fa646a6fcf356ab71b2d6",
+  "approved_source": {
+    "pack": "outputs/muse-panda-smooth-fur-v3",
+    "model_sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77"
+  },
+  "scope": "Additive combined dance-and-flight animation using actual shoulder dragon; no standalone substitution, no overwriting accepted assets",
+  "workstreams": [
+    "Generic per-bone translations and linear key interpolation, motion-aware camera bounds",
+    "Bounded local partition and explicit unseen surface repair of fused shoulder dragon/panda",
+    "Independent wing controls and coordinated one-shot choreography",
+    "Native/export/media/browser checks, current handoff and scoped Git save"
+  ],
+  "limits": {
+    "native_workers": 2,
+    "finish_seconds": 600,
+    "finish_rss_mb": 2048,
+    "finish_output_mb": 512,
+    "partition_probes_initial_max": 2,
+    "partition_probe_seconds": 120,
+    "partition_probe_rss_mb": 1024,
+    "partition_probe_output_mb": 128,
+    "initial_final_candidates": 2,
+    "media_seconds": 1200,
+    "media_rss_mb": 2048,
+    "keyframes_per_action": 32,
+    "rendered_review_poses_per_state": 8
+  },
+  "cost": {
+    "new_meshy_calls": 0,
+    "new_meta_calls": 0,
+    "new_paid_provider_cost_usd": 0,
+    "recurring_services": false,
+    "local_estimate_seconds": {
+      "implementation_probes": 240,
+      "candidate_builds": 1200,
+      "one_4s_hd_preview": 500
+    },
+    "assumptions": "Local CPU bounds/estimates only, not paid rendering. Existing agent/session model charges are not exposed. No new geometry purchase or retry."
+  },
+  "known_difficulty": "Shoulder dragon is fused to panda in one connected mesh with nonmanifold/open edges; plain attachment translation stretches bridges. Local separation/caps and independent rig need real review before acceptance.",
+  "status": "in_progress"
+}

@@ -1,0 +1,126 @@
+{
+  "artifacts": [
+    {
+      "bytes": 6812,
+      "path": "analytic.glb",
+      "sha256": "ddc68d68e429996d0564e337e61ef9ca78639505e6aadd8377d3a0f70b559382"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "732530a886f0868d19cc17628700e027c1464972a94091d3402316399007d1fe"
+    },
+    {
+      "bytes": 1412,
+      "path": "job.json",
+      "sha256": "3a375c9fc8c1661146c1ead68c123e8da1417c22533e846f3b76260f492009e5"
+    },
+    {
+      "bytes": 497,
+      "path": "probe-handle.json",
+      "sha256": "3e3efb5db50abe1d8a074aed8cd7ca11fe1084495f54e898af5a7fcb9a2e0e1b"
+    },
+    {
+      "bytes": 1282,
+      "path": "probe-monitor.json",
+      "sha256": "261c0c6a621448b9164146b0f557344df7b365ebddec95ad041bd90ccae5da43"
+    },
+    {
+      "bytes": 1568,
+      "path": "probe.log",
+      "sha256": "4532e7c5204d195b64ac845179f4cd69e323d39b1dcc064d3d5edc6f1b3eaf4c"
+    },
+    {
+      "bytes": 64943,
+      "path": "sources/__pycache__/blender_finish_generated.cpython-311.pyc",
+      "sha256": "17ba94ab2954afc2de5b4ecd9f6a3ef076bbed7b81b23b2547d0472d76e14614"
+    },
+    {
+      "bytes": 44375,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "bf92ebef3f566290e2b0da8f3ddb3dc60bc730a32ff90016f650198e8f67cf59"
+    },
+    {
+      "bytes": 37915,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "fc2f2c5ca468c8b9f90fcdd92faf50cd893341baaf91c7c9485b15ecc42ee816"
+    },
+    {
+      "bytes": 9458,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "4f30d370316b741f675ea249e9ded15a60a2e6a756ecf6f3393049e9e462df6e"
+    },
+    {
+      "bytes": 35468,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "3be651d008f39ec67857c7ddf822aa1591aaf877736ec8f505b40766f920b942"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5936,
+      "path": "sources/blender_verify_motion_controls.py",
+      "sha256": "428ffab75048daf9a9b41a022819a103477956352f4b818712fbd8b29a64e4d4"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "2",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v1/sources/blender_verify_motion_controls.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.303,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 256382,
+    "last_rss_sample_elapsed_seconds": 1.042,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 768,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "probe-monitor.json",
+    "monitor_errors": [],
+    "pid": 27154,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 256382,
+    "sampled_peak_rss_bytes": 213483520,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "analytic_fixture_not_generated_avatar"
+}

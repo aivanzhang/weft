@@ -356,3 +356,15 @@ outputs/agent-robot-v3/media/frames/**
 !outputs/surface-integrity-native-v2/
 !outputs/surface-integrity-native-v2/**
 !outputs/quality-upgrade-tests-v3.txt
+
+# Compound motion: preserve the bounded plan and analytic verification, not temporary runtimes.
+!outputs/complex-motion-v1/
+!outputs/complex-motion-v1/**
+!outputs/motion-controls-analytic-v1/
+!outputs/motion-controls-analytic-v1/**
+!outputs/motion-controls-analytic-v2/
+!outputs/motion-controls-analytic-v2/**
+!outputs/motion-controls-analytic-v3/
+!outputs/motion-controls-analytic-v3/**
+!outputs/motion-controls-analytic-v4/
+!outputs/motion-controls-analytic-v4/**

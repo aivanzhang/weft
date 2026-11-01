@@ -1,0 +1,1314 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T11:28:52.098022-08:00",
+  "status": "design_ready_awaiting_validated_partition",
+  "executable": false,
+  "config_output_pending": "examples/meshy/muse-panda-dance-flight-v1.json",
+  "exact_user_clarification": "Shoulder dragon takes off while panda dances",
+  "base_config": "examples/meshy/muse-panda-dance-v1.json",
+  "base_config_sha256": "7cc415572f616fd5312ce3bb85cb6cf5ff5f86ae5d7dae9230efdebc6ba82918",
+  "source": {
+    "path": null,
+    "sha256": null,
+    "reason": "No validated separated GLB exists yet. Partition v3 planar cap triangulation failed; parent is investigating a different local closure strategy. This does not determine overall task feasibility. Do not invent or reuse an unrelated model hash."
+  },
+  "expected_source_materials": [
+    "body_surface",
+    "companion_surface",
+    "body_cap",
+    "companion_cap"
+  ],
+  "changes": {
+    "id": "muse-panda-dance-flight-v1",
+    "remove_fields": [
+      "attachment"
+    ],
+    "append_authored_bones": [
+      {
+        "name": "CompanionRoot",
+        "parent": "Root",
+        "head": [
+          0.16,
+          0.29,
+          0.53
+        ],
+        "tail": [
+          0.16,
+          0.29,
+          0.63
+        ]
+      },
+      {
+        "name": "DragonWingRight",
+        "parent": "CompanionRoot",
+        "head": [
+          0.12,
+          0.34,
+          0.59
+        ],
+        "tail": [
+          0.015,
+          0.26,
+          0.546
+        ]
+      },
+      {
+        "name": "DragonWingLeft",
+        "parent": "CompanionRoot",
+        "head": [
+          0.19,
+          0.365,
+          0.6
+        ],
+        "tail": [
+          0.22,
+          0.45,
+          0.575
+        ]
+      }
+    ],
+    "part_rigs": [
+      {
+        "name": "shoulder-dragon",
+        "materials": [
+          "companion_surface",
+          "companion_cap"
+        ],
+        "root_bone": "CompanionRoot",
+        "layers": [
+          {
+            "bones": [
+              "CompanionRoot",
+              "DragonWingRight"
+            ],
+            "min": [
+              -0.1,
+              0.1,
+              0.44
+            ],
+            "max": [
+              0.15,
+              0.5,
+              0.66
+            ],
+            "feather": 0.055,
+            "min_vertices": 400
+          },
+          {
+            "bones": [
+              "CompanionRoot",
+              "DragonWingLeft"
+            ],
+            "min": [
+              0.18,
+              0.28,
+              0.51
+            ],
+            "max": [
+              0.35,
+              0.53,
+              0.66
+            ],
+            "feather": 0.04,
+            "min_vertices": 150
+          }
+        ],
+        "min_vertices": 10000,
+        "max_vertices": 35000
+      }
+    ],
+    "camera_fit": "motion",
+    "states": [
+      {
+        "id": "dance_flight",
+        "meaning": "The panda performs four rhythmic alternating whole-body toy hops while its actual shoulder dragon anticipates, moves outward to viewer-left, rises into a short flapping flight beside the panda, returns and settles on the same shoulder. Arms and feet retain their existing relative pose. Authored one-shot choreography, not physical flight or balance."
+      }
+    ],
+    "authored_actions": [
+      {
+        "id": "dance_flight",
+        "interpolation": "LINEAR",
+        "keys": [
+          {
+            "second": 0,
+            "rotations": {},
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "second": 0.18,
+            "rotations": {
+              "Root": [
+                0,
+                2,
+                0
+              ],
+              "Torso": [
+                0.2,
+                0,
+                0.15
+              ],
+              "Head": [
+                -0.3,
+                -0.5,
+                -0.2
+              ],
+              "DragonWingRight": [
+                0,
+                7.7,
+                0
+              ],
+              "DragonWingLeft": [
+                6.6,
+                -3.3,
+                0
+              ],
+              "CompanionRoot": [
+                4,
+                0,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.045,
+                0,
+                0.04
+              ],
+              "CompanionRoot": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "second": 0.36,
+            "rotations": {
+              "Root": [
+                0,
+                4,
+                0
+              ],
+              "Torso": [
+                0.4,
+                0,
+                0.3
+              ],
+              "Head": [
+                -0.6,
+                -1.0,
+                -0.4
+              ],
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                6,
+                -1.2,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.1,
+                0,
+                0.065
+              ],
+              "CompanionRoot": [
+                -0.14154782,
+                0.0,
+                -0.02121381
+              ]
+            }
+          },
+          {
+            "second": 0.55,
+            "rotations": {
+              "Root": [
+                0,
+                2.5,
+                0
+              ],
+              "Torso": [
+                0.25,
+                0,
+                0.1875
+              ],
+              "Head": [
+                -0.375,
+                -0.625,
+                -0.25
+              ],
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ],
+              "CompanionRoot": [
+                4,
+                -1.75,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.065,
+                0,
+                0.045
+              ],
+              "CompanionRoot": [
+                -0.24618031,
+                -0.012,
+                0.04766508
+              ]
+            }
+          },
+          {
+            "second": 0.8,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                2,
+                0,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.25,
+                -0.02,
+                0.22
+              ]
+            }
+          },
+          {
+            "second": 1.0,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.27,
+                -0.02,
+                0.28
+              ]
+            }
+          },
+          {
+            "second": 1.18,
+            "rotations": {
+              "Root": [
+                0,
+                -2,
+                0
+              ],
+              "Torso": [
+                -0.2,
+                0,
+                -0.15
+              ],
+              "Head": [
+                -0.3,
+                0.5,
+                0.2
+              ],
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                -2,
+                2,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.045,
+                0,
+                0.04
+              ],
+              "CompanionRoot": [
+                -0.21001389,
+                -0.01,
+                0.27490327
+              ]
+            }
+          },
+          {
+            "second": 1.36,
+            "rotations": {
+              "Root": [
+                0,
+                -4,
+                0
+              ],
+              "Torso": [
+                -0.4,
+                0,
+                -0.3
+              ],
+              "Head": [
+                -0.6,
+                1.0,
+                0.4
+              ],
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ],
+              "CompanionRoot": [
+                0,
+                4,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.1,
+                0,
+                0.065
+              ],
+              "CompanionRoot": [
+                -0.1372513,
+                0.0,
+                0.25070632
+              ]
+            }
+          },
+          {
+            "second": 1.55,
+            "rotations": {
+              "Root": [
+                0,
+                -2.5,
+                0
+              ],
+              "Torso": [
+                -0.25,
+                0,
+                -0.1875
+              ],
+              "Head": [
+                -0.375,
+                0.625,
+                0.25
+              ],
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                2,
+                2.5,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.065,
+                0,
+                0.045
+              ],
+              "CompanionRoot": [
+                -0.17874261,
+                0.015,
+                0.24865267
+              ]
+            }
+          },
+          {
+            "second": 1.8,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.265,
+                0.025,
+                0.29
+              ]
+            }
+          },
+          {
+            "second": 2.0,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                -2,
+                0,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.28,
+                0.015,
+                0.3
+              ]
+            }
+          },
+          {
+            "second": 2.18,
+            "rotations": {
+              "Root": [
+                0,
+                2,
+                0
+              ],
+              "Torso": [
+                0.2,
+                0,
+                0.15
+              ],
+              "Head": [
+                -0.3,
+                -0.5,
+                -0.2
+              ],
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ],
+              "CompanionRoot": [
+                0,
+                -2,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.045,
+                0,
+                0.04
+              ],
+              "CompanionRoot": [
+                -0.36868882,
+                0.0,
+                0.21558154
+              ]
+            }
+          },
+          {
+            "second": 2.36,
+            "rotations": {
+              "Root": [
+                0,
+                4,
+                0
+              ],
+              "Torso": [
+                0.4,
+                0,
+                0.3
+              ],
+              "Head": [
+                -0.6,
+                -1.0,
+                -0.4
+              ],
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                2,
+                -4,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.1,
+                0,
+                0.065
+              ],
+              "CompanionRoot": [
+                -0.43396906,
+                -0.015,
+                0.15247173
+              ]
+            }
+          },
+          {
+            "second": 2.55,
+            "rotations": {
+              "Root": [
+                0,
+                2.5,
+                0
+              ],
+              "Torso": [
+                0.25,
+                0,
+                0.1875
+              ],
+              "Head": [
+                -0.375,
+                -0.625,
+                -0.25
+              ],
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ],
+              "CompanionRoot": [
+                0,
+                -2.5,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0.065,
+                0,
+                0.045
+              ],
+              "CompanionRoot": [
+                -0.36529981,
+                -0.025,
+                0.19976733
+              ]
+            }
+          },
+          {
+            "second": 2.8,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                -14,
+                0
+              ],
+              "DragonWingLeft": [
+                -12,
+                6,
+                0
+              ],
+              "CompanionRoot": [
+                -3,
+                0,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.24,
+                -0.015,
+                0.22
+              ]
+            }
+          },
+          {
+            "second": 3.0,
+            "rotations": {
+              "DragonWingRight": [
+                0,
+                14,
+                0
+              ],
+              "DragonWingLeft": [
+                12,
+                -6,
+                0
+              ],
+              "CompanionRoot": [
+                -4,
+                0,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                -0.19,
+                -0.025,
+                0.16
+              ]
+            }
+          },
+          {
+            "second": 3.18,
+            "rotations": {
+              "Root": [
+                0,
+                -2,
+                0
+              ],
+              "Torso": [
+                -0.2,
+                0,
+                -0.15
+              ],
+              "Head": [
+                -0.3,
+                0.5,
+                0.2
+              ],
+              "DragonWingRight": [
+                0,
+                -10.5,
+                0
+              ],
+              "DragonWingLeft": [
+                -9.0,
+                4.5,
+                0
+              ],
+              "CompanionRoot": [
+                -3,
+                2,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.045,
+                0,
+                0.04
+              ],
+              "CompanionRoot": [
+                -0.08190153,
+                -0.02,
+                0.07531063
+              ]
+            }
+          },
+          {
+            "second": 3.36,
+            "rotations": {
+              "Root": [
+                0,
+                -4,
+                0
+              ],
+              "Torso": [
+                -0.4,
+                0,
+                -0.3
+              ],
+              "Head": [
+                -0.6,
+                1.0,
+                0.4
+              ],
+              "DragonWingRight": [
+                0,
+                7.0,
+                0
+              ],
+              "DragonWingLeft": [
+                6.0,
+                -3.0,
+                0
+              ],
+              "CompanionRoot": [
+                -2,
+                2.8,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.1,
+                0,
+                0.065
+              ],
+              "CompanionRoot": [
+                -0.00929786,
+                -0.01,
+                0.03309421
+              ]
+            }
+          },
+          {
+            "second": 3.55,
+            "rotations": {
+              "Root": [
+                0,
+                -2.5,
+                0
+              ],
+              "Torso": [
+                -0.25,
+                0,
+                -0.1875
+              ],
+              "Head": [
+                -0.375,
+                0.625,
+                0.25
+              ],
+              "DragonWingRight": [
+                0,
+                -3.5,
+                0
+              ],
+              "DragonWingLeft": [
+                -3.0,
+                1.5,
+                0
+              ],
+              "CompanionRoot": [
+                -1,
+                0.75,
+                0
+              ]
+            },
+            "translations_m": {
+              "Root": [
+                -0.065,
+                0,
+                0.045
+              ],
+              "CompanionRoot": [
+                -0.02709307,
+                0.0,
+                0.01738414
+              ]
+            }
+          },
+          {
+            "second": 3.8,
+            "rotations": {},
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          {
+            "second": 4.0,
+            "rotations": {},
+            "translations_m": {
+              "Root": [
+                0,
+                0,
+                0
+              ],
+              "CompanionRoot": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "preserve_from_base": [
+    "subject",
+    "style",
+    "authored_rig existing 16 bones/base_bones/layers",
+    "weight_constraints",
+    "groom",
+    "groom_shader",
+    "groom_flow",
+    "groom_exclusions",
+    "fur_clump",
+    "fur_max_chroma",
+    "portable_fur",
+    "normal_strength",
+    "portrait_denoise",
+    "resolution",
+    "samples",
+    "camera_view",
+    "color_corrections"
+  ],
+  "coordinate_contract": {
+    "space": "normalized_bounds_blender_z_up",
+    "height_meters": 1.2,
+    "world_up": "+Z",
+    "forward": "-Y",
+    "flight_outward": "-X, viewer-left in front view",
+    "part_weights": "CompanionRoot plus descendants; base_bones=[CompanionRoot] in the weighting-only derived rig. Real CompanionRoot remains parented to Root. Original full-mesh bounds, never part-local bounds.",
+    "root_pivot_m": [
+      0.03632862329483033,
+      0.046616488695144676,
+      0.04200000166893006
+    ],
+    "companion_pivot_m": [
+      -0.3087932980060577,
+      -0.1631577104330063,
+      0.6360000252723694
+    ],
+    "translation_equation": "target=(1-w)*(P+T+R*(C-P))+w*C+offset; CompanionRoot translation=transpose(R)*(target-P-T)-(C-P). P=root rest pivot, C=companion rest pivot, T=panda Root translation, R=panda Root Y rotation, w=parent compensation fraction. Translation is rest-armature axes in meters and follows animated parent.",
+    "key_compensation_max_rounding_error_m": 4.810184830779004e-09,
+    "wing_rotations": "DragonWingRight global-rest Euler Y \u00b114 degrees; DragonWingLeft global-rest Euler X \u00b112/Y \u22136 degrees, scaled by flap_fraction. Different axes accommodate the actual asymmetrically folded wing patches."
+  },
+  "timing": {
+    "seconds": 4,
+    "key_count": 21,
+    "interpolation": "LINEAR",
+    "phases": [
+      {
+        "range": [
+          0,
+          0.18
+        ],
+        "meaning": "Perched anticipation while panda begins first hop"
+      },
+      {
+        "range": [
+          0.36,
+          1.0
+        ],
+        "meaning": "Move outward before rising; blend into parent-motion compensation"
+      },
+      {
+        "range": [
+          1.0,
+          2.55
+        ],
+        "meaning": "Short flapping hover arc, 0.27\u20130.30m above original shoulder pivot"
+      },
+      {
+        "range": [
+          2.8,
+          3.8
+        ],
+        "meaning": "Descend outside head, then approach moving shoulder and settle"
+      },
+      {
+        "range": [
+          3.8,
+          4.0
+        ],
+        "meaning": "Neutral settled hold; endpoint matches first pose"
+      }
+    ],
+    "key_path_decisions": [
+      {
+        "second": 0,
+        "world_offset_m": [
+          0,
+          0,
+          0
+        ],
+        "cancel_parent_motion_fraction": 0,
+        "flap_fraction": 0,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 0.18,
+        "world_offset_m": [
+          0,
+          0,
+          0
+        ],
+        "cancel_parent_motion_fraction": 0,
+        "flap_fraction": 0.55,
+        "body_pitch_degrees": 4
+      },
+      {
+        "second": 0.36,
+        "world_offset_m": [
+          -0.1,
+          0,
+          0.015
+        ],
+        "cancel_parent_motion_fraction": 0.3,
+        "flap_fraction": -1,
+        "body_pitch_degrees": 6
+      },
+      {
+        "second": 0.55,
+        "world_offset_m": [
+          -0.18,
+          -0.012,
+          0.1
+        ],
+        "cancel_parent_motion_fraction": 0.7,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 4
+      },
+      {
+        "second": 0.8,
+        "world_offset_m": [
+          -0.25,
+          -0.02,
+          0.22
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": 2
+      },
+      {
+        "second": 1.0,
+        "world_offset_m": [
+          -0.27,
+          -0.02,
+          0.28
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 1.18,
+        "world_offset_m": [
+          -0.285,
+          -0.01,
+          0.295
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": -2
+      },
+      {
+        "second": 1.36,
+        "world_offset_m": [
+          -0.295,
+          0,
+          0.28
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 1.55,
+        "world_offset_m": [
+          -0.28,
+          0.015,
+          0.27
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": 2
+      },
+      {
+        "second": 1.8,
+        "world_offset_m": [
+          -0.265,
+          0.025,
+          0.29
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 2.0,
+        "world_offset_m": [
+          -0.28,
+          0.015,
+          0.3
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": -2
+      },
+      {
+        "second": 2.18,
+        "world_offset_m": [
+          -0.295,
+          0,
+          0.28
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 2.36,
+        "world_offset_m": [
+          -0.28,
+          -0.015,
+          0.27
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": 2
+      },
+      {
+        "second": 2.55,
+        "world_offset_m": [
+          -0.265,
+          -0.025,
+          0.275
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 2.8,
+        "world_offset_m": [
+          -0.24,
+          -0.015,
+          0.22
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -1,
+        "body_pitch_degrees": -3
+      },
+      {
+        "second": 3.0,
+        "world_offset_m": [
+          -0.19,
+          -0.025,
+          0.16
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": 1,
+        "body_pitch_degrees": -4
+      },
+      {
+        "second": 3.18,
+        "world_offset_m": [
+          -0.15,
+          -0.02,
+          0.1
+        ],
+        "cancel_parent_motion_fraction": 1,
+        "flap_fraction": -0.75,
+        "body_pitch_degrees": -3
+      },
+      {
+        "second": 3.36,
+        "world_offset_m": [
+          -0.11,
+          -0.01,
+          0.06
+        ],
+        "cancel_parent_motion_fraction": 0.7,
+        "flap_fraction": 0.5,
+        "body_pitch_degrees": -2
+      },
+      {
+        "second": 3.55,
+        "world_offset_m": [
+          -0.055,
+          0,
+          0.025
+        ],
+        "cancel_parent_motion_fraction": 0.3,
+        "flap_fraction": -0.25,
+        "body_pitch_degrees": -1
+      },
+      {
+        "second": 3.8,
+        "world_offset_m": [
+          0,
+          0,
+          0
+        ],
+        "cancel_parent_motion_fraction": 0,
+        "flap_fraction": 0,
+        "body_pitch_degrees": 0
+      },
+      {
+        "second": 4.0,
+        "world_offset_m": [
+          0,
+          0,
+          0
+        ],
+        "cancel_parent_motion_fraction": 0,
+        "flap_fraction": 0,
+        "body_pitch_degrees": 0
+      }
+    ]
+  },
+  "read_only_geometry_screen": {
+    "scope": "Read-only linear-blend-skinning screens on actual source-derived CPU partition vertices; missing final cap geometry, native/export frames and full combined motion. Not an analytic substitute presented as generated animation.",
+    "input": "outputs/companion-separation-v2/partition-arrays.npz",
+    "input_sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004",
+    "whole_vertices": 31335,
+    "selected_companion_vertices": 13772,
+    "whole_bounds_m": {
+      "min": [
+        -0.45410779118537903,
+        -0.38847073912620544,
+        0.0
+      ],
+      "max": [
+        0.45410779118537903,
+        0.38847073912620544,
+        1.2000000476837158
+      ]
+    },
+    "selected_layer_counts": [
+      5133,
+      958
+    ],
+    "positive_vertices_per_bone": {
+      "CompanionRoot": 13761,
+      "DragonWingRight": 5117,
+      "DragonWingLeft": 956
+    },
+    "max_influences": 2,
+    "weight_sum_max_error": 1.1102230246251565e-16,
+    "two_wing_extreme_screens": [
+      {
+        "sign": 1,
+        "max_shift_m": 0.0344811895133241,
+        "vertices_shifted_over_2mm": 3691,
+        "worst_reported_edge_excess_m": 0.004707735476202204,
+        "worst_reported_edge_ratio": 1.6208594244968912,
+        "diagnostic_rows": 4
+      },
+      {
+        "sign": -1,
+        "max_shift_m": 0.03448118951332406,
+        "vertices_shifted_over_2mm": 3680,
+        "diagnostic_rows": 0
+      }
+    ],
+    "native_acceptance": false
+  },
+  "rejected_weight_screens": [
+    {
+      "name": "tight-wing-boxes",
+      "reason": "Box feather cut across the distal membrane; 16-degree test produced17.99mm worst edge excess. Not used."
+    },
+    {
+      "name": "wide-wing-box-plus-sharp-tail-reset",
+      "reason": "A sharp reset at normalized Z.505 produced27.61mm worst edge excess. Not used."
+    }
+  ],
+  "retained_weight_design": "Broader feathered layers blend the companion root with each wing by nearest authored segment, rather than assigning every ROI vertex rigidly to one wing. The tail-adjacent worst diagnostic is4.71mm; this is a pending visual/native check, not acceptance. No fake wing surface is added.",
+  "limitations": [
+    "All new bones, rest pivots, weights, surface caps and motion are authored assumptions, not recovered anatomy.",
+    "The small left wing is folded and partly occluded in the generated source; no mirrored replacement or enlarged area is fabricated.",
+    "Current screening omits final closure triangles and actual Blender/export skinning. Material counts, coverage and seam integrity must be recomputed on final model.",
+    "The source wing and tail/body are not clean semantic patches. Low-level neighboring motion may remain; review actual flaps before accepting.",
+    "Panda root hops avoid known fused hand/body/foot separation, but child pose/floor clearance and fur deformation still need actual native proof.",
+    "A fixed motion-fit camera is required; approved portrait framing is not guaranteed unchanged.",
+    "Matching endpoints do not certify seamless looping. No physics, collision, aerodynamic, balance or Muse-equivalence claim."
+  ],
+  "rights_and_provenance": "Retain the base reference/Meshy rights record. No new paid generation, provider rig or external upload. Local separation/caps are explicit authored hidden-surface reconstruction, not unchanged source geometry. Original source bytes and approved panda/dragon outputs stay preserved.",
+  "next_safe_action": "Pin only the actual validated partition path/hash; rerun bounded part coverage on that model, preserve appearance controls, write new full config with exact prompt/rights, validate host schema, then let parent perform native/export and visual checks. Do not execute this note."
+}

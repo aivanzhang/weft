@@ -11,6 +11,49 @@
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
 
+## Active: shoulder-dragon flight and panda dance
+
+User accepted the saved panda appearance and requested more complex motion;
+clarified **the little shoulder dragon takes off while the panda dances**, not
+an independent standalone dragon. Preserve approved checkpoint `4ade45a` and all
+previous assets. New job plan: `outputs/complex-motion-v1/plan.json`.
+
+- Parent owns generic per-bone meter translations, LINEAR interpolation,
+  motion-aware framing, final integration/verification and save.
+- `agent_runner` owns new bounded partition modules/probes; `pipeline_review`
+  independently audits fused topology and caps; `pipeline_contracts` prepared
+  a provisional dance config and measured small-dragon control candidates.
+- No paid generation: current geometry/4K textures are reused. Two initial
+  partition probes, at most120s/1GiB/128MiB each; at mosttwo heavy workers.
+- Actual source is one connected fused surface, including broad unseen head/
+  shoulder contacts. A naive anchor translation or blind cap is not accepted.
+  Preserve visible source surfaces/UVs; any new closures are authored assumptions.
+- Next: evaluate bounded geometric separation, then rig independent wings and
+  coordinate flight with dance. No current result demonstrates takeoff yet.
+- Generic per-bone `translations_m`, explicit LINEAR interpolation, motion-fit
+  camera and disjoint-material `part_rigs` are implemented. Focused contracts pass;
+  native analytic `outputs/motion-controls-analytic-v3` passed in0.523s/182MB,
+  export/reload maximum position error0.000000361m. v1/v2 fixture failures included
+  a Blender bone-display helper in skin comparisons; preserved, not asset failures.
+- `companion-separation-v1` stopped at CPU winding checks. v2 corrected three
+  source winding defects but exposed a Blender4.5 triangulator return-type mismatch;
+  no model was exported. `agent_runner` owns the changed v3 probe (second native
+  attempt); inspect its handle before resuming. Planned501 cap triangles/29loops
+  are authored closure geometry, not recovered hidden surfaces.
+- `pipeline_contracts` owns the new combined config; parent owns integration.
+  No new paid calls, no publication or persistent service in this follow-up yet.
+- Updated native control fixture `motion-controls-analytic-v4` passes0.522s/181MB;
+  latest backend includes cross-action zero translations and skips unrelated mesh
+  evaluation during framing. Local closure amendment allows two additional120s
+  native probes after a changed3D solver passes CPU gates; exact envelope is
+  `outputs/complex-motion-v1/closure-amendment-v1.json`. No paid retry.
+- Non-executable21-key choreography is saved in `choreography-design-v1.json`;
+  no source hash is invented while separation is pending. Its actual-source wing
+  screen is not a native flight result. `pipeline_contracts` now owns a new bounded
+  full-frame compound-motion audit helper; no native audit is running yet.
+- The current appearance is user-accepted; exact Muse reconstruction/physical
+  flight/balance are not claimed. Update this handoff before long jobs/end.
+
 ## Panda fur and small details — verified improvement, quality target still open
 
 User approved the dragon and redirected effort to panda-like fur/detail. The
@@ -99,7 +142,7 @@ model/compactmedia/reviews are tracked; completeframes/rejectedbinaries remain l
 ./tools/avatar-assets/run gallery --catalog browser/gallery-panda-fur-v1.json
 ```
 
-- [ ] User visual acceptance/Muse-equivalent finish remains open. Next safe quality
+- [x] User accepted this appearance iteration. Exact Muse-equivalence remains unverified. Next safe quality
   work is a bounded local tail-shape/skin and portable-coat improvement from the
   preserved v3source, with new outputs and independent appearance/motion checks.
   Do not repeat failed arm gestures, relabel sparse cards as native hair or buy

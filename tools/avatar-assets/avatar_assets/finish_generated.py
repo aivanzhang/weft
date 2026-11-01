@@ -32,8 +32,8 @@ def validate(config):
                 'normal_strength', 'resolution', 'samples', 'states'}
     optional = {'groom', 'groom_exclusions', 'fur_max_chroma', 'fur_clump', 'attachment', 'smoothing',
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
-                'authored_rig', 'camera_view', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
-                'color_corrections'}
+                'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
+                'color_corrections', 'part_rigs'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -44,6 +44,9 @@ def validate(config):
     require(type(config['resolution']) is int and type(config['samples']) is int, 'Integer render settings required')
     require(type(config.get('portrait_denoise', False)) is bool, 'Invalid denoising flag')
     require(config.get('camera_view', 'front') in ('front', 'three_quarter', 'three_quarter_left'), 'Invalid camera view')
+    require(config.get('camera_fit', 'rest') in ('rest', 'motion'), 'Invalid camera fit')
+    require(config.get('camera_fit') != 'motion' or config.get('authored_actions'),
+            'Motion framing requires explicit authored actions')
     if 'surface_profiles' in config:
         from avatar_assets.surface_profiles import validate_profiles
         validate_profiles(config['surface_profiles'])
@@ -66,6 +69,11 @@ def validate(config):
         from scripts.creature_rig_math import validate_rig
         validate_rig(config['authored_rig'])
         require(config.get('authored_actions'), 'A new creature rig requires explicit authored actions')
+    if 'part_rigs' in config:
+        from avatar_assets.part_rigs import validate_part_rigs
+        require(config.get('authored_rig') and not config.get('attachment'),
+                'Part rigs require an authored rig and cannot overlap the rigid attachment pass')
+        validate_part_rigs(config['part_rigs'], config['authored_rig'])
     boxes = config.get('groom_exclusions', [])
     require(isinstance(boxes, list) and len(boxes) <= 16, 'Too many spatial exclusions')
     for box in boxes:
@@ -155,10 +163,13 @@ def validate(config):
         actions = config['authored_actions']
         require(isinstance(actions, list) and [a['id'] for a in actions] == names, 'Authored actions must match named states')
         for action in actions:
-            require(set(action) == {'id', 'keys'} and 2 <= len(action['keys']) <= 32, 'Invalid authored action')
+            require({'id', 'keys'} <= set(action) <= {'id', 'keys', 'interpolation'}
+                    and 2 <= len(action['keys']) <= 32, 'Invalid authored action')
+            require(action.get('interpolation', 'BEZIER') in ('BEZIER', 'LINEAR'), 'Invalid action interpolation')
             previous = -1
             for key in action['keys']:
-                require(set(key) == {'second', 'rotations'} and isinstance(key['rotations'], dict)
+                require({'second', 'rotations'} <= set(key) <= {'second', 'rotations', 'translations_m'}
+                        and isinstance(key['rotations'], dict)
                         and len(key['rotations']) <= 64, 'Invalid action key')
                 number(key['second'], 0, 10)
                 require(key['second'] > previous, 'Action keys must increase')
@@ -167,8 +178,18 @@ def validate(config):
                     require(len(rotation) == 3, 'Rotation needs three angles')
                     for v in rotation:
                         number(v, -60, 60)
+                translations = key.get('translations_m', {})
+                require(isinstance(translations, dict) and len(translations) <= 64, 'Invalid bone translations')
+                for bone, vector in translations.items():
+                    require(isinstance(bone, str) and 0 < len(bone) <= 64
+                            and isinstance(vector, list) and len(vector) == 3, 'Invalid bone translation')
+                    for value in vector:
+                        number(value, -2, 2)
+                require(not translations or action.get('interpolation') == 'LINEAR',
+                        'Meter translations require LINEAR interpolation to prevent overshoot')
                 if config.get('authored_rig'):
-                    require(set(key['rotations']) <= {b['name'] for b in config['authored_rig']['bones']},
+                    require((set(key['rotations']) | set(translations)) <=
+                            {b['name'] for b in config['authored_rig']['bones']},
                             'Action names a bone absent from the authored rig')
     return config
 
@@ -182,7 +203,7 @@ def reuse_native(folder, out, cfg):
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py'):
+                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
@@ -190,6 +211,8 @@ def reuse_native(folder, out, cfg):
             'Surface smoothing validator changed; rebuild required')
     require(sha256(root/'sources/color_corrections.py') == sha256(ROOT/'avatar_assets/color_corrections.py'),
             'Color correction validator changed; rebuild required')
+    require(sha256(root/'sources/part_rigs.py') == sha256(ROOT/'avatar_assets/part_rigs.py'),
+            'Part rig helper changed; rebuild required')
     for name in ('source.blend', 'portrait.png', 'finish-report.json', 'job.json', 'finish.log', 'finish-monitor.json', 'finish-handle.json'):
         shutil.copyfile(root/name, out/name)
     if (root/'surface-integrity.json').exists():
@@ -224,12 +247,13 @@ def finish(config_path, output, reuse=None):
         write_json(out/'finish-config.json', cfg)
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py'):
+                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_profiles.py', out/'sources/surface_profiles.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_smoothing_config.py', out/'sources/surface_smoothing_config.py')
         shutil.copyfile(ROOT/'avatar_assets/color_corrections.py', out/'sources/color_corrections.py')
+        shutil.copyfile(ROOT/'avatar_assets/part_rigs.py', out/'sources/part_rigs.py')
         shutil.copyfile(ROOT/'avatar_assets/generated_tangents.py', out/'sources/generated_tangents.py')
         exe = ROOT/'.tools/Blender.app/Contents/MacOS/Blender'
         cmd = [str(exe), '--background', '--factory-startup', '--disable-autoexec', '--python-exit-code', '1',

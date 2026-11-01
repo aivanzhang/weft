@@ -1,0 +1,44 @@
+{
+  "blender_version": "4.5.13 LTS",
+  "export_reload_max_error_m": 1.1512607243401227,
+  "interpolation": "LINEAR",
+  "kind": "analytic_fixture_not_generated_avatar",
+  "missing_translation_returns_to_zero": true,
+  "motion_envelope": {
+    "elapsed_seconds": 0.0003938330337405205,
+    "sample_seconds": {
+      "analytic-flight": [
+        0,
+        0.5,
+        1,
+        1.5,
+        2
+      ]
+    },
+    "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+    "world_bounds_m": {
+      "max": [
+        0.767313682781126,
+        0.47499712982688713,
+        2.2499999796642953
+      ],
+      "min": [
+        -0.15658038093123763,
+        -0.23562205747529413,
+        0.0
+      ]
+    }
+  },
+  "native_max_error_m": 5.3726900748371916e-08,
+  "object_scale": 1.7,
+  "object_z_rotation_radians": 0.4,
+  "parent_rotation_degrees": 30,
+  "seconds": [
+    0,
+    0.5,
+    1,
+    1.5,
+    2
+  ],
+  "status": "failed"
+}

@@ -102,6 +102,20 @@ class PlanContractTests(unittest.TestCase):
 
 
 class AuthorContractTests(unittest.TestCase):
+    def test_translation_only_states_are_real_distinct_curves(self):
+        candidate = design()
+        candidate['camera_fit'] = 'motion'
+        for index, action in enumerate(candidate['authored_actions']):
+            action['interpolation'] = 'LINEAR'
+            for key in action['keys']:
+                key['rotations'] = {}
+                if key['second'] == 2:
+                    key['translations_m'] = {'Base': [.02*(index+1),0,0]}
+        self.assertEqual(self.config(author_response(candidate))['camera_fit'], 'motion')
+        candidate['authored_actions'][1]['keys'] = deepcopy(candidate['authored_actions'][0]['keys'])
+        with self.assertRaisesRegex(ValueError, 'Repeated curves'):
+            self.config(author_response(candidate))
+
     def config(self, response=None):
         return finish_config(author_response() if response is None else response, request(), plan(),
                              {"path": "/selected/model.glb", "sha256": "a"*64}, 0)

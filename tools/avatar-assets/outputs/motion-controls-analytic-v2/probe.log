@@ -1,0 +1,22 @@
+INFO Draco mesh compression is available, use library at /Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib
+11:22:04 | INFO: Starting glTF 2.0 export
+11:22:04 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+11:22:04 | INFO: Extracting primitive: AnalyticTwoParts
+11:22:04 | INFO: Primitives created: 1
+11:22:04 | INFO: Finished glTF 2.0 export in 0.007714033126831055 s
+
+11:22:04 | INFO: Data are loaded, start creating Blender stuff
+11:22:04 | INFO: Blender create Mesh node AnalyticTwoParts
+11:22:04 | INFO: glTF import finished in 0.00s
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v2/sources/blender_verify_motion_controls.py", line 123, in <module>
+    verify(Path(sys.argv[sys.argv.index('--')+1]).resolve())
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v2/sources/blender_verify_motion_controls.py", line 119, in verify
+    assert max(reload_errors) < 3e-5, reload_errors
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [1.0143470810304347, 1.0865771839879055, 1.1512607243401227, 1.0865772007317487, 1.0143470810304347]
+
+Error: script failed, file: '/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/motion-controls-analytic-v2/sources/blender_verify_motion_controls.py', exiting.
+
+Blender quit

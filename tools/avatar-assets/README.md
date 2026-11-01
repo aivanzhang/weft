@@ -2,6 +2,11 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
+The approved furry panda is saved at `4ade45a`. A new shoulder-dragon takeoff and
+panda dance is in progress in separate outputs; it is not yet a verified delivery.
+Reusable travel/part-rig controls and current geometry limitations are documented
+in [compound motion](docs/compound-motion.md).
+
 ## Panda fur and detail upgrade
 
 The latest fur work separates a clean generated undercoat from editable native

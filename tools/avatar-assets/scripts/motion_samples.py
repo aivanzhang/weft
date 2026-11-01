@@ -6,6 +6,8 @@ import math
 MAX_SAMPLES = 8
 MAX_KEYS = 32
 AUTHORED_FPS = 24
+# One meter of rest-axis translation contributes the pose error of 60 degrees.
+TRANSLATION_DEGREES_PER_METER = 60
 
 
 def _number(value):
@@ -20,7 +22,8 @@ def _authored_keys(design):
         raise ValueError('Motion sampling requires 2–32 authored keys')
     seconds, poses = [], []
     for key in keys:
-        if not isinstance(key, dict) or set(key) != {'second', 'rotations'}:
+        if (not isinstance(key, dict) or not {'second', 'rotations'} <= set(key) or
+                set(key) - {'second', 'rotations', 'translations_m'}):
             raise ValueError('Invalid authored sample key')
         second = _number(key['second'])
         if not 0 <= second <= 10 or (seconds and second <= seconds[-1]):
@@ -37,6 +40,18 @@ def _authored_keys(design):
                 if abs(angle) > 60:
                     raise ValueError('Sample rotations exceed the authored angle limit')
                 pose[bone, axis] = angle
+        if 'translations_m' in key:
+            translations = key['translations_m']
+            if not isinstance(translations, dict) or len(translations) > 64:
+                raise ValueError('Motion sampling supports at most 64 translations per key')
+            for bone, values in translations.items():
+                if not isinstance(bone, str) or not isinstance(values, (list, tuple)) or len(values) != 3:
+                    raise ValueError('Sample translations require named three-meter values')
+                for axis, value in enumerate(values):
+                    if type(value) not in (int, float) or not -2 <= value <= 2:
+                        raise ValueError('Sample translations must be finite and within -2–2 meters')
+                    # The unit tag keeps translation separate from the same bone's rotation.
+                    pose[bone, axis, 'meters'] = _number(value)*TRANSLATION_DEGREES_PER_METER
         seconds.append(second)
         poses.append(pose)
     return seconds, poses
