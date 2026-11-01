@@ -16,7 +16,7 @@ from weft.io import canonical_hash, local_time
 from weft.shared_exercise_reference_controller import (
     RUNTIME_SHA256, prepare_reference_controller, reference_action_contract,
 )
-from weft.shared_exercise_reference_inputs import load_reference_inputs
+from weft.shared_exercise_reference_inputs import MAX_CAMERA_INPUT_BYTES, load_reference_inputs
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, write_package_files
 
 
@@ -67,15 +67,23 @@ def _safe_path(value):
     return path
 
 
-def _runtime_snapshot(deadline):
+def _runtime_snapshot(deadline, *, camera=False):
+    if camera:
+        from weft.camera_reference_controller import RUNTIME_SHA256 as reviewed
+        from weft.camera_reference_recording import REQUIRED_RUNTIME_FILES
+        names = tuple(sorted(set(RUNTIME_FILES) | REQUIRED_RUNTIME_FILES | {
+            "camera_reference_inputs.py", "source_surface_fit_inputs.py"}))
+    else:
+        reviewed = RUNTIME_SHA256
+        names = RUNTIME_FILES
     package, files, total = Path(__file__).parent, {}, 0
-    for name in RUNTIME_FILES:
+    for name in names:
         _check(deadline)
         raw = read_package_file(package, name, max_bytes=min(4 << 20, MAX_RUNTIME_BYTES // 3 - total))
         total += len(raw)
         _require(total <= MAX_RUNTIME_BYTES // 3, "runtime initial/pre-model/final read bound exceeded")
         files[name] = raw
-    _require(all(sha256(files[k]).hexdigest() == v for k, v in RUNTIME_SHA256.items()),
+    _require(all(sha256(files[k]).hexdigest() == v for k, v in reviewed.items()),
              "unreviewed feedback or reference-velocity runtime")
     return files
 
@@ -85,17 +93,21 @@ def _runtime_versions():
             "packages": {name: version(name) for name in ("numpy", "mujoco", "gymnasium", "opencv-contrib-python", "Pillow")}}
 
 
-def _engine_api():
+def _engine_api(*, camera=False):
     # Source admission and exact runtime pins precede validators that compile mass models.
     from weft.human import reference_velocity_index
     from weft.recording import Recorder, export_recording
-    from weft.shared_exercise_recording import recording_scene, verify_action_replay
-    from weft.shared_exercise_task import SharedExerciseTaskEnv, validate_shared_exercise_task
     from weft.shared_world import validate_shared_world
+    if camera:
+        from weft.camera_reference_recording import recording_scene, verify_action_replay
+        from weft.camera_shared_task import CameraSharedTaskEnv as Env, validate_camera_shared_task as validate_task
+    else:
+        from weft.shared_exercise_recording import recording_scene, verify_action_replay
+        from weft.shared_exercise_task import SharedExerciseTaskEnv as Env, validate_shared_exercise_task as validate_task
 
     return SimpleNamespace(velocity_index=reference_velocity_index, Recorder=Recorder, export=export_recording,
-        recording_scene=recording_scene, replay=verify_action_replay, Env=SharedExerciseTaskEnv,
-        validate_scene=validate_shared_world, validate_task=validate_shared_exercise_task)
+        recording_scene=recording_scene, replay=verify_action_replay, Env=Env,
+        validate_scene=validate_shared_world, validate_task=validate_task)
 
 
 def _write_page(out, report):
@@ -114,9 +126,12 @@ def _recheck(inputs, proof, runtime, runtime_versions, task_path, deadline):
     receipt = inputs.receipt()
     selected = receipt["selected_files"]
     metadata_read = receipt["input_bytes_read"]
+    metadata_limit = MAX_CAMERA_INPUT_BYTES if receipt.get("profile") == "camera-reference-inputs-v1" else MAX_INPUT_BYTES
+    _require(metadata_read <= metadata_limit, "aggregate selected metadata read bound exhausted")
     for item in selected:
+        _require(metadata_read + item["bytes"] <= metadata_limit, "aggregate selected metadata read bound exhausted")
         metadata_read += _read_identity(item["directory"], item["name"], item["sha256"], item["bytes"], deadline)
-        _require(metadata_read <= MAX_INPUT_BYTES, "aggregate selected metadata reads exceed 32 MiB")
+        _require(metadata_read <= metadata_limit, "aggregate selected metadata read bound exhausted")
     _require(any(_safe_path(item["directory"]) / item["name"] == task_path for item in selected),
              "explicit task was not included in final source readback")
     source_read = len(proof.manifest_bytes or b"") + sum(map(len, proof.files.values()))
@@ -223,7 +238,10 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
         "limits": {"maximum_seconds": max_seconds, "maximum_horizon_steps": MAX_HORIZON,
                    "maximum_live_control_steps": MAX_CONTROL_STEPS, "maximum_output_bytes": MAX_OUTPUT_BYTES,
                    "maximum_output_files": MAX_OUTPUT_FILES, "maximum_export_bytes_each": MAX_EXPORT_BYTES,
-                   "maximum_selected_metadata_read_bytes": MAX_INPUT_BYTES, "maximum_source_read_bytes": MAX_SOURCE_BYTES,
+                   "maximum_selected_metadata_read_bytes": MAX_CAMERA_INPUT_BYTES,
+                   "maximum_legacy_selected_metadata_read_bytes": MAX_INPUT_BYTES,
+                   "maximum_camera_selected_metadata_read_bytes": MAX_CAMERA_INPUT_BYTES,
+                   "maximum_source_read_bytes": MAX_SOURCE_BYTES,
                    "maximum_runtime_read_bytes": MAX_RUNTIME_BYTES, "hard_rss_cap": False}}
     env, active_recorder, cleanup_errors, protected = None, None, [], {}
 
@@ -233,25 +251,34 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
             progress(stage, deepcopy(detail))
 
     try:
-        runtime = _runtime_snapshot(work_deadline)
-        versions = _runtime_versions()
-        emit("runtime_pinned", files=len(runtime))
         _check(work_deadline)
         inputs = load_reference_inputs(proposal, source, task_path,
             expected_proposal_manifest_sha256=expected_proposal_manifest_sha256,
             expected_scene_manifest_sha256=expected_scene_manifest_sha256, expected_task_sha256=expected_task_sha256,
-            max_seconds=min(10., work_deadline - time.monotonic()), max_input_bytes=2 * (MAX_INPUT_BYTES // 3))
+            max_seconds=min(10., work_deadline - time.monotonic()), max_input_bytes=2 * (MAX_INPUT_BYTES // 3),
+            allow_camera=True, camera_max_input_bytes=2 * (MAX_CAMERA_INPUT_BYTES // 3))
+        camera = inputs.receipt().get("profile") == "camera-reference-inputs-v1"
+        if camera:
+            from weft.camera_reference_inputs import CameraReferenceInputs
+            _require(isinstance(inputs, CameraReferenceInputs), "camera route requires authenticated camera inputs")
+        report["limits"]["maximum_selected_metadata_read_bytes"] = MAX_CAMERA_INPUT_BYTES if camera else MAX_INPUT_BYTES
         raw_scene, raw_task = json.loads(inputs.scene_bytes), json.loads(inputs.task_bytes)
+        _require((raw_scene.get("profile") == "shared-world-v6") is camera,
+                 "authenticated input family differs from scene profile")
         horizon = raw_task.get("interval", {}).get("horizon_steps")
         _require(type(horizon) is int and 1 <= horizon <= MAX_HORIZON
                  and raw_scene.get("task", {}).get("horizon_steps") == horizon,
                  "raw task horizon must be at most 900 before any models")
         report.update(scene_sha256=canonical_hash(raw_scene), task_sha256=canonical_hash(raw_task),
-                      source_identities=inputs.identities, horizon_steps=horizon)
+                      source_identities=inputs.identities, horizon_steps=horizon,
+                      controller_family="camera_angle_overlay" if camera else "legacy_body_reference")
         emit("inputs_verified", horizon_steps=horizon)
+        runtime = _runtime_snapshot(work_deadline, camera=True) if camera else _runtime_snapshot(work_deadline)
+        versions = _runtime_versions()
+        emit("runtime_pinned", files=len(runtime))
         _check(work_deadline)
         proof = collect_shared_source_files(raw_scene, inputs.source_directory,
-                                           expected_manifest_sha256=inputs.identities["scene_manifest_sha256"])
+            expected_manifest_sha256=inputs.identities["scene_manifest_sha256"], deadline=work_deadline)
         _check(work_deadline)
         _require(proof.manifest_bytes == inputs.scene_manifest_bytes, "source manifest changed during full admission")
         _require(len(proof.manifest_bytes or b"") + 2 * sum(map(len, proof.files.values())) <= MAX_SOURCE_BYTES,
@@ -260,20 +287,36 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
         proof.validate_layout(reserved_paths=reserved)
         emit("source_verified", files=len(proof.files), scope=proof.report.get("scope"))
         _check(work_deadline)
-        api = _engine_api()
-        provider = prepare_reference_controller(inputs.original_human_bytes, inputs.candidate_human_bytes, inputs.report_bytes,
-            scene=raw_scene, task=raw_task, action_contract=reference_action_contract(raw_scene, raw_task),
-            runtime_sha256={k: sha256(runtime[k]).hexdigest() for k in RUNTIME_SHA256},
-            reference_velocity_index=api.velocity_index)
+        api = _engine_api(camera=True) if camera else _engine_api()
+        if camera:
+            from weft.camera_reference_controller import prepare_camera_reference_controller, camera_reference_action_contract
+            provider = prepare_camera_reference_controller(inputs.original_human_bytes, inputs.angle_proposal_bytes, inputs.report_bytes,
+                scene=raw_scene, task=raw_task, action_contract=camera_reference_action_contract(raw_scene, raw_task),
+                runtime_sha256={k: sha256(v).hexdigest() for k, v in runtime.items() if "/" not in k and k.endswith(".py")},
+                reference_velocity_index=api.velocity_index)
+        else:
+            provider = prepare_reference_controller(inputs.original_human_bytes, inputs.candidate_human_bytes, inputs.report_bytes,
+                scene=raw_scene, task=raw_task, action_contract=reference_action_contract(raw_scene, raw_task),
+                runtime_sha256={k: sha256(runtime[k]).hexdigest() for k in RUNTIME_SHA256},
+                reference_velocity_index=api.velocity_index)
         recipe_bytes = (json.dumps(provider.recipe(), sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n").encode()
         recipe_sha = sha256(recipe_bytes).hexdigest()
         report["reference_controller"] = {"document": "run/reference-controller.json", "sha256": recipe_sha,
                                            "description": provider.describe()}
         preserved = {"inputs/proposal-manifest.json": inputs.proposal_manifest_bytes,
             "inputs/scene-manifest.json": inputs.scene_manifest_bytes, "inputs/human.json": inputs.original_human_bytes,
-            "inputs/candidate-human.json": inputs.candidate_human_bytes, "inputs/proposal-report.json": inputs.report_bytes,
+            "inputs/proposal-report.json": inputs.report_bytes,
             "inputs/evidence-derived.json": inputs.evidence_bytes, "inputs/scene.json": inputs.scene_bytes,
             "inputs/exercise-task.json": inputs.task_bytes, "inputs/input-receipt.json": _bytes(inputs.receipt())}
+        if camera:
+            aliases = {"angle-proposal.json": "inputs/angle-proposal.json", "inputs/human.json": "inputs/human.json",
+                       "report.json": "inputs/proposal-report.json", "inputs/evidence-derived.json": "inputs/evidence-derived.json"}
+            for name, raw in inputs.proposal_members.items():
+                aliases.setdefault(name, "inputs/proposal/" + name)
+                preserved[aliases[name]] = raw
+            report["proposal_input_aliases"] = aliases
+        else:
+            preserved["inputs/candidate-human.json"] = inputs.candidate_human_bytes
         _require(sum(map(len, preserved.values())) <= MAX_INPUT_BYTES, "input copy bound exceeded")
         run_files = {"scene.json": inputs.scene_bytes, "exercise-task.json": inputs.task_bytes,
                      "reference-controller.json": recipe_bytes, "source-verification.json": _bytes(proof.report),
@@ -286,6 +329,7 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
                  <= MAX_OUTPUT_BYTES, "planned package exceeds output bounds")
         plan = {"schema_version": 1, "profile": PROFILE + "-plan", "status": "frozen",
             "source_identities": inputs.identities, "seed": seed, "reset_options": dict(RESET_OPTIONS),
+            "controller_family": report["controller_family"],
             "modes": list(MODES), "horizon_steps_each": horizon, "reference_controller_sha256": recipe_sha,
             "runtime_sha256": {k: sha256(v).hexdigest() for k, v in runtime.items()}, "runtime_versions": versions,
             "preserved_files": {k: sha256(v).hexdigest() for k, v in files.items()}, "limits": report["limits"],

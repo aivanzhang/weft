@@ -1,5 +1,144 @@
 # Combined Weft implementation handoff
 
+### Camera fit, simulation and replay passed — October 31, 2026, 8:04 PM PDT
+
+Run 02 is terminal, not running. Its real jogging fit passed all fourteen construction
+gates: 465 accepted updates changed 110/112 references; mean image error fell from
+12.7922 to 9.8793 pixels. The outer workflow **failed during report packaging**;
+no simulation trial ran in that outer attempt. Preserve that failed result and reuse its completed sealed
+proposal; do not refit. The independent saved arithmetic audit passed after correcting
+an auditor-only JSON-format assumption. [Exact evidence and next actions](camera-reference-real-acceptance.md).
+
+The lossless report-storage correction and camera-only 64 MiB input-read budget passed
+independent cross-review. Saved report recovery passed without a refit: 19 files /
+11,147,433 bytes; all sixteen logical source pins, twenty links and complete rows
+verified in 0.520 seconds. The subsequent matched trial 03 passed in 13.641 seconds:
+238 authored and 238 fitted controls, identical starts, two exports and exact
+full-state replays. The fitted controller matches source images better but scores
+slightly worse on the original simulation task; no control improvement claim.
+Actual saved viewer payloads passed all 476 step-frame checks without a browser.
+Independent saved journal/proof audit and interactive lab attachment are underway. Reconstruction
+owns precursor custody qualification and unfamiliar-video equipment evidence; it is
+has fixed the narrow raw-mode metadata typing issue and is preparing the bounded real-source qualification plan.
+No native job, API call or deployment is active. Trial handle `51440` is terminal;
+do not duplicate it. Current integration remains uncommitted;
+preserve unrelated avatar work. The ordinary current-runtime command for the old policy
+lab is stale; use its [verified frozen-runtime instructions](camera-policy-runtime-resume.md).
+
+### Historical native input-binding mismatch — October 31, 2026, 7:38 PM PDT
+
+**Changed-input run 02 launched and subsequently terminated:** former root process handle `85224`, unique outputs
+`artifacts/camera-reference-real-01/fit-02` and `trial-02`. Plan
+`.local/camera-reference-real-execution-plan-02.json`, SHA
+`36cdddc58cb04eda8c4c3a7eca311dece4068c576443643fe3922d873fcd6aaf`.
+Its explicit assumed existing-camera-frame declaration and empty surface list
+pass the actual pure fitter admission in 0.604 s, with zero native/media calls.
+Input seal `fcae44d859cd926000b621ad031f9f134b3bb4051020fdaf528b74f029e1b666`.
+No product guard, source, geometry, height, kind or contact was changed. Do not
+repeat the fit; terminal receipt is
+`.local/camera-reference-real-acceptance-02.json`. The completed fit and failed outer
+inspection are distinguished in the current milestone above. Run 01 stays failed.
+
+Root's genuine jogging inputs are prepared: 240 source slots, 112 exact original
+image-ready references, zero available surface terms. Preparation took 0.486 s,
+with no blocked operation or native/media/inference work. Seal
+`artifacts/camera-reference-real-01/fit-inputs/manifest.json`:
+`c11eed9113c11a964d445812e77eae392436c793a52163cf8fa4ee256ed8fe20`.
+The unknown world/height/endpoint correspondences remain unknown.
+
+The source-admission deadline review fix is implemented: 14 new pure cases and
+three targeted existing trial cases pass. [Review](camera-reference-review.md).
+Frozen runtime `.local/camera-reference-real-runtime-01` combines committed
+`9cbc283` with eleven reviewed overrides; manifest SHA
+`55a87422a77a964cd141532b0a570f7dbb507e179fd234ccd0e2571571fb4010`.
+It excludes all uncommitted avatar/silhouette work. The initial archive-path
+preflight failure wrote no runtime files and is preserved separately.
+
+Execution plan `.local/camera-reference-real-execution-plan-01.json`, SHA
+`989d254fbfb34b18076a55c1fbbc29379429992a0e3aec8346a923226166fee3`,
+allows one existing public 30-second fit, then only on fourteen passing gates
+one 100-second matched trial with exports and exact replay. Outer wall 165 s;
+no new inference, source decoding, training or paid call. Original source/task,
+root authority, start, body, camera, floor and scorer remain fixed. Root alone
+owns execution; never duplicate it. Terminal receipt will be
+`.local/camera-reference-real-acceptance-01.json`; absent means unfinished.
+
+That attempt is now terminal **failed**, in 1.134 s, before any native model,
+data, forward, physics or media call. The fitter's actual admission requires a
+qualified explicit body/world binding; metadata image-source readiness alone
+does not satisfy it. No trial started. Receipt SHA
+`6d3a4dc3de96d17bc4956ed2b6567d1661935b2af07dca855a848177e964b6cf`;
+fit seal `8a72568047ff8b6f0c1512f9d6069343ee8f0a1dedddd91795f77e6b9738637f`,
+worker SHA `636b25e021cc23a767e281c984049af7b19faa32d7ef2ac3c2119bacf75d38f3`.
+Preserve all inputs, plans and failure artifacts. The known dependency startup
+probe remained blocked, not allowed. A next plan may use the existing schema's
+empty surface list and explicit assumed raw-calibration→canonical-camera-world
+identity declaration, with no supplied height/kind/contact. It must pass the
+actual pure fitter admission before another worker entry; never relax the guard.
+
+Learning's independent saved-input audit verifies the metadata-only result:
+13 cached reads/3,934,340 B/0.00772 s, all eight members, 240 slots, 112 source
+joins and 480 unavailable channel slots. Receipt
+`.local/camera-reference-fit-inputs-saved-audit-01.json`, SHA
+`4abae91888b89de8ac3de5fe3ef175485a2c733c1dd604b6bc8d3f754e16ef7b`.
+This does not imply fitting admission. No native handle remains live.
+
+The reconstruction lane's excluded identity-payload leak is fixed and independently
+cleared. All **53 distinct analytical cases** pass; three red reproductions and
+20 affected green checks are preserved. Review receipt
+`.local/equipment-silhouette-independent-review-02.json`, SHA
+`00a40a806cdda191fcc8964a8d5e2e9d46cdbcd1e656a6c9e28e8ecfe3ce93c9`.
+Checkpoint coverage totals **239 distinct Python cases** (172 integration,
+14 deadline, 53 silhouette), plus the separately scripted replay UI groups.
+The [three-file precursor check](pose-precursor-custody.md) proves byte custody
+but lacks full source headers. Reconstruction now exclusively owns new
+`pose_precursor_custody.py`, new pure/integration tests, narrow opt-in
+`pose_surface_annotations.py` changes and new `pose-precursor-qualification.md`.
+These active paths are excluded from the forthcoming completed checkpoint.
+
+## Parallel reconstruction and fitted controls — October 31, 2026, 7:23 PM PDT
+
+The user reaffirmed the dedicated parallel unfamiliar-exercise/ground/equipment
+lane. `/root/exercise_reconstruction` owns only the new
+`equipment_silhouette_evidence.py`, focused tests and handoff. It preserves every
+source slot and explicit uncertainty; silhouette consistency is not contact,
+grasp or load evidence. Eight metadata files have been inspected under its fixed
+discovery bound; the saved kettlebell temporal-pose/canonical-pose mismatch is
+real and must not be hidden. No raster/native/source-processing job is active.
+
+Root owns recording, lab integration, common docs and native acceptance.
+`/root/support_learning` has frozen camera source/trial routing and prepares the
+next real jogging inputs without fitting. `/root/support_ui` has frozen controller
+and replay UI and independently reviews source/trial integration. Do not edit
+another owner's frozen or active paths without handoff.
+
+Released analytical evidence: 30 camera-surface binding, 33 camera controller,
+48 source/trial and 61 recording/read-bound cases: **172 distinct Python cases**.
+The offline viewer adds six new and three affected scripted groups. These are
+not native simulation, source-accuracy or unfamiliar-video acceptance.
+[Root recording contract, failures and receipt](camera-reference-recording.md).
+Original scene, body, source clocks, camera, floor, task and scorer remain fixed;
+the new recipe is an authored joint-control alternative, not a replacement body
+or learned policy. Interactive lab attachment is still unfinished.
+
+The previous authored fit cannot pass the public candidate builder: its source
+package lacks two required audits and the declared synthetic video bytes. The
+blocked plan is preserved at `.local/camera-reference-trial-inputs-01`, seal
+`665deeb0503bcc3dd57fc3a2e9c14fd21eb2861f5464183b2e26d04dc355d4aa`;
+do not fabricate those inputs or replace the public path with a private harness.
+The existing real jogging candidate, original 238-control camera task and saved
+pose annotations join exactly. An image-only conditional route keeps all surface
+heights/contact unknown; it is not a contact fit. The worker currently uses two
+sweeps/120,000 geometry calls and has no five-update option. Root must review a
+concrete bounded plan before any new fitter/native execution.
+
+Last published revision is `9cbc2836c5fef361b378e932e4c0e8b57b42b26d`, exact
+remote verified at publication. Receipt `.local/exercise-surface-publication-01.json`,
+SHA `56d41b49ec3301ff18b3644ceb8a2d6fbe3da8665b73ae0a0e9f490add21e1a3`.
+Current changes are local/uncommitted. Stash is still empty at this check; preserve
+all unrelated avatar work. No API/key access, deployment, server, browser or
+submission is authorized by this milestone. The combined goal remains active.
+
 ## Surface collection CLI and source-pose annotations — October 31, 2026, 6:54 PM PDT
 
 Previous goal turn made concrete progress: `25eac48fec09e7f078e6c8bfa0eadab12350dc0d`

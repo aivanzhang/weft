@@ -904,6 +904,9 @@ class SharedExerciseSession:
 def verify_shared_exercise_action_replay(root, *, max_seconds=60):
     root = Path(root)
     envelope = _json(read_package_file(root, "scene.json", max_bytes=16 * 1024 * 1024))
+    if isinstance(envelope, dict) and envelope.get("profile") == "camera-shared-reference-recording-v1":
+        from weft.camera_reference_recording import verify_action_replay as verify_camera_reference_replay
+        return verify_camera_reference_replay(root, max_seconds=max_seconds)
     if isinstance(envelope, dict) and envelope.get("profile") == "camera-shared-policy-recording-v1":
         from weft.camera_shared_policy_recording import verify_action_replay as verify_camera_policy_replay
         return verify_camera_policy_replay(root, max_seconds=max_seconds)

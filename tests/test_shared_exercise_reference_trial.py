@@ -1,25 +1,56 @@
 """Runner custody/order tests use synthetic files and stub physics/media boundaries."""
 
+import ast
+from bisect import bisect_right
+import builtins
 from copy import deepcopy
 from dataclasses import replace
 from hashlib import sha256
 import json
+import math
 from pathlib import Path
+import socket
+import subprocess
+import sys
 from types import MappingProxyType, SimpleNamespace
 
 import numpy as np
 import pytest
 
-from test_shared_exercise_reference_controller import controller_fixture, encode, refresh_hashes, velocity_index
+from test_shared_exercise_reference_controller import controller_fixture, encode, refresh_hashes
 from weft.io import canonical_hash
 from weft.shared_exercise_reference_inputs import ReferenceInputs
 from weft.shared_world_packaging import PinnedSourceFiles
 from weft import shared_exercise_reference_trial as trial
 
 
+@pytest.fixture(autouse=True)
+def no_native_or_network(monkeypatch):
+    importing = builtins.__import__
+    def guarded(name, *args, **kwargs):
+        assert name.split('.')[0] not in {'mujoco', 'gymnasium', 'cv2', 'mediapipe', 'torch', 'PIL'}
+        return importing(name, *args, **kwargs)
+    def denied(*args, **kwargs):
+        pytest.fail('Mock orchestration attempted native/process/network work')
+    monkeypatch.setattr(builtins, '__import__', guarded)
+    monkeypatch.setattr(socket.socket, 'connect', denied)
+    monkeypatch.setattr(socket, 'create_connection', denied)
+    monkeypatch.setattr(subprocess, 'Popen', denied)
+
+
+@pytest.fixture(scope='module')
+def velocity_index():
+    raw = (Path(trial.__file__).parent/'human.py').read_bytes()
+    assert sha256(raw).hexdigest() == trial.RUNTIME_SHA256['human.py']
+    node = next(n for n in ast.parse(raw).body if isinstance(n,ast.FunctionDef) and n.name=='reference_velocity_index')
+    namespace={'math':math,'bisect_right':bisect_right}
+    exec(compile(ast.Module(body=[node],type_ignores=[]),'<pinned-pure-human-selector>','exec'),namespace)
+    return namespace['reference_velocity_index']
+
+
 @pytest.fixture
 def setup_case(tmp_path, monkeypatch, velocity_index):
-    def setup(*, long=False, fault=None):
+    def setup(*, long=False, fault=None, camera=False):
         b = controller_fixture(corrections=(0.,) * 4)
         b["scene"]["objects"] = []
         if long:
@@ -33,12 +64,18 @@ def setup_case(tmp_path, monkeypatch, velocity_index):
             b["scene"]["human_spec"] = deepcopy(b["original"])
             b["scene"]["task"]["horizon_steps"] = b["task"]["interval"]["horizon_steps"] = 60
             b["report"]["references"] = [dict(row, frame=frame) for row, frame in zip(origins, frames)]
+        if camera:
+            b['scene']['profile']='shared-world-v6'
+            b['task']['profile']='camera-shared-task-v1'
         refresh_hashes(b)
         proposal, source, out = (tmp_path / name for name in ("proposal", "source", "out"))
         proposal.mkdir(); source.mkdir()
         task_path = source / "exercise-task.json"
         proposal_files = {"inputs/human.json": encode(b["original"]), "candidate-human.json": encode(b["candidate"]),
                           "report.json": encode(b["report"]), "inputs/evidence-derived.json": b'{"test":"evidence"}'}
+        if camera:
+            proposal_files['angle-proposal.json']=proposal_files.pop('candidate-human.json')
+            proposal_files['plan.json']=b'{"scope":"stub producer proof"}'
         proof_files = {"evidence/raw.json": b'{"scope":"analytical fixture"}'}
         source_files = {"scene.json": encode(b["scene"]), "exercise-task.json": encode(b["task"]), **proof_files}
         proposal_manifest = encode({"schema_version": 1, "status": "completed",
@@ -57,30 +94,71 @@ def setup_case(tmp_path, monkeypatch, velocity_index):
         identities = {"scene_manifest_sha256": sha256(source_manifest).hexdigest(),
             "proposal_manifest_sha256": sha256(proposal_manifest).hexdigest(), "task_file_sha256": sha256(encode(b["task"])).hexdigest()}
         receipt = {"selected_files": selected, "input_bytes_read": 2 * sum(row["bytes"] for row in selected), "identities": identities}
-        inputs = ReferenceInputs(proposal, source, proposal_manifest, source_manifest,
-            proposal_files["inputs/human.json"], proposal_files["candidate-human.json"], proposal_files["report.json"],
-            proposal_files["inputs/evidence-derived.json"], source_files["scene.json"], source_files["exercise-task.json"], json.dumps(receipt))
+        if camera:
+            from weft.camera_reference_inputs import CameraReferenceInputs, PROFILE as INPUT_PROFILE
+            receipt['profile']=INPUT_PROFILE
+            inputs=CameraReferenceInputs(proposal,source,proposal_manifest,source_manifest,
+                proposal_files['inputs/human.json'],proposal_files['angle-proposal.json'],proposal_files['report.json'],
+                proposal_files['inputs/evidence-derived.json'],source_files['scene.json'],source_files['exercise-task.json'],
+                tuple(sorted(proposal_files.items())),json.dumps(receipt))
+        else:
+            inputs = ReferenceInputs(proposal, source, proposal_manifest, source_manifest,
+                proposal_files["inputs/human.json"], proposal_files["candidate-human.json"], proposal_files["report.json"],
+                proposal_files["inputs/evidence-derived.json"], source_files["scene.json"], source_files["exercise-task.json"], json.dumps(receipt))
         proof = PinnedSourceFiles({"mode": "analytic_fixture", "scope": "Test source proof only"},
             MappingProxyType(proof_files), source_manifest, MappingProxyType(json.loads(source_manifest)["files"]),
             identities["scene_manifest_sha256"])
         state = SimpleNamespace(bundle=b, proposal=proposal, source=source, task=task_path, out=out, inputs=inputs,
-            proof=proof, log=[], envs=[], recorders={}, progress=[], loader_options=None, fault=fault)
-        runtime = {name: (Path(trial.__file__).parent / name).read_bytes() for name in trial.RUNTIME_SHA256}
+            proof=proof, log=[], envs=[], recorders={}, progress=[], loader_options=None, fault=fault,camera=camera)
+        names=set(trial.RUNTIME_SHA256)
+        if camera:
+            from weft import camera_reference_controller as camera_controller
+            from weft.camera_shared_receipt import RUNTIME_REQUIRED
+            names |= camera_controller.REQUIRED_RUNTIME_FILES | RUNTIME_REQUIRED | {
+                'camera_reference_recording.py','shared_exercise_reference_recording.py','shared_world_packaging.py'}
+        runtime = {name: (Path(trial.__file__).parent / name).read_bytes() for name in names}
         state.runtime = runtime
-        def runtime_snapshot(deadline):
+        def runtime_snapshot(deadline, *, camera=False):
+            assert camera is state.camera
+            state.work_deadline = deadline
             state.log.append("runtime")
             if state.fault == "runtime_pin":
                 return runtime | {"human.py": b"changed"}
             return runtime
+        if camera:
+            class Provider:
+                def recipe(self): return {'profile':camera_controller.RECIPE_PROFILE,'scope':'stub controller routing'}
+                def describe(self): return {'profile':camera_controller.PROFILE,'scope':'stub controller routing'}
+                def action(self,env): return np.full(22,.01)
+            def prepare_camera(*args,**kwargs):
+                state.log.append('camera_provider')
+                assert args==(inputs.original_human_bytes,inputs.angle_proposal_bytes,inputs.report_bytes)
+                assert kwargs['scene']==b['scene'] and kwargs['task']==b['task']
+                assert kwargs['action_contract']==b['action_contract']
+                assert kwargs['runtime_sha256']=={k:sha256(v).hexdigest() for k,v in runtime.items()}
+                assert kwargs['reference_velocity_index'] is velocity_index
+                if state.fault=='camera_provider': raise ValueError('stub camera provider rejection')
+                return Provider()
+            monkeypatch.setattr(camera_controller,'prepare_camera_reference_controller',prepare_camera)
+        else:
+            # The legacy world pin is historical; isolate routing without repinning that actor.
+            actual_prepare=trial.prepare_reference_controller
+            expected_runtime={k:sha256(v).hexdigest() for k,v in runtime.items()}
+            def prepare_legacy(*args,**kwargs):
+                if kwargs['runtime_sha256']!=expected_runtime: raise ValueError('stub runtime identity differs')
+                kwargs['runtime_sha256']=dict(trial.RUNTIME_SHA256)
+                return actual_prepare(*args,**kwargs)
+            monkeypatch.setattr(trial,'prepare_reference_controller',prepare_legacy)
         def load(*args, **kwargs):
             state.log.append("inputs")
             assert args == (proposal, source, task_path)
             state.loader_options = kwargs
             return state.inputs
-        def collect(scene, directory, *, expected_manifest_sha256):
+        def collect(scene, directory, *, expected_manifest_sha256, deadline):
             state.log.append("source")
             assert scene == b["scene"] and directory == source
             assert expected_manifest_sha256 == identities["scene_manifest_sha256"]
+            assert deadline == state.work_deadline
             if state.fault == "source_admission": raise ValueError("source proof rejected")
             return state.proof
         original_read = trial._read_identity
@@ -200,7 +278,8 @@ def setup_case(tmp_path, monkeypatch, velocity_index):
                               reference_actions_verified=result["steps"])
                 if state.fault == "replay_count": result["reference_actions_verified"] -= 1
             return result
-        def api():
+        def api(*, camera=False):
+            assert camera is state.camera
             state.log.append("api")
             return SimpleNamespace(velocity_index=velocity_index, Env=Environment, Recorder=Recorder,
                 validate_scene=validate_scene, validate_task=validate_task, recording_scene=envelope, export=export, replay=replay)
@@ -255,6 +334,78 @@ def test_matched_trials_exact_inputs_one_env_two_exports_two_replays(setup_case)
     assert all(sha256((s.out / name).read_bytes()).hexdigest() == value for name, value in manifest["files"].items())
     assert result["readback"]["runtime_bytes"] == 3 * sum(map(len, s.runtime.values()))
     assert s.loader_options["max_input_bytes"] == 2 * (trial.MAX_INPUT_BYTES // 3)
+    assert s.loader_options['allow_camera'] is True
+    assert s.log.index('inputs') < s.log.index('runtime') < s.log.index('source')
+
+
+@pytest.mark.parametrize('fault',[None,'camera_provider','live_step','replay_count'])
+def test_camera_uses_same_trial_loop_preserves_overlay_and_failures(setup_case,fault):
+    s=setup_case(camera=True,fault=fault)
+    result=run(s)
+    assert result['controller_family']=='camera_angle_overlay'
+    assert s.log.index('inputs') < s.log.index('runtime') < s.log.index('camera_provider')
+    if fault=='camera_provider':
+        assert result['status']=='failed' and not s.envs and 'validate_scene' not in s.log
+        return
+    assert (s.out/'inputs/angle-proposal.json').read_bytes()==s.inputs.angle_proposal_bytes
+    assert (s.out/'inputs/proposal/plan.json').read_bytes()==s.inputs.proposal_members['plan.json']
+    assert not (s.out/'inputs/candidate-human.json').exists()
+    assert (s.out/'run/scene.json').read_bytes()==s.inputs.scene_bytes
+    assert (s.out/'run/exercise-task.json').read_bytes()==s.inputs.task_bytes
+    assert all(event.get('controller')!='learned' for r in s.recorders.values() for event in r.events)
+    if fault is None:
+        assert result['status']=='completed' and result['same_initial_state'] is True
+        assert result['counts']['live_trial_envs']==1 and result['counts']['live_control_steps']==18
+        assert len(s.envs[0].resets)==2 and s.envs[0].resets[0]==s.envs[0].resets[1]
+        assert [r['metrics']['success'] for r in result['trials']]==[True,False]
+        assert all(event['action']==[.01]*22 and event['reference_controller_sha256']==result['reference_controller']['sha256']
+                   for event in s.recorders['reference_proposal'].events[1:])
+        assert result['trials'][1]['action_replay']['reference_actions_verified']==9
+    else:
+        assert result['status']=='failed' and s.envs[0].closed
+        assert s.recorders['authored'].closed
+
+
+def test_camera_family_mismatch_rejected_before_runtime_or_native(setup_case):
+    s=setup_case()
+    scene=json.loads(s.inputs.scene_bytes); scene['profile']='shared-world-v6'
+    s.inputs=replace(s.inputs,scene_bytes=encode(scene))
+    result=run(s)
+    assert result['status']=='failed' and 'runtime' not in s.log and 'api' not in s.log
+
+
+def test_legacy_runtime_rejection_remains_exact(monkeypatch):
+    package=Path(trial.__file__).parent
+    assert sha256((package/'shared_world.py').read_bytes()).hexdigest()!=trial.RUNTIME_SHA256['shared_world.py']
+    monkeypatch.setattr(trial,'RUNTIME_FILES',tuple(trial.RUNTIME_SHA256))
+    with pytest.raises(ValueError,match='unreviewed feedback'):
+        trial._runtime_snapshot(float('inf'))
+
+
+def test_camera_runtime_and_engine_dispatch_use_actual_recorder_contract(monkeypatch):
+    from weft import camera_reference_controller as controller
+    from weft.camera_shared_receipt import RUNTIME_REQUIRED
+    package=Path(trial.__file__).parent
+    tree=ast.parse((package/'camera_reference_recording.py').read_bytes())
+    assignment=next(n for n in tree.body if isinstance(n,ast.Assign)
+                    and any(isinstance(t,ast.Name) and t.id=='REQUIRED_RUNTIME_FILES' for t in n.targets))
+    required=eval(compile(ast.Expression(assignment.value),'<recorder-runtime-constant>','eval'),
+                  {'RUNTIME_REQUIRED':RUNTIME_REQUIRED,'controller':controller,'frozenset':frozenset})
+    recorder=SimpleNamespace(REQUIRED_RUNTIME_FILES=required,recording_scene=object(),verify_action_replay=object())
+    monkeypatch.setitem(sys.modules,'weft.camera_reference_recording',recorder)
+    runtime=trial._runtime_snapshot(float('inf'),camera=True)
+    assert required<=runtime.keys() and {'camera_reference_inputs.py','source_surface_fit_inputs.py'}<=runtime.keys()
+    assert all(sha256(runtime[k]).hexdigest()==v for k,v in controller.RUNTIME_SHA256.items())
+    assert len(runtime)<=128 and sum(map(len,runtime.values()))<=trial.MAX_RUNTIME_BYTES//3
+    human=SimpleNamespace(reference_velocity_index=object())
+    recording=SimpleNamespace(Recorder=object(),export_recording=object())
+    task=SimpleNamespace(CameraSharedTaskEnv=object(),validate_camera_shared_task=object())
+    world=SimpleNamespace(validate_shared_world=object())
+    for name,value in {'human':human,'recording':recording,'camera_shared_task':task,'shared_world':world}.items():
+        monkeypatch.setitem(sys.modules,'weft.'+name,value)
+    api=trial._engine_api(camera=True)
+    assert api.Env is task.CameraSharedTaskEnv and api.validate_task is task.validate_camera_shared_task
+    assert api.recording_scene is recorder.recording_scene and api.replay is recorder.verify_action_replay
 
 
 def test_real_progress_every_thirty_controls_not_timer_polling(setup_case):

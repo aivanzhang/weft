@@ -5,7 +5,9 @@ from collections import Counter
 from datetime import datetime
 from hashlib import sha256
 import base64
+import gzip
 import html
+import io
 import json
 import math
 import os
@@ -993,7 +995,7 @@ if(data.surface_intervals){const surface=data.surface_intervals,selector=el('int
 """
 
 
-def _surface_html(surface, esc, fmt):
+def _surface_html(surface, esc, fmt, report_member='proposal-report.json.txt'):
     if surface is None:
         return ''
     summary = surface['summary']
@@ -1008,7 +1010,7 @@ def _surface_html(surface, esc, fmt):
 <div class="scroll"><table><thead><tr><th>Channel / assumed body point</th><th>Saved availability</th><th>Supplied pixel range (px)</th><th>Supplied height range (m)</th><th>Saved outer world bounds (m)</th><th>Input outside (m)</th><th>Proposed outside (m)</th></tr></thead><tbody id="interval-channels"></tbody></table></div>
 <p>The pixel and height ranges above come from exact copied inputs. World bounds and positions are saved producer results; this report checks joins and residual arithmetic but does not recompute geometry or validate the camera. All original slots remain selectable, including slots without body references. No control-grid interval targets are created.</p>
 <details><summary>Fixed assumptions and saved work</summary><pre>{esc(json.dumps({'world_frame': surface['world_frame'], 'body_binding': surface['body_binding'], 'source_status_counts': surface['source_status_counts']}, indent=2))}</pre>
-<p>Saved interval evaluations: {surface['evaluations']} / {surface['work_limits']['maximum_evaluations']}. Saved trial records: {surface['journal_records']}; journal bytes: {surface['journal_bytes']} / {surface['work_limits']['maximum_journal_bytes']}. Interrupted and rejected attempts remain in <a href="artifacts/proposal-report.json.txt">the exact proposal report</a>. Counts and saved outcomes are not a replay or a new optimization run.</p></details></section>'''
+<p>Saved interval evaluations: {surface['evaluations']} / {surface['work_limits']['maximum_evaluations']}. Saved trial records: {surface['journal_records']}; journal bytes: {surface['journal_bytes']} / {surface['work_limits']['maximum_journal_bytes']}. Interrupted and rejected attempts remain in <a href="artifacts/{esc(report_member)}">the exact proposal report{' (gzip download; decompress to read)' if report_member.endswith('.gz') else ''}</a>. Counts and saved outcomes are not a replay or a new optimization run.</p></details></section>'''
 
 
 def _camera_html(camera, esc, fmt):
@@ -1045,7 +1047,12 @@ def _render(summary, palette, members=None):
     data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
     script_hash = base64.b64encode(sha256(_SCRIPT.encode()).digest()).decode()
     members = MEMBERS if members is None else members
-    links = ''.join(f'<li><a href="artifacts/{name}">{esc(source)}</a></li>' for source, name in members.items())
+    links = ''.join(f'<li><a href="artifacts/{name}">{esc(source)}'
+                    f'{" (gzip download; decompress to read)" if name.endswith(".gz") else ""}</a></li>'
+                    for source, name in members.items())
+    storage_note = (' Identical selected files share one exact-byte artifact. Any gzip download expands to the exact '
+                    'saved bytes; raw and stored hashes, lengths and paths are recorded separately in report.json.'
+                    if 'artifact_storage' in summary else '')
     if 'surface_input_validator' in summary:
         links += '<li><a href="artifacts/source_surface_fit_inputs.py.txt">Current surface-input validation helper</a> (inspection code, not a study input)</li>'
     css = """body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.5 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:30px 20px}h1{font:700 2.4rem/1.1 Georgia,serif}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:22px;margin:20px 0}a{color:var(--weft-primary)}.notice{border-left:4px solid var(--weft-primary);padding:10px 16px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--weft-border)}.scroll{overflow-x:auto}code,pre,.identity{overflow-wrap:anywhere}pre{white-space:pre-wrap}label{display:inline-block;margin:8px 14px 8px 0}select,button{font:inherit;padding:7px;max-width:100%}button:focus-visible,select:focus-visible{outline:3px solid var(--weft-primary)}svg{width:100%;height:auto}.before{fill:none;stroke:var(--weft-ink);stroke-width:2}.after{fill:none;stroke:var(--weft-primary);stroke-width:2.5}.limit{fill:none;stroke:var(--weft-muted);stroke-dasharray:7 5;stroke-width:1.5}svg text{fill:var(--weft-ink);font-size:13px}.dot-before{fill:var(--weft-ink)}.dot-after{fill:var(--weft-primary)}small{color:var(--weft-muted)}@media(max-width:600px){main{padding:16px 10px}section{padding:14px}td,th{padding:6px;font-size:.85rem}}"""
@@ -1065,9 +1072,42 @@ def _render(summary, palette, members=None):
 <h3>Signed support gaps</h3><p>Negative means below the authored floor; positive means above it. A larger signed gap alone does not establish support or contact. Capsule endpoints −1 and +1 and the center sample 0 are points on saved shapes, not extra body parts. Labels describe authored collision shapes, not recovered anatomy.</p><label><input id="affected" type="checkbox" checked> Show changed, below-floor or unknown gaps</label>
 <div class="scroll"><table><thead><tr><th>Authored shape / support point</th><th>Saved identity</th><th>Input body gap</th><th>{proposed} gap</th><th>Change</th></tr></thead><tbody id="gaps"></tbody></table></div>
 <h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p><p id="target-label"></p><details id="target-details" hidden><summary>Selected target provenance</summary><dl id="target-metadata" class="identity"></dl><p>Preserved observation and selected proposal hashes match the copied input. The decision hash is a saved identifier; decision bytes and image pixels are not read or independently verified here. Original whole-frame estimates remain provenance, not alternative fitting targets.</p></details><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Input body error (px)</th><th>{proposed} error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
-{_surface_html(summary.get('surface_intervals'), esc, fmt)}
-<section><h2>Exact copied evidence</h2><p>Only {'four' if len(members) == 4 else len(members)} selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
+{_surface_html(summary.get('surface_intervals'), esc, fmt, members['report.json'])}
+<section><h2>Exact copied evidence</h2><p>Only {'four' if len(members) == 4 else len(members)} selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.{storage_note}</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
 </main><script id="data" type="application/json">{data}</script><script>{_SCRIPT}</script></body></html>'''.encode()
+
+
+def _alias_artifacts(raw, members, hashes):
+    """Keep logical pins while sharing only byte-identical selected artifacts."""
+    aliases, stored, storage, seen = {}, {}, {}, {}
+    for name, value in raw.items():
+        key = (hashes[name], len(value))
+        target = seen.get(key, members[name])
+        _require(target not in stored or stored[target] == value, 'Report artifact alias bytes differ')
+        seen[key] = target
+        aliases[name] = target
+        stored[target] = value
+        storage[name] = {'path': 'artifacts/' + target, 'encoding': 'identity',
+                         'sha256': hashes[name], 'bytes': len(value)}
+    return aliases, stored, storage
+
+
+def _compress_report(raw, members, stored, storage):
+    # Only the copied source report is compressed; the complete inspection model stays plain JSON.
+    buffer = io.BytesIO()
+    with gzip.GzipFile(filename='', fileobj=buffer, mode='wb', compresslevel=1, mtime=0) as stream:
+        stream.write(raw['report.json'])
+    compressed = buffer.getvalue()
+    with gzip.GzipFile(fileobj=io.BytesIO(compressed), mode='rb') as stream:
+        _require(stream.read(len(raw['report.json']) + 1) == raw['report.json'] and stream.read(1) == b'',
+                 'Compressed report does not preserve exact bounded source bytes')
+    original, target = members['report.json'], members['report.json'] + '.gz'
+    members['report.json'] = target
+    if original not in members.values():
+        del stored[original]
+    stored[target] = compressed
+    storage['report.json'] = {'path': 'artifacts/' + target, 'encoding': 'gzip',
+                              'sha256': sha256(compressed).hexdigest(), 'bytes': len(compressed)}
 
 
 def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256=None, max_seconds=10,
@@ -1173,12 +1213,24 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
         selected_input_bytes=total, source_read_byte_bound=2 * max_input_bytes,
         local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0),
         implementation_sha256=sha256(implementation).hexdigest(), palette_sha256=sha256(palette_raw).hexdigest())
-    page = _render(model, palette_raw.decode(), members)
-    _require(len(page) <= MAX_HTML, "Offline report HTML exceeds its 2 MiB bound")
-    output = {'index.html': page, 'report.json': _bytes(model), 'source-manifest.json.txt': manifest_raw,
-              **{'artifacts/' + members[name]: value for name, value in raw.items()}}
-    if helper is not None:
-        output['artifacts/source_surface_fit_inputs.py.txt'] = helper
+    def assemble(stored):
+        check()
+        page = _render(model, palette_raw.decode(), members)
+        _require(len(page) <= MAX_HTML, "Offline report HTML exceeds its 2 MiB bound")
+        output = {'index.html': page, 'report.json': _bytes(model), 'source-manifest.json.txt': manifest_raw,
+                  **{'artifacts/' + name: value for name, value in stored.items()}}
+        if helper is not None:
+            output['artifacts/source_surface_fit_inputs.py.txt'] = helper
+        return output
+
+    output = assemble({members[name]: value for name, value in raw.items()})
+    if camera_mode and sum(map(len, output.values())) > max_output_bytes - 65536:
+        members, stored, storage = _alias_artifacts(raw, members, files)
+        model['artifact_storage'] = {'profile': 'whole-body-reference-artifact-storage-v1', 'members': storage}
+        output = assemble(stored)
+        if sum(map(len, output.values())) > max_output_bytes - 65536:
+            check(); _compress_report(raw, members, stored, storage); check()
+            output = assemble(stored)
     _require(sum(map(len, output.values())) <= max_output_bytes - 65536, "Offline report output exceeds its byte bound")
     check(); out.mkdir(parents=True, exist_ok=False)
     for name, value in output.items():

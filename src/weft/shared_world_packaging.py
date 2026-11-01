@@ -9,7 +9,7 @@ import re
 import stat
 from types import MappingProxyType
 
-from weft.shared_world_evidence import verify_shared_world_sources
+from weft.shared_world_evidence import _check_deadline, verify_shared_world_sources
 
 
 MAX_MANIFEST_BYTES = 8 * 1024 * 1024
@@ -227,19 +227,28 @@ class PinnedSourceFiles:
         write_package_files(destination, self.files)
 
 
-def collect_shared_source_files(scene, source_dir, *, expected_manifest_sha256=None):
+def collect_shared_source_files(scene, source_dir, *, expected_manifest_sha256=None, deadline=None):
     """Require outer-manifest coverage for every exact source byte before any output."""
+    if deadline is not None:
+        _check_deadline(deadline)
     raw, manifest_files = None, {}
     if source_dir is not None:
         raw, manifest_files = read_package_manifest(Path(source_dir))
+        if deadline is not None:
+            _check_deadline(deadline)
         if expected_manifest_sha256 is not None and hashlib.sha256(raw).hexdigest() != expected_manifest_sha256:
             raise ValueError("Package manifest changed after candidate verification")
     elif scene["source_binding"]["mode"] != "analytic_fixture":
         raise ValueError("Pinned sources require a sealed source directory")
-    report, files = verify_shared_world_sources(scene, source_dir, include_files=True)
+    options = {} if deadline is None else {"deadline": deadline}
+    report, files = verify_shared_world_sources(scene, source_dir, include_files=True, **options)
     for name, data in files.items():
+        if deadline is not None:
+            _check_deadline(deadline)
         if manifest_files.get(name) != hashlib.sha256(data).hexdigest():
             raise ValueError(f"Outer manifest must cover every pinned source file exactly: {name}")
     _layout(files)
+    if deadline is not None:
+        _check_deadline(deadline)
     return PinnedSourceFiles(report, files, raw, MappingProxyType(manifest_files),
                              hashlib.sha256(raw).hexdigest() if raw is not None else None)

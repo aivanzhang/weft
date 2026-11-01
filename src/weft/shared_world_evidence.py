@@ -262,22 +262,27 @@ def _read_document(directory_fd, name, limit):
         os.close(fd)
 
 
-def verify_shared_world_sources(scene, directory, *, include_files=False):
+def verify_shared_world_sources(scene, directory, *, include_files=False, deadline=None):
     """Resolve pinned documents and recompute complete construction-only entity accounting."""
+    if deadline is not None:
+        _check_deadline(deadline)
     binding = scene["source_binding"]
     if binding["mode"] == "analytic_fixture":
         validate_equivalence_bindings(binding)
         report = {"mode": "analytic_fixture", "source_evidence_verified": False,
                   "scope": "Authored software fixture; no source observation documents."}
         return (report, MappingProxyType({})) if include_files else report
-    deadline = time.monotonic() + MAX_SOURCE_SECONDS
+    default_deadline = time.monotonic() + MAX_SOURCE_SECONDS
+    deadline = default_deadline if deadline is None else min(deadline, default_deadline)
     paths = _document_paths(binding)
     validate_equivalence_bindings(binding)
+    _check_deadline(deadline)
     directory = Path(directory)
     if directory.is_symlink() or not directory.is_dir():
         raise ValueError("Source evidence directory is missing or unsafe")
     directory = directory.resolve()
     documents, total_bytes = {}, 0
+    _check_deadline(deadline)
     fd = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
     try:
         for sha, name in paths.items():

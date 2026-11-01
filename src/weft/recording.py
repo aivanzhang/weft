@@ -11,11 +11,14 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from weft.io import canonical_hash, digest, local_time, write_json
+from weft.shared_world_packaging import read_package_file
 
 MAX_EVENTS = 18001
 MAX_SECONDS = 1200
 MAX_EVENT_BYTES = 65536
 MAX_JOURNAL_BYTES = 128 * 1024 * 1024
+MAX_SCENE_BYTES = 16 * 1024 * 1024
+MAX_METADATA_BYTES = 1024 * 1024
 MAX_HUMAN_PARTS = 64
 MAX_HUMAN_GEOMETRY = 128
 MAX_MOBILE_CONTACTS = 32
@@ -29,14 +32,19 @@ DIRECT_PROFILES = {WHOLE_BODY_PROFILE: (19, "whole_body_reference_tracking"),
 FEET_RECORDING_PROFILE = "shared-exercise-feet-recording-v1"
 CAMERA_RECORDING_PROFILE = "camera-shared-recording-v1"
 CAMERA_POLICY_RECORDING_PROFILE = "camera-shared-policy-recording-v1"
+CAMERA_REFERENCE_RECORDING_PROFILE = "camera-shared-reference-recording-v1"
 EXERCISE_RECORDING_PROFILES = frozenset({"shared-exercise-recording-v1", FEET_RECORDING_PROFILE,
-                                       CAMERA_RECORDING_PROFILE, CAMERA_POLICY_RECORDING_PROFILE})
+                                       CAMERA_RECORDING_PROFILE, CAMERA_POLICY_RECORDING_PROFILE,
+                                       CAMERA_REFERENCE_RECORDING_PROFILE})
 DETAILED_EXERCISE_PROFILES = frozenset({FEET_RECORDING_PROFILE, CAMERA_RECORDING_PROFILE,
-                                       CAMERA_POLICY_RECORDING_PROFILE})
+                                       CAMERA_POLICY_RECORDING_PROFILE, CAMERA_REFERENCE_RECORDING_PROFILE})
 FEET_EVENT_BYTES = 512 * 1024
 
 
 def _exercise_recording_adapter(scene):
+    if scene.get("profile") == CAMERA_REFERENCE_RECORDING_PROFILE:
+        from weft import camera_reference_recording
+        return camera_reference_recording
     if scene.get("profile") == CAMERA_POLICY_RECORDING_PROFILE:
         from weft import camera_shared_policy_recording
         return camera_shared_policy_recording
@@ -541,7 +549,11 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
     """Recover complete journal lines without inventing a truncated final event."""
     _check_deadline(deadline)
     root = Path(root)
-    scene = json.loads((root / "scene.json").read_text())
+    scene = json.loads(read_package_file(root, "scene.json", max_bytes=MAX_SCENE_BYTES))
+    metadata = json.loads(read_package_file(root, "recording.json", max_bytes=MAX_METADATA_BYTES))
+    if not isinstance(scene, dict) or not isinstance(metadata, dict):
+        raise ValueError("Recording scene and metadata must be bounded JSON objects")
+    _check_deadline(deadline)
     if scene.get("profile") == "spatial-rigid-v1":
         from weft.spatial_rigid import validate_scene
         validate_scene(scene)
@@ -550,7 +562,6 @@ def load_recording(root, *, allow_incomplete=False, deadline=None):
         scene = validate_shared_world(scene)
     if scene.get("profile") in EXERCISE_RECORDING_PROFILES:
         scene = _exercise_recording_adapter(scene).validate_recording_scene(scene)
-    metadata = json.loads((root / "recording.json").read_text())
     validate_snapshot = _snapshot_validator(scene)
     event_limit = _event_size_limit(scene)
     journal = root / "events.jsonl"

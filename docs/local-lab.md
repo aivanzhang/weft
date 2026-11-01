@@ -225,10 +225,12 @@ inspect it. Its body geometry passes the source/grid check but floats above the
 ground. Foot attachment remains unavailable because the original starting right
 heel is inconsistent across cameras. [Evidence and limits](handoffs/camera-shared-runtime.md).
 
-The current assisted lab is ready without rebuilding:
+The saved assisted lab uses its original frozen runtime. Current source correctly
+rejects its old runtime pins; do not bypass that check or rebuild the saved run:
 
 ```sh
-.venv-lab/bin/python -m weft lab-console \
+PYTHONPATH="$PWD/.local/camera-shared-policy-play-runtime-01/src" \
+  .venv-lab/bin/python -B -P -m weft lab-console \
   --resume artifacts/camera-shared-policy-play-01/lab
 ```
 
@@ -237,12 +239,14 @@ It retains the original 238-step / 7.94-second interval. Try `controls`,
 `record evidence`. Manual, coast and programmed reference controls also work.
 The experimental trained controller adjusts joints; body-position assistance
 stays programmed. The source, task and original policy have not been rewritten.
+The frozen files and their saved pins were verified; this exact resume command
+has not been newly executed. [Runtime and version requirements](handoffs/camera-policy-runtime-resume.md).
 
 The complete console check recorded 246 actions, including 240 learned-controller
 decisions, and replayed every action and full state exactly. Preparation, play,
 export and resume took 13.4 seconds locally. Open the saved
 [interactive replay](../artifacts/camera-shared-policy-play-01/lab/sessions/session-d730c17b1e7b/replay.html)
-or run `lab --resume` with the same directory for the graphical sandbox.
+or replace `lab-console` with `lab` in the same frozen-runtime command for the graphical sandbox.
 No browser was automated; graphical behavior has mock-based checks, not live-browser QA.
 
 The earlier roots-on/off recordings remain unchanged under their archived runtime:
@@ -497,6 +501,14 @@ Default fitting is image-first;
 [bounds and source verification](body-model-options.md#propose-a-correction-from-a-saved-body).
 
 ### Compare a fitted reference without changing the task
+
+The saved camera-based jogging comparison is ready to inspect without rerunning:
+[fit evidence](../artifacts/camera-reference-real-01/inspection-recovered-01/index.html)
+and [simulation comparison](../artifacts/camera-reference-real-01/trial-03/index.html).
+Both recordings cover all 238 steps and replay exactly. Fitted angles improve
+agreement with detected image points, but fitted controls score slightly worse
+on the original simulator task. Neither result verifies ground/equipment contact.
+Interactive fitted controls are being added separately; these links are saved results.
 
 After a source-fit proposal passes all of its checks, compare it as a **controller
 alternative** on the original world:
