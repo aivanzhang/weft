@@ -1,6 +1,18 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: predictive control and bounded lab reopening
+## Current milestone — November 1, 2026: complete-rollout diagnosis and explicit equipment depth
+
+- [x] Execute the full-trajectory harness with the same frozen controller, task, scorer and budgets. Preserve Rollout01's early stop: it incorrectly treated a recoverable prefix mean as final failure. Twelve pure stop-rule checks pass; no scoring limit changed.
+- [x] Run corrected Rollout02 once: 49 actual controls, 95 predictions, exact predicted/actual endpoints and contacts at every accepted step. The original failure at control 49 is avoided, but control 50 has no verified candidate and abstains. **The exercise remains incomplete**, with no actual gate failures before abstention. Elapsed 1.561130 seconds / 135,135,232 B peak RSS. [Result, bounds and diagnosis](docs/handoffs/equipment-action-rollout-native.md).
+- [x] Independently verify all saved rollout members, consecutive task metrics, unchanged root/action bounds, 48 unchanged actions and the one correction. Preserve provisional mean crossings at controls 3–4 and the incomplete full interval. Receipt `.local/equipment-action-rollout-native-02/saved-audit-01.json`; no new simulation/replay.
+- [x] Implement and review the opt-in per-object equipment depth ratio with explicit provenance. **101 distinct guarded analytical cases pass**; legacy geometry, complete proposal and constructed scene retain exact saved-code parity. No new real-object depth is inferred or tuned. [Core contract and checks](docs/handoffs/equipment-depth-prior-core.md).
+- [x] Complete guided ratio/provenance controls and ordinary configuration-to-proposal integration: **25 distinct checks pass** (22 new, three affected legacy). A bounded fake-DOM batch of 240 edits across 12 objects takes 20.474 ms with no new nodes; this is not browser performance evidence. [Workflow, failures and pins](docs/handoffs/equipment-depth-prior-workflow.md).
+- [ ] Complete one separately bounded ratio-one native acceptance with the original translation and required migration guards; no new geometry search or chosen physical-depth claim.
+- [x] Diagnose control 50: its linear approximation converges, but underestimates actual predicted equipment speed/spin. A saved-data secant-update check worsens prediction on both existing comparison probes; reject that change. Prepare a signed-velocity diagnostic before implementing another controller hypothesis. Do not expose this helper as a successful/default full-exercise controller.
+- [x] Root checkpoint `b615e79` is an ancestor of independently published shared main `1df6880`; exact remote verified read-only. Root performed no push/merge. The pending exact-checkpoint approval is superseded by observed publication, not answered. Preserve independent avatar and depth work; no whole-tree clean claim.
+- [ ] Qualify unfamiliar-video body/ground/equipment reconstruction, broader task learning and independent physical-contact accuracy. The full goal remains active; no paid call, deployment, server or browser is needed for the current lanes.
+
+## Historical milestone — November 1, 2026: predictive control and bounded lab reopening
 
 - [x] Implement detached one-control prediction with explicit count/time limits and no live-state/scorer mutation; **26 distinct mocked cases pass**. Preserve the previous failed clearance correction.
 - [x] Qualify the predictor at the initial state and just before the recorded equipment failure. Four scratch predictions match the actual next state exactly; all 49 original controls/task snapshots also match. This is prediction parity, not successful equipment control. [Exact native evidence](docs/handoffs/equipment-action-projection.md).

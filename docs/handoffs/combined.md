@@ -1,6 +1,75 @@
 # Combined Weft implementation handoff
 
-## Current prediction and lab-memory work — November 1, 2026, 11:10 AM PST
+## Current full-rollout and equipment-depth work — November 1, 2026, 11:44 AM PST
+
+The complete goal remains active. The interactive lab and recording workflow remain
+usable; the new contact-action projector is experimental and has not completed the
+equipment exercise or become a public control mode.
+
+Root completed/reaped [Rollout02](equipment-action-rollout-native.md): 49 accepted
+controls, 95 predictions, 50 explicit projector decisions, 2,304 total substeps,
+146 forwards, 51 data objects, 11 models and one reset. Every accepted endpoint and
+contact report matches actual physics exactly. Controls 1–48 are unchanged; the
+correction at 49 avoids the original equipment failure. At control 50 the helper
+finds no verified candidate and abstains without taking a step. All actual gates
+are passing, but **the 254-control interval is incomplete and task success is false**.
+Observed elapsed time is 1.561130 seconds /135,135,232 B peak RSS, four files/718,926 B.
+
+The earlier Rollout01 remains stopped at control 3. Its harness wrongly treated a
+recoverable prefix mean as a permanent final failure. Twelve pure checks verify
+the narrow stop correction: retain finite prefix angular/root mean crossings,
+stop on non-mean or invalid metrics, and apply the original final gates unchanged.
+The pinned task has no contact requirements. Rollout02 records crossings at 3–4;
+none of the task, scorer, controller, source, physics or resource limits changed.
+
+Frozen Rollout02 plan: `afb8c8d7e2ae0923615504631635555723bad195449b9b55d0d3387b68ca9000`.
+Result: `8f27289511838a1402a15a26592d696052a8343666935ef5f70d9674c974619e`.
+Seal: `040698301ae85427b79e059cc34c31e9332a51b92ccdcbc5b95aa05817ea04aa`.
+Root's saved-only audit verifies every member, all accepted state/contact comparisons,
+root/trust bounds, contiguous metrics and the abstention without replay or simulation:
+`.local/equipment-action-rollout-native-02/saved-audit-01.json`, SHA
+`b80067fa61f80c1765629beee584f14b0a2e094c1d7077defbaf8283996a05a2`.
+
+Parallel ownership:
+
+- `/root/contact_reconstruction`: saved control-50 diagnosis is complete. Its
+  linear solve converges, but the full candidate predicts speed/spin
+  `0.14999985/0.65735226` against actual detached `0.25955757/1.87978962`
+  (limits `0.15/0.75`). All 23 probes fail only these two constraints. A saved-data
+  secant update worsens half/quarter comparison prediction, so no solver change
+  is made. Prepare one separately bounded signed-velocity diagnostic at pre-50;
+  use 49 saved actions to reach that state, then at most 24 predictions and no
+  actual control 50. Root owns execution. No infeasibility claim follows.
+- `/root/reconstruction_next_step`: [explicit depth core](equipment-depth-prior-core.md)
+  is root-reviewed, with 101 distinct guarded analytical checks and all release pins
+  verified. Prepare one ratio-one native acceptance using the existing equal-depth
+  assumption; root reviews and executes. No new real-object ratio is inferred.
+- `/root/equipment_control_review`: [guided depth workflow](equipment-depth-prior-workflow.md)
+  is complete and root-reviewed: 25 distinct checks pass (22 new, three affected
+  legacy), with actual request→configuration→proposal composition under explicit
+  native mocks. The unchanged compiler forwards complete priors. A 12-object,
+  2,000-character-per-object fake-DOM batch takes 20.474 ms for 240 edits, adds no
+  nodes and retains all 60 row handlers. No browser-performance claim. Product
+  files are frozen; no active job in this lane.
+- Root: integration, bounded execution, TODO/combined records and scoped Git work.
+
+All executed native handles are terminal/reaped. The depth work preserves original
+body/floor/camera/source clocks and all dimension, projection and collision gates.
+Supplied depth and provenance remain assumptions, not verified measurements/contact.
+No source acquisition, paid API/key/ledger work, deployment, server or browser occurred.
+
+Git: local checkpoint `b615e7995f7e3551d26453e3fac69fabca1f1b0b` is now an ancestor
+of independently published shared main `1df6880ef6ea0d24894ff4e3e5da874a797b7e03`.
+Root verified that exact remote and ancestry read-only, without push/merge. The pending
+exact-checkpoint question is operationally superseded, not answered. Observation:
+`.local/equipment-action-controller-remote-observation-01.json`, SHA
+`dca528fe87ece4aa4330e7ce17760505f003a78043ddd56db0f84fcde86ce6b0`.
+New depth and handoff edits remain local; preserve all independent avatar work.
+Next: checkpoint the reviewed depth integration and rollout evidence, then review the
+ratio-one acceptance and signed-velocity diagnostic plans. These improvements do not
+close unfamiliar-video or physical-accuracy gaps.
+
+## Historical prediction and lab-memory work — November 1, 2026, 11:10 AM PST
 
 The complete goal remains active. Native prediction parity and repeated lab-open
 verification are new progress, not a successful equipment task or physical validation.

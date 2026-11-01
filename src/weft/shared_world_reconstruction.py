@@ -271,14 +271,21 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
     scene.pop('action_contract', None)
     scene.update(objects=[], source_binding=binding, learned_policy_available=False)
     common_frames = {}
+    ratio_mode = proposal.get('proposer', {}).get('method') == 'explicit-fixed-pelvis-floor-box-depth-ratio-proposal-v1'
+    if ratio_mode:
+        from weft.equipment_proposal_config import validate_depth_prior
     for item in equipment:
         name, geometry = item['object_id'], item['geometry']
         frame, evidence_id = item['source_frame'], item['source_evidence_id']
-        if (geometry.get('status') != 'authored_floor_box_candidate' or geometry.get('geometry_failures', [])
+        expected_status = 'authored_floor_box_ratio_candidate' if ratio_mode else 'authored_floor_box_candidate'
+        if (geometry.get('status') != expected_status or geometry.get('geometry_failures', [])
                 or type(frame) is not int or frame not in frames or frame < frames[0]
                 or geometry.get('source_original_frame') != frame or geometry.get('source_evidence_id') != evidence_id
                 or item.get('source_identity_verified') is not False or item.get('source_contact_verified') is not False):
             raise ValueError('Equipment proposal source reference or uncertainty differs')
+        depth_prior = validate_depth_prior(geometry.get('depth_prior')) if ratio_mode else None
+        if not ratio_mode and 'depth_prior' in geometry:
+            raise ValueError('An explicit depth prior requires the distinct depth-ratio proposal method')
         row = _source_row(indexed, entities[name], frame, evidence_id)
         measurement = row['measurements'].get('box', {})
         if (measurement.get('coordinate_system') != 'image' or measurement.get('unit') != 'pixels'
@@ -292,7 +299,10 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
         center = _vector(geometry['center_model_units'], 3, 'Equipment center', -2., 2.)
         half = _vector(geometry['half_extents_model_units'], 3, 'Equipment half extents', .005, .6)
         _same(geometry['dimensions_model_units'], 2 * half, 'Equipment full dimensions')
-        _same(half[1], half[0], 'Authored depth-equals-width prior')
+        if ratio_mode:
+            _same(half[1], half[0] * depth_prior['depth_to_width_ratio'], 'Explicit depth-to-width prior')
+        else:
+            _same(half[1], half[0], 'Authored depth-equals-width prior')
         _same(center[2] - half[2], human['mobility']['floor_height'], 'Unchanged source-body floor')
         projected = _project_box(center, half, camera, human['mobility']['base_height'])
         _same(projected, bounds, 'Complete eight-vertex box projection', tolerance=1e-7)
@@ -314,7 +324,9 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
                                      'evidence_id': evidence_id, 'observation_id': row['id'], 'time_s': row['time_s']},
                 'source_bounds_px': bounds, 'projected_bounds_px': projected.tolist(),
                 'camera_hypothesis': camera, 'geometry_model_units': {'center': center.tolist(), 'half_extents': half.tolist()},
-                'uncertainty': {'identity': 'unverified_model_association', 'depth': 'authored_perspective_and_depth_equals_width',
+                **({'depth_prior': depth_prior} if ratio_mode else {}),
+                'uncertainty': {'identity': 'unverified_model_association',
+                                'depth': 'supplied_depth_ratio_not_physically_verified' if ratio_mode else 'authored_perspective_and_depth_equals_width',
                                 'support': 'authored_fixed_floor_not_observed_contact', 'shape': 'solid_box_without_handle_or_cavity',
                                 'mass': 'authored_unit_mass_not_measured', 'friction': 'authored_simulator_prior',
                                 'camera': 'authored_not_physical_calibration', 'hands_and_grasp': 'not_reconstructed'},

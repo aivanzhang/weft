@@ -265,8 +265,12 @@ explicitly; a failed pose-only result is not a usable body.
 
 **2. Choose the setup and download your request.** Open the printed page. Confirm
 the body, select equipment and an eligible original frame, choose a task target,
-and enter an explicit camera-distance assumption. The current shape option is
-a floor-resting box with depth equal to width—not a recovered handle or grasp.
+and enter an explicit camera-distance assumption. Choose a floor-resting box
+with depth equal to width, or supply a depth-to-width ratio and explanation for
+each selected object. For example, `0.5` makes depth half the width. No ratio is
+guessed for you; the supplied value remains an assumption, not recovered depth,
+a handle or a grasp. Existing dimension, projection and collision checks still
+apply. [JSON configuration and limits](equipment-proposals.md#optional-explicit-equipment-depth).
 Body size starts unchanged and root assistance starts off; both choices are
 visible and editable. Missing frames stay visible rather than being filled in.
 

@@ -177,7 +177,7 @@ Create a JSON configuration with these fields, using your own original video has
 }
 ```
 
-The distance above is an **authored example**, not a measured camera distance. The current shape prior makes solid boxes resting on the existing floor, with unseen depth equal to width. It rejects incompatible projections, missing/withheld selected observations and initial collisions. It does not fill missing frames, move the floor or search for a different camera to force admission.
+The distance above is an **authored example**, not a measured camera distance. This shape prior makes solid boxes resting on the existing floor, with unseen depth equal to width. It rejects incompatible projections, missing/withheld selected observations and initial collisions. It does not fill missing frames, move the floor or search for a different camera to force admission.
 
 ```sh
 .venv-lab/bin/python -m weft shared-exercise-build \
@@ -205,6 +205,40 @@ If tracking used a verified derivative, add `--source-mapping <bundle>`; repeat 
 Each equipment frame must also be a retained body-reference frame. Equipment measurements must belong to the explicit construction partition; authored initialization boxes and raw appearance/generation/development/audit rows are not silently promoted. Missing or withheld observations remain unsupported, not filled from a nearby frame.
 
 An optional `"frame_translation_xy": [0.2, 0.0]` explicitly translates the entire frame and invokes the existing bounded nominal dynamics check. It is not a body-only adjustment; it changes numerical bounds and must not be described as complete task equivalence. Omit it unless that coordinate migration is intended. The assembly command passes the resolved choice to construction; it does not invent or apply a second translation.
+
+### Optional explicit equipment depth
+
+To supply depth instead of assuming it equals width, replace these fields in the
+complete configuration above:
+
+```json
+{
+  "geometry_prior": "floor_box_explicit_depth_ratio",
+  "equipment": [{
+    "object_id": "YOUR_EQUIPMENT_ID",
+    "source_frame": 12,
+    "depth_prior": {
+      "depth_to_width_ratio": 0.5,
+      "provenance": "My supplied assumption: depth is half the width; not a verified measurement."
+    }
+  }]
+}
+```
+
+This is a configuration fragment. Every selected object needs its own ratio and
+explanation; the other fields remain required. `0.5` means half as deep as wide,
+`2` means twice as deep. A ratio of `1` retains equal-depth numerical geometry,
+but records that you explicitly supplied it. The guided setup page exports the
+same fields for the ordinary builder.
+
+Ratios must be finite numbers from `1/120` to `120`; explanations must contain
+1–2,000 characters. These broad bounds do not guarantee an admissible box:
+original size, image projection, floor and initial-collision checks still apply.
+Supplied depth is kept in the proposal and object provenance, marked physically
+unverified. It does not infer handles, contact, hidden shape or camera calibration.
+Existing equal-depth configurations and defaults are unchanged.
+
+[Implementation and verification scope](handoffs/equipment-depth-prior-core.md).
 
 ## Inspect each stage
 

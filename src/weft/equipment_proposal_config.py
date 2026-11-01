@@ -8,12 +8,30 @@ import re
 CONFIG_PROFILE = 'source-equipment-proposal-config-v1'
 MAX_CONFIG_BYTES = 64 * 1024
 MAX_EQUIPMENT = 12
+DEPTH_RATIO_PRIOR = 'floor_box_explicit_depth_ratio'
+# These are consequences of the constructor's unchanged half-extent limits.
+MIN_DEPTH_TO_WIDTH_RATIO = .005 / .6
+MAX_DEPTH_TO_WIDTH_RATIO = .6 / .005
+MAX_DEPTH_PROVENANCE_CHARS = 2000
 
 
 class EquipmentProposalError(ValueError):
     def __init__(self, code, message):
         super().__init__(message)
         self.code = code
+
+
+def validate_depth_prior(value):
+    if not isinstance(value, dict) or set(value) != {'depth_to_width_ratio', 'provenance'}:
+        raise EquipmentProposalError('invalid_depth_prior', 'An explicit depth prior requires depth_to_width_ratio and provenance only')
+    ratio = value['depth_to_width_ratio']
+    if (type(ratio) not in (int, float) or not MIN_DEPTH_TO_WIDTH_RATIO <= ratio <= MAX_DEPTH_TO_WIDTH_RATIO
+            or not math.isfinite(ratio)):
+        raise EquipmentProposalError('invalid_depth_ratio', 'Depth-to-width ratio must be finite and between 1/120 and 120')
+    note = value['provenance']
+    if not isinstance(note, str) or not note.strip() or len(note) > MAX_DEPTH_PROVENANCE_CHARS:
+        raise EquipmentProposalError('invalid_depth_provenance', 'Explain the supplied depth assumption in 1–2000 characters; it is not verified measurement or contact')
+    return deepcopy(value)
 
 
 def validate_proposal_config(config):
@@ -30,15 +48,20 @@ def validate_proposal_config(config):
     distance = camera['distance_model_units']
     if type(distance) not in (int, float) or not math.isfinite(distance) or not .1 <= distance <= 50:
         raise EquipmentProposalError('invalid_camera_distance', 'Camera distance must be between 0.1 and 50 original body-model units')
-    if config['geometry_prior'] != 'floor_box_depth_equals_width':
+    ratio_prior = config['geometry_prior'] == DEPTH_RATIO_PRIOR
+    if not ratio_prior and config['geometry_prior'] != 'floor_box_depth_equals_width':
         raise EquipmentProposalError('unsupported_geometry_prior', 'Only unchanged-floor solid boxes with depth equal to width are supported')
     objects = config['equipment']
     if not isinstance(objects, list) or not 1 <= len(objects) <= MAX_EQUIPMENT:
         raise EquipmentProposalError('invalid_equipment_selection', 'Select one to twelve equipment observation entities')
     ids = set()
     for obj in objects:
-        if not isinstance(obj, dict) or set(obj) != {'object_id', 'source_frame'}:
-            raise EquipmentProposalError('invalid_equipment_selection', 'Each equipment selection requires object_id and source_frame only')
+        if not isinstance(obj, dict) or set(obj) != {'object_id', 'source_frame'} | ({'depth_prior'} if ratio_prior else set()):
+            message = ('Each explicit-depth selection requires object_id, source_frame and depth_prior only' if ratio_prior
+                       else 'Each equipment selection requires object_id and source_frame only')
+            raise EquipmentProposalError('invalid_equipment_selection', message)
+        if ratio_prior:
+            validate_depth_prior(obj['depth_prior'])
         name, frame = obj['object_id'], obj['source_frame']
         if (not isinstance(name, str) or not 1 <= len(name) <= 80 or name in ids or name == 'human' or
                 type(frame) is not int or not 0 <= frame < 1800):

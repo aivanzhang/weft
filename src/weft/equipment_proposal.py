@@ -13,7 +13,8 @@ import mujoco
 import numpy as np
 
 from weft.equipment_proposal_config import (
-    CONFIG_PROFILE, MAX_CONFIG_BYTES, MAX_EQUIPMENT, EquipmentProposalError, validate_proposal_config,
+    CONFIG_PROFILE, DEPTH_RATIO_PRIOR, MAX_CONFIG_BYTES, MAX_EQUIPMENT, EquipmentProposalError,
+    validate_depth_prior, validate_proposal_config,
 )
 from weft.io import canonical_hash, local_time
 from weft.shared_world import validate_shared_world
@@ -86,8 +87,18 @@ def _body_contract(human, human_raw, entity, indexed, documents):
     return contract, frames
 
 
-def floor_box_from_bounds(bounds, camera, base, floor):
-    """Invert four pixel bounds under the explicit unchanged-floor/depth-equals-width prior."""
+def _proposal_contract(config):
+    contract = deepcopy(CONTRACT)
+    if config is not None and config.get('geometry_prior') == DEPTH_RATIO_PRIOR:
+        contract.update(method='explicit-fixed-pelvis-floor-box-depth-ratio-proposal-v1',
+            geometry='Axis-aligned solid boxes on the unchanged zero-height floor, with explicit per-object depth-to-width priors')
+    return contract
+
+
+def floor_box_from_bounds(bounds, camera, base, floor, *, depth_prior=None):
+    """Invert pixel bounds with fixed floor support; supplied depth remains a hypothesis."""
+    prior = validate_depth_prior(depth_prior) if depth_prior is not None else None
+    ratio = float(prior['depth_to_width_ratio']) if prior is not None else 1.
     left, top, right, bottom = _vector(bounds, 4, 'Selected inferred source box')
     origin = np.asarray(camera['pixel_origin']); focal = camera['focal_px']
     if not left < right or not origin[1] < top < bottom or base <= floor:
@@ -97,20 +108,22 @@ def floor_box_from_bounds(bounds, camera, base, floor):
     if lo <= 0 <= hi:
         half_width, x, branch = (hi - lo) * near / 2, (lo + hi) * near / 2, 'straddles_principal_x'
     elif hi < 0:
-        half_width = (hi - lo) * near / (2 * (1 - hi))
+        half_width = (hi - lo) * near / (2 * (1 - ratio * hi))
         x, branch = lo * near + half_width, 'left_of_principal_x'
     else:
-        half_width = (hi - lo) * near / (2 * (1 + lo))
+        half_width = (hi - lo) * near / (2 * (1 + ratio * lo))
         x, branch = hi * near - half_width, 'right_of_principal_x'
-    y = near + half_width - camera['distance_model_units']
-    height = base - floor - (top - origin[1]) * (near + 2 * half_width) / focal
-    center, half = np.array([x, y, floor + height / 2]), np.array([half_width, half_width, height / 2])
+    half_depth = ratio * half_width
+    y = near + half_depth - camera['distance_model_units']
+    height = base - floor - (top - origin[1]) * (near + 2 * half_depth) / focal
+    center, half = np.array([x, y, floor + height / 2]), np.array([half_width, half_depth, height / 2])
     if not np.isfinite([*center, *half]).all() or np.any(half <= 0):
         raise EquipmentProposalError('unsupported_floor_box_dimensions', 'The exact box inversion has nonpositive or nonfinite dimensions; no dimensions were adjusted')
     projected = _project_box(center, half, camera, base)
     if not np.allclose(projected, bounds, atol=1e-7, rtol=0):
         raise EquipmentProposalError('box_projection_mismatch', 'Exact eight-vertex box projection does not match the selected source bounds')
-    return {'status': 'authored_floor_box_candidate', 'center_model_units': center.tolist(),
+    return {'status': 'authored_floor_box_ratio_candidate' if prior is not None else 'authored_floor_box_candidate',
+            **({'depth_prior': prior} if prior is not None else {}), 'center_model_units': center.tolist(),
             'half_extents_model_units': half.tolist(), 'dimensions_model_units': (2 * half).tolist(),
             'source_bounds_px': list(bounds), 'projected_bounds_px': projected.tolist(), 'projection_branch': branch,
             'construction_bbox_edge_error_px': (projected - bounds).tolist(), 'floor_contract_unchanged': True}
@@ -119,6 +132,7 @@ def floor_box_from_bounds(bounds, camera, base, floor):
 def build_equipment_proposal(base_scene, config, *, source_binding, construction_evidence: bytes, human_document: bytes):
     """Build one unadmitted proposal in memory; admission remains the existing constructor's job."""
     config = validate_proposal_config(config)
+    construction_contract = _proposal_contract(config)
     base = validate_shared_world(base_scene); human = base['human_spec']
     raw_human = _json_bytes(human_document, 'Original human document', MAX_BODY_JSON_BYTES)
     if canonical_hash(raw_human) != canonical_hash(human):
@@ -153,7 +167,8 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
             raise EquipmentProposalError('unsupported_box_measurement', 'Equipment geometry requires an inferred source-image box, not authored coordinates')
         x, y, width, height = map(float, _vector(measurement.get('value'), 4, 'Inferred source box'))
         if width <= 0 or height <= 0: raise EquipmentProposalError('invalid_source_box', 'Source box extents must be positive')
-        geometry = floor_box_from_bounds([x, y, x + width, y + height], camera, base_height, human['mobility']['floor_height'])
+        geometry = floor_box_from_bounds([x, y, x + width, y + height], camera, base_height, human['mobility']['floor_height'],
+            **({'depth_prior': selection['depth_prior']} if config['geometry_prior'] == DEPTH_RATIO_PRIOR else {}))
         geometry.update(source_original_frame=frame, source_evidence_id=identifier)
         equipment.append({'object_id': name, 'source_frame': frame, 'source_evidence_id': identifier, 'geometry': geometry,
             'source_identity_verified': False, 'source_contact_verified': False,
@@ -164,9 +179,10 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
     return {'schema_version': 1, 'profile': PROFILE, 'candidate': 'explicit-config-single-proposal',
             'status': 'authored_initial_geometry_proposal_not_physical_reconstruction',
             'body_binding': contract, 'camera_hypothesis': camera, 'equipment': equipment,
-            'proposer': {'method': CONTRACT['method'], 'configuration_canonical_sha256': canonical_hash(config),
+            'proposer': {'method': construction_contract['method'], 'configuration_canonical_sha256': canonical_hash(config),
                          'inferred_inputs': ['source image boxes and torso landmarks'],
-                         'authored_inputs': ['camera distance', 'floor support', 'solid box shape', 'depth equals width',
+                         'authored_inputs': ['camera distance', 'floor support', 'solid box shape',
+                                             'explicit per-object depth-to-width ratio' if config['geometry_prior'] == DEPTH_RATIO_PRIOR else 'depth equals width',
                                              'mass', 'friction', 'zero initial velocity', 'static prefix extrapolation']},
             'assumptions': [CONTRACT['scope'], 'No hands, handles, cavities, grasp or measured source contact is reconstructed.',
                             'All original references, missing slots, source identities and distinct clocks remain unchanged.']}
@@ -308,7 +324,7 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         files[name] = _bytes(proposal)
     report = {'schema_version': 1, 'profile': 'source-equipment-proposal-run-v1', 'status': status,
         'created_at': local_time(), 'physical_validation': 'unverified', 'promoted': False,
-        'contract': deepcopy(CONTRACT), 'reasons': reasons, 'resolved_config': config,
+        'contract': _proposal_contract(config), 'reasons': reasons, 'resolved_config': config,
         'input_config_sha256': hashlib.sha256(files['input-config.json']).hexdigest() if 'input-config.json' in files else None,
         'inputs': {'base_run': str(base_run), 'evidence_run': str(evidence_run), 'config': str(config_path),
                    'source_mappings': [str(Path(p).absolute()) for p in source_mappings]},
