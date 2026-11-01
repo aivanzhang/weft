@@ -11,8 +11,10 @@
 - [x] Verify one separate fresh-process resume in 2.885 seconds / 399,474,688 B peak RSS, with zero new steps/replay/decode. All six recording members and the complete run validate. Preserve all five failed overall attempts; do not reclassify attempt05 or repeat its completed physics. [Exact scope and custody](docs/handoffs/split-limb-feedback-play.md).
 - [x] Document the [pinned experimental lab launcher](docs/local-lab.md#try-separate-arm-and-leg-feedback), controls and checked replay; keep the recommended exercise preset unchanged.
 - [x] Pass the [actual saved-payload UI audit](docs/handoffs/split-limb-feedback-ui.md): v5 labels, 22 controls, honest failed task/evaluation, exact recording counts and fresh resume. Preserve the initial broad zero-write checker failure; two unchanged legacy labels still assign text.
-- [x] Prepare the reviewed capacity fix, results and launch guides for scoped publication; preserve separate avatar edits. Actual commit/private-remote outcome: `.local/split-limb-feedback-lab-publication-01.json` (absence means unfinished).
+- [x] Publish and independently remote-verify the 12-file lab fix/results/launch checkpoint `45066305bee39506f0da063a4cd85ce106bf313d`. Owned paths/index/stash are clean; two separate avatar edits remain preserved. Receipt: `.local/split-limb-feedback-lab-publication-01.json`.
 - [x] Complete the [bounded independent-source screen](docs/handoffs/exercise-source-readiness-02.md): no matched acquisition-ready licensed video/calibration/floor/force unit qualified. No media, paid call or repeated blocked source route.
+- [x] Screen two additional calibrated contact-data routes ([BEHAVE/RICH](docs/handoffs/exercise-contact-source-readiness-03.md)); no permitted acquisition or agreement, no media/model download.
+- [ ] Inspect the existing v5 recording with the bounded failure diagnostic before a distinct contact-aware control or reconstruction change. Reuse recorded data; do not repeat completed replay/training or alter gates.
 - [ ] Reliable unfamiliar-video reconstruction and independent physical-contact accuracy remain open; this controller hypothesis does not complete those requirements.
 
 ## Historical milestone — November 1, 2026: missing-frame fitting and fitted controls

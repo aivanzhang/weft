@@ -2,8 +2,9 @@
 
 ## Active separate arm/leg feedback — November 1, 2026, PST
 
-Parent published/private-remote-verified checkpoint is
-`dfa060f9566f8b4fab5bab96c60412c5c578d987` (22 reviewed paths).
+Latest lab implementation checkpoint is published/private-remote-verified:
+`45066305bee39506f0da063a4cd85ce106bf313d` (12 reviewed paths), following
+`dfa060f9566f8b4fab5bab96c60412c5c578d987` (22 v5 implementation paths).
 Prior turn was progress: fitting/UI shipped and the matched current learning
 comparison completed, although no policy passed all gates. New work separates
 arm/leg feedback with the same task/scorer/limits, integrated into the existing
@@ -27,11 +28,21 @@ Source, scorer, task, root commands and bounds remain
 unchanged. [Exact new result and custody](split-limb-feedback-workflow.md). Preserve the
 independent avatar edits and every saved run. The [pinned experimental launch
 command](../local-lab.md#try-separate-arm-and-leg-feedback) is ready.
-The reviewed follow-up publication outcome will be recorded in
-`.local/split-limb-feedback-lab-publication-01.json`; absence means unfinished.
+Publication receipt `.local/split-limb-feedback-lab-publication-01.json`, SHA
+`50a5655c17d84a4140df8fbf3a9f0beb0f4475cbf7b8918e1004554d33ff487b`,
+confirms exact private remote, empty index/stash and clean owned paths. The two
+independent avatar edits remain untouched. Preserve the receipt-checker failure
+from trimming porcelain whitespace; no push or Git mutation was repeated.
+No worker, native job or API call remains live.
 The [bounded source screen](exercise-source-readiness-02.md) found no complete
 acquisition-ready independent calibration/contact dataset; this does not block
 local algorithm work or waive the physical-validation gap.
+The later [BEHAVE/RICH screen](exercise-contact-source-readiness-03.md) also
+stopped before acquisition: both require acceptance of restricted terms. No
+registration, agreement, data/model download or contact message occurred.
+Next: inspect the already-recorded v5 failure through the existing bounded
+diagnostic before choosing another control or reconstruction hypothesis.
+Keep prior arm/depth/geometry failures in scope; do not rerun unchanged searches.
 
 ## Published fitting/UI checkpoint and current learning check — November 1, 2026, PST
 
