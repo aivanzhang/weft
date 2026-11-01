@@ -532,8 +532,8 @@ def _arguments(argv):
     parser.add_argument("--pose-recovery", choices=("selective-crop",), help="Explicit Full/IMAGE/raw recipe; no automatic model fallback")
     parser.add_argument("--root-assistance", action="store_true", help="Enable three virtual root controls; not recovered human balance")
     parser.add_argument("--train", action="store_true", help="Explicit bounded training and separate-start evaluation; resolved settings are saved")
-    parser.add_argument("--policy-family", choices=("phase-residual", "feedback-residual"),
-                        help="With --train: existing phase corrections (default) or opt-in joint state-feedback corrections")
+    parser.add_argument("--policy-family", choices=("phase-residual", "feedback-residual", "feedback-residual-split-limbs"),
+                        help="With --train: phase corrections (default), joint feedback, or separate arm/leg feedback")
     parser.add_argument("--source-note", help="Video attribution or provenance")
     parser.add_argument("--out", help="New directory; default artifacts/video-<local timestamp>-<random suffix>")
     interact = parser.add_mutually_exclusive_group()
@@ -575,7 +575,7 @@ def _arguments(argv):
             parser.error("--inspect-build cannot change or rerun saved build settings")
     elif args.static_supports is not None:
         if (not args.static_supports.strip() or args.evidence_run or args.config or args.source_mapping or args.root_assistance
-                or args.policy_family == "feedback-residual"):
+                or args.policy_family in ("feedback-residual", "feedback-residual-split-limbs")):
             parser.error("--static-supports owns scale/root assumptions, requires phase-residual learning, and cannot include equipment or source mappings")
     elif args.person_only:
         if args.evidence_run or args.config or args.source_mapping:

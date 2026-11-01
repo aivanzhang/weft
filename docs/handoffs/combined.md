@@ -1,5 +1,22 @@
 # Combined Weft implementation handoff
 
+## Active separate arm/leg feedback — November 1, 2026, PST
+
+Last published checkpoint is `52a2559fb2944deb7b274f8882481b8d6648f1a4`.
+Prior turn was progress: fitting/UI shipped and the matched current learning
+comparison completed, although no policy passed all gates. New work separates
+arm/leg feedback with the same task/scorer/limits, integrated into the existing
+trainer, saved verifier, evaluator and lab. Default v4 is unchanged. Root owns
+public routing/trainer, parallel agents own actor and lab/UI, and a separate
+reviewer checks integration. [Exact current state](split-limb-feedback-workflow.md).
+Root tests/review are complete: 108 Python +9 JavaScript analytical/mocked checks
+pass. Frozen native comparison and actual lab interaction are pending; no native
+job or paid call is running. Fresh fetch matches `52a2559`. Preserve the
+independent avatar edits and every saved run.
+The [bounded source screen](exercise-source-readiness-02.md) found no complete
+acquisition-ready independent calibration/contact dataset; this does not block
+local algorithm work or waive the physical-validation gap.
+
 ## Published fitting/UI checkpoint and current learning check — November 1, 2026, PST
 
 Published and independently private-remote verified:

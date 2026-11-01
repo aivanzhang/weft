@@ -1,6 +1,7 @@
 """Continue one fixed exercise world through learning, comparison and a single playable lab."""
 
 from copy import deepcopy
+from functools import partial
 import hashlib
 import json
 import math
@@ -49,8 +50,8 @@ def validate_train_settings(settings):
     if (not isinstance(settings, dict) or set(settings) - allowed or "evaluation_seed" not in settings):
         raise ValueError("Training settings require explicit evaluation_seed and only supported learning fields")
     result = {**DEFAULT_TRAIN_SETTINGS, **settings}
-    if result.get("policy_family", "phase-residual") not in ("phase-residual", "feedback-residual"):
-        raise ValueError("Training policy_family must be phase-residual or feedback-residual")
+    if result.get("policy_family", "phase-residual") not in ("phase-residual", "feedback-residual", "feedback-residual-split-limbs"):
+        raise ValueError("Training policy_family must be phase-residual, feedback-residual or feedback-residual-split-limbs")
     for name, low, high in (("generations", 1, 6), ("population", 4, 12), ("trials", 1, 3),
                             ("training_seed", 0, 2**31 - 1), ("evaluation_seed", 0, 2**31 - 1)):
         residual._integer(result[name], name, low, high)
@@ -69,12 +70,18 @@ def _learning_backend(settings, scene):
             raise ValueError("Static-support learning workflow supports only the phase-residual policy family")
         return (residual.SUPPORT_POLICY_PROFILE, residual.SUPPORT_ALGORITHM, lambda: residual._runtime_hashes(scene),
                 residual.train_shared_exercise_residual_policy, None, residual.evaluate_shared_exercise_residual_policy)
-    if settings.get("policy_family", "phase-residual") == "feedback-residual":
+    family = settings.get("policy_family", "phase-residual")
+    if family in ("feedback-residual", "feedback-residual-split-limbs"):
         from weft import shared_exercise_feedback_learning as feedback
         from weft import shared_exercise_feedback_residual as actor
 
-        return (actor.POLICY_PROFILE, actor.ALGORITHM, lambda: actor.runtime_hashes(scene),
-                feedback.train_shared_exercise_feedback_policy, feedback.select_shared_exercise_feedback_policy,
+        split = family == "feedback-residual-split-limbs"
+        profile = actor.SPLIT_POLICY_PROFILE if split else actor.POLICY_PROFILE
+        train = feedback.train_shared_exercise_feedback_policy
+        if split:
+            train = partial(train, policy_profile=profile)
+        return (profile, actor.contract(profile)["algorithm"], lambda: actor.runtime_hashes(scene),
+                train, feedback.select_shared_exercise_feedback_policy,
                 feedback.evaluate_shared_exercise_feedback_policy)
     return (residual.POLICY_PROFILE, residual.ALGORITHM,
             lambda: residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes(),

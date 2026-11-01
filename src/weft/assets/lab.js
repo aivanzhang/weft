@@ -808,7 +808,12 @@
     "shared-support-policy-v1": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v2": ["authored_unchanged", "searched_joint_residuals"],
     "shared-exercise-policy-v3": ["authored_unchanged", "searched_joint_residuals"],
-    "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"]};
+    "shared-exercise-policy-v4": ["authored_unchanged", "searched_feedback_residuals"],
+    "shared-exercise-policy-v5": ["authored_unchanged", "searched_feedback_residuals"]};
+  function exerciseFeedbackLabel() {
+    return exercisePolicy?.profile === "shared-exercise-policy-v5" && exercisePolicy.selected_feedback_kind === "searched_feedback_residuals"
+      ? "Separate arm/leg feedback" : exerciseFeedbackLabels[exercisePolicy?.selected_feedback_kind];
+  }
   function configureExercisePolicy(data) {
     const policy = data.exercise_policy;
     if (cameraWorld()) {
@@ -829,7 +834,7 @@
       && typeof policy.policy_sha256 === "string" && /^[0-9a-f]{64}$/.test(policy.policy_sha256)
       && typeof policy.selected_feedback_kind === "string" && Object.hasOwn(exerciseFeedbackLabels, policy.selected_feedback_kind)
       && exercisePolicyKinds[policy.profile].includes(policy.selected_feedback_kind)
-      && (!["shared-exercise-policy-v3", "shared-exercise-policy-v4"].includes(policy.profile) || typeof policy.training_feasible === "boolean")
+      && (!["shared-exercise-policy-v3", "shared-exercise-policy-v4", "shared-exercise-policy-v5"].includes(policy.profile) || typeof policy.training_feasible === "boolean")
       && policy.privileged_simulator_features === true ? policy : null;
     return exerciseContractReady && exercisePolicy !== null;
   }
@@ -894,7 +899,10 @@
     if (cameraWorld()) return `${kind === "authored_unchanged" ? "The search selected unchanged programmed feedback; it did not learn new joint corrections."
       : "The experimental trained controller makes small corrections to the 19 joint commands."} It uses the simulated body and known motion reference, not video pixels. ${exerciseTask.control.root_assistance === "disabled"
       ? "Body-position assistance is disabled." : "Body-position assistance remains programmed, not learned."} Ground/equipment contact is not verified. This does not establish learned balance or physical accuracy.`;
-    return `${exerciseFeedbackLabels[kind]}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
+    if (exercisePolicy.profile === "shared-exercise-policy-v5" && kind === "searched_feedback_residuals") {
+      return `${exerciseFeedbackLabel()}. Training searched separate torso, shoulder, elbow, hip and knee corrections using the same current position and velocity errors. Five groups use ten bounded feedback settings; each joint correction stays within ±0.25 of its normalized motor command. Any permitted root assistance remains programmed, not learned. Equipment has no force controls.`;
+    }
+    return `${exerciseFeedbackLabel()}. ${kind === "coast_unchanged" ? "Training selected the unchanged zero-command baseline, not new learned gains."
       : kind === "authored_unchanged" ? "Training selected unchanged programmed feedback, not new learned gains."
       : kind === "searched_joint_residuals" ? "Training searched small phase-dependent joint corrections on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
       : kind === "searched_feedback_residuals" ? "Training searched small joint corrections using current position and velocity errors on top of programmed feedback. Any permitted root assistance remains programmed, not learned."
@@ -924,9 +932,9 @@
   }
   function showExerciseLearning(data) {
     const available = learnedPolicyAvailable && exercisePolicy !== null;
-    const feasibilityFirst = available && ["shared-exercise-policy-v3", "shared-exercise-policy-v4"].includes(exercisePolicy.profile);
-    text($("policy"), available ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : "Learned controller · unavailable");
-    text($("start-learned"), available ? `Try ${exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind].toLowerCase()}` : "Learned controller unavailable");
+    const feasibilityFirst = available && ["shared-exercise-policy-v3", "shared-exercise-policy-v4", "shared-exercise-policy-v5"].includes(exercisePolicy.profile);
+    text($("policy"), available ? exerciseFeedbackLabel() : "Learned controller · unavailable");
+    text($("start-learned"), available ? `Try ${exerciseFeedbackLabel().toLowerCase()}` : "Learned controller unavailable");
     text($("exercise-policy-summary"), exerciseFeedbackDescription());
     text($("learning-description"), available ? `${exerciseFeedbackDescription()} The policy interface uses privileged simulator-state and reference features, not video pixels.`
       : "No learned human-only exercise policy is available. The live task panel reports independent whole-interval results, not the legacy target task or a training score.");
@@ -953,7 +961,7 @@
         ? "Attached evaluation results unavailable or incomplete. No evaluation pass is inferred from training."
         : "Independent evaluation unavailable · no verified evaluation is attached. Training is not an evaluation pass.");
     if (evaluated) metrics($("scores"), names.map(name => [`${scores[name].successes}/${scores[name].episodes}`,
-      `${name === "learned" ? exerciseFeedbackLabels[exercisePolicy.selected_feedback_kind] : {coast: "Coast baseline", random: "Random human actions", authored: "Authored feedback"}[name]} · declared-interval task trials passed`]));
+      `${name === "learned" ? exerciseFeedbackLabel() : {coast: "Coast baseline", random: "Random human actions", authored: "Authored feedback"}[name]} · declared-interval task trials passed`]));
     text($("learning-boundary"), "Changed starts reuse the same fixed source interval; they are not a new-video test. Simulator results do not verify grasp, anatomy, measured muscles, unassisted balance or physical accuracy. The live task panel reports this trial separately.");
     $("exercise-policy-links").replaceChildren();
     const policyFile = available && (data.artifacts || []).some(file => file.name === "policy.json");

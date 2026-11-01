@@ -3,6 +3,7 @@
 from copy import deepcopy
 import json
 import sys
+from types import SimpleNamespace
 
 import pytest
 
@@ -13,6 +14,11 @@ from test_build_sandbox import launcher, mocked_worker, project
 from test_exercise_learning_pipeline import SETTINGS, _files, _stub_stages
 from test_person_only_downstream import source_package
 from test_shared_exercise_run import source_fixture
+from test_shared_exercise_feedback_lab import no_simulation
+from test_split_limb_feedback_learning import analytical_metadata
+
+
+FAMILIES = ("feedback-residual", "feedback-residual-split-limbs")
 
 
 @pytest.mark.parametrize("family", ["feedback", "v4", None, True, [], {}])
@@ -36,11 +42,17 @@ def test_default_settings_and_explicit_phase_keep_original_contract():
 
 
 @pytest.mark.parametrize("person", [False, True])
-def test_feedback_uses_all_existing_workflow_stages_without_fallback(tmp_path, monkeypatch, person):
+@pytest.mark.parametrize("family", FAMILIES)
+def test_feedback_uses_all_existing_workflow_stages_without_fallback(tmp_path, monkeypatch, person, family):
     source = source_package(tmp_path)[0] if person else source_fixture(tmp_path)[0]
     original = _files(source)
     calls = _stub_stages(monkeypatch)
-    monkeypatch.setattr(feedback, "train_shared_exercise_feedback_policy", workflow.residual.train_shared_exercise_residual_policy)
+    train = workflow.residual.train_shared_exercise_residual_policy
+    expected_profile = actor.SPLIT_POLICY_PROFILE if family.endswith("split-limbs") else actor.POLICY_PROFILE
+    def selected_train(*args, **options):
+        assert options.pop("policy_profile", actor.POLICY_PROFILE) == expected_profile
+        return train(*args, **options)
+    monkeypatch.setattr(feedback, "train_shared_exercise_feedback_policy", selected_train)
     monkeypatch.setattr(feedback, "select_shared_exercise_feedback_policy", workflow.select_feasible_shared_exercise_policy)
     monkeypatch.setattr(feedback, "evaluate_shared_exercise_feedback_policy", workflow.residual.evaluate_shared_exercise_residual_policy)
     def wrong_family(*args, **options):
@@ -50,10 +62,11 @@ def test_feedback_uses_all_existing_workflow_stages_without_fallback(tmp_path, m
     monkeypatch.setattr(workflow, "select_feasible_shared_exercise_policy", wrong_family)
     out = tmp_path / "workflow"
     result = workflow.prepare_exercise_learning_pipeline(source, out,
-        train_settings={**SETTINGS, "policy_family": "feedback-residual"}, max_seconds=30)
+        train_settings={**SETTINGS, "policy_family": family}, max_seconds=30)
     plan = json.loads((out / "plan.json").read_bytes())
     assert calls == ["training", "training_selection", "independent_evaluation", "interactive_lab"]
-    assert plan["policy_profile"] == actor.POLICY_PROFILE and plan["training_algorithm"] == actor.ALGORITHM
+    assert plan["policy_profile"] == expected_profile
+    assert plan["training_algorithm"] == actor.contract(expected_profile)["algorithm"]
     scene = json.loads((out / "scene.json").read_bytes())
     assert plan["policy_runtime_sha256"] == actor.runtime_hashes(scene)
     assert plan["maximum_training_steps"] == 8 * plan["horizon_steps"]
@@ -84,26 +97,42 @@ def test_feedback_training_failure_never_runs_an_alternative_or_later_stage(tmp_
     assert json.loads((out / "result.json").read_bytes())["status"] == "failed"
 
 
-def test_frontdoor_explicit_feedback_preserves_eight_episode_budget(project, monkeypatch):
+@pytest.mark.parametrize("family", FAMILIES)
+def test_frontdoor_explicit_feedback_preserves_eight_episode_budget(project, monkeypatch, family):
     calls = mocked_worker(monkeypatch, ready=True)
     assert launcher.main(["--video", str(project / "video.webm"), "--person-only", "--train",
-                          "--policy-family", "feedback-residual"]) == 0
+                          "--policy-family", family]) == 0
     command = calls[0][0]
-    assert command[command.index("--training-policy-family") + 1] == "feedback-residual"
+    assert command[command.index("--training-policy-family") + 1] == family
     assert command[command.index("--training-generations") + 1] == "1"
     assert command[command.index("--training-population") + 1] == "4"
     assert "--serve" not in command and "--full-reference" in command
 
 
 @pytest.mark.parametrize("mode", ["video", "inspect-build"])
-def test_frontdoor_family_does_not_implicitly_enable_learning(project, monkeypatch, mode):
+@pytest.mark.parametrize("family", FAMILIES)
+def test_frontdoor_family_does_not_implicitly_enable_learning(project, monkeypatch, mode, family):
     monkeypatch.setattr(launcher, "_read", lambda *args: pytest.fail("Invalid options must fail before input reads"))
     with pytest.raises(SystemExit):
-        launcher.main(["--" + mode, "missing", "--person-only", "--policy-family", "feedback-residual"])
+        launcher.main(["--" + mode, "missing", "--person-only", "--policy-family", family])
     assert not (project / "artifacts").exists()
 
 
-def test_build_cli_passes_opt_in_family_without_other_default_changes(tmp_path, monkeypatch, capsys):
+def test_split_family_does_not_enter_static_support_backend():
+    with pytest.raises(ValueError, match="only the phase-residual"):
+        workflow._learning_backend({"policy_family": FAMILIES[1]}, {"profile": workflow.STATIC_SUPPORT_PROFILE})
+
+
+def test_split_frontdoor_rejects_static_support_before_reads(project, monkeypatch):
+    monkeypatch.setattr(launcher, "_read", lambda *args: pytest.fail("Unsupported combination read source"))
+    with pytest.raises(SystemExit):
+        launcher.main(["--video", "missing", "--static-supports", "floor.json", "--train",
+                       "--policy-family", FAMILIES[1]])
+    assert not (project / "artifacts").exists()
+
+
+@pytest.mark.parametrize("family", FAMILIES)
+def test_build_cli_passes_opt_in_family_without_other_default_changes(tmp_path, monkeypatch, capsys, family):
     received = {}
     def build(*args, **options):
         received.update(options)
@@ -111,33 +140,39 @@ def test_build_cli_passes_opt_in_family_without_other_default_changes(tmp_path, 
     monkeypatch.setattr(exercise_scene_pipeline, "prepare_exercise_scene", build)
     monkeypatch.setattr(sys, "argv", ["weft", "shared-exercise-build", "--person-only", "--video", "source",
         "--out", str(tmp_path / "out"), "--train", "--evaluation-seed", "6173",
-        "--training-policy-family", "feedback-residual"])
+        "--training-policy-family", family])
     cli.main()
     assert json.loads(capsys.readouterr().out)["status"] == "ready"
-    assert received["train_settings"] == {"evaluation_seed": 6173, "policy_family": "feedback-residual"}
+    assert received["train_settings"] == {"evaluation_seed": 6173, "policy_family": family}
 
 
-def test_build_cli_family_requires_explicit_training(tmp_path, monkeypatch, capsys):
+@pytest.mark.parametrize("family", FAMILIES)
+def test_build_cli_family_requires_explicit_training(tmp_path, monkeypatch, capsys, family):
     monkeypatch.setattr(exercise_scene_pipeline, "prepare_exercise_scene", lambda *args, **kw: pytest.fail("No implicit training"))
     monkeypatch.setattr(sys, "argv", ["weft", "shared-exercise-build", "--person-only", "--video", "source",
-        "--out", str(tmp_path / "out"), "--training-policy-family", "feedback-residual"])
+        "--out", str(tmp_path / "out"), "--training-policy-family", family])
     with pytest.raises(SystemExit):
         cli.main()
     assert "require --train" in capsys.readouterr().err
 
 
-def test_direct_train_cli_dispatches_only_explicit_feedback_method(monkeypatch, capsys):
+@pytest.mark.parametrize("family", FAMILIES)
+def test_direct_train_cli_dispatches_only_explicit_feedback_method(monkeypatch, capsys, family):
     received = {}
     def train(run, out, **options):
         received.update(run=run, out=out, **options)
         return {"status": "trained"}
     monkeypatch.setattr(feedback, "train_shared_exercise_feedback_policy", train)
     monkeypatch.setattr(sys, "argv", ["weft", "shared-exercise-train", "--run", "source", "--out", "out",
-                                     "--policy-family", "feedback-residual"])
+                                     "--policy-family", family])
     cli.main()
     assert json.loads(capsys.readouterr().out)["status"] == "trained"
     assert received["generations"] == 2 and received["population"] == 8
     assert received["root_assistance"] is False
+    if family.endswith("split-limbs"):
+        assert received["policy_profile"] == actor.SPLIT_POLICY_PROFILE
+    else:
+        assert "policy_profile" not in received
 
 
 def test_policy_dispatch_is_versioned_and_reports_zero_anchor(monkeypatch, tmp_path):
@@ -147,7 +182,7 @@ def test_policy_dispatch_is_versioned_and_reports_zero_anchor(monkeypatch, tmp_p
     monkeypatch.setattr(actor, "prepare_shared_exercise_feedback_policy", lambda *args: received.append("prepare") or "actor")
     monkeypatch.setattr(feedback, "evaluate_shared_exercise_feedback_policy", lambda *args, **kw: received.append("evaluate") or kw)
     assert policies.validate_policy(policy, {}, {}) == policy
-    assert policies.prepare_policy(policy, object()) == "actor"
+    assert policies.prepare_policy(policy, SimpleNamespace(scene={})) == "actor"
     assert policies.selection_kind(policy) == ("authored_unchanged", True, False)
     policy["feedback_coefficients"] = [[.1, 0.], [0., 0.], [0., 0.]]
     assert policies.selection_kind(policy) == ("searched_feedback_residuals", False, False)
@@ -156,7 +191,7 @@ def test_policy_dispatch_is_versioned_and_reports_zero_anchor(monkeypatch, tmp_p
     assert received == ["validate", "prepare", "evaluate"]
 
 
-@pytest.mark.parametrize("profile", ["shared-exercise-policy-v2", "shared-exercise-policy-v4"])
+@pytest.mark.parametrize("profile", ["shared-exercise-policy-v2", "shared-exercise-policy-v4", "shared-exercise-policy-v5"])
 def test_direct_selection_cli_dispatches_sealed_selector_by_profile(tmp_path, monkeypatch, capsys, profile):
     from weft import shared_exercise_selection
 
@@ -165,7 +200,7 @@ def test_direct_selection_cli_dispatches_sealed_selector_by_profile(tmp_path, mo
     def choose(run, out, **options):
         calls.append((run, out, options))
         return {"status": "trained", "selected_profile": profile}
-    if profile.endswith("v4"):
+    if profile in (actor.POLICY_PROFILE, actor.SPLIT_POLICY_PROFILE):
         monkeypatch.setattr(feedback, "select_shared_exercise_feedback_policy", choose)
         monkeypatch.setattr(shared_exercise_selection, "select_feasible_shared_exercise_policy",
                             lambda *a, **k: pytest.fail("V4 must not use the phase selector"))

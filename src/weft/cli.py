@@ -364,8 +364,8 @@ def main():
     exercise_build.add_argument("--evaluation-seed", type=int, help="Required with --train: explicit separate seed stream; not automatically a fresh holdout")
     exercise_build.add_argument("--training-generations", type=int, help="With --train; default 2, never shorten the task to fit")
     exercise_build.add_argument("--training-population", type=int, help="With --train; default 8")
-    exercise_build.add_argument("--training-policy-family", choices=("phase-residual", "feedback-residual"),
-        help="With --train: existing phase corrections (default) or opt-in bounded joint state-feedback corrections")
+    exercise_build.add_argument("--training-policy-family", choices=("phase-residual", "feedback-residual", "feedback-residual-split-limbs"),
+        help="With --train: phase corrections (default), joint feedback, or separate arm/leg feedback")
     exercise_build.add_argument("--evaluation-trials", type=int, help="With --train; default 3 changed starts")
     exercise_build.add_argument("--evaluation-jitter", type=float, help="With --train; human-only start variation, default 0.10")
     exercise_build.add_argument("--out", required=True, help="New directory for all inspectable stages and the lab")
@@ -477,10 +477,10 @@ def main():
     exercise_train_choice = exercise_train.add_mutually_exclusive_group()
     exercise_train_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicitly assisted root channels")
     exercise_train_choice.add_argument("--task", help="Exact compatible exercise task JSON; preserve its source, interval, controls and gates")
-    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual", "camera-feedback"], default="feedback",
-                                help="Feedback gains (default), phase/state corrections, or camera-body corrections using an existing camera task")
+    exercise_train.add_argument("--policy-family", choices=["feedback", "phase-residual", "feedback-residual", "feedback-residual-split-limbs", "camera-feedback"], default="feedback",
+                                help="Feedback gains (default), phase/joint corrections, separate arm/leg feedback, or camera-task corrections")
     exercise_train.add_argument("--seed", type=int, default=1729)
-    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for feedback-residual or camera-feedback")
+    exercise_train.add_argument("--generations", type=int, help="Default: 3 for feedback, 6 for phase-residual, 2 for other families")
     exercise_train.add_argument("--population", type=int, help="Default: 12 for phase-residual, 8 otherwise")
     exercise_train.add_argument("--max-seconds", type=float, default=60)
     exercise_refine = commands.add_parser("shared-exercise-refine", help="Refine verified residual training by prioritizing unchanged task limits; no evaluation data")
@@ -876,7 +876,7 @@ def main():
                     raise ValueError("Camera learning preserves an existing task; supply its exact --task or sealed task instead of --root-assistance")
                 from weft.camera_shared_learning import train_camera_shared_policy as train_policy
                 generations, population = 2, 8
-            elif args.policy_family == "feedback-residual":
+            elif args.policy_family in ("feedback-residual", "feedback-residual-split-limbs"):
                 from weft.shared_exercise_feedback_learning import train_shared_exercise_feedback_policy as train_policy
                 generations, population = 2, 8
             elif args.policy_family == "phase-residual":
@@ -886,6 +886,9 @@ def main():
                 from weft.shared_exercise_learning import train_shared_exercise_policy as train_policy
                 generations, population = 3, 8
             assistance = {} if args.policy_family == "camera-feedback" else {"root_assistance": args.root_assistance}
+            if args.policy_family == "feedback-residual-split-limbs":
+                from weft.shared_exercise_feedback_residual import SPLIT_POLICY_PROFILE
+                assistance["policy_profile"] = SPLIT_POLICY_PROFILE
             result = train_policy(args.run, args.out, task_path=args.task, **assistance, seed=args.seed,
                 generations=generations if args.generations is None else args.generations,
                 population=population if args.population is None else args.population, max_seconds=args.max_seconds)

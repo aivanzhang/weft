@@ -142,7 +142,8 @@ class _Diagnostics:
             "scope": "Existing float32 observation errors and one pre-action feedback sample; reported peaks bound a control interval, not an exact peak substep"}
 
 
-def _trial(env, controller, seed, reset, weights, deadline, budget, *, diagnostics=None, trace=False, validator=None):
+def _trial(env, controller, seed, reset, weights, deadline, budget, *, diagnostics=None, trace=False, validator=None,
+           profile=actor.POLICY_PROFILE):
     # The legacy trial hardcodes its phase actor; its AST/provenance contract remains untouched.
     row = {"seed": seed, "reset_options": deepcopy(reset), "initial_state_sha256": None,
            "status": "starting", "control_steps": 0, "return": 0., "metrics": None}
@@ -157,12 +158,14 @@ def _trial(env, controller, seed, reset, weights, deadline, budget, *, diagnosti
         row.update(initial_state_sha256=canonical_hash(initial["engine_state"]), initial_metrics=env.metrics())
         if trace:
             row.update(initial_snapshot=initial, actions=[])
-        rng, groups = np.random.default_rng(seed ^ 0x5A17), actor.joint_groups(env.action_names)
+        rng = np.random.default_rng(seed ^ 0x5A17)
+        groups = actor.joint_groups(env.action_names, profile=profile)
+        control_weights = np.zeros(actor.contract(profile)["coefficient_shape"]) if controller == "authored" else weights
         validate = validator or prepare_shared_exercise_snapshot_validator(env.scene, env.task)
         for _ in range(env.horizon_steps):
             _check(deadline)
             if controller in ("authored", "learned"):
-                action, features, authored, correction = actor.action_sample(np.zeros((3, 2)) if controller == "authored" else weights, groups, env)
+                action, features, authored, correction = actor.action_sample(control_weights, groups, env)
             elif controller in ("coast", "random"):
                 action = np.zeros(env.action_count) if controller == "coast" else rng.uniform(-1., 1., env.action_count)
             else:
@@ -215,24 +218,26 @@ def _selected(rows):
     return min(eligible, key=lambda row: _rank_key(row["optimization_rank"]))
 
 
-def _settings(scene, task, hashes, source_hash, seed, generations, population, max_seconds, views):
+def _settings(scene, task, hashes, source_hash, seed, generations, population, max_seconds, views, *,
+              profile=actor.POLICY_PROFILE):
+    contract = actor.contract(profile)
     maximum = generations * population * 2 * task["interval"]["horizon_steps"]
-    return {"schema_version": 1, "algorithm": actor.ALGORITHM, "actor_profile": actor.ACTOR_PROFILE,
+    return {"schema_version": 1, "algorithm": contract["algorithm"], "actor_profile": contract["actor_profile"],
         "created_at": local_time(), "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
         "gates_sha256": GATES_SHA256, "runtime_sha256": hashes, "runtime_versions": _runtime_versions(),
         "source_manifest_sha256": source_hash, "source_views_sha256": {name: _sha(raw) for name, raw in views.items()},
         "seed": seed, "training_seeds": _seed_plan(seed, 2), "training_reset_options": list(TRAIN_RESETS),
         "generations": generations, "population": population, "elite_count": max(2, population // 4),
         "initial_mean": 0., "initial_std": .08, "minimum_std": .02,
-        "coefficient_shape": [3, 2], "coefficient_bound": actor.COEFFICIENT_BOUND,
+        "coefficient_shape": list(contract["coefficient_shape"]), "coefficient_bound": actor.COEFFICIENT_BOUND,
         "feature_bound": actor.FEATURE_BOUND, "residual_bound": actor.RESIDUAL_BOUND,
-        "groups": list(actor.GROUP_NAMES), "feature_names": list(actor.FEATURE_NAMES),
+        "groups": list(contract["groups"]), "feature_names": list(actor.FEATURE_NAMES),
         "candidate_anchors": ["zero_residual_authored", "previous_feasibility_best_after_first_generation"],
         "maximum_control_steps": maximum, "maximum_physics_substeps": maximum * scene["substeps"],
         "horizon_steps": task["interval"]["horizon_steps"], "max_seconds": max_seconds,
         "selection_objective": RULE, "root_residual_channels": [], "equipment_force_channels": [],
         "diagnostic_profile": DIAGNOSTIC_PROFILE, "maximum_diagnostic_bytes": MAX_DIAGNOSTIC_BYTES,
-        "workers": 1, "external_api_usd": 0, "evaluation_used": False, "source_scope": task["source_scope"], "scope": actor.SCOPE}
+        "workers": 1, "external_api_usd": 0, "evaluation_used": False, "source_scope": task["source_scope"], "scope": contract["scope"]}
 
 
 def _failed(out, name, state, error):
@@ -241,7 +246,9 @@ def _failed(out, name, state, error):
 
 
 def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assistance=False,
-                                        seed=1729, generations=2, population=8, max_seconds=60):
+                                        seed=1729, generations=2, population=8, max_seconds=60,
+                                        policy_profile=actor.POLICY_PROFILE):
+    shape = actor.contract(policy_profile)["coefficient_shape"]
     _integer(seed, "training seed", 0, 2**31 - 1)
     _integer(generations, "generations", 1, 6)
     _integer(population, "population", 4, 12)
@@ -257,7 +264,8 @@ def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assi
     if maximum > MAX_CONTROL_STEPS:
         raise ValueError("Feedback training exceeds 8640 actions; do not shorten the fixed task")
     hashes, views = actor.runtime_hashes(scene), residual._source_views(source, manifest, scene)
-    settings = _settings(scene, task, hashes, _sha(manifest), seed, generations, population, max_seconds, views)
+    settings = _settings(scene, task, hashes, _sha(manifest), seed, generations, population, max_seconds, views,
+                         profile=policy_profile)
     residual._initialize(out, scene_raw, task_raw, manifest, proof, views)
     writer = _Writer(out, deadline)
     training = {"status": "running", "history": [], "completed_generations": 0, "evaluated_episodes": 0,
@@ -268,10 +276,10 @@ def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assi
         env = SharedExerciseTaskEnv(scene, task)
         validator = prepare_shared_exercise_snapshot_validator(scene, task)
         rng = np.random.default_rng(seed)
-        mean, std, cache, origins = np.zeros((3, 2)), np.full((3, 2), .08), {}, {}
+        mean, std, cache, origins = np.zeros(shape), np.full(shape, .08), {}, {}
         selected, authored_score, initial_states = None, None, {}
         for generation in range(generations):
-            samples = np.clip(rng.normal(mean, std, (population, 3, 2)), -actor.COEFFICIENT_BOUND, actor.COEFFICIENT_BOUND)
+            samples = np.clip(rng.normal(mean, std, (population, *shape)), -actor.COEFFICIENT_BOUND, actor.COEFFICIENT_BOUND)
             samples[0] = 0.
             if generation:
                 samples[1] = selected["feedback_coefficients"]
@@ -291,7 +299,8 @@ def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assi
                         diag = _Diagnostics(writer, f"diagnostics/g{generation:02d}-c{index:02d}-r{reset_index}.jsonl")
                         training["evaluated_episodes"] += 1
                         try:
-                            trial = _trial(env, "learned", trial_seed, reset, weights, deadline, budget, diagnostics=diag, validator=validator)
+                            trial = _trial(env, "learned", trial_seed, reset, weights, deadline, budget,
+                                           diagnostics=diag, validator=validator, profile=policy_profile)
                         except Exception as error:
                             if hasattr(error, "partial_trial"):
                                 row["trials"].append(error.partial_trial)
@@ -320,8 +329,9 @@ def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assi
         residual._input_unchanged(source, manifest, deadline, task_path=task_path, task_raw=task_raw)
         if actor.runtime_hashes(scene) != hashes:
             raise ValueError("Feedback source/runtime changed during training")
-        weights = actor.coefficients(selected["feedback_coefficients"])
-        policy = actor.make_policy(env, weights, seed, selected["score"], selected["optimization_rank"], hashes)
+        weights = actor.coefficients(selected["feedback_coefficients"], profile=policy_profile)
+        policy = actor.make_policy(env, weights, seed, selected["score"], selected["optimization_rank"], hashes,
+                                   profile=policy_profile)
         actor.validate_shared_exercise_feedback_policy(policy, scene, task)
         writer.write("policy.json", policy)
         authored = not bool(np.any(weights))
@@ -344,7 +354,7 @@ def train_shared_exercise_feedback_policy(run, out, *, task_path=None, root_assi
             env.close()
 
 
-def _verify_diagnostics(files, receipt, trial, weights, scene, count, deadline):
+def _verify_diagnostics(files, receipt, trial, weights, scene, count, deadline, *, profile=actor.POLICY_PROFILE):
     keys = {"profile", "artifact", "sha256", "attempts", "results", "scope"}
     if (not isinstance(receipt, dict) or set(receipt) != keys or receipt["profile"] != DIAGNOSTIC_PROFILE
             or receipt["attempts"] != trial["control_steps"] or receipt["results"] != trial["control_steps"]):
@@ -362,7 +372,7 @@ def _verify_diagnostics(files, receipt, trial, weights, scene, count, deadline):
     lines = raw.splitlines(keepends=True)
     if len(lines) != 2 * trial["control_steps"]:
         raise ValueError("Training diagnostics dropped or duplicated control rows")
-    groups = actor.joint_groups(scene["action_contract"]["names"][:count])
+    groups = actor.joint_groups(scene["action_contract"]["names"][:count], profile=profile)
     reward_sum, last_peak, last_root, last_time = 0., 0., 0., 0.
     for index in range(trial["control_steps"]):
         _check(deadline)
@@ -423,6 +433,8 @@ def verify_shared_exercise_feedback_training(files, scene, task, *, deadline):
     if not required <= set(files) or _json(files["scene.json"]) != scene or _json(files["exercise-task.json"]) != task:
         raise ValueError("Feedback package must preserve its exact scene/task and original construction")
     policy = actor.validate_shared_exercise_feedback_policy(_json(files["policy.json"]), scene, task)
+    profile = policy["profile"]
+    shape = actor.contract(profile)["coefficient_shape"]
     for name, expected in policy["runtime_sha256"].items():
         if "implementation/" + name not in files or _sha(files["implementation/" + name]) != expected:
             raise ValueError("Feedback package does not preserve its executed runtime")
@@ -436,7 +448,7 @@ def verify_shared_exercise_feedback_training(files, scene, task, *, deadline):
         raise ValueError("Feedback training metadata exceeds the original action bound")
     views = {name: files[name] for name in sorted(residual.source_view_names(scene) & set(files))}
     expected = _settings(scene, task, policy["runtime_sha256"], _sha(files["input-manifest.json"]), policy["training_seed"],
-                         generations, population, settings["max_seconds"], views)
+                         generations, population, settings["max_seconds"], views, profile=profile)
     expected["created_at"] = settings.get("created_at")
     if settings != expected or not isinstance(settings["created_at"], str):
         raise ValueError("Feedback settings differ from the frozen search and diagnostic contract")
@@ -452,7 +464,7 @@ def verify_shared_exercise_feedback_training(files, scene, task, *, deadline):
             or type(training["seconds"]) not in (int, float) or not 0 <= training["seconds"] <= settings["max_seconds"]):
         raise ValueError("Feedback training is not a complete frozen terminal package")
     rng = np.random.default_rng(policy["training_seed"])
-    mean, std, cache, origins = np.zeros((3, 2)), np.full((3, 2), .08), {}, {}
+    mean, std, cache, origins = np.zeros(shape), np.full(shape, .08), {}, {}
     selected, episodes, steps, hits, authored_score = None, 0, 0, 0, None
     initial_states, diagnostics = {}, set()
     for generation, record in enumerate(training["history"]):
@@ -461,7 +473,7 @@ def verify_shared_exercise_feedback_training(files, scene, task, *, deadline):
                 or type(record["generation"]) is not int or record["generation"] != generation
                 or not isinstance(record["candidates"], list) or len(record["candidates"]) != population):
             raise ValueError("Feedback generation sequence differs")
-        samples = np.clip(rng.normal(mean, std, (population, 3, 2)), -actor.COEFFICIENT_BOUND, actor.COEFFICIENT_BOUND)
+        samples = np.clip(rng.normal(mean, std, (population, *shape)), -actor.COEFFICIENT_BOUND, actor.COEFFICIENT_BOUND)
         samples[0] = 0.
         if generation:
             samples[1] = selected["feedback_coefficients"]
@@ -482,7 +494,8 @@ def verify_shared_exercise_feedback_training(files, scene, task, *, deadline):
                 for trial, seed, reset in zip(row["trials"], settings["training_seeds"], TRAIN_RESETS, strict=True):
                     stripped = {k: v for k, v in trial.items() if k != "diagnostics"}
                     validate_training_trial(stripped, scene, task, policy, seed, reset)
-                    artifact = _verify_diagnostics(files, trial.get("diagnostics"), trial, weights, scene, count, deadline)
+                    artifact = _verify_diagnostics(files, trial.get("diagnostics"), trial, weights, scene, count, deadline,
+                                                    profile=profile)
                     if artifact is not None:
                         if artifact in diagnostics:
                             raise ValueError("Different training episodes cannot reuse a diagnostic trace")
@@ -601,6 +614,7 @@ def evaluate_shared_exercise_feedback_policy(learning_dir, out, *, seed=924017, 
     scene, task, _ = _context(_json(scene_raw), _json(task_raw))
     verify_shared_exercise_feedback_package(manifest, files, scene, task, deadline=deadline)
     policy = actor.validate_shared_exercise_feedback_policy(_json(policy_raw), scene, task)
+    profile = policy["profile"]
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
     training_seeds = settings["training_seeds"]
     if seed == settings["seed"]:
@@ -623,7 +637,7 @@ def evaluate_shared_exercise_feedback_policy(learning_dir, out, *, seed=924017, 
         "evaluation_seeds": seeds, "training_seeds": training_seeds, "excluded_seeds": excluded,
         "reset_options": reset, "horizon_steps": task["interval"]["horizon_steps"], "maximum_control_steps": maximum,
         "max_seconds": max_seconds, "workers": 1, "external_api_usd": 0, "control_steps": 0,
-        "evaluation_feedback_to_optimizer": False, "source_scope": task["source_scope"], "scope": actor.SCOPE,
+        "evaluation_feedback_to_optimizer": False, "source_scope": task["source_scope"], "scope": actor.contract(profile)["scope"],
         "controllers": {}, "initial_states": {}}
     if fullspan:
         evaluation["evaluation_protocol"] = "shared-exercise-full-reference-evaluation-v1"
@@ -636,13 +650,14 @@ def evaluate_shared_exercise_feedback_policy(learning_dir, out, *, seed=924017, 
         writer.write("settings.json", freeze)
         env = SharedExerciseTaskEnv(scene, task)
         validator = prepare_shared_exercise_snapshot_validator(scene, task)
-        weights = actor.coefficients(policy["feedback_coefficients"])
+        weights = actor.coefficients(policy["feedback_coefficients"], profile=profile)
         for controller in CONTROLLERS:
             rows = []
             evaluation["controllers"][controller] = {"trials": rows}
             for trial_seed in seeds:
                 try:
-                    row = _trial(env, controller, trial_seed, reset, weights, deadline, budget, trace=True, validator=validator)
+                    row = _trial(env, controller, trial_seed, reset, weights, deadline, budget,
+                                 trace=True, validator=validator, profile=profile)
                 except Exception as error:
                     if hasattr(error, "partial_trial"):
                         rows.append(error.partial_trial)

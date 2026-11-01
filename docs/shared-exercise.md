@@ -158,11 +158,20 @@ The v2 correction changes only joint actions. Permitted root controls still use 
 
 This input already seals its exercise task. Omitting `--task` preserves its parameters and the new scene binding; do not supply the earlier box-world task or policy.
 
-All families use two matched training starts, one CPU lane and a 60-second cooperative limit. Identical candidates reuse their existing trials. The v2/v4 action cap is **8,640**, including anchors within the population; cached trials issue no new actions and there are no hidden baseline runs or retries. Their separate evaluation cap is **720 actions** for v1 windows; explicit full-reference scenes use the bounds above. A requested configuration exceeding a cap rejects instead of shortening the task.
+All families use two matched training starts, one CPU lane and a 60-second cooperative limit. Identical candidates reuse their existing trials. The v2/v4/v5 action cap is **8,640**, including anchors within the population; cached trials issue no new actions and there are no hidden baseline runs or retries. Their separate evaluation cap is **720 actions** for v1 windows; explicit full-reference scenes use the bounds above. A requested configuration exceeding a cap rejects instead of shortening the task.
 
 For **v2**, optional `shared-exercise-select` chooses the highest original mean reward among saved candidates that passed **every frozen gate on both original training starts**. If none qualified, it explicitly retains the original selection. It performs no retraining, physics actions or evaluation reads, and has a 15-second cooperative limit. The new package preserves every candidate and the exact original policy, training history, settings, manifest, source proofs and actor runtime. `selection.json` records the rule, candidate identity and separate selector snapshot. Omit this stage to evaluate the original v2 reward-selected policy.
 
 **V4 is opt-in and uses the same command chain above with `--policy-family feedback-residual`.** It adjusts only the 19 joint controls from current position/velocity error; zero coefficients reproduce authored control exactly. Root channels and authored bias stay unchanged. It prioritizes unchanged task limits before reward, saves bounded per-action error/feature/correction diagnostics, and retains failed trials. Its saved-only `shared-exercise-select` stage is **required before evaluation**: this independently checks search arithmetic and bindings without rerunning physics or changing the selected policy. A completed package is not proof of improved control or accurate source poses.
+
+**V5 uses `--policy-family feedback-residual-split-limbs` in that same chain.**
+It separates torso, shoulder, elbow, hip and knee feedback into five groups with
+ten settings, instead of v4's shared arm/leg groups and six settings. Both use the
+same observed errors, ±0.25 coefficient/correction bounds, authored root controls,
+training limits, saved-only verification and independent task gates. Zero settings
+still mean unchanged authored control. This is an experimental controller choice,
+not a reconstruction improvement or a demonstrated task success. Existing v4
+artifacts remain unchanged and require their original matching runtime.
 
 One real single-leg v4 workflow (`artifacts/person-feedback-workflow-01`) completed in30.8seconds, preserving the full234-step interval. It used6,552training actions and2,603separate evaluation actions. On three matched evaluation starts, selected peak joint error is about0.920rad versus authored0.958, but **both fail all three trials** against the unchanged0.70limit; selected reward is also slightly lower. The reference contains a suspicious source-pose jump. Independent output audit, interaction/export/exact replay and saved-payload UI checks pass:242live+242replayactions, one reset and244video frames in8.5seconds. This does not establish accurate reconstruction or successful full-task learning.
 
@@ -174,7 +183,7 @@ Try the new controller on the checked local workspace without retraining:
 
 Choose **Sandbox → Searched joint feedback → Start**. **Record & start → Stop & save** records a new trial. This direct command requires the matching runtime; the [frozen person shortcut](local-lab.md#try-the-person-only-3d-example) remains the stable example and is unchanged.
 
-`shared-exercise-policy-evaluate` automatically detects v1/v2/v3/v4. It freezes policy bytes and evaluation seeds before comparing coast, random, authored-reference and selected-policy control on three separate perturbed starts; v3 adds the paired previous-reward comparison described above. The default is 30 seconds, up to 60 seconds for full-reference scenes. Evaluation does not feed results back into training. Commands preserve incomplete runs and failures; a new run always needs a new directory. Without `--task`, training preserves the sealed input task when available. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
+`shared-exercise-policy-evaluate` automatically detects v1/v2/v3/v4/v5. It freezes policy bytes and evaluation seeds before comparing coast, random, authored-reference and selected-policy control on three separate perturbed starts; v3 adds the paired previous-reward comparison described above. The default is 30 seconds, up to 60 seconds for full-reference scenes. Evaluation does not feed results back into training. Commands preserve incomplete runs and failures; a new run always needs a new directory. Without `--task`, training preserves the sealed input task when available. New runs use `shared-exercise-human-jitter-v1`: only human starts vary; equipment keeps exact scene pose/velocity. This does not validate changed equipment placement or guarantee that an arbitrary initial scene has correct support. Existing reset profiles and saved trials remain unchanged.
 
 Inspect `policy.json` for selected gains or residual coefficients and `training.json` for the search history/score, then the **separate** `evaluation.json` for per-seed success/failures. For previously evaluated input, freeze a fresh evaluation seed and check that its reset seeds do not repeat earlier trials. Evaluation is not input to feasibility selection. V1 may select unchanged coast or authored control; v2 may select unchanged authored control or `searched_joint_residuals`. Unchanged anchors are not called learned improvement. A higher reward does not override an equipment or body failure. Three mild changed starts are development checks, not broad generalization or physical validation.
 
@@ -201,7 +210,7 @@ The policy and attached comparison must match the exact scene, task and runtime.
 | `settings.json` | Frozen gates, seed/reset, implementation hashes, package versions and work bounds |
 | `source-verification.json` | Complete copied evidence checks; not physical calibration |
 | `policy.json`, `training.json` | Selected controller and unchanged candidate/reward history |
-| `selection.json` | V2 training-feasibility choice, or v4 required saved-only search verification |
+| `selection.json` | V2 training-feasibility choice, or v4/v5 required saved-only search verification |
 | `diagnostics/*.jsonl` | V4 training action-boundary errors, features, saturation and reported interval peaks; not exact peak-substep localization |
 | `selection-source/`, `selection-implementation/` | Exact original selection documents and separately pinned selector; actor runtime is unchanged |
 | `evaluation.json` | Separate baseline results, whole-interval metrics, timings and replay checks |

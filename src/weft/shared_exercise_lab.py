@@ -299,8 +299,8 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
             or policy_document.get("profile") != "shared-support-policy-v1"):
         raise ValueError("Static-support labs require a newly pinned support policy")
     if scene["profile"] == HUMAN_ONLY_PROFILE and (not isinstance(policy_document, dict)
-            or policy_document.get("profile") not in {"shared-exercise-policy-v2", "shared-exercise-policy-v4"}):
-        raise ValueError("Person-only labs require a newly pinned v2 or v4 human residual policy")
+            or policy_document.get("profile") not in {"shared-exercise-policy-v2", "shared-exercise-policy-v4", "shared-exercise-policy-v5"}):
+        raise ValueError("Person-only labs require a newly pinned v2, v4 or v5 human residual policy")
     policy = validate_policy(policy_document, scene, task)
     training, settings = _json(files["training.json"]), _json(files["settings.json"])
     if (not isinstance(training, dict) or training.get("status") != "trained"
@@ -319,7 +319,7 @@ def _validate_policy_package(manifest_raw, files, scene, task, *, include_baseli
             or any("implementation/" + name not in files or _sha(files["implementation/" + name]) != expected
                    for name, expected in policy["runtime_sha256"].items())):
         raise ValueError("Exercise training source/runtime proof differs from the selected policy")
-    if policy["profile"] == "shared-exercise-policy-v4":
+    if policy["profile"] in {"shared-exercise-policy-v4", "shared-exercise-policy-v5"}:
         from weft.shared_exercise_feedback_learning import verify_shared_exercise_feedback_package
 
         # New feedback packages require the saved search/action proof, not just matching labels.
@@ -456,7 +456,7 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluatio
             "evaluation_successes": deepcopy(evaluation_successes),
             "evaluation_reset_protocol": deepcopy(evaluation_reset_protocol),
             "scope": "Training selection and separate changed-start simulator comparison; neither verifies new-video generalization, grasp or physical accuracy."}
-    if policy["profile"] in {"shared-exercise-policy-v3", "shared-exercise-policy-v4"}:
+    if policy["profile"] in {"shared-exercise-policy-v3", "shared-exercise-policy-v4", "shared-exercise-policy-v5"}:
         result.update(selection_objective=policy["selection_objective"],
                       training_feasible=policy["optimization_rank"]["feasible"])
     return result

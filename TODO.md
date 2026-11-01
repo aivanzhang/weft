@@ -1,6 +1,15 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: missing-frame fitting and fitted controls
+## Current milestone — November 1, 2026: separate arm/leg feedback
+
+- [x] Preserve the matched v4 failure: completed comparison, no feasible policy, unstable `sam-2`; published at `52a2559`.
+- [x] Complete opt-in v5 across the existing trainer, saved proof, independent evaluator, public workflow and lab. Keep the scorer, full interval, action bounds and default v4 behavior unchanged. [Ownership and exact contract](docs/handoffs/split-limb-feedback-workflow.md).
+- [x] Pass 108 Python +9 JavaScript authored/mocked checks and independent review. Preserve fixture-only failures; no native work or successful-task claim.
+- [ ] Run one frozen bounded native comparison and prepare/record/replay its exact policy in the existing lab; no new learning-success claim before results.
+- [x] Complete the [bounded independent-source screen](docs/handoffs/exercise-source-readiness-02.md): no matched acquisition-ready licensed video/calibration/floor/force unit qualified. No media, paid call or repeated blocked source route.
+- [ ] Reliable unfamiliar-video reconstruction and independent physical-contact accuracy remain open; this controller hypothesis does not complete those requirements.
+
+## Historical milestone — November 1, 2026: missing-frame fitting and fitted controls
 
 - [x] Preserve the published floor-calibration checkpoint; the prior turn made progress. Main and freshly fetched origin match `046261b`; stash is empty and two separate avatar edits remain untouched.
 - [x] Extend existing surface fitting with explicit `missing_image_policy: qualified_surfaces`, preserving old defaults, exact source bindings and every original first-pose/root/floor/image gate. Core has 31 distinct focused passes; config/worker/report have 20 new plus 21 affected passes. Two report-validation regressions were reproduced and fixed; independent delta review is closed.
