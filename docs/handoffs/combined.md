@@ -1,5 +1,68 @@
 # Combined Weft implementation handoff
 
+## Radial envelopes and worker diagnostics — October 31, 2026, 5:24 PM PDT
+
+The dedicated reconstruction lane remains active, independent of root's
+integration/publication work. Its completed positive-radial envelope change has
+**39 focused passes** and clear independent mathematical/code review. It encloses
+all rays for `0 < k <= 1` and full distorted normalized radius <=4, using exact
+brackets and outward final bounds; it does not zero or fit the supplied camera.
+Negative coefficients still abstain. Three zero-k fixtures retain byte-identical
+metadata/every frame. The 1,200-region analytical workload took 0.66 seconds;
+this is not a universal performance or physical-accuracy claim.
+[Proof, limits, files and exact checks](radial-surface-envelopes.md).
+
+Root's metadata-only check verifies the existing jogging camera's exact member
+`a74764a1143ed8d7af042e45d988404aaa445d5f5e02bdcc1c7b4a3cd6a6ea4e`
+against candidate seal `29fef74cb9ed1c0bf454b78f1a32b4d845277461ed8948a70d620da0dd08d1db`.
+The closed full-image rectangle's exact K-inverse squared radius is <=
+1.032238402758633, below 16. Receipt `.local/radial-camera-readiness-01.json`,
+SHA `e98b1f28d14a72a276c1e4662c288c6a872be0a8022d189cb1655d7f0e25f688`.
+Only two metadata documents were inspected; no body/annotation/video/fitting
+work. An initial 64-KiB assumption failed because the 127,993-B camera includes
+240 extrinsics; the corrected bounded check retains that helper failure and
+actual repeated-read accounting. The camera is reconstructed, not independently
+measured. No missing interval, body mapping or contact evidence is supplied.
+
+The whole-body worker now captures bounded code identities for denied calls:
+eight events, six frames, 64-character symbols and 16 KiB; never arguments,
+locals, source text or full paths. Diagnostic failure cannot bypass blocking.
+**10 distinct checks pass**. One import-only run, sealed
+`0511c39f86db708b9806e5d98398de3c7186529d2d2ec41c26e0a1b763633be9`,
+identifies MuJoCo's blocked Darwin startup probe with all work counters zero.
+Independent saved audit passes; no permission exception or fit rerun.
+The original fit's caller remains unrecorded and its acceptance remains failed.
+[Diagnosis, commands, artifacts and limits](body-worker-denials.md).
+
+A separate compatibility fix moves the optional surface-helper import inside
+the surface report branch. **6 checks pass** after reproducing two cold-load
+failures: both legacy profiles load from their actual archived runtime without
+that optional file. Surface controller admission remains unsupported and the
+eleven protected gates are unchanged. Receipt
+`.local/reference-report-dependency-boundary-checks-01.json`, SHA
+`655515ff34230dca39838b844d50de6b38ffa9570cb0d935ce6e1d093cdfa8cd`.
+These **55 distinct scoped checks** are not a whole-repository or live-UI result.
+
+Freshly fetched `origin/main` and local base match `259cfc2`. Root owns the
+eleven-path checkpoint and `.local/radial-diagnostics-publication-01.json` will
+record its actual commit/remote result; absence means publication is pending.
+Preserve the unrelated avatar changes, saved failures and source artifacts.
+No deployment, server, training, new source inference or paid call occurred.
+All native jobs are terminal; the existing recorded camera-policy lab is outside
+this changed execution closure and remains unchanged.
+
+Next parallel ownership: `/root/exercise_reconstruction` owns new
+`camera_body_fit.py`, `tests/test_camera_body_fit.py`,
+`docs/handoffs/camera-body-fit.md` and only opt-in camera integration in
+`whole_body_reference_refinement.py`. It must use the supplied perspective model,
+absolute pelvis derivative and exact source clocks, returning an explicitly
+non-installed angle overlay pinned to the unchanged original body/camera.
+Do not invalidate angular/root provenance by rewriting a camera body's angles
+in place. Root owns later CLI/worker/report integration and publication; do not
+stage the unfinished lane with this checkpoint. No source/native run is assigned.
+Real input qualification, runnable updated-body admission, ground/equipment
+contact and generalized physical reconstruction remain unfinished.
+
 ## Interval-aware body fitting — October 31, 2026, 5:00 PM PDT
 
 The parallel reconstruction lane installed the published interval objective in

@@ -21,6 +21,8 @@ PROFILE = "source-surface-envelopes-v1"
 INTERVAL_PROFILE = "source-horizontal-surface-intervals-v1"
 MAX_SECONDS, MAX_FRAMES = 10., 1800
 MAX_EXTRA_BYTES, MAX_CACHE_BYTES, MAX_ROW_BYTES, MAX_METADATA_BYTES = 4 << 20, 8 << 20, 128 << 10, 128 << 10
+RADIAL_PROFILE = "certified-nonnegative-radial-inverse-v1"
+RADIAL_BISECTIONS, RADIAL_CACHE_ENTRIES, RADIAL_RADIUS_SQUARED_MAX = 48, 256, 16
 
 
 class AxisAlignedEnvelope(TypedDict):
@@ -101,6 +103,8 @@ def _camera_frame(camera, frame, inverse_k):
     transform = camera["frames"][frame]
     inverse_r = _inverse(transform["R"])
     origin = tuple(-value for value in _multiply(inverse_r, tuple(map(Fraction, transform["t"]))))
+    if camera["radial_k1"] > 0:
+        return origin, inverse_r
     directions = tuple(tuple(sum(inverse_r[i][k] * inverse_k[k][j] for k in range(3))
                              for j in range(3)) for i in range(3))
     return origin, directions
@@ -114,15 +118,7 @@ def _outward(value, lower):
     return result
 
 
-def _enclose(annotation, surface, camera, prepared):
-    pixel, uncertainty = annotation["pixel"], annotation["uncertainty_px"]
-    _require(type(pixel) is list and len(pixel) == 2 and all(_number(v, -1e6, 1e6) for v in pixel)
-             and _number(uncertainty, 0, 64), "finite authored pixel and bounded uncertainty required")
-    x, y, radius = Fraction(pixel[0]), Fraction(pixel[1]), Fraction(uncertainty)
-    xs, ys = (x-radius, x+radius), (y-radius, y+radius)
-    if xs[0] < 0 or xs[1] > camera["width"] or ys[0] < 0 or ys[1] > camera["height"]:
-        return None, "pixel_interval_outside_source_image"
-    origin, transform = prepared
+def _plane_box(origin, transform, xs, ys, surface):
     directions = [_multiply(transform, (u, v, Fraction(1))) for u in xs for v in ys]
     denominators = [direction[2] for direction in directions]
     if min(denominators) <= 0 <= max(denominators):
@@ -144,11 +140,132 @@ def _enclose(annotation, surface, camera, prepared):
     envelope: AxisAlignedEnvelope = {"minimum": [_outward(value, True) for value in minimum],
         "maximum": [_outward(value, False) for value in maximum], "unit": "m",
         "kind": "outer_axis_aligned_enclosure", "certificate": "exact_rational_eight_vertex_extrema_outward_binary64"}
+    return envelope, None
+
+
+def _pixel_box(annotation, camera):
+    pixel, uncertainty = annotation["pixel"], annotation["uncertainty_px"]
+    _require(type(pixel) is list and len(pixel) == 2 and all(_number(v, -1e6, 1e6) for v in pixel)
+             and _number(uncertainty, 0, 64), "finite authored pixel and bounded uncertainty required")
+    x, y, radius = Fraction(pixel[0]), Fraction(pixel[1]), Fraction(uncertainty)
+    xs, ys = (x-radius, x+radius), (y-radius, y+radius)
+    if xs[0] < 0 or xs[1] > camera["width"] or ys[0] < 0 or ys[1] > camera["height"]:
+        return None
+    return xs, ys
+
+
+def _enclose(annotation, surface, camera, prepared):
+    bounds = _pixel_box(annotation, camera)
+    if bounds is None:
+        return None, "pixel_interval_outside_source_image"
+    xs, ys = bounds
+    envelope, reason = _plane_box(*prepared, xs, ys, surface)
+    if envelope is None:
+        return None, reason
     return {"world_envelope_m": envelope, "height_interval_m": surface["height_interval_m"],
             "pixel_interval_px": {"minimum": [_outward(xs[0], True), _outward(ys[0], True)],
                                   "maximum": [_outward(xs[1], False), _outward(ys[1], False)]},
             "uncertainty_scope": "Complete supplied pixel/height ranges under fixed pinhole coefficients; excludes calibration error",
             "surface_quality_claim": "authored", "annotation_quality": "authored"}, None
+
+
+class _RadialInverse:
+    """Exact outer inverse boxes for the monotone k>=0 branch; no selected inverse point."""
+
+    def __init__(self, inverse_k, radial, deadline):
+        self.inverse_k, self.radial, self.deadline = inverse_k, Fraction(radial), deadline
+        _require(0 < self.radial <= 1, "certified radial inverse requires 0<k<=1")
+        self.cache = {}
+        self.computed_boxes = self.cache_hits = self.bisections = 0
+
+    def scale(self, squared_radius):
+        _check(self.deadline)
+        _require(0 <= squared_radius <= RADIAL_RADIUS_SQUARED_MAX, "radial squared radius exceeds the fixed inverse domain")
+        if squared_radius == 0:
+            return Fraction(1), Fraction(1)
+        low, high = Fraction(0), Fraction(1)
+        coefficient = self.radial * squared_radius
+        for _ in range(RADIAL_BISECTIONS):
+            _check(self.deadline)
+            probe = (low+high) / 2
+            forward = probe + coefficient * probe**3
+            self.bisections += 1
+            if forward == 1:
+                return probe, probe
+            if forward < 1:
+                low = probe
+            else:
+                high = probe
+        return low, high
+
+    def bounds(self, xs, ys):
+        _check(self.deadline)
+        key = (*xs, *ys)
+        if key in self.cache:
+            self.cache_hits += 1
+            return self.cache[key]
+        self.computed_boxes += 1
+        corners = []
+        for x in xs:
+            for y in ys:
+                _check(self.deadline)
+                point = _multiply(self.inverse_k, (x, y, Fraction(1)))
+                _require(point[2] == 1, "radial inverse requires the validated affine pinhole intrinsics")
+                corners.append(point[:2])
+        intervals = tuple((min(point[i] for point in corners), max(point[i] for point in corners)) for i in range(2))
+        minimum = sum(0 if lo <= 0 <= hi else min(lo*lo, hi*hi) for lo, hi in intervals)
+        # Squared norm is convex: its maximum over the parallelogram is attained at a vertex.
+        maximum = max(x*x+y*y for x, y in corners)
+        if maximum > RADIAL_RADIUS_SQUARED_MAX:
+            result = None, "radial_pixel_interval_exceeds_inverse_domain"
+        else:
+            at_minimum = self.scale(minimum)
+            at_maximum = at_minimum if minimum == maximum else self.scale(maximum)
+            scales = (at_maximum[0], at_minimum[1])
+            undistorted = []
+            for coordinate in intervals:
+                _check(self.deadline)
+                products = tuple(value*scale for value in coordinate for scale in scales)
+                undistorted.append((min(products), max(products)))
+            result = {"intervals": tuple(undistorted), "distorted": intervals, "squared_radius": (minimum, maximum),
+                      "scales": scales, "brackets_at_radius_bounds": (at_minimum, at_maximum)}, None
+        if len(self.cache) == RADIAL_CACHE_ENTRIES:
+            self.cache.pop(next(iter(self.cache)))
+        self.cache[key] = result
+        _check(self.deadline)
+        return result
+
+
+def _outward_pair(bounds):
+    return [_outward(bounds[0], True), _outward(bounds[1], False)]
+
+
+def _enclose_radial(annotation, surface, camera, prepared, inverse):
+    pixels = _pixel_box(annotation, camera)
+    if pixels is None:
+        return None, "pixel_interval_outside_source_image"
+    box, reason = inverse.bounds(*pixels)
+    if box is None:
+        return None, reason
+    envelope, reason = _plane_box(*prepared, *box["intervals"], surface)
+    if envelope is None:
+        return None, reason
+    envelope["certificate"] = "exact_rational_monotone_radial_outer_box_plane_extrema_outward_binary64"
+    xs, ys = pixels
+    diagnostic = {"profile": RADIAL_PROFILE, "radial_k1": camera["radial_k1"],
+        "distorted_normalized_intervals": [_outward_pair(pair) for pair in box["distorted"]],
+        "distorted_radius_squared_interval": _outward_pair(box["squared_radius"]),
+        "inverse_scale_interval": _outward_pair(box["scales"]),
+        "scale_brackets_at_radius_bounds": [_outward_pair(pair) for pair in box["brackets_at_radius_bounds"]],
+        "undistorted_normalized_intervals": [_outward_pair(pair) for pair in box["intervals"]],
+        "scope": "Outer enclosure of the exact supplied radial model; correlations discarded, no point or calibration selected"}
+    _check(inverse.deadline)
+    return {"world_envelope_m": envelope, "height_interval_m": surface["height_interval_m"],
+        "pixel_interval_px": {"minimum": [_outward(xs[0], True), _outward(ys[0], True)],
+                              "maximum": [_outward(xs[1], False), _outward(ys[1], False)]},
+        "radial_inverse": diagnostic,
+        "uncertainty_scope": "Complete supplied pixel/height ranges under fixed nonnegative-radial coefficients; excludes calibration error",
+        "surface_quality_claim": "authored", "annotation_quality": "authored"}, None
 
 
 @dataclass(frozen=True)
@@ -190,7 +307,7 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
     camera_hash = sha256(camera_document).hexdigest() if camera_document is not None else None
     surfaces, calibration, world = _intervals(surface_input, source, camera_hash, evidence, receipts)
     channels, annotations = _annotations(annotation_input, source, documents, observations, deadline)
-    camera_reason, inverse_k, alignment = "missing_camera_calibration", None, None
+    camera_reason, inverse_k, alignment, radial_inverse = "missing_camera_calibration", None, None, None
     if camera is not None:
         validate_camera(camera, {"source_sha256": source_sha256, "width": source["width_px"], "height": source["height_px"],
                                 "frame_count": source["metadata_frames"], "fps": source.get("fps", camera.get("fps"))})
@@ -198,10 +315,12 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
         if camera["quality"] == "measured" and not any(row["kind"] == "camera_calibration_measurement" and row["status"] == "observed"
                 and _receipt_bound(row, receipts, source_sha256, camera_hash) for row in calibration):
             camera_reason = "missing_supplied_camera_measurement_receipt"
-        elif camera["radial_k1"] != 0:
+        elif camera["radial_k1"] < 0:
             camera_reason = "radial_distortion_has_no_certified_interval_bound"
         if camera_reason is None:
             inverse_k = _inverse(camera["K"])
+            if camera["radial_k1"] > 0:
+                radial_inverse = _RadialInverse(inverse_k, camera["radial_k1"], deadline)
     if camera is not None and world is not None:
         claim = {"status": "assumed", "method": "Explicit interval surface in the supplied calibration world; no fitted mapping",
                  "uncertainty": "Source/input custody is checked, not physical calibration or contact", "evidence_refs": surface_input["calibration_evidence_refs"]}
@@ -250,7 +369,10 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
                 if prepared is None:
                     prepared = _camera_frame(camera, frame, inverse_k)
                     prepared_frames += 1
-                geometry, reason = _enclose(annotation, surfaces[channel["surface_id"]], camera, prepared)
+                if radial_inverse is None:
+                    geometry, reason = _enclose(annotation, surfaces[channel["surface_id"]], camera, prepared)
+                else:
+                    geometry, reason = _enclose_radial(annotation, surfaces[channel["surface_id"]], camera, prepared, radial_inverse)
                 if geometry is not None:
                     anchor.update(geometry, status="conditional_surface_envelope", camera_quality_claim=camera["quality"])
             anchor["reason"] = reason
@@ -283,6 +405,16 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
             "maximum_extra_bytes": MAX_EXTRA_BYTES, "maximum_cache_bytes": MAX_CACHE_BYTES}, "cached_row_bytes": cache_bytes,
         "body_or_floor_installed": False, "geometry_modified": False, "contact": "unknown", "load": "unknown", "grasp": "unknown",
         "physical_validation": "unverified", "moving_or_handheld_supports": "unsupported"}
+    if radial_inverse is not None:
+        metadata["radial_inverse"] = {"profile": RADIAL_PROFILE, "radial_k1": camera["radial_k1"],
+            "maximum_distorted_radius": 4., "bisections_per_scalar_bracket": RADIAL_BISECTIONS,
+            "maximum_cache_entries": RADIAL_CACHE_ENTRIES, "computed_boxes": radial_inverse.computed_boxes,
+            "cache_hits": radial_inverse.cache_hits, "bisections": radial_inverse.bisections,
+            "scope": "Unique nonnegative-k inverse under supplied coefficients, not independently validated calibration"}
+        metadata["certificate"]["proof"] = ("Monotone exact-rational radial scale brackets enclose every normalized ray; "
+            "constant-sign affine plane denominator gives extrema on the outer ray rectangle and height endpoints")
+        metadata["certificate"]["conditions"] = ("Fixed 0<radial_k1<=1 pinhole coefficients, complete distorted radius<=4, "
+            "authored closed pixel/height ranges, forward depths within1000m")
     encoded = _encode(metadata, MAX_METADATA_BYTES, deadline)
     _require(cache_bytes+len(encoded) <= MAX_CACHE_BYTES, "complete metadata/source cache exceeds 8 MiB")
     _check(deadline)

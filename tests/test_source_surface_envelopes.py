@@ -152,7 +152,7 @@ def test_uncertified_geometry_abstains_without_clipping_or_fabricated_height(api
     elif case == "behind":
         data[2]["surfaces"][0]["height_interval_m"] = [2., 3.]
     elif case == "radial":
-        data[1]["radial_k1"] = .1
+        data[1]["radial_k1"] = -.1
     elif case == "support":
         data[2]["surfaces"][0].update(kind="static_support", bounds_xy_m=[0., 0., .1, .1])
     elif case == "image":

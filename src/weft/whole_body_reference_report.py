@@ -15,7 +15,6 @@ import time
 from zoneinfo import ZoneInfo
 
 from weft.shared_world_packaging import read_package_file, write_package_files
-from weft.source_surface_fit_inputs import surface_fit_member_names, validate_surface_fit_snapshot
 
 
 PROFILE = "whole-body-reference-report-v1"
@@ -790,6 +789,8 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
     for name in members: read_selected(name)
     documents = {name: _json(value) for name, value in raw.items()}
     if documents['report.json'].get('profile') == SURFACE_METHOD:
+        from weft.source_surface_fit_inputs import surface_fit_member_names, validate_surface_fit_snapshot
+
         read_selected('plan.json', 128 << 10); plan = _json(raw['plan.json'])
         _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
                  and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen'

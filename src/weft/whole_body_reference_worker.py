@@ -33,6 +33,7 @@ SURFACE_ROLES = {'camera': 'inputs/surface-camera.json', 'surface_intervals': 'i
                  'annotations': 'inputs/surface-annotations.json', 'body_binding': 'inputs/surface-body-binding.json'}
 SETTINGS = {'finalization_seconds': 8, 'maximum_geometry_calls': 120000, 'maximum_sweeps': 2}
 NATIVE_LIMITS = {'model_compilations': 2, 'data_allocations': 6, 'forward_calls': 120010}
+DENIAL_TRACE_LIMITS = {'maximum_events': 8, 'maximum_frames': 6, 'maximum_symbol_chars': 64, 'maximum_bytes': 16384}
 INPUT_LIMIT, SOURCE_LIMIT, OUTPUT_LIMIT, PLAN_LIMIT, RECEIPT_LIMIT = 8 << 20, 2 << 20, 16 << 20, 128 << 10, 64 << 10
 _SHA = re.compile(r'[0-9a-f]{64}\Z')
 _MEDIA = {'cv2', 'PIL', 'imageio', 'imageio_ffmpeg', 'av', 'ffmpeg', 'moviepy', 'pygame', 'matplotlib'}
@@ -176,6 +177,7 @@ class _Guards:
         self.counts = {name: 0 for name in (*NATIVE_LIMITS, 'physics_steps', 'reset_calls', 'media_calls', 'inference_calls',
                                           'fitter_calls', 'forbidden_calls')}
         self.denied = {}
+        self.denied_callers, self.denied_caller_bytes, self.denied_callers_omitted = [], 0, 0
         self.runtime_modules = RUNTIME_MODULES
 
     def check(self):
@@ -186,10 +188,51 @@ class _Guards:
         self.originals.append((owner, name, getattr(owner, name)))
         setattr(owner, name, value)
 
+    def _denied_caller(self, category):
+        if len(self.denied_callers) >= DENIAL_TRACE_LIMITS['maximum_events']:
+            self.denied_callers_omitted += 1
+            return
+        def symbol(value):
+            value = value if type(value) is str else type(value).__name__
+            return ''.join(c if 32 <= ord(c) <= 126 else '?' for c in value[:DENIAL_TRACE_LIMITS['maximum_symbol_chars']])
+        event, frame = {'category': symbol(category), 'frames': []}, None
+        try:
+            # Capture code identities only; never locals, arguments, source text or full paths.
+            frame = sys._getframe(2)
+            for _ in range(DENIAL_TRACE_LIMITS['maximum_frames']):
+                if frame is None:
+                    break
+                code = frame.f_code
+                event['frames'].append({'module': symbol(frame.f_globals.get('__name__', 'unknown')),
+                    'file': symbol(code.co_filename.rsplit('/', 1)[-1].rsplit('\\', 1)[-1]),
+                    'function': symbol(code.co_name), 'line': frame.f_lineno})
+                frame = frame.f_back
+        except Exception:
+            event['unavailable'] = 'caller_stack_unavailable'
+        finally:
+            del frame
+        size = len(json.dumps(event, separators=(',', ':'), allow_nan=False).encode())
+        if self.denied_caller_bytes + size > DENIAL_TRACE_LIMITS['maximum_bytes']:
+            self.denied_callers_omitted += 1
+            return
+        self.denied_callers.append(event)
+        self.denied_caller_bytes += size
+
+    def denial_diagnostics(self):
+        return {'schema_version': 1, 'profile': 'bounded-denied-callers-v1', 'events': self.denied_callers,
+                'event_bytes': self.denied_caller_bytes, 'omitted_events': self.denied_callers_omitted,
+                'limits': DENIAL_TRACE_LIMITS,
+                'scope': 'First bounded blocked-call stacks; code names only, no arguments or locals. All attempt counts remain in denied_calls.'}
+
     def forbid(self, category):
         def denied(*args, **kwargs):
             self.counts['forbidden_calls'] += 1
             self.denied[category] = self.denied.get(category, 0) + 1
+            try:
+                self._denied_caller(category)
+            except Exception:
+                # Diagnostics cannot change whether a forbidden operation is blocked.
+                self.denied_callers_omitted += 1
             raise PermissionError('Trusted fitting worker forbids ' + category)
         return denied
 
@@ -390,7 +433,8 @@ def run_worker(study, expected_plan_sha256):
         proposal_status = None
     receipt = {'schema_version': 1, 'profile': PROFILE, 'status': 'failed' if error else 'completed', 'error': error,
         'proposal_status': proposal_status,
-        'plan_sha256': plan_sha, 'counts': guards.counts, 'denied_calls': guards.denied, 'native_call_limits': NATIVE_LIMITS,
+        'plan_sha256': plan_sha, 'counts': guards.counts, 'denied_calls': guards.denied,
+        'denied_callers': guards.denial_diagnostics(), 'native_call_limits': NATIVE_LIMITS,
         'counts_scope': 'Native counters count started allowed calls, not completed operations; denied attempts are separate.',
         'runtime_versions': versions, 'loaded_weft': loaded, 'seconds': time.monotonic() - started,
         'peak_rss_bytes': _rss_bytes(), 'memory_scope': 'Observed peak RSS in bytes, not a hard RSS cap.',
