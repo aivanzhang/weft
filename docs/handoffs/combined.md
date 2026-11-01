@@ -1,5 +1,53 @@
 # Combined Weft implementation handoff
 
+## Named hand/equipment evidence — October 31, 2026, 11:48 PM PDT
+
+**Latest result, 11:56 PM PDT:** corrected pilot 02 completed in 2.480205 seconds,
+with 254 files/35,247,312 bytes and a separate reusable preparation checkpoint.
+Both original frames-20/22 right-hand/sam-2 motion candidates now remain possible:
+each unchanged seven-sample window has seven qualified hand intersections. No
+new candidate or physical-contact claim. The original wrist-only result and
+failed pilot 01 remain. [Open the report](../../artifacts/equipment-hand-support-02/index.html).
+Independent saved inventory/source/generator verification and full UI navigation
+checks pass; no producer/native/browser rerun. Actual publication outcome is
+recorded in `.local/equipment-hand-publication-01.json`; absence means unfinished.
+The detailed earlier checkpoints below remain as failure/recovery history.
+
+Two-view fitting/viewer/trial/playable lab is published at
+`1c18243d5b90132afbf6f95145193c6220f23b79`, exact private remote verified.
+`.local/camera-multiview-publication-01.json` records clean published scope/index,
+empty stash and intentionally preserved avatar work. Earlier conditional
+publication wording below is historical; do not repeat completed science.
+
+Current work extends the existing saved `equipment-support` command through
+explicit `--hand-points`. Producer, consumer and report are implemented/frozen
+with independent review; root snapshot/workflow/CLI integration has 42 scoped
+passes and a targeted post-fix composition pass. A consumer ordering bug was
+fixed before source execution: unavailable points now abstain before raw
+coordinate queries. Exact old wrist/default bytes remain verified.
+
+Root owns the single source pilot, saved audit and publication; reconstruction
+owns producer/reviews, consumer owns source-window constraints, UI owns complete
+offline display. No overlap with the separate avatar session. The pilot runtime
+is committed `1c18243` plus ten reviewed overrides, not the dirty worktree.
+Prepared plan/helper are awaiting independent execution review; no live process,
+new source/raster/model/native call or paid work has started at this checkpoint.
+[Exact hand workflow, identities, limits and next action](equipment-hand-workflow.md).
+
+Keep all 259 original slots/77 construction poses, cached binary masks and
+retained pose/clock/source proof. Four named image points are not a filled hand,
+contact, grasp or load. The current clip is an exposed development example, not
+unfamiliar-video accuracy evidence. The generalized end-to-end goal stays active.
+
+Pilot 01 then failed at 11:51 PM PDT after 2.453572 seconds: the four-point
+consumer inherited the wrist-only 2-MiB additional-cache limit. No output or
+completed workflow seal exists; root handle `16033` is terminal. All failed
+receipts/runtime are preserved. Consumer/UI own the narrow hand-only 8-MiB
+capacity correction, keeping the old wrist and final-output limits unchanged.
+Only after reviewed capacity/overflow checks will root freeze a new runtime and
+perform a distinct run with preparation checkpointing. No scientific threshold
+or source-data tuning. [Failure and recovery boundary](equipment-hand-workflow.md#pilot-01-terminal-failure--october-31-2026-1151-pm-pdt).
+
 ## Optional second-view fitting — October 31, 2026, 11:00 PM PDT
 
 Equipment support is now published at `41cfee28ceef55146fbbf6e29ef8248c475bd46d`;

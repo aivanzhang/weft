@@ -147,6 +147,32 @@ tracked object `sam-2` to see the rejected windows. The command reuses saved dia
 not decode the video, run pose inference, change the sandbox, or install a body.
 The output directory must be new. [Exact evidence and limits](handoffs/equipment-support-workflow.md).
 
+### Include wrist and finger points
+
+If the completed study retains its original pose/audit files and decoded binary
+masks, add `--hand-points`:
+
+```sh
+.venv-lab/bin/python -m weft equipment-support \
+  --run artifacts/pose-equipment-silhouette-02 \
+  --fixed-camera --hand-points --out artifacts/my-hand-comparison-01
+```
+
+The report shows wrist, pinky, index and thumb separately. A wrist can lie outside
+an object's outline while a finger overlaps it. All four points must have usable
+evidence; otherwise the hand result stays unknown. Overlap does **not** prove
+touching, holding or carrying weight. The pixel ranges are authored assumptions,
+not measured accuracy. No new pose model, video/PNG decoding or simulation runs.
+Missing required cached masks stop the command instead of inventing evidence.
+[Exact source custody, checks and limits](handoffs/equipment-hand-workflow.md).
+
+You can open the [prepared hand comparison](../artifacts/equipment-hand-support-02/index.html)
+without running anything. Inspect frames **20** or **22**, the **right hand** and
+object **sam-2**. Both original seven-sample motion windows remain possible:
+estimated finger points overlap the object mask even though the wrist-only
+check excluded them. This does not establish physical contact or change the
+sandbox's equipment physics.
+
 ## Fit a body using uncertain support ranges (experimental)
 
 For an existing saved body, you can supply camera calibration, annotated image

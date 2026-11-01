@@ -11,13 +11,14 @@ import time
 
 from weft.exercise_support_evidence import _equipment_mapping, _equipment_point
 from weft.io import canonical_hash
-from weft.pose_surface_annotations import PoseSurfaceAnnotations
+from weft.pose_surface_annotations import LANDMARKS, PoseSurfaceAnnotations
 from weft.source_surface_anchors import _document
 from weft.source_surface_interval_construction import _encode
 from weft.world_evidence import load_world_evidence
 
 
 PROFILE = 'equipment-silhouette-evidence-v1'
+POINT_PROFILE = 'equipment-landmark-silhouette-evidence-v1'
 MAX_SECONDS, MAX_MASK_BYTES, MAX_EQUIPMENT_BYTES = 10., 8 << 20, 16 << 20
 MAX_CACHE_BYTES, MAX_RASTER_BYTES, MAX_LOADS, MAX_RUNS = 8 << 20, 4 << 20, 512, 100_000
 CELL_MAPPING = 'Raster cell edges span the original half-open model box; centroid uses cell centers'
@@ -221,15 +222,31 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
     byte/work limits and remaining cooperative time before it may load anything.
     The adapter never decodes an image, chooses pixel uncertainty or fits geometry.
     """
-    deadline = time.monotonic()+MAX_SECONDS
+    return _prepare_equipment_point_evidence(pose_annotations, equipment_document=equipment_document,
+        mask_document=mask_document, equipment_ids=equipment_ids, channel_ids=wrist_channel_ids,
+        point_indices=WRISTS, profile=PROFILE, raster_loader=raster_loader,
+        source_equivalence=source_equivalence, construction_frames=construction_frames,
+        deadline=time.monotonic()+MAX_SECONDS)
+
+
+def _prepare_equipment_point_evidence(pose_annotations, *, equipment_document, mask_document,
+        equipment_ids, channel_ids, point_indices, profile, raster_loader, source_equivalence,
+        construction_frames, deadline, channel_roles=None):
+    # One custody/raster path serves explicit point roles; the public wrist contract stays exact.
+    _check(deadline)
+    wrist_mode = profile == PROFILE
+    _require(wrist_mode and point_indices == WRISTS or profile == POINT_PROFILE
+             and type(point_indices) is dict and 1 <= len(point_indices) <= 8
+             and all(name in LANDMARKS and type(index) is int and LANDMARKS[name] == index
+                     for name,index in point_indices.items()), 'explicit named landmark profile differs')
     _require(type(pose_annotations) is PoseSurfaceAnnotations, 'prepared source pose annotations required')
     _require(type(equipment_document) is bytes and 0 < len(equipment_document) <= MAX_EQUIPMENT_BYTES
              and type(mask_document) is bytes and 0 < len(mask_document) <= MAX_MASK_BYTES, 'bounded exact source metadata required')
     _require(type(equipment_ids) in (tuple,list) and 1 <= len(equipment_ids) <= 8
              and all(type(v) is str and 0 < len(v) <= 80 for v in equipment_ids) and len(set(equipment_ids)) == len(equipment_ids),
              'explicit unique equipment IDs required')
-    _require(type(wrist_channel_ids) in (tuple,list) and 1 <= len(wrist_channel_ids) <= 2
-             and all(type(v) is str for v in wrist_channel_ids) and len(set(wrist_channel_ids)) == len(wrist_channel_ids)
+    _require(type(channel_ids) in (tuple,list) and 1 <= len(channel_ids) <= (2 if wrist_mode else 8)
+             and all(type(v) is str for v in channel_ids) and len(set(channel_ids)) == len(channel_ids)
              and callable(raster_loader), 'explicit wrist channels and bounded raster loader required')
     meta = pose_annotations.describe()
     _require(type(pose_annotations.pose_document) is bytes and len(pose_annotations.pose_document) <= 8<<20
@@ -245,10 +262,15 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
         selected = frozenset(construction_frames)
     annotation = _document(pose_annotations.annotation_document(),deadline)
     channels = annotation['channels']
-    _require(len(channels) == len(wrist_channel_ids) and {c['id'] for c in channels} == set(wrist_channel_ids)
-             and all(c['point_role'] in WRISTS for c in channels)
+    _require(len(channels) == len(channel_ids) and {c['id'] for c in channels} == set(channel_ids)
+             and all(c['point_role'] in point_indices for c in channels)
              and len({c['point_role'] for c in channels}) == len(channels), 'prepare only the explicitly selected named wrist channels')
-    channel_map = {c['id']:c for c in channels}; channels = [channel_map[i] for i in wrist_channel_ids]
+    channel_map = {c['id']:c for c in channels}; channels = [channel_map[i] for i in channel_ids]
+    if not wrist_mode:
+        _require(type(channel_roles) is dict and set(channel_roles) == set(channel_ids)
+                 and all(c['point_role'] == channel_roles[c['id']] for c in channels)
+                 and all(c['entity_ref'] == channels[0]['entity_ref'] for c in channels),
+                 'named point channels must bind the exact roles and one source human entity')
     equipment_pin = sha256(equipment_document).hexdigest(); mask_pin = sha256(mask_document).hexdigest()
     inputs = dict(pose_annotations.input_documents)
     _require(len(inputs) < 8 and equipment_pin not in inputs, 'combined canonical source registry must fit eight distinct documents')
@@ -315,7 +337,7 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
                 point = points.get(channel['id']); reason = human_reason or equipment_reason
                 rectangle = None
                 if reason is None:
-                    _require(point['landmark_name'] == channel['point_role'] and point['landmark_index'] == WRISTS[channel['point_role']], 'named wrist identity differs')
+                    _require(point['landmark_name'] == channel['point_role'] and point['landmark_index'] == point_indices[channel['point_role']], 'named wrist identity differs')
                     if point['status'] != 'copied_source_image_estimate': reason = point['reason'] or 'source_wrist_unavailable'
                     else:
                         rectangle = _rectangle(point,pose['width'],pose['height'])
@@ -337,6 +359,10 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
                     'representation':None if point is None or human_reason else point['representation'],
                     'authored_uncertainty_px':None if point is None else point['authored_uncertainty_px'],
                     'intersects':None,'distance_infimum_squared_px2':None,'contact':'unknown'}
+                if not wrist_mode:
+                    pair['point_channel_id'] = pair.pop('wrist_channel_id')
+                    pair['point_name'] = pair.pop('wrist_name')
+                    pair['landmark_index'] = point_indices[channel['point_role']]
                 pairs.append(pair)
                 if reason is None: pending.append((pair,rectangle))
             if pending:
@@ -373,7 +399,7 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
         encoded = _encode(row,128<<10,deadline);cache_bytes += len(encoded)
         _require(cache_bytes <= MAX_CACHE_BYTES, 'complete result cache exceeds eight MiB; no slots dropped')
         output.append(encoded)
-    description = {'schema_version':1,'profile':PROFILE,'status':'conditional_image_evidence_only',
+    description = {'schema_version':1,'profile':profile,'status':'conditional_image_evidence_only',
         'source_sha256':source,'equipment_source_sha256':equipment['source']['sha256'],
         'equipment_document_sha256':equipment_pin,'mask_document_sha256':mask_pin,'pose_provenance':meta['provenance'],
         'source_equivalence':proof,'source_clocks':{key:value['time'] for key,value in sources.items()},
@@ -390,6 +416,10 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
             'binary_raster_bytes':MAX_RASTER_BYTES,'raster_loads':MAX_LOADS,'foreground_runs':MAX_RUNS,'result_cache_bytes':MAX_CACHE_BYTES}}
     if selected is not None:
         description['canonical_frame_selection'] = exported['source_frame_selection']
+    if not wrist_mode:
+        description.update(point_indices=point_indices, channel_ids=list(channel_ids), point_channels=channels,
+            geometry_convention='Each authored closed named-point rectangle versus half-open foreground cells; no hull or filled hand region',
+            scope='Named source-model points versus model silhouettes only; no hand surface, contact, noncontact, grasp or load recovery')
     encoded = _encode(description,256<<10,deadline)
     _require(cache_bytes+len(encoded) <= MAX_CACHE_BYTES, 'complete result/report cache exceeds eight MiB')
     _check(deadline)

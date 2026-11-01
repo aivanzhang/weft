@@ -300,12 +300,13 @@ def _equipment_point(row, pose, native_clock, mapping=None):
 
 
 def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=None, equipment_ids=(),
-                              equipment_source_equivalence=None, equipment_silhouette=None):
+                              equipment_source_equivalence=None, equipment_silhouette=None, equipment_hand_points=None):
     """Produce construction-only image candidates; original evidence and physics stay untouched."""
     started = time.monotonic()
     deadline = started + CONTRACT["maximum_seconds"]
-    if equipment_silhouette is not None:
-        _require(equipment_observations is not None, "silhouette constraints require their exact equipment observation document")
+    _require(equipment_silhouette is None or equipment_hand_points is None, "select exactly one optional equipment image constraint")
+    if equipment_silhouette is not None or equipment_hand_points is not None:
+        _require(equipment_observations is not None, "image constraints require their exact equipment observation document")
     frames, width, height, pose_hash = _prepare(evidence, camera_prior, deadline)
     cutoff = math.floor(CONTRACT["generation_fraction"] * len(frames))
     selected, inputs, torso_spans = frames[:cutoff], [], []
@@ -411,5 +412,8 @@ def estimate_exercise_support(evidence, *, camera_prior, equipment_observations=
     if equipment_silhouette is not None:
         from weft.equipment_silhouette_constraint import constrain_equipment_support
         result = constrain_equipment_support(result, equipment_silhouette, deadline=deadline)
+    elif equipment_hand_points is not None:
+        from weft.equipment_hand_constraint import constrain_equipment_hand_support
+        result = constrain_equipment_hand_support(result, equipment_hand_points, deadline=deadline)
     _check(deadline)
     return result

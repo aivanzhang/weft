@@ -48,6 +48,12 @@ def test_exact_input_pins_assumption_and_separate_progress(command, capsys):
     assert "Saved equipment-support comparison: comparison/index.html" in output.err
 
 
+def test_named_hand_points_require_explicit_opt_in(command):
+    invoke, calls, _ = command
+    invoke(["--run", "saved", "--out", "comparison", "--fixed-camera", "--hand-points"])
+    assert calls[0][1]["hand_points"] is True
+
+
 @pytest.mark.parametrize("args", [["--run", "saved", "--out", "new"], ["--out", "new", "--fixed-camera"],
     ["--run", "saved", "--fixed-camera"], ["--run", "saved", "--out", "new", "--fixed-camera", "--fit"],
     ["--run", "saved", "--out", "new", "--fixed-camera", "--video", "new.mp4"]])

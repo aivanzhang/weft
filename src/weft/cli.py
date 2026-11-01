@@ -206,6 +206,8 @@ def main():
     equipment_support.add_argument("--fixed-camera", required=True, action="store_true",
                                    help="Explicitly assume a fixed source camera; not measured calibration")
     equipment_support.add_argument("--manifest-sha256", help="Optional exact source-manifest hash")
+    equipment_support.add_argument("--hand-points", action="store_true",
+                                   help="Include saved wrist/finger estimates using cached binary masks; not proof of contact")
     equipment_support.add_argument("--max-seconds", type=float, default=20.)
     body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
@@ -584,9 +586,11 @@ def main():
         elif args.command == "equipment-support":
             from weft.equipment_support_workflow import prepare_equipment_support
             labels = {"inputs": "Read saved pose and equipment evidence", "selection": "Check original equipment candidates",
+                      "hands": "Compare named hand points with equipment",
                       "report": "Explain kept, excluded and unknown candidates", "seal": "Save the comparison"}
             result = prepare_equipment_support(args.run, args.out, fixed_camera=args.fixed_camera,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
+                **({"hand_points": True} if args.hand_points else {}),
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "body-lab":
             from weft.whole_body_lab import prepare_whole_body_lab

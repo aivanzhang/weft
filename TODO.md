@@ -1,6 +1,17 @@
 # Weft iteration backlog
 
-## Current milestone — October 31, 2026: optional second-view body fitting
+## Current milestone — October 31, 2026: named hand/equipment evidence
+
+- [x] Publish optional two-view fitting, recovered viewer, matched trial and playable lab as `1c18243d5b90132afbf6f95145193c6220f23b79`, with exact private remote verification. Preserve active avatar work and all earlier failed/successful artifacts.
+- [x] Add reviewed opt-in `equipment-support --hand-points`: exact retained precursors, original wrist plus pinky/index/thumb, cached binary masks, existing candidate windows and complete offline report. Defaults remain unchanged; unavailable points abstain. [Ownership, checks and limits](docs/handoffs/equipment-hand-workflow.md).
+- [x] Pass 42 focused root checks and the targeted post-review composition; producer 27, consumer 19 new/34 affected and reporter 18 distinct checks have separate passing evidence. These are scoped code checks, not physical accuracy.
+- [x] Execute and independently inspect the corrected frozen kettlebell pilot: 2.480205 seconds, all 259 slots/77 construction poses and exact original wrist results. Both original seven-sample candidate windows have seven qualified hand intersections; no new candidates or physical contact. [Open the comparison](artifacts/equipment-hand-support-02/index.html). Preserve failed pilot 01 and its reviewed hand-only cache-cap correction; no inference, decoding, physics, paid API or threshold tuning.
+- [x] Verify the complete 254-file inventory, all 188 source copies and 47 generator pins. Saved UI audit covers all 1,036 frame/pair views, 1,232 construction points and 2,108 window links; 4,000 unchanged selections cause zero DOM writes. These are saved-only checks, not browser or physical validation.
+- [x] Prepare the independently reviewed 22-path hand-point checkpoint. `.local/equipment-hand-publication-01.json` records the actual commit/remote outcome; absence means publication is unfinished. Preserve unrelated avatar edits and reviewed evidence.
+- [ ] Connect the same hand/equipment evidence to ordinary new-video preparation without a bespoke study script; first inspect existing producer entry points and keep one pipeline.
+- [ ] Reliable unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy remain unfinished.
+
+## Historical milestone — October 31, 2026: optional second-view body fitting
 
 - [x] Publish the equipment support comparison at `41cfee28ceef55146fbbf6e29ef8248c475bd46d`, with exact private remote verification. Receipt `.local/equipment-support-publication-01.json`, SHA `c461b151ee7ddc39059ec99334e935cfc49cfed6e3c62e173ba3b7eaebeaedf8`. Published scope/index clean and stash empty; unrelated avatar work preserved. Both original equipment candidates were excluded, not physically admitted.
 - [x] Root: implement explicit secondary config/custody, opt-in CLI/pipeline/worker routing, per-view output checks and report-only recovery guidance. Fifty-three distinct new metadata/mock cases and 126 affected legacy cases pass. Single-view defaults, original source/body/floor and protected scorer stay unchanged. [Exact contract and checks](docs/handoffs/camera-multiview-workflow.md).

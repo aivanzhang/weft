@@ -71,14 +71,15 @@ def _pin(raw, maximum):
     return sha256(raw).hexdigest()
 
 
-def _bindings(baseline, prepared, selected, deadline):
-    _require(type(prepared) is EquipmentSilhouetteEvidence and type(prepared.pose_annotations) is PoseSurfaceAnnotations,
-             "qualified prepared silhouette and pose annotations required")
+def _bind_inputs(baseline, prepared, selected, deadline, *, evidence_type, evidence_profile,
+                 point_roles, slot_count_key, binding_prefix, allow_extra_channels=False):
+    _require(type(prepared) is evidence_type and type(prepared.pose_annotations) is PoseSurfaceAnnotations,
+             "qualified prepared image evidence and pose annotations required")
     meta = _decode(prepared._metadata, 256 << 10, deadline)
     annotations = prepared.pose_annotations
     pose_meta = _decode(annotations._metadata, 256 << 10, deadline)
     annotation = _decode(annotations.annotation_document(), 4 << 20, deadline)
-    _require(meta.get("profile") == SILHOUETTE_PROFILE and meta.get("status") == "conditional_image_evidence_only"
+    _require(meta.get("profile") == evidence_profile and meta.get("status") == "conditional_image_evidence_only"
              and meta.get("schema_version") == 1, "silhouette profile/status differs")
     _require(all(meta.get(key) == "unknown" for key in ("contact", "physical_noncontact", "grasp", "load"))
              and meta.get("body_or_floor_installed") is False, "silhouette must not assert physical admission")
@@ -92,8 +93,8 @@ def _bindings(baseline, prepared, selected, deadline):
              and provenance.get("pose_canonical_sha256") == baseline["pose_evidence_canonical_sha256"], "canonical pose identity differs")
     pose_pin = _pin(annotations.pose_document, 8 << 20)
     # Raw custody and the estimator's canonical identity must join independently.
-    pose_canonical = sha256(_encode(_decode(annotations.pose_document, 8 << 20, deadline),
-                                    CONTRACT["maximum_input_bytes"], deadline)).hexdigest()
+    pose = _decode(annotations.pose_document, 8 << 20, deadline)
+    pose_canonical = sha256(_encode(pose, CONTRACT["maximum_input_bytes"], deadline)).hexdigest()
     _require(pose_canonical == provenance["pose_canonical_sha256"], "raw bytes derive a different canonical pose identity")
     equipment_pin = _pin(prepared.equipment_document, 16 << 20)
     mask_pin = _pin(prepared.mask_document, 8 << 20)
@@ -108,15 +109,19 @@ def _bindings(baseline, prepared, selected, deadline):
     _require(annotation.get("source_sha256") == source and annotation.get("profile") == "source-surface-annotations-v1"
              and annotation.get("quality") == "authored", "annotation source/quality differs")
     channels = annotation.get("channels")
-    _require(type(channels) is list and len(channels) == 2, "both explicitly named wrist channels required")
+    _require(type(channels) is list and (len(point_roles) <= len(channels) <= 64 if allow_extra_channels
+             else len(channels) == len(point_roles)), "exact explicitly named point channels required")
     channel_map = {}
     for channel in channels:
+        _require(type(channel) is dict, "named point channel object required")
         role, ref = channel.get("point_role"), channel.get("entity_ref")
-        _require(role in HANDS.values() and role not in channel_map and _text(channel.get("id"), 80)
+        if allow_extra_channels and role not in point_roles:
+            continue
+        _require(role in point_roles and role not in channel_map and _text(channel.get("id"), 80)
                  and type(ref) is dict and set(ref) == {"document_sha256", "object_id"}
                  and ref["document_sha256"] in documents and _text(ref["object_id"], 80), "qualified named wrist channel differs")
         channel_map[role] = {"id": channel["id"], "entity_ref": ref, "source_sha256": source}
-    _require(len({channel["id"] for channel in channel_map.values()}) == 2, "duplicate wrist channel identity")
+    _require(len({channel["id"] for channel in channel_map.values()}) == len(point_roles), "duplicate point channel identity")
     proof = prepared.source_equivalence
     if baseline["equipment_source_sha256"] == source:
         _require(proof is None and meta.get("source_equivalence") is None and baseline["equipment_source_equivalence"] is None,
@@ -141,10 +146,10 @@ def _bindings(baseline, prepared, selected, deadline):
     _require(cached_bytes + len(prepared._metadata) <= 8 << 20, "prepared silhouette cache bound exceeded")
     counts = meta.get("counts", {})
     objects = baseline["equipment_object_ids"]
-    _require(all(type(counts.get(key)) is int for key in ("source_frames", "decoded_frames", "metadata_frames", "pose_slots", "pair_slots"))
+    _require(all(type(counts.get(key)) is int for key in ("source_frames", "decoded_frames", "metadata_frames", "pose_slots", slot_count_key))
              and counts.get("source_frames") == count and counts.get("decoded_frames") == coverage["decoded_frames"]
              and counts.get("metadata_frames") == coverage["declared_frame_count"]
-             and counts.get("pose_slots") == len(baseline["rows"]) and counts.get("pair_slots") == count * len(objects) * 2,
+             and counts.get("pose_slots") == len(baseline["rows"]) and counts.get(slot_count_key) == count * len(objects) * len(point_roles),
              "complete silhouette denominator differs")
     rows_digest = sha256()
     for raw in prepared._rows:
@@ -155,11 +160,17 @@ def _bindings(baseline, prepared, selected, deadline):
         "pose_evidence_canonical_sha256": baseline["pose_evidence_canonical_sha256"], "pose_raw_sha256": pose_pin,
         "equipment_document_sha256": equipment_pin, "mask_document_sha256": mask_pin,
         "annotation_document_sha256": annotation_pin, "observation_document_sha256s": sorted(documents),
-        "silhouette_metadata_sha256": sha256(prepared._metadata).hexdigest(),
-        "silhouette_rows_length_prefixed_sha256": rows_digest.hexdigest(),
+        binding_prefix + "_metadata_sha256": sha256(prepared._metadata).hexdigest(),
+        binding_prefix + "_rows_length_prefixed_sha256": rows_digest.hexdigest(),
         "rows_digest_encoding": "Each original cached row prefixed by its unsigned 8-byte big-endian byte length; not a source-file hash",
         "source_equivalence_manifest_sha256": None if proof is None else proof.manifest_sha256,
-    }, count, cached_bytes
+    }, count, cached_bytes, pose
+
+
+def _bindings(baseline, prepared, selected, deadline):
+    return _bind_inputs(baseline, prepared, selected, deadline, evidence_type=EquipmentSilhouetteEvidence,
+        evidence_profile=SILHOUETTE_PROFILE, point_roles=tuple(HANDS.values()), slot_count_key="pair_slots",
+        binding_prefix="silhouette")[:4]
 
 
 def _point(row, image, original, pair, channel):
@@ -197,12 +208,11 @@ def _point(row, image, original, pair, channel):
     return ("intersection" if pair["intersects"] else "exclusion"), None
 
 
-def constrain_equipment_support(baseline, prepared, *, deadline):
-    """Return a restricted copy of an existing estimator result; no source I/O."""
-    deadline = min(deadline, time.monotonic() + MAX_SECONDS)
+def _baseline(baseline, deadline):
     baseline_raw = _encode(baseline, MAX_OUTPUT_BYTES, deadline)
     _require(baseline.get("profile") == BASELINE_PROFILE and baseline.get("schema_version") == 1
-             and "equipment_silhouette_constraint" not in baseline, "original unconstrained support result required")
+             and not {"equipment_silhouette_constraint", "equipment_hand_constraint"} & baseline.keys(),
+             "original unconstrained support result required")
     _require(baseline.get("contact_state") == "unknown" and baseline.get("ground_height") is None
              and baseline.get("support_force") is None and baseline.get("promoted") is False, "baseline physical claims differ")
     objects, rows = baseline.get("equipment_object_ids"), baseline.get("rows")
@@ -216,6 +226,48 @@ def constrain_equipment_support(baseline, prepared, *, deadline):
     selected = rows[:cutoff]
     _require(all(type(row.get("frame")) is int for row in rows)
              and [row["frame"] for row in rows] == sorted({row["frame"] for row in rows}), "original frame order differs")
+    return baseline_raw, objects, rows, cutoff, selected
+
+
+def _restrict_windows(baseline, prefixes, deadline, *, decision_field, counts_field, excluded_status,
+                      missing_reason, exclusion_reason):
+    rows = baseline["rows"]
+    cutoff = baseline["counts"]["construction_rows"]
+    index = {row["id"]: i for i, row in enumerate(rows[:cutoff])}
+    result, output_rows, decisions, active_counts = dict(baseline), [], Counter(), Counter()
+    for i, row in enumerate(rows):
+        _check(deadline)
+        updated = dict(row); updated["equipment_pairs"] = []
+        for original in row["equipment_pairs"]:
+            pair = dict(original); old = original["status"]
+            decision = {"status": "excluded_later" if i >= cutoff else "not_candidate", "reason": old,
+                        "window_point_range": None, counts_field: None}
+            if i < cutoff and old == "projected_co_motion_candidate":
+                window = row["window"]
+                left, last = index.get(window["first_evidence_id"]), index.get(window["last_evidence_id"])
+                _require(type(left) is int and type(last) is int and 0 <= left <= i <= last < cutoff
+                         and window["samples"] == last - left + 1, "original candidate window identities differ")
+                right = last + 1
+                counts = {name: prefix[right] - prefix[left] for name, prefix in prefixes[(original["object_id"], original["hand"])].items()}
+                _require(sum(counts.values()) == window["samples"], "complete original window point count differs")
+                status = "unavailable" if counts["unavailable"] else "excluded" if counts["exclusion"] else "kept"
+                decision.update(status=status, reason={"unavailable": missing_reason,
+                    "excluded": exclusion_reason, "kept": None}[status], window_point_range=[left, right], **{counts_field: counts})
+                pair["status"] = {"unavailable": "unavailable", "excluded": excluded_status, "kept": old}[status]
+            pair["co_motion_baseline_status"] = old; pair[decision_field] = decision
+            updated["equipment_pairs"].append(pair); decisions[decision["status"]] += 1
+            if i < cutoff:
+                active_counts[pair["status"]] += 1
+        output_rows.append(updated)
+    result["rows"] = output_rows
+    result["counts"] = dict(baseline["counts"], equipment_status_counts=dict(active_counts))
+    return result, decisions
+
+
+def constrain_equipment_support(baseline, prepared, *, deadline):
+    """Return a restricted copy of an existing estimator result; no source I/O."""
+    deadline = min(deadline, time.monotonic() + MAX_SECONDS)
+    baseline_raw, objects, rows, cutoff, selected = _baseline(baseline, deadline)
     channels, bindings, source_count, source_cache_bytes = _bindings(baseline, prepared, selected, deadline)
     keys = [(object_id, hand) for object_id in objects for hand in HANDS.values()]
     prefixes = {key: {name: array('I', [0]) for name in ("intersection", "exclusion", "unavailable")} for key in keys}
@@ -242,35 +294,9 @@ def constrain_equipment_support(baseline, prepared, *, deadline):
         point_rows.append(encoded); point_bytes += len(encoded)
         prefix_bytes = sum(len(prefix) * prefix.itemsize for values in prefixes.values() for prefix in values.values())
         _require(point_bytes + prefix_bytes <= MAX_CACHE_BYTES, "point/prefix cache bound exceeded; no slots dropped")
-    index = {row["id"]: i for i, row in enumerate(selected)}
-    result, output_rows, decisions, active_counts = dict(baseline), [], Counter(), Counter()
-    for i, row in enumerate(rows):
-        _check(deadline)
-        updated = dict(row); updated["equipment_pairs"] = []
-        for original in row["equipment_pairs"]:
-            pair = dict(original); old = original["status"]
-            decision = {"status": "excluded_later" if i >= cutoff else "not_candidate", "reason": old,
-                        "window_point_range": None, "window_image_counts": None}
-            if i < cutoff and old == "projected_co_motion_candidate":
-                window = row["window"]
-                left, last = index.get(window["first_evidence_id"]), index.get(window["last_evidence_id"])
-                _require(type(left) is int and type(last) is int and 0 <= left <= i <= last < cutoff
-                         and window["samples"] == last - left + 1, "original candidate window identities differ")
-                right = last + 1
-                counts = {name: prefix[right] - prefix[left] for name, prefix in prefixes[(original["object_id"], original["hand"])].items()}
-                _require(sum(counts.values()) == window["samples"], "complete original window point count differs")
-                status = "unavailable" if counts["unavailable"] else "excluded" if counts["exclusion"] else "kept"
-                decision.update(status=status, reason={"unavailable": "required_window_image_point_unavailable",
-                    "excluded": "conditional_image_exclusion_in_original_window", "kept": None}[status],
-                    window_point_range=[left, right], window_image_counts=counts)
-                pair["status"] = {"unavailable": "unavailable", "excluded": "image_silhouette_exclusion", "kept": old}[status]
-            pair["co_motion_baseline_status"] = old; pair["silhouette_constraint"] = decision
-            updated["equipment_pairs"].append(pair); decisions[decision["status"]] += 1
-            if i < cutoff:
-                active_counts[pair["status"]] += 1
-        output_rows.append(updated)
-    result["rows"] = output_rows
-    result["counts"] = dict(baseline["counts"], equipment_status_counts=dict(active_counts))
+    result, decisions = _restrict_windows(baseline, prefixes, deadline, decision_field="silhouette_constraint",
+        counts_field="window_image_counts", excluded_status="image_silhouette_exclusion",
+        missing_reason="required_window_image_point_unavailable", exclusion_reason="conditional_image_exclusion_in_original_window")
     prefix_entries = sum(len(prefix) for values in prefixes.values() for prefix in values.values())
     result["equipment_silhouette_constraint"] = {"schema_version": 1, "profile": PROFILE, "status": "applied_restrict_only",
         "baseline_profile": BASELINE_PROFILE, "baseline_canonical_sha256": sha256(baseline_raw).hexdigest(),

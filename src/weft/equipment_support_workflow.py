@@ -57,9 +57,10 @@ def _runtime_sources(deadline):
 
 
 def prepare_equipment_support(run, out, *, fixed_camera=False, expected_manifest_sha256=None,
-                              max_seconds=20., progress=None):
+                              max_seconds=20., progress=None, hand_points=False):
     """Reuse sealed image results; require an explicit camera assumption and new output."""
     _require(fixed_camera is True, "explicit --fixed-camera assumption required; camera calibration is not inferred")
+    _require(type(hand_points) is bool, "hand-points mode must be an explicit boolean")
     _require(type(max_seconds) in (int, float) and math.isfinite(max_seconds) and 15 <= max_seconds <= 30,
              "cooperative time bound must be between fifteen and thirty seconds")
     start = time.monotonic()
@@ -75,6 +76,12 @@ def prepare_equipment_support(run, out, *, fixed_camera=False, expected_manifest
         _check(deadline)
     emit("inputs", "Restore sealed diagnostics and verify source bindings; no video or mask processing")
     snapshot = load_equipment_support_snapshot(source, expected_manifest_sha256=expected_manifest_sha256, deadline=deadline)
+    hand = None
+    if hand_points:
+        from weft.equipment_hand_snapshot import prepare_equipment_hand_snapshot
+        emit("hands", "Compare saved wrist and finger points with cached masks; no new inference or physical contact claim")
+        hand = prepare_equipment_hand_snapshot(snapshot, deadline=deadline)
+        snapshot = hand.snapshot
     prior = {"mode": "fixed_source_camera", "status": "authored_unverified",
              "source_sha256": snapshot.pose["source_sha256"],
              "rationale": "Explicit --fixed-camera user assumption; not measured camera calibration"}
@@ -83,9 +90,10 @@ def prepare_equipment_support(run, out, *, fixed_camera=False, expected_manifest
     # Reserve the estimator's full existing deadline rather than silently exceeding this workflow's limit.
     _require(deadline - time.monotonic() >= CONTRACT["maximum_seconds"],
              "not enough remaining time for the bounded selector; no selection was started")
+    constraint = {"equipment_silhouette": snapshot.silhouette} if hand is None else {"equipment_hand_points": hand.evidence}
     support = estimate_exercise_support(snapshot.pose, camera_prior=prior,
         equipment_observations=snapshot.silhouette.equipment_document, equipment_ids=snapshot.equipment_ids,
-        equipment_source_equivalence=snapshot.silhouette.source_equivalence, equipment_silhouette=snapshot.silhouette)
+        equipment_source_equivalence=snapshot.silhouette.source_equivalence, **constraint)
     support_raw = _encode(support, (8 << 20) + 1)
     emit("report", "Explain every original pair, decision, missing input and unchanged physical uncertainty")
     from weft.equipment_support_report import build_equipment_support_report
@@ -99,7 +107,8 @@ def prepare_equipment_support(run, out, *, fixed_camera=False, expected_manifest
     runtime = _runtime_sources(deadline)
     _require(report.get("brand.css") == runtime["assets/brand.css"], "report stylesheet differs from archived bytes")
     files = {**report, **{"source/" + name: raw for name, raw in snapshot.source_files.items()},
-             **{"generator/" + name: raw for name, raw in runtime.items()}}
+             **{"generator/" + name: raw for name, raw in runtime.items()},
+             **({} if hand is None else hand.artifacts)}
     result = {"schema_version": 1, "profile": PROFILE, "status": "completed", "sealed": True,
         "report_path": str(target / "index.html"), "source_manifest_sha256": snapshot.source_manifest_sha256,
         "support_evidence_sha256": sha256(support_raw).hexdigest(), "read_work": snapshot.read_work,
@@ -111,6 +120,12 @@ def prepare_equipment_support(run, out, *, fixed_camera=False, expected_manifest
         "native_calls": 0, "api_calls": 0, "contact": "unknown", "support": "unknown", "grasp": "unknown", "load": "unknown",
         "physical_validation": "unverified", "body_or_floor_installed": False,
         "time_limit_kind": "cooperative_not_hard_process_limit", "prepared_seconds": time.monotonic() - start}
+    if hand is not None:
+        from weft.equipment_hand_snapshot import SCOPE as HAND_SCOPE
+        result.update(evidence_mode="named_hand_points", verification_scope=HAND_SCOPE,
+                      hand_evidence_profile=hand.evidence.describe()["profile"],
+                      cached_binary_reads=snapshot.read_work["cached_binary_reads"],
+                      cached_binary_bytes=snapshot.read_work["cached_binary_bytes"])
     files["result.json"] = _encode(result)
     manifest = {"schema_version": 1, "profile": PROFILE, "status": "completed", "created_at_local": local_time(),
                 "source_manifest_sha256": snapshot.source_manifest_sha256,
