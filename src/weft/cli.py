@@ -315,6 +315,18 @@ def main():
     sw_propose.add_argument("--source-mapping", action="append", default=[], help="Verified original/derivative bundle; repeat for distinct derivatives")
     sw_propose.add_argument("--out", required=True, help="New sealed proposal directory outside the inputs")
     sw_propose.add_argument("--max-seconds", type=float, default=30)
+    exercise_config = commands.add_parser("shared-exercise-config",
+        help="Choose explicit equipment/camera settings from saved inputs; prepare a configuration, not a world")
+    config_source = exercise_config.add_mutually_exclusive_group(required=True)
+    config_source.add_argument("--human-run", help="Sealed saved mobile body or ready lab; never pose-only evidence")
+    config_source.add_argument("--resume", help="Prior sealed configuration package; reuse only its copied inputs")
+    exercise_config.add_argument("--evidence-run", help="Original sealed equipment observations; required with --human-run")
+    exercise_config.add_argument("--source-mapping", action="append", default=[],
+                                 help="Complete verified source mapping for discovery; repeat for distinct derivatives")
+    exercise_config.add_argument("--request", help="Edited request downloaded from the setup page; requires --resume")
+    exercise_config.add_argument("--manifest-sha256", help="Optional exact prior configuration-package seal; requires --resume")
+    exercise_config.add_argument("--out", required=True, help="New immutable setup package and offline page")
+    exercise_config.add_argument("--max-seconds", type=float, default=30., help="Cooperative saved-input preparation limit; no inference or physics")
     exercise_build = commands.add_parser("shared-exercise-build", help="Build one exercise world and lab from video or saved body evidence")
     exercise_source = exercise_build.add_mutually_exclusive_group(required=True)
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
@@ -737,6 +749,19 @@ def main():
             result = prepare_silhouette_world(args.run, args.masks_run, args.out, task_path=args.task,
                 object_ids=args.object_id, source_frame=args.source_frame,
                 conditional_exterior=args.conditional_exterior, max_seconds=args.max_seconds)
+        elif args.command == "shared-exercise-config":
+            if args.resume is not None:
+                if args.evidence_run is not None or args.source_mapping or args.request is None:
+                    raise ValueError("--resume requires --request and reuses its copied sources; omit --evidence-run and --source-mapping")
+            elif args.evidence_run is None or args.request is not None or args.manifest_sha256 is not None:
+                raise ValueError("Discovery requires --human-run and --evidence-run; --request and --manifest-sha256 require --resume")
+            from weft.shared_exercise_config import prepare_shared_exercise_config
+            labels = {"inputs": "Read saved body and equipment", "availability": "Explain usable and missing frames",
+                      "request": "Check explicit setup choices", "report": "Prepare the setup page", "seal": "Save the setup package"}
+            result = prepare_shared_exercise_config(args.human_run, args.evidence_run, args.out,
+                source_mappings=args.source_mapping, resume=args.resume, request=args.request,
+                expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
             if args.static_supports is not None:
@@ -991,6 +1016,39 @@ def main():
             parser.exit(1, "weft: recording export failed; actions are preserved and recovery guidance is printed above\n")
         if args.command == "shared-exercise-build" and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "shared-exercise-config":
+            pin = result.get("manifest_sha256")
+            if (result.get("profile") != "shared-exercise-config-package-v1" or result.get("sealed") is not True
+                    or type(pin) is not str or len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin)
+                    or any(type(result.get(key)) is not str or not result[key] for key in ("output_path", "report_path"))):
+                parser.exit(1, f"weft: setup did not publish a complete package; inspect preserved output: {args.out}\n")
+            if result.get("status") not in ("needs_input", "config_ready"):
+                parser.exit(1, f"weft: setup {result.get('status', 'unavailable')}; open preserved report: {result['report_path']}\n")
+            target = Path(result["output_path"])
+            if result["status"] == "config_ready":
+                inputs, options = result.get("build_inputs"), result.get("build_options")
+                if (type(inputs) is not dict or set(inputs) != {"human_run", "evidence_run", "source_mappings", "config"}
+                        or any(type(inputs[key]) is not str or not inputs[key] for key in ("human_run", "evidence_run", "config"))
+                        or type(inputs["source_mappings"]) is not list or len(inputs["source_mappings"]) > 7
+                        or any(type(path) is not str or not path for path in inputs["source_mappings"])
+                        or type(options) is not dict or set(options) != {"body_scale", "root_assistance"}
+                        or type(options["body_scale"]) not in (int, float) or not .5 <= options["body_scale"] <= 2
+                        or type(options["root_assistance"]) is not bool or result.get("full_reference") is not True
+                        or result.get("config_path") != inputs["config"]):
+                    parser.exit(1, f"weft: ready setup lacks exact build inputs/options; inspect: {result['report_path']}\n")
+                followup = [sys.executable, "-m", "weft", "shared-exercise-build", "--human-run", inputs["human_run"],
+                    "--evidence-run", inputs["evidence_run"], "--config", inputs["config"],
+                    "--body-scale", str(options["body_scale"]), "--full-reference",
+                    "--out", str(target.with_name(target.name + "-build"))]
+                for path in inputs["source_mappings"]: followup.extend(["--source-mapping", path])
+                if options["root_assistance"]: followup.append("--root-assistance")
+                instruction = "Configuration ready, not a validated world. Run the existing builder to check geometry and collisions:"
+            else:
+                followup = [sys.executable, "-m", "weft", "shared-exercise-config", "--resume", str(target),
+                    "--manifest-sha256", pin, "--request", "PATH_TO_DOWNLOADED_REQUEST.json",
+                    "--out", str(target.with_name(target.name + "-configured"))]
+                instruction = "Download your edited request from the setup page; replace PATH_TO_DOWNLOADED_REQUEST.json below. Do not edit the sealed package:"
+            print(f"Saved setup page: {result['report_path']}\n{instruction}\n" + shlex.join(followup), file=sys.stderr)
         if args.command == "body-reference-propose" and result.get("status") != "completed":
             if (result.get("error") or {}).get("stage") == "inspection" and result.get("proposal_manifest_sha256"):
                 recovery = shlex.join([sys.executable, "-m", "weft", "body-reference-report",

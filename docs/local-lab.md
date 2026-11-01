@@ -8,6 +8,7 @@ For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide
 
 - **Play with a ready exercise:** [launch the exercise sandbox](#recommended-exercise-sandbox).
 - **Try your own video:** [build a person-only 3D environment](#build-from-your-person-only-exercise-video).
+- **Combine a saved body and equipment:** [prepare the shared-world setup](#prepare-a-body-and-equipment-setup).
 - **Understand a result:** [inspect saved evidence](#inspect-the-labs-saved-evidence) and [check a recording](#check-a-recordings-replay-evidence).
 
 The ground, equipment and second-camera sections below are optional advanced
@@ -225,6 +226,63 @@ Open either page without rerunning anything. The full local check took 19.2
 seconds with no new pose inference or paid call. It retains all 259 source
 slots, including unavailable ones. This is a previously inspected example,
 not accuracy evidence for an unfamiliar video or confirmed equipment contact.
+
+## Prepare a body and equipment setup
+
+Use this when you already have a saved mobile body and tracked equipment. The
+setup page helps you choose the inputs for the existing shared 3D builder; it
+does not decode your video, infer new poses or start simulation.
+
+**1. Create the setup page.** Supply the original saved inputs:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-config \
+  --human-run path/to/mobile-body-run \
+  --evidence-run path/to/tracking-evidence \
+  --out artifacts/my-world-setup-01
+```
+
+Add `--source-mapping path/to/verified-mapping` if tracking used a converted
+video. The workflow preserves complete copied inputs, so later setup changes do
+not depend on editing the original runs. Unsupported or missing input is shown
+explicitly; a failed pose-only result is not a usable body.
+
+**2. Choose the setup and download your request.** Open the printed page. Confirm
+the body, select equipment and an eligible original frame, choose a task target,
+and enter an explicit camera-distance assumption. The current shape option is
+a floor-resting box with depth equal to width—not a recovered handle or grasp.
+Body size starts unchanged and root assistance starts off; both choices are
+visible and editable. Missing frames stay visible rather than being filled in.
+
+Save the downloaded request outside the setup directory, then check it:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-config \
+  --resume artifacts/my-world-setup-01 \
+  --request path/to/downloaded-request.json \
+  --out artifacts/my-world-configured-01
+```
+
+The first command also prints an exact optional `--manifest-sha256` pin for this
+step. Do not edit files inside a sealed setup package. Each revision writes to
+a new directory and reports anything still missing.
+
+**3. Build, then play.** A ready setup prints the existing `shared-exercise-build`
+command with your copied inputs and choices. Run it to check the actual body,
+geometry and collisions. Configuration readiness is not proof those checks will
+pass. Only an admitted build produces the playable lab; a rejected build keeps
+its explanation and artifacts. Use that lab's controls to interact and record.
+Image overlap alone never installs equipment contact.
+
+**Saved example:** [open the kettlebell setup](../artifacts/shared-exercise-config-real-01/configured/inspection/index.html)
+to inspect the existing body, equipment and choices. The discovery → edited
+request → ready-configuration check took 2.09 seconds without new pose inference
+or physics. It retains all 259 original slots and 121 body references. This
+checks the setup workflow, not unfamiliar-video reconstruction or contact
+accuracy. To play the existing verified video example now, run
+`python scripts/play_sandbox.py --example video`.
+
+[Implementation, verification status and limits](handoffs/shared-exercise-config-workflow.md).
 
 ## Fit a body using uncertain support ranges (experimental)
 

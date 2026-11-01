@@ -1,6 +1,19 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: ordinary exercise/equipment workflow
+## Current milestone — November 1, 2026: guided shared-world setup
+
+- [x] Publish the twelve-path ordinary pose/equipment workflow as `7d604e4fada2fd8939752efffb2557056b6525ef`; exact private remote verified. Receipt `.local/exercise-equipment-publication-01.json`, SHA `e9ba56cbbc26572e58d650419e43531e7602d0ab9e8982a40cbd6f1a3bd66f2b`. Published scope/index clean and stash empty; two independent avatar edits preserved.
+- [x] Add bounded saved-input discovery/request-resume and an offline setup page for the existing `shared-exercise-build`. Keep all choices and physical assumptions explicit; configuration readiness is not body/world admission. [Current ownership and next action](docs/handoffs/shared-exercise-config-workflow.md).
+- [x] Extract the pure proposal config contract with 41 differential/alias/dependency passes and independent review. Preserve numeric validation, exception semantics and both source snapshot closures; no native model/solver work.
+- [x] Complete guided CLI routing (20 cases), source preparation (37) and offline page (18), with independent review. Together with the pure contract checks, 116 distinct focused cases pass. Preserve the reproduced source-derivation, late-marker and nullable-translation failures and their targeted fixes.
+- [x] Pass the frozen authored public discovery → request → resume workflow in 0.461681 seconds, preserving all eight source slots and exact copied inputs. Independently audit all 53 files, stage/source/generator seals, downloads and local links; no producer rerun.
+- [x] Pass the same public workflow on saved real kettlebell inputs in 2.088460 seconds: 389 files / 115,764,340 bytes, all 259 original / 257 decoded slots and 121 body references. [Open the setup](artifacts/shared-exercise-config-real-01/configured/inspection/index.html). No decoding, inference, physics or paid calls; existing assumptions remain explicit.
+- [x] Independently verify all 389 real output files, complete source/mapping copies, generator pins, original frame denominator, 44 links and exact request/config/build guidance. Saved scripted checks cover every frame; 8,000 unchanged updates cause zero writes. Preserve the fixture-stat checker failure and its one-file exact-stat amendment; no output/source-stage rerun.
+- [x] Prepare the reviewed setup checkpoint. `.local/shared-exercise-config-publication-01.json` records the actual commit/private-remote outcome; absence means publication is unfinished. Preserve separate avatar edits, all evidence and the empty stash list. No live source/model/native/API process remains.
+- [ ] Implement the [proposed bounded floor-target adapter](docs/handoffs/floor-target-calibration-contract.md) into existing camera/ground contracts, preserving uncertainty and abstention. The [bounded source search](docs/handoffs/exercise-floor-calibration-gap.md) found no qualified calibrated clip; do not treat exposed local clips or authored floors as independent measurements.
+- [ ] Reliable unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy remain unfinished. Easier setup does not waive those requirements.
+
+## Historical milestone — November 1, 2026: ordinary exercise/equipment workflow
 
 - [x] Publish the 22-path hand-evidence checkpoint as `3feeb1dfc129c28cd7d31e07a470b1aaa26ac230`; exact private remote verified. Preserve all earlier attempts and independent avatar work. Fresh fetch now includes avatar checkpoint `db72891`; local main and remote match.
 - [x] Implement the public `exercise-equipment-evidence` join and optional `tracking-masks --retain-binary`, keeping original source clocks, full slots, failed parents and physical unknowns. Producer has 57 distinct passing analytical cases; CLI has 23 new and 11 affected passes, with independent review.

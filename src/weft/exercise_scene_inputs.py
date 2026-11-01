@@ -8,7 +8,7 @@ from pathlib import Path
 import time
 
 from weft import exercise_body_source, exercise_vision
-from weft.equipment_proposal import validate_proposal_config
+from weft.equipment_proposal_config import validate_proposal_config
 from weft.shared_world_evidence import _verify_document_clock
 from weft.shared_world_packaging import read_package_file, read_package_manifest, validate_package_layout
 from weft.source_equivalence import load_source_equivalence
@@ -36,7 +36,7 @@ RECOVERY_METHOD = "selective-crop"
 SOURCE_NOTE = "Rights not independently verified; user-provided local video"
 REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupported"}
 IMPLEMENTATION_FILES = tuple(dict.fromkeys((*exercise_body_source.IMPLEMENTATION_FILES,
-    "exercise_scene_inputs.py", "equipment_proposal.py", "shared_world_pipeline.py",
+    "exercise_scene_inputs.py", "equipment_proposal.py", "equipment_proposal_config.py", "shared_world_pipeline.py",
     "shared_world_reconstruction.py", "shared_world_evidence.py", "source_equivalence.py")))
 
 

@@ -1,5 +1,43 @@
 # Combined Weft implementation handoff
 
+## Guided shared-world setup — November 1, 2026, PDT
+
+The twelve-path ordinary evidence workflow is published as
+`7d604e4fada2fd8939752efffb2557056b6525ef`, exact private remote verified.
+Receipt `.local/exercise-equipment-publication-01.json`, SHA
+`e9ba56cbbc26572e58d650419e43531e7602d0ab9e8982a40cbd6f1a3bd66f2b`.
+Published scope/index clean, stash empty; two independent avatar edits remain.
+All preceding source/CLI/audit processes are terminal; do not repeat them.
+
+**Guided setup now passes the public workflow:** saved-input discovery → explicit
+editable choices → ordinary configuration and builder command. The real saved
+kettlebell case takes **2.088460 seconds**, preserving all 259 original / 257
+decoded source slots and 121 body references. Output: 389 files / 115,764,340
+bytes; [open the setup](../../artifacts/shared-exercise-config-real-01/configured/inspection/index.html).
+The helper copies complete original source packages, and resume reads only those
+copies. Camera, box shape, translation, body scale and virtual root assistance
+remain authored settings. No decoder, model, physics, API or automatic build ran.
+Configuration readiness is not world admission or physical accuracy.
+
+All 116 focused cases pass (41 pure contract, 20 CLI, 37 producer, 18 report),
+with independent review. Authored public acceptance passes in 0.461681 seconds;
+its complete 53-file saved audit also passes. The separate real saved-output
+audit passes all 389 files, exact source/frame/generator joins, downloads and
+44 local links. Preserve its fixture-stat checker failure and one-file
+exact-stat amendment; no output tree or source stage was rerun. Both actual
+CLI runs are terminal; no live scientific job remains. Do not rerun the already
+verified native assembly just to validate unchanged configuration values. Its
+constructor, task scorer and physical admission gates remain unchanged.
+[Exact scope, reusable contracts and next action](shared-exercise-config-workflow.md).
+
+Setup publication outcome lives in `.local/shared-exercise-config-publication-01.json`;
+absence means unfinished. Only reviewed setup/research handoff paths are in scope;
+independent avatar edits and every earlier artifact remain untouched. The last
+fresh fetch matched `7d604e4`; stash/index were empty before scoped preparation.
+The overall goal remains active: the next reconstruction seam is measured
+floor-target evidence into the existing camera/ground contracts, not another
+simulator. [Bounded source search, exact missing measurements and reuse plan](exercise-floor-calibration-gap.md).
+
 ## Ordinary pose/equipment composition — November 1, 2026, 12:56 AM PDT
 
 **Real public workflow passed:** retained-mask export → ordinary evidence join →
