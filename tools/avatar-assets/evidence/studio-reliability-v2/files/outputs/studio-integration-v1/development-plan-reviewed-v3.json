@@ -1,0 +1,42 @@
+{
+  "ai_usd": null,
+  "checks": [
+    "Exact user action preserved",
+    "Right-hand articulation distinct from stationary torso and feet",
+    "Identity/palette/small details preserved in plan",
+    "No fur imposed on mechanical source",
+    "No appearance or successful motion claimed by planner"
+  ],
+  "job_id": "c9ac0f48bd8044458a8390d4",
+  "new_meshy_credits": 0,
+  "ownership": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-01T14:50:33.603610-08:00",
+    "heartbeat_local": "2026-11-01T14:50:33.603610-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/c9ac0f48bd8044458a8390d4/run-0001",
+    "invocations": 1,
+    "operation": "plan",
+    "owner_identity": "darwin-start:1793573418:78314",
+    "owner_pid": 73629,
+    "queued_jobs": []
+  },
+  "plan_id": "fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6",
+  "plan_sha256": "55e676bde3caa95fff631a28acf8a17cc0f991b6f405c3736c15aeeda7ee094e",
+  "planner_elapsed_seconds": 14.98,
+  "planner_receipt_sha256": "77716111d2a201c2a7e466ab5a707e544426930ae4f4806058bd9194c8657ad5",
+  "planner_usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 15907,
+    "output_tokens": 603,
+    "reasoning_output_tokens": 0
+  },
+  "request_sha256": "a86ee457573cd7fdebb0666c694298e951a42267cb55ad1393e19542e4f1070a",
+  "schema_version": 1,
+  "status": "semantics_checked_ready_for_one_explicit_ui_start",
+  "study_calls_consumed": 6,
+  "study_calls_remaining_max": 4,
+  "total_study_cap": 10
+}

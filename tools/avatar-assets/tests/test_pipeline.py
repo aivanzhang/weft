@@ -31,8 +31,10 @@ class PipelineTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         (self.root/'avatar_assets').mkdir()
-        for name in pipeline.PIPELINE_SOURCES:
-            shutil.copyfile(pipeline.ROOT/'avatar_assets'/name, self.root/'avatar_assets'/name)
+        for name, source in pipeline._pipeline_sources().items():
+            target = self.root/('scripts' if name.startswith('scripts/') else 'avatar_assets')/Path(name).name
+            target.parent.mkdir(exist_ok=True)
+            shutil.copyfile(source, target)
         self.patch = patch.object(pipeline, 'ROOT', self.root)
         self.patch.start()
         self.addCleanup(self.patch.stop)
@@ -201,13 +203,17 @@ class PipelineTests(unittest.TestCase):
         write_json(pack/'rig-verification.json', {'motion': {'animation_verified':False,
             'animations':[{'name':'wave','motion_observed':False}]}})
         for i in range(7):
-            Image.new('RGB',(384,384),(i*20,20,10)).save(folder/f'{i:04d}.png')
+            pose = Image.new('RGB',(720,720),(i*20,20,10))
+            pose.putpixel((17,31),(255,0,i))
+            pose.save(folder/f'{i:04d}.png')
         facts = worker._diagnostics(pack)
         self.assertFalse(facts['skin_motion']['animation_verified'])
         self.assertEqual(facts['weight_coverage']['positive_vertices_per_bone']['Hand'],13)
         _, paths = worker._contacts(0,pack)
         with Image.open(paths[0]) as image:
-            self.assertEqual(image.size,(1280,720))
+            self.assertEqual(image.size,(2880,1520))
+            self.assertEqual(image.getpixel((17,55)),(255,0,0))
+            self.assertEqual(image.getpixel((1457,803)),(255,0,6))
         self.assertEqual(worker._contacts(0,pack)[1],paths)
 
     def test_repair_receives_surface_failure_before_rendering(self):
@@ -260,6 +266,23 @@ class PipelineTests(unittest.TestCase):
             pipeline.Pipeline._bind_review(review, evidence)
         review['state_reviews'][0]['requirement_reviews'][0]['evidence_ids'] = ['dance-sheet']
         pipeline.Pipeline._bind_review(review, evidence)
+
+    def test_numeric_citations_cannot_replace_images_or_cross_states(self):
+        evidence = [{'id': 'dance-sheet', 'state_ids': ['dance']}, {'id': 'fly-sheet', 'state_ids': ['fly']}]
+        audit = {'passed': True, 'states': [{'id': name, 'evidence': {
+            'state_id': name, 'evidence_id': 'audit-'+name}} for name in ('dance', 'fly')]}
+        review = {'verdict': 'accept', 'checks': [{'evidence_ids': ['dance-sheet']}],
+                  'state_reviews': [{'id': 'dance', 'evidence_ids': ['dance-sheet', 'audit-dance'],
+                    'requirement_reviews': [{'id': 'rhythm', 'evidence_ids': ['dance-sheet', 'audit-dance']}]}]}
+        pipeline.Pipeline._bind_review(review, evidence, audit)
+        for ids in (['audit-dance'], ['dance-sheet', 'audit-fly']):
+            review['state_reviews'][0]['requirement_reviews'][0]['evidence_ids'] = ids
+            with self.assertRaisesRegex(ValueError, 'own state motion image'):
+                pipeline.Pipeline._bind_review(review, evidence, audit)
+        review['state_reviews'][0]['requirement_reviews'][0]['evidence_ids'] = ['dance-sheet', 'audit-dance']
+        review['checks'][0]['evidence_ids'] = ['audit-dance']
+        with self.assertRaisesRegex(ValueError, 'actual output image'):
+            pipeline.Pipeline._bind_review(review, evidence, audit)
 
     def test_sealed_delivery_is_read_only_after_backend_upgrade(self):
         self.prepare()

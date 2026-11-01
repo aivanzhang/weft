@@ -1,0 +1,31 @@
+{
+  "calls_or_costs_reset": false,
+  "immutable_output_bytes": 382622259,
+  "immutable_output_files": 480,
+  "job_id": "8a7e0d76b8b8427f93f52157",
+  "journal_events_added": 1,
+  "kind": "actual_exact_owner_inspection_release",
+  "known_pids": 23,
+  "lease_present": false,
+  "meshy_ledger_sha256_unchanged": "2a4c90d5f4ea9767cbe2eb4a8464fae840eaee11da085b94207fac185662e58b",
+  "new_executor_children": 0,
+  "new_job_prepared_or_started": false,
+  "new_status": "failed",
+  "old_status": "needs_inspection",
+  "old_worker_data_preserved": true,
+  "queued_jobs": 0,
+  "receipt_mode": "0o600",
+  "recorded_local": "2026-11-01T14:36:45.196025-08:00",
+  "release": {
+    "job_id": "8a7e0d76b8b8427f93f52157",
+    "lease_released": true,
+    "no_cost_reset": true,
+    "no_dispatch": true,
+    "receipt": "jobs/8a7e0d76b8b8427f93f52157/inspection-release-d50ff25dd97a403487fcf2c2fee300d9.json",
+    "sha256": "1b1d70398b2ff79e9857fc3c4c450d9ac9c7f456135479024c010853e9fd4182",
+    "status": "failed"
+  },
+  "schema_version": 1,
+  "sealed_receipts": 60,
+  "unchanged_output_manifest_sha256": "b292d5a1f643caa864cf13e265172ad76db513fdb552dd88da28ff2bf0d98474"
+}

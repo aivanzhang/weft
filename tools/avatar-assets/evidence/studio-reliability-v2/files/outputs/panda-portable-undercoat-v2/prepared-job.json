@@ -1,0 +1,111 @@
+{
+  "bounds": {
+    "memory_mb": 2048,
+    "output_mb": 512,
+    "raster_candidate_pixels": 32000000,
+    "raster_seconds": 90,
+    "threads": 4,
+    "timeout_seconds": 600
+  },
+  "changes": "Only selected fur normal/roughness material. Existing portable fibers and all original GLB binary bytes preserved.",
+  "local_energy_price": "unknown; no cloud compute used",
+  "memory_hypothesis_tested": false,
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "preview_bounds": {
+    "memory_mb": 2048,
+    "motion_states": [
+      {
+        "id": "dance_flight",
+        "seconds": [
+          0,
+          1,
+          1.18,
+          1.36,
+          2.36,
+          2.55,
+          2.8,
+          4
+        ]
+      }
+    ],
+    "output_mb": 256,
+    "resolution": 720,
+    "samples": 16,
+    "threads": 4,
+    "timeout_seconds": 600,
+    "views": 4
+  },
+  "previous_failure": {
+    "changed_hypothesis": "Capture individual import correspondence metrics; allow at most1e-6m float32 rest-import rounding. Original patched GLB position bytes remain exact.",
+    "manifest_sha256": "da882bd3a530f28a905a487e96b3b0cdaca7d056ffb1308d0bbae8c743c9d9cb",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v1"
+  },
+  "schema_version": 1,
+  "settings": {
+    "max_faces": 40000,
+    "min_faces": 10000,
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 2048,
+    "roughness": 0.92,
+    "seed": 4517,
+    "strength": 0.22
+  },
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "sources": [
+    {
+      "bytes": 756,
+      "path": "analytic-patch-test.json",
+      "sha256": "96556560942b5fcea13b301c04f04cf19f18e39e9e11621c437dffb99bf8e61e"
+    },
+    {
+      "bytes": 2132,
+      "path": "diagnostic-config.json",
+      "sha256": "9517377f16c76f7438050c4f28b780d47c36a58ee2e55485184529a5008cd7ac"
+    },
+    {
+      "bytes": 219,
+      "path": "source-body-receipt.json",
+      "sha256": "25f05553bf1586dda6236f325c1e01815978a9d806161968a899dd67a0c8f5c6"
+    },
+    {
+      "bytes": 2867306,
+      "path": "source-body.npz",
+      "sha256": "f438438c8b3b2ca83eefc110882c6440f53572ab025307d17c47782816d7335d"
+    },
+    {
+      "bytes": 39202,
+      "path": "sources/accepted-finish-design.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 10086,
+      "path": "sources/bake_diagnostic.py",
+      "sha256": "0b255bfd0720da75570d903edccc73beb1f72fe37ba0cffc64239d1de4734216"
+    },
+    {
+      "bytes": 16753,
+      "path": "sources/blender_fur_undercoat.py",
+      "sha256": "0121bb04a8f17ba00378b1c12920d80dff6a530a829d5d6f8f79ce1713cd8e3a"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 8575,
+      "path": "sources/patch_materials.py",
+      "sha256": "6dc002ee36d26707cfb75f9bd93f569c30d96da296e646c00eeb7cb1d47782ff"
+    }
+  ],
+  "status": "prepared_changed_import_rounding_hypothesis",
+  "tests": "27focused analytic tests passed in1.809s; actual-source append-only patch fixture passed with62581 exact triangle attribute hashes preserved; no appearance claim"
+}

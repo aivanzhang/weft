@@ -1,0 +1,14 @@
+{
+  "command": ".venv/bin/python -m unittest tests.test_studio_inspection -q",
+  "exit_code": 0,
+  "kind": "analytic_custody_fixtures",
+  "schema_version": 1,
+  "scope": "Observed focused test run; no actual worker, provider, browser, native job or OS inventory in fixtures.",
+  "sources": {
+    "avatar_assets/studio_inspection.py": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+    "avatar_assets/studio_jobs.py": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+    "tests/test_studio_inspection.py": "7b1463cac13aecd12df6e6f2522e0849f54becb666621466384a7e47156cfe5f"
+  },
+  "tests_passed": 16,
+  "unittest_seconds": 0.255
+}

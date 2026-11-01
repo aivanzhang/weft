@@ -1,0 +1,197 @@
+{
+  "artifacts": [
+    {
+      "bytes": 655154,
+      "path": "delivered-portrait.webp",
+      "sha256": "1c7d4691611916bcc239afc8931a79ece50289a0af61952e5ec378bea2846add"
+    },
+    {
+      "bytes": 1217206,
+      "path": "exported-views.png",
+      "sha256": "e0fb9fb984d9f5712cea0d3f023bd25d366b28f57eb5891e9afa6c01889d6e11"
+    },
+    {
+      "bytes": 3141119,
+      "path": "motion-00.png",
+      "sha256": "6a3aa5e107f595cb93ac29d961f9e4f09a1940392af7f4df9047b545f511a062"
+    },
+    {
+      "bytes": 1134331,
+      "path": "native-views.png",
+      "sha256": "3386cea89938b1f197e4831f97de22e1ce342dab1a16a37204055f49e9fe71fc"
+    }
+  ],
+  "coverage": [
+    {
+      "height": 720,
+      "id": "evidence-native-views-front",
+      "kind": "view",
+      "representation": "native",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-side",
+      "kind": "view",
+      "representation": "native",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-back",
+      "kind": "view",
+      "representation": "native",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-native-views-three_quarter",
+      "kind": "view",
+      "representation": "native",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-front",
+      "kind": "view",
+      "representation": "exported",
+      "view": "front",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-side",
+      "kind": "view",
+      "representation": "exported",
+      "view": "side",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-back",
+      "kind": "view",
+      "representation": "exported",
+      "view": "back",
+      "width": 720
+    },
+    {
+      "height": 720,
+      "id": "evidence-exported-views-three_quarter",
+      "kind": "view",
+      "representation": "exported",
+      "view": "three_quarter",
+      "width": 720
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-native",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "native",
+      "state_ids": [
+        "right_hand_wave"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00-exported",
+      "kind": "state",
+      "pose_height": 720,
+      "pose_width": 720,
+      "representation": "exported",
+      "state_ids": [
+        "right_hand_wave"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "portrait",
+      "representation": "native",
+      "width": 1600
+    }
+  ],
+  "exported_manifest_sha256": "3cf2f8debd69c8b9b98516927d62dec2e6de615daa18bccf1088a2f7d81f0923",
+  "images": [
+    {
+      "height": 1496,
+      "id": "evidence-native-views",
+      "kind": "multiview",
+      "path": "native-views.png",
+      "sha256": "3386cea89938b1f197e4831f97de22e1ce342dab1a16a37204055f49e9fe71fc",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 1496,
+      "id": "evidence-exported-views",
+      "kind": "multiview",
+      "path": "exported-views.png",
+      "sha256": "e0fb9fb984d9f5712cea0d3f023bd25d366b28f57eb5891e9afa6c01889d6e11",
+      "state_ids": [],
+      "width": 1440
+    },
+    {
+      "height": 3740,
+      "id": "evidence-motion-00",
+      "kind": "native_exported_and_delivered_motion",
+      "path": "motion-00.png",
+      "sha256": "6a3aa5e107f595cb93ac29d961f9e4f09a1940392af7f4df9047b545f511a062",
+      "state_ids": [
+        "right_hand_wave"
+      ],
+      "width": 2880
+    },
+    {
+      "height": 1600,
+      "id": "evidence-delivered-portrait",
+      "kind": "delivered_portrait",
+      "path": "delivered-portrait.webp",
+      "sha256": "1c7d4691611916bcc239afc8931a79ece50289a0af61952e5ec378bea2846add",
+      "state_ids": [],
+      "width": 1600
+    }
+  ],
+  "kind": "full_resolution_review_evidence",
+  "media_manifest_sha256": "3d47ec01fc1f82786134bf99849843432e5155cae6972c8699185812fd813cb7",
+  "model_manifest_sha256": "96029397c029c38f0f1cb564aa55f22630f139c3a8c94f2ad674e15b55183a18",
+  "quality_equivalence_verified": false,
+  "schema_version": 1,
+  "scope": "Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. Four decoded delivered video samples per state. Not all-frame visual, physics or loop certification.",
+  "sources": {
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/back.png": "2c0783412e64d5f093c4d4dc76536ef04e3a11bd95858843828c9b07dcffcac6",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/front.png": "436b087288a2ca4bf4cfc67e2803a29d863aa7524aba1f05c6c473d7540ff747",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0000.png": "218b0302b112249d639c568aed09bee1f705172e201d9e4f191f42b31b4ce1da",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0001.png": "19fcbb45dcc1c45c2948fbed93bc730cbc1fb365f3b871df3de4dffc52d3059b",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0002.png": "dd4b60e4fda295debf45fa08a7a2b6db4bed4a8ac935c3cdd5978a4aa667cf19",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0003.png": "75ce01e9828bc6a0860354eb88664b0aba2ab5f3a570c757cfafbc065dbb3fc2",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0004.png": "66efa5bb20d0f76138f749faa9e24986254312883cfe1c27a1a9967c4acac7cb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0005.png": "26b87ddb6ba3554646f0b304e62c8071c945fe7be06234202f59df30b5b2f8fc",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0006.png": "4ca058154404d85db03c169e5d1edbe8da2f0707d71e52c31fd5f1f07d77c7fb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/renders/right_hand_wave/0007.png": "ec5cf5587ffea41772461873dd76ba6f6e9e73efaff76449a52c9954baee7ccb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/side.png": "d2adb912108137b1ae434b44f0f3e2be8cedc1668117eaee8dc238b904ed977d",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1/three-quarter.png": "4ef226a916fd7684ae9303df809384467f79c3d9421098e82f1d9bbec766bb12",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/media-1/animations/right_hand_wave.mp4": "1626d3fb7f309f0b6ff3a86eb78cf5f0183fa81f3a925da3fc7c0773774bd26d",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/media-1/portrait.webp": "1c7d4691611916bcc239afc8931a79ece50289a0af61952e5ec378bea2846add",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0000.png": "b6925f90719724763a5deb22a2766e58a3cf0f315de6a4dc04fc87518b727161",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0001.png": "1291effc5ab0a1413a119f0d9da1b0e519e46e72f5724261fcd8a196a9380d6f",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0002.png": "43fcfc34ab0d2fa754933c42632b41e9a4d615e1166dd8e4d67bb5d7e92b7c36",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0003.png": "ba53c5a220d049285d6ce86cf6efbc22aedf3c1cfe350c5a053dd11156042b82",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0004.png": "2444f8ff2e7d7d84038582c2b4553362c47b41b59401ad065a26228abc8343a4",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0005.png": "c2cecf418f443bec38e3faf858c714ca60c7b800b5c467df3a0444c615996073",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0006.png": "fe8a1f20fef690d5b4d4a18a90068fe2bce727a78266b090d9e19bb49bf545a0",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/renders/right_hand_wave/0007.png": "f118962614199fc33b9cc6b8e484453428b985571f6eb31ea24fe2557089195b",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/views/back.png": "c3034dbed6afc8ce71afd8179b209329d977d688811f3288359ee2aea0b21296",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/views/front.png": "c003b112e27ee053d843a6e3a6726f8a6e56c68590f112b8ce7c38be82f9aa67",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/views/side.png": "e261c1d611601894f94fd0ba4caf0c55581760d69589db2e986ed105f7853d7b",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1/views/three_quarter.png": "0de2ed8196f89fbbb7a9a808411e254f43a64f3cfe1dda67772282b017e291e1"
+  },
+  "status": "prepared_for_review"
+}

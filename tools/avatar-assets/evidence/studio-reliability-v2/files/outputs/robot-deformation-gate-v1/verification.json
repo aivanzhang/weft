@@ -1,0 +1,77 @@
+{
+  "ai_calls": 0,
+  "created": "2026-11-01T14:15:25.532687-08:00",
+  "focused_tests": {
+    "count": 10,
+    "log_sha256": "b2fe7e3c4f1f48a44435c8785e5116292950e4139b618a26b976d62b25dd3358",
+    "status": "passed",
+    "test_runner_elapsed_seconds": 0.13446,
+    "unittest_seconds": 0.027
+  },
+  "native_calls": 0,
+  "new_credits": 0,
+  "provider_calls": 0,
+  "records": [
+    {
+      "attempt": 0,
+      "config_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/finish-0.json",
+      "config_sha256": "71bb856739b29e5ef6362249317ca4b4ba93151834724dd75b98510f4eda76f2",
+      "elapsed_seconds": 0.0010296250693500042,
+      "input_files_sha256": {
+        "finish-report.json": "a1bf2be93d6cea42602106e9d5d60d5d5586ef27a5a790f55d7986e41cd119a5",
+        "job.json": "d50ccca2e3b2bdc39cf5fcf9070d97c2ca6648b6b9ed5b23f402899b415e7d4a",
+        "manifest.json": "224706b5e468cd6db7708c28c0fa6a6083ed76c54d3122a6593fb937a9bfeb43",
+        "sources/finish-design.json": "71bb856739b29e5ef6362249317ca4b4ba93151834724dd75b98510f4eda76f2"
+      },
+      "original_inputs_unchanged": true,
+      "original_model_sha256": "8bdf4eb0f9bdced86bca57cb5d41a5275307f65965c132aa65691bc8ed294659",
+      "original_pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-0",
+      "passed": false,
+      "prior_action_audit_sha256": "ef099f2bf224d696249126c2539bfcaa16a4c2538336b87fa053ec5f3afdcf78",
+      "retained_directory_is_evidence_subset_not_complete_model_pack": true
+    },
+    {
+      "attempt": 1,
+      "config_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/finish-1.json",
+      "config_sha256": "932f541d4e7fea1c1c413221cb123f8ceda68bd6637de2bbf80b388396bdc602",
+      "elapsed_seconds": 0.000844916794449091,
+      "input_files_sha256": {
+        "finish-report.json": "744f240c35d48782b611be5c77e14243f289e0fb721829ab3f5dacf91cf84176",
+        "job.json": "74ddc3d23c3eb29c9b375baa591a7fe653e76b124c209a9beb81265da2b84b24",
+        "manifest.json": "96029397c029c38f0f1cb564aa55f22630f139c3a8c94f2ad674e15b55183a18",
+        "sources/finish-design.json": "932f541d4e7fea1c1c413221cb123f8ceda68bd6637de2bbf80b388396bdc602"
+      },
+      "original_inputs_unchanged": true,
+      "original_model_sha256": "7961d416838a7bfded4d7038d65fc62eb4ddea55044cc8b47e5a92d4fb0a0785",
+      "original_pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-8a7e0d76b8b8427f93f52157/model-1",
+      "passed": false,
+      "prior_action_audit_sha256": "c2ccd32de2dada1c0ac871f878192fb204b91c686edb253bfd1a8b0d20350f1c",
+      "retained_directory_is_evidence_subset_not_complete_model_pack": true
+    }
+  ],
+  "rss_measured": false,
+  "schema_version": 1,
+  "scope": "Read-only audit of preserved actual native reports; not newly generated models or visual approval",
+  "source_artifacts": [
+    {
+      "bytes": 10523,
+      "path": "avatar_assets/deformation_gate.py",
+      "sha256": "73bf12d0980b344f87737b4e391b836913da760ec8d834c41555ddea64b78d69"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 5273,
+      "path": "scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 8114,
+      "path": "tests/test_deformation_gate.py",
+      "sha256": "ed8c595d1ba9cefce76535da6d7a1d75d0955a400a20349c95ca6545f46ab1e2"
+    }
+  ]
+}

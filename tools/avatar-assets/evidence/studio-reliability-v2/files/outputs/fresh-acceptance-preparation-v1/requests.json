@@ -1,0 +1,48 @@
+{
+  "cases": [
+    {
+      "action": "Perform a cheerful rhythmic dance with three alternating side-to-side beats, small whole-body hops and coordinated arm swings and head tilts. The arms and head must move independently of whole-body travel. Finish back in the starting pose. This is an authored toy dance, not a physics simulation.",
+      "agent_timeout": "240",
+      "max_agent_calls": "5",
+      "max_credits": "35",
+      "max_repairs": "1",
+      "out": "outputs/fresh-fur-dancer-v1",
+      "prepare_only": true,
+      "preset": "preview",
+      "prompt": "An original friendly panda-like character with a round ivory belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Compact upright proportions, distinct hands and feet, and a relaxed neutral pose with clear space between arms and torso and between the feet. A clean smooth undercoat beneath short soft fur, without carved fur spikes. No clothes, props, companion, pedestal, text or scenery.",
+      "states": "dance",
+      "style": "Premium stylized 3D character with dense soft short fur, readable individual fiber tips, subtle directional grooming, clean black-to-ivory boundaries and expressive glossy eyes. Rounded believable forms; not a plastic figurine or a painted-fur texture. Preserve the same identity and palette in every view and motion."
+    },
+    {
+      "action": "Take off from the starting position, fly upward and sideways while both wings visibly flap through at least three beats, then descend and return to the starting position. The wings must articulate relative to the body while it travels; standing wing flaps or moving the whole dragon without wing motion do not satisfy this flight.",
+      "agent_timeout": "240",
+      "max_agent_calls": "5",
+      "max_credits": "35",
+      "max_repairs": "1",
+      "out": "outputs/fresh-winged-flight-v1",
+      "prepare_only": true,
+      "preset": "preview",
+      "prompt": "An original small teal dragon with an amber belly, two broad orange membranous wings, four short legs, a long tapered tail and two small ivory horns. A friendly narrow muzzle and bright gold eyes. Neutral standing pose with both wings partly open, clearly separated from the torso, legs and tail. Smooth small-scale skin and thin intact wing membranes. One creature only; no rider, companion, clothes, props, pedestal, text or scenery.",
+      "states": "flight",
+      "style": "Polished stylized creature with fine teal scale detail, supple orange wing membranes, subtle material variation, clean edges and restrained highlights. No fur or hair. Keep anatomy, wing size, colors and scale consistent throughout the animation."
+    },
+    {
+      "action": "Keep the circular base fixed in place throughout. Sweep the articulated arm left and right while the lampshade nods independently twice, then return to the initial pose. Motion must occur at the mechanical joints, without rocking the base, stretching the metal links or bending the ceramic shade.",
+      "agent_timeout": "240",
+      "max_agent_calls": "5",
+      "max_credits": "35",
+      "max_repairs": "1",
+      "out": "outputs/fresh-articulated-lamp-v1",
+      "prepare_only": true,
+      "preset": "preview",
+      "prompt": "An original articulated desk lamp with a heavy circular cream ceramic base, two slender matte teal metal arm links, visible brass hinge joints and a rounded cream ceramic lampshade. The arm is bent in a relaxed neutral position with clear mechanical gaps around each hinge and space between the shade and arm. No face, limbs, visible cable, separate objects, lettering, pedestal or surrounding furniture.",
+      "states": "mechanical_scan",
+      "style": "High-quality stylized product object with smooth satin ceramic, matte painted metal and restrained brass highlights. Precise rigid mechanical forms, clean material boundaries and a warm cream and teal palette. No fur, hair or organic skin; no animated light or material changes."
+    }
+  ],
+  "recorded_local": "2026-11-01T14:45:26.940899-08:00",
+  "schema_version": 1,
+  "source_document": "docs/fresh-avatar-acceptance-plan.md",
+  "source_document_sha256": "73961de0e5dcfb3f86d26b57d6854993fe549df44580e5af13634f4eccf352b9",
+  "status": "exact_input_preparation_only_no_jobs_or_calls"
+}

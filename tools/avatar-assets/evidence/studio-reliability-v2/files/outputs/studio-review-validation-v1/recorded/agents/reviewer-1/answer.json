@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views", "evidence-delivered-portrait"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The supplied views consistently show the rounded workshop robot, cream faceplate, blue panels, copper fittings and small mechanical details."
+    },
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views", "evidence-delivered-portrait"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Native and exported appearances retain the requested palette and polished metal toy finish. No fur is requested."
+    },
+    {
+      "evidence_ids": ["evidence-native-views", "evidence-exported-views", "evidence-motion-00"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The full body, feet and raised hand remain inside the sampled frames."
+    },
+    {
+      "evidence_ids": ["evidence-motion-00"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "Raised-arm poses show a long thin copper-colored spike extending down from the wrist/forearm and a stretched blue wedge near the shoulder. Both defects appear in native, exported and delivered samples."
+    }
+  ],
+  "limitations": [
+    "Motion is supplied as a contact sheet; individual full-resolution peak poses are unavailable for detailed joint inspection.",
+    "Sampled images and supplied measurements do not establish continuous collision freedom, physical support or seamless looping.",
+    "Original source identity cannot be independently compared because no separate source appearance reference is supplied."
+  ],
+  "required_repairs": [
+    "Inspect and correct right shoulder, forearm and wrist vertex assignments so raising and waving the hand does not stretch panel geometry into spikes or wedges; preserve the original mechanical details.",
+    "Supply full-resolution native and exported peak-pose images after repair, including side views of the raised arm."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["evidence-motion-00", "action-audit-right_hand_wave"],
+      "id": "right_hand_wave",
+      "meaning_passed": true,
+      "motion_passed": false,
+      "reason": "The raised right hand alternates orientation in a recognizable greeting, but conspicuous arm deformation prevents acceptance.",
+      "requirement_reviews": [
+        {
+          "evidence_ids": ["evidence-motion-00", "action-audit-right_hand_wave"],
+          "id": "wave_right_hand",
+          "passed": false,
+          "reason": "Repeated hand changes are visible and the supplied audit reports articulation, but stretched wrist/forearm and shoulder geometry breaks the arm silhouette during the wave."
+        },
+        {
+          "evidence_ids": ["evidence-motion-00", "action-audit-right_hand_wave"],
+          "id": "steady_torso",
+          "passed": true,
+          "reason": "The torso stays in the same sampled position and orientation; the supplied audit reports zero sampled world displacement for its selected surfaces."
+        },
+        {
+          "evidence_ids": ["evidence-motion-00", "action-audit-right_hand_wave"],
+          "id": "planted_feet",
+          "passed": true,
+          "reason": "Both feet retain their sampled positions without visible stepping or sliding, consistent with reported zero sampled world displacement. Physical ground contact remains unverified."
+        }
+      ]
+    }
+  ],
+  "summary": "The robot appearance and greeting meaning are preserved, but the raised right arm develops conspicuous stretched geometry across all supplied motion representations.",
+  "verdict": "repair"
+}

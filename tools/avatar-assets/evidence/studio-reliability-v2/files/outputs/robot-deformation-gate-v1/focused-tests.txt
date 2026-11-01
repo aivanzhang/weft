@@ -1,0 +1,15 @@
+test_both_fixed_thresholds_are_required_and_strict (test_deformation_gate.DeformationGateTests.test_both_fixed_thresholds_are_required_and_strict) ... ok
+test_changed_report_bytes_and_duplicate_manifest_rows_reject (test_deformation_gate.DeformationGateTests.test_changed_report_bytes_and_duplicate_manifest_rows_reject) ... ok
+test_empty_diagnostics_are_only_no_reported_spike_not_approval (test_deformation_gate.DeformationGateTests.test_empty_diagnostics_are_only_no_reported_spike_not_approval) ... ok
+test_malformed_coordinates_weights_indices_and_lengths_reject (test_deformation_gate.DeformationGateTests.test_malformed_coordinates_weights_indices_and_lengths_reject) ... ok
+test_missing_authored_diagnostics_fail_explicitly (test_deformation_gate.DeformationGateTests.test_missing_authored_diagnostics_fail_explicitly) ... ok
+test_missing_or_oversized_outlier_evidence_rejects (test_deformation_gate.DeformationGateTests.test_missing_or_oversized_outlier_evidence_rejects) ... ok
+test_oversized_input_fails_before_parsing (test_deformation_gate.DeformationGateTests.test_oversized_input_fails_before_parsing) ... ok
+test_sampler_binding_and_duplicate_edge_evidence_reject (test_deformation_gate.DeformationGateTests.test_sampler_binding_and_duplicate_edge_evidence_reject) ... ok
+test_severe_spike_rejects_and_preserves_targeted_repair_evidence (test_deformation_gate.DeformationGateTests.test_severe_spike_rejects_and_preserves_targeted_repair_evidence) ... ok
+test_source_design_state_and_height_bindings_reject (test_deformation_gate.DeformationGateTests.test_source_design_state_and_height_bindings_reject) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.027s
+
+OK

@@ -1,0 +1,39 @@
+{
+  "cleanup_events": [],
+  "cleanup_status": "not_required",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "avatar_assets.action_audit",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4/model-1/model.glb",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4/action-audit-1/intent.json",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4/action-audit-1/report.json"
+  ],
+  "descendant_exit_verified": false,
+  "elapsed_seconds": 0.263,
+  "exit_code": 0,
+  "failure": null,
+  "failure_reasons": [],
+  "final_output_bytes": 15343,
+  "limits": {
+    "cleanup_grace_seconds": 7,
+    "log_bytes": 16777216,
+    "output_inventory_entries": 100000,
+    "output_mb": 32,
+    "rss_mb": 768,
+    "wall_seconds": 60
+  },
+  "manual_stop_required": false,
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "monitor_checkpoint": "audit-monitor.json",
+  "monitor_errors": [],
+  "pid": 74436,
+  "process_exit_verified": true,
+  "rss_exit_race_observed": true,
+  "rss_samples": 0,
+  "sampled_max_output_bytes": 15343,
+  "sampled_peak_rss_bytes": null,
+  "sampling_interval_seconds": 0.25,
+  "schema_version": 1,
+  "status": "finished"
+}

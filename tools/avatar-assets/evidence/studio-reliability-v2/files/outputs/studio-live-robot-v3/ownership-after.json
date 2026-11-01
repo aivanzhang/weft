@@ -1,0 +1,47 @@
+{
+  "files": [
+    {
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/request.json",
+      "sha256": "a86ee457573cd7fdebb0666c694298e951a42267cb55ad1393e19542e4f1070a"
+    },
+    {
+      "path": "outputs/studio-c9ac0f48bd8044458a8390d4/plan.json",
+      "sha256": "55e676bde3caa95fff631a28acf8a17cc0f991b6f405c3736c15aeeda7ee094e"
+    }
+  ],
+  "id": "c9ac0f48bd8044458a8390d4",
+  "output": "outputs/studio-c9ac0f48bd8044458a8390d4",
+  "owner": {
+    "active_lease_job": null,
+    "cancel_requested": false,
+    "ended_local": "2026-11-01T14:53:07.794426-08:00",
+    "heartbeat_local": "2026-11-01T14:53:07.794427-08:00",
+    "identity_verified_live": false,
+    "invocation_dir": "jobs/c9ac0f48bd8044458a8390d4/run-0002",
+    "invocations": 2,
+    "operation": "execute",
+    "owner_identity": "darwin-start:1793573487:971496",
+    "owner_pid": 74024,
+    "queued_jobs": []
+  },
+  "ownership_scope": "Read-only canonical registry and selected PID identity; no dispatch, cancellation or signal",
+  "plan_id": "fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6",
+  "provenance": "actual_pipeline",
+  "recorded_local": "2026-11-01T14:53:09.489759-08:00",
+  "request": {
+    "custom_actions": [
+      "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+    ],
+    "preset": "preview",
+    "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+    "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette."
+  },
+  "schema_version": 1,
+  "source_reuse": {
+    "bytes": 23097200,
+    "path": "inputs/source-model.glb",
+    "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+  },
+  "state_dir": ".local/studio",
+  "status": "unsupported"
+}

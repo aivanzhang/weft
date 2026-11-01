@@ -1,0 +1,17 @@
+14:37:59 | INFO: Data are loaded, start creating Blender stuff
+14:37:59 | INFO: Blender create Mesh node PartitionedMesh
+14:37:59 | INFO: Blender create Mesh node PortableCoat_0
+14:37:59 | INFO: Blender create Mesh node PortableCoat_1
+14:37:59 | INFO: glTF import finished in 0.19s
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Read blend: "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/source.blend"
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v1/sources/bake_diagnostic.py", line 140, in <module>
+    run(args[0],args[1])
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v1/sources/bake_diagnostic.py", line 92, in run
+    raise ValueError('Native triangle order does not match the source GLB; cannot patch selected primitives safely')
+ValueError: Native triangle order does not match the source GLB; cannot patch selected primitives safely
+
+Error: script failed, file: '/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v1/sources/bake_diagnostic.py', exiting.
+
+Blender quit

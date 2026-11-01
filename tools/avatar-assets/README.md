@@ -30,14 +30,19 @@ review of final media before delivery. No universal prompt success or Muse-level
 finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
 [commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
 
-Checkpoint **November 1, 2026, 2:05 PM PST**: 552 Python tests and nine browser
-fixture checks pass. A real robot source-reuse job is now running after one
-explicit UI Start; its first verifier stopped on an incorrect HTTP-status
-assertion, not a worker failure. A corrected observation-only check is following
-the same worker without starting it again. Final review/output acceptance is
-pending. The new portable-fur trial failed its unchanged memory bound and is
-not an accepted coat upgrade. Exact ownership, receipts and resume guards are
-in the [handoff](TODO.md); preserve both failures and prior accepted assets.
+Checkpoint **November 1, 2026**: the integrated suite passes **619 tests in
+14.771s**, with nine browser fixture checks also preserved. The previous robot
+run remains rejected for arm stretching; its reviewed recovery preserved all
+480 files and spending history. Evidence corruption now halts instead of buying
+another repair call. The new unchanged-text robot run ended **unsupported**:
+its repair passed the gross-stretch gate but still moved part of the torso beyond
+the requested stability limit. The actual UI verifier recorded that failure and
+exited cleanly; no critic, full media or accepted delivery followed. Eight of the
+ten development AI calls are used, with zero new Meshy credits. The three
+fresh-example estimate requests 105 additional Meshy credits
+and up to 15 AI calls, but the allowance reply/grants remain pending. Tuft and
+undercoat trials are not promoted. Exact receipts, ownership and remaining
+quality/UI acceptance are in the [handoff](TODO.md).
 
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The

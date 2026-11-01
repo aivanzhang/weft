@@ -1,0 +1,8 @@
+{
+  "attempt": 0,
+  "reason": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest_normalized_bounds\": [[0.3647492129326314, 0.5916018158130191, 0.34511634329492474], [0.37104252116311653, 0.5891646318505349, 0.3475349258369237]], \"second\": 0.55, \"stretch_ratio\": 9.488273959573542}, {\"endpoint_indices\": [40610, 40611], \"endpoint_influences\": [{\"RightFoot\": 0.000696144241373986, \"RightLeg\": 0.9993006587028503, \"Torso\": 3.191802534274757e-06}, {\"RightArm\": 0.5083180069923401, \"RightFoot\": 3.1053614293341525e-06, \"RightHand\": 0.48765116930007935, \"RightLeg\": 0.004027711693197489}], \"excess_length\": 0.04445255743629772, \"posed_length\": 0.048619147049756194, \"rest_length\": 0.0041665896134584785, \"rest_normalized_bounds\": [[0.37042375307763653, 0.5749797231230902, 0.35500515083451467], [0.36518559137521833, 0.5781993650093815, 0.3546670683357291]], \"second\": 0.55, \"stretch_ratio\": 11.668811080580566}], \"max_reported_excess_m\": 0.04753822805685273, \"max_reported_stretch_ratio\": 11.668811080580566}]",
+  "recorded": "2026-11-01T14:52:20.027575-08:00",
+  "schema_version": 1,
+  "stage": "attempt",
+  "status": "rejected"
+}

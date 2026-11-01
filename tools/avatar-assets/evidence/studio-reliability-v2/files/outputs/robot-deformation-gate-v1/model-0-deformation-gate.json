@@ -1,0 +1,174 @@
+{
+  "bindings": {
+    "authored_height_m": 1.2,
+    "design_sha256": "71bb856739b29e5ef6362249317ca4b4ba93151834724dd75b98510f4eda76f2",
+    "finish_report_sha256": "a1bf2be93d6cea42602106e9d5d60d5d5586ef27a5a790f55d7986e41cd119a5",
+    "manifest_sha256": "224706b5e468cd6db7708c28c0fa6a6083ed76c54d3122a6593fb937a9bfeb43",
+    "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+    "state_ids": [
+      "right_hand_wave"
+    ]
+  },
+  "implementation_sha256": "73bf12d0980b344f87737b4e391b836913da760ec8d834c41555ddea64b78d69",
+  "passed": false,
+  "physics_verified": false,
+  "sampling_implementation_sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+  "schema_version": 1,
+  "scope": "Conservative gross-spike rejection of at most four retained edges per sampled pose set; not exhaustive edge/frame coverage, skin correctness or visual acceptance.",
+  "states": [
+    {
+      "id": "right_hand_wave",
+      "max_reported_excess_m": 0.515592084759046,
+      "max_reported_stretch_ratio": 124.1711461682922,
+      "offending_outliers": [
+        {
+          "endpoint_indices": [
+            36864,
+            36874
+          ],
+          "endpoint_influences": [
+            {
+              "torso": 1.0
+            },
+            {
+              "right_hand": 1.0
+            }
+          ],
+          "excess_length": 0.515592084759046,
+          "posed_length": 0.5240580146000424,
+          "rest_length": 0.008465929840996377,
+          "rest_normalized_bounds": [
+            [
+              0.0,
+              0.4371079425609181,
+              0.3784526485819559
+            ],
+            [
+              0.0024102969450731206,
+              0.4404354007531029,
+              0.37167329106039637
+            ]
+          ],
+          "second": 1.2,
+          "stretch_ratio": 61.90200302183991
+        },
+        {
+          "endpoint_indices": [
+            36865,
+            36870
+          ],
+          "endpoint_influences": [
+            {
+              "right_hand": 0.006159929558634758,
+              "torso": 0.9938400983810425
+            },
+            {
+              "right_hand": 1.0
+            }
+          ],
+          "excess_length": 0.5143289939743928,
+          "posed_length": 0.5185047202704821,
+          "rest_length": 0.00417572629608927,
+          "rest_normalized_bounds": [
+            [
+              4.6055347416339294e-05,
+              0.4331860540338856,
+              0.3785299359349435
+            ],
+            [
+              0.001396072847643194,
+              0.42735366856550916,
+              0.37598148977830054
+            ]
+          ],
+          "second": 1.2,
+          "stretch_ratio": 124.1711461682922
+        },
+        {
+          "endpoint_indices": [
+            36866,
+            36873
+          ],
+          "endpoint_influences": [
+            {
+              "right_hand": 0.026044020429253578,
+              "torso": 0.9739559888839722
+            },
+            {
+              "right_hand": 1.0
+            }
+          ],
+          "excess_length": 0.4876869750221559,
+          "posed_length": 0.4963712979313569,
+          "rest_length": 0.008684322909200994,
+          "rest_normalized_bounds": [
+            [
+              9.633780276861881e-05,
+              0.43731807375774784,
+              0.3813186633062894
+            ],
+            [
+              0.0022168966924611504,
+              0.4374908826698703,
+              0.38843607849136674
+            ]
+          ],
+          "second": 1.2,
+          "stretch_ratio": 57.15716736021575
+        },
+        {
+          "endpoint_indices": [
+            36864,
+            36868
+          ],
+          "endpoint_influences": [
+            {
+              "torso": 1.0
+            },
+            {
+              "right_hand": 0.8845946192741394,
+              "torso": 0.11540537327528
+            }
+          ],
+          "excess_length": 0.45283367649696205,
+          "posed_length": 0.45855549931107353,
+          "rest_length": 0.005721822814111495,
+          "rest_normalized_bounds": [
+            [
+              0.0,
+              0.4371079425609181,
+              0.3784526485819559
+            ],
+            [
+              0.0007883757591382626,
+              0.44191320406194445,
+              0.3828297403323754
+            ]
+          ],
+          "second": 1.2,
+          "stretch_ratio": 80.14150633608526
+        }
+      ],
+      "passed": false,
+      "reported_outliers": 4,
+      "sample_seconds": [
+        0.0,
+        0.7,
+        1.2,
+        1.7,
+        2.2,
+        2.7,
+        3.2,
+        4.0
+      ]
+    }
+  ],
+  "status": "severe_sampled_deformation",
+  "thresholds": {
+    "excess_height_fraction_strictly_greater_than": 0.03,
+    "excess_m_strictly_greater_than": 0.036,
+    "stretch_ratio_strictly_greater_than": 8.0
+  },
+  "version": "sampled-deformation-gate-v1",
+  "visual_approval": false
+}

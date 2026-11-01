@@ -1,0 +1,329 @@
+{
+  "findings": {
+    "measurements": {
+      "sampled_states": [
+        {
+          "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+          "deformation_outliers": [
+            {
+              "endpoint_indices": [
+                35184,
+                35196
+              ],
+              "endpoint_influences": [
+                {
+                  "RightArm": 1.0
+                },
+                {
+                  "RightHand": 1.0
+                }
+              ],
+              "excess_length": 0.013072414640540998,
+              "posed_length": 0.021421308064608402,
+              "rest_length": 0.008348893424067404,
+              "rest_normalized_bounds": [
+                [
+                  0.11893165442804854,
+                  0.4223023575048638,
+                  0.44267255295624125
+                ],
+                [
+                  0.11605774438782983,
+                  0.4305152517506253,
+                  0.4367139265253573
+                ]
+              ],
+              "second": 1.15,
+              "stretch_ratio": 2.5657661412777255
+            },
+            {
+              "endpoint_indices": [
+                33871,
+                33913
+              ],
+              "endpoint_influences": [
+                {
+                  "RightHand": 1.0
+                },
+                {
+                  "RightArm": 0.9792904257774353,
+                  "RightHand": 0.02070959471166134
+                }
+              ],
+              "excess_length": 0.011770595091530195,
+              "posed_length": 0.02799082177034758,
+              "rest_length": 0.016220226678817385,
+              "rest_normalized_bounds": [
+                [
+                  0.190597096306965,
+                  0.4412966578757212,
+                  0.4285664686136854
+                ],
+                [
+                  0.20678458472770864,
+                  0.4360006522033542,
+                  0.4374505405644361
+                ]
+              ],
+              "second": 0.55,
+              "stretch_ratio": 1.7256738962163745
+            },
+            {
+              "endpoint_indices": [
+                33865,
+                33960
+              ],
+              "endpoint_influences": [
+                {
+                  "RightArm": 0.004968389868736267,
+                  "RightHand": 0.9950315952301025
+                },
+                {
+                  "RightArm": 1.0
+                }
+              ],
+              "excess_length": 0.011308810181082846,
+              "posed_length": 0.016378820680358144,
+              "rest_length": 0.005070010499275297,
+              "rest_normalized_bounds": [
+                [
+                  0.18986498134154556,
+                  0.362456512702359,
+                  0.4371292715418628
+                ],
+                [
+                  0.19254712158507048,
+                  0.3608584414429392,
+                  0.4409690026057163
+                ]
+              ],
+              "second": 0.55,
+              "stretch_ratio": 3.230529933359964
+            },
+            {
+              "endpoint_indices": [
+                35179,
+                35207
+              ],
+              "endpoint_influences": [
+                {
+                  "RightHand": 1.0
+                },
+                {
+                  "RightArm": 1.0
+                }
+              ],
+              "excess_length": 0.011287379526709676,
+              "posed_length": 0.02340346034252584,
+              "rest_length": 0.012116080815816162,
+              "rest_normalized_bounds": [
+                [
+                  0.11426532984847872,
+                  0.3512216602036196,
+                  0.4352364764516959
+                ],
+                [
+                  0.12217968364968339,
+                  0.36710967313955206,
+                  0.44168564908958874
+                ]
+              ],
+              "second": 1.15,
+              "stretch_ratio": 1.9316031890423915
+            }
+          ],
+          "deformation_rest_sha256": "2cd4fed6f1bed3bd663007ecd53c17003ef8b53dfac374e31c75ef8566438c97",
+          "deformation_samples_measured": 8,
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            13.200000000000001,
+            27.599999999999998,
+            42.0,
+            56.400000000000006,
+            70.80000000000001,
+            84.0,
+            96.0
+          ],
+          "id": "greeting",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            0.55,
+            1.15,
+            1.75,
+            2.35,
+            2.95,
+            3.5,
+            4.0
+          ]
+        }
+      ],
+      "skin_motion": {
+        "animation_verified": true,
+        "animations": [
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.06874585364886047,
+            "motion_observed": true,
+            "name": "greeting",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          }
+        ],
+        "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+        "probe_vertices": 128
+      },
+      "weight_coverage": {
+        "input_world_bounds": {
+          "max": [
+            0.5865200161933899,
+            0.35863998532295227,
+            0.9501749277114868
+          ],
+          "min": [
+            -0.5867930054664612,
+            -0.364734947681427,
+            -0.9517750144004822
+          ]
+        },
+        "layers": [
+          {
+            "bones": [
+              "RightArm",
+              "RightHand"
+            ],
+            "selected_vertices": 5076
+          },
+          {
+            "bones": [
+              "LeftArm",
+              "LeftHand"
+            ],
+            "selected_vertices": 5609
+          },
+          {
+            "bones": [
+              "RightArm"
+            ],
+            "selected_vertices": 3089
+          },
+          {
+            "bones": [
+              "LeftArm"
+            ],
+            "selected_vertices": 3341
+          },
+          {
+            "bones": [
+              "RightHand"
+            ],
+            "selected_vertices": 3151
+          },
+          {
+            "bones": [
+              "LeftHand"
+            ],
+            "selected_vertices": 3383
+          },
+          {
+            "bones": [
+              "Torso"
+            ],
+            "selected_vertices": 9969
+          },
+          {
+            "bones": [
+              "RightLeg",
+              "RightFoot"
+            ],
+            "selected_vertices": 5487
+          },
+          {
+            "bones": [
+              "LeftLeg",
+              "LeftFoot"
+            ],
+            "selected_vertices": 5561
+          },
+          {
+            "bones": [
+              "RightFoot"
+            ],
+            "selected_vertices": 2493
+          },
+          {
+            "bones": [
+              "LeftFoot"
+            ],
+            "selected_vertices": 2595
+          },
+          {
+            "bones": [
+              "Head"
+            ],
+            "selected_vertices": 15849
+          }
+        ],
+        "positive_vertices_per_bone": {
+          "Head": 15850,
+          "LeftArm": 2833,
+          "LeftFoot": 5635,
+          "LeftHand": 3451,
+          "LeftLeg": 3270,
+          "RightArm": 2506,
+          "RightFoot": 5543,
+          "RightHand": 3231,
+          "RightLeg": 3321,
+          "Root": 0,
+          "Torso": 8078
+        }
+      }
+    },
+    "repair_images": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4/evidence-1/states/greeting.png"
+    ],
+    "validation_failure": "Requested action capability failed: [{\"evidence\": {\"evidence_id\": \"action-audit-greeting\", \"roles\": {\"feet\": {\"active_control_count\": 0, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\": 0.0, \"max_travel_m\": 0.0, \"max_vertical_rise_m\": 0.0, \"max_world_displacement_m\": 0.0, \"moving_vertices\": 0, \"rhythmic_reversals\": 0, \"scale_m\": 0.43524834639814225, \"weighted_vertices\": 5048}, \"right-hand\": {\"active_control_count\": 1, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\": 0.07336136922139397, \"max_travel_m\": 0.0, \"max_vertical_rise_m\": 0.0, \"max_world_displacement_m\": 0.07520867704729692, \"moving_vertices\": 3187, \"rhythmic_reversals\": 6, \"scale_m\": 0.23384789687154273, \"weighted_vertices\": 3187}, \"torso\": {\"active_control_count\": 0, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\": 0.0, \"max_travel_m\": 0.0, \"max_vertical_rise_m\": 0.0, \"max_world_displacement_m\": 0.004828862455670729, \"moving_vertices\": 31, \"rhythmic_reversals\": 0, \"scale_m\": 0.36354582719550294, \"weighted_vertices\": 7558}}, \"state_id\": \"greeting\"}, \"full_skin_sample_seconds\": [0.0, 1.75, 2.0, 4.0], \"id\": \"greeting\", \"requirement_results\": {\"passed\": false, \"physics_verified\": false, \"requirements\": [{\"evidence_ids\": [\"action-audit-greeting\"], \"id\": \"right-hand-wave\", \"kind\": \"articulation\", \"reason\": \"Root-relative skin displacement and meaningful weighted coverage\", \"role\": \"right-hand\", \"status\": \"passed\"}, {\"evidence_ids\": [\"action-audit-greeting\"], \"id\": \"steady-torso\", \"kind\": \"stability\", \"maximum_displacement_m\": 0.0018177291359775148, \"reason\": \"World-space weighted-surface displacement at most 0.5% of measured role scale, capped at 5mm; not ground-contact proof\", \"role\": \"torso\", \"status\": \"failed\"}, {\"evidence_ids\": [\"action-audit-greeting\"], \"id\": \"planted-feet\", \"kind\": \"stability\", \"maximum_displacement_m\": 0.0021762417319907113, \"reason\": \"World-space weighted-surface displacement at most 0.5% of measured role scale, capped at 5mm; not ground-contact proof\", \"role\": \"feet\", \"status\": \"passed\"}], \"schema_version\": 1, \"scope\": \"Necessary bounded motion measurements, not sufficient evidence of action meaning or visual quality.\", \"semantic_approval\": false, \"state_id\": \"greeting\"}, \"role_details\": {\"feet\": {\"bones\": [\"RightFoot\", \"LeftFoot\"], \"moving_vertex_threshold_m\": 0.00043524834639814227, \"own_control_displacement_m\": {\"LeftFoot\": 0.0, \"RightFoot\": 0.0}, \"probe_count\": 16, \"rest_world_bounds_m\": {\"max\": [0.21763520021607283, 0.22387977190354263, 0.16077618426283696], \"min\": [-0.21761314618206945, 1.4500887563649173e-08, -0.05773994222940852]}, \"root_bone\": \"Root\", \"selected_vertices\": 5048, \"surface_selection\": \"direct_target_bone_weight_sum_at_least_0.5\"}, \"right-hand\": {\"bones\": [\"RightHand\"], \"moving_vertex_threshold_m\": 0.00023384789687154274, \"own_control_displacement_m\": {\"RightHand\": 0.0733613608296552}, \"probe_count\": 8, \"rest_world_bounds_m\": {\"max\": [-0.1362922223557838, 0.5320544912262283, 0.1267765411485241], \"min\": [-0.37014011922732654, 0.4227688472052222, -0.013046063900721978]}, \"root_bone\": \"Torso\", \"selected_vertices\": 3187, \"surface_selection\": \"target_and_descendant_weight_sum_at_least_0.05\"}, \"torso\": {\"bones\": [\"Torso\"], \"moving_vertex_threshold_m\": 0.00036354582719550296, \"own_control_displacement_m\": {\"Torso\": 0.0}, \"probe_count\": 16, \"rest_world_bounds_m\": {\"max\": [0.13684176595680553, 0.7472846905758725, 0.1374392807483673], \"min\": [-0.13694020366403814, 0.3837388633803696, -0.14017368853092194]}, \"root_bone\": \"Root\", \"selected_vertices\": 7558, \"surface_selection\": \"direct_target_bone_weight_sum_at_least_0.5\"}}, \"sample_seconds\": [0.0, 0.041666666666666664, 0.08333333333333333, 0.125, 0.16666666666666666, 0.20833333333333334, 0.25, 0.2916666666666667, 0.3333333333333333, 0.375, 0.4166666666666667, 0.4583333333333333, 0.5, 0.5416666666666666, 0.5833333333333334, 0.625, 0.6666666666666666, 0.7083333333333334, 0.75, 0.7916666666666666, 0.8333333333333334, 0.875, 0.9166666666666666, 0.9583333333333334, 1.0, 1.0416666666666667, 1.0833333333333333, 1.125, 1.1666666666666667, 1.2083333333333333, 1.25, 1.2916666666666667, 1.3333333333333333, 1.375, 1.4166666666666667, 1.4583333333333333, 1.5, 1.5416666666666667, 1.5833333333333333, 1.625, 1.6666666666666667, 1.7083333333333333, 1.75, 1.7916666666666667, 1.8333333333333333, 1.875, 1.9166666666666667, 1.9583333333333333, 2.0, 2.0416666666666665, 2.0833333333333335, 2.125, 2.1666666666666665, 2.2083333333333335, 2.25, 2.2916666666666665, 2.3333333333333335, 2.375, 2.4166666666666665, 2.4583333333333335, 2.5, 2.5416666666666665, 2.5833333333333335, 2.625, 2.6666666666666665, 2.7083333333333335, 2.75, 2.7916666666666665, 2.8333333333333335, 2.875, 2.9166666666666665, 2.9583333333333335, 3.0, 3.0416666666666665, 3.0833333333333335, 3.125, 3.1666666666666665, 3.2083333333333335, 3.25, 3.2916666666666665, 3.3333333333333335, 3.375, 3.4166666666666665, 3.4583333333333335, 3.5, 3.5416666666666665, 3.5833333333333335, 3.625, 3.6666666666666665, 3.7083333333333335, 3.75, 3.7916666666666665, 3.8333333333333335, 3.875, 3.9166666666666665, 3.9583333333333335, 4.0]}]"
+  },
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4",
+  "reason": "No accepted model within the bounded local repair attempts",
+  "request_sha256": "a86ee457573cd7fdebb0666c694298e951a42267cb55ad1393e19542e4f1070a",
+  "schema_version": 1,
+  "stage": "repair_budget",
+  "status": "unsupported"
+}

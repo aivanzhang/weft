@@ -25,11 +25,17 @@ PRESETS = {
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
 PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
-                    'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py')
+                    'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
+                    'deformation_gate.py')
+PIPELINE_SCRIPT_SOURCES = ('motion_samples.py',)
 
 
 class InterruptedStage(ValueError):
     """An unsealed stage is not evidence that its native process exited."""
+
+
+class EvidenceCustodyError(ValueError):
+    """Missing or changed bound evidence is not an authoring defect to repair."""
 
 
 class PipelineCancelled(ValueError):
@@ -43,6 +49,11 @@ def now():
 def _json_digest(value):
     import hashlib
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
+
+
+def _pipeline_sources():
+    return {**{name: ROOT/'avatar_assets'/name for name in PIPELINE_SOURCES},
+            **{'scripts/'+name: ROOT/'scripts'/name for name in PIPELINE_SCRIPT_SOURCES}}
 
 
 def _text(value, limit, label, empty=False):
@@ -114,8 +125,10 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
             request[field] = {'path': str(target.relative_to(out)), 'sha256': sha256(target),
                               'original_path': str(original), 'bytes': target.stat().st_size}
     write_json(out/'request.json', request)
-    for name in PIPELINE_SOURCES:
-        shutil.copyfile(ROOT/'avatar_assets'/name, out/'sources'/name)
+    for name, source_path in _pipeline_sources().items():
+        target = out/'sources'/name
+        target.parent.mkdir(exist_ok=True)
+        shutil.copyfile(source_path, target)
     write_json(out/'input-receipt.json', {'request_sha256': sha256(out/'request.json'), 'sources': artifacts(out/'sources')})
     write_json(out/'estimate.json', {
         'schema_version': 1, 'new_meshy_credits': 0 if source else 35,
@@ -151,9 +164,15 @@ class Pipeline:
         receipt = read_json(self.root/'input-receipt.json')
         require(sha256(self.root/'request.json') == receipt['request_sha256'], 'Pipeline request changed')
         sealed_delivery = (self.root/'delivery-receipt.json').is_file() and (self.root/'delivery.json').is_file()
+        sources = _pipeline_sources()
+        names = [source['path'] for source in receipt['sources']]
+        require(names and len(names) == len(set(names)) and set(names) <= set(sources),
+                'Invalid pipeline source inventory')
+        require(sealed_delivery or set(names) == set(sources),
+                'Pipeline backend changed; this unfinished job lacks current source pins')
         for source in receipt['sources']:
             require(sha256(self.root/'sources'/source['path']) == source['sha256']
-                    and (sealed_delivery or sha256(ROOT/'avatar_assets'/source['path']) == source['sha256']),
+                    and (sealed_delivery or sha256(sources[source['path']]) == source['sha256']),
                     'Pipeline backend changed; preserve this job and prepare a new one')
         for field in ('reference', 'reuse_model'):
             item = self.request[field]
@@ -167,14 +186,32 @@ class Pipeline:
         self.agents = agents
         self.started = time.monotonic()
         self.cancel_requested = None
+        self._active_progress = None
 
     def event(self, stage, status, **details):
         entries = sorted((self.root/'events').glob('*.json'))
         require(len(entries) < 128, 'Pipeline event limit reached')
+        key = (stage, details.get('attempt'))
+        active = self._active_progress
+        if status == 'running':
+            require(active is None, 'The previous stage has no terminal progress receipt')
+        elif active and active['key'] == key:
+            details['elapsed_seconds'] = round(max(0, time.monotonic()-active['started']), 3)
         value = {'schema_version': 1, 'recorded': now(), 'stage': stage, 'status': status, **details}
         write_json(self.root/'events'/f'{len(entries):04d}.json', value)
         _atomic(self.root/'status.json', value)
+        if status == 'running':
+            self._active_progress = {'key': key, 'started': time.monotonic()}
+        elif active and active['key'] == key:
+            self._active_progress = None
         print(json.dumps({'stage': stage, 'status': status}), flush=True)
+
+    def _fail_active_stage(self, error, status='failed'):
+        # A failed outer operation must not leave its last stage displayed as live work.
+        if self._active_progress:
+            stage, attempt = self._active_progress['key']
+            details = {'attempt': attempt} if attempt is not None else {}
+            self.event(stage, status, reason=str(error)[:4000], **details)
 
     def guard(self, reserve_mb=0):
         if self.cancel_requested is not None and self.cancel_requested():
@@ -184,7 +221,8 @@ class Pipeline:
         require(_output_bytes(self.root) + reserve_mb*1024**2 <= MAX_OUTPUT, 'Pipeline aggregate output bound reached')
 
     def unsupported(self, stage, reason, **extra):
-        self.event(stage, 'unsupported', reason=reason)
+        self.event(stage, 'unsupported', reason=reason,
+                   **({'attempt': extra['attempt']} if 'attempt' in extra else {}))
         value = {'schema_version': 1, 'status': 'unsupported', 'stage': stage, 'reason': reason,
                  'request_sha256': sha256(self.root/'request.json'), 'out': str(self.root), **extra}
         path = self.root/'unsupported.json'
@@ -205,16 +243,26 @@ class Pipeline:
                 raise
         if not (path/'manifest.json').exists():
             raise InterruptedStage('Interrupted stage needs inspection; no automatic replay: '+path.name)
-        manifest = read_json(path/'manifest.json')
+        try:
+            manifest = read_json(path/'manifest.json')
+            require(isinstance(manifest, dict), 'Stage manifest is not an object')
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            raise EvidenceCustodyError('Stage manifest requires inspection: '+path.name) from error
         if manifest.get('status') == 'failed':
-            require(manifest.get('artifacts') == artifacts(path), 'Failed stage artifacts changed')
-            # The repair prompt must retain the same failure across process restarts.
-            if failure_path.exists():
-                failure = read_json(failure_path)
-                require(failure['manifest_sha256'] == sha256(path/'manifest.json'), 'Failed stage receipt changed')
-                raise ValueError(failure['error'])
-            raise ValueError(manifest.get('error') or 'Retained failed stage: '+path.name)
-        verify_pack(path)
+            try:
+                require(manifest.get('artifacts') == artifacts(path), 'Failed stage artifacts changed')
+                # The repair prompt must retain the same failure across process restarts.
+                failure = read_json(failure_path) if failure_path.exists() else None
+                if failure is not None:
+                    require(failure['manifest_sha256'] == sha256(path/'manifest.json'), 'Failed stage receipt changed')
+                reason = failure['error'] if failure is not None else manifest.get('error') or 'Retained failed stage: '+path.name
+            except (ValueError, OSError, KeyError, TypeError) as error:
+                raise EvidenceCustodyError('Failed stage evidence requires inspection: '+str(error)) from error
+            raise ValueError(reason)
+        try:
+            verify_pack(path)
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            raise EvidenceCustodyError('Stage evidence requires inspection: '+str(error)) from error
         return manifest
 
     def _plan(self):
@@ -284,7 +332,9 @@ class Pipeline:
                 'Actual provider credit floor exceeded the job cap; reconcile preserved cost before further work')
         stage = 'mesh' if self.request['reference'] else 'texture'
         path = generation/'stages'/stage/'downloads/model.glb'
-        return {'path': str(local_file(path)), 'sha256': sha256(path)}
+        source = {'path': str(local_file(path)), 'sha256': sha256(path)}
+        self.event('geometry', 'complete', reason='Generated source saved; rig, motion and quality review are pending.')
+        return source
 
     def _contacts(self, attempt, pack):
         folder = self.root/f'evidence-{attempt}'
@@ -295,7 +345,7 @@ class Pipeline:
             for state in report['states']:
                 paths = sorted((pack/'renders'/state['id']).glob('*.png'))
                 require(2 <= len(paths) <= 8, 'Missing bounded sampled poses')
-                columns, tile, row_height = min(4, len(paths)), 320, 348
+                columns, tile, row_height = min(4, len(paths)), 720, 748
                 sheet = Image.new('RGB', (columns*tile, ((len(paths)+columns-1)//columns)*row_height+24), 'white')
                 ImageDraw.Draw(sheet).text((5,4), state['id'], fill='black')
                 for i, path in enumerate(paths):
@@ -306,7 +356,9 @@ class Pipeline:
                         sheet.paste(image, (x,y))
                     second = state.get('seconds', [f/24 for f in state['frames']])[i]
                     ImageDraw.Draw(sheet).text((x+5,y+tile+4), f'{second:.3f}s', fill='black')
-                sheet.save(folder/'states'/(state['id']+'.png'))
+                target = folder/'states'/(state['id']+'.png')
+                sheet.save(target)
+                require(target.stat().st_size <= 8*1024**2, 'Repair image exceeds bounded agent attachment size')
             write_json(folder/'evidence.json', {'images': artifacts(folder),
                                                'finish_report_sha256': sha256(pack/'finish-report.json')})
         record = read_json(folder/'evidence.json')
@@ -363,9 +415,11 @@ class Pipeline:
             try:
                 return self._run(execute, plan_only=plan_only)
             except PipelineCancelled as error:
+                self._fail_active_stage(error, 'cancelled')
                 self.event('pipeline', 'cancelled', reason=str(error))
                 return {'status': 'cancelled', 'reason': str(error), 'out': str(self.root)}
             except Exception as error:
+                self._fail_active_stage(error)
                 self.event('pipeline', 'checkpointed_error', error=str(error), automatic_retry=False)
                 raise
 
@@ -431,16 +485,47 @@ class Pipeline:
                 and proof['media_manifest_sha256'] == sha256(media/'manifest.json'), 'Final review inputs changed')
         return [{**item, 'path': str(folder/item['path'])} for item in proof['images']], proof['coverage']
 
+    def _deformation(self, attempt, pack, plan, source, config_path):
+        from avatar_assets.deformation_gate import audit_finish_pack
+        path = self.root/f'deformation-gate-{attempt}.json'
+        try:
+            report = audit_finish_pack(pack, expected_source_sha256=source['sha256'],
+                expected_design_sha256=sha256(config_path), expected_state_ids=[s['id'] for s in plan['states']],
+                authored_height=plan['height_meters'])
+            if not path.exists():
+                events = sorted((self.root/'events').glob('*.json'))
+                require(len(events) <= 128, 'Pipeline event inventory exceeds its bound')
+                history = [read_json(event) for event in events]
+                # Only the current running event can precede a first write; prior work needs its original proof.
+                if history and history[-1].get('stage') == 'deformation_gate' and history[-1].get('attempt') == attempt \
+                        and history[-1].get('status') == 'running':
+                    history = history[:-1]
+                require(not any(event.get('stage') == 'deformation_gate' and event.get('attempt') == attempt
+                                for event in history), 'Previously started deformation gate has no saved evidence')
+                write_json(path, report)
+            require(read_json(path) == report, 'Cached deformation gate evidence changed')
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            raise EvidenceCustodyError('Deformation evidence requires inspection; no automatic repair: '+str(error)) from error
+        require(report['passed'], 'Severe sampled skin deformation: '+json.dumps(report['states']))
+        return report
+
     @staticmethod
-    def _bind_review(review, evidence):
+    def _bind_review(review, evidence, action_audit=None):
         if review['verdict'] != 'accept':
             return
+        from avatar_assets.pipeline_prompts import review_citations
+        citations = review_citations(evidence, action_audit)
+        visual = {e['id'] for e in evidence if e.get('kind') != 'user_reference'}
+        for check in review.get('checks', []):
+            require(set(check['evidence_ids']) & visual, 'Visual acceptance needs an actual output image')
         for state in review['state_reviews']:
-            allowed = {e['id'] for e in evidence if state['id'] in e['state_ids']}
-            require(set(state['evidence_ids']) & allowed, 'State acceptance needs its actual motion evidence')
+            motion = {e['id'] for e in evidence if state['id'] in e.get('state_ids', [])}
+            allowed = {e['id'] for e in citations if state['id'] in e['state_ids']}
+            require(set(state['evidence_ids']) & motion and set(state['evidence_ids']) <= allowed,
+                    'State acceptance needs its own actual motion evidence')
             for requirement in state.get('requirement_reviews', []):
-                require(requirement['evidence_ids'] and set(requirement['evidence_ids']) <= allowed,
-                        'Each action requirement must cite only its own state motion evidence')
+                require(set(requirement['evidence_ids']) & motion and set(requirement['evidence_ids']) <= allowed,
+                        'Each action requirement needs its own state motion image; numeric proof alone is insufficient')
 
     def _run(self, execute, *, plan_only=False):
         from avatar_assets import pipeline_prompts as prompts
@@ -486,6 +571,7 @@ class Pipeline:
             write_json(self.root/'quality-policy.json', quality)
         require(read_json(self.root/'quality-policy.json') == quality, 'Prepared quality policy changed')
         source_parents = {b['name']: b['parent'] for rig in context['native'].get('rigs', []) for b in rig['bones']}
+        self.event('inspection', 'complete', reason='Source geometry and review views inspected; no quality acceptance.')
         previous, findings, selected, repair_images = None, None, None, []
         for attempt in range(self.request['max_repairs']+1):
             self.guard()
@@ -506,33 +592,54 @@ class Pipeline:
                     require(read_json(config_path) == config, 'Authored configuration changed')
                 else:
                     write_json(config_path, config)
+                self.event('author', 'complete', attempt=attempt,
+                           reason='Rig/motion configuration validated; generated appearance is not yet accepted.')
                 self.event('build', 'running', attempt=attempt)
                 built = self._pack(pack, lambda: finish(config_path, pack))
                 require(built['source_sha256'] == source['sha256']
                         and sha256(pack/'sources/finish-design.json') == sha256(config_path),
                         'Finished model belongs to a different design/source')
+                self.event('build', 'complete', attempt=attempt,
+                           reason='Model built and source-bound; independent motion and visual checks are pending.')
+                self.event('deformation_gate', 'running', attempt=attempt)
+                deformation = self._deformation(attempt, pack, plan, source, config_path)
+                self.event('deformation_gate', 'complete', attempt=attempt,
+                           reason='No reported gross skin spike; this is not visual acceptance.')
+                self.event('native_reload', 'running', attempt=attempt)
                 loaded = self._pack(reload, lambda: reload_3d(pack, reload))
                 require(loaded['status'] == 'passed'
                         and loaded['source_manifest_sha256'] == sha256(pack/'manifest.json'),
                         'Independent native reload did not pass for this exact model')
+                self.event('native_reload', 'complete', attempt=attempt,
+                           reason='Exact exported model loaded and moved; this is not visual acceptance.')
                 self.event('action_audit', 'running', attempt=attempt)
                 action_audit = self._action_audit(attempt, pack, plan, answer)
                 require(action_audit['passed'], 'Requested action capability failed: '+json.dumps(action_audit['states']))
+                self.event('action_audit', 'complete', attempt=attempt,
+                           reason='Numeric movement/stability checks passed; visual action review is pending.')
+                self.event('exported_views', 'running', attempt=attempt)
                 poses = [{'id': s['id'], 'seconds': s['seconds']} for s in read_json(pack/'finish-report.json')['states']]
                 exported_proof = self._pack(exported, lambda: preview(pack/'model.glb', exported, resolution=720,
                                                                       samples=16, motion_states=poses))
                 require(exported_proof['source_glb_sha256'] == sha256(pack/'model.glb'), 'Exported appearance preview mismatch')
+                self.event('exported_views', 'complete', attempt=attempt,
+                           reason='Actual exported views rendered; their quality still requires review.')
                 media, portable = self._media(attempt, pack)
+                self.event('review_evidence', 'running', attempt=attempt)
                 evidence, coverage = self._full_evidence(attempt, pack, exported, media)
                 quality_coverage = evaluate_quality_evidence(quality, coverage)
                 require(quality_coverage['passed'], 'Incomplete HD review: '+', '.join(quality_coverage['missing']))
                 proofs = {'rig': built['rig_verification'], 'native_reload': loaded['status'],
                           'attributes': read_json(pack/'render-attributes.json'), 'action_audit': action_audit,
+                          'deformation_gate': deformation,
                           'quality_policy': quality, 'quality_coverage': quality_coverage,
                           'delivered_media': read_json(portable/'manifest.json')['clips']}
+                self.event('review_evidence', 'complete', attempt=attempt,
+                           reason='Final-media and numeric evidence prepared; no critic verdict yet.')
             except (ValueError, OSError, KeyError, TypeError) as error:
-                if isinstance(error, (InterruptedStage, PipelineCancelled)):
+                if isinstance(error, (InterruptedStage, PipelineCancelled, EvidenceCustodyError)):
                     raise
+                self._fail_active_stage(error)
                 for candidate in (pack, reload, exported, self.root/f'media-{attempt}',
                                   self.root/f'media-continuation-{attempt}', self.root/f'action-audit-{attempt}'):
                     if (candidate/'job.json').exists():
@@ -549,10 +656,16 @@ class Pipeline:
             self.guard()
             self.event('reviewer', 'running', attempt=attempt)
             review = self.agents.call('reviewer-'+str(attempt),
-                prompts.critic_prompt(self.request, plan, config, proofs, evidence), prompts.CRITIC_SCHEMA,
+                prompts.critic_prompt(self.request, plan, config, proofs, evidence),
+                prompts.critic_schema(evidence, action_audit),
                 images=[Path(e['path']) for e in evidence])
-            prompts.validate_review(review, plan, [e['id'] for e in evidence])
-            self._bind_review(review, evidence)
+            try:
+                prompts.validate_review(review, plan, [e['id'] for e in prompts.review_citations(evidence, action_audit)])
+                self._bind_review(review, evidence, action_audit)
+            except (ValueError, KeyError, TypeError) as error:
+                # The agent has exited; a rejected data contract is not an uncertain native process.
+                return self.unsupported('reviewer', 'Reviewer response failed its evidence contract: '+str(error)[:3000],
+                                        attempt=attempt, failure_kind='review_contract')
             review_path = self.root/f'review-{attempt}.json'
             review_receipt = {'review': review, 'evidence': evidence,
                               'model_manifest_sha256': sha256(pack/'manifest.json'), 'human_approval': False}
@@ -591,12 +704,15 @@ class Pipeline:
                 raise
         portable = self.root/f'media-portable-{attempt}'
         self._pack(portable, lambda: package_portable_media(media, portable))
+        self.event('media', 'complete', attempt=attempt,
+                   reason='Portrait, video and static files encoded; independent quality review is pending.')
         return media, portable
 
     def _deliver(self, plan, attempt, pack, reload, review, media, portable):
         from avatar_assets.cli import verify_pack
         from avatar_assets.gallery import _Catalog
         self.guard()
+        self.event('delivery', 'running', attempt=attempt)
         catalog = {'schema_version': 1, 'assets': [{
             'id': self.request['id'], 'title': plan['subject'] if len(plan['subject']) <= 160 else plan['subject'][:159]+'…',
             'kind': 'generated_3d',
@@ -626,8 +742,9 @@ class Pipeline:
                   'limitations': plan['limitations']+review['limitations'], 'recorded': now()}
         write_json(self.root/'delivery.json', result)
         write_json(self.root/'delivery-receipt.json', {
-            name: sha256(self.root/name) for name in ('delivery.json', 'plan.json', 'gallery.json', 'quality-policy.json', f'review-{attempt}.json')})
-        self.event('delivery', 'complete', model=result['model'])
+            name: sha256(self.root/name) for name in ('delivery.json', 'plan.json', 'gallery.json', 'quality-policy.json',
+                                                   f'review-{attempt}.json', f'deformation-gate-{attempt}.json')})
+        self.event('delivery', 'complete', attempt=attempt, model=result['model'])
         return result
 
 

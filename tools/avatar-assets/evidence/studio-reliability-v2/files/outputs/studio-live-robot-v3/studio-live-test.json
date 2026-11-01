@@ -1,0 +1,1618 @@
+{
+  "schema_version": 1,
+  "status": "unsupported",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/01/2026, 14:51:26 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "c9ac0f48bd8044458a8390d4",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 900,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 1156,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Explicit reused geometry, not fresh text-to-mesh, visual quality, physical action, seamless-loop or sustained-FPS acceptance.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "b306d00b1971ce2b21e8e04c44ea5f6f15c22355f67abb4db48cb3a91de641ea"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "46933ca84219aefb1f20a514861ead8c407aff7d148635f931e9ec9d5d3a8642"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "913b8a651f1911db9aee29ddc5d6faa60a475284dcf8134d4fc457fe9a8a940f"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "dd70e1e6674c0def31c0078ec095838941803eddee3ffc7ac7238ec669552fbb"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "1bb6c26f01e83f683fd141c2a9ba7fc7c4393f183a9babddd62da1a8a3d18592"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "9b5e1ec954eb52af8ecd2b32d95aeaa5c5520ce1c4100c51c66bb942eeb2da67"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "2c609c91afc067b3d0afbf851f6f841b4661dc8a41000f944296c458e9149e0c"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "job-000.json",
+      "status": "planned",
+      "observed_seconds": 1.595184791,
+      "elapsed_seconds_measured": 15.53,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 15
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-001.json",
+      "status": "launching",
+      "observed_seconds": 2.006915916,
+      "elapsed_seconds_measured": 0,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 15
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-002.json",
+      "status": "running",
+      "observed_seconds": 2.016997458,
+      "elapsed_seconds_measured": 0.06,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 15
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-003.json",
+      "status": "running",
+      "observed_seconds": 4.537175083,
+      "elapsed_seconds_measured": 2.58,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "running",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-004.json",
+      "status": "running",
+      "observed_seconds": 7.068782457999999,
+      "elapsed_seconds_measured": 5.11,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-005.json",
+      "status": "running",
+      "observed_seconds": 32.368048416,
+      "elapsed_seconds_measured": 30.41,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-006.json",
+      "status": "running",
+      "observed_seconds": 34.883761083,
+      "elapsed_seconds_measured": 32.93,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-007.json",
+      "status": "running",
+      "observed_seconds": 55.03720525,
+      "elapsed_seconds_measured": 53.08,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 22.044
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-008.json",
+      "status": "running",
+      "observed_seconds": 77.82644437500001,
+      "elapsed_seconds_measured": 75.87,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 22.044
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 23.725
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-009.json",
+      "status": "running",
+      "observed_seconds": 82.861060625,
+      "elapsed_seconds_measured": 80.9,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 22.044
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 23.725
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-010.json",
+      "status": "running",
+      "observed_seconds": 100.483551291,
+      "elapsed_seconds_measured": 98.53,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 22.044
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 23.725
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 21.704
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 1,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "native_reload:1",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-011.json",
+      "status": "unsupported",
+      "observed_seconds": 103.022233375,
+      "elapsed_seconds_measured": 99.82,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 3.813
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 0,
+          "elapsed_seconds": 25.762
+        },
+        {
+          "id": "build:0",
+          "stage": "build",
+          "label": "Build · attempt 1",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 0,
+          "elapsed_seconds": 22.044
+        },
+        {
+          "id": "deformation_gate:0",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 1",
+          "status": "failed",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Severe sampled skin deformation: [{\"id\": \"greeting\", \"passed\": false, \"sample_seconds\": [0.0, 0.55, 1.15, 1.75, 2.35, 2.95, 3.5, 4.0], \"reported_outliers\": 4, \"offending_outliers\": [{\"endpoint_indices\": [40602, 40649], \"endpoint_influences\": [{\"RightArm\": 0.5048465132713318, \"RightHand\": 0.4951534867286682}, {\"RightFoot\": 0.0014868760481476784, \"RightLeg\": 0.9985131025314331}], \"excess_length\": 0.04753822805685273, \"posed_length\": 0.053138686793606456, \"rest_length\": 0.0056004587367537205, \"rest",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 1,
+          "elapsed_seconds": 23.725
+        },
+        {
+          "id": "build:1",
+          "stage": "build",
+          "label": "Build · attempt 2",
+          "status": "complete",
+          "detail": "Model built and source-bound; independent motion and visual checks are pending.",
+          "attempt": 1,
+          "elapsed_seconds": 21.704
+        },
+        {
+          "id": "deformation_gate:1",
+          "stage": "deformation_gate",
+          "label": "Check skin stretching · attempt 2",
+          "status": "complete",
+          "detail": "No reported gross skin spike; this is not visual acceptance.",
+          "attempt": 1,
+          "elapsed_seconds": 0.003
+        },
+        {
+          "id": "native_reload:1",
+          "stage": "native_reload",
+          "label": "Native Reload · attempt 2",
+          "status": "complete",
+          "detail": "Exact exported model loaded and moved; this is not visual acceptance.",
+          "attempt": 1,
+          "elapsed_seconds": 1.759
+        },
+        {
+          "id": "action_audit:1",
+          "stage": "action_audit",
+          "label": "Action Audit · attempt 2",
+          "status": "failed",
+          "detail": "Requested action capability failed: [{\"evidence\": {\"evidence_id\": \"action-audit-greeting\", \"roles\": {\"feet\": {\"active_control_count\": 0, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\": 0.0, \"max_travel_m\": 0.0, \"max_vertical_rise_m\": 0.0, \"max_world_displacement_m\": 0.0, \"moving_vertices\": 0, \"rhythmic_reversals\": 0, \"scale_m\": 0.43524834639814225, \"weighted_vertices\": 5048}, \"right-hand\": {\"active_control_count\": 1, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\":",
+          "attempt": 1,
+          "elapsed_seconds": 0.294
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Requested action capability failed: [{\"evidence\": {\"evidence_id\": \"action-audit-greeting\", \"roles\": {\"feet\": {\"active_control_count\": 0, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\": 0.0, \"max_travel_m\": 0.0, \"max_vertical_rise_m\": 0.0, \"max_world_displacement_m\": 0.0, \"moving_vertices\": 0, \"rhythmic_reversals\": 0, \"scale_m\": 0.43524834639814225, \"weighted_vertices\": 5048}, \"right-hand\": {\"active_control_count\": 1, \"descent_from_peak_m\": 0.0, \"max_root_relative_displacement_m\":",
+          "attempt": 1
+        },
+        {
+          "id": "repair_budget",
+          "stage": "repair_budget",
+          "label": "Repair Budget",
+          "status": "unsupported",
+          "detail": "No accepted model within the bounded local repair attempts",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    }
+  ],
+  "checks": [
+    "Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, zero new Meshy credits and unknown account dollar cost",
+    "One explicit UI Start sent the pinned plan_id with a session token; no plan/create/cancel/retry mutation"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "at_seconds": 0.646107625
+    },
+    {
+      "method": "GET",
+      "path": "/studio.css",
+      "at_seconds": 1.189891583
+    },
+    {
+      "method": "GET",
+      "path": "/studio.js",
+      "at_seconds": 1.1902767079999999
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 1.1904670409999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/session",
+      "at_seconds": 1.206685375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 1.2252951250000002
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 1.2287632499999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 1.576841625
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4/start",
+      "at_seconds": 1.948965083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 2.006156708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 2.013128666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 4.519746541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 4.52887275
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4/files/1f1b42d01c9ea2d533ed4be03550387d",
+      "at_seconds": 4.534286625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 7.040047791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 7.062636791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 9.573750291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 9.596340125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 12.106158083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 12.114407166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 14.624431457999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 14.645360208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 17.156403791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 17.179340333
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 19.693315791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 19.713683208000003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 22.226208000000003
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 22.246650916000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 24.758245458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 24.780190125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 27.293127416000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 27.313199916000002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 29.825768875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 29.845844958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 32.356387833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 32.363343083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 34.87020075
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 34.878807875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4/files/63c4015b5c320e2177c16cca5648dfbd",
+      "at_seconds": 34.883417166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 37.385370291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 37.39872716600001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 39.906252208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 39.914201083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 42.421992291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 42.431640583000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 44.938480750000004
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 44.946106625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 47.453276625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 47.461159666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 49.970294208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 49.979563208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 52.488503375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 52.49620625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 55.005618208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 55.02805879100001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 57.542510375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 57.564031958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 60.078987125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 60.101949041
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 62.615135458000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 62.63710425000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 65.151207416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 65.173377958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 67.687098791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 67.706776125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 70.21806850000002
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 70.233441416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 72.745112708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 72.766914875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 75.280115875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 75.301446916
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 77.81292975
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 77.82050295799999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 80.328171291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 80.33725283300001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 82.845618375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 82.85380095800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4/files/f1d8804eb2cfc3fb17168506c28aed65",
+      "at_seconds": 82.85903083299999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 85.361746625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 85.370984208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 87.87996416600001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 87.889971583
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 90.398539083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 90.40712125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 92.916099416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 92.924071291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 95.434137208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 95.44362175
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 97.952082541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 97.960094458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 100.4678225
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 100.477134708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 102.98611366600001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4",
+      "at_seconds": 103.011474125
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/c9ac0f48bd8044458a8390d4/start",
+      "plan_id": "fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6",
+      "csrf_present": true
+    }
+  ],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 36639,
+      "sha256": "b306d00b1971ce2b21e8e04c44ea5f6f15c22355f67abb4db48cb3a91de641ea"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 7537,
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708"
+    },
+    {
+      "path": "ownership-before.json",
+      "bytes": 1926,
+      "sha256": "f972a795ed8d2eeaceb099090442e6a42cbd30072eae9b8461d30bdf6dc69716"
+    },
+    {
+      "path": "job-000.json",
+      "bytes": 3384,
+      "sha256": "ed7b5d87d089ffd5145de2ae7b8138f1989cf21d3e663fd01359dfa6d7d461fd"
+    },
+    {
+      "path": "initial-job.png",
+      "bytes": 203108,
+      "sha256": "9b3ea15399174f8b8cae411b10458b13092d4ccdacb6992ca8bb556712bda457"
+    },
+    {
+      "path": "job-001.json",
+      "bytes": 3386,
+      "sha256": "b06f47cc891f4391cf5b7cfba24121168451251fdfc31382ac2763601e930907"
+    },
+    {
+      "path": "job-002.json",
+      "bytes": 3387,
+      "sha256": "073a63a8987a560da83e6b8cac55d81ef50b182bf04ef0b282158f7305431f43"
+    },
+    {
+      "path": "progress-00.png",
+      "bytes": 207930,
+      "sha256": "b3560d02a1a9d3a34e0af62914d5d85105f8f39d7ac25ab4aab6c25f67365fd5"
+    },
+    {
+      "path": "job-003.json",
+      "bytes": 4004,
+      "sha256": "0c3ef63ebb5c7579ff5a8e3bee8d06c62e63644396dbf976ef4e0352d88c8f0f"
+    },
+    {
+      "path": "progress-01.png",
+      "bytes": 391958,
+      "sha256": "a68aafa72f894147aa9d1a2f4ab79a0d7dde553ce2c3dc8020dbf232edfc272e"
+    },
+    {
+      "path": "job-004.json",
+      "bytes": 4269,
+      "sha256": "87998c25a5f6317708972252d77d309a86a5f559ac6fdb54306858f3235e3fac"
+    },
+    {
+      "path": "progress-02.png",
+      "bytes": 400145,
+      "sha256": "6272feceea45b66610741408fe4a2bbe181ba38c629ac7132ed4e91636fb5a28"
+    },
+    {
+      "path": "job-005.json",
+      "bytes": 4544,
+      "sha256": "565237f9f7f2a06bed1c1fd6a6e3fc981756757ddb062090822f1ec5174a4248"
+    },
+    {
+      "path": "progress-03.png",
+      "bytes": 409637,
+      "sha256": "8598a231693aa951bfa9af5da3e0902ff9bb31bb4392d9c52f3a8a14a68d353f"
+    },
+    {
+      "path": "job-006.json",
+      "bytes": 4768,
+      "sha256": "247774038b3a8cb127f9ea1a0e87cace5d5df74edd1c6373497b0e8d6aa17ef1"
+    },
+    {
+      "path": "progress-04.png",
+      "bytes": 422624,
+      "sha256": "89407e00a936e84e9dbb659c948df027e9a9acac7feac5b531ea6dd00b863b6f"
+    },
+    {
+      "path": "job-007.json",
+      "bytes": 6511,
+      "sha256": "568f83660dbdda87a02b833d139fcc9dedc970e29baa2960b7bcb75e8269ed09"
+    },
+    {
+      "path": "progress-05.png",
+      "bytes": 516734,
+      "sha256": "b29bc14e732e049aa703e60f2725a1626655cf01df8f6ac5dc5b50d411a7056b"
+    },
+    {
+      "path": "job-008.json",
+      "bytes": 6785,
+      "sha256": "d032e2bea784280a68a91e8dc7310ac227a000eb5f70b245df04a129a499f61f"
+    },
+    {
+      "path": "progress-06.png",
+      "bytes": 526309,
+      "sha256": "3e88a20b6e5e26b677baaeb5a6f4b58073ba5736e595883be62ef007bb45e49f"
+    },
+    {
+      "path": "job-009.json",
+      "bytes": 7006,
+      "sha256": "19aab67d64bf709445ca37e659caf5893716000c0821435d182e78b0bb6fc009"
+    },
+    {
+      "path": "progress-07.png",
+      "bytes": 526582,
+      "sha256": "ac000292fbfb008d06b6de5dc283a83a9d7d41636f7a77638605a5bca6e46e96"
+    },
+    {
+      "path": "job-010.json",
+      "bytes": 7601,
+      "sha256": "b41b797e68e470ad8e60f0b40aabce8263ac5af01f034b84f245297d28f8448e"
+    },
+    {
+      "path": "job-011.json",
+      "bytes": 9483,
+      "sha256": "e167eed42883d5e9a02628d5acf3236b6c8331658f75e1b24880ec4dc54727c5"
+    },
+    {
+      "path": "terminal-job.json",
+      "bytes": 9483,
+      "sha256": "e167eed42883d5e9a02628d5acf3236b6c8331658f75e1b24880ec4dc54727c5"
+    },
+    {
+      "path": "ownership-after.json",
+      "bytes": 1934,
+      "sha256": "095a16de10b06efa084fe3e5d56dcf60a53f6c8501e30af2d453ddcb2da14a0c"
+    },
+    {
+      "path": "server.log",
+      "bytes": 108,
+      "sha256": "63edd0cad0b9b2722581f500a4f72a1a58663bff83049f68047eaf365b891824"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 1663893504,
+    "samples": 51,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "initial_status": "planned",
+  "frozen_plan_id": "fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6",
+  "server_pid": 74006,
+  "server": {
+    "port": 55627,
+    "pid": 74006,
+    "job_id": "c9ac0f48bd8044458a8390d4",
+    "canonical_state_dir": ".local/studio"
+  },
+  "browser_pid": 74007,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "software_webgl": true
+  },
+  "initial_ui": {
+    "status": "planned",
+    "timeline_entries": 3,
+    "reviews": 0,
+    "elapsed_label": "15s elapsed"
+  },
+  "last_ui": {
+    "status": "unsupported",
+    "timeline_entries": 15,
+    "reviews": 0,
+    "elapsed_label": "1m 39s elapsed"
+  },
+  "terminal_status": "unsupported",
+  "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+  "worker_handoff": {
+    "status": "unsupported",
+    "output": "outputs/studio-c9ac0f48bd8044458a8390d4",
+    "owner": {
+      "active_lease_job": null,
+      "cancel_requested": false,
+      "ended_local": "2026-11-01T14:53:07.794426-08:00",
+      "heartbeat_local": "2026-11-01T14:53:07.794427-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/c9ac0f48bd8044458a8390d4/run-0002",
+      "invocations": 2,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793573487:971496",
+      "owner_pid": 74024,
+      "queued_jobs": []
+    },
+    "next_action": "Inspect the canonical status and preserved receipts before any next action; this verifier issued no worker cancellation."
+  },
+  "start_requests": 1,
+  "request_count": 94,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 103.480614625,
+  "finished_local": "11/01/2026, 14:53:09 PST"
+}

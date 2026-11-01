@@ -34,7 +34,7 @@ def validate(config):
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
                 'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
                 'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity',
-                'pose_resolution', 'review_views'}
+                'pose_resolution', 'review_views', 'fur_undercoat'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -100,6 +100,10 @@ def validate(config):
         require(groom and 'direction' in groom and 'comb' in groom,
                 'Regional groom flow requires native groom direction and comb')
         validate_flow(config['groom_flow'])
+    if 'fur_undercoat' in config:
+        from scripts.blender_fur_undercoat import validate_undercoat
+        require(groom and config.get('groom_flow'), 'Undercoat requires the measured groom mask and shared regional flow')
+        validate_undercoat(config['fur_undercoat'])
     if 'groom_shader' in config:
         shader = config['groom_shader']
         require(groom and isinstance(shader, dict) and set(shader) == {'roughness', 'radial_roughness'},
@@ -228,6 +232,9 @@ def reuse_native(folder, out, cfg):
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
         require(sha256(root/'sources/fur_root_sampling.py') == sha256(ROOT/'scripts/fur_root_sampling.py'),
                 'Tuft root sampler changed; rebuild required')
+    if cfg.get('fur_undercoat'):
+        require(sha256(root/'sources/blender_fur_undercoat.py') == sha256(ROOT/'scripts/blender_fur_undercoat.py'),
+                'Undercoat baker changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
     require(sha256(root/'sources/surface_smoothing_config.py') == sha256(ROOT/'avatar_assets/surface_smoothing_config.py'),
@@ -278,6 +285,8 @@ def finish(config_path, output, reuse=None):
         if tuft_budget is not None:
             write_json(out/'tuft-export-budget.json', tuft_budget)
             shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
+        if cfg.get('fur_undercoat'):
+            shutil.copyfile(ROOT/'scripts/blender_fur_undercoat.py', out/'sources/blender_fur_undercoat.py')
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
                      'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):

@@ -4,6 +4,7 @@ import ast
 from copy import deepcopy
 import hashlib
 import json
+import math
 from pathlib import Path
 from types import SimpleNamespace
 import tempfile
@@ -50,6 +51,21 @@ def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
 
 
 class FinishQualityConfigTests(unittest.TestCase):
+    def test_undercoat_is_opt_in_and_requires_shared_measured_groom_context(self):
+        config = tuft_config()
+        config['fur_undercoat'] = {'profile':'short-pile-v1','resolution':2048,'seed':41,
+            'pitch_m':.004,'strength':.22,'roughness':.92,'min_faces':1,'max_faces':100000}
+        original = deepcopy(config)
+        validate(config)
+        self.assertEqual(original, config)
+        for key in ('groom', 'groom_flow'):
+            bad=deepcopy(config);bad.pop(key)
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                validate(bad)
+        bad=deepcopy(config);bad['fur_undercoat']['resolution']=4096
+        with self.assertRaisesRegex(ValueError, '1024 or2048'):
+            validate(bad)
+
     def test_tuft_requires_exact_root_color_and_shared_native_flow(self):
         config = tuft_config();original = deepcopy(config)
         validate(config)
@@ -300,6 +316,52 @@ class StoredSurfaceTests(unittest.TestCase):
                 scope['set_surface_positions'](SimpleNamespace(data=data), original, refined, Path('/unused'))
         data.vertices.foreach_set.assert_not_called()
         self.assertEqual(write.call_args.args[1]['new_degenerate_count'], 1)
+
+
+class DeformationBaselineTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        path=Path(__file__).resolve().parents[1]/'scripts/blender_finish_generated.py'
+        tree=ast.parse(path.read_text())
+        helper=next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name=='deformation_baseline')
+        cls.scope={'np':np,'math':math,'hashlib':hashlib}
+        exec(compile(ast.Module(body=[helper],type_ignores=[]),str(path),'exec'),cls.scope)
+
+    def fixture(self):
+        class Collection:
+            def __init__(self, values): self.values=np.asarray(values)
+            def __len__(self): return len(self.values)
+            def foreach_get(self, key, target): target[:]=self.values.ravel()
+        obj=SimpleNamespace(matrix_world=np.eye(4),data=SimpleNamespace(
+            vertices=Collection([[0,0,0],[1,0,0],[0,1,2]]),edges=Collection([[0,1],[1,2],[2,0]])))
+        rig=SimpleNamespace(data=SimpleNamespace(pose_position='REST',bones={'Root':None,'Arm':None}))
+        return obj,rig
+
+    def test_source_skin_and_authored_routes_capture_same_bound_geometry(self):
+        obj,rig=self.fixture()
+        first=self.scope['deformation_baseline'](obj,rig,'source_skin')
+        second=self.scope['deformation_baseline'](obj,rig,'authored')
+        np.testing.assert_array_equal(first[0],second[0])
+        np.testing.assert_array_equal(first[1],second[1])
+        report=first[2]
+        self.assertEqual(report['rest_sha256'],hashlib.sha256(first[0].astype('<f8').tobytes()).hexdigest())
+        self.assertEqual(report['edges_sha256'],hashlib.sha256(first[1].astype('<i4').tobytes()).hexdigest())
+        self.assertEqual(report['bone_names'],['Root','Arm'])
+        self.assertEqual(report['rest_bounds']['height'],2)
+        self.assertEqual(report['units'],'meters')
+        self.assertEqual(report['pose_samples_measured'],0)
+        self.assertTrue(report['unchanged_topology_required'])
+
+    def test_ambiguous_pose_space_and_invalid_geometry_are_not_empty_successes(self):
+        for scenario in ('posed','transform','nan','edge','rig'):
+            obj,rig=self.fixture();route='source_skin'
+            if scenario=='posed': rig.data.pose_position='POSE'
+            if scenario=='transform': obj.matrix_world[0,0]=.01
+            if scenario=='nan': obj.data.vertices.values=obj.data.vertices.values.astype(float);obj.data.vertices.values[0,0]=np.nan
+            if scenario=='edge': obj.data.edges.values[0,0]=10
+            if scenario=='rig': route='unknown'
+            with self.subTest(scenario=scenario),self.assertRaises(ValueError):
+                self.scope['deformation_baseline'](obj,rig,route)
 
 
 if __name__ == '__main__':

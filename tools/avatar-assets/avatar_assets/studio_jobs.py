@@ -5,6 +5,7 @@ from datetime import datetime
 import ctypes
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -83,6 +84,43 @@ def _safe_text(value, limit=400):
 
 def _local_time(value):
     return datetime.fromtimestamp(value, ZoneInfo('America/Los_Angeles')).isoformat() if value else None
+
+
+def _stage_progress(folder, job_status):
+    events = folder/'events'
+    if not events.is_dir():
+        return []
+    _require(not events.is_symlink(), 'Pipeline event directory cannot be a symlink')
+    paths=[]
+    for index,path in enumerate(events.iterdir()):
+        _require(index<128, 'Pipeline event inventory exceeds its bound')
+        if path.suffix=='.json':paths.append(path)
+    _require(sum(path.stat().st_size for path in paths)<=MAX_JSON, 'Pipeline event bytes exceed snapshot bound')
+    stages={};last_key=None
+    for path in sorted(paths):
+        event=_json(path,{})
+        stage=_safe_text(event.get('stage'),80)
+        if not stage:continue
+        attempt=event.get('attempt')
+        _require(attempt is None or type(attempt) is int and 0<=attempt<=2, 'Invalid stage attempt')
+        key=(stage,attempt);last_key=key
+        label={'deformation_gate':'Check skin stretching'}.get(stage,stage.replace('_',' ').title())
+        item={'id':stage if attempt is None else f'{stage}:{attempt}', 'stage':stage,
+              'label':label if attempt is None else f'{label} · attempt {attempt+1}',
+              'status':_safe_text(event.get('status'),80),
+              'detail':_safe_text(event.get('reason',event.get('error')),500), 'attempt':attempt}
+        elapsed=event.get('elapsed_seconds')
+        if type(elapsed) in (int,float) and math.isfinite(elapsed) and elapsed>=0:
+            item['elapsed_seconds']=elapsed
+        stages[key]=item
+    _require(len(stages)<=40, 'Too many distinct progress stages')
+    for key,item in stages.items():
+        if item['status']=='running' and (key!=last_key or job_status not in
+                ('queued','launching','planning','running','cancel_requested')):
+            # Legacy or interrupted events cannot establish completion or live ownership.
+            item.update(status='unresolved',recorded_status='running',
+                        detail='No terminal stage receipt; last recorded as running. '+item['detail'])
+    return list(stages.values())
 
 
 def process_identity(pid):
@@ -353,6 +391,68 @@ class StudioJobs:
     def start(self, job_id, plan_id=None):
         return self._enqueue(job_id,'execute',plan_id)
 
+    def release_inspected(self,job_id,*,expected_pid,expected_identity,reason):
+        """Seal exact failed-owner custody and release its lease; never restart or dispatch work."""
+        from avatar_assets.studio_inspection import collect,custody_locks,recheck
+        _require(type(expected_pid) is int and expected_pid>0 and isinstance(expected_identity,str)
+                 and 0<len(expected_identity)<=256,'Explicit prior process identity is required')
+        reason=_safe_text(reason,800)
+        _require(bool(reason.strip()),'Inspection release requires a recorded reason')
+
+        def owned(db):
+            row=self._row(db,job_id);data=json.loads(row['data']);request=json.loads(row['request'])
+            active=db.execute('SELECT job,token FROM active WHERE id=1').fetchone()
+            _require(row['status']=='needs_inspection','Only a retained needs_inspection job can be released')
+            _require(data.get('owner_pid')==expected_pid and data.get('owner_identity')==expected_identity,
+                     'Retained worker identity changed')
+            _require(active and tuple(active)==(job_id,data.get('token')),'Exact old lease is no longer held')
+            _require(request.get('reuse_model') is not None,'Remote-generation custody needs separate inspection')
+            _require(_digest(request)==row['request_digest'] and _json(self.jobs_dir/job_id/'request.json')==request,
+                     'Immutable Studio request receipt changed')
+            _require(not db.execute("SELECT 1 FROM jobs WHERE status='queued' LIMIT 1").fetchone(),
+                     'Queued work must be resolved separately before inspection release')
+            return row,data,request
+
+        with self._db() as db:row,data,request=owned(db)
+        folder=self.root/'outputs'/row['output']
+        _require(not (folder/'generation').exists(),'Remote-generation artifacts need separate inspection')
+        invocation=self.state_dir/data['invocation_dir']
+        _require(invocation.resolve()==invocation and invocation.is_relative_to(self.jobs_dir/job_id),
+                 'Retained invocation path is unsafe')
+        owner=_json(invocation/'owner.json')
+        _require(isinstance(owner,dict) and owner.get('token')==data.get('token'),'Supervisor receipt lease differs')
+        meta=_json(invocation/'invocation.json')
+        _require(isinstance(meta,dict) and meta.get('job_id')==job_id and meta.get('request_digest')==row['request_digest'],
+                 'Invocation request binding changed')
+        locks=[self.state_dir/'worker.lock',self.jobs_dir/job_id/'worker.lock',folder/'pipeline.lock']
+        with custody_locks(locks):
+            proof=collect(self.root,folder,invocation,expected_pid,expected_identity)
+            proof['locks']=[str(path.relative_to(self.root)) for path in locks]
+            with self._db(True) as db:
+                current,current_data,current_request=owned(db)
+                _require(current['request_digest']==row['request_digest'] and current_request==request
+                         and current_data.get('invocation_dir')==data['invocation_dir'],'Inspected request/invocation changed')
+                proof['final_process_check']=recheck(self.root,proof)
+                record={'schema_version':1,'job_id':job_id,'previous_status':'needs_inspection',
+                        'requested_transition':'failed_and_release_exact_lease',
+                        'expected_pid':expected_pid,'expected_identity':expected_identity,'reason':reason,
+                        'request_digest':row['request_digest'],'recorded_local':_local_time(time.time()),
+                        'no_dispatch':True,'no_cost_reset':True,'proof':proof}
+                folder=self.jobs_dir/job_id
+                _require(sum(1 for _ in folder.glob('inspection-release-*.json'))<4,'Inspection receipt bound reached')
+                path=folder/('inspection-release-'+uuid.uuid4().hex+'.json')
+                _write_private(path,record)
+                checksum=hashlib.sha256(path.read_bytes()).hexdigest()
+                relative=str(path.relative_to(self.state_dir))
+                current_data.update(inspection_release={'path':relative,'sha256':checksum},
+                                    error=current_data.get('error') or 'Failed job released after explicit custody inspection.')
+                self._update(db,current,current_data,'failed')
+                self._journal(db,job_id,{'status':'failed','action':'inspection_release',
+                                        'receipt':relative,'sha256':checksum,'no_dispatch':True,'no_cost_reset':True})
+                db.execute('DELETE FROM active WHERE id=1 AND job=? AND token=?',(job_id,data['token']))
+        return {'status':'failed','job_id':job_id,'lease_released':True,'receipt':relative,
+                'sha256':checksum,'no_dispatch':True,'no_cost_reset':True}
+
     def _dispatch(self):
         with self._db(True) as db:
             if db.execute('SELECT job FROM active WHERE id=1').fetchone():
@@ -477,21 +577,7 @@ class StudioJobs:
         folder = self.root/'outputs'/row['output'];status = row['status']
         if status in ('launching','planning','running','cancel_requested') and time.time()-data.get('heartbeat',0)>HEARTBEAT_STALE:
             status = 'needs_inspection'
-        events_dir = folder/'events'
-        paths=[]
-        if events_dir.is_dir():
-            _require(not events_dir.is_symlink(),'Pipeline event directory cannot be a symlink')
-            for index,path in enumerate(events_dir.iterdir()):
-                _require(index<128,'Pipeline event inventory exceeds its bound')
-                if path.suffix=='.json':paths.append(path)
-            paths.sort()
-        stages = {}
-        for path in paths[-24:]:
-            event = _json(path,{})
-            stage = _safe_text(event.get('stage'),80)
-            if stage:
-                stages[stage]={'id':stage,'label':stage.replace('_',' ').title(),'status':_safe_text(event.get('status'),80),
-                               'detail':_safe_text(event.get('reason'),500),'attempt':event.get('attempt') if type(event.get('attempt')) is int else None}
+        stages = _stage_progress(folder,status)
         authorization = self._authorization(row)
         plan = _json(folder/'plan.json')
         plan_id = self._plan_id(row)
@@ -546,7 +632,7 @@ class StudioJobs:
                        'custom_actions':[_safe_text(a,600) for a in request['custom_actions']],'preset':request['preset'],
                        'reference_selected':request['reference'] is not None,'reuse_model_selected':request['reuse_model'] is not None},
             'operation':data.get('operation'),'queued':status=='queued','cancel_requested':data.get('cancel_requested',False),
-            'stages':list(stages.values()),'plan_id':plan_id,
+            'stages':stages,'plan_id':plan_id,
             'plan':{'id':plan_id,'summary':_safe_text(plan.get('subject',plan.get('reason','')),800),
                     'estimate':{'credits':authorization['estimated_credits'],'amount':None,'currency':'USD',
                                 'note':'Account dollar price and agent usage price are unknown. No paid retries or allowance changes.'},

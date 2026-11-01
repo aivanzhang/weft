@@ -4,12 +4,12 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 14:05 PST. Current follow-up status is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 14:56 PST, after robot-v3's terminal unsupported receipt. Current follow-up is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used 0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
-- Resume guard: preserve original ZIP and existing output folders. Studio job `8a7e0d76b8b8427f93f52157` is executing under its detached worker; observation-only browser tool 62323 owns the temporary server/Chrome. Freeze pipeline/worker source files until it ends; a Git save does not require restarting it. Do not restart cancelled job `a7909fcea90e4df8940850ef`, send another Start or stop the worker when a UI check ends.
+- Resume guard: preserve original ZIP and every prior output. Job `8a7e0d76b8b8427f93f52157` is **failed/released**; new job `c9ac0f48bd8044458a8390d4` is **unsupported**, with verifier **12931 ended**, no active lease and no queued work. Do not send another Start, restart old jobs, directly edit SQLite or reset costs. Root/contracts own read-only failure diagnosis; the separately prepared UV1-undercoat diagnostic is agent-runner-owned. Source changes/new jobs require coordination, not automatic replay.
 
 ## Active: hands-off quality and local creation studio — incomplete
 
@@ -41,6 +41,20 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   typed stability/world-space audit correction passes 42 focused checks;
   stationary body parts are separate from articulation requirements. Actual
   final action/appearance acceptance remains pending.
+- [x] Gross sampled deformation now fails a hash-bound gate **before** reload
+  and full media. Numeric audit citations can supplement actual own-state images,
+  never replace them. Fully exited malformed critic responses seal unsupported
+  without another paid call; genuinely uncertain processes still retain custody.
+  Single-state final reviews additionally preserve two unchanged individual
+  native/exported pose images; repair sheets retain actual 720px inputs. These
+  are code/fixture improvements, not a new accepted avatar or fur promotion.
+- [x] Missing/changed gate or native-pack evidence now halts without another
+  author call; only a valid measured failure enters bounded repair. New unfinished
+  jobs pin `scripts/motion_samples.py` alongside the controller modules and cannot
+  omit that pin. Sealed historical deliveries remain read-only resumable with
+  verified archived sources. **42 focused checks / 0.498 s** passed; receipt
+  `outputs/studio-integration-v1/pipeline-custody-tests-v1.json`, SHA
+  `8f9b10d6cee8ffa3c7750bce088078e502c120a2e0709ca99cb52c2ee37617d8`.
 - [x] Real-loopback HTTP tests with an analytic manager: 19 cases exercised;
   17 passed initially, strict multipart regression passed after the backend fix,
   and the deep-prompt regression passed after correcting the fake manager's
@@ -73,9 +87,15 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   `2abddef62981a62ce97d2f658a38657cbae2ca6fd7acdc178108e6f788a8fc32`.
   Source/artifact hashes match. This is camera-fit evidence, not an avatar,
   animation or quality pass; do not rerender it unchanged.
-- [x] Durable-worker request-binding regression passed, with 26 worker fixtures
-  total. The latest full Python suite passes **552 tests in 13.475 s**:
-  `outputs/studio-integration-v1/full-tests-v2.txt`. The earlier 521-test run had
+- [x] The frozen integrated Python suite passes **619 tests in 14.771 s**:
+  `outputs/studio-integration-v1/full-tests-v4.txt`, SHA
+  `a8c97ea107a3688cf62a9320eca0574e49e75f5f9163469abfacdd33c707f782`.
+  `full-tests-v4-sources.json` binds 136 source files, SHA
+  `d9e681756b0ac7e5497b38a84c403887bc02509f5da7e15074cc86e8c8b69f5b`.
+  Preserve v3's **607 tests / 602 passes / three failures and two errors /
+  13.305 s**: package/top-level groom import identity caused five undercoat
+  failures. Package-relative resolution and an import-order regression fixed it.
+  Earlier v2 passed 552 tests in 13.475 s. The earlier 521-test run had
   520 passes and one upload error. A shared stricter Pillow pixel cap exposed an
   uncaught oversized-upload exception; the exact test passed after the HTTP fix.
   Preserve
@@ -86,9 +106,14 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   sparse coverage, minification, missing regional card flow and contact defects.
   Opt-in `tuft-v1` helper/integration tests pass, but the actual candidate
   `outputs/panda-portable-tuft-v1` **failed** the unchanged 2 GiB sampled-memory
-  bound after 27.428 s. Its worker exited; no retry or exported preview ran.
-  Raw GLB and native stills remain diagnostic, not portable-coat acceptance.
-  [Exact trial/limitations](docs/tuft-profile.md); no Muse parity is established.
+  bound after 27.428 s. Its worker exited; the later separate raw-GLB diagnostic
+  `outputs/panda-portable-tuft-diagnostic-v1` rendered in 24.035 s but was
+  **visually rejected** for conspicuous dashes/blocks and a spiky crest over a
+  plastic-looking base. Undercoat v1 and v2 also failed before producing a
+  texture/model: first import correspondence, then aliased normal-map UVs on
+  the authored repair cap. A bounded separate UV1-atlas diagnostic is being
+  prepared only; no overlap rule is relaxed, live adapter changed or coat promoted.
+  [Exact trials/limitations](docs/tuft-profile.md); no Muse parity is established.
 
 ### First actual development attempt — cancelled after planning
 
@@ -112,7 +137,7 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   No archive content was executed. Local renderer/analytic proofs above are
   separate from this stopped planner attempt.
 
-### Second development attempt — running; no final acceptance
+### Second development attempt — failed, inspected and released; no final acceptance
 
 - Same exact requested robot/style/action, new canonical job
   `8a7e0d76b8b8427f93f52157`, output `outputs/studio-8a7e0d76b8b8427f93f52157`.
@@ -130,30 +155,46 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   `82cbe1dee77323a7f5997d29dae23fcbd65c083385aeb9a0e42d4561b54ad9e0`.
   Tool 84327 ended after 3.019 s, its browser/server exited, and it issued no
   worker cancellation or signal. The detached worker continued normally.
-- The corrected verifier is observing the **same job without `--start`** in
-  `outputs/studio-live-robot-v2`, live tool **62323**. Last UI snapshots show a
-  rejected attempt followed by real media rendering. Neither this progress nor
-  an eventual encoded video is final acceptance; review and real output checks
-  still have to complete. No mock HTTP responses are used in these live runs.
+- The corrected observation-only verifier followed the **same job without
+  `--start`** in `outputs/studio-live-robot-v2`. Tool **62323 ended** after
+  226.659 s: 190 requests, zero Start/cancel requests, zero external requests or
+  browser errors, 1,657,290,752 B sampled Node/server/Chrome RSS. Browser/server
+  exit verified. Result is **failed**, because the actual job ended
+  `needs_inspection`, not because it secretly completed a delivery. Receipt SHA
+  `48c5f51fd460c636e6daa2bf7e58ac136ebb8734683e4d7afcedcdcbadb3c7c4`.
+  It observed actual attempts/media/reviewer stages without mocked responses;
+  final GLB/video/static download acceptance was never reached.
 - Root's independent sample of `model-1/renders/right_hand_wave/0003.png` shows
   an elongated copper/blue arm spike and shoulder/torso creasing. The numeric
-  stability repair is not visual acceptance. Let the actual critic evaluate the
-  saved media; preserve rejection rather than hand-editing this job's recipe.
-- Worker ownership last verified: PID **61650**, start identity
+  stability repair is not visual acceptance. The actual critic also returned
+  **repair** for conspicuous raised-arm stretched geometry. Its raw answer is
+  preserved under `agents/reviewer-1`; no accepted review or delivery exists.
+- Reviewer call succeeded, but validation raised `Reviewer invented or repeated
+  evidence`: a supplied numeric `action-audit-right_hand_wave` ID was excluded
+  by an image-only allowed-ID list. Root has corrected this for new jobs with
+  hash-bound numeric IDs plus mandatory own-state motion-image evidence. Pure
+  contract failures after a safely exited critic now seal `unsupported`, not
+  false process uncertainty or another model call. The old critic's **repair**
+  and lifecycle remain unchanged; the corrected path still needs actual acceptance.
+- Former worker ownership: PID **61650**, start identity
   `darwin-start:1793570617:835725`, canonical invocation
-  `.local/studio/jobs/8a7e0d76b8b8427f93f52157/run-0002`. Recheck the canonical
-  lease and process identity before any intervention; PID alone is not custody.
-  A browser timeout must leave the detached worker untouched.
-- The development study retains a ten-AI-call aggregate envelope, including both
-  planner calls. This job has one local repair; its current flow can use at most
-  five role calls including its planner. Dollar costs are unknown. Record actual
-  final usage rather than claiming zero AI cost or resetting a call counter.
+  `.local/studio/jobs/8a7e0d76b8b8427f93f52157/run-0002`. Pipeline child 61651
+  exited 1 after 271.622 s; its receipt verifies exit/no manual stop. Every saved
+  native job exited 0, and the initial bounded OS check found 21 recorded PIDs
+  absent. No process was signalled by the verifier. The lease was retained until
+  the explicit 23-PID custody release below; the original pipeline/media/critic
+  failure artifacts stay unchanged. It must not be retried automatically.
+- Actual development usage across both jobs: **five AI calls / 125,186 input /
+  5,973 output tokens**, including both planners, two authors and one critic.
+  Reported reasoning-output 297 is a separate field, not extra output tokens.
+  The aggregate cap remains ten calls; account-dollar cost remains unknown.
+  Zero new Meshy/Meta calls or credits. Preserve counters and every receipt.
 - Live-verifier bounds: 900 s, 3 GiB sampled Node/server/owned-Chrome RSS and
   64 MiB evidence output. Detached pipeline/native worker memory is **excluded**
   and governed by its own existing limits. Request mutations are blocked except
   the one explicitly authorized Start; observer mode blocks every mutation.
 
-Exact current observation command (already running; do not duplicate):
+Exact completed observation command (do not rerun unchanged):
 
 ```sh
 node browser/tests/studio-live.mjs outputs/studio-live-robot-v2 8a7e0d76b8b8427f93f52157 --plan-id b62fac2bd550e542995d8be894e8593e19fbab2a310eca6b906a99fc1932a7fe --max-seconds 900
@@ -164,23 +205,132 @@ start. **Do not add `--start` to this job again.** Its read-only helper is
 `scripts/verify_studio_live.py --job JOB_ID`; it inspects the existing canonical
 registry, not a new worker registry.
 
+### Failed-owner recovery — verified; no retry or new job
+
+- `StudioJobs.release_inspected()` and `avatar_assets/studio_inspection.py` passed
+  **16 analytic custody tests in 0.255 s**. The fixtures cover exact owner/lease,
+  immutable request binding, live PID/child/group rejection, locks, missing or
+  signalled exits, receipt/hash races, path/size bounds and transaction rollback.
+  Command: `.venv/bin/python -m unittest tests.test_studio_inspection -q`.
+  `outputs/studio-inspection-release-v1/tests.json` binds the tested source hashes.
+- Actual **read-only** preflight: `outputs/studio-inspection-release-v1/preflight.json`,
+  SHA `7ba9fd67b24b6791e562af55a6232480f90785de9f7766817c1618958c6f20df`.
+  It checked 60 sealed receipts / 68,697 B and 23 known PIDs, including utility
+  children omitted by the first 21-PID inventory. Both OS checks found the PIDs,
+  direct children and process groups absent. All three existing supervisor/job/
+  pipeline locks were free and held during inspection. That preflight made
+  **no registry change, worker signal, new model call or lease release**.
+- Recovery is deliberately narrow: only source-reuse jobs with no remote
+  generation directory or queued work, normal controller exit 0/1, sealed
+  controller/supervisor failure results and each handle's exact terminal monitor.
+  A new immutable private receipt and appended lifecycle journal mark the failed
+  job and release only its exact lease under lock. Existing evidence, error,
+  usage counters and output bytes remain untouched; no queued dispatch or retry.
+- After root reviewed the code, fixture results and actual preflight, the exact
+  API ran **once at November 1, 2026, 2:36:45 PM PST** for the recorded job,
+  PID `61650`, identity `darwin-start:1793570617:835725`. Its action-time checks
+  again verified 60 receipts/23 PIDs and the locks. Status is **failed**, active
+  lease absent, queued jobs zero, new executor children zero, one journal event.
+  All **480 output files / 382,622,259 B** hashed identically before/after, and
+  the Meshy ledger, old error and usage data stayed unchanged. No call allowance
+  reset, new job preparation, worker signal or dispatch occurred.
+- Verification: `outputs/studio-inspection-release-v1/release-verification.json`,
+  SHA `0a6fe840553ef94ac302298b97fd894d682993bf275c3adac569cedd7f90e454`;
+  full preserved-output hashes are adjacent in `unchanged-output-hashes.json`.
+  Private recovery receipt:
+  `.local/studio/jobs/8a7e0d76b8b8427f93f52157/inspection-release-d50ff25dd97a403487fcf2c2fee300d9.json`,
+  SHA `1b1d70398b2ff79e9857fc3c4c450d9ac9c7f456135479024c010853e9fd4182`.
+  Integrated checks/source freeze subsequently passed; the separate new job
+  below has now ended unsupported. Never repeat this release or restart the failed job.
+
+### Third development attempt — unsupported; no accepted output
+
+- Canonical job **`c9ac0f48bd8044458a8390d4`**, output
+  `outputs/studio-c9ac0f48bd8044458a8390d4`, keeps the exact previous robot
+  prompt/style/hand-wave action and reused source
+  `5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c`.
+  It is not fresh text-to-mesh generation. `development-estimate-v3.json` under
+  `outputs/studio-integration-v1/` records the unchanged aggregate ten-call
+  development envelope and zero new Meshy credits.
+- Planning completed: one real call, **15,907 input / 603 output tokens**,
+  14.980 s / 123,535,360 B sampled direct-child RSS, exit 0. Root reviewed the
+  exact action plus one articulation and torso/feet stability requirements;
+  `outputs/studio-integration-v1/development-plan-reviewed-v3.json` records this.
+  Plan file SHA `55e676bde3caa95fff631a28acf8a17cc0f991b6f405c3736c15aeeda7ee094e`;
+  request/source-pin receipt SHA
+  `28e9f3f5d88d2fecf64c55a67cf9a7997776be79d4201041b7491b44201817cb`.
+- At the subsequent UI-start checkpoint, the study had **six calls used /
+  four remaining**. This run then used two authors, no critic: 24,262/1,753 and
+  31,408/1,732 input/output tokens respectively. The development study now has
+  **eight actual calls / two remaining**, totaling **196,763 input / 10,061
+  output tokens**. Reported reasoning-output 657 is separate, not extra output.
+  No allowance/counter reset, new Meshy credit/grant or dollar-cost claim.
+- Actual browser verifier **12931 ended exit 1**, output
+  `outputs/studio-live-robot-v3`. It sent exactly one explicit Start with plan
+  ID `fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6`,
+  then observed terminal **unsupported** after **103.481 s / 94 requests**.
+  Zero browser errors/external requests; Chrome/server exit verified, no worker
+  cancellation or signal. Root verified active lease empty/queued zero. Receipt
+  SHA `7c773b37acc1c6495a73e3fb659462ba07d8b3c10ce6486835b7a90af6732ed7`.
+- Attempt 0 failed the gross-deformation gate at **47.5 mm excess**. Attempt 1
+  passed that coarse gate, then failed requested stability: **31 torso vertices
+  moved 4.828862 mm against the fixed 1.817729 mm limit**; hand and feet passed.
+  This is not a reason to weaken the request or gate. No critic, full-media
+  render or delivery ran. The one-repair budget exhausted correctly.
+  `unsupported.json` SHA
+  `dc4dd054942aa26fb8b5a772e7bd3114caa234795cbdfb33b3c88a84ee89dba1`;
+  `action-audit-1/report.json` SHA
+  `97c5cd6c0f8bbbcc3250a6ebad53595ef669413453e7c1452cd215f094738bfc`.
+  All original attempts remain saved; read-only diagnosis is ongoing.
+
+Exact completed command (do not repeat):
+
+```sh
+node browser/tests/studio-live.mjs outputs/studio-live-robot-v3 c9ac0f48bd8044458a8390d4 --start --plan-id fdd2ed52afacb230548aa3aa780e3aa31d4f6fb029b909b2a992ec3b75feeec6 --max-seconds 900
+```
+
+### Fresh examples — prepared estimate, authorization pending
+
+- `outputs/fresh-acceptance-preparation-v1/requests.json` preserves three fresh
+  text/action requests covering furry-character dance, flying creature and
+  articulated object; SHA
+  `b5df06fd2841e04b5cc84a9e6a11b4ff47f0338fa56d8f79f4af6a1f94b67311`.
+- Its `estimate.json` (SHA
+  `94c23f8fecaef092424a4081abb89aadec7940925008a87fa8be36c0abe30e2e`)
+  estimates **105 Meshy credits / six paid submissions / zero paid retries**,
+  **nine expected / 15 maximum AI calls**, six maximum local attempts and one
+  heavy worker at a time. Dollar price remains unknown. No purchase or recurring
+  service is requested. Existing eight credits remain unchanged; the ledger's
+  immutable full-job grants require three additional 35-credit allowances.
+- `allowance-request.json` is **pending_actual_user_reply**. The question has
+  been asked, but there is **no reply, grant or authorization to execute** these
+  jobs yet. These prepared requests/estimates made no generation or AI calls.
+  This separate proposed envelope does not expand the current ten-call robot study.
+
 ### Ownership, cost and next safe work
 
 - Parent owns pipeline integration, real UI/asset acceptance and
-  `docs/hands-off-studio.md`. Stability/tuft source changes are frozen for the
-  active worker. The UI reviewer owns observer tool 62323 and its temporary
-  browser/server, not permission to cancel the detached generation worker.
+  `docs/hands-off-studio.md`. Event-only `pipeline.py` changes are released back
+  to root for its deformation/evidence fixes. Scoped recovery code/tests in
+  `studio_jobs.py`, `studio_inspection.py` and `test_studio_inspection.py` are
+  frozen and released to root; robot-v3's pipeline/verifier ended. The stage is
+  “Check skin stretching”; completed numeric checks do not imply visual approval.
   This handoff does not transfer unrelated Weft files or its goal.
 - Renderer handle 51559 ended; fixture-browser handle 19047 ended. Do not rerun
   them or treat historical handles below as live. Verify new owner receipts
   before starting another expensive operation. The fixture-v2 browser handle
-  77182 and failed live-verifier handle 84327 also ended. There is no persistent
-  development server; the current temporary server belongs to tool 62323.
+  77182, failed live-verifier 84327 and observer 62323 also ended. No persistent
+  development server remains. Verifier 12931 also ended with owned HTTP/Chrome
+  exits verified. Do not interfere with the separately owned UV1 diagnostic to
+  free resources; root/contracts are diagnosing the robot failure read-only.
 - Last verified Meshy ledger: 16 completed submissions / 202 credits against 210
   authorized; **8 remain, less than the 35-credit fresh-model estimate**. No new
   Meshy submission, credit purchase, paid retry, account or Meta-budget use in
   this implementation pass. AI usage dollars remain unknown. Aggregate fresh
   example costs must be prepared before any additional spending decision.
+- Prior periodic checkpoint `87f224f` is pushed to the private remote; root's
+  publication receipt is `.local/avatar-studio-checkpoint-v1/receipt.json` at
+  the Weft root. New recovery/quality fixes are not included in that old checkpoint.
 
 1. [ ] Complete real-request stability/articulation acceptance using the newly
    implemented world-space gates and actual weighted vertices. Distinguish root
@@ -190,23 +340,38 @@ registry, not a new worker registry.
 2. [ ] Verify full-resolution native/exported views and decoded final media reach
    the independent critic with exact source/model/attempt hashes. Visible defects
    must fail even when structural tests and motion counts pass.
-3. [ ] Follow current robot job `8a7e0d76b8b8427f93f52157` to a terminal result
-   without another Start. Record exact aggregate calls, time/memory/output,
-   repairs, final media/critic/asset bindings and honest unsupported outcomes.
-   Preserve the cancelled first job and failed verifier. Reuse is not a fresh
-   text-to-mesh test and cannot prove arbitrary prompt quality.
-4. [ ] Prepare fresh furry-character, flying-creature and articulated-object jobs
-   plus aggregate cost estimate. Execute only within real authorization; acceptance
+3. [ ] Fix deformation gating and numeric/image citation semantics, then use a
+   new bounded job only within the remaining aggregate allowance. The exact old
+   lease is now safely released through the tested API; never restart either
+   old job or reset usage. Preserve actual failures and
+   source/media/reviewer bindings. Reuse is not a fresh text-to-mesh test and
+   cannot prove arbitrary prompt quality. The integrated source freeze now
+   passes 619 tests, but unchanged-text robot-v3 ended unsupported for torso
+   stability. Diagnose the measured boundary error without weakening the action;
+   only two of ten development AI calls remain and no new run is authorized here.
+4. [ ] Obtain the pending actual allowance reply, then bind and run the prepared
+   fresh furry-character, flying-creature and articulated-object jobs. The
+   aggregate 105-credit/15-maximum-AI estimate is saved above. Execute only within
+   real authorization; acceptance
    requires the requested material/action quality without hand-writing per-example
    finishing recipes or substituting an easier subject/action.
 5. [ ] Follow at least one actual authorized job through the user-facing studio
    to its real downloads, checking refresh/restart, identity, playback, static
    fallback and no duplicate generation. Keep browser/API fixtures separate.
-6. [ ] Diagnose the retained tuft memory failure before any changed bounded
-   candidate. Do not repeat the same failed build or raise its limit. Require
+6. [ ] Verify the separately prepared UV1-undercoat diagnostic after the retained
+   tuft/correspondence/overlap failures. Do not repeat unchanged failed builds,
+   relax overlap checks or raise limits. Require
    actual native/exported appearance, source-color,
    skin/action and browser proof; more cards or analytic coverage alone is not
    acceptance. Preserve approved panda/dragon bytes and every rejected attempt.
+7. [x] Correct timeline semantics after the worker/observer exited. Explicit
+   stage completion/failure/cancellation receipts now retain measured elapsed
+   times; `(stage, attempt)` aggregation keeps earlier failed attempts. Legacy
+   missing endings are **unresolved**, never inferred successful or still live.
+   Nine analytic progress checks plus 20 pipeline and 26 worker checks pass
+   across focused runs; initial fixture/import errors were corrected narrowly.
+   This is not a second live-run success or visual acceptance. Root owns the
+   next pipeline edits and must close any newly introduced progress stage.
 
 From Weft, the user starts/stops the local studio; it is not auto-launched:
 

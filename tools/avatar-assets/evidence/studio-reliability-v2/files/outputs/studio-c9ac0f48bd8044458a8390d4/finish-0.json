@@ -1,0 +1,492 @@
+{
+  "authored_actions": [
+    {
+      "id": "greeting",
+      "keys": [
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              0,
+              0
+            ]
+          },
+          "second": 0
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 0.55
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 1.15
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 1.75
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 2.35
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              30,
+              0
+            ]
+          },
+          "second": 2.95
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              -25,
+              0
+            ]
+          },
+          "second": 3.5
+        },
+        {
+          "rotations": {
+            "RightHand": [
+              0,
+              0,
+              0
+            ]
+          },
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "authored_rig": {
+    "base_bones": [
+      "Torso",
+      "Head",
+      "RightArm",
+      "RightHand",
+      "LeftArm",
+      "LeftHand",
+      "RightLeg",
+      "RightFoot",
+      "LeftLeg",
+      "LeftFoot"
+    ],
+    "bones": [
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.34
+        ],
+        "name": "Root",
+        "parent": null,
+        "tail": [
+          0.5,
+          0.5,
+          0.4
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.35
+        ],
+        "name": "Torso",
+        "parent": "Root",
+        "tail": [
+          0.5,
+          0.5,
+          0.62
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.64
+        ],
+        "name": "Head",
+        "parent": "Torso",
+        "tail": [
+          0.5,
+          0.5,
+          0.9
+        ]
+      },
+      {
+        "head": [
+          0.36,
+          0.5,
+          0.6
+        ],
+        "name": "RightArm",
+        "parent": "Torso",
+        "tail": [
+          0.16,
+          0.4,
+          0.435
+        ]
+      },
+      {
+        "head": [
+          0.16,
+          0.4,
+          0.435
+        ],
+        "name": "RightHand",
+        "parent": "RightArm",
+        "tail": [
+          0.07,
+          0.35,
+          0.38
+        ]
+      },
+      {
+        "head": [
+          0.64,
+          0.5,
+          0.6
+        ],
+        "name": "LeftArm",
+        "parent": "Torso",
+        "tail": [
+          0.84,
+          0.4,
+          0.435
+        ]
+      },
+      {
+        "head": [
+          0.84,
+          0.4,
+          0.435
+        ],
+        "name": "LeftHand",
+        "parent": "LeftArm",
+        "tail": [
+          0.93,
+          0.35,
+          0.38
+        ]
+      },
+      {
+        "head": [
+          0.36,
+          0.5,
+          0.35
+        ],
+        "name": "RightLeg",
+        "parent": "Root",
+        "tail": [
+          0.3,
+          0.5,
+          0.18
+        ]
+      },
+      {
+        "head": [
+          0.3,
+          0.5,
+          0.18
+        ],
+        "name": "RightFoot",
+        "parent": "RightLeg",
+        "tail": [
+          0.29,
+          0.23,
+          0.035
+        ]
+      },
+      {
+        "head": [
+          0.64,
+          0.5,
+          0.35
+        ],
+        "name": "LeftLeg",
+        "parent": "Root",
+        "tail": [
+          0.7,
+          0.5,
+          0.18
+        ]
+      },
+      {
+        "head": [
+          0.7,
+          0.5,
+          0.18
+        ],
+        "name": "LeftFoot",
+        "parent": "LeftLeg",
+        "tail": [
+          0.71,
+          0.23,
+          0.035
+        ]
+      }
+    ],
+    "height_meters": 1.2,
+    "layers": [
+      {
+        "bones": [
+          "Torso"
+        ],
+        "feather": 0.01,
+        "max": [
+          0.69,
+          1.05,
+          0.635
+        ],
+        "min": [
+          0.31,
+          -0.05,
+          0.32
+        ],
+        "min_vertices": 500
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "feather": 0.003,
+        "max": [
+          1.05,
+          1.05,
+          1.05
+        ],
+        "min": [
+          -0.05,
+          -0.05,
+          0.637
+        ],
+        "min_vertices": 1000
+      },
+      {
+        "bones": [
+          "RightLeg",
+          "RightFoot"
+        ],
+        "feather": 0.005,
+        "max": [
+          0.44,
+          1.05,
+          0.36
+        ],
+        "min": [
+          0.18,
+          -0.05,
+          -0.05
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "LeftLeg",
+          "LeftFoot"
+        ],
+        "feather": 0.005,
+        "max": [
+          0.82,
+          1.05,
+          0.36
+        ],
+        "min": [
+          0.56,
+          -0.05,
+          -0.05
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "RightFoot"
+        ],
+        "feather": 0.003,
+        "max": [
+          0.4,
+          1.05,
+          0.185
+        ],
+        "min": [
+          0.18,
+          -0.05,
+          -0.05
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "LeftFoot"
+        ],
+        "feather": 0.003,
+        "max": [
+          0.82,
+          1.05,
+          0.185
+        ],
+        "min": [
+          0.6,
+          -0.05,
+          -0.05
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "RightArm",
+          "RightHand"
+        ],
+        "feather": 0.005,
+        "max": [
+          0.37,
+          1.05,
+          0.62
+        ],
+        "min": [
+          -0.05,
+          -0.05,
+          0.34
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "LeftArm",
+          "LeftHand"
+        ],
+        "feather": 0.005,
+        "max": [
+          1.05,
+          1.05,
+          0.62
+        ],
+        "min": [
+          0.63,
+          -0.05,
+          0.34
+        ],
+        "min_vertices": 200
+      },
+      {
+        "bones": [
+          "RightArm"
+        ],
+        "feather": 0.003,
+        "max": [
+          0.37,
+          1.05,
+          0.62
+        ],
+        "min": [
+          0.11,
+          -0.05,
+          0.435
+        ],
+        "min_vertices": 150
+      },
+      {
+        "bones": [
+          "LeftArm"
+        ],
+        "feather": 0.003,
+        "max": [
+          0.89,
+          1.05,
+          0.62
+        ],
+        "min": [
+          0.63,
+          -0.05,
+          0.435
+        ],
+        "min_vertices": 150
+      },
+      {
+        "bones": [
+          "RightHand"
+        ],
+        "feather": 0.003,
+        "max": [
+          0.195,
+          1.05,
+          0.44
+        ],
+        "min": [
+          -0.05,
+          -0.05,
+          0.335
+        ],
+        "min_vertices": 100
+      },
+      {
+        "bones": [
+          "LeftHand"
+        ],
+        "feather": 0.003,
+        "max": [
+          1.05,
+          1.05,
+          0.44
+        ],
+        "min": [
+          0.805,
+          -0.05,
+          0.335
+        ],
+        "min_vertices": 100
+      }
+    ],
+    "space": "normalized_bounds_blender_z_up"
+  },
+  "camera_fit": "rest",
+  "camera_view": "three_quarter",
+  "id": "studio-c9ac0f48bd8044458a8390d4-attempt-0",
+  "normal_strength": 0.6,
+  "pose_resolution": 720,
+  "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+  "resolution": 720,
+  "review_views": true,
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "samples": 16,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-c9ac0f48bd8044458a8390d4/inputs/source-model.glb",
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "states": [
+    {
+      "id": "greeting",
+      "meaning": "The right hand waves visibly side to side in greeting while the torso and both feet stay steady throughout."
+    }
+  ],
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette.",
+  "subject": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms and two feet, preserving the supplied generated identity and small mechanical details."
+}

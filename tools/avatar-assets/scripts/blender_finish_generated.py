@@ -1,5 +1,6 @@
 """Data-configured texture-driven groom and accessory repair on a generated skin."""
 
+import hashlib
 import json
 import math
 from pathlib import Path
@@ -377,6 +378,37 @@ def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, nativ
     return meshes, reports
 
 
+def deformation_baseline(obj, rig, rig_route):
+    """Bind rest coordinates before grooming; source skins need the same evidence as authored rigs."""
+    if not 1 <= len(obj.data.vertices) <= 100000 or not 1 <= len(obj.data.edges) <= 300000:
+        raise ValueError('Deformation rest geometry exceeds bounded diagnostic size')
+    if rig.data.pose_position != 'REST' or not np.allclose(np.asarray(obj.matrix_world), np.eye(4), atol=1e-7):
+        raise ValueError('Deformation baseline requires applied world transforms and an actual rest pose')
+    if rig_route not in ('authored', 'source_skin') or not 1 <= len(rig.data.bones) <= 64:
+        raise ValueError('Deformation baseline requires a bounded actual rig')
+    rest = np.empty((len(obj.data.vertices), 3), dtype='<f8')
+    edges = np.empty((len(obj.data.edges), 2), dtype='<i4')
+    obj.data.vertices.foreach_get('co', rest.ravel())
+    obj.data.edges.foreach_get('vertices', edges.ravel())
+    if not np.isfinite(rest).all() or edges.min() < 0 or edges.max() >= len(rest):
+        raise ValueError('Invalid deformation rest geometry')
+    low, high = rest.min(axis=0), rest.max(axis=0)
+    span = high-low
+    scale = float(span.max())
+    height = float(span[2]) if span[2] > scale*1e-6 else scale
+    if not math.isfinite(height) or height <= 0:
+        raise ValueError('Deformation baseline has no measurable height')
+    return rest, edges, {'schema_version': 1, 'status': 'measured', 'rig_route': rig_route,
+        'coordinate_space': 'mesh_local_after_world_transform_applied', 'units': 'meters',
+        'rest_sha256': hashlib.sha256(rest.tobytes()).hexdigest(),
+        'edges_sha256': hashlib.sha256(edges.tobytes()).hexdigest(),
+        'rest_array_encoding': 'little-endian float64 XYZ', 'edge_array_encoding': 'little-endian int32 pairs',
+        'vertices': len(rest), 'edges': len(edges), 'bone_names': list(rig.data.bones.keys()),
+        'rest_bounds': {'min': low.tolist(), 'max': high.tolist(), 'height': height,
+                        'height_basis': 'z_span' if span[2] > scale*1e-6 else 'maximum_span'},
+        'pose_samples_measured': 0, 'unchanged_topology_required': True}
+
+
 def finish(config, output):
     cfg, out = json.loads(Path(config).read_text()), Path(output)
     model = Path(cfg["source"])
@@ -515,6 +547,18 @@ def finish(config, output):
                                  "rest_geometry_changed": False,
                                  "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance"}
     cards = []
+    diagnostic_rest, diagnostic_edges = None, None
+    if cfg.get('sample_states'):
+        from deformation_diagnostics import diagnose_stretched_edges
+        diagnostic_rest, diagnostic_edges, report['deformation_measurement'] = deformation_baseline(
+            obj, rig, 'authored' if cfg.get('authored_rig') else 'source_skin')
+    if cfg.get('fur_undercoat'):
+        from blender_fur_undercoat import apply_undercoat
+        from groom_flow import prepare_flow
+        local = np.asarray([tuple(vertex.co) for vertex in obj.data.vertices])
+        prepared = prepare_flow(local.min(axis=0), np.ptp(local, axis=0),
+                                cfg['groom']['direction'], cfg['groom']['comb'], cfg['groom_flow'])
+        report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out)
     tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
     if tuft:
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out,
@@ -677,13 +721,6 @@ def finish(config, output):
                                           'sha256': hash_file(path), 'resolution': cfg['resolution']})
         camera.location, camera.rotation_euler, camera_data.ortho_scale = saved_location, saved_rotation, saved_scale
     if cfg.get('sample_states'):
-        diagnostic_rest, diagnostic_edges = None, None
-        if cfg.get('authored_rig'):
-            from deformation_diagnostics import diagnose_stretched_edges
-            diagnostic_rest = np.empty((len(obj.data.vertices), 3), dtype=np.float64)
-            obj.data.vertices.foreach_get('co', diagnostic_rest.ravel())
-            diagnostic_edges = np.empty((len(obj.data.edges), 2), dtype=np.int32)
-            obj.data.edges.foreach_get('vertices', diagnostic_edges.ravel())
         scene.render.resolution_x = scene.render.resolution_y = cfg.get('pose_resolution', 384)
         scene.cycles.samples = cfg['samples'] if cfg.get('review_views') else 8
         scene.cycles.use_denoising = True
@@ -709,10 +746,16 @@ def finish(config, output):
                     try:
                         if len(mesh.vertices) != len(diagnostic_rest):
                             raise ValueError('Deformation diagnostics require unchanged body topology')
+                        if len(mesh.edges) != len(diagnostic_edges):
+                            raise ValueError('Deformation diagnostics require unchanged edge topology')
+                        evaluated_edges = np.empty_like(diagnostic_edges)
+                        mesh.edges.foreach_get('vertices', evaluated_edges.ravel())
+                        if not np.array_equal(evaluated_edges, diagnostic_edges):
+                            raise ValueError('Deformation diagnostics require identical edge endpoint ordering')
                         posed = np.empty_like(diagnostic_rest)
                         mesh.vertices.foreach_get('co', posed.ravel())
                         for row in diagnose_stretched_edges(diagnostic_rest, posed, diagnostic_edges):
-                            row['second'] = float(frame/24)
+                            row['second'] = float(frame/(scene.render.fps/scene.render.fps_base))
                             row['endpoint_influences'] = [
                                 {obj.vertex_groups[g.group].name: float(g.weight)
                                  for g in obj.data.vertices[v].groups if g.weight > 1e-6}
@@ -720,6 +763,7 @@ def finish(config, output):
                             key = tuple(row['endpoint_indices'])
                             if key not in outliers or row['stretch_ratio'] > outliers[key]['stretch_ratio']:
                                 outliers[key] = row
+                        report['deformation_measurement']['pose_samples_measured'] += 1
                     finally:
                         evaluated.to_mesh_clear()
                 scene.render.filepath = str(folder/f'{index:04d}.png')
@@ -728,6 +772,8 @@ def finish(config, output):
             report['states'].append({'id': action.name, **sampling,
                 'duration_seconds': (end-start)/(scene.render.fps/scene.render.fps_base), 'loop_verified': False,
                 'deformation_outliers': worst,
+                'deformation_samples_measured': len(sampling['frames']),
+                'deformation_rest_sha256': report['deformation_measurement']['rest_sha256'],
                 'deformation_diagnostic_scope': 'Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics'})
         clear_actions(owners, [rig])
         rig.data.pose_position = 'REST'

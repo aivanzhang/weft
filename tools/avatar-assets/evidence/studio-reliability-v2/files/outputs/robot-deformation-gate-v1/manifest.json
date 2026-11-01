@@ -1,0 +1,97 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1725,
+      "path": "focused-tests.txt",
+      "sha256": "b2fe7e3c4f1f48a44435c8785e5116292950e4139b618a26b976d62b25dd3358"
+    },
+    {
+      "bytes": 4925,
+      "path": "model-0-deformation-gate.json",
+      "sha256": "b0a6d12fd705f57f5350144c33691f0b21228c7fb510d6ff65e5f8299b74434f"
+    },
+    {
+      "bytes": 4755,
+      "path": "model-1-deformation-gate.json",
+      "sha256": "9ecd202e68cdcd5b98f14560f8ec69de672413320884df1a1bc00c7d1773f03d"
+    },
+    {
+      "bytes": 16375,
+      "path": "retained-evidence/model-0/finish-report.json",
+      "sha256": "a1bf2be93d6cea42602106e9d5d60d5d5586ef27a5a790f55d7986e41cd119a5"
+    },
+    {
+      "bytes": 1562,
+      "path": "retained-evidence/model-0/job.json",
+      "sha256": "d50ccca2e3b2bdc39cf5fcf9070d97c2ca6648b6b9ed5b23f402899b415e7d4a"
+    },
+    {
+      "bytes": 33988,
+      "path": "retained-evidence/model-0/manifest.json",
+      "sha256": "224706b5e468cd6db7708c28c0fa6a6083ed76c54d3122a6593fb937a9bfeb43"
+    },
+    {
+      "bytes": 11917,
+      "path": "retained-evidence/model-0/prior-action-audit-report.json",
+      "sha256": "ef099f2bf224d696249126c2539bfcaa16a4c2538336b87fa053ec5f3afdcf78"
+    },
+    {
+      "bytes": 10282,
+      "path": "retained-evidence/model-0/sources/finish-design.json",
+      "sha256": "71bb856739b29e5ef6362249317ca4b4ba93151834724dd75b98510f4eda76f2"
+    },
+    {
+      "bytes": 16258,
+      "path": "retained-evidence/model-1/finish-report.json",
+      "sha256": "744f240c35d48782b611be5c77e14243f289e0fb721829ab3f5dacf91cf84176"
+    },
+    {
+      "bytes": 1561,
+      "path": "retained-evidence/model-1/job.json",
+      "sha256": "74ddc3d23c3eb29c9b375baa591a7fe653e76b124c209a9beb81265da2b84b24"
+    },
+    {
+      "bytes": 33864,
+      "path": "retained-evidence/model-1/manifest.json",
+      "sha256": "96029397c029c38f0f1cb564aa55f22630f139c3a8c94f2ad674e15b55183a18"
+    },
+    {
+      "bytes": 11918,
+      "path": "retained-evidence/model-1/prior-action-audit-report.json",
+      "sha256": "c2ccd32de2dada1c0ac871f878192fb204b91c686edb253bfd1a8b0d20350f1c"
+    },
+    {
+      "bytes": 10319,
+      "path": "retained-evidence/model-1/sources/finish-design.json",
+      "sha256": "932f541d4e7fea1c1c413221cb123f8ceda68bd6637de2bbf80b388396bdc602"
+    },
+    {
+      "bytes": 10523,
+      "path": "sources/avatar_assets/deformation_gate.py",
+      "sha256": "73bf12d0980b344f87737b4e391b836913da760ec8d834c41555ddea64b78d69"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 8114,
+      "path": "sources/tests/test_deformation_gate.py",
+      "sha256": "ed8c595d1ba9cefce76535da6d7a1d75d0955a400a20349c95ca6545f46ab1e2"
+    },
+    {
+      "bytes": 3580,
+      "path": "verification.json",
+      "sha256": "a006d5397cfbcc7e317a6ef68ccfe8a19f989dafb3670510a9c5e90236f10db1"
+    }
+  ],
+  "kind": "read_only_deformation_gate_verification",
+  "schema_version": 1,
+  "status": "passed_expected_rejections"
+}

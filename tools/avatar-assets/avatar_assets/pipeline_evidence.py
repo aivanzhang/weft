@@ -108,6 +108,7 @@ def build_evidence(pack, exported, media, output, reference=None):
             for lane, (representation, root) in enumerate((('native', pack), ('exported', exported))):
                 poses = sorted((root/'renders'/identifier).glob('*.png'))
                 require(2 <= len(poses) <= 8, 'Missing bounded native/exported motion poses')
+                require(len(poses) == len(state['seconds']), 'Pose files differ from actual sample times')
                 indices = list(range(len(poses))) if batch_size == 1 else select_indices(len(poses))
                 for tile, index in enumerate(indices):
                     image = _read_image(source(poses[index]))
@@ -139,13 +140,28 @@ def build_evidence(pack, exported, media, output, reference=None):
         target = out/('selected-reference'+path.suffix.lower())
         shutil.copyfile(path, target)
         record(target, 'user_reference')
+    if len(states) == 1:
+        # Isolated poses retain review detail when a vision service scales large montages.
+        state = states[0]
+        seconds = state['seconds']
+        outliers = state.get('deformation_outliers', [])
+        selected = (min(range(len(seconds)), key=lambda i: abs(seconds[i]-max(
+            outliers, key=lambda row: row['excess_length'])['second'])) if outliers else len(seconds)//2)
+        for representation, root in (('native', pack), ('exported', exported)):
+            poses = sorted((root/'renders'/slug(state['id'])).glob('*.png'))
+            path = source(poses[selected])
+            target = out/('isolated-'+representation+'-'+state['id']+'.png')
+            shutil.copyfile(path, target)
+            record(target, 'isolated_motion_pose', [state['id']])
+            images[-1].update(representation=representation, second=seconds[selected], sample_index=selected,
+                             selection='greatest_recorded_edge_stretch' if outliers else 'middle_sequence_sample')
     require(len(images) <= 8 and sum((out/i['path']).stat().st_size for i in images) <= 32*1024**2,
             'Final evidence exceeds the bounded agent attachment allowance')
     report = {'schema_version': 1, 'kind': 'full_resolution_review_evidence', 'status': 'prepared_for_review',
               'sources': sources, 'model_manifest_sha256': sha256(pack/'manifest.json'),
               'exported_manifest_sha256': sha256(exported/'manifest.json'),
               'media_manifest_sha256': sha256(media/'manifest.json'), 'images': images, 'coverage': coverage,
-              'scope': 'Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. Four decoded delivered video samples per state. Not all-frame visual, physics or loop certification.',
+              'scope': 'Up to eight actual poses per representation for one to four states; four selected poses for five to eight states. One-state jobs also include two unchanged individual pose images. Four decoded delivered video samples per state. Not all-frame visual, physics or loop certification.',
               'quality_equivalence_verified': False, 'artifacts': artifacts(out)}
     write_json(out/'manifest.json', report)
     return report

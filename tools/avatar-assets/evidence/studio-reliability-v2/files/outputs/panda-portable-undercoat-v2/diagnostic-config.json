@@ -1,0 +1,45 @@
+{
+  "body_mesh_name": "PartitionedMesh",
+  "bounds": {
+    "memory_mb": 2048,
+    "output_mb": 512,
+    "raster_candidate_pixels": 32000000,
+    "raster_seconds": 90,
+    "threads": 4,
+    "timeout_seconds": 600
+  },
+  "design": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v2/sources/accepted-finish-design.json",
+  "design_sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909",
+  "kind": "undercoat_only_diagnostic",
+  "mask_source_blend": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/source.blend",
+  "mask_source_blend_sha256": "3537d88b09c6b9ef59ee0e77d89378ecae8b9961a182b2551d4e63383822727e",
+  "mask_source_report": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/finish-report.json",
+  "mask_source_report_sha256": "a091a0d7044274d6af6ae1ecd5d66df54032a54260df65e83c459af3e589b0c8",
+  "mesh_names": [
+    "PartitionedMesh",
+    "PortableCoat_0",
+    "PortableCoat_1"
+  ],
+  "new_model_calls": 0,
+  "new_provider_calls": 0,
+  "new_provider_cost_usd": 0,
+  "previous_failure": {
+    "changed_hypothesis": "Capture individual import correspondence metrics; allow at most1e-6m float32 rest-import rounding. Original patched GLB position bytes remain exact.",
+    "manifest_sha256": "da882bd3a530f28a905a487e96b3b0cdaca7d056ffb1308d0bbae8c743c9d9cb",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-portable-undercoat-v1"
+  },
+  "schema_version": 1,
+  "scope": "Only a selected undercoat material normal+roughness change. Existing portable fibers, geometry, UVs, basecolor, skin and actions must remain unchanged. Not a native finish retry or accepted pack.",
+  "settings": {
+    "max_faces": 40000,
+    "min_faces": 10000,
+    "pitch_m": 0.004,
+    "profile": "short-pile-v1",
+    "resolution": 2048,
+    "roughness": 0.92,
+    "seed": 4517,
+    "strength": 0.22
+  },
+  "source_model": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/model.glb",
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+}

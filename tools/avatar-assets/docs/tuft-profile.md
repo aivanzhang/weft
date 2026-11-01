@@ -117,23 +117,20 @@ The original6,500-parent/30-child groom, source geometry/materials, masks,
 regional field, rig, weights, normal repairs and exact dance/flight keys remain.
 The conservative exported ceiling is98,351 vertices including the4,096 reserve.
 The retained raw GLB passed a read-only format preflight at87,333 vertices,
-76,981 triangles, one skin and one `dance_flight` animation. Full finishing and
-appearance remain unverified.
+76,981 triangles, one skin and one `dance_flight` animation. Full finishing remains incomplete. The separately rendered portable appearance was
+subsequently rejected; see the sampled review below.
 
-Commands (finishing failed; the preview command was **not executed**):
+Commands (finishing failed; a separate raw-GLB diagnostic later succeeded):
 
 ```sh
 .venv/bin/python -m avatar_assets.finish_generated examples/meshy/panda-portable-tuft-v1.json --out outputs/panda-portable-tuft-v1
-.venv/bin/python - <<'PY'
+.venv/bin/python - <<'PYCODE'
 from pathlib import Path
 from avatar_assets.provider_model import preview
-from avatar_assets.safety import read_json
-pack = Path('outputs/panda-portable-tuft-v1')
-states = [{'id': state['id'], 'seconds': state['seconds']}
-          for state in read_json(pack/'finish-report.json')['states']]
-preview(pack/'model.glb', 'outputs/panda-portable-tuft-preview-v1',
-        resolution=720, samples=16, motion_states=states)
-PY
+preview(Path('outputs/panda-portable-tuft-v1/model.glb'),
+        'outputs/panda-portable-tuft-diagnostic-v1', resolution=720, samples=16,
+        motion_states=[{'id':'dance_flight','seconds':[0,1,1.18,1.36,2.36,2.55,2.8,4]}])
+PYCODE
 ```
 
 Both stages are serial and use4CPU threads/2GiB sampled direct-child RSS.
@@ -227,6 +224,106 @@ new bounded worker; no implementation or retry has run.
 If the memory headroom remains insufficient, use a hash-verified early saved
 `source.blend` and fresh serial render processes, with the same aggregate wall,
 memory and output allowance. Process isolation is the fallback, not permission to
-multiply the deadline, reauthor the model, lower quality or raise2GiB. While the
-robot quality job owns the heavy slot, this experiment remains stopped and its
-backend stays unchanged.
+multiply the deadline, reauthor the model, lower quality or raise2GiB. No memory experiment has run. The completed appearance diagnostic below used a
+fresh import/render worker and did not repeat or alter the failed finish.
+
+
+## Actual portable review: rejected
+
+The independent raw-GLB preview completed in24.035s with1,207,336,960bytes sampled
+peak RSS and74,525,877output bytes. Four rest views and eight actual exported
+`dance_flight` poses are720px/16samples. All57 animation channels match the
+accepted source exactly (maximum numeric difference0); all25 preview artifacts
+passed their hash inventory. This is preview evidence for an incomplete parent,
+not a completed finish or a recovered animation.
+
+The parent agent independently inspected the actual exported
+[front](../outputs/panda-portable-tuft-diagnostic-v1/front.png) and
+[1.36-second flight pose](../outputs/panda-portable-tuft-diagnostic-v1/renders/dance_flight/0003.png).
+**Rejected:** conspicuous dash/block speckling, a spiky crest, and a body that still
+reads as plastic rather than dense soft fur. These are sampled visual findings,
+not user approval or a complete video review. Do not promote or rerun this profile
+unchanged. More or larger sparse cards did not solve the coat appearance.
+
+- [Immutable sampled review](../outputs/panda-portable-tuft-review-v1.json),
+  SHA256 `e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3`.
+- [Diagnostic context](../outputs/panda-portable-tuft-diagnostic-v1.context.json),
+  SHA256 `072efce6fdd6ea9673c85f3e37bcc5539f5ded336adf6200543f47c45353ea27`.
+- Preview manifest SHA256
+  `f1cdfb829f4927d59a69f7684d67eefa46aa23c036e43c756d5b83a021f8cd01`.
+
+The next separate hypothesis is an opt-in short-pile normal texture on measured
+fur-bearing faces, with only subtle silhouette fibers. Normal detail changes
+surface lighting, not geometry or actual hair density. Preserve the source palette,
+UVs, non-fur masks, rig and motions; leave the old HD generator byte-identical.
+The memory hypothesis remains a separate future experiment, not a silent budget
+increase or an untraceable combined retry.
+
+## Opt-in short-pile undercoat experiment
+
+`scripts/blender_fur_undercoat.py` adds `fur_undercoat` to the finishing adapter;
+it does not change `blender_surfaces_hd.py` or enable a default quality policy.
+Settings are exactly `profile:short-pile-v1`, resolution1024/2048, bounded seed,
+pitch2–20mm, strength0–0.5, roughness0.5–1, and an explicit selected-face range.
+The adapter requires the existing native groom and regional field. Only triangles
+whose three vertices pass the final measured groom mask receive cloned materials.
+Their base-color graph and UVs remain; their previous normal input is explicitly
+replaced by the authored undercoat and their roughness/metallic are declared.
+Excluded surfaces and original material graphs stay intact.
+
+The baker uses the existing `PreparedFlow`, original loop UV0/tangent frames and
+deterministic rest-space noise. It biases small normal tilts across the comb
+direction; it does not repaint color, displace geometry or claim recovered hair.
+UVs must be in0–1. Different surfaces overlapping more than1% of covered texels
+are rejected, and degenerate selected UV triangles are unsupported. The limits
+are100k vertices/triangles,32million candidate raster samples,90seconds,2048px,
+and chunked temporary arrays. The outer native worker still owns the2GiB bound.
+Six pure baker tests cover deterministic chunking, non-fur exclusion, unit/tilt
+bounds, input immutability, overlap rejection, malformed/oversized inputs and
+raster/time limits. Combined with adapter/rest-evidence tests:27passed in1.809s.
+These analytic tests establish neither visible softness nor coat density.
+
+### First diagnostic: correspondence failure, not an appearance result
+
+The first prepared comparison kept the accepted dance/flight GLB's existing
+portable fibers unchanged. It bound model SHA256
+`693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67`,
+design `42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909`,
+and measured-density witness `source.blend`
+`3537d88b09c6b9ef59ee0e77d89378ecae8b9961a182b2551d4e63383822727e`.
+Settings:2048px,4mm pitch,0.22 strength,0.92 roughness,seed4517;
+no fiber, rig, motion, color or UV change. The proposed append-only GLB patch
+retains the entire original binary prefix and copies original geometry rows only
+where material ownership requires splitting. A temporary analytic patch fixture
+verified all62,581 original body-triangle attribute hashes, skin/motion data and
+portable meshes exactly; it was not an appearance asset.
+
+The authorized native bake in
+[panda-portable-undercoat-v1](../outputs/panda-portable-undercoat-v1/manifest.json)
+stopped before creating a texture or patched model. Session91195/nativePID70286
+exited1 and was reaped in2.343seconds, with429,162,496bytes sampled peak RSS and
+3,090,719output bytes. No resource limit was raised or crossed. The combined
+native-import/source-GLB correspondence predicate failed; individual deltas were
+not saved. No patch, preview, automatic retry or visual acceptance followed.
+
+[Read-only follow-up](../outputs/panda-undercoat-import-audit-v1.json) records
+SHA256 `e91c787e9c370dcf08e06ae6aa844ebf814bb802eaec9b834edc190a5e731bb9`.
+Blender's importer skins vertices into bind pose using float32 arithmetic.
+Recomputing the actual source's rest transforms produces2.3841858e-7m position
+differences, beyond the initial2e-7m threshold on2,486 body vertices. This is a
+specific plausible cause, not a measured native mismatch. A changed probe must
+save shape/index/UV/position deltas first, retain exact triangle ordering, and
+allow at most1e-6m import-rounding correspondence while keeping original GLB
+position bytes exact. Preserve the failed folder; any next native probe needs a
+new sibling and the shared worker release. New provider/model calls:$0/zero.
+
+### Sampled deformation evidence
+
+The adapter now captures actual base-body rest arrays before grooming for both
+new authored rigs and existing skins. `deformation_measurement` binds little-
+endian float64 XYZ/int32 edge hashes, actual bone names, measured meter-scale
+bounds, route and sample count. Each state binds the rest hash and measured
+sample count. Every evaluated pose must retain vertex count, edge count and
+exact edge endpoint ordering. Unsupported/missing evidence cannot become an
+empty-list success. Two focused analytic tests cover the actual capture helper;
+this undercoat diagnostic does not execute or verify a pre-rigged motion job.

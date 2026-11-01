@@ -1,0 +1,18 @@
+{
+  "actual_model_native_provider_calls": 0,
+  "command": "PYTHONPATH=tests .venv/bin/python -m unittest tests.test_pipeline_custody tests.test_pipeline tests.test_pipeline_progress -q",
+  "exit_code": 0,
+  "kind": "analytic_custody_source_pin_regression",
+  "recorded_local": "2026-11-01T14:49:50.417946-08:00",
+  "schema_version": 1,
+  "scope": "Observed focused unittest run: no repair calls after corrupted/missing bound proof; valid failed sampled deformation remains repairable; nested motion-sampling source pins and old sealed delivery compatibility.",
+  "sources": {
+    "avatar_assets/pipeline.py": "dd70e1e6674c0def31c0078ec095838941803eddee3ffc7ac7238ec669552fbb",
+    "scripts/motion_samples.py": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+    "tests/test_pipeline.py": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+    "tests/test_pipeline_custody.py": "d85904a3b38156fdbf83df16a021fae3be328a79c9574d34ae145628e36ae175",
+    "tests/test_pipeline_progress.py": "2c0c5224cd4f8b470e41c2f1d803ae2a93879ba2462227b39c6ecfba608c20cb"
+  },
+  "tests_passed": 42,
+  "unittest_seconds": 0.498
+}

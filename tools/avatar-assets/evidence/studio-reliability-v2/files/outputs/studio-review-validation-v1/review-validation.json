@@ -1,0 +1,122 @@
+{
+  "answer_sha256": "7b7410f1258c256a43f755f8771f824064c2fc5d24ca70f4992202b6844b31b6",
+  "available_citations": [
+    {
+      "id": "evidence-native-views",
+      "kind": "image",
+      "state_ids": []
+    },
+    {
+      "id": "evidence-exported-views",
+      "kind": "image",
+      "state_ids": []
+    },
+    {
+      "id": "evidence-motion-00",
+      "kind": "image",
+      "state_ids": [
+        "right_hand_wave"
+      ]
+    },
+    {
+      "id": "evidence-delivered-portrait",
+      "kind": "image",
+      "state_ids": []
+    },
+    {
+      "id": "action-audit-right_hand_wave",
+      "kind": "numeric",
+      "state_ids": [
+        "right_hand_wave"
+      ]
+    }
+  ],
+  "development_usage": {
+    "aggregate_cap": 10,
+    "calls": 5,
+    "calls_remaining": 5,
+    "input_tokens": 125186,
+    "output_tokens": 5973,
+    "receipts": [
+      {
+        "job": "studio-a7909fcea90e4df8940850ef",
+        "process_elapsed_seconds": 17.218,
+        "receipt_sha256": "c299ad9f07c08044257ae62867901220870c85473cafe4c551411f40ac73196e",
+        "role": "planner",
+        "status": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 15814,
+          "output_tokens": 632,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "job": "studio-8a7e0d76b8b8427f93f52157",
+        "process_elapsed_seconds": 30.258,
+        "receipt_sha256": "819cef6a1ea798227f582ce9cc354685124d4a8d91dab6df77f5cfe0edf690b4",
+        "role": "author-0",
+        "status": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 24141,
+          "output_tokens": 1884,
+          "reasoning_output_tokens": 185
+        }
+      },
+      {
+        "job": "studio-8a7e0d76b8b8427f93f52157",
+        "process_elapsed_seconds": 21.167,
+        "receipt_sha256": "69f091f8807728aef93832e1875aa11f5fbc45de3b85796b914cf2fe7076b88e",
+        "role": "author-1",
+        "status": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 31238,
+          "output_tokens": 1808,
+          "reasoning_output_tokens": 42
+        }
+      },
+      {
+        "job": "studio-8a7e0d76b8b8427f93f52157",
+        "process_elapsed_seconds": 18.147,
+        "receipt_sha256": "082bfdb6a8ca9169edc42c970408f171555fb2549ab6d57b68a29f306c616d29",
+        "role": "planner",
+        "status": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 15908,
+          "output_tokens": 792,
+          "reasoning_output_tokens": 0
+        }
+      },
+      {
+        "job": "studio-8a7e0d76b8b8427f93f52157",
+        "process_elapsed_seconds": 20.674,
+        "receipt_sha256": "54a5b6eec90f4233ad867143ed13e8318780fd59de24f59c73fa0b8385fe99c7",
+        "role": "reviewer-1",
+        "status": "succeeded",
+        "usage": {
+          "cache_write_input_tokens": 0,
+          "cached_input_tokens": 0,
+          "input_tokens": 38085,
+          "output_tokens": 857,
+          "reasoning_output_tokens": 70
+        }
+      }
+    ],
+    "usd_cost": null
+  },
+  "limitation": "Valid repair verdict is not acceptance, recovery, a completed Studio run or permission to restart the old job.",
+  "live_job_mutated": false,
+  "new_ai_calls": 0,
+  "new_meshy_calls": 0,
+  "recorded_local": "2026-11-01 14:25:42 PST",
+  "schema_version": 1,
+  "status": "recorded_repair_verdict_validated_without_another_model_call",
+  "verdict": "repair"
+}

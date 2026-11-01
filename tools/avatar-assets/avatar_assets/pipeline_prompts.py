@@ -205,7 +205,14 @@ bones is1–64 objects {name,parent,head,tail}; names match[A-Za-z][A-Za-z0-9_]{
 every later parent precedes its child. Head/tail are distinct triples. base_bones is a nonempty subset of bone names.
 layers is0–32 ordered objects {bones,min,max,feather,min_vertices}, with named bone subsets, valid coordinate boxes,
 feather0–0.3 and min_vertices1–100000. Layers blend over earlier weights; four strongest influences are normalized.
-Start with torso/root coverage, then place anatomical appendage masks. Avoid assigning belly to arms or head to wings.
+The base field applies everywhere not fully covered by later boxes. Prefer all relevant anatomical bones as its fallback,
+then restrict stable or rigid regions from observed geometry. A torso-only fallback leaves missed limb vertices attached
+to the torso; narrow boxes can create spikes even when the named limb has many correctly weighted vertices.
+Cover each entire moving surface without gaps between adjacent boxes. Feather is measured INSIDE every box face:
+a feathered boundary at exactly0 or1 excludes the extreme vertices. Extend outer bounds beyond the mesh when appropriate.
+Cover a whole moving chain with its own bone subset before refining individual segments, including joint neighborhoods.
+A whole-body torso layer overrides that fallback again; restrict stable-body overrides to the actual body region.
+Avoid assigning belly to arms or head to wings. Never fix stability by zeroing every feather while leaving coverage holes.
 Each required moving appendage must have substantial coverage, not a handful of stray vertices. Choose min_vertices
 from its visible area (often50–100or more), rather than1 merely to bypass missing coverage. Repair findings include counts.
 For hard-surface objects use rigid single-bone regions with zero or very small feather at real joints, not broad blended panels.
@@ -412,7 +419,10 @@ Numerical stillness does not establish ground contact, balance or physical suppo
 Use full-resolution native AND exported multiview/state evidence. A large montage of tiny poses is not HD review; missing
 back/side or actual peak poses are missing evidence, not assumptions of correctness. Reject bald patches, polygon/colored
 coat flecks, broken silhouettes and conspicuous seams rather than hiding core failures in limitations after acceptance.
-Cite only supplied evidence IDs and explain the visible observations. Each required check and state needs evidence for acceptance.
+Cite only available_citations IDs and explain the visible observations. Numeric audit IDs may support measured movement,
+but cannot substitute for images: every accepted visual check needs an image, and every accepted state/requirement needs
+its own state's motion image. Do not cite a different state's audit. Actual per-pose dimensions and timestamps are supplied;
+do not infer that a montage contains low-resolution poses merely because multiple full-size poses share one image.
 Contact sheets sample motion; they do not prove all frames, collisions, ground forces or seamless velocity. Do not certify loops.
 If geometry/appearance violates a core request and local finishing cannot fix it, use unsupported. If a bounded local repair can
 fix a demonstrated defect, use repair with specific instructions. Do not suggest paid regeneration or changing the user's state meanings.
@@ -420,7 +430,55 @@ Accept only when every required check and state passes; required_repairs must th
 Acceptance means this agent's sampled visual assessment, not human approval, Muse equivalence, recovered anatomy or physical validity.
 """ + _payload({"request": request, "plan": plan, "authored_config": config,
                     "independent_proofs": proofs, "evidence": evidence,
+                    "available_citations": review_citations(evidence, proofs.get("action_audit")),
                     "quality_policy": proofs.get("quality_policy", build_quality_policy(request, plan))})
+
+
+def review_citations(evidence, action_audit=None):
+    """Numeric receipts are citable evidence, but never a substitute for visual review."""
+    require(isinstance(evidence, list) and len(evidence) <= 128, "Invalid review images")
+    result = []
+    for item in evidence:
+        require(isinstance(item, dict), "Invalid review image")
+        names = item.get("state_ids", [])
+        require(isinstance(names, list) and len(names) <= 8
+                and all(isinstance(name, str) and name for name in names)
+                and len(names) == len(set(names)), "Invalid review image states")
+        result.append({"id": item.get("id"), "kind": "image", "state_ids": names})
+    if action_audit is not None:
+        require(isinstance(action_audit, dict) and action_audit.get("passed") is True,
+                "Review citations need a passing bound action audit")
+        states = action_audit.get("states")
+        require(isinstance(states, list) and len(states) <= 8, "Invalid action-audit citations")
+        for state in states:
+            require(isinstance(state, dict) and isinstance(state.get("id"), str) and state["id"],
+                    "Invalid action-audit citation state")
+            measured = state.get("evidence", {})
+            require(isinstance(measured, dict) and measured.get("state_id") == state["id"],
+                    "Action-audit citation state mismatch")
+            result.append({"id": measured.get("evidence_id"), "kind": "numeric", "state_ids": [state["id"]]})
+    ids = [item["id"] for item in result]
+    require(all(isinstance(value, str) and 0 < len(value) <= 200 for value in ids)
+            and len(ids) == len(set(ids)), "Invalid or duplicate review citation IDs")
+    return result
+
+
+def critic_schema(evidence, action_audit=None):
+    schema = deepcopy(CRITIC_SCHEMA)
+    ids = [item["id"] for item in review_citations(evidence, action_audit)]
+    require(ids, "Reviewer needs supplied evidence")
+    def bind(value):
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key == "evidence_ids":
+                    child["items"] = {"type": "string", "enum": ids}
+                else:
+                    bind(child)
+        elif isinstance(value, list):
+            for child in value:
+                bind(child)
+    bind(schema)
+    return schema
 
 
 def validate_review(response, plan, evidence_ids):

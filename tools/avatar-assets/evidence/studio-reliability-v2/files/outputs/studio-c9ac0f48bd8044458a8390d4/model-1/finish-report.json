@@ -1,0 +1,766 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Torso",
+        "Head",
+        "RightArm",
+        "RightHand",
+        "LeftArm",
+        "LeftHand",
+        "RightLeg",
+        "RightFoot",
+        "LeftLeg",
+        "LeftFoot"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.34
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.5,
+            0.5,
+            0.4
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.35
+          ],
+          "name": "Torso",
+          "parent": "Root",
+          "tail": [
+            0.5,
+            0.5,
+            0.62
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.64
+          ],
+          "name": "Head",
+          "parent": "Torso",
+          "tail": [
+            0.5,
+            0.5,
+            0.9
+          ]
+        },
+        {
+          "head": [
+            0.36,
+            0.5,
+            0.6
+          ],
+          "name": "RightArm",
+          "parent": "Torso",
+          "tail": [
+            0.16,
+            0.4,
+            0.435
+          ]
+        },
+        {
+          "head": [
+            0.16,
+            0.4,
+            0.435
+          ],
+          "name": "RightHand",
+          "parent": "RightArm",
+          "tail": [
+            0.07,
+            0.35,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.64,
+            0.5,
+            0.6
+          ],
+          "name": "LeftArm",
+          "parent": "Torso",
+          "tail": [
+            0.84,
+            0.4,
+            0.435
+          ]
+        },
+        {
+          "head": [
+            0.84,
+            0.4,
+            0.435
+          ],
+          "name": "LeftHand",
+          "parent": "LeftArm",
+          "tail": [
+            0.93,
+            0.35,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.36,
+            0.5,
+            0.35
+          ],
+          "name": "RightLeg",
+          "parent": "Root",
+          "tail": [
+            0.3,
+            0.5,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.3,
+            0.5,
+            0.18
+          ],
+          "name": "RightFoot",
+          "parent": "RightLeg",
+          "tail": [
+            0.29,
+            0.23,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.64,
+            0.5,
+            0.35
+          ],
+          "name": "LeftLeg",
+          "parent": "Root",
+          "tail": [
+            0.7,
+            0.5,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.7,
+            0.5,
+            0.18
+          ],
+          "name": "LeftFoot",
+          "parent": "LeftLeg",
+          "tail": [
+            0.71,
+            0.23,
+            0.035
+          ]
+        }
+      ],
+      "height_meters": 1.2,
+      "layers": [
+        {
+          "bones": [
+            "RightArm",
+            "RightHand"
+          ],
+          "feather": 0.005,
+          "max": [
+            0.31,
+            1.05,
+            0.625
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            0.33
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "LeftArm",
+            "LeftHand"
+          ],
+          "feather": 0.005,
+          "max": [
+            1.05,
+            1.05,
+            0.625
+          ],
+          "min": [
+            0.69,
+            -0.05,
+            0.33
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "RightArm"
+          ],
+          "feather": 0.003,
+          "max": [
+            0.38,
+            1.05,
+            0.625
+          ],
+          "min": [
+            0.11,
+            -0.05,
+            0.435
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "LeftArm"
+          ],
+          "feather": 0.003,
+          "max": [
+            0.89,
+            1.05,
+            0.625
+          ],
+          "min": [
+            0.62,
+            -0.05,
+            0.435
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "RightHand"
+          ],
+          "feather": 0.003,
+          "max": [
+            0.195,
+            1.05,
+            0.44
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            0.33
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "LeftHand"
+          ],
+          "feather": 0.003,
+          "max": [
+            1.05,
+            1.05,
+            0.44
+          ],
+          "min": [
+            0.805,
+            -0.05,
+            0.33
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "Torso"
+          ],
+          "feather": 0.01,
+          "max": [
+            0.69,
+            1.05,
+            0.635
+          ],
+          "min": [
+            0.31,
+            -0.05,
+            0.32
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "RightLeg",
+            "RightFoot"
+          ],
+          "feather": 0.005,
+          "max": [
+            0.44,
+            1.05,
+            0.37
+          ],
+          "min": [
+            0.18,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "LeftLeg",
+            "LeftFoot"
+          ],
+          "feather": 0.005,
+          "max": [
+            0.82,
+            1.05,
+            0.37
+          ],
+          "min": [
+            0.56,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "RightFoot"
+          ],
+          "feather": 0.003,
+          "max": [
+            0.4,
+            1.05,
+            0.185
+          ],
+          "min": [
+            0.18,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "LeftFoot"
+          ],
+          "feather": 0.003,
+          "max": [
+            0.82,
+            1.05,
+            0.185
+          ],
+          "min": [
+            0.6,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0.003,
+          "max": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            0.637
+          ],
+          "min_vertices": 1000
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.2,
+    "input_world_bounds": {
+      "max": [
+        0.5865200161933899,
+        0.35863998532295227,
+        0.9501749277114868
+      ],
+      "min": [
+        -0.5867930054664612,
+        -0.364734947681427,
+        -0.9517750144004822
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "RightArm",
+          "RightHand"
+        ],
+        "selected_vertices": 5076
+      },
+      {
+        "bones": [
+          "LeftArm",
+          "LeftHand"
+        ],
+        "selected_vertices": 5609
+      },
+      {
+        "bones": [
+          "RightArm"
+        ],
+        "selected_vertices": 3089
+      },
+      {
+        "bones": [
+          "LeftArm"
+        ],
+        "selected_vertices": 3341
+      },
+      {
+        "bones": [
+          "RightHand"
+        ],
+        "selected_vertices": 3151
+      },
+      {
+        "bones": [
+          "LeftHand"
+        ],
+        "selected_vertices": 3383
+      },
+      {
+        "bones": [
+          "Torso"
+        ],
+        "selected_vertices": 9969
+      },
+      {
+        "bones": [
+          "RightLeg",
+          "RightFoot"
+        ],
+        "selected_vertices": 5487
+      },
+      {
+        "bones": [
+          "LeftLeg",
+          "LeftFoot"
+        ],
+        "selected_vertices": 5561
+      },
+      {
+        "bones": [
+          "RightFoot"
+        ],
+        "selected_vertices": 2493
+      },
+      {
+        "bones": [
+          "LeftFoot"
+        ],
+        "selected_vertices": 2595
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 15849
+      }
+    ],
+    "max_influences": 4,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "Head": 15850,
+      "LeftArm": 2833,
+      "LeftFoot": 5635,
+      "LeftHand": 3451,
+      "LeftLeg": 3270,
+      "RightArm": 2506,
+      "RightFoot": 5543,
+      "RightHand": 3231,
+      "RightLeg": 3321,
+      "Root": 0,
+      "Torso": 8078
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        0.00013649463653564453,
+        0.0030474811792373657,
+        0.9517750144004822
+      ],
+      "uniform_scale": 0.6309314317008219
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.4458401203155518,
+    "view": "three_quarter"
+  },
+  "color_corrections": null,
+  "deformation_measurement": {
+    "bone_names": [
+      "Root",
+      "Torso",
+      "Head",
+      "RightArm",
+      "RightHand",
+      "LeftArm",
+      "LeftHand",
+      "RightLeg",
+      "RightFoot",
+      "LeftLeg",
+      "LeftFoot"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 93679,
+    "edges_sha256": "0720a256424e0eda55d7f32e50146a92ffddcc0d3e4d934a7395164f57814c83",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000000476837158,
+      "height_basis": "z_span",
+      "max": [
+        0.37014004588127136,
+        0.22819998860359192,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.37014004588127136,
+        -0.22819998860359192,
+        0.0
+      ]
+    },
+    "rest_sha256": "2cd4fed6f1bed3bd663007ecd53c17003ef8b53dfac374e31c75ef8566438c97",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 45081
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "groom_excluded_parts": {
+    "names": [],
+    "vertices": 0
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_continuity": null,
+  "normal_strength": 0.6,
+  "part_rigs": null,
+  "review_views": [
+    {
+      "path": "views/front.png",
+      "resolution": 720,
+      "sha256": "76438936cde2000afe6cb6b02810cd4b83dec0c9243f1fcc074945220ba158e3",
+      "view": "front"
+    },
+    {
+      "path": "views/side.png",
+      "resolution": 720,
+      "sha256": "8e561007ea5f019bc57f11835a4c55a6da57eb7c82b2a899e7c33e10bf8cd789",
+      "view": "side"
+    },
+    {
+      "path": "views/back.png",
+      "resolution": 720,
+      "sha256": "3380982181f45c289f67492e8f182e254d7eaac19920fc83aae5eeeb4424ce34",
+      "view": "back"
+    },
+    {
+      "path": "views/three_quarter.png",
+      "resolution": 720,
+      "sha256": "f94d8c100968ef513d209f80c54d11b2a16c7830f1d5d41e9b5cff8b9033030d",
+      "view": "three_quarter"
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.37014004588127136,
+      0.22819998860359192,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.37014004588127136,
+      -0.22819998860359192,
+      0.0
+    ]
+  },
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            35184,
+            35196
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 1.0
+            },
+            {
+              "RightHand": 1.0
+            }
+          ],
+          "excess_length": 0.013072414640540998,
+          "posed_length": 0.021421308064608402,
+          "rest_length": 0.008348893424067404,
+          "rest_normalized_bounds": [
+            [
+              0.11893165442804854,
+              0.4223023575048638,
+              0.44267255295624125
+            ],
+            [
+              0.11605774438782983,
+              0.4305152517506253,
+              0.4367139265253573
+            ]
+          ],
+          "second": 1.15,
+          "stretch_ratio": 2.5657661412777255
+        },
+        {
+          "endpoint_indices": [
+            33871,
+            33913
+          ],
+          "endpoint_influences": [
+            {
+              "RightHand": 1.0
+            },
+            {
+              "RightArm": 0.9792904257774353,
+              "RightHand": 0.02070959471166134
+            }
+          ],
+          "excess_length": 0.011770595091530195,
+          "posed_length": 0.02799082177034758,
+          "rest_length": 0.016220226678817385,
+          "rest_normalized_bounds": [
+            [
+              0.190597096306965,
+              0.4412966578757212,
+              0.4285664686136854
+            ],
+            [
+              0.20678458472770864,
+              0.4360006522033542,
+              0.4374505405644361
+            ]
+          ],
+          "second": 0.55,
+          "stretch_ratio": 1.7256738962163745
+        },
+        {
+          "endpoint_indices": [
+            33865,
+            33960
+          ],
+          "endpoint_influences": [
+            {
+              "RightArm": 0.004968389868736267,
+              "RightHand": 0.9950315952301025
+            },
+            {
+              "RightArm": 1.0
+            }
+          ],
+          "excess_length": 0.011308810181082846,
+          "posed_length": 0.016378820680358144,
+          "rest_length": 0.005070010499275297,
+          "rest_normalized_bounds": [
+            [
+              0.18986498134154556,
+              0.362456512702359,
+              0.4371292715418628
+            ],
+            [
+              0.19254712158507048,
+              0.3608584414429392,
+              0.4409690026057163
+            ]
+          ],
+          "second": 0.55,
+          "stretch_ratio": 3.230529933359964
+        },
+        {
+          "endpoint_indices": [
+            35179,
+            35207
+          ],
+          "endpoint_influences": [
+            {
+              "RightHand": 1.0
+            },
+            {
+              "RightArm": 1.0
+            }
+          ],
+          "excess_length": 0.011287379526709676,
+          "posed_length": 0.02340346034252584,
+          "rest_length": 0.012116080815816162,
+          "rest_normalized_bounds": [
+            [
+              0.11426532984847872,
+              0.3512216602036196,
+              0.4352364764516959
+            ],
+            [
+              0.12217968364968339,
+              0.36710967313955206,
+              0.44168564908958874
+            ]
+          ],
+          "second": 1.15,
+          "stretch_ratio": 1.9316031890423915
+        }
+      ],
+      "deformation_rest_sha256": "2cd4fed6f1bed3bd663007ecd53c17003ef8b53dfac374e31c75ef8566438c97",
+      "deformation_samples_measured": 8,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        13.200000000000001,
+        27.599999999999998,
+        42.0,
+        56.400000000000006,
+        70.80000000000001,
+        84.0,
+        96.0
+      ],
+      "id": "greeting",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.55,
+        1.15,
+        1.75,
+        2.35,
+        2.95,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

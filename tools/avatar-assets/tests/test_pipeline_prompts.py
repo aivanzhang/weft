@@ -6,7 +6,7 @@ import unittest
 
 from avatar_assets.pipeline_prompts import (
     AUTHOR_SCHEMA, CRITIC_SCHEMA, PLAN_SCHEMA, author_prompt, critic_prompt, finish_config,
-    plan_prompt, validate_plan, validate_review, extract_action_bindings,
+    plan_prompt, validate_plan, validate_review, extract_action_bindings, review_citations, critic_schema,
 )
 
 
@@ -254,6 +254,30 @@ class AuthorContractTests(unittest.TestCase):
 
 
 class ReviewContractTests(unittest.TestCase):
+    def test_real_numeric_citations_are_allowed_without_invented_ids(self):
+        images = [{"id": "front", "state_ids": []}] + [
+            {"id": s["id"], "state_ids": [s["id"]]} for s in plan()["states"]]
+        audit = {"passed": True, "states": [{"id": s["id"], "evidence": {
+            "state_id": s["id"], "evidence_id": "audit-"+s["id"]}} for s in plan()["states"]]}
+        ids = [c["id"] for c in review_citations(images, audit)]
+        result = review()
+        result["verdict"], result["required_repairs"] = "repair", ["Correct the stretched arm surface."]
+        result["state_reviews"][0]["evidence_ids"].append("audit-idle")
+        self.assertEqual(validate_review(result, plan(), ids)["verdict"], "repair")
+        result["state_reviews"][0]["evidence_ids"].append("invented")
+        with self.assertRaisesRegex(ValueError, "invented"):
+            validate_review(result, plan(), ids)
+        schema = critic_schema(images, audit)
+        states = schema["properties"]["state_reviews"]["items"]["properties"]
+        self.assertEqual(states["evidence_ids"]["items"]["enum"], ids)
+        self.assertEqual(states["requirement_reviews"]["items"]["properties"]["evidence_ids"]["items"]["enum"], ids)
+        self.assertNotIn("enum", CRITIC_SCHEMA["properties"]["checks"]["items"]["properties"]["evidence_ids"]["items"])
+        for bad in ({"passed": False, "states": []},
+                    {"passed": True, "states": [{"id": "idle", "evidence": {"state_id": "scan", "evidence_id": "a"}}]},
+                    {"passed": True, "states": [{"id": "idle", "evidence": {"state_id": "idle", "evidence_id": "front"}}]}):
+            with self.assertRaises(ValueError):
+                review_citations(images, bad)
+
     def test_exact_requirement_evidence_cannot_be_replaced_by_state_summary(self):
         _, candidate = structured_example()
         result = review()

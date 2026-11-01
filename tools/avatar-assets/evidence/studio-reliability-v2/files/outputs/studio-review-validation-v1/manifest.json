@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1553,
+      "path": "prior-panda-gate-check.json",
+      "sha256": "25d416879f1f79ad49a9d1b8fb029e81a9c7f60184a9b2b8a32b19f6ae8c566b"
+    },
+    {
+      "bytes": 859,
+      "path": "quality-recovery-tests-v1.txt",
+      "sha256": "6a7e155110449b80cec6ac9291b2c02955f1451393b7023e58dcae6e17d57e31"
+    },
+    {
+      "bytes": 11918,
+      "path": "recorded/action-audit-1/report.json",
+      "sha256": "c2ccd32de2dada1c0ac871f878192fb204b91c686edb253bfd1a8b0d20350f1c"
+    },
+    {
+      "bytes": 3643,
+      "path": "recorded/agents/reviewer-1/answer.json",
+      "sha256": "7b7410f1258c256a43f755f8771f824064c2fc5d24ca70f4992202b6844b31b6"
+    },
+    {
+      "bytes": 48896,
+      "path": "recorded/agents/reviewer-1/prompt.txt",
+      "sha256": "971f54246c9618859ff2f366fa9035f0bf4e9ee74cd31735bca71b682051cf4b"
+    },
+    {
+      "bytes": 6121,
+      "path": "recorded/agents/reviewer-1/receipt.json",
+      "sha256": "54a5b6eec90f4233ad867143ed13e8318780fd59de24f59c73fa0b8385fe99c7"
+    },
+    {
+      "bytes": 3116,
+      "path": "recorded/agents/reviewer-1/schema.json",
+      "sha256": "b4165f02a68994702a4a9cf4c0b7806b5ba384016f7ca46a4d0dbe723c2f2139"
+    },
+    {
+      "bytes": 9820,
+      "path": "recorded/final-evidence-1/manifest.json",
+      "sha256": "30f27ae0a556f9bdc9430e49e1fc9a3c7a56e4e7547d5f1cf5761d1da50e416b"
+    },
+    {
+      "bytes": 16258,
+      "path": "recorded/model-1/finish-report.json",
+      "sha256": "744f240c35d48782b611be5c77e14243f289e0fb721829ab3f5dacf91cf84176"
+    },
+    {
+      "bytes": 467537,
+      "path": "recorded/model-1/renders/right_hand_wave/0003.png",
+      "sha256": "ba53c5a220d049285d6ce86cf6efbc22aedf3c1cfe350c5a053dd11156042b82"
+    },
+    {
+      "bytes": 3800,
+      "path": "recorded/plan.json",
+      "sha256": "297a28d66fba8f150312e4f6af98cd9605ca8f9f3e076f033186c299ad29f318"
+    },
+    {
+      "bytes": 3617,
+      "path": "review-validation.json",
+      "sha256": "41cda6a63d4713c3bdbaccf2204453e8810f5bdd54942c0271fad303d548ea31"
+    },
+    {
+      "bytes": 10523,
+      "path": "sources/deformation_gate.py",
+      "sha256": "73bf12d0980b344f87737b4e391b836913da760ec8d834c41555ddea64b78d69"
+    },
+    {
+      "bytes": 47497,
+      "path": "sources/pipeline.py",
+      "sha256": "763361a3ec959ed11a6938e42fbe14dce4240d06f7a7e3cc80f666abff43a09f"
+    },
+    {
+      "bytes": 9788,
+      "path": "sources/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    },
+    {
+      "bytes": 41746,
+      "path": "sources/pipeline_prompts.py",
+      "sha256": "1bb6c26f01e83f683fd141c2a9ba7fc7c4393f183a9babddd62da1a8a3d18592"
+    }
+  ],
+  "new_paid_calls": 0,
+  "no_delivery_claim": true,
+  "original_outputs_unchanged": true,
+  "schema_version": 1,
+  "status": "diagnostic_validation_only"
+}

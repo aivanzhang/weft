@@ -40,9 +40,10 @@ immutable. No deployment or persistent server starts automatically.
 - `pipeline_contracts`: action stability intent/audit correction after live planner evidence.
 - `pipeline_review`: completed browser/docs and analytic native framing regression.
 
-No new Meshy generation has started. Two real AI planning calls produced one
-rejected plan and one reviewed source-reuse plan. The renderer proof and temporary
-HTTP/browser fixtures are local checks, not fresh generation.
+No new Meshy generation has started. Five real AI calls across the development
+study produced two plans, two rig attempts and one repair verdict. Neither job
+completed a delivery. The renderer proof and temporary HTTP/browser fixtures are
+local checks, not fresh generation.
 Read-only canonical Meshy verification still shows
 16 successful submissions / 202 credits against 210 authorized credits.
 The remaining eight credits do not authorize a new 35-credit generation.
@@ -89,10 +90,16 @@ repair keeps its own `media-N`, `media-portable-N` and `final-evidence-N`.
 - `outputs/studio-ui-fixture-v1`: eight browser behavior checks passed,
   34 intercepted requests, no external requests/JS errors, owned browser exited.
   Mock API/renderer only; no real generation or server.
-- The latest full Python suite passes552 tests in13.475s; exact log:
+- The saved implementation checkpoint passed552 Python tests in13.475s; exact log:
   `outputs/studio-integration-v1/full-tests-v2.txt`. The earlier521-test run's
   oversized-upload exception remains preserved alongside its regression fix.
   These checks do not establish visual quality or a completed real Studio job.
+  The current integration passes619 tests in14.771s:
+  `outputs/studio-integration-v1/full-tests-v4.txt`, SHA256
+  `a8c97ea107a3688cf62a9320eca0574e49e75f5f9163469abfacdd33c707f782`.
+  The v3 run exposed a package/top-level groom import identity mismatch; its five
+  failures remain saved. Package-relative resolution plus an import-order
+  regression fixed that defect. `full-tests-v4-sources.json` binds136 source files.
 - `outputs/studio-ui-fixture-v2`: nine grouped browser checks passed,
   36 intercepted requests, zero external requests/JavaScript errors, owned
   browser exited. It also verifies polling while the worker is launching.
@@ -138,13 +145,65 @@ unchanged-text development request is planned successfully as Studio job
 articulation plus separate torso/feet stability. Its pinned plan is
 `b62fac2bd550e542995d8be894e8593e19fbab2a310eca6b906a99fc1932a7fe`.
 `development-plan-reviewed-v2.json` records exact plan/usage and zero-credit
-source-reuse authorization. Execution has **not** started. The development study
+source-reuse authorization. The development study
 keeps a ten-AI-call aggregate envelope, including the first rejected planner;
 the new job's current one-repair flow can make at most five role calls total.
-The tuft adapter is frozen and its native worker has exited. The browser verifier
-owns the next heavy-worker slot for one explicit Start of this reviewed job.
-Preserve both job histories; do not change source-pinned helper files while this
-job needs execution. No live UI-to-output result is accepted yet.
+
+The actual browser sent one pinned Start. `outputs/studio-live-robot-v1` preserves
+a verifier assertion error: it expected200 from the correctly asynchronous202
+Start endpoint. Its browser/server exited without stopping the worker.
+`outputs/studio-live-robot-v2` observed that same execution without another Start.
+The pipeline built two real attempts and rendered final media. Attempt0 failed
+torso stability; attempt1 fixed that but left obvious arm spikes. The real critic
+requested repair, citing both supplied motion images and the supplied numeric
+audit. A citation-validator mismatch rejected those real numeric IDs and stopped
+the job as **needs_inspection**, without a delivery. Both attempts remain rejected.
+
+All23 recorded controller/native/agent/utility PIDs were verified absent; the
+observer's Chrome/server also exited. A reviewed one-time inspection release
+marked the job **failed** and released its exact lease without dispatch or retry.
+All480 files /382,622,259bytes and the spending ledger stayed unchanged.
+`outputs/studio-inspection-release-v1/release-verification.json` records this
+custody result, SHA256
+`0a6fe840553ef94ac302298b97fd894d682993bf275c3adac569cedd7f90e454`.
+No real UI-to-output success is claimed.
+The development study has consumed five real AI calls so far; no Meshy calls.
+Changes now address stage-terminal progress, known numeric citations while still
+requiring visual evidence, and a gross-deformation gate before expensive media.
+Source changes mean this old uncompleted job must not be resumed as a new run.
+See [the exact arm-weight failure and fixed rejection criterion](rig-quality-diagnosis.md).
+
+Cached report/artifact corruption now stops without spending another author call;
+only a valid bound deformation failure enters geometric repair. The motion
+sampler is pinned with the pipeline sources. Unfinished jobs cannot omit current
+source pins; historical sealed deliveries remain read-only resumable. These
+custody checks passed42 focused tests before the619-test integrated run.
+
+New canonical job `c9ac0f48bd8044458a8390d4` preserves the exact original robot
+prompt/style/action/source in `outputs/studio-c9ac0f48bd8044458a8390d4`.
+`development-estimate-v3.json` retains the ten-call aggregate study cap, five
+previous calls and at most five calls for this new one-repair flow. Its planner
+was explicitly launched only after the integrated suite passed. The actual UI
+then sent one pinned Start. The job ended **unsupported** after103.481s:
+attempt0 failed the gross-spike gate; attempt1 passed that gate but31 directly
+torso-weighted vertices still moved, up to4.828862mm against the fixed1.817729mm
+stability limit. Hand-wave and foot-stability checks passed. No critic, complete
+media or delivery followed; this is not an accepted UI-to-output example.
+`outputs/studio-live-robot-v3/studio-live-test.json` records94 requests, one Start,
+no external requests/browser errors, and verified browser/server exit without
+signalling the generation worker. The worker exited and released its lease;
+there is no active or queued Studio work. Tool12931 is terminal.
+The study now totals8 AI calls /196,763 input /10,061 output tokens, with2 calls
+left under its unchanged10-call envelope. No Meshy credits were spent.
+
+The actual saved rejected media was rebuilt as HD review evidence in
+`outputs/studio-hd-review-proof-v1/evidence`: six images, including unchanged
+individual720px native/exported poses at1.2s. The worker completed in0.783s,
+136,740,864B sampled direct-child RSS and7,133,675B output, with verified exit.
+Manifest SHA256 `aea56aab79e595f0674468f47904d0e92fbfd05f75af5c70aff2b85248b457e9`.
+This verifies image transport/assembly; the arm spike remains rejected, and
+there was no new AI/provider/render call. An earlier wrapper failed before
+process launch because its monitoring directory did not exist.
 
 `evidence/studio-checkpoint-v1/manifest.json` preserves118 exact evidence files
 (3,125,885bytes), including both planner prompts/receipts, the passing suite,
@@ -167,6 +226,45 @@ not the new portable cards. The raw exported GLB remains diagnostic only:
 No editable source/final finish report was completed. See
 [the exact experiment and failure receipts](tuft-profile.md). Do not promote
 the profile based on geometry counts or native stills.
+
+A separate raw-GLB diagnostic completed in24.035s at1,207,336,960B sampled RSS:
+`outputs/panda-portable-tuft-diagnostic-v1`, four720px views and eight actual poses.
+The root reviewer inspected its front and flight pose and **rejected** the look:
+larger tufts form conspicuous dashes/blocks and a spiky crest over a plastic-looking
+base. This is not a quality improvement and is not promoted. The next hypothesis
+is a source-colored short-pile undercoat with subtle silhouette fibers, prepared
+as a separate opt-in experiment; no new generation or quality success is implied.
+
+Undercoat trials `outputs/panda-portable-undercoat-v1` and `-v2` both stopped
+before producing a texture/model. V1's correspondence tolerance was tighter than
+Blender's measured import rounding. V2 retained exact face indices/UVs, measured
+at most0.000000240274m positional rounding, then rejected aliased normal-map UVs.
+Read-only attribution isolated all19,884 overlap samples to the authored repair
+cap; the main body surface has no self-overlap. A separate bounded normal atlas
+for only aliased regions is being prepared. No overlap threshold is relaxed and
+no new coat is accepted. Such a UV1/normal-mapped result is HD-preview-only, not
+Weft appearance-compatible; the existing approved geometry/motion stays unchanged.
+
+## Saved checkpoint
+
+The tested implementation checkpoint was committed and privately pushed as
+`87f224fb6e9e36c89df669bc3c8f2c00ee644a7a`. The private publication receipt is
+Weft-root `.local/avatar-studio-checkpoint-v1/receipt.json`; a later independent
+Weft commit advanced the remote while retaining this ancestor. Unrelated Weft
+work was not staged. Subsequent defect fixes and diagnostic receipts are separate
+work in progress; this save does not complete the goal.
+
+`evidence/studio-reliability-v2/manifest.json` now preserves233 additional exact
+evidence files /3,279,089bytes, including619-test source bindings, safe custody
+recovery, actual rejected robot/UI attempts and both undercoat failures. SHA256:
+`c893e370a636e5296be07f19248c4bbd9ae53175fbaa810b858aa1e190443b5c`.
+Large originals remain at their manifest-bound paths. This is another incomplete
+checkpoint, not a playable release or a quality pass.
+
+`outputs/fresh-acceptance-preparation-v1` records three exact fresh inputs and a
+105-credit /15-maximum-AI-call estimate. An actual user allowance question is
+pending; no grants or fresh jobs/calls have been made. The original8-credit
+remainder is unchanged. Execution also requires the local fixes to pass.
 
 Use development failures to improve general code, not to hand-author final
 recipes. Portable fur needs a real appearance improvement, not merely denser

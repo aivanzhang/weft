@@ -1,0 +1,21 @@
+{
+  "ai_calls": 0,
+  "kind": "actual_saved_evidence_rebuild",
+  "prior_attempt": "wrapper rejected before spawn: missing monitor output directory",
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_manifests": [
+    {
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/model-1",
+      "sha256": "96029397c029c38f0f1cb564aa55f22630f139c3a8c94f2ad674e15b55183a18"
+    },
+    {
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/exported-preview-1",
+      "sha256": "3cf2f8debd69c8b9b98516927d62dec2e6de615daa18bccf1088a2f7d81f0923"
+    },
+    {
+      "path": "outputs/studio-8a7e0d76b8b8427f93f52157/media-1",
+      "sha256": "3d47ec01fc1f82786134bf99849843432e5155cae6972c8699185812fd813cb7"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 """Analytic image/video fixtures test evidence fidelity, not generated-avatar quality."""
 
 from copy import deepcopy
+import json
 from pathlib import Path
 import tempfile
 import unittest
@@ -46,7 +47,13 @@ class FullEvidenceTests(unittest.TestCase):
     def test_full_resolution_and_actual_encoded_media_are_preserved(self):
         report = build_evidence(self.pack, self.exported, self.media, self.root/'evidence')
         self.assertTrue(evaluate_quality_evidence(policy(False), report['coverage'])['passed'])
-        self.assertEqual(len(report['images']), 4)
+        self.assertEqual(len(report['images']), 6)
+        isolated = [image for image in report['images'] if image['kind'] == 'isolated_motion_pose']
+        self.assertEqual([image['second'] for image in isolated], [2, 2])
+        for image in isolated:
+            source = self.pack if image['representation'] == 'native' else self.exported
+            self.assertEqual(image['sha256'], sha256(source/'renders/dance/0002.png'))
+            self.assertEqual((image['width'], image['height']), (720, 720))
         self.assertEqual(report['sources'][str(self.media/'dance.mp4')], sha256(self.media/'dance.mp4'))
         with Image.open(self.root/'evidence/motion-00.png') as sheet:
             self.assertEqual(sheet.size, (2880, 3740))
@@ -55,6 +62,16 @@ class FullEvidenceTests(unittest.TestCase):
             color = sheet.getpixel((360, 3380))
             self.assertGreater(color[1], color[0]+80)
         self.assertEqual(report['model_manifest_sha256'], sha256(self.pack/'manifest.json'))
+
+    def test_largest_recorded_deformation_selects_real_unmodified_pose(self):
+        finish = read_json(self.pack/'finish-report.json')
+        finish['states'][0]['deformation_outliers'] = [
+            {'second': 1, 'excess_length': .002}, {'second': 4, 'excess_length': .001}]
+        (self.pack/'finish-report.json').write_text(json.dumps(finish))
+        report = build_evidence(self.pack, self.exported, self.media, self.root/'evidence')
+        isolated = [image for image in report['images'] if image['kind'] == 'isolated_motion_pose']
+        self.assertEqual([image['second'] for image in isolated], [1, 1])
+        self.assertTrue(all(image['selection'] == 'greatest_recorded_edge_stretch' for image in isolated))
 
     def test_enlarged_contact_sheet_cannot_hide_low_resolution_input(self):
         Image.new('RGB', (128, 128), 'red').save(self.exported/'renders/dance/0000.png')
