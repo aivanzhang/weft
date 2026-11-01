@@ -20,6 +20,7 @@ from weft.io import canonical_hash, digest, local_time, write_json
 from weft.pipeline import _implementation_files
 from weft.segmentation_evidence import _Bundle, _geometry
 from weft.segmentation_scene import _normalize
+from weft.shared_world_packaging import write_package_files
 
 
 CONTRACT = {
@@ -131,9 +132,23 @@ def _write_raster(path, raster, color):
     image.save(path, transparency=bytes([0, 120]), optimize=False)
 
 
-def _decode_run(out):
+def _retain_binary(out, raster, row, export_bytes):
+    # Retain the decoded cells once; downstream evidence must not reinterpret a rendered PNG.
+    raw = raster.tobytes()
+    if export_bytes + len(raw) > CONTRACT['maximum_export_bytes']:
+        raise ValueError('Retained binary masks exceed the existing export bound')
+    path = row['raster_path']
+    write_package_files(out, {'binary/' + path.removesuffix('.png') + '.bin': raw})
+    return {'path': path, 'png_sha256': digest(out/path), 'png_bytes': (out/path).stat().st_size,
+            'binary_sha256': row['raster_sha256'], 'binary_bytes': len(raw),
+            'dimensions_hw': row['raster_dimensions'], 'mask_evidence_id': row['id']}
+
+
+def _decode_run(out, *, retain_binary=False):
     from meta_sam_parser import InvalidSegmentationMaskError
 
+    if type(retain_binary) is not bool:
+        raise ValueError('Binary retention must be an explicit boolean')
     started = time.monotonic()
     cv2.setNumThreads(1)
     evidence = json.loads((out/'original-evidence.json').read_text())
@@ -145,6 +160,7 @@ def _decode_run(out):
     (out/'masks').mkdir()
     capture = cv2.VideoCapture(str(out/'source.mp4'))
     frames, observations, statuses, export_bytes, decode_times = [], [], Counter(), 0, []
+    retained = []
     try:
         for frame, stamp in enumerate(times):
             ok, image = capture.read()
@@ -183,6 +199,9 @@ def _decode_run(out):
                         result['raster_path'] = f'masks/{frame:05d}-{index}.png'
                         _write_raster(out/result['raster_path'], raster, COLORS[index])
                         export_bytes += (out/result['raster_path']).stat().st_size
+                        if retain_binary:
+                            retained.append(_retain_binary(out, raster, result, export_bytes))
+                            export_bytes += retained[-1]['binary_bytes']
                     decode_times.append(time.monotonic()-tick)
                 statuses[result['mask_status']] += 1
                 indices.append(len(observations))
@@ -202,27 +221,40 @@ def _decode_run(out):
                 'preview': {'dimensions': list(preview_size), 'format': 'JPEG',
                             'scope': 'Sequentially decoded source frames; downscaled/lossy inspection previews, not grading pixels'}}
     write_json(out/'mask-evidence.json', document)
-    return {'status': 'decoded_proposals' if not statuses['decode_failed'] else 'partial_decode',
+    result = {'status': 'decoded_proposals' if not statuses['decode_failed'] else 'partial_decode',
             'frames': len(frames), 'observations': len(observations), 'counts': dict(statuses),
             'demand': demand, 'export_bytes': export_bytes, 'runtime_seconds': time.monotonic()-started,
             'decode_geometry_png_ms': {'samples': len(decode_times),
                 'median': float(np.median(decode_times)*1000) if decode_times else None,
                 'p95': float(np.percentile(decode_times, 95)*1000) if decode_times else None}}
+    if retain_binary:
+        inventory = {'schema_version': 1, 'profile': 'decoded-segmentation-binary-retention-v1',
+            'mask_document_sha256': digest(out/'mask-evidence.json'), 'records': retained,
+            'scope': 'Exact cells from the existing decode; no second inference/decode or physical geometry admission'}
+        encoded = (json.dumps(inventory, indent=2, sort_keys=True, allow_nan=False) + '\n').encode()
+        if export_bytes + len(encoded) > CONTRACT['maximum_export_bytes']:
+            raise ValueError('Binary inventory exceeds the existing export bound')
+        write_package_files(out, {'binary-retention.json': encoded})
+        result['export_bytes'] += len(encoded)
+        result['binary_retention'] = {'artifact': 'binary-retention.json', 'rasters': len(retained),
+                                      'binary_bytes': sum(row['binary_bytes'] for row in retained)}
+    return result
 
 
-def _worker(pipe, out):
+def _worker(pipe, out, retain_binary=False):
     try:
-        pipe.send(('done', _decode_run(Path(out))))
+        pipe.send(('done', _decode_run(Path(out), retain_binary=True) if retain_binary else _decode_run(Path(out))))
     except Exception as error:
         pipe.send(('error', type(error).__name__, str(error)[:300]))
     finally:
         pipe.close()
 
 
-def _run_bounded(out):
+def _run_bounded(out, *, retain_binary=False):
     context = multiprocessing.get_context('spawn')
     receive, send = context.Pipe(duplex=False)
-    process = context.Process(target=_worker, args=(send, str(out)), daemon=True)
+    args = (send, str(out), True) if retain_binary else (send, str(out))
+    process = context.Process(target=_worker, args=args, daemon=True)
     try:
         process.start()
         send.close()
@@ -254,7 +286,9 @@ def _viewer(out):
     shutil.copyfile(Path(__file__).parent/'assets/mask-viewer.js', out/'mask-viewer.js')
 
 
-def export_masks(run, video, out):
+def export_masks(run, video, out, *, retain_binary=False):
+    if type(retain_binary) is not bool:
+        raise ValueError('Binary retention must be an explicit boolean')
     bundle = _Bundle(run, ('report.json', 'segmentation-evidence.json'))
     evidence = bundle.read('segmentation-evidence.json')
     source, _, _, _, demand = _plan(evidence)
@@ -277,6 +311,8 @@ def export_masks(run, video, out):
               'source_run': str(bundle.root), 'source_verification': bundle.provenance(),
               'implementation_hashes': hashes, 'codec_hashes': codec_hashes, 'paid_requests': 0,
               'physics_ready': False, 'scope': CONTRACT['scope']}
+    if retain_binary:
+        report['retain_binary'] = True
     write_json(out/'pre-run.json', report)
     try:
         for category, files in (('implementation-source', implementation), ('dependency-source', codec_files)):
@@ -287,7 +323,7 @@ def export_masks(run, video, out):
                 expected = hashes[name] if category == 'implementation-source' else codec_hashes[name]
                 if digest(destination) != expected:
                     raise ValueError('Implementation changed before mask decoding')
-        report.update(_run_bounded(out))
+        report.update(_run_bounded(out, retain_binary=True) if retain_binary else _run_bounded(out))
         _viewer(out)
         if (_implementation_files() != implementation or _codec_files() != codec_files
                 or any(digest(path) != hashes[name] for name, path in implementation.items())

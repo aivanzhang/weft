@@ -130,6 +130,8 @@ def main():
     tracking_masks.add_argument("--run", required=True, help="Sealed original tracking-evidence export")
     tracking_masks.add_argument("--video", required=True, help="Exact submitted MP4")
     tracking_masks.add_argument("--out", required=True, help="New decoded-mask and frame-viewer directory")
+    tracking_masks.add_argument("--retain-binary", action="store_true",
+                                help="Keep already-decoded binary masks for later pose/equipment checks; no extra decode")
     tracking_evidence = commands.add_parser("tracking-evidence", help="Export saved model proposals as uncertain scene evidence; no API or physics")
     tracking_evidence.add_argument("--run", required=True, help="Sealed segment tracking directory")
     tracking_evidence.add_argument("--out", required=True, help="New sealed evidence directory")
@@ -195,6 +197,22 @@ def main():
     surface_inputs.add_argument("--manifest-sha256", help="Optional exact prior output-manifest SHA256; requires --resume")
     surface_inputs.add_argument("--out", required=True, help="New output directory; supplied inputs stay unchanged")
     surface_inputs.add_argument("--max-seconds", type=float, default=30., help="Cooperative metadata/packaging deadline; no native model, fitting or media decoding")
+    equipment_compose = commands.add_parser("exercise-equipment-evidence",
+        help="Join saved pose, equipment and masks into inspectable image evidence; no new inference")
+    equipment_compose.add_argument("--pose-run", required=True, help="Sealed complete pose evidence; body admission is separate")
+    equipment_compose.add_argument("--equipment-run", required=True, help="Sealed original tracking-evidence export")
+    equipment_compose.add_argument("--masks-run", required=True, help="Sealed tracking-masks export with --retain-binary")
+    equipment_compose.add_argument("--human-id", required=True, help="Explicit original person identity")
+    equipment_compose.add_argument("--equipment-id", action="append", required=True, help="Explicit tracked object ID; repeat for each selected object")
+    equipment_compose.add_argument("--minimum-confidence", type=float, required=True, help="Authored pose-confidence threshold, not measured accuracy")
+    equipment_compose.add_argument("--uncertainty-px", type=float, required=True, help="Authored image-point range in pixels")
+    equipment_compose.add_argument("--uncertainty-method", required=True, help="How the authored pixel range was chosen")
+    equipment_compose.add_argument("--uncertainty-note", required=True, help="Limits of the chosen range; not contact or calibration")
+    equipment_compose.add_argument("--source-equivalence-run", help="Verified original-to-submitted mapping when source bytes differ")
+    for source_kind in ("pose", "equipment", "masks"):
+        equipment_compose.add_argument("--" + source_kind + "-manifest-sha256", help="Optional exact " + source_kind + " seal SHA256")
+    equipment_compose.add_argument("--out", required=True, help="New evidence package outside the original runs")
+    equipment_compose.add_argument("--max-seconds", type=float, default=30., help="Cooperative saved-evidence preparation bound")
     equipment_report = commands.add_parser("equipment-evidence-report", help="Inspect saved wrist/equipment image evidence without rerunning reconstruction")
     equipment_report.add_argument("--run", required=True, help="Completed sealed study with silhouette metadata and full frame records")
     equipment_report.add_argument("--out", required=True, help="New offline report directory outside the original study")
@@ -513,7 +531,8 @@ def main():
             result = prepare_tracking_view(args.run, args.video, args.out)
         elif args.command == "tracking-masks":
             from weft.segmentation_masks import export_masks
-            result = export_masks(args.run, args.video, args.out)
+            result = export_masks(args.run, args.video, args.out,
+                                  **({"retain_binary": True} if args.retain_binary else {}))
         elif args.command == "tracking-evidence":
             from weft.segmentation_observations import export_tracking_evidence
             result = export_tracking_evidence(args.run, args.out, source_mapping_bundle=args.source_mapping)
@@ -575,6 +594,19 @@ def main():
                 source_sha256=args.source_sha256, camera=args.camera, body=args.body,
                 selection=args.selection, request=args.request, resume=args.resume,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "exercise-equipment-evidence":
+            from weft.exercise_equipment_evidence import prepare_exercise_equipment_evidence
+            labels = {"inputs": "Read original saved pose and equipment", "pose": "Qualify original pose estimates",
+                      "silhouette": "Compare source points with cached masks", "seal": "Save complete image evidence"}
+            result = prepare_exercise_equipment_evidence(args.pose_run, args.equipment_run, args.masks_run, args.out,
+                human_id=args.human_id, equipment_ids=args.equipment_id,
+                minimum_confidence=args.minimum_confidence, uncertainty_px=args.uncertainty_px,
+                uncertainty_method=args.uncertainty_method, uncertainty_note=args.uncertainty_note,
+                source_equivalence_run=args.source_equivalence_run,
+                expected_pose_manifest_sha256=args.pose_manifest_sha256,
+                expected_equipment_manifest_sha256=args.equipment_manifest_sha256,
+                expected_masks_manifest_sha256=args.masks_manifest_sha256, max_seconds=args.max_seconds,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "equipment-evidence-report":
             from weft.equipment_silhouette_inspection import prepare_equipment_silhouette_inspection
@@ -977,6 +1009,19 @@ def main():
             print(f"Saved surface-input report: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("inspection_path"):
             print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
+        if args.command == "exercise-equipment-evidence":
+            pin = result.get("manifest_sha256")
+            if (result.get("profile") != "pose-equipment-silhouette-composition-v1"
+                    or result.get("status") != "completed" or result.get("sealed") is not True
+                    or type(result.get("output_path")) is not str or not result["output_path"]
+                    or type(pin) is not str or len(pin) != 64 or any(c not in "0123456789abcdef" for c in pin)):
+                parser.exit(1, f"weft: pose/equipment composition stopped; inspect preserved output: {args.out}\n")
+            target = Path(result["output_path"])
+            followup = shlex.join([sys.executable, "-m", "weft", "equipment-support", "--run", str(target),
+                "--manifest-sha256", pin, "--hand-points", "--fixed-camera",
+                "--out", str(target.with_name(target.name + "-hand-support"))])
+            print(f"Saved pose/equipment image evidence: {target}\n"
+                  "Next, only if the source camera was fixed (not verified by this command):\n" + followup, file=sys.stderr)
         if args.command == "equipment-evidence-report":
             if result.get("status") != "completed" or result.get("sealed") is not True or not result.get("report_path"):
                 parser.exit(1, f"weft: equipment evidence inspection stopped; inspect preserved output: {args.out}\n")

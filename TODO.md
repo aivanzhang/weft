@@ -1,6 +1,17 @@
 # Weft iteration backlog
 
-## Current milestone — October 31, 2026: named hand/equipment evidence
+## Current milestone — November 1, 2026: ordinary exercise/equipment workflow
+
+- [x] Publish the 22-path hand-evidence checkpoint as `3feeb1dfc129c28cd7d31e07a470b1aaa26ac230`; exact private remote verified. Preserve all earlier attempts and independent avatar work. Fresh fetch now includes avatar checkpoint `db72891`; local main and remote match.
+- [x] Implement the public `exercise-equipment-evidence` join and optional `tracking-masks --retain-binary`, keeping original source clocks, full slots, failed parents and physical unknowns. Producer has 57 distinct passing analytical cases; CLI has 23 new and 11 affected passes, with independent review.
+- [x] Complete the two-command authored public CLI path in 0.657135 seconds, yielding 127 files / 2,968,501 bytes. All 24 original slots and seven construction rows survive; no source/media/model/physics/API run. Preserve the explicit missing test-media exception. [Exact evidence and next action](docs/handoffs/exercise-equipment-workflow.md).
+- [x] Independently verify all authored output files/seals, complete frame/pair views and local links. Review the three boundary tests for the ordinary-report size correction; unchanged aggregate input limit and earlier checks remain valid.
+- [x] Complete the real public mask-retention → composition → hand-report workflow once: 19.166414 seconds, 2,652 files / 95,193,908 bytes. All 259 source slots / 129 poses / 77 construction rows survive. [Open the report](artifacts/exercise-equipment-real-01/support/index.html). No new paid call, pose inference or physics.
+- [x] Independently verify all mask/composition files, outer/stage/source/generator joins and complete report frame/pair/point views; two original candidates remain, none created. Preserve the generator-name checker failure and its two-metadata-read amendment; no source processing repeated.
+- [x] Prepare the twelve-path workflow checkpoint and short user guide. `.local/exercise-equipment-publication-01.json` records the actual commit/private-remote outcome; absence means publication is unfinished. Preserve separate avatar edits and all evidence; no whole-worktree clean claim.
+- [ ] Reliable unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy remain unfinished. This public evidence join does not install contacts or turn a failed body into a runnable one.
+
+## Historical milestone — October 31, 2026: named hand/equipment evidence
 
 - [x] Publish optional two-view fitting, recovered viewer, matched trial and playable lab as `1c18243d5b90132afbf6f95145193c6220f23b79`, with exact private remote verification. Preserve active avatar work and all earlier failed/successful artifacts.
 - [x] Add reviewed opt-in `equipment-support --hand-points`: exact retained precursors, original wrist plus pinky/index/thumb, cached binary masks, existing candidate windows and complete offline report. Defaults remain unchanged; unavailable points abstain. [Ownership, checks and limits](docs/handoffs/equipment-hand-workflow.md).
@@ -8,7 +19,7 @@
 - [x] Execute and independently inspect the corrected frozen kettlebell pilot: 2.480205 seconds, all 259 slots/77 construction poses and exact original wrist results. Both original seven-sample candidate windows have seven qualified hand intersections; no new candidates or physical contact. [Open the comparison](artifacts/equipment-hand-support-02/index.html). Preserve failed pilot 01 and its reviewed hand-only cache-cap correction; no inference, decoding, physics, paid API or threshold tuning.
 - [x] Verify the complete 254-file inventory, all 188 source copies and 47 generator pins. Saved UI audit covers all 1,036 frame/pair views, 1,232 construction points and 2,108 window links; 4,000 unchanged selections cause zero DOM writes. These are saved-only checks, not browser or physical validation.
 - [x] Prepare the independently reviewed 22-path hand-point checkpoint. `.local/equipment-hand-publication-01.json` records the actual commit/remote outcome; absence means publication is unfinished. Preserve unrelated avatar edits and reviewed evidence.
-- [ ] Connect the same hand/equipment evidence to ordinary new-video preparation without a bespoke study script; first inspect existing producer entry points and keep one pipeline.
+- [ ] Connect the same hand/equipment evidence to ordinary new-video preparation without a bespoke study script. Public CLI routing has 23 new/11 affected passes; composition, optional binary retention and known-parent custody are in progress. [Current ownership and limits](docs/handoffs/exercise-equipment-workflow.md). No new source/model/native/API run yet.
 - [ ] Reliable unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy remain unfinished.
 
 ## Historical milestone — October 31, 2026: optional second-view body fitting

@@ -1,5 +1,50 @@
 # Combined Weft implementation handoff
 
+## Ordinary pose/equipment composition — November 1, 2026, 12:56 AM PDT
+
+**Real public workflow passed:** retained-mask export → ordinary evidence join →
+hand comparison, 19.166414 seconds, 2,652 files / 95,193,908 bytes. All 259 source
+slots / 129 poses / 77 construction rows survive. [Open the report](../../artifacts/exercise-equipment-real-01/support/index.html).
+Both original motion candidates remain possible; no new candidate, physical
+contact or body admission. Root handle `19379` is terminal, exit 0. Exact process
+receipt `.local/exercise-equipment-real-01/process.json`, SHA
+`d19a5311e6c0bf30a128ef351aa39b65c362b248b6a39e0a3516c7266b871715`.
+Outer seal `87eae41eb9b3e9496010adc03798a92d7b6338896fd3bfa243327206db9e089d`.
+Do not repeat decoding or the completed later stages. Root's disjoint custody,
+UI report and reconstruction mask/composition audits pass. Preserve the audit01
+generator-name checker failure and its narrow saved-metadata amendment02; no
+processing was repeated. Publish only the 12 reviewed workflow paths; actual
+commit/remote outcome belongs in `.local/exercise-equipment-publication-01.json`
+(absence means unfinished). No live scientific process remains.
+
+The hand-evidence milestone is published at
+`3feeb1dfc129c28cd7d31e07a470b1aaa26ac230`, exact private remote verified.
+Receipt `.local/equipment-hand-publication-01.json`, SHA
+`3af2e4b93ee2e97508b61b15f135adb92acf9a17e0d65e00d38f42250870cf09`.
+Owned scope/index were clean and stash empty; separate avatar work stays intact.
+All prior source/audit processes are terminal; do not rerun them.
+
+Current work replaces the bespoke study join with public
+`exercise-equipment-evidence` and opt-in binary retention in `tracking-masks`.
+Root CLI routing has 23 new/11 affected passing checks; the reviewed producer has
+60 distinct analytical passes, including the report-cap correction. Actual authored composition → hand report passes
+in 0.657135 seconds, 127 files / 2,968,501 bytes, preserving all 24 original slots
+and the failed parent. Its intentionally absent test-media label is explicitly
+documented; it is not real-source validation. Saved-only independent audit now
+passes all 127 files/seals and complete frame/pair views. No live acceptance
+process remains; real saved-video processing is completed above, without any
+new model, physics or paid API call.
+
+The narrow 128→256-KiB selected equipment-report correction is reviewed, with
+three boundary passes and unchanged 32-MiB aggregate input limit. Runtime02 and
+the real saved-video plan `4abe6e93…` passed review and execution; exact identities
+and limits are in the linked handoff. Root owns publication and the agents own
+disjoint saved audits. Do not repeat the
+completed authored check. Fresh remote fetch matches local main at avatar
+checkpoint `db72891`; active avatar edits remain separately owned. Complete pose
+evidence must not become body admission when its parent body construction failed.
+[Exact ownership, API, limits and next action](exercise-equipment-workflow.md).
+
 ## Named hand/equipment evidence — October 31, 2026, 11:48 PM PDT
 
 **Latest result, 11:56 PM PDT:** corrected pilot 02 completed in 2.480205 seconds,

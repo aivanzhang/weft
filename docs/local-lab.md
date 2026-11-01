@@ -173,6 +173,59 @@ estimated finger points overlap the object mask even though the wrist-only
 check excluded them. This does not establish physical contact or change the
 sandbox's equipment physics.
 
+### Prepare evidence from ordinary pose and tracking runs
+
+You no longer need the custom study script to connect saved exercise poses to
+tracked equipment. Keep the three input folders from the same video:
+
+1. A sealed pose run with its original landmarks and identity audit. Body
+   construction can have failed; the report preserves that failure.
+2. A sealed `tracking-evidence` export with the equipment IDs you selected.
+3. A `tracking-masks` export made with `--retain-binary`. This saves the decoded
+   mask cells for later hand checks; it makes no API request.
+
+If an older mask export lacks those cells, create a **new** export:
+
+```sh
+.venv-lab/bin/python -m weft tracking-masks \
+  --run path/to/tracking-evidence --video path/to/exact-submitted.mp4 \
+  --retain-binary --out artifacts/my-retained-masks-01
+```
+
+Then join the saved evidence. Replace the paths and IDs with your inputs; the
+confidence threshold and pixel range below are explicit example assumptions,
+not measured accuracy:
+
+```sh
+.venv-lab/bin/python -m weft exercise-equipment-evidence \
+  --pose-run path/to/pose-run --equipment-run path/to/tracking-evidence \
+  --masks-run artifacts/my-retained-masks-01 \
+  --human-id person-0 --equipment-id sam-2 \
+  --minimum-confidence 0.5 --uncertainty-px 2 \
+  --uncertainty-method 'Explicit example pixel range' \
+  --uncertainty-note 'Not calibrated; does not establish physical contact' \
+  --out artifacts/my-pose-equipment-01
+```
+
+If tracking used a converted video, also pass `--source-equivalence-run` with
+the complete verified original-to-converted mapping. A matching filename or
+frame count is not sufficient. Repeat `--equipment-id` for another object.
+
+On success, the command prints the exact next hand-comparison command. Use it
+only if the camera was fixed, then open its printed `index.html`. The report
+shows evidence and unknowns; it does not add equipment contacts to the simulator
+or turn a failed body into a runnable one. This path still needs existing pose
+and tracking inputs; it is not automatic equipment reconstruction from any video.
+[Verification and current limits](handoffs/exercise-equipment-workflow.md).
+
+The saved kettlebell example now passes this ordinary three-command path:
+[video and object masks](../artifacts/exercise-equipment-real-01/masks/index.html)
+→ [hand/equipment comparison](../artifacts/exercise-equipment-real-01/support/index.html).
+Open either page without rerunning anything. The full local check took 19.2
+seconds with no new pose inference or paid call. It retains all 259 source
+slots, including unavailable ones. This is a previously inspected example,
+not accuracy evidence for an unfamiliar video or confirmed equipment contact.
+
 ## Fit a body using uncertain support ranges (experimental)
 
 For an existing saved body, you can supply camera calibration, annotated image

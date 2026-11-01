@@ -158,7 +158,12 @@ def prepare_pose_precursor_custody(*,context_pose_document,raw_pose_document,ide
              and sum(map(len,supplied))<=MAX_INPUT_BYTES,'four exact documents must fit sixteen MiB')
     documents=tuple(zip(MEMBERS,supplied,strict=True)); pins={name:sha256(value).hexdigest() for name,value in documents}
     manifest=_document(manifest_document,deadline)
-    _require(type(manifest.get('schema')) is int and manifest['schema']==1 and type(manifest.get('files')) is dict
+    body_parent=(type(manifest.get('schema_version')) is int and manifest['schema_version']==1
+                 and manifest.get('profile')=='exercise-body-source-v1'
+                 and manifest.get('status') in ('construction_only','failed')
+                 and manifest.get('simulation_ready') is False and 'schema' not in manifest)
+    legacy=(type(manifest.get('schema')) is int and manifest['schema']==1)
+    _require((legacy or body_parent) and type(manifest.get('files')) is dict
              and len(manifest['files'])<=4096,'existing bounded hash-only run manifest required')
     _require(all(manifest['files'].get(name)==pins[name] for name in MEMBERS[:3]),'fixed source member hashes differ')
     context,raw,audit=(_document(value,deadline) for value in supplied[:3])
@@ -231,6 +236,10 @@ def prepare_pose_precursor_custody(*,context_pose_document,raw_pose_document,ide
         'identity_authenticated':False,'contact':'unknown','scope':'exact_saved_model_array_custody_not_anatomy_or_contact',
         'input_bytes':sum(map(len,supplied)),'bounds':{'cooperative_processing_seconds':MAX_SECONDS,'input_bytes':MAX_INPUT_BYTES,
             'source_slots':1800,'pose_rows':900,'cache_bytes':MAX_CACHE_BYTES}}
+    if body_parent:
+        metadata['parent_run']={'profile':manifest['profile'],'status':manifest['status'],
+            'manifest_sha256':pins['manifest.json'],'body_admission':'not_evaluated_by_precursor_custody',
+            'scope':'Exact selected pose members only; parent construction failure is not cleared'}
     encoded=_encode(metadata,64<<10,deadline)
     _require(len(encoded)+sum(map(len,rows))<=MAX_CACHE_BYTES,'complete metadata cache exceeds two MiB')
     _check(deadline)
