@@ -4,6 +4,60 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Collect missing ground or equipment inputs
+
+Use `surface-inputs` when you have saved video observations but need help preparing
+support annotations. It creates an offline worksheet, shows what is missing and
+keeps the original files unchanged. This is an assisted preparation tool; it does
+not infer ground, prove contact or replace the playable sandbox.
+
+**1. Create the worksheet.** Supply the saved observations. Add `--camera` and
+`--body` only when you have the corresponding original files.
+
+```sh
+.venv-lab/bin/python -m weft surface-inputs \
+  --observation path/to/observations.json \
+  --camera path/to/camera.json --body path/to/human.json \
+  --out artifacts/my-surface-choices-01
+```
+
+Open the printed report path. Choose the observed entity, name the image point
+(for example, `left_ankle`) and name its possible support surface. These are
+explicit choices, not detected contact. Download the selection JSON.
+
+**2. Inspect the frame-by-frame draft.** Use your downloaded selection:
+
+```sh
+.venv-lab/bin/python -m weft surface-inputs \
+  --resume artifacts/my-surface-choices-01 \
+  --selection path/to/exercise-surface-selection.json \
+  --out artifacts/my-surface-draft-01
+```
+
+The new report lists missing fields and every original frame. Download
+`collection-request.json` and edit a copy. Its annotation templates preserve the
+frame and source identity. Keep unsupported pixel locations, surface heights,
+body mappings and uncertainty unknown; confidence is not a measured error bound.
+
+**3. Check the supplied inputs.** Save the result in another new directory:
+
+```sh
+.venv-lab/bin/python -m weft surface-inputs \
+  --resume artifacts/my-surface-draft-01 \
+  --request path/to/edited-collection-request.json \
+  --out artifacts/my-surface-ready-01
+```
+
+The report either explains the remaining unknowns or links `surface-config.json`.
+That config is an input to the separate fitting commands below, not permission
+to install a body. Each completed worksheet remains usable even when its inputs
+are incomplete. No video decoding, model inference, simulation or paid call runs
+in these three steps. [Exact input contract and limits](handoffs/exercise-surface-workflow.md).
+
+Inspect the [completed example worksheet](../artifacts/exercise-surface-cli-acceptance-03/qualified/inspection/index.html)
+or its [initial selection screen](../artifacts/exercise-surface-cli-acceptance-03/discovery/inspection/index.html).
+This tiny authored fixture checks the workflow, not accuracy on an unfamiliar video.
+
 ## Inspect known ground or support points
 
 When you have saved observations, supplied camera calibration and explicit surface

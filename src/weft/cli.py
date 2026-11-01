@@ -180,6 +180,20 @@ def main():
     surface_anchors.add_argument("--annotations", help="Source-frame-bound authored pixel/surface annotations JSON")
     surface_anchors.add_argument("--out", required=True, help="New output directory under an existing parent")
     surface_anchors.add_argument("--max-seconds", type=float, default=30., help="Cooperative packaging deadline; not a hard process or memory limit")
+    surface_inputs = commands.add_parser("surface-inputs", help="Collect source-linked surface inputs and inspect missing fields",
+        description="Collect source-linked surface inputs and export the existing fit config; never fit or install a body")
+    surface_source = surface_inputs.add_mutually_exclusive_group(required=True)
+    surface_source.add_argument("--observation", action="append", help="Exact saved observation JSON; repeat up to eight times")
+    surface_source.add_argument("--resume", help="Sealed prior surface-inputs output; originals remain unchanged")
+    surface_inputs.add_argument("--source-sha256", help="Optional original video SHA256; otherwise require matching observation declarations, not a new media hash")
+    surface_inputs.add_argument("--camera", help="Exact supplied camera JSON for a new collection; no inferred/default camera")
+    surface_inputs.add_argument("--body", help="Exact original human.json for a new collection; not a replacement body")
+    surface_edit = surface_inputs.add_mutually_exclusive_group()
+    surface_edit.add_argument("--selection", help="Explicit edited entity/channel selection downloaded from the prior report")
+    surface_edit.add_argument("--request", help="Explicit edited collection-request.json; requires --resume")
+    surface_inputs.add_argument("--manifest-sha256", help="Optional exact prior output-manifest SHA256; requires --resume")
+    surface_inputs.add_argument("--out", required=True, help="New output directory; supplied inputs stay unchanged")
+    surface_inputs.add_argument("--max-seconds", type=float, default=30., help="Cooperative metadata/packaging deadline; no native model, fitting or media decoding")
     body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
     body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
@@ -527,6 +541,21 @@ def main():
             labels = {"inputs": "Preserve source and assumptions", "anchors": "Resolve conditional 3D points", "report": "Save evidence and limits"}
             result = prepare_source_surface_anchors(args.observation, args.out, source_sha256=args.source_sha256,
                 camera=args.camera, surfaces=args.surfaces, annotations=args.annotations, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "surface-inputs":
+            if args.resume and any(value is not None for value in (args.source_sha256, args.camera, args.body)):
+                raise ValueError("--resume keeps exact saved inputs; do not mix --source-sha256, --camera or --body")
+            if not args.resume and (args.request is not None or args.manifest_sha256 is not None):
+                raise ValueError("--request and --manifest-sha256 require --resume of a sealed surface collection")
+            if args.resume and args.selection is None and args.request is None:
+                raise ValueError("--resume requires an explicit edited --selection or --request; saved results are not rerun")
+            from weft.exercise_surface_pipeline import prepare_exercise_surface_collection
+            labels = {"inputs": "Read saved source evidence", "selection": "Prepare source-linked choices",
+                      "qualification": "Check supplied surface inputs", "report": "Save input worksheet and report"}
+            result = prepare_exercise_surface_collection(args.observation or [], args.out,
+                source_sha256=args.source_sha256, camera=args.camera, body=args.body,
+                selection=args.selection, request=args.request, resume=args.resume,
+                expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "body-lab":
             from weft.whole_body_lab import prepare_whole_body_lab
@@ -895,6 +924,10 @@ def main():
             if result.get("status") != "completed" or result.get("sealed") is not True:
                 parser.exit(1, f"weft: surface anchors stopped; inspect preserved output: {args.out}\n")
             print(f"Saved conditional-coordinate report: {result['report_path']}", file=sys.stderr)
+        if args.command == "surface-inputs":
+            if result.get("status") != "completed" or result.get("sealed") is not True or not result.get("report_path"):
+                parser.exit(1, f"weft: surface input collection stopped; inspect preserved output: {args.out}\n")
+            print(f"Saved surface-input report: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("inspection_path"):
             print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("status") != "completed":

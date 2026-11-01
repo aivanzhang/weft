@@ -1,5 +1,102 @@
 # Combined Weft implementation handoff
 
+## Surface collection CLI and source-pose annotations — October 31, 2026, 6:54 PM PDT
+
+Previous goal turn made concrete progress: `25eac48fec09e7f078e6c8bfa0eadab12350dc0d`
+was pushed and the exact private remote verified. Publication receipt
+`.local/camera-surface-publication-01.json`, SHA
+`0ab60be7cc80ca0685986326e160506204884fd82e65b5313a16df7914503c0a`.
+All 22 owned paths/index were clean, stash empty, 1,249 avatar status entries
+preserved. The combined goal was read in full again; it remains active.
+
+Root now owns `cli.py`, new `test_exercise_surface_cli.py`, common docs and final
+acceptance/publication. The command is `surface-inputs`: start from saved
+`--observation` paths with optional exact camera/body; download an explicit
+selection; resume a sealed result with exactly one edited `--selection` or
+`--request`, always to a new output. No automatic source inference, fitting,
+body installation or server. Incomplete/unknown collection states are useful
+completed diagnostics, not falsely failed physical reconstruction.
+
+Root has **42 distinct scoped CLI passes** (24 new, 18 adjacent legacy). The
+first help assertion failed on argparse line wrapping; only that case reran
+after whitespace normalization. XML receipts
+`.local/exercise-surface-cli-tests-01.xml` and `02.xml`; product code did not
+change for the test correction. The separate actual workflow acceptance below
+now passes; these tests are not themselves source-accuracy evidence.
+
+Released implementation owners:
+
+- `/root/support_learning`: new `exercise_surface_pipeline.py`, its tests and
+  `exercise-surface-workflow.md`. Exact selected inputs/sealed resume, no source
+  mutation, one collector implementation, bounded runtime/output custody.
+- `/root/support_ui`: new `exercise_surface_report.py`, its tests and
+  `exercise-surface-report.md`. Pure offline selection/unknowns/frame inspection;
+  paginate complete frame/channel coverage, no browser or media execution.
+- `/root/exercise_reconstruction`: new `pose_surface_annotations.py`, its tests
+  and handoff. Copy eligible exact source image estimates only, with named
+  landmark identity and explicit authored pixel uncertainty; no hidden geometry,
+  measured-error assumption, equipment substitution or contact promotion.
+
+Checkpoint at **October 31, 2026, 6:54 PM PDT**: the workflow has 27 current
+analytical cases, including the actual collector/report integration; the report
+has 17 passes and retains all 21,600 synthetic frame/channel slots in 21 files.
+Backend/report product files are frozen. `docs/local-lab.md` explains the three
+commands and links the actual saved reports. Independent CLI/resume/terminal
+review found no blocker. Learning's actual public-CLI acceptance03 passes in
+1.008 seconds: three stages, ten original frames, three usable conditional terms,
+seven unsampled slots and successful fitter-contract preparation without fitting.
+Checks01/02 remain failed on harness-only site-packages/Pillow import guards;
+the corrected guard permits imports while forbidding actual processing.
+[Exact commands, runtime, bounds and preserved failures](exercise-surface-workflow.md).
+Five CLI calls total include those two early failures; no native/media/API work.
+Fresh fetch matched local `25eac48`. Publication is separately recorded in
+`.local/exercise-surface-publication-01.json`; absence means it is unfinished.
+
+The pose adapter now has 66 distinct passes (37 prior, 29 new; four affected
+controls also reran). Saved-source discovery identified a
+real compatibility mismatch: the producer's ordinary
+`single_model_hypothesis_not_verified_person_count` label was classified as
+identity-derived. Root reviewed the producer and accepted the narrow correction
+with explicit consistent raw declarations and retained derived/count guards.
+The accepted module SHA is
+`a4d29c84f46f0be63566c32947ad4909a5ff2d54758b1ec75a9823cc408076e6`.
+Draft plans01/02 remain unchanged; the final frozen plan03 ran once. The pilot
+retains all 240 frames/480 ankle slots: 200 copied estimates, 24 below the fixed
+threshold, 16 source-unavailable and 240 unsampled. It takes 0.681 seconds outer,
+with one adapter and one unqualified collector draft. Its source is previously
+exposed jogging development evidence, not an unfamiliar or held-out video.
+Ground/equipment geometry and contact stay unknown; ±2 pixels remains authored.
+Output `artifacts/pose-surface-source-01`, seal
+`233d97a44eefeb7b322e37dbc3b9393ce18e7b4056e98bf56e1236e20e90ebe1`.
+[Exact inputs, runtime/runner and limitations](pose-surface-annotations.md).
+
+Root independently audited both terminal outputs: all saved seals, selected
+source-byte joins, complete pose arithmetic/clocks/partitions and 46 offline
+links pass. Receipt `.local/surface-release-saved-audit-01.json`, SHA
+`0139d2ee047c4a77bf2e0f76cd117c57399fe882c61079bc7033afbabd62155c`;
+174 cached file reads/11,734,613 bytes/0.120 seconds, no processing rerun.
+The checkpoint has **152 distinct scoped code passes** (42 CLI, 27 workflow,
+17 report, 66 pose adapter) plus these two actual workflow checks.
+
+All scopes are disjoint; root alone edits common integration. No native,
+source-decoding, inference, training, API or deployment job is active. Saved
+native02/older labs stay unchanged and must not be rerun merely for reporting.
+Next active owners are deliberately outside these fourteen released paths:
+
+- Reconstruction: new `camera_surface_binding.py`, focused tests and
+  `camera-surface-binding.md`; derive only the existing fixed camera/body mapping
+  from explicit matching declarations, leaving unknown geometry/contact unknown.
+- Controller integration: new `camera_reference_controller.py`, focused tests
+  and `camera-reference-controller.md`; reuse the existing feedback kernel with
+  exact camera-angle proposal admission, not replacement body hashes or a new
+  simulator. Root owns future lab/trial/recording integration and native checks.
+- Root: publish the released checkpoint, preserve these next-step edits and all
+  unrelated avatar work, then integrate the independently completed adapters.
+
+No new native job is authorized in those two pure implementation lanes.
+Unfamiliar-video/contact accuracy and runnable refined-controller admission
+remain unfinished; the overall goal stays active.
+
 ## Camera-aware fitting and parallel surface inputs — October 31, 2026, 6:12 PM PDT
 
 The existing CLI, source loader, worker and offline report now support the
