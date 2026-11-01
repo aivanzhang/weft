@@ -294,12 +294,14 @@ pass. Only an admitted build produces the playable lab; a rejected build keeps
 its explanation and artifacts. Use that lab's controls to interact and record.
 Image overlap alone never installs equipment contact.
 
-**Saved example:** [open the kettlebell setup](../artifacts/shared-exercise-config-real-01/configured/inspection/index.html)
-to inspect the existing body, equipment and choices. The discovery → edited
-request → ready-configuration check took 2.09 seconds without new pose inference
-or physics. It retains all 259 original slots and 121 body references. This
-checks the setup workflow, not unfamiliar-video reconstruction or contact
-accuracy. To play the existing verified video example now, run
+**Saved example:** [open the current kettlebell setup](../artifacts/equipment-depth-prior-native-02/configured/inspection/index.html)
+to inspect the body, equipment and editable choices. Both explicit ratios are
+`1`: the same original equal-depth assumption, not newly measured depth. The
+setup → proposal → native-construction check took 4.16 seconds and preserved
+the original numerical geometry, all 259 source slots and 121 body references.
+It does not establish unfamiliar-video reconstruction, contact accuracy or
+successful exercise control. [Exact checks and retained failure](handoffs/equipment-depth-prior-native.md).
+To play the existing verified video example now, run
 `python scripts/play_sandbox.py --example video`.
 
 [Implementation, verification status and limits](handoffs/shared-exercise-config-workflow.md).

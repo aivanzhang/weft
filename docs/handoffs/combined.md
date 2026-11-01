@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-## Current full-rollout and equipment-depth work — November 1, 2026, 11:44 AM PST
+## Current full-rollout and equipment-depth work — November 1, 2026, 12:04 PM PST
 
 The complete goal remains active. The interactive lab and recording workflow remain
 usable; the new contact-action projector is experimental and has not completed the
@@ -37,13 +37,20 @@ Parallel ownership:
   `0.14999985/0.65735226` against actual detached `0.25955757/1.87978962`
   (limits `0.15/0.75`). All 23 probes fail only these two constraints. A saved-data
   secant update worsens half/quarter comparison prediction, so no solver change
-  is made. Prepare one separately bounded signed-velocity diagnostic at pre-50;
-  use 49 saved actions to reach that state, then at most 24 predictions and no
-  actual control 50. Root owns execution. No infeasibility claim follows.
+  was made. The [signed-velocity diagnostic](equipment-action-velocity-probe-native.md)
+  also completes: 49 required prefix controls and 23 existing predictions match
+  exactly, no actual control 50, 1.496888 seconds /139,018,240 B. Its signed model
+  improves two candidate estimates but worsens the third; do not adopt it or infer
+  trust-region infeasibility. This agent now owns opt-in two-round relinearization
+  in the existing projector and focused tests. A fresh measured response may be
+  taken only at an actually improved candidate. Same original-base trust/root/gates,
+  at most 48 predictions, one five-second lifetime and 64 aggregate solver sweeps;
+  default single-round output unchanged. No native acceptance of this new method yet.
 - `/root/reconstruction_next_step`: [explicit depth core](equipment-depth-prior-core.md)
   is root-reviewed, with 101 distinct guarded analytical checks and all release pins
-  verified. Prepare one ratio-one native acceptance using the existing equal-depth
-  assumption; root reviews and executes. No new real-object ratio is inferred.
+  verified. Root completed ratio-one native acceptance using the existing equal-depth
+  assumption; this agent now documents the outcome and performs a small saved-only
+  numerical/provenance/report audit. No new real-object ratio is inferred.
 - `/root/equipment_control_review`: [guided depth workflow](equipment-depth-prior-workflow.md)
   is complete and root-reviewed: 25 distinct checks pass (22 new, three affected
   legacy), with actual request→configuration→proposal composition under explicit
@@ -53,6 +60,24 @@ Parallel ownership:
   files are frozen; no active job in this lane.
 - Root: integration, bounded execution, TODO/combined records and scoped Git work.
 
+The [depth native check](equipment-depth-prior-native.md) passes in 4.158781 seconds /
+302,317,568 B peak RSS: actual guided setup→proposal→construction, 309 files/96,368,448 B.
+Both objects' numerical geometry and every non-provenance scene field match saved
+originals. The original translation guards perform 32 controls/512 substeps;
+34 models, seven data objects, 425 forwards and 383 resets total. Five source-proof
+calls report 37,734,525 verified bytes. The reference preflight is feasible across
+121 source poses/255 grid samples, but this is not full-task or physical success.
+Root verified all 308 sealed members. Seal:
+`f176f976adf5b068da1d67c066ced5a9bc64d64294a6dcb09a074e63c411ab93`;
+result `4f0700807f1f97542fe13dd70a10e580c76d32b7c8b0530574fb9a14324c5669`.
+The separate saved-only audit confirms 62 numerical leaves per object, nine protected
+scene fields and all 23 report links without repeating physics or the full readback:
+`.local/equipment-depth-prior-native-02/saved-audit-01.json`, SHA
+`52843faa244cdff96c9526bda53a8206409b48d0853df4e5c98ffe1fa7174a4c`.
+Attempt01 is preserved: an isolated test-loader resource-reader error before any
+public stage/native/source-proof call. Attempt02 changes only that harness loader
+after an exact no-native palette-resource check; no product or gate was changed.
+
 All executed native handles are terminal/reaped. The depth work preserves original
 body/floor/camera/source clocks and all dimension, projection and collision gates.
 Supplied depth and provenance remain assumptions, not verified measurements/contact.
@@ -60,14 +85,21 @@ No source acquisition, paid API/key/ledger work, deployment, server or browser o
 
 Git: local checkpoint `b615e7995f7e3551d26453e3fac69fabca1f1b0b` is now an ancestor
 of independently published shared main `1df6880ef6ea0d24894ff4e3e5da874a797b7e03`.
-Root verified that exact remote and ancestry read-only, without push/merge. The pending
-exact-checkpoint question is operationally superseded, not answered. Observation:
+Root verified that exact remote and ancestry read-only, without push/merge. Ivan later
+explicitly approved merging/pushing exactly `b615e79`; it was already published, so no
+additional mutation was needed. That approval does not cover later depth work. Receipt:
+`.local/equipment-action-controller-user-approval-01.json`, SHA
+`a4f14ea66f83f165daa4c1287bdd8386e02e0709c72389156c24c2e78235296b`.
+Earlier remote observation:
 `.local/equipment-action-controller-remote-observation-01.json`, SHA
 `dca528fe87ece4aa4330e7ce17760505f003a78043ddd56db0f84fcde86ce6b0`.
-New depth and handoff edits remain local; preserve all independent avatar work.
-Next: checkpoint the reviewed depth integration and rollout evidence, then review the
-ratio-one acceptance and signed-velocity diagnostic plans. These improvements do not
-close unfamiliar-video or physical-accuracy gaps.
+The new 15-file depth checkpoint is local at
+`0c36f278b01f63d3af2efa66756fed38fc9fb9d7`; exact committed paths/pins, clean owned
+scope/index and empty stash were verified in `.local/equipment-depth-prior-checkpoint-01.json`.
+Native-result documentation and the new controller lane are subsequent work.
+Preserve all independent avatar work. Next: checkpoint the completed native evidence
+and request exact publication approval, while reviewing the new bounded controller
+implementation. These improvements do not close unfamiliar-video or physical-accuracy gaps.
 
 ## Historical prediction and lab-memory work — November 1, 2026, 11:10 AM PST
 

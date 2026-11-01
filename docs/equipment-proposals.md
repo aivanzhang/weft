@@ -238,7 +238,11 @@ Supplied depth is kept in the proposal and object provenance, marked physically
 unverified. It does not infer handles, contact, hidden shape or camera calibration.
 Existing equal-depth configurations and defaults are unchanged.
 
-[Implementation and verification scope](handoffs/equipment-depth-prior-core.md).
+The [saved ratio-one setup](../artifacts/equipment-depth-prior-native-02/configured/inspection/index.html)
+passes the ordinary setup, proposal and native-construction path with unchanged
+numerical geometry. This verifies the input path, not measured depth or full-task
+success. [Implementation](handoffs/equipment-depth-prior-core.md) ·
+[native verification and limits](handoffs/equipment-depth-prior-native.md).
 
 ## Inspect each stage
 
