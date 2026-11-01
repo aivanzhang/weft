@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-31T23:50:32.560581-07:00",
+  "scope": "Human-facing local engineering/visual review, not user approval, an independent holdout, or Muse-quality parity",
+  "selected": {
+    "pack": "outputs/agent-dragon-polish-v1",
+    "model_sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381",
+    "reason": "Smoother neck, belly and tail while retaining scales and prior identity/actions. Native reload passed. Material trial v2 is not selected.",
+    "limitations": [
+      "Same source 4K texture bytes, not new painted detail",
+      "Coarse close-up geometry and muted source palette remain",
+      "Standalone local rig; exceeds Weft 20k-vertex/diffuse contract",
+      "Original comparison camera scale differs by 0.08742%; v1/v2 clay images are exactly equal"
+    ]
+  },
+  "rejected": [
+    {
+      "pack": "outputs/muse-panda-polish-v1",
+      "reason": "Cheek flecks persist and belly relief is rougher than saved refined-v6."
+    },
+    {
+      "pack": "outputs/muse-panda-polish-v2",
+      "reason": "Coat improves but the small companion is visibly damaged; export rejected 89 invalid tangents versus the 16-vertex repair bound. No model.glb produced.",
+      "invalid_tangents": {
+        "coat": 81,
+        "dark_cards": 2,
+        "light_cards": 6
+      },
+      "uv_matched_comparison": {
+        "matched_triangles": 61898,
+        "ambiguous_triangles": 41,
+        "area_ratio_below_one_percent": 252,
+        "normal_rotation_over_90_degrees": 12001
+      },
+      "limits": "UV signature matching leaves41 ambiguous triangles; counts do not establish self-intersection. Arbitrary tangent fallback was not expanded."
+    },
+    {
+      "pack": "outputs/agent-dragon-polish-v2",
+      "reason": "Angular gloss patches on forehead/iris. v1/v2 clay images pixel-identical, so regression is material assignment, not geometry."
+    }
+  ],
+  "cost": {
+    "new_provider_calls": 0,
+    "new_meshy_credits": 0,
+    "existing_ledger_credits": 167,
+    "remaining_existing_allowance_credits": 8,
+    "additional_35_credit_question": "pending; no grant recorded or call executed"
+  },
+  "do_not_execute": "outputs/muse-panda-smooth-base-v1 is a preserved unsubmitted plan. Its image-mode text controls texture, not geometry. Prepare and review a smooth-surface reference guide and a new frozen plan before any approved generation.",
+  "jobs": {
+    "native_finishes": [
+      {
+        "handle": 93643,
+        "exit": 1,
+        "host_failure": "tangent validation"
+      },
+      {
+        "handle": 95705,
+        "exit": 0
+      }
+    ],
+    "reload": {
+      "handle": 73009,
+      "exit": 0
+    },
+    "media": {
+      "handle": 60224,
+      "state": "running"
+    }
+  },
+  "sources": [
+    {
+      "pack": "outputs/muse-panda-polish-v1",
+      "manifest_sha256": "c139b33f06bdc33092d739563a97a8766c4e9e6ea1b439826c5c02b3676d15ed",
+      "finish_config_sha256": "2b1907af4c3f0da51c15a626af9f1028458f31dd86bc491d848559bf05587fa5",
+      "portrait_sha256": "1309f7756b6bd39ef84a62ee4cd30bde14090fb874d6dc9f6c8250fd73e89d71"
+    },
+    {
+      "pack": "outputs/muse-panda-polish-v2",
+      "manifest_sha256": "af188386194184e87a3daf2c3c78197abe0eeb8ed9a2a06efa6c779df11109c4",
+      "finish_config_sha256": "281dd806f9801cf4448bbb7ea56dbd76ac795a5a11a44b73f90854daacfb7630",
+      "portrait_sha256": "08c8e4f0ae8b4567b15ae118416d58040c2f03cd52b8744869dff7bb0bd84a18"
+    },
+    {
+      "pack": "outputs/agent-dragon-polish-v1",
+      "manifest_sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437",
+      "finish_config_sha256": "950913160ad340787738244b37b8e7381ba7de6fedd14cdc5fde853034e17ac7",
+      "portrait_sha256": "8284375394de1e925ba36768862aabae5afd28dfb91242a27926235da8d8cdf8"
+    },
+    {
+      "pack": "outputs/agent-dragon-polish-v2",
+      "manifest_sha256": "5201a35e479bf5777d38bc1ba129fce4022aa1a9efcf7009ccccb7b555461db3",
+      "finish_config_sha256": "39de797190a684209cbedabe4d42c607185ea8926957bb2b4d2a294fa058d173",
+      "portrait_sha256": "6671dd4fb18eb992aa7858b8753a6a0706cd6e9bed7ed9e14ee80d68989847fe"
+    }
+  ]
+}

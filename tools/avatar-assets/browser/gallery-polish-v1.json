@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "dragon-polish-v1",
+      "kind": "generated_3d",
+      "pack": "outputs/agent-dragon-polish-v1",
+      "media_pack": "outputs/agent-dragon-polish-media-v1-portable-v1",
+      "title": "Dragon \u2014 smoother finish",
+      "description": "Bounded local surface refinement of the same Meshy source. Same 4K textures and four motions. No Muse-parity or Weft-physics claim."
+    },
+    {
+      "id": "dragon-before-polish",
+      "kind": "generated_3d",
+      "pack": "outputs/agent-dragon-v3/model-2",
+      "media_pack": "outputs/agent-dragon-v3/media-portable",
+      "title": "Dragon \u2014 previous finish",
+      "description": "Preserved original agent-authored dragon for comparison. No files overwritten."
+    },
+    {
+      "id": "reference",
+      "kind": "reference_2d",
+      "pack": "outputs/reference-v1",
+      "title": "Original Muse reference",
+      "description": "Original user-supplied portrait and clips. 2D reference only, not recovered 3D geometry."
+    }
+  ]
+}

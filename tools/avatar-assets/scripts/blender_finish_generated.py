@@ -36,6 +36,27 @@ def texture_colors(obj, image):
     return pixels[yy, xx, :3].copy()
 
 
+def shared_color_texture(materials):
+    selected, signature = None, None
+    for material in materials:
+        shaders = [n for n in material.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'] if material and material.use_nodes else []
+        if len(shaders) != 1 or len(shaders[0].inputs['Base Color'].links) != 1:
+            raise ValueError('Texture-driven finish requires one directly textured base-color shader per source material')
+        node = shaders[0].inputs['Base Color'].links[0].from_node
+        if node.type != 'TEX_IMAGE' or node.image is None:
+            raise ValueError('Texture-driven finish requires an explicit base-color image')
+        # The bounded sampler reads the active UV layer, not arbitrary shader coordinates.
+        if node.inputs['Vector'].links or node.projection != 'FLAT' or node.extension != 'REPEAT':
+            raise ValueError('Custom UV routes, projections or addressing are unsupported for texture-driven selection')
+        current = node.image
+        if selected is not None and current != signature:
+            raise ValueError('Heterogeneous base-color textures are unsupported for texture-driven selection')
+        selected, signature = node, current
+    if selected is None:
+        raise ValueError('Texture-driven finish requires a source material')
+    return selected
+
+
 def frame_mask(points, low, span, boxes):
     normalized = (points-low)/np.maximum(span, 1e-8)
     excluded = np.zeros(len(points), dtype=bool)
@@ -45,7 +66,7 @@ def frame_mask(points, low, span, boxes):
     return excluded
 
 
-def smooth_surface(obj, mask, iterations, strength):
+def smooth_surface(obj, mask, iterations, strength, report_dir):
     original = np.array([tuple(v.co) for v in obj.data.vertices])
     points, inverse = np.unique(original, axis=0, return_inverse=True)
     edges = np.array([tuple(e.vertices) for e in obj.data.edges])
@@ -60,7 +81,29 @@ def smooth_surface(obj, mask, iterations, strength):
         np.add.at(total, right, points[left])
         points[movable] += strength*(total/degree[:, None]-points)[movable]
     result = points[inverse]
-    obj.data.vertices.foreach_set('co', result.astype(np.float32).ravel())
+    integrity = set_surface_positions(obj, original, result, report_dir)
+    return {'iterations': iterations, 'strength': strength,
+            'max_vertex_shift_m': float(np.linalg.norm(result-original, axis=1).max()),
+            'topology_uv_and_weights_preserved': True, 'authored_not_recovered': True,
+            'surface_integrity': integrity}
+
+
+def set_surface_positions(obj, original, result, report_dir):
+    from surface_integrity import enforce_surface_change, SurfaceChangeError
+    # Validate the stored geometry: float32 rounding can collapse a small valid face.
+    stored = result.astype(np.float32)
+    result = stored.astype(np.float64)
+    obj.data.calc_loop_triangles()
+    triangles = np.array([tuple(t.vertices) for t in obj.data.loop_triangles])
+    try:
+        integrity = enforce_surface_change(original, result, triangles)
+    except SurfaceChangeError as error:
+        write_json(report_dir/'surface-integrity.json', error.report)
+        raise
+    write_json(report_dir/'surface-integrity.json', integrity)
+    _, indices, inverse = np.unique(original, axis=0, return_index=True, return_inverse=True)
+    points = result[indices]
+    obj.data.vertices.foreach_set('co', stored.ravel())
     obj.data.update()
     obj.data.calc_loop_triangles()
     normals = np.zeros_like(points)
@@ -72,9 +115,7 @@ def smooth_surface(obj, mask, iterations, strength):
     obj.data.normals_split_custom_set_from_vertices(normals[inverse].tolist())
     for polygon in obj.data.polygons:
         polygon.use_smooth = True
-    return {'iterations': iterations, 'strength': strength,
-            'max_vertex_shift_m': float(np.linalg.norm(result-original, axis=1).max()),
-            'topology_uv_and_weights_preserved': True, 'authored_not_recovered': True}
+    return integrity
 
 
 def constrain_weights(obj, rig, points, low, span, config):
@@ -210,29 +251,38 @@ def finish(config, output):
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     bpy.context.view_layer.update()
     after_apply = np.array([tuple(obj.matrix_world @ v.co) for v in obj.data.vertices])
-    if np.max(np.abs(after_apply-points)) > 1e-6:
+    transform_error = float(np.max(np.abs(after_apply-points)))
+    if transform_error > 1e-6:
         raise ValueError("Applying emitter scale changed the world rest geometry")
     low, high = points.min(axis=0), points.max(axis=0)
     base = obj.data.materials[0]
-    bsdf = next(n for n in base.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
-    color_node = bsdf.inputs["Base Color"].links[0].from_node
-    if color_node.type != "TEX_IMAGE":
-        raise ValueError("Texture-driven finish requires an explicit base-color image")
+    color_node = shared_color_texture(obj.data.materials)
     colors = texture_colors(obj, color_node.image)
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
     smoothing = None
     if cfg.get('smoothing'):
-        smoothing = smooth_surface(obj, mask, **cfg['smoothing'])
+        smoothing = smooth_surface(obj, mask, report_dir=out, **cfg['smoothing'])
+        points = np.array([tuple(obj.matrix_world @ v.co) for v in obj.data.vertices])
+    if cfg.get('surface_smoothing'):
+        from surface_smoothing import refine_positions
+        original = np.array([tuple(v.co) for v in obj.data.vertices])
+        edges = np.array([tuple(e.vertices) for e in obj.data.edges])
+        refined, smoothing = refine_positions(original, edges, cfg['surface_smoothing'])
+        smoothing['surface_integrity'] = set_surface_positions(obj, original, refined, out)
         points = np.array([tuple(obj.matrix_world @ v.co) for v in obj.data.vertices])
     for material in obj.data.materials:
         for node in material.node_tree.nodes:
             if node.type == "NORMAL_MAP":
                 node.inputs["Strength"].default_value = cfg["normal_strength"]
+    surface_profiles = None
+    if cfg.get('surface_profiles'):
+        from blender_surface_profiles import apply_surface_profiles
+        surface_profiles = apply_surface_profiles(obj, colors, points, low, high-low, cfg['surface_profiles'])
     report = {"schema_version": 1, "source_sha256": cfg["source_sha256"], "blender_version": bpy.app.version_string,
               "normal_strength": cfg["normal_strength"], "groom": None, "attachment": None,
-              "smoothing": smoothing, 'authored_rig': authored_rig,
-              "emitter_scale_applied": True, "world_rest_position_max_error": float(np.max(np.abs(after_apply-points))),
+              "smoothing": smoothing, 'authored_rig': authored_rig, 'surface_profiles': surface_profiles,
+              "emitter_scale_applied": True, "world_rest_position_max_error": transform_error,
               "source_bounds_blender_z_up": {"min": low.tolist(), "max": high.tolist()},
               "animation_verified": False, "weft_runtime_verified": False}
     if cfg.get('weight_constraints'):
@@ -291,6 +341,11 @@ def finish(config, output):
         texture = hair_material.node_tree.nodes.new("ShaderNodeTexImage")
         texture.image = color_node.image
         hair_material.node_tree.links.new(texture.outputs["Color"], hair.inputs["Color"])
+        if cfg.get('groom_shader'):
+            hair.inputs['Roughness'].default_value = cfg['groom_shader']['roughness']
+            hair.inputs['Radial Roughness'].default_value = cfg['groom_shader']['radial_roughness']
+            groom_report['material']['shader_roughness'] = cfg['groom_shader']['roughness']
+            groom_report['material']['radial_roughness'] = cfg['groom_shader']['radial_roughness']
         groom_report["material"]["texture_color_sampling"] = True
         groom_report.update(density_selected_vertices=int(mask.sum()), density_excluded_vertices=int((~mask).sum()),
                             clump_factor=cfg["fur_clump"], mask_config=cfg["groom_exclusions"], fur_max_chroma=cfg["fur_max_chroma"])

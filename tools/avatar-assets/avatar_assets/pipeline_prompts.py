@@ -54,7 +54,7 @@ CRITIC_SCHEMA = _object({
 
 AUTHOR_FIELDS = frozenset({
     "authored_rig", "authored_actions", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view",
+    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "surface_profiles", "surface_smoothing", "groom_shader",
 })
 
 
@@ -144,7 +144,7 @@ def validate_plan(response, request):
 _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
 authored_rig, authored_actions, smoothing, weight_constraints, attachment, groom, groom_exclusions,
-fur_max_chroma, fur_clump, portable_fur, camera_view. authored_actions is mandatory for ready.
+fur_max_chroma, fur_clump, portable_fur, camera_view, surface_profiles, surface_smoothing, groom_shader. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Fixed local render settings are512px/8samples. Clips run from0 to4seconds; shorter media presets retime the full curves.
 camera_view is front, three_quarter or three_quarter_left. Favor an angle that reveals accessories/tails without clipping.
@@ -176,7 +176,23 @@ Use at most eight informative keys per state when possible: review images includ
 Make the intended action readable in full-body contact sheets without excessive rotation or hidden/subpixel gestures.
 
 OPTIONAL FINISHING (omit unused fields, never use null):
+surface_profiles is1–8 objects with EXACTLY name,regions,brightness,max_chroma,roughness,metallic,
+normal_strength,min_faces,max_faces. name is a unique lowercase slug. regions is0–8 normalized ellipsoids (empty means all);
+brightness:[low,high] uses0<=low<high<=1.01; max_chroma:0..1; roughness:0.04..1; metallic:0..1;
+normal_strength:0..1; min_faces/max_faces are integers with1<=min<=max<=100000. Last matching profile wins.
+Selection uses face centers and mean source-texture vertex colors. At most32 material copies; preserve source basecolor/UV.
+These explicit material-response adjustments do not add texture detail. Use measured appearance; avoid globally flattening
+eyes, metal or scales. Do not assume every generated material is metallic or that higher normal strength adds fidelity.
 smoothing:{iterations:1..30 integer,strength:0.01..0.8}.
+Prefer surface_smoothing:{iterations:1..20 integer,strength:0.01..0.5,max_displacement_ratio:0.001..0.05,
+feather:0.05..1,exclusions:[region]} for coarse organic surfaces. It uses spatial feathering, not texture-color boundaries,
+and bounded paired smoothing steps to reduce shrinkage. At most16 exclusions; these protect vertex positions, not original shading.
+The backend recalculates smooth normals globally; do not use it to preserve mechanical creases or hard edges.
+The displacement limit is a fraction of original largest extent; this is authored geometry, not recovered detail.
+Optional method is taubin (default paired steps) or laplacian (one positive step; intentionally shrinks coarse relief).
+Surface refinement rejects new degenerate faces or excessive near-collapsed triangles before rendering;
+failed diagnostics remain available for repair. Do not bypass this gate or blindly increase smoothing.
+Never combine smoothing and surface_smoothing. Start gently; a smoother shape can still lose intended details.
 region:{center:[x,y,z],radius:[x,y,z]} uses center[-1,3], radius[0.001,3] in normalized bounds.
 weight_constraints:{fallback_bone:string,regions:{bone_name:region}} with at most64 regions.
 attachment:{bone,parent_bone,anchor_from_bone,dominant_channel:0|1|2,dominant_ratio:1..5,
@@ -187,6 +203,7 @@ roughness:0..0.01,seed:0..2147483647 integer}; parents*(children+1)<=240000.
 Optional direction:[-1..1,-1..1,-1..1] and comb:0..0.95 must both be present, with a nonzero direction.
 Start conservatively (e.g.1500parents/12children) within the unchanged2GiB worker bound; dense native overrides are not allowed.
 groom_exclusions:[region] up to16; fur_max_chroma:0..1; fur_clump:0..1.
+With groom, optional groom_shader:{roughness:0.04..1,radial_roughness:0.04..1} controls sheen independently of strand shape.
 portable_fur:{settings:{seed:0..2147483643 integer,length:0.001..0.04,width:0.0003..0.02,direction:[-1..1,-1..1,-1..1]},
 bands:[{brightness:[low,high],color:[r,g,b,a],count:integer}]} with1–4 bands,0<=low<high<=1.01,
 color channels0..1,each count1..5000,total count<=5000. Cards can add12 exported corners each; keep total under100k vertices.
@@ -270,6 +287,9 @@ ROLE: independent visual/motion critic. You did not author this attempt. Review 
 Return CRITIC_SCHEMA; never modify or fabricate scorer/native proof results. Do not accept failed validation, invisible assets,
 constant motion, wrong identity/style, major deformation, clipping or an action whose visible meaning does not match its request.
 Inspect identity, appearance (including any requested fur/hair), full-body/accessory framing and skin deformation.
+Inspect both the native and exported appearances for polygon-shaped coat gaps, sparse bright cards, plastic-looking fur,
+lost eye highlights and overly strong surface normals. Resolution, fiber counts and a successful export are not quality proof.
+Do not reject intentional metal, smooth ceramic or stylized scales merely because their response differs from fur.
 For every planned state assess both visible meaning and actual changing geometry. Do not treat numerical movement as semantic proof.
 Cite only supplied evidence IDs and explain the visible observations. Each required check and state needs evidence for acceptance.
 Contact sheets sample motion; they do not prove all frames, collisions, ground forces or seamless velocity. Do not certify loops.

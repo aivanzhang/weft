@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "muse-panda-smooth-base-v1",
+  "subject": "Muse panda with a small green shoulder dragon",
+  "style": "High-quality animated-film character base for subsequent hair grooming. Clean rounded smooth panda undercoat geometry; precise ivory and charcoal color patches, expressive brown eyes and a warm smiling muzzle. Fine emerald dragon scales and pale green belly, clean wing membranes. Physically based diffuse textures without baked lighting. Fur strands will be authored separately; do not sculpt coarse fur clumps into the body mesh.",
+  "prompt": "Match the supplied panda and small green dragon on its viewer-left shoulder: rounded plush proportions, full cheeks, gently projecting smiling muzzle, warm brown eyes, ivory and charcoal patches, green dragon with horns and wings. Build clean continuous rounded underlying surfaces suitable for separate hair grooming. Panda coat geometry must be smooth: no sculpted fur chunks, jagged fur spikes, torn triangular flakes, heavy ridges or cavities. Put fine coat color detail in the texture; actual fur will be added separately. Keep facial features smooth and expressive with clear eyes and nose. Dragon scales are subtle texture detail, not melted lumps. Neutral balanced stance, entire body and tail intact. No pedestal, clothing, text or extra objects. No baked highlights or shadows.",
+  "reference": "../../outputs/reference-v1/originals/avatar-1792879257185832992-2.webp",
+  "reference_sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2",
+  "generation": {
+    "mode": "image",
+    "geometry_resolution": "4k",
+    "texture_resolution": "4k",
+    "target_polycount": 60000,
+    "pose_mode": "a-pose"
+  },
+  "rig": "none",
+  "height_meters": 1.2,
+  "max_credits": 35,
+  "states": [],
+  "rights": "User supplied the Muse reference and explicitly authorized using their Meshy API key to create this avatar. Original image/clip creator license and original 3D sources are unknown; embedded generated-media metadata is provenance, not rights verification. Hidden geometry and rig are newly generated assumptions, not recovered source anatomy. No unrelated files may be uploaded. Exact user request: 'I want you to create the muse quality avatar but make sure it is a repetable process that can be generalizd as well!'"
+}

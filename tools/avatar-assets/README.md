@@ -2,6 +2,28 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
+## Generated-model quality refinement
+
+The finishing stage now supports bounded surface smoothing, separate material-response regions,
+and native-hair sheen controls. A local comparison tool isolates geometry, texture/normal maps,
+native hair and portable cards before spending on another generation. These are reusable,
+configuration-driven controls, not panda-specific code. See [recipes, results and rejected trials](docs/meshy-quality-upgrade-v1.md).
+
+The selected dragon refinement is `outputs/agent-dragon-polish-v1`; the two panda trials and
+dragon material trial were rejected. Prior delivered packs remain unchanged. This pass does
+not establish Muse-equivalent appearance, new texture detail or Weft compatibility.
+
+Compare the previous and smoother dragon, including their matching 1600px portraits and four
+720px motion previews:
+
+```sh
+./tools/avatar-assets/run gallery --catalog browser/gallery-polish-v1.json
+```
+
+Then open `http://127.0.0.1:8765/`. The catalog also labels the original Muse pack as 2D-only.
+No server starts automatically. Full results: 368 Python tests, native reload, and actual browser
+playback/fallback checks passed; no new Meshy calls.
+
 ## Prompt-driven AI pipeline
 
 `generate` connects an AI planner, rig/motion author and independent visual reviewer to the existing generation and local build tools. It accepts one text prompt, optional reference/style/states, and an output preset. The coordinator enforces budgets, validates the generated configuration, preserves failed attempts, and exports a real skinned GLB, editable Blender source, portrait, videos, static fallbacks and browser catalog only after review passes. Unsupported requests return an explicit result.

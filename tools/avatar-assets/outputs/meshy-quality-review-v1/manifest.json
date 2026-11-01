@@ -1,0 +1,506 @@
+{
+  "artifacts": [
+    {
+      "bytes": 13769,
+      "path": "agent-dragon-polish-v2/finish-config.json",
+      "sha256": "39de797190a684209cbedabe4d42c607185ea8926957bb2b4d2a294fa058d173"
+    },
+    {
+      "bytes": 1376,
+      "path": "agent-dragon-polish-v2/finish-monitor.json",
+      "sha256": "3f0ed44779768a863db7b1cb5cf9560b0c8147484976b6aa27232e7279b2d943"
+    },
+    {
+      "bytes": 29409,
+      "path": "agent-dragon-polish-v2/finish-report.json",
+      "sha256": "523abdfe0f0baf1254607cd4d772f3c49f2aa6a786f7ab0bfaff3bd161607bc2"
+    },
+    {
+      "bytes": 148791,
+      "path": "agent-dragon-polish-v2/finish.log",
+      "sha256": "4ba592ed46979d14cc5e7684aebf99bc59952b9595851dc3975d3f26077f81a4"
+    },
+    {
+      "bytes": 1510,
+      "path": "agent-dragon-polish-v2/job.json",
+      "sha256": "dcb875cb7b49a45296f8509a884396dd19008c9e0838f4c10ac04f4a8bc642dc"
+    },
+    {
+      "bytes": 52710,
+      "path": "agent-dragon-polish-v2/manifest.json",
+      "sha256": "5201a35e479bf5777d38bc1ba129fce4022aa1a9efcf7009ccccb7b555461db3"
+    },
+    {
+      "bytes": 544073,
+      "path": "agent-dragon-polish-v2/portrait.png",
+      "sha256": "6671dd4fb18eb992aa7858b8753a6a0706cd6e9bed7ed9e14ee80d68989847fe"
+    },
+    {
+      "bytes": 6130,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+      "sha256": "8770b39ea0a87d0822596f50a57e9ef485067d64b315c10b3bfcff8b1f3b7fc2"
+    },
+    {
+      "bytes": 44370,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "b30cb570e520d236df434ea02254e91285636f76ca8d31a52189b9c054d4e493"
+    },
+    {
+      "bytes": 22544,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+      "sha256": "37ad9f6be812e7082e4046667244d06197a875829b0d75b2b3a1210cf8d9e6ec"
+    },
+    {
+      "bytes": 37910,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "c48aaf56fd23468945bbef7bf164a7b510fe66cf73aecd8ce0ae2f35a10c8335"
+    },
+    {
+      "bytes": 12881,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/creature_rig_math.cpython-311.pyc",
+      "sha256": "93813d36a084cfbc441313ccebf0811cbd63e0309d4f95e93619d2bb6c6008fc"
+    },
+    {
+      "bytes": 7678,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "ad6a77bad60e2f81e1d8a15a419eecbfb19e42511773028262957656f984d8ec"
+    },
+    {
+      "bytes": 8188,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "6abf910f003ee97d37989aca69a0617ee84860bb148ef7d809aa5dc7e0291b2a"
+    },
+    {
+      "bytes": 4254,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/surface_profiles.cpython-311.pyc",
+      "sha256": "bb87cfd86a044701d997069fd8017656ea817e7ace312c8e7b98e2a1cd5eb8fe"
+    },
+    {
+      "bytes": 12897,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/surface_smoothing.cpython-311.pyc",
+      "sha256": "46e05986e64467998dadc17bee68c14d1720b1751aa2a2f1b5afb1d31912db71"
+    },
+    {
+      "bytes": 3072,
+      "path": "agent-dragon-polish-v2/sources/__pycache__/surface_smoothing_config.cpython-311.pyc",
+      "sha256": "bc9cdf10b546b4e148ee6dd614cccdd7d55d946c0281989763c3293096e426ac"
+    },
+    {
+      "bytes": 20236,
+      "path": "agent-dragon-polish-v2/sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 2710,
+      "path": "agent-dragon-polish-v2/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 27844,
+      "path": "agent-dragon-polish-v2/sources/blender_finish_generated.py",
+      "sha256": "377c800fa0066cf70999273d5a8563489a0214c9dae4b3808dc530195bf635b6"
+    },
+    {
+      "bytes": 7860,
+      "path": "agent-dragon-polish-v2/sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "agent-dragon-polish-v2/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 12009,
+      "path": "agent-dragon-polish-v2/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "agent-dragon-polish-v2/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5399,
+      "path": "agent-dragon-polish-v2/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 4392,
+      "path": "agent-dragon-polish-v2/sources/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+    },
+    {
+      "bytes": 13680,
+      "path": "agent-dragon-polish-v2/sources/finish-design.json",
+      "sha256": "639243c49352f5d6e77291031cc8d564a4478639deadb0e3e44f02d1c7240dd5"
+    },
+    {
+      "bytes": 17329,
+      "path": "agent-dragon-polish-v2/sources/finish_generated.py",
+      "sha256": "44c24b7e861ea92e9b262c5d03cca61c3a7b3aa4c92bbc8e4486d5e361cb7ff3"
+    },
+    {
+      "bytes": 2738,
+      "path": "agent-dragon-polish-v2/sources/generated_tangents.py",
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+    },
+    {
+      "bytes": 4147,
+      "path": "agent-dragon-polish-v2/sources/motion_samples.py",
+      "sha256": "842538d315cfd84117b896198460febbe8b2e098dc087d90baf8d926dc7fe3fe"
+    },
+    {
+      "bytes": 2675,
+      "path": "agent-dragon-polish-v2/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "agent-dragon-polish-v2/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "agent-dragon-polish-v2/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 13856,
+      "path": "muse-panda-polish-v1/finish-config.json",
+      "sha256": "2b1907af4c3f0da51c15a626af9f1028458f31dd86bc491d848559bf05587fa5"
+    },
+    {
+      "bytes": 1374,
+      "path": "muse-panda-polish-v1/finish-monitor.json",
+      "sha256": "5ee4b0d2ac543372ad133b5aacf9620e9085632d240ff909ff945b79ae9989b4"
+    },
+    {
+      "bytes": 15679,
+      "path": "muse-panda-polish-v1/finish-report.json",
+      "sha256": "dab3f866ca9f272f501e6dc97ae8596911e1b702f7f3151d8727238590d0f55c"
+    },
+    {
+      "bytes": 158839,
+      "path": "muse-panda-polish-v1/finish.log",
+      "sha256": "0f43b3d758336df8499c2800d00adbeccdceee556671b98c215a8229652be322"
+    },
+    {
+      "bytes": 1508,
+      "path": "muse-panda-polish-v1/job.json",
+      "sha256": "c912dbe376c76a7189520e4bec63b72b99e59250b37119a98b1cfa517049f0b5"
+    },
+    {
+      "bytes": 38906,
+      "path": "muse-panda-polish-v1/manifest.json",
+      "sha256": "c139b33f06bdc33092d739563a97a8766c4e9e6ea1b439826c5c02b3676d15ed"
+    },
+    {
+      "bytes": 636421,
+      "path": "muse-panda-polish-v1/portrait.png",
+      "sha256": "1309f7756b6bd39ef84a62ee4cd30bde14090fb874d6dc9f6c8250fd73e89d71"
+    },
+    {
+      "bytes": 42721,
+      "path": "muse-panda-polish-v1/sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "aafe7ffed62220db35e33721b3976b9e255118cac88b3232361823231a23ccb6"
+    },
+    {
+      "bytes": 19053,
+      "path": "muse-panda-polish-v1/sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "f43b63cd90a1c791378872e876a86fe3e0c49e41d0fe0e3093b7e6819c98995d"
+    },
+    {
+      "bytes": 44368,
+      "path": "muse-panda-polish-v1/sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "7c60af94b8897430f4cb70d06a035c75426c05c30dbd9e8485812b89142a09ad"
+    },
+    {
+      "bytes": 37908,
+      "path": "muse-panda-polish-v1/sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "66c8b95463d4d7a2f782bc3eb7d81c47d7e309f079720f299126c319c9b68c1c"
+    },
+    {
+      "bytes": 8186,
+      "path": "muse-panda-polish-v1/sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "4e73431d4af1b68e3c2f1455ff28e6639529fe82fc77ccdd34212b58a7b28d29"
+    },
+    {
+      "bytes": 12383,
+      "path": "muse-panda-polish-v1/sources/__pycache__/surface_smoothing.cpython-311.pyc",
+      "sha256": "1b12b9a096c50bcb62fa1b538704ce68ab00d2d34870c2227e9aa00c05e95c3a"
+    },
+    {
+      "bytes": 2805,
+      "path": "muse-panda-polish-v1/sources/__pycache__/surface_smoothing_config.cpython-311.pyc",
+      "sha256": "f543d0a74069afc071969b3c92d4bea8237487ccf5e724e54626eadfe46f7d70"
+    },
+    {
+      "bytes": 20236,
+      "path": "muse-panda-polish-v1/sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 2710,
+      "path": "muse-panda-polish-v1/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 26431,
+      "path": "muse-panda-polish-v1/sources/blender_finish_generated.py",
+      "sha256": "ef7d341832ad95f5e43aba19817c5cd5c0fc6befa9e1a2553ac3ea2cc8f6c19d"
+    },
+    {
+      "bytes": 7860,
+      "path": "muse-panda-polish-v1/sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "muse-panda-polish-v1/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 12009,
+      "path": "muse-panda-polish-v1/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "muse-panda-polish-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5399,
+      "path": "muse-panda-polish-v1/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 4392,
+      "path": "muse-panda-polish-v1/sources/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+    },
+    {
+      "bytes": 13767,
+      "path": "muse-panda-polish-v1/sources/finish-design.json",
+      "sha256": "d0aa7a48bf26f53c686926a477ee2bee2a1b5c8928ecd4936e0a31e9cff8bacd"
+    },
+    {
+      "bytes": 16974,
+      "path": "muse-panda-polish-v1/sources/finish_generated.py",
+      "sha256": "5f78fd745b12aad2aa1f7c9b1df89adf50860d3ecbbcf3eb7f97377c4b8eb01a"
+    },
+    {
+      "bytes": 2738,
+      "path": "muse-panda-polish-v1/sources/generated_tangents.py",
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+    },
+    {
+      "bytes": 4147,
+      "path": "muse-panda-polish-v1/sources/motion_samples.py",
+      "sha256": "842538d315cfd84117b896198460febbe8b2e098dc087d90baf8d926dc7fe3fe"
+    },
+    {
+      "bytes": 2675,
+      "path": "muse-panda-polish-v1/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7014,
+      "path": "muse-panda-polish-v1/sources/surface_smoothing.py",
+      "sha256": "ef7108692827f7fccff66c58d4f3d4186f0c5fa893edcfa7c10e8da5d4423154"
+    },
+    {
+      "bytes": 1616,
+      "path": "muse-panda-polish-v1/sources/surface_smoothing_config.py",
+      "sha256": "0b9597ec28969a1246cf9e725d745df83e94dbe4603d82c3dc22b32d27e766f3"
+    },
+    {
+      "bytes": 15470,
+      "path": "muse-panda-polish-v2/finish-config.json",
+      "sha256": "281dd806f9801cf4448bbb7ea56dbd76ac795a5a11a44b73f90854daacfb7630"
+    },
+    {
+      "bytes": 1374,
+      "path": "muse-panda-polish-v2/finish-monitor.json",
+      "sha256": "e622d229d77064a20ef0203ed9f3b109b6c96b67c50263b761c1d5f79bb058fa"
+    },
+    {
+      "bytes": 19133,
+      "path": "muse-panda-polish-v2/finish-report.json",
+      "sha256": "35b822f2b8b6a2cbc095b07e50df742cb95d4c3fd299161f12fe2a667d2ed85f"
+    },
+    {
+      "bytes": 159101,
+      "path": "muse-panda-polish-v2/finish.log",
+      "sha256": "931988f7b5580e03b02c18984b6fdd3e53160f6c88ad5c8c2007ce784f0a14d9"
+    },
+    {
+      "bytes": 1508,
+      "path": "muse-panda-polish-v2/job.json",
+      "sha256": "c651d49a7431ff95dcde7a523d82f590b606d0b654b7c98b970b064c34e6e52a"
+    },
+    {
+      "bytes": 10643,
+      "path": "muse-panda-polish-v2/manifest.json",
+      "sha256": "af188386194184e87a3daf2c3c78197abe0eeb8ed9a2a06efa6c779df11109c4"
+    },
+    {
+      "bytes": 633526,
+      "path": "muse-panda-polish-v2/portrait.png",
+      "sha256": "08c8e4f0ae8b4567b15ae118416d58040c2f03cd52b8744869dff7bb0bd84a18"
+    },
+    {
+      "bytes": 42721,
+      "path": "muse-panda-polish-v2/sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "489ada100977a131cf69719097159536bc412c4d7896f15c4cfdd304bf262eb6"
+    },
+    {
+      "bytes": 19053,
+      "path": "muse-panda-polish-v2/sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "b6ebdd567e542cfa085bc96801797db5de42b17be6fcb23c2eca97aeada7982d"
+    },
+    {
+      "bytes": 44368,
+      "path": "muse-panda-polish-v2/sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "894b987b1109efe0489517a9cbec874d7df80f160c2ff1445a1cbb984feffc17"
+    },
+    {
+      "bytes": 22542,
+      "path": "muse-panda-polish-v2/sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+      "sha256": "653f12a925adda61315fd6b179fa446439927052f02af5074f6c28c2c7ca7933"
+    },
+    {
+      "bytes": 37908,
+      "path": "muse-panda-polish-v2/sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "9721f798118a7353f84910401d4f2a757ba3bcb3cd591b6f9eb2ee8b47874f94"
+    },
+    {
+      "bytes": 8186,
+      "path": "muse-panda-polish-v2/sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "143a28a2b4dcead20ce3855c37a1f6a6102f6d7e1513078f1f62cdff49efaf58"
+    },
+    {
+      "bytes": 4252,
+      "path": "muse-panda-polish-v2/sources/__pycache__/surface_profiles.cpython-311.pyc",
+      "sha256": "03890e40d96ad306794a9df6649b4d6e3672bd3bb35a72d597067cffc0ef39f0"
+    },
+    {
+      "bytes": 12895,
+      "path": "muse-panda-polish-v2/sources/__pycache__/surface_smoothing.cpython-311.pyc",
+      "sha256": "8ddaa9469d7ca8138c33fe40d5a557f646d7eee69bf09df8a3b1c98378929fb7"
+    },
+    {
+      "bytes": 3070,
+      "path": "muse-panda-polish-v2/sources/__pycache__/surface_smoothing_config.cpython-311.pyc",
+      "sha256": "e4a8245e770837b81eefe565fb033be50ddd90fa3e24596c45401972ec7c2184"
+    },
+    {
+      "bytes": 20236,
+      "path": "muse-panda-polish-v2/sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 2710,
+      "path": "muse-panda-polish-v2/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 27844,
+      "path": "muse-panda-polish-v2/sources/blender_finish_generated.py",
+      "sha256": "377c800fa0066cf70999273d5a8563489a0214c9dae4b3808dc530195bf635b6"
+    },
+    {
+      "bytes": 7860,
+      "path": "muse-panda-polish-v2/sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "muse-panda-polish-v2/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 12009,
+      "path": "muse-panda-polish-v2/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "muse-panda-polish-v2/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 5399,
+      "path": "muse-panda-polish-v2/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 4392,
+      "path": "muse-panda-polish-v2/sources/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+    },
+    {
+      "bytes": 15381,
+      "path": "muse-panda-polish-v2/sources/finish-design.json",
+      "sha256": "2875761738a50fb99045ccaa3a1bf21b722053dbdaf3fb04c51903a841fd5b11"
+    },
+    {
+      "bytes": 17329,
+      "path": "muse-panda-polish-v2/sources/finish_generated.py",
+      "sha256": "44c24b7e861ea92e9b262c5d03cca61c3a7b3aa4c92bbc8e4486d5e361cb7ff3"
+    },
+    {
+      "bytes": 2738,
+      "path": "muse-panda-polish-v2/sources/generated_tangents.py",
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+    },
+    {
+      "bytes": 4147,
+      "path": "muse-panda-polish-v2/sources/motion_samples.py",
+      "sha256": "842538d315cfd84117b896198460febbe8b2e098dc087d90baf8d926dc7fe3fe"
+    },
+    {
+      "bytes": 2675,
+      "path": "muse-panda-polish-v2/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "muse-panda-polish-v2/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "muse-panda-polish-v2/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    }
+  ],
+  "kind": "rejected_trial_review_subset",
+  "omitted": "Large native/project/model files and pose render sequences remain unchanged in original local output folders. This subset preserves review evidence, exact configs/backend snapshots and original inventory, not a complete loadable model.",
+  "parents": [
+    {
+      "complete_original_preserved_locally": true,
+      "not_a_loadable_model_pack": true,
+      "original_local_pack": "outputs/muse-panda-polish-v1",
+      "original_manifest_sha256": "c139b33f06bdc33092d739563a97a8766c4e9e6ea1b439826c5c02b3676d15ed",
+      "subset": "muse-panda-polish-v1"
+    },
+    {
+      "complete_original_preserved_locally": true,
+      "not_a_loadable_model_pack": true,
+      "original_local_pack": "outputs/muse-panda-polish-v2",
+      "original_manifest_sha256": "af188386194184e87a3daf2c3c78197abe0eeb8ed9a2a06efa6c779df11109c4",
+      "subset": "muse-panda-polish-v2"
+    },
+    {
+      "complete_original_preserved_locally": true,
+      "not_a_loadable_model_pack": true,
+      "original_local_pack": "outputs/agent-dragon-polish-v2",
+      "original_manifest_sha256": "5201a35e479bf5777d38bc1ba129fce4022aa1a9efcf7009ccccb7b555461db3",
+      "subset": "agent-dragon-polish-v2"
+    }
+  ],
+  "schema_version": 1,
+  "status": "preserved"
+}

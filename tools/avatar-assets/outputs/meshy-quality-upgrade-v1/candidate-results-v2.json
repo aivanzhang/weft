@@ -1,0 +1,634 @@
+{
+  "recorded_at": "2026-10-31T23:44:58.151012-07:00",
+  "paid_calls": 0,
+  "results": [
+    {
+      "path": "outputs/muse-panda-polish-v1",
+      "manifest_status": "needs_visual_review",
+      "failure": null,
+      "runtime": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v1/sources/blender_finish_generated.py",
+          "--",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v1/finish-config.json",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v1"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 59.327,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 121399395,
+        "last_rss_sample_elapsed_seconds": 59.067,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "finish-monitor.json",
+        "monitor_errors": [],
+        "pid": 71830,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 229,
+        "sampled_max_output_bytes": 121399395,
+        "sampled_peak_rss_bytes": 1691451392,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "smoothing": {
+        "authored_not_recovered": true,
+        "bounds_m": {
+          "min": [
+            -0.4573468565940857,
+            -0.4425346553325653,
+            -3.754360378138699e-08
+          ],
+          "span": [
+            0.914693683385849,
+            0.8850694596767426,
+            1.2000000852273196
+          ]
+        },
+        "clipped_vertex_step_events": 24,
+        "coincident_vertices_merged": 36912,
+        "color_mask_used": false,
+        "displacement_limit_m": 0.03000000213068299,
+        "elapsed_seconds": 0.12709579220972955,
+        "excluded_vertices": 3086,
+        "excluded_welded_vertices": 1763,
+        "feathered_vertices": 6527,
+        "geometry_scope": "Only positions are returned; topology, UVs and skin remain the caller's responsibility.",
+        "input_edges": 121571,
+        "input_vertices": 67787,
+        "isolated_welded_vertices": 0,
+        "iterations_executed": 10,
+        "iterations_requested": 10,
+        "limits": {
+          "edges": 300000,
+          "iterations": 20,
+          "max_displacement_ratio": 0.025,
+          "vertices": 100000
+        },
+        "max_displacement_m": 0.026422463144962254,
+        "max_step_displacement_m": 0.020325084228415835,
+        "method": "Exact-position welding, fixed spatial feather weights, paired Taubin steps",
+        "negative_step_strength": -0.357,
+        "positive_step_strength": 0.35,
+        "rms_displacement_m": 0.005012618912722455,
+        "volume_preservation_intended": true,
+        "volume_preservation_verified": false,
+        "volume_scope": "Paired steps reduce shrinkage; preserved volume is not measured or guaranteed.",
+        "welded_edges": 92846,
+        "welded_vertices": 30875
+      },
+      "surface_profiles": null
+    },
+    {
+      "path": "outputs/agent-dragon-polish-v1",
+      "manifest_status": "needs_visual_review",
+      "failure": null,
+      "runtime": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v1/sources/blender_finish_generated.py",
+          "--",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v1/finish-config.json",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v1"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 18.552,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 60984717,
+        "last_rss_sample_elapsed_seconds": 18.299,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "finish-monitor.json",
+        "monitor_errors": [],
+        "pid": 71854,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 71,
+        "sampled_max_output_bytes": 60984717,
+        "sampled_peak_rss_bytes": 1531199488,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "smoothing": {
+        "authored_not_recovered": true,
+        "bounds_m": {
+          "min": [
+            -0.5308043956756592,
+            -1.0723233222961426,
+            0.0
+          ],
+          "span": [
+            1.0616087913513184,
+            2.144646644592285,
+            1.600000023841858
+          ]
+        },
+        "clipped_vertex_step_events": 2,
+        "coincident_vertices_merged": 17753,
+        "color_mask_used": false,
+        "displacement_limit_m": 0.02144646644592285,
+        "elapsed_seconds": 0.0517833330668509,
+        "excluded_vertices": 0,
+        "excluded_welded_vertices": 0,
+        "feathered_vertices": 0,
+        "geometry_scope": "Only positions are returned; topology, UVs and skin remain the caller's responsibility.",
+        "input_edges": 69504,
+        "input_vertices": 36010,
+        "isolated_welded_vertices": 0,
+        "iterations_executed": 4,
+        "iterations_requested": 4,
+        "limits": {
+          "edges": 300000,
+          "iterations": 20,
+          "max_displacement_ratio": 0.01,
+          "vertices": 100000
+        },
+        "max_displacement_m": 0.011186470703406453,
+        "max_step_displacement_m": 0.01612855682972843,
+        "method": "Exact-position welding, fixed spatial feather weights, paired Taubin steps",
+        "negative_step_strength": -0.20400000000000001,
+        "positive_step_strength": 0.2,
+        "rms_displacement_m": 0.0013475868121942465,
+        "volume_preservation_intended": true,
+        "volume_preservation_verified": false,
+        "volume_scope": "Paired steps reduce shrinkage; preserved volume is not measured or guaranteed.",
+        "welded_edges": 54756,
+        "welded_vertices": 18257
+      },
+      "surface_profiles": null
+    },
+    {
+      "path": "outputs/muse-panda-polish-v2",
+      "manifest_status": "failed",
+      "failure": "Undefined tangent count exceeds repair profile",
+      "runtime": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v2/sources/blender_finish_generated.py",
+          "--",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v2/finish-config.json",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-polish-v2"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 60.465,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 121310857,
+        "last_rss_sample_elapsed_seconds": 60.202,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "finish-monitor.json",
+        "monitor_errors": [],
+        "pid": 74435,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 233,
+        "sampled_max_output_bytes": 121310857,
+        "sampled_peak_rss_bytes": 2030321664,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "smoothing": {
+        "authored_not_recovered": true,
+        "bounds_m": {
+          "min": [
+            -0.4573468565940857,
+            -0.4425346553325653,
+            -3.754360378138699e-08
+          ],
+          "span": [
+            0.914693683385849,
+            0.8850694596767426,
+            1.2000000852273196
+          ]
+        },
+        "clipped_vertex_step_events": 92,
+        "coincident_vertices_merged": 36912,
+        "color_mask_used": false,
+        "displacement_limit_m": 0.04800000340909279,
+        "elapsed_seconds": 0.12151995790190995,
+        "excluded_vertices": 172,
+        "excluded_welded_vertices": 116,
+        "feathered_vertices": 198,
+        "geometry_scope": "Only positions are returned; topology, UVs and skin remain the caller's responsibility.",
+        "input_edges": 121571,
+        "input_vertices": 67787,
+        "isolated_welded_vertices": 0,
+        "iterations_executed": 16,
+        "iterations_requested": 16,
+        "limits": {
+          "edges": 300000,
+          "iterations": 20,
+          "max_displacement_ratio": 0.04,
+          "vertices": 100000
+        },
+        "max_displacement_m": 0.048000003409092835,
+        "max_step_displacement_m": 0.020325084228415835,
+        "method": "Exact-position welding, fixed spatial feather weights, positive Laplacian steps",
+        "method_id": "laplacian",
+        "negative_step_strength": null,
+        "positive_step_strength": 0.35,
+        "rms_displacement_m": 0.00934962760166505,
+        "shrinkage_intended": true,
+        "steps_per_iteration": 1,
+        "volume_preservation_intended": false,
+        "volume_preservation_verified": false,
+        "volume_scope": "Positive Laplacian fairing intentionally permits shrinkage within the displacement cap; volume is not preserved or verified.",
+        "welded_edges": 92846,
+        "welded_vertices": 30875
+      },
+      "surface_profiles": {
+        "base_color_textures_preserved": true,
+        "faces_reassigned": 59706,
+        "geometry_uv_skin_unchanged": true,
+        "new_material_count": 2,
+        "precedence": "last_matching_profile_wins",
+        "profiles": [
+          {
+            "matched_faces": 59706,
+            "material_copies": [
+              {
+                "material": "Material_0__surface_coat-matte",
+                "new_slot": 1,
+                "normal_map_nodes": 1,
+                "removed_input_links": {
+                  "metallic": 1,
+                  "normal_strength": 0,
+                  "roughness": 1
+                },
+                "selected_faces": 59577,
+                "source_material": "Material_0",
+                "source_slot": 0,
+                "texture_images": [
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_0",
+                    "node": "Image Texture"
+                  },
+                  {
+                    "dimensions": [
+                      2048,
+                      2048
+                    ],
+                    "image": "Image_1",
+                    "node": "Image Texture.001"
+                  },
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "normal",
+                    "node": "Image Texture.002"
+                  }
+                ]
+              }
+            ],
+            "name": "coat-matte",
+            "selected_faces": 59577,
+            "settings": {
+              "metallic": 0,
+              "normal_strength": 0.05,
+              "roughness": 0.82
+            }
+          },
+          {
+            "matched_faces": 129,
+            "material_copies": [
+              {
+                "material": "Material_0__surface_eyes-nose",
+                "new_slot": 2,
+                "normal_map_nodes": 1,
+                "removed_input_links": {
+                  "metallic": 1,
+                  "normal_strength": 0,
+                  "roughness": 1
+                },
+                "selected_faces": 129,
+                "source_material": "Material_0",
+                "source_slot": 0,
+                "texture_images": [
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_0",
+                    "node": "Image Texture"
+                  },
+                  {
+                    "dimensions": [
+                      2048,
+                      2048
+                    ],
+                    "image": "Image_1",
+                    "node": "Image Texture.001"
+                  },
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "normal",
+                    "node": "Image Texture.002"
+                  }
+                ]
+              }
+            ],
+            "name": "eyes-nose",
+            "selected_faces": 129,
+            "settings": {
+              "metallic": 0,
+              "normal_strength": 0.05,
+              "roughness": 0.3
+            }
+          }
+        ],
+        "selection": "Normalized world-bound face centroids; any region or all when empty. Mean sampled vertex RGB; brightness=channel mean, chroma=max-min. Brightness upper bound is exclusive.",
+        "source_materials_unchanged": true,
+        "texture_scope": "Existing image datablocks and UV routing are reused unchanged; no repainting, resampling, new resolution or added texture detail."
+      }
+    },
+    {
+      "path": "outputs/agent-dragon-polish-v2",
+      "manifest_status": "needs_visual_review",
+      "failure": null,
+      "runtime": {
+        "cleanup_events": [],
+        "cleanup_status": "not_required",
+        "command": [
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+          "--background",
+          "--factory-startup",
+          "--disable-autoexec",
+          "--python-exit-code",
+          "1",
+          "--threads",
+          "4",
+          "--python",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v2/sources/blender_finish_generated.py",
+          "--",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v2/finish-config.json",
+          "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v2"
+        ],
+        "descendant_exit_verified": false,
+        "elapsed_seconds": 17.82,
+        "exit_code": 0,
+        "failure": null,
+        "failure_reasons": [],
+        "final_output_bytes": 59643034,
+        "last_rss_sample_elapsed_seconds": 17.559,
+        "limits": {
+          "cleanup_grace_seconds": 7,
+          "log_bytes": 16777216,
+          "output_inventory_entries": 100000,
+          "output_mb": 512,
+          "rss_mb": 2048,
+          "wall_seconds": 600
+        },
+        "manual_stop_required": false,
+        "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+        "monitor_checkpoint": "finish-monitor.json",
+        "monitor_errors": [],
+        "pid": 74425,
+        "process_exit_verified": true,
+        "rss_exit_race_observed": true,
+        "rss_samples": 68,
+        "sampled_max_output_bytes": 59643034,
+        "sampled_peak_rss_bytes": 1326678016,
+        "sampling_interval_seconds": 0.25,
+        "schema_version": 1,
+        "status": "finished"
+      },
+      "smoothing": {
+        "authored_not_recovered": true,
+        "bounds_m": {
+          "min": [
+            -0.5308043956756592,
+            -1.0723233222961426,
+            0.0
+          ],
+          "span": [
+            1.0616087913513184,
+            2.144646644592285,
+            1.600000023841858
+          ]
+        },
+        "clipped_vertex_step_events": 2,
+        "coincident_vertices_merged": 17753,
+        "color_mask_used": false,
+        "displacement_limit_m": 0.02144646644592285,
+        "elapsed_seconds": 0.0521460419986397,
+        "excluded_vertices": 0,
+        "excluded_welded_vertices": 0,
+        "feathered_vertices": 0,
+        "geometry_scope": "Only positions are returned; topology, UVs and skin remain the caller's responsibility.",
+        "input_edges": 69504,
+        "input_vertices": 36010,
+        "isolated_welded_vertices": 0,
+        "iterations_executed": 4,
+        "iterations_requested": 4,
+        "limits": {
+          "edges": 300000,
+          "iterations": 20,
+          "max_displacement_ratio": 0.01,
+          "vertices": 100000
+        },
+        "max_displacement_m": 0.011186470703406453,
+        "max_step_displacement_m": 0.01612855682972843,
+        "method": "Exact-position welding, fixed spatial feather weights, paired Taubin steps",
+        "method_id": "taubin",
+        "negative_step_strength": -0.20400000000000001,
+        "positive_step_strength": 0.2,
+        "rms_displacement_m": 0.0013475868121942465,
+        "shrinkage_intended": false,
+        "steps_per_iteration": 2,
+        "volume_preservation_intended": true,
+        "volume_preservation_verified": false,
+        "volume_scope": "Paired steps reduce shrinkage; preserved volume is not measured or guaranteed.",
+        "welded_edges": 54756,
+        "welded_vertices": 18257
+      },
+      "surface_profiles": {
+        "base_color_textures_preserved": true,
+        "faces_reassigned": 36501,
+        "geometry_uv_skin_unchanged": true,
+        "new_material_count": 2,
+        "precedence": "last_matching_profile_wins",
+        "profiles": [
+          {
+            "matched_faces": 36501,
+            "material_copies": [
+              {
+                "material": "Material_0__surface_scales-satin",
+                "new_slot": 1,
+                "normal_map_nodes": 1,
+                "removed_input_links": {
+                  "metallic": 1,
+                  "normal_strength": 0,
+                  "roughness": 1
+                },
+                "selected_faces": 36309,
+                "source_material": "Material_0",
+                "source_slot": 0,
+                "texture_images": [
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_0",
+                    "node": "Image Texture"
+                  },
+                  {
+                    "dimensions": [
+                      2048,
+                      2048
+                    ],
+                    "image": "Image_1",
+                    "node": "Image Texture.001"
+                  },
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_2",
+                    "node": "Image Texture.002"
+                  }
+                ]
+              }
+            ],
+            "name": "scales-satin",
+            "selected_faces": 36309,
+            "settings": {
+              "metallic": 0,
+              "normal_strength": 0.4,
+              "roughness": 0.7
+            }
+          },
+          {
+            "matched_faces": 192,
+            "material_copies": [
+              {
+                "material": "Material_0__surface_eyes-gloss",
+                "new_slot": 2,
+                "normal_map_nodes": 1,
+                "removed_input_links": {
+                  "metallic": 1,
+                  "normal_strength": 0,
+                  "roughness": 1
+                },
+                "selected_faces": 192,
+                "source_material": "Material_0",
+                "source_slot": 0,
+                "texture_images": [
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_0",
+                    "node": "Image Texture"
+                  },
+                  {
+                    "dimensions": [
+                      2048,
+                      2048
+                    ],
+                    "image": "Image_1",
+                    "node": "Image Texture.001"
+                  },
+                  {
+                    "dimensions": [
+                      4096,
+                      4096
+                    ],
+                    "image": "Image_2",
+                    "node": "Image Texture.002"
+                  }
+                ]
+              }
+            ],
+            "name": "eyes-gloss",
+            "selected_faces": 192,
+            "settings": {
+              "metallic": 0,
+              "normal_strength": 0.05,
+              "roughness": 0.22
+            }
+          }
+        ],
+        "selection": "Normalized world-bound face centroids; any region or all when empty. Mean sampled vertex RGB; brightness=channel mean, chroma=max-min. Brightness upper bound is exclusive.",
+        "source_materials_unchanged": true,
+        "texture_scope": "Existing image datablocks and UV routing are reused unchanged; no repainting, resampling, new resolution or added texture detail."
+      }
+    }
+  ]
+}

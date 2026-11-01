@@ -1,0 +1,716 @@
+{
+  "attachment": {
+    "anchor_from_bone": "RightArm",
+    "bone": "CompanionAnchor",
+    "dominant_channel": 1,
+    "dominant_ratio": 1.05,
+    "expand_meters": 0.025,
+    "max_vertices": 20000,
+    "min_vertices": 500,
+    "parent_bone": "RightShoulder",
+    "regions": [
+      {
+        "center": [
+          0.11,
+          0.22,
+          0.68
+        ],
+        "radius": [
+          0.25,
+          0.4,
+          0.28
+        ]
+      }
+    ]
+  },
+  "authored_actions": [
+    {
+      "id": "idle",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              0,
+              0,
+              2
+            ],
+            "Spine02": [
+              0.8,
+              0,
+              0
+            ]
+          },
+          "second": 1
+        },
+        {
+          "rotations": {},
+          "second": 2
+        },
+        {
+          "rotations": {
+            "Head": [
+              0,
+              0,
+              -2
+            ],
+            "Spine02": [
+              -0.5,
+              0,
+              0
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "making_something",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ]
+          },
+          "second": 0.7
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ],
+            "RightForeArm": [
+              -5,
+              0,
+              4
+            ]
+          },
+          "second": 1.2
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ],
+            "RightForeArm": [
+              4,
+              0,
+              -4
+            ]
+          },
+          "second": 1.7
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ],
+            "RightForeArm": [
+              -5,
+              0,
+              4
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ],
+            "RightForeArm": [
+              4,
+              0,
+              -4
+            ]
+          },
+          "second": 2.7
+        },
+        {
+          "rotations": {
+            "Head": [
+              3,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -32,
+              0,
+              -12
+            ]
+          },
+          "second": 3.3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "milestone_level_up",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              2,
+              0,
+              0
+            ]
+          },
+          "second": 0.8
+        },
+        {
+          "rotations": {
+            "Head": [
+              -4,
+              0,
+              0
+            ],
+            "LeftArm": [
+              0,
+              -17,
+              0
+            ],
+            "LeftForeArm": [
+              -22,
+              0,
+              0
+            ],
+            "RightArm": [
+              0,
+              17,
+              0
+            ],
+            "RightForeArm": [
+              -12,
+              0,
+              0
+            ]
+          },
+          "second": 1.4
+        },
+        {
+          "rotations": {
+            "Head": [
+              3,
+              0,
+              0
+            ],
+            "LeftArm": [
+              0,
+              -17,
+              0
+            ],
+            "LeftForeArm": [
+              -22,
+              0,
+              0
+            ],
+            "RightArm": [
+              0,
+              17,
+              0
+            ],
+            "RightForeArm": [
+              -12,
+              0,
+              0
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "Head": [
+              -2,
+              0,
+              0
+            ]
+          },
+          "second": 3.1
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "working",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              10,
+              0,
+              -4
+            ],
+            "LeftForeArm": [
+              -25,
+              0,
+              -8
+            ]
+          },
+          "second": 0.8
+        },
+        {
+          "rotations": {
+            "Head": [
+              10,
+              0,
+              4
+            ],
+            "LeftForeArm": [
+              -25,
+              0,
+              -8
+            ],
+            "RightForeArm": [
+              -3,
+              0,
+              6
+            ]
+          },
+          "second": 1.6
+        },
+        {
+          "rotations": {
+            "Head": [
+              10,
+              0,
+              -4
+            ],
+            "LeftForeArm": [
+              -25,
+              0,
+              -8
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "Head": [
+              6,
+              0,
+              0
+            ],
+            "LeftForeArm": [
+              -25,
+              0,
+              -8
+            ],
+            "RightForeArm": [
+              -3,
+              0,
+              6
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "fur_clump": 0.06,
+  "fur_max_chroma": 0.18,
+  "groom": {
+    "children": 30,
+    "comb": 0.55,
+    "direction": [
+      0,
+      0,
+      -1
+    ],
+    "length": 0.009,
+    "parents": 6500,
+    "radius": 8e-05,
+    "roughness": 0.001,
+    "seed": 831
+  },
+  "groom_exclusions": [
+    {
+      "center": [
+        0.45,
+        0.16,
+        0.75
+      ],
+      "radius": [
+        0.055,
+        0.16,
+        0.05
+      ]
+    },
+    {
+      "center": [
+        0.66,
+        0.16,
+        0.75
+      ],
+      "radius": [
+        0.055,
+        0.16,
+        0.05
+      ]
+    },
+    {
+      "center": [
+        0.56,
+        0.08,
+        0.67
+      ],
+      "radius": [
+        0.07,
+        0.17,
+        0.055
+      ]
+    },
+    {
+      "center": [
+        0.11,
+        0.22,
+        0.68
+      ],
+      "radius": [
+        0.16,
+        0.34,
+        0.24
+      ]
+    }
+  ],
+  "id": "muse-panda-polish-v1",
+  "native_render_children": 45,
+  "normal_strength": 0.12,
+  "portable_fur": {
+    "bands": [
+      {
+        "brightness": [
+          0,
+          0.35
+        ],
+        "color": [
+          0.09,
+          0.08,
+          0.075,
+          1
+        ],
+        "count": 1320
+      },
+      {
+        "brightness": [
+          0.35,
+          1.01
+        ],
+        "color": [
+          0.92,
+          0.9,
+          0.85,
+          1
+        ],
+        "count": 1080
+      }
+    ],
+    "settings": {
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "length": 0.011,
+      "seed": 912,
+      "width": 0.006
+    }
+  },
+  "portrait_denoise": false,
+  "prompt": "Preserve the provided panda and its small green dragon on the panda's anatomical right shoulder (viewer-left). Dense ivory and charcoal panda fur with directional clumps and soft patch borders; warm brown irises, dark pupils, moist dark brown nose, smiling rounded muzzle. The dragon has emerald green pebbled scales, lighter green belly plates, curved horns and thin green wings. Keep original colors and proportions. Detailed physically based surfaces, no painted lighting, no base or added objects. Local quality refinement: replace binary color-selected surface smoothing with spatially feathered bounded smoothing, preserving the eyes, nose, shoulder companion, palette, rig and four existing motions. Do not claim recovered original geometry.",
+  "resolution": 768,
+  "rights": "User supplied the Muse reference and explicitly authorized using their Meshy API key to create this avatar. Original image/clip creator license and original 3D sources are unknown; embedded generated-media metadata is provenance, not rights verification. Hidden geometry and rig are newly generated assumptions, not recovered source anatomy. No unrelated files may be uploaded. Exact user request: 'I want you to create the muse quality avatar but make sure it is a repetable process that can be generalizd as well!'",
+  "samples": 32,
+  "schema_version": 1,
+  "source": "../../outputs/muse-panda-meshy-assembled-v1/model.glb",
+  "source_sha256": "cf39ef220692ad5873123fff561939cdc72d4f9b4da99ca138a6fe6cc1e6477a",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Gentle torso breathing and friendly head tilt, planted feet."
+    },
+    {
+      "id": "making_something",
+      "meaning": "Repeated small shaping gestures over an imaginary workpiece; no visible prop or articulated fingers."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Small raised-arm celebration and nod; feet remain in the authored rest pose."
+    },
+    {
+      "id": "working",
+      "meaning": "Slower inspection head turns with two short hand adjustments; no visible prop or articulated fingers."
+    }
+  ],
+  "style": "Premium animated-film character. Dense soft ivory and charcoal fur, warm brown expressive eyes, rounded plush proportions. Green dragon with fine scales, pale belly, horns and thin wing membranes. Preserve the reference palette and identity; no clothing, pedestal, text or extra characters.",
+  "subject": "Muse panda with a small green shoulder dragon",
+  "weight_constraints": {
+    "fallback_bone": "Spine02",
+    "regions": {
+      "LeftArm": {
+        "center": [
+          0.8,
+          0.5,
+          0.49
+        ],
+        "radius": [
+          0.16,
+          0.32,
+          0.16
+        ]
+      },
+      "LeftForeArm": {
+        "center": [
+          0.87,
+          0.5,
+          0.37
+        ],
+        "radius": [
+          0.16,
+          0.32,
+          0.17
+        ]
+      },
+      "LeftHand": {
+        "center": [
+          0.91,
+          0.5,
+          0.27
+        ],
+        "radius": [
+          0.13,
+          0.32,
+          0.14
+        ]
+      },
+      "LeftLeg": {
+        "center": [
+          0.7,
+          0.5,
+          0.08
+        ],
+        "radius": [
+          0.23,
+          0.45,
+          0.12
+        ]
+      },
+      "LeftShoulder": {
+        "center": [
+          0.68,
+          0.5,
+          0.51
+        ],
+        "radius": [
+          0.22,
+          0.36,
+          0.13
+        ]
+      },
+      "LeftUpLeg": {
+        "center": [
+          0.7,
+          0.5,
+          0.12
+        ],
+        "radius": [
+          0.23,
+          0.45,
+          0.16
+        ]
+      },
+      "RightArm": {
+        "center": [
+          0.2,
+          0.25,
+          0.53
+        ],
+        "radius": [
+          0.17,
+          0.28,
+          0.14
+        ]
+      },
+      "RightForeArm": {
+        "center": [
+          0.2,
+          0.23,
+          0.46
+        ],
+        "radius": [
+          0.17,
+          0.25,
+          0.15
+        ]
+      },
+      "RightHand": {
+        "center": [
+          0.25,
+          0.26,
+          0.4
+        ],
+        "radius": [
+          0.16,
+          0.25,
+          0.15
+        ]
+      },
+      "RightLeg": {
+        "center": [
+          0.3,
+          0.4,
+          0.08
+        ],
+        "radius": [
+          0.23,
+          0.45,
+          0.12
+        ]
+      },
+      "RightShoulder": {
+        "center": [
+          0.25,
+          0.5,
+          0.51
+        ],
+        "radius": [
+          0.22,
+          0.36,
+          0.13
+        ]
+      },
+      "RightUpLeg": {
+        "center": [
+          0.3,
+          0.4,
+          0.12
+        ],
+        "radius": [
+          0.23,
+          0.45,
+          0.16
+        ]
+      }
+    }
+  },
+  "surface_smoothing": {
+    "iterations": 10,
+    "strength": 0.35,
+    "max_displacement_ratio": 0.025,
+    "feather": 0.5,
+    "exclusions": [
+      {
+        "center": [
+          0.45,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.66,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.56,
+          0.08,
+          0.67
+        ],
+        "radius": [
+          0.07,
+          0.17,
+          0.055
+        ]
+      },
+      {
+        "center": [
+          0.11,
+          0.22,
+          0.68
+        ],
+        "radius": [
+          0.16,
+          0.34,
+          0.24
+        ]
+      }
+    ]
+  }
+}

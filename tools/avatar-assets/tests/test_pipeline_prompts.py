@@ -127,6 +127,21 @@ class AuthorContractTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 self.config({"status": "ready", "reason": "", "design_json": text})
 
+    def test_surface_profiles_preserve_identity_and_reject_execution_fields(self):
+        candidate = design()
+        profile = {"name": "shell", "regions": [], "brightness": [0, 1.01], "max_chroma": 1,
+                   "roughness": .6, "metallic": 0, "normal_strength": .3, "min_faces": 1, "max_faces": 100000}
+        candidate["surface_profiles"] = [profile]
+        cfg = self.config(author_response(candidate))
+        self.assertEqual(cfg["surface_profiles"], [profile])
+        self.assertEqual(cfg["subject"], plan()["subject"])
+        self.assertEqual(cfg["source"], "/selected/model.glb")
+        for extra in ({"source": "/unrelated"}, {"max_faces": 100001}, {"metallic": float("inf")}):
+            bad = deepcopy(candidate)
+            bad["surface_profiles"][0].update(extra)
+            with self.assertRaises(ValueError):
+                self.config(author_response(bad))
+
     def test_static_repeated_short_and_unbound_curves_fail(self):
         for mutate in (
             lambda d: d["authored_actions"][0]["keys"][1].update(rotations={}),

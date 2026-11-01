@@ -1,0 +1,198 @@
+............................................................EEEEEEEE......................................................................................................{"stage": "geometry", "status": "awaiting_generation_authorization"}
+..{"stage": "fixture", "status": "checked"}
+...{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+........{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+.....................................................................................................................................................................
+======================================================================
+ERROR: test_all_mutations_are_rejected (test_gallery.HTTPTests.test_all_mutations_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_duplicate_host_is_rejected (test_gallery.HTTPTests.test_duplicate_host_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_host_origin_and_fetch_site_guards (test_gallery.HTTPTests.test_host_origin_and_fetch_site_guards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_loopback_only_and_catalog_get_head_etag (test_gallery.HTTPTests.test_loopback_only_and_catalog_get_head_etag)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_static_whitelist_and_exact_model_download (test_gallery.HTTPTests.test_static_whitelist_and_exact_model_download)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_symlink_swap_and_changed_asset_fail_closed (test_gallery.HTTPTests.test_symlink_swap_and_changed_asset_fail_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_traversal_and_absolute_request_targets_are_rejected (test_gallery.HTTPTests.test_traversal_and_absolute_request_targets_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+======================================================================
+ERROR: test_video_ranges_head_and_weak_if_range (test_gallery.HTTPTests.test_video_ranges_head_and_weak_if_range)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_gallery.py", line 262, in setUp
+    self.server = gallery.create_server(port=0)
+                  ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 558, in create_server
+    return _Server(_Catalog(root, str(_relative(relative))), port)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/gallery.py", line 508, in __init__
+    super().__init__(("127.0.0.1", port), _Handler)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 457, in __init__
+    self.server_bind()
+    ~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/server.py", line 148, in server_bind
+    socketserver.TCPServer.server_bind(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 1] Operation not permitted
+
+----------------------------------------------------------------------
+Ran 348 tests in 11.122s
+
+FAILED (errors=8)
+HD_SURFACE_MEASUREMENTS=[{"elapsed_seconds": 0.05227, "incremental_peak_rss_bytes": 47513600, "normal_detail_residual_from_512": 0.005690624471753836, "pattern": "brushed", "peak_rss_bytes": 83886080, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.207251, "incremental_peak_rss_bytes": 166346752, "normal_detail_residual_from_512": 0.011063765734434128, "pattern": "brushed", "peak_rss_bytes": 202719232, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.103857, "incremental_peak_rss_bytes": 56639488, "normal_detail_residual_from_512": 0.04252931848168373, "pattern": "fur", "peak_rss_bytes": 92995584, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.41155, "incremental_peak_rss_bytes": 195526656, "normal_detail_residual_from_512": 0.0704735517501831, "pattern": "fur", "peak_rss_bytes": 232226816, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.088746, "incremental_peak_rss_bytes": 61947904, "normal_detail_residual_from_512": 0.0016504161758348346, "pattern": "iris", "peak_rss_bytes": 98697216, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.346019, "incremental_peak_rss_bytes": 177930240, "normal_detail_residual_from_512": 0.0023371647112071514, "pattern": "iris", "peak_rss_bytes": 214253568, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.218913, "incremental_peak_rss_bytes": 69894144, "normal_detail_residual_from_512": 0.00608360581099987, "pattern": "scales", "peak_rss_bytes": 106217472, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.918032, "incremental_peak_rss_bytes": 196198400, "normal_detail_residual_from_512": 0.010090735740959644, "pattern": "scales", "peak_rss_bytes": 233029632, "resolution": 2048, "returned_array_bytes": 134217728}]

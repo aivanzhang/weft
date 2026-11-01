@@ -1,0 +1,539 @@
+{
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "matrix_world": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        -1.4901161193847656e-08
+      ],
+      [
+        0.0,
+        0.013332166709005833,
+        -0.9999111294746399,
+        -3.6000001430511475
+      ],
+      [
+        0.0,
+        0.9999111294746399,
+        0.013332166709005833,
+        0.6480000019073486
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "name": "PortraitCamera",
+    "ortho_scale": 1.3680001497268677,
+    "type": "ORTHO"
+  },
+  "coincident_geometry_candidates": [
+    {
+      "objects": [
+        "char1",
+        "NativeGroom_char1"
+      ],
+      "same_ordered_geometry_within_rounding_1e_6": true,
+      "saved_hide_render": [
+        false,
+        false
+      ],
+      "saved_show_instancer_for_render": [
+        true,
+        false
+      ]
+    }
+  ],
+  "embedded_text_blocks_not_executed": 0,
+  "external_dependencies_loaded": false,
+  "hair": [
+    {
+      "clump_factor": 0.05999999865889549,
+      "configured_fiber_upper_bound": 299000,
+      "dynamics": false,
+      "length": 0.008999999612569809,
+      "object": "NativeGroom_char1",
+      "parents_configured": 6500,
+      "parents_stored": 6500,
+      "radius_scale": 7.999999797903001e-05,
+      "render_children": 45,
+      "show_emitter_surface": false,
+      "system": "NativeGroom_char1_editable_hair"
+    }
+  ],
+  "images": [
+    {
+      "colorspace": "sRGB",
+      "name": "Image_0",
+      "packed": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "Non-Color",
+      "name": "Image_1",
+      "packed": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "Non-Color",
+      "name": "normal",
+      "packed": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "sRGB",
+      "name": "PortableCoat_0_fur_atlas",
+      "packed": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "sRGB",
+      "name": "PortableCoat_1_fur_atlas",
+      "packed": true,
+      "size": [
+        1024,
+        1024
+      ],
+      "source": "FILE"
+    }
+  ],
+  "lights": [
+    {
+      "energy": 936.0001220703125,
+      "matrix_world": [
+        [
+          0.8320502638816833,
+          0.41202110052108765,
+          -0.37139061093330383,
+          -2.4000000953674316
+        ],
+        [
+          -0.5547002553939819,
+          0.6180314421653748,
+          -0.5570859909057617,
+          -3.6000001430511475
+        ],
+        [
+          -1.0293138075212482e-07,
+          0.6695340275764465,
+          0.742781400680542,
+          5.400000095367432
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Key",
+      "type": "AREA"
+    },
+    {
+      "energy": 360.00006103515625,
+      "matrix_world": [
+        [
+          0.5547000765800476,
+          -0.4036036431789398,
+          0.727607011795044,
+          3.6000001430511475
+        ],
+        [
+          0.8320503830909729,
+          0.26906898617744446,
+          -0.48507118225097656,
+          -2.4000000953674316
+        ],
+        [
+          2.314783209556026e-08,
+          0.8744747042655945,
+          0.4850711524486542,
+          3.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Fill",
+      "type": "AREA"
+    },
+    {
+      "energy": 648.0001220703125,
+      "matrix_world": [
+        [
+          -0.9486833214759827,
+          -0.21764282882213593,
+          0.22941577434539795,
+          1.2000000476837158
+        ],
+        [
+          0.3162277638912201,
+          -0.6529285907745361,
+          0.6882472634315491,
+          3.6000001430511475
+        ],
+        [
+          2.868086568241779e-08,
+          0.7254763245582581,
+          0.6882471442222595,
+          4.200000286102295
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Rim",
+      "type": "AREA"
+    }
+  ],
+  "limitations": [
+    "Coincidence checks compare matching vertex order rounded to 1e-6; they do not test arbitrary intersections.",
+    "A copied groom emitter is expected; matching geometry alone does not prove a visible double surface.",
+    "Native CPU rendering of cards does not establish browser-renderer appearance."
+  ],
+  "materials": [
+    {
+      "backface_culling": false,
+      "name": "Material_0",
+      "normal_map_strengths": [
+        0.11999999731779099
+      ],
+      "principled": [
+        {
+          "Alpha": {
+            "linked": false,
+            "value": 1.0
+          },
+          "Metallic": {
+            "linked": true,
+            "value": 0.0
+          },
+          "Roughness": {
+            "linked": true,
+            "value": 0.5
+          }
+        }
+      ],
+      "shaders": [
+        "ShaderNodeBsdfPrincipled"
+      ],
+      "surface_render_method": "DITHERED",
+      "textures": [
+        "Image_0",
+        "Image_1",
+        "normal"
+      ],
+      "use_nodes": true
+    },
+    {
+      "backface_culling": false,
+      "name": "NativeGroom_Material_0_hair",
+      "normal_map_strengths": [],
+      "principled": [],
+      "shaders": [
+        "ShaderNodeBsdfHairPrincipled"
+      ],
+      "surface_render_method": "DITHERED",
+      "textures": [
+        "Image_0"
+      ],
+      "use_nodes": true
+    },
+    {
+      "backface_culling": true,
+      "name": "PortableCoat_0_cutout_fur",
+      "normal_map_strengths": [],
+      "principled": [
+        {
+          "Alpha": {
+            "linked": true,
+            "value": 1.0
+          },
+          "Metallic": {
+            "linked": false,
+            "value": 0.0
+          },
+          "Roughness": {
+            "linked": false,
+            "value": 0.7799999713897705
+          }
+        }
+      ],
+      "shaders": [
+        "ShaderNodeBsdfPrincipled"
+      ],
+      "surface_render_method": "DITHERED",
+      "textures": [
+        "PortableCoat_0_fur_atlas"
+      ],
+      "use_nodes": true
+    },
+    {
+      "backface_culling": true,
+      "name": "PortableCoat_1_cutout_fur",
+      "normal_map_strengths": [],
+      "principled": [
+        {
+          "Alpha": {
+            "linked": true,
+            "value": 1.0
+          },
+          "Metallic": {
+            "linked": false,
+            "value": 0.0
+          },
+          "Roughness": {
+            "linked": false,
+            "value": 0.7799999713897705
+          }
+        }
+      ],
+      "shaders": [
+        "ShaderNodeBsdfPrincipled"
+      ],
+      "surface_render_method": "DITHERED",
+      "textures": [
+        "PortableCoat_1_fur_atlas"
+      ],
+      "use_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "faces": 61939,
+      "hide_render": false,
+      "materials": [
+        "Material_0"
+      ],
+      "modifiers": [
+        {
+          "show_render": true,
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "char1",
+      "role": "base",
+      "show_instancer_for_render": true,
+      "smooth_faces": 61939,
+      "vertices": 67787,
+      "world_bounds": {
+        "max": [
+          0.4536469876766205,
+          0.43445438146591187,
+          1.1906942129135132
+        ],
+        "min": [
+          -0.4530447721481323,
+          -0.4425346553325653,
+          0.007653805427253246
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "67d1b258f64ea9e68733d55a79932e5f335918d89baeccae41d3dd603a782061"
+    },
+    {
+      "faces": 61939,
+      "hide_render": false,
+      "materials": [
+        "Material_0",
+        "NativeGroom_Material_0_hair"
+      ],
+      "modifiers": [
+        {
+          "show_render": true,
+          "type": "ARMATURE"
+        },
+        {
+          "show_render": true,
+          "type": "PARTICLE_SYSTEM"
+        }
+      ],
+      "name": "NativeGroom_char1",
+      "role": "native_groom",
+      "show_instancer_for_render": false,
+      "smooth_faces": 61939,
+      "vertices": 67787,
+      "world_bounds": {
+        "max": [
+          0.4536469876766205,
+          0.43445438146591187,
+          1.1906942129135132
+        ],
+        "min": [
+          -0.4530447721481323,
+          -0.4425346553325653,
+          0.007653805427253246
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "67d1b258f64ea9e68733d55a79932e5f335918d89baeccae41d3dd603a782061"
+    },
+    {
+      "faces": 5280,
+      "hide_render": true,
+      "materials": [
+        "PortableCoat_0_cutout_fur"
+      ],
+      "modifiers": [
+        {
+          "show_render": true,
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "PortableCoat_0",
+      "role": "portable_cards",
+      "show_instancer_for_render": true,
+      "smooth_faces": 0,
+      "vertices": 7920,
+      "world_bounds": {
+        "max": [
+          0.46001845598220825,
+          0.44440019130706787,
+          1.1910899877548218
+        ],
+        "min": [
+          -0.4477459192276001,
+          -0.397600919008255,
+          -0.0014354747254401445
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "101bbbb57d238677267365471f0d7b165fcd3b2f098e0b62fddbe4028c0d8cf4"
+    },
+    {
+      "faces": 4320,
+      "hide_render": true,
+      "materials": [
+        "PortableCoat_1_cutout_fur"
+      ],
+      "modifiers": [
+        {
+          "show_render": true,
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "PortableCoat_1",
+      "role": "portable_cards",
+      "show_instancer_for_render": true,
+      "smooth_faces": 0,
+      "vertices": 6480,
+      "world_bounds": {
+        "max": [
+          0.3649846315383911,
+          0.32808998227119446,
+          1.156050682067871
+        ],
+        "min": [
+          -0.3258858919143677,
+          -0.40894195437431335,
+          0.07031024247407913
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "d648b656754704193c29ea220125ced79103009f6b0e0032c0c602f04905e534"
+    },
+    {
+      "faces": 80,
+      "hide_render": false,
+      "materials": [],
+      "modifiers": [],
+      "name": "Icosphere",
+      "role": "base",
+      "show_instancer_for_render": true,
+      "smooth_faces": 0,
+      "vertices": 42,
+      "world_bounds": {
+        "max": [
+          0.9510578513145447,
+          0.9999999403953552,
+          1.0
+        ],
+        "min": [
+          -0.9510578513145447,
+          -0.9999999403953552,
+          -1.0
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "2df180b7bf1c597dd5872c022136dbaf64bc1467cd748d1428680b92b54a53c4"
+    }
+  ],
+  "pose": {
+    "armatures": {
+      "Armature": "REST"
+    },
+    "frame": 96,
+    "subframe": 0.0
+  },
+  "schema_version": 1,
+  "scope": "Same saved pose/camera/light; static diagnostic only, not a new asset or animation validation",
+  "source_blend_sha256": "953a4ea2cdd7dc4cdffb8182b4d55f1fdeb4838f86081fff1ed0ee84c3884d5b",
+  "source_unchanged": true,
+  "variants": [
+    {
+      "denoised": true,
+      "diagnostic_material_overrides": [
+        {
+          "clone": "LookdevClay_Material_0",
+          "object": "char1",
+          "original": "Material_0"
+        }
+      ],
+      "diagnostic_surface_override": {
+        "base_color_linear": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "disconnected_principled_inputs": [
+          "Base Color",
+          "Normal",
+          "Metallic",
+          "Roughness"
+        ],
+        "geometry_unchanged": true,
+        "metallic": 0,
+        "normal_map_strength": 0,
+        "roughness": 0.8,
+        "scope": "Uniform-color diagnostic, not a replacement texture or quality improvement"
+      },
+      "hidden_objects": [
+        "NativeGroom_char1",
+        "PortableCoat_0",
+        "PortableCoat_1"
+      ],
+      "id": "base_clay",
+      "path": "base_clay.png",
+      "resolution": [
+        640,
+        640
+      ],
+      "samples": 16,
+      "seconds": 1.6854166670236737,
+      "sha256": "8c246804eb69535b85dbeaf09b6427b7175a0cfd04ec5087257dee2079d8b777"
+    }
+  ],
+  "world": "SoftStudio"
+}

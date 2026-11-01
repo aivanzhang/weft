@@ -1,0 +1,769 @@
+{
+  "artifacts": [
+    {
+      "bytes": 843,
+      "path": "base_clay-receipt.json",
+      "sha256": "eb31d0e10a668cb633c1be4500005d362c484f1f6fe652eaef74471ca72e42d2"
+    },
+    {
+      "bytes": 327476,
+      "path": "base_clay.png",
+      "sha256": "3a9a13e029ef381ba110270c39a4afd3b9d1bdd0178af376b268b1f4d6c3357d"
+    },
+    {
+      "bytes": 316,
+      "path": "baseline_native-receipt.json",
+      "sha256": "2579b5fd9c330d822d374d0f4c963322ff941198e9dbfda1f00e6d9fb6e9619d"
+    },
+    {
+      "bytes": 386850,
+      "path": "baseline_native.png",
+      "sha256": "c4c0778ce788827a92900ff630ee23b83bf76f5106ed43bd121697e56cc587a0"
+    },
+    {
+      "bytes": 663,
+      "path": "config.json",
+      "sha256": "c3776f0eeb44064bc825a20af7ebc4c2f8a106169b416d3e3599027f1cac2bd2"
+    },
+    {
+      "bytes": 11160,
+      "path": "input-receipt.json",
+      "sha256": "4115a92f99f9676b79eff36eba2d5f07968ee869be038d9a94448799aab8c8c0"
+    },
+    {
+      "bytes": 1443,
+      "path": "job.json",
+      "sha256": "cb6f8e6d9eb2c9f88f84693422be932344561e598e4c1352fe0a13d0d90285b3"
+    },
+    {
+      "bytes": 520,
+      "path": "lookdev-handle.json",
+      "sha256": "d33f69a9258f30f4e60c5206a09123cfc408c971434e25b1014f59b81a232eba"
+    },
+    {
+      "bytes": 1309,
+      "path": "lookdev-monitor.json",
+      "sha256": "561d6373cebd617cdf80705567150ce7b81558304869956c1e550304f45ebec2"
+    },
+    {
+      "bytes": 12316,
+      "path": "lookdev.log",
+      "sha256": "d1c06482cb27b49eae9719526ca9f3f358e7c15849f323f5a4fe9b6ebaaa0119"
+    },
+    {
+      "bytes": 6770,
+      "path": "native-report.json",
+      "sha256": "ef74c406ec47bd416cc582437d9b0f50b173d7de6931c6f916e35f12967b8c07"
+    },
+    {
+      "bytes": 48713,
+      "path": "source-manifest.json",
+      "sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437"
+    },
+    {
+      "bytes": 16436,
+      "path": "sources/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087"
+    },
+    {
+      "bytes": 9497,
+      "path": "sources/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--offline-mode",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-lookdev-dragon-polish-v1/sources/blender_lookdev.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-lookdev-dragon-polish-v1/config.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 4.15,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 822839,
+    "last_rss_sample_elapsed_seconds": 3.889,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 256,
+      "rss_mb": 2048,
+      "wall_seconds": 300
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "lookdev-monitor.json",
+    "monitor_errors": [],
+    "pid": 75099,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 15,
+    "sampled_max_output_bytes": 822839,
+    "sampled_peak_rss_bytes": 1026097152,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_model_lookdev",
+  "native": {
+    "blender_version": "4.5.13 LTS",
+    "camera": {
+      "matrix_world": [
+        [
+          0.8574928641319275,
+          0.017636742442846298,
+          -0.5141934156417847,
+          -3.9621477127075195
+        ],
+        [
+          -0.514495849609375,
+          0.029394516721367836,
+          -0.8569889068603516,
+          -6.37346887588501
+        ],
+        [
+          -2.5017241611635654e-08,
+          0.9994122982025146,
+          0.03427961841225624,
+          1.0423825979232788
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "PortraitCamera",
+      "ortho_scale": 1.9223192930221558,
+      "type": "ORTHO"
+    },
+    "coincident_geometry_candidates": [],
+    "embedded_text_blocks_not_executed": 0,
+    "external_dependencies_loaded": false,
+    "hair": [],
+    "images": [
+      {
+        "colorspace": "sRGB",
+        "name": "Image_0",
+        "packed": true,
+        "size": [
+          4096,
+          4096
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "Non-Color",
+        "name": "Image_1",
+        "packed": true,
+        "size": [
+          2048,
+          2048
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "Non-Color",
+        "name": "Image_2",
+        "packed": true,
+        "size": [
+          4096,
+          4096
+        ],
+        "source": "FILE"
+      }
+    ],
+    "lights": [
+      {
+        "energy": 2989.680908203125,
+        "matrix_world": [
+          [
+            0.8320503234863281,
+            0.41202086210250854,
+            -0.3713907301425934,
+            -4.28929328918457
+          ],
+          [
+            -0.5547001361846924,
+            0.61803138256073,
+            -0.5570861101150513,
+            -6.4339399337768555
+          ],
+          [
+            2.274588872808181e-08,
+            0.6695342063903809,
+            0.7427812218666077,
+            9.378586769104004
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Key",
+        "type": "AREA"
+      },
+      {
+        "energy": 1149.8773193359375,
+        "matrix_world": [
+          [
+            0.5547000169754028,
+            -0.40360355377197266,
+            0.7276070713996887,
+            6.4339399337768555
+          ],
+          [
+            0.8320503830909729,
+            0.2690689265727997,
+            -0.4850711524486542,
+            -4.28929328918457
+          ],
+          [
+            -2.2136408261985707e-08,
+            0.8744747638702393,
+            0.4850710332393646,
+            5.089293479919434
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Fill",
+        "type": "AREA"
+      },
+      {
+        "energy": 2069.779052734375,
+        "matrix_world": [
+          [
+            -0.9486833214759827,
+            -0.2176428735256195,
+            0.22941574454307556,
+            2.144646644592285
+          ],
+          [
+            0.3162277638912201,
+            -0.6529285311698914,
+            0.6882472634315491,
+            6.4339399337768555
+          ],
+          [
+            -2.3475022814523072e-08,
+            0.7254763245582581,
+            0.6882471442222595,
+            7.233940124511719
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Rim",
+        "type": "AREA"
+      }
+    ],
+    "limitations": [
+      "Coincidence checks compare matching vertex order rounded to 1e-6; they do not test arbitrary intersections.",
+      "A copied groom emitter is expected; matching geometry alone does not prove a visible double surface.",
+      "Native CPU rendering of cards does not establish browser-renderer appearance."
+    ],
+    "materials": [
+      {
+        "backface_culling": false,
+        "name": "Material_0",
+        "normal_map_strengths": [
+          0.6000000238418579
+        ],
+        "principled": [
+          {
+            "Alpha": {
+              "linked": false,
+              "value": 1.0
+            },
+            "Metallic": {
+              "linked": true,
+              "value": 0.0
+            },
+            "Roughness": {
+              "linked": true,
+              "value": 0.5
+            }
+          }
+        ],
+        "shaders": [
+          "ShaderNodeBsdfPrincipled"
+        ],
+        "surface_render_method": "DITHERED",
+        "textures": [
+          "Image_0",
+          "Image_1",
+          "Image_2"
+        ],
+        "use_nodes": true
+      }
+    ],
+    "meshes": [
+      {
+        "faces": 36501,
+        "hide_render": false,
+        "materials": [
+          "Material_0"
+        ],
+        "modifiers": [
+          {
+            "show_render": true,
+            "type": "ARMATURE"
+          }
+        ],
+        "name": "Mesh_0",
+        "role": "base",
+        "show_instancer_for_render": true,
+        "smooth_faces": 36501,
+        "vertices": 36010,
+        "world_bounds": {
+          "max": [
+            0.5322285890579224,
+            1.0734333992004395,
+            1.6002962589263916
+          ],
+          "min": [
+            -0.5317261219024658,
+            -1.072178840637207,
+            -0.00021887118055019528
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "0bc363afef7b36a81717510a65806df73e980b717ae2674aa48ba21765438dc8"
+      }
+    ],
+    "pose": {
+      "armatures": {
+        "CreatureRig": "REST"
+      },
+      "frame": 96,
+      "subframe": 0.0
+    },
+    "schema_version": 1,
+    "scope": "Same saved pose/camera/light; static diagnostic only, not a new asset or animation validation",
+    "source_blend_sha256": "977eb2953b6eb0ef7cab33f6d5a653051725e7927b40973ce06d2a3c9bbcfd65",
+    "source_unchanged": true,
+    "variants": [
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [],
+        "hidden_objects": [],
+        "id": "baseline_native",
+        "path": "baseline_native.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.5913175831083208,
+        "sha256": "c4c0778ce788827a92900ff630ee23b83bf76f5106ed43bd121697e56cc587a0"
+      },
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [
+          {
+            "clone": "LookdevClay_Material_0",
+            "object": "Mesh_0",
+            "original": "Material_0"
+          }
+        ],
+        "diagnostic_surface_override": {
+          "base_color_linear": [
+            0.5,
+            0.5,
+            0.5,
+            1
+          ],
+          "disconnected_principled_inputs": [
+            "Base Color",
+            "Normal",
+            "Metallic",
+            "Roughness"
+          ],
+          "geometry_unchanged": true,
+          "metallic": 0,
+          "normal_map_strength": 0,
+          "roughness": 0.8,
+          "scope": "Uniform-color diagnostic, not a replacement texture or quality improvement"
+        },
+        "hidden_objects": [],
+        "id": "base_clay",
+        "path": "base_clay.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.434598291059956,
+        "sha256": "3a9a13e029ef381ba110270c39a4afd3b9d1bdd0178af376b268b1f4d6c3357d"
+      }
+    ],
+    "world": "SoftStudio"
+  },
+  "new_provider_cost_usd": 0,
+  "original_pack_unchanged": true,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "scope": "Diagnostic shading/visibility comparisons, not a repaired or improved avatar",
+  "source": {
+    "artifacts": [
+      {
+        "bytes": 121,
+        "path": "blender-extensions/.cache/compat.dat",
+        "sha256": "9567019217f7aa756d77edd97098c2576f2c813f145ae92e1c229036b7290c33"
+      },
+      {
+        "bytes": 3969,
+        "path": "exported-nodes.json",
+        "sha256": "a266350f39c3e27d201b53fc1381609c8858d82df52f51f172e7e99ab0afac26"
+      },
+      {
+        "bytes": 12809,
+        "path": "finish-config.json",
+        "sha256": "950913160ad340787738244b37b8e7381ba7de6fedd14cdc5fde853034e17ac7"
+      },
+      {
+        "bytes": 581,
+        "path": "finish-handle.json",
+        "sha256": "b6aef2698e04bcef1d36caaca41a991167cb7d2de3498301d847a7c0d705fd54"
+      },
+      {
+        "bytes": 1377,
+        "path": "finish-monitor.json",
+        "sha256": "4e2b285873fec133450072bae9467675a0c29b854aed9e8ad60dc740713de06a"
+      },
+      {
+        "bytes": 26026,
+        "path": "finish-report.json",
+        "sha256": "6375a7988540b0c6be9d65794fa901c555cdfab3d3d4218813ef5a3b9d76610c"
+      },
+      {
+        "bytes": 148578,
+        "path": "finish.log",
+        "sha256": "cd00136b8d8c17a9c850d9abdbf3e8778c0aa728fb555345463c6829560bae38"
+      },
+      {
+        "bytes": 1511,
+        "path": "job.json",
+        "sha256": "7492ba3af6bcb56e71cb993269a1d203f873fdaf6d3b78da81df3142fc080170"
+      },
+      {
+        "bytes": 26485640,
+        "path": "model-native-export.glb",
+        "sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381"
+      },
+      {
+        "bytes": 26485640,
+        "path": "model.glb",
+        "sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381"
+      },
+      {
+        "bytes": 546691,
+        "path": "portrait.png",
+        "sha256": "8284375394de1e925ba36768862aabae5afd28dfb91242a27926235da8d8cdf8"
+      },
+      {
+        "bytes": 879,
+        "path": "render-attributes.json",
+        "sha256": "ecabeb16756ffabbbc644cbb9ba45e2ec8d072d6d868629ed997a8c28b58ae45"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/idle/0000.png",
+        "sha256": "1c2d1bb7e44d22ed580817acec377f3c6dfd31c369ba23bce0be1f2458b4ebb6"
+      },
+      {
+        "bytes": 152117,
+        "path": "renders/idle/0001.png",
+        "sha256": "7e2f40d165c1da15c9d38fff21c1b547e7afaa6bed56028e116331d6324668dc"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/idle/0002.png",
+        "sha256": "1bdf496fcf92bc216455852a0126ce24bfd70c7730222eadc64aecac1febfc2e"
+      },
+      {
+        "bytes": 151508,
+        "path": "renders/idle/0003.png",
+        "sha256": "851dc68cf825c14bc2abde9904850af6a2e49b099c015f0d295396b868a2af2a"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/idle/0004.png",
+        "sha256": "76f840907a2e34166d25caa1bd876a4764875a874407b2e5ea418ad16a1a683e"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/look_around/0000.png",
+        "sha256": "2ba3d76c898c0302b01a1639ad0bea772ec1823c0c57a417133d239b1887f9c6"
+      },
+      {
+        "bytes": 152073,
+        "path": "renders/look_around/0001.png",
+        "sha256": "147d0a6baa3a4116566b97ff373fbc210d33c1dfacefa106b24cd108f48ac8b7"
+      },
+      {
+        "bytes": 152268,
+        "path": "renders/look_around/0002.png",
+        "sha256": "bcf9f0f8a44fac884777396a2d7dc750610836469f17c2e9e61ed32f1e06ddf2"
+      },
+      {
+        "bytes": 152068,
+        "path": "renders/look_around/0003.png",
+        "sha256": "96e25cc3c72a39f23c0f0152be81ea1c1e67e835d22ae4d4c3d930cda60597b2"
+      },
+      {
+        "bytes": 152125,
+        "path": "renders/look_around/0004.png",
+        "sha256": "92f8678a34df8f2f10c08d23be3f576e891a94d02bdfd717a02243da8e1a4b69"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/look_around/0005.png",
+        "sha256": "e58a924d5a3332b948a88568a5b7583a5b943bf71c56d0e3894ca48ca2a08892"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/milestone_level_up/0000.png",
+        "sha256": "6804958953bcb98685267ffdd8eca537262a40be6f27eb89de902cfe825f639c"
+      },
+      {
+        "bytes": 151742,
+        "path": "renders/milestone_level_up/0001.png",
+        "sha256": "46d8dffc28f9c0c65a7c5910465dd4360651716d31cd2e95a7a11c13adc83358"
+      },
+      {
+        "bytes": 151210,
+        "path": "renders/milestone_level_up/0002.png",
+        "sha256": "19ec45c73f0b0ca882a23cbd1f6ca389d13e04e6629468ffc62390b168cd5719"
+      },
+      {
+        "bytes": 151663,
+        "path": "renders/milestone_level_up/0003.png",
+        "sha256": "97ed2774bd85bcbc744f3d72a5acbcac2fbacd2ddfd094ae51fa8a590e0d6f42"
+      },
+      {
+        "bytes": 151531,
+        "path": "renders/milestone_level_up/0004.png",
+        "sha256": "9742faa1128540db65b4d9b81b45b935201dd65378b706b2a5a380e21ecc7cda"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/milestone_level_up/0005.png",
+        "sha256": "9e3570a8e8d2e20cd9bb7a841f050f7cca334dca81125716848290e2797c9060"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/wing_flap/0000.png",
+        "sha256": "6b412365679439ea90f283b81980284da0893f9507aebc6f9e5ecbb4c56c08b2"
+      },
+      {
+        "bytes": 151384,
+        "path": "renders/wing_flap/0001.png",
+        "sha256": "f7db2e5881acab62180968c51f1bd0819a1dc294705dd099091b1c3f51477254"
+      },
+      {
+        "bytes": 152070,
+        "path": "renders/wing_flap/0002.png",
+        "sha256": "0c5d013656f4dbe869e25d82680b0502d7c52e2134f2d76198e859b47d121cf0"
+      },
+      {
+        "bytes": 151311,
+        "path": "renders/wing_flap/0003.png",
+        "sha256": "cfba97fb7ac83c365e95b0a22ded2027d88720dd6b529002812bd19f8935179b"
+      },
+      {
+        "bytes": 152070,
+        "path": "renders/wing_flap/0004.png",
+        "sha256": "ea00f19eef05a4e6f2be5acba8e4209577e8af24b167290600627c615a09ffaf"
+      },
+      {
+        "bytes": 151571,
+        "path": "renders/wing_flap/0005.png",
+        "sha256": "c242594fe39f0cace98695d4ea7d65ef24f96f686cba44705a2db0067679e81a"
+      },
+      {
+        "bytes": 151792,
+        "path": "renders/wing_flap/0006.png",
+        "sha256": "3e6355dcfa86da2c3bb4138d496850296224b11c415d6355a6125076c0fc592e"
+      },
+      {
+        "bytes": 934,
+        "path": "rig-contract.json",
+        "sha256": "c0a735bd4b49e42df2b9c56f3e416aab81e18157169f4993848216cf044ca86d"
+      },
+      {
+        "bytes": 5679,
+        "path": "rig-verification.json",
+        "sha256": "518ab25c52e58a921b6abcb49e902ea5b2c40052eb2b434d409bedc5ece7d1ca"
+      },
+      {
+        "bytes": 29817969,
+        "path": "source.blend",
+        "sha256": "977eb2953b6eb0ef7cab33f6d5a653051725e7927b40973ce06d2a3c9bbcfd65"
+      },
+      {
+        "bytes": 6130,
+        "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+        "sha256": "5b3acd8df0af2262ddaac1e77d71bf6ba4c83602d27a5e552ea9881469175fe3"
+      },
+      {
+        "bytes": 44370,
+        "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+        "sha256": "ea9332558597e062bfd427aa960549c60e1718f355eb3e752d412431aa64729d"
+      },
+      {
+        "bytes": 37910,
+        "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+        "sha256": "eb4940e53a4d0c012e4313411f2d0d560eb0cfced4fe2e1d1851bb9617e9c79c"
+      },
+      {
+        "bytes": 12881,
+        "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+        "sha256": "c726c9f3c3ba6862fba16ff98c66622343150e24a626ef2ae8561af0c5ff0c85"
+      },
+      {
+        "bytes": 7678,
+        "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+        "sha256": "fcf485a45bc2873f0f18a2b3ed4145759159fa1728f2b52ed8e14c686f14dc7f"
+      },
+      {
+        "bytes": 8188,
+        "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+        "sha256": "101c9892de69c49eaf8ab22dbc21e2750fc00001b59ed42077341d0598cd58c6"
+      },
+      {
+        "bytes": 12385,
+        "path": "sources/__pycache__/surface_smoothing.cpython-311.pyc",
+        "sha256": "74dadb15dbe02d26968efaf593d8f06e11e41b20868b1c5d4aa2352c12e68e99"
+      },
+      {
+        "bytes": 2807,
+        "path": "sources/__pycache__/surface_smoothing_config.cpython-311.pyc",
+        "sha256": "2915646e14d08ad7faaf82fd200d759690e964d250fe9d4c91908cd719fa6718"
+      },
+      {
+        "bytes": 20236,
+        "path": "sources/blender_comb_groom.py",
+        "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+      },
+      {
+        "bytes": 2710,
+        "path": "sources/blender_creature_rig.py",
+        "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+      },
+      {
+        "bytes": 26431,
+        "path": "sources/blender_finish_generated.py",
+        "sha256": "ef7d341832ad95f5e43aba19817c5cd5c0fc6befa9e1a2553ac3ea2cc8f6c19d"
+      },
+      {
+        "bytes": 7860,
+        "path": "sources/blender_fur_cards.py",
+        "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+      },
+      {
+        "bytes": 24601,
+        "path": "sources/blender_native_groom.py",
+        "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+      },
+      {
+        "bytes": 12009,
+        "path": "sources/blender_surface_profiles.py",
+        "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+      },
+      {
+        "bytes": 18248,
+        "path": "sources/blender_verify.py",
+        "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+      },
+      {
+        "bytes": 5399,
+        "path": "sources/creature_rig_math.py",
+        "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+      },
+      {
+        "bytes": 4392,
+        "path": "sources/deformation_diagnostics.py",
+        "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393"
+      },
+      {
+        "bytes": 12720,
+        "path": "sources/finish-design.json",
+        "sha256": "5910ff8afd3e223d03256296874ee647a201b1e7cde6fdca1c59104bc706a11b"
+      },
+      {
+        "bytes": 16974,
+        "path": "sources/finish_generated.py",
+        "sha256": "5f78fd745b12aad2aa1f7c9b1df89adf50860d3ecbbcf3eb7f97377c4b8eb01a"
+      },
+      {
+        "bytes": 2738,
+        "path": "sources/generated_tangents.py",
+        "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+      },
+      {
+        "bytes": 4147,
+        "path": "sources/motion_samples.py",
+        "sha256": "842538d315cfd84117b896198460febbe8b2e098dc087d90baf8d926dc7fe3fe"
+      },
+      {
+        "bytes": 2675,
+        "path": "sources/surface_profiles.py",
+        "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+      },
+      {
+        "bytes": 7014,
+        "path": "sources/surface_smoothing.py",
+        "sha256": "ef7108692827f7fccff66c58d4f3d4186f0c5fa893edcfa7c10e8da5d4423154"
+      },
+      {
+        "bytes": 1616,
+        "path": "sources/surface_smoothing_config.py",
+        "sha256": "0b9597ec28969a1246cf9e725d745df83e94dbe4603d82c3dc22b32d27e766f3"
+      },
+      {
+        "bytes": 487,
+        "path": "tangent-repair.json",
+        "sha256": "194c7c785f532fe135692a4a4763caf6140ec711fc8e5bc34395b182031c94f3"
+      }
+    ],
+    "blend_header": {
+      "blocks": 37777,
+      "linked_libraries": 0,
+      "scope": "Block-envelope inspection, not a complete Blender-format security verifier",
+      "text_blocks_not_executed": 0,
+      "version_header": "405"
+    },
+    "manifest_sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437",
+    "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-polish-v1",
+    "source_blend_sha256": "977eb2953b6eb0ef7cab33f6d5a653051725e7927b40973ce06d2a3c9bbcfd65",
+    "verified_artifact_count": 64,
+    "verified_input_bytes": 87532562
+  },
+  "status": "needs_visual_review"
+}

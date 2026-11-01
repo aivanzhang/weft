@@ -301,11 +301,13 @@ class Pipeline:
 
     def _diagnostics(self, pack):
         result = {}
+        if (pack/'surface-integrity.json').exists():
+            result['surface_integrity'] = read_json(pack/'surface-integrity.json')
         if (pack/'rig-verification.json').exists():
             result['skin_motion'] = read_json(pack/'rig-verification.json')['motion']
         if (pack/'finish-report.json').exists():
             report = read_json(pack/'finish-report.json')
-            rig = report.get('authored_rig', {})
+            rig = report.get('authored_rig') or {}
             result['weight_coverage'] = {key: rig[key] for key in
                 ('input_world_bounds', 'layers', 'positive_vertices_per_bone') if key in rig}
             result['sampled_states'] = report.get('states', [])

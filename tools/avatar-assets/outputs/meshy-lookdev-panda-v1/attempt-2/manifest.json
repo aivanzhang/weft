@@ -1,0 +1,1000 @@
+{
+  "artifacts": [
+    {
+      "bytes": 510,
+      "path": "base_matte_no_normal-receipt.json",
+      "sha256": "fc56fbf0c20742f2c6399548acc95b8d11b66020f3123e763b41a04eff460037"
+    },
+    {
+      "bytes": 393308,
+      "path": "base_matte_no_normal.png",
+      "sha256": "84c3d63d42e640287746b7fc8267d17979f141c3ede63a4d03fe1c840f86ca76"
+    },
+    {
+      "bytes": 375,
+      "path": "base_only-receipt.json",
+      "sha256": "5379ff71b702fedf810911a870af49eaebf475dc6ab9f9933cb641fb296ec178"
+    },
+    {
+      "bytes": 407822,
+      "path": "base_only.png",
+      "sha256": "9b38b3f40a2779bdef31f54f2efc0640e7246c1516f5e57163de73bfb06b969d"
+    },
+    {
+      "bytes": 362,
+      "path": "baseline_native-receipt.json",
+      "sha256": "f27cde98bc3d30959cc8edc1971e83227a5e15e7a10c6442b5ce879b7cb8095b"
+    },
+    {
+      "bytes": 406276,
+      "path": "baseline_native.png",
+      "sha256": "045f6cd2e27159f7dd89efdb6b6f039a830d723c03e8efaa5d3ef0b5ff812aed"
+    },
+    {
+      "bytes": 814,
+      "path": "config.json",
+      "sha256": "52fc4919616fc3cbeddb5becb0639edab33fa54d358ac55931f3d171ed27eafe"
+    },
+    {
+      "bytes": 8007,
+      "path": "input-receipt.json",
+      "sha256": "0101e8af40d9a82bf63fcfd1431e710bc2d686e1ecdaeb88c4d547beab8e9f60"
+    },
+    {
+      "bytes": 1452,
+      "path": "job.json",
+      "sha256": "a1bd8dc8411a4ee11d21bf08ea025ee7a795eca95d2685e41417b5f72a17dba9"
+    },
+    {
+      "bytes": 524,
+      "path": "lookdev-handle.json",
+      "sha256": "6143fd74d83dcb45d6a91527df9562286ad15dade30175cf54f4276d30a2a3be"
+    },
+    {
+      "bytes": 1318,
+      "path": "lookdev-monitor.json",
+      "sha256": "6d664675718623dab0050dd1b5ea863c683b7bcb7eb96ebee1403b715a594b9e"
+    },
+    {
+      "bytes": 30946,
+      "path": "lookdev.log",
+      "sha256": "9fab6b9e9ecbf0f3575c8a7cc9353c5429a2360173cea48912923cf4dcae3f56"
+    },
+    {
+      "bytes": 13661,
+      "path": "native-report.json",
+      "sha256": "58cc8106898634eaa7d59654556f2cd3bd5d9e65d4c672808e4f1566b963c64f"
+    },
+    {
+      "bytes": 604,
+      "path": "native_parents_only-receipt.json",
+      "sha256": "93a698d4fe2e075c342ec4b7c435c52f58fa4e99c7f03f51f1ec7c74b59c19d8"
+    },
+    {
+      "bytes": 407488,
+      "path": "native_parents_only.png",
+      "sha256": "f7ed3dd78ee8aac85da3ebebf4a9ca68027068ed79c864f5a60037508c2955d8"
+    },
+    {
+      "bytes": 339,
+      "path": "portable_only-receipt.json",
+      "sha256": "11bfb6d014268b31c70cebd2476d9492eabe612957ead7fcf689bdcf2b438c46"
+    },
+    {
+      "bytes": 415779,
+      "path": "portable_only.png",
+      "sha256": "934c3c7125c90320fca825ca8ae582e6325a76578b070e87408021f6a213c19f"
+    },
+    {
+      "bytes": 32090,
+      "path": "source-manifest.json",
+      "sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380"
+    },
+    {
+      "bytes": 15007,
+      "path": "sources/blender_lookdev.py",
+      "sha256": "a3b80d4aae0a78332fbe4596e2156f9125612b274b1e9c9b0760ad6c609a29bd"
+    },
+    {
+      "bytes": 9005,
+      "path": "sources/lookdev.py",
+      "sha256": "3ef168931fdd2e1326b50b24b4d3712baab9fe453fcd9933a437407defb16886"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--offline-mode",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-lookdev-panda-v1/attempt-2/sources/blender_lookdev.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-lookdev-panda-v1/attempt-2/config.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 12.669,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 2144171,
+    "last_rss_sample_elapsed_seconds": 12.407,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 256,
+      "rss_mb": 2048,
+      "wall_seconds": 300
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "lookdev-monitor.json",
+    "monitor_errors": [],
+    "pid": 69561,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 48,
+    "sampled_max_output_bytes": 2144171,
+    "sampled_peak_rss_bytes": 1695744000,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_model_lookdev",
+  "native": {
+    "blender_version": "4.5.13 LTS",
+    "camera": {
+      "matrix_world": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          -1.4901161193847656e-08
+        ],
+        [
+          0.0,
+          0.013332166709005833,
+          -0.9999111294746399,
+          -3.6000001430511475
+        ],
+        [
+          0.0,
+          0.9999111294746399,
+          0.013332166709005833,
+          0.6480000019073486
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "PortraitCamera",
+      "ortho_scale": 1.3680001497268677,
+      "type": "ORTHO"
+    },
+    "coincident_geometry_candidates": [
+      {
+        "objects": [
+          "char1",
+          "NativeGroom_char1"
+        ],
+        "same_ordered_geometry_within_rounding_1e_6": true,
+        "saved_hide_render": [
+          false,
+          false
+        ],
+        "saved_show_instancer_for_render": [
+          true,
+          false
+        ]
+      }
+    ],
+    "embedded_text_blocks_not_executed": 0,
+    "external_dependencies_loaded": false,
+    "hair": [
+      {
+        "clump_factor": 0.05999999865889549,
+        "configured_fiber_upper_bound": 299000,
+        "dynamics": false,
+        "length": 0.008999999612569809,
+        "object": "NativeGroom_char1",
+        "parents_configured": 6500,
+        "parents_stored": 6500,
+        "radius_scale": 7.999999797903001e-05,
+        "render_children": 45,
+        "show_emitter_surface": false,
+        "system": "NativeGroom_char1_editable_hair"
+      }
+    ],
+    "images": [
+      {
+        "colorspace": "sRGB",
+        "name": "Image_0",
+        "packed": true,
+        "size": [
+          4096,
+          4096
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "Non-Color",
+        "name": "Image_1",
+        "packed": true,
+        "size": [
+          2048,
+          2048
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "Non-Color",
+        "name": "normal",
+        "packed": true,
+        "size": [
+          4096,
+          4096
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "sRGB",
+        "name": "PortableCoat_0_fur_atlas",
+        "packed": true,
+        "size": [
+          1024,
+          1024
+        ],
+        "source": "FILE"
+      },
+      {
+        "colorspace": "sRGB",
+        "name": "PortableCoat_1_fur_atlas",
+        "packed": true,
+        "size": [
+          1024,
+          1024
+        ],
+        "source": "FILE"
+      }
+    ],
+    "lights": [
+      {
+        "energy": 936.0001220703125,
+        "matrix_world": [
+          [
+            0.8320502638816833,
+            0.41202110052108765,
+            -0.37139061093330383,
+            -2.4000000953674316
+          ],
+          [
+            -0.5547002553939819,
+            0.6180314421653748,
+            -0.5570859909057617,
+            -3.6000001430511475
+          ],
+          [
+            -1.0293138075212482e-07,
+            0.6695340275764465,
+            0.742781400680542,
+            5.400000095367432
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Key",
+        "type": "AREA"
+      },
+      {
+        "energy": 360.00006103515625,
+        "matrix_world": [
+          [
+            0.5547000765800476,
+            -0.4036036431789398,
+            0.727607011795044,
+            3.6000001430511475
+          ],
+          [
+            0.8320503830909729,
+            0.26906898617744446,
+            -0.48507118225097656,
+            -2.4000000953674316
+          ],
+          [
+            2.314783209556026e-08,
+            0.8744747042655945,
+            0.4850711524486542,
+            3.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Fill",
+        "type": "AREA"
+      },
+      {
+        "energy": 648.0001220703125,
+        "matrix_world": [
+          [
+            -0.9486833214759827,
+            -0.21764282882213593,
+            0.22941577434539795,
+            1.2000000476837158
+          ],
+          [
+            0.3162277638912201,
+            -0.6529285907745361,
+            0.6882472634315491,
+            3.6000001430511475
+          ],
+          [
+            2.868086568241779e-08,
+            0.7254763245582581,
+            0.6882471442222595,
+            4.200000286102295
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "name": "Rim",
+        "type": "AREA"
+      }
+    ],
+    "limitations": [
+      "Coincidence checks compare matching vertex order rounded to 1e-6; they do not test arbitrary intersections.",
+      "A copied groom emitter is expected; matching geometry alone does not prove a visible double surface.",
+      "Native CPU rendering of cards does not establish browser-renderer appearance."
+    ],
+    "materials": [
+      {
+        "backface_culling": false,
+        "name": "Material_0",
+        "normal_map_strengths": [
+          0.11999999731779099
+        ],
+        "principled": [
+          {
+            "Alpha": {
+              "linked": false,
+              "value": 1.0
+            },
+            "Metallic": {
+              "linked": true,
+              "value": 0.0
+            },
+            "Roughness": {
+              "linked": true,
+              "value": 0.5
+            }
+          }
+        ],
+        "shaders": [
+          "ShaderNodeBsdfPrincipled"
+        ],
+        "surface_render_method": "DITHERED",
+        "textures": [
+          "Image_0",
+          "Image_1",
+          "normal"
+        ],
+        "use_nodes": true
+      },
+      {
+        "backface_culling": false,
+        "name": "NativeGroom_Material_0_hair",
+        "normal_map_strengths": [],
+        "principled": [],
+        "shaders": [
+          "ShaderNodeBsdfHairPrincipled"
+        ],
+        "surface_render_method": "DITHERED",
+        "textures": [
+          "Image_0"
+        ],
+        "use_nodes": true
+      },
+      {
+        "backface_culling": true,
+        "name": "PortableCoat_0_cutout_fur",
+        "normal_map_strengths": [],
+        "principled": [
+          {
+            "Alpha": {
+              "linked": true,
+              "value": 1.0
+            },
+            "Metallic": {
+              "linked": false,
+              "value": 0.0
+            },
+            "Roughness": {
+              "linked": false,
+              "value": 0.7799999713897705
+            }
+          }
+        ],
+        "shaders": [
+          "ShaderNodeBsdfPrincipled"
+        ],
+        "surface_render_method": "DITHERED",
+        "textures": [
+          "PortableCoat_0_fur_atlas"
+        ],
+        "use_nodes": true
+      },
+      {
+        "backface_culling": true,
+        "name": "PortableCoat_1_cutout_fur",
+        "normal_map_strengths": [],
+        "principled": [
+          {
+            "Alpha": {
+              "linked": true,
+              "value": 1.0
+            },
+            "Metallic": {
+              "linked": false,
+              "value": 0.0
+            },
+            "Roughness": {
+              "linked": false,
+              "value": 0.7799999713897705
+            }
+          }
+        ],
+        "shaders": [
+          "ShaderNodeBsdfPrincipled"
+        ],
+        "surface_render_method": "DITHERED",
+        "textures": [
+          "PortableCoat_1_fur_atlas"
+        ],
+        "use_nodes": true
+      }
+    ],
+    "meshes": [
+      {
+        "faces": 61939,
+        "hide_render": false,
+        "materials": [
+          "Material_0"
+        ],
+        "modifiers": [
+          {
+            "show_render": true,
+            "type": "ARMATURE"
+          }
+        ],
+        "name": "char1",
+        "role": "base",
+        "show_instancer_for_render": true,
+        "smooth_faces": 61939,
+        "vertices": 67787,
+        "world_bounds": {
+          "max": [
+            0.4536469876766205,
+            0.43445438146591187,
+            1.1906942129135132
+          ],
+          "min": [
+            -0.4530447721481323,
+            -0.4425346553325653,
+            0.007653805427253246
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "67d1b258f64ea9e68733d55a79932e5f335918d89baeccae41d3dd603a782061"
+      },
+      {
+        "faces": 61939,
+        "hide_render": false,
+        "materials": [
+          "Material_0",
+          "NativeGroom_Material_0_hair"
+        ],
+        "modifiers": [
+          {
+            "show_render": true,
+            "type": "ARMATURE"
+          },
+          {
+            "show_render": true,
+            "type": "PARTICLE_SYSTEM"
+          }
+        ],
+        "name": "NativeGroom_char1",
+        "role": "native_groom",
+        "show_instancer_for_render": false,
+        "smooth_faces": 61939,
+        "vertices": 67787,
+        "world_bounds": {
+          "max": [
+            0.4536469876766205,
+            0.43445438146591187,
+            1.1906942129135132
+          ],
+          "min": [
+            -0.4530447721481323,
+            -0.4425346553325653,
+            0.007653805427253246
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "67d1b258f64ea9e68733d55a79932e5f335918d89baeccae41d3dd603a782061"
+      },
+      {
+        "faces": 5280,
+        "hide_render": true,
+        "materials": [
+          "PortableCoat_0_cutout_fur"
+        ],
+        "modifiers": [
+          {
+            "show_render": true,
+            "type": "ARMATURE"
+          }
+        ],
+        "name": "PortableCoat_0",
+        "role": "portable_cards",
+        "show_instancer_for_render": true,
+        "smooth_faces": 0,
+        "vertices": 7920,
+        "world_bounds": {
+          "max": [
+            0.46001845598220825,
+            0.44440019130706787,
+            1.1910899877548218
+          ],
+          "min": [
+            -0.4477459192276001,
+            -0.397600919008255,
+            -0.0014354747254401445
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "101bbbb57d238677267365471f0d7b165fcd3b2f098e0b62fddbe4028c0d8cf4"
+      },
+      {
+        "faces": 4320,
+        "hide_render": true,
+        "materials": [
+          "PortableCoat_1_cutout_fur"
+        ],
+        "modifiers": [
+          {
+            "show_render": true,
+            "type": "ARMATURE"
+          }
+        ],
+        "name": "PortableCoat_1",
+        "role": "portable_cards",
+        "show_instancer_for_render": true,
+        "smooth_faces": 0,
+        "vertices": 6480,
+        "world_bounds": {
+          "max": [
+            0.3649846315383911,
+            0.32808998227119446,
+            1.156050682067871
+          ],
+          "min": [
+            -0.3258858919143677,
+            -0.40894195437431335,
+            0.07031024247407913
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "d648b656754704193c29ea220125ced79103009f6b0e0032c0c602f04905e534"
+      },
+      {
+        "faces": 80,
+        "hide_render": false,
+        "materials": [],
+        "modifiers": [],
+        "name": "Icosphere",
+        "role": "base",
+        "show_instancer_for_render": true,
+        "smooth_faces": 0,
+        "vertices": 42,
+        "world_bounds": {
+          "max": [
+            0.9510578513145447,
+            0.9999999403953552,
+            1.0
+          ],
+          "min": [
+            -0.9510578513145447,
+            -0.9999999403953552,
+            -1.0
+          ]
+        },
+        "world_geometry_ordered_rounded_sha256": "2df180b7bf1c597dd5872c022136dbaf64bc1467cd748d1428680b92b54a53c4"
+      }
+    ],
+    "pose": {
+      "armatures": {
+        "Armature": "REST"
+      },
+      "frame": 96,
+      "subframe": 0.0
+    },
+    "schema_version": 1,
+    "scope": "Same saved pose/camera/light; static diagnostic only, not a new asset or animation validation",
+    "source_blend_sha256": "953a4ea2cdd7dc4cdffb8182b4d55f1fdeb4838f86081fff1ed0ee84c3884d5b",
+    "source_unchanged": true,
+    "variants": [
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [],
+        "hidden_objects": [
+          "PortableCoat_0",
+          "PortableCoat_1"
+        ],
+        "id": "baseline_native",
+        "path": "baseline_native.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 3.2807554160244763,
+        "sha256": "045f6cd2e27159f7dd89efdb6b6f039a830d723c03e8efaa5d3ef0b5ff812aed"
+      },
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [],
+        "hidden_objects": [
+          "NativeGroom_char1",
+          "PortableCoat_0",
+          "PortableCoat_1"
+        ],
+        "id": "base_only",
+        "path": "base_only.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.7591345419641584,
+        "sha256": "9b38b3f40a2779bdef31f54f2efc0640e7246c1516f5e57163de73bfb06b969d"
+      },
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [],
+        "hidden_objects": [
+          "NativeGroom_char1"
+        ],
+        "id": "portable_only",
+        "path": "portable_only.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.8212696250993758,
+        "sha256": "934c3c7125c90320fca825ca8ae582e6325a76578b070e87408021f6a213c19f"
+      },
+      {
+        "denoised": true,
+        "diagnostic_material_overrides": [
+          {
+            "clone": "LookdevMatte_Material_0",
+            "object": "char1",
+            "original": "Material_0"
+          }
+        ],
+        "hidden_objects": [
+          "NativeGroom_char1",
+          "PortableCoat_0",
+          "PortableCoat_1"
+        ],
+        "id": "base_matte_no_normal",
+        "path": "base_matte_no_normal.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.7046719160862267,
+        "sha256": "84c3d63d42e640287746b7fc8267d17979f141c3ede63a4d03fe1c840f86ca76"
+      },
+      {
+        "denoised": true,
+        "diagnostic_hair_override": {
+          "child_type": "NONE",
+          "rendered_child_count": 0
+        },
+        "diagnostic_material_overrides": [],
+        "hidden_objects": [
+          "PortableCoat_0",
+          "PortableCoat_1"
+        ],
+        "id": "native_parents_only",
+        "path": "native_parents_only.png",
+        "resolution": [
+          640,
+          640
+        ],
+        "samples": 16,
+        "seconds": 1.9324201249983162,
+        "sha256": "f7ed3dd78ee8aac85da3ebebf4a9ca68027068ed79c864f5a60037508c2955d8",
+        "stored_parent_keys_unchanged": {
+          "keys": 26000,
+          "sha256": "a312ef0acb9b557c07a3ade135ba7acb93823f9f358c09e7d7e66f50757d332f"
+        }
+      }
+    ],
+    "world": "SoftStudio"
+  },
+  "new_provider_cost_usd": 0,
+  "original_pack_unchanged": true,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "scope": "Diagnostic shading/visibility comparisons, not a repaired or improved avatar",
+  "source": {
+    "artifacts": [
+      {
+        "bytes": 13346,
+        "path": "exported-nodes.json",
+        "sha256": "4ad77f0ab7d149db94942296710cba7f09819ba132ad27a0a7b9de6383bd842f"
+      },
+      {
+        "bytes": 12834,
+        "path": "finish-config.json",
+        "sha256": "e7cf734cad01939995bc7976b506731dbe5d9e7018f55f2ec9c34e40be0bfa38"
+      },
+      {
+        "bytes": 596,
+        "path": "finish-handle.json",
+        "sha256": "d80610124ce3aaca69cad8a4a6b57c834a155ee15945ddafca4d05857db55990"
+      },
+      {
+        "bytes": 1395,
+        "path": "finish-monitor.json",
+        "sha256": "492db3176fafacae71d07fde125e579c6c1e5e9558b6549d31910075e7e9925e"
+      },
+      {
+        "bytes": 12539,
+        "path": "finish-report.json",
+        "sha256": "351bc1058c893fcf9728039de55f6fadfc11f26bd238dfd23bfa4679b24585ac"
+      },
+      {
+        "bytes": 128933,
+        "path": "finish.log",
+        "sha256": "dcace786b2c5996015f6f60a24fb7dfca5aab499e4dc831cbeb94df5d69e717b"
+      },
+      {
+        "bytes": 1529,
+        "path": "job.json",
+        "sha256": "09385129b9420bce74226c73abfae2422e2233c5517a4f5064185a2d85e37dfc"
+      },
+      {
+        "bytes": 47402208,
+        "path": "model-native-export.glb",
+        "sha256": "62768478a3f60a29f7bd4ce0d61882d7b1a67cf428a8584906b5ec58872ed25a"
+      },
+      {
+        "bytes": 47402208,
+        "path": "model.glb",
+        "sha256": "a874d80ca58c0524d0b3a5a1a52d66700a4dc6c540c298936de24d108f001fd8"
+      },
+      {
+        "bytes": 419,
+        "path": "native-reuse.json",
+        "sha256": "eefcdf3a50d8abaa1dbf9e048150d67e04493c8b46e0385240efaa57b7e52a25"
+      },
+      {
+        "bytes": 1084821,
+        "path": "portrait.png",
+        "sha256": "133eb7b9047057fa6909d9b9186d73af0b74a2762c446981efc013a8c3af679e"
+      },
+      {
+        "bytes": 1465,
+        "path": "render-attributes.json",
+        "sha256": "8fed8f74dbeca4d1bdd00d7f9714989c016462263db92c3cc32fde3d7e110883"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/idle/0000.png",
+        "sha256": "b8452e8848ed4c3bd5b879812aadecb75ca57b410211f7720029f2454988f96c"
+      },
+      {
+        "bytes": 157343,
+        "path": "renders/idle/0001.png",
+        "sha256": "94ae16a476a01e61c131f46566357dcee3dd1813132abc6104f42b86e6efe444"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/idle/0002.png",
+        "sha256": "0dbf92e1a10a2f6f353c6209edb84c7aa92918d0a73b39efdd1d206d52d5fad8"
+      },
+      {
+        "bytes": 157274,
+        "path": "renders/idle/0003.png",
+        "sha256": "5b2d2e48444ce5f115fa0857902d2fd44ddb5e9179a058b38a990c9ceb7569c6"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/idle/0004.png",
+        "sha256": "8ae93b2365ff092274366b933c5f0d07207436438c308eca9014c04c38ceffc6"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/making_something/0000.png",
+        "sha256": "2679ccb3bd3fd8ed58e01be5c21dad418876411c9fcf2b757865068c4a8fcc3e"
+      },
+      {
+        "bytes": 157331,
+        "path": "renders/making_something/0001.png",
+        "sha256": "723ad22b980414c67c3561f2f1ab47236a94cd850f400d5e66f0bd4c08b726f8"
+      },
+      {
+        "bytes": 157375,
+        "path": "renders/making_something/0002.png",
+        "sha256": "84da70fbd8c6a0a5558aad5dd2cf2ef6a985e4032ac3e514d8d1e175326c1452"
+      },
+      {
+        "bytes": 157206,
+        "path": "renders/making_something/0003.png",
+        "sha256": "2279750438152f5ae80542ce9ab6e05d26dc3629c01513076ab877a2dca48ef2"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/making_something/0004.png",
+        "sha256": "768b507d9f322bc9a0b86d6644c5bfd6a23f35043bd1941497715e148e184486"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/milestone_level_up/0000.png",
+        "sha256": "0edd20b30bd98dc15209ae0cb3e5cf52a91faf83500e02f3cb694d232ea78069"
+      },
+      {
+        "bytes": 157751,
+        "path": "renders/milestone_level_up/0001.png",
+        "sha256": "8c29cbbadd132015df2c9a4c11b7935ba8e29f9a9a481ef508dfba6c07d58a70"
+      },
+      {
+        "bytes": 158973,
+        "path": "renders/milestone_level_up/0002.png",
+        "sha256": "b27db07fa077187eb49d10d448359fb61990c2e1db73c4d7ffe87671910f0c57"
+      },
+      {
+        "bytes": 157717,
+        "path": "renders/milestone_level_up/0003.png",
+        "sha256": "037e8e46cea50de3ddbf3360c9a6d51d57b2992bd0b5d46b0177d5711c26ef97"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/milestone_level_up/0004.png",
+        "sha256": "c1d127873d14dfd63c98b1f6dbc691ef82660c5d16a5578e3d917128d8744445"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/working/0000.png",
+        "sha256": "146fc1260bf17450464a675f4ab9827c37b51d1cb04fca42819f6c99b9fdaa8c"
+      },
+      {
+        "bytes": 157319,
+        "path": "renders/working/0001.png",
+        "sha256": "b1546e3f387942a0c8920cf68dc3346c19615e6acadd163f4fbee8ce439b2ab1"
+      },
+      {
+        "bytes": 157322,
+        "path": "renders/working/0002.png",
+        "sha256": "33e72c4e16fd07d2f8b380ee38908b98c409d6b865c2b64bae00cb45867bba13"
+      },
+      {
+        "bytes": 157771,
+        "path": "renders/working/0003.png",
+        "sha256": "c03cf532906666e358e733bb7c03a7cbcc56c62d4037fbdf678ac6e00e357063"
+      },
+      {
+        "bytes": 157342,
+        "path": "renders/working/0004.png",
+        "sha256": "7e55bdabefd4f8c269581ebad63b202e017f4dd72ec5209561d5a9059f65549a"
+      },
+      {
+        "bytes": 1731,
+        "path": "rig-contract.json",
+        "sha256": "a76c2d9a63b662077a9d269bfa96593b42e789f0fab662897c6b3006f048f718"
+      },
+      {
+        "bytes": 6452,
+        "path": "rig-verification.json",
+        "sha256": "fed636a289599a14dff2a5d4ddab2db94db75c007ac74f760e64dc3e3dd10e46"
+      },
+      {
+        "bytes": 68244287,
+        "path": "source.blend",
+        "sha256": "953a4ea2cdd7dc4cdffb8182b4d55f1fdeb4838f86081fff1ed0ee84c3884d5b"
+      },
+      {
+        "bytes": 20236,
+        "path": "sources/blender_comb_groom.py",
+        "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+      },
+      {
+        "bytes": 21559,
+        "path": "sources/blender_finish_generated.py",
+        "sha256": "87951732b29a15247884e7cb407198d2738251fdc8ef0753b9b56ecc561c6ebe"
+      },
+      {
+        "bytes": 7860,
+        "path": "sources/blender_fur_cards.py",
+        "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+      },
+      {
+        "bytes": 24601,
+        "path": "sources/blender_native_groom.py",
+        "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+      },
+      {
+        "bytes": 18248,
+        "path": "sources/blender_verify.py",
+        "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+      },
+      {
+        "bytes": 12745,
+        "path": "sources/finish-design.json",
+        "sha256": "28f90cfdeb6ed4754e0c718f595538aeaa537af35da3f965c4a876c2d24d90b7"
+      },
+      {
+        "bytes": 14694,
+        "path": "sources/finish_generated.py",
+        "sha256": "cbdf510b009698d61737db6080be1cce3c589a11ae676968af596cfe96724eda"
+      },
+      {
+        "bytes": 2738,
+        "path": "sources/generated_tangents.py",
+        "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c"
+      },
+      {
+        "bytes": 932,
+        "path": "tangent-repair.json",
+        "sha256": "7784eb2b0871ef37054207b6d2bcbb085061df9b9b9787290b842b1c1567785c"
+      },
+      {
+        "bytes": 241708,
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "sha256": "31e26d78c2304a86d5ccd95a8562879d67b02ed8d5552ec874b2d5aefe9aa9d1"
+      },
+      {
+        "bytes": 289636,
+        "path": "textures/PortableCoat_1-fur-atlas.png",
+        "sha256": "65c9a47c27a183c7ee250997fca9e811ce4ca6ecb695d5167ac6f29f0ad6729f"
+      }
+    ],
+    "blend_header": {
+      "blocks": 159578,
+      "linked_libraries": 0,
+      "scope": "Block-envelope inspection, not a complete Blender-format security verifier",
+      "text_blocks_not_executed": 0,
+      "version_header": "405"
+    },
+    "manifest_sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380",
+    "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-refined-v6",
+    "source_blend_sha256": "953a4ea2cdd7dc4cdffb8182b4d55f1fdeb4838f86081fff1ed0ee84c3884d5b",
+    "verified_artifact_count": 46,
+    "verified_input_bytes": 168151270
+  },
+  "status": "needs_visual_review"
+}

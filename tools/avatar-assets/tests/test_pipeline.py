@@ -181,6 +181,18 @@ class PipelineTests(unittest.TestCase):
             self.assertEqual(image.size,(1280,720))
         self.assertEqual(worker._contacts(0,pack)[1],paths)
 
+    def test_repair_receives_surface_failure_before_rendering(self):
+        self.prepare()
+        worker = pipeline.Pipeline(self.out, agents=AnalyticAgent())
+        pack = self.out/'rejected-surface'; pack.mkdir()
+        report = {'area_ratio_below_0_01_count': 252,
+                  'regression_gate': {'status': 'failed', 'quality_proof': False}}
+        write_json(pack/'surface-integrity.json', report)
+        self.assertEqual(worker._diagnostics(pack)['surface_integrity'], report)
+        self.assertNotIn('sampled_states', worker._diagnostics(pack))
+        write_json(pack/'finish-report.json', {'authored_rig': None, 'states': []})
+        self.assertEqual(worker._diagnostics(pack)['weight_coverage'], {})
+
     def test_resumed_failed_stage_preserves_exact_repair_reason(self):
         self.prepare()
         worker = pipeline.Pipeline(self.out, agents=AnalyticAgent())

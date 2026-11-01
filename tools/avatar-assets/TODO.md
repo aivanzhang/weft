@@ -4,12 +4,49 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-10-31 22:44 PDT.
+- Recorded: 2026-11-01 00:01 PDT.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **15 completed submissions / 167 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
+
+## Active follow-up: higher-quality generated avatars
+
+User asked to save the current pipeline, then improve Meshy-based results. The
+baseline is committed and remotely verified at `050deb5`; original outputs stay
+unchanged. [Current refinement plan, ownership and bounds](docs/meshy-quality-upgrade-v1.md).
+Selected `outputs/agent-dragon-polish-v1`: smoother geometry with unchanged4K
+textures/identity/four motions; independent reload passed. New bounded smoothing,
+material profiles, hair sheen and diagnostic controls are reusable; an early
+triangle regression gate feeds measurements back to the repair agent.368 tests
+pass. Neither panda trial nor dragon material trialv2 is accepted; failures and
+source snapshots are retained. This is not Muse-quality parity.
+
+HD dragon media completed: `outputs/agent-dragon-polish-media-v1-portable-v1`,
+1600px portrait plus four720px/24fps/4s clips,96 distinct decoded frames each,
+exact static fallbacks, opaque/no seamless-loop certification. Full frames stay
+local. The new before/after browser catalog is `browser/gallery-polish-v1.json`;
+actual playback, seeking, mobile and reduced-motion/error fallbacks passed.
+All owned handles (60224 media,41941 native gate,99013 browser) ended; no server
+is left running. No new paid calls; ledger remains167 credits with8 available.
+
+Additional35-credit approval for a new panda base is pending. **Do not submit**
+the preserved `outputs/muse-panda-smooth-base-v1` preparation: image-mode text
+only guides texture; a clean geometry guide and new frozen plan are required.
+Next safe action: review the catalog below. After approval, prepare one reviewed
+clean-reference candidate; no paid retry or budget purchase. Keep current packs
+immutable. The original Muse/fur-quality target remains open.
+
+```sh
+./tools/avatar-assets/run gallery --catalog browser/gallery-polish-v1.json
+```
+
+This pass is checkpointed separately from unrelated active Weft work. Final Git
+revision and remote verification belong in the root-local receipt
+`.local/avatar-quality-publication-v1/receipt.json`; an absent successful receipt
+is not proof of a push. Selected model/source, portable media and review records
+are tracked; rejected full binaries and complete video frames remain local.
 
 ## Git release checkpoint — October 31, 2026, 10:44 PM PDT
 

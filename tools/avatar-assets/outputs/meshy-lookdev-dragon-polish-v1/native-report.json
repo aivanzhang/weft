@@ -1,0 +1,305 @@
+{
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "matrix_world": [
+      [
+        0.8574928641319275,
+        0.017636742442846298,
+        -0.5141934156417847,
+        -3.9621477127075195
+      ],
+      [
+        -0.514495849609375,
+        0.029394516721367836,
+        -0.8569889068603516,
+        -6.37346887588501
+      ],
+      [
+        -2.5017241611635654e-08,
+        0.9994122982025146,
+        0.03427961841225624,
+        1.0423825979232788
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "name": "PortraitCamera",
+    "ortho_scale": 1.9223192930221558,
+    "type": "ORTHO"
+  },
+  "coincident_geometry_candidates": [],
+  "embedded_text_blocks_not_executed": 0,
+  "external_dependencies_loaded": false,
+  "hair": [],
+  "images": [
+    {
+      "colorspace": "sRGB",
+      "name": "Image_0",
+      "packed": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "Non-Color",
+      "name": "Image_1",
+      "packed": true,
+      "size": [
+        2048,
+        2048
+      ],
+      "source": "FILE"
+    },
+    {
+      "colorspace": "Non-Color",
+      "name": "Image_2",
+      "packed": true,
+      "size": [
+        4096,
+        4096
+      ],
+      "source": "FILE"
+    }
+  ],
+  "lights": [
+    {
+      "energy": 2989.680908203125,
+      "matrix_world": [
+        [
+          0.8320503234863281,
+          0.41202086210250854,
+          -0.3713907301425934,
+          -4.28929328918457
+        ],
+        [
+          -0.5547001361846924,
+          0.61803138256073,
+          -0.5570861101150513,
+          -6.4339399337768555
+        ],
+        [
+          2.274588872808181e-08,
+          0.6695342063903809,
+          0.7427812218666077,
+          9.378586769104004
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Key",
+      "type": "AREA"
+    },
+    {
+      "energy": 1149.8773193359375,
+      "matrix_world": [
+        [
+          0.5547000169754028,
+          -0.40360355377197266,
+          0.7276070713996887,
+          6.4339399337768555
+        ],
+        [
+          0.8320503830909729,
+          0.2690689265727997,
+          -0.4850711524486542,
+          -4.28929328918457
+        ],
+        [
+          -2.2136408261985707e-08,
+          0.8744747638702393,
+          0.4850710332393646,
+          5.089293479919434
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Fill",
+      "type": "AREA"
+    },
+    {
+      "energy": 2069.779052734375,
+      "matrix_world": [
+        [
+          -0.9486833214759827,
+          -0.2176428735256195,
+          0.22941574454307556,
+          2.144646644592285
+        ],
+        [
+          0.3162277638912201,
+          -0.6529285311698914,
+          0.6882472634315491,
+          6.4339399337768555
+        ],
+        [
+          -2.3475022814523072e-08,
+          0.7254763245582581,
+          0.6882471442222595,
+          7.233940124511719
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "name": "Rim",
+      "type": "AREA"
+    }
+  ],
+  "limitations": [
+    "Coincidence checks compare matching vertex order rounded to 1e-6; they do not test arbitrary intersections.",
+    "A copied groom emitter is expected; matching geometry alone does not prove a visible double surface.",
+    "Native CPU rendering of cards does not establish browser-renderer appearance."
+  ],
+  "materials": [
+    {
+      "backface_culling": false,
+      "name": "Material_0",
+      "normal_map_strengths": [
+        0.6000000238418579
+      ],
+      "principled": [
+        {
+          "Alpha": {
+            "linked": false,
+            "value": 1.0
+          },
+          "Metallic": {
+            "linked": true,
+            "value": 0.0
+          },
+          "Roughness": {
+            "linked": true,
+            "value": 0.5
+          }
+        }
+      ],
+      "shaders": [
+        "ShaderNodeBsdfPrincipled"
+      ],
+      "surface_render_method": "DITHERED",
+      "textures": [
+        "Image_0",
+        "Image_1",
+        "Image_2"
+      ],
+      "use_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "faces": 36501,
+      "hide_render": false,
+      "materials": [
+        "Material_0"
+      ],
+      "modifiers": [
+        {
+          "show_render": true,
+          "type": "ARMATURE"
+        }
+      ],
+      "name": "Mesh_0",
+      "role": "base",
+      "show_instancer_for_render": true,
+      "smooth_faces": 36501,
+      "vertices": 36010,
+      "world_bounds": {
+        "max": [
+          0.5322285890579224,
+          1.0734333992004395,
+          1.6002962589263916
+        ],
+        "min": [
+          -0.5317261219024658,
+          -1.072178840637207,
+          -0.00021887118055019528
+        ]
+      },
+      "world_geometry_ordered_rounded_sha256": "0bc363afef7b36a81717510a65806df73e980b717ae2674aa48ba21765438dc8"
+    }
+  ],
+  "pose": {
+    "armatures": {
+      "CreatureRig": "REST"
+    },
+    "frame": 96,
+    "subframe": 0.0
+  },
+  "schema_version": 1,
+  "scope": "Same saved pose/camera/light; static diagnostic only, not a new asset or animation validation",
+  "source_blend_sha256": "977eb2953b6eb0ef7cab33f6d5a653051725e7927b40973ce06d2a3c9bbcfd65",
+  "source_unchanged": true,
+  "variants": [
+    {
+      "denoised": true,
+      "diagnostic_material_overrides": [],
+      "hidden_objects": [],
+      "id": "baseline_native",
+      "path": "baseline_native.png",
+      "resolution": [
+        640,
+        640
+      ],
+      "samples": 16,
+      "seconds": 1.5913175831083208,
+      "sha256": "c4c0778ce788827a92900ff630ee23b83bf76f5106ed43bd121697e56cc587a0"
+    },
+    {
+      "denoised": true,
+      "diagnostic_material_overrides": [
+        {
+          "clone": "LookdevClay_Material_0",
+          "object": "Mesh_0",
+          "original": "Material_0"
+        }
+      ],
+      "diagnostic_surface_override": {
+        "base_color_linear": [
+          0.5,
+          0.5,
+          0.5,
+          1
+        ],
+        "disconnected_principled_inputs": [
+          "Base Color",
+          "Normal",
+          "Metallic",
+          "Roughness"
+        ],
+        "geometry_unchanged": true,
+        "metallic": 0,
+        "normal_map_strength": 0,
+        "roughness": 0.8,
+        "scope": "Uniform-color diagnostic, not a replacement texture or quality improvement"
+      },
+      "hidden_objects": [],
+      "id": "base_clay",
+      "path": "base_clay.png",
+      "resolution": [
+        640,
+        640
+      ],
+      "samples": 16,
+      "seconds": 1.434598291059956,
+      "sha256": "3a9a13e029ef381ba110270c39a4afd3b9d1bdd0178af376b268b1f4d6c3357d"
+    }
+  ],
+  "world": "SoftStudio"
+}

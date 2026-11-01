@@ -32,7 +32,7 @@ def validate(config):
                 'normal_strength', 'resolution', 'samples', 'states'}
     optional = {'groom', 'groom_exclusions', 'fur_max_chroma', 'fur_clump', 'attachment', 'smoothing',
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
-                'authored_rig', 'camera_view'}
+                'authored_rig', 'camera_view', 'surface_profiles', 'surface_smoothing', 'groom_shader'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -43,6 +43,13 @@ def validate(config):
     require(type(config['resolution']) is int and type(config['samples']) is int, 'Integer render settings required')
     require(type(config.get('portrait_denoise', False)) is bool, 'Invalid denoising flag')
     require(config.get('camera_view', 'front') in ('front', 'three_quarter', 'three_quarter_left'), 'Invalid camera view')
+    if 'surface_profiles' in config:
+        from avatar_assets.surface_profiles import validate_profiles
+        validate_profiles(config['surface_profiles'])
+    if 'surface_smoothing' in config:
+        from avatar_assets.surface_smoothing_config import validate_surface_smoothing
+        require('smoothing' not in config, 'Choose one smoothing method')
+        validate_surface_smoothing(config['surface_smoothing'])
     states = config['states']
     require(isinstance(states, list) and 1 <= len(states) <= 8, 'Require 1–8 named states')
     names = []
@@ -62,6 +69,12 @@ def validate(config):
     number(config.get('fur_max_chroma', 1), 0, 1)
     number(config.get('fur_clump', .06), 0, 1)
     groom = config.get('groom')
+    if 'groom_shader' in config:
+        shader = config['groom_shader']
+        require(groom and isinstance(shader, dict) and set(shader) == {'roughness', 'radial_roughness'},
+                'Groom shader requires native hair and two explicit roughness settings')
+        for value in shader.values():
+            number(value, .04, 1)
     if groom:
         fields = {'parents', 'children', 'length', 'radius', 'roughness', 'seed'}
         require(set(groom) in (fields, fields|{'direction', 'comb'}), 'Invalid groom fields')
@@ -157,10 +170,16 @@ def reuse_native(folder, out, cfg):
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                 'motion_samples.py', 'deformation_diagnostics.py'):
+                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
+    require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
+            'Surface profile validator changed; rebuild required')
+    require(sha256(root/'sources/surface_smoothing_config.py') == sha256(ROOT/'avatar_assets/surface_smoothing_config.py'),
+            'Surface smoothing validator changed; rebuild required')
     for name in ('source.blend', 'portrait.png', 'finish-report.json', 'job.json', 'finish.log', 'finish-monitor.json', 'finish-handle.json'):
         shutil.copyfile(root/name, out/name)
+    if (root/'surface-integrity.json').exists():
+        shutil.copyfile(root/'surface-integrity.json', out/'surface-integrity.json')
     for name in ('renders', 'textures'):
         if (root/name).exists():
             shutil.copytree(root/name, out/name)
@@ -191,9 +210,11 @@ def finish(config_path, output, reuse=None):
         write_json(out/'finish-config.json', cfg)
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                     'motion_samples.py', 'deformation_diagnostics.py'):
+                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')
+        shutil.copyfile(ROOT/'avatar_assets/surface_profiles.py', out/'sources/surface_profiles.py')
+        shutil.copyfile(ROOT/'avatar_assets/surface_smoothing_config.py', out/'sources/surface_smoothing_config.py')
         shutil.copyfile(ROOT/'avatar_assets/generated_tangents.py', out/'sources/generated_tangents.py')
         exe = ROOT/'.tools/Blender.app/Contents/MacOS/Blender'
         cmd = [str(exe), '--background', '--factory-startup', '--disable-autoexec', '--python-exit-code', '1',

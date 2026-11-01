@@ -1,0 +1,15 @@
+00:03:54 | INFO: Data are loaded, start creating Blender stuff
+00:03:54 | INFO: Blender create Mesh node 0
+00:03:54 | INFO: glTF import finished in 0.05s
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/surface-integrity-native-v2/sources/creature_rig_math.py:69: RuntimeWarning: divide by zero encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/surface-integrity-native-v2/sources/creature_rig_math.py:69: RuntimeWarning: overflow encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/surface-integrity-native-v2/sources/creature_rig_math.py:69: RuntimeWarning: invalid value encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+00:03:54 | INFO: Data are loaded, start creating Blender stuff
+00:03:54 | INFO: Blender create Mesh node Mesh_0
+00:03:55 | INFO: glTF import finished in 0.20s
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+
+Blender quit

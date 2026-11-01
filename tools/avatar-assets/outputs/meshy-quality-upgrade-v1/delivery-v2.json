@@ -1,0 +1,119 @@
+{
+  "baseline_commit": "050deb54933d052abcca1b786dabdd00ad5aaa53",
+  "catalog": "browser/gallery-polish-v1.json",
+  "catalog_sha256": "30a1ba8c98c4592b0e9e6c48b2e47433586f92124e8c4b884e9d228efa9c03ea",
+  "clips": [
+    {
+      "fallback": "fallbacks/idle.png",
+      "fps": 24.0,
+      "frames": 96,
+      "id": "idle",
+      "loop": "not_certified; visual seam review required",
+      "meaning": "Gentle torso sway and a small tail-tip movement while both feet stay planted.",
+      "seconds": 4.0,
+      "sha256": "42a0d7e5d3fdf7ce3a0d3fe551061c52b13fabe961e118a12465829e95b02b5d",
+      "unique_decoded_thumbnails": 96
+    },
+    {
+      "fallback": "fallbacks/look_around.png",
+      "fps": 24.0,
+      "frames": 96,
+      "id": "look_around",
+      "loop": "not_certified; visual seam review required",
+      "meaning": "Slow head and neck turns to each side, with a slight upper-body follow and planted feet.",
+      "seconds": 4.0,
+      "sha256": "2d61234b2972eb9afc73d946da50450380edd956a0a6014e620cef6f0435b4e1",
+      "unique_decoded_thumbnails": 96
+    },
+    {
+      "fallback": "fallbacks/wing_flap.png",
+      "fps": 24.0,
+      "frames": 96,
+      "id": "wing_flap",
+      "loop": "not_certified; visual seam review required",
+      "meaning": "Both small wings gently raise and lower while the dragon remains standing on the ground.",
+      "seconds": 4.0,
+      "sha256": "c8300ed0e3d7530e20785c5ad4c177f7992cdf4dac18b0187a28d5625f1b8f72",
+      "unique_decoded_thumbnails": 96
+    },
+    {
+      "fallback": "fallbacks/milestone_level_up.png",
+      "fps": 24.0,
+      "frames": 96,
+      "id": "milestone_level_up",
+      "loop": "not_certified; visual seam review required",
+      "meaning": "A happy shallow bow through the torso and neck, accompanied by a smooth sideways tail flourish, then a return to standing.",
+      "seconds": 4.0,
+      "sha256": "1df11800c3cacc5f415d8c392802f4336cfe0e4b89203b8e57114cd7f76551b7",
+      "unique_decoded_thumbnails": 96
+    }
+  ],
+  "failures_preserved": [
+    "Panda polish-v1 visual rejection",
+    "Panda polish-v2 companion damage plus89 invalid tangents",
+    "Dragon polish-v2 hard gloss regions",
+    "Initial8 loopback test permission errors, resolved with scoped escalation",
+    "Browser-polish-v1 full-suite fixture needed reference-only card; original catalog saved and corrected catalog passedv2",
+    "A preparation-only import of nonexistent Catalog failed before writing files; removed unused import",
+    "Final review found float32 quantization could bypass area gate; actual stored coordinates now checked before mutation, new regression/native checks passed."
+  ],
+  "jobs": {
+    "active_owned_jobs": [],
+    "browser_23486": "exited1",
+    "browser_99013": "exited0",
+    "media_60224": "exited0",
+    "native_guard_10794": "exited0",
+    "native_guard_41941": "exited0",
+    "tests_43817": "exited0",
+    "tests_92545": "exited0"
+  },
+  "kind": "local_quality_upgrade_delivery",
+  "media": "outputs/agent-dragon-polish-media-v1-portable-v1",
+  "model": "outputs/agent-dragon-polish-v1",
+  "model_sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381",
+  "native_source_sha256": "977eb2953b6eb0ef7cab33f6d5a653051725e7927b40973ce06d2a3c9bbcfd65",
+  "new_meshy_calls": 0,
+  "new_meshy_credits": 0,
+  "paid_next_action": "Pending user response to35 additional Meshy credits. Never submit old smooth-base-v1; first create/review a geometry guide and new plan. No paid retries, purchases or Meta-budget use.",
+  "recorded_at": "2026-11-01T00:05:32.984904-07:00",
+  "rig": {
+    "armature_node": 10,
+    "assumptions": "Generated unseen surfaces and locally authored nine-bone rig/weights; not recovered anatomy. Standalone dragon, not panda companion or a Weft body-frame mapping.",
+    "forward": "+Z",
+    "joint_nodes": [
+      8,
+      6,
+      1,
+      0,
+      2,
+      3,
+      4,
+      5,
+      7
+    ],
+    "mesh_node": 9,
+    "rest_height_meters": 1.6,
+    "root_bone_node": 8,
+    "units": "meters",
+    "up": "+Y",
+    "weft_same_fidelity_supported": false
+  },
+  "schema_version": 1,
+  "status": "selected_dragon_verified_panda_not_accepted",
+  "supersedes_verification_record": "outputs/meshy-quality-upgrade-v1/delivery-v1.json",
+  "verification": {
+    "browser": "outputs/browser-polish-v2",
+    "delivery_inventory": "outputs/meshy-quality-upgrade-v1/delivery-verification.json",
+    "native_reload": "outputs/agent-dragon-polish-reload-v1",
+    "native_surface_gate": "outputs/surface-integrity-native-v2",
+    "python_log": "outputs/quality-upgrade-tests-v3.txt",
+    "python_seconds": 10.358,
+    "python_tests": 368,
+    "source_texture_proof": "outputs/meshy-quality-upgrade-v1/texture-source-proof.json"
+  },
+  "visual_review": {
+    "muse_parity": false,
+    "portrait": "Viewed1600px denoised portrait; identity/palette/appendages retained; coarse muzzle folds and low-detail source regions remain.",
+    "sampled_states": "Viewed all four12-frame contact sheets. Idle subtle sway, look_around neck/head turns, wing_flap gentle wing motions and milestone bow/wing/tail gesture remain visible. No flight, grasping, articulated fingers or locomotion claim."
+  }
+}

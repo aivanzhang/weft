@@ -1,0 +1,33 @@
+{
+  "id": "agent-dragon-polish-v1",
+  "kind": "generated_render",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration": 4.0,
+      "id": "idle",
+      "loop": false,
+      "meaning": "Gentle torso sway and a small tail-tip movement while both feet stay planted."
+    },
+    {
+      "duration": 4.0,
+      "id": "look_around",
+      "loop": false,
+      "meaning": "Slow head and neck turns to each side, with a slight upper-body follow and planted feet."
+    },
+    {
+      "duration": 4.0,
+      "id": "wing_flap",
+      "loop": false,
+      "meaning": "Both small wings gently raise and lower while the dragon remains standing on the ground."
+    },
+    {
+      "duration": 4.0,
+      "id": "milestone_level_up",
+      "loop": false,
+      "meaning": "A happy shallow bow through the torso and neck, accompanied by a smooth sideways tail flourish, then a return to standing."
+    }
+  ],
+  "style": "Rounded friendly stylized 3D dragon with emerald scales, amber eyes, orange horns and a cream belly",
+  "subject": "A friendly upright emerald dragon with amber eyes, orange horns and back spines, a cream belly, two small wings and a long tail; rounded proportions and an intact scaled body."
+}

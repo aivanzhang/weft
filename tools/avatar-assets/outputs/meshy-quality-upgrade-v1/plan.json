@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "diagnosis_in_progress",
+  "saved_baseline": "050deb54933d052abcca1b786dabdd00ad5aaa53",
+  "local_jobs_only": true,
+  "new_meshy_calls": 0,
+  "candidates_per_subject_initial": 2,
+  "subjects": [
+    "existing Muse panda",
+    "existing agent dragon"
+  ],
+  "max_concurrent_native_jobs": 2,
+  "native_threads": 4,
+  "native_sampled_rss_bytes": 2147483648,
+  "per_diagnostic_seconds": 300,
+  "per_diagnostic_output_bytes": 268435456,
+  "per_finish_seconds": 600,
+  "per_finish_output_bytes": 536870912,
+  "quality_acceptance": "Paired visual improvement and independent model/skin/motion/attribute checks; not Muse equivalence",
+  "original_outputs_immutable": true
+}

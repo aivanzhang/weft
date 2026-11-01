@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "tests": [
+    "2 assets, one lazy 3D viewer, local-only loading",
+    "play advances actual model time; pause holds the pose",
+    "seeking is absolute at 0.5x/2x and works at/after a finished endpoint",
+    "dragon-polish-v1: four skeletal clips, seeking and camera rotation",
+    "dragon-before-polish: four skeletal clips, seeking and camera rotation",
+    "most detailed model remains controllable during actual skeletal playback",
+    "video seeking/repeat/play; portrait mode stops playback",
+    "injected delayed play rejection cannot show an error on a newer view"
+  ],
+  "loads_ms": [
+    {
+      "asset": "dragon-polish-v1",
+      "ms": 93
+    },
+    {
+      "asset": "dragon-before-polish",
+      "ms": 405
+    }
+  ],
+  "browser": "156.0.8078.76",
+  "external_requests": [],
+  "initial_ready_ms": 5060,
+  "detailed_playback_observation": {
+    "asset": "dragon-polish-v1",
+    "vertices": 36322,
+    "elapsed_ms": 2029.2999999523163,
+    "callbacks": 54,
+    "max_gap_ms": 50.100000000000364,
+    "clip_time_seconds": 2.1165999999999974,
+    "renderer_task_seconds": 0.036562000000000004,
+    "js_heap_bytes": 9175688,
+    "scope": "Two-second browser responsiveness sample with software WebGL; RAF callbacks are not measured rendered frames or a sustained performance guarantee."
+  },
+  "error": "TypeError: Cannot read properties of undefined (reading 'id')\n    at file:///Users/ivan/kintsugi/weft/tools/avatar-assets/browser/tests/gallery.mjs:171:48",
+  "console_errors": [],
+  "visible_error": ""
+}

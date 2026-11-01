@@ -1,0 +1,39 @@
+{
+  "denoised": true,
+  "diagnostic_material_overrides": [
+    {
+      "clone": "LookdevClay_Material_0",
+      "object": "Mesh_0",
+      "original": "Material_0"
+    }
+  ],
+  "diagnostic_surface_override": {
+    "base_color_linear": [
+      0.5,
+      0.5,
+      0.5,
+      1
+    ],
+    "disconnected_principled_inputs": [
+      "Base Color",
+      "Normal",
+      "Metallic",
+      "Roughness"
+    ],
+    "geometry_unchanged": true,
+    "metallic": 0,
+    "normal_map_strength": 0,
+    "roughness": 0.8,
+    "scope": "Uniform-color diagnostic, not a replacement texture or quality improvement"
+  },
+  "hidden_objects": [],
+  "id": "base_clay",
+  "path": "base_clay.png",
+  "resolution": [
+    640,
+    640
+  ],
+  "samples": 16,
+  "seconds": 1.434598291059956,
+  "sha256": "3a9a13e029ef381ba110270c39a4afd3b9d1bdd0178af376b268b1f4d6c3357d"
+}

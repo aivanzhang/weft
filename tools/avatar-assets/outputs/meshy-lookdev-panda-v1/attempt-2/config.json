@@ -1,0 +1,29 @@
+{
+  "camera_lights": "saved unchanged",
+  "denoised": true,
+  "limits": {
+    "output_mb": 256,
+    "rss_mb": 2048,
+    "wall_seconds": 300
+  },
+  "new_provider_calls": 0,
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-lookdev-panda-v1/attempt-2",
+  "portable_material_names": [
+    "PortableCoat_0_cutout_fur",
+    "PortableCoat_1_cutout_fur"
+  ],
+  "pose": "saved",
+  "resolution": 640,
+  "samples": 16,
+  "schema_version": 1,
+  "source_blend": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-refined-v6/source.blend",
+  "source_blend_sha256": "953a4ea2cdd7dc4cdffb8182b4d55f1fdeb4838f86081fff1ed0ee84c3884d5b",
+  "threads": 4,
+  "variants": [
+    "baseline_native",
+    "base_only",
+    "portable_only",
+    "base_matte_no_normal",
+    "native_parents_only"
+  ]
+}

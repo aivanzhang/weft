@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "recorded": "2026-10-31T23:26:07.447775-07:00",
+  "status": "local_cause_isolated_pending_candidate",
+  "observations": [
+    "Panda cheek artifacts remain in base-only, matte/no-normal and uniform-gray clay renders.",
+    "Portable cards add separate visible speckles but do not cause the native base defects.",
+    "Raw/provider-rigged source has chunky fur relief; isolated triangles first clearly appear after prior binary selective smoothing.",
+    "Current dragon has1877 flat-shaded faces; disabling specular/normal response alone does not remove coarse surface features."
+  ],
+  "hypothesis": "Binary color/exclusion smoothing leaves frozen vertices through the smoothed coarse coat; test spatially feathered bounded paired smoothing.",
+  "diagnostic_outputs": [
+    "outputs/meshy-lookdev-panda-v1/attempt-2",
+    "outputs/meshy-lookdev-panda-clay-v1",
+    "outputs/meshy-lookdev-dragon-v1"
+  ],
+  "preserved_failure": "outputs/meshy-lookdev-panda-v1 originally rejected an empty sequence-editor container before rendering; retry corrects empty-vs-active strip check in a new nested attempt folder. Initial failure files unchanged; its original inventory is a historical subset, not the complete parent tree after retry.",
+  "originals_unchanged": true,
+  "new_provider_calls": 0,
+  "next_candidates": [
+    "examples/meshy/muse-panda-polish-v1.json",
+    "examples/meshy/agent-dragon-polish-v1.json"
+  ],
+  "acceptance_pending": true
+}

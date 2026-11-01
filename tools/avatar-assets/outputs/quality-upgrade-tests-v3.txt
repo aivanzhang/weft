@@ -1,0 +1,14 @@
+.....................................................................................................................................................................................{"stage": "geometry", "status": "awaiting_generation_authorization"}
+..{"stage": "fixture", "status": "checked"}
+...{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+.........{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+.............................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 368 tests in 10.358s
+
+OK
+HD_SURFACE_MEASUREMENTS=[{"elapsed_seconds": 0.051132, "incremental_peak_rss_bytes": 47497216, "normal_detail_residual_from_512": 0.005690624471753836, "pattern": "brushed", "peak_rss_bytes": 83804160, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.202378, "incremental_peak_rss_bytes": 166330368, "normal_detail_residual_from_512": 0.011063765734434128, "pattern": "brushed", "peak_rss_bytes": 202719232, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.086331, "incremental_peak_rss_bytes": 51740672, "normal_detail_residual_from_512": 0.04252931848168373, "pattern": "fur", "peak_rss_bytes": 88129536, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.342732, "incremental_peak_rss_bytes": 181075968, "normal_detail_residual_from_512": 0.0704735517501831, "pattern": "fur", "peak_rss_bytes": 217317376, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.078742, "incremental_peak_rss_bytes": 49610752, "normal_detail_residual_from_512": 0.0016504161758348346, "pattern": "iris", "peak_rss_bytes": 85950464, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.314157, "incremental_peak_rss_bytes": 177897472, "normal_detail_residual_from_512": 0.0023371647112071514, "pattern": "iris", "peak_rss_bytes": 214286336, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.201008, "incremental_peak_rss_bytes": 58900480, "normal_detail_residual_from_512": 0.00608360581099987, "pattern": "scales", "peak_rss_bytes": 95289344, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.791453, "incremental_peak_rss_bytes": 183009280, "normal_detail_residual_from_512": 0.010090735740959644, "pattern": "scales", "peak_rss_bytes": 219332608, "resolution": 2048, "returned_array_bytes": 134217728}]

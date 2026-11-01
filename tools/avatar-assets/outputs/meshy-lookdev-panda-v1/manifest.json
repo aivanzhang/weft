@@ -1,0 +1,58 @@
+{
+  "artifacts": [
+    {
+      "bytes": 804,
+      "path": "config.json",
+      "sha256": "45726d12078e567dc657ed800428b24a52c19a7cc978fd8940f6ec7d0a2bc91a"
+    },
+    {
+      "bytes": 8007,
+      "path": "input-receipt.json",
+      "sha256": "0101e8af40d9a82bf63fcfd1431e710bc2d686e1ecdaeb88c4d547beab8e9f60"
+    },
+    {
+      "bytes": 1424,
+      "path": "job.json",
+      "sha256": "ff4506f37c7bcda8396fbad878af42ee36c82cf800ebec26f10f1cecfbc76369"
+    },
+    {
+      "bytes": 504,
+      "path": "lookdev-handle.json",
+      "sha256": "f1b859344ccfa3a7c4c6d46ef596f8444004edac5f7c36cb4cb0f6fddff1c08c"
+    },
+    {
+      "bytes": 1290,
+      "path": "lookdev-monitor.json",
+      "sha256": "b10866fa42d762791b833f4548fc9537f9c2234978f912c54962ad0ec5a40715"
+    },
+    {
+      "bytes": 987,
+      "path": "lookdev.log",
+      "sha256": "7ed826ca209ca22e150fd321a56e1895a235667ee5df98c8ae85fd1fa72f8d02"
+    },
+    {
+      "bytes": 32090,
+      "path": "source-manifest.json",
+      "sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380"
+    },
+    {
+      "bytes": 14745,
+      "path": "sources/blender_lookdev.py",
+      "sha256": "8434d980414609337fc9baeb9575405ecc1cd6019a7137b8bb6b471846b40050"
+    },
+    {
+      "bytes": 9005,
+      "path": "sources/lookdev.py",
+      "sha256": "3ef168931fdd2e1326b50b24b4d3712baab9fe453fcd9933a437407defb16886"
+    }
+  ],
+  "error": "Lookdev failed; inspect retained job evidence",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Lookdev failed; inspect retained job evidence"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

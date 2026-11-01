@@ -1,0 +1,732 @@
+{
+  "animation_verified": false,
+  "attachment": {
+    "bone": "CompanionAnchor",
+    "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance",
+    "parent_bone": "RightShoulder",
+    "rest_geometry_changed": false,
+    "selected_vertices": 4644,
+    "selector": {
+      "anchor_from_bone": "RightArm",
+      "bone": "CompanionAnchor",
+      "dominant_channel": 1,
+      "dominant_ratio": 1.05,
+      "expand_meters": 0.025,
+      "max_vertices": 20000,
+      "min_vertices": 500,
+      "parent_bone": "RightShoulder",
+      "regions": [
+        {
+          "center": [
+            0.11,
+            0.22,
+            0.68
+          ],
+          "radius": [
+            0.25,
+            0.4,
+            0.28
+          ]
+        }
+      ]
+    }
+  },
+  "authored_rig": null,
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.3680001497268677,
+    "view": "front"
+  },
+  "emitter_scale_applied": true,
+  "groom": {
+    "armature": "Armature",
+    "clump_factor": 0.06,
+    "comb": {
+      "amount": 0.55,
+      "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+      "direction_rest_object_axes": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "hair_dynamics": false,
+      "initialization": {
+        "method": "Particle Edit enter/exit on owned emitter",
+        "parents": 6500
+      },
+      "limitations": [
+        "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+        "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+        "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+      ],
+      "limits": {
+        "amount_range": [
+          0,
+          0.95
+        ],
+        "direction_component_range": [
+          -1,
+          1
+        ],
+        "parents": 10000,
+        "stored_keys": 150000,
+        "stored_parent_arc_length_m": 0.08,
+        "wall_seconds": 20
+      },
+      "max_arc_length_change_m": 1.9177344981122224e-07,
+      "max_key_error_m": 2.6749555872404934e-07,
+      "max_root_shift_m": 0.0,
+      "max_stored_arc_length_m": 0.014000277758858171,
+      "mean_tip_displacement_m": 0.008666810567232433,
+      "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+      "native_only": true,
+      "parallel_direction_strands_unchanged": 0,
+      "parents": 6500,
+      "schema_version": 1,
+      "seconds": 1.0188412501011044,
+      "settings_preserved": {
+        "child_seed": 831,
+        "hair_dynamics": false,
+        "seed": 831,
+        "settings": {
+          "child_percent": 4,
+          "child_type": "INTERPOLATED",
+          "clump_factor": 0.05999999865889549,
+          "count": 6500,
+          "hair_length": 0.014000000432133675,
+          "hair_step": 3,
+          "material": 4,
+          "radius_scale": 7.999999797903001e-05,
+          "rendered_child_count": 30,
+          "root_radius": 2.0,
+          "roughness_1": 0.0010000000474974513,
+          "roughness_2": 0.0003499999875202775,
+          "tip_radius": 0.11999999731779099,
+          "type": "HAIR",
+          "use_modifier_stack": true,
+          "use_regrow_hair": false
+        }
+      },
+      "skin_signature": {
+        "geometry_weights_sha256": "a6a3746f7b74cb27767605521fcd06678d377e3681cfeede4b33bb71a2315674",
+        "mixed_weight_vertices": 49395,
+        "vertices": 67787
+      },
+      "status": "combed_pending_render_review",
+      "stored_keys": 26000
+    },
+    "copied_skin": {
+      "geometry_weights_sha256": "a6a3746f7b74cb27767605521fcd06678d377e3681cfeede4b33bb71a2315674",
+      "mixed_weight_vertices": 49395,
+      "vertices": 67787
+    },
+    "density_excluded_vertices": 3421,
+    "density_selected_vertices": 64366,
+    "dynamics_enabled": false,
+    "emitter_surface_visible": false,
+    "fur_max_chroma": 0.18,
+    "gltf_export_supported": false,
+    "kind": "editable_native_blender_particle_hair",
+    "limitations": [
+      "Native Blender hair is not exported as glTF geometry or browser hair.",
+      "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+      "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+    ],
+    "mask_config": [
+      {
+        "center": [
+          0.45,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.66,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.56,
+          0.08,
+          0.67
+        ],
+        "radius": [
+          0.07,
+          0.17,
+          0.055
+        ]
+      },
+      {
+        "center": [
+          0.11,
+          0.22,
+          0.68
+        ],
+        "radius": [
+          0.16,
+          0.34,
+          0.24
+        ]
+      }
+    ],
+    "material": {
+      "base_color_linear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "material": "NativeGroom_Material_0_hair",
+      "model": "CHIANG",
+      "parametrization": "COLOR",
+      "radial_roughness": 0.6,
+      "shader": "ShaderNodeBsdfHairPrincipled",
+      "shader_roughness": 0.6,
+      "texture_color_sampling": true
+    },
+    "native_only": true,
+    "native_parameters": {
+      "child_type": "INTERPOLATED",
+      "hair_step": 3,
+      "radius_parameter_description": "Multiplier of diameter properties",
+      "radius_scale": 7.999999797903001e-05,
+      "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+      "render_children": 45,
+      "render_step": 3,
+      "root_diameter_m": 0.00016,
+      "root_radius": 2.0,
+      "root_radius_description": "Strand diameter width at the root",
+      "tip_diameter_m": 9.600000000000001e-06,
+      "tip_radius": 0.11999999731779099,
+      "use_modifier_stack": true,
+      "use_parent_particles": true,
+      "viewport_children": 4
+    },
+    "object": "NativeGroom_char1",
+    "render_children_override_after_comb": 45,
+    "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+    "render_fiber_upper_bound": 299000,
+    "reserved_prefix": "NativeGroom_",
+    "schema_version": 1,
+    "settings": {
+      "children": 30,
+      "length": 0.014,
+      "parents": 6500,
+      "radius": 8e-05,
+      "roughness": 0.001,
+      "seed": 831
+    },
+    "source_object": "char1"
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.12,
+  "portable_fur": [
+    {
+      "cards": 1320,
+      "config": {
+        "brightness": [
+          0,
+          0.35
+        ],
+        "color": [
+          0.09,
+          0.08,
+          0.075,
+          1
+        ],
+        "count": 1320
+      },
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_0_cutout_fur",
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "31e26d78c2304a86d5ccd95a8562879d67b02ed8d5552ec874b2d5aefe9aa9d1"
+      },
+      "vertices": 7920
+    },
+    {
+      "cards": 1080,
+      "config": {
+        "brightness": [
+          0.35,
+          1.01
+        ],
+        "color": [
+          0.92,
+          0.9,
+          0.85,
+          1
+        ],
+        "count": 1080
+      },
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_1_cutout_fur",
+        "path": "textures/PortableCoat_1-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "65c9a47c27a183c7ee250997fca9e811ce4ca6ecb695d5167ac6f29f0ad6729f"
+      },
+      "vertices": 6480
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": {
+    "authored_not_recovered": true,
+    "bounds_m": {
+      "min": [
+        -0.4573468565940857,
+        -0.4425346553325653,
+        -3.754360378138699e-08
+      ],
+      "span": [
+        0.914693683385849,
+        0.8850694596767426,
+        1.2000000852273196
+      ]
+    },
+    "clipped_vertex_step_events": 92,
+    "coincident_vertices_merged": 36912,
+    "color_mask_used": false,
+    "displacement_limit_m": 0.04800000340909279,
+    "elapsed_seconds": 0.12151995790190995,
+    "excluded_vertices": 172,
+    "excluded_welded_vertices": 116,
+    "feathered_vertices": 198,
+    "geometry_scope": "Only positions are returned; topology, UVs and skin remain the caller's responsibility.",
+    "input_edges": 121571,
+    "input_vertices": 67787,
+    "isolated_welded_vertices": 0,
+    "iterations_executed": 16,
+    "iterations_requested": 16,
+    "limits": {
+      "edges": 300000,
+      "iterations": 20,
+      "max_displacement_ratio": 0.04,
+      "vertices": 100000
+    },
+    "max_displacement_m": 0.048000003409092835,
+    "max_step_displacement_m": 0.020325084228415835,
+    "method": "Exact-position welding, fixed spatial feather weights, positive Laplacian steps",
+    "method_id": "laplacian",
+    "negative_step_strength": null,
+    "positive_step_strength": 0.35,
+    "rms_displacement_m": 0.00934962760166505,
+    "shrinkage_intended": true,
+    "steps_per_iteration": 1,
+    "volume_preservation_intended": false,
+    "volume_preservation_verified": false,
+    "volume_scope": "Positive Laplacian fairing intentionally permits shrinkage within the displacement cap; volume is not preserved or verified.",
+    "welded_edges": 92846,
+    "welded_vertices": 30875
+  },
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.4573468267917633,
+      0.44253480434417725,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.4573468565940857,
+      -0.4425346553325653,
+      -3.754360378138699e-08
+    ]
+  },
+  "source_sha256": "cf39ef220692ad5873123fff561939cdc72d4f9b4da99ca138a6fe6cc1e6477a",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        16.799999999999997,
+        28.799999999999997,
+        40.8,
+        52.800000000000004,
+        64.80000000000001,
+        79.19999999999999,
+        96.0
+      ],
+      "id": "making_something",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.7,
+        1.2,
+        1.7,
+        2.2,
+        2.7,
+        3.3,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        33.599999999999994,
+        52.800000000000004,
+        74.4,
+        96.0
+      ],
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.4,
+        2.2,
+        3.1,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        38.400000000000006,
+        52.800000000000004,
+        72.0,
+        96.0
+      ],
+      "id": "working",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.6,
+        2.2,
+        3.0,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": {
+    "base_color_textures_preserved": true,
+    "faces_reassigned": 59706,
+    "geometry_uv_skin_unchanged": true,
+    "new_material_count": 2,
+    "precedence": "last_matching_profile_wins",
+    "profiles": [
+      {
+        "matched_faces": 59706,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_coat-matte",
+            "new_slot": 1,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 59577,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "coat-matte",
+        "selected_faces": 59577,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.05,
+          "roughness": 0.82
+        }
+      },
+      {
+        "matched_faces": 129,
+        "material_copies": [
+          {
+            "material": "Material_0__surface_eyes-nose",
+            "new_slot": 2,
+            "normal_map_nodes": 1,
+            "removed_input_links": {
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 129,
+            "source_material": "Material_0",
+            "source_slot": 0,
+            "texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ]
+          }
+        ],
+        "name": "eyes-nose",
+        "selected_faces": 129,
+        "settings": {
+          "metallic": 0,
+          "normal_strength": 0.05,
+          "roughness": 0.3
+        }
+      }
+    ],
+    "selection": "Normalized world-bound face centroids; any region or all when empty. Mean sampled vertex RGB; brightness=channel mean, chroma=max-min. Brightness upper bound is exclusive.",
+    "source_materials_unchanged": true,
+    "texture_scope": "Existing image datablocks and UV routing are reused unchanged; no repainting, resampling, new resolution or added texture detail."
+  },
+  "weft_runtime_verified": false,
+  "weight_constraints": {
+    "authored_not_recovered": true,
+    "changed_vertices": 65295,
+    "config": {
+      "fallback_bone": "Spine02",
+      "regions": {
+        "LeftArm": {
+          "center": [
+            0.8,
+            0.5,
+            0.49
+          ],
+          "radius": [
+            0.16,
+            0.32,
+            0.16
+          ]
+        },
+        "LeftForeArm": {
+          "center": [
+            0.87,
+            0.5,
+            0.37
+          ],
+          "radius": [
+            0.16,
+            0.32,
+            0.17
+          ]
+        },
+        "LeftHand": {
+          "center": [
+            0.91,
+            0.5,
+            0.27
+          ],
+          "radius": [
+            0.13,
+            0.32,
+            0.14
+          ]
+        },
+        "LeftLeg": {
+          "center": [
+            0.7,
+            0.5,
+            0.08
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.12
+          ]
+        },
+        "LeftShoulder": {
+          "center": [
+            0.68,
+            0.5,
+            0.51
+          ],
+          "radius": [
+            0.22,
+            0.36,
+            0.13
+          ]
+        },
+        "LeftUpLeg": {
+          "center": [
+            0.7,
+            0.5,
+            0.12
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.16
+          ]
+        },
+        "RightArm": {
+          "center": [
+            0.2,
+            0.25,
+            0.53
+          ],
+          "radius": [
+            0.17,
+            0.28,
+            0.14
+          ]
+        },
+        "RightForeArm": {
+          "center": [
+            0.2,
+            0.23,
+            0.46
+          ],
+          "radius": [
+            0.17,
+            0.25,
+            0.15
+          ]
+        },
+        "RightHand": {
+          "center": [
+            0.25,
+            0.26,
+            0.4
+          ],
+          "radius": [
+            0.16,
+            0.25,
+            0.15
+          ]
+        },
+        "RightLeg": {
+          "center": [
+            0.3,
+            0.4,
+            0.08
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.12
+          ]
+        },
+        "RightShoulder": {
+          "center": [
+            0.25,
+            0.5,
+            0.51
+          ],
+          "radius": [
+            0.22,
+            0.36,
+            0.13
+          ]
+        },
+        "RightUpLeg": {
+          "center": [
+            0.3,
+            0.4,
+            0.12
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.16
+          ]
+        }
+      }
+    },
+    "method": "Bound provider bone weights to authored ellipsoids; transfer removed weight to torso"
+  },
+  "world_rest_position_max_error": 0.0
+}

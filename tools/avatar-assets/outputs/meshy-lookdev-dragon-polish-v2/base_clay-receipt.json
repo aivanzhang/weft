@@ -1,0 +1,49 @@
+{
+  "denoised": true,
+  "diagnostic_material_overrides": [
+    {
+      "clone": "LookdevClay_Material_0",
+      "object": "Mesh_0",
+      "original": "Material_0"
+    },
+    {
+      "clone": "LookdevClay_Material_0__surface_scales-satin",
+      "object": "Mesh_0",
+      "original": "Material_0__surface_scales-satin"
+    },
+    {
+      "clone": "LookdevClay_Material_0__surface_eyes-gloss",
+      "object": "Mesh_0",
+      "original": "Material_0__surface_eyes-gloss"
+    }
+  ],
+  "diagnostic_surface_override": {
+    "base_color_linear": [
+      0.5,
+      0.5,
+      0.5,
+      1
+    ],
+    "disconnected_principled_inputs": [
+      "Base Color",
+      "Normal",
+      "Metallic",
+      "Roughness"
+    ],
+    "geometry_unchanged": true,
+    "metallic": 0,
+    "normal_map_strength": 0,
+    "roughness": 0.8,
+    "scope": "Uniform-color diagnostic, not a replacement texture or quality improvement"
+  },
+  "hidden_objects": [],
+  "id": "base_clay",
+  "path": "base_clay.png",
+  "resolution": [
+    640,
+    640
+  ],
+  "samples": 16,
+  "seconds": 1.417052499949932,
+  "sha256": "07568c704371e31c680b419b55f871106650071cfad5814b03dc93a0134d1272"
+}
