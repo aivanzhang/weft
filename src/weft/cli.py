@@ -341,6 +341,8 @@ def main():
     exercise_source.add_argument("--run", help="Sealed source-qualified shared-world base")
     exercise_source.add_argument("--human-run", help="Sealed exercise-body output, mobile exercise-v3 run or ready lab")
     exercise_source.add_argument("--video", help="Local exercise video; requires --pose-model and person-only, static-support priors or saved equipment evidence")
+    exercise_source.add_argument("--geometry-run", help="Reuse a completed saved conditional silhouette alternative and its exact task; no fresh-video reconstruction or refit")
+    exercise_build.add_argument("--geometry-manifest-sha256", help="With --geometry-run: pin the exact completed source-study manifest")
     exercise_build.add_argument("--pose-model", help="Raw video only: pinned local pose model; no download or upload")
     exercise_build.add_argument("--pose-mode", choices=("video", "image"), help="Raw video only; default video")
     exercise_build.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw video only; default raw")
@@ -781,7 +783,19 @@ def main():
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "shared-exercise-build":
             from weft.exercise_scene_pipeline import prepare_exercise_scene
-            if args.static_supports is not None:
+            if args.geometry_run is not None:
+                overrides = [name for name in ("evidence_run", "config", "human_run", "video", "pose_model", "pose_mode",
+                    "pose_identity", "pose_recovery", "source_note", "body_scale", "static_supports", "training_seed",
+                    "evaluation_seed", "training_generations", "training_population", "training_policy_family",
+                    "evaluation_trials", "evaluation_jitter") if getattr(args, name) is not None]
+                overrides.extend(name for name in ("source_mapping", "root_assistance", "full_reference", "person_only", "train")
+                                 if getattr(args, name))
+                if overrides:
+                    raise ValueError("--geometry-run preserves its saved scene/task; remove supplied overrides: " +
+                                     ", ".join("--" + name.replace("_", "-") for name in overrides))
+            elif args.geometry_manifest_sha256 is not None:
+                raise ValueError("--geometry-manifest-sha256 requires --geometry-run")
+            elif args.static_supports is not None:
                 if (args.run is not None or args.evidence_run is not None or args.config is not None
                         or args.source_mapping or args.body_scale is not None or args.root_assistance):
                     raise ValueError("--static-supports owns scale/root assumptions and requires --video or --human-run, without equipment/config/mapping overrides")
@@ -798,7 +812,7 @@ def main():
                       "learning_interactive_lab": "Prepare trained interactive lab",
                       "source_pose_proposals": "Observe full frames and selected crops",
                       "source_pose_recovery": "Verify source-only pose recovery", "source_body_source": "Prepare recovered body evidence",
-                      "support_priors": "Bind authored supports to the body"}
+                      "support_priors": "Bind authored supports to the body", "geometry_source": "Reuse saved conditional geometry"}
             train_options = {key: value for key, value in (
                 ("training_seed", args.training_seed), ("evaluation_seed", args.evaluation_seed),
                 ("generations", args.training_generations), ("population", args.training_population),
@@ -816,6 +830,8 @@ def main():
                 source_mappings=args.source_mapping, root_assistance=args.root_assistance,
                 full_reference=args.full_reference,
                 max_seconds=args.max_seconds,
+                **({"geometry_run": args.geometry_run, "geometry_manifest_sha256": args.geometry_manifest_sha256}
+                   if args.geometry_run is not None else {}),
                 **({"scene_scope": "human_static_supports", "static_supports": args.static_supports}
                    if args.static_supports is not None else {"scene_scope": "human_only"} if args.person_only else {}),
                 progress=lambda row: print(f"{labels.get(row['stage'], row['stage'].replace('_', ' '))}: {row['status'].replace('_', ' ')}",

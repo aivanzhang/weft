@@ -1,14 +1,18 @@
 # Combined Weft implementation handoff
 
-## Active prediction and geometry reuse — November 1, 2026, 1:25 PM PST
+## Active geometry reuse and control evidence — November 1, 2026, 2:07 PM PST
 
-The full goal remains active. The prior launcher/checkpoint is published at
-`e130ebc410fd050fd142c17a0854cfdce11435ae`; the latest completed fetch matched it.
-Standing merge approval is recorded in `AGENTS.md`; scoped, verified changes need
-no additional confirmation. Root is preparing a sequence-prediction checkpoint;
-the actual publication receipt will be `.local/equipment-sequence-prediction-publication-01.json`.
-Absence means publication is not complete. Independent avatar-session edits and
-unfinished geometry integration are excluded; do not claim the whole tree clean.
+The full goal remains active. The sequence-prediction checkpoint is published at
+`8b1e5e3662242e9fb24c7f0b620d8e24cfdab3ec`. The parallel avatar session subsequently
+published `87f224fb6e9e36c89df669bc3c8f2c00ee644a7a`; main and cached origin now
+match it. Root's native evidence used the separately frozen8b runtime and exact
+feature overlays, not the avatar checkpoint.
+Publication receipt: `.local/equipment-sequence-prediction-publication-01.json`,
+SHA `da339aeb3537023497f57e8f4a1fa494f193f5bd65134253370646821d3cda30`.
+Standing merge approval is recorded in `AGENTS.md`; relevant verified changes need
+no additional confirmation. Preserve remaining independent avatar-session edits.
+Its staging has completed; the index and stash are empty before root's checkpoint,
+but the whole worktree is not clean. Root commits only owned paths.
 
 The [sequence predictor](equipment-sequence-prediction.md) has 56 passing mocked
 checks and closed independent review. Its [native qualification](equipment-sequence-prediction-native.md)
@@ -28,24 +32,78 @@ Plan01 remains unexecuted; reviewed plan02 fixes returned-native accounting if
 post-step contact observation fails. One isolated fake-operation check passes.
 No original helper, policy, scorer, geometry or gate changed.
 
-Current non-overlapping ownership:
+The [two-action correction](equipment-anticipatory-control-proposal.md) now has
+37 passing mocked cases and closed independent review. Its [native search and
+saved diagnosis](equipment-sequence-control-native.md) completed: 48 exact prefix
+controls, 23 predicted pairs, 46 forecast controls, 64 solver sweeps and **no
+actual49/50 or fallback**. All pairs fail measured constraints. Live/task state
+is unchanged; elapsed1.054703 seconds /138,264,576 B peak RSS. The affine response
+model poorly predicts the tested candidates. This does not prove infeasibility,
+and merely increasing solver iterations is not a demonstrated fix. Native seal
+`63f5c738e13a561f93babad1b33eafff6fcedb64f0a208878b16f57a2a719551`;
+saved audit `b3ff7364dd478b32d789fecbc1272c3c4b148160c344101f9da471ca53c15f74`.
+This helper remains experimental and is not a public/default control mode.
 
-- `/root/contact_reconstruction`: implementation/release complete. Now owns a
-  **read-only** anticipatory-control proposal at
-  `docs/handoffs/equipment-anticipatory-control-proposal.md` and its lane scratch.
-  Examine a bounded fixed two-action prefix, preserving both boundary and actual
-  accumulated-gate evidence. No new native run or parameter sweep.
-- `/root/reconstruction_next_step`: implement saved conditional geometry reuse
-  via `shared-exercise-build --geometry-run`, new `exercise_geometry_inputs.py`,
-  narrow scene-pipeline/build-report/CLI changes and focused tests. Require sealed
-  source/config/task identities, unchanged physical invariants and ordinary lab
-  admission. Preserve original box and selected compound alternative. No refit,
-  cavity/depth inference, media reads or native execution in this lane.
-- `/root/equipment_control_review`: sequence/harness review closed; now reviews
-  the geometry adapter and routing. No duplicate native/test work.
-- Root: integration, saved-result audits and publication; owns any later bounded
-  public geometry-resume acceptance after implementation/review. No such run has
-  been prepared/executed yet.
+[Saved-geometry reuse](exercise-geometry-resume.md) connects the existing sealed
+conditional compound alternative to normal build/inspection/lab paths. Its68
+distinct checks pass, including five affected legacy cases; exact source/task
+identities, original box alternative and normal lab admission remain required.
+No fitting, empty-handle/depth inference, training or new source-fit claim is added.
+The source/runtime are frozen. Native attempt01 is preserved at
+`artifacts/exercise-geometry-resume-native-01`: the harness omitted two model loads
+from the final ordinary lab reload and stopped after generating121 reference poses.
+It completed5models/2data/123forwards/122resets and zero steps in1.842272seconds /
+294,387,712B. PID59242 reaped; inspection did not start. This is a harness-count
+failure, not a changed product gate or a completed acceptance. Root and the peer
+independently derived the exact normal total of7models; all other limits remained.
+
+Attempt02's public **build succeeded** in1.847018seconds, with exactly seven model
+loads,121 references, two ordinary source-proof passes and zero physics steps.
+Build `artifacts/exercise-geometry-resume-native-02/build`, seal
+`49196c57417d75cb1499173c685831c1ef4655f797e18048aec885aea582fa9f`;
+inner lab seal `94da20ea68f3fe8fdccf29fe4a8938ec0caa39f836aed824bd19ba52c5d6a32c`.
+Root verified all487 sealed members/80,850,991B,465 inner lab members,17 source
+metadata copies,15 protected scene fields, object provenance, exact task and all
+five runtime overlays without rerunning the build. Audit
+`.local/exercise-geometry-resume-native-02/saved-build-audit-01.json`, SHA
+`05369f551321d86a171842854e4442e36ab342004780296ef612d13ef3f326d4`.
+The outer attempt then failed before report output: its filesystem guard rejected
+the inspector's existing-ancestor `mkdir` call instead of allowing the normal
+caught `FileExistsError`. PID60310 reaped at2.500625seconds/319,766,528B. The ready
+build remains intact; no build or source fitting was repeated.
+
+Inspection-only recovery **passed** in0.656014seconds/118,292,480B,30 files/3,197,076B;
+PID62473 reaped. [Open the comparison report](../../artifacts/exercise-geometry-resume-inspect-01/inspection/index.html).
+The narrow harness shim synthesizes the expected `FileExistsError` for existing
+real ancestors before any syscall; no outside mutation is allowed. Three focused
+guard cases pass. Original guard, product, runtime and source bytes remain exact.
+Zero native/source-proof/rebuild/media/API work ran. Root independently verified
+all29 sealed members,21 copied artifacts against the saved build audit,23 inner
+report members and30 local HTML links; no external requests are required.
+Recovery seal `fb10f5a5d7261de8bb71b5811199e73eced1f36f5fb80cf8b02b6ceef09f59a6`;
+saved audit `.local/exercise-geometry-resume-inspect-01/saved-audit-01.json`, SHA
+`04633a7ffdd8da81fb40dc2540f5ab588955a446b152a43f3844f7462f06506b`.
+The report retains source-fit claims and does not reclaim runtime admission or
+assess task success. [Build, inspect and play instructions](../local-lab.md#reuse-a-saved-equipment-shape-experimental).
+
+Current non-overlapping ownership and next action:
+
+- `/root/contact_reconstruction`: projector and saved diagnosis released; no live
+  process or further assigned experiment. Do not repeat unchanged scale searches.
+- `/root/reconstruction_next_step`: implementation, recovery preparation and
+  terminal geometry handoff complete. No native execution by this lane.
+- `/root/equipment_control_review`: product, public-route, count and recovery
+  guard reviews closed; no duplicate tests or native work.
+- Root: native execution and saved audits complete; publish exact owned paths.
+  The actual publication receipt is
+  `.local/equipment-sequence-and-geometry-publication-01.json`; absence means that
+  checkpoint is not published. No additional merge approval is required.
+
+After publication, choose a distinct response-model/contact hypothesis before any
+new controller experiment; do not retry the unchanged failed searches. Broader
+unfamiliar-video body/ground/equipment reconstruction, full-task learning and
+independent physical-contact accuracy remain unfinished. No success claim or
+default is promoted from this milestone.
 
 No server, browser, API request, deployment or native job remains running in
 these lanes. External spend is $0. User-testable path:

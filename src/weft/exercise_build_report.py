@@ -66,6 +66,19 @@ _OTHER_DOCS = {
     "result.json": ("Build", "Exact terminal result"),
     "settings.json": ("Build", "Requested options — execution is listed separately"),
     "stages.json": ("Build", "Recorded stage history"),
+    "geometry_source/resume.json": ("Equipment", "Saved conditional geometry reuse and retained study claims"),
+    "geometry_source/study-manifest.json": ("Equipment", "Original silhouette study seal — selected metadata is copied"),
+    "geometry_source/candidate-manifest.json": ("Equipment", "Selected compound package seal"),
+    "geometry_source/baseline-manifest.json": ("Equipment", "Original box package seal"),
+    "geometry_source/geometry-input/scene.json": ("Equipment", "Original box scene — retained alternative"),
+    "geometry_source/geometry-input/exercise-task.json": ("Equipment", "Original box task and gates"),
+    "geometry_source/geometry/scene.json": ("Equipment", "Selected saved compound scene — not executed by this report"),
+    "geometry_source/geometry/exercise-task.json": ("Equipment", "Exact selected task — only its scene identity changed"),
+    "geometry_source/geometry/previous-geometry.json": ("Equipment", "Original geometry and provenance retained by the producer"),
+    "geometry_source/geometry/geometry-hypothesis.json": ("Equipment", "Saved admission claims — not rerun here"),
+    "geometry_source/geometry-config.json": ("Equipment", "Exact saved compound configuration"),
+    "geometry_source/settings.json": ("Equipment", "Original conditional image settings"),
+    "geometry_source/report.json": ("Equipment", "Original source-fit and clearance claims — not newly measured"),
     "input-preflight.json": ("Build", "Original input checks and identities"),
     "person-inventory.json": ("World", "User-declared person/ground scope — absence is not detected"),
     "support-priors.json": ("World", "Exact supplied static-support assumptions — not recovered contact"),
@@ -303,6 +316,9 @@ def _history(result, settings, receipt_only):
         ("learning_independent_evaluation", "Test on independent starts", training),
         ("learning_interactive_lab" if training else "interactive_lab", "Prepare the interactive lab", True),
     ]
+    if settings.get("scene_scope") == "saved_conditional_geometry" or "geometry_source" in latest:
+        definitions = [("geometry_source", "Reuse saved conditional equipment geometry", True),
+                       ("interactive_lab", "Prepare the interactive lab", True)]
     stages = []
     for name, label, requested in definitions:
         row = latest.get(name)
@@ -340,9 +356,14 @@ def _selection(source):
     if source.receipt_only:
         return chosen, None, None
     chosen.update({name: value for name, value in _OTHER_DOCS.items() if name in source.files})
-    if source.document("settings.json").get("scene_scope") in {"human_only", "human_static_supports"}:
+    if source.document("settings.json").get("scene_scope") in {"human_only", "human_static_supports", "saved_conditional_geometry"}:
         chosen.update({name: ("World", "Saved final lab scene — not executed here")
                        for name in ("lab/run/scene.json", "learning_workflow/lab/run/scene.json") if name in source.files})
+    if source.document("settings.json").get("scene_scope") == "saved_conditional_geometry":
+        reports = [name for name in source.files if re.fullmatch(r"geometry_source/objects/[a-z][a-z0-9_-]{0,63}/result\.json", name)]
+        if len(reports) > 4:
+            raise ValueError("Saved geometry report exceeds its object bound")
+        chosen.update({name: ("Equipment", "Exact retained per-object image-fit claim — not rerun") for name in reports})
     # A failed body writer can contain metadata but no poses; retain earlier verified source evidence.
     body_prefix = next((prefix for prefix in _PREFIXES if prefix + "/evidence.json" in source.files), None)
     if body_prefix is None:
@@ -860,11 +881,57 @@ def _summary(source, body_prefix, video):
         result["assumptions"].extend(support_assumptions)
         result["assumptions"].append("Support shapes, placement and load windows are authored simulator assumptions. The original body and ground are not corrected by this report; physical contact and equipment absence remain unverified.")
         result["assumptions"] = list(dict.fromkeys(result["assumptions"]))
+    elif settings.get("scene_scope") == "saved_conditional_geometry":
+        result["equipment"] = _saved_geometry_summary(source, settings)
+        result["assumptions"].append(result["equipment"]["scope"])
     result["requested_options"] = _small_fields(settings, ("scene_scope", "pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
     result["learning"] = _learning_summary(source, settings)
     result["reference_feasibility"] = _reference_feasibility(source,
         result["source"].get("sha256", result["coverage"].get("source_sha256")))
     return result
+
+
+def _saved_geometry_summary(source, settings):
+    if "geometry_source/resume.json" not in source.files:
+        # A progress callback or partial writer can fail before the snapshot's final receipt.
+        if (source.result.get("status") != "failed" or source.result.get("lab_status") != "not_ready"
+                or settings.get("training") is not False
+                or any(row.get("stage") == "geometry_source" and row.get("status") == "ready"
+                       for row in source.result.get("stages", []))
+                or any(name.startswith(("lab/", "proposal/", "candidate/")) for name in source.files)):
+            raise ValueError("Ready geometry build lacks its selected metadata snapshot")
+        return {"status": "saved_geometry_snapshot_incomplete",
+            "study_manifest_sha256": settings.get("geometry_manifest_sha256"),
+            "scope": "Saved geometry reuse stopped before its selected metadata snapshot completed; no lab is ready. "
+                     "Any retained source-fit or clearance values were not newly measured."}
+    receipt = source.document("geometry_source/resume.json", required=True)
+    if (receipt.get("profile") != "exercise-geometry-resume-inputs-v1"
+            or receipt.get("status") != "selected_metadata_verified" or source.result.get("geometry_source") != receipt
+            or settings.get("geometry_manifest_sha256") != receipt.get("study_manifest_sha256")
+            or settings.get("training") is not False or "proposal/report.json" in source.files):
+        raise ValueError("Saved geometry build receipt or scope differs")
+    for name, key in (("study-manifest.json", "study_manifest_sha256"), ("candidate-manifest.json", "candidate_manifest_sha256")):
+        if source.files.get("geometry_source/" + name) != receipt.get(key):
+            raise ValueError("Saved geometry package identity differs")
+    names = {"baseline_scene_sha256": "geometry-input/scene.json", "candidate_scene_sha256": "geometry/scene.json",
+             "baseline_task_sha256": "geometry-input/exercise-task.json", "task_sha256": "geometry/exercise-task.json"}
+    documents = {}
+    for key, name in names.items():
+        documents[key] = source.document("geometry_source/" + name, required=True)
+        if canonical_hash(documents[key]) != receipt.get(key):
+            raise ValueError("Retained geometry scene/task identity differs")
+    if documents["task_sha256"] != {**documents["baseline_task_sha256"], "scene_sha256": receipt["candidate_scene_sha256"]}:
+        raise ValueError("Retained geometry task changed more than its scene identity")
+    if source.result["lab_status"] == "ready":
+        for name in ("scene.json", "exercise-task.json"):
+            if source.files.get("lab/run/" + name) != source.files.get("geometry_source/geometry/" + name):
+                raise ValueError("Saved lab differs from the selected geometry scene/task bytes")
+        if source.files.get("lab/run/source-run/manifest.json") != receipt.get("candidate_manifest_sha256"):
+            raise ValueError("Saved lab source differs from the selected geometry package")
+    return {**_small_fields(receipt, ("study_manifest_sha256", "candidate_manifest_sha256", "baseline_scene_sha256",
+        "candidate_scene_sha256", "baseline_task_sha256", "task_sha256", "source_sha256", "selected_objects", "preserved",
+        "retained_source_fit", "source_fit", "saved_clearance_status", "physical_validation", "scope")),
+        "status": "saved_conditional_alternative_reused", "verification_scope": "Selected saved metadata only; no new source-fit or clearance measurement"}
 
 
 def _strings(values):
@@ -1124,6 +1191,13 @@ def _render(summary, artifacts, palette):
         equipment_table = "<p>Person-only scene: one selected body and ground, without dummy equipment. Equipment and object-contact gates are not applicable, not passed. Equipment absence is user-declared, not detector-verified.</p>"
     elif summary["equipment"].get("status") == "declared_scope_only":
         equipment_table = "<p>Person-only scope was requested, but no constructed scene is available in the sealed files. Equipment absence is user-declared, not detector-verified.</p>"
+    elif summary["equipment"].get("status") == "saved_conditional_alternative_reused":
+        equipment_table = ("<p>The saved conditional compound alternative and original box scene are retained with the unchanged task. "
+            "Image-fit and clearance values are saved study claims, not newly measured shape or contact.</p><p>"
+            + " · ".join(link(by_name[name]) for name in ("geometry_source/geometry-input/scene.json",
+                "geometry_source/geometry/scene.json", "geometry_source/geometry/exercise-task.json") if name in by_name) + "</p>")
+    elif summary["equipment"].get("status") == "saved_geometry_snapshot_incomplete":
+        equipment_table = "<p>Saved geometry reuse stopped before its metadata snapshot completed. No lab is ready; available partial artifacts and the terminal failure are retained below.</p>"
     elif summary["equipment"].get("status") in {"authored_static_supports", "declared_static_supports"}:
         supports = summary["equipment"]
         support_rows = "".join(f'<tr><th scope="row">{text(obj["id"])}</th><td>{text(obj.get("shape", "not recorded"))}</td>'

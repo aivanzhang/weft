@@ -306,6 +306,62 @@ To play the existing verified video example now, run
 
 [Implementation, verification status and limits](handoffs/shared-exercise-config-workflow.md).
 
+## Reuse a saved equipment shape (experimental)
+
+Use this when a completed silhouette study already contains an admitted equipment
+shape made from several solid pieces. It reuses that saved alternative in the
+normal interactive lab; it does not fit the video again or infer empty handles.
+The original box scene, selected shape, task and source-fit reports stay available
+side by side. Image-fit scores remain conditional study results, not measured
+physical accuracy.
+
+**Try the already-built local example:** open the
+[geometry comparison report](../artifacts/exercise-geometry-resume-inspect-01/inspection/index.html),
+then start its lab:
+
+```sh
+.venv-lab/bin/python -m weft lab \
+  --resume artifacts/exercise-geometry-resume-native-02/build/lab
+```
+
+The saved build and report are verified; no learned policy is attached. The steps
+below create a new copy from a completed study when needed.
+
+**1. Build from the saved study root**, not its `geometry/` subfolder:
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-build \
+  --geometry-run artifacts/silhouette-shared-world-03 \
+  --geometry-manifest-sha256 63184495388e6fd1e865ff83dbaaaceaf198ef1070fea03af83c79dd7775be70 \
+  --out artifacts/my-saved-geometry-01
+```
+
+This example uses already-saved local evidence. Each output directory must be new.
+For another completed study, use its directory and manifest hash. Camera, body,
+equipment, task and training overrides are rejected in this mode; the exact saved
+world/task must pass the normal lab admission checks.
+
+**2. Inspect the alternatives and assumptions:**
+
+```sh
+.venv-lab/bin/python -m weft shared-exercise-inspect \
+  --run artifacts/my-saved-geometry-01 \
+  --out artifacts/my-saved-geometry-report-01
+```
+
+Open the printed report path. Its equipment section links both scenes and the
+unchanged task, including saved failures and uncertainty.
+
+**3. Interact and record** after the build reports `ready`:
+
+```sh
+.venv-lab/bin/python -m weft lab --resume artifacts/my-saved-geometry-01/lab
+```
+
+Use `lab-console` instead of `lab` for terminal controls. No learned policy is
+attached by this reuse mode. A playable world is not proof of accurate contact or
+successful exercise control. [Contract, checks and current verification](handoffs/exercise-geometry-resume.md).
+
 ## Fit a body using uncertain support ranges (experimental)
 
 For an existing saved body, you can supply camera calibration, annotated image

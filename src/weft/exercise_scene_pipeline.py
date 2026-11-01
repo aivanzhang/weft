@@ -144,8 +144,19 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                            human_run=None, body_scale=None, root_assistance=False, full_reference=False,
                            video=None, pose_model=None, pose_mode=None, pose_identity=None, source_note=None,
                            pose_recovery=None, train_settings=None, max_seconds=None, progress=None,
-                           scene_scope="person_and_equipment", static_supports=None):
+                           scene_scope="person_and_equipment", static_supports=None,
+                           geometry_run=None, geometry_manifest_sha256=None):
     """Reuse the standard stages once; unsupported evidence stops before simulation is exposed."""
+    if geometry_run is not None:
+        if (any(value is not None for value in (base_run, evidence_run, config_path, human_run, body_scale, video,
+                pose_model, pose_mode, pose_identity, source_note, pose_recovery, train_settings, static_supports))
+                or source_mappings or root_assistance is not False or full_reference is not False
+                or scene_scope != "person_and_equipment"):
+            raise ValueError("Saved geometry owns its body, source, camera, equipment and task; construction, control and training overrides are not allowed")
+        return _prepare_geometry_scene(geometry_run, out, expected_manifest_sha256=geometry_manifest_sha256,
+                                       max_seconds=max_seconds, progress=progress)
+    if geometry_manifest_sha256 is not None:
+        raise ValueError("A geometry manifest pin requires --geometry-run")
     if sum(value is not None for value in (base_run, human_run, video)) != 1:
         raise ValueError("Provide exactly one shared-world base, mobile human run or raw video")
     if not isinstance(scene_scope, str) or scene_scope not in {"person_and_equipment", "human_only", "human_static_supports"}:
@@ -519,6 +530,100 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
                           retained_stages=retained_recovery())
                 except Exception as sealing_error:
                     _failure_receipt(target, result, sealing_error, started)
+        except Exception as receipt_error:
+            error.add_note(f"Failure receipt could not be sealed: {type(receipt_error).__name__}: {str(receipt_error)[:500]}")
+        raise
+
+
+def _prepare_geometry_scene(run, out, *, expected_manifest_sha256, max_seconds, progress):
+    from weft.exercise_geometry_inputs import (
+        MAX_BYTES as INPUT_BYTES, MAX_FILES as INPUT_FILES, MAX_RECEIPT_BYTES, SCOPE,
+        read_geometry_resume_inputs, recheck_geometry_resume_inputs,
+    )
+    from weft.shared_world_packaging import write_package_files
+
+    max_seconds = 90 if max_seconds is None else max_seconds
+    if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 180:
+        raise ValueError("Saved geometry assembly requires a cooperative 1–180 second bound")
+    source, target = Path(run).absolute(), Path(out).absolute()
+    if target.exists() or target.resolve().is_relative_to(source.resolve()) or source.resolve().is_relative_to(target.resolve()):
+        raise ValueError("Saved geometry assembly output must be new and outside its input")
+    started = time.monotonic()
+    deadline = started + max_seconds
+    prepared = read_geometry_resume_inputs(source, expected_manifest_sha256=expected_manifest_sha256, deadline=deadline)
+    receipt, snapshot = prepared.receipt(), prepared.snapshot_files()
+    target.mkdir(parents=True, exist_ok=False)
+    stages, completed_lab, finalization_started = [], None, False
+    _write_metadata(target, "settings.json", _bytes({"schema_version": 1, "created_at": local_time(),
+        "geometry_run": str(source), "geometry_manifest_sha256": receipt["study_manifest_sha256"],
+        "scene_scope": "saved_conditional_geometry", "training": False, "api_calls": 0, "inference_calls": 0,
+        "maximum_seconds": max_seconds, "maximum_files": MAX_FILES, "maximum_bytes": MAX_BYTES,
+        "stage_output_reservations": {"geometry_source": {"files": INPUT_FILES + 1, "bytes": INPUT_BYTES + MAX_RECEIPT_BYTES},
+                                      "interactive_lab": {"files": LAB_FILES, "bytes": LAB_BYTES}},
+        "scope": SCOPE, "task_scope": "Exact saved task; no control, interval or gate override"}))
+
+    def remaining():
+        left = deadline - time.monotonic()
+        if left < 1:
+            raise TimeoutError("Saved geometry assembly reached its cooperative wall-time bound")
+        return left
+
+    def stage(name, status, **detail):
+        recheck_geometry_resume_inputs(prepared, deadline=deadline)
+        row = {"stage": name, "status": status, "elapsed_seconds": time.monotonic() - started, **detail}
+        stages.append(row)
+        _write_metadata(target, "stages.json", _bytes({"stages": stages}))
+        if progress is not None:
+            progress(json.loads(_bytes(row)))
+        recheck_geometry_resume_inputs(prepared, deadline=deadline)
+
+    def result(status, **details):
+        lab = {"lab_status": "not_ready", "lab_directory": None} if completed_lab is None else {
+            "lab_status": "ready", "lab_directory": completed_lab["lab_directory"],
+            "scene_sha256": receipt["candidate_scene_sha256"], "task_sha256": receipt["task_sha256"],
+            "launch_arguments": ["lab", "--resume", completed_lab["lab_directory"]]}
+        return {"schema_version": 1, "status": status, "stages": stages, "physical_validation": "unverified",
+                "geometry_source": receipt, **lab, **details}
+
+    try:
+        _reserve_stage(target, "geometry_source", deadline, allowance=(INPUT_FILES + 1, INPUT_BYTES + MAX_RECEIPT_BYTES))
+        stage("geometry_source", "running")
+        (target / "geometry_source").mkdir()
+        write_package_files(target / "geometry_source", snapshot)
+        stage("geometry_source", "ready", study_manifest_sha256=receipt["study_manifest_sha256"],
+              candidate_manifest_sha256=receipt["candidate_manifest_sha256"], source_fit="retained_conditional_study_claims")
+        _reserve_stage(target, "interactive_lab", deadline)
+        stage("interactive_lab", "running")
+        # The ordinary lab loader owns full source proof and native admission; no metadata-only bypass.
+        lab = prepare_shared_exercise_lab(prepared.candidate_run, target / "lab", max_seconds=min(60, remaining()))
+        recheck_geometry_resume_inputs(prepared, deadline=deadline)
+        if lab.get("scene_sha256") != receipt["candidate_scene_sha256"] or lab.get("task_sha256") != receipt["task_sha256"]:
+            raise ValueError("Prepared lab changed the selected saved scene or task identity")
+        members = dict(prepared.members)
+        for name in ("scene.json", "exercise-task.json"):
+            read_package_file(target / "lab" / "run", name, max_bytes=16 << 20,
+                              expected_sha256=hashlib.sha256(members["geometry/" + name]).hexdigest())
+        read_package_file(target / "lab" / "run", "source-run/manifest.json", max_bytes=1 << 20,
+                          expected_sha256=receipt["candidate_manifest_sha256"])
+        completed_lab = lab
+        stage("interactive_lab", "ready", manifest_sha256=lab["manifest_sha256"])
+        for name, raw in snapshot.items():
+            _check_deadline(deadline)
+            read_package_file(target / "geometry_source", name, max_bytes=max(1, len(raw)), expected_sha256=hashlib.sha256(raw).hexdigest())
+        recheck_geometry_resume_inputs(prepared, deadline=deadline)
+        finalization_started = True
+        return _seal(target, result("ready"), deadline=deadline, started=started)
+    except Exception as error:
+        failed = result("failed", error={"type": type(error).__name__, "message": str(error)[:2000]})
+        try:
+            if finalization_started:
+                _failure_receipt(target, failed, error, started)
+            else:
+                try:
+                    recheck_geometry_resume_inputs(prepared, deadline=deadline)
+                    _seal(target, failed, deadline=deadline, started=started)
+                except Exception as sealing_error:
+                    _failure_receipt(target, failed, sealing_error, started)
         except Exception as receipt_error:
             error.add_note(f"Failure receipt could not be sealed: {type(receipt_error).__name__}: {str(receipt_error)[:500]}")
         raise

@@ -598,7 +598,9 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                           if scene["profile"] == CAMERA_PROFILE else
                           "Authored human/static-support load task; no recovered contact, grasp or physical validation."
                           if scene["profile"] == STATIC_SUPPORT_PROFILE else
-                          "Independent authored human-only simulator task; no recovered grasp or physical validation.")}
+                          "Independent authored human-only simulator task; no recovered grasp or physical validation."
+                          if not scene["objects"] else
+                          "Independent authored human/equipment simulator task; no recovered grasp or physical validation.")}
     contract.update(policy_identity)
     if reference_attachment is not None:
         contract.update(reference_attachment['identity'])
