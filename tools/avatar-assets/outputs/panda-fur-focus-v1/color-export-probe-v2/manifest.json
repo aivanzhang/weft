@@ -1,0 +1,164 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "a04b22186b91567c07996f7b73fdf1f729f722180452a7d78d464b7a753525e9"
+    },
+    {
+      "bytes": 287608,
+      "path": "colored-cards.glb",
+      "sha256": "85f6ae88e666eae6f3d6f18c4e810f8b58ecb6d58b92366666ba117824828a76"
+    },
+    {
+      "bytes": 1541,
+      "path": "fixture-config.json",
+      "sha256": "92a11b2f5a7d19669e3459edbfd59051e56ec8e3a5402f3afa7e9632087c6193"
+    },
+    {
+      "bytes": 1315,
+      "path": "job.json",
+      "sha256": "b090e734a11b33d45c0e601fdc3f3b96a5709ace4582974308b3b44674e8573c"
+    },
+    {
+      "bytes": 404,
+      "path": "probe-handle.json",
+      "sha256": "13f54702d525a457fcd8a3bc8315e8cf9278f1bab648039392c9a50e876cb8d2"
+    },
+    {
+      "bytes": 1189,
+      "path": "probe-monitor.json",
+      "sha256": "329aab51b49557b3a17bb09f29ef7d472831b21fcb36e93b8ade91714797e6d6"
+    },
+    {
+      "bytes": 1322,
+      "path": "probe.log",
+      "sha256": "d21ae7d3ea71a0eb3a538632ba66feb93883bb55ec53b3023c4e43bec6b8357c"
+    },
+    {
+      "bytes": 5897,
+      "path": "probe.py",
+      "sha256": "54f2fad30b1a2905121b74145719de36110314cf8d13b3331637e3c9081ab21c"
+    },
+    {
+      "bytes": 493,
+      "path": "source-receipt.json",
+      "sha256": "0b3a7add6cd4758e27b93278c90235b55fdef1070a70b125dc34c66e5b7d0d01"
+    },
+    {
+      "bytes": 56874,
+      "path": "sources/__pycache__/blender_finish_generated.cpython-311.pyc",
+      "sha256": "bf9cd29306f3f88502f6ebc83dfcf84761a9ef885b825f46ed33e4f46a020bca"
+    },
+    {
+      "bytes": 23865,
+      "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "cd474c07e16718d2f94794b4ee44aa67e199eebb19b06cf593217eb9fbe0d62b"
+    },
+    {
+      "bytes": 44388,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "b83a90371031e7dbe13972fcddf07c472cb3f6acc8d3ba655982b3ed26e78e95"
+    },
+    {
+      "bytes": 37928,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "6d09c6b662d8f9f803c44224011207f983e61dd3b40eabecfb0c5f2b73682b50"
+    },
+    {
+      "bytes": 8206,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "7908fb4ec7bd5edc9b0b144e5a99f7d0b575c64a65392f8a86d05f67810eee1b"
+    },
+    {
+      "bytes": 70629,
+      "path": "sources/__pycache__/three_d.cpython-311.pyc",
+      "sha256": "8068d59ea81e5fa98e3830e8a9e444b4a352bb71307d4be93cf1ac40b1468731"
+    },
+    {
+      "bytes": 31018,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "ccfe5ec7012eba8f077f375eb8cf240dcedf9e58158548e9d296759c8bf63b08"
+    },
+    {
+      "bytes": 9879,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "93cdf6d68b0869f5cae33b5efe8c8f41fd813fa67dc6c122038e4897e3a56706"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 4147,
+      "path": "sources/motion_samples.py",
+      "sha256": "842538d315cfd84117b896198460febbe8b2e098dc087d90baf8d926dc7fe3fe"
+    },
+    {
+      "bytes": 33690,
+      "path": "sources/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+    },
+    {
+      "bytes": 262894,
+      "path": "textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--offline-mode",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "1",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fur-focus-v1/color-export-probe-v2/probe.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.784,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 924827,
+    "last_rss_sample_elapsed_seconds": 0.522,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "probe-monitor.json",
+    "monitor_errors": [],
+    "pid": 18654,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 924827,
+    "sampled_peak_rss_bytes": 276234240,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "analytic_real_export_fixture",
+  "new_provider_cost_usd": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "status": "failed"
+}

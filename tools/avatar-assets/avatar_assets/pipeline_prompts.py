@@ -54,7 +54,7 @@ CRITIC_SCHEMA = _object({
 
 AUTHOR_FIELDS = frozenset({
     "authored_rig", "authored_actions", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "surface_profiles", "surface_smoothing", "groom_shader",
+    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections",
 })
 
 
@@ -98,6 +98,10 @@ Return all PLAN_SCHEMA fields. For ready, subject is <=400 characters, style <=8
 and height_meters is a finite authored height between0.05 and10. Copy an explicitly provided style exactly.
 When style is not specified, infer a nonempty descriptive style from the subject/prompt; never return an empty ready style.
 generation_prompt describes the static character, materials and neutral pose only, not workflow status, reuse or validation claims.
+For furry subjects, request a clean continuous undercoat surface with the intended silhouette/markings, not coarse carved fur
+or separate mesh spikes; local grooming supplies strands afterward. Preserve genuine ears, horns and other structural details.
+In image mode, text controls texture rather than replacing the supplied geometry guide; disclose a poor guide instead of
+promising this sentence will reshape it. A separate reference edit is not automatically performed by this planner.
 If requested state IDs exist, preserve their exact order and names; otherwise choose exactly four safe lowercase IDs.
 Each state needs a concrete visible meaning. Choose actions suitable to the actual subject, not humanoid motions for objects.
 Default actions should be achievable with modest skeletal rotations: idle, inspection, greeting, appendage motion or a celebration.
@@ -144,7 +148,7 @@ def validate_plan(response, request):
 _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
 authored_rig, authored_actions, smoothing, weight_constraints, attachment, groom, groom_exclusions,
-fur_max_chroma, fur_clump, portable_fur, camera_view, surface_profiles, surface_smoothing, groom_shader. authored_actions is mandatory for ready.
+fur_max_chroma, fur_clump, portable_fur, camera_view, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Fixed local render settings are512px/8samples. Clips run from0 to4seconds; shorter media presets retime the full curves.
 camera_view is front, three_quarter or three_quarter_left. Favor an angle that reveals accessories/tails without clipping.
@@ -204,8 +208,21 @@ Optional direction:[-1..1,-1..1,-1..1] and comb:0..0.95 must both be present, wi
 Start conservatively (e.g.1500parents/12children) within the unchanged2GiB worker bound; dense native overrides are not allowed.
 groom_exclusions:[region] up to16; fur_max_chroma:0..1; fur_clump:0..1.
 With groom, optional groom_shader:{roughness:0.04..1,radial_roughness:0.04..1} controls sheen independently of strand shape.
+Optional color_corrections:[{name,regions:[{center:[x,y,z],radius:[x,y,z]}],dominant_channel:0|1|2,
+dominant_ratio:1.05..5,color_srgb:[r,g,b],roughness:0.04..1,min_faces:integer,max_faces:integer}]
+supports1–4 corrections/1–4 regions each. Normalized bounds, center[-1,3],radius0.001..3,color0..1,
+face bounds1..100000. Use only for a demonstrated local color leak: spatial AND dominant-color selection,
+not global recoloring. Selected faces get explicit authored surface color; original images stay unchanged.
+Those vertices are excluded from fur because the source root-color texture has not changed.
+With groom direction/comb, optional groom_flow:{regions:[{name,center:[x,y,z],radius:[x,y,z],
+feather:0.05..1,direction:[x,y,z],comb:0..0.95,length_scale:0.25..2}]} supports1–12 unique named regions.
+Centers use normalized base bounds [-1,3], radii0.001..3, finite nonzero direction components[-1,1].
+Regions blend in order; smooth falloff keeps roots/skin fixed, and authored lengths stay<=0.08m.
+Use shorter facial hair and different cheek/ear/body directions only where the reference supports them.
+Regional flow applies to native hair only; portable cards currently use their own single global direction.
 portable_fur:{settings:{seed:0..2147483643 integer,length:0.001..0.04,width:0.0003..0.02,direction:[-1..1,-1..1,-1..1]},
 bands:[{brightness:[low,high],color:[r,g,b,a],count:integer}]} with1–4 bands,0<=low<high<=1.01,
+Optional card settings profile:"combed-v1" reduces upright ribbon flecks; sample_root_color:true inherits source coat color.
 color channels0..1,each count1..5000,total count<=5000. Cards can add12 exported corners each; keep total under100k vertices.
 For requested fur/hair, provide both appropriate native groom and portable cards, or return an explicit unsupported result.
 Do not add fur to scaled, metal or ceramic subjects. Groom/card appearance is separately reviewed; fiber counts are not quality.

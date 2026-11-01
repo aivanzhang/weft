@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T10:30:46.903213-08:00",
+  "parent_plan": "plan.json",
+  "reason": "Native and exported review found concrete repairable defects after the two planned fur trials. Preserve them; permit at most two additional local finish candidates for these defects. No provider retry.",
+  "completed_generation": {
+    "task_id": "01a1984c-da9c-70f4-959f-b765d6c752ff",
+    "credits": 35,
+    "provider_retries": 0
+  },
+  "local_bounds": {
+    "max_total_finish_candidates": 4,
+    "max_native_workers": 2,
+    "threads_per_worker": 4,
+    "rss_mb": 2048,
+    "finish_wall_seconds": 600,
+    "diagnostic_wall_seconds": 300,
+    "output_mb": 512
+  },
+  "failures": [
+    {
+      "pack": "outputs/muse-panda-smooth-fur-v1",
+      "status": "not_accepted",
+      "reasons": [
+        "Wave and celebration pull rear-belly vertices toward the left hand; sampled excess edge length93.61mm",
+        "Look-around stretches dragon/head boundary32.69mm",
+        "Exported portable coat loses source-root colors and shows white flecks",
+        "Generated tail remains too long; color correction does not repair its geometry"
+      ]
+    }
+  ],
+  "repair": "v2 changes authored weights/bone placement/motion magnitudes only; portable-color fix needs a new backend snapshot and subsequent v3 pack",
+  "no_extra_paid_work": true
+}

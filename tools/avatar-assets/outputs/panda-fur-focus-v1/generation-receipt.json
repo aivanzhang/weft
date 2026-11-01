@@ -1,0 +1,34 @@
+{
+  "elapsed_seconds": 248.43,
+  "ledger": {
+    "approved_additional_credits": 70,
+    "base_project_credit_limit": 140,
+    "job_scoped_allowances": {
+      "emerald-dragon-meshy-v1": 35,
+      "muse-panda-smooth-base-v2": 35
+    },
+    "paid_submissions": 16,
+    "pricing_overruns": 0,
+    "project_credit_limit": 210,
+    "provider_reported_credits": 202,
+    "refunds_reopen_allowance": false,
+    "reserved_credits": 202,
+    "settled_tasks": 16,
+    "unknown_submissions": 0
+  },
+  "limitations": [
+    "Smooth geometry is improved source, not yet rigged or animated",
+    "Rear green appendage is an unobserved generated surface assumption; not recovered original geometry",
+    "No paid retry/purchase authorized or made",
+    "One built-in imagegen guide call additionally used; account charge unreported"
+  ],
+  "model": "outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+  "model_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "new_meshy_credits": 35,
+  "new_paid_submissions": 1,
+  "recorded_at": "2026-11-01T10:15:21.809841-08:00",
+  "schema_version": 1,
+  "stage": "mesh",
+  "status": "generated_downloaded_visual_review_pending",
+  "task_id": "01a1984c-da9c-70f4-959f-b765d6c752ff"
+}

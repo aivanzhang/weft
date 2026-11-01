@@ -191,7 +191,12 @@ def portable_coat(obj, rig, mask, colors, config, out):
     for index, band in enumerate(config['bands']):
         selected = [t for t in triangles if band['brightness'][0] <= float(colors[list(t)].mean()) < band['brightness'][1]]
         settings = {**config['settings'], 'count': band['count'], 'seed': config['settings']['seed']+index}
-        data = card_geometry(vertices, selected, weights, settings, normals)
+        sampled = None
+        if settings.get('sample_root_color', False):
+            # Byte sRGB image pixels are encoded values; glTF vertex colors are linear.
+            sampled = np.where(colors <= .04045, colors/12.92, ((colors+.055)/1.055)**2.4)
+        data = card_geometry(vertices, selected, weights, settings, normals,
+                             profile=settings.get('profile', 'legacy'), colors=sampled)
         mesh = bpy.data.meshes.new('PortableCoat_'+str(index))
         mesh.from_pydata(data['vertices'], [], data['faces'])
         mesh.update()
@@ -199,7 +204,26 @@ def portable_coat(obj, rig, mask, colors, config, out):
         for loop in mesh.loops:
             uv.data[loop.index].uv = data['uv'][loop.vertex_index]
         mesh.normals_split_custom_set_from_vertices(data['normals'])
-        material, report = attach_fur_material(mesh.name, {'color': band['color'], 'fur_atlas': 'distance-v1'}, out)
+        material, report = attach_fur_material(mesh.name,
+            {'color': [1,1,1,1] if sampled is not None else band['color'], 'fur_atlas': 'distance-v1'}, out)
+        if sampled is not None:
+            attr = mesh.color_attributes.new(name='FurRootColor', type='FLOAT_COLOR', domain='CORNER')
+            for loop in mesh.loops:
+                attr.data[loop.index].color = (*data['colors'][loop.vertex_index], 1.)
+            nodes, links = material.node_tree.nodes, material.node_tree.links
+            color = nodes.new('ShaderNodeVertexColor')
+            color.layer_name = 'FurRootColor'
+            # glTF recognizes the current Mix node, not legacy MixRGB vertex-color multiplication.
+            mix = nodes.new('ShaderNodeMix')
+            mix.data_type = 'RGBA'
+            mix.blend_type = 'MULTIPLY'
+            mix.inputs['Factor'].default_value = 1.
+            bsdf = nodes.get('Principled BSDF')
+            atlas = bsdf.inputs['Base Color'].links[0].from_socket
+            links.new(atlas, mix.inputs[6])
+            links.new(color.outputs['Color'], mix.inputs[7])
+            links.new(mix.outputs[2], bsdf.inputs['Base Color'])
+            report['root_color'] = 'Barycentric source sRGB converted to linear vertex color; constant per ribbon'
         mesh.materials.append(material)
         cards = bpy.data.objects.new(mesh.name, mesh)
         bpy.context.scene.collection.objects.link(cards)
@@ -210,7 +234,9 @@ def portable_coat(obj, rig, mask, colors, config, out):
                 groups[name].add([vertex], weight, 'REPLACE')
         cards.modifiers.new('PortableSkin', 'ARMATURE').object = rig
         meshes.append(cards)
-        reports.append({'cards': band['count'], 'vertices': len(data['vertices']), 'material': report, 'config': band})
+        reports.append({'cards': band['count'], 'vertices': len(data['vertices']), 'material': report, 'config': band,
+                        'geometry_profile': settings.get('profile','legacy'),
+                        'sample_root_color': sampled is not None})
     return meshes, reports
 
 
@@ -257,6 +283,9 @@ def finish(config, output):
     low, high = points.min(axis=0), points.max(axis=0)
     base = obj.data.materials[0]
     color_node = shared_color_texture(obj.data.materials)
+    if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):
+        if color_node.image.colorspace_settings.name != 'sRGB':
+            raise ValueError('Root-colored fur requires an explicit sRGB source texture')
     colors = texture_colors(obj, color_node.image)
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
@@ -279,9 +308,16 @@ def finish(config, output):
     if cfg.get('surface_profiles'):
         from blender_surface_profiles import apply_surface_profiles
         surface_profiles = apply_surface_profiles(obj, colors, points, low, high-low, cfg['surface_profiles'])
+    color_corrections = None
+    if cfg.get('color_corrections'):
+        from blender_color_corrections import apply_color_corrections
+        color_corrections, corrected_vertices = apply_color_corrections(
+            obj, colors, points, low, high-low, cfg['color_corrections'])
+        mask[corrected_vertices] = False
     report = {"schema_version": 1, "source_sha256": cfg["source_sha256"], "blender_version": bpy.app.version_string,
               "normal_strength": cfg["normal_strength"], "groom": None, "attachment": None,
               "smoothing": smoothing, 'authored_rig': authored_rig, 'surface_profiles': surface_profiles,
+              'color_corrections': color_corrections,
               "emitter_scale_applied": True, "world_rest_position_max_error": transform_error,
               "source_bounds_blender_z_up": {"min": low.tolist(), "max": high.tolist()},
               "animation_verified": False, "weft_runtime_verified": False}
@@ -335,7 +371,7 @@ def finish(config, output):
         bpy.context.view_layer.update()
         if "direction" in cfg["groom"]:
             from blender_comb_groom import comb_native_groom
-            groom_report["comb"] = comb_native_groom(groom, cfg["groom"]["direction"], cfg["groom"]["comb"])
+            groom_report["comb"] = comb_native_groom(groom, cfg["groom"]["direction"], cfg["groom"]["comb"], cfg.get("groom_flow"))
         hair_material = groom.data.materials[-1]
         hair = next(n for n in hair_material.node_tree.nodes if n.type == "BSDF_HAIR_PRINCIPLED")
         texture = hair_material.node_tree.nodes.new("ShaderNodeTexImage")

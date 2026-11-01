@@ -4,14 +4,58 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 00:01 PDT.
+- Recorded: 2026-11-01 10:41 PST.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
-- Current Meshy work: **15 completed submissions / 167 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
+- Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
 
-## Active follow-up: higher-quality generated avatars
+## Active follow-up: panda fur and small details
+
+User approved the dragon and redirected effort to panda-like fur/detail. Keep
+that dragon unchanged. [Reusable controls and current evidence](docs/fur-workflow.md).
+
+- One built-in image edit completed; exact prompt/reference/output hashes in
+  `outputs/panda-fur-focus-v1/geometry-guide`. This is a2D guide, not a3D model.
+  Tool charge/model version are unexposed; no image retry.
+- User-approved35-credit Meshy job `outputs/muse-panda-smooth-base-v2` completed
+  under handle40518, task`01a1984c-da9c-70f4-959f-b765d6c752ff`,248.43s.
+  Raw GLB SHA `f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188`.
+  One paid submission, no paid retry/purchase; ledger202/210credits,8baseleft.
+  Approval and generation receipts are in `outputs/panda-fur-focus-v1`.
+  Preserve the initial canonical-digest/fileSHA preparation error: budget guard
+  stopped before a call; only the subsequently corrected request was submitted.
+- Old-source trial `muse-panda-fur-flow-v1` completed(handle82081), but old mesh
+  chunks remain visible. New `muse-panda-smooth-fur-v1` completed(handle47614):
+  improved native portrait, rejected belly/dragon boundary motion and white
+  exported-card flecks. Native reload40661 passed; export preview33815 confirmed
+  the actual card-color bug. No passing structural proof overrides visual failure.
+- Config-only repair `muse-panda-smooth-fur-v2` completed(handle61941). Sampled
+  belly/companion spikes are reduced; native portrait is showable. Wave/celebrate
+  remain too restrained to accept their meaning. Preserve both rejected trials.
+- v3 built and passed sampled native review: `outputs/muse-panda-smooth-fur-v3`,
+ 58.857s/1,825,210,368B sampledRSS. Model SHA
+  `a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77`.
+  All26keyposes reviewed for idle/look_around/head_tilt/tail_sway. These are explicit
+  fur-demo alternatives, not wave/celebrate completion. Residual seam stretch is
+  recorded in `outputs/panda-fur-focus-v1/native-review-v3.json`.
+- Real portable source-color export fixed (supported material node); analytic
+  native proof maxerror2.34e-8, then actual generatedGLB audited independently.
+  Exportpreview85453 and reload8664 ended0, exactmodelhash. Browsercoat remains
+  sparse compared with native hair: lightweight review candidate, not Muse parity.
+- **Active media handle88246:** `outputs/muse-panda-smooth-fur-media-v3`,
+ 1600pxportrait+four720px/24fps/2s clips, full4s actions retimed (not cropped).
+  Existing1200s/2GiB/512MiB/4threadbound; no paidcalls or automatic retry.
+  Parent owns this job. Other agents/native jobs are finished; do not duplicate.
+- Local repair amendment allowed4finish candidates total, all4nowused;
+  code/skill validation and395tests passed after final material/prompt changes.
+- Next: inspect actualmedia/contact sheets, package byte-identical compact subset,
+  real browserplayback/staticfallback proof, finalartifacts/rights audit and scoped
+  save/push. Preserve longtail, sparsebrowsercoat and residualseam limitations;
+  no Weftcore/physics/budget changes. No new paid generation authorized.
+
+## Previous verified checkpoint: higher-quality generated avatars
 
 User asked to save the current pipeline, then improve Meshy-based results. The
 baseline is committed and remotely verified at `050deb5`; original outputs stay
@@ -31,11 +75,11 @@ actual playback, seeking, mobile and reduced-motion/error fallbacks passed.
 All owned handles (60224 media,41941 native gate,99013 browser) ended; no server
 is left running. No new paid calls; ledger remains167 credits with8 available.
 
-Additional35-credit approval for a new panda base is pending. **Do not submit**
+The previous pending35-credit request is superseded by the approval above. **Do not submit**
 the preserved `outputs/muse-panda-smooth-base-v1` preparation: image-mode text
 only guides texture; a clean geometry guide and new frozen plan are required.
-Next safe action: review the catalog below. After approval, prepare one reviewed
-clean-reference candidate; no paid retry or budget purchase. Keep current packs
+The reviewed clean-reference candidate is now running as recorded above; no paid
+retry or budget purchase. Keep current packs
 immutable. The original Muse/fur-quality target remains open.
 
 ```sh

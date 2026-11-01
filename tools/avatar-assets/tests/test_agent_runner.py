@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from PIL import Image
 
-from avatar_assets.agent_runner import AgentRunner, DISABLED_FEATURES, _events, _validate
+from avatar_assets.agent_runner import AgentRunner, DISABLED_FEATURES, _events, _execute, _validate
 
 
 SCHEMA = {'type': 'object', 'properties': {'value': {'type': 'integer', 'minimum': 0, 'maximum': 5}},
@@ -29,6 +29,8 @@ class AgentRunnerTests(unittest.TestCase):
         self.executable = self.root/'analytic-codex-fixture'
         code = '''import json, os, pathlib, sys, time
 if '--version' in sys.argv:
+    if pathlib.Path(MODE).read_text() == 'hang_version':
+        time.sleep(10)
     print('analytic-agent-fixture 1')
     raise SystemExit(0)
 counter = pathlib.Path(COUNTER)
@@ -144,13 +146,45 @@ if mode != 'incomplete':
     def test_timeout_stops_owned_process_and_leaves_receipt(self):
         self.mode.write_text('hang')
         runner = self.runner(timeout=.2)
-        with self.assertRaisesRegex(ValueError, 'wall-time'):
+
+        def execute_stage(command, cwd, out, timeout, stdin=None, prefix='agent'):
+            # Isolate the intentional agent hang from cold version-probe startup.
+            return _execute(command, cwd, out, 2 if prefix == 'version' else timeout, stdin, prefix)
+
+        with patch('avatar_assets.agent_runner._execute', side_effect=execute_stage), \
+                self.assertRaisesRegex(ValueError, 'wall-time'):
             runner.call('planner', 'Make cube', SCHEMA)
+        version = json.loads((runner.root/'planner/version-process.json').read_text())
+        self.assertEqual(version['exit_code'], 0)
+        self.assertIsNone(version['failure'])
         report = json.loads((runner.root/'planner/agent-process.json').read_text())
+        self.assertEqual(report['limits']['wall_seconds'], .2)
         self.assertIsNotNone(report['exit_code'])
         self.assertFalse(report['manual_stop_required'])
         self.assertTrue(report['cleanup'])
         self.assertLess(report['elapsed_seconds'], 5)
+
+    def test_version_timeout_stops_owned_process_and_leaves_receipt(self):
+        self.mode.write_text('hang_version')
+        runner = self.runner(timeout=.2)
+        with self.assertRaisesRegex(ValueError, 'wall-time'):
+            runner.call('planner', 'Make cube', SCHEMA)
+        folder = runner.root/'planner'
+        report = json.loads((folder/'version-process.json').read_text())
+        self.assertEqual(report['limits']['wall_seconds'], .2)
+        self.assertIsNotNone(report['exit_code'])
+        self.assertFalse(report['manual_stop_required'])
+        self.assertTrue(report['cleanup'])
+        self.assertLess(report['elapsed_seconds'], 5)
+        self.assertFalse((folder/'agent-process.json').exists())
+        self.assertFalse(self.counter.exists())
+        receipt = json.loads((folder/'receipt.json').read_text())
+        self.assertEqual(receipt['status'], 'failed_or_uncertain')
+        self.assertFalse(receipt['automatic_resubmission_allowed'])
+        self.assertIn('version-process.json', {row['path'] for row in receipt['artifacts']})
+        with self.assertRaisesRegex(ValueError, 'no automatic resubmission'):
+            runner.call('planner', 'Make cube', SCHEMA)
+        self.assertFalse(self.counter.exists())
 
     def test_log_budget_stops_flood_and_caps_stored_log(self):
         self.mode.write_text('flood')

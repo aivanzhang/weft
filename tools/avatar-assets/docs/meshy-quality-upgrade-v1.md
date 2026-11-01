@@ -1,5 +1,9 @@
 # Meshy quality upgrade — local refinement
 
+Historical dragon/local-refinement record. The later authorized panda generation,
+fur controls and current acceptance status are in [fur workflow](fur-workflow.md)
+and the top of [TODO](../TODO.md); the older pending request below is superseded.
+
 Started October 31, 2026, 11:13 PM PDT. Baseline source, editable models,
 portable media and verification are saved in Weft commit
 `050deb54933d052abcca1b786dabdd00ad5aaa53`, with the private remote verified in

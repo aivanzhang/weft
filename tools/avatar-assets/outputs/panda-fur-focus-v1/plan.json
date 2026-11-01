@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T10:01:56.851241-08:00",
+  "subject_focus": "Panda-like fur and tiny facial/accessory details",
+  "preserve": "User-approved dragon and all existing outputs",
+  "local_work": {
+    "max_native_workers": 2,
+    "threads_per_worker": 4,
+    "rss_mb": 2048,
+    "finish_wall_seconds": 600,
+    "diagnostic_wall_seconds": 300,
+    "max_fur_candidates": 2
+  },
+  "guide": {
+    "tool": "built-in image_gen",
+    "calls": 1,
+    "automatic_retries": 0,
+    "model_settings": "Not exposed by tool; exact prompt and reference preserved",
+    "new_meshy_credits": 0,
+    "account_charge": "Unknown, not reported by built-in tool",
+    "purpose": "Derived smooth undercoat guide; not completed 3D or fur"
+  },
+  "mesh_generation": "No new paid Meshy call until explicit pending35-credit approval",
+  "geometry_hypothesis": "Preserve base/companion, vary groom independently; excessive smoothing already failed.",
+  "status": "in_progress"
+}

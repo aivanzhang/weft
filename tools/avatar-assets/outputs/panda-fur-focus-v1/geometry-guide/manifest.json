@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "kind": "derived_2d_geometry_guide",
+  "status": "reviewed_preparation_only",
+  "tool": "built-in image_gen",
+  "call_count": 1,
+  "automatic_retries": 0,
+  "model_version": "not exposed",
+  "settings": {
+    "transparent_background": false
+  },
+  "image": {
+    "path": "smooth-undercoat.png",
+    "sha256": "c965232449521ccbc9c6dc6f02df42eba3c795381c718ab9f5962d2e1aaa596c",
+    "bytes": 1468358,
+    "format": "PNG",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB"
+  },
+  "prompt": {
+    "path": "prompt.txt",
+    "sha256": "c3dd439282dbdc161b168ae6343dc0ee3194b7f7b3883ae7eaef832f317cd80a"
+  },
+  "reference": "outputs/reference-v2/originals/avatar-1792879257185832992-2.webp",
+  "reference_sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2",
+  "review": "Smooth undercoat substantially removes furry relief while retaining palette, pose, expression and shoulder dragon. Tiny crown bump and faint material grain remain. Illustration, not mesh, skin or animation; hidden surfaces remain assumptions.",
+  "rights": "User-supplied reference and user-directed derivation; original license unknown. Metadata is not independent rights verification.",
+  "cost": {
+    "new_meshy_credits": 0,
+    "tool_account_charge": "not exposed"
+  },
+  "use": "Only in a separately prepared/authorized 3D generation; does not authorize provider spend."
+}

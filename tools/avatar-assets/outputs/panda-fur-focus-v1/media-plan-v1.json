@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T10:39:37.014376-08:00",
+  "execute_after": "v3 sampled native-motion and actual portable-color review passes",
+  "model_pack": "outputs/muse-panda-smooth-fur-v3",
+  "output": "outputs/muse-panda-smooth-fur-media-v3",
+  "specification": {
+    "portrait_px": 1600,
+    "video_px": 720,
+    "fps": 24,
+    "seconds": 2,
+    "samples": 8,
+    "states": 4,
+    "denoise_portrait": true,
+    "full_four_second_actions_retimed": true,
+    "static_fallbacks": true,
+    "loop_verified": false,
+    "background": "opaque"
+  },
+  "estimated_local_seconds": {
+    "low": 400,
+    "high": 1000,
+    "basis": "Dense native-hair earlier media and current58.857s look-development build; estimate not measured final duration"
+  },
+  "limits": {
+    "wall_seconds": 1200,
+    "rss_mb": 2048,
+    "output_mb": 512,
+    "threads": 4,
+    "concurrent_heavy_jobs": 2
+  },
+  "generation_calls": 0,
+  "new_meshy_credits": 0,
+  "new_provider_cost_usd": 0,
+  "recurring_resources": false,
+  "no_automatic_retry": true
+}

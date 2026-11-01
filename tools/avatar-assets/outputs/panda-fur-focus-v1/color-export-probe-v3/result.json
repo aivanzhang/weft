@@ -1,0 +1,97 @@
+{
+  "actual_production_function": "blender_finish_generated.portable_coat",
+  "blender_version": "4.5.13 LTS",
+  "color_accessor": {
+    "bufferView": 4,
+    "componentType": 5126,
+    "count": 270,
+    "type": "VEC3"
+  },
+  "construction": [
+    {
+      "cards": 30,
+      "config": {
+        "brightness": [
+          0,
+          1.01
+        ],
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "count": 30
+      },
+      "geometry_profile": "combed-v1",
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_0_cutout_fur",
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+        "seed": 193,
+        "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+      },
+      "sample_root_color": true,
+      "vertices": 180
+    }
+  ],
+  "expected_linear_per_region": [
+    [
+      0.010022825574869039,
+      0.007194409291082934,
+      0.004896310081623859
+    ],
+    [
+      0.6038273388553378,
+      0.033104766570885055,
+      0.010022825574869039
+    ],
+    [
+      0.7874122893956174,
+      0.692071056865372,
+      0.6038273388553378
+    ]
+  ],
+  "export_attributes": {
+    "COLOR_0": 4,
+    "JOINTS_0": 5,
+    "NORMAL": 1,
+    "POSITION": 0,
+    "TANGENT": 3,
+    "TEXCOORD_0": 2,
+    "WEIGHTS_0": 6
+  },
+  "exported_vertex_count": 270,
+  "glb_quantization_tolerance": 1e-06,
+  "glb_sha256": "85f6ae88e666eae6f3d6f18c4e810f8b58ecb6d58b92366666ba117824828a76",
+  "has_dummy_white_COLOR_0": false,
+  "has_unused_COLOR_1": false,
+  "kind": "analytic_real_glb_export_probe",
+  "limitations": [
+    "Analytic colored triangle emitters, not a generated character or visual-quality acceptance.",
+    "No render, native groom, animation or browser-runtime behavior tested."
+  ],
+  "max_export_color_error": 2.334245274848712e-08,
+  "max_reload_linear_color_error": 0.0038742458966244397,
+  "max_reload_srgb_error": 0.001960782706737524,
+  "new_provider_cost_usd": 0,
+  "provider_calls": 0,
+  "regions_sampled": [
+    0,
+    1,
+    2
+  ],
+  "reload_attribute_name": "Color",
+  "reload_attribute_type": "BYTE_COLOR",
+  "reload_srgb_tolerance": 0.00196278431372549,
+  "reloaded_material_uses_COLOR_0": true,
+  "schema_version": 1,
+  "status": "passed"
+}

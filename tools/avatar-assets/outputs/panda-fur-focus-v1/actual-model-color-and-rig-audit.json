@@ -1,0 +1,1196 @@
+{
+  "aggregate_embedded_image_pixels": 39845888,
+  "created_at_local": "2026-11-01 10:43:38 PST",
+  "geometry": {
+    "exported_vertices": 74600,
+    "joints": 17,
+    "nodes": 21,
+    "primitives": [
+      {
+        "attributes": {
+          "JOINTS_0": 4,
+          "NORMAL": 1,
+          "POSITION": 0,
+          "TANGENT": 3,
+          "TEXCOORD_0": 2,
+          "WEIGHTS_0": 5
+        },
+        "material": "Material_0",
+        "material_index": 0,
+        "mesh": "Mesh_0",
+        "mesh_index": 0,
+        "primitive": 0,
+        "triangles": 61379,
+        "vertices": 49826
+      },
+      {
+        "attributes": {
+          "JOINTS_0": 11,
+          "NORMAL": 8,
+          "POSITION": 7,
+          "TANGENT": 10,
+          "TEXCOORD_0": 9,
+          "WEIGHTS_0": 12
+        },
+        "material": "Material_0__color_rear-tail-base",
+        "material_index": 1,
+        "mesh": "Mesh_0",
+        "mesh_index": 0,
+        "primitive": 1,
+        "triangles": 738,
+        "vertices": 557
+      },
+      {
+        "attributes": {
+          "COLOR_0": 19,
+          "JOINTS_0": 20,
+          "NORMAL": 16,
+          "POSITION": 15,
+          "TANGENT": 18,
+          "TEXCOORD_0": 17,
+          "WEIGHTS_0": 21
+        },
+        "color": {
+          "accessor": {
+            "bufferView": 22,
+            "componentType": 5126,
+            "count": 13309,
+            "type": "VEC3"
+          },
+          "all_white": false,
+          "finite": true,
+          "max_rgb": [
+            0.5289196968078613,
+            0.502166748046875,
+            0.47950583696365356
+          ],
+          "maximum_within_triangle_rgb_difference": 0.0,
+          "mean_rgb": [
+            0.008501025846324279,
+            0.008212278256658604,
+            0.008443305601267971
+          ],
+          "min_rgb": [
+            0.00010935083992080763,
+            9.608830441720784e-05,
+            8.641379099572077e-05
+          ],
+          "std_rgb": [
+            0.028416465343661563,
+            0.02684226998715488,
+            0.025381999368424016
+          ],
+          "unique_rgb_count": 1306,
+          "white_vertices": 0,
+          "within_0_1": true
+        },
+        "material": "PortableCoat_0_cutout_fur",
+        "material_index": 2,
+        "mesh": "PortableCoat_0",
+        "mesh_index": 1,
+        "primitive": 0,
+        "triangles": 5280,
+        "vertices": 13309
+      },
+      {
+        "attributes": {
+          "COLOR_0": 27,
+          "JOINTS_0": 28,
+          "NORMAL": 24,
+          "POSITION": 23,
+          "TANGENT": 26,
+          "TEXCOORD_0": 25,
+          "WEIGHTS_0": 29
+        },
+        "color": {
+          "accessor": {
+            "bufferView": 31,
+            "componentType": 5126,
+            "count": 10908,
+            "type": "VEC3"
+          },
+          "all_white": false,
+          "finite": true,
+          "max_rgb": [
+            0.999184250831604,
+            0.9802876114845276,
+            0.9537248015403748
+          ],
+          "maximum_within_triangle_rgb_difference": 0.0,
+          "mean_rgb": [
+            0.9440296155813471,
+            0.8699849640785265,
+            0.8278904385167353
+          ],
+          "min_rgb": [
+            0.059682123363018036,
+            0.05436157062649727,
+            0.053829897195100784
+          ],
+          "std_rgb": [
+            0.10199284675672506,
+            0.09390653276764876,
+            0.08978711909052438
+          ],
+          "unique_rgb_count": 1063,
+          "white_vertices": 0,
+          "within_0_1": true
+        },
+        "material": "PortableCoat_1_cutout_fur",
+        "material_index": 3,
+        "mesh": "PortableCoat_1",
+        "mesh_index": 2,
+        "primitive": 0,
+        "triangles": 4320,
+        "vertices": 10908
+      }
+    ],
+    "skins": 1,
+    "triangles": 71717
+  },
+  "images": [
+    {
+      "bytes": 12953242,
+      "height": 4096,
+      "image_index": 0,
+      "mime_type": "image/png",
+      "name": "normal",
+      "sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+      "width": 4096
+    },
+    {
+      "bytes": 8958941,
+      "height": 4096,
+      "image_index": 1,
+      "mime_type": "image/jpeg",
+      "name": "Image_0",
+      "sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "width": 4096
+    },
+    {
+      "bytes": 1671094,
+      "height": 2048,
+      "image_index": 2,
+      "mime_type": "image/jpeg",
+      "name": "Image_1",
+      "sha256": "584da6f768206620a99c333e612d5353f4cba1ae18358c931dabd9de9ac8b415",
+      "width": 2048
+    },
+    {
+      "bytes": 262894,
+      "height": 1024,
+      "image_index": 3,
+      "mime_type": "image/png",
+      "name": "PortableCoat_0-fur-atlas",
+      "neutral_grayscale_rgb": true,
+      "rgb_max": [
+        255,
+        255,
+        255
+      ],
+      "rgb_min": [
+        192,
+        192,
+        192
+      ],
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda",
+      "width": 1024
+    },
+    {
+      "bytes": 262894,
+      "height": 1024,
+      "image_index": 4,
+      "mime_type": "image/png",
+      "name": "PortableCoat_1-fur-atlas",
+      "neutral_grayscale_rgb": true,
+      "rgb_max": [
+        255,
+        255,
+        255
+      ],
+      "rgb_min": [
+        192,
+        192,
+        192
+      ],
+      "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda",
+      "width": 1024
+    }
+  ],
+  "kind": "read_only_actual_glb_color_and_rig_audit",
+  "manifest_sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01",
+  "manifest_verification": {
+    "all_listed_artifacts_match": true,
+    "artifact_count": 77,
+    "mismatches": [],
+    "source_matches_pinned_sha256": true,
+    "source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+    "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+    "total_artifact_bytes": 114990107
+  },
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Material_0",
+      "normalTexture": {
+        "index": 0,
+        "scale": 0.15000000596046448
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Material_0__color_rear-tail-base",
+      "normalTexture": {
+        "index": 3,
+        "scale": 0.10000000149011612
+      },
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          0.004400849808007479,
+          0.003935939632356167,
+          0.003758403705433011,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.800000011920929
+      }
+    },
+    {
+      "alphaCutoff": 0.18000000715255737,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_0_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 4
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.7799999713897705
+      }
+    },
+    {
+      "alphaCutoff": 0.18000000715255737,
+      "alphaMode": "MASK",
+      "name": "PortableCoat_1_cutout_fur",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 5
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.7799999713897705
+      }
+    }
+  ],
+  "model_bytes": 29952112,
+  "model_sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77",
+  "motion_scope": {
+    "declared_states": [
+      {
+        "duration_seconds": 4.0,
+        "id": "idle",
+        "loop_verified": false,
+        "meaning": "Tiny upper-body sway and a soft settling head tilt while both feet, pelvis and the dragon-supporting right arm remain neutral; no breathing physiology claim."
+      },
+      {
+        "duration_seconds": 4.0,
+        "id": "look_around",
+        "loop_verified": false,
+        "meaning": "The panda turns its head gently to one side and then the other, returns to front, and keeps its shoulder companion and both planted feet stable."
+      },
+      {
+        "duration_seconds": 4.0,
+        "id": "head_tilt",
+        "loop_verified": false,
+        "meaning": "Curious alternating side-to-side head tilt around the neutral pose, held briefly at each side. Arms, feet and shoulder companion keep their rest controls. This is an authored fur-demo alternative, not a wave or celebration."
+      },
+      {
+        "duration_seconds": 4.0,
+        "id": "tail_sway",
+        "loop_verified": false,
+        "meaning": "The visible rear tail gently lifts and dips twice around its resting pose while the head, arms, body and feet keep their rest controls. This is a small up/down tail swish, not locomotion or physical tail simulation."
+      }
+    ],
+    "glb_animation_names": [
+      "head_tilt",
+      "idle",
+      "look_around",
+      "tail_sway"
+    ],
+    "limitation": "These four fur-demo gestures are not wave, celebration, crafting or working. No seamless loops are claimed.",
+    "new_motion_verification": false,
+    "previous_structural_report_sha256": "cb794687efe2674a12250be8b90bcef2f13493e6b3b10eb24faa97f973d472a4"
+  },
+  "original_unchanged": true,
+  "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3",
+  "portable_color": {
+    "interpretation": "Actual portable primitives carry varied finite linear float COLOR_0, constant per triangle, with neutral atlas multiplication. No dummy white COLOR_0 remains. This audit does not independently rerun barycentric source texture sampling or prove visual quality.",
+    "no_COLOR_1": true,
+    "source_color_provenance": [
+      {
+        "cards": 1320,
+        "config": {
+          "brightness": [
+            0,
+            0.35
+          ],
+          "color": [
+            0.09,
+            0.08,
+            0.075,
+            1
+          ],
+          "count": 1320
+        },
+        "geometry_profile": "combed-v1",
+        "material": {
+          "alpha_cutoff": 0.18,
+          "alpha_mode": "MASK",
+          "double_sided": false,
+          "kind": "fur_atlas",
+          "material": "PortableCoat_0_cutout_fur",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+          "profile": "distance-v1",
+          "resolution": 1024,
+          "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+          "seed": 193,
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        "sample_root_color": true,
+        "vertices": 7920
+      },
+      {
+        "cards": 1080,
+        "config": {
+          "brightness": [
+            0.35,
+            1.01
+          ],
+          "color": [
+            0.92,
+            0.9,
+            0.85,
+            1
+          ],
+          "count": 1080
+        },
+        "geometry_profile": "combed-v1",
+        "material": {
+          "alpha_cutoff": 0.18,
+          "alpha_mode": "MASK",
+          "double_sided": false,
+          "kind": "fur_atlas",
+          "material": "PortableCoat_1_cutout_fur",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+          "profile": "distance-v1",
+          "resolution": 1024,
+          "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+          "seed": 193,
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        "sample_root_color": true,
+        "vertices": 6480
+      }
+    ],
+    "status": "passed_actual_color_channel_checks"
+  },
+  "provenance": {
+    "issues": [
+      "Independent rights/license verification is absent and is disclosed.",
+      "Local exported-nodes.json uses generic wording that root scale may convert centimeters; actual CreatureRig scale is identity and root/control scales are approximately one. Use complete recorded transforms, not an inferred centimeter conversion."
+    ],
+    "new_provider_calls_in_finish": 0,
+    "pack_status": "needs_visual_review",
+    "quality_equivalence_verified": false,
+    "rights": "The user supplied the Muse reference and authorized designated Meshy generation plus local avatar authoring. This derivative uses only the preserved smooth Meshy GLB at the pinned SHA256 and locally inspected evidence; no new paid generation or provider rigging is requested by this finishing config. Original reference creator license and original 3D sources remain unknown; generated-media metadata is provenance, not independent rights verification. Hidden mesh surfaces, the rear green tail-like strip,1.2m scale, bones, weights, groom and gestures are authored/generated assumptions. User request retained: 'I want you to create the muse quality avatar but make sure it is a repetable process that can be generalizd as well!' This is a review candidate, not human approval, anatomical recovery, task interaction or Muse-quality equivalence. No publishing, unrelated uploads or Weft physics/actions/rewards changes are authorized here. V2 is an explicitly authored weight/bone-placement/motion repair based on retained v1 render and numerical failure evidence; previous outputs are preserved. Geometry and fur appearance settings are unchanged. V3 explicitly rejects the prior wave/celebrate motion trials and authors head_tilt/tail_sway as separately named fur-demonstration alternatives. They are not completed versions of the rejected requested actions and do not imply approval to replace a user's specifically required state. No new geometry/provider generation, rights determination or native verification occurred during config authoring.",
+    "weft_runtime_verified": false
+  },
+  "resource_receipt": {
+    "cpu_limit_seconds": 45,
+    "decoded_accessor_scalar_values": 698523,
+    "elapsed_seconds": 0.2361,
+    "max_input_model_bytes": 67108864,
+    "max_manifest_artifact_total_bytes": 1073741824,
+    "native_jobs": 0,
+    "paid_cost": 0,
+    "peak_rss_bytes_macos": 175472640,
+    "provider_calls": 0,
+    "wall_alarm_seconds": 60
+  },
+  "rig": {
+    "attachment": {
+      "exported_weight_counts": [
+        {
+          "joint_indices_within_skin": true,
+          "max_weight_sum_error": 1.30385160446167e-07,
+          "mesh": "Mesh_0",
+          "primitive": 0,
+          "vertices_rigidly_weighted_to_anchor": 26028,
+          "vertices_with_anchor_influence": 26028
+        },
+        {
+          "joint_indices_within_skin": true,
+          "max_weight_sum_error": 2.9802322387695312e-08,
+          "mesh": "Mesh_0",
+          "primitive": 1,
+          "vertices_rigidly_weighted_to_anchor": 0,
+          "vertices_with_anchor_influence": 0
+        },
+        {
+          "joint_indices_within_skin": true,
+          "max_weight_sum_error": 1.1920928955078125e-07,
+          "mesh": "PortableCoat_0",
+          "primitive": 0,
+          "vertices_rigidly_weighted_to_anchor": 0,
+          "vertices_with_anchor_influence": 9
+        },
+        {
+          "joint_indices_within_skin": true,
+          "max_weight_sum_error": 1.1920928955078125e-07,
+          "mesh": "PortableCoat_1",
+          "primitive": 0,
+          "vertices_rigidly_weighted_to_anchor": 0,
+          "vertices_with_anchor_influence": 0
+        }
+      ],
+      "interpretation": "Color-selected region of the shared base mesh is rigidly weighted to CompanionAnchor; not an independently articulated dragon rig. Anchor control tail is authored 3 meters in the saved script, but the GLB serializes transforms/inverse binds, not bone tail length; node scale is approximately one.",
+      "node_id": 5,
+      "parent_name": "RightShoulder",
+      "parent_node_id": 6,
+      "reported_selector": {
+        "bone": "CompanionAnchor",
+        "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance",
+        "parent_bone": "RightShoulder",
+        "rest_geometry_changed": false,
+        "selected_vertices": 25803,
+        "selector": {
+          "anchor_from_bone": "RightShoulder",
+          "bone": "CompanionAnchor",
+          "dominant_channel": 1,
+          "dominant_ratio": 1.05,
+          "expand_meters": 0.006,
+          "max_vertices": 30000,
+          "min_vertices": 1000,
+          "parent_bone": "RightShoulder",
+          "regions": [
+            {
+              "center": [
+                0.16,
+                0.275,
+                0.605
+              ],
+              "radius": [
+                0.24,
+                0.29,
+                0.23
+              ]
+            }
+          ]
+        }
+      },
+      "rest_world_matrix_column_major": [
+        1.0000000730609113,
+        -3.4658512067242686e-08,
+        1.5609055714453646e-07,
+        0.0,
+        1.2306973840026103e-07,
+        1.0000003789541134,
+        -9.571211635750476e-09,
+        0.0,
+        1.353197829987579e-07,
+        -1.3778103206962822e-07,
+        1.0000002205653549,
+        0.0,
+        -0.09990370878692786,
+        0.6000000587767037,
+        -0.015538841400937907,
+        1.0
+      ],
+      "separate_attachment_mesh": false,
+      "skin_joint_ordinal": 9
+    },
+    "authored_height_meters": 1.2,
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "index_warning": "JOINTS_0 values index the ordered skin.joints list; they are not glTF node IDs.",
+    "joints_in_JOINTS_0_ordinal_order": [
+      16,
+      13,
+      11,
+      1,
+      0,
+      6,
+      4,
+      3,
+      2,
+      5,
+      10,
+      9,
+      8,
+      7,
+      12,
+      14,
+      15
+    ],
+    "max_world_rest_times_inverse_bind_error": 3.4792856250756236e-07,
+    "nodes": [
+      {
+        "mesh": null,
+        "name": "Head",
+        "node_id": 0,
+        "parent_node_id": 1,
+        "rotation_xyzw": [
+          -0.182902991771698,
+          0.0616382397711277,
+          0.06302974373102188,
+          0.9791703224182129
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999999403953552,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 4,
+        "translation": [
+          2.5029294192790985e-09,
+          0.09002389013767242,
+          -6.984919309616089e-09
+        ],
+        "world_rest_translation": [
+          0.04541078317592629,
+          0.707999879377855,
+          0.007769388206925536
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "Neck",
+        "node_id": 1,
+        "parent_node_id": 11,
+        "rotation_xyzw": [
+          0.1265503168106079,
+          -0.06514532119035721,
+          -0.05939788743853569,
+          0.9880349636077881
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999999403953552,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 3,
+        "translation": [
+          0,
+          0.2530755400657654,
+          3.725290298461914e-09
+        ],
+        "world_rest_translation": [
+          0.036328624933958054,
+          0.6239999122269952,
+          -0.023308253424485816
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "RightHand",
+        "node_id": 2,
+        "parent_node_id": 3,
+        "rotation_xyzw": [
+          0.16204001009464264,
+          0.23185329139232635,
+          0.04834775999188423,
+          0.9579402804374695
+        ],
+        "scale": [
+          1,
+          1,
+          0.9999998807907104
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 8,
+        "translation": [
+          -4.0046870708465576e-08,
+          0.19073300063610077,
+          -2.2351741790771484e-08
+        ],
+        "world_rest_translation": [
+          -0.16347878516928668,
+          0.3720000626849459,
+          0.22531301997866224
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "RightForearm",
+        "node_id": 3,
+        "parent_node_id": 4,
+        "rotation_xyzw": [
+          0.005125055089592934,
+          0.7310489416122437,
+          -0.5038048624992371,
+          0.46013250946998596
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999997019767761,
+          0.9999999403953552
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 7,
+        "translation": [
+          1.862645149230957e-08,
+          0.1528051495552063,
+          1.4901161193847656e-08
+        ],
+        "world_rest_translation": [
+          -0.2724646873588854,
+          0.456000049224233,
+          0.09323292586255319
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "RightUpperArm",
+        "node_id": 4,
+        "parent_node_id": 6,
+        "rotation_xyzw": [
+          -0.41265276074409485,
+          0.6259641051292419,
+          -0.28791409730911255,
+          0.595812201499939
+        ],
+        "scale": [
+          1,
+          0.9999999403953552,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 6,
+        "translation": [
+          -5.587935447692871e-09,
+          0.13595685362815857,
+          4.260800778865814e-08
+        ],
+        "world_rest_translation": [
+          -0.22705389590680047,
+          0.5880000396770686,
+          0.031077627148938684
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "CompanionAnchor",
+        "node_id": 5,
+        "parent_node_id": 6,
+        "rotation_xyzw": [
+          0.45975688099861145,
+          -0.5768495798110962,
+          -0.5768495202064514,
+          0.3508743643760681
+        ],
+        "scale": [
+          1.0000001192092896,
+          1.000000238418579,
+          1.0000001192092896
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 9,
+        "translation": [
+          -4.6566128730773926e-09,
+          -1.5832483768463135e-08,
+          3.003515303134918e-08
+        ],
+        "world_rest_translation": [
+          -0.09990370878692786,
+          0.6000000587767037,
+          -0.015538841400937907
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "RightShoulder",
+        "node_id": 6,
+        "parent_node_id": 11,
+        "rotation_xyzw": [
+          -0.475443035364151,
+          0.6028285026550293,
+          0.5496441125869751,
+          0.32930710911750793
+        ],
+        "scale": [
+          1,
+          0.9999997615814209,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 5,
+        "translation": [
+          -0.13623234629631042,
+          0.22989322245121002,
+          0.009946784935891628
+        ],
+        "world_rest_translation": [
+          -0.09990372136235237,
+          0.6000000271152421,
+          -0.015538837676311458
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "LeftHand",
+        "node_id": 7,
+        "parent_node_id": 8,
+        "rotation_xyzw": [
+          -0.02318640612065792,
+          0.021142804995179176,
+          -0.027654822915792465,
+          0.9991249442100525
+        ],
+        "scale": [
+          1,
+          0.9999999403953552,
+          0.9999999403953552
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 13,
+        "translation": [
+          -4.4819898903369904e-08,
+          0.13500645756721497,
+          -6.05359673500061e-09
+        ],
+        "world_rest_translation": [
+          0.3723683262221722,
+          0.3119998630412451,
+          0.0077693941753970265
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "LeftForearm",
+        "node_id": 8,
+        "parent_node_id": 9,
+        "rotation_xyzw": [
+          0.09396577626466751,
+          -0.14057579636573792,
+          0.17144756019115448,
+          0.9705743789672852
+        ],
+        "scale": [
+          0.9999999403953552,
+          1.0000001192092896,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 12,
+        "translation": [
+          -7.217749953269958e-08,
+          0.16590414941310883,
+          2.7939677238464355e-09
+        ],
+        "world_rest_translation": [
+          0.3451218741085933,
+          0.4439999136878577,
+          0.015538815697507738
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "LeftUpperArm",
+        "node_id": 9,
+        "parent_node_id": 10,
+        "rotation_xyzw": [
+          -0.4437287449836731,
+          -0.4625319838523865,
+          0.18422098457813263,
+          0.7451386451721191
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999997615814209,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 11,
+        "translation": [
+          -1.1641532182693481e-09,
+          0.10062184929847717,
+          -9.313225746154785e-10
+        ],
+        "world_rest_translation": [
+          0.2724646800820252,
+          0.5879999860350326,
+          -0.02330824137681757
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "LeftShoulder",
+        "node_id": 10,
+        "parent_node_id": 11,
+        "rotation_xyzw": [
+          -0.5793349742889404,
+          -0.5187888741493225,
+          -0.47301894426345825,
+          0.4141042232513428
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999997615814209,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 10,
+        "translation": [
+          0.13623233139514923,
+          0.22917765378952026,
+          0.002210395410656929
+        ],
+        "world_rest_translation": [
+          0.17256095632910728,
+          0.6000000205629565,
+          -0.02330824958435277
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "Torso",
+        "node_id": 11,
+        "parent_node_id": 13,
+        "rotation_xyzw": [
+          0.021232305094599724,
+          0,
+          0,
+          0.9997745752334595
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 2,
+        "translation": [
+          0,
+          0.156193345785141,
+          -3.725290298461914e-09
+        ],
+        "world_rest_translation": [
+          0.036328624933958054,
+          0.3720000014842252,
+          -0.04661649159011205
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "Tail",
+        "node_id": 12,
+        "parent_node_id": 13,
+        "rotation_xyzw": [
+          -0.6080714464187622,
+          0.39385315775871277,
+          0.37472590804100037,
+          0.5785407423973083
+        ],
+        "scale": [
+          0.9999999403953552,
+          0.9999999403953552,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 14,
+        "translation": [
+          -0.12715019285678864,
+          0.03789238631725311,
+          -0.20414236187934875
+        ],
+        "world_rest_translation": [
+          -0.09082156792283058,
+          0.26399999401284413,
+          -0.2563906982736581
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "Pelvis",
+        "node_id": 13,
+        "parent_node_id": 16,
+        "rotation_xyzw": [
+          0.024878839030861855,
+          0,
+          0,
+          0.9996904730796814
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 1,
+        "translation": [
+          0,
+          0.17400000989437103,
+          -0.0077694132924079895
+        ],
+        "world_rest_translation": [
+          0.036328624933958054,
+          0.2160000093281269,
+          -0.05438590049743652
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "RightFoot",
+        "node_id": 14,
+        "parent_node_id": 16,
+        "rotation_xyzw": [
+          0.888589084148407,
+          0,
+          0,
+          0.4587040841579437
+        ],
+        "scale": [
+          1,
+          1,
+          0.9999999403953552
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 15,
+        "translation": [
+          -0.17256097495555878,
+          0.1380000114440918,
+          0
+        ],
+        "world_rest_translation": [
+          -0.13623235002160072,
+          0.18000001087784767,
+          -0.046616487205028534
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "LeftFoot",
+        "node_id": 15,
+        "parent_node_id": 16,
+        "rotation_xyzw": [
+          0.8873692154884338,
+          0.04423169419169426,
+          0.04423172026872635,
+          0.4567964971065521
+        ],
+        "scale": [
+          1,
+          1.000000238418579,
+          1.0000004768371582
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 16,
+        "translation": [
+          0.13623233139514923,
+          0.1380000114440918,
+          0
+        ],
+        "world_rest_translation": [
+          0.17256095632910728,
+          0.18000001087784767,
+          -0.046616487205028534
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "Root",
+        "node_id": 16,
+        "parent_node_id": 18,
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": 0,
+        "translation": [
+          0.036328624933958054,
+          0.041999999433755875,
+          -0.046616487205028534
+        ],
+        "world_rest_translation": [
+          0.036328624933958054,
+          0.041999999433755875,
+          -0.046616487205028534
+        ]
+      },
+      {
+        "mesh": 0,
+        "name": "Mesh_0",
+        "node_id": 17,
+        "parent_node_id": null,
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": 0,
+        "skin_joint_ordinal": null,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "world_rest_translation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "mesh": null,
+        "name": "CreatureRig",
+        "node_id": 18,
+        "parent_node_id": null,
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": null,
+        "skin_joint_ordinal": null,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "world_rest_translation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "mesh": 1,
+        "name": "PortableCoat_0",
+        "node_id": 19,
+        "parent_node_id": null,
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": 0,
+        "skin_joint_ordinal": null,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "world_rest_translation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "mesh": 2,
+        "name": "PortableCoat_1",
+        "node_id": 20,
+        "parent_node_id": null,
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ],
+        "skin": 0,
+        "skin_joint_ordinal": null,
+        "translation": [
+          0,
+          0,
+          0
+        ],
+        "world_rest_translation": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "skin_index": 0,
+    "skin_name": "CreatureRig",
+    "source_authoring_axes": "Blender +Z up, -Y forward; exported glTF +Y up, +Z forward",
+    "units": "meters"
+  },
+  "schema_version": 1,
+  "scope": "CPU JSON/accessor inspection and artifact hashing only; no Blender, provider calls, runtime renderer, motion replay, or quality equivalence determination.",
+  "shader_proof": {
+    "actual_vs_fixture": "This report inspects the real final model. The separately retained probe is an analytic colored-card export/reload test, not a generated character.",
+    "passed_probe": "outputs/panda-fur-focus-v1/color-export-probe-v3",
+    "probe_result_sha256": "e1f396569332c0e11df6a8d20df344d5a19f9888152c8b745587e7e84dd3189a",
+    "probe_shader_sha256": "ccfe5ec7012eba8f077f375eb8cf240dcedf9e58158548e9d296759c8bf63b08",
+    "same_tested_production_shader": true,
+    "snapshot_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3/sources/blender_finish_generated.py",
+    "snapshot_sha256": "ccfe5ec7012eba8f077f375eb8cf240dcedf9e58158548e9d296759c8bf63b08"
+  },
+  "weft_compatibility": {
+    "blockers": [
+      "74600 exported vertices exceeds 20000; 71717 triangles exceeds 40000.",
+      "TANGENT and COLOR_0 attributes are outside the frozen importer supported attribute set.",
+      "Base normal/metallic-roughness texture channels and non-unit diffuse roughness are unsupported; fur roughness is .78 and authored correction roughness is .8.",
+      "Embedded 4096-pixel textures exceed the 2048 per-dimension texture limit and aggregate image pixels exceed 8MP.",
+      "rig-contract.json maps local bone names to local controls, not the ten Weft body frame IDs or required metadata/transform binding schema.",
+      "rig-contract.json attachments is empty; actual CompanionAnchor details are in exported-nodes.json and this audit, not a valid Weft attachment mapping."
+    ],
+    "contract_path": "/Users/ivan/kintsugi/weft/docs/avatars.md",
+    "contract_sha256": "e03897de484ff0429dc6e92eb0ddbcc30f00534f146ddda18ce4e516dfbd6d34",
+    "counts_within_contract": [
+      "17 joints <= 64",
+      "21 nodes <= 128",
+      "4 primitives <= 16",
+      "29952112-byte model < 32 MiB"
+    ],
+    "importer_sha256": "c505fc42e7f9265be3e0e8c3540f94fb347e769e9e501c56ce2d3835d92a76c5",
+    "required_next_work": "A separately authored reduced-detail diffuse-only export with baked fur colors/compatible attributes, <=2048 textures and explicit ten-frame binding/attachment mapping; do not relabel this current high-detail model Weft-compatible.",
+    "runtime_tested": false,
+    "status": "unsupported_current_import_contract"
+  }
+}

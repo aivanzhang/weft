@@ -36,6 +36,23 @@ def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
 
 
 class FinishQualityConfigTests(unittest.TestCase):
+    def test_flow_and_combed_root_colors_are_bounded_optional_controls(self):
+        config = finish_config()
+        flow = {'regions': [{'name':'crown','center':[.5,.5,.8],'radius':[.3,.4,.2],
+                  'feather':.5,'direction':[0,0,1],'comb':.3,'length_scale':1.2}]}
+        config['groom_flow'] = flow
+        with self.assertRaisesRegex(ValueError, 'direction and comb'):
+            validate(config)
+        config['groom'].update(direction=[0,0,-1],comb=.6)
+        config['portable_fur'] = {'settings':{'seed':1,'length':.01,'width':.004,
+            'direction':[0,0,-1],'profile':'combed-v1','sample_root_color':True},
+            'bands':[{'brightness':[0,1.01],'color':[1,1,1,1],'count':100}]}
+        self.assertEqual(validate(config)['groom_flow'], flow)
+        for key, value in [('profile','unknown'),('sample_root_color',1),('script','run.sh')]:
+            bad = deepcopy(config);bad['portable_fur']['settings'][key] = value
+            with self.assertRaises(ValueError):
+                validate(bad)
+
     def test_groom_shader_accepts_both_inclusive_roughness_limits(self):
         for roughness, radial in ((.04, 1), (1, .04)):
             settings = finish_config()

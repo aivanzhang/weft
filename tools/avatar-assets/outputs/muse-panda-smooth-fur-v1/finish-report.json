@@ -1,0 +1,1799 @@
+{
+  "animation_verified": false,
+  "attachment": {
+    "bone": "CompanionAnchor",
+    "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance",
+    "parent_bone": "RightShoulder",
+    "rest_geometry_changed": false,
+    "selected_vertices": 25803,
+    "selector": {
+      "anchor_from_bone": "RightShoulder",
+      "bone": "CompanionAnchor",
+      "dominant_channel": 1,
+      "dominant_ratio": 1.05,
+      "expand_meters": 0.006,
+      "max_vertices": 30000,
+      "min_vertices": 1000,
+      "parent_bone": "RightShoulder",
+      "regions": [
+        {
+          "center": [
+            0.16,
+            0.275,
+            0.605
+          ],
+          "radius": [
+            0.24,
+            0.29,
+            0.23
+          ]
+        }
+      ]
+    }
+  },
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Root",
+        "Pelvis",
+        "Torso",
+        "Neck",
+        "Head"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.54,
+            0.56,
+            0.035
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.54,
+            0.56,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.57,
+            0.18
+          ],
+          "name": "Pelvis",
+          "parent": "Root",
+          "tail": [
+            0.54,
+            0.56,
+            0.31
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.56,
+            0.31
+          ],
+          "name": "Torso",
+          "parent": "Pelvis",
+          "tail": [
+            0.54,
+            0.53,
+            0.52
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.53,
+            0.52
+          ],
+          "name": "Neck",
+          "parent": "Torso",
+          "tail": [
+            0.55,
+            0.49,
+            0.59
+          ]
+        },
+        {
+          "head": [
+            0.55,
+            0.49,
+            0.59
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail": [
+            0.55,
+            0.5,
+            0.88
+          ]
+        },
+        {
+          "head": [
+            0.39,
+            0.52,
+            0.5
+          ],
+          "name": "RightShoulder",
+          "parent": "Torso",
+          "tail": [
+            0.25,
+            0.46,
+            0.49
+          ]
+        },
+        {
+          "head": [
+            0.25,
+            0.46,
+            0.49
+          ],
+          "name": "RightUpperArm",
+          "parent": "RightShoulder",
+          "tail": [
+            0.2,
+            0.38,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.2,
+            0.38,
+            0.38
+          ],
+          "name": "RightForearm",
+          "parent": "RightUpperArm",
+          "tail": [
+            0.32,
+            0.21,
+            0.31
+          ]
+        },
+        {
+          "head": [
+            0.32,
+            0.21,
+            0.31
+          ],
+          "name": "RightHand",
+          "parent": "RightForearm",
+          "tail": [
+            0.39,
+            0.16,
+            0.29
+          ]
+        },
+        {
+          "head": [
+            0.69,
+            0.53,
+            0.5
+          ],
+          "name": "LeftShoulder",
+          "parent": "Torso",
+          "tail": [
+            0.8,
+            0.53,
+            0.49
+          ]
+        },
+        {
+          "head": [
+            0.8,
+            0.53,
+            0.49
+          ],
+          "name": "LeftUpperArm",
+          "parent": "LeftShoulder",
+          "tail": [
+            0.88,
+            0.48,
+            0.37
+          ]
+        },
+        {
+          "head": [
+            0.88,
+            0.48,
+            0.37
+          ],
+          "name": "LeftForearm",
+          "parent": "LeftUpperArm",
+          "tail": [
+            0.9,
+            0.37,
+            0.26
+          ]
+        },
+        {
+          "head": [
+            0.9,
+            0.37,
+            0.26
+          ],
+          "name": "LeftHand",
+          "parent": "LeftForearm",
+          "tail": [
+            0.92,
+            0.31,
+            0.22
+          ]
+        },
+        {
+          "head": [
+            0.35,
+            0.56,
+            0.15
+          ],
+          "name": "RightFoot",
+          "parent": "Root",
+          "tail": [
+            0.35,
+            0.31,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.69,
+            0.56,
+            0.15
+          ],
+          "name": "LeftFoot",
+          "parent": "Root",
+          "tail": [
+            0.7,
+            0.31,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.4,
+            0.83,
+            0.22
+          ],
+          "name": "Tail",
+          "parent": "Pelvis",
+          "tail": [
+            0.19,
+            0.94,
+            0.22
+          ]
+        }
+      ],
+      "height_meters": 1.2,
+      "layers": [
+        {
+          "bones": [
+            "Root",
+            "Pelvis",
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "feather": 0.055,
+          "max": [
+            1.05,
+            1.05,
+            0.3
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 2000
+        },
+        {
+          "bones": [
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "feather": 0.03,
+          "max": [
+            1.05,
+            1.05,
+            0.135
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "Tail",
+            "Pelvis"
+          ],
+          "feather": 0.04,
+          "max": [
+            0.43,
+            1.05,
+            0.34
+          ],
+          "min": [
+            0.02,
+            0.72,
+            0.1
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "RightShoulder",
+            "RightUpperArm",
+            "RightForearm",
+            "RightHand"
+          ],
+          "feather": 0.045,
+          "max": [
+            0.43,
+            0.72,
+            0.57
+          ],
+          "min": [
+            0.07,
+            0.1,
+            0.24
+          ],
+          "min_vertices": 800
+        },
+        {
+          "bones": [
+            "RightForearm",
+            "RightHand"
+          ],
+          "feather": 0.035,
+          "max": [
+            0.43,
+            0.42,
+            0.4
+          ],
+          "min": [
+            0.11,
+            0.06,
+            0.24
+          ],
+          "min_vertices": 300
+        },
+        {
+          "bones": [
+            "LeftShoulder",
+            "LeftUpperArm",
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "feather": 0.045,
+          "max": [
+            1.05,
+            0.82,
+            0.565
+          ],
+          "min": [
+            0.755,
+            0.17,
+            0.185
+          ],
+          "min_vertices": 900
+        },
+        {
+          "bones": [
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "feather": 0.03,
+          "max": [
+            1.05,
+            0.62,
+            0.405
+          ],
+          "min": [
+            0.84,
+            0.12,
+            0.18
+          ],
+          "min_vertices": 350
+        },
+        {
+          "bones": [
+            "LeftHand"
+          ],
+          "feather": 0.025,
+          "max": [
+            1.05,
+            0.48,
+            0.285
+          ],
+          "min": [
+            0.86,
+            0.14,
+            0.185
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "Neck",
+            "Head"
+          ],
+          "feather": 0.055,
+          "max": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "min": [
+            0.19,
+            -0.05,
+            0.53
+          ],
+          "min_vertices": 2500
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0.03,
+          "max": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "min": [
+            0.18,
+            -0.05,
+            0.635
+          ],
+          "min_vertices": 2000
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.2,
+    "input_world_bounds": {
+      "max": [
+        0.7209079265594482,
+        0.6167859435081482,
+        0.950253963470459
+      ],
+      "min": [
+        -0.7186660170555115,
+        -0.6147109270095825,
+        -0.9518150091171265
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "Root",
+          "Pelvis",
+          "RightFoot",
+          "LeftFoot"
+        ],
+        "selected_vertices": 8434
+      },
+      {
+        "bones": [
+          "RightFoot",
+          "LeftFoot"
+        ],
+        "selected_vertices": 2425
+      },
+      {
+        "bones": [
+          "Tail",
+          "Pelvis"
+        ],
+        "selected_vertices": 1739
+      },
+      {
+        "bones": [
+          "RightShoulder",
+          "RightUpperArm",
+          "RightForearm",
+          "RightHand"
+        ],
+        "selected_vertices": 13349
+      },
+      {
+        "bones": [
+          "RightForearm",
+          "RightHand"
+        ],
+        "selected_vertices": 2164
+      },
+      {
+        "bones": [
+          "LeftShoulder",
+          "LeftUpperArm",
+          "LeftForearm",
+          "LeftHand"
+        ],
+        "selected_vertices": 3324
+      },
+      {
+        "bones": [
+          "LeftForearm",
+          "LeftHand"
+        ],
+        "selected_vertices": 2112
+      },
+      {
+        "bones": [
+          "LeftHand"
+        ],
+        "selected_vertices": 773
+      },
+      {
+        "bones": [
+          "Neck",
+          "Head"
+        ],
+        "selected_vertices": 17354
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 12545
+      }
+    ],
+    "max_influences": 4,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "Head": 31538,
+      "LeftFoot": 3988,
+      "LeftForearm": 2693,
+      "LeftHand": 2987,
+      "LeftShoulder": 1346,
+      "LeftUpperArm": 1537,
+      "Neck": 23448,
+      "Pelvis": 22586,
+      "RightFoot": 4230,
+      "RightForearm": 8947,
+      "RightHand": 7957,
+      "RightShoulder": 8078,
+      "RightUpperArm": 9110,
+      "Root": 2582,
+      "Tail": 1685,
+      "Torso": 20996
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        -0.0011209547519683838,
+        -0.001037508249282837,
+        0.9518150091171265
+      ],
+      "uniform_scale": 0.6308919483437623
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.4441437721252441,
+    "view": "three_quarter_left"
+  },
+  "color_corrections": {
+    "affected_vertices": 555,
+    "corrections": [
+      {
+        "matched_faces": 738,
+        "material_copies": [
+          {
+            "material": "Material_0__color_rear-tail-base",
+            "new_slot": 1,
+            "normal_map_nodes": 1,
+            "original_texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ],
+            "removed_input_links": {
+              "base_color": 1,
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 738,
+            "source_material": "Material_0",
+            "source_slot": 0
+          }
+        ],
+        "name": "rear-tail-base",
+        "selected_faces": 738,
+        "settings": {
+          "color_linear": [
+            0.00440084974745434,
+            0.003935939504088967,
+            0.00375840377954798
+          ],
+          "color_srgb": [
+            0.055,
+            0.05,
+            0.048
+          ],
+          "metallic": 0.0,
+          "normal_strength": 0.1,
+          "roughness": 0.8
+        }
+      }
+    ],
+    "faces_reassigned": 738,
+    "fur_exclusion_required": true,
+    "fur_exclusion_scope": "Exclude every returned vertex ID from native and portable fur sampling because the original root-color texture was not changed.",
+    "geometry_uv_skin_unchanged": true,
+    "new_material_count": 1,
+    "original_texture_bytes_unchanged": true,
+    "precedence": "last_matching_correction_wins",
+    "selection": "Normalized world-bound face centroid inside any ellipsoid AND mean source RGB dominant channel strictly greater than ratio times maximum other channel.",
+    "source_materials_unchanged": true,
+    "texture_scope": "Original image datablocks and UV routing are reused without pixel/file writes; selected face materials use an authored constant linear RGB instead of their Base Color texture link. This is not texture repainting or recovered hidden-surface color.",
+    "visible_selected_surface_color_authored": true
+  },
+  "emitter_scale_applied": true,
+  "groom": {
+    "armature": "CreatureRig",
+    "clump_factor": 0.06,
+    "comb": {
+      "amount": 0.6,
+      "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+      "direction_rest_object_axes": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "flow_config": {
+        "regions": [
+          {
+            "center": [
+              0.555,
+              0.4,
+              0.755
+            ],
+            "comb": 0.55,
+            "direction": [
+              0,
+              0,
+              -1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.8,
+            "name": "head-short",
+            "radius": [
+              0.32,
+              0.48,
+              0.22
+            ]
+          },
+          {
+            "center": [
+              0.34,
+              0.175,
+              0.655
+            ],
+            "comb": 0.65,
+            "direction": [
+              -1,
+              0,
+              -0.3
+            ],
+            "feather": 0.5,
+            "length_scale": 1.1,
+            "name": "cheek-viewer-left",
+            "radius": [
+              0.115,
+              0.23,
+              0.115
+            ]
+          },
+          {
+            "center": [
+              0.78,
+              0.175,
+              0.65
+            ],
+            "comb": 0.65,
+            "direction": [
+              1,
+              0,
+              -0.3
+            ],
+            "feather": 0.5,
+            "length_scale": 1.1,
+            "name": "cheek-viewer-right",
+            "radius": [
+              0.13,
+              0.23,
+              0.115
+            ]
+          },
+          {
+            "center": [
+              0.555,
+              0.46,
+              0.9
+            ],
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.15,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 1.2,
+            "name": "crown",
+            "radius": [
+              0.27,
+              0.42,
+              0.105
+            ]
+          },
+          {
+            "center": [
+              0.315,
+              0.48,
+              0.93
+            ],
+            "comb": 0.3,
+            "direction": [
+              -0.3,
+              0,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.7,
+            "name": "ear-viewer-left",
+            "radius": [
+              0.12,
+              0.3,
+              0.12
+            ]
+          },
+          {
+            "center": [
+              0.8,
+              0.48,
+              0.925
+            ],
+            "comb": 0.3,
+            "direction": [
+              0.3,
+              0,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.7,
+            "name": "ear-viewer-right",
+            "radius": [
+              0.12,
+              0.3,
+              0.12
+            ]
+          },
+          {
+            "center": [
+              0.555,
+              0.075,
+              0.645
+            ],
+            "comb": 0.45,
+            "direction": [
+              0,
+              0,
+              -1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.3,
+            "name": "muzzle",
+            "radius": [
+              0.16,
+              0.17,
+              0.07
+            ]
+          }
+        ]
+      },
+      "hair_dynamics": false,
+      "initialization": {
+        "method": "Particle Edit enter/exit on owned emitter",
+        "parents": 6500
+      },
+      "limitations": [
+        "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+        "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+        "Stored parent arc length follows explicit regional scale (otherwise preserved); children add configured roughness/clump variation."
+      ],
+      "limits": {
+        "amount_range": [
+          0,
+          0.95
+        ],
+        "direction_component_range": [
+          -1,
+          1
+        ],
+        "parents": 10000,
+        "stored_keys": 150000,
+        "stored_parent_arc_length_m": 0.08,
+        "wall_seconds": 20
+      },
+      "max_arc_length_change_m": 0.012600117077496285,
+      "max_key_error_m": 2.585254843964796e-07,
+      "max_planned_arc_length_error_m": 2.904479492298051e-07,
+      "max_root_shift_m": 0.0,
+      "max_stored_arc_length_m": 0.02160032858726198,
+      "mean_tip_displacement_m": 0.011165096663373054,
+      "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+      "native_only": true,
+      "parallel_direction_strands_unchanged": 0,
+      "parents": 6500,
+      "regional_length_scale_range": [
+        0.3,
+        1.2
+      ],
+      "schema_version": 1,
+      "seconds": 0.6552054579369724,
+      "settings_preserved": {
+        "child_seed": 831,
+        "hair_dynamics": false,
+        "seed": 831,
+        "settings": {
+          "child_percent": 4,
+          "child_type": "INTERPOLATED",
+          "clump_factor": 0.05999999865889549,
+          "count": 6500,
+          "hair_length": 0.017999999225139618,
+          "hair_step": 3,
+          "material": 3,
+          "radius_scale": 0.00016999999934341758,
+          "rendered_child_count": 30,
+          "root_radius": 2.0,
+          "roughness_1": 0.0006000000284984708,
+          "roughness_2": 0.0002099999983329326,
+          "tip_radius": 0.11999999731779099,
+          "type": "HAIR",
+          "use_modifier_stack": true,
+          "use_regrow_hair": false
+        }
+      },
+      "skin_signature": {
+        "geometry_weights_sha256": "d07cb320b975db605b7d89814286bb4f53525ee1ee84ee532be655222d9f0161",
+        "mixed_weight_vertices": 15192,
+        "vertices": 50004
+      },
+      "status": "combed_pending_render_review",
+      "stored_keys": 26000
+    },
+    "copied_skin": {
+      "geometry_weights_sha256": "d07cb320b975db605b7d89814286bb4f53525ee1ee84ee532be655222d9f0161",
+      "mixed_weight_vertices": 15192,
+      "vertices": 50004
+    },
+    "density_excluded_vertices": 29366,
+    "density_selected_vertices": 20638,
+    "dynamics_enabled": false,
+    "emitter_surface_visible": false,
+    "fur_max_chroma": 0.18,
+    "gltf_export_supported": false,
+    "kind": "editable_native_blender_particle_hair",
+    "limitations": [
+      "Native Blender hair is not exported as glTF geometry or browser hair.",
+      "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+      "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+    ],
+    "mask_config": [
+      {
+        "center": [
+          0.447,
+          0.155,
+          0.741
+        ],
+        "radius": [
+          0.047,
+          0.16,
+          0.039
+        ]
+      },
+      {
+        "center": [
+          0.671,
+          0.15,
+          0.733
+        ],
+        "radius": [
+          0.047,
+          0.16,
+          0.039
+        ]
+      },
+      {
+        "center": [
+          0.558,
+          0.035,
+          0.673
+        ],
+        "radius": [
+          0.067,
+          0.12,
+          0.038
+        ]
+      },
+      {
+        "center": [
+          0.554,
+          0.075,
+          0.628
+        ],
+        "radius": [
+          0.08,
+          0.13,
+          0.02
+        ]
+      },
+      {
+        "center": [
+          0.165,
+          0.275,
+          0.675
+        ],
+        "radius": [
+          0.17,
+          0.31,
+          0.13
+        ]
+      },
+      {
+        "center": [
+          0.145,
+          0.29,
+          0.548
+        ],
+        "radius": [
+          0.19,
+          0.32,
+          0.13
+        ]
+      },
+      {
+        "center": [
+          0.14,
+          0.255,
+          0.465
+        ],
+        "radius": [
+          0.13,
+          0.25,
+          0.065
+        ]
+      },
+      {
+        "center": [
+          0.3,
+          0.86,
+          0.235
+        ],
+        "radius": [
+          0.16,
+          0.15,
+          0.1
+        ]
+      }
+    ],
+    "material": {
+      "base_color_linear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "material": "NativeGroom_Material_0_hair",
+      "model": "CHIANG",
+      "parametrization": "COLOR",
+      "radial_roughness": 0.5,
+      "shader": "ShaderNodeBsdfHairPrincipled",
+      "shader_roughness": 0.5,
+      "texture_color_sampling": true
+    },
+    "native_only": true,
+    "native_parameters": {
+      "child_type": "INTERPOLATED",
+      "hair_step": 3,
+      "radius_parameter_description": "Multiplier of diameter properties",
+      "radius_scale": 0.00016999999934341758,
+      "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+      "render_children": 30,
+      "render_step": 3,
+      "root_diameter_m": 0.00034,
+      "root_radius": 2.0,
+      "root_radius_description": "Strand diameter width at the root",
+      "tip_diameter_m": 2.04e-05,
+      "tip_radius": 0.11999999731779099,
+      "use_modifier_stack": true,
+      "use_parent_particles": true,
+      "viewport_children": 4
+    },
+    "object": "NativeGroom_Mesh_0",
+    "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+    "render_fiber_upper_bound": 201500,
+    "reserved_prefix": "NativeGroom_",
+    "schema_version": 1,
+    "settings": {
+      "children": 30,
+      "length": 0.018,
+      "parents": 6500,
+      "radius": 0.00017,
+      "roughness": 0.0006,
+      "seed": 831
+    },
+    "source_object": "Mesh_0"
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.15,
+  "portable_fur": [
+    {
+      "cards": 1320,
+      "config": {
+        "brightness": [
+          0,
+          0.35
+        ],
+        "color": [
+          0.09,
+          0.08,
+          0.075,
+          1
+        ],
+        "count": 1320
+      },
+      "geometry_profile": "combed-v1",
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_0_cutout_fur",
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+        "seed": 193,
+        "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+      },
+      "sample_root_color": true,
+      "vertices": 7920
+    },
+    {
+      "cards": 1080,
+      "config": {
+        "brightness": [
+          0.35,
+          1.01
+        ],
+        "color": [
+          0.92,
+          0.9,
+          0.85,
+          1
+        ],
+        "count": 1080
+      },
+      "geometry_profile": "combed-v1",
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_1_cutout_fur",
+        "path": "textures/PortableCoat_1-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "root_color": "Barycentric source sRGB converted to linear vertex color; constant per ribbon",
+        "seed": 193,
+        "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+      },
+      "sample_root_color": true,
+      "vertices": 6480
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.45410779118537903,
+      0.38847073912620544,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.45410779118537903,
+      -0.38847073912620544,
+      0.0
+    ]
+  },
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            40703,
+            40709
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4719134569168091,
+              "Pelvis": 0.26936256885528564,
+              "RightFoot": 0.0407179594039917,
+              "Root": 0.21800602972507477
+            },
+            {
+              "LeftFoot": 0.2687346041202545,
+              "LeftForearm": 0.2861074209213257,
+              "LeftHand": 0.15905053913593292,
+              "LeftUpperArm": 0.2861074209213257
+            }
+          ],
+          "excess_length": 0.09359698701760084,
+          "posed_length": 0.11378326869309037,
+          "rest_length": 0.020186281675489522,
+          "rest_normalized_bounds": [
+            [
+              0.7753252554958944,
+              0.8112614083022406,
+              0.253577545143066
+            ],
+            [
+              0.7873801897957312,
+              0.7934278244238647,
+              0.2454280010689099
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 5.636663082495657
+        },
+        {
+          "endpoint_indices": [
+            40689,
+            40709
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4948424994945526,
+              "Pelvis": 0.25200435519218445,
+              "RightFoot": 0.04289821535348892,
+              "Root": 0.21025492250919342
+            },
+            {
+              "LeftFoot": 0.2687346041202545,
+              "LeftForearm": 0.2861074209213257,
+              "LeftHand": 0.15905053913593292,
+              "LeftUpperArm": 0.2861074209213257
+            }
+          ],
+          "excess_length": 0.09332608242917158,
+          "posed_length": 0.11880580002411213,
+          "rest_length": 0.025479717594940554,
+          "rest_normalized_bounds": [
+            [
+              0.768482241867981,
+              0.8176585156098064,
+              0.24503580252187243
+            ],
+            [
+              0.7873801897957312,
+              0.7934278244238647,
+              0.2454280010689099
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 4.662759686461483
+        },
+        {
+          "endpoint_indices": [
+            40702,
+            40721
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.27844274044036865,
+              "Pelvis": 0.32886379957199097,
+              "Root": 0.24711209535598755,
+              "Torso": 0.14558136463165283
+            },
+            {
+              "LeftFoot": 0.2361750602722168,
+              "LeftForearm": 0.30528295040130615,
+              "LeftHand": 0.1532590687274933,
+              "LeftUpperArm": 0.30528295040130615
+            }
+          ],
+          "excess_length": 0.09260049930948308,
+          "posed_length": 0.11562222090947533,
+          "rest_length": 0.02302172159999225,
+          "rest_normalized_bounds": [
+            [
+              0.7752641063272966,
+              0.8116609122499072,
+              0.2701878937010807
+            ],
+            [
+              0.7889813890610355,
+              0.7937396408031813,
+              0.25897901717905136
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 5.022309926183551
+        },
+        {
+          "endpoint_indices": [
+            40703,
+            40721
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4719134569168091,
+              "Pelvis": 0.26936256885528564,
+              "RightFoot": 0.0407179594039917,
+              "Root": 0.21800602972507477
+            },
+            {
+              "LeftFoot": 0.2361750602722168,
+              "LeftForearm": 0.30528295040130615,
+              "LeftHand": 0.1532590687274933,
+              "LeftUpperArm": 0.30528295040130615
+            }
+          ],
+          "excess_length": 0.09116626910674036,
+          "posed_length": 0.11068971470435446,
+          "rest_length": 0.019523445597614097,
+          "rest_normalized_bounds": [
+            [
+              0.7753252554958944,
+              0.8112614083022406,
+              0.253577545143066
+            ],
+            [
+              0.7889813890610355,
+              0.7937396408031813,
+              0.25897901717905136
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 5.6695788738173105
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        32.400000000000006,
+        46.8,
+        61.199999999999996,
+        76.80000000000001,
+        96.0
+      ],
+      "id": "celebrate",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.35,
+        1.95,
+        2.55,
+        3.2,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            19058,
+            19099
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.009397035625093107,
+          "posed_length": 0.027294234432580625,
+          "rest_length": 0.017897198807487517,
+          "rest_normalized_bounds": [
+            [
+              0.22083338884393716,
+              0.31440274063927537,
+              0.7388328218923877
+            ],
+            [
+              0.22724223845268418,
+              0.29322605862792356,
+              0.735527992823601
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 1.5250562239472771
+        },
+        {
+          "endpoint_indices": [
+            13265,
+            13334
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.009198531848072011,
+          "posed_length": 0.015741987286602137,
+          "rest_length": 0.0065434554385301255,
+          "rest_normalized_bounds": [
+            [
+              0.22407326113389034,
+              0.16932158744418357,
+              0.6941956502518792
+            ],
+            [
+              0.22362452763210666,
+              0.16315833283147607,
+              0.69049494701644
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 2.4057606007229575
+        },
+        {
+          "endpoint_indices": [
+            19432,
+            19688
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "CompanionAnchor": 1.0
+            }
+          ],
+          "excess_length": 0.008887011741198422,
+          "posed_length": 0.0208961201010983,
+          "rest_length": 0.012009108359899878,
+          "rest_normalized_bounds": [
+            [
+              0.21019412260508388,
+              0.3107486316558259,
+              0.695049437083823
+            ],
+            [
+              0.20603181174338364,
+              0.32438243747657736,
+              0.6985577166653587
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 1.7400226124092126
+        },
+        {
+          "endpoint_indices": [
+            19464,
+            19479
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.008862242818306134,
+          "posed_length": 0.013088399152949222,
+          "rest_length": 0.004226156334643088,
+          "rest_normalized_bounds": [
+            [
+              0.2115306429361734,
+              0.3214616090707151,
+              0.6996791283417094
+            ],
+            [
+              0.21274906514127245,
+              0.3165838058782892,
+              0.6984226128092363
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 3.0969983399950527
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            10291,
+            10320
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.03269327696292576,
+          "posed_length": 0.037115298261381637,
+          "rest_length": 0.00442202129845588,
+          "rest_normalized_bounds": [
+            [
+              0.2120453985078356,
+              0.1479183408560777,
+              0.6828348563975153
+            ],
+            [
+              0.21612439424258675,
+              0.15046078167751764,
+              0.6839920308593102
+            ]
+          ],
+          "second": 2.7000000000000006,
+          "stretch_ratio": 8.393287991250038
+        },
+        {
+          "endpoint_indices": [
+            10279,
+            10320
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.032420760907551235,
+          "posed_length": 0.039736437951765444,
+          "rest_length": 0.0073156770442142065,
+          "rest_normalized_bounds": [
+            [
+              0.21203703089957565,
+              0.15112986927801217,
+              0.6892273549545862
+            ],
+            [
+              0.21612439424258675,
+              0.15046078167751764,
+              0.6839920308593102
+            ]
+          ],
+          "second": 2.7000000000000006,
+          "stretch_ratio": 5.431682906668501
+        },
+        {
+          "endpoint_indices": [
+            13265,
+            13334
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.03235373641646158,
+          "posed_length": 0.03889719185499171,
+          "rest_length": 0.0065434554385301255,
+          "rest_normalized_bounds": [
+            [
+              0.22407326113389034,
+              0.16932158744418357,
+              0.6941956502518792
+            ],
+            [
+              0.22362452763210666,
+              0.16315833283147607,
+              0.69049494701644
+            ]
+          ],
+          "second": 2.7000000000000006,
+          "stretch_ratio": 5.944442079631445
+        },
+        {
+          "endpoint_indices": [
+            10291,
+            10306
+          ],
+          "endpoint_influences": [
+            {
+              "CompanionAnchor": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.03200375800201334,
+          "posed_length": 0.039066518294029004,
+          "rest_length": 0.007062760292015662,
+          "rest_normalized_bounds": [
+            [
+              0.2120453985078356,
+              0.1479183408560777,
+              0.6828348563975153
+            ],
+            [
+              0.21758731467962658,
+              0.14969096461311793,
+              0.6788686641506885
+            ]
+          ],
+          "second": 2.7000000000000006,
+          "stretch_ratio": 5.531338553029059
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        33.599999999999994,
+        48.0,
+        64.80000000000001,
+        79.19999999999999,
+        96.0
+      ],
+      "id": "look_around",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.4,
+        2.0,
+        2.7,
+        3.3,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            40703,
+            40709
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4719134569168091,
+              "Pelvis": 0.26936256885528564,
+              "RightFoot": 0.0407179594039917,
+              "Root": 0.21800602972507477
+            },
+            {
+              "LeftFoot": 0.2687346041202545,
+              "LeftForearm": 0.2861074209213257,
+              "LeftHand": 0.15905053913593292,
+              "LeftUpperArm": 0.2861074209213257
+            }
+          ],
+          "excess_length": 0.09361045320351527,
+          "posed_length": 0.1137967348790048,
+          "rest_length": 0.020186281675489522,
+          "rest_normalized_bounds": [
+            [
+              0.7753252554958944,
+              0.8112614083022406,
+              0.253577545143066
+            ],
+            [
+              0.7873801897957312,
+              0.7934278244238647,
+              0.2454280010689099
+            ]
+          ],
+          "second": 1.8999999999999997,
+          "stretch_ratio": 5.6373301784042
+        },
+        {
+          "endpoint_indices": [
+            40689,
+            40709
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4948424994945526,
+              "Pelvis": 0.25200435519218445,
+              "RightFoot": 0.04289821535348892,
+              "Root": 0.21025492250919342
+            },
+            {
+              "LeftFoot": 0.2687346041202545,
+              "LeftForearm": 0.2861074209213257,
+              "LeftHand": 0.15905053913593292,
+              "LeftUpperArm": 0.2861074209213257
+            }
+          ],
+          "excess_length": 0.09264560139782706,
+          "posed_length": 0.11812531899276761,
+          "rest_length": 0.025479717594940554,
+          "rest_normalized_bounds": [
+            [
+              0.768482241867981,
+              0.8176585156098064,
+              0.24503580252187243
+            ],
+            [
+              0.7873801897957312,
+              0.7934278244238647,
+              0.2454280010689099
+            ]
+          ],
+          "second": 1.8999999999999997,
+          "stretch_ratio": 4.6360529135622555
+        },
+        {
+          "endpoint_indices": [
+            40702,
+            40721
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.27844274044036865,
+              "Pelvis": 0.32886379957199097,
+              "Root": 0.24711209535598755,
+              "Torso": 0.14558136463165283
+            },
+            {
+              "LeftFoot": 0.2361750602722168,
+              "LeftForearm": 0.30528295040130615,
+              "LeftHand": 0.1532590687274933,
+              "LeftUpperArm": 0.30528295040130615
+            }
+          ],
+          "excess_length": 0.09256812129496443,
+          "posed_length": 0.11558984289495668,
+          "rest_length": 0.02302172159999225,
+          "rest_normalized_bounds": [
+            [
+              0.7752641063272966,
+              0.8116609122499072,
+              0.2701878937010807
+            ],
+            [
+              0.7889813890610355,
+              0.7937396408031813,
+              0.25897901717905136
+            ]
+          ],
+          "second": 1.8999999999999997,
+          "stretch_ratio": 5.020903514661371
+        },
+        {
+          "endpoint_indices": [
+            40703,
+            40721
+          ],
+          "endpoint_influences": [
+            {
+              "LeftFoot": 0.4719134569168091,
+              "Pelvis": 0.26936256885528564,
+              "RightFoot": 0.0407179594039917,
+              "Root": 0.21800602972507477
+            },
+            {
+              "LeftFoot": 0.2361750602722168,
+              "LeftForearm": 0.30528295040130615,
+              "LeftHand": 0.1532590687274933,
+              "LeftUpperArm": 0.30528295040130615
+            }
+          ],
+          "excess_length": 0.08953306616877528,
+          "posed_length": 0.10905651176638938,
+          "rest_length": 0.019523445597614097,
+          "rest_normalized_bounds": [
+            [
+              0.7753252554958944,
+              0.8112614083022406,
+              0.253577545143066
+            ],
+            [
+              0.7889813890610355,
+              0.7937396408031813,
+              0.25897901717905136
+            ]
+          ],
+          "second": 1.8999999999999997,
+          "stretch_ratio": 5.585925456709181
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        32.400000000000006,
+        45.599999999999994,
+        58.800000000000004,
+        72.0,
+        84.0,
+        96.0
+      ],
+      "id": "wave",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.35,
+        1.9,
+        2.45,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

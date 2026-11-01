@@ -2,7 +2,21 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
-## Generated-model quality refinement
+## Panda fur and detail upgrade
+
+The latest fur work separates a clean generated undercoat from editable native
+hair and lighter browser fur. Regional combing/length, eye and accessory masks,
+source-colored tapered cards and bounded local color repairs are reusable
+finishing controls, available to the AI author—not panda-specific code.
+[Workflow, costs and preserved failures](docs/fur-workflow.md).
+
+One newly authorized Meshy generation used35 credits, with no paid retries.
+Native portraits are substantially cleaner; final motion and browser acceptance
+are recorded in [the current handoff](TODO.md). The long generated tail remains
+an authored-surface limitation, and Muse-equivalent finish is not established.
+Previous models, the approved dragon and the original reference are unchanged.
+
+## Previous generated-model refinement
 
 The finishing stage now supports bounded surface smoothing, separate material-response regions,
 and native-hair sheen controls. A local comparison tool isolates geometry, texture/normal maps,
@@ -40,7 +54,7 @@ playback/fallback checks passed; no new Meshy calls.
 ./tools/avatar-assets/run generate --resume outputs/my-dragon-001 --execute
 ```
 
-Fresh Meshy geometry/textures are estimated at35 credits; AI-agent account charges are separate and currently not exposed by the authenticated CLI. The previous dragon-specific allowance is spent: setting `--max-credits` does not create a new account allowance. `--reuse-model PATH --max-credits 0` tests new automatic rigging/motions on existing generated geometry with no new Meshy calls. Agent calls are still real model usage.
+Fresh Meshy geometry/textures are estimated at35 credits; AI-agent account charges are separate and currently not exposed by the authenticated CLI. The previous dragon and panda-specific allowances are spent: setting `--max-credits` does not create a new account allowance. `--reuse-model PATH --max-credits 0` tests new automatic rigging/motions on existing generated geometry with no new Meshy calls. Agent calls are still real model usage.
 
 **Verified with real agents on two different generated sources:** the dragon completed after two automatic repairs; the robot completed after one. Both exported real skins, four motions, portrait/videos/static fallbacks and passed actual browser playback checks. The robot test inferred style and state IDs from the text alone. These runs reused preserved Meshy geometry; fresh geometry generation was not purchased again. Full results, rejected attempts and measured limits are in [the verification report](docs/prompt-pipeline-results-v1.md).
 

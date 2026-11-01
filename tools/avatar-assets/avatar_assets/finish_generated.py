@@ -32,7 +32,8 @@ def validate(config):
                 'normal_strength', 'resolution', 'samples', 'states'}
     optional = {'groom', 'groom_exclusions', 'fur_max_chroma', 'fur_clump', 'attachment', 'smoothing',
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
-                'authored_rig', 'camera_view', 'surface_profiles', 'surface_smoothing', 'groom_shader'}
+                'authored_rig', 'camera_view', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
+                'color_corrections'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -46,6 +47,9 @@ def validate(config):
     if 'surface_profiles' in config:
         from avatar_assets.surface_profiles import validate_profiles
         validate_profiles(config['surface_profiles'])
+    if 'color_corrections' in config:
+        from avatar_assets.color_corrections import validate_corrections
+        validate_corrections(config['color_corrections'])
     if 'surface_smoothing' in config:
         from avatar_assets.surface_smoothing_config import validate_surface_smoothing
         require('smoothing' not in config, 'Choose one smoothing method')
@@ -69,6 +73,11 @@ def validate(config):
     number(config.get('fur_max_chroma', 1), 0, 1)
     number(config.get('fur_clump', .06), 0, 1)
     groom = config.get('groom')
+    if 'groom_flow' in config:
+        from scripts.groom_flow import validate_flow
+        require(groom and 'direction' in groom and 'comb' in groom,
+                'Regional groom flow requires native groom direction and comb')
+        validate_flow(config['groom_flow'])
     if 'groom_shader' in config:
         shader = config['groom_shader']
         require(groom and isinstance(shader, dict) and set(shader) == {'roughness', 'radial_roughness'},
@@ -122,7 +131,10 @@ def validate(config):
         fur = config['portable_fur']
         require(set(fur) == {'settings', 'bands'} and 1 <= len(fur['bands']) <= 4, 'Invalid portable fur')
         settings = fur['settings']
-        require(set(settings) == {'seed', 'length', 'width', 'direction'}, 'Invalid card settings')
+        fields = {'seed', 'length', 'width', 'direction'}
+        require(fields <= set(settings) <= fields|{'profile', 'sample_root_color'}, 'Invalid card settings')
+        require(settings.get('profile', 'legacy') in ('legacy', 'combed-v1'), 'Unknown card geometry profile')
+        require(type(settings.get('sample_root_color', False)) is bool, 'Invalid card color flag')
         require(type(settings['seed']) is int and 0 <= settings['seed'] <= 2**31-5, 'Invalid card seed')
         number(settings['length'], .001, .04)
         number(settings['width'], .0003, .02)
@@ -170,12 +182,14 @@ def reuse_native(folder, out, cfg):
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py'):
+                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
     require(sha256(root/'sources/surface_smoothing_config.py') == sha256(ROOT/'avatar_assets/surface_smoothing_config.py'),
             'Surface smoothing validator changed; rebuild required')
+    require(sha256(root/'sources/color_corrections.py') == sha256(ROOT/'avatar_assets/color_corrections.py'),
+            'Color correction validator changed; rebuild required')
     for name in ('source.blend', 'portrait.png', 'finish-report.json', 'job.json', 'finish.log', 'finish-monitor.json', 'finish-handle.json'):
         shutil.copyfile(root/name, out/name)
     if (root/'surface-integrity.json').exists():
@@ -210,11 +224,12 @@ def finish(config_path, output, reuse=None):
         write_json(out/'finish-config.json', cfg)
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py'):
+                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_profiles.py', out/'sources/surface_profiles.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_smoothing_config.py', out/'sources/surface_smoothing_config.py')
+        shutil.copyfile(ROOT/'avatar_assets/color_corrections.py', out/'sources/color_corrections.py')
         shutil.copyfile(ROOT/'avatar_assets/generated_tangents.py', out/'sources/generated_tangents.py')
         exe = ROOT/'.tools/Blender.app/Contents/MacOS/Blender'
         cmd = [str(exe), '--background', '--factory-startup', '--disable-autoexec', '--python-exit-code', '1',

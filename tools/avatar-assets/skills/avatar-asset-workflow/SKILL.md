@@ -19,6 +19,8 @@ For a user who wants an end-to-end result from text, prefer `generate`; read [th
 
 For requested fur/hair, the author/reviewer must address both editable native strands and portable cards where supported; inspect their actual different appearances. Arbitrary prop interaction, facial blendshapes, recovered fingers, physical flight, cloth/hair dynamics and automatic Weft alignment are not implemented. Do not silently weaken those requirements into easier gesture labels.
 
+For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate clean base geometry, regional native grooming and portable cutout-card export. Protect eyes, nose and non-furry accessories with measured masks; inspect exported colors as well as strands. A smooth raster guide is optional preparation, not a model, and image-mode texture text cannot repair geometry. Do not apply panda masks, bones or coat directions to a different subject.
+
 ## Authorized neural generation
 
 Read [Meshy workflow](../../docs/meshy-workflow.md) when the user wants automatic text/reference-to-3D and has authorized their designated Meshy key. Do not ask them to operate the platform instead of completing the work. Never use the unrelated Meta key/ledger, create accounts, buy credits or expand the credit ceiling automatically.

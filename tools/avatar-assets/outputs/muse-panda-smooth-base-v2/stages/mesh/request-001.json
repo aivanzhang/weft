@@ -1,0 +1,37 @@
+{
+  "balance_before": {
+    "balance": 3133,
+    "monthly_credits": 2933,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "enable_pbr": true,
+    "geometry_resolution": "4k",
+    "image_url": {
+      "encoding": "base64 data URI; original bytes",
+      "local_reference": "inputs/reference.png",
+      "sha256": "c965232449521ccbc9c6dc6f02df42eba3c795381c718ab9f5962d2e1aaa596c"
+    },
+    "model_type": "standard",
+    "pose_mode": "a-pose",
+    "should_remesh": true,
+    "should_texture": true,
+    "target_formats": [
+      "glb"
+    ],
+    "target_polycount": 60000,
+    "texture_prompt": "Match the provided smooth panda undercoat and green shoulder dragon. Preserve ivory/charcoal color patches, warm brown irises, glossy clear eyes, a satin dark brown nose and smiling pale muzzle. The panda body is a clean matte continuous surface, without fur lines, raised fur clumps, grooves at color borders or noisy highlights; fine hair is added locally later. The small emerald companion retains subtle green scales, pale green belly plates, horns, claws and clean wing membranes. Neutral physically based materials without baked shadows, specular highlights or scene lighting. Preserve exact colors and face identity. No clothing, text, pedestal, added props or characters.",
+    "texture_resolution": "4k",
+    "topology": "triangle"
+  },
+  "created": "2026-11-01T10:08:55.865359-08:00",
+  "endpoint": "/openapi/v1/image-to-3d",
+  "estimated_credits": 35,
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "request_sha256": "66bb0958ec5727aff14ab1ed6244454b870a707e558c6d0aee8390e48e586f3c"
+}

@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T10:41:26.010387-08:00",
+  "reviewer": "independent collaborating assistant pipeline_review plus parent; exact model version not exposed",
+  "status": "native_sampled_fur_demo_accepted_portable_lightweight_review_candidate",
+  "native": {
+    "key_poses_reviewed": 26,
+    "state_meanings": {
+      "idle": "subtle settling and sway",
+      "look_around": "gentle alternating head turn",
+      "head_tilt": "readable alternating curious head tilt",
+      "tail_sway": "visible tail lift/dip twice, not a horizontal wag"
+    },
+    "appearance": "Smoother face/body with regional real hair; eyes, nose, shoulder dragon and coat pattern remain recognizable",
+    "rejected_prior_states": [
+      "wave",
+      "celebrate"
+    ],
+    "not_equivalent_to_rejected_states": true
+  },
+  "portable": {
+    "root_color_export_regression_fixed": true,
+    "quality_status": "lightweight_preview_only",
+    "appearance": "Sparse dark/light card tufts over a smooth surface; much less plush than native hair. Some pale marks remain at coat boundaries."
+  },
+  "deformation_limits": {
+    "maximum_sampled_edge_excess_mm": {
+      "idle": 0,
+      "look_around": 19.2,
+      "head_tilt": 8.52,
+      "tail_sway": 8.42
+    },
+    "not_zero_deformation": true,
+    "tail_mild_squashing": true,
+    "no_obvious_belly_or_companion_eye_spike_in_sampled_views": true
+  },
+  "limitations": [
+    "Generated rear tail remains too long/ball-ended; charcoal color fix does not recover unseen geometry",
+    "No Muse parity or final human quality acceptance",
+    "No independently simulated companion, finger/facial controls, prop interaction or physical motion",
+    "No certified seamless loops or Weft HD conversion",
+    "Review samples actual keyposes, not every frame or collision state"
+  ],
+  "evidence": [
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/portrait.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0000.png",
+      "sha256": "c0d1314caf9e7c8883748df14ce026096bfbd28f40863ceb81e8c6f3fc586731"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0001.png",
+      "sha256": "4a1af3871aaba1c2a9fb527606d2f8010321f4b30aab576f27ce401f8a3a5804"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0002.png",
+      "sha256": "9439e8d5e9bf8ced479ffaaff32c693c58958885e16b4075c04698d9dea160fc"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0003.png",
+      "sha256": "96ea6102e52084cc1d05b9f23a52d576037f05341b4c33ff0bf1bb8bc9dd2004"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0004.png",
+      "sha256": "950d512672a8f4bfb5591c4d777b80b5a25ec725df94c3689525b0325291c3d3"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0005.png",
+      "sha256": "ddef367c176e3511868a8c97fa2c36120358ac7c30765837b83b819afc1ccf3d"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/head_tilt/0006.png",
+      "sha256": "a276d5ae2fda8c0cb0f71069ff240088c92209e898756165e7b007c7428b7105"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/idle/0000.png",
+      "sha256": "ab967539aeb3016dc533b588b6c417ff797ce9e4f6cc943428c07c7da546ad28"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/idle/0001.png",
+      "sha256": "973d5389cba105fdf026d16d2b039d1193c5222a56daba40bb22375e4499da7b"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/idle/0002.png",
+      "sha256": "10b08197cff60fa1cd28a0ecc2096417140af045c9eb6c4fcae9a4829f7358c3"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/idle/0003.png",
+      "sha256": "63908ce281ae459353dccfbd47754eba470f393d575a5ba1bf17dd52076064e5"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/idle/0004.png",
+      "sha256": "fdb5460faa6708a1072e09584dfb114d48d841a3e99ad9c6cad99e283d0d9e5c"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0000.png",
+      "sha256": "22b7364b73a64fbb233858b48a12f658f07285844a7d000ae05b566173ac412b"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0001.png",
+      "sha256": "8ae6b8c95bad1f8a00e3a9e63bc646378933034ae1618bbaeb4ae568e0f4a12b"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0002.png",
+      "sha256": "d5197b03bda08043a8d6700904ac3e6bfdfa851d94cb04dda41d25cf9199c750"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0003.png",
+      "sha256": "5e07b371b2a2d5b271d34d833cccc643994dfa287140dfe7c15e570fd9bd0479"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0004.png",
+      "sha256": "a6a190f935e18050beac3b4e7ba0bb8aa7793afb956ee2ee4c80badc1978dba7"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0005.png",
+      "sha256": "52966b14319c7a9a54959e7f0589f8de3a1f8d4926ee424d1e03cb4cd175e780"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/look_around/0006.png",
+      "sha256": "8dd927bc78ef526ece8b48fe903268f2ecb802e6ada2bd50b7423f7e26eee21c"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0000.png",
+      "sha256": "e0f3201f0d25939068aab7231bd236739651b1b0a56f05d86937b75a76f116ff"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0001.png",
+      "sha256": "2ed53540df8d2599fc48e451181b18ed2a98fe5576757daa1335dc8fb92fef73"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0002.png",
+      "sha256": "b4249c3928d3347a8ce7524493a82d064f32d025b891573d9706167b4f35f7a4"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0003.png",
+      "sha256": "9984cfb7233a200994db4e45d9bd9c21dcb02f65502182d9392640a2c6852e19"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0004.png",
+      "sha256": "b14ba4d2ecc9294c492b4db54f7d02966edefe1d236cef1ea293bdc502408335"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0005.png",
+      "sha256": "88da3e7d4fb9975443634c2af2fab1e6957abc0c0de4f04e844b37a1d1a77c59"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/renders/tail_sway/0006.png",
+      "sha256": "8fab0f7b38e8c1b7f6a389fb7099b2140f9e51465dc2ee6d805fa2aecc43d57a"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/manifest.json",
+      "sha256": "ff13a04bd066599111f2676e4885f6bcca3b1351633da41c7f16e7ba57a9ea09"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/front.png",
+      "sha256": "cbd3deeb13b108bfa8086768fd29fea87c8180e363fc9da6a476beb3842337cf"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/back.png",
+      "sha256": "efc969da4f87cd298a411d05d5bfc5cafac7ddef43a4c0f0c3c6444a9aad846e"
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/three-quarter.png",
+      "sha256": "4547d2aa67dbe1bfe54489e6863e801c8ed1f657d004ba3acbcee06727295f69"
+    }
+  ]
+}

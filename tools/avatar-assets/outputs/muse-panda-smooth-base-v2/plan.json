@@ -1,0 +1,57 @@
+{
+  "automatic_paid_retries": 0,
+  "config": {
+    "generation": {
+      "geometry_resolution": "4k",
+      "mode": "image",
+      "pose_mode": "a-pose",
+      "target_polycount": 60000,
+      "texture_resolution": "4k"
+    },
+    "height_meters": 1.2,
+    "id": "muse-panda-smooth-base-v2",
+    "max_credits": 35,
+    "prompt": "Match the provided smooth panda undercoat and green shoulder dragon. Preserve ivory/charcoal color patches, warm brown irises, glossy clear eyes, a satin dark brown nose and smiling pale muzzle. The panda body is a clean matte continuous surface, without fur lines, raised fur clumps, grooves at color borders or noisy highlights; fine hair is added locally later. The small emerald companion retains subtle green scales, pale green belly plates, horns, claws and clean wing membranes. Neutral physically based materials without baked shadows, specular highlights or scene lighting. Preserve exact colors and face identity. No clothing, text, pedestal, added props or characters.",
+    "reference": "inputs/reference.png",
+    "reference_sha256": "c965232449521ccbc9c6dc6f02df42eba3c795381c718ab9f5962d2e1aaa596c",
+    "rig": "none",
+    "rights": "User supplied the Muse reference and explicitly authorized using their Meshy API key to create this avatar. Original image/clip creator license and original 3D sources are unknown; embedded generated-media metadata is provenance, not rights verification. Hidden geometry and rig are newly generated assumptions, not recovered source anatomy. No unrelated files may be uploaded. Exact user request: 'I want you to create the muse quality avatar but make sure it is a repetable process that can be generalizd as well!' New image guide is a user-directed built-in image_gen derivative of the original, SHA c965232449521ccbc9c6dc6f02df42eba3c795381c718ab9f5962d2e1aaa596c. Guide is not recovered geometry; exact generation prompt and limitations are in outputs/panda-fur-focus-v1/geometry-guide/manifest.json.",
+    "schema_version": 1,
+    "states": [],
+    "style": "High-quality animated-film character base for subsequent hair grooming. Clean rounded smooth panda undercoat geometry; precise ivory and charcoal color patches, expressive brown eyes and a warm smiling muzzle. Fine emerald dragon scales and pale green belly, clean wing membranes. Physically based diffuse textures without baked lighting. Fur strands will be authored separately; do not sculpt coarse fur clumps into the body mesh.",
+    "subject": "Muse panda with a small green shoulder dragon"
+  },
+  "created": "2026-11-01T10:04:09.820916-08:00",
+  "estimated_credits": 35,
+  "estimated_paid_calls": 1,
+  "id": "muse-panda-smooth-base-v2",
+  "limits": {
+    "download_bytes": 67108864,
+    "download_deadline_seconds": 120,
+    "min_poll_seconds": 15,
+    "output_bytes": 536870912,
+    "polls_per_stage": 120,
+    "reference_bytes": 8388608,
+    "request_deadline_seconds": 45
+  },
+  "max_credits": 35,
+  "model": "meshy-7.1",
+  "pricing_checked": "2026-10-31",
+  "pricing_source": "https://docs.meshy.ai/en/api/pricing",
+  "reference_reconstruction": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 22815,
+      "path": "meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 15225,
+      "path": "meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    }
+  ],
+  "usd_cost": null,
+  "usd_reason": "Account credit purchase price is not exposed by the balance endpoint"
+}

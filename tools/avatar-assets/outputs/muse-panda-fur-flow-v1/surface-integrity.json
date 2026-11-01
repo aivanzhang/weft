@@ -1,0 +1,38 @@
+{
+  "area_epsilon_m2": 1.4400002045455743e-14,
+  "area_epsilon_policy": "max(largest original extent squared \u00d7 1e-14, 1e-20 m\u00b2), fixed for both surfaces",
+  "area_ratio_below_0_001_count": 0,
+  "area_ratio_below_0_01_count": 0,
+  "comparable_face_normal_count": 61939,
+  "face_normals_changed_over_90_degrees_count": 24,
+  "identity_checked": false,
+  "limits": {
+    "triangles": 100000,
+    "vertices": 100000
+  },
+  "median_area_ratio": 0.938835954320381,
+  "min_area_ratio": 0.165243454229409,
+  "new_degenerate_count": 0,
+  "nonzero_source_count": 61939,
+  "refined_degenerate_count": 0,
+  "regression_gate": {
+    "allowed_area_ratio_below_0_01_count": 16,
+    "allowed_new_degenerate_count": 0,
+    "failures": [],
+    "quality_proof": false,
+    "scope": "Conservative authoring regression gate; pre-existing source degeneracy is reported, not accepted as repaired.",
+    "status": "passed",
+    "threshold_policy": "min(16, max(1, int(nonzero_source_count \u00d7 0.001)))"
+  },
+  "schema_version": 1,
+  "scope": "Numerical geometry changes only; not visual quality, identity, self-intersection or physical validity.",
+  "self_intersections_checked": false,
+  "source_degeneracy_repair_claimed": false,
+  "source_degenerate_count": 0,
+  "source_degenerate_now_nondegenerate_count": 0,
+  "source_degenerate_remaining_count": 0,
+  "triangles": 61939,
+  "vertex_max_shift_m": 0.006566103956349488,
+  "vertex_rms_shift_m": 0.0011935794266155855,
+  "vertices": 67787
+}

@@ -3,6 +3,7 @@
 from bisect import bisect_left
 import hashlib
 import math
+from numbers import Real
 from pathlib import Path
 import random
 
@@ -22,8 +23,22 @@ def _unit(v):
     return tuple(x/length for x in v) if length > 1e-14 else (0., 0., 1.)
 
 
-def card_geometry(vertices, triangles, weights, settings, normals=None):
+def card_geometry(vertices, triangles, weights, settings, normals=None, *, profile="legacy", colors=None):
     """Each six-vertex ribbon carries an atlas tile, not individual mesh hairs."""
+    if not isinstance(profile, str) or profile not in ("legacy", "combed-v1"):
+        raise ValueError("Unknown fur card geometry profile")
+    if colors is not None:
+        try:
+            if isinstance(colors, (str, bytes, dict)) or len(colors) != len(vertices):
+                raise ValueError("Fur root colors must match the source vertex count")
+            for row in colors:
+                if isinstance(row, (str, bytes, dict)) or len(row) != 3 or any(
+                        isinstance(value, bool) or not isinstance(value, Real)
+                        or not math.isfinite(value) or not 0 <= value <= 1 for value in row):
+                    raise ValueError("Fur root colors require finite RGB triples in 0..1")
+        except (TypeError, AttributeError):
+            raise ValueError("Fur root colors require one finite RGB triple per source vertex") from None
+    combed = profile == "combed-v1"
     rng = random.Random(settings["seed"])
     cumulative, usable, total = [], [], 0.
     for triangle in triangles:
@@ -37,6 +52,8 @@ def card_geometry(vertices, triangles, weights, settings, normals=None):
     if not usable and settings["count"]:
         raise ValueError("Hair cards require nondegenerate emitter geometry")
     output = {"vertices": [], "faces": [], "weights": [], "uv": [], "normals": []}
+    if colors is not None:
+        output["colors"] = []
     direction = settings.get("direction", [0., 0., -1.])
     for _ in range(settings["count"]):
         triangle, face_normal = usable[min(bisect_left(cumulative, rng.random()*total), len(usable)-1)]
@@ -52,6 +69,11 @@ def card_geometry(vertices, triangles, weights, settings, normals=None):
         side = tuple(tangent[i]*math.cos(angle)+bitangent[i]*math.sin(angle) for i in range(3))
         projected = tuple(direction[i]-normal[i]*sum(direction[k]*normal[k] for k in range(3)) for i in range(3))
         comb = _unit(projected) if sum(x*x for x in projected) > 1e-8 else bitangent
+        if combed:
+            across = _unit(_cross(normal, comb))
+            # Reuse the legacy angle draw so root, size and atlas samples stay aligned.
+            roll = (angle/math.tau-.5)*.3
+            side = tuple(across[i]*math.cos(roll)+normal[i]*math.sin(roll) for i in range(3))
         length = settings["length"]*(.72+.45*rng.random())
         width = settings["width"]*(.8+.4*rng.random())
         inherited = {}
@@ -64,17 +86,28 @@ def card_geometry(vertices, triangles, weights, settings, normals=None):
         tile = rng.randrange(ATLAS_TILES**2)
         tile_x, tile_y = tile % ATLAS_TILES, tile // ATLAS_TILES
         first = len(output["vertices"])
-        for t, span in ((0., .92), (.5, 1.), (1., .82)):
+        root_color = (tuple(sum(float(colors[index][axis])*f for index, f in zip(triangle, bary))
+                            for axis in range(3)) if colors is not None else None)
+        rows = ((0., .92), (.5, .8), (1., .15)) if combed else ((0., .92), (.5, 1.), (1., .82))
+        lift, lean = (.35, .8) if combed else (.82, .45)
+        for t, span in rows:
             # The root intersects the emitter slightly; fibers lean with the authored comb.
-            center = tuple(root[i]+normal[i]*(length*t*.82-.0005)+comb[i]*length*.45*t*t for i in range(3))
+            center = tuple(root[i]+normal[i]*(length*t*lift-.0005)+comb[i]*length*lean*t*t for i in range(3))
             for sign in (-1, 1):
                 output["vertices"].append(tuple(center[i]+side[i]*width*span*sign/2 for i in range(3)))
                 output["normals"].append(normal)
                 output["weights"].append(dict(inherited))
                 output["uv"].append(((tile_x+(.015 if sign < 0 else .985))/ATLAS_TILES,
                                      (tile_y+.015+.97*t)/ATLAS_TILES))
-        output["faces"].extend((first+a, first+b, first+c) for a, b, c in
-                               ((0, 1, 3), (0, 3, 2), (2, 3, 5), (2, 5, 4)))
+                if root_color is not None:
+                    output["colors"].append(root_color)
+        for a, b, c in ((0, 1, 3), (0, 3, 2), (2, 3, 5), (2, 5, 4)):
+            if combed:
+                pa, pb, pc = (output["vertices"][first+i] for i in (a, b, c))
+                cross = _cross(tuple(pb[i]-pa[i] for i in range(3)), tuple(pc[i]-pa[i] for i in range(3)))
+                if sum(cross[i]*normal[i] for i in range(3)) < 0:
+                    b, c = c, b
+            output["faces"].append((first+a, first+b, first+c))
     return output
 
 

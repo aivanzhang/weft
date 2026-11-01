@@ -1,0 +1,45 @@
+{
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "observed": "2026-11-01T10:13:03.171731-08:00",
+  "task": {
+    "art_style": "",
+    "consumed_credits": 35,
+    "created_at": 1793556539453,
+    "expires_at": 1793815971542,
+    "finished_at": 1793556771542,
+    "geometry_resolution": "4k",
+    "hd_texture": true,
+    "id": "01a1984c-da9c-70f4-959f-b765d6c752ff",
+    "image_style_url": "",
+    "model_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/model.glb",
+    "model_urls": {
+      "glb": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/model.glb"
+    },
+    "name": "",
+    "negative_prompt": "",
+    "object_prompt": "",
+    "progress": 100,
+    "started_at": 1793556539510,
+    "status": "SUCCEEDED",
+    "style_prompt": "",
+    "task_error": null,
+    "text_style_prompt": "",
+    "texture_image_url": "",
+    "texture_prompt": "Match the provided smooth panda undercoat and green shoulder dragon. Preserve ivory/charcoal color patches, warm brown irises, glossy clear eyes, a satin dark brown nose and smiling pale muzzle. The panda body is a clean matte continuous surface, without fur lines, raised fur clumps, grooves at color borders or noisy highlights; fine hair is added locally later. The small emerald companion retains subtle green scales, pale green belly plates, horns, claws and clean wing membranes. Neutral physically based materials without baked shadows, specular highlights or scene lighting. Preserve exact colors and face identity. No clothing, text, pedestal, added props or characters.",
+    "texture_resolution": "4k",
+    "texture_urls": [
+      {
+        "base_color": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/texture_0.png",
+        "metallic": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/texture_0_metallic.png",
+        "normal": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/texture_0_normal.png",
+        "roughness": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/texture_0_roughness.png"
+      }
+    ],
+    "thumbnail_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1984c-da9c-70f4-959f-b765d6c752ff/output/preview.png",
+    "type": "image-to-3d",
+    "ultra_mode": true
+  }
+}

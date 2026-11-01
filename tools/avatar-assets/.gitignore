@@ -7,6 +7,49 @@ outputs/**
 scratch/
 browser/node_modules/
 
+# Panda fur upgrade: selected editable output and compact evidence; old binaries/frames stay local.
+!outputs/panda-fur-focus-v1/
+!outputs/panda-fur-focus-v1/**
+!outputs/muse-panda-smooth-base-v2/
+!outputs/muse-panda-smooth-base-v2/**
+outputs/muse-panda-smooth-base-v2/job.lock
+!outputs/muse-panda-smooth-inspection-v1/
+!outputs/muse-panda-smooth-inspection-v1/**
+!outputs/muse-panda-smooth-fur-v3/
+!outputs/muse-panda-smooth-fur-v3/**
+!outputs/muse-panda-smooth-fur-reload-v3/
+!outputs/muse-panda-smooth-fur-reload-v3/**
+!outputs/muse-panda-smooth-fur-export-preview-v3/
+!outputs/muse-panda-smooth-fur-export-preview-v3/**
+!outputs/muse-panda-smooth-fur-media-v3-portable-v1/
+!outputs/muse-panda-smooth-fur-media-v3-portable-v1/**
+!outputs/browser-panda-fur-v1/
+!outputs/browser-panda-fur-v1/**
+!outputs/muse-panda-fur-flow-v1/
+!outputs/muse-panda-fur-flow-v1/*.json
+!outputs/muse-panda-fur-flow-v1/portrait.png
+!outputs/muse-panda-fur-flow-v1/sources/
+!outputs/muse-panda-fur-flow-v1/sources/**
+!outputs/muse-panda-smooth-fur-v1/
+!outputs/muse-panda-smooth-fur-v1/*.json
+!outputs/muse-panda-smooth-fur-v1/portrait.png
+!outputs/muse-panda-smooth-fur-v1/renders/
+!outputs/muse-panda-smooth-fur-v1/renders/**
+!outputs/muse-panda-smooth-fur-v1/sources/
+!outputs/muse-panda-smooth-fur-v1/sources/**
+!outputs/muse-panda-smooth-fur-v2/
+!outputs/muse-panda-smooth-fur-v2/*.json
+!outputs/muse-panda-smooth-fur-v2/portrait.png
+!outputs/muse-panda-smooth-fur-v2/renders/
+!outputs/muse-panda-smooth-fur-v2/renders/**
+!outputs/muse-panda-smooth-fur-v2/sources/
+!outputs/muse-panda-smooth-fur-v2/sources/**
+!outputs/muse-panda-smooth-fur-export-preview-v1/
+!outputs/muse-panda-smooth-fur-export-preview-v1/*.json
+!outputs/muse-panda-smooth-fur-export-preview-v1/*.png
+!outputs/muse-panda-smooth-fur-export-preview-v1/sources/
+!outputs/muse-panda-smooth-fur-export-preview-v1/sources/**
+
 
 # Portable release only; all other original outputs remain local.
 !outputs/muse-panda-quality-build-v6/
