@@ -199,6 +199,13 @@ def main():
     equipment_report.add_argument("--out", required=True, help="New offline report directory outside the original study")
     equipment_report.add_argument("--manifest-sha256", help="Optional exact study seal SHA256")
     equipment_report.add_argument("--max-seconds", type=float, default=10., help="Cooperative saved-metadata/report deadline; no video, mask or physics processing")
+    equipment_support = commands.add_parser("equipment-support", help="Check saved equipment candidates against image evidence; never infer physical contact")
+    equipment_support.add_argument("--run", required=True, help="Completed pose/equipment silhouette study")
+    equipment_support.add_argument("--out", required=True, help="New comparison directory; originals remain unchanged")
+    equipment_support.add_argument("--fixed-camera", required=True, action="store_true",
+                                   help="Explicitly assume a fixed source camera; not measured calibration")
+    equipment_support.add_argument("--manifest-sha256", help="Optional exact source-manifest hash")
+    equipment_support.add_argument("--max-seconds", type=float, default=20.)
     body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
     body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
@@ -569,6 +576,13 @@ def main():
             labels = {"inputs": "Read saved image evidence", "report": "Build frame-by-frame inspection",
                       "seal": "Save report and uncertainty"}
             result = prepare_equipment_silhouette_inspection(args.run, args.out,
+                expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "equipment-support":
+            from weft.equipment_support_workflow import prepare_equipment_support
+            labels = {"inputs": "Read saved pose and equipment evidence", "selection": "Check original equipment candidates",
+                      "report": "Explain kept, excluded and unknown candidates", "seal": "Save the comparison"}
+            result = prepare_equipment_support(args.run, args.out, fixed_camera=args.fixed_camera,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "body-lab":
@@ -950,6 +964,10 @@ def main():
             if result.get("status") != "completed" or result.get("sealed") is not True or not result.get("report_path"):
                 parser.exit(1, f"weft: equipment evidence inspection stopped; inspect preserved output: {args.out}\n")
             print(f"Saved equipment-evidence report: {result['report_path']}", file=sys.stderr)
+        if args.command == "equipment-support":
+            if result.get("status") != "completed" or result.get("sealed") is not True or not result.get("report_path"):
+                parser.exit(1, f"weft: equipment support check stopped; inspect preserved output: {args.out}\n")
+            print(f"Saved equipment-support comparison: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("status") != "completed":
             parser.exit(1, f"weft: reference controller trial stopped; preserved report: {Path(args.out) / 'report.json'}\n")
         if args.command == "spatial-scene" and result.get("status") != "constructed_hypothesis":

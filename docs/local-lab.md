@@ -114,6 +114,30 @@ construction selection was checked for partition consistency; excluded labels
 remain unreconciled. This is an exposed development clip, not an unfamiliar-video
 or physical-contact validation. The report opens without rerunning processing.
 
+## Check possible wrist and equipment motion matches
+
+For a completed pose/equipment study, compare the original motion-based
+candidates with its saved image silhouettes:
+
+```sh
+.venv-lab/bin/python -m weft equipment-support \
+  --run path/to/completed-equipment-study \
+  --fixed-camera --out artifacts/my-equipment-support-01
+```
+
+`--fixed-camera` explicitly assumes the camera did not move; it is not measured
+calibration. Open the printed `index.html`, then choose a frame, wrist and object.
+Each candidate shows its original time window and whether image evidence kept
+it, excluded it, or left it unknown. Missing points and later frames remain visible.
+
+The [completed kettlebell comparison](../artifacts/equipment-support-01/index.html)
+rejected both original motion-based candidates. It retains all 259 source
+frames, 129 supplied poses and 516 pose/pair slots. No equipment support or
+physical contact was established. Inspect frames 20 or 22, the right wrist and
+tracked object `sam-2` to see the rejected windows. The command reuses saved diagnostics; it does
+not decode the video, run pose inference, change the sandbox, or install a body.
+The output directory must be new. [Exact evidence and limits](handoffs/equipment-support-workflow.md).
+
 ## Fit a body using uncertain support ranges (experimental)
 
 For an existing saved body, you can supply camera calibration, annotated image

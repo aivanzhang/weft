@@ -1,5 +1,50 @@
 # Combined Weft implementation handoff
 
+## Saved support comparison — October 31, 2026, 9:54 PM PDT
+
+Equipment evidence/inspection is published and remotely verified at
+`791127de2a71939ab7d251a8d703b41d7b93652f`; receipt
+`.local/equipment-evidence-publication-01.json`, SHA
+`b15241d87e972779a886a87896f359a355f1dad129a6e21fd0d4a212a2d34533`.
+Its 16-path scope and index are clean, stash empty; 1,257 unrelated avatar
+entries were preserved at publication. Do not claim a globally clean tree.
+
+Reconstruction finished the opt-in image constraint; root finished saved-cache
+restoration and workflow/CLI; UI finished the bounded offline comparison.
+Independent implementation review is clear, including the corrected generic
+raw-to-canonical pose binding, deadline, proof-recheck and worker-cleanup gaps.
+There are 111 distinct new passing cases (56 root, 34 consumer, 21 reporter),
+plus one affected legacy CLI case. Preserved failures and exact pins are in
+[the workflow handoff](equipment-support-workflow.md).
+
+The one frozen public CLI run is terminal passed; handle `82903` closed with
+exit 0. [Open its report](../../artifacts/equipment-support-01/index.html).
+It took 1.086575 seconds, observed 155,926,528-byte child peak RSS, and saved
+90 files/20,626,942 bytes. Seal:
+`f4a61220aef16b5b5a1ca3459095278aac7a6efd26ca24e3b9a2659f27c2ec08`.
+The original two motion-based candidates are both excluded by image evidence;
+none is kept. All 259 source frames/129 supplied poses/516 pose-pair slots stay
+intact. The original 77 construction rows and 52 later poses are unchanged;
+306 construction noncandidates and 208 later pairs remain as before.
+
+The command read 37 exact saved members/18,530,727 bytes, including the complete
+27-member recorded source proof. It did not decode media, load raster images,
+run pose inference/native physics, call an API or change the simulator. It
+restores saved diagnostics, not fresh physical evidence. Both the earlier
+composition and this new result are terminal; do not repeat them unchanged.
+Both independent saved audits passed. The arithmetic/custody audit verifies all
+89 sealed members, 37 source copies, 43 generator pins and exact baseline
+recovery: `.local/equipment-support-saved-audit-01.json`, SHA
+`566d670e66194adf4f77cfd0dc6adfad9ad35f6e1866823e28ad6e6ae5e7b75f`.
+The page audit verifies all 259 frames/1,036 pair views and 2,108 window-link
+visits: `.local/equipment-support-saved-ui-audit-01.json`, SHA
+`f7ff2de68308b1d367233724e292cafd56af8f58c881091852810f6eacb5ad26`.
+No source, selector, report or physics work was repeated. Scripted UI checks are
+not browser QA. The reviewed 20-path checkpoint is ready for root publication;
+`.local/equipment-support-publication-01.json` records the actual commit/remote
+outcome when present, otherwise publication is unfinished. Generalized unfamiliar-video reconstruction,
+ground/equipment contact and independent physical accuracy remain unfinished.
+
 ## Equipment evidence and saved inspector — October 31, 2026
 
 The full goal remains active. Root owns inspector/CLI integration and publication;
