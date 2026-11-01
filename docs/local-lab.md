@@ -30,6 +30,34 @@ retains one conditional point and four unavailable slots. Its source is a synthe
 descriptor, not a video or physical-validation result. Existing video sandbox and
 recording workflows below remain separate from this diagnostic.
 
+## Fit a body using uncertain support ranges (experimental)
+
+For an existing saved body, you can supply camera calibration, annotated image
+points, a range of possible ground/support heights and an explicit body-to-world
+mapping. The fitter penalizes positions outside those ranges; it does not pull
+points toward an invented midpoint or move the floor.
+
+```sh
+.venv-lab/bin/python -m weft body-reference-propose \
+  --run path/to/sealed-exercise-body --objective surface-intervals \
+  --surface-config path/to/surface-config.json --out artifacts/my-surface-fit-01
+```
+
+Open the printed report to compare the original and proposed body, inspect
+supplied ranges and missing evidence, and see rejected corrections. The body is
+**not installed automatically**. Existing image, floor and joint checks still
+apply; unavailable inputs remain unknown. The numeric weight is an authored
+tradeoff, not a physical measurement.
+
+This is an optional assisted-construction path, not automatic contact recovery
+from an unfamiliar video. Moving equipment, unsupported camera distortion and
+missing calibration remain unsupported. [Exact config and bounds](handoffs/surface-interval-workflow.md#exact-configuration).
+
+[Inspect the authored native test](../artifacts/surface-interval-fit-inspection-01/index.html).
+The fitter completed; its outer checker failed on one blocked subprocess attempt.
+The linked saved-only inspection preserves that failure and does not rerun or
+promote the fit. It is not a new-video accuracy result.
+
 ## Add feet to an existing world (experimental)
 
 `shared-feet-build` adds two simulated feet and six ankle controls to an existing

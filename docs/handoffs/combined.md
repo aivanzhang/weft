@@ -1,5 +1,58 @@
 # Combined Weft implementation handoff
 
+## Interval-aware body fitting — October 31, 2026, 5:00 PM PDT
+
+The parallel reconstruction lane installed the published interval objective in
+the existing whole-body fitter; root connected exact optional input packaging,
+the bounded worker and `body-reference-propose --objective surface-intervals`.
+The report lane added original-slot range/error inspection and exact saved-gate
+validation. **141 distinct scoped checks pass** (87 workflow/worker, 29 fitter,
+25 report). [Full ownership, API, artifacts, failures and bounds](surface-interval-workflow.md).
+
+One frozen **authored** native fixture completed: three references, ten original
+slots, one channel; 97 forwards, two models, four data objects, 36 interval calls,
+30 trial records and eleven accepted updates. All twelve construction gates are
+true. Summed conditional loss falls 0.0491415→0.02921165789092061 m²; worst
+distance remains 0.181 m at the frozen first pose. Worker 0.174 s, fit 0.048 s,
+observed RSS 76,234,752 B; no physics steps, media, inference, training or paid call.
+
+**The outer acceptance failed and remains failed.** Its zero-denied-attempt
+assertion encountered one blocked nested-process attempt. Caller unknown; no
+guard was relaxed and no fit was rerun. Original 40-file/527,940-B seal:
+`3d58524e3cf6f87cb93aa51a2536f9af8b84eee0e30e5c69dbb1ebb8bf661233`.
+The completed worker bytes were separately verified/copied for a saved-only
+public-report check, retaining the failed original manifest and explicitly
+limited completion scope. [Inspection entry point](../../artifacts/surface-interval-fit-inspection-01/index.html),
+59 files/807,471 B, seal
+`a182b4a1fec74ace8e2b1eb631c9368e8cf299596da6ecca7bf23a5d4e7fc227`.
+The original failed acceptance is not counted as a passing native acceptance.
+
+Base and freshly fetched remote match `f1bfe83`; final scoped publication is
+recorded in `.local/surface-interval-publication-01.json` when present. Root owns
+publication and any final saved-audit append; all implementation lanes released
+their files. No live native handles. Preserve all 1,249 unrelated avatar status
+entries; owned work only, no blanket staging or stash deletion. No changed module
+is in the existing camera-policy lab's 54-file execution closure, so that playable
+lab remains unchanged without repinning. Shared API budget/ledger untouched.
+
+The independent saved audit passed: `.local/surface-interval-native-saved-audit-01.json`,
+SHA `0dfdfda45f3504689062da154255557534fa05d2d7f8f8fd6940c6595b73cbdc`.
+Five seals, exact runtime/input/copy identities, fixed fields, interval arithmetic,
+complete slots/journal and 17 offline links verify; original acceptance stays
+failed. It reused one 103-file/1,353,724-byte cache, not native or source execution.
+An auditor-only pre-execution syntax failure is preserved separately.
+
+Next: verify the scoped publication receipt exists, then investigate the
+denied-attempt caller without repeating the unchanged fit.
+The next reconstruction improvement needs actual compatible camera/body/support
+evidence. [Readiness review](surface-interval-input-readiness.md) found no complete
+saved real interval bundle: the jogging case has unsupported radial distortion,
+`camera_reference`, and absent surface/correspondence/world-binding inputs.
+Do not strip those guards, move floors, crop original starts or author geometry
+and call it recovered. Generalized video reconstruction/contact accuracy remain
+unfinished; this milestone is an integrated construction capability, not that
+complete product claim.
+
 ## Recorded camera policies — October 31, 2026, 4:28 PM PDT
 
 Implemented, native-verified and independently audited. Publication outcome and

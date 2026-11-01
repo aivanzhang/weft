@@ -15,10 +15,14 @@ import time
 from zoneinfo import ZoneInfo
 
 from weft.shared_world_packaging import read_package_file, write_package_files
+from weft.source_surface_fit_inputs import surface_fit_member_names, validate_surface_fit_snapshot
 
 
 PROFILE = "whole-body-reference-report-v1"
-METHODS = {"blocked-whole-body-floor-reference-v1", "blocked-whole-body-floor-first-reference-v1"}
+SURFACE_METHOD = "blocked-whole-body-surface-interval-reference-v1"
+SURFACE_PROFILE = "whole-body-surface-interval-fit-v1"
+SURFACE_OBJECTIVE = "source-surface-interval-objective-v1"
+METHODS = {"blocked-whole-body-floor-reference-v1", "blocked-whole-body-floor-first-reference-v1", SURFACE_METHOD}
 LIMIT = .025
 MEMBERS = {"candidate-human.json": "candidate-human.json.txt", "report.json": "proposal-report.json.txt",
            "inputs/human.json": "source-human.json.txt", "inputs/evidence-derived.json": "evidence-derived.json.txt"}
@@ -127,6 +131,265 @@ def _target_info(frame, reference):
         _require(recorded == path if selected else recorded is None or recorded == path,
                  'Endpoint landmark_source must name its actual selected JSON path')
     return {'target_origin': descriptor, 'target_label': label, 'target_landmark_source': path}
+
+
+def _surface_number(value, *, nonnegative=False):
+    _require(type(value) in (int, float) and math.isfinite(value)
+             and (not nonnegative or value >= 0), 'Surface values must be finite, with explicit unknowns')
+    return value
+
+
+def _surface_equal(value, expected, label):
+    _require(value is None if expected is None else value is not None and
+             math.isclose(_surface_number(value), expected, rel_tol=1e-9, abs_tol=1e-12), label)
+
+
+def _surface_vector(value, size=3):
+    _require(type(value) is list and len(value) == size, 'Surface vector shape differs')
+    return [_surface_number(v) for v in value]
+
+
+def _surface_result(result, slot, body_hash):
+    _require(type(result) is dict and type(result.get('schema_version')) is int and result['schema_version'] == 1
+             and result.get('profile') == SURFACE_OBJECTIVE and result.get('source_frame') == slot['source_frame']
+             and result.get('body_sha256') == body_hash and result.get('body_reference') == slot['body_reference']
+             and result.get('geometry_modified') is False and result.get('contact') == 'unknown'
+             and result.get('physical_validation') == 'unverified', 'Surface evaluation identity or scope differs')
+    channels = result.get('channels')
+    _require(type(channels) is list and len(channels) == len(slot['channels']), 'Surface evaluation channel count differs')
+    losses, distances = [], []
+    for channel, joined in zip(channels, slot['channels']):
+        _require(type(channel) is dict and all(channel.get(k) == v for k, v in joined.items()
+                 if k not in {'world_envelope_m', 'status', 'reason'}), 'Surface evaluation source join differs')
+        if channel.get('status') == 'conditional_interval_residual':
+            _require(joined['status'] == 'conditional_interval_ready' and channel.get('reason') is None,
+                     'Unavailable source channel cannot become an interval target')
+            position, residual = _surface_vector(channel.get('world_position_m')), _surface_vector(channel.get('signed_outside_m'))
+            bounds = joined['world_envelope_m']
+            expected = [p - min(max(p, lo), hi) for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]
+            _require(all(math.isclose(v, e, rel_tol=1e-9, abs_tol=1e-12) for v, e in zip(residual, expected)),
+                     'Saved outside-box residual differs from supplied world bounds')
+            active = [p < lo or p > hi for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]
+            _require(type(channel.get('active_axes')) is list and all(type(v) is bool for v in channel['active_axes'])
+                     and channel['active_axes'] == active, 'Saved interval active axes differ')
+            distance, loss = math.hypot(*expected), .5 * sum(v*v for v in expected)
+            _surface_equal(channel.get('distance_to_outer_envelope_m'), distance, 'Saved outside-box distance differs')
+            _surface_equal(channel.get('objective_m2'), loss, 'Saved squared interval loss differs')
+            losses.append(loss); distances.append(distance)
+        else:
+            _require(channel.get('status') == 'unavailable' and
+                     (channel.get('reason') == joined['reason'] if joined['status'] == 'unavailable'
+                      else channel.get('reason') == 'missing_candidate_body_point'), 'Unavailable interval reason changed')
+            _require(all(channel.get(k) is None for k in ('world_position_m', 'signed_outside_m',
+                     'distance_to_outer_envelope_m', 'objective_m2', 'active_axes', 'jacobian_m_per_rad')),
+                     'Unavailable interval channel cannot have a residual or position')
+    _require(result.get('counts') == {'retained_channels': len(channels), 'evaluated_channels': len(losses),
+             'unavailable_channels': len(channels) - len(losses)}, 'Saved interval evaluation counts differ')
+    _surface_equal(result.get('objective_m2'), sum(losses) if losses else None, 'Saved interval total differs')
+    return losses, distances
+
+
+def _surface_model(report, candidate, source, documents, hashes, check):
+    surface = report.get('surface_intervals')
+    _require(type(surface) is dict and type(surface.get('schema_version')) is int and surface['schema_version'] == 1
+             and surface.get('profile') == SURFACE_PROFILE and surface.get('weight_status') == 'authored'
+             and surface.get('weight_units') == 'existing_model_objective_units_per_supplied_world_metre_squared'
+             and surface.get('contact') == 'unknown' and surface.get('physical_validation') == 'unverified'
+             and surface.get('optimizer_installation') == 'installed_in_existing_whole_body_fitter',
+             'Unsupported surface fit metadata or physical claim')
+    config, plan = documents['inputs/surface-config.json'], documents['plan.json']
+    weight = _surface_number(surface.get('weight'))
+    _require(0 < weight <= 1000 and weight == config['weight'], 'Surface authored weight differs')
+    inputs = surface.get('inputs')
+    _require(type(inputs) is dict and inputs.get('profile') == SURFACE_OBJECTIVE
+             and inputs.get('source_sha256') == source['source_sha256'] and inputs.get('body_sha256') == hashes['inputs/human.json']
+             and inputs.get('body_model_sha256') == _canonical(source), 'Surface input body/source identities differ')
+    _require(inputs.get('contact') == inputs.get('load') == inputs.get('grasp') == 'unknown'
+             and inputs.get('physical_validation') == 'unverified' and inputs.get('geometry_modified') is False
+             and inputs.get('body_or_floor_installed') is False and inputs.get('confidence') is None,
+             'Surface inputs cannot claim physical qualification')
+    expected_bindings = {'observation_document_sha256s': sorted(row['sha256'] for row in config['observations']),
+        **{key + '_sha256': config[key]['sha256'] if config[key] is not None else None
+           for key in ('camera', 'surface_intervals', 'annotations')}}
+    binding_hash = hashes.get('inputs/surface-body-binding.json')
+    _require(inputs.get('envelope_bindings') == expected_bindings and inputs.get('binding_sha256') == binding_hash
+             and inputs.get('binding') == documents.get('inputs/surface-body-binding.json')
+             and type(inputs.get('envelope_cache_sha256')) is str and _SHA.fullmatch(inputs['envelope_cache_sha256']),
+             'Surface saved input bindings differ from exact copied inputs')
+    work = surface.get('work_limits')
+    _require(type(work) is dict and set(work) == {'maximum_evaluations', 'maximum_journal_bytes'}
+             and type(work['maximum_evaluations']) is int and 1 <= work['maximum_evaluations'] <= 20000
+             and type(work['maximum_journal_bytes']) is int and 1 <= work['maximum_journal_bytes'] <= 4 << 20,
+             'Surface work bounds differ')
+    _require(type(surface.get('evaluations')) is int and 0 <= surface['evaluations'] <= work['maximum_evaluations'],
+             'Surface evaluation count exceeds its bound')
+    marker = candidate['whole_body_reference_refinement'].get('surface_intervals')
+    _require(marker == {'profile': SURFACE_PROFILE, 'input_bindings': {
+        'objective_profile': SURFACE_OBJECTIVE, **{key: inputs[key] for key in
+            ('source_sha256', 'body_sha256', 'binding_sha256', 'envelope_cache_sha256', 'envelope_bindings')}},
+        'weight': weight, 'weight_status': 'authored', 'work_limits': work, 'summary': surface.get('summary')},
+        'Candidate surface marker differs from saved report')
+    _require(source['reference'][0] == candidate['reference'][0], 'Surface fitting changed the frozen first reference')
+
+    observations, clocks, signatures = {}, {}, set()
+    for i, entry in enumerate(config['observations']):
+        document = documents[f'inputs/surface-observation-{i:02d}.json']; check()
+        metadata = document.get('source', {})
+        _require(metadata.get('sha256') == source['source_sha256'], 'Surface observation source differs')
+        decoded, declared = metadata.get('decoded_frames'), metadata.get('metadata_frames')
+        _require(type(decoded) is int and type(declared) is int and 0 <= decoded <= 1800 and 0 <= declared <= 1800,
+                 'Surface original frame counts exceed bounds')
+        signatures.add((decoded, declared)); clocks[entry['sha256']] = document.get('time')
+        rows = document.get('observations')
+        _require(type(rows) is list and len(rows) <= 100000, 'Surface observation slots exceed bounds')
+        for row in rows:
+            _require(type(row) is dict and type(row.get('frame')) is int and 0 <= row['frame'] < max(decoded, declared),
+                     'Surface observation frame differs')
+            key = (entry['sha256'], _text(row.get('object_id'), 120), row['frame'])
+            _require(key not in observations, 'Duplicate source observation slot')
+            observations[key] = row
+    _require(len(signatures) == 1 and inputs.get('source_clocks') == clocks, 'Surface original coverage or clocks differ')
+    decoded, declared = signatures.pop(); frame_count = max(decoded, declared)
+    annotations = documents.get('inputs/surface-annotations.json', {})
+    declarations = annotations.get('channels', [])
+    _require(type(declarations) is list and len(declarations) <= 12
+             and len({row['id'] for row in declarations}) == len(declarations), 'Surface channel declarations differ')
+    annotation_rows = annotations.get('annotations', [])
+    _require(type(annotation_rows) is list and len(annotation_rows) <= 1800 * 12, 'Supplied annotation count exceeds bounds')
+    annotation_index = {}
+    for row in annotation_rows:
+        check(); key = (row.get('frame'), row.get('channel_id'))
+        _require(key not in annotation_index and type(key[0]) is int and 0 <= key[0] < frame_count,
+                 'Duplicate or foreign supplied annotation')
+        annotation_index[key] = row
+    surface_rows = documents.get('inputs/surface-intervals.json', {}).get('surfaces', [])
+    _require(type(surface_rows) is list and len(surface_rows) <= 12, 'Supplied surface count exceeds bounds')
+    surface_index = {row['id']: row for row in surface_rows}
+    _require(len(surface_index) == len(surface_rows), 'Duplicate supplied surface')
+    for row in surface_rows:
+        bounds = row.get('height_interval_m')
+        if bounds is not None:
+            lo, hi = _surface_vector(bounds, 2)
+            _require(lo <= hi and row.get('quality') == 'authored', 'Surface heights must be ordered authored metre ranges')
+    source_slots = surface.get('source_slots')
+    _require(type(source_slots) is list and len(source_slots) == frame_count and 1 <= frame_count <= 1800,
+             'Complete original surface source slots required')
+    references = {row['frame']: {'reference_index': i, 'evidence_id': row['evidence_id'], 'body_time_s': row['time_s']}
+                  for i, row in enumerate(report['references'])}
+    status_counts, display = Counter(), []
+    for frame, slot in enumerate(source_slots):
+        check()
+        _require(type(slot) is dict and slot.get('source_frame') == frame and slot.get('body_reference') == references.get(frame)
+                 and slot.get('source_status') == ('decoded' if frame < decoded else 'metadata_only_not_decoded'),
+                 'Surface source frame/body reference join differs')
+        channels = slot.get('channels')
+        _require(type(channels) is list and len(channels) == len(declarations), 'Complete surface channel slots required')
+        shown = []
+        for channel, declaration in zip(channels, declarations):
+            _require(type(channel) is dict and channel.get('channel_id') == declaration['id']
+                     and channel.get('entity_ref') == declaration['entity_ref'], 'Surface channel/entity order differs')
+            entity = declaration['entity_ref']
+            observed = observations.get((entity['document_sha256'], entity['object_id'], frame))
+            _require(all(channel.get(a) == (observed.get(b) if observed is not None else None) for a, b in
+                     (('source_observation_id', 'id'), ('source_time_s', 'time_s'), ('source_partition', 'partition'))),
+                     'Surface source observation identity, partition or clock differs')
+            bounds = channel.get('world_envelope_m')
+            if bounds is not None:
+                _require(type(bounds) is dict and bounds.get('unit') == 'm' and bounds.get('kind') == 'outer_axis_aligned_enclosure'
+                         and channel.get('envelope_status') == 'conditional_surface_envelope', 'Saved world enclosure units or status differ')
+                lo, hi = _surface_vector(bounds.get('minimum')), _surface_vector(bounds.get('maximum'))
+                _require(all(a <= b for a, b in zip(lo, hi)), 'Saved world enclosure bounds are reversed')
+            else:
+                _require(channel.get('envelope_status') == 'unavailable', 'Available envelope lacks saved world bounds')
+            if channel.get('status') == 'conditional_interval_ready':
+                _require(bounds is not None and channel.get('reason') is None and observed is not None
+                         and channel['source_partition'] == 'construction' and frame in references
+                         and channel['source_time_s'] == references[frame]['body_time_s']
+                         and references[frame]['evidence_id'] in observed.get('evidence_ids', [])
+                         and inputs.get('binding_unavailable_reason') is None and binding_hash is not None,
+                         'Excluded or unbound source cannot supply a surface fitting target')
+            else:
+                _require(channel.get('status') == 'unavailable' and type(channel.get('reason')) is str
+                         and 0 < len(channel['reason']) <= 200, 'Unavailable surface slot needs its saved reason')
+            status_counts[channel.get('reason') or channel['status']] += 1
+            annotation = annotation_index.get((frame, declaration['id']))
+            pixel, uncertainty = None, None
+            if annotation is not None and annotation.get('status') == 'annotated':
+                pixel, uncertainty = _surface_vector(annotation.get('pixel'), 2), _surface_number(annotation.get('uncertainty_px'), nonnegative=True)
+                _require(uncertainty <= 64 and observed is not None and annotation.get('observation_id') == observed['id']
+                         and math.isclose(annotation.get('time_s'), observed['time_s'], rel_tol=0, abs_tol=1e-9),
+                         'Supplied pixel range source join differs')
+            shown.append({'channel': declaration['id'], 'point': channel.get('body_point'), 'status': channel['status'],
+                'reason': channel['reason'], 'pixel': pixel, 'uncertainty_px': uncertainty,
+                'height_interval_m': surface_index.get(declaration['surface_id'], {}).get('height_interval_m'),
+                'world_bounds_m': None if bounds is None else [bounds['minimum'], bounds['maximum']],
+                'before_m': None, 'after_m': None})
+        display.append({'frame': frame, 'status': slot['source_status'], 'reference_index':
+                        references[frame]['reference_index'] if frame in references else None, 'channels': shown})
+    _require(inputs.get('counts') == {'retained_source_frames': frame_count, 'retained_channel_slots': frame_count * len(declarations),
+             'original_body_references': len(references), 'status_counts': dict(status_counts)}, 'Surface complete source counts differ')
+    start = min(references)
+    _require(inputs.get('original_start_frame') == start and inputs.get('original_start_statuses') ==
+             [{k: v for k, v in row.items() if k != 'world_envelope_m'} for row in source_slots[start]['channels']],
+             'Surface original-start source statuses differ')
+    saved_references = surface.get('references')
+    _require(type(saved_references) is list and len(saved_references) == len(references), 'Surface reference count differs')
+    all_losses, all_distances, available = [[], []], [[], []], 0
+    for index, (reference, original) in enumerate(zip(saved_references, report['references'])):
+        check(); frame = original['frame']
+        _require(type(reference) is dict and reference.get('reference_index') == index and reference.get('source_frame') == frame
+                 and reference.get('evidence_id') == original['evidence_id'] and reference.get('time_s') == original['time_s'],
+                 'Surface reference identity or original clock differs')
+        for side, name in enumerate(('before', 'after')):
+            losses, distances = _surface_result(reference.get(name), source_slots[frame], hashes['inputs/human.json'])
+            all_losses[side].extend(losses); all_distances[side].extend(distances)
+            if side == 0: available += bool(losses)
+            for target, channel in zip(display[frame]['channels'], reference[name]['channels']):
+                target[name + '_m'] = channel['distance_to_outer_envelope_m']
+    expected = {'source_frame_slots': frame_count, 'channel_slots': frame_count * len(declarations),
+        'available_reference_terms': available, 'unavailable_reference_terms': len(references) - available,
+        'evaluated_channels_before': len(all_losses[0]), 'evaluated_channels_after': len(all_losses[1])}
+    summary = surface.get('summary')
+    _require(type(summary) is dict, 'Missing surface summary')
+    for key, value in expected.items():
+        _require(type(summary.get(key)) is int and summary[key] == value, 'Surface summary counts differ')
+    for side, name in enumerate(('before', 'after')):
+        loss = sum(all_losses[side]) if all_losses[side] else None
+        for key, value in (('sum_objective_' + name + '_m2', loss), ('weighted_sum_' + name, None if loss is None else weight * loss),
+                           ('maximum_channel_outside_' + name + '_m', max(all_distances[side]) if all_distances[side] else None)):
+            _surface_equal(summary.get(key), value, 'Surface summary arithmetic differs')
+    gate = report['gates'].get('surface_interval_nonregression')
+    _require(type(gate) is bool, 'Saved surface gate must be explicitly true or false')
+    if gate:
+        for reference in saved_references:
+            before, after = reference['before'], reference['after']
+            _require(before['counts'] == after['counts'], 'Saved surface gate contradicts channel counts')
+            for a, b in zip(before['channels'], after['channels']):
+                _require(all(a.get(k) == b.get(k) for k in ('channel_id', 'status', 'reason')),
+                         'Saved surface gate contradicts channel availability')
+                if a['status'] == 'conditional_interval_residual':
+                    _require(b['distance_to_outer_envelope_m'] <= a['distance_to_outer_envelope_m'],
+                             'Saved surface gate contradicts channel deviation')
+    journal = surface.get('trial_journal')
+    _require(type(journal) is list and len(journal) <= 20000, 'Surface trial journal exceeds its bound')
+    journal_bytes = 0
+    for index, row in enumerate(journal):
+        check()
+        size = len(json.dumps(row, allow_nan=False, separators=(',', ':')).encode())
+        _require(type(row) is dict and row.get('sequence') == index and row.get('kind') in {'qp', 'backtrack'}
+                 and size <= 16 << 10 and type(row.get('reference_index')) is int
+                 and 0 < row['reference_index'] < len(saved_references)
+                 and row.get('source_frame') == saved_references[row['reference_index']]['source_frame'],
+                 'Surface journal record exceeds its bound or kind')
+        journal_bytes += size
+    _require(type(surface.get('journal_bytes')) is int and surface['journal_bytes'] == journal_bytes
+             and journal_bytes <= work['maximum_journal_bytes'],
+             'Surface journal byte count exceeds its bound')
+    return {'profile': SURFACE_PROFILE, 'weight': weight, 'summary': summary, 'source_status_counts': dict(status_counts),
+        'source_slots': display, 'work_limits': work, 'evaluations': surface['evaluations'], 'journal_records': len(journal),
+        'journal_bytes': surface['journal_bytes'], 'config_sha256': plan['surface_constraints']['config_sha256'],
+        'body_binding': inputs['binding'], 'world_frame': inputs.get('world_frame'), 'contact': 'unknown',
+        'physical_validation': 'unverified', 'saved_geometry_recomputed': False}
 
 
 def _model(documents, hashes, check):
@@ -334,7 +597,18 @@ def _model(documents, hashes, check):
         _require(counter.get('floor_descent_accepts', -1) + counter.get('image_tiebreak_accepts', -1) == report.get('accepted_updates')
                  and counter.get('backtrack_trials') == report.get('accepted_updates', -1) + counter.get('rejected_backtracks', -1),
                  "Completed-trial counters differ")
+    elif method == SURFACE_METHOD:
+        _require(type(objective) is dict and objective.get('profile') == 'surface_interval_v1'
+                 and objective.get('interval_units') == 'supplied_world_metre_squared'
+                 and objective.get('weight_status') == 'authored' and objective.get('grid_interval_targets') == 0
+                 and objective.get('weight') == report.get('surface_intervals', {}).get('weight'),
+                 'Missing supported source-knot surface objective')
+        for key in ('primary', 'acceptance'): _text(objective.get(key), 512)
     else: _require(objective is None, "Image-first profile cannot silently claim a floor-first objective")
+    surface = _surface_model(report, candidate, source, documents, hashes, check) if method == SURFACE_METHOD else None
+    if surface is None:
+        _require('surface_intervals' not in report and 'surface_intervals' not in marker,
+                 'Legacy profile cannot silently claim surface constraints')
     image = report.get('image_summary', {})
     _require(isinstance(image, dict) and image.get('grid_image_targets') in (None, 0), "Grid image targets must remain unavailable")
     for name in ('mean_error_before_px', 'mean_error_after_px'): _number(image.get(name), low=0, high=1_000_000)
@@ -357,7 +631,7 @@ def _model(documents, hashes, check):
             'source_references_without_geometry': len(references) - len(source_checks),
             'support_names': support_names, 'support_primitive_names': primitive_names,
             'support_labels': [_support_label(name, primitive) for name, primitive in zip(support_names, primitive_names)],
-            'source': source_rows, 'grid': grid_rows,
+            'source': source_rows, 'grid': grid_rows, **({'surface_intervals': surface} if surface is not None else {}),
             'scope': 'Saved source image estimates and authored-floor sample checks, not measured truth, physical poses, contact, anatomy or task/policy proof.'}
 
 
@@ -397,10 +671,40 @@ function detail(){const row=rows[Number(select.value)],geometry=row?.geometry;el
 function changeMode(){rows=data[mode.value];select.replaceChildren();rows.forEach((row,i)=>{const option=document.createElement('option');option.value=i;option.textContent=`${i+1} · ${num(row.time_s)} s${row.frame===null||row.frame===undefined?'':' · frame '+row.frame}`;select.append(option);});select.value='0';chart();detail();}
 mode.addEventListener('change',changeMode);select.addEventListener('change',detail);el('affected').addEventListener('change',detail);
 for(const [id,d]of[['previous',-1],['next',1]])el(id).addEventListener('click',()=>{select.value=Math.max(0,Math.min(rows.length-1,Number(select.value)+d));detail();});changeMode();
+if(data.surface_intervals){const surface=data.surface_intervals,selector=el('interval-sample');let shownFrame=null;
+ const vector=v=>v===null||v===undefined?'Unknown':v.map(num).join(', ');
+ function intervalDetail(){const index=Number(selector.value);if(index===shownFrame)return;shownFrame=index;
+  const row=surface.source_slots[index],table=el('interval-channels');table.replaceChildren();
+  el('interval-context').textContent=`Original source frame ${row.frame} · ${row.status} · ${row.reference_index===null?'No body reference; no fitted term':'Body reference '+row.reference_index}`;
+  for(const c of row.channels){const pixels=c.pixel===null?'Unknown':c.pixel.map((v,i)=>`${i?'y':'x'} [${num(v-c.uncertainty_px)}, ${num(v+c.uncertainty_px)}]`).join('; ');
+   textRow(table,[c.channel+(c.point?' → '+c.point:''),c.reason||'Conditional range available',pixels,
+    c.height_interval_m===null?'Unknown':'['+vector(c.height_interval_m)+']',
+    c.world_bounds_m===null?'Unknown':'min ['+vector(c.world_bounds_m[0])+']; max ['+vector(c.world_bounds_m[1])+']',num(c.before_m),num(c.after_m)]);}
+  if(!row.channels.length)textRow(table,['No supplied channels','','','','','','']);
+ }
+ surface.source_slots.forEach((row,i)=>{const option=document.createElement('option');option.value=i;option.textContent=`Frame ${row.frame} · ${row.status}${row.reference_index===null?' · no body reference':''}`;selector.append(option);});
+ selector.value='0';selector.addEventListener('change',intervalDetail);intervalDetail();
+}
 """
 
 
-def _render(summary, palette):
+def _surface_html(surface, esc, fmt):
+    if surface is None:
+        return ''
+    summary = surface['summary']
+    return f'''<section><h2>Supplied surface ranges</h2>
+<p class="notice">These are conditional ranges from supplied camera, pixel, surface-height and body-alignment assumptions. <strong>Zero outside-box error does not verify contact or an attainable source point.</strong> Calibration, body scale, anatomy, support and physical accuracy remain unverified. No midpoint is selected as a target.</p>
+<p>Original source frames: {summary['source_frame_slots']}; channel slots: {summary['channel_slots']}. Body-reference terms available: {summary['available_reference_terms']}; unavailable: {summary['unavailable_reference_terms']}. Evaluated channels input → proposed: {summary['evaluated_channels_before']} → {summary['evaluated_channels_after']}. Missing and excluded slots remain unavailable, not zero-error samples.</p>
+<p>Maximum distance outside supplied world range: {fmt(summary['maximum_channel_outside_before_m'])} → {fmt(summary['maximum_channel_outside_after_m'])} <strong>metres</strong>. Sum of half-squared distances: {fmt(summary['sum_objective_before_m2'])} → {fmt(summary['sum_objective_after_m2'])} <strong>m²</strong>.</p>
+<p>Authored weight: {fmt(surface['weight'])} existing-model objective units per m². Weighted term: {fmt(summary['weighted_sum_before'])} → {fmt(summary['weighted_sum_after'])}. This is an authored fitting tradeoff, <strong>not calibrated physical energy</strong>. It is separate from image errors in pixels and floor gaps in model units; the floor limit stays 0.025 model units.</p>
+<label>Surface source slot <select id="interval-sample"></select></label><p id="interval-context" aria-live="polite"></p>
+<div class="scroll"><table><thead><tr><th>Channel / assumed body point</th><th>Saved availability</th><th>Supplied pixel range (px)</th><th>Supplied height range (m)</th><th>Saved outer world bounds (m)</th><th>Input outside (m)</th><th>Proposed outside (m)</th></tr></thead><tbody id="interval-channels"></tbody></table></div>
+<p>The pixel and height ranges above come from exact copied inputs. World bounds and positions are saved producer results; this report checks joins and residual arithmetic but does not recompute geometry or validate the camera. All original slots remain selectable, including slots without body references. No control-grid interval targets are created.</p>
+<details><summary>Fixed assumptions and saved work</summary><pre>{esc(json.dumps({'world_frame': surface['world_frame'], 'body_binding': surface['body_binding'], 'source_status_counts': surface['source_status_counts']}, indent=2))}</pre>
+<p>Saved interval evaluations: {surface['evaluations']} / {surface['work_limits']['maximum_evaluations']}. Saved trial records: {surface['journal_records']}; journal bytes: {surface['journal_bytes']} / {surface['work_limits']['maximum_journal_bytes']}. Interrupted and rejected attempts remain in <a href="artifacts/proposal-report.json.txt">the exact proposal report</a>. Counts and saved outcomes are not a replay or a new optimization run.</p></details></section>'''
+
+
+def _render(summary, palette, members=None):
     esc = lambda value: html.escape(str(value), quote=True)
     fmt = lambda value: "Unknown" if value is None else esc(value)
     labels = {'rejected_construction_proposal': 'Rejected proposal — not promoted',
@@ -413,10 +717,15 @@ def _render(summary, palette):
                     for name, value in summary['gates'].items())
     objective = summary['objective']
     objective_html = ('<p>Image-first proposal. No floor-first objective was reported.</p>' if objective is None else
+        '<p>The existing image and regularization objective includes an authored surface-range term at original source knots only. No surface targets are assigned to the control grid. The unchanged floor and source-image gates still apply.</p>'
+        if objective.get('profile') == 'surface_interval_v1' else
         f'<p>Saved squared <strong>excess above 0.025</strong>: {fmt(objective.get("primary_before"))} → {fmt(objective.get("primary_after"))} model units² over {fmt(objective.get("unique_samples"))} unique sampled times. Lower is not a pass; zero would mean no saved excess above the limit, not zero penetration or contact.</p><details><summary>Saved floor-first counters</summary><pre>{esc(json.dumps(objective.get("counters"),indent=2))}</pre><p>Backtrack counts cover completed trials only. Interrupted trials may still add geometry calls. No per-update ledger was saved; these aggregates do not establish each optimization step.</p></details>')
     data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
     script_hash = base64.b64encode(sha256(_SCRIPT.encode()).digest()).decode()
-    links = ''.join(f'<li><a href="artifacts/{name}">{esc(source)}</a></li>' for source, name in MEMBERS.items())
+    members = MEMBERS if members is None else members
+    links = ''.join(f'<li><a href="artifacts/{name}">{esc(source)}</a></li>' for source, name in members.items())
+    if 'surface_input_validator' in summary:
+        links += '<li><a href="artifacts/source_surface_fit_inputs.py.txt">Current surface-input validation helper</a> (inspection code, not a study input)</li>'
     css = """body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.5 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:30px 20px}h1{font:700 2.4rem/1.1 Georgia,serif}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:22px;margin:20px 0}a{color:var(--weft-primary)}.notice{border-left:4px solid var(--weft-primary);padding:10px 16px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--weft-border)}.scroll{overflow-x:auto}code,pre,.identity{overflow-wrap:anywhere}pre{white-space:pre-wrap}label{display:inline-block;margin:8px 14px 8px 0}select,button{font:inherit;padding:7px;max-width:100%}button:focus-visible,select:focus-visible{outline:3px solid var(--weft-primary)}svg{width:100%;height:auto}.before{fill:none;stroke:var(--weft-ink);stroke-width:2}.after{fill:none;stroke:var(--weft-primary);stroke-width:2.5}.limit{fill:none;stroke:var(--weft-muted);stroke-dasharray:7 5;stroke-width:1.5}svg text{fill:var(--weft-ink);font-size:13px}.dot-before{fill:var(--weft-ink)}.dot-after{fill:var(--weft-primary)}small{color:var(--weft-muted)}@media(max-width:600px){main{padding:16px 10px}section{padding:14px}td,th{padding:6px;font-size:.85rem}}"""
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-{script_hash}'; base-uri 'none'; form-action 'none'; object-src 'none'">
@@ -433,7 +742,8 @@ def _render(summary, palette):
 <h3>Signed support gaps</h3><p>Negative means below the authored floor; positive means above it. A larger signed gap alone does not establish support or contact. Capsule endpoints −1 and +1 and the center sample 0 are points on saved shapes, not extra body parts. Labels describe authored collision shapes, not recovered anatomy.</p><label><input id="affected" type="checkbox" checked> Show changed, below-floor or unknown gaps</label>
 <div class="scroll"><table><thead><tr><th>Authored shape / support point</th><th>Saved identity</th><th>Input body gap</th><th>Proposed body gap</th><th>Change</th></tr></thead><tbody id="gaps"></tbody></table></div>
 <h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p><p id="target-label"></p><details id="target-details" hidden><summary>Selected target provenance</summary><dl id="target-metadata" class="identity"></dl><p>Preserved observation and selected proposal hashes match the copied input. The decision hash is a saved identifier; decision bytes and image pixels are not read or independently verified here. Original whole-frame estimates remain provenance, not alternative fitting targets.</p></details><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Input body error (px)</th><th>Proposed body error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
-<section><h2>Exact copied evidence</h2><p>Only four selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
+{_surface_html(summary.get('surface_intervals'), esc, fmt)}
+<section><h2>Exact copied evidence</h2><p>Only {'four' if len(members) == 4 else len(members)} selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
 </main><script id="data" type="application/json">{data}</script><script>{_SCRIPT}</script></body></html>'''.encode()
 
 
@@ -470,36 +780,60 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
                  and name != 'manifest.json' and isinstance(identity, str) and _SHA.fullmatch(identity), "Unsafe manifest member or identity")
     _require(set(MEMBERS) <= set(files), "Study lacks required sealed report inputs")
     _require(not any(parent.as_posix() in files for name in files for parent in Path(name).parents), 'Manifest file/directory paths overlap')
-    raw, total = {}, len(manifest_raw)
-    for name in MEMBERS:
+    raw, total, members = {}, len(manifest_raw), dict(MEMBERS)
+    def read_selected(name, bound=MAX_BYTES):
+        nonlocal total
         check(); remaining = max_input_bytes - total
         _require(remaining > 0, "Selected report input byte bound exhausted")
-        raw[name] = read_package_file(source, name, max_bytes=remaining, expected_sha256=files[name]); total += len(raw[name])
-    model = _model({name: _json(value) for name, value in raw.items()}, {name: files[name] for name in MEMBERS}, check)
+        _require(name in files, 'Study lacks required sealed surface input: ' + name)
+        raw[name] = read_package_file(source, name, max_bytes=min(bound, remaining), expected_sha256=files[name]); total += len(raw[name])
+    for name in members: read_selected(name)
+    documents = {name: _json(value) for name, value in raw.items()}
+    if documents['report.json'].get('profile') == SURFACE_METHOD:
+        read_selected('plan.json', 128 << 10); plan = _json(raw['plan.json'])
+        _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
+                 and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen'
+                 and plan.get('proposal_objective') == 'surface_interval_v1', 'Surface report requires its frozen input plan')
+        descriptor = plan.get('surface_constraints'); names = surface_fit_member_names(descriptor)
+        _require(type(plan.get('input_files')) is dict and all(plan['input_files'].get(name) == files.get(name)
+                 and name in files for name in names | {'inputs/human.json', 'inputs/evidence-derived.json'}),
+                 'Frozen surface input pins differ from the study seal')
+        for name in sorted(names): read_selected(name, 64 << 10 if name.endswith('surface-config.json') else 8 << 20)
+        check(); validate_surface_fit_snapshot(raw, descriptor, source_sha256=documents['inputs/human.json'].get('source_sha256')); check()
+        members.update({'plan.json': 'frozen-plan.json.txt', **{name: Path(name).name + '.txt' for name in sorted(names)}})
+        documents.update({name: _json(raw[name]) for name in {'plan.json', *names}})
+    model = _model(documents, {name: files[name] for name in members}, check)
     check()
     palette_path = Path(__file__).parent / 'assets/brand.css'
     with palette_path.open('rb') as stream: palette_raw = stream.read(16385)
     _require(len(palette_raw) <= 16384 and b'</' not in palette_raw, "Invalid report palette")
     implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=256 * 1024)
+    helper = None
+    if 'surface_intervals' in model:
+        helper = read_package_file(Path(__file__).parent, 'source_surface_fit_inputs.py', max_bytes=128 << 10)
+        model['surface_input_validator'] = {'path': 'artifacts/source_surface_fit_inputs.py.txt',
+            'sha256': sha256(helper).hexdigest(), 'bytes': len(helper)}
     model.update(schema_version=1, profile=PROFILE, created_at=datetime.now(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S %Z'),
         source_manifest_sha256=manifest_sha, external_manifest_pin_supplied=expected_manifest_sha256 is not None,
         selected_members={name: {'sha256': files[name], 'bytes': len(value)} for name, value in raw.items()},
         selected_input_bytes=total, source_read_byte_bound=2 * max_input_bytes,
-        local_asset_read_byte_bound=16384 + 256 * 1024,
+        local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0),
         implementation_sha256=sha256(implementation).hexdigest(), palette_sha256=sha256(palette_raw).hexdigest())
-    page = _render(model, palette_raw.decode())
+    page = _render(model, palette_raw.decode(), members)
     _require(len(page) <= MAX_HTML, "Offline report HTML exceeds its 2 MiB bound")
     output = {'index.html': page, 'report.json': _bytes(model), 'source-manifest.json.txt': manifest_raw,
-              **{'artifacts/' + MEMBERS[name]: value for name, value in raw.items()}}
+              **{'artifacts/' + members[name]: value for name, value in raw.items()}}
+    if helper is not None:
+        output['artifacts/source_surface_fit_inputs.py.txt'] = helper
     _require(sum(map(len, output.values())) <= max_output_bytes - 65536, "Offline report output exceeds its byte bound")
     check(); out.mkdir(parents=True, exist_ok=False)
     for name, value in output.items():
         check(); write_package_files(out, {name: value})
-    for name in MEMBERS:
+    for name in members:
         check(); read_package_file(source, name, max_bytes=len(raw[name]), expected_sha256=files[name])
     check(); read_package_file(source, 'manifest.json', max_bytes=128 * 1024, expected_sha256=manifest_sha)
     for directory, expected in ((out, {'index.html', 'report.json', 'source-manifest.json.txt', 'artifacts'}),
-                                (out / 'artifacts', set(MEMBERS.values()))):
+                                (out / 'artifacts', set(members.values()) | ({'source_surface_fit_inputs.py.txt'} if helper is not None else set()))):
         with os.scandir(directory) as entries:
             actual = set()
             for entry in entries:

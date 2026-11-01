@@ -27,6 +27,10 @@ INPUT_FILES = {'inputs/human.json', 'inputs/evidence-derived.json'}
 RUNTIME_MODULES = {'__init__', 'body_frame', 'body_refinement', 'constrained_qp', 'errors', 'human', 'io',
                    'mobile_human', 'root_motion', 'spatial_pose', 'whole_body_reference_refinement', 'whole_body_reference_worker'}
 RUNTIME_FILES = {f'runtime/weft/{name}.py' for name in RUNTIME_MODULES}
+SURFACE_MODULES = {'source_surface_fit_inputs', 'source_surface_envelopes', 'source_surface_interval_construction',
+                   'source_surface_anchors', 'camera_pose', 'camera_ground', 'world_alignment', 'world_evidence', 'observations'}
+SURFACE_ROLES = {'camera': 'inputs/surface-camera.json', 'surface_intervals': 'inputs/surface-intervals.json',
+                 'annotations': 'inputs/surface-annotations.json', 'body_binding': 'inputs/surface-body-binding.json'}
 SETTINGS = {'finalization_seconds': 8, 'maximum_geometry_calls': 120000, 'maximum_sweeps': 2}
 NATIVE_LIMITS = {'model_compilations': 2, 'data_allocations': 6, 'forward_calls': 120010}
 INPUT_LIMIT, SOURCE_LIMIT, OUTPUT_LIMIT, PLAN_LIMIT, RECEIPT_LIMIT = 8 << 20, 2 << 20, 16 << 20, 128 << 10, 64 << 10
@@ -116,13 +120,35 @@ def _plan(raw):
     plan = _json(raw)
     _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
              and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen', 'Frozen worker plan required')
-    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1'}, 'Unsupported proposal objective')
-    for key, names in (('input_files', INPUT_FILES), ('runtime_files', RUNTIME_FILES)):
+    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1', 'surface_interval_v1'}, 'Unsupported proposal objective')
+    input_files, runtime_files = INPUT_FILES, RUNTIME_FILES
+    if plan['proposal_objective'] == 'surface_interval_v1':
+        surface = plan.get('surface_constraints')
+        _require(type(surface) is dict and set(surface) == {'profile', 'config_sha256', 'source_sha256',
+                 'weight', 'observation_count', 'optional_inputs'} and surface['profile'] == 'source-surface-fit-config-v1',
+                 'Frozen surface input descriptor required')
+        count, roles, weight = surface['observation_count'], surface['optional_inputs'], surface['weight']
+        _require(type(count) is int and 1 <= count <= 8 and type(roles) is list
+                 and all(type(role) is str and role in SURFACE_ROLES for role in roles)
+                 and roles == [role for role in SURFACE_ROLES if role in roles], 'Invalid frozen surface input inventory')
+        _require(type(weight) in (int, float) and math.isfinite(weight) and 0 < weight <= 1000,
+                 'Explicit bounded surface weight required')
+        _require(all(type(surface[key]) is str and _SHA.fullmatch(surface[key])
+                     for key in ('config_sha256', 'source_sha256')), 'Exact surface config/source identities required')
+        input_files = INPUT_FILES | {'inputs/surface-config.json',
+            *(f'inputs/surface-observation-{i:02d}.json' for i in range(count)), *(SURFACE_ROLES[role] for role in roles)}
+        runtime_files = RUNTIME_FILES | {f'runtime/weft/{name}.py' for name in SURFACE_MODULES}
+    else:
+        _require('surface_constraints' not in plan, 'Default fitting cannot silently consume surface constraints')
+    for key, names in (('input_files', input_files), ('runtime_files', runtime_files)):
         values = plan.get(key)
         _require(type(values) is dict and set(values) == names, 'Worker requires the exact bounded ' + key)
         for name, value in values.items():
             _parts(name)
             _require(isinstance(value, str) and _SHA.fullmatch(value), 'Worker file identity must be an exact SHA256')
+    if plan['proposal_objective'] == 'surface_interval_v1':
+        _require(plan['surface_constraints']['config_sha256'] == plan['input_files']['inputs/surface-config.json'],
+                 'Frozen surface config identity differs')
     settings = plan.get('settings')
     _require(type(settings) is dict and set(settings) == set(SETTINGS) | {'maximum_seconds'}, 'Unexpected fit settings')
     seconds = settings['maximum_seconds']
@@ -150,6 +176,7 @@ class _Guards:
         self.counts = {name: 0 for name in (*NATIVE_LIMITS, 'physics_steps', 'reset_calls', 'media_calls', 'inference_calls',
                                           'fitter_calls', 'forbidden_calls')}
         self.denied = {}
+        self.runtime_modules = RUNTIME_MODULES
 
     def check(self):
         if time.monotonic() - self.started >= 40:
@@ -181,7 +208,7 @@ class _Guards:
         root = name.split('.')[0]
         if root in _MEDIA or root in _INFERENCE:
             self.forbid('media import' if root in _MEDIA else 'inference import')()
-        if name.startswith('weft.') and name.split('.')[1] not in RUNTIME_MODULES:
+        if name.startswith('weft.') and name.split('.')[1] not in self.runtime_modules:
             self.forbid('unlisted runtime import')()
 
     def find_spec(self, fullname, path=None, target=None):
@@ -259,14 +286,15 @@ def _verify_files(root_fd, plan, check):
             check(); _read(root_fd, name, bound, expected)
     directory = os.open('runtime/weft', os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=root_fd)
     try:
+        expected_names = {name.rsplit('/', 1)[-1] for name in plan['runtime_files']}
         names = set()
         with os.scandir(directory) as entries:
             for entry in entries:
                 check()
-                _require(entry.name in {name + '.py' for name in RUNTIME_MODULES} and entry.is_file(follow_symlinks=False),
+                _require(entry.name in expected_names and entry.is_file(follow_symlinks=False),
                          'Frozen runtime contains unpinned files or bytecode')
                 names.add(entry.name)
-        _require(names == {name + '.py' for name in RUNTIME_MODULES}, 'Frozen runtime inventory differs')
+        _require(names == expected_names, 'Frozen runtime inventory differs')
     finally:
         os.close(directory)
 
@@ -274,7 +302,9 @@ def _verify_files(root_fd, plan, check):
 def _result(result, plan):
     _require(type(result) is dict and set(result) == {'status', 'human_candidate', 'report'}, 'Unexpected fitter result shape')
     candidate, report = result['human_candidate'], result['report']
-    method = 'blocked-whole-body-floor-first-reference-v1' if plan['proposal_objective'] == 'floor_first_v1' else 'blocked-whole-body-floor-reference-v1'
+    method = {'image_v1': 'blocked-whole-body-floor-reference-v1',
+              'floor_first_v1': 'blocked-whole-body-floor-first-reference-v1',
+              'surface_interval_v1': 'blocked-whole-body-surface-interval-reference-v1'}[plan['proposal_objective']]
     _require(type(candidate) is dict and type(report) is dict and result['status'] in
              {'partial_budget_exhausted', 'rejected_construction_proposal', 'unadmitted_construction_proposal'}, 'Unsupported proposal result')
     _require(report.get('status') == result['status'] and report.get('profile') == method and report.get('promoted') is False
@@ -319,6 +349,8 @@ def run_worker(study, expected_plan_sha256):
         plan_raw = _read(root_fd, 'plan.json', PLAN_LIMIT, expected_plan_sha256)
         plan_sha = sha256(plan_raw).hexdigest()
         plan = _plan(plan_raw)
+        if plan['proposal_objective'] == 'surface_interval_v1':
+            guards.runtime_modules = RUNTIME_MODULES | SURFACE_MODULES
         worker = Path(__file__).resolve(strict=True)
         _require(worker == path / 'runtime/weft/whole_body_reference_worker.py', 'Worker must execute from this frozen runtime')
         _verify_files(root_fd, plan, guards.check)
@@ -328,9 +360,13 @@ def run_worker(study, expected_plan_sha256):
         _require(versions == plan['runtime_versions'], 'Installed runtime versions differ')
         guards.check()
         fit = _load_runtime(worker.parent.parent, guards, versions)
+        surface_options = {}
+        if plan['proposal_objective'] == 'surface_interval_v1':
+            from weft.source_surface_fit_inputs import prepare_surface_fit_objective
+            surface_options = prepare_surface_fit_objective(inputs, plan['surface_constraints'])
         guards.check(); guards.counts['fitter_calls'] += 1
         result = fit(inputs['inputs/human.json'], inputs['inputs/evidence-derived.json'],
-                     proposal_objective=plan['proposal_objective'], settings=plan['settings'])
+                     proposal_objective=plan['proposal_objective'], settings=plan['settings'], **surface_options)
         guards.check()
         outputs = _result(result, plan)
         for name, raw in outputs.items():
@@ -340,7 +376,7 @@ def run_worker(study, expected_plan_sha256):
         for name, module in tuple(sys.modules.items()):
             if name == 'weft' or name.startswith('weft.'):
                 member = Path(module.__file__).resolve(strict=True).relative_to(path).as_posix()
-                _require(member in RUNTIME_FILES, 'Imported Weft module is outside the frozen closure')
+                _require(member in plan['runtime_files'], 'Imported Weft module is outside the frozen closure')
                 loaded[name] = member
         guards.check()
     except (Exception, KeyboardInterrupt) as exc:

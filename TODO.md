@@ -1,5 +1,15 @@
 # Weft iteration backlog
 
+## Current milestone — October 31, 2026, 5:00 PM PDT
+
+- [x] Install the optional uncertainty-aware surface term in the existing body fitter and `body-reference-propose` workflow, with exact source inputs, bounded isolated execution and an offline comparison report. Preserve the original start, floor, roots, all original gates and unavailable slots. **141 distinct scoped checks pass**; [implementation and checks](docs/handoffs/surface-interval-workflow.md).
+- [x] Run one frozen authored native fixture: three references/ten slots/one channel, 97 native forwards, all twelve construction gates true; conditional summed loss 0.0491415→0.02921165789092061 m². This is not unfamiliar-video or physical-contact evidence.
+- [x] Preserve the outer acceptance failure: one nested-process attempt was blocked, violating its zero-denied-attempt assertion. The caller is unknown; the original failed artifact stays unchanged. A separate byte-verified [saved inspection](artifacts/surface-interval-fit-inspection-01/index.html) uses the actual completed worker output without repeating the fit or changing a guard.
+- [x] Independently audit the saved native/inspection artifacts without rerunning fitting: five seals, exact inputs/runtime/copies, fixed fields, interval arithmetic, complete slots/journal and offline links pass. Receipt `.local/surface-interval-native-saved-audit-01.json`, SHA `0dfdfda45f3504689062da154255557534fa05d2d7f8f8fd6940c6595b73cbdc`. The original acceptance remains failed.
+- [x] Prepare the reviewed scoped checkpoint; `.local/surface-interval-publication-01.json` records the actual Git/remote result when present. An absent receipt means publication is still pending. Preserve unrelated avatar work.
+- [ ] Make denied-attempt callers inspectable before another justified native run; do not retry this unchanged fit to manufacture passing acceptance.
+- [ ] Qualify real exercise inputs: supplied-camera bodies, nonzero camera distortion and missing calibrated ground/equipment ranges or body-world mappings remain gaps. [Existing-input readiness](docs/handoffs/surface-interval-input-readiness.md). Reliable unfamiliar-video contact recovery and the complete generalized goal remain unfinished.
+
 ## Current milestone — October 31, 2026, 4:28 PM PDT
 
 - [x] Attach the existing camera research policy to the local lab with distinct runtime admission, plain control labels, recording/export and exact learned-action replay. One frozen native check passed: all 246 actions replayed exactly, including 240 learned decisions; full original interval, mixed controls, reset and resumed lab verified. 13.4 seconds, 153.6 MB output, no retraining or paid work. Try `lab-console --resume artifacts/camera-shared-policy-play-01/lab`. [Evidence and ownership](docs/handoffs/combined.md#recorded-camera-policies--october-31-2026-428-pm-pdt).
@@ -7,7 +17,7 @@
 - [x] Independently audit the saved policy-play outcome and receipt without rerunning physics or reading media. One journal stream verifies all counts and exact original/current identities; receipt `.local/camera-policy-play-saved-audit-02.json`, SHA `df7aadb33e587971e004aee12a5061adf2b47e1e3e96d7a2d3086d1129f5745b`.
 - [x] Prepare the reviewed scoped checkpoint; `.local/camera-policy-publication-01.json` records the actual push result and exact remote head when present. Preserve unrelated avatar work; never discard it for a clean status.
 - [x] Add the interval-aware construction objective and adapter for the existing kinematics/Jacobian output: 35 analytical cases and independent review pass. Exact source/body/world/clock joins remain required. This is callable, not installed in optimization; it makes no new source-fit or contact claim. [Next integration](docs/handoffs/source-surface-interval-construction.md).
-- [ ] Install the opt-in interval objective into a suitable construction fitter and verify a justified source case. No midpoint substitution, floor shifts, relaxed scoring or unsupported contact claims.
+- [x] Install the opt-in interval objective into the existing construction fitter (5:00 PM milestone above). A compatible real-source case remains pending; no midpoint substitution, floor shifts, relaxed scoring or contact claim was introduced.
 
 ## Parallel reconstruction and learning — October 31, 2026, 3:45 PM PDT
 

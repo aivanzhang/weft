@@ -33,6 +33,11 @@ CONTRACT = {
     'deadline_scope': 'Cooperative checks between bounded calls, not native-call preemption',
 }
 FLOOR_FIRST_METHOD = 'blocked-whole-body-floor-first-reference-v1'
+SURFACE_INTERVAL_METHOD = 'blocked-whole-body-surface-interval-reference-v1'
+SURFACE_INTERVAL_PROFILE = 'whole-body-surface-interval-fit-v1'
+SURFACE_INTERVAL_LIMITS = {'maximum_evaluations': 20000, 'maximum_journal_bytes': 4 << 20}
+_SURFACE_RECORD_BYTES = 16 << 10
+_SURFACE_AUDIT_BYTES = 4 << 20
 NAMES = SPATIAL_JOINT_NAMES
 POINTS = {'left_shoulder': 11, 'right_shoulder': 12, 'left_elbow': 13, 'right_elbow': 14,
           'left_wrist': 15, 'right_wrist': 16, 'left_hip': 23, 'right_hip': 24,
@@ -228,7 +233,7 @@ class _NativeGeometry:
         self.support_names = tuple(name + ':' + str(end) for name, _, end in self.supports)
         self.primitive_names = tuple(name for name, _, _ in self.supports)
 
-    def evaluate(self, angles, root, derivatives=False):
+    def evaluate(self, angles, root, derivatives=False, *, surface_intervals=False):
         self.data.qpos[self.env.mobility.q] = root
         points, point_jac = self.kinematics(self.env, self.data, angles, derivatives)
         model, data = self.env.model, self.data
@@ -242,9 +247,16 @@ class _NativeGeometry:
             if derivatives:
                 self.mujoco.mj_jac(model, data, scratch, None, endpoint, int(model.geom_bodyid[geom]))
                 rows.append(normal @ scratch[:, self.env._v_array])
-        return {'points': points, 'gaps': np.array(gaps),
+        result = {'points': points, 'gaps': np.array(gaps),
                 'point_jac': point_jac.reshape(12, 3, 19) if derivatives else None,
                 'gap_jac': np.array(rows) if derivatives else None}
+        if surface_intervals:
+            pelvis = self.env._site_ids['pelvis']
+            result['pelvis_position'] = data.site_xpos[pelvis].copy()
+            if derivatives:
+                self.mujoco.mj_jacSite(model, data, scratch, None, pelvis)
+                result['pelvis_jac'] = scratch[:, self.env._v_array].copy()
+        return result
 
     def close(self):
         self.env.close()
@@ -288,13 +300,165 @@ def _floor_loss(states):
     return .5 * sum(float(np.square(np.minimum(0., state['gaps'] + .025)).sum()) for state in states)
 
 
+class _SurfaceIntervalFit:
+    """Bound the opt-in term and retain every source slot and attempted correction."""
+
+    def __init__(self, objective, human_raw, evidence, rows, weight, settings):
+        # Lazy import avoids a cycle with the released consumer's endpoint inventory.
+        from weft.source_surface_interval_construction import SurfaceIntervalObjective
+
+        _require(type(objective) is SurfaceIntervalObjective and objective.body_bytes == human_raw,
+                 'surface interval objective requires the exact original body bytes')
+        _require(type(weight) in (int, float) and math.isfinite(weight) and 0 < weight <= 1000,
+                 'explicit authored surface weight must be finite in (0, 1000]')
+        settings = {} if settings is None else settings
+        _require(type(settings) is dict and set(settings) <= set(SURFACE_INTERVAL_LIMITS), 'unknown surface interval work limit')
+        limits = {key: settings.get(key, value) for key, value in SURFACE_INTERVAL_LIMITS.items()}
+        for key, maximum in SURFACE_INTERVAL_LIMITS.items():
+            minimum = 2 * len(rows) if key == 'maximum_evaluations' else _SURFACE_RECORD_BYTES
+            _require(type(limits[key]) is int and minimum <= limits[key] <= maximum, 'surface bound cannot cover complete final audit/journal')
+        self.objective, self.weight, self.limits = objective, float(weight), limits
+        self.inputs = objective.describe()
+        _require(self.inputs['source_sha256'] == evidence['source_sha256']
+                 and objective.frame_count == evidence['frame_count'], 'surface and complete original pose source differ')
+        self.body_hash, self.coordinate_frame = sha256(human_raw).hexdigest(), objective.coordinate_frame
+        self.keys = [{'reference_index': i, 'source_frame': row['frame'], 'evidence_id': row['evidence_id'], 'time_s': row['time_s']}
+                     for i, row in enumerate(rows)]
+        self.slots, source_bytes, estimates = [], 0, {}
+        references = {row['frame']: i for i, row in enumerate(rows)}
+        for frame in range(objective.frame_count):
+            value = objective.frame(frame)
+            source = value.pop('source_envelopes')
+            for channel, anchor in zip(value['channels'], source['anchors'], strict=True):
+                channel['world_envelope_m'] = anchor['world_envelope_m']
+            value['source_status'] = source['source_status']
+            encoded = json.dumps(value, allow_nan=False, separators=(',', ':')).encode()
+            source_bytes += len(encoded)
+            _require(source_bytes <= _SURFACE_AUDIT_BYTES, 'complete surface source audit exceeds four MiB before geometry')
+            if frame in references:
+                index = references[frame]
+                expected = {'reference_index': index, 'evidence_id': rows[index]['evidence_id'], 'body_time_s': rows[index]['time_s']}
+                _require(value['body_reference'] == expected, 'surface body reference identity or original clock differs')
+                # The fixed consumer adds <=640 bytes/channel of bounded numeric output, no derivatives in audits.
+                estimates[index] = len(encoded) + 1024 + 640 * len(value['channels'])
+            self.slots.append(value)
+        _require(len(estimates) == len(rows) and 2 * sum(estimates.values()) <= _SURFACE_AUDIT_BYTES,
+                 'complete before/final surface audit cannot fit four MiB; no geometry executed')
+        self.estimates = estimates
+        self.before, self.current, self.after = {}, {}, {}
+        self.evaluations, self.journal_bytes = 0, 0
+        self.journal, self.phase = [], 'fit'
+
+    def evaluate(self, index, state, *, derivatives=False):
+        limit = self.limits['maximum_evaluations'] - (len(self.keys) if self.phase == 'fit' else 0)
+        if self.evaluations >= limit:
+            raise TimeoutError('surface interval evaluation bound exhausted; final audit reserved')
+        key = self.keys[index]
+        self.evaluations += 1
+        return self.objective.evaluate_kinematics(key['source_frame'], body_sha256=self.body_hash,
+            body_time_s=key['time_s'], coordinate_frame=self.coordinate_frame, point_names=tuple(POINTS), joint_names=NAMES,
+            relative_positions=state['points'], pelvis_position=state['pelvis_position'],
+            relative_jacobian=state['point_jac'].reshape(36, 19) if derivatives else None,
+            pelvis_jacobian=state['pelvis_jac'] if derivatives else None)
+
+    def save_audit(self, index, term, *, final=False):
+        _require(len(json.dumps(term, allow_nan=False, separators=(',', ':')).encode()) <= self.estimates[index],
+                 'surface audit exceeded its preflight reservation')
+        (self.after if final else self.before)[index] = term
+        if not final:
+            self.current[index] = term
+
+    def reserve_journal(self):
+        if self.journal_bytes + _SURFACE_RECORD_BYTES > self.limits['maximum_journal_bytes']:
+            raise TimeoutError('surface interval trial-journal bound exhausted; no attempted correction dropped')
+
+    def record(self, value):
+        value = {'sequence': len(self.journal), **value}
+        encoded = json.dumps(value, allow_nan=False, separators=(',', ':')).encode()
+        _require(len(encoded) <= _SURFACE_RECORD_BYTES, 'surface trial exceeds its reserved record bound')
+        _require(self.journal_bytes + len(encoded) <= self.limits['maximum_journal_bytes'], 'surface trial journal exceeds its reservation')
+        self.journal.append(value); self.journal_bytes += len(encoded)
+
+    def finish_record(self, **changes):
+        original = self.journal[-1]
+        result = dict(original, **changes)
+        old_bytes = len(json.dumps(original, allow_nan=False, separators=(',', ':')).encode())
+        new_bytes = len(json.dumps(result, allow_nan=False, separators=(',', ':')).encode())
+        _require(new_bytes <= _SURFACE_RECORD_BYTES and self.journal_bytes - old_bytes + new_bytes <= self.limits['maximum_journal_bytes'],
+                 'completed surface trial exceeded its reservation')
+        self.journal[-1] = result
+        self.journal_bytes += new_bytes - old_bytes
+
+    def record_qp(self, index, columns, correction, solved, outcome, violation=None):
+        direction = solved.get('step')
+        step = None
+        if direction is not None:
+            values = np.asarray(direction)
+            _require(values.size <= 64, 'invalid solver direction cannot fit the bounded surface journal')
+            step = [float(value) if math.isfinite(float(value)) else {'nonfinite': str(float(value))} for value in values.ravel()]
+        self.record({'kind': 'qp', 'reference_index': index, 'source_frame': self.keys[index]['source_frame'],
+            'block': [NAMES[j] for j in columns], 'base_correction_rad': correction.tolist(),
+            'qp_status': solved['status'], 'step_rad': step, 'iterations': solved.get('iterations'),
+            'outcome': outcome, 'constraint_violation': violation})
+
+    @staticmethod
+    def cost(term):
+        return term['objective_m2'] if term['objective_m2'] is not None else 0.
+
+    @staticmethod
+    def nonregression(before, after):
+        if before['counts'] != after['counts']:
+            return False
+        for old, new in zip(before['channels'], after['channels'], strict=True):
+            if (old['channel_id'], old['status'], old['reason']) != (new['channel_id'], new['status'], new['reason']):
+                return False
+            if old['distance_to_outer_envelope_m'] is not None and new['distance_to_outer_envelope_m'] > old['distance_to_outer_envelope_m']:
+                return False
+        return True
+
+    def report(self):
+        before, after = [self.before[i] for i in range(len(self.keys))], [self.after[i] for i in range(len(self.keys))]
+        def total(values):
+            available = [row['objective_m2'] for row in values if row['objective_m2'] is not None]
+            return sum(available) if available else None
+        def peak(values):
+            distances = [point['distance_to_outer_envelope_m'] for row in values for point in row['channels']
+                         if point['distance_to_outer_envelope_m'] is not None]
+            return max(distances) if distances else None
+        initial, final = total(before), total(after)
+        summary = {'source_frame_slots': len(self.slots), 'channel_slots': sum(len(row['channels']) for row in self.slots),
+            'available_reference_terms': sum(row['objective_m2'] is not None for row in before),
+            'unavailable_reference_terms': sum(row['objective_m2'] is None for row in before),
+            'evaluated_channels_before': sum(row['counts']['evaluated_channels'] for row in before),
+            'evaluated_channels_after': sum(row['counts']['evaluated_channels'] for row in after),
+            'sum_objective_before_m2': initial, 'sum_objective_after_m2': final,
+            'weighted_sum_before': None if initial is None else self.weight * initial,
+            'weighted_sum_after': None if final is None else self.weight * final,
+            'maximum_channel_outside_before_m': peak(before), 'maximum_channel_outside_after_m': peak(after)}
+        bindings = {key: self.inputs[key] for key in ('source_sha256', 'body_sha256', 'binding_sha256', 'envelope_cache_sha256', 'envelope_bindings')}
+        bindings['objective_profile'] = self.inputs['profile']
+        marker = {'profile': SURFACE_INTERVAL_PROFILE, 'input_bindings': bindings, 'weight': self.weight,
+                  'weight_status': 'authored', 'work_limits': dict(self.limits), 'summary': summary}
+        report = {'schema_version': 1, 'profile': SURFACE_INTERVAL_PROFILE, 'weight': self.weight, 'weight_status': 'authored',
+            'weight_units': 'existing_model_objective_units_per_supplied_world_metre_squared',
+            'inputs': self.inputs, 'work_limits': dict(self.limits), 'source_slots': self.slots,
+            'references': [dict(key, before=before[i], after=after[i]) for i, key in enumerate(self.keys)],
+            'summary': summary, 'evaluations': self.evaluations, 'trial_journal': self.journal, 'journal_bytes': self.journal_bytes,
+            'optimizer_installation': 'installed_in_existing_whole_body_fitter', 'contact': 'unknown', 'physical_validation': 'unverified'}
+        return marker, report
+
+
 def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None,
-                                            settings=None, proposal_objective='image_v1'):
+                                            settings=None, proposal_objective='image_v1', surface_interval_objective=None,
+                                            surface_interval_weight=None, surface_interval_settings=None):
     """Return a separately proposed body; no source, default runtime or policy is modified."""
     started = time.monotonic(); limits = _settings(settings)
-    _require(isinstance(proposal_objective, str) and proposal_objective in ('image_v1', 'floor_first_v1'), 'unknown proposal objective')
+    _require(isinstance(proposal_objective, str) and proposal_objective in ('image_v1', 'floor_first_v1', 'surface_interval_v1'), 'unknown proposal objective')
     floor_first = proposal_objective == 'floor_first_v1'
-    method = FLOOR_FIRST_METHOD if floor_first else CONTRACT['method']
+    surface_mode = proposal_objective == 'surface_interval_v1'
+    _require(surface_mode or all(value is None for value in (surface_interval_objective, surface_interval_weight, surface_interval_settings)),
+             'surface interval inputs require explicit surface_interval_v1 objective')
+    method = SURFACE_INTERVAL_METHOD if surface_mode else FLOOR_FIRST_METHOD if floor_first else CONTRACT['method']
     diagnostic = {'floor_qp_calls': 0, 'image_qp_calls': 0, 'floor_descent_accepts': 0, 'image_tiebreak_accepts': 0,
                   'invalid_directions': 0, 'zero_directions': 0, 'backtrack_trials': 0,
                   'rejected_backtracks': 0, 'qp_status_counts': {name: 0 for name in (
@@ -308,6 +472,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     blocks = [np.array([NAMES.index(name) for name in block if name in mask]) for block in BLOCKS]
     blocks = [block for block in blocks if len(block)]
     times, original, roots, rows, root_audit = _prepare(spec, evidence)
+    surface = _SurfaceIntervalFit(surface_interval_objective, human_document, evidence, rows,
+                                 surface_interval_weight, surface_interval_settings) if surface_mode else None
     schedule, samples, lookup = _schedule(times)
     _require(limits['maximum_geometry_calls'] >= 2 * len(samples), 'work bound cannot cover baseline and final audit')
     changes = np.zeros_like(original); affected = [[] for _ in times]
@@ -331,12 +497,17 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     def state(engine, q, root, derivatives=False):
         nonlocal calls
         check(needs_geometry=True); calls += 1
-        result = engine.evaluate(q.copy(), root.copy(), derivatives)
+        result = engine.evaluate(q.copy(), root.copy(), derivatives, **({'surface_intervals': True} if surface_mode else {}))
         for key, shape in (('points', (12, 3)), ('gaps', (len(support_names),)),
                            *([('point_jac', (12, 3, 19)), ('gap_jac', (len(support_names), 19))] if derivatives else [])):
             result[key] = np.asarray(result[key], dtype=float)
             _require(result[key].shape == shape and np.isfinite(result[key]).all()
                      and np.max(abs(result[key]), initial=0.) <= 1e6, 'invalid bounded kinematic output')
+        if surface_mode:
+            for key, shape in (('pelvis_position', (3,)), *([('pelvis_jac', (3, 19))] if derivatives else [])):
+                result[key] = np.asarray(result[key], dtype=float)
+                _require(result[key].shape == shape and np.isfinite(result[key]).all()
+                         and np.max(abs(result[key]), initial=0.) <= 1e6, 'invalid bounded absolute-pelvis kinematics')
         check()
         return result
 
@@ -353,6 +524,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             sample['current'] = sample['before']
         for i, row in enumerate(rows):
             row['before_errors'] = np.linalg.norm(_project(samples[lookup[float(times[i])]]['before']['points']) - row['target'], axis=1)
+            if surface_mode:
+                surface.save_audit(i, surface.evaluate(i, samples[lookup[float(times[i])]]['before']))
         lower = np.maximum(-.15, np.array([SPATIAL_JOINT_LIMITS[n][0] for n in NAMES]) - original)
         upper = np.minimum(.15, np.array([SPATIAL_JOINT_LIMITS[n][1] for n in NAMES]) - original)
 
@@ -364,10 +537,14 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                 adjacent = [j for j in (i - 1, i + 1) if 0 <= j < len(rows) and abs(times[j] - times[i]) <= .25 + 1e-9]
                 for columns in blocks:
                     check(); n = len(columns); neighbors = [changes[j] for j in adjacent]
+                    if surface_mode:
+                        surface.reserve_journal()
                     current = samples[lookup[float(times[i])]]['current']
                     current_errors = np.linalg.norm(_project(current['points']) - row['target'], axis=1)
                     image_limit = np.minimum(row['before_errors'], current_errors)
                     cost = _loss(row, current['points'], changes[i], neighbors)
+                    if surface_mode:
+                        cost += surface.weight * surface.cost(surface.current[i])
                     full = state(geometry, original[i] + changes[i], roots[i], True)
                     residual = (_project(full['points']) - row['target']).ravel()
                     jac = np.take(full['point_jac'][:, [0, 2], :] * np.array([1., -1.])[None, :, None], columns, axis=2).reshape(24, n)
@@ -378,6 +555,11 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                     gradient = jac.T @ (diagonal * residual) + prior * changes[i, columns]
                     for neighbor in neighbors:
                         gradient += temporal * (changes[i, columns] - neighbor[columns])
+                    if surface_mode:
+                        term = surface.evaluate(i, full, derivatives=True)
+                        if term['gradient_m2_per_rad'] is not None:
+                            hessian += surface.weight * np.asarray(term['gauss_newton_m2_per_rad2'])[np.ix_(columns, columns)]
+                            gradient += surface.weight * np.asarray(term['gradient_m2_per_rad'])[columns]
                     lo, hi = lower[i].copy(), upper[i].copy()
                     for j in adjacent:
                         radius = 1.5 * abs(times[i] - times[j])
@@ -426,45 +608,87 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                         outcome = solved['status'] if solved['status'] in diagnostic['qp_status_counts'] else 'other'
                         diagnostic['qp_status_counts'][outcome] += 1
                     if solved['status'] != 'optimal':
+                        if surface_mode:
+                            surface.record_qp(i, columns, changes[i], solved, 'rejected_solver')
                         rejected += 1; continue
                     direction = np.asarray(solved['step'], dtype=float)
                     if direction.shape != (n,) or not np.isfinite(direction).all() or np.max(b - a @ direction, initial=0.) > 1e-10:
+                        if surface_mode:
+                            violation = float(np.max(b - a @ direction, initial=0.)) if direction.shape == (n,) and np.isfinite(direction).all() else None
+                            surface.record_qp(i, columns, changes[i], solved, 'rejected_invalid_direction', violation)
                         if floor_first:
                             diagnostic['invalid_directions'] += 1
                         rejected += 1; continue
                     if np.max(abs(direction), initial=0.) < 1e-10:
+                        if surface_mode:
+                            surface.record_qp(i, columns, changes[i], solved, 'zero_direction', float(np.max(b - a @ direction, initial=0.)))
                         if floor_first:
                             diagnostic['zero_directions'] += 1
                         continue
+                    if surface_mode:
+                        surface.record_qp(i, columns, changes[i], solved, 'optimal_direction', float(np.max(b - a @ direction, initial=0.)))
                     for backtrack in range(CONTRACT['maximum_backtracks']):
-                        check(); trial = changes.copy(); trial[i, columns] += direction * .5 ** backtrack
+                        check()
+                        if surface_mode:
+                            surface.reserve_journal()
+                        trial = changes.copy(); trial[i, columns] += direction * .5 ** backtrack
+                        if surface_mode:
+                            surface.record({'kind': 'backtrack', 'reference_index': i, 'source_frame': row['frame'],
+                                'block': [NAMES[j] for j in columns], 'backtrack_index': backtrack,
+                                'trial_correction_rad': trial[i].tolist(), 'combined_cost_before': cost, 'combined_cost_after': None,
+                                'interval_before_m2': surface.current[i]['objective_m2'], 'interval_after_m2': None,
+                                'gate_results': {key: None for key in ('floor_nonregression', 'endpoint_depth', 'source_image_nonregression', 'surface_interval_nonregression')},
+                                'accepted': False, 'outcome': 'evaluation_incomplete', 'floor_min_margin_model_units': None,
+                                'maximum_depth_change_model_units': None, 'maximum_source_image_excess_model_units': None})
                         states = []; valid = True
+                        floor_margin, depth_change = math.inf, 0.
                         for j, _ in affected[i]:
                             sample = samples[j]; value = at(sample, trial, geometry)
                             threshold = np.maximum(np.minimum(0., sample['before']['gaps']), np.minimum(0., sample['current']['gaps']))
                             valid &= bool(np.all(value['gaps'] >= threshold - tolerance)
                                           and np.max(abs(value['points'][:, 1] - sample['before']['points'][:, 1])) <= .08 + tolerance)
+                            if surface_mode:
+                                floor_margin = min(floor_margin, float(np.min(value['gaps'] - threshold)))
+                                depth_change = max(depth_change, float(np.max(abs(value['points'][:, 1] - sample['before']['points'][:, 1]))))
                             states.append((j, value))
                         point_state = next(value for j, value in states if j == lookup[float(times[i])])
                         errors = np.linalg.norm(_project(point_state['points']) - row['target'], axis=1)
                         valid &= bool(np.all(errors[row['weights'] > 0] <= image_limit[row['weights'] > 0] + tolerance))
+                        trial_surface = None
+                        trial_cost = _loss(row, point_state['points'], trial[i], neighbors) if surface_mode or valid else None
+                        if surface_mode:
+                            trial_surface = surface.evaluate(i, point_state)
+                            interval_ok = surface.nonregression(surface.current[i], trial_surface)
+                            valid &= interval_ok
+                            trial_cost += surface.weight * surface.cost(trial_surface)
                         if floor_first:
                             diagnostic['backtrack_trials'] += 1
                         improves = False
                         if valid:
-                            image_improves = _loss(row, point_state['points'], trial[i], neighbors) < cost - 1e-14
+                            image_improves = trial_cost < cost - 1e-14
                             if floor_first:
                                 trial_floor_cost = _floor_loss(value for _, value in states)
                                 floor_improves = trial_floor_cost < floor_cost - 1e-14
                                 improves = floor_improves or (trial_floor_cost <= floor_cost and image_improves)
                             else:
                                 improves = image_improves
+                        if surface_mode:
+                            surface.finish_record(combined_cost_after=trial_cost, interval_after_m2=trial_surface['objective_m2'],
+                                gate_results={'floor_nonregression': bool(floor_margin >= -tolerance),
+                                    'endpoint_depth': bool(depth_change <= .08 + tolerance),
+                                    'source_image_nonregression': bool(np.all(errors[row['weights'] > 0] <= image_limit[row['weights'] > 0] + tolerance)),
+                                    'surface_interval_nonregression': interval_ok}, accepted=bool(improves),
+                                outcome='accepted' if improves else 'rejected_gate' if not valid else 'rejected_objective',
+                                floor_min_margin_model_units=floor_margin, maximum_depth_change_model_units=depth_change,
+                                maximum_source_image_excess_model_units=float(np.max(errors[row['weights'] > 0] - image_limit[row['weights'] > 0], initial=0.)))
                         if improves:
                             changes = trial; accepted += 1
                             if floor_first:
                                 diagnostic['floor_descent_accepts' if floor_improves else 'image_tiebreak_accepts'] += 1
                             for j, value in states:
                                 samples[j]['current'] = value
+                            if surface_mode:
+                                surface.current[i] = trial_surface
                             break
                         if floor_first:
                             diagnostic['rejected_backtracks'] += 1
@@ -476,6 +700,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
 
     # A new geometry instance recomputes every final sample, never trusting optimizer caches.
     phase = 'final'; final_deadline = min(final_deadline, time.monotonic() + limits['finalization_seconds'])
+    if surface_mode:
+        surface.phase = 'final'
     _require(all('before' in sample for sample in samples), 'incomplete baseline; no candidate can be qualified')
     check()
     geometry = _make_geometry(spec); checks = []
@@ -495,6 +721,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                 'after_max_penetration_model_units': float(np.maximum(0., -after['gaps']).max())})
         for i, row in enumerate(rows):
             row['after_errors'] = np.linalg.norm(_project(final[float(times[i])]['points']) - row['target'], axis=1)
+            if surface_mode:
+                surface.save_audit(i, surface.evaluate(i, final[float(times[i])]), final=True)
     finally:
         geometry.close()
     candidate = deepcopy(spec)
@@ -514,6 +742,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         'floor_feasibility': all(row['after_max_penetration_model_units'] <= .025 for row in checks),
         'endpoint_depth_change': all(row['maximum_depth_change_model_units'] <= .08 + tolerance for row in checks),
         'source_endpoint_image_nonregression': bool(image_ok)}
+    if surface_mode:
+        gates['surface_interval_nonregression'] = all(surface.nonregression(surface.before[i], surface.after[i]) for i in range(len(rows)))
     source_rows = []
     for i, row in enumerate(rows):
         points = [dict(point, error_before_px=float(row['before_errors'][j] / root_audit['scale']['model_units_per_pixel']) if point['weight'] else None,
@@ -529,6 +759,9 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     candidate['whole_body_reference_refinement'] = {
         'schema_version': 1, 'method': method, 'status': status, 'promoted': False,
         'input_human_sha256': sha256(human_document).hexdigest(), 'input_evidence_sha256': sha256(evidence_document).hexdigest()}
+    if surface_mode:
+        surface_marker, surface_report = surface.report()
+        candidate['whole_body_reference_refinement']['surface_intervals'] = surface_marker
     before_peak = max(row['before_max_penetration_model_units'] for row in checks)
     after_peak = max(row['after_max_penetration_model_units'] for row in checks)
     image_pairs = [(row['before_errors'][j], row['after_errors'][j])
@@ -574,6 +807,13 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
             'acceptance': 'Primary decreases by more than 1e-14, or primary does not increase and image/regularization loss decreases by more than 1e-14; every original nonlinear gate still applies',
             'counters': diagnostic,
             'scope': 'Gap-zero quadratic directions are local proposals, not exact nonlinear or global lexicographic optima'}
+    if surface_mode:
+        report['surface_intervals'] = surface_report
+        report['objective'] = {'profile': proposal_objective,
+            'primary': 'Existing image/regularization plus authored weighted outside-envelope loss',
+            'weight': surface.weight, 'weight_status': 'authored', 'interval_units': 'supplied_world_metre_squared',
+            'acceptance': 'Combined loss decreases by >1e-14; every existing nonlinear gate and per-channel interval nonregression apply',
+            'grid_interval_targets': 0}
     result = {'status': status, 'human_candidate': candidate, 'report': report}
     check()
     _require(len(json.dumps(result, allow_nan=False).encode()) <= CONTRACT['maximum_output_bytes'], 'complete output exceeds bound')

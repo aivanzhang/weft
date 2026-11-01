@@ -150,6 +150,8 @@ def test_strict_json_keeps_duplicate_nonfinite_and_nonobject_inputs_out(document
 
 
 def test_import_network_and_process_guards_are_installed_without_importing_media(monkeypatch):
+    # The actual isolated worker starts without these caller-loaded modules.
+    monkeypatch.delitem(sys.modules, 'weft.meta', raising=False)
     monkeypatch.setattr(worker.signal, 'setitimer', lambda *args: None)
     guard = worker._Guards(worker.time.monotonic())
     before = set(sys.modules)
