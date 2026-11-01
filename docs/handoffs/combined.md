@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-### Camera fit, simulation and replay passed — October 31, 2026, 8:04 PM PDT
+### Interactive camera sandbox passed — October 31, 2026, 8:34 PM PDT
 
 Run 02 is terminal, not running. Its real jogging fit passed all fourteen construction
 gates: 465 accepted updates changed 110/112 references; mean image error fell from
@@ -17,12 +17,43 @@ verified in 0.520 seconds. The subsequent matched trial 03 passed in 13.641 seco
 full-state replays. The fitted controller matches source images better but scores
 slightly worse on the original simulation task; no control improvement claim.
 Actual saved viewer payloads passed all 476 step-frame checks without a browser.
-Independent saved journal/proof audit and interactive lab attachment are underway. Reconstruction
-owns precursor custody qualification and unfamiliar-video equipment evidence; it is
-has fixed the narrow raw-mode metadata typing issue and is preparing the bounded real-source qualification plan.
+The independent saved journal/proof audit passed; interactive lab attachment is
+underway with a separate reviewer. Reconstruction completed precursor qualification:
+75 of 77 requested saved arrays match their original copies; two abstain, and all
+259 slots plus the original identity uncertainty remain. This is exposed kettlebell
+development evidence, not unfamiliar-video accuracy or contact proof.
+It now owns optional partition-safe export in `observations.py`, new tests and
+`partitioned-exercise-observations.md`. Excluded coordinates must not be measured.
+The next native lab runtime must retain committed `70b9793` observations and exact
+recipe pins, excluding those active edits; never silently repin the saved controller.
+Root's interactive acceptance is terminal **passed**, former handle `80142`, output
+`artifacts/camera-reference-play-01`. Do not duplicate it. Plan
+`.local/camera-reference-play-plan-01.json`, SHA
+`3e12b74fbb8337d8660bc7610e77523408bcc901261ffb41d33939019f29b9f1`;
+runtime manifest SHA `b65e5f56b20ee169d110853876dda5ec3e3f4d93f0a4a2f1b637031aeb1bc98d`.
+It preserves all 48 original recipe runtime pins and adds only seven reviewed lab
+adapters over committed main; no observations/precursor/avatar edits were imported.
+Process receipt `.local/camera-reference-play-process-01.json`, SHA
+`9edaf787cdd48daca261e71e9e9287c72fa566f39daf69bf018edcb6e387146d`:
+11.931 seconds, 387 files / 90,131,979 bytes, peak RSS 530,661,376 bytes.
+All 246 actions (240 fitted) and one reset replayed exactly; saved receipt inspection
+used no native work, and the new lab resumed successfully. Use the frozen-runtime
+[quick start](../local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+Independent saved journal/receipt audit passed, SHA
+`340fbf2f05720aecd732fccf54323dd6ecea6d547ef2e9414ec38386db73d15e`;
+no physics, source/media work or viewer checks were repeated.
+The subsequent reviewed 23-path lab/precursor/exporter checkpoint is tracked by
+`.local/camera-reference-play-publication-01.json`, which records the actual
+commit and remote result when present. Absence means publication is unfinished.
+It excludes all avatar work and unexecuted composition-study preparation.
 No native job, API call or deployment is active. Trial handle `51440` is terminal;
-do not duplicate it. Current integration remains uncommitted;
-preserve unrelated avatar work. The ordinary current-runtime command for the old policy
+do not duplicate it. The 38-file reviewed checkpoint was committed and pushed at
+8:09 PM PDT as `70b97930f1be65c9e6055fd272fa065394884cb6`.
+Publication receipt `.local/camera-reference-publication-01.json`, SHA
+`845f71fac28d77465e682b226c272b498cdec149b021487633ea39b6f09a3de1`.
+All committed bytes were verified, index/stash empty. Active lab/precursor work
+and unrelated avatar changes were preserved; no globally clean-worktree claim.
+The ordinary current-runtime command for the old policy
 lab is stale; use its [verified frozen-runtime instructions](camera-policy-runtime-resume.md).
 
 ### Historical native input-binding mismatch — October 31, 2026, 7:38 PM PDT

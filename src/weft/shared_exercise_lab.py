@@ -142,7 +142,7 @@ def _verified_inputs(directory, *, deadline, maximum_files=MAX_INPUT_FILES, maxi
     return manifest_raw, files
 
 
-def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=None, resume=False):
+def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=None, reference_trial=None, resume=False, deadline=None):
     def read(directory, hashes):
         if "scene.json" not in hashes:
             return {}
@@ -150,13 +150,22 @@ def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=
                                       expected_sha256=hashes["scene.json"])
         scene = _json(scene_raw)
         fetched = {"scene.json": scene_raw}
+        if reference_trial is not None and scene.get('profile') != CAMERA_PROFILE:
+            raise ValueError('Fitted camera controls require the original camera scene')
         if isinstance(scene, dict) and scene.get("profile") == CAMERA_PROFILE:
             for name, maximum in (("exercise-task.json", 64 << 10), ("exercise-lab.json", 128 << 10)):
                 if name in hashes:
                     fetched[name] = read_package_file(directory, name, max_bytes=maximum, expected_sha256=hashes[name])
             if "exercise-lab.json" in fetched:
                 contract = _json(fetched["exercise-lab.json"])
-                if "camera_policy_admission_sha256" in contract:
+                if 'reference_controller_sha256' in contract:
+                    from weft.camera_reference_lab import preflight_reference_attachment
+                    recipe = read_package_file(directory, 'reference-controller.json', max_bytes=1 << 20,
+                                               expected_sha256=hashes.get('reference-controller.json'))
+                    preflight_reference_attachment(contract, hashes, recipe_raw=recipe, scene=scene,
+                        task=_json(fetched['exercise-task.json']), deadline=deadline)
+                    fetched['reference-controller.json'] = recipe
+                elif "camera_policy_admission_sha256" in contract:
                     from weft.camera_shared_policy_lab import preflight_camera_attachment
                     preflight_camera_attachment(contract, hashes)
                 elif (contract.get("learned_policy_available") is not False
@@ -164,6 +173,10 @@ def _feet_metadata_preflight(*, task_path=None, policy_run=None, evaluation_run=
                     raise ValueError("Camera-based tasks cannot expose unqualified learning")
             else:
                 contract = {}
+            if 'reference_controller_sha256' not in contract and (any(
+                    name in {'reference-controller.json', 'reference-attachment.json'} or name.startswith('reference-trial/')
+                    for name in hashes) or 'exercise_reference' in contract):
+                raise ValueError('Camera fitted controls require their explicit sealed attachment')
             if "camera_policy_admission_sha256" not in contract and any(
                     name in {"policy.json", "policy-evaluation.json", "camera-policy-admission.json"}
                     or name.startswith(("learning-run/", "policy-evaluation-run/", "policy-evidence-run/")) for name in hashes):
@@ -449,7 +462,8 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluatio
     return result
 
 
-def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=None, policy_run=None, evaluation_run=None, max_seconds=60):
+def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=None, policy_run=None, evaluation_run=None,
+                                reference_trial=None, reference_manifest_sha256=None, max_seconds=60):
     """Prepare a new sealed lab without changing the source scene, task gates or legacy labs."""
     if type(root_assistance) is not bool or task_path is not None and root_assistance:
         raise ValueError("Choose an explicit task or default-task root assistance, not both")
@@ -457,6 +471,11 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         raise ValueError("Exercise lab preparation requires a 1–180 second bound")
     if evaluation_run is not None and policy_run is None:
         raise ValueError("Exercise policy evaluation requires its selected learning package")
+    if reference_trial is not None and (root_assistance or policy_run is not None or evaluation_run is not None):
+        raise ValueError('Fitted controls preserve the exact task and cannot mix root overrides or learned policies')
+    if reference_manifest_sha256 is not None and (reference_trial is None or type(reference_manifest_sha256) is not str
+                                                  or not re.fullmatch(r'[0-9a-f]{64}', reference_manifest_sha256)):
+        raise ValueError('A fitted trial manifest pin requires its exact trial directory')
     source, out = Path(run).resolve(), Path(out).resolve()
     if out.exists():
         raise FileExistsError("Exercise lab requires a new output directory")
@@ -469,10 +488,15 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     if evaluation_source is not None and (out == evaluation_source or out.is_relative_to(evaluation_source) or evaluation_source.is_relative_to(out)):
         raise ValueError("Exercise lab output must be outside the immutable evaluation package")
     source = source / "run" if (source / "run" / "manifest.json").is_file() else source
+    reference_source = Path(reference_trial).absolute() if reference_trial is not None else None
+    if reference_source is not None and (out == reference_source or out.is_relative_to(reference_source)
+                                         or reference_source.is_relative_to(out)):
+        raise ValueError('Exercise lab output must be outside the immutable fitted trial')
     started = time.monotonic()
     deadline = started + max_seconds
     input_manifest, inputs = _verified_inputs(source, deadline=deadline,
-        preflight=_feet_metadata_preflight(task_path=task_path, policy_run=policy_run, evaluation_run=evaluation_run))
+        preflight=_feet_metadata_preflight(task_path=task_path, policy_run=policy_run, evaluation_run=evaluation_run,
+                                           reference_trial=reference_trial, deadline=deadline))
     if "construction-seed.json" in inputs:
         raise ValueError("Construction seed is not a simulation; finish equipment construction before preparing a lab")
     if "scene.json" not in inputs:
@@ -482,13 +506,30 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             document = _json(inputs[name])
             if isinstance(document, dict) and document.get("status") in REJECTED_STATUSES:
                 raise ValueError(f"Exercise lab source artifact {name} has unsuccessful status")
-    scene = validate_shared_world(_json(inputs["scene.json"]))
+    original_scene = _json(inputs["scene.json"])
+    task_raw, reference_attachment, reference_task = None, None, None
+    if reference_source is not None:
+        from weft.camera_reference_lab import prepare_reference_attachment
+        if task_path is None:
+            if 'exercise-task.json' not in inputs:
+                raise ValueError('Fitted controls require the exact task: use the trial inputs/exercise-task.json')
+            task_raw = inputs['exercise-task.json']
+        else:
+            path = Path(task_path).absolute()
+            task_raw = read_package_file(path.parent, path.name, max_bytes=64 * 1024)
+        if len(task_raw) > 64 * 1024:
+            raise ValueError('Camera fitted task exceeds its 64 KiB document bound')
+        reference_task = _json(task_raw)
+        # Reject stale recipes and incomplete saved proofs before native model admission.
+        reference_attachment = prepare_reference_attachment(reference_source, original_scene, reference_task,
+            input_manifest, inputs, task_raw, deadline=deadline,
+            expected_manifest_sha256=reference_manifest_sha256)
+    scene = validate_shared_world(original_scene)
     feet = scene["profile"] == FEET_PROFILE
     base_profile = _base_profile(scene)
     if feet and (policy_run is not None or evaluation_run is not None):
         raise ValueError("Coupled-feet learned policies and evaluation attachments are not yet qualified")
-    proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(input_manifest))
-    task_raw = None
+    proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(input_manifest), deadline=deadline)
     if task_path is None and "exercise-task.json" in inputs:
         # Geometry alternatives retain custom contact/control requirements, not just default gates.
         task_raw = inputs["exercise-task.json"]
@@ -507,8 +548,12 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             task = build_shared_exercise_task(scene, root_assistance=root_assistance)
     else:
         path = Path(task_path).absolute()
-        task_raw = read_package_file(path.parent, path.name, max_bytes=(128 if feet else 64) * 1024)
+        if task_raw is None:
+            task_raw = read_package_file(path.parent, path.name, max_bytes=(128 if feet else 64) * 1024)
         task = _validate_task(_json(task_raw), scene)
+    if reference_attachment is not None and (canonical_hash(scene) != canonical_hash(original_scene)
+            or canonical_hash(task) != canonical_hash(reference_task)):
+        raise ValueError('Fitted admission cannot change the original scene or task')
     policy, policy_identity, learning_files, learning_manifest = None, {}, {}, None
     camera_attachment = None
     if learning_source is not None and scene["profile"] == CAMERA_PROFILE:
@@ -535,6 +580,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                          if camera_attachment else {"learning-run", "policy.json"})
     if evaluation_manifest is not None:
         generated.update({"policy-evaluation-run", "policy-evaluation.json"})
+    if reference_attachment is not None:
+        generated.update({'reference-trial', 'reference-controller.json', 'reference-attachment.json'})
     proof.validate_layout(reserved_paths=generated)
     implementation = _implementation_snapshot()
     contract = {"schema_version": 1, "profile": "shared-world", "control_profile": CONTROL_PROFILE,
@@ -552,6 +599,11 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                           if scene["profile"] == STATIC_SUPPORT_PROFILE else
                           "Independent authored human-only simulator task; no recovered grasp or physical validation.")}
     contract.update(policy_identity)
+    if reference_attachment is not None:
+        contract.update(reference_attachment['identity'])
+        contract['runtime_sha256'] = reference_attachment['runtime_sha256']
+        contract['exercise_reference'] = reference_attachment['summary']
+        contract['scope'] = reference_attachment['summary']['scope']
     if camera_attachment is not None:
         contract["runtime_sha256"] = deepcopy(camera_attachment["admission"]["execution_runtime_sha256"])
         contract["exercise_policy"] = camera_attachment["summary"]
@@ -605,6 +657,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         files.update({"policy-evaluation-run/manifest.json": evaluation_manifest,
                       **{"policy-evaluation-run/" + name: raw for name, raw in evaluation_files.items()},
                       "policy-evaluation.json": evaluation_files["evaluation.json"]})
+    if reference_attachment is not None:
+        files.update(reference_attachment['files'])
     validate_package_layout(files)
     _deadline(deadline)
     manifest = _bytes({"schema_version": 1, "created_at": local_time(), "status": "ready",
@@ -618,6 +672,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     config = {key: contract[key] for key in ("schema_version", "profile", "control_profile", "scene_sha256", "task_sha256",
                                            "reset_options", "learned_policy_available")}
     config.update(created_at=local_time(), source_run=str(source), manifest_sha256=_sha(manifest))
+    if reference_attachment is not None:
+        config.update(reference_attachment['identity'])
     if policy is not None:
         config.update({key: policy_identity[key] for key in ("policy_sha256", "learning_manifest_sha256")})
     if evaluation_source is not None:
@@ -646,7 +702,8 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
         raise
     return {"lab_directory": str(out), "run_directory": str(out / "run"), "manifest_sha256": _sha(manifest),
             "control_profile": CONTROL_PROFILE, "task_sha256": canonical_hash(task), "scene_sha256": canonical_hash(scene),
-            "learned_policy_available": policy is not None, **policy_identity, "files": len(files), "bytes": total,
+            "learned_policy_available": policy is not None, **policy_identity,
+            **(reference_attachment['identity'] if reference_attachment is not None else {}), "files": len(files), "bytes": total,
             "seconds": time.monotonic() - started}
 
 
@@ -655,17 +712,23 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
     root = Path(root)
     deadline = time.monotonic() + 60 if deadline is None else deadline
     manifest_raw, files = _verified_inputs(root, deadline=deadline, maximum_files=MAX_OUTPUT_FILES,
-                                           maximum_bytes=MAX_OUTPUT_BYTES, preflight=_feet_metadata_preflight(resume=True))
+                                           maximum_bytes=MAX_OUTPUT_BYTES, preflight=_feet_metadata_preflight(resume=True, deadline=deadline))
     if _json(manifest_raw).get("control_profile") != CONTROL_PROFILE:
         raise ValueError("Exercise lab manifest must explicitly select human-only control")
     required = {"scene.json", "exercise-task.json", "exercise-lab.json", "source-run/manifest.json"}
     if not required <= set(files):
         raise ValueError("Exercise lab is missing its pinned scene, task or source identity")
-    scene = validate_shared_world(_json(files["scene.json"]))
+    scene = _json(files["scene.json"])
     if scene["profile"] == FEET_PROFILE and len(files["exercise-task.json"]) > 128 * 1024:
         raise ValueError("Coupled-feet task exceeds its 128 KiB document bound")
-    task = _validate_task(_json(files["exercise-task.json"]), scene)
+    task = _json(files["exercise-task.json"])
     contract = _json(files["exercise-lab.json"])
+    camera_reference = (scene['profile'] == CAMERA_PROFILE and isinstance(contract, dict)
+                        and 'reference_controller_sha256' in contract)
+    if not camera_reference:
+        # Legacy identities use validated numeric normalization, not raw JSON spelling.
+        scene = validate_shared_world(scene)
+        task = _validate_task(task, scene)
     fixed = {"schema_version": 1, "profile": "shared-world", "control_profile": CONTROL_PROFILE,
              "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task),
              "reset_options": RESET_OPTIONS,
@@ -674,6 +737,26 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             or type(contract.get("learned_policy_available")) is not bool
             or any(contract.get(key) != value for key, value in fixed.items())):
         raise ValueError("Exercise lab contract differs from its pinned task, scene or reset protocol")
+    original = _json(files["source-run/manifest.json"])
+    if (not isinstance(original, dict) or not isinstance(original.get("files"), dict)
+            or any(not isinstance(name, str) for name in original["files"])
+            or type(contract.get("source_files_verified")) is not int or contract["source_files_verified"] != len(original["files"])
+            or any("source-run/" + name not in files or _sha(files["source-run/" + name]) != expected
+                   for name, expected in original["files"].items())):
+        raise ValueError("Exercise lab must retain the complete sealed source candidate")
+    if files["scene.json"] != files.get("source-run/scene.json"):
+        raise ValueError("Exercise lab cannot rewrite the original engine scene")
+    reference_attachment = None
+    if camera_reference:
+        from weft.camera_reference_lab import load_reference_attachment
+        original_files = {name[len('source-run/'):]: raw for name, raw in files.items()
+                          if name.startswith('source-run/') and name != 'source-run/manifest.json'}
+        reference_attachment = load_reference_attachment(files, scene, task, files['source-run/manifest.json'],
+            original_files, files['exercise-task.json'], contract, deadline=deadline)
+        scene = validate_shared_world(scene)
+        task = _validate_task(task, scene)
+        if canonical_hash(scene) != contract['scene_sha256'] or canonical_hash(task) != contract['task_sha256']:
+            raise ValueError('Fitted admission cannot change the pinned scene or task')
     implementation = contract.get("implementation_sha256")
     if (not isinstance(implementation, dict) or not implementation or any(not isinstance(name, str) for name in implementation)
             or any(
@@ -681,7 +764,11 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             for name, expected in implementation.items())):
         raise ValueError("Exercise lab runtime closure differs from its pinned implementation")
     camera_policy = scene["profile"] == CAMERA_PROFILE and contract["learned_policy_available"]
-    if camera_policy:
+    if camera_reference:
+        expected_runtime = reference_attachment['runtime_sha256']
+        if any(implementation.get(name) != pin for name, pin in expected_runtime.items()):
+            raise ValueError('Fitted controller runtime differs from the retained lab implementation')
+    elif camera_policy:
         from weft.camera_shared_policy_admission import execution_runtime_hashes
         expected_runtime = execution_runtime_hashes(scene)
         if any(implementation.get(name) != pin for name, pin in expected_runtime.items()):
@@ -697,15 +784,6 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             read_package_file(Path(__file__).parent, name, max_bytes=8 * 1024 * 1024, expected_sha256=expected)
         except ValueError as error:
             raise ValueError("Exercise physics/evaluator runtime differs; use the pinned implementation or prepare a new lab") from error
-    original = _json(files["source-run/manifest.json"])
-    if (not isinstance(original, dict) or not isinstance(original.get("files"), dict)
-            or any(not isinstance(name, str) for name in original["files"])
-            or type(contract.get("source_files_verified")) is not int or contract["source_files_verified"] != len(original["files"])
-            or any("source-run/" + name not in files or _sha(files["source-run/" + name]) != expected
-                   for name, expected in original["files"].items())):
-        raise ValueError("Exercise lab must retain the complete sealed source candidate")
-    if files["scene.json"] != files.get("source-run/scene.json"):
-        raise ValueError("Exercise lab cannot rewrite the original engine scene")
     policy = None
     evaluation_successes, evaluation_reset_protocol = None, None
     camera_attachment = None
@@ -766,14 +844,17 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             raise ValueError("Exercise lab configuration differs from its sealed scene/task identity")
         if policy is not None and any(config.get(key) != contract[key] for key in ("policy_sha256", "learning_manifest_sha256")):
             raise ValueError("Exercise lab configuration differs from its pinned policy identity")
+        if reference_attachment is not None and any(config.get(key) != value for key, value in reference_attachment['identity'].items()):
+            raise ValueError('Exercise lab configuration differs from its fitted controller identity')
         if evaluation_successes is not None and any(config.get(key) != contract[key]
                 for key in ("policy_evaluation_manifest_sha256", "policy_evaluation_sha256")):
             raise ValueError("Exercise lab configuration differs from its pinned evaluation identity")
-    proof = collect_shared_source_files(scene, root, expected_manifest_sha256=_sha(manifest_raw))
+    proof = collect_shared_source_files(scene, root, expected_manifest_sha256=_sha(manifest_raw), deadline=deadline)
     _deadline(deadline)
     return {"scene": scene, "task": task, "contract": contract, "source_verification": proof.report,
             **({"policy": policy, "policy_document": files["policy.json"]} if policy is not None else {}),
             **({"camera_policy_admission": camera_attachment["admission"]} if camera_attachment else {}),
+            **({'reference_document': reference_attachment['recipe_document']} if reference_attachment else {}),
             "artifacts": [{"name": name, "bytes": len(raw)} for name, raw in sorted(files.items()) if "/" not in name]
                          + [{"name": "manifest.json", "bytes": len(manifest_raw)}]}
 
@@ -795,11 +876,18 @@ class SharedExerciseSession:
         self._camera_policy_admission = loaded.get("camera_policy_admission")
         self._policy_admission_sha256 = loaded["contract"].get("camera_policy_admission_sha256")
         self._policy_sample = None
+        self._exercise_reference = loaded['contract'].get('exercise_reference')
+        self.reference_controller_sha256 = loaded['contract'].get('reference_controller_sha256')
+        self._fitted_sample = None
         if self.scene_profile == CAMERA_PROFILE:
             from weft.camera_shared_recording import recording_scene as camera_recording_scene
             from weft.camera_shared_task import CameraSharedTaskEnv
 
-            if self.policy is not None:
+            if loaded.get('reference_document') is not None:
+                from weft.camera_reference_recording import recording_scene as reference_recording_scene
+                self._recording_scene = reference_recording_scene(self._scene, self._task,
+                    reference_controller_document=loaded['reference_document'])
+            elif self.policy is not None:
                 from weft.camera_shared_policy_recording import recording_scene as policy_recording_scene
                 self._recording_scene = policy_recording_scene(self._scene, self._task,
                     policy_document=loaded["policy_document"], policy_admission=self._camera_policy_admission)
@@ -818,6 +906,10 @@ class SharedExerciseSession:
         try:
             self.reset(0)
             self._policy_action = None
+            self._fitted_action = None
+            if self._exercise_reference is not None:
+                from weft.camera_reference_recording import prepare_recorded_reference_controller
+                self._fitted_action = prepare_recorded_reference_controller(self._recording_scene['reference_controller'], self.env)
             if self._camera_policy_admission is not None:
                 from weft.camera_shared_policy_admission import prepare_camera_policy_sampler
                 self._policy_action = prepare_camera_policy_sampler(
@@ -832,6 +924,9 @@ class SharedExerciseSession:
                 learned_policy_available=self.policy is not None, trained_target_id="human" if self.policy is not None else None,
                 source_video_present=any(re.fullmatch(r"source\.(mp4|webm|mov|m4v|avi|mkv)", item["name"])
                                          for item in self.artifacts))
+            if self._exercise_reference is not None:
+                from weft.camera_reference_lab import reference_capabilities
+                self._capabilities = reference_capabilities(self._capabilities, self._exercise_reference)
         except Exception:
             self.env.close()
             raise
@@ -856,8 +951,12 @@ class SharedExerciseSession:
     def exercise_policy(self):
         return deepcopy(self._exercise_policy)
 
+    def exercise_reference(self):
+        return deepcopy(self._exercise_reference)
+
     def reset(self, seed):
         self._policy_sample = None
+        self._fitted_sample = None
         self.observation, _ = self.env.reset(seed=seed, options=RESET_OPTIONS)
         self.done = False
         return self.snapshot()
@@ -880,6 +979,17 @@ class SharedExerciseSession:
 
     def reference_action(self):
         return self.env.authored_action().tolist()
+
+    def fitted_action(self):
+        if self._fitted_action is None:
+            raise ValueError('This lab has no attached fitted controller')
+        self._fitted_sample = self._fitted_action().tolist()
+        return list(self._fitted_sample)
+
+    def fitted_recording_metadata(self, action):
+        if self._fitted_sample is None or action != self._fitted_sample:
+            raise ValueError('Fitted event requires its actual prepared controller decision')
+        return {'reference_controller_sha256': self.reference_controller_sha256}
 
     def resolve_action(self, action):
         if self.scene_profile == CAMERA_PROFILE:

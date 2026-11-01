@@ -377,6 +377,8 @@ def main():
     exercise_lab.add_argument("--out", required=True, help="New lab directory outside the immutable input")
     exercise_lab.add_argument("--learning", help="Optional sealed human-only policy for this exact scene and task")
     exercise_lab.add_argument("--evaluation", help="Optional separate comparison for the exact installed policy; requires --learning")
+    exercise_lab.add_argument('--reference-trial', help='Completed camera fitted-reference trial; attach its exact non-learned controller to a new lab')
+    exercise_lab.add_argument('--reference-manifest-sha256', help='Optional exact completed reference-trial seal')
     exercise_lab_choice = exercise_lab.add_mutually_exclusive_group()
     exercise_lab_choice.add_argument("--root-assistance", action="store_true", help="Enable three explicit virtual root controls")
     exercise_lab_choice.add_argument("--task", help="Exact task JSON for this scene profile; otherwise preserve a sealed input task before using defaults")
@@ -741,7 +743,9 @@ def main():
             from weft.shared_exercise_lab import prepare_shared_exercise_lab
             result = prepare_shared_exercise_lab(args.run, args.out, root_assistance=args.root_assistance,
                 task_path=args.task, policy_run=args.learning, evaluation_run=args.evaluation,
-                max_seconds=args.max_seconds)
+                max_seconds=args.max_seconds,
+                **({'reference_trial': args.reference_trial, 'reference_manifest_sha256': args.reference_manifest_sha256}
+                   if args.reference_trial is not None or args.reference_manifest_sha256 is not None else {}))
         elif args.command == "shared-feet-build":
             from weft.shared_exercise_feet_candidate import prepare_shared_feet_candidate
             result = prepare_shared_feet_candidate(args.run, args.foot_reference, args.out,

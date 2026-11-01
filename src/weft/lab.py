@@ -693,6 +693,8 @@ class Lab:
             active_controllers.append("authored_reference_controller")
         if ctrls["learned_policy_available"]:
             active_controllers.append("learned_policy")
+        if ctrls.get('fitted_reference_controller'):
+            active_controllers.append('fitted_reference_controller')
 
         if has_video:
             recorded_desc = "Sealed source video and per-frame measurements preserved in run/"
@@ -763,6 +765,8 @@ class Lab:
             if _shared_exercise(session):
                 result.update(control_profile="shared_exercise", exercise_task=session.exercise_task,
                               action_contract=session.action_contract(), exercise_policy=session.exercise_policy())
+                if getattr(session, 'reference_controller_sha256', None) is not None:
+                    result['exercise_reference'] = session.exercise_reference()
         result["recording"] = self.recorder is not None
         if self.export_future is not None:
             result["export"] = {"status": "running", "directory": self.export_path}
@@ -862,8 +866,10 @@ class Lab:
                     raise ValueError("Exercise steps cannot change actors, task or assistance")
                 if data.get("policy", False) and session.policy is None:
                     raise ValueError("This human-only task has no learned policy")
-                if data.get("controller") not in (None, "reference", "coast"):
-                    raise ValueError("Choose manual human actions, authored reference or coast")
+                if data.get("controller") not in (None, "reference", "coast", "reference_proposal"):
+                    raise ValueError("Choose manual actions, authored reference, fitted controls or coast")
+                if data.get('controller') == 'reference_proposal' and not getattr(session, 'reference_controller_sha256', None):
+                    raise ValueError('This lab has no attached fitted controller')
                 if int("action" in data) + int(data.get("policy", False)) + int(data.get("controller") is not None) != 1:
                     raise ValueError("Choose exactly one human-only action vector or controller")
                 if "action" in data:
@@ -902,6 +908,7 @@ class Lab:
                                 "warning": f"Recording stopped at its bound: {error}. Prior actions are saved."}
                 chosen = (session.policy_action() if data.get('policy', False) else
                           session.reference_action() if data.get('controller') == 'reference' else
+                          session.fitted_action() if data.get('controller') == 'reference_proposal' else
                           session.resolve_action(action) if isinstance(session, SharedWorldSession) else action)
                 try:
                     reward, terminated, truncated, info = session.step(chosen)
@@ -920,7 +927,9 @@ class Lab:
                          "terminated": bool(terminated), "truncated": bool(truncated), "snapshot": session.snapshot()}
                 if _shared_exercise(session):
                     event["controller"] = ("learned" if data.get("policy", False) else
-                        {"reference": "authored", "coast": "coast"}.get(data.get("controller"), "manual"))
+                        {"reference": "authored", "coast": "coast", 'reference_proposal': 'reference_proposal'}.get(data.get("controller"), "manual"))
+                    if event['controller'] == 'reference_proposal':
+                        event.update(session.fitted_recording_metadata(chosen))
                     if event["controller"] == "learned":
                         event["policy_sha256"] = session.policy_sha256
                         if session.scene_profile == "shared-world-v6":

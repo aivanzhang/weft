@@ -1,6 +1,6 @@
 # Real camera-reference acceptance
 
-Updated October 31, 2026, 8:04 PM PDT. Root owns execution and publication;
+Updated October 31, 2026, 8:34 PM PDT. Root owns execution and publication;
 reconstruction remains a separate lane. No native process is active.
 
 ## Actual outcome
@@ -109,18 +109,60 @@ Receipt `.local/camera-reference-saved-viewer-check-01.json`, SHA
 
 ## Remaining work
 
-1. Complete the independent saved journal/proof audit without repeating physics.
-2. Add interactive fitted-controller lab attachment; the UI lane owns new code
-   and tests while root preserves this frozen trial runtime.
-3. Publish the reviewed checkpoint, keeping active lab/precursor and avatar work separate.
+The separate interactive check is terminal **passed**, former root handle `80142`,
+with new output `artifacts/camera-reference-play-01`. Its frozen runtime manifest is
+`b65e5f56b20ee169d110853876dda5ec3e3f4d93f0a4a2f1b637031aeb1bc98d`;
+all 48 original recipe runtime members match exactly. Plan
+`.local/camera-reference-play-plan-01.json`; terminal process receipt
+`.local/camera-reference-play-process-01.json`. Do not duplicate the job.
+Verified interaction: two manual, two coast, two authored and two fitted steps,
+one reset, then the full 238 fitted steps; one export/exact replay and resume.
+All 246 actions/240 fitted decisions and all full states replayed exactly.
+Process receipt SHA `9edaf787cdd48daca261e71e9e9287c72fa566f39daf69bf018edcb6e387146d`;
+outer seal `61298ff790531bf99486c6f340214c732b489595594bc9b27938c9451873f8a8`.
+The run took 11.931 seconds, produced 90,131,979 bytes / 387 files and peaked at
+530,661,376 bytes RSS. Saved-only receipt inspection caused no native counter
+changes. [Interactive controls and exact resume command](../local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+The actual mixed-control replay payload also passed every one of its 247
+noninitial frame checks, including reset and controller-label boundaries, in the
+scripted viewer harness. Receipt `.local/camera-reference-play-viewer-check-01.json`,
+SHA `79692e8ef104564cf42df4bccfb1ae25738a186ae8547f22e14916f30549952b`.
+This adds saved-payload coverage, not browser or physical-accuracy validation.
+
+1. Consult `.local/camera-reference-play-publication-01.json` for the reviewed
+   lab/precursor/exporter checkpoint's actual commit and remote outcome. Its
+   absence means publication remains unfinished; frozen runtimes and unrelated
+   avatar work are preserved.
+
+The independent interactive saved-journal/receipt check passed:
+`.local/camera-reference-play-saved-audit-01.json`, SHA
+`340fbf2f05720aecd732fccf54323dd6ecea6d547ef2e9414ec38386db73d15e`.
+One 5,888,604-byte journal stream confirms manual/coast/authored two each, fitted
+240, reset seed 29 at event nine, and the full 238-step interval afterward.
+All 48 original recipe modules remain exact within 57 lab execution modules.
+The saved receipt binds one full-state replay and 240 fitted decisions. A prior
+checker-only runtime-manifest filename mistake is preserved; no native, media,
+source or viewer work was repeated for the correction.
+
+The independent saved journal/proof audit passed without another physics run:
+`.local/camera-reference-trial-saved-audit-03.json`, SHA
+`ebc24a5379dd01629b8229d8d67fb6d48760a4f277d0303f3eb0aa3ccf4ae8e5`.
+Each journal was streamed once. All 238 paired joint-action vectors differ,
+maximum difference 1.13036456; these are different trajectories, not a same-state
+counterfactual comparison. Source coverage retains 240 slots, 120 sampled clocks
+and 112 original references. The first two audit receipts preserve checker-only
+canonical JSON/null-field mistakes; cached corrections did not repeat journal,
+media, fitting or physics work. Weft canonical hashes use sorted JSON with default
+spaces; do not replace that contract with compact JSON in future auditors.
 
 Report/storage and camera-budget independent reviews are complete. Actual selected input volume is
    18,825,425 bytes; three reads total 56,476,275 bytes. Legacy remains 32 MiB,
    each member 8 MiB, exact final readback and source/runtime gates unchanged.
 
-Interactive fitted-mode success is not established yet. The old policy
+Interactive fitted-mode success is established for this development case only. The old policy
 lab has separate [frozen-runtime instructions](camera-policy-runtime-resume.md);
 current code must not silently bypass its archived runtime identity.
 
-The $5 shared Meta budget is untouched. This work costs $0 in external APIs;
+This checkpoint made no paid calls and left the shared $5 Meta ledger unchanged.
+This work costs $0 in external APIs;
 no deployment, new inference, training or source acquisition is scheduled.

@@ -66,6 +66,7 @@ class PoseSurfaceAnnotations:
     _annotation: bytes
     _metadata: bytes
     _rows: tuple[bytes, ...]
+    precursor_custody: object | None = None
 
     def annotation_document(self):
         return self._annotation
@@ -79,7 +80,7 @@ class PoseSurfaceAnnotations:
 
 
 def prepare_pose_surface_annotations(observation_documents, *, pose_document, source_sha256,
-        channels, landmark_bindings, minimum_confidence, uncertainty_method, uncertainty_note):
+        channels, landmark_bindings, minimum_confidence, uncertainty_method, uncertainty_note, precursor_custody=None):
     """Use supplied image estimates, not recovered identity, anatomy or contact.
 
     Existing channel point_role must equal its explicit landmark_name. Per-channel
@@ -165,10 +166,27 @@ def prepare_pose_surface_annotations(observation_documents, *, pose_document, so
         if raw_declared:
             provenance["coordinate_policy"] = "declared_raw_or_unmarked_image_estimates; raw_identity_and_anatomy_not_authenticated"
             provenance["identity_declaration"].update(mode="raw", repaired_frames=0)
+    precursor_meta = None
+    if precursor_custody is not None:
+        from weft.pose_precursor_custody import PosePrecursorCustody
+
+        _require(type(precursor_custody) is PosePrecursorCustody, "explicit prepared precursor custody required")
+        precursor_meta = precursor_custody.describe()
+        _require(precursor_meta["input_raw_sha256s"]["evidence.json"] == provenance["pose_raw_sha256"],
+                 "precursor custody belongs to different exact context bytes")
+        pins = precursor_meta["input_raw_sha256s"]
+        provenance["coordinate_policy"] = "exact_saved_precursor_image_matches_only; model_identity_not_authenticated"
+        provenance["precursor_custody"] = {"profile": precursor_meta["profile"],
+            "manifest_sha256": pins["manifest.json"], "raw_sha256": pins["pose-landmarks.json"],
+            "audit_sha256": pins["identity-audit.json"], "mode": precursor_meta["mode"],
+            "audit_unavailable_frames": precursor_meta["audit_unavailable_frames"], "identity_authenticated": False}
+        provenance["identity_declaration"].update(status="original_mode_retained_precursor_custody_only",
+            mode=precursor_meta["mode"], repaired_frames=precursor_meta["recorded_repaired_frames"])
     provenance_raw = _encode(provenance, 2000, deadline)
     base_annotation["provenance"] = provenance_raw.decode()
     rows, row_bytes, status_counts, selected_count, payload_reads = [], 0, Counter(), 0, 0
     pose_hashes, payload_hashes = {}, {}
+    qualifier = None if precursor_custody is None else precursor_custody._begin(pose_document)
     for frame in range(count):
         _check(deadline); supplied = indexed.get(frame)
         row = {"source_frame": frame, "source_status": "decoded" if frame < source["decoded_frames"] else "metadata_only_not_decoded",
@@ -207,7 +225,11 @@ def prepare_pose_surface_annotations(observation_documents, *, pose_document, so
                 if payload_hashes[key] != pose_hashes[frame]:
                     reason = "source_pose_payload_differs"
                 else:
-                    representation, reason = _representation(supplied, declaration_present, raw_declared)
+                    if qualifier is None:
+                        representation, reason = _representation(supplied, declaration_present, raw_declared)
+                    else:
+                        qualified = qualifier.qualify(frame)
+                        representation, reason = qualified["representation"], qualified["reason"]
                 if reason is None:
                     landmarks = supplied.get("landmarks")
                     if (supplied.get("status") not in {"tracked", "tracked_partial"}
@@ -244,6 +266,8 @@ def prepare_pose_surface_annotations(observation_documents, *, pose_document, so
                 "pixel": pixel, "source_confidence": confidence, "source_visibility_score": visibility, "source_presence_score": presence,
                 "authored_uncertainty_px": binding["uncertainty_px"], "representation": representation,
                 "annotation_id": None if annotation is None else annotation["id"], "contact": "unknown"})
+        if qualifier is not None:
+            row["precursor_custody"] = qualifier.diagnostic(frame)
         encoded = _encode(row, 128 << 10, deadline); row_bytes += len(encoded)
         _require(row_bytes <= MAX_CACHE_BYTES, "complete source cache exceeds eight MiB; no rows dropped")
         rows.append(encoded)
@@ -263,8 +287,14 @@ def prepare_pose_surface_annotations(observation_documents, *, pose_document, so
         "bounds": {"cooperative_seconds": MAX_SECONDS, "source_frames": 1800, "pose_slots": 900, "channels": 12,
             "observation_bytes": MAX_OBSERVATION_BYTES, "pose_bytes": MAX_POSE_BYTES,
             "annotation_bytes": MAX_ANNOTATION_BYTES, "cache_bytes": MAX_CACHE_BYTES}}
+    precursor_cache_bytes = 0
+    if qualifier is not None:
+        qualification, _ = qualifier.finish()
+        metadata["precursor_custody"] = json.loads(qualification)
+        precursor_cache_bytes = len(precursor_custody._metadata) + sum(map(len, precursor_custody._source_rows))
+        metadata["retained_precursor_cache_bytes"] = precursor_cache_bytes
     encoded_meta = _encode(metadata, 128 << 10, deadline)
-    _require(row_bytes + len(encoded_meta) + len(annotation_raw) <= MAX_CACHE_BYTES,
+    _require(row_bytes + len(encoded_meta) + len(annotation_raw) + precursor_cache_bytes <= MAX_CACHE_BYTES,
              "complete annotation/metadata/source cache exceeds eight MiB")
     _check(deadline)
-    return PoseSurfaceAnnotations(tuple(sorted(observation_documents.items())), pose_document, annotation_raw, encoded_meta, tuple(rows))
+    return PoseSurfaceAnnotations(tuple(sorted(observation_documents.items())), pose_document, annotation_raw, encoded_meta, tuple(rows), precursor_custody)

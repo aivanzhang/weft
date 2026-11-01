@@ -13,7 +13,7 @@ from weft.evidence_scorecard import DIMENSIONS, MAX_BYTES as SCORECARD_MAX_BYTES
 HELP = """Nothing moves until you enter step.
   controls                  List available actions, motors and controllers
   evidence [1-14]           Show saved checks, or one category's evidence and gaps
-  mode manual|learned|reference|coast
+  mode manual|learned|reference|fitted|coast
   motor NAME VALUE          Select one motor (-1 to 1); all others stay zero
   action NAME_OR_INDEX      Select a discrete action
   actor NAME                Select an available object or joint
@@ -23,7 +23,8 @@ HELP = """Nothing moves until you enter step.
   record stop               Save actions and export video/interactive replay
   record evidence [SESSION] Inspect saved action counts and replay verification
   status | files | help | quit
-Reference is authored feedback, not learning. Starting a recording resets the trial.
+Reference is original authored feedback. Fitted uses attached fitted joint targets, not learning
+or necessarily better control. Starting a recording resets the trial.
 Quit or Ctrl+C saves an active recording. No server, browser or training starts."""
 
 
@@ -52,12 +53,14 @@ class Controls:
 
     def select_mode(self, name):
         modes = self.capabilities["controllers"]
-        if name not in {"manual", "coast", "learned", "reference"}:
-            raise ValueError("Choose manual, coast, learned or reference")
+        if name not in {"manual", "coast", "learned", "reference", 'fitted'}:
+            raise ValueError("Choose manual, coast, learned, reference (authored), or fitted")
         if name == "learned" and not modes["learned_policy_available"]:
             raise ValueError("This lab has no available learned controller")
         if name == "reference" and not modes["authored_reference_controller"]:
             raise ValueError("This lab has no authored reference controller")
+        if name == 'fitted' and not modes.get('fitted_reference_controller', False):
+            raise ValueError('This lab has no attached fitted controller')
         self.mode = name
 
     def select_motor(self, name, value):
@@ -82,6 +85,8 @@ class Controls:
         result = {"steps": count}
         if self.mode == "learned":
             return result | {"policy": True}
+        if self.mode == 'fitted':
+            return result | {'controller': 'reference_proposal'}
         if self.mode == "reference":
             if self.continuous:
                 return result | {"controller": "reference"}

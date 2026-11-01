@@ -508,7 +508,27 @@ and [simulation comparison](../artifacts/camera-reference-real-01/trial-03/index
 Both recordings cover all 238 steps and replay exactly. Fitted angles improve
 agreement with detected image points, but fitted controls score slightly worse
 on the original simulator task. Neither result verifies ground/equipment contact.
-Interactive fitted controls are being added separately; these links are saved results.
+The interactive fitted sandbox is also ready. Use its verified frozen runtime so
+ongoing reconstruction edits cannot silently change this saved environment:
+
+```sh
+PYTHONPATH="$PWD/.local/camera-reference-play-runtime-01/src" \
+  .venv-lab/bin/python -B -P -m weft lab-console \
+  --resume artifacts/camera-reference-play-01/lab
+```
+
+Try `mode fitted`, `record start`, `step 6`, then `record stop` and `record evidence`.
+Use `controls` to list motors, `motor left_elbow 0.1` for manual control,
+`mode reference` for the original programmed controller, and `reset 29` to restart.
+`record stop` saves an interactive 3D replay and video; `files` lists artifacts.
+The verified mixed-control session recorded 246 actions, including 240 fitted
+actions and one reset; every action/full state replayed exactly, and resume passed.
+Preparation, console interaction, export, replay and resume took 11.93 seconds.
+[Saved interactive replay](../artifacts/camera-reference-play-01/lab/sessions/session-06fb54b1d283/replay.html)
+and [full verification details](handoffs/camera-reference-lab.md).
+
+This is the known jogging development case with explicit body-position assistance,
+not recovered balance, ground/equipment contact or unfamiliar-video accuracy.
 
 After a source-fit proposal passes all of its checks, compare it as a **controller
 alternative** on the original world:

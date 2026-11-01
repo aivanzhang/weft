@@ -511,19 +511,86 @@ def _exercise_relationships(scene, source_sha256):
     return result
 
 
-def adapt_exercise(evidence, *, scene=None):
+def _exercise_construction_selection(document, frames, selection):
+    source = document["source"]
+    first, last = _decoded_bounds(source)
+    count = max(source["metadata_frames"], last + 1)
+    if count > 1800:
+        raise ValueError("Construction selection retains at most 1800 original source slots")
+    if any(index not in frames for index in selection):
+        raise ValueError("Construction selection must name original sampled pose frames")
+    previous = -1
+    for index, raw in frames.items():
+        if index <= previous or raw.get("id") != f"{source['sha256']}:frame:{index}":
+            raise ValueError("Construction selection requires ordered original pose identities")
+        previous = index
+        _validate_time(raw, source)
+        for key in ("status", "identity_status"):
+            value = raw.get(key)
+            if value is not None and (type(value) is not str or not 0 < len(value.strip()) <= 80 or len(value) > 80):
+                raise ValueError("Construction selection requires bounded scalar pose labels")
+        hypotheses = raw.get("pose_count")
+        if hypotheses is not None and (type(hypotheses) is not int or not 0 <= hypotheses <= 128):
+            raise ValueError("Construction selection requires an exact bounded model-hypothesis count or unknown")
+        if raw.get("decoder_timestamp_s") is not None:
+            _finite(raw["decoder_timestamp_s"], "original decoder timestamp", 0, 3600)
+    selected, slots = frozenset(selection), []
+    for index in range(count):
+        raw = frames.get(index)
+        decoded = first <= index <= last
+        reason = ("outside_declared_decode_interval" if not decoded and "decode_interval" in source else
+                  "metadata_only_not_decoded" if not decoded else "pose_not_sampled" if raw is None else
+                  "excluded_by_explicit_construction_selection" if index not in selected else None)
+        slots.append({"source_frame": index, "source_status": "decoded" if decoded else "not_decoded",
+            "nominal_time_s": index / source["fps"], "reason": reason,
+            "pose_evidence_id": None if raw is None else raw["id"],
+            "pose_time_s": None if raw is None else raw["time_s"],
+            "decoder_timestamp_s": None if raw is None else raw.get("decoder_timestamp_s"),
+            "pose_status": None if raw is None else raw.get("status"),
+            "identity_status": None if raw is None else raw.get("identity_status"),
+            "pose_count": None if raw is None else raw.get("pose_count"),
+            "derivation_markers": [] if raw is None else [key for key in
+                ("identity_raw", "identity_derivation_id", "identity_recompute_required", "image_refinement", "image_refinement_raw") if key in raw]})
+    return selected, {"profile": "explicit-exercise-construction-selection-v1", "construction_frames": list(selection),
+        "source_slots": slots, "counts": {"original_source_slots": count, "decoded_slots": last - first + 1,
+            "pose_rows": len(frames), "selected_pose_rows": len(selected), "excluded_pose_rows": len(frames) - len(selected),
+            "unsampled_decoded_slots": last - first + 1 - len(frames), "not_decoded_source_slots": count - (last - first + 1)},
+        "selection_status": "explicit_not_inferred_from_pose_or_contact_outcomes",
+        "excluded_payloads": "not_copied_or_measured; exact original input remains separately retained",
+        "canonical_fingerprint": "complete_supplied_input_custody_not_coordinate_admission",
+        "nominal_clock_status": "assumed_frame_index_divided_by_supplied_fps", "identity_authenticated": False, "contact": "unknown"}
+
+
+def adapt_exercise(evidence, *, scene=None, construction_frames=None):
     """Retain pose outputs and confidence without upgrading them to anatomy measurements."""
+    if construction_frames is not None:
+        if (type(construction_frames) is not list or len(construction_frames) > 900
+                or any(type(index) is not int or index < 0 for index in construction_frames)
+                or any(a >= b for a, b in zip(construction_frames, construction_frames[1:]))):
+            raise ValueError("Construction selection requires at most 900 ordered distinct integer frames")
+        if (not isinstance(evidence, dict) or type(evidence.get("frames")) is not list or len(evidence["frames"]) > 900
+                or any(not isinstance(row, dict) or type(row.get("frame")) is not int for row in evidence["frames"])):
+            raise ValueError("Construction selection requires at most 900 original integer pose rows")
     document = _base(evidence, "exercise")
     document["objects"] = [_object("person-0", "Tracked person", "person", "active" if scene else None)]
     frames = {frame["frame"]: frame for frame in evidence["frames"]}
     if len(frames) != len(evidence["frames"]):
         raise ValueError("Duplicate exercise frame")
+    selected = None
+    if construction_frames is not None:
+        selected, metadata = _exercise_construction_selection(document, frames, construction_frames)
+        document["provenance"]["construction_selection"] = metadata
+        document["limits"].append("Explicit construction selection excludes image payloads before copying or measurements; typed metadata retains every source slot without identity or contact claims.")
     width, height = evidence["width"], evidence["height"]
     first, last = _decoded_bounds(document["source"])
     for index in range(first, last + 1):
         raw = frames.get(index)
         if raw is None:
             document["observations"].append(_observation(document, index, "person-0", "not_sampled", "unsampled"))
+            continue
+        # Excluded model arrays never enter the evidence registry or measurement builders.
+        if selected is not None and index not in selected:
+            document["observations"].append(_observation(document, index, "person-0", "unknown", "unassigned"))
             continue
         identifier = _record(document, raw, "person-0", "pose_model_output", "inferred")
         present = bool(raw.get("landmarks"))
