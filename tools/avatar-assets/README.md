@@ -2,10 +2,53 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
-The new **panda dance with its shoulder dragon taking off, flapping and landing**
+## Create from a prompt — studio acceptance pending
+
+The new local studio accepts a character/style prompt, an optional reference
+image and up to eight custom action descriptions. It shows saved plans, actual
+job stages, review/repair findings and available previews/downloads. From Weft,
+start it yourself, then open `http://127.0.0.1:8766/`:
+
+```sh
+./tools/avatar-assets/run studio --port 8766
+```
+
+**Save request → Prepare plan → Review estimate → Start creation** are separate
+steps. Saving is local and makes no model call. Planning uses the existing AI
+login but makes no Meshy generation call. Starting requires the exact reviewed
+plan and sufficient existing allowance; the screen cannot buy credits or grant
+more spending. The last verified ledger has **8 credits remaining**, below the
+estimated **35 credits** for a new textured model. AI-account dollar cost is
+unknown, not free.
+
+The interface and HTTP/job contracts have fixture verification; the revised
+hands-off quality pipeline and a complete real studio run are **not yet
+accepted**. Existing-model renderer checks do not prove a new avatar meets its
+prompt. Work now includes exact custom-action contracts, subject-specific
+materials/fur, actual weighted-motion checks, 720px native/exported views and
+review of final media before delivery. No universal prompt success or Muse-level
+finish is promised. [Active goal and acceptance gates](docs/hands-off-studio.md),
+[commands and bounds](docs/prompt-pipeline.md), [current handoff](TODO.md).
+
+Checkpoint **November 1, 2026, 2:05 PM PST**: 552 Python tests and nine browser
+fixture checks pass. A real robot source-reuse job is now running after one
+explicit UI Start; its first verifier stopped on an incorrect HTTP-status
+assertion, not a worker failure. A corrected observation-only check is following
+the same worker without starting it again. Final review/output acceptance is
+pending. The new portable-fur trial failed its unchanged memory bound and is
+not an accepted coat upgrade. Exact ownership, receipts and resume guards are
+in the [handoff](TODO.md); preserve both failures and prior accepted assets.
+
+The studio is a local single-user workflow, not a hosted service. No server,
+browser or generation job starts merely by reading this repository. The
+existing read-only gallery remains separate on port 8765.
+
+## Saved panda dance and shoulder-dragon flight
+
+The **panda dance with its shoulder dragon taking off, flapping and landing**
 works end to end as a tested authored-motion preview. It includes a real 19-joint
 skin, editable source, four-second 720 px video, 1600 px portrait and static fallback.
-Independent reload, 97-frame motion/framing audit, 444 tests and browser playback
+Independent reload, 97-frame motion/framing audit, 444 checkpoint tests and browser playback
 pass. The approved fur panda and standalone dragon remain unchanged.
 
 [Watch the clip](outputs/muse-panda-dance-flight-media-v2-portable-v1/animations/dance_flight.mp4)
@@ -75,23 +118,33 @@ playback/fallback checks passed; no new Meshy calls.
 
 ## Prompt-driven AI pipeline
 
-`generate` connects an AI planner, rig/motion author and independent visual reviewer to the existing generation and local build tools. It accepts one text prompt, optional reference/style/states, and an output preset. The coordinator enforces budgets, validates the generated configuration, preserves failed attempts, and exports a real skinned GLB, editable Blender source, portrait, videos, static fallbacks and browser catalog only after review passes. Unsupported requests return an explicit result.
+`generate` connects an AI planner, rig/motion author and independent visual reviewer to the existing generation and local build tools. It accepts a prompt, optional reference/style, custom actions or state IDs, and an output preset. The coordinator enforces budgets, validates the generated configuration and preserves failed attempts. The revised route renders native/exported poses and final videos before the critic; only an accepted attempt receives a sealed delivery with real skinned GLB, editable Blender source, portrait, clips, static fallbacks and browser catalog. Unsupported requests return an explicit result. Revised quality/action acceptance remains under verification.
 
 ```sh
 # From Weft: prepare the exact request and cost estimate without calling a model/provider.
 ./tools/avatar-assets/run generate \
   --prompt 'A friendly emerald dragon with amber eyes, small wings and a long tail' \
-  --states idle,look_around,wing_flap,celebrate \
+  --action 'Look left and right, then return to the starting pose.' \
+  --action 'Flap both wings while standing still.' \
   --preset preview --max-credits 35 --prepare-only \
   --out outputs/my-dragon-001
 
-# Executes within both this cap and the existing authorized provider ledger.
+# Explicit AI planning only; no Meshy generation or native render.
+./tools/avatar-assets/run generate --resume outputs/my-dragon-001 --plan-only
+
+# Only when covered by real authorization and the canonical provider ledger.
 ./tools/avatar-assets/run generate --resume outputs/my-dragon-001 --execute
 ```
 
 Fresh Meshy geometry/textures are estimated at35 credits; AI-agent account charges are separate and currently not exposed by the authenticated CLI. The previous dragon and panda-specific allowances are spent: setting `--max-credits` does not create a new account allowance. `--reuse-model PATH --max-credits 0` tests new automatic rigging/motions on existing generated geometry with no new Meshy calls. Agent calls are still real model usage.
 
-**Verified with real agents on two different generated sources:** the dragon completed after two automatic repairs; the robot completed after one. Both exported real skins, four motions, portrait/videos/static fallbacks and passed actual browser playback checks. The robot test inferred style and state IDs from the text alone. These runs reused preserved Meshy geometry; fresh geometry generation was not purchased again. Full results, rejected attempts and measured limits are in [the verification report](docs/prompt-pipeline-results-v1.md).
+Custom action strings stay ordered and exact in the saved CLI request; each is
+limited to 600 characters, with at most eight. Omit actions/state IDs for the
+four-state default. The current AI-call allowance defaults to 10, capped at 12;
+the expected first attempt uses three calls (planner, author, critic), and each
+complete local repair adds two. These caps do not authorize new paid generation.
+
+**Historical real-agent checkpoint on two different generated sources:** the dragon completed after two automatic repairs; the robot completed after one. Both exported real skins, four motions, portrait/videos/static fallbacks and passed actual browser playback checks. The robot test inferred style and state IDs from the text alone. These runs reused preserved Meshy geometry; fresh geometry generation was not purchased again. They verify the earlier bounded workflow, not the new final-media quality gate or studio. Full results, rejected attempts and measured limits are in [the verification report](docs/prompt-pipeline-results-v1.md).
 
 View both completed examples with `./tools/avatar-assets/run gallery --catalog browser/gallery-agent-v1.json`, then open `http://127.0.0.1:8765/` yourself. Dragon media is1600px/720px/4s; the bounded robot test uses512px/256px/2s. Both retain their original4K texture maps.
 
@@ -172,7 +225,7 @@ If the gallery was already running, stop it with Ctrl+C and restart it to load t
 
 ## Use from a text request
 
-Use [avatar-asset-workflow](skills/avatar-asset-workflow/SKILL.md) with a description such as “Create a blue workshop robot that idles, looks around, waves and gives a celebratory nod.” For the complete agent-driven route, use [`generate`](docs/prompt-pipeline.md). Actual workpiece interaction is outside this backend; it is not silently replaced by a gesture. The commands below are the separate local scene-authoring route; they do not make paid calls.
+Use [avatar-asset-workflow](skills/avatar-asset-workflow/SKILL.md) with a description such as “Create a blue workshop robot that idles, looks around, waves and gives a celebratory nod.” Use the [studio](docs/hands-off-studio.md) for local browser input/tracking, or [`generate`](docs/prompt-pipeline.md) for the CLI. Actual workpiece interaction is outside this backend; it is not silently replaced by a gesture. The commands below are the separate local scene-authoring route; they do not make paid calls.
 
 ```sh
 .venv/bin/python -m avatar_assets request --subject 'Blue robot' --prompt 'A friendly blue workshop robot' --out outputs/request-new

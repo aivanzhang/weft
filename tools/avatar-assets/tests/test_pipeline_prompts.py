@@ -6,7 +6,7 @@ import unittest
 
 from avatar_assets.pipeline_prompts import (
     AUTHOR_SCHEMA, CRITIC_SCHEMA, PLAN_SCHEMA, author_prompt, critic_prompt, finish_config,
-    plan_prompt, validate_plan, validate_review,
+    plan_prompt, validate_plan, validate_review, extract_action_bindings,
 )
 
 
@@ -100,8 +100,68 @@ class PlanContractTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "160KiB"):
             plan_prompt({**req, "prompt": "x"*(161*1024)})
 
+    def test_custom_actions_are_exact_and_default_count_does_not_override_them(self):
+        req, candidate = structured_example()
+        self.assertEqual(validate_plan(candidate, req), candidate)
+        bad = deepcopy(candidate)
+        bad["states"][0]["user_request"] = bad["states"][0]["user_request"].strip()
+        with self.assertRaisesRegex(ValueError, "custom action"):
+            validate_plan(bad, req)
+        bad = deepcopy(candidate)
+        bad["states"][0]["requirements"] = []
+        with self.assertRaises(ValueError):
+            validate_plan(bad, req)
+        bad = deepcopy(candidate)
+        bad["surface_intent"][0]["material"] = "automatic-best-quality"
+        with self.assertRaises(ValueError):
+            validate_plan(bad, req)
+
+    def test_planner_cannot_relabel_stationary_torso_as_articulation(self):
+        req, candidate = structured_example()
+        exact = "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+        req.update(states=["greeting"], custom_actions=[exact])
+        candidate["states"] = [{"id": "greeting", "meaning": exact, "user_request": exact,
+            "roles": [{"id": "hand", "description": "Right hand"}, {"id": "torso", "description": "Central body"}],
+            "requirements": [{"id": "wave", "kind": "articulation", "role": "hand", "description": "Wave the hand side to side."},
+                             {"id": "steady-torso", "kind": "articulation", "role": "torso", "description": "Keep the rounded torso upright and steady throughout the greeting."}]}]
+        with self.assertRaisesRegex(ValueError, "Stationary requirement"):
+            validate_plan(candidate, req)
+        candidate["states"][0]["requirements"][1]["kind"] = "stability"
+        self.assertEqual(validate_plan(candidate, req)["states"][0]["user_request"], exact)
+        self.assertIn("stability", PLAN_SCHEMA["properties"]["states"]["items"]["properties"]["requirements"]["items"]["properties"]["kind"]["enum"])
+
+
+def structured_example():
+    req, candidate = request(), plan()
+    req.update(states=["scan", "nod"], custom_actions=[" Scan left and right. ", "Nod the optical tube twice."])
+    candidate["states"] = deepcopy(candidate["states"][1:3])
+    for state, exact in zip(candidate["states"], req["custom_actions"]):
+        state.update(user_request=exact, roles=[{"id": "tube", "description": "Articulated optical tube"}],
+                     requirements=[{"id": "tube-motion", "kind": "articulation", "role": "tube",
+                                    "description": "The actual optical tube moves relative to the pedestal."}])
+    candidate["surface_intent"] = [{"region": "housing", "material": "metal", "finish": "Brushed copper"},
+                                    {"region": "lens", "material": "glass", "finish": "Dark glass with a readable highlight"}]
+    return req, candidate
+
 
 class AuthorContractTests(unittest.TestCase):
+    def test_intent_and_role_bindings_are_preserved_outside_native_config(self):
+        req, candidate = structured_example()
+        value = design()
+        value["authored_actions"] = value["authored_actions"][1:3]
+        value["action_bindings"] = [{"state_id": state["id"], "roles": [
+            {"id": "tube", "root_bone": "Base", "bones": ["Tube"]}]} for state in candidate["states"]]
+        answer = author_response(value)
+        config = finish_config(answer, req, candidate, {"path": "/selected/model.glb", "sha256": "a"*64}, 0)
+        self.assertEqual(config["states"], [{"id": s["id"], "meaning": s["meaning"]} for s in candidate["states"]])
+        self.assertNotIn("action_bindings", config)
+        self.assertEqual(extract_action_bindings(answer, candidate, {"Base": None, "Tube": "Base"}), value["action_bindings"])
+        with self.assertRaisesRegex(ValueError, "Unknown action target"):
+            extract_action_bindings(answer, candidate, {"Base": None})
+        value.pop("action_bindings")
+        with self.assertRaisesRegex(ValueError, "cover every structured action"):
+            finish_config(author_response(value), req, candidate, {"path": "/selected/model.glb", "sha256": "a"*64}, 0)
+
     def test_translation_only_states_are_real_distinct_curves(self):
         candidate = design()
         candidate['camera_fit'] = 'motion'
@@ -194,6 +254,24 @@ class AuthorContractTests(unittest.TestCase):
 
 
 class ReviewContractTests(unittest.TestCase):
+    def test_exact_requirement_evidence_cannot_be_replaced_by_state_summary(self):
+        _, candidate = structured_example()
+        result = review()
+        result["state_reviews"] = result["state_reviews"][1:3]
+        ids = ["front", "scan", "nod"]
+        with self.assertRaisesRegex(ValueError, "omitted action requirements"):
+            validate_review(result, candidate, ids)
+        for row in result["state_reviews"]:
+            row["requirement_reviews"] = [{"id": "tube-motion", "passed": True,
+                                           "reason": "Actual tube articulation is visible.", "evidence_ids": [row["id"]]}]
+        self.assertEqual(validate_review(result, candidate, ids)["verdict"], "accept")
+        for mutate in (lambda r: r["state_reviews"][0]["requirement_reviews"][0].update(passed=False),
+                       lambda r: r["state_reviews"][0]["requirement_reviews"][0].update(evidence_ids=[]),
+                       lambda r: r["state_reviews"][0]["requirement_reviews"][0].update(id="different-easier-action")):
+            bad = deepcopy(result); mutate(bad)
+            with self.assertRaises(ValueError):
+                validate_review(bad, candidate, ids)
+
     def check(self, value):
         return validate_review(value, plan(), ["front"]+[s["id"] for s in plan()["states"]])
 

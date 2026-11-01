@@ -1,0 +1,46 @@
+{
+  "ai_usd_cost": null,
+  "configured_ai_call_cap": 10,
+  "cost_note": "Existing authenticated AI login; account-specific usage cost is unavailable, not zero. No new account, key, credit purchase or paid Meshy retry.",
+  "current_maximum_role_calls_with_one_repair": 5,
+  "expected_ai_calls": 3,
+  "fresh_acceptance_pending": [
+    "furry dancing character",
+    "flying creature",
+    "substantially different articulated object",
+    "actual UI prompt through final accepted output"
+  ],
+  "local_bounds": {
+    "active_heavy_workers": 1,
+    "agent_timeout_seconds": 240,
+    "controller_seconds": 5400,
+    "native_cpu_threads": 4,
+    "native_sampled_child_rss_gib": 2,
+    "pipeline_output_gib": 2
+  },
+  "maximum_current_orchestration_calls_this_job": 5,
+  "new_meshy_credits": 0,
+  "new_meshy_submissions": 0,
+  "new_meta_calls": 0,
+  "prior_actual_agent_calls": 1,
+  "prior_rejected_job": "a7909fcea90e4df8940850ef",
+  "reason": "New source-pinned job after typed stability correction; original exact prompt/action/style/source preserved, old plan never edited",
+  "remaining_study_calls_before_this_job": 9,
+  "request": {
+    "custom_actions": [
+      "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+    ],
+    "preset": "preview",
+    "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+    "reuse_model": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+    "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette."
+  },
+  "schema_version": 1,
+  "scope": "One actual-agent development job on reused generated geometry; not fresh text-to-mesh acceptance",
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "study_total_agent_call_cap": 10,
+  "token_estimate_per_call": {
+    "input": "up to approximately24000 text tokens plus8 bounded images",
+    "output": "typically1000–8000; transport and deadline limited"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "agent_call": {
+    "elapsed_seconds": 18.147,
+    "receipt_sha256": "082bfdb6a8ca9169edc42c970408f171555fb2549ab6d57b68a29f306c616d29",
+    "thread_id": "01a19917-5419-7060-82d9-f03249c31fba",
+    "usage": {
+      "cache_write_input_tokens": 0,
+      "cached_input_tokens": 0,
+      "input_tokens": 15908,
+      "output_tokens": 792,
+      "reasoning_output_tokens": 0
+    }
+  },
+  "authorization": {
+    "can_start": true,
+    "estimated_credits": 0,
+    "execution_gate": "canonical_ledger_and_explicit_start",
+    "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies."
+  },
+  "execution_started": false,
+  "job_id": "8a7e0d76b8b8427f93f52157",
+  "plan_id": "b62fac2bd550e542995d8be894e8593e19fbab2a310eca6b906a99fc1932a7fe",
+  "plan_sha256": "297a28d66fba8f150312e4f6af98cd9605ca8f9f3e076f033186c299ad29f318",
+  "review": "Exact custom action retained. Hand wave uses articulation; steady torso and feet use stability. Ready for bounded actual author/native/critic execution after shared native-renderer ownership is free. This is plan review, not asset quality acceptance.",
+  "schema_version": 1,
+  "status": "planned"
+}

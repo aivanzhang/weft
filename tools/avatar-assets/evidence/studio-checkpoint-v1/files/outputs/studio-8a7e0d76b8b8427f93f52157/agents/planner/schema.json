@@ -1,0 +1,176 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "appearance_checks": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "generation_prompt": {
+      "type": "string"
+    },
+    "height_meters": {
+      "type": "number"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "states": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "meaning": {
+            "type": "string"
+          },
+          "requirements": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "kind": {
+                  "enum": [
+                    "articulation",
+                    "travel",
+                    "rhythm",
+                    "takeoff",
+                    "landing",
+                    "stability",
+                    "interaction",
+                    "expression"
+                  ],
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "kind",
+                "role",
+                "description"
+              ],
+              "type": "object"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "type": "array"
+          },
+          "roles": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "description": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "description"
+              ],
+              "type": "object"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "type": "array"
+          },
+          "user_request": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "meaning",
+          "user_request",
+          "roles",
+          "requirements"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "ready",
+        "unsupported"
+      ],
+      "type": "string"
+    },
+    "style": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "surface_intent": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "finish": {
+            "type": "string"
+          },
+          "material": {
+            "enum": [
+              "fur",
+              "hair",
+              "scales",
+              "metal",
+              "ceramic",
+              "skin",
+              "fabric",
+              "glass",
+              "plastic",
+              "other"
+            ],
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "region",
+          "material",
+          "finish"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "type": "array"
+    }
+  },
+  "required": [
+    "status",
+    "reason",
+    "subject",
+    "style",
+    "generation_prompt",
+    "height_meters",
+    "states",
+    "surface_intent",
+    "appearance_checks",
+    "limitations"
+  ],
+  "type": "object"
+}

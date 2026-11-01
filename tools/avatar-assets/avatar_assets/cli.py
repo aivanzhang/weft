@@ -65,6 +65,8 @@ def main():
     gallery = sub.add_parser("gallery", help="Serve the read-only local browser library; never opens a browser")
     gallery.add_argument("--port", type=int, default=8765)
     gallery.add_argument("--catalog", help="Workspace-local gallery configuration JSON")
+    studio = sub.add_parser("studio", help="Serve the local prompt-to-avatar creation and progress screen")
+    studio.add_argument("--port", type=int, default=8766)
     reload = sub.add_parser("reload3d", help="Independently import and animate the GLB in native Blender")
     reload.add_argument("folder")
     reload.add_argument("--out", required=True)
@@ -117,6 +119,10 @@ def main():
         elif args.command == "gallery":
             from avatar_assets.gallery import serve_gallery
             serve_gallery(args.port, args.catalog)
+            return
+        elif args.command == "studio":
+            from avatar_assets.studio import serve_studio
+            serve_studio(args.port)
             return
         elif args.command == "export2d":
             from avatar_assets.export2d import export_2d

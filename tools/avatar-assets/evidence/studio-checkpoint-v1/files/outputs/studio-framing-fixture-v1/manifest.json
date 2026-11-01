@@ -1,0 +1,144 @@
+{
+  "animation_verified": false,
+  "artifacts": [
+    {
+      "bytes": 1816,
+      "path": "analytic-cube.glb",
+      "sha256": "10bad087617de6bd33db507e56ab20c4836f064e9a506aba9617763c8ed75aa8"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "85d38f2fc65d7f866e66d0af958a57821126f3e2c48a5bf5ba2be7fd023fb368"
+    },
+    {
+      "bytes": 12058,
+      "path": "framing-validation.json",
+      "sha256": "bda19fcba1a468da0b41e3bbe40965a21ee5fce2021e4598e286a0072ac9e035"
+    },
+    {
+      "bytes": 1420,
+      "path": "job.json",
+      "sha256": "4e9857859de845a6e30bc2c0b4734b3d562a7bd533a13b9ae2371fd2e6071f3f"
+    },
+    {
+      "bytes": 499,
+      "path": "native-handle.json",
+      "sha256": "da6023b2c0e2b403324283f49cad449f4f1f3a3872adf0df8ae0fa4ac9a93125"
+    },
+    {
+      "bytes": 1286,
+      "path": "native-monitor.json",
+      "sha256": "0da07061c04f761258496c5ceb7df3bb4b4fb7c9714152169114c1b2d683f1f4"
+    },
+    {
+      "bytes": 20746,
+      "path": "native.log",
+      "sha256": "d71d16e8085873bdb8f3a182a38c66538ace16bb64334f5483cb3a032d187f31"
+    },
+    {
+      "bytes": 23290,
+      "path": "preview/back.png",
+      "sha256": "9b87149915c14586a608fb685ac6182defff6fd0e3cd1c9e81022cb1e9a0a6de"
+    },
+    {
+      "bytes": 25192,
+      "path": "preview/front.png",
+      "sha256": "fdc83e83c55de2703bc5dfa09d21179b81739b8e3d7628191372c69c39c66d76"
+    },
+    {
+      "bytes": 1521,
+      "path": "preview/native-inspection.json",
+      "sha256": "44e62d75a0d2c91daa6e48afc1e1294f7846a2ba0d92e4df277394c4ba0f5196"
+    },
+    {
+      "bytes": 24017,
+      "path": "preview/side.png",
+      "sha256": "458e7a51eef478e60ba470d1749574257c2cf3fc0a275ecdedb341512975f548"
+    },
+    {
+      "bytes": 420785,
+      "path": "preview/source.blend",
+      "sha256": "050c2e1187af7c79af4b0e611c32d0bcdc7a8be4115b176c7b483ae1c3df46c3"
+    },
+    {
+      "bytes": 24707,
+      "path": "preview/three-quarter.png",
+      "sha256": "c23bcc39d3cd9a8c7c2cb729cebd3966fad869a2d1e6c533221da6c4f5242646"
+    },
+    {
+      "bytes": 1844,
+      "path": "request.json",
+      "sha256": "27966e7420ee8ea0ccf4822bfcf8d827c0442c6b9fa47e9d70cdcd47bed04f2d"
+    },
+    {
+      "bytes": 26092,
+      "path": "sources/__pycache__/blender_provider_preview.cpython-311.pyc",
+      "sha256": "dc0425ec71ce7403370f88fe45d61d9ddbcc929b8769ce38399ba6e9b9f0d62d"
+    },
+    {
+      "bytes": 37913,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "d78a7b3347eaa8af8cf5420fb4e7c956a84c1cb365e8666d42031d71a3bbb0d6"
+    },
+    {
+      "bytes": 12033,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 9850,
+      "path": "sources/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291"
+    }
+  ],
+  "paid_calls": 0,
+  "process_exit_verified": true,
+  "provenance": "analytic_fixture",
+  "provider_calls": 0,
+  "schema_version": 1,
+  "scope": "Actual four-view renderer projection only, not avatar or Studio acceptance",
+  "sources": [
+    {
+      "path": "scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "sources/validate_studio_framing.py"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "snapshot": "sources/blender_provider_preview.py"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "sources/blender_verify.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/safety.py"
+    }
+  ],
+  "status": "passed"
+}

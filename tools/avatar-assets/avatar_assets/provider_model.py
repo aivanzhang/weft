@@ -2,6 +2,7 @@
 
 import io
 import json
+import math
 from pathlib import Path
 import shutil
 import sys
@@ -10,7 +11,7 @@ import time
 from PIL import Image
 
 from avatar_assets.runner import run_bounded
-from avatar_assets.safety import artifacts, local_file, new_directory, preserve_failure, read_json, require, sha256, write_json
+from avatar_assets.safety import artifacts, local_file, new_directory, preserve_failure, read_json, require, sha256, slug, write_json
 from avatar_assets.three_d import _GLB
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,11 +56,23 @@ def preflight(path):
             "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance"}
 
 
-def preview(model, output, resolution=512, samples=16, rig_guides=False):
+def preview(model, output, resolution=512, samples=16, rig_guides=False, motion_states=None):
     started = time.monotonic()
     require(type(resolution) is int and 128 <= resolution <= 1600, "Invalid preview size")
     require(type(samples) is int and 1 <= samples <= 64, "Invalid preview samples")
     require(type(rig_guides) is bool, "Invalid rig-guide setting")
+    if motion_states is not None:
+        require(not rig_guides and isinstance(motion_states, list) and 1 <= len(motion_states) <= 8,
+                'Motion review requires one to eight states without coordinate-guide rendering')
+        names = []
+        for state in motion_states:
+            require(isinstance(state, dict) and set(state) == {'id', 'seconds'}, 'Invalid motion review fields')
+            names.append(slug(state['id']))
+            seconds = state['seconds']
+            require(isinstance(seconds, list) and 2 <= len(seconds) <= 8
+                    and all(type(s) in (int, float) and math.isfinite(s) and 0 <= s <= 30 for s in seconds)
+                    and seconds == sorted(set(seconds)), 'Invalid bounded review times')
+        require(len(names) == len(set(names)), 'Duplicate motion review state')
     model = local_file(model, 64*1024*1024)
     facts = preflight(model)
     out = new_directory(output)
@@ -71,14 +84,18 @@ def preview(model, output, resolution=512, samples=16, rig_guides=False):
         if rig_guides:
             shutil.copyfile(ROOT/"scripts/rig_guide_annotations.py", out/"sources/rig_guide_annotations.py")
         write_json(out/"preflight.json", facts)
+        if motion_states is not None:
+            write_json(out/'motion-states.json', motion_states)
         exe = ROOT/".tools/Blender.app/Contents/MacOS/Blender"
         require(exe.is_file(), "Local Blender missing")
         command = [str(exe), "--background", "--factory-startup", "--disable-autoexec", "--python-exit-code", "1",
                    "--threads", "4", "--python", str(out/"sources/blender_provider_preview.py"), "--",
                    str(out/"original.glb"), str(out), str(resolution), str(samples)]
-        if rig_guides:
-            command.append('true')
-        remaining = 300-(time.monotonic()-started) if rig_guides else 300
+        command.append('true' if rig_guides else 'false')
+        if motion_states is not None:
+            command.append(str(out/'motion-states.json'))
+        deadline = 600 if motion_states is not None else 300
+        remaining = deadline-(time.monotonic()-started)
         require(remaining > 0, 'Preview time budget exhausted before rendering')
         job = run_bounded(command, out/"preview.log", out, timeout=remaining, memory_mb=2048, output_mb=256)
         write_json(out/"job.json", job)

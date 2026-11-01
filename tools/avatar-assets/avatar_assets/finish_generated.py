@@ -33,7 +33,8 @@ def validate(config):
     optional = {'groom', 'groom_exclusions', 'fur_max_chroma', 'fur_clump', 'attachment', 'smoothing',
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
                 'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
-                'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity'}
+                'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity',
+                'pose_resolution', 'review_views'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -42,6 +43,9 @@ def validate(config):
     for field, low, high in (('normal_strength', 0, 1), ('resolution', 128, 1600), ('samples', 1, 64)):
         number(config[field], low, high)
     require(type(config['resolution']) is int and type(config['samples']) is int, 'Integer render settings required')
+    require(type(config.get('pose_resolution', 384)) is int and 128 <= config.get('pose_resolution', 384) <= 1024,
+            'Pose resolution must be an integer from128 to1024')
+    require(type(config.get('review_views', False)) is bool, 'Invalid review views flag')
     require(type(config.get('portrait_denoise', False)) is bool, 'Invalid denoising flag')
     require(config.get('camera_view', 'front') in ('front', 'three_quarter', 'three_quarter_left'), 'Invalid camera view')
     require(config.get('camera_fit', 'rest') in ('rest', 'motion'), 'Invalid camera fit')
@@ -151,8 +155,14 @@ def validate(config):
         settings = fur['settings']
         fields = {'seed', 'length', 'width', 'direction'}
         require(fields <= set(settings) <= fields|{'profile', 'sample_root_color'}, 'Invalid card settings')
-        require(settings.get('profile', 'legacy') in ('legacy', 'combed-v1'), 'Unknown card geometry profile')
+        require(settings.get('profile', 'legacy') in ('legacy', 'combed-v1', 'tuft-v1'), 'Unknown card geometry profile')
         require(type(settings.get('sample_root_color', False)) is bool, 'Invalid card color flag')
+        if settings.get('profile') == 'tuft-v1':
+            require(settings.get('sample_root_color') is True and config.get('groom_flow')
+                    and groom and 'direction' in groom and 'comb' in groom,
+                    'Tuft coat requires exact source root color and shared native regional flow')
+            require(settings['direction'] == groom['direction'],
+                    'Tuft direction must match the shared native groom direction')
         require(type(settings['seed']) is int and 0 <= settings['seed'] <= 2**31-5, 'Invalid card seed')
         number(settings['length'], .001, .04)
         number(settings['width'], .0003, .02)
@@ -215,6 +225,9 @@ def reuse_native(folder, out, cfg):
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
                  'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
+    if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
+        require(sha256(root/'sources/fur_root_sampling.py') == sha256(ROOT/'scripts/fur_root_sampling.py'),
+                'Tuft root sampler changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
     require(sha256(root/'sources/surface_smoothing_config.py') == sha256(ROOT/'avatar_assets/surface_smoothing_config.py'),
@@ -249,14 +262,22 @@ def finish(config_path, output, reuse=None):
     require(facts['skins'] == (0 if cfg.get('authored_rig') else 1),
             'Finishing requires one skin, or unrigged geometry with an explicit authored_rig')
     # Curved ribbons can split at tangent discontinuities: budget all twelve triangle corners.
-    cards = sum(b['count']*12 for b in cfg.get('portable_fur', {}).get('bands', []))
-    require(facts['vertices']+cards <= 100000, 'Base plus portable fur exceeds vertex budget')
+    total_cards = sum(b['count'] for b in cfg.get('portable_fur', {}).get('bands', []))
+    tuft_budget = None
+    if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
+        from scripts.blender_fur_cards import tuft_export_budget
+        tuft_budget = tuft_export_budget(facts['vertices'], total_cards)
+    else:
+        require(facts['vertices']+total_cards*12 <= 100000, 'Base plus portable fur exceeds vertex budget')
     out = new_directory(output)
     try:
         (out/'sources').mkdir()
         shutil.copyfile(path, out/'sources/finish-design.json')
         cfg.update(source=str(source), export_model=True, sample_states=True)
         write_json(out/'finish-config.json', cfg)
+        if tuft_budget is not None:
+            write_json(out/'tuft-export-budget.json', tuft_budget)
+            shutil.copyfile(ROOT/'scripts/fur_root_sampling.py', out/'sources/fur_root_sampling.py')
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
                      'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):

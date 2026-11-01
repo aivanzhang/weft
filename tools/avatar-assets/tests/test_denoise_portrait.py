@@ -11,7 +11,7 @@ from unittest import mock
 import zlib
 
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFile
 from PIL.PngImagePlugin import PngInfo
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/"scripts"))
@@ -38,6 +38,18 @@ class PortraitDenoiseValidation(unittest.TestCase):
         rgb = self.root/"rgb.png"
         Image.fromarray(self.original[:,:,:3]).save(rgb)
         self.assertEqual(denoise.read_pixels(rgb)[0].shape,(2,2,3))
+
+    def test_decoder_limits_do_not_leak_into_larger_review_images(self):
+        with mock.patch.object(Image, 'MAX_IMAGE_PIXELS', 16_777_216), \
+                mock.patch.object(ImageFile, 'LOAD_TRUNCATED_IMAGES', True):
+            denoise.read_pixels(self.input)
+            self.assertEqual(Image.MAX_IMAGE_PIXELS, 16_777_216)
+            self.assertTrue(ImageFile.LOAD_TRUNCATED_IMAGES)
+            Image.fromarray(self.original).save(self.input, icc_profile=b'unsupported fixture')
+            with self.assertRaisesRegex(ValueError, 'ICC'):
+                denoise.read_pixels(self.input)
+            self.assertEqual(Image.MAX_IMAGE_PIXELS, 16_777_216)
+            self.assertTrue(ImageFile.LOAD_TRUNCATED_IMAGES)
 
     def test_oversized_ihdr_is_rejected_without_decoder_allocation(self):
         payload = struct.pack(">IIBBBBB",2049,2049,8,6,0,0,0)

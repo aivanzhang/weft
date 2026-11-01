@@ -1,0 +1,63 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-framing-fixture-v1/sources/validate_studio_framing.py",
+    "--",
+    "--native",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-framing-fixture-v1"
+  ],
+  "limits": {
+    "output_mb": 64,
+    "render_threads": 4,
+    "rss_mb": 1024,
+    "wall_seconds": 120
+  },
+  "paid_calls": 0,
+  "provenance": "analytic_fixture",
+  "provider_calls": 0,
+  "purpose": "Orthographic camera framing regression",
+  "resolution": 128,
+  "samples": 2,
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "sources/validate_studio_framing.py"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "snapshot": "sources/blender_provider_preview.py"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "sources/blender_verify.py"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "sources/runner.py"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "sources/safety.py"
+    }
+  ],
+  "views": [
+    "front",
+    "three-quarter",
+    "back",
+    "side"
+  ]
+}

@@ -2,15 +2,18 @@
 
 import ast
 from copy import deepcopy
+import hashlib
+import json
 from pathlib import Path
 from types import SimpleNamespace
+import tempfile
 import unittest
 from unittest.mock import Mock, patch
 import sys
 import numpy as np
 
-from avatar_assets.finish_generated import validate
-from scripts import surface_integrity
+from avatar_assets.finish_generated import finish, validate
+from scripts import surface_integrity, blender_fur_cards, fur_root_sampling, groom_flow
 
 
 def finish_config():
@@ -22,6 +25,17 @@ def finish_config():
             'states': [{'id': 'idle', 'meaning': 'Analytic idle state'}],
             'groom': {'parents': 16, 'children': 0, 'length': .01, 'radius': .0001,
                       'roughness': .001, 'seed': 3}}
+
+
+def tuft_config():
+    config = finish_config()
+    config['groom'].update(direction=[0, 0, -1], comb=.6)
+    config['groom_flow'] = {'regions': [{'name':'surface','center':[.5,.5,.5],'radius':[.8,.8,.8],
+        'feather':.5,'direction':[1,0,0],'comb':.65,'length_scale':1.2}]}
+    config['portable_fur'] = {'settings': {'seed':1,'length':.01,'width':.01,
+        'direction':[0,0,-1],'profile':'tuft-v1','sample_root_color':True},
+        'bands':[{'brightness':[0,1.01],'color':[1,1,1,1],'count':100}]}
+    return config
 
 
 def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
@@ -36,6 +50,47 @@ def material(image, *, route=(), projection='FLAT', extension='REPEAT'):
 
 
 class FinishQualityConfigTests(unittest.TestCase):
+    def test_tuft_requires_exact_root_color_and_shared_native_flow(self):
+        config = tuft_config();original = deepcopy(config)
+        validate(config)
+        self.assertEqual(config, original)
+        for field in ('groom_flow', 'groom'):
+            bad = deepcopy(config);bad.pop(field)
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validate(bad)
+        for value in (False, None, 1):
+            bad = deepcopy(config);bad['portable_fur']['settings']['sample_root_color'] = value
+            with self.subTest(color=value), self.assertRaises(ValueError):
+                validate(bad)
+        bad = deepcopy(config);bad['portable_fur']['settings']['direction'] = [1, 0, 0]
+        with self.assertRaisesRegex(ValueError, 'match the shared'):
+            validate(bad)
+
+    def test_tuft_budget_sums_bands_and_reserves_corners_before_native_or_output_creation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root/'analytic.glb';source.write_bytes(b'ANALYTIC PREFLIGHT FIXTURE ONLY')
+            config = tuft_config()
+            config.update(source=str(source), source_sha256=hashlib.sha256(source.read_bytes()).hexdigest())
+            config['portable_fur']['bands'] = [
+                {'brightness':[0,.5],'color':[1,1,1,1],'count':2000},
+                {'brightness':[.5,1.01],'color':[1,1,1,1],'count':2000}]
+            path = root/'config.json';path.write_text(json.dumps(config))
+            with patch('avatar_assets.finish_generated.preflight', return_value={'vertices':52000,'skins':1}), \
+                 patch('avatar_assets.finish_generated.run_bounded') as native, \
+                 self.assertRaisesRegex(ValueError, 'aggregate 100000'):
+                finish(path, root/'new-pack')
+            native.assert_not_called()
+            self.assertFalse((root/'new-pack').exists())
+
+    def test_full_resolution_review_controls_are_bounded(self):
+        settings = finish_config()
+        validate({**settings, 'pose_resolution': 720, 'review_views': True})
+        for fields in ({'pose_resolution': True}, {'pose_resolution': 1025}, {'pose_resolution': 127},
+                       {'pose_resolution': 720.0}, {'review_views': 1}, {'review_views': 'true'}):
+            with self.subTest(fields=fields), self.assertRaises(ValueError):
+                validate({**settings, **fields})
+
     def test_flow_and_combed_root_colors_are_bounded_optional_controls(self):
         config = finish_config()
         flow = {'regions': [{'name':'crown','center':[.5,.5,.8],'radius':[.3,.4,.2],
@@ -159,6 +214,68 @@ class SharedColorTextureTests(unittest.TestCase):
         for sources in ([], [None], [untextured], [indirect], [no_link], [ambiguous]):
             with self.subTest(count=len(sources)), self.assertRaises(ValueError):
                 self.shared_texture(sources)
+
+
+class TuftSamplingAdapterTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        source = Path(__file__).resolve().parents[1]/'scripts/blender_finish_generated.py'
+        tree = ast.parse(source.read_text(), filename=str(source))
+        helpers = [node for node in tree.body if isinstance(node, ast.FunctionDef)
+                   and node.name in ('tuft_sampling_context', 'portable_coat')]
+        cls.scope = {'np': np}
+        exec(compile(ast.Module(body=helpers, type_ignores=[]), str(source), 'exec'), cls.scope)
+
+    def fixture(self):
+        vertices = [SimpleNamespace(co=co,normal=(0,0,1),groups=[SimpleNamespace(group=0,weight=1.)])
+                    for co in ((0,0,0),(1,0,0),(0,1,1),(1,1,1))]
+        triangles = [SimpleNamespace(vertices=(0,1,2),loops=(0,1,2)),
+                     SimpleNamespace(vertices=(1,3,2),loops=(3,4,5))]
+        uv = SimpleNamespace(data=[SimpleNamespace(uv=value) for value in [(0.125,.25)]*3+[(.875,.75)]*3])
+        obj = SimpleNamespace(vertex_groups=[SimpleNamespace(index=0,name='Root')],data=SimpleNamespace(
+            vertices=vertices,loop_triangles=triangles,calc_loop_triangles=Mock(),
+            uv_layers=SimpleNamespace(active=uv),attributes=SimpleNamespace(get=lambda _:None)))
+        pixels = np.array([[[1,0,0,1]]*2+[[0,0,1,1]]*2]*2,dtype=np.float32)
+        image = SimpleNamespace(size=(4,2),colorspace_settings=SimpleNamespace(name='sRGB'),
+                                pixels=SimpleNamespace(foreach_get=Mock(side_effect=lambda target:target.__setitem__(slice(None),pixels.ravel()))))
+        return obj, triangles, image
+
+    def modules(self):
+        return patch.dict(sys.modules, {'fur_root_sampling':fur_root_sampling,'groom_flow':groom_flow})
+
+    def test_context_pairs_real_loop_uvs_and_native_full_emitter_bounds(self):
+        obj, triangles, image = self.fixture();config = tuft_config()
+        with self.modules():
+            sampler, field, report = self.scope['tuft_sampling_context'](obj,image,triangles,config['groom'],config['groom_flow'])
+        self.assertEqual(sampler(0,[.2,.3,.5]),(1.,0.,0.))
+        self.assertEqual(sampler(1,[.2,.3,.5]),(0.,0.,1.))
+        self.assertEqual(field.low,(0.,0.,0.));self.assertEqual(field.inverse_span,(1.,1.,1.))
+        self.assertEqual(report['borrowed_pixel_buffer_bytes'],4*2*4*4)
+        self.assertEqual(sampler.pixels.dtype,np.float32)
+        image.pixels.foreach_get.assert_called_once()
+
+    def test_band_triangle_ordinal_remains_paired_with_its_actual_uv_island(self):
+        obj, _, image = self.fixture();config = tuft_config()
+        config['portable_fur']['bands'] = [{'brightness':[.5,1.01],'color':[1,1,1,1],'count':3}]
+        colors = np.array([[0,0,0],[.4,.4,.4],[.4,.4,.4],[1,1,1]])
+        captured = []
+        def geometry(*args,**kwargs):
+            result = blender_fur_cards.card_geometry(*args,**kwargs);captured.append(result)
+            return result
+        class SceneBoundary(Exception): pass
+        self.scope['bpy'] = SimpleNamespace(data=SimpleNamespace(meshes=SimpleNamespace(new=Mock(side_effect=SceneBoundary))))
+        with self.modules(), patch.dict(sys.modules, {'blender_fur_cards':SimpleNamespace(
+                card_geometry=geometry,attach_fur_material=Mock())}), self.assertRaises(SceneBoundary):
+            self.scope['portable_coat'](obj,None,[True]*4,colors,config['portable_fur'],Path('/unused'),
+                tuft_image=image,native_groom=config['groom'],groom_flow=config['groom_flow'])
+        self.assertEqual(len(captured),1)
+        self.assertEqual(captured[0]['colors'],[(0.,0.,1.)]*18)
+
+    def test_oversized_pixels_fail_before_allocating_or_reading(self):
+        obj, triangles, image = self.fixture();config = tuft_config();image.size=(4097,4096)
+        with self.modules(), self.assertRaisesRegex(ValueError, 'bounded explicit sRGB'):
+            self.scope['tuft_sampling_context'](obj,image,triangles,config['groom'],config['groom_flow'])
+        image.pixels.foreach_get.assert_not_called()
 
 
 class StoredSurfaceTests(unittest.TestCase):

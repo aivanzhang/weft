@@ -1,0 +1,30 @@
+{
+  "agent_model": null,
+  "agent_timeout": 240,
+  "created": "2026-11-01T13:36:57.246523-08:00",
+  "custom_actions": [
+    "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+  ],
+  "id": "studio-a7909fcea90e4df8940850ef",
+  "max_agent_calls": 10,
+  "max_credits": 0,
+  "max_repairs": 1,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "A friendly blue and cream workshop robot with copper accents, a rounded torso, two arms and two feet. Preserve the supplied generated robot identity and small mechanical details.",
+  "reference": null,
+  "reuse_model": {
+    "bytes": 23097200,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+  },
+  "schema_version": 1,
+  "states": [],
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette."
+}

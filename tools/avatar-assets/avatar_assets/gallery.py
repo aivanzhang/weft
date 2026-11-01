@@ -434,8 +434,11 @@ class _Handler(BaseHTTPRequestHandler):
         if resource is None:
             self._error(404, "Unknown gallery resource")
             return
+        self._serve_resource(self.server.catalog.root, resource)
+
+    def _serve_resource(self, root, resource):
         try:
-            handle, info = _open_file(self.server.catalog.root, resource.relative)
+            handle, info = _open_file(root, resource.relative)
         except FileNotFoundError:
             self._error(404, "Gallery resource is unavailable")
             return

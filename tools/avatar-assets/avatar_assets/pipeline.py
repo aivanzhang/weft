@@ -7,6 +7,7 @@ import json
 import os
 from pathlib import Path
 import shutil
+import sys
 import time
 import uuid
 from zoneinfo import ZoneInfo
@@ -23,10 +24,16 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
+                    'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py')
 
 
 class InterruptedStage(ValueError):
     """An unsealed stage is not evidence that its native process exited."""
+
+
+class PipelineCancelled(ValueError):
+    """Cooperative cancellation preserves the current bounded stage and receipts."""
 
 
 def now():
@@ -64,17 +71,21 @@ def _image(path):
     return path
 
 
-def prepare(prompt, output, *, style='', states=(), preset='preview', reference=None, reuse_model=None,
-            max_credits=0, max_repairs=1, max_agent_calls=5, agent_timeout=240, agent_model=None):
+def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='preview', reference=None, reuse_model=None,
+            max_credits=0, max_repairs=1, max_agent_calls=10, agent_timeout=240, agent_model=None):
+    from avatar_assets.action_intent import validate_custom_actions
     _text(prompt, 4000, 'prompt')
     _text(style, 800, 'style', empty=True)
+    custom_actions = validate_custom_actions(list(custom_actions) if isinstance(custom_actions, tuple) else custom_actions)
     require(preset in PRESETS, 'Unknown output preset')
     require(isinstance(states, (tuple, list)) and len(states) <= 8, 'At most eight states')
     states = [slug(s) for s in states]
     require(len(set(states)) == len(states), 'Duplicate requested state')
+    require(not states or not custom_actions or len(states) == len(custom_actions),
+            'State IDs and custom actions must have matching lengths')
     require(type(max_credits) is int and 0 <= max_credits <= 500, 'Credit cap must be0–500')
     require(type(max_repairs) is int and 0 <= max_repairs <= 2, 'At most two local repairs')
-    require(type(max_agent_calls) is int and 3 <= max_agent_calls <= 8, 'Agent calls must be3–8')
+    require(type(max_agent_calls) is int and 3 <= max_agent_calls <= 12, 'Agent calls must be3–12')
     require(type(agent_timeout) is int and 30 <= agent_timeout <= 600, 'Agent deadline must be30–600s')
     if agent_model is not None:
         _text(agent_model, 100, 'agent model')
@@ -92,7 +103,8 @@ def prepare(prompt, output, *, style='', states=(), preset='preview', reference=
     (out/'events').mkdir()
     (out/'sources').mkdir()
     request = {'schema_version': 1, 'id': identifier, 'prompt': prompt, 'style': style,
-               'states': states, 'preset': preset, 'media_spec': PRESETS[preset], 'max_credits': max_credits,
+               'states': states, 'custom_actions': custom_actions, 'preset': preset,
+               'media_spec': PRESETS[preset], 'max_credits': max_credits,
                'max_repairs': max_repairs, 'max_agent_calls': max_agent_calls, 'agent_timeout': agent_timeout,
                'agent_model': agent_model, 'reference': None, 'reuse_model': None, 'created': now()}
     for original, name, field in ((ref, 'reference', 'reference'), (source, 'source-model', 'reuse_model')):
@@ -102,7 +114,7 @@ def prepare(prompt, output, *, style='', states=(), preset='preview', reference=
             request[field] = {'path': str(target.relative_to(out)), 'sha256': sha256(target),
                               'original_path': str(original), 'bytes': target.stat().st_size}
     write_json(out/'request.json', request)
-    for name in ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py'):
+    for name in PIPELINE_SOURCES:
         shutil.copyfile(ROOT/'avatar_assets'/name, out/'sources'/name)
     write_json(out/'input-receipt.json', {'request_sha256': sha256(out/'request.json'), 'sources': artifacts(out/'sources')})
     write_json(out/'estimate.json', {
@@ -138,9 +150,10 @@ class Pipeline:
         self.request = read_json(self.root/'request.json')
         receipt = read_json(self.root/'input-receipt.json')
         require(sha256(self.root/'request.json') == receipt['request_sha256'], 'Pipeline request changed')
+        sealed_delivery = (self.root/'delivery-receipt.json').is_file() and (self.root/'delivery.json').is_file()
         for source in receipt['sources']:
             require(sha256(self.root/'sources'/source['path']) == source['sha256']
-                    and sha256(ROOT/'avatar_assets'/source['path']) == source['sha256'],
+                    and (sealed_delivery or sha256(ROOT/'avatar_assets'/source['path']) == source['sha256']),
                     'Pipeline backend changed; preserve this job and prepare a new one')
         for field in ('reference', 'reuse_model'):
             item = self.request[field]
@@ -153,6 +166,7 @@ class Pipeline:
                                  timeout=self.request['agent_timeout'], model=self.request['agent_model'])
         self.agents = agents
         self.started = time.monotonic()
+        self.cancel_requested = None
 
     def event(self, stage, status, **details):
         entries = sorted((self.root/'events').glob('*.json'))
@@ -163,6 +177,8 @@ class Pipeline:
         print(json.dumps({'stage': stage, 'status': status}), flush=True)
 
     def guard(self, reserve_mb=0):
+        if self.cancel_requested is not None and self.cancel_requested():
+            raise PipelineCancelled('Stopped at a safe stage boundary; completed work and provider receipts are retained')
         require(time.monotonic()-self.started <= MAX_STAGE_START_SECONDS, 'Pipeline stage-start deadline reached')
         from avatar_assets.runner import _output_bytes
         require(_output_bytes(self.root) + reserve_mb*1024**2 <= MAX_OUTPUT, 'Pipeline aggregate output bound reached')
@@ -339,26 +355,106 @@ class Pipeline:
                          'user_reference' if p.parent == self.root/'inputs' else 'native_motion_contact_sheet'}
                 for i, p in enumerate(images)]
 
-    def run(self, *, execute=False):
+    def run(self, *, execute=False, plan_only=False, cancel_requested=None):
+        require(type(plan_only) is bool, 'plan_only must be boolean')
+        require(cancel_requested is None or callable(cancel_requested), 'Invalid cancellation callback')
+        self.cancel_requested = cancel_requested
         with _lock(self.root):
             try:
-                return self._run(execute)
+                return self._run(execute, plan_only=plan_only)
+            except PipelineCancelled as error:
+                self.event('pipeline', 'cancelled', reason=str(error))
+                return {'status': 'cancelled', 'reason': str(error), 'out': str(self.root)}
             except Exception as error:
                 self.event('pipeline', 'checkpointed_error', error=str(error), automatic_retry=False)
                 raise
 
-    def _run(self, execute):
+    def _action_audit(self, attempt, pack, plan, answer):
+        from avatar_assets.pipeline_prompts import extract_action_bindings
+        from avatar_assets.runner import run_bounded
+        from avatar_assets.safety import preserve_failure
+        nodes = read_json(pack/'exported-nodes.json')
+        by_id = {node['id']: node for node in nodes['nodes']}
+        joints = set(nodes['skins'][0]['joints'])
+        parents = {}
+        for identifier in joints:
+            node, seen = by_id[identifier], set()
+            parent = node['parent_id']
+            while parent is not None and parent not in joints:
+                require(parent not in seen, 'Exported hierarchy contains a cycle')
+                seen.add(parent)
+                parent = by_id[parent]['parent_id']
+            require(node['name'] not in parents, 'Exported joint names are not unique')
+            parents[node['name']] = by_id[parent]['name'] if parent is not None else None
+        bindings = extract_action_bindings(answer, plan, parents)
+        folder = self.root/f'action-audit-{attempt}'
+        def create():
+            new_directory(folder)
+            try:
+                write_json(folder/'intent.json', {'schema_version': 1, 'states': plan['states'],
+                    'action_bindings': bindings, 'height_meters': plan['height_meters'],
+                    'source_sha256': sha256(pack/'model.glb')})
+                job = run_bounded([sys.executable, '-m', 'avatar_assets.action_audit', str(pack/'model.glb'),
+                                   str(folder/'intent.json'), str(folder/'report.json')],
+                                  folder/'audit.log', folder, timeout=60, memory_mb=768, output_mb=32)
+                write_json(folder/'job.json', job)
+                require(job['exit_code'] == 0 and not job['failure'], 'Weighted action audit failed; inspect retained evidence')
+                write_json(folder/'manifest.json', {'schema_version': 1, 'kind': 'weighted_action_audit',
+                    'status': 'measured', 'model_sha256': sha256(pack/'model.glb'),
+                    'implementation_sha256': sha256(ROOT/'avatar_assets/action_audit.py'), 'artifacts': artifacts(folder)})
+            except Exception as error:
+                preserve_failure(folder, error)
+                raise
+        proof = self._pack(folder, create)
+        require(proof['model_sha256'] == sha256(pack/'model.glb'), 'Action audit source changed')
+        return read_json(folder/'report.json')
+
+    def _full_evidence(self, attempt, pack, exported, media):
+        from avatar_assets.runner import run_bounded
+        from avatar_assets.safety import preserve_failure
+        folder = self.root/f'final-evidence-{attempt}'
+        def create():
+            command = [sys.executable, '-m', 'avatar_assets.pipeline_evidence', str(pack), str(exported), str(media), str(folder)]
+            if self.request['reference']:
+                command.append(str(self.root/self.request['reference']['path']))
+            # The child creates the pack; its control log remains outside that sealed inventory.
+            job = run_bounded(command, self.root/f'evidence-worker-{attempt}.log', self.root,
+                              timeout=120, memory_mb=768, output_mb=2048)
+            write_json(self.root/f'evidence-worker-{attempt}.json', job)
+            if job['exit_code'] or job['failure']:
+                if folder.exists() and not (folder/'manifest.json').exists():
+                    preserve_failure(folder, ValueError('Full-resolution evidence worker failed'))
+                raise ValueError('Full-resolution evidence worker failed; inspect retained job')
+        proof = self._pack(folder, create)
+        require(proof['model_manifest_sha256'] == sha256(pack/'manifest.json')
+                and proof['exported_manifest_sha256'] == sha256(exported/'manifest.json')
+                and proof['media_manifest_sha256'] == sha256(media/'manifest.json'), 'Final review inputs changed')
+        return [{**item, 'path': str(folder/item['path'])} for item in proof['images']], proof['coverage']
+
+    @staticmethod
+    def _bind_review(review, evidence):
+        if review['verdict'] != 'accept':
+            return
+        for state in review['state_reviews']:
+            allowed = {e['id'] for e in evidence if state['id'] in e['state_ids']}
+            require(set(state['evidence_ids']) & allowed, 'State acceptance needs its actual motion evidence')
+            for requirement in state.get('requirement_reviews', []):
+                require(requirement['evidence_ids'] and set(requirement['evidence_ids']) <= allowed,
+                        'Each action requirement must cite only its own state motion evidence')
+
+    def _run(self, execute, *, plan_only=False):
         from avatar_assets import pipeline_prompts as prompts
         from avatar_assets.cli import verify_pack
         from avatar_assets.finish_generated import finish
         from avatar_assets.provider_model import preview
         from avatar_assets.review import reload_3d
+        from avatar_assets.quality_policy import build_quality_policy, evaluate_quality_evidence
         if (self.root/'delivery.json').exists():
             receipt = read_json(self.root/'delivery-receipt.json')
             for name, checksum in receipt.items():
                 require(sha256(self.root/name) == checksum, 'Delivery evidence changed')
             delivery = read_json(self.root/'delivery.json')
-            require(delivery['status'] == 'complete' and len(delivery['packs']) == 5
+            require(delivery['status'] == 'complete' and 5 <= len(delivery['packs']) <= 8
                     and delivery['request_sha256'] == sha256(self.root/'request.json'), 'Invalid completed delivery')
             for item in delivery['packs']:
                 require(sha256(self.root/item['path']/'manifest.json') == item['manifest_sha256'], 'Delivery manifest changed')
@@ -373,7 +469,11 @@ class Pipeline:
         plan = self._plan()
         if plan['status'] == 'unsupported':
             return self.unsupported('planner', plan['reason'])
-        source = self._source(plan, execute)
+        self.guard()
+        source = self._source(plan, execute and not plan_only)
+        if plan_only and source is not None:
+            self.event('pipeline', 'planned', new_paid_calls=0)
+            return {'status': 'planned', 'out': str(self.root)}
         if source is None:
             return {'status': read_json(self.root/'status.json')['status'], 'out': str(self.root)}
         inspection = self.root/'inspection'
@@ -381,6 +481,11 @@ class Pipeline:
         inspected = self._pack(inspection, lambda: preview(source['path'], inspection, resolution=512, samples=8, rig_guides=True))
         require(inspected['source_glb_sha256'] == source['sha256'], 'Preview belongs to a different source')
         context = {'preflight': inspected['preflight'], 'native': inspected['native']}
+        quality = build_quality_policy(self.request, plan, context)
+        if not (self.root/'quality-policy.json').exists():
+            write_json(self.root/'quality-policy.json', quality)
+        require(read_json(self.root/'quality-policy.json') == quality, 'Prepared quality policy changed')
+        source_parents = {b['name']: b['parent'] for rig in context['native'].get('rigs', []) for b in rig['bones']}
         previous, findings, selected, repair_images = None, None, None, []
         for attempt in range(self.request['max_repairs']+1):
             self.guard()
@@ -395,7 +500,8 @@ class Pipeline:
             pack, reload = self.root/f'model-{attempt}', self.root/f'reload-{attempt}'
             exported = self.root/f'exported-preview-{attempt}'
             try:
-                config = prompts.finish_config(answer, self.request, plan, source, attempt)
+                config = prompts.finish_config(answer, self.request, plan, source, attempt,
+                                               quality_policy=quality, bone_parents=source_parents)
                 if config_path.exists():
                     require(read_json(config_path) == config, 'Authored configuration changed')
                 else:
@@ -409,15 +515,26 @@ class Pipeline:
                 require(loaded['status'] == 'passed'
                         and loaded['source_manifest_sha256'] == sha256(pack/'manifest.json'),
                         'Independent native reload did not pass for this exact model')
-                exported_proof = self._pack(exported, lambda: preview(pack/'model.glb', exported, resolution=512, samples=8))
+                self.event('action_audit', 'running', attempt=attempt)
+                action_audit = self._action_audit(attempt, pack, plan, answer)
+                require(action_audit['passed'], 'Requested action capability failed: '+json.dumps(action_audit['states']))
+                poses = [{'id': s['id'], 'seconds': s['seconds']} for s in read_json(pack/'finish-report.json')['states']]
+                exported_proof = self._pack(exported, lambda: preview(pack/'model.glb', exported, resolution=720,
+                                                                      samples=16, motion_states=poses))
                 require(exported_proof['source_glb_sha256'] == sha256(pack/'model.glb'), 'Exported appearance preview mismatch')
-                evidence = self._evidence(attempt, pack, exported)
+                media, portable = self._media(attempt, pack)
+                evidence, coverage = self._full_evidence(attempt, pack, exported, media)
+                quality_coverage = evaluate_quality_evidence(quality, coverage)
+                require(quality_coverage['passed'], 'Incomplete HD review: '+', '.join(quality_coverage['missing']))
                 proofs = {'rig': built['rig_verification'], 'native_reload': loaded['status'],
-                          'attributes': read_json(pack/'render-attributes.json')}
+                          'attributes': read_json(pack/'render-attributes.json'), 'action_audit': action_audit,
+                          'quality_policy': quality, 'quality_coverage': quality_coverage,
+                          'delivered_media': read_json(portable/'manifest.json')['clips']}
             except (ValueError, OSError, KeyError, TypeError) as error:
-                if isinstance(error, InterruptedStage):
+                if isinstance(error, (InterruptedStage, PipelineCancelled)):
                     raise
-                for candidate in (pack, reload, exported):
+                for candidate in (pack, reload, exported, self.root/f'media-{attempt}',
+                                  self.root/f'media-continuation-{attempt}', self.root/f'action-audit-{attempt}'):
                     if (candidate/'job.json').exists():
                         job = read_json(candidate/'job.json')
                         require(not job.get('manual_stop_required') and job.get('process_exit_verified'),
@@ -435,17 +552,16 @@ class Pipeline:
                 prompts.critic_prompt(self.request, plan, config, proofs, evidence), prompts.CRITIC_SCHEMA,
                 images=[Path(e['path']) for e in evidence])
             prompts.validate_review(review, plan, [e['id'] for e in evidence])
-            if review['verdict'] == 'accept':
-                for state in review['state_reviews']:
-                    allowed = {e['id'] for e in evidence if state['id'] in e['state_ids']}
-                    require(set(state['evidence_ids']) & allowed, 'State acceptance needs its actual pose contact sheet')
+            self._bind_review(review, evidence)
             review_path = self.root/f'review-{attempt}.json'
+            review_receipt = {'review': review, 'evidence': evidence,
+                              'model_manifest_sha256': sha256(pack/'manifest.json'), 'human_approval': False}
             if not review_path.exists():
-                write_json(review_path, {'review': review, 'evidence': evidence,
-                                         'model_manifest_sha256': sha256(pack/'manifest.json'), 'human_approval': False})
+                write_json(review_path, review_receipt)
+            require(read_json(review_path) == review_receipt, 'Cached review receipt changed')
             self.event('reviewer', review['verdict'], attempt=attempt)
             if review['verdict'] == 'accept':
-                selected = (attempt, pack, reload, review)
+                selected = (attempt, pack, reload, review, media, portable)
                 break
             if review['verdict'] == 'unsupported':
                 return self.unsupported('reviewer', review['summary'], attempt=attempt, review=review)
@@ -454,29 +570,33 @@ class Pipeline:
                                          'repair_images': [str(p) for p in repair_images[:5]]}
         if selected is None:
             return self.unsupported('repair_budget', 'No accepted model within the bounded local repair attempts', findings=findings)
-        attempt, pack, reload, review = selected
-        return self._deliver(plan, attempt, pack, reload, review)
+        attempt, pack, reload, review, media, portable = selected
+        return self._deliver(plan, attempt, pack, reload, review, media, portable)
 
-    def _deliver(self, plan, attempt, pack, reload, review):
-        from avatar_assets.cli import verify_pack
+    def _media(self, attempt, pack):
         from avatar_assets.export2d import export_2d
-        from avatar_assets.gallery import _Catalog
         from scripts.package_portable_media import package_portable_media
-        self.event('media', 'running')
-        media = self.root/'media'
+        self.event('media', 'running', attempt=attempt)
+        media = self.root/f'media-{attempt}'
         spec = self.request['media_spec']
         try:
             self._pack(media, lambda: export_2d(pack, media, preset='preview', **spec, denoise_portrait=True))
         except ValueError:
             # Only the existing hash-bound wall-time continuation policy can resume frames.
             if (media/'job.json').exists() and read_json(media/'job.json').get('failure') == 'wall-time budget exceeded':
-                prior, media = media, self.root/'media-continuation'
+                prior, media = media, self.root/f'media-continuation-{attempt}'
                 self._pack(media, lambda: export_2d(pack, media, preset='preview', **spec,
                                                    denoise_portrait=True, resume_frames=prior))
             else:
                 raise
-        portable = self.root/'media-portable'
+        portable = self.root/f'media-portable-{attempt}'
         self._pack(portable, lambda: package_portable_media(media, portable))
+        return media, portable
+
+    def _deliver(self, plan, attempt, pack, reload, review, media, portable):
+        from avatar_assets.cli import verify_pack
+        from avatar_assets.gallery import _Catalog
+        self.guard()
         catalog = {'schema_version': 1, 'assets': [{
             'id': self.request['id'], 'title': plan['subject'] if len(plan['subject']) <= 160 else plan['subject'][:159]+'…',
             'kind': 'generated_3d',
@@ -487,11 +607,12 @@ class Pipeline:
         if not catalog_path.exists():
             write_json(catalog_path, catalog)
         _Catalog(ROOT, str(catalog_path.relative_to(ROOT)))
-        packs = [pack, reload, media, portable, self.root/f'exported-preview-{attempt}']
+        packs = [pack, reload, media, portable, self.root/f'exported-preview-{attempt}',
+                 self.root/f'action-audit-{attempt}', self.root/f'final-evidence-{attempt}']
         for p in packs:
             verify_pack(p)
         result = {'schema_version': 1, 'status': 'complete', 'out': str(self.root),
-                  'scope': 'Generated/reused geometry, agent-authored design, independent native motion proof, agent visual review and actual media; not universal quality or human approval.',
+                  'scope': 'Generated/reused geometry, agent-authored design, weighted action audit, independent native motion proof and final-media HD review; not universal quality or human approval.',
                   'request_sha256': sha256(self.root/'request.json'), 'plan_sha256': sha256(self.root/'plan.json'),
                   'selected_attempt': attempt, 'model': str(pack.relative_to(self.root)/'model.glb'),
                   'editable_source': str(pack.relative_to(self.root)/'source.blend'),
@@ -505,14 +626,14 @@ class Pipeline:
                   'limitations': plan['limitations']+review['limitations'], 'recorded': now()}
         write_json(self.root/'delivery.json', result)
         write_json(self.root/'delivery-receipt.json', {
-            name: sha256(self.root/name) for name in ('delivery.json', 'plan.json', 'gallery.json', f'review-{attempt}.json')})
+            name: sha256(self.root/name) for name in ('delivery.json', 'plan.json', 'gallery.json', 'quality-policy.json', f'review-{attempt}.json')})
         self.event('delivery', 'complete', model=result['model'])
         return result
 
 
-def run(folder, *, execute=False, agents=None):
+def run(folder, *, execute=False, agents=None, plan_only=False, cancel_requested=None):
     pipeline = Pipeline(folder, agents=agents)
-    return pipeline.run(execute=execute)
+    return pipeline.run(execute=execute, plan_only=plan_only, cancel_requested=cancel_requested)
 
 
 def add_commands(parent):
@@ -522,32 +643,36 @@ def add_commands(parent):
     parser.add_argument('--resume', help='Resume this exact job without repeating completed stages')
     parser.add_argument('--style', default='')
     parser.add_argument('--states', help='Comma-separated state IDs; planner chooses four if omitted')
+    parser.add_argument('--action', action='append', default=[], help='Exact custom action description; repeat up to eight times')
     parser.add_argument('--reference')
     parser.add_argument('--reuse-model', help='Explicit reuse of existing generated GLB; no new Meshy call')
     parser.add_argument('--preset', choices=PRESETS, default='preview')
     parser.add_argument('--max-credits', type=int, default=0)
     parser.add_argument('--max-repairs', type=int, default=1)
-    parser.add_argument('--max-agent-calls', type=int, default=5)
+    parser.add_argument('--max-agent-calls', type=int, default=10)
     parser.add_argument('--agent-timeout', type=int, default=240)
     parser.add_argument('--agent-model')
     parser.add_argument('--prepare-only', action='store_true', help='Save request/cost bounds without model/provider calls')
+    parser.add_argument('--plan-only', action='store_true', help='Run the AI planner and stop before generation or native work')
     parser.add_argument('--execute', action='store_true', help='Permit planned Meshy calls within this cap and the existing canonical ledger')
 
 
 def main(args):
     if args.resume:
         require(not args.prepare_only, '--prepare-only applies to a new job, not --resume')
-        require(not args.prompt and not args.out and not args.reference and not args.reuse_model,
+        require(not args.prompt and not args.out and not args.reference and not args.reuse_model
+                and not getattr(args, 'action', None),
                 'Resume uses its immutable request; do not supply new inputs')
         folder = args.resume
     else:
         require(args.prompt and args.out, 'Supply --prompt and --out, or --resume')
         prepared = prepare(args.prompt, args.out, style=args.style, states=args.states.split(',') if args.states else (),
+                           custom_actions=getattr(args, 'action', []),
                            preset=args.preset, reference=args.reference, reuse_model=args.reuse_model,
                            max_credits=args.max_credits, max_repairs=args.max_repairs, max_agent_calls=args.max_agent_calls,
                            agent_timeout=args.agent_timeout, agent_model=args.agent_model)
         if args.prepare_only:
             return prepared
         folder = args.out
-    result = run(folder, execute=args.execute)
+    result = run(folder, execute=args.execute, plan_only=getattr(args, 'plan_only', False))
     return {key: result[key] for key in ('status', 'out', 'gallery_catalog', 'model', 'reason', 'resumed_without_generation') if key in result}

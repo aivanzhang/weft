@@ -258,10 +258,52 @@ def motion_bounds(obj, rig, actions, bindings, owners, designs):
         'scope': 'Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics'}
 
 
-def portable_coat(obj, rig, mask, colors, config, out):
+def tuft_sampling_context(obj, image, triangles, groom, flow):
+    from fur_root_sampling import RootColorSampler
+    from groom_flow import prepare_flow
+
+    width, height = image.size
+    if (width <= 0 or height <= 0 or width*height > 16_777_216
+            or image.colorspace_settings.name != 'sRGB'):
+        raise ValueError('Tuft root sampling requires a bounded explicit sRGB image')
+    if not 1 <= len(obj.data.vertices) <= 100000 or not 1 <= len(triangles) <= 100000:
+        raise ValueError('Tuft sampling requires bounded nonempty emitter geometry')
+    vertices = [tuple(v.co) for v in obj.data.vertices]
+    low = [min(v[i] for v in vertices) for i in range(3)]
+    span = [max(v[i] for v in vertices)-low[i] for i in range(3)]
+    # Native grooming copies the entire emitter before applying its density mask.
+    prepared = prepare_flow(low, span, groom['direction'], groom['comb'], flow)
+    uv = obj.data.uv_layers.active
+    if uv is None:
+        raise ValueError('Tuft root sampling requires the source active UV layer')
+    triangle_uvs = np.asarray([[tuple(uv.data[i].uv) for i in t.loops] for t in triangles], dtype=np.float32)
+    pixels = np.empty(width*height*4, dtype=np.float32)
+    image.pixels.foreach_get(pixels)
+    pixels = pixels.reshape(height, width, 4)
+    sampler = RootColorSampler(pixels, triangle_uvs, pixels_are_linear=False)
+    return sampler, prepared, {
+        'flow_bounds_local': {'min': low, 'span': span}, 'flow_bounds_scope': 'Entire rest emitter, identical to native groom copy',
+        'texture_dimensions': [width, height], 'borrowed_pixel_buffer_bytes': pixels.nbytes,
+        'source_pixel_interpretation': 'Existing encoded-sRGB image.pixels convention; bottom-up rows',
+        'output_color_space': 'linear RGB after per-texel sRGB decode and bilinear filtering',
+        'uv_source': 'Actual active UV corners of each selected loop triangle; never first-loop vertex UV',
+        'sampling_triangles': len(triangles), 'buffer_lifetime': 'Released when portable_coat returns, before native grooming',
+    }
+
+
+def portable_coat(obj, rig, mask, colors, config, out, *, tuft_image=None, native_groom=None, groom_flow=None):
     from blender_fur_cards import card_geometry, attach_fur_material
     obj.data.calc_loop_triangles()
-    triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
+    tuft = config['settings'].get('profile') == 'tuft-v1'
+    sampler, prepared_flow, sampling_report = None, None, None
+    if tuft:
+        if tuft_image is None or native_groom is None or groom_flow is None or config['settings'].get('sample_root_color') is not True:
+            raise ValueError('Tuft coat requires source image, exact root sampling and shared native regional flow')
+        triangle_rows = [t for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
+        sampler, prepared_flow, sampling_report = tuft_sampling_context(obj, tuft_image, triangle_rows, native_groom, groom_flow)
+        triangles = [tuple(t.vertices) for t in triangle_rows]
+    else:
+        triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
     vertices = [tuple(v.co) for v in obj.data.vertices]
     normal_field = obj.data.attributes.get('AuthoredSurfaceNormal')
     normals = ([tuple(value.vector) for value in normal_field.data] if normal_field is not None
@@ -270,14 +312,24 @@ def portable_coat(obj, rig, mask, colors, config, out):
     weights = [{names[g.group]: g.weight for g in v.groups if g.weight > 0} for v in obj.data.vertices]
     meshes, reports = [], []
     for index, band in enumerate(config['bands']):
-        selected = [t for t in triangles if band['brightness'][0] <= float(colors[list(t)].mean()) < band['brightness'][1]]
+        if tuft:
+            selected_indices = [i for i, t in enumerate(triangles)
+                                if band['brightness'][0] <= float(colors[list(t)].mean()) < band['brightness'][1]]
+            selected = [triangles[i] for i in selected_indices]
+        else:
+            selected = [t for t in triangles if band['brightness'][0] <= float(colors[list(t)].mean()) < band['brightness'][1]]
         settings = {**config['settings'], 'count': band['count'], 'seed': config['settings']['seed']+index}
         sampled = None
-        if settings.get('sample_root_color', False):
+        if tuft:
+            data = card_geometry(vertices, selected, weights, settings, normals, profile='tuft-v1',
+                                 prepared_flow=prepared_flow,
+                                 root_color_sampler=lambda ordinal, bary: sampler(selected_indices[ordinal], bary))
+        elif settings.get('sample_root_color', False):
             # Byte sRGB image pixels are encoded values; glTF vertex colors are linear.
             sampled = np.where(colors <= .04045, colors/12.92, ((colors+.055)/1.055)**2.4)
-        data = card_geometry(vertices, selected, weights, settings, normals,
-                             profile=settings.get('profile', 'legacy'), colors=sampled)
+        if not tuft:
+            data = card_geometry(vertices, selected, weights, settings, normals,
+                                 profile=settings.get('profile', 'legacy'), colors=sampled)
         mesh = bpy.data.meshes.new('PortableCoat_'+str(index))
         mesh.from_pydata(data['vertices'], [], data['faces'])
         mesh.update()
@@ -286,8 +338,9 @@ def portable_coat(obj, rig, mask, colors, config, out):
             uv.data[loop.index].uv = data['uv'][loop.vertex_index]
         mesh.normals_split_custom_set_from_vertices(data['normals'])
         material, report = attach_fur_material(mesh.name,
-            {'color': [1,1,1,1] if sampled is not None else band['color'], 'fur_atlas': 'distance-v1'}, out)
-        if sampled is not None:
+            {'color': [1,1,1,1] if sampled is not None or tuft else band['color'],
+             'fur_atlas': 'tuft-v1' if tuft else 'distance-v1'}, out)
+        if sampled is not None or tuft:
             attr = mesh.color_attributes.new(name='FurRootColor', type='FLOAT_COLOR', domain='CORNER')
             for loop in mesh.loops:
                 attr.data[loop.index].color = (*data['colors'][loop.vertex_index], 1.)
@@ -304,7 +357,8 @@ def portable_coat(obj, rig, mask, colors, config, out):
             links.new(atlas, mix.inputs[6])
             links.new(color.outputs['Color'], mix.inputs[7])
             links.new(mix.outputs[2], bsdf.inputs['Base Color'])
-            report['root_color'] = 'Barycentric source sRGB converted to linear vertex color; constant per ribbon'
+            report['root_color'] = ('Exact sampled triangle UV, sRGB texels decoded before bilinear interpolation; linear constant per tuft'
+                                    if tuft else 'Barycentric source sRGB converted to linear vertex color; constant per ribbon')
         mesh.materials.append(material)
         cards = bpy.data.objects.new(mesh.name, mesh)
         bpy.context.scene.collection.objects.link(cards)
@@ -317,7 +371,9 @@ def portable_coat(obj, rig, mask, colors, config, out):
         meshes.append(cards)
         reports.append({'cards': band['count'], 'vertices': len(data['vertices']), 'material': report, 'config': band,
                         'geometry_profile': settings.get('profile','legacy'),
-                        'sample_root_color': sampled is not None})
+                        'sample_root_color': sampled is not None or tuft,
+                        **({'sampling': sampling_report, 'root_summary': data['root_summary'],
+                            'root_samples': data['root_samples']} if tuft else {})})
     return meshes, reports
 
 
@@ -458,6 +514,13 @@ def finish(config, output):
                                  "selected_vertices": len(ids), "selector": attachment,
                                  "rest_geometry_changed": False,
                                  "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance"}
+    cards = []
+    tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
+    if tuft:
+        cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out,
+            tuft_image=color_node.image, native_groom=cfg['groom'], groom_flow=cfg['groom_flow'])
+        report['portable_fur_export_budget'] = json.loads((out/'tuft-export-budget.json').read_text())
+        report['portable_fur_build_order'] = 'Tuft cards and borrowed root-color buffer completed before native grooming'
     if cfg.get("groom"):
         if int(mask.sum()) < 1000:
             raise ValueError("Fur mask selected too few source vertices")
@@ -494,8 +557,7 @@ def finish(config, output):
             groom_report['render_children_override_after_comb'] = cfg['native_render_children']
             groom_report['render_fiber_upper_bound'] = cfg['groom']['parents']*(cfg['native_render_children']+1)
             groom_report['native_parameters']['render_children'] = cfg['native_render_children']
-    cards = []
-    if cfg.get('portable_fur'):
+    if cfg.get('portable_fur') and not tuft:
         cards, report['portable_fur'] = portable_coat(obj, rig, mask, colors, cfg['portable_fur'], out)
     if cfg.get('authored_actions'):
         author_actions(rig, cfg['authored_actions'])
@@ -591,6 +653,29 @@ def finish(config, output):
                                 fur_margin_m=fur_margin, motion_envelope=bounds_report)
     scene.render.filepath = str(out/"portrait.png")
     bpy.ops.render.render(write_still=True)
+    if cfg.get('review_views'):
+        (out/'views').mkdir()
+        saved_location, saved_rotation = camera.location.copy(), camera.rotation_euler.copy()
+        saved_scale = camera_data.ortho_scale
+        camera_data.ortho_scale = extent*1.25
+        report['review_views'] = []
+        for view, offset in (('front', (0, -3, .04)), ('side', (3, 0, .04)),
+                             ('back', (0, 3, .04)), ('three_quarter', (1.5, -3, .12))):
+            camera.location = center+Vector(offset)*extent
+            camera.rotation_euler = (center-camera.location).to_track_quat('-Z', 'Y').to_euler()
+            basis = camera.rotation_euler.to_matrix()
+            projected = points@np.asarray(basis)
+            camera_data.ortho_scale = float(np.ptp(projected[:, :2], axis=0).max())*1.18
+            camera_data.ortho_scale += cfg.get('groom', {}).get('length', 0)*6
+            for i in (0, 1):
+                midpoint = float((projected[:, i].min()+projected[:, i].max())*.5)
+                camera.location += basis.col[i]*(midpoint-camera.location.dot(basis.col[i]))
+            path = out/'views'/(view+'.png')
+            scene.render.filepath = str(path)
+            bpy.ops.render.render(write_still=True)
+            report['review_views'].append({'view': view, 'path': str(path.relative_to(out)),
+                                          'sha256': hash_file(path), 'resolution': cfg['resolution']})
+        camera.location, camera.rotation_euler, camera_data.ortho_scale = saved_location, saved_rotation, saved_scale
     if cfg.get('sample_states'):
         diagnostic_rest, diagnostic_edges = None, None
         if cfg.get('authored_rig'):
@@ -599,8 +684,8 @@ def finish(config, output):
             obj.data.vertices.foreach_get('co', diagnostic_rest.ravel())
             diagnostic_edges = np.empty((len(obj.data.edges), 2), dtype=np.int32)
             obj.data.edges.foreach_get('vertices', diagnostic_edges.ravel())
-        scene.render.resolution_x = scene.render.resolution_y = 384
-        scene.cycles.samples = 8
+        scene.render.resolution_x = scene.render.resolution_y = cfg.get('pose_resolution', 384)
+        scene.cycles.samples = cfg['samples'] if cfg.get('review_views') else 8
         scene.cycles.use_denoising = True
         rig.data.pose_position = 'POSE'
         authored = {design['id']: design for design in cfg.get('authored_actions', [])}

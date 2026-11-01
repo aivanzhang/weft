@@ -1,0 +1,51 @@
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "pipeline", "status": "cancelled"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "fixture", "status": "checked"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/lib/python3.14/site-packages/PIL/Image.py:3593: DecompressionBombWarning: Image size (6462720 pixels) exceeds limit of 4194304 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+======================================================================
+ERROR: test_upload_invalid_image_pixel_bound_and_animation_are_rejected (test_studio.StudioHTTPTests.test_upload_invalid_image_pixel_bound_and_animation_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio.py", line 339, in test_upload_invalid_image_pixel_bound_and_animation_are_rejected
+    self.assert_error(self.upload(bytes(large_header)))
+                      ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio.py", line 191, in upload
+    return self.post('/api/studio/references', body=raw,
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                     headers={'Content-Type': 'multipart/form-data; boundary='+options.get('boundary', 'AvatarBoundary123')})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio.py", line 187, in post
+    return self.request(path, 'POST', raw, headers)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_studio.py", line 171, in request
+    response = connection.getresponse()
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 1478, in getresponse
+    response.begin()
+    ~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 343, in begin
+    version, status, reason = self._read_status()
+                              ~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/http/client.py", line 312, in _read_status
+    raise RemoteDisconnected("Remote end closed connection without"
+                             " response")
+http.client.RemoteDisconnected: Remote end closed connection without response
+
+----------------------------------------------------------------------
+Ran 521 tests in 12.379s
+
+FAILED (errors=1)
+HD_SURFACE_MEASUREMENTS=[{"elapsed_seconds": 0.050447, "incremental_peak_rss_bytes": 47480832, "normal_detail_residual_from_512": 0.005690624471753836, "pattern": "brushed", "peak_rss_bytes": 83804160, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.200524, "incremental_peak_rss_bytes": 166346752, "normal_detail_residual_from_512": 0.011063765734434128, "pattern": "brushed", "peak_rss_bytes": 202768384, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.087246, "incremental_peak_rss_bytes": 51724288, "normal_detail_residual_from_512": 0.04252931848168373, "pattern": "fur", "peak_rss_bytes": 88014848, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.341205, "incremental_peak_rss_bytes": 181190656, "normal_detail_residual_from_512": 0.0704735517501831, "pattern": "fur", "peak_rss_bytes": 217481216, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.076852, "incremental_peak_rss_bytes": 49545216, "normal_detail_residual_from_512": 0.0016504161758348346, "pattern": "iris", "peak_rss_bytes": 85737472, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.307061, "incremental_peak_rss_bytes": 177913856, "normal_detail_residual_from_512": 0.0023371647112071514, "pattern": "iris", "peak_rss_bytes": 214368256, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.2024, "incremental_peak_rss_bytes": 58867712, "normal_detail_residual_from_512": 0.00608360581099987, "pattern": "scales", "peak_rss_bytes": 95207424, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.783081, "incremental_peak_rss_bytes": 183042048, "normal_detail_residual_from_512": 0.010090735740959644, "pattern": "scales", "peak_rss_bytes": 219267072, "resolution": 2048, "returned_array_bytes": 134217728}]

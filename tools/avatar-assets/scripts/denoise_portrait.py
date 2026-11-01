@@ -67,19 +67,24 @@ def read_pixels(path):
     with Path(path).open("rb") as stream:
         raw = stream.read(MAX_INPUT_BYTES+1)
     require(len(raw) <= MAX_INPUT_BYTES and hashlib.sha256(raw).hexdigest() == info["sha256"], "Input changed during bounded read")
-    Image.MAX_IMAGE_PIXELS = MAX_EDGE*MAX_EDGE
-    ImageFile.LOAD_TRUNCATED_IMAGES = False
-    with warnings.catch_warnings():
-        warnings.simplefilter("error", Image.DecompressionBombWarning)
-        with Image.open(io.BytesIO(raw)) as image:
-            require(image.format == "PNG" and image.mode == info["mode"], "PNG decoder mode differs from IHDR")
-            require(getattr(image,"n_frames",1) == 1, "Animated PNG input is unsupported")
-            require(not image.info.get("icc_profile"), "Embedded ICC input is unsupported; export an sRGB PNG")
-            gamma = image.info.get("gamma")
-            require(gamma is None or abs(float(gamma)-1/2.2) < .001, "PNG gamma is not compatible with declared sRGB input")
-            image.load()
-            pixels = np.array(image, dtype=np.uint8, copy=True)
-            dpi = image.info.get("dpi")
+    old_limit, old_truncated = Image.MAX_IMAGE_PIXELS, ImageFile.LOAD_TRUNCATED_IMAGES
+    try:
+        Image.MAX_IMAGE_PIXELS = MAX_EDGE*MAX_EDGE
+        ImageFile.LOAD_TRUNCATED_IMAGES = False
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", Image.DecompressionBombWarning)
+            with Image.open(io.BytesIO(raw)) as image:
+                require(image.format == "PNG" and image.mode == info["mode"]
+                        and image.size == (info['width'], info['height']), "PNG decoder differs from bounded IHDR")
+                require(getattr(image,"n_frames",1) == 1, "Animated PNG input is unsupported")
+                require(not image.info.get("icc_profile"), "Embedded ICC input is unsupported; export an sRGB PNG")
+                gamma = image.info.get("gamma")
+                require(gamma is None or abs(float(gamma)-1/2.2) < .001, "PNG gamma is not compatible with declared sRGB input")
+                image.load()
+                pixels = np.array(image, dtype=np.uint8, copy=True)
+                dpi = image.info.get("dpi")
+    finally:
+        Image.MAX_IMAGE_PIXELS, ImageFile.LOAD_TRUNCATED_IMAGES = old_limit, old_truncated
     info["color_space"] = "8-bit display-referred sRGB, explicitly selected; no ICC transform"
     info["gamma_chunk"] = gamma
     if dpi and len(dpi) == 2 and all(math.isfinite(value) and 0 < value <= 10000 for value in dpi):

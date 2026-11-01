@@ -1,0 +1,766 @@
+{
+  "copied_bytes": 3125885,
+  "costs": {
+    "ai_usd": null,
+    "ai_usd_note": "Account-specific pricing not exposed; not free",
+    "new_meshy_calls": 0,
+    "new_meshy_credits": 0,
+    "recorded_ai_calls": 2
+  },
+  "files": [
+    {
+      "bytes": 36795,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/finish-config.json",
+      "sha256": "57951078a32970637354c9393c05db3804aa24bc3d04e3497ae8fa800fb8be94",
+      "source_path": "outputs/panda-portable-tuft-v1/finish-config.json"
+    },
+    {
+      "bytes": 46174,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/finish.log",
+      "sha256": "ea5aaf1e29d69744e9d88db4ec4e596855ee4030597c5230694128ee0c8240d7",
+      "source_path": "outputs/panda-portable-tuft-v1/finish.log"
+    },
+    {
+      "bytes": 1652,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/job.json",
+      "sha256": "ef031e62ad35ccb3a4b04c9e76447b9af4c1621ec5fc8b1a6788afcaa59032a5",
+      "source_path": "outputs/panda-portable-tuft-v1/job.json"
+    },
+    {
+      "bytes": 10278,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/manifest.json",
+      "sha256": "0ce03c8209d331893cce9bc9156a7ad5536c0ac5c244a996b5cd20afa57e6006",
+      "source_path": "outputs/panda-portable-tuft-v1/manifest.json"
+    },
+    {
+      "bytes": 404021,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/portrait.png",
+      "sha256": "c0c2586f118c4b30cfdd3dc31c9d5dd3718c6fa35ef23e7386b8f9b5440e3b13",
+      "source_path": "outputs/panda-portable-tuft-v1/portrait.png"
+    },
+    {
+      "bytes": 408427,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/renders/dance_flight/0000.png",
+      "sha256": "38c2313b45b8ea7f260aa3097737a0c2ce466a5fe6dfc1e231bb26c2e4cc48c1",
+      "source_path": "outputs/panda-portable-tuft-v1/renders/dance_flight/0000.png"
+    },
+    {
+      "bytes": 6582,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_creature_rig.py"
+    },
+    {
+      "bytes": 44129,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_finish_generated.py",
+      "sha256": "41f73cb252b15ef1eab0faace1ac9c464593839450c49878cd67c860b84372e1",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_fur_cards.py"
+    },
+    {
+      "bytes": 24601,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_native_groom.py"
+    },
+    {
+      "bytes": 6839,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_normal_continuity.py",
+      "sha256": "1640b08c1adc1b9c5d0b5994dd5623982ec816dfa02f6bd30bb43bf64a55e9be",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 5789,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_part_rigs.py"
+    },
+    {
+      "bytes": 12009,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 18248,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/blender_verify.py"
+    },
+    {
+      "bytes": 8351,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/color_corrections.py"
+    },
+    {
+      "bytes": 5399,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/creature_rig_math.py"
+    },
+    {
+      "bytes": 4392,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/deformation_diagnostics.py",
+      "sha256": "284848acb6d1352d12511c8f0d0de7c486bae125921f4d4edba4721e0e29d393",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 36706,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/finish-design.json",
+      "sha256": "d3bf765350839680d139bb1e0bc1f8e96cfefbc70e61db5898c3cc40981038ed",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/finish-design.json"
+    },
+    {
+      "bytes": 23165,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/finish_generated.py",
+      "sha256": "e905da491827fd874da7de969934886a093182b05ff3ddfc18d80d1d52675eb6",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/finish_generated.py"
+    },
+    {
+      "bytes": 2952,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/fur_root_sampling.py",
+      "sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/fur_root_sampling.py"
+    },
+    {
+      "bytes": 2738,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/generated_tangents.py",
+      "sha256": "e460ce6efdf17c9788ae16fc13438ea8f3ca01d1b19617427ffdef75d69da40c",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/generated_tangents.py"
+    },
+    {
+      "bytes": 7179,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/motion_samples.py"
+    },
+    {
+      "bytes": 13937,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/normal_continuity.py",
+      "sha256": "6719fb8c7cfb47b240d34848b91838021b678abc806e32f0286d1b1115813d2a",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/normal_continuity.py"
+    },
+    {
+      "bytes": 6665,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/part_rigs.py"
+    },
+    {
+      "bytes": 6843,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/surface_integrity.py"
+    },
+    {
+      "bytes": 2675,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/surface_profiles.py"
+    },
+    {
+      "bytes": 7538,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/surface_smoothing.py"
+    },
+    {
+      "bytes": 1792,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "source_path": "outputs/panda-portable-tuft-v1/sources/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 289,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/tuft-export-budget.json",
+      "sha256": "a2e0f26af6f879ef55790bfd7c81781bccf15aa7142225eff175aece59ab336e",
+      "source_path": "outputs/panda-portable-tuft-v1/tuft-export-budget.json"
+    },
+    {
+      "bytes": 561217,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/views/front.png",
+      "sha256": "4236ff3ceff5e3d3db43a66043006f0f8368edc18c725251e1fe8c9d7c0ed415",
+      "source_path": "outputs/panda-portable-tuft-v1/views/front.png"
+    },
+    {
+      "bytes": 493132,
+      "saved_path": "files/outputs/panda-portable-tuft-v1/views/side.png",
+      "sha256": "50f063df33342548272c677087657e5589bf087d529d5e5f0ae73f88f6418b19",
+      "source_path": "outputs/panda-portable-tuft-v1/views/side.png"
+    },
+    {
+      "bytes": 1920,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent-process.json",
+      "sha256": "9c9c358fe49fd2d94f68918eb50cca820d6f421d9d74d0d065736bbe843d0cba",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent-process.json"
+    },
+    {
+      "bytes": 4604,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent.jsonl",
+      "sha256": "30de049ed69729cb1b284c4bb057f791f1e5d1b8db1b92ac436c99889971c969",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent.jsonl"
+    },
+    {
+      "bytes": 0,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/agent.stderr"
+    },
+    {
+      "bytes": 3799,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/answer.json",
+      "sha256": "04a4ccc45b5b0a03d652f8464059bccdf612cb9d2fea266deddc35984f27297e",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/answer.json"
+    },
+    {
+      "bytes": 2655,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/invocation.json",
+      "sha256": "27e42f6dcdf68164446868c19047008bbb1d4ec7d1f93578bb3625efc7a5f84f",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/invocation.json"
+    },
+    {
+      "bytes": 7337,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/invocation.txt",
+      "sha256": "a6203c7ba684c72222ceeb30d91e246ae98e269e75a55d25b0504db91d0959cc",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/invocation.txt"
+    },
+    {
+      "bytes": 6856,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/prompt.txt",
+      "sha256": "f841102f718066dd34e1cbd716e81a7b7aa09a775f94b2613a042e2f4926aa7d",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/prompt.txt"
+    },
+    {
+      "bytes": 4938,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/receipt.json",
+      "sha256": "082bfdb6a8ca9169edc42c970408f171555fb2549ab6d57b68a29f306c616d29",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/receipt.json"
+    },
+    {
+      "bytes": 418,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/request.json",
+      "sha256": "781ca76905bacc891c91fe0dccebbb56ed978ab0e87e385f05a97b492cda9a5f",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/request.json"
+    },
+    {
+      "bytes": 3768,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/schema.json",
+      "sha256": "f6635ab8e7880084adf25d55f992cd553ba4c1a5836a63a8dd859779f153d67e",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/schema.json"
+    },
+    {
+      "bytes": 504,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version-process.json",
+      "sha256": "63993364310e685ad1abd9ce000460d0c3afabd9b8a3d8cbd530c59151276e6c",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version-process.json"
+    },
+    {
+      "bytes": 18,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version.jsonl"
+    },
+    {
+      "bytes": 0,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/agents/planner/version.stderr"
+    },
+    {
+      "bytes": 1006,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/estimate.json",
+      "sha256": "717ff8f7b754c213ef4736149a405762b0924a6ee35b56098be43c872f38be5c",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/estimate.json"
+    },
+    {
+      "bytes": 1174,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/input-receipt.json",
+      "sha256": "3a77efeb1088a66461d0d6e81eb3c34fcd1c405a3d090a234cfec42c5629488c",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/input-receipt.json"
+    },
+    {
+      "bytes": 3800,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/plan.json",
+      "sha256": "297a28d66fba8f150312e4f6af98cd9605ca8f9f3e076f033186c299ad29f318",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/plan.json"
+    },
+    {
+      "bytes": 1147,
+      "saved_path": "files/outputs/studio-8a7e0d76b8b8427f93f52157/request.json",
+      "sha256": "b8ce07283a36672d69fe6c73ec175916238ead88dfb48ef082bef2b12e7abbf2",
+      "source_path": "outputs/studio-8a7e0d76b8b8427f93f52157/request.json"
+    },
+    {
+      "bytes": 1920,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent-process.json",
+      "sha256": "f0a118f272ab311a93181b8437aa3c6a0e6a0e0ff2efc27b2735453f1021a45c",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent-process.json"
+    },
+    {
+      "bytes": 4049,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent.jsonl",
+      "sha256": "7851a8f5d046702c058d4ff693c9815d052c8b1ead053a4782d86fe414155c24",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent.jsonl"
+    },
+    {
+      "bytes": 0,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/agent.stderr"
+    },
+    {
+      "bytes": 3316,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/answer.json",
+      "sha256": "252e0ac260234ffd04a0d63bbb20241a93dc592b9e4ab508063dc25461282ba4",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/answer.json"
+    },
+    {
+      "bytes": 2655,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/invocation.json",
+      "sha256": "0f3bf1baa6b0fa299537d21e87bc63a1067e7e83be9424b086a6a5254bacb573",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/invocation.json"
+    },
+    {
+      "bytes": 6858,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/invocation.txt",
+      "sha256": "e85fc99dae1384a8e7531cd2df3c56e34e51d903a03134fa884fa56d83b7d90a",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/invocation.txt"
+    },
+    {
+      "bytes": 6377,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/prompt.txt",
+      "sha256": "19d725227c2bac75c3c709134c27155d9a18e303620ac4ba1163867abf6ed842",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/prompt.txt"
+    },
+    {
+      "bytes": 4938,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/receipt.json",
+      "sha256": "c299ad9f07c08044257ae62867901220870c85473cafe4c551411f40ac73196e",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/receipt.json"
+    },
+    {
+      "bytes": 418,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/request.json",
+      "sha256": "86562314172ca85abc7efd248838c5f56fbe1417ee169cc160b4268bd1c9ce49",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/request.json"
+    },
+    {
+      "bytes": 3735,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/schema.json",
+      "sha256": "ab007e6a9d69fe62793f88c99f48e98e0e133e3aeeb74c233f61ce6c8b5563da",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/schema.json"
+    },
+    {
+      "bytes": 504,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version-process.json",
+      "sha256": "f8317e12a3e6e022450003eeac6e8daf2dc78b15d66e877c78d29edad4e4b963",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version-process.json"
+    },
+    {
+      "bytes": 18,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version.jsonl"
+    },
+    {
+      "bytes": 0,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/planner/version.stderr"
+    },
+    {
+      "bytes": 340,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/agents/runner.json",
+      "sha256": "bbb89725446a42d3bac9dcb17e1f8f9f5aa5380b5a5062221cbb8a65c860ced1",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/agents/runner.json"
+    },
+    {
+      "bytes": 1006,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/estimate.json",
+      "sha256": "717ff8f7b754c213ef4736149a405762b0924a6ee35b56098be43c872f38be5c",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/estimate.json"
+    },
+    {
+      "bytes": 121,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/events/0000.json",
+      "sha256": "ed3d71f737310e8dbe70cbe6f369a737b62f5cb1a32720c2df60a41b428ff4de",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/events/0000.json"
+    },
+    {
+      "bytes": 119,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/events/0001.json",
+      "sha256": "2b27a91827058433a74bbad735ce387a31380c4094d17e1b4ce10885decbb3e9",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/events/0001.json"
+    },
+    {
+      "bytes": 161,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/events/0002.json",
+      "sha256": "ca9f520f1236aaad4f4fbe3d7cadc4d08fb24aeed684fe416f2fae8f0990cd5f",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/events/0002.json"
+    },
+    {
+      "bytes": 145,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/events/0003.json",
+      "sha256": "d9dd40620e073ccd53b96c495bd5a7366504d9f7d40fdc66850ff22dbf914432",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/events/0003.json"
+    },
+    {
+      "bytes": 1174,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/input-receipt.json",
+      "sha256": "3874618a8b1eab7e851edcf85259ea2f502f499e84b44b7f99da88b92fdf465c",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/input-receipt.json"
+    },
+    {
+      "bytes": 3866,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/plan.json",
+      "sha256": "fa33358bf568877f7f2ab767d799f45c1189b522433ce5f31db336301f2fb596",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/plan.json"
+    },
+    {
+      "bytes": 1147,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/request.json",
+      "sha256": "3c1b1da35fdb067b18dfa7ac21e8d5a15629461fc86fd92d156097f1d7de72a9",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/request.json"
+    },
+    {
+      "bytes": 26502,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/action_audit.py",
+      "sha256": "6bbdf3fbf1ed4800436e41979a862ff2eeddf6df4c8c26fc9598f897c1e65ea7",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/action_audit.py"
+    },
+    {
+      "bytes": 12823,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/action_intent.py",
+      "sha256": "ede243e423d5167b4ad730f7798824c1816b465e296a8f3ebf168c42d67be7a5",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/agent_runner.py"
+    },
+    {
+      "bytes": 42554,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline.py",
+      "sha256": "5d3330e0136762150d312e394fd65df1d064c6c049ec48e0a06e42fd68b785de",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline.py"
+    },
+    {
+      "bytes": 8199,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline_evidence.py",
+      "sha256": "ed96f8cbe821dd19c46f625e893e0c7faeda5860fd257c7c5855d179ef6fd9a2",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline_evidence.py"
+    },
+    {
+      "bytes": 36810,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline_prompts.py",
+      "sha256": "6a7e82dafdf65d4bf2d2865ce528e3d89c36ec6bbbabcc4f8346888141722fcd",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/pipeline_prompts.py"
+    },
+    {
+      "bytes": 11288,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/sources/quality_policy.py",
+      "sha256": "2c609c91afc067b3d0afbf851f6f841b4661dc8a41000f944296c458e9149e0c",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/sources/quality_policy.py"
+    },
+    {
+      "bytes": 145,
+      "saved_path": "files/outputs/studio-a7909fcea90e4df8940850ef/status.json",
+      "sha256": "d9dd40620e073ccd53b96c495bd5a7366504d9f7d40fdc66850ff22dbf914432",
+      "source_path": "outputs/studio-a7909fcea90e4df8940850ef/status.json"
+    },
+    {
+      "bytes": 1692,
+      "saved_path": "files/outputs/studio-exported-motion-proof-v1/job.json",
+      "sha256": "d3fd257b8b2d50e6e6f5ab04888ce0d726cad3a26a9eb4342baf8b6b4d964136",
+      "source_path": "outputs/studio-exported-motion-proof-v1/job.json"
+    },
+    {
+      "bytes": 17823,
+      "saved_path": "files/outputs/studio-exported-motion-proof-v1/manifest.json",
+      "sha256": "0ef1295db5d4892558367490bf40f07ebeaed3cb9cc84ce71be743eb7f855b25",
+      "source_path": "outputs/studio-exported-motion-proof-v1/manifest.json"
+    },
+    {
+      "bytes": 1816,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/analytic-cube.glb",
+      "sha256": "10bad087617de6bd33db507e56ab20c4836f064e9a506aba9617763c8ed75aa8",
+      "source_path": "outputs/studio-framing-fixture-v1/analytic-cube.glb"
+    },
+    {
+      "bytes": 12058,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/framing-validation.json",
+      "sha256": "bda19fcba1a468da0b41e3bbe40965a21ee5fce2021e4598e286a0072ac9e035",
+      "source_path": "outputs/studio-framing-fixture-v1/framing-validation.json"
+    },
+    {
+      "bytes": 1420,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/job.json",
+      "sha256": "4e9857859de845a6e30bc2c0b4734b3d562a7bd533a13b9ae2371fd2e6071f3f",
+      "source_path": "outputs/studio-framing-fixture-v1/job.json"
+    },
+    {
+      "bytes": 4618,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/manifest.json",
+      "sha256": "2abddef62981a62ce97d2f658a38657cbae2ca6fd7acdc178108e6f788a8fc32",
+      "source_path": "outputs/studio-framing-fixture-v1/manifest.json"
+    },
+    {
+      "bytes": 499,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/native-handle.json",
+      "sha256": "da6023b2c0e2b403324283f49cad449f4f1f3a3872adf0df8ae0fa4ac9a93125",
+      "source_path": "outputs/studio-framing-fixture-v1/native-handle.json"
+    },
+    {
+      "bytes": 1286,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/native-monitor.json",
+      "sha256": "0da07061c04f761258496c5ceb7df3bb4b4fb7c9714152169114c1b2d683f1f4",
+      "source_path": "outputs/studio-framing-fixture-v1/native-monitor.json"
+    },
+    {
+      "bytes": 20746,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/native.log",
+      "sha256": "d71d16e8085873bdb8f3a182a38c66538ace16bb64334f5483cb3a032d187f31",
+      "source_path": "outputs/studio-framing-fixture-v1/native.log"
+    },
+    {
+      "bytes": 23290,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/preview/back.png",
+      "sha256": "9b87149915c14586a608fb685ac6182defff6fd0e3cd1c9e81022cb1e9a0a6de",
+      "source_path": "outputs/studio-framing-fixture-v1/preview/back.png"
+    },
+    {
+      "bytes": 25192,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/preview/front.png",
+      "sha256": "fdc83e83c55de2703bc5dfa09d21179b81739b8e3d7628191372c69c39c66d76",
+      "source_path": "outputs/studio-framing-fixture-v1/preview/front.png"
+    },
+    {
+      "bytes": 1521,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/preview/native-inspection.json",
+      "sha256": "44e62d75a0d2c91daa6e48afc1e1294f7846a2ba0d92e4df277394c4ba0f5196",
+      "source_path": "outputs/studio-framing-fixture-v1/preview/native-inspection.json"
+    },
+    {
+      "bytes": 24017,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/preview/side.png",
+      "sha256": "458e7a51eef478e60ba470d1749574257c2cf3fc0a275ecdedb341512975f548",
+      "source_path": "outputs/studio-framing-fixture-v1/preview/side.png"
+    },
+    {
+      "bytes": 24707,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/preview/three-quarter.png",
+      "sha256": "c23bcc39d3cd9a8c7c2cb729cebd3966fad869a2d1e6c533221da6c4f5242646",
+      "source_path": "outputs/studio-framing-fixture-v1/preview/three-quarter.png"
+    },
+    {
+      "bytes": 1844,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/request.json",
+      "sha256": "27966e7420ee8ea0ccf4822bfcf8d827c0442c6b9fa47e9d70cdcd47bed04f2d",
+      "source_path": "outputs/studio-framing-fixture-v1/request.json"
+    },
+    {
+      "bytes": 12033,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "source_path": "outputs/studio-framing-fixture-v1/sources/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "source_path": "outputs/studio-framing-fixture-v1/sources/blender_verify.py"
+    },
+    {
+      "bytes": 11421,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "source_path": "outputs/studio-framing-fixture-v1/sources/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "source_path": "outputs/studio-framing-fixture-v1/sources/safety.py"
+    },
+    {
+      "bytes": 9850,
+      "saved_path": "files/outputs/studio-framing-fixture-v1/sources/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "source_path": "outputs/studio-framing-fixture-v1/sources/validate_studio_framing.py"
+    },
+    {
+      "bytes": 807,
+      "saved_path": "files/outputs/studio-integration-v1/agent-usage-v1.json",
+      "sha256": "374ec45bac1eec25e5c24fa28b4f4a2da8ffc19ee43643d8511f3ecd1a24628a",
+      "source_path": "outputs/studio-integration-v1/agent-usage-v1.json"
+    },
+    {
+      "bytes": 2201,
+      "saved_path": "files/outputs/studio-integration-v1/development-estimate-v2.json",
+      "sha256": "5f9f97f62ff0daa90d4ea1fc15f9f539fbd0699015ce3748ba7151037af96c2b",
+      "source_path": "outputs/studio-integration-v1/development-estimate-v2.json"
+    },
+    {
+      "bytes": 1835,
+      "saved_path": "files/outputs/studio-integration-v1/development-estimate.json",
+      "sha256": "469d108d0b889cce865e2a3c529c6485302ed864641cbccef36def6f75b0b337",
+      "source_path": "outputs/studio-integration-v1/development-estimate.json"
+    },
+    {
+      "bytes": 187,
+      "saved_path": "files/outputs/studio-integration-v1/development-job-v2.json",
+      "sha256": "9fed6e59a22d8b449e26372d31af5da0faa462aa2a72543d791c8fc1dd6cbff5",
+      "source_path": "outputs/studio-integration-v1/development-job-v2.json"
+    },
+    {
+      "bytes": 265,
+      "saved_path": "files/outputs/studio-integration-v1/development-job.json",
+      "sha256": "71e2c7d57a074efc41dc45cbf518ebd4853c61daec90179f7e32a6c298906ac9",
+      "source_path": "outputs/studio-integration-v1/development-job.json"
+    },
+    {
+      "bytes": 750,
+      "saved_path": "files/outputs/studio-integration-v1/development-plan-rejection.json",
+      "sha256": "a3f7f0bf89e164143964a0508329a2e536fb3dd55a4c52288dc892e03da0a51f",
+      "source_path": "outputs/studio-integration-v1/development-plan-rejection.json"
+    },
+    {
+      "bytes": 1195,
+      "saved_path": "files/outputs/studio-integration-v1/development-plan-reviewed-v2.json",
+      "sha256": "c930f509f9926b301273fb1e8cf0dab388d2291f62f976e926795cb97ab67557",
+      "source_path": "outputs/studio-integration-v1/development-plan-reviewed-v2.json"
+    },
+    {
+      "bytes": 142,
+      "saved_path": "files/outputs/studio-integration-v1/development-plan-start-v2.json",
+      "sha256": "007ba2d7fb79bfff099c895f3977c70f3498ab044825d6e0695021a14a39d0df",
+      "source_path": "outputs/studio-integration-v1/development-plan-start-v2.json"
+    },
+    {
+      "bytes": 174,
+      "saved_path": "files/outputs/studio-integration-v1/development-plan-start.json",
+      "sha256": "445084c222a7e22a0495b48157d0fe7c2d25c9f098157ad760c2fd66f7054855",
+      "source_path": "outputs/studio-integration-v1/development-plan-start.json"
+    },
+    {
+      "bytes": 5171,
+      "saved_path": "files/outputs/studio-integration-v1/full-tests-before-upload-fix.txt",
+      "sha256": "60dec20dde50377baa7c5a39d500400cbaef70fea95fa9e3d0cc1bc9ccba52e3",
+      "source_path": "outputs/studio-integration-v1/full-tests-before-upload-fix.txt"
+    },
+    {
+      "bytes": 3228,
+      "saved_path": "files/outputs/studio-integration-v1/full-tests-v2.txt",
+      "sha256": "712729c3d81782417a947def1cf8e48b1d67181f39291bf870b3557faded8996",
+      "source_path": "outputs/studio-integration-v1/full-tests-v2.txt"
+    },
+    {
+      "bytes": 156,
+      "saved_path": "files/outputs/studio-integration-v1/reference-preservation.json",
+      "sha256": "005883d328a3420c32d333ea69084177cb917a6a549feec4f6f6e2df24a055f2",
+      "source_path": "outputs/studio-integration-v1/reference-preservation.json"
+    },
+    {
+      "bytes": 98,
+      "saved_path": "files/outputs/studio-integration-v1/upload-regression-after-fix.txt",
+      "sha256": "ef66da73ac2cd90abf9cb72b96ab1a5edd9d720e4cf6ca6b4931a8cee216fe09",
+      "source_path": "outputs/studio-integration-v1/upload-regression-after-fix.txt"
+    },
+    {
+      "bytes": 122850,
+      "saved_path": "files/outputs/studio-ui-fixture-v2/studio-cost-gate.png",
+      "sha256": "b63aa0128116eb42318dc57dd5a2639885c3875d3d57577ce46d90eef10e8226",
+      "source_path": "outputs/studio-ui-fixture-v2/studio-cost-gate.png"
+    },
+    {
+      "bytes": 97677,
+      "saved_path": "files/outputs/studio-ui-fixture-v2/studio-mobile-fixture.png",
+      "sha256": "a10781e54f6d2bf0ce942b42f2d9048254905e7f5e1a5d03645dd3d6dcb9941e",
+      "source_path": "outputs/studio-ui-fixture-v2/studio-mobile-fixture.png"
+    },
+    {
+      "bytes": 151961,
+      "saved_path": "files/outputs/studio-ui-fixture-v2/studio-ready-fixture.png",
+      "sha256": "718fb1614d1ec10412915516aab941798152f36d1bd6b6102cd73ea91ed39794",
+      "source_path": "outputs/studio-ui-fixture-v2/studio-ready-fixture.png"
+    },
+    {
+      "bytes": 2224,
+      "saved_path": "files/outputs/studio-ui-fixture-v2/studio-ui-test.json",
+      "sha256": "fc271221494d36e32a4314c5cde8ae922f6aa0d27468b5f47f96dcc941d6c158",
+      "source_path": "outputs/studio-ui-fixture-v2/studio-ui-test.json"
+    }
+  ],
+  "goal_complete": false,
+  "local_binary_identities": [
+    {
+      "bytes": 30668948,
+      "custody": "Original remains in local outputs; this checkpoint stores identity, not a duplicate binary",
+      "path": "outputs/panda-portable-tuft-v1/model.glb",
+      "sha256": "3da9e96520c6fd47ee19f5160db6e24385217da2b999d63d3e1fc0362fcaa6da"
+    },
+    {
+      "bytes": 17823,
+      "custody": "Original remains in local outputs; this checkpoint stores identity, not a duplicate binary",
+      "path": "outputs/studio-exported-motion-proof-v1/manifest.json",
+      "sha256": "0ef1295db5d4892558367490bf40f07ebeaed3cb9cc84ce71be743eb7f855b25"
+    },
+    {
+      "bytes": 23097200,
+      "custody": "Original remains in local outputs; this checkpoint stores identity, not a duplicate binary",
+      "path": "outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+    }
+  ],
+  "not_claimed": [
+    "Fresh prompt-to-mesh acceptance",
+    "Completed real Studio run",
+    "Muse parity",
+    "Native/browser fur parity",
+    "Physical action validity",
+    "Seamless loops",
+    "Weft compatibility"
+  ],
+  "provenance": {
+    "camera_fixture": "Actual local render of an analytic unrigged cube",
+    "existing_panda_renderer": "Actual exported existing skin; no quality acceptance",
+    "robot_plans": "Two real AI calls; first plan rejected/cancelled, second reviewed and passed to actual browser execution outside this snapshot",
+    "tuft_trial": "Actual failed native build at unchanged 2GiB limit; raw GLB not accepted",
+    "ui_fixture": "Mock API/renderer; no actual generation"
+  },
+  "recorded_local": "2026-11-01 14:03:57 PST",
+  "schema_version": 1,
+  "status": "implemented_and_fixture_tested_real_quality_acceptance_pending",
+  "tests": {
+    "count": 552,
+    "elapsed_seconds": 13.475,
+    "log": "outputs/studio-integration-v1/full-tests-v2.txt",
+    "result": "passed"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "appearance_checks": [
+    "Friendly workshop robot with a rounded torso, two distinct arms, two hands and two feet.",
+    "Original blue-and-cream palette with visible copper accents.",
+    "Polished toy styling with clean hard-surface panels and preserved small mechanical details.",
+    "Right hand and wrist remain visibly distinct and suitable for a readable greeting wave."
+  ],
+  "generation_prompt": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms, two hands and two feet. Preserve the supplied robot identity and small mechanical details wherever supported by the supplied model. Polished stylized toy surfaces with clean hard-surface panels, controlled highlights and visible panel seams. Use a neutral articulation-ready pose with arms slightly clear of the torso, distinct hands and wrists, and separated feet resting evenly on the ground.",
+  "height_meters": 1.2,
+  "limitations": [
+    "The supplied model is identified by metadata only; its appearance, joint separation and rig were not inspected.",
+    "Preservation of the original identity and small mechanical details remains unverified.",
+    "The height is an authored assumption.",
+    "The requested wave depends on usable right arm and hand articulation; welded contact geometry would require a reviewed separation derivative."
+  ],
+  "reason": "The requested greeting is suitable for skeletal articulation with separate stationary torso and feet roles; source-model suitability remains unverified.",
+  "states": [
+    {
+      "id": "right_hand_wave",
+      "meaning": "The robot greets with a clear side-to-side right-hand wave while its torso and feet remain steady throughout.",
+      "requirements": [
+        {
+          "description": "Present the right hand in a visible greeting position and wave it side to side with readable repeated direction changes.",
+          "id": "wave_right_hand",
+          "kind": "articulation",
+          "role": "right_arm_hand"
+        },
+        {
+          "description": "Keep the torso in its original position and orientation throughout the clip.",
+          "id": "steady_torso",
+          "kind": "stability",
+          "role": "torso"
+        },
+        {
+          "description": "Keep both feet planted in their original positions throughout the clip, without stepping or sliding.",
+          "id": "planted_feet",
+          "kind": "stability",
+          "role": "feet"
+        }
+      ],
+      "roles": [
+        {
+          "description": "The robot's right arm, wrist and hand performing the greeting.",
+          "id": "right_arm_hand"
+        },
+        {
+          "description": "The rounded torso remaining steady during the greeting.",
+          "id": "torso"
+        },
+        {
+          "description": "Both supporting feet remaining planted.",
+          "id": "feet"
+        }
+      ],
+      "user_request": "Wave the right hand side to side in a clear greeting while keeping the torso and feet steady."
+    }
+  ],
+  "status": "ready",
+  "style": "Polished stylized 3D toy with clean hard-surface panels, visible copper accents and the original blue-and-cream palette.",
+  "subject": "A friendly blue-and-cream workshop robot with copper accents, a rounded torso, two arms and two feet, preserving the supplied generated identity and small mechanical details.",
+  "surface_intent": [
+    {
+      "finish": "Original blue-and-cream colors with polished toy-like highlights, clean panel seams and preserved mechanical detailing.",
+      "material": "metal",
+      "region": "Painted torso, arm and foot panels"
+    },
+    {
+      "finish": "Visible copper coloration with intentional metallic highlights and preserved small mechanical forms.",
+      "material": "metal",
+      "region": "Copper accents"
+    }
+  ]
+}

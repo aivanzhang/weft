@@ -4,14 +4,229 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 12:31 PST. Current follow-up status is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 14:05 PST. Current follow-up status is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used 0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
-- Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
+- Resume guard: preserve original ZIP and existing output folders. Studio job `8a7e0d76b8b8427f93f52157` is executing under its detached worker; observation-only browser tool 62323 owns the temporary server/Chrome. Freeze pipeline/worker source files until it ends; a Git save does not require restarting it. Do not restart cancelled job `a7909fcea90e4df8940850ef`, send another Start or stop the worker when a UI check ends.
 
-## Active: shoulder-dragon flight and panda dance
+## Active: hands-off quality and local creation studio — incomplete
+
+The user wants an end-to-end **AI + agent workflow from a text prompt**, including
+custom actions, convincing subject-appropriate detail and a local screen that
+tracks real work through finished output. A form, a passing fixture or another
+hand-authored panda recipe does not complete this goal. Preserve the approved
+fur panda, standalone dragon, completed dance/flight preview and all failures.
+[Acceptance criteria and integration record](docs/hands-off-studio.md).
+
+### Implemented; acceptance still pending
+
+- [x] Local `studio --port 8766` entrypoint, prompt/style, optional PNG/JPEG/WebP
+  reference, up to eight 600-character action descriptions, presets, saved jobs,
+  actual stage/review/repair status, cost review and output/static previews.
+  Saving, AI planning and generation are separate explicit operations. A pinned
+  plan and canonical-ledger allowance gate start; there is no funding/grant UI.
+- [x] CLI `generate --action 'EXACT ACTION'` (repeat up to eight), `--plan-only`,
+  cooperative cancellation callback, and source-pinned quality/action modules.
+  Default AI-call cap is 10, maximum 12; expected planner/author/critic sequence
+  is three calls, each complete repair adds two. Default one repair, maximum two.
+- [x] Subject-specific surface-intent and action-role contracts are implemented.
+  Native/exported four-view and key-pose evidence must use actual 720px renders.
+  Final media now precedes the independent critic; each attempt retains
+  `media-N`, optional `media-continuation-N`, `media-portable-N` and
+  `final-evidence-N`. Earlier delivered global media folders stay unchanged.
+  Actual weighted-action audit/agent integration remains an acceptance item,
+  not a claim that arbitrary dancing, flying or interaction is solved. The new
+  typed stability/world-space audit correction passes 42 focused checks;
+  stationary body parts are separate from articulation requirements. Actual
+  final action/appearance acceptance remains pending.
+- [x] Real-loopback HTTP tests with an analytic manager: 19 cases exercised;
+  17 passed initially, strict multipart regression passed after the backend fix,
+  and the deep-prompt regression passed after correcting the fake manager's
+  prompt-type boundary. That fake-manager crash was **not** a reproduced
+  production crash. Tests cover Host/Origin/session token, exact actions and
+  idempotency dispatch, pinned start, bounded uploads, opaque assets and Range.
+- [x] `outputs/studio-ui-fixture-v2/studio-ui-test.json`: nine browser fixture
+  checks, 36 intercepted requests, zero JS errors/external requests, owned Chrome
+  exit verified; no HTTP server or model/provider launched. It adds the actual
+  UI's `launching` state: a stale planned job list cannot stop selected-job polling
+  from reaching running. Earlier v1's eight checks/34 requests remain preserved.
+  Two create attempts reuse one ID/job and one upload. Cost gate, explicit start,
+  repair visibility, stop request, hidden polling, static/error/reduced-motion
+  fallback and 390px layout pass. These mock assets are not generation evidence.
+  Latest receipt SHA `fc271221494d36e32a4314c5cde8ae922f6aa0d27468b5f47f96dcc941d6c158`.
+- [x] Real **renderer development proof**, not a new generation or quality pass:
+  `outputs/studio-exported-motion-proof-v1` uses the saved panda GLB
+  `693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67`.
+  Four 720px rest views/eight action poses completed in 23.280 s,
+  1,201,995,776 B sampled RSS and 72,545,104 B output; exit 0/owned exit verified.
+  Job receipt SHA `d3fd257b8b2d50e6e6f5ab04888ce0d726cad3a26a9eb4342baf8b6b4d964136`.
+  Main reviewed a pose: sparse/plastic exported fur and cheek/shoulder marks
+  remain. Manifest correctly remains `needs_visual_review`.
+- [x] Analytic framing regression `outputs/studio-framing-fixture-v1`: the actual
+  four-view renderer kept all eight cube corners at least 9.76271 px inside each
+  128 px image. The calculated old three-quarter fit crops by 7.328%; the fixed
+  fit has 7.627% margin. Blender completed in 0.784 s / 226,836,480 B sampled
+  direct-child RSS (two samples), exit 0/owned exit verified, within
+  120 s/1 GiB/four threads/64 MiB. Manifest SHA
+  `2abddef62981a62ce97d2f658a38657cbae2ca6fd7acdc178108e6f788a8fc32`.
+  Source/artifact hashes match. This is camera-fit evidence, not an avatar,
+  animation or quality pass; do not rerender it unchanged.
+- [x] Durable-worker request-binding regression passed, with 26 worker fixtures
+  total. The latest full Python suite passes **552 tests in 13.475 s**:
+  `outputs/studio-integration-v1/full-tests-v2.txt`. The earlier 521-test run had
+  520 passes and one upload error. A shared stricter Pillow pixel cap exposed an
+  uncaught oversized-upload exception; the exact test passed after the HTTP fix.
+  Preserve
+  `outputs/studio-integration-v1/full-tests-before-upload-fix.txt` (12.379 s) and
+  `upload-regression-after-fix.txt` (one test, 0.045 s). These tests are contract
+  and analytic evidence, not proof of generated quality or real UI completion.
+- [x] [Portable-fur diagnosis](docs/portable-fur-diagnosis.md) records actual
+  sparse coverage, minification, missing regional card flow and contact defects.
+  Opt-in `tuft-v1` helper/integration tests pass, but the actual candidate
+  `outputs/panda-portable-tuft-v1` **failed** the unchanged 2 GiB sampled-memory
+  bound after 27.428 s. Its worker exited; no retry or exported preview ran.
+  Raw GLB and native stills remain diagnostic, not portable-coat acceptance.
+  [Exact trial/limitations](docs/tuft-profile.md); no Muse parity is established.
+
+### First actual development attempt — cancelled after planning
+
+- Studio job `a7909fcea90e4df8940850ef` reached a plan in 17.59 s, then was
+  cancelled before authoring/native generation. Its plan treated the requested
+  steady torso and planted feet as articulation requirements, whose numeric
+  gate requires movement. This contradicts the action, not a cosmetic concern.
+- Preserve `outputs/studio-a7909fcea90e4df8940850ef/plan.json`, SHA
+  `fa33358bf568877f7f2ab767d799f45c1189b522433ce5f31db336301f2fb596`,
+  and `outputs/studio-integration-v1/development-plan-rejection.json`.
+  The saved pipeline status remains `planned`; the studio lifecycle/rejection
+  record is cancelled. Do not rewrite the sealed plan or restart this job.
+- Exactly **one real CLI planner call**: 15,814 input / 632 output tokens,
+  17.218 s, 124,485,632 B sampled direct-child RSS, exit 0. The call succeeded;
+  its plan was semantically rejected. AI dollars and exact default model version
+  are unknown. `agent-usage-v1.json` binds the receipt and actual thread ID.
+  Zero author calls, native pipeline calls, Meshy calls or new Meshy credits.
+- `outputs/studio-integration-v1/reference-preservation.json` rechecks the
+  original ZIP unchanged at SHA
+  `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`.
+  No archive content was executed. Local renderer/analytic proofs above are
+  separate from this stopped planner attempt.
+
+### Second development attempt — running; no final acceptance
+
+- Same exact requested robot/style/action, new canonical job
+  `8a7e0d76b8b8427f93f52157`, output `outputs/studio-8a7e0d76b8b8427f93f52157`.
+  Its corrected plan separates hand-wave movement from torso/feet stability.
+  Explicitly reviewed plan ID
+  `b62fac2bd550e542995d8be894e8593e19fbab2a310eca6b906a99fc1932a7fe`;
+  `outputs/studio-integration-v1/development-plan-reviewed-v2.json` retains the
+  planning receipt. Existing generated source SHA
+  `5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c`
+  is reused; this is not fresh text-to-mesh synthesis. Zero new Meshy credits.
+- Exactly one actual UI Start was sent with that plan/session. The first live
+  verifier incorrectly expected HTTP 200 rather than the correct asynchronous
+  **202** response. Its failure is preserved in
+  `outputs/studio-live-robot-v1/studio-live-test.json`, SHA
+  `82cbe1dee77323a7f5997d29dae23fcbd65c083385aeb9a0e42d4561b54ad9e0`.
+  Tool 84327 ended after 3.019 s, its browser/server exited, and it issued no
+  worker cancellation or signal. The detached worker continued normally.
+- The corrected verifier is observing the **same job without `--start`** in
+  `outputs/studio-live-robot-v2`, live tool **62323**. Last UI snapshots show a
+  rejected attempt followed by real media rendering. Neither this progress nor
+  an eventual encoded video is final acceptance; review and real output checks
+  still have to complete. No mock HTTP responses are used in these live runs.
+- Root's independent sample of `model-1/renders/right_hand_wave/0003.png` shows
+  an elongated copper/blue arm spike and shoulder/torso creasing. The numeric
+  stability repair is not visual acceptance. Let the actual critic evaluate the
+  saved media; preserve rejection rather than hand-editing this job's recipe.
+- Worker ownership last verified: PID **61650**, start identity
+  `darwin-start:1793570617:835725`, canonical invocation
+  `.local/studio/jobs/8a7e0d76b8b8427f93f52157/run-0002`. Recheck the canonical
+  lease and process identity before any intervention; PID alone is not custody.
+  A browser timeout must leave the detached worker untouched.
+- The development study retains a ten-AI-call aggregate envelope, including both
+  planner calls. This job has one local repair; its current flow can use at most
+  five role calls including its planner. Dollar costs are unknown. Record actual
+  final usage rather than claiming zero AI cost or resetting a call counter.
+- Live-verifier bounds: 900 s, 3 GiB sampled Node/server/owned-Chrome RSS and
+  64 MiB evidence output. Detached pipeline/native worker memory is **excluded**
+  and governed by its own existing limits. Request mutations are blocked except
+  the one explicitly authorized Start; observer mode blocks every mutation.
+
+Exact current observation command (already running; do not duplicate):
+
+```sh
+node browser/tests/studio-live.mjs outputs/studio-live-robot-v2 8a7e0d76b8b8427f93f52157 --plan-id b62fac2bd550e542995d8be894e8593e19fbab2a310eca6b906a99fc1932a7fe --max-seconds 900
+```
+
+The reusable verifier requires `--start --plan-id HASH` for a new authorized UI
+start. **Do not add `--start` to this job again.** Its read-only helper is
+`scripts/verify_studio_live.py --job JOB_ID`; it inspects the existing canonical
+registry, not a new worker registry.
+
+### Ownership, cost and next safe work
+
+- Parent owns pipeline integration, real UI/asset acceptance and
+  `docs/hands-off-studio.md`. Stability/tuft source changes are frozen for the
+  active worker. The UI reviewer owns observer tool 62323 and its temporary
+  browser/server, not permission to cancel the detached generation worker.
+  This handoff does not transfer unrelated Weft files or its goal.
+- Renderer handle 51559 ended; fixture-browser handle 19047 ended. Do not rerun
+  them or treat historical handles below as live. Verify new owner receipts
+  before starting another expensive operation. The fixture-v2 browser handle
+  77182 and failed live-verifier handle 84327 also ended. There is no persistent
+  development server; the current temporary server belongs to tool 62323.
+- Last verified Meshy ledger: 16 completed submissions / 202 credits against 210
+  authorized; **8 remain, less than the 35-credit fresh-model estimate**. No new
+  Meshy submission, credit purchase, paid retry, account or Meta-budget use in
+  this implementation pass. AI usage dollars remain unknown. Aggregate fresh
+  example costs must be prepared before any additional spending decision.
+
+1. [ ] Complete real-request stability/articulation acceptance using the newly
+   implemented world-space gates and actual weighted vertices. Distinguish root
+   travel from articulation. Reject
+   both unwanted movement and static/weak substitutes for requested actions.
+   Preserve the rejected plan and test its exact contradictory requirement.
+2. [ ] Verify full-resolution native/exported views and decoded final media reach
+   the independent critic with exact source/model/attempt hashes. Visible defects
+   must fail even when structural tests and motion counts pass.
+3. [ ] Follow current robot job `8a7e0d76b8b8427f93f52157` to a terminal result
+   without another Start. Record exact aggregate calls, time/memory/output,
+   repairs, final media/critic/asset bindings and honest unsupported outcomes.
+   Preserve the cancelled first job and failed verifier. Reuse is not a fresh
+   text-to-mesh test and cannot prove arbitrary prompt quality.
+4. [ ] Prepare fresh furry-character, flying-creature and articulated-object jobs
+   plus aggregate cost estimate. Execute only within real authorization; acceptance
+   requires the requested material/action quality without hand-writing per-example
+   finishing recipes or substituting an easier subject/action.
+5. [ ] Follow at least one actual authorized job through the user-facing studio
+   to its real downloads, checking refresh/restart, identity, playback, static
+   fallback and no duplicate generation. Keep browser/API fixtures separate.
+6. [ ] Diagnose the retained tuft memory failure before any changed bounded
+   candidate. Do not repeat the same failed build or raise its limit. Require
+   actual native/exported appearance, source-color,
+   skin/action and browser proof; more cards or analytic coverage alone is not
+   acceptance. Preserve approved panda/dragon bytes and every rejected attempt.
+
+From Weft, the user starts/stops the local studio; it is not auto-launched:
+
+```sh
+./tools/avatar-assets/run studio --port 8766
+```
+
+Open `http://127.0.0.1:8766/`. Saving uses no AI; Prepare plan uses bounded AI;
+Start creation requires the reviewed plan and existing allowance. CLI commands,
+current source pins and limits are in [prompt pipeline](docs/prompt-pipeline.md).
+Current implementation evidence does **not** satisfy this active completion gate.
+
+Periodic incomplete-goal evidence checkpoint:
+`evidence/studio-checkpoint-v1/manifest.json`, **118 files / 3,125,885 B**, SHA
+`a081a1841af18f8b53844837ba45176bf63e67c8d12c98aa8a91f116935dfa78`.
+It preserves both planner histories, the 552-test pass, fixture evidence and the
+failed tuft receipts. It is not a completed studio delivery or an artifact of
+the still-running execution; no Git publication result is inferred from it.
+
+## Completed checkpoint: shoulder-dragon flight and panda dance
 
 The user accepted the saved fur panda, then clarified **the little shoulder
 dragon takes off while the panda dances**. Preserve approved checkpoint
@@ -300,7 +515,7 @@ are tracked; rejected full binaries and complete video frames remain local.
 - Read-only publication review verified all192 inventoried artifacts in the final dragon/robot model and portable-media packs, plus required resources for the current catalogs. Historical fur-comparison, Meshy-candidates and nonportable quality catalogs retain local-only dependencies; fur-comparison v2 fails current rig-facts validation. README labels these limits. No real credentials were found in2,463 selected text files; token-shaped permission-test fixtures remain synthetic.
 - Exact commit, remote verification, selected paths and final scope/index status belong in the local publication receipt `.local/avatar-assets-publication-20261031-v1/receipt.json` at the Weft root. A receipt without successful remote verification is not proof of a push. Resolve the revision with `git log -1 -- tools/avatar-assets`; preserve ignored full runs for complete cached resumes.
 
-## Current follow-up: prompt-driven AI pipeline — verified
+## Historical checkpoint: prompt-driven AI pipeline — verified
 
 The requested reusable text-prompt workflow is implemented and verified on two actual generated sources. This completes the bounded pipeline milestone, **not universal prompt success or the original Muse/fur-quality target**. No Weft importer, physics, actions, rewards, active goal or Meta ledger changed.
 
@@ -631,4 +846,4 @@ Run relevant tests after changes, not repeatedly against unchanged inputs:
 
 Git now belongs to the parent Weft repository. The user authorized committing and pushing this migration directly to main. Do not recreate a nested repository, discard failed attempts or open files automatically. See [migration record](docs/relocation.md) for tracked versus local-only artifacts.
 
-Completion gate: reusable local workflow and two distinct real examples work end to end; 3D loading/skin/motion and explicit consumer mapping are verified at the stated scope; references, failures, costs and unsupported cases remain truthful and resumable. The recorded evidence satisfies this local gate without claiming completed Weft runtime integration.
+Historical core completion gate: reusable local workflow and two distinct real examples work end to end; 3D loading/skin/motion and explicit consumer mapping are verified at the stated scope; references, failures, costs and unsupported cases remain truthful and resumable. The recorded evidence satisfied that local milestone without claiming completed Weft runtime integration. The active hands-off quality/studio completion gate above remains open.

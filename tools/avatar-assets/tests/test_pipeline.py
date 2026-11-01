@@ -31,7 +31,7 @@ class PipelineTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name).resolve()
         (self.root/'avatar_assets').mkdir()
-        for name in ('pipeline.py','pipeline_prompts.py','agent_runner.py'):
+        for name in pipeline.PIPELINE_SOURCES:
             shutil.copyfile(pipeline.ROOT/'avatar_assets'/name, self.root/'avatar_assets'/name)
         self.patch = patch.object(pipeline, 'ROOT', self.root)
         self.patch.start()
@@ -50,6 +50,35 @@ class PipelineTests(unittest.TestCase):
         self.assertFalse((self.out/'agents').exists())
         with self.assertRaisesRegex(ValueError, 'already exists'):
             self.prepare()
+
+    def test_custom_actions_are_exact_and_bounded_before_creation(self):
+        actions = ['Dance with alternating steps and arm swings.', 'Fly up, circle, then land.']
+        self.prepare(custom_actions=actions)
+        self.assertEqual(read_json(self.out/'request.json')['custom_actions'], actions)
+        self.assertEqual(read_json(self.out/'estimate.json')['maximum_agent_calls'], 10)
+
+    def test_plan_only_reuse_does_not_start_native_or_paid_work(self):
+        source = self.root/'analytic.glb'
+        source.write_bytes(b'Explicit non-renderable pipeline test fixture')
+        with patch('avatar_assets.provider_model.preflight'):
+            self.prepare(reuse_model=source)
+        with patch('avatar_assets.provider_model.preview') as native, patch('avatar_assets.meshy.run') as paid:
+            result = pipeline.run(self.out, execute=True, plan_only=True, agents=AnalyticAgent())
+        self.assertEqual(result['status'], 'planned')
+        native.assert_not_called()
+        paid.assert_not_called()
+        self.assertFalse((self.out/'inspection').exists())
+
+    def test_cancellation_preserves_plan_without_starting_generation(self):
+        self.prepare(max_credits=35)
+        observations = iter((False, False, True))
+        with patch('avatar_assets.meshy.run') as paid:
+            result = pipeline.run(self.out, execute=True, agents=AnalyticAgent(),
+                                  cancel_requested=lambda: next(observations))
+        self.assertEqual(result['status'], 'cancelled')
+        self.assertTrue((self.out/'plan.json').exists())
+        self.assertFalse((self.out/'generation').exists())
+        paid.assert_not_called()
 
     def test_prepare_only_resume_cannot_make_calls(self):
         with patch.object(pipeline, 'run') as run, self.assertRaisesRegex(ValueError, 'new job'):
@@ -222,6 +251,35 @@ class PipelineTests(unittest.TestCase):
         with self.assertRaises(pipeline.InterruptedStage):
             worker._pack(pack,replay)
         replay.assert_not_called()
+
+    def test_action_review_cannot_borrow_a_different_states_motion(self):
+        evidence = [{'id': 'dance-sheet', 'state_ids': ['dance']}, {'id': 'fly-sheet', 'state_ids': ['fly']}]
+        review = {'verdict': 'accept', 'state_reviews': [{'id': 'dance', 'evidence_ids': ['dance-sheet'],
+                  'requirement_reviews': [{'id': 'rhythm', 'evidence_ids': ['fly-sheet']}]}]}
+        with self.assertRaisesRegex(ValueError, 'own state'):
+            pipeline.Pipeline._bind_review(review, evidence)
+        review['state_reviews'][0]['requirement_reviews'][0]['evidence_ids'] = ['dance-sheet']
+        pipeline.Pipeline._bind_review(review, evidence)
+
+    def test_sealed_delivery_is_read_only_after_backend_upgrade(self):
+        self.prepare()
+        delivery = {'status': 'complete', 'request_sha256': pipeline.sha256(self.out/'request.json'), 'packs': []}
+        for i in range(5):
+            folder = self.out/f'pack-{i}'
+            folder.mkdir()
+            (folder/'fixture.txt').write_text('Analytic completed-pack fixture, not a model')
+            write_json(folder/'manifest.json', {'artifacts': artifacts(folder)})
+            delivery['packs'].append({'path':folder.name,'manifest_sha256':pipeline.sha256(folder/'manifest.json')})
+        write_json(self.out/'delivery.json', delivery)
+        write_json(self.out/'delivery-receipt.json', {'delivery.json':pipeline.sha256(self.out/'delivery.json')})
+        (self.root/'avatar_assets/pipeline.py').write_text('Changed live backend cannot run this old job')
+        agents = AnalyticAgent()
+        result = pipeline.run(self.out, execute=True, agents=agents)
+        self.assertTrue(result['resumed_without_generation'])
+        self.assertEqual(agents.roles, [])
+        (self.out/'pack-0/fixture.txt').write_text('Tampered')
+        with self.assertRaisesRegex(ValueError, 'Artifact changed'):
+            pipeline.run(self.out, execute=True, agents=agents)
 
 
 if __name__ == '__main__':

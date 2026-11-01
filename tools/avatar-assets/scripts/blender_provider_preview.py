@@ -9,10 +9,10 @@ import bpy
 from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).parent))
-from blender_verify import hash_file, source_header, write_json
+from blender_verify import hash_file, source_header, write_json, imported_bindings, bind_action, clear_actions, set_frame
 
 
-def main(model, output, resolution, samples, rig_guides=False):
+def main(model, output, resolution, samples, rig_guides=False, motion_path=None):
     model, out = Path(model), Path(output)
     doc = source_header(model)
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -57,7 +57,7 @@ def main(model, output, resolution, samples, rig_guides=False):
     scene.render.engine = "CYCLES"
     scene.cycles.device = "CPU"
     scene.cycles.samples = samples
-    scene.cycles.use_denoising = False
+    scene.cycles.use_denoising = bool(motion_path)
     scene.render.threads_mode, scene.render.threads = "FIXED", 4
     scene.render.resolution_x = scene.render.resolution_y = resolution
     scene.render.resolution_percentage = 100
@@ -83,13 +83,69 @@ def main(model, output, resolution, samples, rig_guides=False):
         scene.collection.objects.link(obj)
         obj.location = center+Vector(offset)*extent
         obj.rotation_euler = (center-obj.location).to_track_quat("-Z", "Y").to_euler()
-    for name, offset in (("front", (0, -3, .05)), ("three-quarter", (-1.6, -3, .1)), ("back", (0, 3, .05))):
+    for name, offset in (("front", (0, -3, .05)), ("three-quarter", (-1.6, -3, .1)),
+                         ("back", (0, 3, .05)), ("side", (3, 0, .05))):
         camera.location = center+Vector(offset)*extent
         camera.rotation_euler = (center-camera.location).to_track_quat("-Z", "Y").to_euler()
+        basis = camera.rotation_euler.to_matrix()
+        projected = [basis.transposed()@(p-center) for p in points]
+        spans = [max(p[i] for p in projected)-min(p[i] for p in projected) for i in (0, 1)]
+        camera_data.ortho_scale = max(spans)*1.18
+        for i in (0, 1):
+            camera.location += basis.col[i]*(max(p[i] for p in projected)+min(p[i] for p in projected))*.5
         path = out/(name+".png")
         scene.render.filepath = str(path)
         bpy.ops.render.render(write_still=True)
         report["renders"].append({"view": name, "path": path.name, "sha256": hash_file(path)})
+    if motion_path:
+        states = json.loads(Path(motion_path).read_text())
+        actions = {a.name: a for a in bpy.data.actions}
+        bindings, owners = imported_bindings(list(scene.objects), list(actions.values()))
+        if set(actions) != {s['id'] for s in states} or len(rigs) != 1:
+            raise ValueError('Exported review needs exactly the requested actions and one actual armature')
+        scene.render.fps, scene.render.fps_base = 24, 1
+        for rig in rigs:
+            rig.data.pose_position = 'POSE'
+        bounds = []
+        for state in states:
+            action = actions[state['id']]
+            bind_action(action, bindings, owners, rigs)
+            if max(state['seconds'])*24 > action.frame_range[1]+.01:
+                raise ValueError('Requested exported pose is outside the actual action')
+            for second in state['seconds']:
+                set_frame(second*24)
+                depsgraph = bpy.context.evaluated_depsgraph_get()
+                for obj in meshes:
+                    evaluated = obj.evaluated_get(depsgraph)
+                    bounds.extend(evaluated.matrix_world @ Vector(v) for v in evaluated.bound_box)
+        motion_low = Vector(tuple(min(v[i] for v in bounds) for i in range(3)))
+        motion_high = Vector(tuple(max(v[i] for v in bounds) for i in range(3)))
+        motion_center = (motion_low+motion_high)*.5
+        motion_extent = max(motion_high-motion_low)
+        camera.location = motion_center+Vector((-1.6, -3, .1))*motion_extent
+        camera.rotation_euler = (motion_center-camera.location).to_track_quat('-Z', 'Y').to_euler()
+        basis = camera.rotation_euler.to_matrix().transposed()
+        camera_points = [basis@(v-motion_center) for v in bounds]
+        camera_data.ortho_scale = max(max(v[i] for v in camera_points)-min(v[i] for v in camera_points)
+                                      for i in (0, 1))*1.15
+        camera_data.clip_end = max(camera_data.clip_end, motion_extent*20)
+        report['motion_states'] = []
+        for state in states:
+            bind_action(actions[state['id']], bindings, owners, rigs)
+            folder = out/'renders'/state['id']
+            folder.mkdir(parents=True)
+            poses = []
+            for index, second in enumerate(state['seconds']):
+                set_frame(second*24)
+                path = folder/f'{index:04d}.png'
+                scene.render.filepath = str(path)
+                bpy.ops.render.render(write_still=True)
+                poses.append({'second': second, 'path': str(path.relative_to(out)), 'sha256': hash_file(path)})
+            report['motion_states'].append({'id': state['id'], 'poses': poses, 'resolution': resolution})
+        clear_actions(owners, rigs)
+        for rig in rigs:
+            rig.data.pose_position = 'REST'
+        set_frame(0)
     if rig_guides:
         from bpy_extras.object_utils import world_to_camera_view
         from rig_guide_annotations import guide_projection, normalized_to_pixel
@@ -136,4 +192,5 @@ def main(model, output, resolution, samples, rig_guides=False):
 
 if __name__ == "__main__":
     args = sys.argv[sys.argv.index("--")+1:]
-    main(args[0], args[1], int(args[2]), int(args[3]), len(args) > 4 and args[4] == 'true')
+    main(args[0], args[1], int(args[2]), int(args[3]), len(args) > 4 and args[4] == 'true',
+         args[5] if len(args) > 5 else None)

@@ -1,0 +1,13 @@
+{
+  "author_calls": 0,
+  "completed_agent_calls": 1,
+  "job_id": "a7909fcea90e4df8940850ef",
+  "native_pipeline_calls": 0,
+  "new_meshy_calls": 0,
+  "new_meshy_credits": 0,
+  "next_action": "Implement/test stability intent and world-space motion evidence; preserve this job and create a new bounded development attempt.",
+  "plan_sha256": "fa33358bf568877f7f2ab767d799f45c1189b522433ce5f31db336301f2fb596",
+  "reason": "Planner classified stationary torso and planted feet as articulation requirements. The numeric articulation gate requires movement, contradicting the exact requested action. Stop before author/native execution; add a typed stability requirement and rerun in a new immutable job.",
+  "schema_version": 1,
+  "status": "cancelled"
+}
