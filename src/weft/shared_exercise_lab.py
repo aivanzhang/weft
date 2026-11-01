@@ -754,6 +754,8 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
     if files["scene.json"] != files.get("source-run/scene.json"):
         raise ValueError("Exercise lab cannot rewrite the original engine scene")
     reference_attachment = None
+    original_files = learning_files = evaluation_files = None
+    source_checks = []
     if camera_reference:
         from weft.camera_reference_lab import load_reference_attachment
         original_files = {name[len('source-run/'):]: raw for name, raw in files.items()
@@ -813,7 +815,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
         if (files["policy.json"] != learning_files["policy.json"]
                 or any(contract.get(key) != value for key, value in identity.items())):
             raise ValueError("Exercise lab learned-policy identity differs from its sealed contract")
-        collect_shared_source_files(scene, root / "learning-run", expected_manifest_sha256=identity["learning_manifest_sha256"])
+        source_checks.append((root / "learning-run", identity["learning_manifest_sha256"], None))
         has_evaluation = ("policy-evaluation.json" in files or any(name.startswith("policy-evaluation-run/") for name in files)
                           or any(key in contract for key in ("policy_evaluation_manifest_sha256", "policy_evaluation_sha256",
                                                              "policy_evaluation_files_verified")))
@@ -828,8 +830,7 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
             if (files["policy-evaluation.json"] != evaluation_files["evaluation.json"]
                     or any(contract.get(key) != value for key, value in evaluation_identity.items())):
                 raise ValueError("Exercise lab evaluation identity differs from its sealed contract")
-            collect_shared_source_files(scene, root / "policy-evaluation-run",
-                                        expected_manifest_sha256=evaluation_identity["policy_evaluation_manifest_sha256"])
+            source_checks.append((root / "policy-evaluation-run", evaluation_identity["policy_evaluation_manifest_sha256"], None))
         if contract.get("exercise_policy") != _policy_status(policy, learning_files["training.json"],
                 evaluation_successes=evaluation_successes, evaluation_reset_protocol=evaluation_reset_protocol):
             raise ValueError("Exercise lab policy status differs from its sealed training/evaluation evidence")
@@ -856,14 +857,21 @@ def load_shared_exercise_lab(root, *, config=None, deadline=None):
         if evaluation_successes is not None and any(config.get(key) != contract[key]
                 for key in ("policy_evaluation_manifest_sha256", "policy_evaluation_sha256")):
             raise ValueError("Exercise lab configuration differs from its pinned evaluation identity")
-    proof = collect_shared_source_files(scene, root, expected_manifest_sha256=_sha(manifest_raw), deadline=deadline)
-    _deadline(deadline)
-    return {"scene": scene, "task": task, "contract": contract, "source_verification": proof.report,
+    result = {"scene": scene, "task": task, "contract": contract,
             **({"policy": policy, "policy_document": files["policy.json"]} if policy is not None else {}),
             **({"camera_policy_admission": camera_attachment["admission"]} if camera_attachment else {}),
             **({'reference_document': reference_attachment['recipe_document']} if reference_attachment else {}),
             "artifacts": [{"name": name, "bytes": len(raw)} for name, raw in sorted(files.items()) if "/" not in name]
                          + [{"name": "manifest.json", "bytes": len(manifest_raw)}]}
+    source_checks.append((root, _sha(manifest_raw), deadline))
+    # Source proofs reread their own pinned bytes; no complete archive may overlap those reads.
+    del files, original_files, learning_files, evaluation_files, reference_attachment, camera_attachment
+    for source_root, source_pin, source_deadline in source_checks:
+        options = {} if source_deadline is None else {"deadline": source_deadline}
+        result["source_verification"] = collect_shared_source_files(
+            scene, source_root, expected_manifest_sha256=source_pin, **options).report
+    _deadline(deadline)
+    return result
 
 
 class SharedExerciseSession:

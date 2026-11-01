@@ -1,14 +1,24 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: support bounds and contact-aware control
+## Current milestone — November 1, 2026: predictive control and bounded lab reopening
+
+- [x] Implement detached one-control prediction with explicit count/time limits and no live-state/scorer mutation; **26 distinct mocked cases pass**. Preserve the previous failed clearance correction.
+- [x] Qualify the predictor at the initial state and just before the recorded equipment failure. Four scratch predictions match the actual next state exactly; all 49 original controls/task snapshots also match. This is prediction parity, not successful equipment control. [Exact native evidence](docs/handoffs/equipment-action-projection.md).
+- [x] Release complete lab archives before repeated source-proof reads without removing checks. **24 distinct scoped cases pass**. Two retained-session opens complete at 499,630,080 B / 6.245397 seconds; the unchanged baseline exceeds the same 512 MiB bound on its second open. All fifteen compared summary fields remain identical. [Scope, failures and pins](docs/handoffs/lab-loader-retention.md).
+- [x] Update the [experimental lab launcher](docs/local-lab.md#try-separate-arm-and-leg-feedback) to the verified loader-only runtime; all 25 policy execution files remain exact. No default controller or saved run changed.
+- [ ] Finish and verify the bounded, minimum-change joint-action projection. The independent agent owns only its new controller/tests/handoff; no native projection pilot or successful-task claim yet.
+- [ ] Checkpoint the new prediction/loader scope; publish only with applicable approval. Prior support/contact commit `79c2b6a` is local and its specific review question remains unanswered. Preserve independent avatar work and commits.
+- [ ] Qualify unfamiliar-video body/ground/equipment reconstruction, broader task learning and independent physical-contact accuracy. These scoped improvements do not complete the generalized product.
+
+## Historical milestone — November 1, 2026: support bounds and contact-aware control
 
 - [x] Refresh the private remote; local main and origin matched `deeabdc`. Preserve independent avatar work and all saved evidence; no full-worktree clean claim.
 - [x] Diagnose the saved v5 recording without new simulation/replay/media work. The full learned episode first fails equipment speed/spin at control 49, alongside a forearm boundary contact; do not confuse it with the earlier mixed-control episode. [Exact evidence](docs/handoffs/split-limb-contact-diagnosis.md).
 - [x] Add opt-in finite-support conditioning to the existing collection/config/fitter-input/report workflow. Preserve correlated pixel/height bounds, original ranges, missing/excluded slots and strict defaults; reject empty intersections. **134 distinct focused checks pass**, with seven byte-identical default comparisons and a bounded 1,200-slot workload. [Scope and reproducible evidence](docs/handoffs/contact-reconstruction-resume.md).
 - [x] Implement an explicitly authored joint-only clearance correction around a pinned base controller; **29 analytical checks pass**. Geometry, scorer, task and equipment-force/root channels remain unchanged. Required-contact tasks explicitly reject. [Contract](docs/handoffs/equipment-clearance-controller.md).
 - [x] Complete one fixed 254-control native comparison and detached geometric-derivative check, 1.704560 seconds /134,938,624 B peak RSS. Preserve the failed task: rotation improves, displacement/speed worsen and `sam-2` still fails. **Do not promote it or alter the lab default.** [All gates, identities and next hypothesis](docs/handoffs/equipment-clearance-results.md).
-- [ ] Checkpoint this reviewed scope and publish only under the applicable main-branch review/merge authorization. Keep all independently owned avatar changes untouched.
-- [ ] Implement and verify a dynamics-aware, minimum-change joint-action projection before another contact-control comparison; account for torque, inertia and braking distance instead of repeating gain tuning.
+- [x] Checkpoint the reviewed thirteen-file scope as `79c2b6a`; remote publication remains pending the specific review/merge authorization. Keep all independently owned avatar changes untouched.
+- [ ] Complete the current predictive-control milestone before another contact-control comparison; do not repeat gain tuning or treat one-control endpoint checks as a braking guarantee.
 - [ ] Qualify unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy. The integrated lab remains usable, but these results do not complete the generalized product.
 
 ## Historical milestone — November 1, 2026: separate arm/leg feedback

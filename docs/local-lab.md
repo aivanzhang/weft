@@ -682,7 +682,7 @@ separate learned corrections for the torso, arms and legs; the default exercise
 example above is unchanged. From the repository root:
 
 ```sh
-PYTHONPATH="$PWD/.local/split-limb-feedback-play-04/runtime/src" \
+PYTHONPATH="$PWD/.local/lab-loader-retention-01/runtime-candidate/src" \
   .venv-lab/bin/python -B -P -m weft lab \
   --resume artifacts/split-limb-feedback-play-05/lab
 ```
@@ -698,6 +698,12 @@ and [video](../artifacts/split-limb-feedback-play-05/lab/sessions/session-1dcf52
 contain 266 actions, one reset and 268 frames. Every recorded action/state replays
 exactly, and reopening in a fresh process preserves the recording and policy.
 The complete post-reset task interval is 254 steps / 8.47 seconds.
+
+The launcher includes the verified lower-memory loader. Two consecutive opens
+with both sessions retained completed at 477 MiB peak memory; the old loader
+exceeded its 512 MiB bound during the second open. All source checks and the
+scene, policy, controls and saved recording are unchanged. This checks reopening,
+not the complete build/export/reload workload. [Exact comparison](handoffs/lab-loader-retention.md).
 
 **The task still fails equipment stability.** The learned and original controllers
 each pass 0/3 development starts. Virtual root assistance, equipment geometry and

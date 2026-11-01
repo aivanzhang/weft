@@ -1,6 +1,48 @@
 # Combined Weft implementation handoff
 
-## Current support/contact work — November 1, 2026, PST
+## Current prediction and lab-memory work — November 1, 2026, 10:50 AM PST
+
+The complete goal remains active. Native prediction parity and repeated lab-open
+verification are new progress, not a successful equipment task or physical validation.
+
+- [Detached prediction](equipment-action-projection.md): four predictions at two
+  original development states match every exported native endpoint field and
+  full contact state exactly, without changing the live state/task. The 49-control
+  original prefix also matches its recording. Counts are 848 total substeps
+  (784 live + 64 predicted), 11 model builds, two data objects, 55 forwards and
+  one reset. Runtime 0.796908 seconds / 138,952,704 B peak RSS; terminal/reaped.
+  Twenty-six distinct mocked cases pass. The original equipment failure remains.
+- [Lab loader](lab-loader-retention.md): release verified archive buffers before
+  the same original source-proof reads. Twenty-four distinct scoped cases pass;
+  the source checks, deadlines, limits and policy execution closure remain intact.
+  Candidate repeated read-only opens pass at 499,630,080 B / 6.245397 seconds,
+  retaining both independent sessions. Baseline exceeds the unchanged 512 MiB
+  cap on its second open (546,373,632 B observed before termination). All fifteen
+  scoped fields agree across baseline first and both candidate summaries. This
+  is not a full-baseline speed comparison or build/export/reload qualification.
+- The [playable experimental command](../local-lab.md#try-separate-arm-and-leg-feedback)
+  now uses `.local/lab-loader-retention-01/runtime-candidate`. Its only change
+  from runtime04 is the loader function; all 25 policy dependency hashes stay exact.
+  No source video, task, controller default, scene or completed recording changed.
+
+Both native benchmark handles are terminal and reaped. The equipment-control
+agent owns the new `shared_exercise_action_projection.py`, focused test and
+`equipment-action-controller.md`; it is implementing a single-decision,
+24-prediction bounded projection with mocks only. Root owns any native pilot.
+It must report unavailable/no verified candidate explicitly and retain root
+actions and passive equipment. Endpoint checks do not prove substep peaks or
+braking before a future collision. No task/scorer/gate change is authorized.
+
+Git at the latest inspection: local `79c2b6a` support/contact checkpoint plus
+independent avatar commit `66f8a9e`; origin remains last observed `deeabdc` after
+the new fetch. The specific review question for `79c2b6a` has no answer;
+continuation is not merge approval. New prediction/loader work is not included
+in that earlier review. Keep the index scoped and all avatar work untouched.
+No paid/API/key/ledger work, deployment, acquisition, server or browser was used.
+Next: finish the projection implementation and one predeclared development
+decision check, preserve failures, then checkpoint the new verified scope.
+
+## Historical support/contact work — November 1, 2026, PST
 
 This turn made progress: the saved v5 failure is now localized, the existing
 finite-support input/report path handles explicit conditional support bounds,
