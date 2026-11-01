@@ -700,7 +700,7 @@ exactly, and reopening in a fresh process preserves the recording and policy.
 The complete post-reset task interval is 254 steps / 8.47 seconds.
 
 The launcher includes the verified lower-memory loader. Two consecutive opens
-with both sessions retained completed at 477 MiB peak memory; the old loader
+with both sessions retained completed at 476.5 MiB peak memory; the old loader
 exceeded its 512 MiB bound during the second open. All source checks and the
 scene, policy, controls and saved recording are unchanged. This checks reopening,
 not the complete build/export/reload workload. [Exact comparison](handoffs/lab-loader-retention.md).

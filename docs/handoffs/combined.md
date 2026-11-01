@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-## Current prediction and lab-memory work — November 1, 2026, 10:50 AM PST
+## Current prediction and lab-memory work — November 1, 2026, 11:10 AM PST
 
 The complete goal remains active. Native prediction parity and repeated lab-open
 verification are new progress, not a successful equipment task or physical validation.
@@ -25,22 +25,53 @@ verification are new progress, not a successful equipment task or physical valid
   from runtime04 is the loader function; all 25 policy dependency hashes stay exact.
   No source video, task, controller default, scene or completed recording changed.
 
-Both native benchmark handles are terminal and reaped. The equipment-control
-agent owns the new `shared_exercise_action_projection.py`, focused test and
-`equipment-action-controller.md`; it is implementing a single-decision,
-24-prediction bounded projection with mocks only. Root owns any native pilot.
-It must report unavailable/no verified candidate explicitly and retain root
-actions and passive equipment. Endpoint checks do not prove substep peaks or
-braking before a future collision. No task/scorer/gate change is authorized.
+The [bounded action projection](equipment-action-controller.md) now has 44
+current repository cases plus one saved-vector analytical check. Native01
+preserves an honest abstention: 64 linear-solver sweeps ended before any proposed
+correction reached nonlinear verification. Native02 changes only that handoff:
+the bounded last iterate can propose an action, but only actual predictions can
+accept it. No sweep, action, time, prediction or task limit increased.
 
-Git at the latest inspection: local `79c2b6a` support/contact checkpoint plus
-independent avatar commit `66f8a9e`; origin remains last observed `deeabdc` after
-the new fetch. The specific review question for `79c2b6a` has no answer;
-continuation is not merge approval. New prediction/loader work is not included
-in that earlier review. Keep the index scoped and all avatar work untouched.
+Native02 selected the full-scale correction; half/quarter alternatives failed.
+Its one actual changed action at control49 matches every predicted native
+endpoint field and full contacts exactly, preserves root bytes, and leaves all
+original accumulated gates passing. The previous base action failed equipment
+speed/spin there. This is progress through one formerly failing step, **not a
+completed task**. Counts: 49 live controls, 24 predictions, 1,168 substeps,
+75 forwards, 11 model builds, two data objects, one reset and 24 copies. Elapsed
+1.074171 seconds /139,935,744 B peak RSS; five files /169,863 B. Result:
+`artifacts/equipment-action-controller-native-02/result.json`, SHA256
+`9dac5e6d9321982fa62e5e13ddda6314832da45c9b719686306ef3a8c798af1e`.
+
+All executed native handles are terminal/reaped. The parallel agents are
+preparing/reviewing a **new full nominal trajectory**, not rerunning either
+single-decision pilot. Root owns execution. Each control has an explicit new
+single-decision projector under an episode-wide cap: at most 254 decisions,
+6,096 predictions, 101,600 total substeps, 255 data allocations and 6,352 forwards;
+40 seconds CPU /60 seconds external, 512 MiB RSS, 16 MiB output. Stop on
+abstention or any actual protected-gate failure, without fallback or shortened
+success. Every accepted endpoint must match actual physics. This remains authored,
+privileged assistance around the same-state base, not a newly learned policy or
+public mode. Endpoint checks do not guarantee unseen substep peaks or future
+contacts; only actual full-interval metrics can establish that scoped task result.
+
+Git observation updated **November 1, 2026, 10:56 AM PST**: root's nine-file
+prediction/loader checkpoint is `fdab07bbdf8cad4c3c4362836ee6f1aef146bee2`.
+The independent avatar session then committed/published shared main at
+`4ade45a06b4de9b8382fa646a6fcf356ab71b2d6`; root's read-only `git ls-remote`
+confirms that exact remote and the prediction/support checkpoints are ancestors.
+Root performed no push or merge and infers no future approval from that action.
+The earlier exact-commit review question is operationally superseded by its
+already-published ancestry, not answered by continuation. Scoped checkpoint,
+empty index/stash and preserved independent edits are recorded in
+`.local/prediction-loader-checkpoint-01.json`; remote observation is
+`.local/prediction-loader-remote-observation-01.json`. Preserve the first receipt
+check's moving-HEAD failure; the corrected check pins root's exact commit.
+Keep the index scoped and all avatar work untouched.
 No paid/API/key/ledger work, deployment, acquisition, server or browser was used.
-Next: finish the projection implementation and one predeclared development
-decision check, preserve failures, then checkpoint the new verified scope.
+Next: checkpoint the verified one-decision implementation/evidence, then review
+and execute the prepared full-trajectory plan once. Keep the complete generalized
+goal active; independent unfamiliar-video contact accuracy remains unresolved.
 
 ## Historical support/contact work — November 1, 2026, PST
 
