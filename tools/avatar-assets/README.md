@@ -10,11 +10,28 @@ source-colored tapered cards and bounded local color repairs are reusable
 finishing controls, available to the AI author—not panda-specific code.
 [Workflow, costs and preserved failures](docs/fur-workflow.md).
 
+The new panda has an editable groom/rig, a1600px portrait and four720px/24fps/2s
+motion previews: idle, look-around, head tilt and tail lift/dip. The complete4s
+GLB actions are retimed, not cropped, for those videos. Wave/celebrate trials
+remain rejected. [View the portrait](outputs/muse-panda-smooth-fur-media-v3-portable-v1/portrait.png).
+
+From Weft, start or restart the gallery, then open `http://127.0.0.1:8765/`:
+
+```sh
+./tools/avatar-assets/run gallery
+```
+
+The default now starts with this panda and the approved dragon; previous models
+and the original2D reference remain available. For just the two new featured
+models, add `--catalog browser/gallery-panda-fur-v1.json`. No server starts
+automatically. Native hair looks much fuller than interactive3D's sparse cards;
+the long generated tail and residual seam deformation remain limitations.
+Muse-equivalent finish is not established.
+
 One newly authorized Meshy generation used35 credits, with no paid retries.
-Native portraits are substantially cleaner; final motion and browser acceptance
-are recorded in [the current handoff](TODO.md). The long generated tail remains
-an authored-surface limitation, and Muse-equivalent finish is not established.
-Previous models, the approved dragon and the original reference are unchanged.
+The full local suite passes395 tests; sampled native motion, actual export/reload
+and artifact checks are recorded in [the handoff](TODO.md). Previous output files,
+the approved dragon and the original reference are unchanged.
 
 ## Previous generated-model refinement
 
@@ -71,7 +88,7 @@ There are now **two implemented generation routes**:
 - **Meshy7.1 text/reference-to-3D:** real paid generation using the user-designated project key, an independent non-resetting credit ledger, resumable tasks, original GLB/FBX downloads and local validation. [Repeatable commands, costs and limits](docs/meshy-workflow.md).
 - **Local scene authoring:** agent-written JSON creates geometry/materials/skins/actions without paid generation. This remains useful for articulated objects, precise controls and repairs.
 
-The new Meshy panda is closer in shape/identity than the procedural prototype, but **Muse-quality parity is not established**. Its auto-weights incorrectly assigned belly geometry to a hand; generated motions visibly distorted it and are retained as rejected candidates. The finishing path supports explicit spatial weight corrections, accessory anchors, local replacement actions, native hair and separate browser fur cards. These are authored repairs, not secretly relabeled provider animation or recovered anatomy. Text-to-3D is automatic; final visual acceptance is not.
+The new Meshy panda is closer in shape/identity than the procedural prototype, but **Muse-quality parity is not established**. An earlier source's auto-weights incorrectly assigned belly geometry to a hand; generated motions visibly distorted it and remain rejected. The new smooth source instead has a locally authored rig and four modest fur-demo motions. The finishing path supports explicit spatial weight corrections, accessory anchors, local replacement actions, native hair and separate browser fur cards. These are authored repairs, not secretly relabeled provider animation or recovered anatomy. Text-to-3D is automatic; final visual acceptance is not.
 
 The independently text-generated blue/copper robot exercises the same finishing workflow. Earlier fox/lamp/HD models and all failed attempts remain available. Native hair and portable cutout cards have different appearance. No cloth/hair physics, recovered fingers or unchanged-fidelity Weft HD conversion is claimed. The original reference and hidden surfaces cannot establish the original 3D mesh or license.
 

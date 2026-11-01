@@ -4,56 +4,107 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 10:41 PST.
+- Recorded: 2026-11-01 10:53 PST.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
 - Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
 
-## Active follow-up: panda fur and small details
+## Panda fur and small details — verified improvement, quality target still open
 
-User approved the dragon and redirected effort to panda-like fur/detail. Keep
-that dragon unchanged. [Reusable controls and current evidence](docs/fur-workflow.md).
+User approved the dragon and redirected effort to panda-like fur/detail. The
+approved dragon and all previous outputs remain unchanged. [Workflow/rig/limits](docs/fur-workflow.md).
 
-- One built-in image edit completed; exact prompt/reference/output hashes in
-  `outputs/panda-fur-focus-v1/geometry-guide`. This is a2D guide, not a3D model.
-  Tool charge/model version are unexposed; no image retry.
-- User-approved35-credit Meshy job `outputs/muse-panda-smooth-base-v2` completed
-  under handle40518, task`01a1984c-da9c-70f4-959f-b765d6c752ff`,248.43s.
-  Raw GLB SHA `f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188`.
-  One paid submission, no paid retry/purchase; ledger202/210credits,8baseleft.
-  Approval and generation receipts are in `outputs/panda-fur-focus-v1`.
-  Preserve the initial canonical-digest/fileSHA preparation error: budget guard
-  stopped before a call; only the subsequently corrected request was submitted.
-- Old-source trial `muse-panda-fur-flow-v1` completed(handle82081), but old mesh
-  chunks remain visible. New `muse-panda-smooth-fur-v1` completed(handle47614):
-  improved native portrait, rejected belly/dragon boundary motion and white
-  exported-card flecks. Native reload40661 passed; export preview33815 confirmed
-  the actual card-color bug. No passing structural proof overrides visual failure.
-- Config-only repair `muse-panda-smooth-fur-v2` completed(handle61941). Sampled
-  belly/companion spikes are reduced; native portrait is showable. Wave/celebrate
-  remain too restrained to accept their meaning. Preserve both rejected trials.
-- v3 built and passed sampled native review: `outputs/muse-panda-smooth-fur-v3`,
- 58.857s/1,825,210,368B sampledRSS. Model SHA
+### Completed and verified
+
+- [x] One built-in image edit prepared a smooth-undercoat guide. Exact prompt,
+  selected reference/output hashes and unknown model/account-charge fields are
+  in `outputs/panda-fur-focus-v1/geometry-guide`. No image retry; this is2D preparation.
+- [x] User-approved35-credit Meshy job `muse-panda-smooth-base-v2` completed:
+  task`01a1984c-da9c-70f4-959f-b765d6c752ff`,248.43s, one paid submission/no retry
+  or purchase. RawGLB SHA`f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188`.
+  Ledger rechecked16submissions/202credits against210allowance;8baseleft. No Meta use.
+- [x] Generic regional native hair flow/length, combed source-colored browser
+  cards, spatial+color-selected material corrections and AI author guidance.
+ 395tests passed11.104s; skill valid. Analytic fixtures are not generated examples.
+- [x] Selected native fur demo `outputs/muse-panda-smooth-fur-v3`:74,600vertices,
+ 71,717triangles,17skin joints,4Kmaps, editable hair/BLEND. Model SHA
   `a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77`.
-  All26keyposes reviewed for idle/look_around/head_tilt/tail_sway. These are explicit
-  fur-demo alternatives, not wave/celebrate completion. Residual seam stretch is
-  recorded in `outputs/panda-fur-focus-v1/native-review-v3.json`.
-- Real portable source-color export fixed (supported material node); analytic
-  native proof maxerror2.34e-8, then actual generatedGLB audited independently.
-  Exportpreview85453 and reload8664 ended0, exactmodelhash. Browsercoat remains
-  sparse compared with native hair: lightweight review candidate, not Muse parity.
-- **Active media handle88246:** `outputs/muse-panda-smooth-fur-media-v3`,
- 1600pxportrait+four720px/24fps/2s clips, full4s actions retimed (not cropped).
-  Existing1200s/2GiB/512MiB/4threadbound; no paidcalls or automatic retry.
-  Parent owns this job. Other agents/native jobs are finished; do not duplicate.
-- Local repair amendment allowed4finish candidates total, all4nowused;
-  code/skill validation and395tests passed after final material/prompt changes.
-- Next: inspect actualmedia/contact sheets, package byte-identical compact subset,
-  real browserplayback/staticfallback proof, finalartifacts/rights audit and scoped
-  save/push. Preserve longtail, sparsebrowsercoat and residualseam limitations;
-  no Weftcore/physics/budget changes. No new paid generation authorized.
+  All26keyposes reviewed: idle/look_around/head_tilt/tail_sway. The lasttwo are
+  explicit alternatives, not wave/celebrate completion.58.857s/1,825,210,368B sampledRSS.
+- [x] Independent native reload and exported front/back/side preview passed;
+  corrected glTF COLOR_0 matches actual root colors. Anchor node5→RightShoulder6,
+  skin ordinal9; Root16→CreatureRig18. Full bind/rest/units/axes in the actual-model
+  audit. Local controls are not Weft's ten-body mapping.
+- [x] Matching native media and byte-preserving compact copy:
+  `outputs/muse-panda-smooth-fur-media-v3-portable-v1`,1600pxportrait, four720px/
+ 24fps/2s silentH.264 clips,48actualframes/48unique decodedthumbnails each.
+  Full4s actions retimed2x, not cropped; staticfallbacks match actualframe0.
+  Rawportrait retained; denoise softens finehair. Opaque/no certifiedloops.
+  Native560.204s/1,683,128,320B peak within1200s/2GiB; compact40artifacts/10,294,024B.
+- [x] Browser `outputs/browser-panda-fur-v1`: all8 panda/dragonGLB clips/videos,
+  play/pause/seek, static/reduced-motion/failure/mobile checks passed15.473s.
+  No externalrequests/unexpectederrors; owned browser/server exits verified.
+  Sampled owned-treeRSS2,869,198,848B (sharedpages maydoublecount); no sustainedFPS claim.
+- [x] Default gallery now starts with newpanda/approveddragon and retains five
+  prior examples/reference. Focused catalog `browser/gallery-panda-fur-v1.json`;
+  previous default preserved as `browser/gallery-before-panda-fur-v1.json`.
+  Default seven-entrycatalog separately validates; browser proof covers featuredtwo.
+- [x] OriginalZIP hash rechecked unchanged. Fullmodel77artifacts, fullmedia236
+  and compact40 independently hash-audited. Source/model/media/review bindings,
+  actual encoded dimensions, frame-time mapping and fallbacks are recorded.
+  [Release evidence](evidence/panda-fur-v1.json), `outputs/panda-fur-focus-v1` reviews/audits.
+
+### Preserved failures and exact limits
+
+- Old-source `muse-panda-fur-flow-v1` still shows coarse mesh chunks.
+  Smoothv1 improves portrait but leaks rearbelly weights into hand(93.61mm edge
+  excess), misses companion detail(32.69mm) and exports white furcards.
+  Smoothv2 reduces spikes but wave/celebrate are too weak; neither pack is accepted.
+- Modern RGBA Multiply node fixes actual rootcolor in COLOR_0 instead of unused
+  COLOR_1. Two analytic reload-selector fixture failures are retained before the
+  passed third probe; the production fix stayed unchanged. No provider retries.
+- Native v3 is accepted only as a sampled fur-demo improvement. Portable coat is
+  still sparse/stippled compared with native hair, not Muse/browser parity.
+  Generated long ball-tail is not reference-supported anatomy. Residual sampled
+  extension:19.20mm look-around seam,8.52mm headtilt,8.42mm tail; mildtail squash.
+- `groom_flow` is native-only; cards use one global direction. Exact v1 prompt's
+  requested shared flow was not implemented for cards. No facial/finger controls,
+  prop interaction, physics or recovered unseen surfaces.
+- FrozenWeft unchanged-fidelity conversion is explicitly unsupported in
+  `outputs/panda-fur-focus-v1/weft-unsupported-v1`; no importer/physics/action/reward edits.
+- A mistaken canonical-digest/fileSHA comparison blocked the first grant/run
+  preparation before a provider call. Correct exactdigest preceded the one actual
+  submission; preserve both request files, not two paid-submission claims.
+
+### Ownership, saved work and next safe action
+
+No active owned job or persistent server. Finished handles:40518Meshy,
+82081oldtrial,47614smoothv1,61941v2,44216v3,85453preview,8664reload,
+88246media,40425browser,82227tests; analytic probe records retain exactPIDs.
+All four authorized local finish candidates are used; no new paid retry allowance.
+
+Code/source/model checkpoint`66f8a9e1576cbac87e9efdc7682a04d7b2e17e7b` is saved.
+Final media/docs/publication revision and fresh private-remote verification belong
+in Weft-root `.local/avatar-panda-fur-publication-v1/receipt.json`; absence of a
+successful `verified_remote` field means not pushed. Stage only `tools/avatar-assets`;
+leave unrelated Weft working files/index ownership alone. Selected complete source/
+model/compactmedia/reviews are tracked; completeframes/rejectedbinaries remain local.
+
+```sh
+# From Weft; restart an existing server to load the new default.
+./tools/avatar-assets/run gallery
+# Focus on the new panda and unchanged approved dragon.
+./tools/avatar-assets/run gallery --catalog browser/gallery-panda-fur-v1.json
+```
+
+- [ ] User visual acceptance/Muse-equivalent finish remains open. Next safe quality
+  work is a bounded local tail-shape/skin and portable-coat improvement from the
+  preserved v3source, with new outputs and independent appearance/motion checks.
+  Do not repeat failed arm gestures, relabel sparse cards as native hair or buy
+  more generation using the accountbalance. Higherquality arbitrary prompts and
+  unattended acceptance are not established by this one successful fur demo.
 
 ## Previous verified checkpoint: higher-quality generated avatars
 

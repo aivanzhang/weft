@@ -1,0 +1,33 @@
+{
+  "id": "muse-panda-smooth-fur-v3",
+  "kind": "generated_render",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration": 4.0,
+      "id": "idle",
+      "loop": false,
+      "meaning": "Tiny upper-body sway and a soft settling head tilt while both feet, pelvis and the dragon-supporting right arm remain neutral; no breathing physiology claim."
+    },
+    {
+      "duration": 4.0,
+      "id": "look_around",
+      "loop": false,
+      "meaning": "The panda turns its head gently to one side and then the other, returns to front, and keeps its shoulder companion and both planted feet stable."
+    },
+    {
+      "duration": 4.0,
+      "id": "head_tilt",
+      "loop": false,
+      "meaning": "Curious alternating side-to-side head tilt around the neutral pose, held briefly at each side. Arms, feet and shoulder companion keep their rest controls. This is an authored fur-demo alternative, not a wave or celebration."
+    },
+    {
+      "duration": 4.0,
+      "id": "tail_sway",
+      "loop": false,
+      "meaning": "The visible rear tail gently lifts and dips twice around its resting pose while the head, arms, body and feet keep their rest controls. This is a small up/down tail swish, not locomotion or physical tail simulation."
+    }
+  ],
+  "style": "Premium animated-film character. Dense soft ivory and charcoal fur, warm brown expressive eyes, rounded plush proportions. Green dragon with fine scales, pale belly, horns and thin wing membranes. Preserve the reference palette and identity; no clothing, pedestal, text or extra characters.",
+  "subject": "Muse panda with a small green shoulder dragon"
+}

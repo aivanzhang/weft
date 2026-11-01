@@ -1,0 +1,421 @@
+{
+  "audit_receipt": {
+    "cpu_limit_seconds": 45,
+    "elapsed_seconds": 0.1682,
+    "native_jobs": 0,
+    "paid_cost_usd": 0,
+    "peak_rss_bytes_macos": 31899648,
+    "provider_calls": 0,
+    "video_decodes": 0,
+    "wall_alarm_seconds": 60
+  },
+  "clips": [
+    {
+      "all_49_png_source_frame_metadata_match_twice_output_index": true,
+      "all_png_headers_720_square": true,
+      "decode_reused_without_new_decode": true,
+      "extra_endpoint_sha256": "6ac9c660c5371ff2aa660545b66887408dfc9ef7bd7b08c2224e947edf22a88c",
+      "fallback_matches_actual_full_frame_zero_bytes": true,
+      "fallback_opaque_verified_by_packaging": true,
+      "fallback_path": "fallbacks/idle.png",
+      "fallback_sha256": "b58f8bae6661ab2a44a3b0d85ff5b574d58740d33c7d9db028fc97e56222e8ce",
+      "full_and_compact_video_bytes_identical": true,
+      "full_frame_zero_path": "frames/idle/0000.png",
+      "id": "idle",
+      "loop_claim": "not certified; visual seam review required",
+      "meaning": "Tiny upper-body sway and a soft settling head tilt while both feet, pelvis and the dragon-supporting right arm remain neutral; no breathing physiology claim.",
+      "recorded_decode_verification": {
+        "adjacent_mae_max": 0.001268,
+        "adjacent_mae_mean": 0.000969,
+        "audio": false,
+        "boundary_mae": 0.001097,
+        "codec": "h264",
+        "duration_seconds": 2.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 48,
+        "has_transparency": false,
+        "height": 720,
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "unique_thumbnails": 48,
+        "width": 720
+      },
+      "recorded_exact_endpoint_pixel_mae": 0.0,
+      "rendered_png_count": 49,
+      "source_clip_seconds": 4.0,
+      "source_frame_metadata_examples": [
+        {
+          "output_frame": 0,
+          "source_frame": 0,
+          "source_time_text": "00:00:00:00"
+        },
+        {
+          "output_frame": 1,
+          "source_frame": 2,
+          "source_time_text": "00:00:00:02"
+        },
+        {
+          "output_frame": 24,
+          "source_frame": 48,
+          "source_time_text": "00:00:02:00"
+        },
+        {
+          "output_frame": 47,
+          "source_frame": 94,
+          "source_time_text": "00:00:03:22"
+        },
+        {
+          "output_frame": 48,
+          "source_frame": 96,
+          "source_time_text": "00:00:04:00"
+        }
+      ],
+      "video_path": "animations/idle.mp4",
+      "video_sha256": "7bb83fd00b306e7778accbedc06987aca457202e97930afe910faa0c83e2204f"
+    },
+    {
+      "all_49_png_source_frame_metadata_match_twice_output_index": true,
+      "all_png_headers_720_square": true,
+      "decode_reused_without_new_decode": true,
+      "extra_endpoint_sha256": "1c87604502ee4e04eed99e148183cd96a3a1192508174cb996dc1185283255bd",
+      "fallback_matches_actual_full_frame_zero_bytes": true,
+      "fallback_opaque_verified_by_packaging": true,
+      "fallback_path": "fallbacks/look_around.png",
+      "fallback_sha256": "63b9e42c54ef2a57a94e43161f36556757b13b38d018e1dcf5c9f09e105e2cb7",
+      "full_and_compact_video_bytes_identical": true,
+      "full_frame_zero_path": "frames/look_around/0000.png",
+      "id": "look_around",
+      "loop_claim": "not certified; visual seam review required",
+      "meaning": "The panda turns its head gently to one side and then the other, returns to front, and keeps its shoulder companion and both planted feet stable.",
+      "recorded_decode_verification": {
+        "adjacent_mae_max": 0.001804,
+        "adjacent_mae_mean": 0.000887,
+        "audio": false,
+        "boundary_mae": 0.001084,
+        "codec": "h264",
+        "duration_seconds": 2.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 48,
+        "has_transparency": false,
+        "height": 720,
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "unique_thumbnails": 48,
+        "width": 720
+      },
+      "recorded_exact_endpoint_pixel_mae": 0.0,
+      "rendered_png_count": 49,
+      "source_clip_seconds": 4.0,
+      "source_frame_metadata_examples": [
+        {
+          "output_frame": 0,
+          "source_frame": 0,
+          "source_time_text": "00:00:00:00"
+        },
+        {
+          "output_frame": 1,
+          "source_frame": 2,
+          "source_time_text": "00:00:00:02"
+        },
+        {
+          "output_frame": 24,
+          "source_frame": 48,
+          "source_time_text": "00:00:02:00"
+        },
+        {
+          "output_frame": 47,
+          "source_frame": 94,
+          "source_time_text": "00:00:03:22"
+        },
+        {
+          "output_frame": 48,
+          "source_frame": 96,
+          "source_time_text": "00:00:04:00"
+        }
+      ],
+      "video_path": "animations/look_around.mp4",
+      "video_sha256": "ddb8dbdd23eeff745fd7d39128a660b75cca8be7ab65ebabed5ff8679a316572"
+    },
+    {
+      "all_49_png_source_frame_metadata_match_twice_output_index": true,
+      "all_png_headers_720_square": true,
+      "decode_reused_without_new_decode": true,
+      "extra_endpoint_sha256": "5069c1a4dc0cf535d174509df59ffa00d78e98ed805af413858637497eb6df15",
+      "fallback_matches_actual_full_frame_zero_bytes": true,
+      "fallback_opaque_verified_by_packaging": true,
+      "fallback_path": "fallbacks/head_tilt.png",
+      "fallback_sha256": "3f490329564c6c825f47e0d7238a41c6f79c7511ae4d86a9614fc8fc79e2b6db",
+      "full_and_compact_video_bytes_identical": true,
+      "full_frame_zero_path": "frames/head_tilt/0000.png",
+      "id": "head_tilt",
+      "loop_claim": "not certified; visual seam review required",
+      "meaning": "Curious alternating side-to-side head tilt around the neutral pose, held briefly at each side. Arms, feet and shoulder companion keep their rest controls. This is an authored fur-demo alternative, not a wave or celebration.",
+      "recorded_decode_verification": {
+        "adjacent_mae_max": 0.002128,
+        "adjacent_mae_mean": 0.000962,
+        "audio": false,
+        "boundary_mae": 0.001115,
+        "codec": "h264",
+        "duration_seconds": 2.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 48,
+        "has_transparency": false,
+        "height": 720,
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "unique_thumbnails": 48,
+        "width": 720
+      },
+      "recorded_exact_endpoint_pixel_mae": 0.0,
+      "rendered_png_count": 49,
+      "source_clip_seconds": 4.0,
+      "source_frame_metadata_examples": [
+        {
+          "output_frame": 0,
+          "source_frame": 0,
+          "source_time_text": "00:00:00:00"
+        },
+        {
+          "output_frame": 1,
+          "source_frame": 2,
+          "source_time_text": "00:00:00:02"
+        },
+        {
+          "output_frame": 24,
+          "source_frame": 48,
+          "source_time_text": "00:00:02:00"
+        },
+        {
+          "output_frame": 47,
+          "source_frame": 94,
+          "source_time_text": "00:00:03:22"
+        },
+        {
+          "output_frame": 48,
+          "source_frame": 96,
+          "source_time_text": "00:00:04:00"
+        }
+      ],
+      "video_path": "animations/head_tilt.mp4",
+      "video_sha256": "d55f20c5d7605cce5848e4c0ff79cef1c9eae8a9865252909f6a850691956b2c"
+    },
+    {
+      "all_49_png_source_frame_metadata_match_twice_output_index": true,
+      "all_png_headers_720_square": true,
+      "decode_reused_without_new_decode": true,
+      "extra_endpoint_sha256": "5b3c172015bf9d03e20828a2106494eedf32321652089a81ec00808709a1e28b",
+      "fallback_matches_actual_full_frame_zero_bytes": true,
+      "fallback_opaque_verified_by_packaging": true,
+      "fallback_path": "fallbacks/tail_sway.png",
+      "fallback_sha256": "1db9ed15d538b0803611c55080d2d8cbf1d0e278bc3eb5a0004588ebd6516808",
+      "full_and_compact_video_bytes_identical": true,
+      "full_frame_zero_path": "frames/tail_sway/0000.png",
+      "id": "tail_sway",
+      "loop_claim": "not certified; visual seam review required",
+      "meaning": "The visible rear tail gently lifts and dips twice around its resting pose while the head, arms, body and feet keep their rest controls. This is a small up/down tail swish, not locomotion or physical tail simulation.",
+      "recorded_decode_verification": {
+        "adjacent_mae_max": 0.001061,
+        "adjacent_mae_mean": 0.000557,
+        "audio": false,
+        "boundary_mae": 0.000396,
+        "codec": "h264",
+        "duration_seconds": 2.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 48,
+        "has_transparency": false,
+        "height": 720,
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "unique_thumbnails": 48,
+        "width": 720
+      },
+      "recorded_exact_endpoint_pixel_mae": 0.0,
+      "rendered_png_count": 49,
+      "source_clip_seconds": 4.0,
+      "source_frame_metadata_examples": [
+        {
+          "output_frame": 0,
+          "source_frame": 0,
+          "source_time_text": "00:00:00:00"
+        },
+        {
+          "output_frame": 1,
+          "source_frame": 2,
+          "source_time_text": "00:00:00:02"
+        },
+        {
+          "output_frame": 24,
+          "source_frame": 48,
+          "source_time_text": "00:00:02:00"
+        },
+        {
+          "output_frame": 47,
+          "source_frame": 94,
+          "source_time_text": "00:00:03:22"
+        },
+        {
+          "output_frame": 48,
+          "source_frame": 96,
+          "source_time_text": "00:00:04:00"
+        }
+      ],
+      "video_path": "animations/tail_sway.mp4",
+      "video_sha256": "f5f5d72d470e9d619c70ff811440a83a8703d18c3c1e3d9e5edf24b7245c4140"
+    }
+  ],
+  "compact_byte_preservation": {
+    "all_omissions_declared": true,
+    "all_retained_original_files_byte_identical": true,
+    "full_source_preserved": true,
+    "omitted_entries": 197,
+    "omitted_frame_files": 196,
+    "omitted_nonframe_files": [
+      "render.log"
+    ],
+    "regeneration": false,
+    "retained_original_bytes": 10233230,
+    "retained_original_files": 39,
+    "source_manifest_sha256": "a16bf34e4432a2ffd977208ac9f067a919e8ccdaf07a4df3f5dcb441954c889c",
+    "status": "passed"
+  },
+  "created_at_local": "2026-11-01 10:52:33 PST",
+  "declarations": {
+    "exact_endpoint_equality_not_used_as_seam_certification": true,
+    "has_transparency": false,
+    "loops_certified": false,
+    "reduced_motion": "Use still PNG fallback; do not autoplay video",
+    "state_scope": "idle/look_around/head_tilt/tail_sway only; no wave, celebration, working or crafting completion claim.",
+    "status": "needs_visual_review",
+    "unique_thumbnail_scope": "48 unique decoded thumbnails per clip is the existing packaging result, not a claim of 48 distinct authored poses or independent visual acceptance."
+  },
+  "inventories": [
+    {
+      "all_inventory_hashes_and_lengths_match": true,
+      "artifact_bytes": 120897412,
+      "artifact_count": 236,
+      "complete_tree_file_count": 237,
+      "manifest_sha256": "a16bf34e4432a2ffd977208ac9f067a919e8ccdaf07a4df3f5dcb441954c889c",
+      "mismatched_artifacts": [],
+      "missing_files": [],
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-media-v3",
+      "unlisted_files": []
+    },
+    {
+      "all_inventory_hashes_and_lengths_match": true,
+      "artifact_bytes": 10294024,
+      "artifact_count": 40,
+      "complete_tree_file_count": 41,
+      "manifest_sha256": "64812d75ad862051cff4ef153788d49fa0a74af6dff07ea6bc20d7da0b1039d6",
+      "mismatched_artifacts": [],
+      "missing_files": [],
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-media-v3-portable-v1",
+      "unlisted_files": []
+    }
+  ],
+  "kind": "final_media_inventory_and_receipt_audit",
+  "parent_binding": {
+    "both_media_manifests_match_parent": true,
+    "full_model_audit": "actual-model-color-and-rig-audit.json",
+    "manifest_sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01",
+    "model_sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77",
+    "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-fur-v3",
+    "resume_input_receipt_matches_parent": true,
+    "source_blend_sha256": "242ac2b3332e6077c50f6497970dbac3807de71d69bf49351457bffe4b4c0df8"
+  },
+  "portrait": {
+    "denoise_report_sha256": "9ebd94cea23246f0a3c3e260062814923af9d230ffbb74864992470d4aae259d",
+    "files": [
+      {
+        "compact_identical": true,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "portrait-raw.png",
+        "sha256": "b1d0d0ad7e1b19580c85e726a963078f5e4e93bcd442b79a3e040c820494ad88",
+        "width": 1600
+      },
+      {
+        "compact_identical": true,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "portrait.png",
+        "sha256": "4ac30a6ce786937bd14474a89cdab114cc4fd18816fd74f578e21bdb5e96a8d1",
+        "width": 1600
+      },
+      {
+        "compact_identical": true,
+        "height": 1600,
+        "mode": "RGB",
+        "path": "portrait.webp",
+        "sha256": "d18a85eb139ae1df2dd171b4a311a11462e77d54b2ae5de2ab77076a5fcdcad1",
+        "width": 1600
+      }
+    ],
+    "packaged_portrait_is_opaque_RGB": true,
+    "postprocess_is_local_not_generation": true,
+    "postprocess_status": "needs_visual_review",
+    "raw_matches_denoise_input_sha256": true,
+    "raw_retained_and_byte_identical_in_compact": true
+  },
+  "recorded_resource_bounds": {
+    "native_render": {
+      "descendant_exit_verified": false,
+      "elapsed_seconds": 560.204,
+      "final_output_bytes": 113569897,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 512,
+        "rss_mb": 2048,
+        "wall_seconds": 1200
+      },
+      "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+      "process_exit_verified": true,
+      "rss_exit_race_observed": true,
+      "rss_samples": 2171,
+      "sampled_peak_rss_bytes": 1683128320,
+      "sampling_interval_seconds": 0.25
+    },
+    "note": "560.204 seconds and 1,683,128,320 bytes are observed render wall time and sampled direct-child peak RSS, not configured limits or a continuous whole-process-tree memory measurement.",
+    "packaging_elapsed_seconds": 4.856,
+    "packaging_sampled_peak_rss_bytes": 295550976,
+    "portrait_denoise_elapsed_seconds": 1.023,
+    "portrait_denoise_sampled_peak_rss_bytes": 994213888,
+    "provider_calls": 0,
+    "provider_cost_usd": 0
+  },
+  "schema_version": 1,
+  "scope": "Read-only streaming hashes, JSON receipt comparison and PNG/WebP header inspection. Reuses prior decoded-video verification only after matching its exact video SHA256; no new render, video decode, provider call, Git operation, source ZIP/ledger check or secret access.",
+  "status": "passed_file_and_recorded_media_checks",
+  "time_mapping": {
+    "encoded_output_indices": [
+      0,
+      47
+    ],
+    "encoded_source_time_range_seconds": [
+      0,
+      3.9166666666666665
+    ],
+    "evidence": "All 196 rendered PNG Frame metadata values verified; source snapshot computes the same mapping.",
+    "extra_endpoint_output_index": 48,
+    "extra_endpoint_source_seconds": 4,
+    "interpretation": "The full action range is retimed at 2x speed, not truncated to its first two seconds. The exact four-second endpoint is retained as PNG 0048 for comparison but excluded from the 48-frame MP4.",
+    "output_frame_rate": 24,
+    "output_video_seconds": 2,
+    "packaging_snapshot_sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+    "playback_speed_factor": 2,
+    "render_equation": "source_frame = first + output_frame_index * (last-first) / (2*24)",
+    "renderer_snapshot_sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+    "source_action_seconds": 4,
+    "source_frame_rate": 24,
+    "verified_source_frame_range": [
+      0,
+      96
+    ]
+  },
+  "unchanged_manifests_after_audit": true
+}

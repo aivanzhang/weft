@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-11-01T10:52:54.172885-08:00",
+  "status": "native_fur_demo_verified_portable_review_candidate",
+  "source_checkpoint": "66f8a9e1576cbac87e9efdc7682a04d7b2e17e7b",
+  "scope": "Reusable regional groom/combed-card/color repair controls and one real generated panda; approved dragon and previous real examples retained",
+  "tests": {
+    "python_tests": 395,
+    "elapsed_seconds": 11.104,
+    "kind": "analytic and mocked contract/resource tests, not avatar quality"
+  },
+  "actual_native": {
+    "keyposes_reviewed": 26,
+    "states": [
+      "idle",
+      "look_around",
+      "head_tilt",
+      "tail_sway"
+    ],
+    "build_seconds": 58.857,
+    "sampled_child_rss_bytes": 1825210368,
+    "media_seconds": 560.204,
+    "media_sampled_child_rss_bytes": 1683128320
+  },
+  "actual_browser": {
+    "models": 2,
+    "skeletal_clips": 8,
+    "videos": 8,
+    "elapsed_ms": 15473,
+    "sampled_owned_tree_rss_bytes": 2869198848,
+    "external_requests": 0,
+    "unexpected_errors": 0,
+    "owned_browser_server_exit_verified": true,
+    "scope": "Playback/fallback/seek/mobile sample, not sustained FPS or visual parity"
+  },
+  "cost": {
+    "mesh_generation_calls": 1,
+    "mesh_credits": 35,
+    "paid_retries": 0,
+    "credit_purchases": 0,
+    "aggregate_reported_credits": 202,
+    "aggregate_allowance": 210,
+    "remaining_base_credits": 8,
+    "built_in_image_edits": 1,
+    "image_edit_account_charge": "not exposed",
+    "dollars_per_meshy_credit": "unknown",
+    "additional_native_provider_cost_usd": 0,
+    "recurring_services": false
+  },
+  "immutable_outputs": true,
+  "tracked_subset": "Selected source/model/editable native pack, raw generated source and derived guide, compact media, probes/reviews; complete video frames and rejected model binaries remain local, not deleted. Older failed manifests may reference local-only bytes. Complete selected pack manifests retain their recorded runtime cache bytes too.",
+  "not_claimed": [
+    "Muse-equivalent quality or original3D reconstruction",
+    "Native-hair/browser-fur parity",
+    "Accepted wave/celebration or prop/finger/facial control",
+    "Recovered tail anatomy or zero seam stretch",
+    "Seamless loops, hair physics or Weft runtime alignment"
+  ],
+  "publication_receipt": ".local/avatar-panda-fur-publication-v1/receipt.json at Weft root; absence of verified_remote means not pushed",
+  "artifacts": [
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01",
+      "bytes": 67655
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77",
+      "bytes": 29952112
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/source.blend",
+      "sha256": "242ac2b3332e6077c50f6497970dbac3807de71d69bf49351457bffe4b4c0df8",
+      "bytes": 48885543
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-v3/exported-nodes.json",
+      "sha256": "d4efb44cd3e624fca001f98b6e7d6a689f9a804a0bf48e89e1d47627f9c49172",
+      "bytes": 8928
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/manifest.json",
+      "sha256": "64812d75ad862051cff4ef153788d49fa0a74af6dff07ea6bc20d7da0b1039d6",
+      "bytes": 80999
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-reload-v3/manifest.json",
+      "sha256": "ceb24111612325d155df50489103cb1a9cdff640827a926e772fd21fcfca886f",
+      "bytes": 3437
+    },
+    {
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/manifest.json",
+      "sha256": "ff13a04bd066599111f2676e4885f6bcca3b1351633da41c7f16e7ba57a9ea09",
+      "bytes": 12300
+    },
+    {
+      "path": "outputs/browser-panda-fur-v1/browser-test.json",
+      "sha256": "9d8bfd30728456dcc9b4d09af878ff5dc053315586e20d80eabcab70f1ab85b6",
+      "bytes": 13328
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/generation-receipt.json",
+      "sha256": "ccd9b6a97c672a4d5b39cb659950b39e28edcc49443df5ac4d78ce522097ce58",
+      "bytes": 1251
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/geometry-guide/manifest.json",
+      "sha256": "d8f2e3cbc1f9b320da314e499a08314e1917a741d8b5e19dedbfe7d33cb539ef",
+      "bytes": 1405
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/native-review-v1-v2.json",
+      "sha256": "eed5d93afc8210562e7ce0ccb0c74a997ead15369f5d01659970a3a71dc32590",
+      "bytes": 12824
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/native-review-v3.json",
+      "sha256": "bdc893de591f6513b782fc76aaaed0f60f924c874692bd57a846633c0cded8c5",
+      "bytes": 7672
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/media-review-v1.json",
+      "sha256": "c446fc52fc4435467950e2dbece0c8f72e9d67a6759e55b59972dbb3161c79b7",
+      "bytes": 11002
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/actual-model-color-and-rig-audit.json",
+      "sha256": "902109cfb264b8df1aaea45dca1f8b94ff05282aa435649caa64b03efff6cc7c",
+      "bytes": 34100
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/reference-preservation-v1.json",
+      "sha256": "405cbe1cecd323db95966c59344dbcda2e2482f3d4ec312eda5af7294df3ffb2",
+      "bytes": 334
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/color-export-probe-v3/manifest.json",
+      "sha256": "10937a8cfb7623bdbbd30a4127c3b70f4dee02110072e7bddae5f419d6e327fc",
+      "bytes": 5364
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/tests-v3.txt",
+      "sha256": "aebf13a3839d08b2340e791b4c4d4cd0a3e7c903a7b5bd3d33ffb93f6857563d",
+      "bytes": 61991
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/weft-unsupported-v1/unsupported.json",
+      "sha256": "e66f923e63ff072b562292936bcc3a0d215382cd028371cdf93d1f8a5bf432c2",
+      "bytes": 1086
+    },
+    {
+      "path": "browser/gallery-panda-fur-v1.json",
+      "sha256": "baf9188d0bb9520ec323f4d07a459f9edaa6fbe18e2bb870743c45d6d414a346",
+      "bytes": 916
+    },
+    {
+      "path": "browser/gallery.json",
+      "sha256": "548ec792b2ec9812ece7d346f531a8e70b22e21126c87c4be5456520d9cd082d",
+      "bytes": 2966
+    },
+    {
+      "path": "browser/gallery-before-panda-fur-v1.json",
+      "sha256": "087af4371633fc44a187f0d9e728bacaa89c2690c63630941385c815c1571974",
+      "bytes": 2093
+    },
+    {
+      "path": "outputs/panda-fur-focus-v1/media-audit-v1.json",
+      "sha256": "a33bfeae91cec6a0e5cc39f14efd629e89bddfab8578b12b25425f4ed1852e80",
+      "bytes": 16072
+    }
+  ]
+}

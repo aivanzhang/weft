@@ -72,7 +72,7 @@ From `tools/avatar-assets`, with the existing isolated `.venv`:
 # Execution still requires an actual authorized ledger allowance.
 .venv/bin/python -m avatar_assets generate --resume outputs/fox-request-next --execute
 # Local-only finishing after a measured recipe change; choose a new output.
-.venv/bin/python -m avatar_assets.finish_generated examples/meshy/muse-panda-smooth-fur-v2.json --out outputs/panda-finish-next
+.venv/bin/python -m avatar_assets.finish_generated examples/meshy/muse-panda-smooth-fur-v3.json --out outputs/panda-finish-next
 .venv/bin/python -m avatar_assets reload3d outputs/panda-finish-next --out outputs/panda-reload-next
 .venv/bin/python -m avatar_assets.provider_model outputs/panda-finish-next/model.glb --out outputs/panda-export-preview-next --resolution 1024 --samples 32
 ```
@@ -85,6 +85,81 @@ timing. Static fallbacks are actual first frames. Backgrounds are opaque and
 seamless loops remain uncertified even if endpoint poses match.
 
 ## Current panda evidence and costs
+
+Selected native fur-demo model: [`muse-panda-smooth-fur-v3`](../outputs/muse-panda-smooth-fur-v3/manifest.json).
+Its [portrait](../outputs/muse-panda-smooth-fur-v3/portrait.png),
+[GLB](../outputs/muse-panda-smooth-fur-v3/model.glb) and editable
+[`source.blend`](../outputs/muse-panda-smooth-fur-v3/source.blend) are real outputs,
+not analytic fixtures. All 26 saved key poses passed sampled review for these
+explicitly authored alternatives:
+
+| State | Visible action |
+| --- | --- |
+| `idle` | Small settling/sway |
+| `look_around` | Gentle alternating head turns |
+| `head_tilt` | Alternating curious side tilt |
+| `tail_sway` | Tail lifts and dips twice; not a horizontal wag |
+
+The prior wave/celebrate trials remain rejected; these states are not relabeled
+completion of those actions. The native portrait is showable fur progress. The
+[portable preview](../outputs/muse-panda-smooth-fur-export-preview-v3/three-quarter.png)
+is a lightweight review candidate: it no longer has widespread white cards on
+black surfaces, but its sparse tufts remain visibly less plush than native hair.
+Native sampled acceptance is not browser-fur parity or final human acceptance.
+
+Model SHA256: `a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77`.
+It has 74,600 exported vertices, 71,717 triangles and seventeen skin joints.
+Source includes 4K basecolor/normal and 2K metallic/roughness maps. Seven native
+flow regions preserve strand roots; longest stored parent strand is 21.601mm.
+The 6,500 parents / 30 children are configuration counts, not a visual score.
+The GLB instead contains 2,400 cutout cards with inherited weights.
+
+Matching compact media:
+[`muse-panda-smooth-fur-media-v3-portable-v1`](../outputs/muse-panda-smooth-fur-media-v3-portable-v1/manifest.json).
+It contains a1600px opaque portrait, four720px/24fps/two-second silent H.264
+clips with48 distinct decoded thumbnails each, exact first-frame static fallbacks
+and contact sheets. The full four-second actions are retimed into two seconds.
+The filtered portrait retains its raw render; filtering softens fine strands.
+Native rendering took560.204s with1,683,128,320B sampled peak RSS, within the
+unchanged1200s/2GiB limit. The10,294,024-byte compact artifact set is byte-preserving;
+196 full frames and the render log remain in the complete local media folder.
+
+From Weft, `./tools/avatar-assets/run gallery` now shows this panda first, followed
+by the unchanged approved dragon and prior examples/reference. The former default
+is preserved as `browser/gallery-before-panda-fur-v1.json`. The focused two-model
+catalog is `browser/gallery-panda-fur-v1.json`; use it for the complete pipeline
+browser test, which requires actual models and matching media rather than2D references.
+
+Build: 58.857s / 1,825,210,368B sampled child RSS. Independent GLB preview and
+reload passed in 17.780s / 2.592s. Residual maximum sampled edge extension is
+19.20mm near the companion during look-around, 8.52mm during head tilt and
+8.42mm during tail motion; mild tail squashing remains. No collision, every-frame
+or seamless-loop claim follows from these samples.
+
+### Rig and consumer handoff
+
+- Units: authored meters, 1.2m total height; right-handed glTF +Y up / +Z forward.
+- `Head`: node 0; `CompanionAnchor`: node 5, parent `RightShoulder` node 6;
+  `Root`: node 16 under `CreatureRig` node 18. The anchor is skin ordinal 9:
+  **`JOINTS_0` indexes `skin.joints`, not node IDs.**
+- The companion is a rigidly weighted region of the shared mesh, not a separate
+  dragon skeleton or independently simulated actor. Its 25,803 selected source
+  vertices become 26,028 exported rigid-anchor vertices after splitting. A small
+  card boundary retains partial anchor influence; inspect seams when changing actions.
+- Rest pose is the exported node hierarchy plus inverse bind matrices. Root/object
+  scales are identity; maximum measured rest-times-inverse-bind error is 3.48e-7.
+  Full local/world transforms, skin order, materials and source hashes are in the
+  [actual-model audit](../outputs/panda-fur-focus-v1/actual-model-color-and-rig-audit.json)
+  and [exported nodes](../outputs/muse-panda-smooth-fur-v3/exported-nodes.json).
+- The native anchor's display bone is authored three meters long; this is a helper
+  display length, not companion size or recovered anatomy. GLB stores transforms
+  and inverse binds, not this editable-bone endpoint.
+- `rig-contract.json` targets local controls, **not Weft**. Its empty rigid-object
+  attachment list does not describe this skinned region; the region selector and
+  actual parent are recorded separately in `exported-nodes.json`/the audit.
+- [Unchanged-fidelity Weft conversion is explicitly unsupported](../outputs/panda-fur-focus-v1/weft-unsupported-v1/unsupported.json).
+  Keep prior compatible panda/robot outputs unchanged. No ten-body-frame mapping,
+  importer change or physics/action/reward change was made.
 
 One built-in image edit produced the smooth guide in
 `outputs/panda-fur-focus-v1/geometry-guide`; its exact prompt, original reference

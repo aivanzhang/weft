@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "11/01/2026, 10:50:28 PST",
+  "timezone": "America/Los_Angeles",
+  "scope": "Real browser GLB loading, each declared skeletal clip and supplied video, static/reduced-motion/failure fallback. Not a visual-quality, seamless-loop, physics or sustained-FPS certification.",
+  "catalog": {
+    "path": "browser/gallery-panda-fur-v1.json",
+    "sha256": "baf9188d0bb9520ec323f4d07a459f9edaa6fbe18e2bb870743c45d6d414a346",
+    "expanded_sha256": "4c8c9757ec3c8ab0473603d0ed71255254c1b4a9ce7f3cf462f0b5d5c3eb8749"
+  },
+  "limits": {
+    "wall_ms": 900000,
+    "sampled_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "log_bytes": 1048576,
+    "events": 2000,
+    "event_bytes": 524288,
+    "assets": 24,
+    "states_per_asset": 8,
+    "operation_ms": 15000
+  },
+  "assets": [
+    {
+      "id": "panda-fur-v3",
+      "model": "/asset/panda-fur-v3/model",
+      "animations": [
+        {
+          "id": "idle",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.09989999999999964,
+          "paused_at": 0.21660000000000035,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look_around",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08340000000000056,
+          "paused_at": 0.2001000000000004,
+          "seek_seconds": 2
+        },
+        {
+          "id": "head_tilt",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.1,
+          "paused_at": 0.23330000000000017,
+          "seek_seconds": 2
+        },
+        {
+          "id": "tail_sway",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.1333000000000002,
+          "paused_at": 0.25,
+          "seek_seconds": 2
+        }
+      ],
+      "videos": [
+        {
+          "id": "idle",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0829,
+          "paused_at": 0.1137,
+          "seek_seconds": 1
+        },
+        {
+          "id": "look_around",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0851,
+          "paused_at": 0.1166,
+          "seek_seconds": 1
+        },
+        {
+          "id": "head_tilt",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0828,
+          "paused_at": 0.1146,
+          "seek_seconds": 1
+        },
+        {
+          "id": "tail_sway",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.085,
+          "paused_at": 0.1161,
+          "seek_seconds": 1
+        }
+      ],
+      "missing_videos": [],
+      "model_manifest": {
+        "path": "outputs/muse-panda-smooth-fur-v3/manifest.json",
+        "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01"
+      },
+      "media_manifest": {
+        "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/manifest.json",
+        "sha256": "64812d75ad862051cff4ef153788d49fa0a74af6dff07ea6bc20d7da0b1039d6"
+      },
+      "load_ms": 1703,
+      "portrait": {
+        "width": 1600,
+        "height": 1600
+      },
+      "static_fallbacks": [
+        {
+          "id": "idle",
+          "source": "/asset/panda-fur-v3/still-idle",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "look_around",
+          "source": "/asset/panda-fur-v3/still-look_around",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "head_tilt",
+          "source": "/asset/panda-fur-v3/still-head_tilt",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "tail_sway",
+          "source": "/asset/panda-fur-v3/still-tail_sway",
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "elapsed_ms": 6360
+    },
+    {
+      "id": "dragon-polish-v1",
+      "model": "/asset/dragon-polish-v1/model",
+      "animations": [
+        {
+          "id": "idle",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08329999999999928,
+          "paused_at": 0.14989999999999964,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look_around",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0833000000000011,
+          "paused_at": 0.15000000000000002,
+          "seek_seconds": 2
+        },
+        {
+          "id": "wing_flap",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08329999999999928,
+          "paused_at": 0.14989999999999964,
+          "seek_seconds": 2
+        },
+        {
+          "id": "milestone_level_up",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.10010000000000037,
+          "paused_at": 0.16660000000000036,
+          "seek_seconds": 2
+        }
+      ],
+      "videos": [
+        {
+          "id": "idle",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0835,
+          "paused_at": 0.1164,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look_around",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0846,
+          "paused_at": 0.1162,
+          "seek_seconds": 2
+        },
+        {
+          "id": "wing_flap",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0844,
+          "paused_at": 0.1168,
+          "seek_seconds": 2
+        },
+        {
+          "id": "milestone_level_up",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0848,
+          "paused_at": 0.1165,
+          "seek_seconds": 2
+        }
+      ],
+      "missing_videos": [],
+      "model_manifest": {
+        "path": "outputs/agent-dragon-polish-v1/manifest.json",
+        "sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437"
+      },
+      "media_manifest": {
+        "path": "outputs/agent-dragon-polish-media-v1-portable-v1/manifest.json",
+        "sha256": "0c169d0cea9d108f91c6b69582f2cfbd0b3e0ae5050985ebbe147008a11b4d58"
+      },
+      "load_ms": 290,
+      "portrait": {
+        "width": 1600,
+        "height": 1600
+      },
+      "static_fallbacks": [
+        {
+          "id": "idle",
+          "source": "/asset/dragon-polish-v1/still-idle",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "look_around",
+          "source": "/asset/dragon-polish-v1/still-look_around",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "wing_flap",
+          "source": "/asset/dragon-polish-v1/still-wing_flap",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "milestone_level_up",
+          "source": "/asset/dragon-polish-v1/still-milestone_level_up",
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "elapsed_ms": 3640
+    }
+  ],
+  "checks": [
+    "Every declared GLB clip loads, plays, pauses and seeks; every supplied video decodes and plays; portraits and per-state static images decode",
+    "Reduced motion selects static portraits for every asset without any GLB/video fetch or autoplay",
+    "Intentionally failed GLB/video requests disable playback and leave the real static portrait usable",
+    "390px portrait layout has no horizontal overflow"
+  ],
+  "errors": [],
+  "expected_failure_observations": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    },
+    {
+      "kind": "console",
+      "message": "TypeError: Failed to fetch\n    at Ql.load (http://127.0.0.1:55300/vendor/model-viewer.min.js:48:203748)\n    at ap.load (http://127.0.0.1:55300/vendor/model-viewer.min.js:552:34811)\n    at http://127.0.0.1:55300/vendor/model-viewer.min.js:594:5683\n    at new Promise (<anonymous>)\n    at http://127.0.0.1:55300/vendor/model-viewer.min.js:594:5661\n    at Pg.preload (http://127.0.0.1:55300/vendor/model-viewer.min.js:594:5700)\n    at Pg.load (http://127.0.0.1:55300/vendor/model-viewer.min.js:594:5909)\n    at http://127.0.0.1:55300/vendor/model-viewer.min.js:1008:3644\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:55300/vendor/model-viewer.min.js:1008:3613"
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    }
+  ],
+  "external_requests": [],
+  "request_failures": [
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-tail_sway",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-head_tilt",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-head_tilt",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-tail_sway",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-milestone_level_up",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-wing_flap",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-wing_flap",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/dragon-polish-v1/video-milestone_level_up",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/model",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    },
+    {
+      "url": "http://127.0.0.1:55300/asset/panda-fur-v3/video-idle",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    }
+  ],
+  "resources": {
+    "sampled_peak_rss_bytes": 2869198848,
+    "sampling_interval_ms": 2000,
+    "scope": "RSS summed for this test and its descendants; shared pages may be counted twice. Sampled enforcement, not a hard OS allocation cap."
+  },
+  "artifacts": [
+    {
+      "path": "source-catalog.json",
+      "bytes": 916,
+      "sha256": "baf9188d0bb9520ec323f4d07a459f9edaa6fbe18e2bb870743c45d6d414a346"
+    },
+    {
+      "path": "source-test.mjs",
+      "bytes": 27417,
+      "sha256": "8318268e16ee04ee802deecc9fe29ed54e99b8967975020043ae45da47f6f824"
+    },
+    {
+      "path": "asset-01-model.png",
+      "bytes": 281695,
+      "sha256": "c2229a3098dd62c9d074d3c2bf9ae3852e82b0dd20da7c761c852ddd8bc41ebd"
+    },
+    {
+      "path": "asset-02-model.png",
+      "bytes": 253640,
+      "sha256": "cf90237f450f8c06b2c431aa671445aacc575a8360754c6acbdd42723bd6d846"
+    },
+    {
+      "path": "reduced-motion.png",
+      "bytes": 68674,
+      "sha256": "b4a8e621c4ed19143ff975305d95b19ab78aa4f6fec5c245ef0e0c9253f52b01"
+    },
+    {
+      "path": "model-failure-static-fallback.png",
+      "bytes": 210573,
+      "sha256": "a0e7f6d75f14f5847172cb44316fe1513e14f820792040e71830a8098d09b492"
+    },
+    {
+      "path": "mobile-portrait.png",
+      "bytes": 140472,
+      "sha256": "3d888b994c4d76a0fd3c805a67084fde20c95d2c51c7b73e3b7ab032c2b3ddfc"
+    },
+    {
+      "path": "server.log",
+      "bytes": 6,
+      "sha256": "db81d085c49c75bd208e33087759c72cd2f84d387279927b879be842045a6627"
+    }
+  ],
+  "cleanup": {
+    "started": true,
+    "browser_exit_verified": true,
+    "server_exit_verified": true
+  },
+  "server_pid": 22117,
+  "browser_pid": 22118,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true,
+    "software_webgl": true
+  },
+  "initial_library_ms": 2317,
+  "elapsed_ms": 15473,
+  "finished_local": "11/01/2026, 10:50:44 PST",
+  "output_bytes_before_report": 983393
+}

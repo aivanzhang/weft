@@ -1,0 +1,296 @@
+{
+  "bindings": [
+    {
+      "bytes": 80999,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/manifest.json",
+      "sha256": "64812d75ad862051cff4ef153788d49fa0a74af6dff07ea6bc20d7da0b1039d6"
+    },
+    {
+      "bytes": 60794,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/source-manifest.json",
+      "sha256": "a16bf34e4432a2ffd977208ac9f067a919e8ccdaf07a4df3f5dcb441954c889c"
+    },
+    {
+      "bytes": 3521,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/sources/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650"
+    },
+    {
+      "bytes": 1621,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/sources/scene.json",
+      "sha256": "58cd5e55856700acbf66a42df67f289c69ea40cce5e051695a14ab9f1334846d"
+    },
+    {
+      "bytes": 439,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/render-complete.json",
+      "sha256": "bb9788c8ca5cbb452b9d776381b8f1abd5dcc365bf0262a91dc8bbc173db277e"
+    },
+    {
+      "bytes": 6770,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/portrait-denoise/report.json",
+      "sha256": "9ebd94cea23246f0a3c3e260062814923af9d230ffbb74864992470d4aae259d"
+    },
+    {
+      "bytes": 29952112,
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77"
+    },
+    {
+      "bytes": 39365,
+      "path": "outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3"
+    }
+  ],
+  "browser_native_fur_parity_claim": false,
+  "identity_and_coat": "Native media preserves the panda/shoulder-dragon arrangement, proportions, palette, camera and background across sampled states; coat reads as groomed plush fur rather than the earlier triangular cheek splinters.",
+  "kind": "independent_sampled_native_media_review",
+  "muse_quality_parity_claim": false,
+  "new_provider_cost_usd_by_review": 0,
+  "portrait": {
+    "decision": "denoised_portrait_accepted_for_display_with_raw_retained",
+    "denoiser": "Open Image Denoise 2.3.3 CPU, color-only display-referred sRGB; no albedo/normal guides",
+    "detail_caveat": "Noise removal is not added geometric or recovered hair detail. Individual fine strands can be smoothed; raw comparison remains necessary.",
+    "observation": "Denoising visibly removes render grain while retaining readable fur direction and silhouette fibers, ivory/charcoal pattern, brown eyes, nose, muzzle, and green shoulder companion. Fine muzzle/cheek/ear strands are softened compared with the unchanged raw render.",
+    "raw_retained": true,
+    "resolution": [
+      1600,
+      1600
+    ]
+  },
+  "provider_calls_by_review": 0,
+  "residual_limits": [
+    "All visual decisions are sampled; contact sheets do not prove continuous temporal smoothness or absence of flicker.",
+    "The look-around head/companion boundary retains measured stretch, and tail movement mildly changes tail shape.",
+    "The long ball-ended rear tail and unseen anatomy remain generated/authored assumptions, not reference-recovered geometry.",
+    "Head tilt and tail sway are explicitly new fur-demo actions; rejected wave/celebrate are not completed or relabeled.",
+    "Companion sheen/detail and fur grooming still differ from the Muse reference.",
+    "Native groom media does not establish equivalent browser GLB fur; portable cards remain visibly sparser.",
+    "No seamless-loop, transparency, physics, anatomical accuracy, Weft runtime compatibility or human approval claim."
+  ],
+  "retiming": {
+    "encoded_output_indices": [
+      0,
+      47
+    ],
+    "encoded_source_seconds_range": [
+      0,
+      3.9166666666666665
+    ],
+    "extra_endpoint_not_encoded": true,
+    "extra_endpoint_source_second": 4,
+    "formula": "source_frame = first + output_index * (last-first) / (2*24)",
+    "interpretation": "The full four-second action range is sampled into a two-second clip, not cropped to its first two seconds. The exact final endpoint is retained for comparison, not as a 49th encoded frame.",
+    "rendered_samples": 49,
+    "seamless_loop_claim": false,
+    "source_frame_range": [
+      0,
+      96
+    ],
+    "source_seconds_range": [
+      0,
+      4
+    ],
+    "speed_factor": 2,
+    "verified_from": "Frozen render source, completion receipt, scene durations, clip inspections and contact sheets"
+  },
+  "reviewed_at_local": "2026-11-01T10:51:38.894904-08:00",
+  "reviewer_role": "independent_visual_review_agent",
+  "schema_version": 1,
+  "scope": "Two portrait images and all four 12-frame decoded-video contact sheets viewed directly; no video playback, new rendering, provider generation or browser test performed by this reviewer.",
+  "states": [
+    {
+      "contact_frames": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        26,
+        30,
+        34,
+        38,
+        42,
+        47
+      ],
+      "contact_sheet": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/idle.png",
+      "decision": "accepted_for_sampled_native_fur_demo",
+      "fps": 24,
+      "frames": 48,
+      "id": "idle",
+      "loop_certified": false,
+      "meaning_not_equivalent_to_rejected_wave_or_celebrate": true,
+      "observation": "Small settling head and upper-body movement is visible; character identity and planted-foot presentation remain stable.",
+      "output_seconds": 2,
+      "prior_native_keypose_max_reported_edge_excess_mm": 0,
+      "resolution": [
+        720,
+        720
+      ],
+      "silent": true,
+      "source_clip_seconds": 4,
+      "video": {
+        "bytes": 201334,
+        "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/animations/idle.mp4",
+        "sha256": "7bb83fd00b306e7778accbedc06987aca457202e97930afe910faa0c83e2204f"
+      }
+    },
+    {
+      "contact_frames": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        26,
+        30,
+        34,
+        38,
+        42,
+        47
+      ],
+      "contact_sheet": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/look_around.png",
+      "decision": "accepted_for_sampled_native_fur_demo",
+      "fps": 24,
+      "frames": 48,
+      "id": "look_around",
+      "loop_certified": false,
+      "meaning_not_equivalent_to_rejected_wave_or_celebrate": true,
+      "observation": "Both gentle head-turn directions appear across the contact sheet; the second side was not cropped. No conspicuous companion-eye or cheek spike at this sampled resolution.",
+      "output_seconds": 2,
+      "prior_native_keypose_max_reported_edge_excess_mm": 19.1984,
+      "resolution": [
+        720,
+        720
+      ],
+      "silent": true,
+      "source_clip_seconds": 4,
+      "video": {
+        "bytes": 148625,
+        "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/animations/look_around.mp4",
+        "sha256": "ddb8dbdd23eeff745fd7d39128a660b75cca8be7ab65ebabed5ff8679a316572"
+      }
+    },
+    {
+      "contact_frames": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        26,
+        30,
+        34,
+        38,
+        42,
+        47
+      ],
+      "contact_sheet": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/head_tilt.png",
+      "decision": "accepted_for_sampled_native_fur_demo",
+      "fps": 24,
+      "frames": 48,
+      "id": "head_tilt",
+      "loop_certified": false,
+      "meaning_not_equivalent_to_rejected_wave_or_celebrate": true,
+      "observation": "Alternating head roll with brief holds is distinguishable from the head-turn action; both directions are present and the companion remains recognizable.",
+      "output_seconds": 2,
+      "prior_native_keypose_max_reported_edge_excess_mm": 8.5165,
+      "resolution": [
+        720,
+        720
+      ],
+      "silent": true,
+      "source_clip_seconds": 4,
+      "video": {
+        "bytes": 150537,
+        "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/animations/head_tilt.mp4",
+        "sha256": "d55f20c5d7605cce5848e4c0ff79cef1c9eae8a9865252909f6a850691956b2c"
+      }
+    },
+    {
+      "contact_frames": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        26,
+        30,
+        34,
+        38,
+        42,
+        47
+      ],
+      "contact_sheet": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/tail_sway.png",
+      "decision": "accepted_for_sampled_native_fur_demo",
+      "fps": 24,
+      "frames": 48,
+      "id": "tail_sway",
+      "loop_certified": false,
+      "meaning_not_equivalent_to_rejected_wave_or_celebrate": true,
+      "observation": "Two small up/down tail movements appear while the upper body stays still; the ball-ended tail mildly squashes and remains an authored oversized rear feature.",
+      "output_seconds": 2,
+      "prior_native_keypose_max_reported_edge_excess_mm": 8.4244,
+      "resolution": [
+        720,
+        720
+      ],
+      "silent": true,
+      "source_clip_seconds": 4,
+      "video": {
+        "bytes": 95256,
+        "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/animations/tail_sway.mp4",
+        "sha256": "f5f5d72d470e9d619c70ff811440a83a8703d18c3c1e3d9e5edf24b7245c4140"
+      }
+    }
+  ],
+  "status": "accepted_for_limited_native_fur_demo_with_residual_limits",
+  "viewed_images": [
+    {
+      "bytes": 1467754,
+      "height": 1600,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/portrait.png",
+      "sha256": "4ac30a6ce786937bd14474a89cdab114cc4fd18816fd74f578e21bdb5e96a8d1",
+      "width": 1600
+    },
+    {
+      "bytes": 2837580,
+      "height": 1600,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/portrait-raw.png",
+      "sha256": "b1d0d0ad7e1b19580c85e726a963078f5e4e93bcd442b79a3e040c820494ad88",
+      "width": 1600
+    },
+    {
+      "bytes": 206054,
+      "height": 648,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/idle.png",
+      "sha256": "9bfa769e6d0e235dee39df60bfc293fedd6ad2e12f3461f78d29cae60022d455",
+      "width": 768
+    },
+    {
+      "bytes": 162200,
+      "height": 648,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/look_around.png",
+      "sha256": "172357f544f645236d64a78fb0417c5ec6e0d92d78543fc33c4f94a64d0c8597",
+      "width": 768
+    },
+    {
+      "bytes": 161754,
+      "height": 648,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/head_tilt.png",
+      "sha256": "04ce36a5b01604b494c5d53709703c3cdf7a4be560ab1dcde6c0735c1155a4c6",
+      "width": 768
+    },
+    {
+      "bytes": 102412,
+      "height": 648,
+      "path": "outputs/muse-panda-smooth-fur-media-v3-portable-v1/contact-sheets/tail_sway.png",
+      "sha256": "80ec16826954c2e1c9ddcc4579a279115d38bcbcccaee6b48170063d75e4dd61",
+      "width": 768
+    }
+  ],
+  "writes": "Only this new review receipt; reviewed source artifacts unchanged."
+}
