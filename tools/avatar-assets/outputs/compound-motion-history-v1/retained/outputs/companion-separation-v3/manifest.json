@@ -1,0 +1,68 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1166,
+      "path": "config.json",
+      "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+    },
+    {
+      "bytes": 1434,
+      "path": "job.json",
+      "sha256": "0bbca84cc046e3aa699307a54c6f4b81be7b22b47afeb8ec13553d452ca1618f"
+    },
+    {
+      "bytes": 25557832,
+      "path": "original.glb",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    {
+      "bytes": 2525143,
+      "path": "partition-arrays.npz",
+      "sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004"
+    },
+    {
+      "bytes": 508,
+      "path": "partition-handle.json",
+      "sha256": "35563a2e65c05a6b9f5683b93c0e532844c92f931a004970c2a804e87c266c18"
+    },
+    {
+      "bytes": 1300,
+      "path": "partition-monitor.json",
+      "sha256": "bb0be783bd157ed00e1d08201def64c1d078a6985a21582700c98dec1a9dee3a"
+    },
+    {
+      "bytes": 10334,
+      "path": "partition-plan.json",
+      "sha256": "9df2eb28e3bc24b515f409dd8052794d9b6f252bc706875cdcf7581b3cfc51b4"
+    },
+    {
+      "bytes": 937,
+      "path": "partition.log",
+      "sha256": "4c67c61098d4d7a833ee43ce1bba2447433951c75744b4d3f999b1261f118dc0"
+    },
+    {
+      "bytes": 44297,
+      "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+      "sha256": "00f7f1aa975ac4720c2b3dbbda082ab72c3841f23602486fb5b599e0c2614a02"
+    },
+    {
+      "bytes": 13082,
+      "path": "sources/blender_partition_generated.py",
+      "sha256": "da179eeaf4bfcb3fa0079fa1153bd21d2e6e49599cd45b77e807868b6f05d3aa"
+    },
+    {
+      "bytes": 22097,
+      "path": "sources/partition_generated.py",
+      "sha256": "c83862a70ffd5d36f285f92ac539716fd6d0be40edd58708d03bb5dd7ee16a24"
+    }
+  ],
+  "error": "Native partition failed; retained evidence is not a usable asset",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Native partition failed; retained evidence is not a usable asset"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

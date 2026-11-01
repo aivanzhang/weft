@@ -1,0 +1,79 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 677646,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "body_surface",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.2581024738954625e-07,
+      "normal_tangent_dot_error": 0.00012935462455843094,
+      "tangent_squared_length_error": 0.00015531912774946477,
+      "vertices": 23837
+    },
+    {
+      "material": "companion_surface",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.2183109771312104e-07,
+      "normal_tangent_dot_error": 0.00013510384221770977,
+      "tangent_squared_length_error": 0.00015928628158690117,
+      "vertices": 24705
+    },
+    {
+      "material": "body_cap",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.7741600188969642e-07,
+      "normal_tangent_dot_error": 0.00012251813814101453,
+      "tangent_squared_length_error": 0.00014054706111821247,
+      "vertices": 1107
+    },
+    {
+      "material": "companion_cap",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.8096903109388052e-07,
+      "normal_tangent_dot_error": 0.00011865357555951306,
+      "tangent_squared_length_error": 0.00013208752602533735,
+      "vertices": 939
+    },
+    {
+      "material": "body_surface__color_rear-tail-base",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.922357317774015e-07,
+      "normal_tangent_dot_error": 0.00010245570096112377,
+      "tangent_squared_length_error": 0.00013357505153521743,
+      "vertices": 549
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.2880174044281887e-07,
+      "normal_tangent_dot_error": 0.0001267889984646331,
+      "tangent_squared_length_error": 0.00013641609441705782,
+      "vertices": 13225
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1188551180273407e-07,
+      "normal_tangent_dot_error": 0.00011878756451721983,
+      "tangent_squared_length_error": 0.00013844032026355535,
+      "vertices": 10932
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "0d03d9ddaf8f3c9f42a6730891944fa9d9cd315a38209973eb97e8eaa255e046",
+  "status": "validated_render_attributes",
+  "vertices": 75294
+}

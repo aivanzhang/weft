@@ -1,0 +1,70 @@
+{
+  "errata": [
+    "Final source path/hash are pinned. The inherited rights narrative about a provisional null source is historical draft text, not current configuration.",
+    "The source v7 manifest has stale narrative strings about all UVs being unchanged and pinched loops being left open. See companion-separation-diagnostic-v1/v7-export-audit.json for the209UV repairs,2exact-position aliases and497caps.",
+    "The identity bone_to_simulated_joint table is local control validation only, not Weft mapping. Exact glTF joint array order, node IDs, rest and inverse-bind matrices are in rig-delivery.json."
+  ],
+  "evidence": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/portrait.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0002.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0003.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/frames/dance_flight/0056.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/portrait.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/contact-sheets/dance_flight.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/browser-compound-motion-v1/asset-01-model.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/audit.json"
+  ],
+  "evidence_hashes": [
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/portrait.png",
+      "sha256": "d0e8d60f97180cd3d6713019c68b892f3eefb2bc05ef540ae71a34b2d8ac35cf"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0002.png",
+      "sha256": "51b3fa98934750a094ddbb5364ad6ad34a6b8dc3309412f90ede079a924827f1"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0003.png",
+      "sha256": "88bb0132fb2ec31060dbe0b7d54cd43166a8ec614c6b5b190d880cbb661f22fd"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/frames/dance_flight/0056.png",
+      "sha256": "854016bfd22f1e9edb47b66ed93dfe89d3bb02d599e9523cecf182e59543900e"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/portrait.png",
+      "sha256": "3552f86b8f9cf051b6302c3dcaf368d2d328e089f3f102533d138cb8dc686118"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/contact-sheets/dance_flight.png",
+      "sha256": "45967d9112572ded6204b856e194949ff73b317f9281202c64b8b82086a51838"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/browser-compound-motion-v1/asset-01-model.png",
+      "sha256": "1eab65a5eddcecd6ba2beaadd5a5ab87c61d54cc19d2e4add7d9000e584e71a7"
+    },
+    {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/audit.json",
+      "sha256": "d35342aadfbfddf9b65fba731f7a571ff5619a0fd8f095744f540c465ea2fb0d"
+    }
+  ],
+  "manifest_sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47",
+  "observations": [
+    "The actual small green shoulder dragon departs, hovers beside the panda with independently deforming wings, returns and rests on its original shoulder. No standalone dragon substitution.",
+    "Panda performs four alternating toy hops, small raised-toe lifts and yaw. Arms retain their pose; this is not full human footwork.",
+    "Identity and framing are preserved in sampled poses; the full native97frame audit also passes a conservative fur-margin envelope.",
+    "Vacated shoulder is covered, without an obvious open gap, stretched bridge or belly tear in sampled720px frames.",
+    "Visible cosmetic defects remain: dark/pale cheek scuffs, mottled angular shoulder shading and a small bright fleck under the cheek.",
+    "Browser GLB loads and animates, but its lighter fur has visible colored flecks and is not equivalent to the dense native rendered coat. Use Rendered clip for the best fur appearance.",
+    "Source derivative retains diagnosed internal intersections/nonmanifold edges. Hidden contact surfaces, color repairs and rig are authored assumptions, not recovered reference anatomy.",
+    "No seamless-loop, physical-flight, collision, balance, hair-dynamics or Weft-runtime claim."
+  ],
+  "reviewer": "Primary author and independent read-only visual reviewer",
+  "schema_version": 1,
+  "scope": "Accepted as an authored motion preview with known cosmetic defects, not polished final quality or Muse parity. Human acceptance of this new motion is pending user inspection.",
+  "tests": {
+    "python_tests": 444,
+    "scope": "Analytic/mocked contract and resource tests; visual quality is assessed separately."
+  },
+  "verdict": "accepted"
+}

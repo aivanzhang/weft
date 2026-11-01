@@ -1,0 +1,96 @@
+{
+  "closure_colors_srgb": [
+    [
+      0.85,
+      0.82,
+      0.77
+    ],
+    [
+      0.24,
+      0.47,
+      0.15
+    ]
+  ],
+  "contact_color_overrides": [
+    {
+      "max": [
+        0.45,
+        1,
+        1
+      ],
+      "max_chroma": 0.18,
+      "max_faces": 150,
+      "min": [
+        0,
+        0,
+        0.63
+      ],
+      "min_faces": 1,
+      "min_mean": 0.45,
+      "min_normal_y": -0.1,
+      "name": "light_rear_head_contact",
+      "palette": "part",
+      "part": 1
+    },
+    {
+      "max": [
+        0.3,
+        0.7,
+        0.63
+      ],
+      "max_chroma": 0.18,
+      "max_faces": 150,
+      "min": [
+        0,
+        0,
+        0.46
+      ],
+      "min_faces": 0,
+      "min_mean": 0.45,
+      "min_normal_y": -1,
+      "name": "light_dark_shoulder_contact",
+      "palette": [
+        0.051,
+        0.055,
+        0.063
+      ],
+      "part": 0
+    }
+  ],
+  "contact_repair_assumptions": "Companion hidden rear-contact surfaces use the measured dominant-channel source palette. Dark neutral fringe within one ring of the part interface is authored as that palette; body dominant-color fringe is mapped to adjacent ivory/charcoal material. Blender -Y is authored front and +Y back; front half/front-facing surfaces and light details are protected. This is explicit local unseen-surface authoring, not inferred ground truth. Explicit normalized boxes additionally authorize light neutral rear-head contact marks to the part palette and light neutral vacant-shoulder contact marks to charcoal. These exceptions apply only inside the existing one-ring contact band; detached-part front half/front-facing faces remain protected.",
+  "fill_face_limit": 200,
+  "height_meters": 1.2,
+  "island_face_limit": 40,
+  "part_name": "Companion",
+  "preview_offset_m": [
+    -0.18,
+    0,
+    0.24
+  ],
+  "repair_contact_uvs": true,
+  "rights": "User-authorized local derivative of the approved generated panda/shoulder dragon. Original reference rights remain independently unverified. Original source bytes and all source triangle positions are preserved. Two exact-coincident boundary aliases, authored hidden closures, per-loop green/ivory/charcoal palette UVs, and explicitly inventoried one-ring contact-fringe UV corrections are authored assumptions. Front-half/front-facing companion details and light claws are protected by the documented selector; visual review remains required. No paid calls, publishing, rigging or animation acceptance.",
+  "schema_version": 1,
+  "selector": {
+    "dominant_channel": 1,
+    "dominant_ratio": 1.05,
+    "expand_meters": 0.006,
+    "max_faces": 28500,
+    "min_faces": 26000,
+    "regions": [
+      {
+        "center": [
+          0.16,
+          0.275,
+          0.605
+        ],
+        "radius": [
+          0.24,
+          0.29,
+          0.23
+        ]
+      }
+    ]
+  },
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "split_pinches": true
+}

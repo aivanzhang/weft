@@ -16,6 +16,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 
 import bpy
 from mathutils import Vector
+from mathutils.bvhtree import BVHTree
 
 SOURCE_API = "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc"
 MAX_PARENTS, MAX_KEYS, MAX_SECONDS = 10000, 150000, 20
@@ -86,6 +87,42 @@ def _settings_signature(system):
             "seed":system.seed,"child_seed":system.child_seed,"hair_dynamics":system.use_hair_dynamics}
 
 
+def _normal_repair_surface(groom):
+    field = groom.data.attributes.get('AuthoredSurfaceNormal')
+    mask = groom.data.attributes.get('AuthoredNormalRepair')
+    if field is None and mask is None:
+        return None
+    require(field is not None and mask is not None and field.domain == 'POINT' and mask.domain == 'FACE',
+            'Incomplete authored normal field')
+    groom.data.calc_loop_triangles()
+    faces = [tuple(t.vertices) for t in groom.data.loop_triangles if mask.data[t.polygon_index].value]
+    require(0 < len(faces) <= 30000, 'Normal repair face count outside bounds')
+    vertices = [vertex.co.copy() for vertex in groom.data.vertices]
+    normals = [Vector(value.vector) for value in field.data]
+    return BVHTree.FromPolygons(vertices, faces, all_triangles=True), vertices, faces, normals
+
+
+def _root_normal(root, surface):
+    tree, vertices, faces, normals = surface
+    hit, _, index, distance = tree.find_nearest(root)
+    if hit is None or distance > 2e-5:
+        return None
+    ids = faces[index]
+    a, b, c = [vertices[i] for i in ids]
+    edge0, edge1, offset = b-a, c-a, hit-a
+    # Skinny authored caps need double-precision dot products for stable barycentric weights.
+    dot = lambda left, right: sum(float(a)*float(b) for a, b in zip(left, right))
+    d00, d01, d11 = dot(edge0, edge0), dot(edge0, edge1), dot(edge1, edge1)
+    denominator = d00*d11-d01*d01
+    require(denominator > 1e-24, 'Degenerate normal repair triangle')
+    v = (d11*dot(offset, edge0)-d01*dot(offset, edge1))/denominator
+    w = (d00*dot(offset, edge1)-d01*dot(offset, edge0))/denominator
+    weights = [max(0., min(1., value)) for value in (1-v-w, v, w)]
+    normal = sum((normals[i]*weight for i, weight in zip(ids, weights)), Vector((0,0,0)))
+    require(normal.length > 1e-8, 'Unstable interpolated repair normal')
+    return normal.normalized()
+
+
 def comb_native_groom(groom, direction, amount=.65, flow=None):
     """Comb once in rest axes; direction components must be in [-1,1], amount in [0,.95]."""
     from blender_native_groom import _skin_signature
@@ -122,6 +159,8 @@ def comb_native_groom(groom, direction, amount=.65, flow=None):
     bpy.context.view_layer.update()
     initialization = _initialize_original_keys(groom)
     evaluated, modifier, system, before = _original_coordinates(groom)
+    repair_surface = _normal_repair_surface(groom)
+    reoriented, max_reorientation = 0, 0.
     planned, parallel, arc_lengths, expected_lengths, scales = [], 0, [], [], []
     for points in before:
         lengths = [(b-a).length for a,b in zip(points,points[1:])]
@@ -136,6 +175,15 @@ def comb_native_groom(groom, direction, amount=.65, flow=None):
         expected_lengths.append(total*scale)
         scales.append(scale)
         normal = (points[1]-points[0]).normalized()
+        if repair_surface is not None:
+            corrected = _root_normal(points[0], repair_surface)
+            if corrected is not None:
+                angle = normal.angle(corrected)
+                alignment = normal.rotation_difference(corrected)
+                points = [points[0]+alignment@(point-points[0]) for point in points]
+                normal = corrected
+                reoriented += angle > 1e-5
+                max_reorientation = max(max_reorientation, angle)
         tangent = strand_direction-normal*strand_direction.dot(normal)
         if tangent.length < 1e-6:
             planned.append([points[0]+(point-points[0])*scale for point in points])
@@ -173,6 +221,8 @@ def comb_native_groom(groom, direction, amount=.65, flow=None):
               "max_root_shift_m":root_error,"max_key_error_m":key_error,
               "max_arc_length_change_m":max(abs(a-b) for a,b in zip(arc_lengths,arc_after,strict=True)),
               "max_planned_arc_length_error_m":length_error,"flow_config":flow,
+              "authored_surface_normal_reoriented_parents":reoriented,
+              "max_surface_normal_reorientation_degrees":math.degrees(max_reorientation),
               "regional_length_scale_range":[min(scales),max(scales)],
               "max_stored_arc_length_m":max(arc_after),"mean_tip_displacement_m":sum((a[-1]-b[-1]).length for a,b in zip(before,after))/len(before),
               "skin_signature":skin_before,"settings_preserved":settings_before,"seconds":time.monotonic()-started,

@@ -1,0 +1,219 @@
+{
+  "all_basecolor_bytes_preserved": true,
+  "array_shapes": {
+    "face_labels": [
+      62117
+    ],
+    "face_material_indices": [
+      62117
+    ],
+    "faces": [
+      62117,
+      3
+    ],
+    "normal_per_corner": [
+      62117,
+      3,
+      3
+    ],
+    "points": [
+      31333,
+      3
+    ],
+    "uv_per_corner": [
+      62117,
+      3,
+      2
+    ],
+    "vertex_labels": [
+      31333
+    ]
+  },
+  "audit_elapsed_seconds": 0.181,
+  "closure_triangles": 497,
+  "cost": {
+    "provider_calls": 0,
+    "provider_cost_usd": 0
+  },
+  "cross_part_edges": 0,
+  "exact_uv_changed_face_ids_match_receipt": true,
+  "explicit_rule_counts": [
+    {
+      "faces": 77,
+      "name": "light_rear_head_contact"
+    },
+    {
+      "faces": 2,
+      "name": "light_dark_shoulder_contact"
+    }
+  ],
+  "implementation_report_text_only_corrections": {
+    "avatar_assets/partition_generated.py": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+    "scripts/blender_partition_generated.py": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+    "tests/test_partition_generated.py": "ce63935dd5f076dc723b29bbdd793dc99b90083ef4ed1b72afa162f1a12c14c9"
+  },
+  "manifest_artifacts_verified": 21,
+  "manifest_sha256": "4d1aac229a7a18e8b2ccc4bf149e4f26cad2ef4e2f17742d274cd1af124e6a78",
+  "materials": [
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 0,
+      "name": "body_surface",
+      "normal_map": true
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 1,
+      "name": "companion_surface",
+      "normal_map": true
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 2,
+      "name": "body_cap",
+      "normal_map": false
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 3,
+      "name": "companion_cap",
+      "normal_map": false
+    }
+  ],
+  "mismatches": [],
+  "model_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "native_vertices": 31333,
+  "new_changed_bounds_blender_m": {
+    "max": [
+      -0.2256801277399063,
+      -0.1204533502459526,
+      0.858902633190155
+    ],
+    "min": [
+      -0.27319633960723877,
+      -0.17814147472381592,
+      0.6713548302650452
+    ]
+  },
+  "new_changed_faces_vs_v6": 78,
+  "one_ring_repair_band_faces": 999,
+  "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "remaining_limits": [
+    "Inherited point touches and 21 valence-4 edges are not watertight-certified",
+    "2 cap/cap and 208 cap/source intersections remain",
+    "Small pale contact flecks remain; visual approval belongs to parent review",
+    "Unrigged diagnostic only, not animation or Weft import proof"
+  ],
+  "render_attributes": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 459495,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "body_surface",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.833833456783452e-07,
+        "normal_tangent_dot_error": 0.00012935462455843094,
+        "tangent_squared_length_error": 0.00015687790736240714,
+        "vertices": 24306
+      },
+      {
+        "material": "companion_surface",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.703107588875042e-07,
+        "normal_tangent_dot_error": 0.00012722769118944655,
+        "tangent_squared_length_error": 0.0001629109364325032,
+        "vertices": 24703
+      },
+      {
+        "material": "body_cap",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.435323125382638e-07,
+        "normal_tangent_dot_error": 0.00010779880100741934,
+        "tangent_squared_length_error": 0.00014930256246614704,
+        "vertices": 1107
+      },
+      {
+        "material": "companion_cap",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.3972776164171705e-07,
+        "normal_tangent_dot_error": 9.954296483982716e-05,
+        "tangent_squared_length_error": 0.0001421152817349114,
+        "vertices": 939
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+    "status": "validated_render_attributes",
+    "vertices": 51055
+  },
+  "schema_version": 1,
+  "sealed_report_clarifications": [
+    {
+      "correction": "Original triangle positions and image bytes retained; 209 original-face UVs explicitly changed per contact_uv_repair.",
+      "field": "manifest.assumptions"
+    },
+    {
+      "correction": "Zero unrepaired loops in this candidate; the frozen generic open-pinches sentence is stale. Nonmanifold/intersection limitations remain.",
+      "field": "native.authored_assumptions[2]"
+    }
+  ],
+  "status": "diagnostic_needs_repair_not_accepted",
+  "triangles": 62614,
+  "unchanged_geometry_vs_v6": {
+    "face_labels": true,
+    "faces": true,
+    "normal_per_corner": true,
+    "points": true,
+    "vertex_labels": true
+  },
+  "uv_repair_summary": {
+    "0": {
+      "bounds_blender_m": {
+        "max": [
+          -0.15180394053459167,
+          -0.012731083668768406,
+          0.8698164224624634
+        ],
+        "min": [
+          -0.35219600796699524,
+          -0.24666769802570343,
+          0.5189471244812012
+        ]
+      },
+      "faces": 124
+    },
+    "1": {
+      "bounds_blender_m": {
+        "max": [
+          -0.23779574036598206,
+          -0.11605541408061981,
+          0.858902633190155
+        ],
+        "min": [
+          -0.30073100328445435,
+          -0.17814147472381592,
+          0.5864992737770081
+        ]
+      },
+      "faces": 85
+    }
+  },
+  "zero_open_loops": true
+}

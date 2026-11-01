@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "11/01/2026, 12:22:44 PST",
+  "timezone": "America/Los_Angeles",
+  "scope": "Real browser GLB loading, each declared skeletal clip and supplied video, static/reduced-motion/failure fallback. Not a visual-quality, seamless-loop, physics or sustained-FPS certification.",
+  "catalog": {
+    "path": "browser/gallery-compound-motion-v1.json",
+    "sha256": "a5abb0c2bc1d793e5a3a9f30cc56635952429ff350d78adc1a023a5c77fa2df9",
+    "expanded_sha256": "fc772a1c3b3605914d23430f6a423c3321343bb0b2861ba83ea4ea237b99a6fa"
+  },
+  "limits": {
+    "wall_ms": 900000,
+    "sampled_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "log_bytes": 1048576,
+    "events": 2000,
+    "event_bytes": 524288,
+    "assets": 24,
+    "states_per_asset": 8,
+    "operation_ms": 15000
+  },
+  "assets": [
+    {
+      "id": "panda-dance-flight-v2",
+      "model": "/asset/panda-dance-flight-v2/model",
+      "animations": [
+        {
+          "id": "dance_flight",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08320000000000073,
+          "paused_at": 0.1333000000000002,
+          "seek_seconds": 2
+        }
+      ],
+      "videos": [
+        {
+          "id": "dance_flight",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0989,
+          "paused_at": 0.1303,
+          "seek_seconds": 2
+        }
+      ],
+      "missing_videos": [],
+      "model_manifest": {
+        "path": "outputs/muse-panda-dance-flight-v2/manifest.json",
+        "sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47"
+      },
+      "media_manifest": {
+        "path": "outputs/muse-panda-dance-flight-media-v2-portable-v1/manifest.json",
+        "sha256": "7ecc83314dda1644f361dc6de8613b2b9a6715cc423cfc09708bed32b21006a2"
+      },
+      "load_ms": 1861,
+      "portrait": {
+        "width": 1600,
+        "height": 1600
+      },
+      "static_fallbacks": [
+        {
+          "id": "dance_flight",
+          "source": "/asset/panda-dance-flight-v2/still-dance_flight",
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "elapsed_ms": 4012
+    }
+  ],
+  "checks": [
+    "Every declared GLB clip loads, plays, pauses and seeks; every supplied video decodes and plays; portraits and per-state static images decode",
+    "Reduced motion selects static portraits for every asset without any GLB/video fetch or autoplay",
+    "Intentionally failed GLB/video requests disable playback and leave the real static portrait usable",
+    "390px portrait layout has no horizontal overflow"
+  ],
+  "errors": [],
+  "expected_failure_observations": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    },
+    {
+      "kind": "console",
+      "message": "TypeError: Failed to fetch\n    at Ql.load (http://127.0.0.1:60926/vendor/model-viewer.min.js:48:203748)\n    at ap.load (http://127.0.0.1:60926/vendor/model-viewer.min.js:552:34811)\n    at http://127.0.0.1:60926/vendor/model-viewer.min.js:594:5683\n    at new Promise (<anonymous>)\n    at http://127.0.0.1:60926/vendor/model-viewer.min.js:594:5661\n    at Pg.preload (http://127.0.0.1:60926/vendor/model-viewer.min.js:594:5700)\n    at Pg.load (http://127.0.0.1:60926/vendor/model-viewer.min.js:594:5909)\n    at http://127.0.0.1:60926/vendor/model-viewer.min.js:1008:3644\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:60926/vendor/model-viewer.min.js:1008:3613"
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    }
+  ],
+  "external_requests": [],
+  "request_failures": [
+    {
+      "url": "http://127.0.0.1:60926/asset/panda-dance-flight-v2/video-dance_flight",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:60926/asset/panda-dance-flight-v2/video-dance_flight",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:60926/asset/panda-dance-flight-v2/model",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    },
+    {
+      "url": "http://127.0.0.1:60926/asset/panda-dance-flight-v2/video-dance_flight",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    }
+  ],
+  "resources": {
+    "sampled_peak_rss_bytes": 2688057344,
+    "sampling_interval_ms": 2000,
+    "scope": "RSS summed for this test and its descendants; shared pages may be counted twice. Sampled enforcement, not a hard OS allocation cap."
+  },
+  "artifacts": [
+    {
+      "path": "source-catalog.json",
+      "bytes": 699,
+      "sha256": "a5abb0c2bc1d793e5a3a9f30cc56635952429ff350d78adc1a023a5c77fa2df9"
+    },
+    {
+      "path": "source-test.mjs",
+      "bytes": 27417,
+      "sha256": "8318268e16ee04ee802deecc9fe29ed54e99b8967975020043ae45da47f6f824"
+    },
+    {
+      "path": "asset-01-model.png",
+      "bytes": 270164,
+      "sha256": "1eab65a5eddcecd6ba2beaadd5a5ab87c61d54cc19d2e4add7d9000e584e71a7"
+    },
+    {
+      "path": "reduced-motion.png",
+      "bytes": 170389,
+      "sha256": "f6464d85fc35b64b422739c5336a350c7a1db0048c1a288f228fb5c54a33a1f9"
+    },
+    {
+      "path": "model-failure-static-fallback.png",
+      "bytes": 170391,
+      "sha256": "2f6a0c489e7b6e1ed23a95403c107fc2f4859ab6acb12d52eeb7529be679bc69"
+    },
+    {
+      "path": "mobile-portrait.png",
+      "bytes": 109461,
+      "sha256": "945a0dcca5a692efcb13b0e0fab2574e2874fb4f8d0bde426017e695f934f090"
+    },
+    {
+      "path": "server.log",
+      "bytes": 6,
+      "sha256": "c46326b2ac8de6847cb6072d13d90f3a5ff4253d0abbd2f33e053b6a16e6ff1c"
+    }
+  ],
+  "cleanup": {
+    "started": true,
+    "browser_exit_verified": true,
+    "server_exit_verified": true
+  },
+  "server_pid": 41186,
+  "browser_pid": 41187,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true,
+    "software_webgl": true
+  },
+  "initial_library_ms": 2326,
+  "elapsed_ms": 9516,
+  "finished_local": "11/01/2026, 12:22:54 PST",
+  "output_bytes_before_report": 748527
+}

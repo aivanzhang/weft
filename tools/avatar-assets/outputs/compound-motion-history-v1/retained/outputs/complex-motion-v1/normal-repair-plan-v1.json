@@ -1,0 +1,20 @@
+{
+  "config": "examples/meshy/muse-panda-dance-flight-v2.json",
+  "cpu_probe": {
+    "faces": 369,
+    "matched_vertices": 1095,
+    "max_distance_m": 0.013717945,
+    "max_normal_change_degrees": 178.898,
+    "seconds": 0.0747,
+    "target_vertices": 1107
+  },
+  "estimated_seconds": 40,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "seconds": 600
+  },
+  "new_native_candidates_max": 1,
+  "provider_calls": 0,
+  "reason": "v1nativeairborneposes expose an angular shoulder patch;99of807coincidentcapnormals oppose adjacentbody normals. Correctnormal/furcontinuity withoutgeometryorUVedits."
+}

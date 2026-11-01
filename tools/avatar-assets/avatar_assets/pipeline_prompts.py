@@ -53,8 +53,8 @@ CRITIC_SCHEMA = _object({
 })
 
 AUTHOR_FIELDS = frozenset({
-    "authored_rig", "authored_actions", "part_rigs", "smoothing", "weight_constraints", "attachment", "groom",
-    "groom_exclusions", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections",
+    "authored_rig", "authored_actions", "part_rigs", "normal_continuity", "smoothing", "weight_constraints", "attachment", "groom",
+    "groom_exclusions", "groom_excluded_parts", "fur_max_chroma", "fur_clump", "portable_fur", "camera_view", "camera_fit", "surface_profiles", "surface_smoothing", "groom_shader", "groom_flow", "color_corrections",
 })
 
 
@@ -149,7 +149,7 @@ def validate_plan(response, request):
 
 _DESIGN_GUIDE = """
 Return AUTHOR_SCHEMA with status, reason and design_json. design_json is a JSON object of ONLY these optional fields:
-authored_rig, authored_actions, part_rigs, smoothing, weight_constraints, attachment, groom, groom_exclusions,
+authored_rig, authored_actions, part_rigs, normal_continuity, smoothing, weight_constraints, attachment, groom, groom_exclusions, groom_excluded_parts,
 fur_max_chroma, fur_clump, portable_fur, camera_view, camera_fit, surface_profiles, surface_smoothing, groom_shader, groom_flow, color_corrections. authored_actions is mandatory for ready.
 Never include identity, source paths/hashes, states, IDs, execution, resolution, samples or paid-operation fields.
 Fixed local render settings are512px/8samples. Clips run from0 to4seconds; shorter media presets retime the full curves.
@@ -177,6 +177,12 @@ Use1–4 objects {name,materials,root_bone,layers,min_vertices,max_vertices}; na
 materials lists1–8 exact observed material names, uniquely owned. A selected vertex cannot be shared with outside faces.
 root_bone and descendants are the only allowed part bones; layers use the rig layer schema; vertex bounds are1–100000.
 Requires authored_rig and excludes the old attachment pass. Do not invent material labels or assume fused geometry is disjoint.
+groom_excluded_parts may name1–4 configured part_rigs to exclude their exact vertices from both native hair and cards.
+Use it instead of a broad accessory-shaped spatial exclusion when that part moves away and exposes a furry support surface.
+normal_continuity optionally repairs authored surface shading/fur directions using observed neighboring material normals.
+Use up to4 records {name,materials,reference_materials,max_distance_m,min_vertices,max_vertices}; exact observed names,
+disjoint target/reference ownership, distance0–.03m and at most10000 total target vertices. It transfers nearby normals,
+not geometry or textures. Use only for a verified seam/cap with a justified reference surface, never arbitrary whole-model smoothing.
 
 MOTIONS: authored_actions is one object per planned state, in the same order: {id,keys}, optionally interpolation:LINEAR.
 Each keys list has2–32 objects {second,rotations}, optionally translations_m; times strictly increase from0 to4 inclusive.

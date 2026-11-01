@@ -1,0 +1,141 @@
+{
+  "all_basecolor_bytes_preserved": true,
+  "exact_uv_changed_face_ids_match_receipt": true,
+  "manifest_artifacts_verified": 21,
+  "manifest_sha256": "d39d6e3396554144801aac756480e0c8facf875506307631ff218ab638bc550d",
+  "materials": [
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 0,
+      "name": "body_surface",
+      "normal_map": true
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 1,
+      "name": "companion_surface",
+      "normal_map": true
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 2,
+      "name": "body_cap",
+      "normal_map": false
+    },
+    {
+      "basecolor_encoded_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+      "basecolor_uv": 0,
+      "index": 3,
+      "name": "companion_cap",
+      "normal_map": false
+    }
+  ],
+  "mismatches": [],
+  "model_sha256": "885aa66823b643ab3bea9e9c56cd21ddc361f556f01e437dc83fe3823cc10f6d",
+  "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "remaining_limits": [
+    "Inherited point touches and21valence4edges are not watertight-certified",
+    "2cap/cap and208cap/source intersections remain",
+    "Original pale rear-head contact marks remain visible; no human approval",
+    "Unrigged diagnostic only, not animation proof"
+  ],
+  "render_attributes": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 458298,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "body_surface",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.833833456783452e-07,
+        "normal_tangent_dot_error": 0.00012935462455843094,
+        "tangent_squared_length_error": 0.00015687790736240714,
+        "vertices": 24309
+      },
+      {
+        "material": "companion_surface",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.703107588875042e-07,
+        "normal_tangent_dot_error": 0.00012722769118944655,
+        "tangent_squared_length_error": 0.0001629109364325032,
+        "vertices": 24801
+      },
+      {
+        "material": "body_cap",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.435323125382638e-07,
+        "normal_tangent_dot_error": 0.00010779880100741934,
+        "tangent_squared_length_error": 0.00014930256246614704,
+        "vertices": 1104
+      },
+      {
+        "material": "companion_cap",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.3972776164171705e-07,
+        "normal_tangent_dot_error": 9.954296483982716e-05,
+        "tangent_squared_length_error": 0.0001421152817349114,
+        "vertices": 708
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "885aa66823b643ab3bea9e9c56cd21ddc361f556f01e437dc83fe3823cc10f6d",
+    "status": "validated_render_attributes",
+    "vertices": 50922
+  },
+  "schema_version": 1,
+  "status": "diagnostic_needs_repair_not_accepted",
+  "unchanged_geometry_vs_v5": {
+    "face_labels": true,
+    "faces": true,
+    "normal_per_corner": true,
+    "points": true,
+    "vertex_labels": true
+  },
+  "uv_repair_summary": {
+    "0": {
+      "bounds_blender_m": {
+        "max": [
+          -0.15180394053459167,
+          -0.012731083668768406,
+          0.8698164224624634
+        ],
+        "min": [
+          -0.35219600796699524,
+          -0.24666769802570343,
+          0.5189471244812012
+        ]
+      },
+      "faces": 123
+    },
+    "1": {
+      "bounds_blender_m": {
+        "max": [
+          -0.23813456296920776,
+          -0.11605541408061981,
+          0.6609463691711426
+        ],
+        "min": [
+          -0.30073100328445435,
+          -0.1543770581483841,
+          0.5864992737770081
+        ]
+      },
+      "faces": 8
+    }
+  }
+}

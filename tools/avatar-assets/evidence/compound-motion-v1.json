@@ -1,0 +1,103 @@
+{
+  "artifact_index": [
+    {
+      "bytes": 219444,
+      "path": "outputs/companion-separation-v7/manifest.json",
+      "sha256": "4d1aac229a7a18e8b2ccc4bf149e4f26cad2ef4e2f17742d274cd1af124e6a78"
+    },
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 6291,
+      "path": "outputs/companion-separation-diagnostic-v1/v7-export-audit.json",
+      "sha256": "32d669459b151aeb77d3cf88af36674bf54ad13f6db97010f3d29d03d40a2021"
+    },
+    {
+      "bytes": 59416,
+      "path": "outputs/muse-panda-dance-flight-v2/manifest.json",
+      "sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47"
+    },
+    {
+      "bytes": 29999436,
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "bytes": 50792001,
+      "path": "outputs/muse-panda-dance-flight-v2/source.blend",
+      "sha256": "3537d88b09c6b9ef59ee0e77d89378ecae8b9961a182b2551d4e63383822727e"
+    },
+    {
+      "bytes": 48020,
+      "path": "outputs/muse-panda-dance-flight-media-v2-portable-v1/manifest.json",
+      "sha256": "7ecc83314dda1644f361dc6de8613b2b9a6715cc423cfc09708bed32b21006a2"
+    },
+    {
+      "bytes": 401992,
+      "path": "outputs/muse-panda-dance-flight-media-v2-portable-v1/animations/dance_flight.mp4",
+      "sha256": "04f6dddb93de75760bd833e44f48a4a6b58a278bc12c6fc1bb4ae02dd07b12bf"
+    },
+    {
+      "bytes": 2243,
+      "path": "outputs/muse-panda-dance-flight-audit-v2/manifest.json",
+      "sha256": "6ff8f2b022887112d17850ed3eccc32a0cce92c33babaae7a57e1f3b256683b9"
+    },
+    {
+      "bytes": 3443,
+      "path": "outputs/muse-panda-dance-flight-reload-v2/manifest.json",
+      "sha256": "652a8e1a61980db99647e42a97900614215054f2df77ef144242c73abcc6e960"
+    },
+    {
+      "bytes": 6130,
+      "path": "outputs/browser-compound-motion-v1/browser-test.json",
+      "sha256": "a65b8eb2b21650ca047306c45c2fd15cde3faa4a0e57121480bae9c305bf81f8"
+    },
+    {
+      "bytes": 57111,
+      "path": "outputs/compound-motion-history-v1/manifest.json",
+      "sha256": "32023809499ee0702008f50fab9b742742e6e9c4cfe1a227eb58eebcc5608f2c"
+    },
+    {
+      "bytes": 2371,
+      "path": "outputs/complex-motion-v1/full-tests-v2.txt",
+      "sha256": "1620fa2235aa111ac32bf34bc905e33273ef93daab0b2fd4e032699c363e4c6a"
+    },
+    {
+      "bytes": 39202,
+      "path": "examples/meshy/muse-panda-dance-flight-v2.json",
+      "sha256": "42fa109957109ad7afaa503b7269f7e9069a81674bbc98eb0d9a6ec4d54e8909"
+    },
+    {
+      "bytes": 699,
+      "path": "browser/gallery-compound-motion-v1.json",
+      "sha256": "a5abb0c2bc1d793e5a3a9f30cc56635952429ff350d78adc1a023a5c77fa2df9"
+    },
+    {
+      "bytes": 3621,
+      "path": "browser/gallery-compound-motion-full-v1.json",
+      "sha256": "1b6d547233c1049c6d0f1a646af94e7f41592d09a871b69d7d6d493e4994a440"
+    }
+  ],
+  "delivery_manifest": "outputs/compound-motion-delivery-v1/manifest.json",
+  "delivery_manifest_sha256": "ee1512e11ff534fc2d01955a2320bc50be4546dc6bbef8cb7c20342b63d213b0",
+  "model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "new_provider_calls": 0,
+  "not_claimed": [
+    "Muse parity",
+    "Native/browser fur parity",
+    "Watertight geometry",
+    "Physical flight or balance",
+    "Seamless loops",
+    "Weft runtime compatibility"
+  ],
+  "previous_approved_checkpoint": "4ade45a06b4de9b8382fa646a6fcf356ab71b2d6",
+  "publication_receipt": ".local/avatar-compound-motion-v1/receipt.json at Weft root; requires verified_remote before claiming pushed",
+  "recorded_local": "2026-11-01 12:26:06 PST",
+  "schema_version": 1,
+  "source_checkpoint": "1df6880ef6ea0d24894ff4e3e5da874a797b7e03",
+  "status": "verified_authored_motion_preview_with_cosmetic_limits",
+  "test_count": 444
+}

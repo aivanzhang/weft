@@ -1,0 +1,22 @@
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:260: RuntimeWarning: divide by zero encountered in matmul
+  values = values@matrix[:3, :3].T+matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:260: RuntimeWarning: overflow encountered in matmul
+  values = values@matrix[:3, :3].T+matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:260: RuntimeWarning: invalid value encountered in matmul
+  values = values@matrix[:3, :3].T+matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:114: RuntimeWarning: divide by zero encountered in matmul
+  return (points-matrix[:3, 3])@basis
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:114: RuntimeWarning: overflow encountered in matmul
+  return (points-matrix[:3, 3])@basis
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:114: RuntimeWarning: invalid value encountered in matmul
+  return (points-matrix[:3, 3])@basis
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:88: RuntimeWarning: divide by zero encountered in matmul
+  local = value@inverse[:3, :3].T+inverse[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:88: RuntimeWarning: overflow encountered in matmul
+  local = value@inverse[:3, :3].T+inverse[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/sources/blender_verify_compound_motion.py:88: RuntimeWarning: invalid value encountered in matmul
+  local = value@inverse[:3, :3].T+inverse[:3, 3]
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Read blend: "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/source.blend"
+
+Blender quit

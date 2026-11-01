@@ -1,0 +1,26 @@
+{
+  "actual": {
+    "materials": 7,
+    "skin_joints": 19,
+    "triangles": 72181,
+    "vertices": 75318
+  },
+  "contract_path": "../../docs/avatars.md",
+  "contract_sha256": "e03897de484ff0429dc6e92eb0ddbcc30f00534f146ddda18ce4e516dfbd6d34",
+  "model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "next_safe_action": "A separately versioned reduced-fidelity profile would need visual acceptance and explicit mapping tests; retain this authoring asset unchanged.",
+  "not_performed": [
+    "Silent decimation or texture downsampling",
+    "Physics/action/reward/importer changes",
+    "Invented finger anatomy or neutral simulation transforms"
+  ],
+  "reasons": [
+    "75318 vertices exceed20000;72181 triangles exceed40000.",
+    "Generated PBR normal/roughness materials and4K textures do not meet the diffuse-only2048px texture profile.",
+    "Native strand hair is not glTF geometry; exported cards already give a lighter coat.",
+    "No verified bone-to-Weft-body-frame alignment for this new rig. Its19local bones are not the simulation19jointangles."
+  ],
+  "requested": "Unchanged-fidelity import into current frozen Weft avatar profile",
+  "schema_version": 1,
+  "status": "unsupported"
+}

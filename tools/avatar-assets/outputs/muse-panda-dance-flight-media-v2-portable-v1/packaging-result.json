@@ -1,0 +1,106 @@
+{
+  "clips": [
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/dance_flight.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 460680,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "8635e2bd828de1fe92d466813e27fe42234f0fe349d22629921bc9d5a0c6f864",
+        "width": 720
+      },
+      "id": "dance_flight",
+      "inspection": {
+        "adjacent_mae_max": 0.01469,
+        "adjacent_mae_mean": 0.009231,
+        "audio": false,
+        "boundary_mae": 0.000852,
+        "bytes": 401992,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "04f6dddb93de75760bd833e44f48a4a6b58a278bc12c6fc1bb4ae02dd07b12bf",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "The panda performs four rhythmic alternating whole-body toy hops with small raised-toe kicks and side-to-side turns. Its actual shoulder dragon anticipates, moves outward to viewer-left, rises into a short flapping flight beside the panda, returns and settles on the same shoulder. Arms retain their existing pose. Authored one-shot choreography, not physical flight or balance.",
+      "path": "animations/dance_flight.mp4",
+      "source_clip_seconds": 4.0
+    }
+  ],
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 547452,
+    "format": "WEBP",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 1600,
+    "kind": "image",
+    "metadata_keys": [
+      "background",
+      "duration",
+      "loop",
+      "timestamp"
+    ],
+    "mode": "RGB",
+    "sha256": "4c897149df4e94cad1a4da646dec9661f84b0d3ad6c89d31c3dfdf6279c30f60",
+    "width": 1600
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "changes_from_motion_probe": [
+    "209hiddencontactUVrepairs",
+    "precise part fur exclusion instead ofthreebroadspatial masks",
+    "up to.12madditionaloutwardhoverclearance"
+  ],
+  "config": "examples/meshy/muse-panda-dance-flight-v1.json",
+  "estimated_seconds": 40,
+  "limits": {
+    "output_mb": 512,
+    "rss_mb": 2048,
+    "seconds": 600
+  },
+  "new_native_candidates_max": 1,
+  "new_provider_calls": 0,
+  "scope": "Authored stylized hop-and-flight candidate with precisely masked body fur; not physical flight or watertight conversion.",
+  "source": "outputs/companion-separation-v7/diagnostic-model.glb",
+  "source_acceptance": "Independent sampled gap review permits finishing; retained2cap/cap+208cap/source hits and21four-valenceedges are not waived.",
+  "source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+}

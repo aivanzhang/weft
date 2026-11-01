@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 12:17:57 PST",
+  "candidate": "outputs/muse-panda-dance-flight-v2",
+  "new_provider_calls": 0,
+  "paid_usd": 0,
+  "render": {
+    "output": "outputs/muse-panda-dance-flight-media-v2",
+    "fps": 24,
+    "seconds": 4,
+    "video_pixels": 720,
+    "portrait_pixels": 1600,
+    "samples": 8,
+    "wall_limit_seconds": 1200,
+    "rss_limit_mb": 2048,
+    "output_limit_mb": 512,
+    "estimated_seconds": [
+      240,
+      330
+    ],
+    "max_new_render_workers": 1,
+    "retries": 0
+  },
+  "browser": {
+    "output": "outputs/browser-compound-motion-v1",
+    "wall_seconds": 900,
+    "sampled_owned_tree_rss_mb": 3072,
+    "output_mb": 64,
+    "external_requests_allowed": 0
+  },
+  "concurrency": "No more than two native workers; browser starts after media completes",
+  "existing_audits": [
+    "outputs/muse-panda-dance-flight-audit-v2",
+    "outputs/muse-panda-dance-flight-reload-v2"
+  ],
+  "scope": "Local finite verification only. No cloud service, publication or recurring cost."
+}

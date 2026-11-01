@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 import sys
+from collections import Counter
 
 import bpy
 from mathutils import Vector
@@ -27,10 +28,14 @@ def main(model, output, resolution, samples, rig_guides=False):
     low = Vector(tuple(min(p[i] for p in points) for i in range(3)))
     high = Vector(tuple(max(p[i] for p in points) for i in range(3)))
     center, extent = (low+high)*.5, max(high-low)
+    material_counts = {obj.name: Counter(polygon.material_index for polygon in obj.data.polygons) for obj in meshes}
     report = {"schema_version": 1, "source_sha256": hash_file(model), "blender_version": bpy.app.version_string,
               "bounds_blender_z_up": {"min": list(low), "max": list(high)},
               "meshes": [{"name": obj.name, "vertices": len(obj.data.vertices), "faces": len(obj.data.polygons),
-                          "uv_layers": list(obj.data.uv_layers.keys())} for obj in meshes],
+                          "uv_layers": list(obj.data.uv_layers.keys()),
+                          "materials": [{"slot": index, "name": material.name if material else None,
+                                         "faces": material_counts[obj.name][index]}
+                                        for index, material in enumerate(obj.data.materials)]} for obj in meshes],
               "rigs": [{"name": rig.name, "bones": [{"name": b.name, "parent": b.parent.name if b.parent else None,
                         "head": list(b.head_local), "tail": list(b.tail_local)} for b in rig.data.bones]} for rig in rigs],
               "actions": [a.name for a in bpy.data.actions], "animation_verified": False,

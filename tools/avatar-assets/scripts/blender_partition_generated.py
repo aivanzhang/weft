@@ -1,0 +1,219 @@
+"""Triangulate explicit authored closure loops and render separation diagnostics."""
+
+import hashlib
+import json
+from pathlib import Path
+import sys
+import time
+
+import bpy
+import numpy as np
+from mathutils import Vector
+
+sys.path.insert(0, str(Path(__file__).parent))
+from partition_generated import (MAX_CAPS, MAX_FACES, MAX_VERTICES, require, validate_config,
+                                 _edges, _components, triangulate_boundary_3d, closure_intersections)
+
+
+def digest(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def write(path, value):
+    with path.open('x') as stream:
+        json.dump(value, stream, indent=2, sort_keys=True, allow_nan=False)
+        stream.write('\n')
+
+
+def main(output):
+    out = Path(output)
+    config = validate_config(json.loads((out/'config.json').read_text()))
+    plan = json.loads((out/'partition-plan.json').read_text())
+    require(digest(out/'original.glb') == config['source_sha256'] == plan['source_sha256'], 'Source hash mismatch')
+    with np.load(out/'partition-arrays.npz', allow_pickle=False) as data:
+        require(set(data.files) == {'points', 'faces', 'vertex_labels', 'face_labels', 'uv_per_corner',
+                                    'normal_per_corner', 'face_material_indices'},
+                'Unexpected partition arrays')
+        points, faces = data['points'], data['faces']
+        labels, face_labels = data['vertex_labels'], data['face_labels']
+        uvs, normals = data['uv_per_corner'], data['normal_per_corner']
+        face_materials = data['face_material_indices']
+    require(len(points) <= MAX_VERTICES and len(faces) <= MAX_FACES and np.isfinite(points).all(), 'Oversized prepared mesh')
+    require(faces.shape == (len(faces), 3) and uvs.shape == (len(faces), 3, 2)
+            and normals.shape == (len(faces), 3, 3), 'Invalid prepared corner attributes')
+    source_faces = len(faces)
+    all_faces, all_uvs, all_normals = faces.tolist(), uvs.tolist(), normals.tolist()
+    materials = list(map(int, face_materials))
+    closure_rows, rejected_loops = [], []
+    vertex_normals = np.zeros_like(points)
+    np.add.at(vertex_normals, faces.ravel(), normals.reshape((-1, 3)))
+    vertex_normals /= np.maximum(np.linalg.norm(vertex_normals, axis=1)[:, None], 1e-12)
+    deadline = time.monotonic()+30
+    for number, loop in enumerate(plan['loops']):
+        require(3 <= len(loop) <= MAX_CAPS+2 and all(type(i) is int and 0 <= i < len(points) for i in loop),
+                'Invalid closure loop')
+        coordinates = points[loop]
+        try:
+            triangles = triangulate_boundary_3d(coordinates, vertex_normals[loop], deadline=deadline)
+        except ValueError as error:
+            rejected_loops.append({'loop': number, 'part': int(labels[loop[0]]),
+                                   'reason': str(error), 'native_vertex_ids': loop})
+            continue
+        part = int(labels[loop[0]])
+        rect = plan['loop_palette_patches'][number]['uv_rect_blender']
+        # Independent tiny triangles avoid degenerate UVs within a nearly solid-color patch.
+        local_uv = np.array([[.1, .1], [.9, .1], [.1, .9]])
+        local_uv = local_uv*np.array([rect[2]-rect[0], rect[3]-rect[1]])+np.array(rect[:2])
+        for ids in triangles:
+            indices = [loop[i] for i in ids]
+            normal = np.cross(points[indices[1]]-points[indices[0]], points[indices[2]]-points[indices[0]])
+            length = float(np.linalg.norm(normal))
+            require(length > 1e-12, 'Closure triangle has zero area')
+            normal /= length
+            all_faces.append(indices)
+            all_uvs.append(local_uv.tolist())
+            all_normals.append([normal.tolist()]*3)
+            materials.append(2+part)
+        closure_rows.append({'loop': number, 'part': part, 'vertices': len(loop), 'triangles': len(triangles),
+            'bounds_m': {'min': coordinates.min(axis=0).tolist(), 'max': coordinates.max(axis=0).tolist()},
+            'method': 'normal-aware minimum-area ordered3D DP',
+            'authored_not_recovered': True, 'uv_palette_patch': plan['loop_palette_patches'][number]})
+    require(len(all_faces)-source_faces <= MAX_CAPS and len(all_faces) <= MAX_FACES, 'Closure geometry exceeds caps')
+    edges = _edges(np.asarray(all_faces))
+    intersections = closure_intersections(points, faces, np.asarray(all_faces[source_faces:]), labels, deadline=deadline)
+    adjacency = [set() for _ in all_faces]
+    for incident in edges.values():
+        for a in incident:
+            adjacency[a].update(b for b in incident if b != a)
+    components = _components(np.ones(len(all_faces), dtype=bool), adjacency)
+    component_parts = [{int(labels[vertex]) for fid in group for vertex in all_faces[fid]} for group in components]
+    require(all(len(parts) == 1 for parts in component_parts), 'A geometric component bridges part labels')
+    bpy.context.preferences.filepaths.use_scripts_auto_execute = False
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.import_scene.gltf(filepath=str(out/'original.glb'))
+    originals = [obj for obj in bpy.context.scene.objects if obj.type == 'MESH']
+    require(len(originals) == 1 and not bpy.data.armatures and len(originals[0].data.materials) == 1,
+            'Native import differs from prepared single unrigged mesh')
+    source_material = originals[0].data.materials[0]
+    mesh = bpy.data.meshes.new('PartitionedMesh')
+    mesh.from_pydata(points.tolist(), [], all_faces)
+    mesh.update()
+    obj = bpy.data.objects.new('PartitionedBodyAndPart', mesh)
+    bpy.context.scene.collection.objects.link(obj)
+    for original in originals:
+        bpy.data.objects.remove(original, do_unlink=True)
+    for number, name in enumerate(('body_surface', 'companion_surface', 'body_cap', 'companion_cap')):
+        material = source_material.copy()
+        material.name = name
+        if number >= 2:
+            bsdf = next(n for n in material.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
+            for key, value in [('Normal', None), ('Metallic', 0.), ('Roughness', 1.)]:
+                socket = bsdf.inputs[key]
+                for link in list(socket.links):
+                    material.node_tree.links.remove(link)
+                if value is not None:
+                    socket.default_value = value
+        mesh.materials.append(material)
+    uv_layer = mesh.uv_layers.new(name='UVMap')
+    uv_layer.data.foreach_set('uv', np.asarray(all_uvs).ravel())
+    for polygon, material_index in zip(mesh.polygons, materials):
+        polygon.material_index = material_index
+        polygon.use_smooth = polygon.index < source_faces
+    mesh.normals_split_custom_set(np.asarray(all_normals).reshape((-1, 3)).tolist())
+    for part, name in enumerate(('body', config['part_name'])):
+        obj.vertex_groups.new(name=name).add(np.flatnonzero(labels == part).tolist(), 1, 'REPLACE')
+    attr = mesh.attributes.new(name='partition_id', type='INT', domain='POINT')
+    attr.data.foreach_set('value', labels.astype(np.int32))
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    bpy.ops.export_scene.gltf(filepath=str(out/'diagnostic-model.glb'), export_format='GLB', use_selection=True,
+        export_animations=False, export_skins=False, export_morph=False, export_normals=True,
+        export_tangents=True, export_yup=True, export_image_format='AUTO')
+    write(out/'component-vertices.json', {'schema_version': 1, 'native_mesh_name': mesh.name,
+        'index_space': 'diagnostic-source.blend vertex IDs; GLB splits corners by UV/normal/material',
+        'material_contract': {'body': ['body_surface', 'body_cap'], config['part_name']: ['companion_surface', 'companion_cap']},
+        'components': {name: np.flatnonzero(labels == part).tolist() for part, name in enumerate(('body', config['part_name']))}})
+    for image in bpy.data.images:
+        if image.size[0]:
+            image.pack()
+    bpy.ops.wm.save_as_mainfile(filepath=str(out/'diagnostic-source.blend'), check_existing=False)
+    # Diagnostic matte overrides reduce texture memory; the saved model retains source material channels.
+    for material in mesh.materials:
+        bsdf = next(n for n in material.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
+        for key, value in [('Normal', None), ('Metallic', 0.), ('Roughness', .8)]:
+            for link in list(bsdf.inputs[key].links):
+                material.node_tree.links.remove(link)
+            if value is not None:
+                bsdf.inputs[key].default_value = value
+    scene = bpy.context.scene
+    scene.render.engine = 'CYCLES'
+    scene.cycles.device, scene.cycles.samples, scene.cycles.use_denoising = 'CPU', 4, False
+    scene.render.threads_mode, scene.render.threads = 'FIXED', 2
+    scene.render.resolution_x = scene.render.resolution_y = 384
+    scene.render.resolution_percentage = 100
+    scene.render.image_settings.file_format, scene.render.image_settings.color_mode = 'PNG', 'RGB'
+    scene.render.film_transparent = False
+    scene.world = bpy.data.worlds.new('DiagnosticWorld')
+    scene.world.use_nodes = True
+    scene.world.node_tree.nodes['Background'].inputs[0].default_value = (.8, .8, .8, 1)
+    scene.world.node_tree.nodes['Background'].inputs[1].default_value = .5
+    low, high = points.min(axis=0), points.max(axis=0)
+    center, extent = Vector((low+high)*.5), float(max(high-low))
+    camera_data = bpy.data.cameras.new('DiagnosticCamera')
+    camera_data.type, camera_data.ortho_scale = 'ORTHO', extent*1.5
+    camera = bpy.data.objects.new('DiagnosticCamera', camera_data)
+    scene.collection.objects.link(camera)
+    scene.camera = camera
+    for name, offset, energy in [('Key', (-2, -3, 4), 600), ('Fill', (3, 1, 2), 400)]:
+        light = bpy.data.lights.new(name, 'AREA')
+        light.energy, light.size = energy, 3
+        light_obj = bpy.data.objects.new(name, light)
+        scene.collection.objects.link(light_obj)
+        light_obj.location = center+Vector(offset)*extent
+        light_obj.rotation_euler = (center-light_obj.location).to_track_quat('-Z', 'Y').to_euler()
+    renders = []
+    for name, offset, separated in [('front', (0, -3, .05), False), ('back', (0, 3, .05), False),
+                                    ('open-gap-front', (-.7, -3, .2), True), ('open-gap-back', (.7, 3, .2), True)]:
+        displaced = points.copy()
+        if separated:
+            displaced[labels == 1] += config['preview_offset_m']
+        mesh.vertices.foreach_set('co', displaced.ravel())
+        mesh.update()
+        camera.location = center+Vector(offset)*extent
+        camera.rotation_euler = (center-camera.location).to_track_quat('-Z', 'Y').to_euler()
+        scene.render.filepath = str(out/(name+'.png'))
+        bpy.ops.render.render(write_still=True)
+        renders.append({'path': name+'.png', 'sha256': digest(out/(name+'.png')), 'exploded_diagnostic': separated})
+    part_points = points[labels == 1]+config['preview_offset_m']
+    part_center = Vector((part_points.min(0)+part_points.max(0))*.5)
+    part_extent = float(np.ptp(part_points, axis=0).max())
+    camera_data.ortho_scale = part_extent*1.25
+    camera.location = part_center+Vector((.7, 3, .2))*part_extent
+    camera.rotation_euler = (part_center-camera.location).to_track_quat('-Z', 'Y').to_euler()
+    scene.render.filepath = str(out/'companion-back-close.png')
+    bpy.ops.render.render(write_still=True)
+    renders.append({'path': 'companion-back-close.png', 'sha256': digest(out/'companion-back-close.png'),
+                    'exploded_diagnostic': True, 'scope': 'Closer view of the same moved mesh, not new geometry'})
+    write(out/'native-report.json', {'schema_version': 1, 'status': 'needs_repair', 'source_sha256': config['source_sha256'],
+        'diagnostic_model_sha256': digest(out/'diagnostic-model.glb'), 'source_unchanged': digest(out/'original.glb') == config['source_sha256'],
+        'topology': plan['topology'], 'base_faces_retained': source_faces, 'closure_triangles': len(all_faces)-source_faces,
+        'vertices': len(points), 'triangles': len(all_faces),
+        'closed_manifold_edge_counts': all(len(incident) == 2 for incident in edges.values()),
+        'unrepaired_loops': rejected_loops, 'intersection_screen': intersections,
+        'contact_uv_repair': plan['contact_uv_repair'],
+        'geometric_component_face_counts': list(map(len, components)),
+        'geometric_component_part_labels': [next(iter(parts)) for parts in component_parts],
+        'cross_part_edges': 0, 'closure_surfaces': closure_rows, 'renders': renders,
+        'preview_shading': 'Diagnostic matte override, same source basecolor; not final lookdev quality',
+        'preserved': ['Every original triangle position', 'Original corner normals', 'Shared source basecolor image'],
+        'uv_preservation': 'Original UVs preserved except explicitly inventoried contact-fringe repairs and authored closure UVs',
+        'authored_assumptions': ['Missing body/companion contact surfaces triangulated from cut boundaries',
+            'Cap colors use nondegenerate per-triangle UVs into per-loop source palette patches, not recovered hidden textures',
+            'Open loops are listed in unrepaired_loops; intersection and edge-count diagnostics do not certify watertight geometry; no full remesh',
+            'Exploded part displacement is diagnostic only, not animation'],
+        'animation_verified': False, 'provider_calls': 0})
+
+
+if __name__ == '__main__':
+    main(sys.argv[sys.argv.index('--')+1])

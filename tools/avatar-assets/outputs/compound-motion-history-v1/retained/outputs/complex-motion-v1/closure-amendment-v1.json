@@ -1,0 +1,17 @@
+{
+  "additional_native_probes_max": 2,
+  "authored_cap_triangles_max": 1000,
+  "cpu_solver_seconds": 30,
+  "failure_receipt": "outputs/companion-separation-diagnostic-v1/unsupported-initial-method.json",
+  "native_rss_mb_each": 1024,
+  "native_seconds_each": 120,
+  "new_method": "Bounded ordered3D boundary triangulation and geometric intersection screening, with per-loop source palette selection",
+  "no_automatic_acceptance": true,
+  "output_mb_each": 128,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reason": "Projected triangulation is invalid for genuinely curved contact boundaries; initial2 native probes used2.352seconds and emitted no model. Continue changed3D closure hypothesis, not paid regeneration.",
+  "recorded_at": "2026-11-01T11:27:36.545425-08:00",
+  "threads_each": 2,
+  "total_vertices_max": 100000
+}

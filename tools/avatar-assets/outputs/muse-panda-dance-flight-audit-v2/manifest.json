@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 718,
+      "path": "audit-handle.json",
+      "sha256": "1d88ba0be677661964cc0c856aeef8ce586587e1be2a8a2fd26f042081988907"
+    },
+    {
+      "bytes": 1504,
+      "path": "audit-monitor.json",
+      "sha256": "e2b8ba7835a675dfc5b9edcbeed99c0303a4fa93af4b6cb411ad3c39c1266825"
+    },
+    {
+      "bytes": 341127,
+      "path": "audit.json",
+      "sha256": "d35342aadfbfddf9b65fba731f7a571ff5619a0fd8f095744f540c465ea2fb0d"
+    },
+    {
+      "bytes": 2254,
+      "path": "audit.log",
+      "sha256": "2ac504bfbc90e0d7f2886d00011df135a189f929c3ca2e0c34d2e193237e0091"
+    },
+    {
+      "bytes": 1642,
+      "path": "job.json",
+      "sha256": "74d17079885f29f82eddf4f27fdbff6a51f8a777f9e78400c336b9246c794127"
+    },
+    {
+      "bytes": 37920,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "c7977ad142c7f847113af4da3c1199f512dd5d96e525c68a90f16f1e6312a022"
+    },
+    {
+      "bytes": 12891,
+      "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+      "sha256": "c25b211f0b30a0658f2ba36b576b0af329bcad9c6537f306fc4d6efc07bdcb50"
+    },
+    {
+      "bytes": 12560,
+      "path": "sources/__pycache__/part_rigs.cpython-311.pyc",
+      "sha256": "995c43faf73056862e4f828c9f0adc50bf146e19ed3bc7967aef69d0d1e11f44"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 26774,
+      "path": "sources/blender_verify_compound_motion.py",
+      "sha256": "f750983a2ceca321e23ad1070e3320ba1b71fcedb5f09e4df0d787756d7b1a52"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    }
+  ],
+  "kind": "compound_motion_audit",
+  "schema_version": 1,
+  "source_manifest_sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47",
+  "source_model_sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+  "status": "passed"
+}

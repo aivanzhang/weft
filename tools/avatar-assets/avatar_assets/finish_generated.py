@@ -33,7 +33,7 @@ def validate(config):
     optional = {'groom', 'groom_exclusions', 'fur_max_chroma', 'fur_clump', 'attachment', 'smoothing',
                 'weight_constraints', 'portable_fur', 'authored_actions', 'portrait_denoise', 'native_render_children',
                 'authored_rig', 'camera_view', 'camera_fit', 'surface_profiles', 'surface_smoothing', 'groom_shader', 'groom_flow',
-                'color_corrections', 'part_rigs'}
+                'color_corrections', 'part_rigs', 'groom_excluded_parts', 'normal_continuity'}
     require(isinstance(config, dict) and required <= set(config) <= required|optional
             and config['schema_version'] == 1, 'Invalid generated finishing config')
     slug(config['id'])
@@ -50,6 +50,9 @@ def validate(config):
     if 'surface_profiles' in config:
         from avatar_assets.surface_profiles import validate_profiles
         validate_profiles(config['surface_profiles'])
+    if 'normal_continuity' in config:
+        from avatar_assets.normal_continuity import validate_normal_continuity
+        validate_normal_continuity(config['normal_continuity'])
     if 'color_corrections' in config:
         from avatar_assets.color_corrections import validate_corrections
         validate_corrections(config['color_corrections'])
@@ -74,6 +77,13 @@ def validate(config):
         require(config.get('authored_rig') and not config.get('attachment'),
                 'Part rigs require an authored rig and cannot overlap the rigid attachment pass')
         validate_part_rigs(config['part_rigs'], config['authored_rig'])
+    if 'groom_excluded_parts' in config:
+        excluded = config['groom_excluded_parts']
+        require(config.get('part_rigs') and (config.get('groom') or config.get('portable_fur'))
+                and isinstance(excluded, list) and 1 <= len(excluded) <= 4
+                and all(isinstance(name, str) for name in excluded) and len(set(excluded)) == len(excluded)
+                and set(excluded) <= {part['name'] for part in config['part_rigs']},
+                'Groom exclusions must name configured parts and a native or portable coat')
     boxes = config.get('groom_exclusions', [])
     require(isinstance(boxes, list) and len(boxes) <= 16, 'Too many spatial exclusions')
     for box in boxes:
@@ -203,7 +213,7 @@ def reuse_native(folder, out, cfg):
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py'):
+                 'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
     require(sha256(root/'sources/surface_profiles.py') == sha256(ROOT/'avatar_assets/surface_profiles.py'),
             'Surface profile validator changed; rebuild required')
@@ -213,6 +223,8 @@ def reuse_native(folder, out, cfg):
             'Color correction validator changed; rebuild required')
     require(sha256(root/'sources/part_rigs.py') == sha256(ROOT/'avatar_assets/part_rigs.py'),
             'Part rig helper changed; rebuild required')
+    require(sha256(root/'sources/normal_continuity.py') == sha256(ROOT/'avatar_assets/normal_continuity.py'),
+            'Normal continuity helper changed; rebuild required')
     for name in ('source.blend', 'portrait.png', 'finish-report.json', 'job.json', 'finish.log', 'finish-monitor.json', 'finish-handle.json'):
         shutil.copyfile(root/name, out/name)
     if (root/'surface-integrity.json').exists():
@@ -247,13 +259,14 @@ def finish(config_path, output, reuse=None):
         write_json(out/'finish-config.json', cfg)
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py'):
+                     'motion_samples.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_profiles.py', out/'sources/surface_profiles.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_smoothing_config.py', out/'sources/surface_smoothing_config.py')
         shutil.copyfile(ROOT/'avatar_assets/color_corrections.py', out/'sources/color_corrections.py')
         shutil.copyfile(ROOT/'avatar_assets/part_rigs.py', out/'sources/part_rigs.py')
+        shutil.copyfile(ROOT/'avatar_assets/normal_continuity.py', out/'sources/normal_continuity.py')
         shutil.copyfile(ROOT/'avatar_assets/generated_tangents.py', out/'sources/generated_tangents.py')
         exe = ROOT/'.tools/Blender.app/Contents/MacOS/Blender'
         cmd = [str(exe), '--background', '--factory-startup', '--disable-autoexec', '--python-exit-code', '1',

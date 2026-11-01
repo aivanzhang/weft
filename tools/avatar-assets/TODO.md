@@ -4,55 +4,160 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 10:53 PST.
+- Recorded: 2026-11-01 12:24 PST. Current follow-up status is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
-- Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
+- Current Meshy work: **16 completed submissions / 202 credits reported and reserved**; account-specific dollar price unknown. Earlier local-only milestones used 0 paid calls. No recurring service, deployment, new remote repository, account or borrowed credentials/budget. The user previously authorized a push to Weft’s existing private remote. A proposed four-call raster batch was not executed.
 - Resume guard: preserve original ZIP and existing output folders. Recheck job handles below before resuming or terminating anything. No persistent background service was created; gallery test servers were temporary.
 
 ## Active: shoulder-dragon flight and panda dance
 
-User accepted the saved panda appearance and requested more complex motion;
-clarified **the little shoulder dragon takes off while the panda dances**, not
-an independent standalone dragon. Preserve approved checkpoint `4ade45a` and all
-previous assets. New job plan: `outputs/complex-motion-v1/plan.json`.
+The user accepted the saved fur panda, then clarified **the little shoulder
+dragon takes off while the panda dances**. Preserve approved checkpoint
+`4ade45a` and the separate standalone dragon; neither is overwritten or substituted.
+The current recipe is `examples/meshy/muse-panda-dance-flight-v2.json`.
+[Reusable controls, exact commands and source errata](docs/compound-motion.md).
 
-- Parent owns generic per-bone meter translations, LINEAR interpolation,
-  motion-aware framing, final integration/verification and save.
-- `agent_runner` owns new bounded partition modules/probes; `pipeline_review`
-  independently audits fused topology and caps; `pipeline_contracts` prepared
-  a provisional dance config and measured small-dragon control candidates.
-- No paid generation: current geometry/4K textures are reused. Two initial
-  partition probes, at most120s/1GiB/128MiB each; at mosttwo heavy workers.
-- Actual source is one connected fused surface, including broad unseen head/
-  shoulder contacts. A naive anchor translation or blind cap is not accepted.
-  Preserve visible source surfaces/UVs; any new closures are authored assumptions.
-- Next: evaluate bounded geometric separation, then rig independent wings and
-  coordinate flight with dance. No current result demonstrates takeoff yet.
-- Generic per-bone `translations_m`, explicit LINEAR interpolation, motion-fit
-  camera and disjoint-material `part_rigs` are implemented. Focused contracts pass;
-  native analytic `outputs/motion-controls-analytic-v3` passed in0.523s/182MB,
-  export/reload maximum position error0.000000361m. v1/v2 fixture failures included
-  a Blender bone-display helper in skin comparisons; preserved, not asset failures.
-- `companion-separation-v1` stopped at CPU winding checks. v2 corrected three
-  source winding defects but exposed a Blender4.5 triangulator return-type mismatch;
-  no model was exported. `agent_runner` owns the changed v3 probe (second native
-  attempt); inspect its handle before resuming. Planned501 cap triangles/29loops
-  are authored closure geometry, not recovered hidden surfaces.
-- `pipeline_contracts` owns the new combined config; parent owns integration.
-  No new paid calls, no publication or persistent service in this follow-up yet.
-- Updated native control fixture `motion-controls-analytic-v4` passes0.522s/181MB;
-  latest backend includes cross-action zero translations and skips unrelated mesh
-  evaluation during framing. Local closure amendment allows two additional120s
-  native probes after a changed3D solver passes CPU gates; exact envelope is
-  `outputs/complex-motion-v1/closure-amendment-v1.json`. No paid retry.
-- Non-executable21-key choreography is saved in `choreography-design-v1.json`;
-  no source hash is invented while separation is pending. Its actual-source wing
-  screen is not a native flight result. `pipeline_contracts` now owns a new bounded
-  full-frame compound-motion audit helper; no native audit is running yet.
-- The current appearance is user-accepted; exact Muse reconstruction/physical
-  flight/balance are not claimed. Update this handoff before long jobs/end.
+### Completed and verified
+
+- [x] Generic rest-axis meter translations, explicit LINEAR interpolation,
+  fixed motion-fit camera, disjoint `part_rigs`, exact `groom_excluded_parts`
+  and bounded `normal_continuity` are implemented. The latter transfers authored
+  shading/strand directions without changing positions, UVs or skin weights.
+- [x] Selected local source `outputs/companion-separation-v7/diagnostic-model.glb`,
+  SHA `734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca`.
+  Original generated bytes remain unchanged. New hidden closures and 209 contact
+  face UV corrections are authored assumptions, not recovered reference surfaces.
+- [x] New model/source `outputs/muse-panda-dance-flight-v2`: **75,318 exported
+  vertices, 19 joints, one 4-second `dance_flight` action**. GLB SHA
+  `693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67`.
+  Native build passed in **26.997 s / 1,831,534,592 B** sampled direct-child RSS;
+  `job.json` records exit 0 and PID 37827 exited. No whole-process-tree memory claim.
+- [x] Normal continuity repaired 1,095 target vertices/369 faces; 35 native
+  parent strands were reoriented from the authored surface normals. Protected
+  position/topology/UV/weight hashes match before/after. This fixes shading and
+  strand direction, not the underlying closure geometry or every cosmetic seam.
+- [x] `outputs/muse-panda-dance-flight-reload-v2` independently loads and moves
+  the actual GLB: **2.041 s / 668,614,656 B**, exit 0.
+- [x] `outputs/muse-panda-dance-flight-audit-v2/audit.json`: **97 actual frames**
+  at 24 fps including the endpoint, **2.555 s / 336,297,984 B**. Base skin and the
+  configured 54 mm fur envelope stay in-frame. Maximum measured edge extension:
+  body 6.36 mm, companion 6.34 mm. Actual root-relative wing articulation reaches
+  34.48 mm right/19.83 mm left; 6,388/1,302 weighted vertices move over 1 mm.
+  This audit does not render hair, infer action meaning or prove collision/physics.
+- [x] **444 tests passed in 12.307 s**, `outputs/complex-motion-v1/full-tests-v2.txt`.
+  Analytic fixtures remain distinct from the generated model and native audits.
+- [x] Independent 384 px review permits bounded HD verification, **not final
+  acceptance**. Small mottled shoulder shading and dark cheek contact marks remain;
+  no visible hole, gross stretch or silhouette break was observed at that scope.
+
+### Completed media, review and browser
+
+- [x] Full `outputs/muse-panda-dance-flight-media-v2` passed in **219.116 s /
+  1,690,763,264 B** sampled direct-child RSS, within 1200 s/2 GiB/512 MiB. It contains
+  opaque 1600 px portrait/raw portrait, one silent 720×720 H.264/24 fps/4 s clip with
+  **96 distinct decoded frames**, and the exact first-frame static fallback.
+  Endpoint image MAE 0 is measured; a seamless loop is **not** certified.
+- [x] Byte-preserving `outputs/muse-panda-dance-flight-media-v2-portable-v1`:
+  **31 artifacts / 5,496,723 B**. Manifest SHA
+  `7ecc83314dda1644f361dc6de8613b2b9a6715cc423cfc09708bed32b21006a2`.
+  Full frames and rejected media-v1 remain in their original folders.
+- [x] HD reviewer accepts the **authored motion preview**, not polished final
+  quality or Muse parity. Toy hops, outward takeoff, flapping and return are
+  readable; cheek scuffs, mottled shoulder shading and a small bright fleck
+  remain. Browser images also show colored flecks on lighter coat. Native video
+  is the best fur representation; native/browser appearance is not equivalent.
+- [x] `outputs/browser-compound-motion-v1`: actual model/one clip/video playback,
+  pause/seek, static/reduced-motion, injected-failure fallback and mobile checks
+  pass; **9.516 s / 2,688,057,344 B** summed owned-process RSS, initial load 1861 ms,
+  no unexpected errors/external requests. Browser/server exit verified. Shared
+  pages may be double-counted; this is not a sustained FPS benchmark.
+- [x] Default catalog promoted locally to eight entries, retaining previous
+  entries unchanged. New focused catalog `browser/gallery-compound-motion-v1.json`;
+  preserved previous default `browser/gallery-before-compound-motion-v1.json`;
+  snapshot `browser/gallery-compound-motion-full-v1.json`. Evidence:
+  `outputs/compound-motion-delivery-v1/gallery-promotion.json`. The new entry has
+  real browser proof; unchanged older entries were not re-rendered.
+- [x] `outputs/compound-motion-delivery-v1/rig-delivery.json` records actual node
+  IDs, rest/inverse-bind transforms, units, axes and companion parentage.
+  `weft-unsupported.json` explicitly rejects unchanged-fidelity conversion:
+  75,318 vertices/72,181 triangles, PBR/4K maps and no verified new Weft mapping.
+  The identity `bone_to_simulated_joint` map remains local structure verification,
+  not Weft's 19-angle controls. No consumer/physics/action/reward edits.
+- [x] `preservation-and-cost.json` rechecks original ZIP, raw source and approved
+  panda bytes unchanged; ledger read-only: 16 SUCCEEDED / 202 credits against 210
+  allowance. **Zero new provider calls/$0 new paid provider work**; session model
+  charges are not exposed. No recurring service. Twelve preserved attempts have
+  an 8,334,093 B compact history in `outputs/compound-motion-history-v1`.
+
+### Ownership, remaining save and next safe action
+
+No owned native job, browser or persistent server remains running. HD handle 55110
+finished; rejected media-v1 handle 36851 remains stopped. Do not reuse those stale
+handles or duplicate completed renders. Parent owns final release/save; all
+commands and resource limits are in [compound motion](docs/compound-motion.md).
+
+- [x] Final review, media audit, delivery summary, rig/consumer results, cost and
+  gallery receipts are sealed in [the delivery manifest](outputs/compound-motion-delivery-v1/manifest.json),
+  SHA `ee1512e11ff534fc2d01955a2320bc50be4546dc6bbef8cb7c20342b63d213b0`.
+  [Evidence index](evidence/compound-motion-v1.json) records the tested preview and limits.
+- [ ] Parent verifies Git save/push in the existing private repository. Receipt:
+  Weft-root `.local/avatar-compound-motion-v1/receipt.json`. A missing successful
+  remote-verification field is **not** proof of a push. Keep unrelated Weft work
+  and every local rejected/source output intact.
+
+The bounded dance/flight preview is tested and reviewable. Remaining cosmetic
+quality and faithful Weft conversion are explicit limitations, not hidden pending
+motion. Next safe action is to view the saved preview without another paid or
+native call; any further polish uses a new bounded candidate and retained evidence.
+The original Muse-equivalence target remains unverified.
+
+### Preserved failures, limitations and errata
+
+- Dance-v1 established root hops. Dance-v2's 12° toe lift pulled belly skin
+  (17.75 mm); dance-v3 tighter foot weights worsened ankle extension (25.32 mm).
+  Both are rejected. The combined action uses v4's original smooth weights,
+  4° toe lifts and 8° root yaw. Full Root XYZ rotation is compensated for the
+  companion; reusing old lean-only compensation would displace it by 105.9 mm.
+  Exact derivation: `choreography-design-v2.json`; the final flight path additionally
+  moves 12 cm outward. New source/recipe pins supersede that non-executable draft.
+- Combined-v1 passed loading and 97-frame geometry checks but was **rejected for
+  angular vacant-shoulder appearance**. Its partial HD output is preserved and
+  stopped: `outputs/complex-motion-v1/media-v1-stopped.json`, former handle 36851.
+  Never use its passing audit as visual acceptance or resume its media.
+- Source-v7 retains `status: needs_repair`: its topology is not certified
+  manifold/watertight. It has zero cross-part edges and no unrepaired cut loops,
+  but 21 valence-four edges plus 2 cap/cap and 208 cap/source intersection-screen
+  hits remain. These are documented cosmetic-authoring limitations, not a
+  collision-ready or physical model. Earlier CPU/triangulation/color failures
+  stay in `companion-separation-v1` through `-v6` and amendment records.
+- Source-v7's inherited sentence about open pinched loops is stale; the actual
+  `unrepaired_loops` array is empty. Its earlier “original UVs retained” shorthand
+  excludes the explicitly inventoried 209 contact-face corrections and closure
+  UVs; original texture bytes and triangle positions are preserved. Do not rewrite
+  the sealed source manifest to conceal these exceptions.
+- Combined-v2's inherited rights prose still says source fields await binding.
+  That sentence is stale: its actual config pins the v7 path/hash above. Record
+  this erratum separately; do not mutate sealed model/source artifacts.
+- Native strands and portable cutout cards are different representations;
+  regional `groom_flow` remains native-only. No seamless loop, recovered anatomy,
+  physical dance/flight, automatic interactions, Muse parity or faithful HD Weft
+  conversion is claimed. Rest scale 1.2 m; native +Z up / -Y front, glTF +Y up / +Z front.
+- Analytic controls proof `outputs/motion-controls-analytic-v4` passed 0.522 s/
+  181 MB; prior native/export comparison error 0.000000361 m. Earlier fixtures wrongly
+  included a bone-display helper; they are preserved, not generated-asset failures.
+
+Last recorded shared-controls checkpoint:
+`1df6880ef6ea0d24894ff4e3e5da874a797b7e03`. A later code/model/media publication
+must be recorded by the parent; do not infer a push from local evidence hashes.
+The local preview completion gate is satisfied by reviewed full-resolution media,
+real browser playback, immutable proof/source bindings and explicit limitations.
+Remote-save status remains conditional on the publication receipt above.
+
+The sections below preserve prior milestones. Their cost totals, live handles,
+“current” labels and publication status describe those earlier recording times,
+not the active follow-up above.
 
 ## Panda fur and small details — verified improvement, quality target still open
 

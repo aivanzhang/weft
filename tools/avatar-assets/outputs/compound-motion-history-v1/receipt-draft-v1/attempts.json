@@ -1,0 +1,2089 @@
+{
+  "attempts": [
+    {
+      "attempt": "companion-separation-v1",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v1/manifest.json"
+      ],
+      "history_disposition": "failed_cpu",
+      "job_absence_reason": "CPU preflight failed before native job creation",
+      "native_job_summary": null,
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1166,
+          "path": "outputs/companion-separation-v1/config.json",
+          "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v1",
+      "original_job": null,
+      "original_manifest": {
+        "bytes": 945,
+        "path": "outputs/companion-separation-v1/manifest.json",
+        "sha256": "46a57c7c0a02c8327896e618e50c6a209e1daf75b54441cf895c08f8511821b0"
+      },
+      "original_manifest_status": "failed",
+      "original_source_path": null,
+      "original_source_sha256": null,
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Directed cut-boundary fans were open, branched or inconsistently wound; no model or native job."
+    },
+    {
+      "attempt": "companion-separation-v2",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v2/partition.log",
+        "retained/outputs/companion-separation-v2/job.json"
+      ],
+      "history_disposition": "failed_native",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 1.305,
+        "exit_code": 1,
+        "failure": null,
+        "final_output_bytes": 28174950,
+        "sampled_peak_rss_bytes": 258736128,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        },
+        {
+          "bytes": 2525143,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "partition-arrays.npz",
+          "sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004"
+        },
+        {
+          "bytes": 43293,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+          "sha256": "ebd8bc4d59790afa6f3c19d54bcb4142e8b024c3fa38305aba8bee4c7cf96145"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1166,
+          "path": "outputs/companion-separation-v2/config.json",
+          "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v2",
+      "original_job": {
+        "bytes": 1434,
+        "path": "outputs/companion-separation-v2/job.json",
+        "sha256": "d52f3c94fea7fc7aaad31be9894944c4a0ed113be9dd64923edb5cd24038ad32"
+      },
+      "original_manifest": {
+        "bytes": 2041,
+        "path": "outputs/companion-separation-v2/manifest.json",
+        "sha256": "674df9622537a6e9936bef06b30c70e7874e1e0d04d44bb46ff737a9a3ad12f3"
+      },
+      "original_manifest_status": "failed",
+      "original_source_path": null,
+      "original_source_sha256": null,
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Blender 4.5 tessellate_polygon returned integer indices; the initial adapter treated them as vectors and raised TypeError before export."
+    },
+    {
+      "attempt": "companion-separation-v3",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v3/partition.log",
+        "retained/outputs/companion-separation-v3/job.json"
+      ],
+      "history_disposition": "failed_native",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 1.047,
+        "exit_code": 1,
+        "failure": null,
+        "final_output_bytes": 28176577,
+        "sampled_peak_rss_bytes": 307625984,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        },
+        {
+          "bytes": 2525143,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "partition-arrays.npz",
+          "sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004"
+        },
+        {
+          "bytes": 44297,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+          "sha256": "00f7f1aa975ac4720c2b3dbbda082ab72c3841f23602486fb5b599e0c2614a02"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1166,
+          "path": "outputs/companion-separation-v3/config.json",
+          "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v3",
+      "original_job": {
+        "bytes": 1434,
+        "path": "outputs/companion-separation-v3/job.json",
+        "sha256": "0bbca84cc046e3aa699307a54c6f4b81be7b22b47afeb8ec13553d452ca1618f"
+      },
+      "original_manifest": {
+        "bytes": 2041,
+        "path": "outputs/companion-separation-v3/manifest.json",
+        "sha256": "718f3d26ae410340750539984aa56fb7d64070e19ed6249bae14504076ed88b1"
+      },
+      "original_manifest_status": "failed",
+      "original_source_path": null,
+      "original_source_sha256": null,
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "The planar projected cap violated its area-overlap gate; later diagnostics showed genuinely nonplanar/self-crossing projections, not just a numerical tolerance issue."
+    },
+    {
+      "attempt": "companion-separation-v4",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v4/native-report.json",
+        "retained/outputs/companion-separation-v4/open-gap-front.png",
+        "retained/outputs/companion-separation-v4/open-gap-back.png"
+      ],
+      "history_disposition": "rejected_appearance",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 5.336,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 87155524,
+        "sampled_peak_rss_bytes": 877510656,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 136352,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "back.png",
+          "sha256": "e08e188c2d25537e65d8e84658d33cb6d5993b9d89ba7cf3cb69ff57367ae9b1"
+        },
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "284dd3f857e46e063bc6a08c47e2405f4229c4ad6b5d57bc1ac4c71c9079e004"
+        },
+        {
+          "bytes": 396640,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "component-vertices.json",
+          "sha256": "076c4c615de9ceee9305974a75597946528b5743f64262817402c4e73a69df78"
+        },
+        {
+          "bytes": 26369500,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-model.glb",
+          "sha256": "e72c6d130ddd3046d16f733ac5c93f5c760775d6621cf8beb2184a676fe043de"
+        },
+        {
+          "bytes": 31506897,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-source.blend",
+          "sha256": "83330795a5c6790797ee25c89561fb3ff0976689b03dafb702d55fca1be1e626"
+        },
+        {
+          "bytes": 141969,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "front.png",
+          "sha256": "7f9e06e481e53a0f40e28655c15ca0bbc35c50f5a739e1902181ab0d1c9af53e"
+        },
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        },
+        {
+          "bytes": 2525143,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "partition-arrays.npz",
+          "sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004"
+        },
+        {
+          "bytes": 61655,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+          "sha256": "6138c1901aeb72dbfda3131e65e9d5d94949d4326c3a5801c8a7e03e9e439b15"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1166,
+          "path": "outputs/companion-separation-v4/config.json",
+          "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v4",
+      "original_job": {
+        "bytes": 1435,
+        "path": "outputs/companion-separation-v4/job.json",
+        "sha256": "43e363be6e3a0be7792f75a34c7c79ceb27fbdd4e619669c3015ddb2abecae58"
+      },
+      "original_manifest": {
+        "bytes": 73199,
+        "path": "outputs/companion-separation-v4/manifest.json",
+        "sha256": "08f73c271ffc88a0140e7c9bf7c98f45c54fa733aa8f92ee7761d14acc999c78"
+      },
+      "original_manifest_status": "needs_repair",
+      "original_source_path": null,
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Two pinched loops remained unfilled; separated views exposed a panda-cheek notch and dark/open companion rear strips. 133 screened cap/source intersections also remained."
+    },
+    {
+      "attempt": "companion-separation-v5",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v5/native-report.json",
+        "retained/outputs/companion-separation-v5/open-gap-back.png"
+      ],
+      "history_disposition": "rejected_appearance",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 4.947,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 87216088,
+        "sampled_peak_rss_bytes": 915390464,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 136354,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "back.png",
+          "sha256": "83c5a3098eec1ac2fa73430cdba2c4268425065a64fbe645524ad1ba3031bc8d"
+        },
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "cfc7049708bdace211e6529d02711b77be489f2e8667b042f137921e012e3f18"
+        },
+        {
+          "bytes": 396614,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "component-vertices.json",
+          "sha256": "33da2fd1e077ace4b56e42880aa82d3a44bc8144fcc680712b42db1e320adfa4"
+        },
+        {
+          "bytes": 26395756,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-model.glb",
+          "sha256": "03c00d2e5086c55eab0b16a87c537ff375e0a0fcc51640d3d6f7c873d94daa88"
+        },
+        {
+          "bytes": 31520847,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-source.blend",
+          "sha256": "851bdd26e6e37aace15396229fb815876e740ac91e70372f2cf16cee2aeacbc7"
+        },
+        {
+          "bytes": 141970,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "front.png",
+          "sha256": "30190024ffbbee144ff6ef25c8bb8f4857dc4ccd5f74cfc12efa0b6eda3c1b6a"
+        },
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        },
+        {
+          "bytes": 2525144,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "partition-arrays.npz",
+          "sha256": "0419c30dcdc842b2a21410afc9e081ed705575cee9f147f5013121b6deeb6860"
+        },
+        {
+          "bytes": 68800,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+          "sha256": "c6f4ad7fc785f5fe7de72a4f57bf7b6a9ce01d2ee55f38cedce19708795f0ed6"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1191,
+          "path": "outputs/companion-separation-v5/config.json",
+          "sha256": "0a8d8d8f4ea3edd41512783c2e553328115021411e61dc65cc1828fb7eb81002"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v5",
+      "original_job": {
+        "bytes": 1435,
+        "path": "outputs/companion-separation-v5/job.json",
+        "sha256": "a5ba47ea2e58429216e45fa0c42d10be42d3172b52704b3e128f7b8277bf8f56"
+      },
+      "original_manifest": {
+        "bytes": 82611,
+        "path": "outputs/companion-separation-v5/manifest.json",
+        "sha256": "4e0dbec7dfedf53a1ce51bfaf5ed1bf34459c04b343d38197640e2bfdf3548a8"
+      },
+      "original_manifest_status": "needs_repair",
+      "original_source_path": null,
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Pinch splitting filled the cheek, but companion hidden closures inherited charcoal body-contact pixels. Internal intersection/nonmanifold diagnostics remained unresolved."
+    },
+    {
+      "attempt": "companion-separation-v6",
+      "evidence_paths": [
+        "retained/outputs/companion-separation-v6/native-report.json",
+        "retained/outputs/companion-separation-v6/companion-back-close.png"
+      ],
+      "history_disposition": "superseded_appearance",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 5.966,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 87597520,
+        "sampled_peak_rss_bytes": 882671616,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 136365,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "back.png",
+          "sha256": "90e6ebc339c998d99f4421d959de79daf5f1230328d1cae5809d6bf4c36ab26f"
+        },
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "d97ce21526a275f285f24bb799dcab0983cc6b4955e9f7666dc62286f9c75cdf"
+        },
+        {
+          "bytes": 396614,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "component-vertices.json",
+          "sha256": "33da2fd1e077ace4b56e42880aa82d3a44bc8144fcc680712b42db1e320adfa4"
+        },
+        {
+          "bytes": 26408148,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-model.glb",
+          "sha256": "885aa66823b643ab3bea9e9c56cd21ddc361f556f01e437dc83fe3823cc10f6d"
+        },
+        {
+          "bytes": 31520847,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "diagnostic-source.blend",
+          "sha256": "fddc9fe371acd67f6fdcdca35373f324effc6f4a046912d6316948e64e9c3393"
+        },
+        {
+          "bytes": 141974,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "front.png",
+          "sha256": "9f7125d4daa9dab6231e9604b79b9749434425221e3d6dedf2c8f40be335058e"
+        },
+        {
+          "bytes": 25557832,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "original.glb",
+          "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+        },
+        {
+          "bytes": 2532631,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "partition-arrays.npz",
+          "sha256": "3d06d6235ad6de2d1992cce41669d243399963fd56dfd7f67e36313bc202b88c"
+        },
+        {
+          "bytes": 78526,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/partition_generated.cpython-311.pyc",
+          "sha256": "bf6c95ad743d98d9dfb03d3be7b9b2ae0d6144f193067a73303e963006af64eb"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 1892,
+          "path": "outputs/companion-separation-v6/config.json",
+          "sha256": "39ea83749ae2ffdeeece57bed8174b447cd12144ceffb171b4875a9cc43cdcd3"
+        }
+      ],
+      "original_directory": "outputs/companion-separation-v6",
+      "original_job": {
+        "bytes": 1435,
+        "path": "outputs/companion-separation-v6/job.json",
+        "sha256": "34d14efc8b9bdc4cbbd8591684cdaafd6faddcd195f98ba88915d944d6ba81f1"
+      },
+      "original_manifest": {
+        "bytes": 160954,
+        "path": "outputs/companion-separation-v6/manifest.json",
+        "sha256": "d39d6e3396554144801aac756480e0c8facf875506307631ff218ab638bc550d"
+      },
+      "original_manifest_status": "needs_repair",
+      "original_source_path": null,
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Dominant-channel palette and bounded seam repair removed broad dark contamination; pale rear-head contact strips remained and motivated explicit v7 repair regions."
+    },
+    {
+      "attempt": "muse-panda-dance-probe-v1",
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-probe-v1/finish-config.json",
+        "retained/outputs/muse-panda-dance-probe-v1/renders/dance/0001.png"
+      ],
+      "history_disposition": "superseded_partial_motion",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 31.302,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 82133794,
+        "sampled_peak_rss_bytes": 1752875008,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "938a1bdd55bcb9a56256863bda649b1628d3a0daebfda4c26c9dbb4304b41bd8"
+        },
+        {
+          "bytes": 28324,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "finish-report.json",
+          "sha256": "870aab413efdb854497beb099a2c211adc94e85ec81e8a8f548c8c903149bebd"
+        },
+        {
+          "bytes": 29933852,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model-native-export.glb",
+          "sha256": "2debd121d8136e10aa73a6e897ac653bf3376d80fc3968656fa4a3b7982631b8"
+        },
+        {
+          "bytes": 29933852,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model.glb",
+          "sha256": "2debd121d8136e10aa73a6e897ac653bf3376d80fc3968656fa4a3b7982631b8"
+        },
+        {
+          "bytes": 1051974,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "2c80c79e85cbac040284247e0eb2ba89633717c07d642d5174dfb33e3635a51c"
+        },
+        {
+          "bytes": 149878,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0000.png",
+          "sha256": "ac44a303db4bda42084fed47372154d7d36c56d81d32cf4744ffd643e81bba04"
+        },
+        {
+          "bytes": 149878,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0002.png",
+          "sha256": "36d7b80d54810700870c49f02cca4dde9a8072e883a63d4488ccb679904d5570"
+        },
+        {
+          "bytes": 150119,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0003.png",
+          "sha256": "696c4f10051277da08e9e8f69606b0127ef16c46bb297df476b0eec00ec64508"
+        },
+        {
+          "bytes": 150143,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0004.png",
+          "sha256": "7620111729e60d2474339af4424ee5293bafbd1d244605f3783143e9ce4ddced"
+        },
+        {
+          "bytes": 149878,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0005.png",
+          "sha256": "500c20268e676bfdc3d404ea3b5d2dec979d19e8b86ec5dcca959663f858ac01"
+        },
+        {
+          "bytes": 150119,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0006.png",
+          "sha256": "519de4d1f5faf0935cfa35f9cebf3da3218298009f950f7ea6d5db03a2e9140e"
+        },
+        {
+          "bytes": 149878,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0007.png",
+          "sha256": "797d309973115bdfba64698bb765cc8ae5d3abf4c25f949eba792c614599e6fa"
+        },
+        {
+          "bytes": 48805083,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "source.blend",
+          "sha256": "cae2a9937a7ed4d035a39f2a55b06489e89a128e4959bde59f7f219b6dc7596d"
+        },
+        {
+          "bytes": 11073,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+          "sha256": "5b3be07ce140e937bd6495fea556d6e9fd8a7e005c7d8b18737c5a29c4fb7d8e"
+        },
+        {
+          "bytes": 45537,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+          "sha256": "e13091e5af55cf8393dff546b2b064f1937887b5f9ea3e9fc26a1f3e1ab5bd30"
+        },
+        {
+          "bytes": 6133,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+          "sha256": "22b04ed29830e6673b246f2774cba8f5edc14769cb1a60daa9b2e4dc75dc6186"
+        },
+        {
+          "bytes": 23850,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+          "sha256": "8339df4882b8fcfeec9a88ae141a0469ba984b1c4072db725effe933a44c93a0"
+        },
+        {
+          "bytes": 44373,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+          "sha256": "8a9755d85e1be0bbbe77a6a641aafc633bfa79d36deedf122fe63cbb5a1595b5"
+        },
+        {
+          "bytes": 22547,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+          "sha256": "9a85dd1bd4bb68472b891ec171ed18b4c61258e235755eaccdcf084fa2e5d99e"
+        },
+        {
+          "bytes": 37913,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "16b2c6dcd0e41910c1567a0326fb4c7880873ff278859d7945b793e324c28162"
+        },
+        {
+          "bytes": 16339,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+          "sha256": "8015846001781f15c666f753d0f88b813eb74808b37c2c253c0d8f19eca13519"
+        },
+        {
+          "bytes": 12884,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+          "sha256": "f277a57997773bab67f3ebec1e3523167f45b0ee389146ea63f6633579ba2beb"
+        },
+        {
+          "bytes": 7681,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+          "sha256": "c2748bde35fa4cbe6046108e0438d831163d68ceb769f30ab633891877293d4e"
+        },
+        {
+          "bytes": 13305,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+          "sha256": "bcf34194809dafa2c9e2f1926de4713216cc3f16561df2cad3fbf088a28731ee"
+        },
+        {
+          "bytes": 9456,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+          "sha256": "ba3adba0f170579120d455b017f7985597cdedfbcd12483d452de42430f71802"
+        },
+        {
+          "bytes": 4257,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+          "sha256": "5cc6ea31ff682c7433746c75890a045711ed5c3b92f0e0665dab3774672c4bd0"
+        },
+        {
+          "bytes": 21347,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/blender_comb_groom.py",
+          "sha256": "eab14558423d8e39eb48691032ffa765b7dfc578c817320c3af67ccd846da02e"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 28375,
+          "path": "outputs/muse-panda-dance-probe-v1/finish-config.json",
+          "sha256": "4cf3fd6407605c7abfe55bf5222b59797e706757c09665b4a0e8a429a90880c1"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-probe-v1",
+      "original_job": {
+        "bytes": 1521,
+        "path": "outputs/muse-panda-dance-probe-v1/job.json",
+        "sha256": "e76aa43fc8e1436b23c9fb7d965b2b7cbc789ab92396ec694069f3888b72dc33"
+      },
+      "original_manifest": {
+        "bytes": 49601,
+        "path": "outputs/muse-panda-dance-probe-v1/manifest.json",
+        "sha256": "84d329d4889144d0ae7b973c3f1db0d559ea3a201934835015e1354273923079"
+      },
+      "original_manifest_status": "needs_visual_review",
+      "original_source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Whole-body toy hops were stiff and did not include the clarified shoulder-dragon takeoff; not a completed combined dance-and-flight delivery."
+    },
+    {
+      "attempt": "muse-panda-dance-probe-v2",
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-probe-v2/finish-report.json",
+        "retained/outputs/muse-panda-dance-probe-v2/renders/dance/0001.png"
+      ],
+      "history_disposition": "rejected_deformation",
+      "job_absence_reason": null,
+      "maximum_recorded_edge_excess_m": 0.017746544626396812,
+      "native_job_summary": {
+        "elapsed_seconds": 27.469,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 81817005,
+        "sampled_peak_rss_bytes": 1606189056,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "c3080c9966cfbb5adcbeb2147f204c14668406cbe2907ce33770fa82733191df"
+        },
+        {
+          "bytes": 34009,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "finish-report.json",
+          "sha256": "f3db90d494d85205eb6a7c962606b7a67f35c2720680bbefa1c8cda40c37e72f"
+        },
+        {
+          "bytes": 29936900,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model-native-export.glb",
+          "sha256": "5639cc651b0f5f9c8c294f4dc8b14b2c6be1ef28f857b3a6b5323b47f66f7269"
+        },
+        {
+          "bytes": 29936900,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model.glb",
+          "sha256": "5639cc651b0f5f9c8c294f4dc8b14b2c6be1ef28f857b3a6b5323b47f66f7269"
+        },
+        {
+          "bytes": 858147,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "a0c1fbfbe0465ddccdeb8dc24a92f464860150cebcdc7ba715ca0b9410ee93d4"
+        },
+        {
+          "bytes": 133129,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0000.png",
+          "sha256": "bbf3e470a9888d7b83012b4f9d7ac0432eb1125f97c25f53164ed394492f67bd"
+        },
+        {
+          "bytes": 133129,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0002.png",
+          "sha256": "e20fc295d6cbbebcebf5aa935d1fd14d7366a83116dc1873298fde2a778f13ec"
+        },
+        {
+          "bytes": 132592,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0003.png",
+          "sha256": "7567cff8f0e643c901c42dda5336bf175d3d8b32d3f4056442b11525859a9154"
+        },
+        {
+          "bytes": 133506,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0004.png",
+          "sha256": "22ea86c06b8273ac3a2c4a4f49980c9725dd07b9520bc2df2405dfc5b6a3d4ea"
+        },
+        {
+          "bytes": 133129,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0005.png",
+          "sha256": "5539bc77f71b9e4683d4372090f18445fce477792d6b971460dad21a265fc606"
+        },
+        {
+          "bytes": 132592,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0006.png",
+          "sha256": "0b077d6924966b4418f11eafd45b9f7efadc259c44ab8fd0e6ec8334920c0753"
+        },
+        {
+          "bytes": 133129,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0007.png",
+          "sha256": "8dd76320c35b56922ad9e93dd1c83f508fe3220e2b6b480b5942f2332441c9ff"
+        },
+        {
+          "bytes": 48805083,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "source.blend",
+          "sha256": "9397a4139cb90d61e3b7174d1101c7aeea5558fdb9349d59fd80607c6c64c7d4"
+        },
+        {
+          "bytes": 11073,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+          "sha256": "0aadbf8b4e789209dd4237117c1ca0e88e08f9e33c2f147b2d5735403a7df120"
+        },
+        {
+          "bytes": 45537,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+          "sha256": "d2bdd2701e3ad5a977c0ee938e6b7e4c6bcfa2bb303dde42f8e374fcd4ea2a0f"
+        },
+        {
+          "bytes": 6133,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+          "sha256": "6f8b592b1dd65eb2bc8a908528ba1b8c095d6dc31f79444da5efd883906cdd0f"
+        },
+        {
+          "bytes": 23850,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+          "sha256": "555e8eeaf0534c4d28d638adc1c207194d646d53f4524333498ccf2f0649be2c"
+        },
+        {
+          "bytes": 44373,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+          "sha256": "1f159e37465d5351c7ddef16c2ec468c08428874bdd5d3d75b128d3d71a2e772"
+        },
+        {
+          "bytes": 22547,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+          "sha256": "251d3f6c6af0ac3acc8db3705baaa132ee9fdf90fadc800f1b8203f2203d0247"
+        },
+        {
+          "bytes": 37913,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "58e952a5b6fb47b1a45110d465cd86ef9204fd8243e0bf80824a90aabb6a3aee"
+        },
+        {
+          "bytes": 16339,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+          "sha256": "78dfdf3fcdb634ec28e6baa288164640c57f653c0f216a047f49d311756ddfac"
+        },
+        {
+          "bytes": 12884,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+          "sha256": "5a5994f3dc85d0fdb839b973440f4d2eaa51b746e1c29b47b06b22b9c1b3b736"
+        },
+        {
+          "bytes": 7681,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+          "sha256": "d383c9da568f63c20dc70f6fdc1900e959c4f0834e7ca06d5397d459cb1b2a7a"
+        },
+        {
+          "bytes": 13305,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+          "sha256": "c664dfc0811289bd20cf890a26d0541a0bb26babe0c7846cc02070fb5d9a5690"
+        },
+        {
+          "bytes": 9456,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+          "sha256": "455c935c22182fcd32818e5555fa67a9ca762805aefb56aae4eca67d0b525446"
+        },
+        {
+          "bytes": 4257,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+          "sha256": "37f18fd56888948bec352ebf983ab8687237622608c27042e30d81b99dcac59d"
+        },
+        {
+          "bytes": 21347,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/blender_comb_groom.py",
+          "sha256": "eab14558423d8e39eb48691032ffa765b7dfc578c817320c3af67ccd846da02e"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 29852,
+          "path": "outputs/muse-panda-dance-probe-v2/finish-config.json",
+          "sha256": "d42158fe2a4c6a963c4957b425574562396f73648452d053005800c08fe90d3c"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-probe-v2",
+      "original_job": {
+        "bytes": 1521,
+        "path": "outputs/muse-panda-dance-probe-v2/job.json",
+        "sha256": "4990d5d1b39085464c2f594a8196e657ba7cc6a21c64d1cf5d1d09b055689108"
+      },
+      "original_manifest": {
+        "bytes": 55709,
+        "path": "outputs/muse-panda-dance-probe-v2/manifest.json",
+        "sha256": "bbaae99fea1db3940128eea17be3b0ff2324fbc63444f7608bcf47d57de11b71"
+      },
+      "original_manifest_status": "needs_visual_review",
+      "original_source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Added toe motion visibly creased the belly; stored sampled worst edge extension is 17.7465 mm."
+    },
+    {
+      "attempt": "muse-panda-dance-probe-v3",
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-probe-v3/finish-report.json",
+        "retained/outputs/muse-panda-dance-probe-v3/renders/dance/0001.png"
+      ],
+      "history_disposition": "rejected_deformation",
+      "job_absence_reason": null,
+      "maximum_recorded_edge_excess_m": 0.02532368545327409,
+      "native_job_summary": {
+        "elapsed_seconds": 26.331,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 81780000,
+        "sampled_peak_rss_bytes": 1830371328,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "d189808d155d6bb520e7a5fb4d564f07af73a25cc56a71d7420415a40eea8fbe"
+        },
+        {
+          "bytes": 34236,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "finish-report.json",
+          "sha256": "458aeeeaf9d4a21c8a8daa24a1ad2245815fa0b0d771cf43861480798a5a46dd"
+        },
+        {
+          "bytes": 29936900,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model-native-export.glb",
+          "sha256": "d610b1a90fa0942fc174ab84875d19a26cf5b4f60492034b91eea40b02509397"
+        },
+        {
+          "bytes": 29936900,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model.glb",
+          "sha256": "d610b1a90fa0942fc174ab84875d19a26cf5b4f60492034b91eea40b02509397"
+        },
+        {
+          "bytes": 858355,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "dcbb62504cb5d9f63b03a1443dab6e58b7e0a1dc1b2b647133e196661eec6ade"
+        },
+        {
+          "bytes": 133031,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0000.png",
+          "sha256": "29aa724b1a7eac8c5de236e5f5c5fb3a6bb79de136aff2ee441ca2e3ab1e4bf2"
+        },
+        {
+          "bytes": 133031,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0002.png",
+          "sha256": "d41052379faee17227f5a4720c3b64bec87ae28d31799651518c876d1a4d5dc5"
+        },
+        {
+          "bytes": 132674,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0003.png",
+          "sha256": "8e3da306c728cc0fb6a7242713e0ba7cfccb92031cfdb8d9cbc79a476b8dbc55"
+        },
+        {
+          "bytes": 133396,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0004.png",
+          "sha256": "45dae65169aa1c5de876a6d9b508d2b9dd28997d003b839254d062bcd2c1e31f"
+        },
+        {
+          "bytes": 133031,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0005.png",
+          "sha256": "4a84f6953e94a235bc2b2f9b2b45ad2f995012bf0274c0d6ecb005be580b9c1d"
+        },
+        {
+          "bytes": 132674,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0006.png",
+          "sha256": "b91e41441a9c94f4b0cc0d0973c53dbc8f6169854805e89fc32d20086a6c7982"
+        },
+        {
+          "bytes": 133031,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance/0007.png",
+          "sha256": "941767391e7b1ce1fd7ff50e9b9b4d4780c6e0f139bd9f952b5e1705a0fb88bc"
+        },
+        {
+          "bytes": 48767275,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "source.blend",
+          "sha256": "3ae428c71ab639204ab2f3a0a10cac670383dff7cc8949ffcd02acf16a23c498"
+        },
+        {
+          "bytes": 11073,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+          "sha256": "4383c6d10f00a96bf6bdca02ef3f3e0144584d33906ae11a6a4f446705f4f0dd"
+        },
+        {
+          "bytes": 45537,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+          "sha256": "f6ee3f1fceecff951aea89e491f3d32e379164b1d801d9e1beca43c51cab3fae"
+        },
+        {
+          "bytes": 6133,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+          "sha256": "c1ead847ac73dc0cc5e886574769cf1ae9b9a9952083b123979867db70b42094"
+        },
+        {
+          "bytes": 23850,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+          "sha256": "3d1c82988213a6ea936c31d3f870b7011cb53f56b9e7d199d6f14c7cb14ed019"
+        },
+        {
+          "bytes": 44373,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+          "sha256": "cdac4fa6a1c5bd74ab79fda1bdf976a06cb0e4d1567e4b0bdd54c510553a399b"
+        },
+        {
+          "bytes": 22547,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+          "sha256": "b9ef4a009fb5a21b2a99d99932d2080d234b005bf62468d8812dc4cf1c1708e8"
+        },
+        {
+          "bytes": 37913,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "66a985030448b6d94806eb21c1fb4eff295b466597fb8bd93b8cf4af4591d65d"
+        },
+        {
+          "bytes": 16339,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+          "sha256": "116232b3f9c3568bde33dcc8282b111eecbb61281eb86c54f7f2488e47679934"
+        },
+        {
+          "bytes": 12884,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+          "sha256": "6dd4329ce5237a0b5a541d3f89a42997782e856d6de9a89d6144dfb3193abc49"
+        },
+        {
+          "bytes": 7681,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+          "sha256": "183114c86562811ab1d8a5ade24fc64ef2755af8b798ed231bda69b31c8cbfef"
+        },
+        {
+          "bytes": 13305,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+          "sha256": "74427024d3cf44d1e5103e86d80e54f85cb846a8a2b72a8c27030498315ab020"
+        },
+        {
+          "bytes": 9456,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+          "sha256": "80bc68dbe55877b79f27f1cfe86df54c9bedca19ac6088b4f757187a68fd810f"
+        },
+        {
+          "bytes": 4257,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+          "sha256": "e5a2d1be9d94a30025737f326eb30578342e38900c1aedb1f0cb5a539130eab2"
+        },
+        {
+          "bytes": 21347,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/blender_comb_groom.py",
+          "sha256": "eab14558423d8e39eb48691032ffa765b7dfc578c817320c3af67ccd846da02e"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 30332,
+          "path": "outputs/muse-panda-dance-probe-v3/finish-config.json",
+          "sha256": "d2c26285e9477f0f196f9a6859469f6c46bdcd83b477e267d9494493670e3743"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-probe-v3",
+      "original_job": {
+        "bytes": 1520,
+        "path": "outputs/muse-panda-dance-probe-v3/job.json",
+        "sha256": "9c229943051f0e2861e49ee41dd09dc10de00f8cffa9ecce035e7474cafbc693"
+      },
+      "original_manifest": {
+        "bytes": 55975,
+        "path": "outputs/muse-panda-dance-probe-v3/manifest.json",
+        "sha256": "83c45e8a9757f3faa206dba3007605fcab27762330a572a88902eda7876435d2"
+      },
+      "original_manifest_status": "needs_visual_review",
+      "original_source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "original_source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Tighter foot-region weights worsened ankle stretching; stored sampled worst edge extension is 25.3237 mm. Later choreography retained the original smooth weights and reduced toe motion."
+    },
+    {
+      "attempt": "muse-panda-dance-flight-probe-v1",
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-flight-probe-v1/finish-config.json",
+        "retained/outputs/muse-panda-dance-flight-probe-v1/renders/dance_flight/0001.png"
+      ],
+      "history_disposition": "motion_only_known_rejected_appearance",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 25.859,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 82352446,
+        "sampled_peak_rss_bytes": 1853571072,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "9d6293ca2c8b5bf00b5068548b08221ed78e4f87b5fe6c306ba33cf7ae61c6c9"
+        },
+        {
+          "bytes": 32128,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "finish-report.json",
+          "sha256": "91b3c08836706a00c92a2658a3a5aa27c3707854d1511ad5e2d261cf3b8887d5"
+        },
+        {
+          "bytes": 29970588,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model-native-export.glb",
+          "sha256": "1240efdf435c55cbc62112f53193c0944c8d24e42e5e618bb6e523b495cb1573"
+        },
+        {
+          "bytes": 29970588,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model.glb",
+          "sha256": "1240efdf435c55cbc62112f53193c0944c8d24e42e5e618bb6e523b495cb1573"
+        },
+        {
+          "bytes": 798567,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "3d178d4e69e341b6edcc923464c5142aa0e5d15ea6ab812ad10ffcc3342363f1"
+        },
+        {
+          "bytes": 127013,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0000.png",
+          "sha256": "e1b6133afa372166931155d56482612ec4ea7062c0a5313cd1520928227ba2a5"
+        },
+        {
+          "bytes": 129768,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0002.png",
+          "sha256": "bda7566b352dc58e0dd6de00f3f6f7da28afca6751beb29eb1a3dcad2d727573"
+        },
+        {
+          "bytes": 129652,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0003.png",
+          "sha256": "cfcac945898fac0b39fa5af205aaa95d2c90c0400f22d783777b0666e885bf45"
+        },
+        {
+          "bytes": 129407,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0004.png",
+          "sha256": "9fbd97679cc3b20b18f46d10ee4839736cdd23bebfc98ba3b80ca2a1c7c2e014"
+        },
+        {
+          "bytes": 129642,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0005.png",
+          "sha256": "bae6755db56415c906f733509d435d3d2024e4f5777fb37585d625418fe2e6d3"
+        },
+        {
+          "bytes": 129705,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0006.png",
+          "sha256": "6524ecb3a01afceb844b2e4f33ac893fafe16085c8f3f5a75e89ed56cb65110c"
+        },
+        {
+          "bytes": 127013,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0007.png",
+          "sha256": "b81120c3e18e492ab7d2259711cbab7ed43531ee86654ee088eaf0a51d5a3e03"
+        },
+        {
+          "bytes": 49359467,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "source.blend",
+          "sha256": "8353a99a59c2b235eedbcd085e48b2211d2bfe907504d8c30a597e4bc02939f7"
+        },
+        {
+          "bytes": 11080,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+          "sha256": "179a6bbd7759add9c58e3e071a5fbd64d7a0d567ee6fa6d23c47c1c340a56ea7"
+        },
+        {
+          "bytes": 45544,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+          "sha256": "bc16bb99f4a477f813a64c603ad62d913cbc83f03bc6b8cade5aad2b9eebd384"
+        },
+        {
+          "bytes": 6140,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+          "sha256": "b34e5c45c65a026fc32c41258ef724de35020061e9fbc9dd39185909dd195b89"
+        },
+        {
+          "bytes": 23857,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+          "sha256": "407297df5a9ba4b2a927a74a5bdb74ed18b61701583f6077e35d92b7d70ca957"
+        },
+        {
+          "bytes": 44380,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+          "sha256": "b34108eb8821ad5d19d412b29856e63c053f59a28606a4f46ab2e83c30e46102"
+        },
+        {
+          "bytes": 11429,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_part_rigs.cpython-311.pyc",
+          "sha256": "7299d49651cf625c471d42731c505efa7708a0577bb226eb4de4170250e8d400"
+        },
+        {
+          "bytes": 22554,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+          "sha256": "a2a78dcc2d0a737b12c75722a67e483388665217f80e1bdb446da8fc15cb96f0"
+        },
+        {
+          "bytes": 37920,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "1d24c03b78cfbb5ad223e339239af49fe3859a8a0a25256e1d3663d4b1ea450d"
+        },
+        {
+          "bytes": 16346,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+          "sha256": "c7320a3988a78bb66494671585ee294282c296afcbb704b77d4b3fabbf9f641d"
+        },
+        {
+          "bytes": 12891,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+          "sha256": "49f82a16a6e33a6699d1317f5202b123d2ddff48e29b64b54145d03c7e528ddb"
+        },
+        {
+          "bytes": 7688,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+          "sha256": "5deab627e0005233419ea89a355fa45b53d9755224cab2d59f47fa939f8e89da"
+        },
+        {
+          "bytes": 13312,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+          "sha256": "1e2fa9e0c06418df3e2e9d6f75ad3c63ff880dd71163186e29d491dd0bd7c5c9"
+        },
+        {
+          "bytes": 9463,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+          "sha256": "9b072c603747da65fda7619fd95ea6a93d9e10258afea7b8d3065e0997c4dc4e"
+        },
+        {
+          "bytes": 12560,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/part_rigs.cpython-311.pyc",
+          "sha256": "1b123d3e8d98dce65db03ef9faf9d3c421258b6510c070be23fec396c9eb85bf"
+        },
+        {
+          "bytes": 4264,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+          "sha256": "f2143838bf40ac233bf3fedbd6e21e70f7cc9d1273c13e13176e1b0027d30cc1"
+        },
+        {
+          "bytes": 21347,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/blender_comb_groom.py",
+          "sha256": "eab14558423d8e39eb48691032ffa765b7dfc578c817320c3af67ccd846da02e"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 38153,
+          "path": "outputs/muse-panda-dance-flight-probe-v1/finish-config.json",
+          "sha256": "30e260d9b58326162f70041e7bae1ee12d814aa4dc96bbbe5278df621c4a5d76"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-flight-probe-v1",
+      "original_job": {
+        "bytes": 1541,
+        "path": "outputs/muse-panda-dance-flight-probe-v1/job.json",
+        "sha256": "7b6a6c1e03cc14c068a13d0375813b2bf06df5324a905a7983faef3d9b3baac7"
+      },
+      "original_manifest": {
+        "bytes": 53769,
+        "path": "outputs/muse-panda-dance-flight-probe-v1/manifest.json",
+        "sha256": "c7d707bc0a074acb77fc8120eb05667aa09235f1ab3eb03a3c9236ea09ca1666"
+      },
+      "original_manifest_status": "needs_visual_review",
+      "original_source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v5/diagnostic-model.glb",
+      "original_source_sha256": "03c00d2e5086c55eab0b16a87c537ff375e0a0fcc51640d3d6f7c873d94daa88",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Deliberate rig/choreography probe using rejected partition-v5 appearance while seam-color repair proceeded; never a final appearance candidate."
+    },
+    {
+      "attempt": "muse-panda-dance-flight-v1",
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-flight-v1/finish-report.json",
+        "retained/outputs/muse-panda-dance-flight-v1/renders/dance_flight/0001.png"
+      ],
+      "history_disposition": "rejected_appearance_after_motion_checks",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 26.073,
+        "exit_code": 0,
+        "failure": null,
+        "final_output_bytes": 82412773,
+        "sampled_peak_rss_bytes": 1832337408,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 121,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "blender-extensions/.cache/compat.dat",
+          "sha256": "ff6f43c2b3b8f9a74d52bf06b6743563f09a53e53806d0d2a4849ff032ca2603"
+        },
+        {
+          "bytes": 31959,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "finish-report.json",
+          "sha256": "262052cfd7c44726598f21548d819735f65d3e6b57d932d01a64f99c801296cb"
+        },
+        {
+          "bytes": 29997516,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model-native-export.glb",
+          "sha256": "0d03d9ddaf8f3c9f42a6730891944fa9d9cd315a38209973eb97e8eaa255e046"
+        },
+        {
+          "bytes": 29997516,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "model.glb",
+          "sha256": "0d03d9ddaf8f3c9f42a6730891944fa9d9cd315a38209973eb97e8eaa255e046"
+        },
+        {
+          "bytes": 772636,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "06faf2cff2c51175ae38d6f5615288c320540e5e60d3d8a8993717a4bd03ce94"
+        },
+        {
+          "bytes": 124113,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0000.png",
+          "sha256": "146e3022011f379de9623e0f31d84afbfd188411f17d7171384ece53459d8569"
+        },
+        {
+          "bytes": 126988,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0002.png",
+          "sha256": "b8a490134b22abcddceb014ccc298d7246b0959f94d7008496f7ea1fb3f71142"
+        },
+        {
+          "bytes": 127328,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0003.png",
+          "sha256": "6f6148c28f799076f0019c1f1cd95e3e381c19b1c604a2e6731cef6e9bbb7f4a"
+        },
+        {
+          "bytes": 126074,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0004.png",
+          "sha256": "d23420efcbb864160d25c45e9a848cfbfa7753b10b9a7a0fb497c5a4e56beddb"
+        },
+        {
+          "bytes": 126701,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0005.png",
+          "sha256": "d0f6c81fd5b5adc52b353d471923be7f4e88a0333ae1bce7cc63576d20c6b583"
+        },
+        {
+          "bytes": 126456,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0006.png",
+          "sha256": "129d18c8c26659188697969f9384b8cc3569000a53b4eaaf68573e026c38b642"
+        },
+        {
+          "bytes": 124113,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "renders/dance_flight/0007.png",
+          "sha256": "2286a1314bf0e2f7a1bc36679c21c75caa314436a3d581b9227b9476ad01b187"
+        },
+        {
+          "bytes": 49440652,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "source.blend",
+          "sha256": "0e911badf591314384e5d27f71a168dc6d7581e5efefe5e44c291b8dbb0a5560"
+        },
+        {
+          "bytes": 11074,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_color_corrections.cpython-311.pyc",
+          "sha256": "c66f83f8ae4c7c2a25f115b2d3247c4bf40dd4b4835ab66fe5f3eb92070a7572"
+        },
+        {
+          "bytes": 45538,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+          "sha256": "3b9213faf4206696fd92753722a8a1b728780c34d15fc2e937014fc1f1ba81b3"
+        },
+        {
+          "bytes": 6134,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_creature_rig.cpython-311.pyc",
+          "sha256": "e721b8ef70f1e9ec5e7135e2ed54a0499eaafd89a50b4eb4d28c00f97ab8477b"
+        },
+        {
+          "bytes": 23851,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+          "sha256": "9ff719ad59752711cafa0333641d532a20ceae26e4b006df974c500c64d97bc5"
+        },
+        {
+          "bytes": 44374,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+          "sha256": "e87506bb8d1d4ee99480fa3848c1de80af6ccd80cae760bc07b4ff67bf6874c2"
+        },
+        {
+          "bytes": 11423,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_part_rigs.cpython-311.pyc",
+          "sha256": "c153cc2e80d749600d999a3cfc75034a4e2b85da0a113926408508b20c7a6bcc"
+        },
+        {
+          "bytes": 22548,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_surface_profiles.cpython-311.pyc",
+          "sha256": "e61b2444b8903cea6096e1464ad3d7f4bcec46b1e099e2e2ac6667495f3de3a6"
+        },
+        {
+          "bytes": 37914,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "f3e4efa67bce3eb41ddde271dff6e85276633c474d45f77ece2bb03abc5132c1"
+        },
+        {
+          "bytes": 16340,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/color_corrections.cpython-311.pyc",
+          "sha256": "3fdcc1146e5d6db8d525327dacc7ce35fb612c147fd4ef2b2f62d23d441d9b10"
+        },
+        {
+          "bytes": 12885,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/creature_rig_math.cpython-311.pyc",
+          "sha256": "00e1af3ae8c059cf7552597866fecfb253cd8ea58df44ce4bd828b773b29df72"
+        },
+        {
+          "bytes": 7682,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+          "sha256": "972ce6f9391b84c9a277d05a49acc5a08fcbb47b399c5ba3f33bb461630879f1"
+        },
+        {
+          "bytes": 13306,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/groom_flow.cpython-311.pyc",
+          "sha256": "d4e52de3b86b5aecbcdaebd00648d385f7ee4c9eaab994d34b6029bf8acbd11f"
+        },
+        {
+          "bytes": 9457,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+          "sha256": "375ae3f8873c01ed86832cc55c1cd0d1956222211d4de75c927cc927413a84cd"
+        },
+        {
+          "bytes": 12554,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/part_rigs.cpython-311.pyc",
+          "sha256": "15e5ad9d4b8a1b4a1a2684a2801d5685e6a62f4546184b080a523c3942bb42d8"
+        },
+        {
+          "bytes": 4258,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/surface_profiles.cpython-311.pyc",
+          "sha256": "1fabb21e4ec7674624edab69b2de3a55f91cb5699a3264f2b940dbad395cb051"
+        },
+        {
+          "bytes": 21347,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/blender_comb_groom.py",
+          "sha256": "eab14558423d8e39eb48691032ffa765b7dfc578c817320c3af67ccd846da02e"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_0-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        },
+        {
+          "bytes": 262894,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "textures/PortableCoat_1-fur-atlas.png",
+          "sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 38367,
+          "path": "outputs/muse-panda-dance-flight-v1/finish-config.json",
+          "sha256": "015013c3fad6593df3ae90a492ea7f49caf7e7ed1998722b4c09d4db2a0f99e9"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-flight-v1",
+      "original_job": {
+        "bytes": 1524,
+        "path": "outputs/muse-panda-dance-flight-v1/job.json",
+        "sha256": "2dc7a6a2305a2a6fe9a6ae83f7a415e3b8a9e8f06b4db604572b93bb877c7f35"
+      },
+      "original_manifest": {
+        "bytes": 53792,
+        "path": "outputs/muse-panda-dance-flight-v1/manifest.json",
+        "sha256": "844947463a07fdb7d08e2635c79784a5ad296fe1de66563086dc0ef06a59a7d8"
+      },
+      "original_manifest_status": "needs_visual_review",
+      "original_source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/companion-separation-v7/diagnostic-model.glb",
+      "original_source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Airborne native poses exposed an angular/bald gray shoulder despite an exact part fur mask. Motion checks did not establish appearance acceptance; normal/fur continuity repair followed."
+    },
+    {
+      "attempt": "muse-panda-dance-flight-media-v1",
+      "completed_png_frames_from_stop_receipt": 80,
+      "evidence_paths": [
+        "retained/outputs/muse-panda-dance-flight-media-v1/job.json",
+        "retained/outputs/muse-panda-dance-flight-media-v1/manifest.json"
+      ],
+      "history_disposition": "stopped_rejected_parent_appearance",
+      "job_absence_reason": null,
+      "native_job_summary": {
+        "elapsed_seconds": 182.839,
+        "exit_code": -15,
+        "failure": null,
+        "final_output_bytes": 39965377,
+        "sampled_peak_rss_bytes": 1681162240,
+        "status": "finished"
+      },
+      "omitted_original_manifest_artifacts": [
+        {
+          "bytes": 458331,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0001.png",
+          "sha256": "ed684c7d9b6bb18fb5843bc5f529ca3eaa7a7b414efb7174732d2af28c939171"
+        },
+        {
+          "bytes": 459291,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0002.png",
+          "sha256": "67d8dae40553a4eeb4b5fe8fc6d62802c48ac808154ec262abc0c678f4332517"
+        },
+        {
+          "bytes": 459057,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0003.png",
+          "sha256": "4a3569e24b58760696cdecba978f5042ea339aa95c8e2734ed33a4feb4c6e8e4"
+        },
+        {
+          "bytes": 457661,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0004.png",
+          "sha256": "e2864f79bcc310758644edc8a102192382bd09b815e8abd3a9eb8d508988b5e8"
+        },
+        {
+          "bytes": 457767,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0005.png",
+          "sha256": "518bf290f7d68734151c9a2c9aca31b8ab027e61530bbf8bce895e831deb6646"
+        },
+        {
+          "bytes": 457689,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0006.png",
+          "sha256": "81cf69f3dccdc75de30a7a12c111528318409e0d8ef6fbae3266e1320a027918"
+        },
+        {
+          "bytes": 458737,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0007.png",
+          "sha256": "93c3ba080cc23ab6af8f03a61106545a5e75d24ac2e88a01b5288315f1133e96"
+        },
+        {
+          "bytes": 460333,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0008.png",
+          "sha256": "2e0b4bd4b5a2534109d8148c2514e1237ac33c4104a4289a07fcd89a9437ad5f"
+        },
+        {
+          "bytes": 461978,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0009.png",
+          "sha256": "5a661a910a210dd3a150875b71b7d943d991da16d910f430d800da1c1e2b8f79"
+        },
+        {
+          "bytes": 463512,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0010.png",
+          "sha256": "40f655214b21cdb92005aa8f07ef975385ce114cf7f19000e9ecde24db48bc24"
+        },
+        {
+          "bytes": 465258,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0011.png",
+          "sha256": "dc68f7cb1851ef6d109dfa0e81fc5e96e738997b031be1b1581c37d45a1f709d"
+        },
+        {
+          "bytes": 466834,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0012.png",
+          "sha256": "8b7fc45c1fc5780c1e140c603908cd490c26a02291e5bdd74fb59eb691801ab5"
+        },
+        {
+          "bytes": 467205,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0013.png",
+          "sha256": "7fbe4644ee628442be7cb05f6e7319e9494d22e65a5c2a467c8f0c433a970007"
+        },
+        {
+          "bytes": 467792,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0014.png",
+          "sha256": "9479b8304e06ae00d2e72e8b60544558e25958fdcc0045a4f1c4b80ef52efa92"
+        },
+        {
+          "bytes": 467088,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0015.png",
+          "sha256": "d7694a8b61efdd2e1ef34b5ca65c0bced219e21c6ee500d71280b92fdcf5dc32"
+        },
+        {
+          "bytes": 468575,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0016.png",
+          "sha256": "d304cbb7edefd26778a5fd726e1fb3c39ea516a1d5eba071473d9edc7f8c606b"
+        },
+        {
+          "bytes": 466348,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0017.png",
+          "sha256": "15495b241bcaec4a7fffcf679583a450791138be5fa930505910a68959508302"
+        },
+        {
+          "bytes": 466751,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0018.png",
+          "sha256": "29e528ab493da7e22b6a89c490aee9cfe3af06e47cd8b151beac8715710d825f"
+        },
+        {
+          "bytes": 467806,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0019.png",
+          "sha256": "17219dd348d7d939d585c081ea731f7c124ddb977d1328e651ee627b4c6bbf59"
+        },
+        {
+          "bytes": 467742,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0020.png",
+          "sha256": "3aa3aa33086f3a1aa85f34a043a8da4cfbb5ebb9093a5d578729f37cca42ff9f"
+        },
+        {
+          "bytes": 468493,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0021.png",
+          "sha256": "287fd557af0d60f72b417b8c7a2976485f81880e3e34a04763ec66300f1f5a6e"
+        },
+        {
+          "bytes": 468597,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0022.png",
+          "sha256": "9fac189a7a59229bd7cf6e566bc5e784fdd0393c39857801167e6e4d389c1b9b"
+        },
+        {
+          "bytes": 468953,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0023.png",
+          "sha256": "b005ccac05f8d0ae953c8f139499f53516c3d3f0e67de352b7c0b5d759dcc1e4"
+        },
+        {
+          "bytes": 470321,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0024.png",
+          "sha256": "855042c6cd2697cdd70f2752df15c93e25b0a0f9b527eed1c3fea23038dd9892"
+        },
+        {
+          "bytes": 469396,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0025.png",
+          "sha256": "44a71c3702fa07a7c9850a6d2cbd832d10fd64a81ca8892d9cd4429cb58f5d89"
+        },
+        {
+          "bytes": 468970,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0026.png",
+          "sha256": "0682aa2e5ad487166209844a218e05c019d342f911a9ff2eca2eb4682a142235"
+        },
+        {
+          "bytes": 469082,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0027.png",
+          "sha256": "88f260518a1dc224b7ff5a9c549de07790a9b9f742d42a39e8c24c5bad654476"
+        },
+        {
+          "bytes": 467944,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0028.png",
+          "sha256": "6aa623eecf96aff77e629c665649c5f3e26a0cc447e7b9c4239b83bfa55d19d2"
+        },
+        {
+          "bytes": 468556,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0029.png",
+          "sha256": "b1438baf70149a12095e74f6b63b844aaf19a8b5143c1d58b86056b96b8b4632"
+        },
+        {
+          "bytes": 469397,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0030.png",
+          "sha256": "6aa410a9ec747ef4af6b2f3c7b4f1925ee62621aa228c43130c788e8b152db11"
+        },
+        {
+          "bytes": 469391,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0031.png",
+          "sha256": "2bf198494961bc6d1a466f3514bb5e6093e7fbbfbf9e98ecfa8dc0820951897e"
+        },
+        {
+          "bytes": 468849,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0032.png",
+          "sha256": "1cd0febd3ad741eafbd854a8116969fbb6f029224d44b55ec10d2db09e403e16"
+        },
+        {
+          "bytes": 469428,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0033.png",
+          "sha256": "5333cb5cb38f5020adda9904e2637e7d1c4fa2f62a84569a0ae430671a8893c9"
+        },
+        {
+          "bytes": 469094,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0034.png",
+          "sha256": "d5398220ae309df671c554abd4314f0f3687514380afd4e315802ebb9493546c"
+        },
+        {
+          "bytes": 468541,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0035.png",
+          "sha256": "a97b0d70d3e27be5cbc5fcce7dabfe53632eb0e19e875ad8c6619d6ca9196e64"
+        },
+        {
+          "bytes": 469914,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0036.png",
+          "sha256": "06ecc58aa59d4b123aa0bd0befbd786fa606a75abcf5af9b9d5b7c197800a405"
+        },
+        {
+          "bytes": 468682,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0037.png",
+          "sha256": "637ed0e527680c2365f6300adddbe75cad72d720efff4d9f633116eafe256806"
+        },
+        {
+          "bytes": 468737,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0038.png",
+          "sha256": "33b50ba901ec55780366d1e6d920190196a71964ccdc1ce90f27c69d07aef119"
+        },
+        {
+          "bytes": 468598,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0039.png",
+          "sha256": "d3693bea61bb9330479c1ffea1d323e971bca7f5dfedb95ffe77c9ccf5210210"
+        },
+        {
+          "bytes": 468460,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0040.png",
+          "sha256": "755e6a74d961b4059c4253951184e33f6bab2253c42864b706f06ee4f2bc4f80"
+        },
+        {
+          "bytes": 469852,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0041.png",
+          "sha256": "48b8dd3a01b427c9852b3a6279b04a25e4164719cd96b72f1ccce0656274c024"
+        },
+        {
+          "bytes": 469636,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0042.png",
+          "sha256": "284c6afc5fbe8b3dae9d0d1d318174036677d82ab66f9d96e75711b70eff6418"
+        },
+        {
+          "bytes": 469057,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0043.png",
+          "sha256": "d986050f05b45e5693c055dc99361fc99d9a250f5aeefa2ade2595ae63846bb9"
+        },
+        {
+          "bytes": 469258,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0044.png",
+          "sha256": "6ed530c756ebfe5fedaf3fb3d84815d756e9cdc45a1aae9f9686bfe0e6dd3920"
+        },
+        {
+          "bytes": 468773,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0045.png",
+          "sha256": "cbf5a0131a6e2e1875990f36e1966bad8c109064485f74f3d1104109af11b07f"
+        },
+        {
+          "bytes": 468990,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0046.png",
+          "sha256": "ebff4b8b6b1fd43624078bb86b9998260d21e6087106425bb9ffdba22c6fc7b5"
+        },
+        {
+          "bytes": 468167,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0047.png",
+          "sha256": "59e58931bdfed7e9c2308f0ca1a74d74dface64c15c22285edcf2dcb640e0dd6"
+        },
+        {
+          "bytes": 468205,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0048.png",
+          "sha256": "3d373a47ed68331fca24da6d296f5bbca212278d086c484236ea31f52456dc26"
+        },
+        {
+          "bytes": 467316,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0049.png",
+          "sha256": "a800148bc1e46b039a3a3308debb10210f6c30ea95f219b7cb0b9f46100261ec"
+        },
+        {
+          "bytes": 468044,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0050.png",
+          "sha256": "32c48646a17a959b2add76d6dac425638e9657de094415a6c16fddb1943987d4"
+        },
+        {
+          "bytes": 468056,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0051.png",
+          "sha256": "608857b876138dc60c175ac3052a4be0c8752ca3be36edf080130ff354b04499"
+        },
+        {
+          "bytes": 466009,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0052.png",
+          "sha256": "37a6728e3dc34e7ab8efcfd38e591c900d081f7e852556b30655dce022adb6b8"
+        },
+        {
+          "bytes": 466330,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0053.png",
+          "sha256": "f8ca03cff05ffbdc469b1d104ca04b0164221b4837a90fd6b9f2b25db101cc9a"
+        },
+        {
+          "bytes": 467115,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0054.png",
+          "sha256": "62d2d876bc9c7537e1548c086541be81dee4d251362928d15f70139d7b4ef20c"
+        },
+        {
+          "bytes": 466147,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0055.png",
+          "sha256": "86a4eb5dda99e2464224e94826d2e283974fb2bfe78ed4d235e248a949ec5109"
+        },
+        {
+          "bytes": 465546,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0056.png",
+          "sha256": "0aa1df599d4123d87d4e837495946173673e3cb3bc51bfeb08d6b1bd9807cc1a"
+        },
+        {
+          "bytes": 464922,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0057.png",
+          "sha256": "daf4cd4cc52658f95b277d920820219b29552329af24760bbce5b474e71cbe4b"
+        },
+        {
+          "bytes": 465836,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0058.png",
+          "sha256": "7321a13ee03e666cb6400a678a65e3f541abe63b90df647c3ff7f8eba507ed67"
+        },
+        {
+          "bytes": 466279,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0059.png",
+          "sha256": "434d823d96a4546675db5b52874cfd1533fbd07f90fbb8747ccee37e33e85871"
+        },
+        {
+          "bytes": 466476,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0061.png",
+          "sha256": "d782020103538acd56b8943e1466887fa3bccd4f1124c2fb3f52429c5a141f2d"
+        },
+        {
+          "bytes": 467013,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0062.png",
+          "sha256": "62410105011ed3e4a31b07da07fc106cca6fac1995fa6738a8c366e3aedb2bee"
+        },
+        {
+          "bytes": 466847,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0063.png",
+          "sha256": "12256fef878cf140c210faf2935498380e971be600331102689e52ff3e977d5b"
+        },
+        {
+          "bytes": 468028,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0064.png",
+          "sha256": "ab3e2b9ffe08c39eb719f24e53e4cf538f72c850a3c0f4094aeb44f0de714927"
+        },
+        {
+          "bytes": 465737,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0065.png",
+          "sha256": "a1b14a61897f9e72b3403b1e7d52bffc87501433dd3899515ef9867f45f22398"
+        },
+        {
+          "bytes": 466867,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0066.png",
+          "sha256": "5a9107b23c2683cf6a84acaa4c00676c673f7aef9bc529824a89b4b04e24ad39"
+        },
+        {
+          "bytes": 468293,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0067.png",
+          "sha256": "3876fbc0142ad5321bb9bbb3283328c9fa180e31dd0a0c28c64888568a1b7707"
+        },
+        {
+          "bytes": 467751,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0068.png",
+          "sha256": "b38bc15dcbd191032ae47dff4b472b535a00a9cac8742bebacdaf0fd78d2367d"
+        },
+        {
+          "bytes": 468356,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0069.png",
+          "sha256": "8cb9c3e4e00c9e7aeb726a772b08c1b2633f44c9c2e3342ad97fa0737cfa2e3c"
+        },
+        {
+          "bytes": 468337,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0070.png",
+          "sha256": "f431f3e148fd624aed0303e3e13049d20c8b4d8540554461346dcf0e4c1c43bd"
+        },
+        {
+          "bytes": 468409,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0071.png",
+          "sha256": "2e95d8ed89449aa2d398d69da42f919ffa3dddf4fa146e6ce01a0caeae2959fb"
+        },
+        {
+          "bytes": 468352,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0072.png",
+          "sha256": "0e391a0153fd1bc3c1d2bbc29f0e2d951860719e0b110afaf249b013867a4f4e"
+        },
+        {
+          "bytes": 468980,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0073.png",
+          "sha256": "8401332b18474814928bc404ca6f0cdcba125e18c169bd2d177f1e4737bc1658"
+        },
+        {
+          "bytes": 468053,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0074.png",
+          "sha256": "1393c2b93e62bce3b4a5b8f68cb155ee58b038b551cd9b5fbaa9ccc6fb57f0af"
+        },
+        {
+          "bytes": 467952,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0075.png",
+          "sha256": "825467b8fb9e1e68842c26c5defc645a35ab13e4e3fd91e0fbd28630e73add87"
+        },
+        {
+          "bytes": 465453,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0076.png",
+          "sha256": "1651a2abdf1bc83eafb8a7f6fd4b497619ffb2877bb0ccdd3ba6c4c93dfcbf3d"
+        },
+        {
+          "bytes": 464701,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0077.png",
+          "sha256": "8cbafefb6385110ae60e47721c260f6d475307af1527bdd60866ef68516d0219"
+        },
+        {
+          "bytes": 464163,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0078.png",
+          "sha256": "41e0f2aa96f2c5077cf96cf355ac37762b5a01aa631b3ec7a325152b98acfe6f"
+        },
+        {
+          "bytes": 464323,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "frames/dance_flight/0079.png",
+          "sha256": "74a4ac85a5c4950693b205c56509d5d4b881393016eb1f3a2abf137a05141649"
+        },
+        {
+          "bytes": 2072175,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "portrait.png",
+          "sha256": "c0a73ff3c3525a2db73fcf316c0dac742843a0ccbfa7a3abaefb307b9f19bcf1"
+        },
+        {
+          "bytes": 37920,
+          "hash_basis": "recorded in original manifest; omitted bytes not reread in this compacting step",
+          "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+          "sha256": "3b18325daf9dbce3d7b2459c39a74571e4af51a31f6eaf296804f6b433d17821"
+        }
+      ],
+      "original_configs": [
+        {
+          "bytes": 962,
+          "path": "outputs/muse-panda-dance-flight-media-v1/sources/scene.json",
+          "sha256": "d50b79d2cd0d585ea1309bea3b4c1ea01b8b7e46abe51fe1446c049f5e01cf21"
+        },
+        {
+          "bytes": 70,
+          "path": "outputs/muse-panda-dance-flight-media-v1/sources/output-spec.json",
+          "sha256": "ded38a65670ec1c7f7131f4a8d3e40d3ddc3bbec66fa1b4a77d58fd75d947faa"
+        }
+      ],
+      "original_directory": "outputs/muse-panda-dance-flight-media-v1",
+      "original_job": {
+        "bytes": 1692,
+        "path": "outputs/muse-panda-dance-flight-media-v1/job.json",
+        "sha256": "e15961d4a0307c2b6633c8c1890a347a1d1706a1bc4137ca0bdf22a33cc9af09"
+      },
+      "original_manifest": {
+        "bytes": 16949,
+        "path": "outputs/muse-panda-dance-flight-media-v1/manifest.json",
+        "sha256": "5417c5f6dabbd393b5b5fcfbf184bfb4033d7302a5fb7a6f13b1107fdb09910c"
+      },
+      "original_manifest_status": "failed",
+      "original_source_path": null,
+      "original_source_sha256": null,
+      "reason_scope": "Recorded implementation failure or local visual-review decision; not a new independent image/model evaluation.",
+      "rejection_or_supersession_reason": "Owned local render was deliberately stopped after the parent v1 shoulder appearance rejection; 80 completed PNG frames remain. Exit -15 is a stop, not a successful full media export.",
+      "selected_frame_copies": [
+        "frames/dance_flight/0000.png",
+        "frames/dance_flight/0060.png"
+      ],
+      "stop_receipt": "retained/outputs/complex-motion-v1/media-v1-stopped.json"
+    }
+  ],
+  "schema_version": 1
+}

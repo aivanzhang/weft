@@ -1,0 +1,36 @@
+{
+  "errata": [
+    "Final source path/hash are pinned. The inherited rights narrative about a provisional null source is historical draft text, not current configuration.",
+    "The source v7 manifest has stale narrative strings about all UVs being unchanged and pinched loops being left open. See companion-separation-diagnostic-v1/v7-export-audit.json for the209UV repairs,2exact-position aliases and497caps.",
+    "The identity bone_to_simulated_joint table is local control validation only, not Weft mapping. Exact glTF joint array order, node IDs, rest and inverse-bind matrices are in rig-delivery.json."
+  ],
+  "evidence": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/portrait.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0002.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-v2/renders/dance_flight/0003.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/frames/dance_flight/0056.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/portrait.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-media-v2/contact-sheets/dance_flight.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/browser-compound-motion-v1/asset-01-model.png",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-dance-flight-audit-v2/audit.json"
+  ],
+  "manifest_sha256": "e7785cfc3fad32ad92492c045aea8736730a0f7cfb85a40b3b90ee3093a07e47",
+  "observations": [
+    "The actual small green shoulder dragon departs, hovers beside the panda with independently deforming wings, returns and rests on its original shoulder. No standalone dragon substitution.",
+    "Panda performs four alternating toy hops, small raised-toe lifts and yaw. Arms retain their pose; this is not full human footwork.",
+    "Identity and framing are preserved in sampled poses; the full native97frame audit also passes a conservative fur-margin envelope.",
+    "Vacated shoulder is covered, without an obvious open gap, stretched bridge or belly tear in sampled720px frames.",
+    "Visible cosmetic defects remain: dark/pale cheek scuffs, mottled angular shoulder shading and a small bright fleck under the cheek.",
+    "Browser GLB loads and animates, but its lighter fur has visible colored flecks and is not equivalent to the dense native rendered coat. Use Rendered clip for the best fur appearance.",
+    "Source derivative retains diagnosed internal intersections/nonmanifold edges. Hidden contact surfaces, color repairs and rig are authored assumptions, not recovered reference anatomy.",
+    "No seamless-loop, physical-flight, collision, balance, hair-dynamics or Weft-runtime claim."
+  ],
+  "reviewer": "Primary author and independent read-only visual reviewer",
+  "schema_version": 1,
+  "scope": "Accepted as an authored motion preview with known cosmetic defects, not polished final quality or Muse parity. Human acceptance of this new motion is pending user inspection.",
+  "tests": {
+    "python_tests": 444,
+    "scope": "Analytic/mocked contract and resource tests; visual quality is assessed separately."
+  },
+  "verdict": "accepted"
+}

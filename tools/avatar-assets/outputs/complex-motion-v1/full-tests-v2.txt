@@ -1,0 +1,13 @@
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "fixture", "status": "checked"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+----------------------------------------------------------------------
+Ran 444 tests in 12.307s
+
+OK
+HD_SURFACE_MEASUREMENTS=[{"elapsed_seconds": 0.071097, "incremental_peak_rss_bytes": 53673984, "normal_detail_residual_from_512": 0.005690624471753836, "pattern": "brushed", "peak_rss_bytes": 90505216, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.246582, "incremental_peak_rss_bytes": 179240960, "normal_detail_residual_from_512": 0.011063765734434128, "pattern": "brushed", "peak_rss_bytes": 216039424, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.107247, "incremental_peak_rss_bytes": 59080704, "normal_detail_residual_from_512": 0.04252931848168373, "pattern": "fur", "peak_rss_bytes": 95977472, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.421943, "incremental_peak_rss_bytes": 198574080, "normal_detail_residual_from_512": 0.0704735517501831, "pattern": "fur", "peak_rss_bytes": 235257856, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.090137, "incremental_peak_rss_bytes": 58982400, "normal_detail_residual_from_512": 0.0016504161758348346, "pattern": "iris", "peak_rss_bytes": 95617024, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.35532, "incremental_peak_rss_bytes": 195706880, "normal_detail_residual_from_512": 0.0023371647112071514, "pattern": "iris", "peak_rss_bytes": 232275968, "resolution": 2048, "returned_array_bytes": 134217728}, {"elapsed_seconds": 0.234642, "incremental_peak_rss_bytes": 74383360, "normal_detail_residual_from_512": 0.00608360581099987, "pattern": "scales", "peak_rss_bytes": 111050752, "resolution": 1024, "returned_array_bytes": 33554432}, {"elapsed_seconds": 0.906853, "incremental_peak_rss_bytes": 196050944, "normal_detail_residual_from_512": 0.010090735740959644, "pattern": "scales", "peak_rss_bytes": 232685568, "resolution": 2048, "returned_array_bytes": 134217728}]

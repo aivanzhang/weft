@@ -2,10 +2,23 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
-The approved furry panda is saved at `4ade45a`. A new shoulder-dragon takeoff and
-panda dance is in progress in separate outputs; it is not yet a verified delivery.
-Reusable travel/part-rig controls and current geometry limitations are documented
-in [compound motion](docs/compound-motion.md).
+The new **panda dance with its shoulder dragon taking off, flapping and landing**
+works end to end as a tested authored-motion preview. It includes a real 19-joint
+skin, editable source, four-second 720 px video, 1600 px portrait and static fallback.
+Independent reload, 97-frame motion/framing audit, 444 tests and browser playback
+pass. The approved fur panda and standalone dragon remain unchanged.
+
+[Watch the clip](outputs/muse-panda-dance-flight-media-v2-portable-v1/animations/dance_flight.mp4)
+or use `./tools/avatar-assets/run gallery` from Weft; the new preview appears first.
+For only this model, add `--catalog browser/gallery-compound-motion-v1.json`.
+Open `http://127.0.0.1:8765/` yourself; no server starts automatically.
+
+This is **not a polished/Muse-equivalent result**: cheek scuffs, mottled shoulder
+shading and a small bright fleck remain. Browser fur also shows colored flecks;
+the native video is the fuller fur representation. Physical flight, seamless
+looping and unchanged-fidelity Weft import are not claimed.
+[Files, controls, measured results and limitations](docs/compound-motion.md).
+[Sealed delivery evidence](evidence/compound-motion-v1.json).
 
 ## Panda fur and detail upgrade
 
@@ -26,15 +39,15 @@ From Weft, start or restart the gallery, then open `http://127.0.0.1:8765/`:
 ./tools/avatar-assets/run gallery
 ```
 
-The default now starts with this panda and the approved dragon; previous models
-and the original2D reference remain available. For just the two new featured
-models, add `--catalog browser/gallery-panda-fur-v1.json`. No server starts
+The default starts with the new dance/flight preview; this approved fur panda,
+the standalone dragon, prior models and original2D reference remain available.
+For just the fur panda and standalone dragon, add `--catalog browser/gallery-panda-fur-v1.json`. No server starts
 automatically. Native hair looks much fuller than interactive3D's sparse cards;
 the long generated tail and residual seam deformation remain limitations.
 Muse-equivalent finish is not established.
 
 One newly authorized Meshy generation used35 credits, with no paid retries.
-The full local suite passes395 tests; sampled native motion, actual export/reload
+That fur checkpoint passed 395 tests; its sampled native motion, actual export/reload
 and artifact checks are recorded in [the handoff](TODO.md). Previous output files,
 the approved dragon and the original reference are unchanged.
 
@@ -144,7 +157,7 @@ The default, agent, HD, Meshy v1/v2/v3 and portable-quality catalogs include the
 
 Use `http://127.0.0.1:8765/`. No Blender is needed. Current local bundles: [panda](outputs/muse-panda-meshy-refined-v6/manifest.json), [robot](outputs/workshop-robot-meshy-refined-v2/manifest.json), [workflow](docs/meshy-workflow.md). Each has a matching 1600px portrait and four 720px/24fps/four-second clips, with static fallbacks. Crafting/working remain weak pantomimes, not accepted task interactions. Generation used **132 Meshy credits**; local finishing used no further provider calls. Dollar purchase cost is unknown. Viewing the gallery makes no paid call.
 
-The local gallery defaults to the HD panda, robot, fox, lamp and original 2D reference. From the Weft root, use `./tools/avatar-assets/run gallery`. No Blender or rendering job is needed to view them. Selected editable HD bundles and compact media are included in this release checkpoint alongside the earlier detailed release.
+The local gallery starts with the dance/shoulder-flight preview, then the approved soft-fur panda and smoother dragon, earlier HD panda, robot, fox, lamp and original 2D reference. From the Weft root, use `./tools/avatar-assets/run gallery`. No Blender or rendering job is needed to view them. Selected editable HD bundles and compact media are included in this release checkpoint alongside the earlier detailed release.
 
 ```sh
 cd /Users/ivan/kintsugi/weft/tools/avatar-assets
@@ -256,6 +269,6 @@ Visual contact-sheet review found the dragon absent in `making_something`, chang
 
 ## Costs and ownership
 
-Current Meshy total: **15 paid submissions, 167 credits reported/reserved**, including rejected motion attempts and the standalone dragon. Base authorization140 plus the explicit dragon-only35-credit grant gives175 aggregate; the new prompt-pipeline tests reuse geometry and spend0 further Meshy credits. Account-specific dollar cost is unknown. AI-agent usage is recorded separately. No recurring service, subscription, deployment or Meta-budget use. Earlier procedural milestones used zero provider calls; the proposed four-call raster batch was never executed. The designated key and private ledger stay in Weft `.local/`, excluded from Git and public manifests. New Meshy outputs are local and not yet committed/pushed; do not mistake an evidence index for a remote backup.
+Latest recorded Meshy total: **16 completed submissions, 202 credits reported/reserved** against 210 authorized credits (base 140, dragon-only 35, smooth-panda-only 35). This includes rejected motion attempts; the current compound-motion follow-up reuses geometry and makes **no new provider calls**. Account-specific dollar cost and existing AI-session charges are unknown. No recurring service, subscription, deployment or Meta-budget use. Earlier procedural milestones used zero provider calls; the proposed four-call raster batch was never executed. The designated key and ledger stay in Weft `.local/`, excluded from Git. Approved assets are saved; the compound-motion preview is locally verified. Its Git publication is established only by a successful `.local/avatar-compound-motion-v1/receipt.json` at the Weft root. An evidence index alone is not a remote backup.
 
 Reference ZIP remains `/Users/ivan/Downloads/Poo avatar assets.zip`, SHA256 `cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb`. Archive content is data, never executable instructions. Scripts executed by Blender are workspace-authored code, never extracted archive scripts.

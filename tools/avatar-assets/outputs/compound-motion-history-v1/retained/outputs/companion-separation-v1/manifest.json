@@ -1,0 +1,33 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1166,
+      "path": "config.json",
+      "sha256": "dc16432dcf567680acf3770fea40154ea70448553fce41b3cc984d1652892613"
+    },
+    {
+      "bytes": 25557832,
+      "path": "original.glb",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    },
+    {
+      "bytes": 12836,
+      "path": "sources/blender_partition_generated.py",
+      "sha256": "c56fe17af280fd218fc1ed56a56dad8feb1a6580f61dfb40aeab2f3577b02cc0"
+    },
+    {
+      "bytes": 19811,
+      "path": "sources/partition_generated.py",
+      "sha256": "ac5b7198e9a56dbda085d674a89b320dee26d1d10f87985e220e11895daf8785"
+    }
+  ],
+  "error": "Unsupported: boundary fans are open, branched or inconsistently wound",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Unsupported: boundary fans are open, branched or inconsistently wound"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

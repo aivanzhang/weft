@@ -1,0 +1,60 @@
+{
+  "changes": {
+    "authored_closure_triangles": 497,
+    "axes_blender": "+Z up / -Y forward / +Y back",
+    "body_uv_repaired_faces": 124,
+    "companion_uv_repaired_faces": 85,
+    "exact_coincident_boundary_aliases": 2,
+    "exported_vertices": 51055,
+    "native_vertices": 31333,
+    "original_encoded_basecolor_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+    "original_face_uv_repairs": 209,
+    "original_face_winding_reversals": [
+      37445,
+      49491,
+      52411
+    ],
+    "original_image_bytes_preserved": true,
+    "repair_contact_band_faces": 999,
+    "source_corner_normals_preserved": true,
+    "source_triangle_positions_preserved": 62117,
+    "total_triangles": 62614,
+    "units": "Authored 1.2-meter height; not measured anatomy"
+  },
+  "errata": [
+    "The sealed v7 generic sentence that pinched loops remain open is stale: unrepaired_loops is empty.",
+    "The sealed generic claim that every original UV is retained is stale: 209 original-face UV repairs are explicitly inventoried.",
+    "Sealed packs are unchanged; this receipt and copied v7 audit clarify the stale narrative only."
+  ],
+  "original_source": {
+    "bytes": 25557832,
+    "path": "outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+    "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+  },
+  "residual_limits": {
+    "cross_part_edges": 0,
+    "four_valence_edges": 21,
+    "physics_ready": false,
+    "screened_cap_cap_intersections": 2,
+    "screened_cap_source_intersections": 208,
+    "source_geometric_components_after_split": 18,
+    "surface_scope": "Locally authored stylized hidden closures and seam UVs; not recovered unseen geometry. Small rear contact marks and under-arm/neck seam remained in low-sample source diagnostics.",
+    "unfilled_loops": 0,
+    "watertight_verified": false,
+    "weft_runtime_verified": false
+  },
+  "rights": "User-authorized local derivative. Original creator license and rights remain independently unverified; generated metadata is provenance, not rights verification.",
+  "schema_version": 1,
+  "v7_errata_audit_copy": "retained/outputs/companion-separation-diagnostic-v1/v7-export-audit.json",
+  "v7_errata_audit_original_path": "outputs/companion-separation-diagnostic-v1/v7-export-audit.json",
+  "v7_manifest": {
+    "bytes": 219444,
+    "path": "outputs/companion-separation-v7/manifest.json",
+    "sha256": "4d1aac229a7a18e8b2ccc4bf149e4f26cad2ef4e2f17742d274cd1af124e6a78"
+  },
+  "v7_partition": {
+    "bytes": 26414540,
+    "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+    "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+  }
+}

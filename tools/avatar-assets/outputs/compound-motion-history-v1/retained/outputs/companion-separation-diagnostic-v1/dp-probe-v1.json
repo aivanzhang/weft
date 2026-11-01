@@ -1,0 +1,968 @@
+{
+  "assumptions": "Ordered3D minimum-area disk with0.15 area-weighted adjacent-normal mismatch penalty; no geometry moved or labels reassigned.",
+  "elapsed_seconds": 1.3315272920299321,
+  "implementation_sha256": "c28f7ab12af7f3cb3d33a82ab3aef411dd5add17d9dd6b0d7655aaafd9f1ddf5",
+  "intersection_screen": {
+    "cap_cap_intersections": [],
+    "cap_source_intersections": [
+      [
+        29,
+        16404,
+        1,
+        null
+      ],
+      [
+        29,
+        16583,
+        1,
+        null
+      ],
+      [
+        41,
+        15429,
+        2,
+        null
+      ],
+      [
+        43,
+        15490,
+        2,
+        null
+      ],
+      [
+        142,
+        19086,
+        5,
+        null
+      ],
+      [
+        142,
+        19133,
+        5,
+        null
+      ],
+      [
+        142,
+        19144,
+        5,
+        null
+      ],
+      [
+        142,
+        19486,
+        5,
+        null
+      ],
+      [
+        142,
+        19815,
+        5,
+        null
+      ],
+      [
+        142,
+        20052,
+        5,
+        null
+      ],
+      [
+        142,
+        20633,
+        5,
+        null
+      ],
+      [
+        142,
+        20698,
+        5,
+        null
+      ],
+      [
+        142,
+        20967,
+        5,
+        null
+      ],
+      [
+        142,
+        21082,
+        5,
+        null
+      ],
+      [
+        142,
+        21709,
+        5,
+        null
+      ],
+      [
+        142,
+        21737,
+        5,
+        null
+      ],
+      [
+        142,
+        21750,
+        5,
+        null
+      ],
+      [
+        142,
+        21751,
+        5,
+        null
+      ],
+      [
+        142,
+        21833,
+        5,
+        null
+      ],
+      [
+        142,
+        22174,
+        5,
+        null
+      ],
+      [
+        142,
+        22179,
+        5,
+        null
+      ],
+      [
+        142,
+        22258,
+        5,
+        null
+      ],
+      [
+        142,
+        22392,
+        5,
+        null
+      ],
+      [
+        142,
+        22609,
+        5,
+        null
+      ],
+      [
+        142,
+        22628,
+        5,
+        null
+      ],
+      [
+        142,
+        22691,
+        5,
+        null
+      ],
+      [
+        142,
+        22696,
+        5,
+        null
+      ],
+      [
+        143,
+        17815,
+        5,
+        null
+      ],
+      [
+        143,
+        18295,
+        5,
+        null
+      ],
+      [
+        143,
+        18347,
+        5,
+        null
+      ],
+      [
+        143,
+        18665,
+        5,
+        null
+      ],
+      [
+        143,
+        18779,
+        5,
+        null
+      ],
+      [
+        143,
+        18978,
+        5,
+        null
+      ],
+      [
+        143,
+        19133,
+        5,
+        null
+      ],
+      [
+        143,
+        21314,
+        5,
+        null
+      ],
+      [
+        143,
+        21737,
+        5,
+        null
+      ],
+      [
+        144,
+        17815,
+        5,
+        null
+      ],
+      [
+        163,
+        29516,
+        5,
+        null
+      ],
+      [
+        163,
+        29680,
+        5,
+        null
+      ],
+      [
+        163,
+        29905,
+        5,
+        null
+      ],
+      [
+        164,
+        28911,
+        5,
+        null
+      ],
+      [
+        164,
+        29343,
+        5,
+        null
+      ],
+      [
+        164,
+        29516,
+        5,
+        null
+      ],
+      [
+        169,
+        30554,
+        5,
+        null
+      ],
+      [
+        169,
+        30577,
+        5,
+        null
+      ],
+      [
+        169,
+        30643,
+        5,
+        null
+      ],
+      [
+        169,
+        30845,
+        5,
+        null
+      ],
+      [
+        169,
+        31025,
+        5,
+        null
+      ],
+      [
+        169,
+        31149,
+        5,
+        null
+      ],
+      [
+        169,
+        31197,
+        5,
+        null
+      ],
+      [
+        169,
+        31241,
+        5,
+        null
+      ],
+      [
+        169,
+        31364,
+        5,
+        null
+      ],
+      [
+        169,
+        31494,
+        5,
+        null
+      ],
+      [
+        170,
+        31339,
+        5,
+        null
+      ],
+      [
+        170,
+        31352,
+        5,
+        null
+      ],
+      [
+        170,
+        31412,
+        5,
+        null
+      ],
+      [
+        170,
+        31477,
+        5,
+        null
+      ],
+      [
+        170,
+        31479,
+        5,
+        null
+      ],
+      [
+        170,
+        31486,
+        5,
+        null
+      ],
+      [
+        170,
+        31487,
+        5,
+        null
+      ],
+      [
+        170,
+        31494,
+        5,
+        null
+      ],
+      [
+        170,
+        31514,
+        5,
+        null
+      ],
+      [
+        170,
+        31540,
+        5,
+        null
+      ],
+      [
+        170,
+        31557,
+        5,
+        null
+      ],
+      [
+        170,
+        31674,
+        5,
+        null
+      ],
+      [
+        170,
+        31679,
+        5,
+        null
+      ],
+      [
+        170,
+        31705,
+        5,
+        null
+      ],
+      [
+        171,
+        31723,
+        5,
+        null
+      ],
+      [
+        171,
+        31924,
+        5,
+        null
+      ],
+      [
+        171,
+        31952,
+        5,
+        null
+      ],
+      [
+        171,
+        31958,
+        5,
+        null
+      ],
+      [
+        171,
+        32215,
+        5,
+        null
+      ],
+      [
+        171,
+        32525,
+        5,
+        null
+      ],
+      [
+        171,
+        32539,
+        5,
+        null
+      ],
+      [
+        171,
+        32560,
+        5,
+        null
+      ],
+      [
+        173,
+        31723,
+        5,
+        null
+      ],
+      [
+        173,
+        31797,
+        5,
+        null
+      ],
+      [
+        173,
+        31845,
+        5,
+        null
+      ],
+      [
+        176,
+        35603,
+        5,
+        null
+      ],
+      [
+        177,
+        35603,
+        5,
+        null
+      ],
+      [
+        178,
+        35559,
+        5,
+        null
+      ],
+      [
+        184,
+        34612,
+        5,
+        null
+      ],
+      [
+        195,
+        28749,
+        5,
+        null
+      ],
+      [
+        196,
+        27545,
+        5,
+        null
+      ],
+      [
+        196,
+        28319,
+        5,
+        null
+      ],
+      [
+        196,
+        28451,
+        5,
+        null
+      ],
+      [
+        196,
+        28749,
+        5,
+        null
+      ],
+      [
+        202,
+        22718,
+        5,
+        null
+      ],
+      [
+        204,
+        16028,
+        5,
+        null
+      ],
+      [
+        204,
+        16511,
+        5,
+        null
+      ],
+      [
+        204,
+        16818,
+        5,
+        null
+      ],
+      [
+        204,
+        16979,
+        5,
+        null
+      ],
+      [
+        204,
+        17528,
+        5,
+        null
+      ],
+      [
+        204,
+        17578,
+        5,
+        null
+      ],
+      [
+        204,
+        17615,
+        5,
+        null
+      ],
+      [
+        204,
+        18071,
+        5,
+        null
+      ],
+      [
+        204,
+        18105,
+        5,
+        null
+      ],
+      [
+        204,
+        18149,
+        5,
+        null
+      ],
+      [
+        204,
+        18483,
+        5,
+        null
+      ],
+      [
+        204,
+        18535,
+        5,
+        null
+      ],
+      [
+        204,
+        18679,
+        5,
+        null
+      ],
+      [
+        204,
+        18680,
+        5,
+        null
+      ],
+      [
+        204,
+        18928,
+        5,
+        null
+      ],
+      [
+        204,
+        19077,
+        5,
+        null
+      ],
+      [
+        204,
+        19126,
+        5,
+        null
+      ],
+      [
+        204,
+        19550,
+        5,
+        null
+      ],
+      [
+        204,
+        19691,
+        5,
+        null
+      ],
+      [
+        204,
+        19854,
+        5,
+        null
+      ],
+      [
+        204,
+        20001,
+        5,
+        null
+      ],
+      [
+        204,
+        20089,
+        5,
+        null
+      ],
+      [
+        204,
+        20190,
+        5,
+        null
+      ],
+      [
+        205,
+        20190,
+        5,
+        null
+      ],
+      [
+        206,
+        16926,
+        5,
+        null
+      ],
+      [
+        206,
+        16979,
+        5,
+        null
+      ],
+      [
+        206,
+        17151,
+        5,
+        null
+      ],
+      [
+        206,
+        17528,
+        5,
+        null
+      ],
+      [
+        206,
+        17615,
+        5,
+        null
+      ],
+      [
+        206,
+        18071,
+        5,
+        null
+      ],
+      [
+        206,
+        18105,
+        5,
+        null
+      ],
+      [
+        206,
+        18164,
+        5,
+        null
+      ],
+      [
+        206,
+        18217,
+        5,
+        null
+      ],
+      [
+        206,
+        18483,
+        5,
+        null
+      ],
+      [
+        206,
+        18679,
+        5,
+        null
+      ],
+      [
+        206,
+        18680,
+        5,
+        null
+      ],
+      [
+        206,
+        18793,
+        5,
+        null
+      ],
+      [
+        206,
+        18880,
+        5,
+        null
+      ],
+      [
+        219,
+        26887,
+        6,
+        null
+      ],
+      [
+        219,
+        27112,
+        6,
+        null
+      ],
+      [
+        220,
+        26651,
+        6,
+        null
+      ],
+      [
+        264,
+        26308,
+        8,
+        null
+      ],
+      [
+        285,
+        26211,
+        9,
+        null
+      ],
+      [
+        285,
+        26275,
+        9,
+        null
+      ],
+      [
+        285,
+        26316,
+        9,
+        null
+      ]
+    ],
+    "opposite_parts_excluded": "The two closure surfaces coincide at rest and separate with their respective parts",
+    "scope": "Bounded triangle intersection screen, not volumetric or physical validation",
+    "shared_index_corner_or_edge_pairs_excluded": true,
+    "tested_candidate_pairs": 6275
+  },
+  "kind": "CPU_3d_dp_closure_probe",
+  "loops": [
+    {
+      "loop": 0,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 1,
+      "status": "triangulated",
+      "triangles": 34
+    },
+    {
+      "loop": 2,
+      "status": "triangulated",
+      "triangles": 34
+    },
+    {
+      "loop": 3,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 4,
+      "status": "triangulated",
+      "triangles": 69
+    },
+    {
+      "loop": 5,
+      "status": "triangulated",
+      "triangles": 69
+    },
+    {
+      "loop": 6,
+      "status": "triangulated",
+      "triangles": 26
+    },
+    {
+      "loop": 7,
+      "status": "triangulated",
+      "triangles": 6
+    },
+    {
+      "loop": 8,
+      "status": "triangulated",
+      "triangles": 26
+    },
+    {
+      "loop": 9,
+      "status": "triangulated",
+      "triangles": 23
+    },
+    {
+      "loop": 10,
+      "reason": "Unsupported pinched boundary: repeated 3D coordinates need local label/fan repair",
+      "status": "unsupported"
+    },
+    {
+      "loop": 11,
+      "status": "triangulated",
+      "triangles": 6
+    },
+    {
+      "loop": 12,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 13,
+      "reason": "Unsupported pinched boundary: repeated 3D coordinates need local label/fan repair",
+      "status": "unsupported"
+    },
+    {
+      "loop": 14,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 15,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 16,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 17,
+      "status": "triangulated",
+      "triangles": 2
+    },
+    {
+      "loop": 18,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 19,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 20,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 21,
+      "status": "triangulated",
+      "triangles": 2
+    },
+    {
+      "loop": 22,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 23,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 24,
+      "status": "triangulated",
+      "triangles": 2
+    },
+    {
+      "loop": 25,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 26,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 27,
+      "status": "triangulated",
+      "triangles": 1
+    },
+    {
+      "loop": 28,
+      "status": "triangulated",
+      "triangles": 1
+    }
+  ],
+  "native_jobs": 0,
+  "partial_cap_triangles": 314,
+  "prepared_arrays_sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004",
+  "provider_calls": 0,
+  "schema_version": 1,
+  "solver_limit_seconds": 30,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "unsupported_partial_diagnostic_not_asset"
+}

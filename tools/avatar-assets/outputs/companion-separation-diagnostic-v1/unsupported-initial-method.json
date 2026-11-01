@@ -1,0 +1,452 @@
+{
+  "earliest_projected_crossing_loop": 6,
+  "failure_criterion": "abs(sum(abs(triangle_signed_area)) - abs(polygon_signed_area)) <= max(1e-8, 2*abs(polygon_signed_area)*0.0001)",
+  "limitation": "Native failure log omitted loop ID and triangle indices. CPU evidence identifies projection crossings; exact failed loop cannot be asserted from retained log alone.",
+  "loop_summary": [
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 0,
+      "max_plane_distance_m": 3.909372026100755e-08,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 3.7408260311622143e-07,
+      "span_m": [
+        0.0022907555103302,
+        0.00031419098377227783,
+        0.00011926889419555664
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 4.905734305793885e-07,
+      "coordinate_duplicates": 0,
+      "loop_id": 1,
+      "max_plane_distance_m": 0.004579599946737289,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": -0.0024528671528969426,
+      "span_m": [
+        0.03435710072517395,
+        0.07740603387355804,
+        0.05387693643569946
+      ],
+      "vertices": 36
+    },
+    {
+      "area_check_tolerance_m2": 4.905734185740585e-07,
+      "coordinate_duplicates": 0,
+      "loop_id": 2,
+      "max_plane_distance_m": 0.004579636268317699,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": -0.0024528670928702923,
+      "span_m": [
+        0.03435710072517395,
+        0.07740603387355804,
+        0.05387693643569946
+      ],
+      "vertices": 36
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 3,
+      "max_plane_distance_m": 1.6705598682165146e-08,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 6.469455513524736e-07,
+      "span_m": [
+        0.006153076887130737,
+        0.00151100754737854,
+        0.002155125141143799
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 2.708785688446369e-06,
+      "coordinate_duplicates": 0,
+      "loop_id": 4,
+      "max_plane_distance_m": 0.027059560641646385,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 0.013543928442231845,
+      "span_m": [
+        0.15244810283184052,
+        0.1207508072257042,
+        0.12472039461135864
+      ],
+      "vertices": 71
+    },
+    {
+      "area_check_tolerance_m2": 2.7087857626611368e-06,
+      "coordinate_duplicates": 0,
+      "loop_id": 5,
+      "max_plane_distance_m": 0.027059566229581833,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 0.013543928813305683,
+      "span_m": [
+        0.15244810283184052,
+        0.1207508072257042,
+        0.12472039461135864
+      ],
+      "vertices": 71
+    },
+    {
+      "area_check_tolerance_m2": 1.4296486619969074e-07,
+      "coordinate_duplicates": 0,
+      "loop_id": 6,
+      "max_plane_distance_m": 0.008308704011142254,
+      "part": 1,
+      "projection_crossing_count": 3,
+      "signed_projected_area_m2": 0.0007148243309984537,
+      "span_m": [
+        0.017866820096969604,
+        0.04608035832643509,
+        0.024591505527496338
+      ],
+      "vertices": 28
+    },
+    {
+      "area_check_tolerance_m2": 4.392745140648913e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 7,
+      "max_plane_distance_m": 0.00025447411462664604,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 0.00021963725703244563,
+      "span_m": [
+        0.010113835334777832,
+        0.025734083727002144,
+        0.020228922367095947
+      ],
+      "vertices": 8
+    },
+    {
+      "area_check_tolerance_m2": 1.4296487397587044e-07,
+      "coordinate_duplicates": 0,
+      "loop_id": 8,
+      "max_plane_distance_m": 0.008308736607432365,
+      "part": 0,
+      "projection_crossing_count": 3,
+      "signed_projected_area_m2": 0.0007148243698793522,
+      "span_m": [
+        0.017866820096969604,
+        0.04608035832643509,
+        0.024591505527496338
+      ],
+      "vertices": 28
+    },
+    {
+      "area_check_tolerance_m2": 1.368959274259396e-07,
+      "coordinate_duplicates": 0,
+      "loop_id": 9,
+      "max_plane_distance_m": 0.006761609110981226,
+      "part": 1,
+      "projection_crossing_count": 2,
+      "signed_projected_area_m2": 0.000684479637129698,
+      "span_m": [
+        0.027116984128952026,
+        0.04553273320198059,
+        0.0460551381111145
+      ],
+      "vertices": 25
+    },
+    {
+      "area_check_tolerance_m2": 9.469134693063097e-07,
+      "coordinate_duplicates": 1,
+      "loop_id": 10,
+      "max_plane_distance_m": 0.01734425500035286,
+      "part": 0,
+      "projection_crossing_count": 15,
+      "signed_projected_area_m2": 0.0047345673465315485,
+      "span_m": [
+        0.06002114713191986,
+        0.11310313642024994,
+        0.10026073455810547
+      ],
+      "vertices": 107
+    },
+    {
+      "area_check_tolerance_m2": 4.392745140648913e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 11,
+      "max_plane_distance_m": 0.00025447411462664604,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": -0.00021963725703244563,
+      "span_m": [
+        0.010113835334777832,
+        0.025734083727002144,
+        0.020228922367095947
+      ],
+      "vertices": 8
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 12,
+      "max_plane_distance_m": 1.4340912457555532e-08,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 8.514012392879522e-07,
+      "span_m": [
+        0.0008895397186279297,
+        0.0050969719886779785,
+        0.0006069540977478027
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 8.135232905260637e-07,
+      "coordinate_duplicates": 1,
+      "loop_id": 13,
+      "max_plane_distance_m": 0.01660367101430893,
+      "part": 1,
+      "projection_crossing_count": 13,
+      "signed_projected_area_m2": -0.004067616452630318,
+      "span_m": [
+        0.05158109962940216,
+        0.07152925431728363,
+        0.08842450380325317
+      ],
+      "vertices": 84
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 14,
+      "max_plane_distance_m": 1.1292286217212677e-08,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 4.167979454905435e-07,
+      "span_m": [
+        0.001194283366203308,
+        0.0002971440553665161,
+        0.003252863883972168
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 15,
+      "max_plane_distance_m": 2.3603206500411034e-08,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 2.0466064398760864e-07,
+      "span_m": [
+        0.0007936805486679077,
+        0.0008037388324737549,
+        0.0002586841583251953
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 16,
+      "max_plane_distance_m": 2.2040694602765143e-08,
+      "part": 1,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 1.616463940479207e-07,
+      "span_m": [
+        0.0013885945081710815,
+        0.0013330578804016113,
+        0.0005772709846496582
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 17,
+      "max_plane_distance_m": 9.454041719436646e-05,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 6.229579298633325e-06,
+      "span_m": [
+        0.004335492849349976,
+        0.001893952488899231,
+        0.01320454478263855
+      ],
+      "vertices": 4
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 18,
+      "max_plane_distance_m": 7.683411240577698e-09,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 2.104465409047407e-06,
+      "span_m": [
+        0.007866591215133667,
+        0.0013470053672790527,
+        0.007594019174575806
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 19,
+      "max_plane_distance_m": 2.8667272999882698e-08,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 1.5956130141603353e-06,
+      "span_m": [
+        0.0007703190785832703,
+        0.0019538700580596924,
+        0.0024573802947998047
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 20,
+      "max_plane_distance_m": 2.939486876130104e-08,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 1.2779564997345005e-06,
+      "span_m": [
+        0.004486270248889923,
+        0.0003331005573272705,
+        0.004075586795806885
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 21,
+      "max_plane_distance_m": 1.516612246632576e-05,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 2.8925968308612937e-05,
+      "span_m": [
+        0.010093003511428833,
+        0.010486684739589691,
+        0.0036427974700927734
+      ],
+      "vertices": 4
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 22,
+      "max_plane_distance_m": 3.550667315721512e-09,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 2.0674548295573913e-06,
+      "span_m": [
+        0.0016813278198242188,
+        0.0012302398681640625,
+        0.0027292966842651367
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 23,
+      "max_plane_distance_m": 3.3760443329811096e-09,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 3.583264174267242e-07,
+      "span_m": [
+        0.0028774887323379517,
+        0.00020945072174072266,
+        0.002158224582672119
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 24,
+      "max_plane_distance_m": 0.00012863046140410006,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 7.587585827195653e-06,
+      "span_m": [
+        0.0060754865407943726,
+        0.002235889434814453,
+        0.007054030895233154
+      ],
+      "vertices": 4
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 25,
+      "max_plane_distance_m": 4.6566128730773926e-09,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 1.1027753998860135e-05,
+      "span_m": [
+        0.0021973997354507446,
+        0.008668452501296997,
+        0.0036181211471557617
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 26,
+      "max_plane_distance_m": 1.3478711480274796e-09,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 3.244700110371923e-06,
+      "span_m": [
+        0.002206861972808838,
+        0.0005532950162887573,
+        0.003184676170349121
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 27,
+      "max_plane_distance_m": 2.1973391994833946e-08,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 2.7848527111018484e-06,
+      "span_m": [
+        0.001227051019668579,
+        0.0024093985557556152,
+        0.004345595836639404
+      ],
+      "vertices": 3
+    },
+    {
+      "area_check_tolerance_m2": 1e-08,
+      "coordinate_duplicates": 0,
+      "loop_id": 28,
+      "max_plane_distance_m": 3.971217665821314e-08,
+      "part": 0,
+      "projection_crossing_count": 0,
+      "signed_projected_area_m2": 4.1642995540769334e-07,
+      "span_m": [
+        0.00030282139778137207,
+        0.0006094407290220261,
+        0.0023518800735473633
+      ],
+      "vertices": 3
+    }
+  ],
+  "native_failure": "Closure triangulation overlaps or misses projected surface",
+  "native_logged_loop_id": null,
+  "native_script_sha256": "da179eeaf4bfcb3fa0079fa1153bd21d2e6e49599cd45b77e807868b6f05d3aa",
+  "new_native_jobs": 0,
+  "planar_projection_scope": "Float32 numpy SVD projection matching actual frozen native script; intersections exclude adjacent edges and endpoint-only contact.",
+  "prepared_arrays_sha256": "19e217dbbc9591a14aed606683ecd44aa86f217f7f6929afb83a13464b809004",
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+  "status": "unsupported_initial_planar_closure_method"
+}

@@ -189,6 +189,25 @@ def author_actions(rig, designs):
     rig.animation_data.action = None
 
 
+def fit_motion_camera(low, high, basis, location, near, far):
+    corners = np.array([[x,y,z] for x in (low[0], high[0])
+                        for y in (low[1], high[1]) for z in (low[2], high[2])])
+    right, up, forward = basis[:, 0], basis[:, 1], -basis[:, 2]
+    horizontal, vertical = corners@right, corners@up
+    location = np.asarray(location, dtype=float).copy()
+    location += right*((horizontal.min()+horizontal.max())/2-location@right)
+    location += up*((vertical.min()+vertical.max())/2-location@up)
+    scale = max(float(np.ptp(horizontal)), float(np.ptp(vertical)))*1.2
+    depths = corners@forward-location@forward
+    clearance = max(.05, scale*.05)
+    back_shift = max(0., near+clearance-float(depths.min()))
+    location -= forward*back_shift
+    far = max(far, float(depths.max())+back_shift+clearance)
+    return {'location': location.tolist(), 'orthographic_scale': scale, 'clip_end': far,
+            'sampled_depth_min_m': float(depths.min())+back_shift,
+            'sampled_depth_max_m': float(depths.max())+back_shift, 'camera_back_shift_m': back_shift}
+
+
 def motion_bounds(obj, rig, actions, bindings, owners, designs):
     """Fit one fixed camera to bounded pose samples; never claim continuous-motion coverage."""
     start = time.monotonic()
@@ -244,7 +263,9 @@ def portable_coat(obj, rig, mask, colors, config, out):
     obj.data.calc_loop_triangles()
     triangles = [tuple(t.vertices) for t in obj.data.loop_triangles if all(mask[i] for i in t.vertices)]
     vertices = [tuple(v.co) for v in obj.data.vertices]
-    normals = [tuple(v.normal) for v in obj.data.vertices]
+    normal_field = obj.data.attributes.get('AuthoredSurfaceNormal')
+    normals = ([tuple(value.vector) for value in normal_field.data] if normal_field is not None
+               else [tuple(v.normal) for v in obj.data.vertices])
     names = {g.index: g.name for g in obj.vertex_groups}
     weights = [{names[g.group]: g.weight for g in v.groups if g.weight > 0} for v in obj.data.vertices]
     meshes, reports = [], []
@@ -345,6 +366,10 @@ def finish(config, output):
     if cfg.get('part_rigs'):
         from blender_part_rigs import apply_part_rigs
         part_rigs = apply_part_rigs(obj, rig, points, low, high, cfg['part_rigs'], cfg['authored_rig'])
+    normal_continuity = None
+    if cfg.get('normal_continuity'):
+        from blender_normal_continuity import apply_normal_continuity
+        normal_continuity = apply_normal_continuity(obj, cfg['normal_continuity'])
     base = obj.data.materials[0]
     color_node = shared_color_texture(obj.data.materials)
     if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):
@@ -353,6 +378,15 @@ def finish(config, output):
     colors = texture_colors(obj, color_node.image)
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
     mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
+    excluded_part_vertices = set()
+    if cfg.get('groom_excluded_parts'):
+        materials = {name for part in cfg['part_rigs'] if part['name'] in cfg['groom_excluded_parts']
+                     for name in part['materials']}
+        for polygon in obj.data.polygons:
+            if obj.data.materials[polygon.material_index].name in materials:
+                excluded_part_vertices.update(polygon.vertices)
+        # A moving accessory mask must not leave a permanent bald volume on its former support.
+        mask[list(excluded_part_vertices)] = False
     smoothing = None
     if cfg.get('smoothing'):
         smoothing = smooth_surface(obj, mask, report_dir=out, **cfg['smoothing'])
@@ -381,7 +415,9 @@ def finish(config, output):
     report = {"schema_version": 1, "source_sha256": cfg["source_sha256"], "blender_version": bpy.app.version_string,
               "normal_strength": cfg["normal_strength"], "groom": None, "attachment": None,
               "smoothing": smoothing, 'authored_rig': authored_rig, 'surface_profiles': surface_profiles,
-              'color_corrections': color_corrections, 'part_rigs': part_rigs,
+              'color_corrections': color_corrections, 'part_rigs': part_rigs, 'normal_continuity': normal_continuity,
+              'groom_excluded_parts': {'names': cfg.get('groom_excluded_parts', []),
+                                       'vertices': len(excluded_part_vertices)},
               "emitter_scale_applied": True, "world_rest_position_max_error": transform_error,
               "source_bounds_blender_z_up": {"min": low.tolist(), "max": high.tolist()},
               "animation_verified": False, "weft_runtime_verified": False}
@@ -433,9 +469,10 @@ def finish(config, output):
         system.vertex_group_density = density.name
         system.settings.clump_factor = cfg["fur_clump"]
         bpy.context.view_layer.update()
-        if "direction" in cfg["groom"]:
+        if "direction" in cfg["groom"] or normal_continuity:
             from blender_comb_groom import comb_native_groom
-            groom_report["comb"] = comb_native_groom(groom, cfg["groom"]["direction"], cfg["groom"]["comb"], cfg.get("groom_flow"))
+            groom_report["comb"] = comb_native_groom(groom, cfg["groom"].get("direction", [0,0,1]),
+                                                    cfg["groom"].get("comb", 0), cfg.get("groom_flow"))
         hair_material = groom.data.materials[-1]
         hair = next(n for n in hair_material.node_tree.nodes if n.type == "BSDF_HAIR_PRINCIPLED")
         texture = hair_material.node_tree.nodes.new("ShaderNodeTexImage")
@@ -545,15 +582,12 @@ def finish(config, output):
                          cfg.get('portable_fur', {}).get('settings', {}).get('length', 0))
         motion_low = np.minimum(motion_low, low)-fur_margin
         motion_high = np.maximum(motion_high, high)+fur_margin
-        corners = np.array([[x,y,z] for x in (motion_low[0], motion_high[0])
-                            for y in (motion_low[1], motion_high[1]) for z in (motion_low[2], motion_high[2])])
-        basis = camera.rotation_euler.to_matrix()
-        right, up = basis@Vector((1,0,0)), basis@Vector((0,1,0))
-        horizontal, vertical = corners@np.array(right), corners@np.array(up)
-        camera_data.ortho_scale = max(float(np.ptp(horizontal)), float(np.ptp(vertical)))*1.2
-        camera.location += right*(float((horizontal.min()+horizontal.max())/2)-camera.location.dot(right))
-        camera.location += up*(float((vertical.min()+vertical.max())/2)-camera.location.dot(up))
-        report['camera'].update(fit='motion', orthographic_scale=camera_data.ortho_scale,
+        fit = fit_motion_camera(motion_low, motion_high, np.asarray(camera.rotation_euler.to_matrix()),
+                                camera.location, camera_data.clip_start, camera_data.clip_end)
+        camera.location, camera_data.ortho_scale, camera_data.clip_end = fit['location'], fit['orthographic_scale'], fit['clip_end']
+        if camera_data.clip_end < fit['sampled_depth_max_m']:
+            raise ValueError('Motion depth exceeds the native camera clip limit')
+        report['camera'].update(**fit, fit='motion',
                                 fur_margin_m=fur_margin, motion_envelope=bounds_report)
     scene.render.filepath = str(out/"portrait.png")
     bpy.ops.render.render(write_still=True)
