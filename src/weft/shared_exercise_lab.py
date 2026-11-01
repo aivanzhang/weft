@@ -22,7 +22,8 @@ from weft.shared_world_packaging import (
 
 CONTROL_PROFILE = "shared_exercise"
 MAX_INPUT_FILES = 512
-MAX_OUTPUT_FILES = 1024
+# Complete source, policy and evaluation closures need more slots than one input package.
+MAX_OUTPUT_FILES = 1536
 MAX_INPUT_BYTES = 128 * 1024 * 1024
 MAX_OUTPUT_BYTES = 192 * 1024 * 1024
 MAX_FILE_BYTES = 64 * 1024 * 1024
@@ -683,6 +684,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     total = sum(len(raw) for raw in files.values()) + len(manifest) + sum(len(raw) for raw in outer.values())
     if len(files) + len(outer) + 1 > MAX_OUTPUT_FILES or total > MAX_OUTPUT_BYTES:
         raise ValueError("Exercise lab complete source/runtime closure exceeds its output bound")
+    file_count = len(files)
     out.mkdir(parents=True, exist_ok=False)
     (out / "run").mkdir()
     try:
@@ -693,6 +695,11 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
             directory, relative = (package.parent.parent, name[8:]) if name.startswith("project/") else (package, name)
             read_package_file(directory, relative, max_bytes=8 * 1024 * 1024, expected_sha256=expected)
         write_package_files(out / "run", {"manifest.json": manifest})
+        # Full readback must not overlap with the producer's complete in-memory payloads.
+        del files, inputs, proof, views, implementation, learning_files, evaluation_files
+        camera_attachment = None
+        if reference_attachment is not None:
+            reference_attachment = {"identity": reference_attachment["identity"]}
         load_shared_exercise_lab(out / "run", config=config, deadline=deadline)
         _deadline(deadline)
         write_package_files(out, outer)
@@ -703,7 +710,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     return {"lab_directory": str(out), "run_directory": str(out / "run"), "manifest_sha256": _sha(manifest),
             "control_profile": CONTROL_PROFILE, "task_sha256": canonical_hash(task), "scene_sha256": canonical_hash(scene),
             "learned_policy_available": policy is not None, **policy_identity,
-            **(reference_attachment['identity'] if reference_attachment is not None else {}), "files": len(files), "bytes": total,
+            **(reference_attachment['identity'] if reference_attachment is not None else {}), "files": file_count, "bytes": total,
             "seconds": time.monotonic() - started}
 
 

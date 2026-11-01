@@ -2,7 +2,8 @@
 
 ## Active separate arm/leg feedback — November 1, 2026, PST
 
-Last published checkpoint is `52a2559fb2944deb7b274f8882481b8d6648f1a4`.
+Parent published/private-remote-verified checkpoint is
+`dfa060f9566f8b4fab5bab96c60412c5c578d987` (22 reviewed paths).
 Prior turn was progress: fitting/UI shipped and the matched current learning
 comparison completed, although no policy passed all gates. New work separates
 arm/leg feedback with the same task/scorer/limits, integrated into the existing
@@ -10,9 +11,24 @@ trainer, saved verifier, evaluator and lab. Default v4 is unchanged. Root owns
 public routing/trainer, parallel agents own actor and lab/UI, and a separate
 reviewer checks integration. [Exact current state](split-limb-feedback-workflow.md).
 Root tests/review are complete: 108 Python +9 JavaScript analytical/mocked checks
-pass. Frozen native comparison and actual lab interaction are pending; no native
-job or paid call is running. Fresh fetch matches `52a2559`. Preserve the
-independent avatar edits and every saved run.
+pass. The frozen native comparison completed in 61.261301 seconds: training
+violations decreased, but all four controllers still scored 0/3 successes;
+learned equipment `sam-2` remains unstable. All body/floor/other-equipment gates
+pass. Fresh-process lab open and 266 live controls plus exact replay/export
+completed; attempt05 then failed its second same-process open at 623,230,976 B
+RSS. Its 268-frame recording is preserved, not repeated. Separate read-only
+fresh resume passes in 2.885010 seconds at 399,474,688 B peak RSS, with zero
+new steps/replay/decode. The complete run and all six recording members validate.
+The [saved-UI audit](split-limb-feedback-ui.md) passes all three real summaries
+and recording counts; two unchanged legacy status labels still assign text on
+each update. No browser responsiveness claim, paid call or native job.
+[Attempt history and exact scoped results](split-limb-feedback-play.md).
+Source, scorer, task, root commands and bounds remain
+unchanged. [Exact new result and custody](split-limb-feedback-workflow.md). Preserve the
+independent avatar edits and every saved run. The [pinned experimental launch
+command](../local-lab.md#try-separate-arm-and-leg-feedback) is ready.
+The reviewed follow-up publication outcome will be recorded in
+`.local/split-limb-feedback-lab-publication-01.json`; absence means unfinished.
 The [bounded source screen](exercise-source-readiness-02.md) found no complete
 acquisition-ready independent calibration/contact dataset; this does not block
 local algorithm work or waive the physical-validation gap.

@@ -667,6 +667,37 @@ This single-leg squat example has a 3D body, illustrative muscles, 22 joint/root
 
 The preset pins trusted snapshot **`225a53c8c0a9fb25f03b8473adfdf7f2754e037d`** and `artifacts/person-clock-workflow-01/lab`. Its updated evidence views and recording receipts preserve the original 26 policy/18 lab simulation-source pins, scene, task and policy. The actual metadata-only `--console --check` passes with 202 runtime files, no server or physics. It does not retrain or modify older examples. The original training/evaluation/lab run took 30.7 seconds with no API charge. The [verified full recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames; the full 234-step post-reset trial passes and replays exactly. That older export predates durable receipts and is not backfilled. [Current evidence and limits](handoffs/combined.md#recording-receipt--verified).
 
+### Try separate arm and leg feedback
+
+This experimental person-and-equipment lab is ready in this workspace. It uses
+separate learned corrections for the torso, arms and legs; the default exercise
+example above is unchanged. From the repository root:
+
+```sh
+PYTHONPATH="$PWD/.local/split-limb-feedback-play-04/runtime/src" \
+  .venv-lab/bin/python -B -P -m weft lab \
+  --resume artifacts/split-limb-feedback-play-05/lab
+```
+
+Open the printed local link yourself. Choose **Sandbox → Separate arm/leg feedback**,
+then **Step** or **Start**. Switch to manual controls to try your own actions.
+Use **Record & start → Stop & save** to save video, actions and interactive replay;
+**Recording evidence** shows the saved verification. For terminal controls, replace
+`lab` with `lab-console` in the same command.
+
+The [checked recording](../artifacts/split-limb-feedback-play-05/lab/sessions/session-1dcf521d278e/replay.html)
+and [video](../artifacts/split-limb-feedback-play-05/lab/sessions/session-1dcf521d278e/video.mp4)
+contain 266 actions, one reset and 268 frames. Every recorded action/state replays
+exactly, and reopening in a fresh process preserves the recording and policy.
+The complete post-reset task interval is 254 steps / 8.47 seconds.
+
+**The task still fails equipment stability.** The learned and original controllers
+each pass 0/3 development starts. Virtual root assistance, equipment geometry and
+illustrative muscles remain explicit assumptions; this is not validated human
+biomechanics or general unfamiliar-video reconstruction. The pinned local runtime
+and saved artifacts are not included in a fresh clone. [Exact checks and retained
+memory failures](handoffs/split-limb-feedback-play.md).
+
 ### Inspect body-fitting proposals
 
 The [image-first comparison](../artifacts/whole-body-reference-views-01/image-first/index.html)

@@ -173,6 +173,11 @@ still mean unchanged authored control. This is an experimental controller choice
 not a reconstruction improvement or a demonstrated task success. Existing v4
 artifacts remain unchanged and require their original matching runtime.
 
+[Open the checked v5 lab](local-lab.md#try-separate-arm-and-leg-feedback) without
+retraining. Its 266-action recording replays exactly and reopens in a fresh
+process. All four evaluated controls still score 0/3; the learned controller
+fails `sam-2` equipment stability. Operational replay is not task success.
+
 One real single-leg v4 workflow (`artifacts/person-feedback-workflow-01`) completed in30.8seconds, preserving the full234-step interval. It used6,552training actions and2,603separate evaluation actions. On three matched evaluation starts, selected peak joint error is about0.920rad versus authored0.958, but **both fail all three trials** against the unchanged0.70limit; selected reward is also slightly lower. The reference contains a suspicious source-pose jump. Independent output audit, interaction/export/exact replay and saved-payload UI checks pass:242live+242replayactions, one reset and244video frames in8.5seconds. This does not establish accurate reconstruction or successful full-task learning.
 
 Try the new controller on the checked local workspace without retraining:

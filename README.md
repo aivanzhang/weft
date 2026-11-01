@@ -42,6 +42,11 @@ To compare original and fitted joint targets, use the
 It keeps the same body and task, shows the saved comparison, and records your
 actions. Fitted targets are programmed controls, not a learned policy.
 
+The [separate arm/leg feedback lab](docs/local-lab.md#try-separate-arm-and-leg-feedback)
+adds an experimental learned controller for the person-and-equipment example.
+Controls, recording, exact replay and fresh reopening are checked; equipment
+stability still fails. The recommended exercise preset is unchanged.
+
 The exercise body has illustrative muscles and virtual root assistance. The
 tabletop scene is authored; the ramp geometry remains physically unverified.
 Successful simulated tasks and exact replay do not establish accurate reconstruction.
