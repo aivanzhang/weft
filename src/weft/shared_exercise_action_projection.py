@@ -13,6 +13,7 @@ from weft.shared_exercise_task import GATES, GATES_SHA256
 
 
 MAX_PREDICTIONS = 24
+MAX_RELINEARIZED_PREDICTIONS = 48
 MAX_RESULT_BYTES = 2 << 20
 SCOPE = ("Authored, privileged, experimental one-control search. Equipment and human tracking are "
          "endpoint-only; unseen substep peaks, future contacts and whole-task success are not certified. "
@@ -28,10 +29,16 @@ class ProjectionConfig:
     difference: float = .1
     trust_radius: float = .25
     maximum_sweeps: int = 64
+    candidate_strategy: str = "single_round"
 
     def __post_init__(self):
-        if type(self.maximum_predictions) is not int or not 1 <= self.maximum_predictions <= MAX_PREDICTIONS:
-            raise ValueError("Projection permits one to twenty-four predictions over its lifetime")
+        if type(self.candidate_strategy) is not str or self.candidate_strategy not in ("single_round", "two_round_relinearization"):
+            raise ValueError("Unknown bounded projection strategy")
+        maximum = MAX_PREDICTIONS if self.candidate_strategy == "single_round" else MAX_RELINEARIZED_PREDICTIONS
+        if type(self.maximum_predictions) is not int or not 1 <= self.maximum_predictions <= maximum:
+            message = ("Projection permits one to twenty-four predictions over its lifetime"
+                       if self.candidate_strategy == "single_round" else "Relinearization permits at most forty-eight predictions")
+            raise ValueError(message)
         if type(self.maximum_sweeps) is not int or not 1 <= self.maximum_sweeps <= 64:
             raise ValueError("Projection permits at most sixty-four fixed solver sweeps")
         for name, low, high in (("maximum_seconds", .001, 5.), ("difference", 1e-4, .25),
@@ -86,6 +93,25 @@ def _bounded_trial(base, delta, radius):
             or trial[19:].tobytes() != base[19:].tobytes()):
         raise RuntimeError("rounded_action_outside_original_bounds")
     return trial
+
+
+def _center_difference(base, center, joint, difference, radius):
+    lower, upper = max(-1., float(base[joint]) - radius), min(1., float(base[joint]) + radius)
+    value = float(center[joint])
+    negative, positive = value - lower, upper - value
+    sign = 1 if positive > negative or positive == negative and value <= 0 else -1
+    room = positive if sign > 0 else negative
+    trial = center.copy()
+    trial[joint] = value + sign * min(difference, room)
+    if float(trial[joint]) < lower or float(trial[joint]) > upper:
+        direction = np.inf if float(trial[joint]) < lower else -np.inf
+        trial[joint] = np.nextafter(trial[joint], np.array(direction, dtype=base.dtype))
+    actual = float(trial[joint]) - value
+    if (not math.isfinite(actual) or actual == 0 or actual * sign <= 0
+            or np.any(abs(trial) > 1) or np.any(abs(trial[:19].astype(float) - base[:19]) > radius)
+            or trial[19:].tobytes() != base[19:].tobytes()):
+        raise RuntimeError("unavailable_relinearization_difference")
+    return trial, actual
 
 
 class ActionProjector:
@@ -201,6 +227,35 @@ class ActionProjector:
         finally:
             self._lock.release()
 
+    def _second_round(self, base, center, center_values, evaluate, solver_check, remaining_sweeps, report, summary):
+        matrix = np.zeros((len(self._limits), 19))
+        best, best_prediction, best_distance = None, None, math.inf
+        for joint in range(19):
+            trial, difference = _center_difference(base, center, joint, self._config.difference, self._config.trust_radius)
+            prediction, values, passes = evaluate(trial, "finite_difference", joint=joint, difference=difference)
+            matrix[:, joint] = (values - center_values) / (self._limits * difference)
+            distance = float(np.sum((trial[:19].astype(float) - base[:19]) ** 2))
+            if passes and distance < best_distance:
+                best, best_prediction, best_distance = trial, prediction, distance
+        original_lower = np.maximum(-1., base[:19].astype(float) - self._config.trust_radius)
+        original_upper = np.minimum(1., base[:19].astype(float) + self._config.trust_radius)
+        lower, upper = original_lower - center[:19], original_upper - center[:19]
+        bound = 1 - 1e-6 - center_values / self._limits
+        delta, linear = _linear_projection(matrix, bound, lower, upper, remaining_sweeps, solver_check)
+        summary["linear_model"] = linear
+        if delta is not None:
+            for scale in (1., .5, .25):
+                correction = center[:19].astype(float) - base[:19] + scale * delta
+                trial = _bounded_trial(base, correction, self._config.trust_radius)
+                prediction, values, passes = evaluate(trial, "candidate", correction_scale=scale)
+                actual_delta = trial[:19].astype(float) - center[:19]
+                report["evaluations"][-1]["linear_fit_max_ratio_error"] = float(np.max(abs(
+                    values / self._limits - center_values / self._limits - matrix @ actual_delta)))
+                distance = float(np.sum((trial[:19].astype(float) - base[:19]) ** 2))
+                if passes and distance < best_distance:
+                    best, best_prediction, best_distance = trial, prediction, distance
+        return best, best_prediction, best_distance, delta, linear
+
     def _project(self, base_action):
         if self._used:
             return None, {"status": "unavailable", "reason": "decision_lifetime_budget", **self.describe()}
@@ -210,6 +265,12 @@ class ActionProjector:
                   "constraints": self._constraints, "evaluations": [], "verified_endpoint": None,
                   "joint_variables": 19, "root_commands_changed": False,
                   "linearized_feasibility_is_not_physical_feasibility": True}
+        refinement, measured_center, current_round, pending_evaluation = None, None, 1, None
+        if self._config.candidate_strategy == "two_round_relinearization":
+            refinement = {"strategy": self._config.candidate_strategy, "maximum_rounds": 2,
+                          "maximum_solver_sweeps": self._config.maximum_sweeps, "solver_sweeps_used": 0,
+                          "stop_reason": "not_started", "rounds": []}
+            report["refinement"] = refinement
 
         def check():
             if time.monotonic() - started >= self._config.maximum_seconds:
@@ -222,10 +283,16 @@ class ActionProjector:
                 raise RuntimeError("live_state_changed_during_projection")
 
         def evaluate(action, kind, **details):
+            nonlocal measured_center, pending_evaluation
+            if refinement is not None:
+                pending_evaluation = {"round": current_round, "kind": kind, **details,
+                                      "action": action.tolist(), "prediction_attempted": False}
             check()
             if self._prediction_calls >= self._config.maximum_predictions:
                 raise RuntimeError("projection_prediction_budget")
             self._prediction_calls += 1
+            if pending_evaluation is not None:
+                pending_evaluation["prediction_attempted"] = True
             try:
                 prediction = self._predictor.predict(action)
             except Exception as error:
@@ -240,9 +307,25 @@ class ActionProjector:
                 raise RuntimeError("prediction_unavailable:" + str(prediction.get("reason")))
             values = self._measure(prediction, initial_time, target)
             passes = bool(np.all(values <= self._limits + 1e-12))
+            if refinement is not None:
+                details["round"] = current_round
             report["evaluations"].append({"kind": kind, **details, "action": action.tolist(),
                                           "values": values.tolist(), "passes_measured_constraints": passes})
+            if refinement is not None and not passes:
+                violation = max(0., float(np.max(values / self._limits)) - 1.)
+                delta = action[:19].astype(float) - base[:19]
+                index = len(report["evaluations"]) - 1
+                key = (violation, float(delta @ delta), index)
+                if measured_center is None or key < measured_center[0]:
+                    measured_center = (key, action.copy(), values.copy())
+            pending_evaluation = None
             return prediction, values, passes
+
+        def solver_check():
+            check()
+            if refinement["solver_sweeps_used"] >= self._config.maximum_sweeps:
+                raise RuntimeError("aggregate_solver_sweep_budget")
+            refinement["solver_sweeps_used"] += 1
 
         try:
             check()
@@ -257,10 +340,18 @@ class ActionProjector:
             if target.shape != (22,) or not np.isfinite(target).all() or np.max(abs(target)) > 1e6:
                 raise RuntimeError("unsupported_endpoint_reference")
             baseline, baseline_values, passes = evaluate(base, "base")
+            if refinement is not None:
+                baseline_violation = max(0., float(np.max(baseline_values / self._limits)) - 1.)
+                refinement["rounds"].append({"round": 1, "center_evaluation_index": 0,
+                    "center_action": base.tolist(), "center_normalized_violation": baseline_violation,
+                    "prediction_start": 0, "solver_sweep_start": 0, "search_completed": False})
             if passes:
                 selected = base
                 report.update(status="unchanged", reason="base_passes_measured_constraints",
                               verified_endpoint=baseline["endpoint"])
+                if refinement is not None:
+                    refinement["stop_reason"] = "base_passes_measured_constraints"
+                    refinement["rounds"][0]["search_completed"] = True
             else:
                 # Reserve the complete finite-difference/search/repeat work before spending it.
                 if self._config.maximum_predictions - self._prediction_calls < 23:
@@ -280,7 +371,8 @@ class ActionProjector:
                 upper = np.minimum(1 - base[:19].astype(float), self._config.trust_radius)
                 # A tiny stricter target absorbs solver/float rounding; no task limit is relaxed.
                 bound = 1 - 1e-6 - baseline_values / self._limits
-                delta, linear = _linear_projection(matrix, bound, lower, upper, self._config.maximum_sweeps, check)
+                delta, linear = _linear_projection(matrix, bound, lower, upper, self._config.maximum_sweeps,
+                                                   solver_check if refinement is not None else check)
                 report["linear_model"] = linear
                 if delta is not None:
                     for scale in (1., .5, .25):
@@ -292,6 +384,30 @@ class ActionProjector:
                         distance = float(actual_delta @ actual_delta)
                         if passes and distance < best_distance:
                             best, best_prediction, best_distance = trial, prediction, distance
+                if refinement is not None:
+                    first_round = refinement["rounds"][0]
+                    first_round.update(linear_model=linear, search_completed=True)
+                    if best is not None:
+                        refinement["stop_reason"] = "passing_candidate_available"
+                    elif measured_center is None or measured_center[0][0] >= baseline_violation:
+                        refinement["stop_reason"] = "no_strict_measured_improvement"
+                    elif self._config.maximum_predictions - self._prediction_calls < 23:
+                        refinement["stop_reason"] = "insufficient_budget_for_complete_second_round"
+                    elif refinement["solver_sweeps_used"] >= self._config.maximum_sweeps:
+                        refinement["stop_reason"] = "aggregate_solver_sweep_budget"
+                    else:
+                        key, center, center_values = measured_center
+                        current_round = 2
+                        second_round = {"round": 2, "center_evaluation_index": key[2],
+                            "center_action": center.tolist(), "center_normalized_violation": key[0],
+                            "strict_measured_improvement": True, "prediction_start": self._prediction_calls,
+                            "solver_sweep_start": refinement["solver_sweeps_used"], "search_completed": False}
+                        refinement["rounds"].append(second_round)
+                        best, best_prediction, best_distance, delta, linear = self._second_round(
+                            base, center, center_values, evaluate, solver_check,
+                            self._config.maximum_sweeps - refinement["solver_sweeps_used"], report, second_round)
+                        second_round["search_completed"] = True
+                        refinement["stop_reason"] = "maximum_rounds_completed"
                 if best is None:
                     report.update(status="no_verified_candidate", reason=("linearized_" + linear["status"] if delta is None
                                   else "nonlinear_candidates_fail_measured_constraints"))
@@ -309,21 +425,53 @@ class ActionProjector:
         except (RuntimeError, ValueError, KeyError, TypeError, OverflowError, TimeoutError) as error:
             selected = None
             report.update(status="unavailable", reason=str(error)[:300], verified_endpoint=None)
+            if refinement is not None:
+                refinement.update(stop_reason=report["reason"], stopped_round=current_round)
+                if pending_evaluation is not None:
+                    report["failed_evaluation"] = {**pending_evaluation, "status": "unavailable", "reason": report["reason"]}
         finally:
+            if refinement is not None:
+                rounds = refinement["rounds"]
+                for index, item in enumerate(rounds):
+                    following = rounds[index + 1] if index + 1 < len(rounds) else None
+                    item["prediction_calls"] = (following["prediction_start"] if following else self._prediction_calls) - item["prediction_start"]
+                    item["solver_sweeps"] = (following["solver_sweep_start"] if following else refinement["solver_sweeps_used"]) - item["solver_sweep_start"]
             if before is not None and (_identity(self._live) != before or self._engine.steps != initial_step):
                 selected = None
                 report.update(status="unavailable", reason="live_state_changed_during_projection", verified_endpoint=None)
+                if refinement is not None:
+                    refinement.update(stop_reason=report["reason"], stopped_round=current_round)
         try:
             if len(json.dumps(report, allow_nan=False, separators=(",", ":")).encode()) > MAX_RESULT_BYTES - 1024:
                 raise ValueError("projection_result_byte_budget")
         except (ValueError, TypeError) as error:
             selected = None
-            report.update(status="unavailable", reason=str(error)[:300], verified_endpoint=None, evaluations=[])
+            report.update(status="unavailable", reason=str(error)[:300], verified_endpoint=None)
+            if refinement is None:
+                report["evaluations"] = []
+            else:
+                refinement.update(stop_reason=report["reason"], stopped_round=current_round)
+                # The unaccepted endpoint is expendable; retain measured failures within the same cap.
+                try:
+                    fits = len(json.dumps(report, allow_nan=False, separators=(",", ":")).encode()) <= MAX_RESULT_BYTES - 1024
+                except (ValueError, TypeError):
+                    fits = False
+                if not fits:
+                    omitted = {"reason": "diagnostics_exceed_result_budget", "evaluations": len(report["evaluations"]),
+                               "rounds": len(refinement["rounds"])}
+                    report = {"status": "unavailable", "reason": report["reason"], "scope": SCOPE,
+                              "verified_endpoint": None, "evaluations": [], "diagnostic_omission": omitted,
+                              "refinement": {"strategy": self._config.candidate_strategy,
+                                  "stop_reason": report["reason"], "stopped_round": current_round,
+                                  "solver_sweeps_used": refinement["solver_sweeps_used"]}}
+                    refinement = report["refinement"]
         self._seconds = time.monotonic() - started
         report.update(self.describe())
         if self._seconds >= self._config.maximum_seconds:
             selected = None
             report.update(status="unavailable", reason="projection_active_compute_budget", verified_endpoint=None)
+            if refinement is not None:
+                refinement.update(stop_reason=report["reason"], stopped_round=current_round)
         return selected, report
 
 

@@ -1,7 +1,7 @@
 """Bounded search and measurement tests with a fake predictor, never native physics."""
 
 from copy import deepcopy
-from dataclasses import FrozenInstanceError
+from dataclasses import FrozenInstanceError, asdict
 from types import SimpleNamespace
 
 import numpy as np
@@ -11,7 +11,7 @@ from weft import shared_exercise_action_projection as projection
 from weft.shared_exercise_action_prediction import STATE_FIELDS, _identity
 
 
-def fixture(monkeypatch, *, roots=True, scale=1., effect=None):
+def fixture(monkeypatch, *, roots=True, scale=1., effect=None, module=projection):
     live = SimpleNamespace(time=1.6, **{name: np.zeros(0) for name in STATE_FIELDS})
     live.qpos, live.qvel = np.zeros(29), np.zeros(28)
     live.qpos[25] = 1.
@@ -48,7 +48,7 @@ def fixture(monkeypatch, *, roots=True, scale=1., effect=None):
         assert env_arg is env
         budgets.append(kwargs)
         return FakePredictor()
-    monkeypatch.setattr(projection, "prepare_action_predictor", prepare)
+    monkeypatch.setattr(module, "prepare_action_predictor", prepare)
     base = np.zeros(env.action_count)
     if roots:
         base[19:] = (.125, -.0, -.25)
@@ -385,3 +385,238 @@ def test_active_budget_stops_after_prediction_without_partial_search(monkeypatch
         config=projection.ProjectionConfig(maximum_seconds=.01)).project(item.base)
     assert action is None and report["reason"] == "projection_active_compute_budget"
     assert len(item.calls) == 1 and report["prediction_calls"] == 1
+
+
+def relinearization_config(**changes):
+    settings = {"candidate_strategy": "two_round_relinearization", "maximum_predictions": 48}
+    settings.update(changes)
+    return projection.ProjectionConfig(**settings)
+
+
+def curved_response(action, result, _):
+    x = float(action[0])
+    result["endpoint"]["qvel"][22] = .3 + 2 * x + 5 * x * x if x >= -.07 else .1845 + 4 * (x + .07)
+
+
+@pytest.mark.parametrize("dtype", [np.float32, np.float64])
+def test_relinearization_uses_fresh_measured_center_and_one_global_budget(monkeypatch, dtype):
+    item = fixture(monkeypatch, effect=curved_response)
+    base = item.base.astype(dtype)
+    before = _identity(item.live)
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(base)
+    assert action is not None and report["status"] == "selected"
+    assert len(item.calls) == report["prediction_calls"] == 46 and len(item.budgets) == 1
+    assert item.budgets == [{"maximum_predictions": 48, "maximum_seconds": 5.}]
+    first, second = report["refinement"]["rounds"]
+    assert second["center_evaluation_index"] == 20 and second["strict_measured_improvement"]
+    assert second["center_action"] == report["evaluations"][20]["action"]
+    assert second["center_normalized_violation"] < first["center_normalized_violation"]
+    assert first["prediction_calls"] == second["prediction_calls"] == 23
+    assert report["refinement"]["solver_sweeps_used"] == first["solver_sweeps"] + second["solver_sweeps"] <= 64
+    assert report["linear_model"] == first["linear_model"]
+    center = np.asarray(second["center_action"], dtype=dtype)
+    differences = [r for r in report["evaluations"] if r["kind"] == "finite_difference" and r["round"] == 2]
+    assert [r["joint"] for r in differences] == list(range(19))
+    for row in differences:
+        trial = np.asarray(row["action"], dtype=dtype)
+        assert np.flatnonzero(trial != center).tolist() == [row["joint"]]
+        assert float(trial[row["joint"]]) - float(center[row["joint"]]) == row["difference"] != 0
+    for trial in item.calls:
+        assert trial.dtype == base.dtype and trial[19:].tobytes() == base[19:].tobytes()
+        assert np.all(abs(trial[:19].astype(float) - base[:19]) <= .25) and np.all(abs(trial) <= 1)
+    assert report["evaluations"][-1]["kind"] == "selected_repeat"
+    assert report["native_counts"]["native_substeps"] == 46 * 16
+    assert report["native_counts"]["data_allocations"] == 1 and _identity(item.live) == before
+
+
+@pytest.mark.parametrize("maximum, expected_calls", [(45, 23), (46, 46)])
+def test_relinearization_reserves_all_differences_candidates_and_repeat(monkeypatch, maximum, expected_calls):
+    item = fixture(monkeypatch, effect=curved_response)
+    action, report = projection.prepare_action_projector(item.env,
+        config=relinearization_config(maximum_predictions=maximum)).project(item.base)
+    assert len(item.calls) == expected_calls
+    if maximum == 45:
+        assert action is None and len(report["refinement"]["rounds"]) == 1
+        assert report["refinement"]["stop_reason"] == "insufficient_budget_for_complete_second_round"
+    else:
+        assert action is not None and report["status"] == "selected"
+
+
+def test_relinearization_requires_strict_measured_improvement(monkeypatch):
+    item = fixture(monkeypatch, effect=lambda action, result, _: result["endpoint"]["qvel"].__setitem__(22, .3))
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    assert action is None and len(item.calls) == 20
+    assert report["refinement"]["stop_reason"] == "no_strict_measured_improvement"
+    assert len(report["refinement"]["rounds"]) == 1
+
+
+@pytest.mark.parametrize("with_candidates", [False, True])
+def test_relinearization_center_uses_violation_then_distance_then_encounter_order(monkeypatch, with_candidates):
+    def effect(action, result, _):
+        result["endpoint"]["qvel"][22] = .2 if np.any(action[:19]) else .3
+    item = fixture(monkeypatch, effect=effect)
+    if not with_candidates:
+        monkeypatch.setattr(projection, "_linear_projection", lambda *args: (None, {"status": "row_box_conflict", "sweeps": 0}))
+    _, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    second = report["refinement"]["rounds"][1]
+    limits = np.asarray([r["limit"] for r in report["constraints"]])
+    first_rows = [(index, row) for index, row in enumerate(report["evaluations"]) if row["round"] == 1]
+    keys = [(max(0., float(np.max(np.asarray(row["values"]) / limits)) - 1.),
+             float(np.sum((np.asarray(row["action"][:19]) - item.base[:19]) ** 2)), index)
+            for index, row in first_rows]
+    assert second["center_evaluation_index"] == min(keys)[2] == (22 if with_candidates else 1)
+
+
+@pytest.mark.parametrize("passes", [False, True])
+def test_relinearization_does_not_reset_exhausted_sweeps_or_discard_first_pass(monkeypatch, passes):
+    item = fixture(monkeypatch, effect=curved_response)
+    def exhausted(matrix, bound, lower, upper, maximum_sweeps, check):
+        for _ in range(maximum_sweeps):
+            check()
+        delta = np.zeros(19); delta[0] = -.1 if passes else -.06
+        return delta, {"status": "iteration_limit", "sweeps": maximum_sweeps, "proposal_only": True}
+    monkeypatch.setattr(projection, "_linear_projection", exhausted)
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    assert report["refinement"]["solver_sweeps_used"] == 64 and len(report["refinement"]["rounds"]) == 1
+    assert len(item.calls) == (24 if passes else 23)
+    assert report["refinement"]["stop_reason"] == ("passing_candidate_available" if passes else "aggregate_solver_sweep_budget")
+    assert (action is not None) == passes
+
+
+def test_relinearization_solver_receives_only_remaining_sweeps(monkeypatch):
+    item = fixture(monkeypatch, effect=curved_response)
+    original, supplied = projection._linear_projection, []
+    def counted(matrix, bound, lower, upper, maximum_sweeps, check):
+        supplied.append(maximum_sweeps)
+        return original(matrix, bound, lower, upper, maximum_sweeps, check)
+    monkeypatch.setattr(projection, "_linear_projection", counted)
+    _, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    first, second = report["refinement"]["rounds"]
+    assert supplied == [64, 64 - first["solver_sweeps"]]
+    assert first["solver_sweeps"] + second["solver_sweeps"] <= 64
+
+
+def test_relinearization_keeps_passing_difference_when_second_model_conflicts(monkeypatch):
+    def effect(action, result, call):
+        curved_response(action, result, call)
+        if action[0] < -.05 and action[1] >= .1:
+            result["endpoint"]["qvel"][22] = .1
+    item = fixture(monkeypatch, effect=effect)
+    original, solves = projection._linear_projection, []
+    def solve(*args):
+        solves.append(1)
+        return original(*args) if len(solves) == 1 else (None, {"status": "row_box_conflict", "sweeps": 0})
+    monkeypatch.setattr(projection, "_linear_projection", solve)
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    assert action is not None and action[1] == .1 and len(item.calls) == 43
+    assert report["refinement"]["rounds"][1]["linear_model"]["status"] == "row_box_conflict"
+    assert report["evaluations"][-1]["kind"] == "selected_repeat"
+
+
+@pytest.mark.parametrize("damage", ["endpoint", "contacts", "unavailable", "timeout", "live_state"])
+def test_relinearization_failure_keeps_earlier_diagnostics_and_actual_attempt(monkeypatch, damage):
+    clock = [0.]
+    def effect(action, result, call):
+        curved_response(action, result, call)
+        if call == 46 and damage == "endpoint":
+            result["endpoint"]["ctrl"][0] = .123
+        if call == 46 and damage == "contacts":
+            result["substep_contacts"][0]["contacts"]["extra"] = True
+        if call == 24 and damage == "unavailable":
+            result.update(status="unavailable", reason="authored_failure", endpoint=None)
+        if call == 24 and damage == "timeout":
+            clock[0] = 6.
+        if call == 24 and damage == "live_state":
+            item.live.time = 2.
+    item = fixture(monkeypatch, effect=effect)
+    monkeypatch.setattr(projection.time, "monotonic", lambda: clock[0])
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    assert action is None and report["status"] == "unavailable" and report["verified_endpoint"] is None
+    assert len([r for r in report["evaluations"] if r["round"] == 1]) == 23
+    assert report["refinement"]["stop_reason"] == report["reason"] != "not_started"
+    if damage in {"endpoint", "contacts"}:
+        assert len(item.calls) == 46 and report["reason"] == "selected_prediction_not_repeatable"
+    else:
+        assert len(item.calls) == 24 and report["failed_evaluation"]["round"] == 2
+        assert report["failed_evaluation"]["kind"] == "finite_difference" and report["failed_evaluation"]["joint"] == 0
+        assert report["failed_evaluation"]["prediction_attempted"]
+        assert report["failed_evaluation"]["action"] == item.calls[-1].tolist()
+
+
+@pytest.mark.parametrize("dtype", [np.float32, np.float64])
+def test_relinearization_differences_stay_inside_original_box_and_preserve_other_bytes(dtype):
+    base = np.tile([1., -1., -.1, .1], 6)[:22].astype(dtype)
+    base[19:] = [.125, -.0, -.25]
+    center = projection._bounded_trial(base, np.tile([-.25, .25], 10)[:19], .25)
+    for joint in range(19):
+        trial, difference = projection._center_difference(base, center, joint, .1, .25)
+        keep = np.arange(len(base)) != joint
+        assert trial[keep].tobytes() == center[keep].tobytes() and difference != 0
+        assert np.all(abs(trial) <= 1) and np.all(abs(trial[:19].astype(float) - base[:19]) <= .25)
+    with pytest.raises(RuntimeError, match="unavailable_relinearization_difference"):
+        projection._center_difference(base, center, 0, 0., .25)
+
+
+@pytest.mark.parametrize("dtype", [np.float32, np.float64])
+def test_relinearization_difference_rounds_inward_at_representable_trust_face(dtype):
+    base = np.zeros(22, dtype=dtype); base[0] = -.1
+    trial, difference = projection._center_difference(base, base.copy(), 0, .25, .25)
+    assert 0 < difference <= .25 and difference == float(trial[0]) - float(base[0])
+    assert trial[1:].tobytes() == base[1:].tobytes()
+    if dtype == np.float32:
+        outside = np.float32(float(base[0]) + .25)
+        assert float(outside) - float(base[0]) > .25
+        assert trial[0] == np.nextafter(outside, np.float32(-np.inf))
+
+
+@pytest.mark.parametrize("settings", [{"candidate_strategy": "unknown"}, {"candidate_strategy": True},
+    {"candidate_strategy": "two_round_relinearization", "maximum_predictions": 49}])
+def test_relinearization_configuration_rejects_unbounded_or_unknown_strategy(settings):
+    with pytest.raises(ValueError):
+        projection.ProjectionConfig(**settings)
+
+
+def test_relinearization_configuration_round_trip_preserves_explicit_opt_in():
+    config = relinearization_config()
+    assert projection.ProjectionConfig(**asdict(config)) == config
+    assert projection.ProjectionConfig().candidate_strategy == "single_round"
+    assert projection.ProjectionConfig().maximum_predictions == 24
+
+
+def test_relinearization_second_candidates_clip_to_original_not_center_box(monkeypatch):
+    item = fixture(monkeypatch, effect=curved_response)
+    original, solves = projection._linear_projection, []
+    def solve(*args):
+        solves.append(1)
+        if len(solves) == 1:
+            return original(*args)
+        args[-1]()
+        delta = np.zeros(19); delta[0] = -.5
+        return delta, {"status": "converged", "sweeps": 1}
+    monkeypatch.setattr(projection, "_linear_projection", solve)
+    _, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    candidates = [r for r in report["evaluations"] if r["round"] == 2 and r["kind"] == "candidate"]
+    assert candidates[0]["action"][0] == candidates[1]["action"][0] == -.25
+    assert all(np.all(abs(trial[:19] - item.base[:19]) <= .25) for trial in item.calls)
+
+
+@pytest.mark.parametrize("fits_after_endpoint_removed", [False, True])
+def test_relinearization_output_cap_preserves_measured_failures_or_explicit_omission(monkeypatch, fits_after_endpoint_removed):
+    def effect(action, result, call):
+        curved_response(action, result, call)
+        if fits_after_endpoint_removed:
+            result["endpoint"]["userdata"] = [0.] * 20000
+    item = fixture(monkeypatch, effect=effect)
+    cap = 65536 if fits_after_endpoint_removed else 4096
+    monkeypatch.setattr(projection, "MAX_RESULT_BYTES", cap)
+    action, report = projection.prepare_action_projector(item.env, config=relinearization_config()).project(item.base)
+    assert action is None and report["reason"] == "projection_result_byte_budget"
+    assert report["refinement"]["stop_reason"] == report["reason"]
+    assert report["refinement"]["stopped_round"] == 2 and report["verified_endpoint"] is None
+    assert len(projection.json.dumps(report, separators=(",", ":")).encode()) < cap
+    if fits_after_endpoint_removed:
+        assert len(report["evaluations"]) == 46 and len(report["refinement"]["rounds"]) == 2
+        assert "diagnostic_omission" not in report
+    else:
+        assert report["evaluations"] == [] and report["diagnostic_omission"]["evaluations"] == 46
+        assert report["diagnostic_omission"]["rounds"] == 2

@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-## Current full-rollout and equipment-depth work — November 1, 2026, 12:04 PM PST
+## Current contact-refinement and depth work — November 1, 2026, 12:32 PM PST
 
 The complete goal remains active. The interactive lab and recording workflow remain
 usable; the new contact-action projector is experimental and has not completed the
@@ -45,19 +45,35 @@ Parallel ownership:
   in the existing projector and focused tests. A fresh measured response may be
   taken only at an actually improved candidate. Same original-base trust/root/gates,
   at most 48 predictions, one five-second lifetime and 64 aggregate solver sweeps;
-  default single-round output unchanged. No native acceptance of this new method yet.
+  default single-round output unchanged. Implementation and independent review are
+  complete: 47 distinct focused pure checks pass, including 12 exact saved-default
+  comparisons. See [contract and release pins](equipment-action-relinearization.md).
+  Its new native experiment is complete and still abstains at control50: 45
+  predictions, two converged local solves/four aggregate sweeps, no actual50 or
+  fallback. All49 prefix controls and all23 first-round predictions match saved
+  results; live state and accumulated task metrics remain unchanged. Its
+  [saved diagnosis](equipment-action-relinearization-diagnosis.md) is complete:
+  best measured normalized violation improves only1.12338→1.02970; speed/spin
+  still fail. The full candidate is falsely predicted feasible despite a converged
+  solve. The `.1` coordinate probes exceed candidate component changes by2.657×
+  to10.628×; this supports testing derivative scale, not a feasibility claim.
 - `/root/reconstruction_next_step`: [explicit depth core](equipment-depth-prior-core.md)
   is root-reviewed, with 101 distinct guarded analytical checks and all release pins
   verified. Root completed ratio-one native acceptance using the existing equal-depth
-  assumption; this agent now documents the outcome and performs a small saved-only
-  numerical/provenance/report audit. No new real-object ratio is inferred.
+  assumption; its saved-only numerical/provenance/report audit is complete. This
+  agent finished the [two-round native result handoff](equipment-action-relinearization-native.md).
+  It now prepares a separate fixed-center `.025` diagnostic:19 new predictions
+  after49 exact prefix controls, using the same measured center and three saved
+  candidate responses. No optimization/new candidate/actual50; original runtime
+  and gates stay fixed. No new real-object ratio is inferred.
 - `/root/equipment_control_review`: [guided depth workflow](equipment-depth-prior-workflow.md)
   is complete and root-reviewed: 25 distinct checks pass (22 new, three affected
   legacy), with actual request→configuration→proposal composition under explicit
   native mocks. The unchanged compiler forwards complete priors. A 12-object,
   2,000-character-per-object fake-DOM batch takes 20.474 ms for 240 edits, adds no
   nodes and retains all 60 row handlers. No browser-performance claim. Product
-  files are frozen; no active job in this lane.
+  files are frozen. This reviewer now checks the new fixed-center diagnostic
+  criteria and harness, with no duplicate native or source verification.
 - Root: integration, bounded execution, TODO/combined records and scoped Git work.
 
 The [depth native check](equipment-depth-prior-native.md) passes in 4.158781 seconds /
@@ -78,6 +94,21 @@ Attempt01 is preserved: an isolated test-loader resource-reader error before any
 public stage/native/source-proof call. Attempt02 changes only that harness loader
 after an exact no-native palette-resource check; no product or gate was changed.
 
+The two-round run completed in **1.259598 seconds /138,346,496 B peak RSS**,
+with five files/282,542 B. Native counts: 11 models, two data objects, 96 forwards,
+one reset, 1,504 substeps and45 copies. Result directory:
+`artifacts/equipment-action-relinearization-native-02`; frozen plan
+`6ce2135128459539b5e5225e68610260cb578911ff7e0fd349e02b41b6b7609a`,
+seal `a8bd7d3558d0ad7a73e1971a6463d18bc9c593371eaf2f7d185177f9daf27b3e`.
+Root independently verified all four sealed members and retained a saved-only audit:
+`.local/equipment-action-relinearization-native-02/saved-audit-01.json`, SHA
+`3f8b9ab9885ca33143c3c8157226155a2d018025ec1026f4704e02aa0859b2c8`.
+The first launch is preserved: sandbox permissions denied the `/bin/ps` memory
+observer before worker output; pid42422 was killed/reaped at0.0052seconds.
+The fresh attempt retained the same runtime/limits and used narrow approved
+process-observer permission; pid42861 is terminal/reaped. No failed artifact was
+overwritten and no memory check was removed.
+
 All executed native handles are terminal/reaped. The depth work preserves original
 body/floor/camera/source clocks and all dimension, projection and collision gates.
 Supplied depth and provenance remain assumptions, not verified measurements/contact.
@@ -93,13 +124,24 @@ additional mutation was needed. That approval does not cover later depth work. R
 Earlier remote observation:
 `.local/equipment-action-controller-remote-observation-01.json`, SHA
 `dca528fe87ece4aa4330e7ce17760505f003a78043ddd56db0f84fcde86ce6b0`.
-The new 15-file depth checkpoint is local at
-`0c36f278b01f63d3af2efa66756fed38fc9fb9d7`; exact committed paths/pins, clean owned
-scope/index and empty stash were verified in `.local/equipment-depth-prior-checkpoint-01.json`.
-Native-result documentation and the new controller lane are subsequent work.
-Preserve all independent avatar work. Next: checkpoint the completed native evidence
-and request exact publication approval, while reviewing the new bounded controller
-implementation. These improvements do not close unfamiliar-video or physical-accuracy gaps.
+The depth feature and terminal evidence are now published and independently
+remote-verified at `00fbd9779e5a5a172b7edb7dbbf51af60b9dcf1d`, including the 15-file
+feature checkpoint `0c36f278b01f63d3af2efa66756fed38fc9fb9d7`. Ivan explicitly approved
+the exact new checkpoint, then said **"always approve merging!!"**. Treat this as
+standing authorization to merge/push relevant, verified Weft changes for this goal
+without another per-checkpoint question; the updated `AGENTS.md` records its scope.
+Other authorization boundaries and repository protections still apply.
+Publication receipt `.local/equipment-depth-prior-publication-01.json`, SHA
+`ace884bb0cd2cae5cc40327ef8abf982943d955be2e02be169f3676bc5354065`.
+A fresh fetch now matches local/remote `48aa8ff571aa9f993bce23e98e575febb72c3e36`,
+including the separate avatar delivery. Stash/index were empty; two independently
+owned avatar edits remain. Root is publishing only the reviewed two-round source,
+47-check evidence, native abstention/diagnosis and standing-approval records. The
+exact new commit/remote outcome belongs in `.local/equipment-action-relinearization-publication-01.json`;
+absence means publication is unfinished. Do not include the next unexecuted diagnostic
+preparation or independent avatar edits. Next: review/freeze its one bounded run,
+then use the saved comparisons to decide whether the smaller probes help.
+These improvements do not close unfamiliar-video or physical-accuracy gaps.
 
 ## Historical prediction and lab-memory work — November 1, 2026, 11:10 AM PST
 

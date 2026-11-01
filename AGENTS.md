@@ -22,6 +22,7 @@ The selected logo is `assets/brand/exports/weft-logo.png` (v3 lettering and layo
 - The user explicitly instructed: **Do not submit anything.** Do not submit applications, projects, credits forms, posts, or messages, or accept agreements on the user's behalf.
 - The user authorized a private GitHub repository under `kintsugi-software`, including the prepared reference files. The current website request additionally authorizes hosted visitor submissions in Kintsugi Software’s Cloudflare account. Use the bounded Weft-specific deployment in `hosting/`; no account upgrade, unrelated paid resource, or public-repository publication is authorized.
 - Pull requests are optional, not a prerequisite to merging. An explicit user merge request authorizes merging and pushing the current work directly to the requested branch without a separate PR-review gate. Honor requested branch/worktree cleanup, preserve saved evidence, and respect actual repository protections.
+- Standing authorization, November 1, 2026: the user said "always approve merging!!" Merge and push relevant, verified Weft changes for this goal without another per-checkpoint confirmation. This supersedes the earlier per-change approval requirement for this work, not repository protections or authorization boundaries for unrelated changes, deployment, spending or destructive history edits.
 - Work directly on `main`. Do not create other branches unless the user explicitly requests one.
 - Do not rename sessions or threads unless explicitly requested.
 - Never mention Codex in commit messages.
