@@ -152,7 +152,8 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
         from weft.shared_world_reconstruction import translate_shared_world_xy
         base, frame_receipt = checked(translate_shared_world_xy, base, frame_translation)
     scene = checked(construct_equipment_world, base, proposal, source_binding=binding,
-        construction_evidence=construction, human_document=human_document, target_object_id=target_object_id)
+        construction_evidence=construction, human_document=human_document, target_object_id=target_object_id,
+        **({'deadline': deadline} if proposal.get('proposer', {}).get('frame_selection') is not None else {}))
     initial_interval = {key: scene["task"][key] for key in ("start_offset_s", "horizon_steps")}
     if full_reference:
         # Choose the new task before packaging; never stretch an existing task or policy in place.
@@ -170,6 +171,18 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                   "inputs/base-scene.json": base_raw, "inputs/base-manifest.json": base_manifest,
                   "inputs/human.json": human_document, "inputs/proposal-manifest.json": proposal_manifest,
                   "inputs/evidence-manifest.json": evidence_manifest})
+    if proposal.get('proposer', {}).get('frame_selection') is not None:
+        from weft.equipment_box_consensus import validate_selection_reference
+
+        selections = {item['object_id']: item['frame_selection_receipt'] for item in proposal['equipment']
+                      if 'frame_selection_receipt' in item}
+        references = {obj['id']: obj['provenance']['frame_selection_reference'] for obj in scene['objects']
+                      if 'frame_selection_reference' in obj['provenance']}
+        if set(references) != set(selections):
+            raise ValueError('Scene selection references differ from the complete proposal receipts')
+        for name, reference in references.items():
+            validate_selection_reference(reference, selections[name])
+        files['frame-selection.json'] = _bytes(selections)
     if "report.json" in proposal_files:
         files["geometry-study.json"] = _sealed_file(proposal_run, proposal_files, "report.json")
     inspection_files = [name for name in proposal_files if name in {
@@ -206,6 +219,8 @@ def construct_source_equipment_run(base_run, proposal_run, evidence_run, out, *,
                 files[Path(name).name] = _sealed_file(base_run, base_files, name)
     depth_modules = (("equipment_proposal_config.py",) if proposal.get("proposer", {}).get("method") ==
                      "explicit-fixed-pelvis-floor-box-depth-ratio-proposal-v1" else ())
+    if proposal.get('proposer', {}).get('frame_selection') is not None:
+        depth_modules = tuple(dict.fromkeys((*depth_modules, 'equipment_proposal_config.py', 'equipment_box_consensus.py', 'io.py')))
     for name in ("shared_world_pipeline.py", "shared_world_reconstruction.py", "shared_world.py",
                  "shared_world_observation.py",
                  "shared_world_evidence.py", "shared_world_packaging.py", "source_equivalence.py",

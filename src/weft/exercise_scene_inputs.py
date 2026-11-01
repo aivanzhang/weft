@@ -418,6 +418,23 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
     indexed = {(row["object_id"], row["frame"]): row for row in filtered["observations"]}
     selected, evidence_rows = [], {row["id"]: row for row in document["evidence"]}
     for choice in config["equipment"]:
+        if 'frame_selection' in choice:
+            candidates = [row for row in filtered['observations'] if row['object_id'] == choice['object_id']
+                          and row['admission'] == 'included' and row['visibility'] in {'detected', 'partial'}]
+            if not candidates:
+                raise ValueError('Automatic equipment selection requires visible construction candidates; body-reference eligibility remains deferred')
+            for row in candidates:
+                _check(deadline)
+                box = row['measurements'].get('box', {})
+                if (len(row['evidence_refs']) != 1 or (box.get('coordinate_system'), box.get('unit'), box.get('status'))
+                        != ('image', 'pixels', 'inferred') or box['value'][2] <= 0 or box['value'][3] <= 0):
+                    raise ValueError('Automatic equipment candidates require one inferred construction box each')
+                payload = evidence_rows[row['evidence_refs'][0]['evidence_id']]['payload']
+                if str(payload.get('geometry_status', '')).startswith('authored_initial_ROI'):
+                    raise ValueError('Appearance-translated authored ROIs are not inferred equipment boundaries')
+            selected.append({**choice, 'observation_document_sha256': document_sha,
+                             'frame_selection_status': 'deferred_until_body_references'})
+            continue
         row = indexed.get((choice["object_id"], choice["source_frame"]))
         if (row is None or row["admission"] != "included" or row["visibility"] not in {"detected", "partial"}
                 or len(row["evidence_refs"]) != 1):
@@ -434,7 +451,8 @@ def preflight_exercise_scene_inputs(video, evidence_run, config_path, *, pose_mo
         selected.append({**choice, "evidence_id": identifier, "time_s": row["time_s"],
                          "observation_document_sha256": document_sha})
 
-    provenance, implementation = _model_pins(reader, model, pose_recovery, IMPLEMENTATION_FILES)
+    dependencies = (*IMPLEMENTATION_FILES, 'equipment_box_consensus.py') if any('frame_selection' in row for row in config['equipment']) else IMPLEMENTATION_FILES
+    provenance, implementation = _model_pins(reader, model, pose_recovery, dependencies)
     receipt = {"schema_version": 1, "profile": PROFILE, "status": "input_preflight_passed",
         "source_sha256": source_sha, "source_bytes": reader.pins[video].size,
         "equipment_manifest_sha256": reader.pins[evidence / "manifest.json"].sha256,

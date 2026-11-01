@@ -95,6 +95,7 @@ _OTHER_DOCS = {
     "proposal/geometry-candidate.rejected.json": ("Equipment", "Rejected geometry candidate"),
     "proposal/geometry-proposal.json": ("Equipment", "Authored geometry proposal"),
     "proposal/input-config.json": ("Equipment", "Explicit camera, shape and material assumptions"),
+    "proposal/frame-selection.json": ("Equipment", "Saved equipment-frame selections and complete observations"),
     "proposal/initial-geometry-admission.json": ("Equipment", "Saved initial-geometry check"),
     "proposal/frame-migration.json": ("Equipment", "Coordinate-frame translation checks"),
     "proposal/source-binding.json": ("Equipment", "Body/equipment source-slot bindings"),
@@ -567,6 +568,33 @@ def _small_fields(value, keys):
     return result
 
 
+def _candidate_summary(value, artifact):
+    if not isinstance(value, dict):
+        raise ValueError("Expected saved inspection metadata object")
+    equipment = value.get("equipment", [])
+    if not isinstance(equipment, list) or len(equipment) > 128 or any(not isinstance(row, dict) for row in equipment):
+        raise ValueError("Invalid or oversized saved equipment list")
+    rows = []
+    for index, row in enumerate(equipment):
+        if "frame_selection_receipt" not in row:
+            rows.append(row)
+            continue
+        receipt = row["frame_selection_receipt"]
+        if not isinstance(receipt, dict) or "frame_selection_summary" in row:
+            raise ValueError("Invalid or conflicting saved frame-selection metadata")
+        # Complete observations stay in the linked artifact, not the bounded display summary.
+        summary = {key: receipt[key] for key in ("profile", "method", "status", "selected") if key in receipt}
+        summary.update(receipt_sha256=canonical_hash(receipt), receipt_hash_kind="canonical_json_sha256",
+                       source_artifact=artifact, equipment_index=index,
+                       scope="Display summary only; the complete receipt remains in the linked proposal. Not revalidated here.")
+        rows.append({**{key: item for key, item in row.items() if key != "frame_selection_receipt"},
+                     "frame_selection_summary": summary})
+    selected = {key: value[key] for key in ("status", "camera_hypothesis", "equipment") if key in value}
+    if "equipment" in selected:
+        selected["equipment"] = rows
+    return _small_fields(selected, ("status", "camera_hypothesis", "equipment"))
+
+
 def _reference_feasibility(source, source_sha256=None):
     name = "candidate/reference-feasibility.json"
     unavailable = {"status": "unavailable", "physical_validation": "unverified",
@@ -846,7 +874,7 @@ def _summary(source, body_prefix, video):
     geometry_name = next((name for name in ("proposal/geometry-candidate.rejected.json", "proposal/geometry-proposal.json") if name in source.files), None)
     if geometry_name:
         geometry = source.document(geometry_name)
-        result["equipment"]["candidate"] = _small_fields(geometry, ("status", "camera_hypothesis", "equipment"))
+        result["equipment"]["candidate"] = _candidate_summary(geometry, geometry_name)
         result["assumptions"].extend(_strings(geometry.get("assumptions", [])))
     result["assumptions"] = list(dict.fromkeys(result["assumptions"]))
     if settings.get("scene_scope") == "human_only":

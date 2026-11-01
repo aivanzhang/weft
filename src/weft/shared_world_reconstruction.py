@@ -224,7 +224,7 @@ def _check_initial_geometry(scene, frames):
 
 
 def _construct_equipment_world(base_scene, proposal, *, source_binding, construction_evidence,
-                               human_document, target_object_id):
+                               human_document, target_object_id, deadline=None):
     base = validate_shared_world(base_scene)
     if (base['source_binding']['mode'] != 'source_qualified' or base['controlled_id'] != 'human'
             or base['task']['start_offset_s'] != 0
@@ -274,9 +274,30 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
     ratio_mode = proposal.get('proposer', {}).get('method') == 'explicit-fixed-pelvis-floor-box-depth-ratio-proposal-v1'
     if ratio_mode:
         from weft.equipment_proposal_config import validate_depth_prior
+    selection = proposal.get('proposer', {}).get('frame_selection')
+    selections = {}
+    if selection is not None:
+        from weft.equipment_proposal_config import CONSENSUS_METHOD
+        from weft.equipment_box_consensus import select_equipment_box_frames, selection_reference
+        if (not isinstance(selection, dict) or set(selection) != {'method', 'object_ids'}
+                or selection['method'] != CONSENSUS_METHOD or not isinstance(selection['object_ids'], list)
+                or selection['object_ids'] != [item['object_id'] for item in equipment if 'frame_selection_receipt' in item]
+                or not selection['object_ids']):
+            raise ValueError('Equipment frame-selection declaration differs from its complete receipts')
+        references = [{'index': i, 'source_frame': frame, **{key: human['reference_evidence'][i][key]
+                       for key in ('evidence_id', 'time_s')}} for i, frame in enumerate(frames)]
+        selections = select_equipment_box_frames(construction_evidence, source_binding=binding,
+            body_references=references, object_ids=selection['object_ids'], deadline=deadline)
     for item in equipment:
         name, geometry = item['object_id'], item['geometry']
         frame, evidence_id = item['source_frame'], item['source_evidence_id']
+        if name in selections:
+            expected = selections[name]
+            if (canonical_hash(expected) != canonical_hash(item.get('frame_selection_receipt')) or expected['status'] != 'selected'
+                    or expected['selected']['source_frame'] != frame or expected['selected']['evidence_id'] != evidence_id):
+                raise ValueError('Equipment frame-selection receipt or observed choice differs from complete source rederivation')
+        elif 'frame_selection_receipt' in item:
+            raise ValueError('Equipment frame-selection receipt requires the explicit selection declaration')
         expected_status = 'authored_floor_box_ratio_candidate' if ratio_mode else 'authored_floor_box_candidate'
         if (geometry.get('status') != expected_status or geometry.get('geometry_failures', [])
                 or type(frame) is not int or frame not in frames or frame < frames[0]
@@ -325,6 +346,7 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
                 'source_bounds_px': bounds, 'projected_bounds_px': projected.tolist(),
                 'camera_hypothesis': camera, 'geometry_model_units': {'center': center.tolist(), 'half_extents': half.tolist()},
                 **({'depth_prior': depth_prior} if ratio_mode else {}),
+                **({'frame_selection_reference': selection_reference(selections[name])} if name in selections else {}),
                 'uncertainty': {'identity': 'unverified_model_association',
                                 'depth': 'supplied_depth_ratio_not_physically_verified' if ratio_mode else 'authored_perspective_and_depth_equals_width',
                                 'support': 'authored_fixed_floor_not_observed_contact', 'shape': 'solid_box_without_handle_or_cavity',
@@ -357,11 +379,11 @@ def _construct_equipment_world(base_scene, proposal, *, source_binding, construc
 
 
 def construct_equipment_world(base_scene, proposal, *, source_binding, construction_evidence: bytes,
-                              human_document: bytes, target_object_id: str):
+                              human_document: bytes, target_object_id: str, deadline=None):
     """Return a new validated scene; source-media verification remains the packager's responsibility."""
     try:
         return _construct_equipment_world(base_scene, proposal, source_binding=source_binding,
-            construction_evidence=construction_evidence, human_document=human_document, target_object_id=target_object_id)
+            construction_evidence=construction_evidence, human_document=human_document, target_object_id=target_object_id, deadline=deadline)
     except (KeyError, TypeError, IndexError, AttributeError) as error:
         raise ValueError('Malformed equipment proposal, source binding or filtered evidence') from error
 

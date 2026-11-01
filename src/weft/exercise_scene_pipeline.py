@@ -85,13 +85,18 @@ def _inventory(root, deadline, *, immutable_only, limits=None):
     return files, total
 
 
-def _reserve_stage(root, name, deadline, *, limits=None, allowance=None):
+def _reserve_stage(root, name, deadline, *, limits=None, allowance=None, cap_to_remaining=False):
     maximum_files, maximum_bytes = limits or (MAX_FILES, MAX_BYTES)
     files, total = _inventory(root, deadline, immutable_only=False, limits=limits)
     count, size = allowance or STAGE_LIMITS[name]
-    if (len(files) + count + METADATA_RESERVE_FILES > maximum_files or
+    if cap_to_remaining:
+        # The final lab enforces this smaller allowance before writing its complete closure.
+        count = min(count, maximum_files - len(files) - METADATA_RESERVE_FILES)
+        size = min(size, maximum_bytes - total - METADATA_RESERVE_BYTES)
+    if (count < 1 or size < 1 or len(files) + count + METADATA_RESERVE_FILES > maximum_files or
             total + size + METADATA_RESERVE_BYTES > maximum_bytes):
         raise ValueError(f"Exercise assembly cannot reserve the complete {name} output within its aggregate bound")
+    return count, size
 
 
 def _seal(root, result, *, deadline, started, limits=None, retained_stages=None):
@@ -509,10 +514,10 @@ def prepare_exercise_scene(base_run, evidence_run, config_path, out, *, source_m
             completed_lab = completed_learning
             stage("learning_workflow", "ready", manifest_sha256=completed_learning["manifest_sha256"])
         else:
-            _reserve_stage(target, "interactive_lab", deadline, limits=limits)
-            stage("interactive_lab", "running")
+            lab_limits = _reserve_stage(target, "interactive_lab", deadline, limits=limits, cap_to_remaining=True)
+            stage("interactive_lab", "running", output_limits={"files": lab_limits[0], "bytes": lab_limits[1]})
             completed_lab = prepare_shared_exercise_lab(target / "candidate", target / "lab",
-                root_assistance=root_assistance, max_seconds=min(60, remaining()))
+                root_assistance=root_assistance, max_seconds=min(60, remaining()), output_limits=lab_limits)
             stage("interactive_lab", "ready", manifest_sha256=completed_lab["manifest_sha256"])
         remaining()
         return finish("ready")

@@ -13,12 +13,19 @@ DEPTH_RATIO_PRIOR = 'floor_box_explicit_depth_ratio'
 MIN_DEPTH_TO_WIDTH_RATIO = .005 / .6
 MAX_DEPTH_TO_WIDTH_RATIO = .6 / .005
 MAX_DEPTH_PROVENANCE_CHARS = 2000
+CONSENSUS_METHOD = 'construction_box_consensus_v1'
 
 
 class EquipmentProposalError(ValueError):
     def __init__(self, code, message):
         super().__init__(message)
         self.code = code
+
+
+def validate_frame_selection(value):
+    if not isinstance(value, dict) or value != {'method': CONSENSUS_METHOD}:
+        raise EquipmentProposalError('invalid_frame_selection', 'Use exactly the explicit construction_box_consensus_v1 frame-selection method')
+    return deepcopy(value)
 
 
 def validate_depth_prior(value):
@@ -56,15 +63,19 @@ def validate_proposal_config(config):
         raise EquipmentProposalError('invalid_equipment_selection', 'Select one to twelve equipment observation entities')
     ids = set()
     for obj in objects:
-        if not isinstance(obj, dict) or set(obj) != {'object_id', 'source_frame'} | ({'depth_prior'} if ratio_prior else set()):
+        automatic = isinstance(obj, dict) and 'frame_selection' in obj
+        selection_key = 'frame_selection' if automatic else 'source_frame'
+        if not isinstance(obj, dict) or set(obj) != {'object_id', selection_key} | ({'depth_prior'} if ratio_prior else set()):
             message = ('Each explicit-depth selection requires object_id, source_frame and depth_prior only' if ratio_prior
                        else 'Each equipment selection requires object_id and source_frame only')
             raise EquipmentProposalError('invalid_equipment_selection', message)
         if ratio_prior:
             validate_depth_prior(obj['depth_prior'])
-        name, frame = obj['object_id'], obj['source_frame']
+        if automatic:
+            validate_frame_selection(obj['frame_selection'])
+        name, frame = obj['object_id'], obj.get('source_frame')
         if (not isinstance(name, str) or not 1 <= len(name) <= 80 or name in ids or name == 'human' or
-                type(frame) is not int or not 0 <= frame < 1800):
+                not automatic and (type(frame) is not int or not 0 <= frame < 1800)):
             raise EquipmentProposalError('invalid_equipment_selection', 'Equipment identities must be unique and source frames explicit bounded integers')
         ids.add(name)
     if config['target_object_id'] not in ids:

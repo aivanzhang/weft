@@ -342,7 +342,7 @@ def _compile(request, snapshot, documents, proofs, deadline):
             and type(options['root_assistance']) is bool):
         valid_options=dict(options)
     else: errors.append(_issue('invalid_build_options','Body scale must be finite [.5,2] and root assistance an explicit boolean.'))
-    config=None
+    config=None; frame_selection=None
     if not missing and not errors and not snapshot['issues']:
         try:
             human,equipment=snapshot['observation_sources']; ref=request['human_entity_ref']
@@ -361,17 +361,32 @@ def _compile(request, snapshot, documents, proofs, deadline):
             config=validate_proposal_config(value)
             indexed={(r['object_id'],r['source_frame']):r for r in equipment['slots']}
             for chosen in config['equipment']:
+                if 'frame_selection' in chosen:
+                    continue
                 row=indexed.get((chosen['object_id'],chosen['source_frame']))
                 _require(row is not None and row['selection_eligible'],'Selected equipment frame is unavailable, excluded or not an original body reference')
             ids=[r['object_id'] for r in config['equipment']]
-            build_shared_world_binding(documents,source_sha256=snapshot['source_sha256'],world_ids=['human',*ids],
+            binding,construction=build_shared_world_binding(documents,source_sha256=snapshot['source_sha256'],world_ids=['human',*ids],
                 entity_refs={'human':(ref['document_sha256'],ref['object_id']),**{i:(equipment['document_sha256'],i) for i in ids}},
                 source_equivalences=proofs,deadline=deadline)
+            automatic=[row['object_id'] for row in config['equipment'] if 'frame_selection' in row]
+            if automatic:
+                from weft.equipment_box_consensus import select_equipment_box_frames
+
+                frame_selection=select_equipment_box_frames(construction, source_binding=binding,
+                    body_references=snapshot['body']['references'], object_ids=automatic, deadline=deadline)
+                _require(set(frame_selection)==set(automatic), 'Automatic frame selection must retain every requested object')
+                for name,selection in frame_selection.items():
+                    if selection['status']!='selected':
+                        errors.append(_issue('equipment_frame_selection_unavailable',
+                            f'No consistent source frame was selected for {name}. Inspect frame-selection.json; no fallback frame was chosen.'))
+                if errors:
+                    config=None
         except (ValueError,TypeError,KeyError,OverflowError) as error:
             config=None;errors.append(_issue(getattr(error,'code','source_or_config_unavailable'),str(error)[:500]))
     if missing:
         errors.append(_issue('request_incomplete','Required choices are missing; supplied partial choices have not been accepted.'))
-    return config,missing,errors,valid_options
+    return config,missing,errors,valid_options,frame_selection
 
 
 def _resume_budget(files, snapshot_raw, proofs):
@@ -485,7 +500,7 @@ def prepare_shared_exercise_config(human_run, evidence_run, out, *, source_mappi
         else:request_raw=_encode(_default_request(snapshot_pin),MAX_CONFIG_BYTES,deadline)
         requested=_json(request_raw,MAX_CONFIG_BYTES)
         _require(requested.get('snapshot_sha256')==snapshot_pin,'Edited request belongs to another exact source snapshot')
-        config,missing,errors,options=_compile(requested,snapshot,documents,proofs,deadline)
+        config,missing,errors,options,frame_selection=_compile(requested,snapshot,documents,proofs,deadline)
         status='unavailable' if snapshot['issues'] else 'config_ready' if config is not None else 'needs_input'
         config_raw=None if config is None else _encode(config,MAX_CONFIG_BYTES,deadline)
         metadata={'schema_version':1,'profile':METADATA_PROFILE,'status':status,'snapshot_sha256':snapshot_pin,
@@ -493,10 +508,14 @@ def prepare_shared_exercise_config(human_run, evidence_run, out, *, source_mappi
             'missing_fields':missing,'issues':snapshot['issues']+errors,'counts':snapshot['counts'],
             'build_options':options,'scope':SCOPE,'world_admission':'not_evaluated','contact':'unknown','grasp':'unknown','load':'unknown'}
         files.update({'snapshot.json':snapshot_raw,'request.json':request_raw,'metadata.json':_encode(metadata,256<<10,deadline)})
+        if frame_selection is not None:
+            files['frame-selection.json']=_encode(frame_selection,4<<20,deadline)
+            metadata['frame_selection_sha256']=_pin(files['frame-selection.json'])
+            files['metadata.json']=_encode(metadata,256<<10,deadline)
         if config_raw is not None:files['config.json']=config_raw
         phase='report';_check(deadline,2.);emit(phase,'Render saved choices and missing evidence; world admission remains separate')
         from weft.shared_exercise_config_report import build_shared_exercise_config_report
-        report_inputs={name:files[name] for name in ('metadata.json','snapshot.json','request.json','config.json') if name in files}
+        report_inputs={name:files[name] for name in ('metadata.json','snapshot.json','request.json','config.json','frame-selection.json') if name in files}
         rendered=build_shared_exercise_config_report(report_inputs,max_seconds=min(5.,deadline-time.monotonic()-2.))
         _require(type(rendered) is dict and 'index.html' in rendered and len(rendered)<=32
                  and all(type(v) is bytes for v in rendered.values()) and sum(map(len,rendered.values()))<=16<<20,
@@ -519,6 +538,8 @@ def prepare_shared_exercise_config(human_run, evidence_run, out, *, source_mappi
             'resume_input_budget':resume_budget,
             'bounds':{'input_bytes':MAX_INPUT_BYTES,'input_files':MAX_INPUT_FILES,'output_bytes':MAX_OUTPUT_BYTES,
                       'output_files':MAX_OUTPUT_FILES,'maximum_seconds':max_seconds,'time_limit_kind':'cooperative_not_hard_process_limit'}}
+        if frame_selection is not None:
+            result['work'].update(construction_frame_selection_calls=1, model_inference_calls=0)
         files['result.json']=_encode({**result,'sealed':False,'publication':'prepared_pending_terminal_seal'},256<<10,deadline)
         validate_package_layout(files);_require(len(files)+3<=MAX_OUTPUT_FILES and sum(map(len,files.values()))+(512<<10)<=MAX_OUTPUT_BYTES,
             'Complete output package exceeds its bound; no source parents trimmed')

@@ -9,8 +9,8 @@ import re
 import time
 
 from weft.equipment_proposal_config import (
-    DEPTH_RATIO_PRIOR, MAX_CONFIG_BYTES, MAX_DEPTH_PROVENANCE_CHARS, MAX_DEPTH_TO_WIDTH_RATIO,
-    MIN_DEPTH_TO_WIDTH_RATIO, validate_depth_prior,
+    CONSENSUS_METHOD, DEPTH_RATIO_PRIOR, MAX_CONFIG_BYTES, MAX_DEPTH_PROVENANCE_CHARS, MAX_DEPTH_TO_WIDTH_RATIO,
+    MIN_DEPTH_TO_WIDTH_RATIO, validate_depth_prior, validate_frame_selection,
 )
 
 
@@ -111,9 +111,15 @@ def _request(value, snapshot_pin):
     _require(type(equipment) is list and len(equipment) <= 12, 'at most twelve equipment choices allowed')
     names = set()
     for row in equipment:
-        fields = {'object_id', 'source_frame'} | ({'depth_prior'} if value['geometry_prior'] == DEPTH_RATIO_PRIOR else set())
-        _require(type(row) is dict and set(row) == fields, 'explicit object/frame pair and selected depth-prior fields required')
-        _text(row['object_id'], 80); _count(row['source_frame'], MAX_FRAMES-1)
+        _require(type(row) is dict, 'equipment choices must be objects')
+        automatic = 'frame_selection' in row
+        fields = {'object_id', 'frame_selection' if automatic else 'source_frame'} | ({'depth_prior'} if value['geometry_prior'] == DEPTH_RATIO_PRIOR else set())
+        _require(set(row) == fields, 'choose either an explicit frame or automatic selection, with the selected depth-prior fields')
+        _text(row['object_id'], 80)
+        if automatic:
+            validate_frame_selection(row['frame_selection'])
+        else:
+            _count(row['source_frame'], MAX_FRAMES-1)
         if value['geometry_prior'] == DEPTH_RATIO_PRIOR:
             validate_depth_prior(row['depth_prior'])
         _require(row['object_id'] not in names and row['object_id'] != 'human', 'duplicate or reserved equipment ID')
@@ -245,6 +251,82 @@ def _snapshot(value, check):
     return projected
 
 
+def _selection_receipts(raw, request, snapshot, views, check):
+    # Reports join saved identities; only the producer and constructor infer geometry.
+    from weft.equipment_box_consensus import POLICY, validate_selection_receipt
+    from weft.io import canonical_hash
+
+    selections = _document(raw)
+    automatic = {row['object_id'] for row in request['equipment'] if 'frame_selection' in row}
+    _require(automatic and set(selections) == automatic, 'saved frame selections differ from the request')
+    source = next(view for view in views if view['role'] == 'equipment')
+    names = {row['object_id']: i for i, row in enumerate(source['entities'])}
+    refs = snapshot['body']['references']; by_frame = {row['source_frame']: row for row in refs}
+    reference_pin = canonical_hash(refs)
+    total = len(snapshot['source_slots'])
+    shared_pins = set()
+    for name, selection in selections.items():
+        check(); validate_selection_receipt(selection)
+        _require(name in names and source['alignment'] != 'unavailable'
+                 and selection['world_object_id'] == name
+                 and selection['entity_ref'] == {'document_sha256': source['document_sha256'], 'object_id': name}
+                 and selection['source_sha256'] == snapshot['source_sha256']
+                 and selection['observation_source_sha256'] == source['source_sha256']
+                 and selection['source_clock'] == source['time'] and selection['image'] == source['image']
+                 and source['decoded_frames'] == snapshot['counts']['decoded_source_slots']
+                 and selection['decoded_frames'] == snapshot['counts']['decoded_source_slots']
+                 and selection['original_source_slots'] == total
+                 and selection['body_reference_count'] == len(refs)
+                 and selection['body_references_sha256'] == reference_pin, 'saved selection source/body identity differs')
+        shared_pins.add((selection['construction_evidence_sha256'], selection['source_binding_sha256']))
+        for frame, row in enumerate(selection['slots']):
+            check(); reference = by_frame.get(frame)
+            _require(row[6:8] == ([reference['index'], reference['time_s']] if reference else [None, None]),
+                     'saved selection body-reference join differs')
+            if frame >= len(source['rows']):
+                _require(row[1:6] == [None]*5 and row[8:10] == [[], 'metadata_only_not_decoded'],
+                         'saved selection invents a decoded source slot')
+                continue
+            slot = source['rows'][frame][names[name]]
+            _require(row[1:6] == [slot[key] for key in ('observation_id', 'time_s', 'partition', 'admission', 'visibility')]
+                     and row[8] == slot['evidence_ids'], 'saved selection observation metadata differs')
+            _require(row[9] is not None or slot['selection_eligible'], 'saved selection includes an excluded observation')
+            reason = ('partition_withheld' if slot['admission'] != 'included' or slot['partition'] != 'construction' else
+                      'not_original_body_reference' if reference is None else
+                      'source_visibility_unavailable' if slot['visibility'] not in ('detected', 'partial') else
+                      'ambiguous_or_missing_evidence' if len(slot['evidence_ids']) != 1 else
+                      'inferred_image_box_unavailable' if not slot['bbox_available'] else None)
+            # The snapshot lacks coordinates, so it cannot certify the selector's box-bounds check.
+            _require(row[9] == reason if reason is not None else row[9] in (None, 'inferred_image_box_unavailable'),
+                     'saved selection exclusion contradicts source metadata')
+        stats = selection['statistics']
+        if stats is not None:
+            _require(all(v >= 0 for key in ('edge_range_fraction', 'maximum_cohort_gap_fraction') for v in stats[key]),
+                     'saved selection contains a negative range or gap')
+        if selection['status'] == 'selected':
+            _require(stats is not None and stats['eligible_count'] >= POLICY['minimum_eligible_frames']
+                     and stats['source_time_span_s'] >= POLICY['minimum_span_s']
+                     and max(stats['edge_range_fraction']) <= POLICY['maximum_edge_range_fraction']
+                     and max(map(abs, stats['fitted_drift_fraction'])) <= POLICY['maximum_fitted_drift_fraction']
+                     and max(stats['maximum_cohort_gap_fraction']) <= POLICY['maximum_cohort_gap_fraction'],
+                     'selected receipt contradicts its saved image-consistency statistics')
+    _require(len(shared_pins) == 1, 'saved selections must share construction evidence and binding')
+    return selections
+
+
+def _selection_section(selections):
+    content = '<section><h2>Equipment frame selection</h2><p>Selection uses image-box consistency across saved construction observations. It does not establish physical stillness, depth, floor contact or load.</p><ul>'
+    for name, receipt in selections.items():
+        selected, statistics = receipt['selected'], receipt['statistics']
+        label = 'No frame selected' if selected is None else 'Selected original frame ' + str(selected['source_frame'])
+        count = 0 if statistics is None else statistics['eligible_count']
+        text = f'{name}: {label}; {count} eligible observations.'
+        if receipt['reasons']:
+            text += ' ' + ', '.join(reason.replace('_', ' ') for reason in receipt['reasons']) + '.'
+        content += '<li>' + html.escape(text) + '</li>'
+    return content + '</ul><p><a href="../frame-selection.json">Inspect every observation, deviation and selection reason</a>. No observations were trimmed to obtain agreement. The builder independently checks the selection again.</p></section>'
+
+
 _STYLE = '''body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.5 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:28px 20px}h1{line-height:1.15}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:12px;padding:20px;margin:18px 0}label{display:block;margin:12px 0}input,select,textarea,button{font:inherit;padding:8px;border:1px solid var(--weft-border);border-radius:6px;max-width:100%;box-sizing:border-box}input:not([type=checkbox]),select,textarea{width:100%}button{background:var(--weft-primary);color:var(--weft-primary-foreground);cursor:pointer;margin:4px}button:disabled{opacity:.5;cursor:default}a{color:var(--weft-primary)}pre,code{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9em}pre{max-height:24em;overflow:auto;background:var(--weft-canvas);padding:12px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.muted{color:var(--weft-muted)}.notice{border-left:4px solid var(--weft-accent);padding-left:12px}:focus-visible{outline:3px solid var(--weft-ink);outline-offset:2px}nav{display:flex;flex-wrap:wrap;gap:16px}details{margin:12px 0}summary{cursor:pointer}'''
 
 
@@ -265,16 +347,16 @@ _JS_COMMON = """'use strict';const D=JSON.parse(document.getElementById('data').
 function text(id,value){const n=el(id),s=String(value);if(n.textContent!==s)n.textContent=s;}function pretty(v){return JSON.stringify(v,null,2);}function node(tag,value){const n=document.createElement(tag);if(value!==undefined)n.textContent=value;return n;}function option(value,label){const n=node('option',label);n.value=String(value);return n;}function index(value,length){if(!/^(0|[1-9][0-9]*)$/.test(value))return null;const i=Number(value);return i<length?i:null;}function show(v){return v===null||v===undefined?'Unknown':String(v);}
 """
 
-_JS_EDITOR = r"""let equipment=D.request.equipment.map(r=>({object_id:r.object_id,source_frame:r.source_frame,ratio:r.depth_prior?String(r.depth_prior.depth_to_width_ratio):'',provenance:r.depth_prior?r.depth_prior.provenance:''})),revision=0,previous='',edited=null,downloadURL=null,renderedGeometry=D.request.geometry_prior||'';
+_JS_EDITOR = r"""let equipment=D.request.equipment.map(r=>({object_id:r.object_id,source_frame:r.source_frame,frame_selection:r.frame_selection||null,ratio:r.depth_prior?String(r.depth_prior.depth_to_width_ratio):'',provenance:r.depth_prior?r.depth_prior.provenance:''})),revision=0,previous='',edited=null,downloadURL=null,renderedGeometry=D.request.geometry_prior||'';
 const fields=['human','camera-mode','distance','geometry','body-scale','assistance','translation','shift-x','shift-y','target'];
 function fill(id,options,value){el(id).replaceChildren(...options);el(id).value=value;}
 const humans=[option('','Choose body evidence'),...D.humans.map((h,i)=>{const o=option(i,(h.label||h.object_id)+(h.object_id==='person-0'?'':' — unsupported body ID'));o.disabled=h.object_id!=='person-0';return o;})];
 let humanValue='';if(D.request.human_entity_ref){humanValue=String(D.humans.findIndex(h=>h.object_id===D.request.human_entity_ref.object_id&&h.document_sha256===D.request.human_entity_ref.document_sha256));if(humanValue==='-1'){humans.push(option('saved','Saved ID not found in this inventory'));humanValue='saved';}}
-fill('human',humans,humanValue);fill('object',[option('','Choose equipment'),...D.objects.map((o,i)=>option(i,o.label||o.object_id))],'');el('source-frame').value='';el('source-frame').max=String(Math.max(0,D.eligibility.length-1));el('source-frame').disabled=D.eligibility.length===0;
+fill('human',humans,humanValue);fill('object',[option('','Choose equipment'),...D.objects.map((o,i)=>option(i,o.label||o.object_id))],'');el('frame-mode').value='manual';el('source-frame').value='';el('source-frame').max=String(Math.max(0,D.eligibility.length-1));el('source-frame').disabled=D.eligibility.length===0;
 el('camera-mode').value=D.request.camera?'fixed_pelvis_perspective_prior':'';el('distance').value=D.request.camera?String(D.request.camera.distance_model_units):'';el('geometry').value=D.request.geometry_prior||'';
 el('body-scale').value=String(D.request.build_options.body_scale);el('assistance').value=String(D.request.build_options.root_assistance);el('translation').checked=Array.isArray(D.request.frame_translation_xy);el('shift-x').value=el('translation').checked?String(D.request.frame_translation_xy[0]):'';el('shift-y').value=el('translation').checked?String(D.request.frame_translation_xy[1]):'';
-function selectedRows(target){const rows=[];equipment.forEach((r,i)=>{const line=node('div'),remove=node('button','Remove');remove.type='button';line.append(node('span',r.object_id+' · equipment frame '+r.source_frame+' '));remove.addEventListener('click',()=>{const oldTarget=el('target').value;equipment.splice(i,1);revision++;selectedRows(oldTarget);update();choice();});line.append(remove);if(el('geometry').value===D.depth_prior.mode){const ratioLabel=node('label',r.object_id+' depth ÷ width (dimensionless)'),ratio=node('input'),provenanceLabel=node('label',r.object_id+' ratio source or reason (supplied, unverified)'),provenance=node('textarea');ratio.type='number';ratio.min=String(D.depth_prior.minimum);ratio.max=String(D.depth_prior.maximum);ratio.step='any';ratio.value=r.ratio;provenance.rows=2;provenance.maxLength=2*D.depth_prior.maximum_provenance_characters;provenance.value=r.provenance;for(const event of ['input','change']){ratio.addEventListener(event,()=>{if(r.ratio===ratio.value)return;r.ratio=ratio.value;revision++;update();});provenance.addEventListener(event,()=>{if(r.provenance===provenance.value)return;r.provenance=provenance.value;revision++;update();});}ratioLabel.append(ratio);provenanceLabel.append(provenance);line.append(ratioLabel,provenanceLabel);}rows.push(line);});el('selected-equipment').replaceChildren(...rows);fill('target',[option('','Choose the task target'),...equipment.map(r=>option(r.object_id,r.object_id))],equipment.some(r=>r.object_id===target)?target:'');}
-function equipmentRequest(geometry,errors){return equipment.map(r=>{const row={object_id:r.object_id,source_frame:r.source_frame};if(geometry===D.depth_prior.mode){const value=r.ratio.trim()===''?null:Number(r.ratio);if(value===null||!Number.isFinite(value)||value<D.depth_prior.minimum||value>D.depth_prior.maximum)errors.push(r.object_id+' needs a supplied depth/width ratio between '+D.depth_prior.minimum+' and '+D.depth_prior.maximum+'.');if(!r.provenance.trim()||Array.from(r.provenance).length>D.depth_prior.maximum_provenance_characters)errors.push(r.object_id+' needs a ratio source or reason (1–'+D.depth_prior.maximum_provenance_characters+' characters).');row.depth_prior={depth_to_width_ratio:value,provenance:r.provenance};}return row;});}
+function selectedRows(target){const rows=[];equipment.forEach((r,i)=>{const line=node('div'),remove=node('button','Remove');remove.type='button';line.append(node('span',r.object_id+(r.frame_selection?' · choose from consistent frames ':' · equipment frame '+r.source_frame+' ')));remove.addEventListener('click',()=>{const oldTarget=el('target').value;equipment.splice(i,1);revision++;selectedRows(oldTarget);update();choice();});line.append(remove);if(el('geometry').value===D.depth_prior.mode){const ratioLabel=node('label',r.object_id+' depth ÷ width (dimensionless)'),ratio=node('input'),provenanceLabel=node('label',r.object_id+' ratio source or reason (supplied, unverified)'),provenance=node('textarea');ratio.type='number';ratio.min=String(D.depth_prior.minimum);ratio.max=String(D.depth_prior.maximum);ratio.step='any';ratio.value=r.ratio;provenance.rows=2;provenance.maxLength=2*D.depth_prior.maximum_provenance_characters;provenance.value=r.provenance;for(const event of ['input','change']){ratio.addEventListener(event,()=>{if(r.ratio===ratio.value)return;r.ratio=ratio.value;revision++;update();});provenance.addEventListener(event,()=>{if(r.provenance===provenance.value)return;r.provenance=provenance.value;revision++;update();});}ratioLabel.append(ratio);provenanceLabel.append(provenance);line.append(ratioLabel,provenanceLabel);}rows.push(line);});el('selected-equipment').replaceChildren(...rows);fill('target',[option('','Choose the task target'),...equipment.map(r=>option(r.object_id,r.object_id))],equipment.some(r=>r.object_id===target)?target:'');}
+function equipmentRequest(geometry,errors){return equipment.map(r=>{const row={object_id:r.object_id};if(r.frame_selection)row.frame_selection={method:D.frame_selection.method};else row.source_frame=r.source_frame;if(geometry===D.depth_prior.mode){const value=r.ratio.trim()===''?null:Number(r.ratio);if(value===null||!Number.isFinite(value)||value<D.depth_prior.minimum||value>D.depth_prior.maximum)errors.push(r.object_id+' needs a supplied depth/width ratio between '+D.depth_prior.minimum+' and '+D.depth_prior.maximum+'.');if(!r.provenance.trim()||Array.from(r.provenance).length>D.depth_prior.maximum_provenance_characters)errors.push(r.object_id+' needs a ratio source or reason (1–'+D.depth_prior.maximum_provenance_characters+' characters).');row.depth_prior={depth_to_width_ratio:value,provenance:r.provenance};}return row;});}
 function bounded(id,lo,hi,errors,label){const raw=el(id).value.trim();if(raw==='')return null;const v=Number(raw);if(!Number.isFinite(v)||v<lo||v>hi){errors.push(label+' must be '+lo+'–'+hi+'.');return null;}return v;}
 function update(){const key=fields.map(id=>id==='translation'?el(id).checked:el(id).value).join('|')+'|'+revision;if(key===previous)return;previous=key;const errors=[],missing=[],humanIndex=index(el('human').value,D.humans.length),human=humanIndex===null?(el('human').value==='saved'?D.request.human_entity_ref:null):{document_sha256:D.humans[humanIndex].document_sha256,object_id:D.humans[humanIndex].object_id};
  const distance=bounded('distance',.1,50,errors,'Camera distance'),scale=bounded('body-scale',.5,2,errors,'Body size'),mode=el('camera-mode').value,camera=mode==='fixed_pelvis_perspective_prior'&&distance!==null?{mode,distance_model_units:distance}:null,geometry=['floor_box_depth_equals_width',D.depth_prior.mode].includes(el('geometry').value)?el('geometry').value:null;
@@ -284,9 +366,27 @@ function update(){const key=fields.map(id=>id==='translation'?el(id).checked:el(
  el('shift-x').disabled=el('shift-y').disabled=!el('translation').checked;if(el('translation').checked){const x=bounded('shift-x',0,6,errors,'X translation'),y=bounded('shift-y',0,6,errors,'Y translation');if(x===null||y===null||x+y===0)errors.push('Translation needs two numbers and at least one positive value.');else edited.frame_translation_xy=[x,y];}else if(D.request.frame_translation_xy===null)edited.frame_translation_xy=null;
  if(edited.target_object_id&&!equipment.some(r=>r.object_id===edited.target_object_id))errors.push('Target must be selected equipment.');const preview=pretty(edited),asciiBytes=preview.length+5*(preview.match(/[\u007f-\uffff]/g)||[]).length+1;if(asciiBytes+1024>D.depth_prior.maximum_request_bytes)errors.push('The complete request exceeds its saved-file budget. Shorten provenance text; no equipment or text is dropped automatically.');text('request-state',errors.length?errors.join(' '):missing.length?'Still to choose: '+missing.join(', ')+'. You can save this incomplete request.':'Choices recorded. Run the setup command to validate them.');text('request-preview',preview);el('download-request').disabled=errors.length>0;
 }
-let previousChoice='';function choice(){const key=el('object').value+'|'+el('source-frame').value+'|'+revision;if(key===previousChoice)return;previousChoice=key;const oi=index(el('object').value,D.objects.length),fi=index(el('source-frame').value,D.eligibility.length);let message='Choose equipment and its video frame; nothing is selected automatically.',valid=false;if(oi!==null&&fi!==null){const cell=D.eligibility[fi][oi];valid=cell[1]&&D.objects[oi].object_id!=='human'&&D.objects[oi].object_id.length<=80&&!equipment.some(r=>r.object_id===D.objects[oi].object_id)&&equipment.length<12;message='Equipment frame '+fi+' · original frame '+show(cell[0])+'. '+(cell[1]?'Saved inputs allow this choice; world geometry is still unchecked.':'Not eligible in the saved inputs. Inspect the frame for its reason.');el('inspect-choice').href='frames-'+String(D.frame_pages[fi]+1).padStart(3,'0')+'.html';}text('choice-state',message);el('add-equipment').disabled=!valid;}
-el('add-equipment').addEventListener('click',()=>{choice();if(el('add-equipment').disabled)return;const oi=index(el('object').value,D.objects.length),fi=index(el('source-frame').value,D.eligibility.length);equipment.push({object_id:D.objects[oi].object_id,source_frame:fi,ratio:'',provenance:''});revision++;selectedRows(el('target').value);el('object').value='';el('source-frame').value='';update();choice();});
-for(const id of fields)for(const event of ['change','input'])el(id).addEventListener(event,id==='geometry'?()=>{if(renderedGeometry===el('geometry').value)return;renderedGeometry=el('geometry').value;selectedRows(el('target').value);update();choice();}:update);for(const id of ['object','source-frame'])for(const event of ['change','input'])el(id).addEventListener(event,choice);
+let previousChoice='';
+function choice(){
+ const mode=el('frame-mode').value,key=el('object').value+'|'+el('source-frame').value+'|'+mode+'|'+revision;
+ if(key===previousChoice)return;previousChoice=key;
+ const automatic=mode===D.frame_selection.method,oi=index(el('object').value,D.objects.length),fi=index(el('source-frame').value,D.eligibility.length);
+ el('source-frame').disabled=automatic||D.eligibility.length===0;
+ let message='Choose equipment and a frame selection method. No frame has been selected.',valid=false;
+ const available=oi!==null&&D.objects[oi].object_id!=='human'&&D.objects[oi].object_id.length<=80&&!equipment.some(r=>r.object_id===D.objects[oi].object_id)&&equipment.length<12;
+ if(oi!==null&&automatic){
+  const count=D.frame_selection.eligible_counts[oi];valid=available&&count>=D.frame_selection.minimum_samples;
+  message=count+' eligible saved observations. Setup will choose an observed frame only if the image boxes are consistent; otherwise it will stop without a fallback. This does not prove physical contact or a stationary object.';
+  el('inspect-choice').href='frames-001.html';
+ }else if(oi!==null&&fi!==null&&mode==='manual'){
+  const cell=D.eligibility[fi][oi];valid=available&&cell[1];
+  message='Equipment frame '+fi+' · original frame '+show(cell[0])+'. '+(cell[1]?'Saved inputs allow this choice; world geometry is still unchecked.':'Not eligible in the saved inputs. Inspect the frame for its reason.');
+  el('inspect-choice').href='frames-'+String(D.frame_pages[fi]+1).padStart(3,'0')+'.html';
+ }
+ text('choice-state',message);el('add-equipment').disabled=!valid;
+}
+el('add-equipment').addEventListener('click',()=>{choice();if(el('add-equipment').disabled)return;const oi=index(el('object').value,D.objects.length),fi=index(el('source-frame').value,D.eligibility.length);const automatic=el('frame-mode').value===D.frame_selection.method;equipment.push({object_id:D.objects[oi].object_id,source_frame:automatic?undefined:fi,frame_selection:automatic?{method:D.frame_selection.method}:null,ratio:'',provenance:''});revision++;selectedRows(el('target').value);el('object').value='';el('source-frame').value='';update();choice();});
+for(const id of fields)for(const event of ['change','input'])el(id).addEventListener(event,id==='geometry'?()=>{if(renderedGeometry===el('geometry').value)return;renderedGeometry=el('geometry').value;selectedRows(el('target').value);update();choice();}:update);for(const id of ['object','source-frame','frame-mode'])for(const event of ['change','input'])el(id).addEventListener(event,choice);
 el('download-request').addEventListener('click',()=>{update();if(el('download-request').disabled||!edited)return;if(downloadURL)URL.revokeObjectURL(downloadURL);downloadURL=URL.createObjectURL(new Blob([pretty(edited)+'\n'],{type:'application/json'}));const a=node('a');a.href=downloadURL;a.download='shared-exercise-request.json';a.click();});window.addEventListener('pagehide',()=>{if(downloadURL)URL.revokeObjectURL(downloadURL);downloadURL=null;});selectedRows(D.request.target_object_id||'');update();choice();
 """
 
@@ -312,8 +412,8 @@ def _frame_page(rows, views, index, count):
     return _page('Inspect frames', content, {'rows':rows, 'views':views}, _JS_COMMON + _JS_FRAME)
 
 
-_FORM = '''<section><h2>Choose the scene inputs</h2><p>No body evidence, equipment, frame, target or camera assumption is chosen for you. The current builder requires saved body ID <code>person-0</code>; select it explicitly. Other identities remain inspectable in the frame view.</p><div class="grid"><label>Body evidence<select id="human"></select></label><label>Camera assumption<select id="camera-mode"><option value="">Choose a camera assumption</option><option value="fixed_pelvis_perspective_prior">Fixed camera relative to the body</option></select></label><label>Camera distance (original body-model units)<input id="distance" type="number" min="0.1" max="50" step="any"></label><label>Equipment shape assumption<select id="geometry"><option value="">Choose a shape assumption</option><option value="floor_box_depth_equals_width">Floor-resting boxes; depth equals width</option><option value="floor_box_explicit_depth_ratio">Floor-resting boxes; supply each depth/width ratio</option></select></label></div><p>The box shape and camera distance are authored assumptions, not recovered measurements. Boxes rest on the unchanged floor; image overlap does not establish contact.</p><p>Optional depth ratios must be supplied for each selected object with a source or reason. Use assumed 3D depth divided by width, not the image-box aspect ratio. A ratio of 0.5 means half as deep as wide. No ratio is filled in automatically, and supplied values do not establish depth, contact or load.</p></section>
-<section><h2>Equipment and target</h2><div class="grid"><label>Equipment<select id="object"></select></label><label>Equipment video frame<input id="source-frame" type="number" min="0" step="1"></label></div><p id="choice-state" role="status"></p><a id="inspect-choice" href="frames-001.html">Inspect frame availability</a><button id="add-equipment" type="button">Add equipment at this frame</button><div id="selected-equipment"></div><label>Task target<select id="target"></select></label><p>The target is one selected object, not an invented target position.</p></section>
+_FORM = '''<section><h2>Choose the scene inputs</h2><p>Choose body evidence, equipment, a target and camera assumptions explicitly. For each object, choose a frame yourself or request selection from consistent saved observations. The current builder requires saved body ID <code>person-0</code>; select it explicitly. Other identities remain inspectable in the frame view.</p><div class="grid"><label>Body evidence<select id="human"></select></label><label>Camera assumption<select id="camera-mode"><option value="">Choose a camera assumption</option><option value="fixed_pelvis_perspective_prior">Fixed camera relative to the body</option></select></label><label>Camera distance (original body-model units)<input id="distance" type="number" min="0.1" max="50" step="any"></label><label>Equipment shape assumption<select id="geometry"><option value="">Choose a shape assumption</option><option value="floor_box_depth_equals_width">Floor-resting boxes; depth equals width</option><option value="floor_box_explicit_depth_ratio">Floor-resting boxes; supply each depth/width ratio</option></select></label></div><p>The box shape and camera distance are authored assumptions, not recovered measurements. Boxes rest on the unchanged floor; image overlap does not establish contact.</p><p>Optional depth ratios must be supplied for each selected object with a source or reason. Use assumed 3D depth divided by width, not the image-box aspect ratio. A ratio of 0.5 means half as deep as wide. No ratio is filled in automatically, and supplied values do not establish depth, contact or load.</p></section>
+<section><h2>Equipment and target</h2><div class="grid"><label>Equipment<select id="object"></select></label><label>Frame selection<select id="frame-mode"><option value="manual">Choose a frame myself</option><option value="construction_box_consensus_v1">Choose from consistent observations</option></select></label><label>Equipment video frame (manual mode)<input id="source-frame" type="number" min="0" step="1"></label></div><p id="choice-state" role="status"></p><a id="inspect-choice" href="frames-001.html">Inspect frame availability</a><button id="add-equipment" type="button">Add equipment</button><div id="selected-equipment"></div><label>Task target<select id="target"></select></label><p>The target is one selected object, not an invented target position.</p></section>
 <section><h2>Body size and assistance</h2><p>Authored defaults: unchanged size and assistance off. These options do not alter the saved body or its source evidence.</p><div class="grid"><label>Body size multiplier<input id="body-scale" type="number" min="0.5" max="2" step="any"></label><label>Body-position assistance<select id="assistance"><option value="false">Off</option><option value="true">On — programmed assistance</option></select></label></div><details><summary>Optional coordinate-frame translation</summary><p>This moves the authored coordinate frame; it does not measure motion or change the source.</p><label><input id="translation" type="checkbox"> Supply a positive XY translation</label><div class="grid"><label>X (model units)<input id="shift-x" type="number" min="0" max="6" step="any"></label><label>Y (model units)<input id="shift-y" type="number" min="0" max="6" step="any"></label></div></details></section>
 <section><h2>Save your choices</h2><p id="request-state" role="status"></p><button id="download-request" type="button">Download edited request</button><p>This downloads a new file. It does not modify the saved package or start a build.</p><details><summary>Exact request</summary><pre id="request-preview"></pre></details></section>'''
 
@@ -326,20 +426,25 @@ def build_shared_exercise_config_report(files, *, max_seconds=5):
         if time.monotonic() >= deadline: raise TimeoutError('Shared exercise configuration report deadline exceeded')
     check()
     _require(type(files) is dict and {'metadata.json', 'snapshot.json', 'request.json'} <= set(files)
-             <= {'metadata.json', 'snapshot.json', 'request.json', 'config.json'} and all(type(v) is bytes for v in files.values()),
+             <= {'metadata.json', 'snapshot.json', 'request.json', 'config.json', 'frame-selection.json'} and all(type(v) is bytes for v in files.values()),
              'fixed saved-input files required')
     _require(sum(map(len, files.values())) <= MAX_INPUT, 'input bytes exceed bound')
-    for name, limit in {'metadata.json':256<<10, 'snapshot.json':8<<20, 'request.json':128<<10, 'config.json':64<<10}.items():
+    for name, limit in {'metadata.json':256<<10, 'snapshot.json':8<<20, 'request.json':128<<10,
+                        'config.json':64<<10, 'frame-selection.json':4<<20}.items():
         if name in files: _require(0 < len(files[name]) <= limit, name + ' exceeds its byte bound')
     metadata, snapshot = (_document(files[n]) for n in ('metadata.json', 'snapshot.json'))
     pins = {name:sha256(raw).hexdigest() for name, raw in files.items()}
     metadata_fields = {'schema_version', 'profile', 'status', 'snapshot_sha256', 'request_sha256', 'config_sha256',
                        'missing_fields', 'issues', 'counts', 'scope', 'world_admission', 'contact', 'grasp', 'load', 'build_options'}
+    if 'frame-selection.json' in files:
+        metadata_fields.add('frame_selection_sha256')
     _require(set(metadata) == metadata_fields and type(metadata['schema_version']) is int and metadata['schema_version'] == 1
              and metadata['profile'] == 'shared-exercise-config-metadata-v1'
              and metadata['status'] in {'needs_input', 'config_ready', 'unavailable', 'failed'}, 'metadata schema differs')
     _require(metadata['snapshot_sha256'] == pins['snapshot.json'] and metadata['request_sha256'] == pins['request.json']
-             and metadata['config_sha256'] == pins.get('config.json'), 'saved input bytes do not match metadata pins')
+             and metadata['config_sha256'] == pins.get('config.json')
+             and metadata.get('frame_selection_sha256') == pins.get('frame-selection.json'),
+             'saved input bytes do not match metadata pins')
     _require(('config.json' in files) == (metadata['status'] == 'config_ready'), 'configuration-ready status requires exact config bytes')
     _require(metadata['world_admission'] == 'not_evaluated' and all(metadata[k] == 'unknown' for k in ('contact', 'grasp', 'load')),
              'configuration cannot claim world or contact admission')
@@ -355,6 +460,10 @@ def build_shared_exercise_config_report(files, *, max_seconds=5):
     except ValueError as error:
         _require(metadata['status'] in {'needs_input', 'failed'} and metadata['issues'], 'invalid choices require explicit saved issues')
         request, request_error = None, str(error)
+    selections = None
+    if 'frame-selection.json' in files:
+        _require(request is not None, 'saved frame selection requires a valid request')
+        selections = _selection_receipts(files['frame-selection.json'], request, snapshot, views, check)
     if metadata['build_options'] is not None: _options(metadata['build_options'])
     try:
         expected_options = _options(supplied_request['build_options'])
@@ -376,8 +485,14 @@ def build_shared_exercise_config_report(files, *, max_seconds=5):
                  'ready body choice is absent from the saved inventory')
         entity_indices = {e['object_id']:i for i,e in enumerate(equipment['entities'])}
         for choice in request['equipment']:
-            _require(choice['object_id'] in entity_indices and choice['source_frame'] < len(equipment['rows'])
-                     and equipment['rows'][choice['source_frame']][entity_indices[choice['object_id']]]['selection_eligible'],
+            if 'frame_selection' in choice:
+                _require(selections is not None and selections[choice['object_id']]['status'] == 'selected',
+                         'ready automatic choice requires a selected saved receipt')
+                frame = selections[choice['object_id']]['selected']['source_frame']
+            else:
+                frame = choice['source_frame']
+            _require(choice['object_id'] in entity_indices and frame < len(equipment['rows'])
+                     and equipment['rows'][frame][entity_indices[choice['object_id']]]['selection_eligible'],
                      'ready equipment choice is unavailable in the saved inventory')
     original, references = snapshot['source_slots'], snapshot['body']['references']
     maximum = max(len(original), *(len(view['rows']) for view in views))
@@ -413,11 +528,16 @@ def build_shared_exercise_config_report(files, *, max_seconds=5):
         content += '</ul></section>'
     content += '<section><h2>Inspect saved frames</h2><p>All original and observation slots are retained, including missing and excluded inputs. Frame inspection does not make a request choice.</p><nav>'
     content += ''.join(f'<a href="{p["path"]}">{p["first_frame"]}–{p["last_frame"]}</a>' for p in page_index) + '</nav></section>'
+    if selections is not None:
+        content += _selection_section(selections)
     editor = None
     if request is not None:
         human = next(v for v in views if v['role'] == 'human'); equipment = next(v for v in views if v['role'] == 'equipment')
         editor = {'request':request, 'humans':[{**e,'document_sha256':human['document_sha256']} for e in human['entities']],
                   'objects':equipment['entities'], 'eligibility':[[[s['original_frame'],s['selection_eligible']] for s in row] for row in equipment['rows']],
+                  'frame_selection':{'method':CONSENSUS_METHOD, 'minimum_samples':3,
+                      'eligible_counts':[sum(row[i]['selection_eligible'] for row in equipment['rows'])
+                                         for i in range(len(equipment['entities']))]},
                   'frame_pages':frame_pages, 'depth_prior':{'mode':DEPTH_RATIO_PRIOR,
                       'minimum':MIN_DEPTH_TO_WIDTH_RATIO, 'maximum':MAX_DEPTH_TO_WIDTH_RATIO,
                       'maximum_provenance_characters':MAX_DEPTH_PROVENANCE_CHARS,
@@ -445,6 +565,10 @@ def build_shared_exercise_config_report(files, *, max_seconds=5):
     if request is not None and request['geometry_prior'] == DEPTH_RATIO_PRIOR:
         summary['equipment_depth_priors'] = request['equipment']
         summary['depth_prior_scope'] = 'supplied_unverified_not_recovered'
+    if selections is not None:
+        summary['equipment_frame_selection'] = {name: {'status': receipt['status'], 'selected': receipt['selected'],
+            'reasons': receipt['reasons'], 'statistics': receipt['statistics']} for name, receipt in selections.items()}
+        summary['frame_selection_scope'] = 'saved_receipts_joined_to_snapshot_no_inference_or_source_authentication_here'
     output['report.json'] = _encode(summary)+b'\n'; check()
     _require(len(output) <= MAX_FILES and sum(map(len, output.values())) <= MAX_OUTPUT, 'complete report exceeds file or byte bounds')
     return output

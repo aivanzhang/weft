@@ -13,7 +13,7 @@ import mujoco
 import numpy as np
 
 from weft.equipment_proposal_config import (
-    CONFIG_PROFILE, DEPTH_RATIO_PRIOR, MAX_CONFIG_BYTES, MAX_EQUIPMENT, EquipmentProposalError,
+    CONFIG_PROFILE, CONSENSUS_METHOD, DEPTH_RATIO_PRIOR, MAX_CONFIG_BYTES, MAX_EQUIPMENT, EquipmentProposalError,
     validate_depth_prior, validate_proposal_config,
 )
 from weft.io import canonical_hash, local_time
@@ -92,6 +92,11 @@ def _proposal_contract(config):
     if config is not None and config.get('geometry_prior') == DEPTH_RATIO_PRIOR:
         contract.update(method='explicit-fixed-pelvis-floor-box-depth-ratio-proposal-v1',
             geometry='Axis-aligned solid boxes on the unchanged zero-height floor, with explicit per-object depth-to-width priors')
+    if config is not None and any('frame_selection' in item for item in config['equipment']):
+        contract['source'] = 'Explicit opt-in construction-box image consensus; exact observed frame, complete disagreements and unavailable slots retained'
+        contract.update(model_inference_calls=0, inference_calls_scope='Model calls only; numerical source-box inference is separate',
+                        numerical_frame_inference=CONSENSUS_METHOD,
+                        numerical_admission='Constructor independently rederives complete selection receipts before admission')
     return contract
 
 
@@ -129,7 +134,7 @@ def floor_box_from_bounds(bounds, camera, base, floor, *, depth_prior=None):
             'construction_bbox_edge_error_px': (projected - bounds).tolist(), 'floor_contract_unchanged': True}
 
 
-def build_equipment_proposal(base_scene, config, *, source_binding, construction_evidence: bytes, human_document: bytes):
+def build_equipment_proposal(base_scene, config, *, source_binding, construction_evidence: bytes, human_document: bytes, deadline=None):
     """Build one unadmitted proposal in memory; admission remains the existing constructor's job."""
     config = validate_proposal_config(config)
     construction_contract = _proposal_contract(config)
@@ -151,9 +156,23 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
               'original_scale_at_anchor_model_units_per_pixel': scale,
               'pixel_origin': contract['root_origin_unchanged']['pelvis_image_px'],
               'world_anchor_model_units': [0., 0., base_height], 'world_axes': ['x_right', 'y_depth', 'z_up']}
+    automatic = [item['object_id'] for item in config['equipment'] if 'frame_selection' in item]
+    selections = {}
+    if automatic:
+        from weft.equipment_box_consensus import select_equipment_box_frames
+        references = [{'index': i, 'source_frame': frame, **{key: human['reference_evidence'][i][key]
+                       for key in ('evidence_id', 'time_s')}} for i, frame in enumerate(frames)]
+        selections = select_equipment_box_frames(construction_evidence, source_binding=source_binding,
+            body_references=references, object_ids=automatic, deadline=deadline)
+        unavailable = [name for name, receipt in selections.items() if receipt['status'] != 'selected']
+        if unavailable:
+            error = EquipmentProposalError('frame_selection_unavailable', 'Construction image consensus abstained for: ' + ', '.join(unavailable))
+            error.frame_selection_receipts = selections
+            raise error
     equipment = []
     for selection in config['equipment']:
-        name, frame = selection['object_id'], selection['source_frame']
+        name = selection['object_id']
+        frame = selections[name]['selected']['source_frame'] if name in selections else selection['source_frame']
         if frame not in frames:
             raise EquipmentProposalError('unsupported_equipment_frame', 'Selected equipment frame must be an original retained body reference; no frame is substituted')
         entity = entities[name]
@@ -167,10 +186,16 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
             raise EquipmentProposalError('unsupported_box_measurement', 'Equipment geometry requires an inferred source-image box, not authored coordinates')
         x, y, width, height = map(float, _vector(measurement.get('value'), 4, 'Inferred source box'))
         if width <= 0 or height <= 0: raise EquipmentProposalError('invalid_source_box', 'Source box extents must be positive')
-        geometry = floor_box_from_bounds([x, y, x + width, y + height], camera, base_height, human['mobility']['floor_height'],
-            **({'depth_prior': selection['depth_prior']} if config['geometry_prior'] == DEPTH_RATIO_PRIOR else {}))
+        try:
+            geometry = floor_box_from_bounds([x, y, x + width, y + height], camera, base_height, human['mobility']['floor_height'],
+                **({'depth_prior': selection['depth_prior']} if config['geometry_prior'] == DEPTH_RATIO_PRIOR else {}))
+        except ValueError as error:
+            if selections:
+                error.frame_selection_receipts = selections
+            raise
         geometry.update(source_original_frame=frame, source_evidence_id=identifier)
         equipment.append({'object_id': name, 'source_frame': frame, 'source_evidence_id': identifier, 'geometry': geometry,
+            **({'frame_selection_receipt': selections[name]} if name in selections else {}),
             'source_identity_verified': False, 'source_contact_verified': False,
             'initial_velocity_model_units_per_second': [0., 0., 0.], 'initial_angular_velocity': [0., 0., 0.],
             'external_force_channels': [0., 0., 0.], 'simulator_mass_prior': deepcopy(CONTRACT['mass']),
@@ -180,6 +205,8 @@ def build_equipment_proposal(base_scene, config, *, source_binding, construction
             'status': 'authored_initial_geometry_proposal_not_physical_reconstruction',
             'body_binding': contract, 'camera_hypothesis': camera, 'equipment': equipment,
             'proposer': {'method': construction_contract['method'], 'configuration_canonical_sha256': canonical_hash(config),
+                         **({'frame_selection': {'method': CONSENSUS_METHOD, 'object_ids': automatic}} if automatic else {}),
+                         **({'construction_frame_selection_calls': 1, 'model_inference_calls': 0} if automatic else {}),
                          'inferred_inputs': ['source image boxes and torso landmarks'],
                          'authored_inputs': ['camera distance', 'floor support', 'solid box shape',
                                              'explicit per-object depth-to-width ratio' if config['geometry_prior'] == DEPTH_RATIO_PRIOR else 'depth equals width',
@@ -247,6 +274,8 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         config_raw = read_package_file(config_path.parent, config_path.name, max_bytes=MAX_CONFIG_BYTES)
         files['input-config.json'] = config_raw
         config = validate_proposal_config(_json_bytes(config_raw, 'Proposal configuration', MAX_CONFIG_BYTES)); check()
+        if any('frame_selection' in item for item in config['equipment']):
+            implementation['equipment_box_consensus.py'] = Path(__file__).with_name('equipment_box_consensus.py').read_bytes()
         readbacks.append((config_path.parent, config_path.name, MAX_CONFIG_BYTES, hashlib.sha256(config_raw).hexdigest()))
         stage = 'source_binding'
         base_files = manifest(base_run, 'base')
@@ -291,7 +320,12 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
         files['construction-evidence.json'] = construction
         files['source-binding.json'] = _bytes(binding); files['source-equivalences.json'] = _bytes(mapping_reports)
         check(); stage = 'proposal_geometry'
-        proposal = build_equipment_proposal(base, config, source_binding=binding, construction_evidence=construction, human_document=human_raw)
+        automatic = any('frame_selection' in item for item in config['equipment'])
+        proposal = build_equipment_proposal(base, config, source_binding=binding, construction_evidence=construction,
+            human_document=human_raw, **({'deadline': deadline} if automatic else {}))
+        if automatic:
+            files['frame-selection.json'] = _bytes({item['object_id']: item['frame_selection_receipt']
+                for item in proposal['equipment'] if 'frame_selection_receipt' in item})
         if len(_bytes(proposal)) > MAX_PROPOSAL_BYTES: raise EquipmentProposalError('proposal_size_exceeded', 'Resolved proposal exceeds constructor size bound')
         check(); stage = 'initial_geometry_admission'
         admission_base = base
@@ -299,7 +333,8 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
             admission_base, migration = translate_shared_world_xy(base, config['frame_translation_xy'])
             files['frame-migration.json'] = _bytes(migration)
         scene = construct_equipment_world(admission_base, proposal, source_binding=binding, construction_evidence=construction,
-                                         human_document=human_raw, target_object_id=config['target_object_id'])
+                                         human_document=human_raw, target_object_id=config['target_object_id'],
+                                         **({'deadline': deadline} if automatic else {}))
         files['initial-geometry-admission.json'] = _bytes({'status': 'passed_existing_constructor',
             'candidate_scene_canonical_sha256': canonical_hash(scene), 'source_body_unchanged': scene['human_spec'] == base['human_spec'],
             'checks': {obj['id']: obj['provenance']['initial_geometry_checks'] for obj in scene['objects']},
@@ -316,6 +351,8 @@ def prepare_equipment_proposal(base_run, evidence_run, config_path, out, *, sour
             if Path(__file__).with_name(name).read_bytes() != raw: raise ValueError('Implementation changed during proposal preparation: ' + name)
         status = 'proposal_ready'
     except (ValueError, KeyError, TypeError, IndexError, OverflowError, RuntimeError, OSError) as error:
+        if hasattr(error, 'frame_selection_receipts'):
+            files['frame-selection.json'] = _bytes(error.frame_selection_receipts)
         status = 'rejected_initial_geometry' if stage == 'initial_geometry_admission' else 'unsupported_input'
         reasons.append({'stage': stage, 'code': getattr(error, 'code', stage + '_rejected'),
                         'message': str(error)[:2000], 'error_type': type(error).__name__})

@@ -464,12 +464,17 @@ def _policy_status(policy, training_raw, *, evaluation_successes=None, evaluatio
 
 
 def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=None, policy_run=None, evaluation_run=None,
-                                reference_trial=None, reference_manifest_sha256=None, max_seconds=60):
+                                reference_trial=None, reference_manifest_sha256=None, max_seconds=60, output_limits=None):
     """Prepare a new sealed lab without changing the source scene, task gates or legacy labs."""
     if type(root_assistance) is not bool or task_path is not None and root_assistance:
         raise ValueError("Choose an explicit task or default-task root assistance, not both")
     if type(max_seconds) not in (int, float) or not math.isfinite(max_seconds) or not 1 <= max_seconds <= 180:
         raise ValueError("Exercise lab preparation requires a 1–180 second bound")
+    if output_limits is not None and (not isinstance(output_limits, (tuple, list)) or len(output_limits) != 2
+            or any(type(value) is not int or not 1 <= value <= maximum
+                   for value, maximum in zip(output_limits, (MAX_OUTPUT_FILES, MAX_OUTPUT_BYTES)))):
+        raise ValueError("Exercise lab output limits must be positive file/byte counts within its existing maxima")
+    maximum_output_files, maximum_output_bytes = output_limits or (MAX_OUTPUT_FILES, MAX_OUTPUT_BYTES)
     if evaluation_run is not None and policy_run is None:
         raise ValueError("Exercise policy evaluation requires its selected learning package")
     if reference_trial is not None and (root_assistance or policy_run is not None or evaluation_run is not None):
@@ -684,7 +689,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
     outer = {"lab-config.json": _bytes(config), "status.json": _bytes({"status": "ready", "events": [event]}),
              "events.jsonl": (json.dumps(event) + "\n").encode()}
     total = sum(len(raw) for raw in files.values()) + len(manifest) + sum(len(raw) for raw in outer.values())
-    if len(files) + len(outer) + 1 > MAX_OUTPUT_FILES or total > MAX_OUTPUT_BYTES:
+    if len(files) + len(outer) + 1 > maximum_output_files or total > maximum_output_bytes:
         raise ValueError("Exercise lab complete source/runtime closure exceeds its output bound")
     file_count = len(files)
     out.mkdir(parents=True, exist_ok=False)

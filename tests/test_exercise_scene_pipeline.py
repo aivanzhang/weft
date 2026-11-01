@@ -209,7 +209,7 @@ def _fake_stages(monkeypatch):
     return calls
 
 
-@pytest.mark.parametrize("stage", list(pipeline.STAGE_LIMITS))
+@pytest.mark.parametrize("stage", [name for name in pipeline.STAGE_LIMITS if name != "interactive_lab"])
 @pytest.mark.parametrize("bound", ["files", "bytes"])
 def test_reserve_aggregate_capacity_before_starting_each_stage(tmp_path, monkeypatch, stage, bound):
     calls = _fake_stages(monkeypatch)

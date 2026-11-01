@@ -1,5 +1,87 @@
 # Combined Weft implementation handoff
 
+## Automatic-frame build ready — November 1, 2026, 3:45 PM PST
+
+The combined goal remains active. This turn made implementation and integrated
+acceptance progress; it did not complete unfamiliar-video recovery or physical
+validation. Standing merge/push authorization is recorded in `AGENTS.md`.
+
+Published checkpoints remain:
+
+- `f837b8b36f7e743c2685a12b56311adff64d0834`: bounded root-assistance search and
+  its negative native result. All 24 predicted pairs failed; no actual controls
+  49/50 or fallback. [Evidence](equipment-root-search-native.md).
+- `640b39d2c4d4942a662b88fc82c6cd75ea3a311f`: reviewed equipment-aware feedback
+  actor, 73 pure checks, no native training or default change. Publication receipt
+  `.local/equipment-feedback-publication-01.json`, SHA
+  `f51fbf30213b599698d897448de9c1ebeda9b70a02ad77ac756c932097437101`.
+  Its three paths, index and stash were clean at publication; unrelated active
+  work remains dirty. Preserve the independent avatar commit `3a7a0ec` and edits.
+
+### Ready integrated build
+
+[Construction contract and retained failures](equipment-box-consensus.md),
+[guided setup and report](equipment-frame-config.md). Core has 169 distinct
+focused cases; restrictive nested lab allowances have 31 focused passes;
+guided setup/report has 86 distinct passes. All three source reviews are closed.
+The offline build-report receipt link and bounded display summaries have 15
+distinct focused passes, independently reviewed. These are software checks, not independent physical evidence.
+
+Actual setup selected sam-2 frame 28 and sam-3 frame 18 from 118 eligible
+observations each, retaining 259 slots per receipt: 1.126666 seconds and
+143,327,232 B. Its 190 sealed members were independently verified; no model,
+media, native or API call. [Saved setup](../../artifacts/equipment-frame-config-real-01/inspection/index.html).
+
+The third public build is **ready**, from that saved body/tracking evidence:
+`artifacts/equipment-frame-consensus-native-03/build/lab`. Elapsed 5.793494 seconds,
+381,583,360 B child high-water memory; 543 total files / 107,886,770 B. This is
+not timing for raw-video pose/tracking inference. Normal admission used exactly
+32 required migration controls; the lab itself generated 121 kinematic reference
+frames with zero simulation steps. It has manual/authored controls, not a learned
+policy. The 254-control task interval and original gates remain unchanged.
+
+- Build seal: `3623cb0004e4c1dd19a8a7fdaa2f58e6cac23e563cfa78480c296f98d267f97c`.
+- Lab run seal: `1d4a32d609cfbb9647827116ddcb2a44f13067bbb307387f7aef18783481c900`.
+- Root audit `.local/equipment-frame-consensus-native-03/saved-audit-01.json`, SHA
+  `de9b8a172f8734e1590dcaccf616cc47f3eb468fa8442b2ecf0314dd76999c2a`:
+  all 542 outer sealed members, five inner seals, 400 lab members, ten runtime
+  overlays, exact prior proposal/receipt/scene bytes, compact references into
+  `lab/run/source-run/frame-selection.json`, source clocks, body and gates verified.
+- Actual lab: 404 files / 54,766,231 B within its restrictive 1,461-file / 192 MiB
+  allowance. Parent: 537 files / 107,766,395 B within unchanged 1,600 / 384 MiB.
+- Attempt01's duplicate-metadata size rejection and attempt02's generic file
+  reservation failure remain immutable. Neither proves physical infeasibility.
+  Compact references preserve every full receipt; no evidence or limit was removed.
+
+### Ownership and next actions
+
+Root owns the completed report qualification, workflow notes and exact-path
+publication. The resulting commit/remote identity is recorded in
+`.local/equipment-frame-build-publication-01.json`; no per-checkpoint approval is
+required. Unfinished training and independent avatar changes are excluded.
+The [actual report](../../artifacts/equipment-frame-inspect-02/inspection/index.html)
+exposes complete saved selection records. It completed in 0.368607 seconds /
+133,693,440 B without native/model/proof work. Root verified all 35 output files,
+25 copied artifacts and 45 local HTML links; audit
+`.local/equipment-frame-inspect-02/saved-audit-01.json`, SHA
+`feb6ba966807e8b707f7994ce53c4f952211a5a07a333964c1b5ee9a5661bb46`.
+Inspector01 remains preserved: its display summary exceeded 128 KiB. The fix
+reduces display-only candidate metadata from 316,480 to 6,417 B while retaining
+full downloads and every other geometry field; no limit or source record changed.
+`reconstruction_next_step` completed its source/tests and native acceptance;
+its final release pins are in core release04 and allowance release02.
+`contact_reconstruction` owns the separate versioned equipment-feedback trainer
+and policy. Its first 37 distinct guarded checks cover 2,032 mocked full-horizon controls
+and lossless journal replay: 9,510,896 B actual versus 13,385,296 B reserved.
+Independent review is in progress; no native pilot/default/public route yet.
+`equipment_control_review` owns that review; avoid duplicate checks or native jobs.
+
+No native job remains live; PID81400 is reaped. No paid/API/key/ledger operation,
+deployment, server, browser or external submission occurred. Preserve all saved
+failures and independent avatar work; stage only verified owned paths. Next:
+review the independent training driver and its bounded native learning proposal. Ground/equipment/contact accuracy, full-task learning and
+unfamiliar-video coverage remain explicit goal requirements.
+
 ## Active geometry reuse and control evidence — November 1, 2026, 2:07 PM PST
 
 The full goal remains active. The sequence-prediction checkpoint is published at

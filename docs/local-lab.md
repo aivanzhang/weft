@@ -264,8 +264,12 @@ not depend on editing the original runs. Unsupported or missing input is shown
 explicitly; a failed pose-only result is not a usable body.
 
 **2. Choose the setup and download your request.** Open the printed page. Confirm
-the body, select equipment and an eligible original frame, choose a task target,
-and enter an explicit camera-distance assumption. Choose a floor-resting box
+the body, select equipment, choose a task target, and enter an explicit
+camera-distance assumption. For each object, choose an eligible original frame
+yourself or select **Choose from consistent observations**. The automatic option
+checks all eligible saved image boxes and chooses an actual observed frame only
+when they agree; it does not average away outliers or fill missing frames.
+Choose a floor-resting box
 with depth equal to width, or supply a depth-to-width ratio and explanation for
 each selected object. For example, `0.5` makes depth half the width. No ratio is
 guessed for you; the supplied value remains an assumption, not recovered depth,
@@ -286,6 +290,40 @@ Save the downloaded request outside the setup directory, then check it:
 The first command also prints an exact optional `--manifest-sha256` pin for this
 step. Do not edit files inside a sealed setup package. Each revision writes to
 a new directory and reports anything still missing.
+
+Automatic choices produce `frame-selection.json`, with the selected frame,
+every original slot, image-box deviations and rejection reasons. If observations
+disagree, the page says **No frame selected** and does not create a ready
+configuration. You can inspect the evidence and make an explicit manual choice
+in a new request. Consistent image boxes do not prove physical stillness, ground
+contact or accurate 3D geometry. [Selection method and limits](handoffs/equipment-box-consensus.md).
+
+**Automatic-selection example:** [open the saved exercise setup](../artifacts/equipment-frame-config-real-01/inspection/index.html).
+It selected original frames 28 and 18 for the two equipment objects using 118
+eligible observations each, retaining all 259 source slots. Setup took 1.13 seconds;
+that setup step alone does not prove geometry admission or physical contact.
+The subsequent saved-input build now produces a ready lab in 5.79 seconds.
+[Open its step-by-step report](../artifacts/equipment-frame-inspect-02/inspection/index.html)
+to see the build stages, geometry assumptions and complete selection-record
+downloads. These timings exclude the earlier video/pose/tracking extraction.
+[Exact verification](handoffs/equipment-frame-config.md#ready-native-build-and-offline-report).
+
+To play this verified local example, run from the Weft repository root:
+
+```sh
+PYTHONPATH="$PWD/.local/equipment-frame-consensus-native-03/runtime/src" \
+  .venv-lab/bin/python -B -P -m weft lab \
+  --resume artifacts/equipment-frame-consensus-native-03/build/lab
+```
+
+For terminal controls instead, replace `lab` with `lab-console`. Enter `controls`
+to inspect available actions, then `record start`, `mode reference`, `step 6`,
+`record stop` and `files` to inspect a short recorded interaction. Reference mode
+is authored following, not learning; this example has no trained policy attached.
+Manual controls and the three explicit root-assistance channels remain available.
+The command uses the verified saved runtime, so unrelated development edits do
+not change the example. This cache and its source videos are local artifacts, not
+included in a fresh clone. No server was started during build verification.
 
 **3. Build, then play.** A ready setup prints the existing `shared-exercise-build`
 command with your copied inputs and choices. Run it to check the actual body,

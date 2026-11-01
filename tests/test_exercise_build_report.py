@@ -99,6 +99,105 @@ def run(root, out):
     return result, summary
 
 
+@pytest.mark.parametrize("ready", [False, True])
+@pytest.mark.parametrize("has_selection", [False, True])
+def test_frame_selection_download_keeps_saved_bytes_without_inventing_evidence(tmp_path, ready, has_selection):
+    source = fixture(tmp_path / "build", ready=ready)
+    name = "proposal/frame-selection.json"
+    raw = b'{"saved_selection":"fixture","slots":[{"frame":0,"visibility":"unobserved"}]}\n'
+    if has_selection:
+        put(source, name, raw)
+        seal(source)
+    source_manifest = (source / "manifest.json").read_bytes()
+    out = tmp_path / "report"
+    _, summary = run(source, out)
+    selections = [row for row in summary["artifacts"] if row["source_name"] == name]
+    assert len(selections) == int(has_selection)
+    if has_selection:
+        selected = selections[0]
+        assert (out / selected["path"]).read_bytes() == raw
+        assert selected["sha256"] == sha(raw)
+        html = (out / "index.html").read_text()
+        assert selected["label"] in html and selected["path"] in html
+    assert summary["task_success"] == "not_assessed_by_report"
+    assert all(value == 0 for value in summary["work"].values())
+    assert (source / "manifest.json").read_bytes() == source_manifest
+
+
+def test_frame_selection_download_rejects_changed_sealed_bytes(tmp_path):
+    source = fixture(tmp_path / "build")
+    name = "proposal/frame-selection.json"
+    put(source, name, {"original": True})
+    seal(source)
+    put(source, name, {"changed": True})
+    with pytest.raises(ValueError, match="hash differs"):
+        run(source, tmp_path / "report")
+    assert not (tmp_path / "report/manifest.json").exists()
+
+
+def test_unsealed_frame_selection_is_not_exposed(tmp_path):
+    source = fixture(tmp_path / "build", receipt_only=True)
+    put(source, "proposal/frame-selection.json", {"unsealed": True})
+    _, summary = run(source, tmp_path / "report")
+    assert [row["source_name"] for row in summary["artifacts"]] == ["result.json"]
+
+
+@pytest.mark.parametrize("ready", [False, True])
+def test_large_frame_receipts_stay_complete_outside_display_summary(tmp_path, ready):
+    source = fixture(tmp_path / "build", ready=ready)
+    name = "proposal/geometry-proposal.json" if ready else "proposal/geometry-candidate.rejected.json"
+    geometry = json.loads((source / name).read_bytes())
+    receipt = {"profile": "equipment-box-consensus-selection-v1", "method": "construction_box_consensus_v1",
+               "status": "selected", "selected": {"source_frame": 4},
+               "slots": [{"source_frame": i, "visibility": "unobserved", "saved_diagnostic": "x" * 600}
+                         for i in range(259)]}
+    geometry["equipment"][0].update(frame_selection_receipt=receipt, unrelated_assumption="preserve exactly")
+    put(source, name, geometry)
+    put(source, "proposal/frame-selection.json", {"training-weight": receipt})
+    seal(source)
+    assert len(json.dumps(geometry).encode()) > 128 * 1024
+    out = tmp_path / "report"
+    _, summary = run(source, out)
+    row = summary["equipment"]["candidate"]["equipment"][0]
+    assert {k: v for k, v in row.items() if k != "frame_selection_summary"} == {
+        k: v for k, v in geometry["equipment"][0].items() if k != "frame_selection_receipt"}
+    reference = row["frame_selection_summary"]
+    assert reference["selected"] == receipt["selected"]
+    assert reference["receipt_sha256"] == report.canonical_hash(receipt)
+    assert reference["receipt_hash_kind"] == "canonical_json_sha256"
+    assert reference["source_artifact"] == name and reference["equipment_index"] == 0
+    assert "Not revalidated here" in reference["scope"]
+    assert len(json.dumps(summary["equipment"]["candidate"]).encode()) < 128 * 1024
+    artifacts = {r["source_name"]: r for r in summary["artifacts"]}
+    for original in (name, "proposal/frame-selection.json"):
+        assert (out / artifacts[original]["path"]).read_bytes() == (source / original).read_bytes()
+    assert summary["task_success"] == "not_assessed_by_report"
+
+
+@pytest.mark.parametrize("damage", ["non_receipt", "selected", "null", "list", "conflicting_summary"])
+def test_frame_summary_does_not_hide_invalid_or_oversized_metadata(tmp_path, damage):
+    source = fixture(tmp_path / "build", ready=True)
+    name = "proposal/geometry-proposal.json"
+    geometry = json.loads((source / name).read_bytes())
+    row = geometry["equipment"][0]
+    row["frame_selection_receipt"] = {"selected": {"source_frame": 4}}
+    if damage == "non_receipt":
+        row["geometry"]["unknown_details"] = "x" * (128 * 1024)
+    elif damage == "selected":
+        row["frame_selection_receipt"]["selected"]["unknown_details"] = "x" * (128 * 1024)
+    elif damage == "null":
+        row["frame_selection_receipt"] = None
+    elif damage == "list":
+        row["frame_selection_receipt"] = []
+    else:
+        row["frame_selection_summary"] = {"conflicting": True}
+    put(source, name, geometry)
+    seal(source)
+    with pytest.raises(ValueError, match="summary fields exceed|conflicting saved frame-selection"):
+        run(source, tmp_path / "report")
+    assert not (tmp_path / "report/manifest.json").exists()
+
+
 def feasibility_fixture(root, *, failure="floor", profile="shared-world-v3"):
     fixture(root, ready=True)
     source_sha = json.loads((root / "body_source/source.json").read_bytes())["sha256"]
