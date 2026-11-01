@@ -1,5 +1,58 @@
 # Combined Weft implementation handoff
 
+## Active prediction and geometry reuse — November 1, 2026, 1:25 PM PST
+
+The full goal remains active. The prior launcher/checkpoint is published at
+`e130ebc410fd050fd142c17a0854cfdce11435ae`; the latest completed fetch matched it.
+Standing merge approval is recorded in `AGENTS.md`; scoped, verified changes need
+no additional confirmation. Root is preparing a sequence-prediction checkpoint;
+the actual publication receipt will be `.local/equipment-sequence-prediction-publication-01.json`.
+Absence means publication is not complete. Independent avatar-session edits and
+unfinished geometry integration are excluded; do not claim the whole tree clean.
+
+The [sequence predictor](equipment-sequence-prediction.md) has 56 passing mocked
+checks and closed independent review. Its [native qualification](equipment-sequence-prediction-native.md)
+is complete: 48 exact saved prefix controls, one fixed forecast of selected49 /
+base50, then two actual comparison controls. Both endpoints and every substep
+contact match; live/scorer state is unchanged during prediction. Before49 it
+foresees50 endpoint speed/spin `0.479837/2.867589` against `0.15/0.75` limits.
+Actual50 fails the unchanged `equipment_stability:sam-2` gate, with higher
+accumulated peaks `0.597608/3.516482`. This is **prediction parity, not successful
+control or full-task learning**. No public/default routing changed.
+
+Native result: 0.880425 seconds /137,707,520 B peak RSS; 832 substeps,54 forwards,
+11 models,two data objects,one reset/copy; five files/512,180 B. PID51031 reaped.
+Seal `60a9abdff611d2b1728c7ff3d12a3c48446e0dd4d07e4ab4406692765eb3fd53`;
+saved audit `956eac8fde3e6d95f2066581d8fcafc6ead258c85915efc3d9af1b230596024a`.
+Plan01 remains unexecuted; reviewed plan02 fixes returned-native accounting if
+post-step contact observation fails. One isolated fake-operation check passes.
+No original helper, policy, scorer, geometry or gate changed.
+
+Current non-overlapping ownership:
+
+- `/root/contact_reconstruction`: implementation/release complete. Now owns a
+  **read-only** anticipatory-control proposal at
+  `docs/handoffs/equipment-anticipatory-control-proposal.md` and its lane scratch.
+  Examine a bounded fixed two-action prefix, preserving both boundary and actual
+  accumulated-gate evidence. No new native run or parameter sweep.
+- `/root/reconstruction_next_step`: implement saved conditional geometry reuse
+  via `shared-exercise-build --geometry-run`, new `exercise_geometry_inputs.py`,
+  narrow scene-pipeline/build-report/CLI changes and focused tests. Require sealed
+  source/config/task identities, unchanged physical invariants and ordinary lab
+  admission. Preserve original box and selected compound alternative. No refit,
+  cavity/depth inference, media reads or native execution in this lane.
+- `/root/equipment_control_review`: sequence/harness review closed; now reviews
+  the geometry adapter and routing. No duplicate native/test work.
+- Root: integration, saved-result audits and publication; owns any later bounded
+  public geometry-resume acceptance after implementation/review. No such run has
+  been prepared/executed yet.
+
+No server, browser, API request, deployment or native job remains running in
+these lanes. External spend is $0. User-testable path:
+`.venv-lab/bin/python scripts/play_sandbox.py --example equipment`; add `--console`
+for terminal controls. Its saved reference controller remains 0/3 on development
+starts. The experimental sequence helper is not enabled in that launcher.
+
 ## Current contact-refinement and launcher work — November 1, 2026, 1:00 PM PST
 
 The complete goal remains active. The interactive lab and recording workflow remain
