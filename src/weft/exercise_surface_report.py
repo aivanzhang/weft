@@ -160,6 +160,25 @@ def _page(title, content, data=None, script=''):
         '<p class="muted">Offline saved-data view. No video decoding, fitting, simulation or network request runs here.</p></main>' + payload + '</body></html>').encode()
 
 
+def _support_conditioning_notice(surfaces):
+    selected = []
+    for surface in surfaces:
+        if 'domain_mode' not in surface:
+            continue
+        _require(surface['domain_mode'] == 'condition_on_declared_support' and surface.get('kind') == 'static_support',
+                 'conditional domain mode requires a declared static support')
+        selected.append(surface['id'])
+    if not selected:
+        return ''
+    return ('<section><h2>Conditional support regions</h2><p>Explicitly enabled for: '
+        + ', '.join(html.escape(str(value), quote=True) for value in selected)
+        + '.</p><p>Locations are restricted to the supplied equipment-top bounds. '
+        'Each available envelope retains the original unrestricted range. A disjoint ray/height region stays unavailable.</p>'
+        '<p class="notice">This assumes the point lies on that static support. It does not establish contact, load or grasp. '
+        'A point inside the final box may not satisfy the correlated pixel and height constraints; '
+        'radial outer rays can still be infeasible.</p></section>')
+
+
 def _frame_page(rows, channels, surfaces, index, count):
     nav = ['<a href="index.html">Overview</a>']
     if index: nav.append(f'<a href="frames-{index:03d}.html">Previous page</a>')
@@ -169,6 +188,7 @@ def _frame_page(rows, channels, surfaces, index, count):
 <section><h2>Supply a pixel annotation</h2><p>Use this exact source-frame template. Fill pixel coordinates and their uncertainty only when justified. Keep unknown or occluded states explicit. A visible point is not proof of contact.</p><button id="download-template" type="button">Download this annotation template</button><details><summary>Exact template</summary><pre id="template"></pre></details><details><summary>Already supplied annotation</summary><pre id="supplied"></pre></details><p>Add edited rows to <code>annotations.annotations</code> in <a href="../collection-request.json">collection-request.json</a>; templates do not change the saved request.</p></section>
 <section><h2>Supplied surface range</h2><p>Height and extents are world-metre assumptions. Pixel uncertainty is separate. Unknown bounds are not zero height or a contact measurement.</p><pre id="surface-range"></pre><details><summary>Saved envelope status</summary><pre id="envelope"></pre></details><details><summary>Saved body correspondence</summary><pre id="body-join"></pre></details><details><summary>Separate image-source admission</summary><pre id="image-admission"></pre></details></section>
 <section><h2>Exact source links</h2><pre id="source-links"></pre><a href="../collection-frames.jsonl">Complete original frame/channel records</a></section>'''
+    content += _support_conditioning_notice(surfaces)
     return _page('Inspect original frame inputs', content, {'rows': rows, 'channels': channels, 'surfaces': surfaces}, _JS_FRAME)
 
 
@@ -303,6 +323,8 @@ def build_exercise_surface_report(files, *, max_seconds=5):
         content += '<section><h2>What still needs input</h2>' + items(metadata['missing_fields']) + '<h3>Explicit inputs and unavailable conditions</h3>' + items(metadata['required_explicit_inputs'])
         content += '<p>Download <a href="../collection-request.json">collection-request.json</a>, edit only justified fields, and keep unknowns explicit. Pixel uncertainty, world-height ranges, body correspondence and fitting weight are different inputs.</p><pre>'
         content += esc(_COMMAND + 'surface-inputs --resume PATH_TO_THIS_COLLECTION --request PATH_TO_EDITED_COLLECTION_REQUEST --out NEW_COLLECTION_DIRECTORY') + '</pre></section>'
+        content += '<details><summary>Optional finite equipment-top assumption</summary><p>For a justified static support, you may add <code>"domain_mode": "condition_on_declared_support"</code> to its surface declaration. This keeps only locations compatible with the supplied top bounds and retains the unrestricted range. Without this explicit option, the complete uncertainty range must fit the support. Neither mode proves contact.</p></details>'
+        content += _support_conditioning_notice(surfaces)
         content += '<section><h2>Inspect original frames</h2><p>' + str(count) + ' frames × ' + str(len(channels)) + ' channels. Every original slot is available; each page renders only the selected frame/channel.</p><nav>'
         content += ''.join(f'<a href="frames-{i+1:03d}.html">Frames {page[0]["frame"]}–{page[-1]["frame"]}</a>' for i, page in enumerate(pages)) + '</nav></section>'
         content += '<section><h2>Chosen channels and body identity</h2><pre>' + esc(json.dumps({'channels': channels, 'original_selection_human_entity_ref': selection['human_entity_ref'],

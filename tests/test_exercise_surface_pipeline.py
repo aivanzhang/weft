@@ -6,6 +6,7 @@ import importlib
 import json
 from pathlib import Path
 import re
+import time
 
 import pytest
 
@@ -125,6 +126,41 @@ def test_request_resume_uses_real_collector_config_and_no_duplicate_sources(api,
     assert old_seals == [(path / "manifest.json").read_bytes() for path in (first, draft)]
     assert len((out / "collection-frames.jsonl").read_bytes().splitlines()) == 4
     seal(out)
+
+
+def test_conditioned_support_survives_public_collection_config_and_real_report(api, inputs, tmp_path, monkeypatch):
+    report = importlib.import_module("weft.exercise_surface_report")
+    monkeypatch.setattr(api, "_report", lambda files, max_seconds: report.build_exercise_surface_report(files, max_seconds=max_seconds))
+    first, draft = select(api, inputs, tmp_path)
+    old_seals = [(path / "manifest.json").read_bytes() for path in (first, draft)]
+    request = deepcopy(inputs["request"])
+    request["surface_intervals"]["surfaces"][0].update(kind="static_support", bounds_xy_m=[.15, -.1, .18, -.07],
+        domain_mode="condition_on_declared_support")
+    edit = tmp_path / "conditioned-request.json"; edit.write_bytes(raw(request))
+    out = tmp_path / "conditioned"
+    result = api.prepare_exercise_surface_collection([], out, resume=draft, request=edit)
+    assert result["status"] == "completed" and result["collection_status"] == "conditional_inputs_available", result
+    assert (out / "collection-request.json").read_bytes() == edit.read_bytes()
+    assert (out / "original-human.json").read_bytes() == inputs["body"].read_bytes()
+    rows = [json.loads(line) for line in (out / "collection-frames.jsonl").read_bytes().splitlines()]
+    assert [row["source"]["source_frame"] for row in rows] == list(range(4))
+    assert all(row["envelope"]["anchors"][0]["world_envelope_m"]["support_conditioning"]["region_restricted"] for row in rows)
+    loader = importlib.import_module("weft.source_surface_fit_inputs")
+    files, descriptor = loader.prepare_surface_fit_inputs(out / "surface-config.json",
+        source_sha256=inputs["values"]["source_sha256"], deadline=time.monotonic()+5.)
+    surface = json.loads(files[loader.OPTIONAL_MEMBERS["surface_intervals"]])["surfaces"][0]
+    assert surface == request["surface_intervals"]["surfaces"][0]
+    files["inputs/human.json"] = inputs["body"].read_bytes()
+    objective = loader.prepare_surface_fit_objective(files, descriptor)["surface_interval_objective"]
+    assert objective.frame(0)["source_envelopes"] == rows[0]["envelope"]
+    assert objective.describe()["contact"] == "unknown"
+    index = (out / "inspection/index.html").read_text()
+    frame = (out / "inspection/frames-001.html").read_text()
+    assert "Conditional support regions" in index and "Conditional support regions" in frame
+    assert "condition_on_declared_support" in index and "unconditioned_world_envelope_m" in frame
+    assert "does not establish contact, load or grasp" in frame and "radial outer rays can still be infeasible" in index
+    assert old_seals == [(path / "manifest.json").read_bytes() for path in (first, draft)]
+    seal(first); seal(draft); seal(out)
 
 
 def test_unknown_height_remains_qualified_unavailable(api, inputs, tmp_path):

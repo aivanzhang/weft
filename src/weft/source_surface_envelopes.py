@@ -8,7 +8,7 @@ from hashlib import sha256
 import json
 import math
 import time
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 
 from weft.camera_pose import validate_camera
 from weft.source_surface_anchors import (
@@ -23,6 +23,7 @@ MAX_SECONDS, MAX_FRAMES = 10., 1800
 MAX_EXTRA_BYTES, MAX_CACHE_BYTES, MAX_ROW_BYTES, MAX_METADATA_BYTES = 4 << 20, 8 << 20, 128 << 10, 128 << 10
 RADIAL_PROFILE = "certified-nonnegative-radial-inverse-v1"
 RADIAL_BISECTIONS, RADIAL_CACHE_ENTRIES, RADIAL_RADIUS_SQUARED_MAX = 48, 256, 16
+CONDITIONAL_DOMAIN_MODE = "condition_on_declared_support"
 
 
 class AxisAlignedEnvelope(TypedDict):
@@ -31,6 +32,7 @@ class AxisAlignedEnvelope(TypedDict):
     unit: str
     kind: str
     certificate: str
+    support_conditioning: NotRequired[dict]
 
 
 def _require(value, message):
@@ -68,7 +70,11 @@ def _intervals(document, source, camera_hash, evidence, receipts):
     _require(type(document["surfaces"]) is list and len(document["surfaces"]) <= 12, "at most twelve static surfaces")
     intervals, checked = {}, []
     for item in document["surfaces"]:
-        _fields(item, ("id", "kind", "height_interval_m", "bounds_xy_m", "quality", "provenance", "evidence_refs"), "surface interval")
+        _require(type(item) is dict, "surface interval must be an object")
+        fields = ("id", "kind", "height_interval_m", "bounds_xy_m", "quality", "provenance", "evidence_refs")
+        _fields(item, fields + (("domain_mode",) if "domain_mode" in item else ()), "surface interval")
+        _require("domain_mode" not in item or item["domain_mode"] == CONDITIONAL_DOMAIN_MODE
+                 and item["kind"] == "static_support", "conditional domain mode requires an explicit static support")
         _require(type(item["provenance"]) is str and 1 <= len(item["provenance"].strip()) <= 2000,
                  "surface interval needs bounded explicit provenance")
         bounds = item["height_interval_m"]
@@ -77,7 +83,7 @@ def _intervals(document, source, camera_hash, evidence, receipts):
                  and bounds[0] <= bounds[1] and item["quality"] == "authored",
                  "height ranges must be explicit authored bounds or unknown; measured ranges are not inferred")
         # The existing validator checks custody/domain only; no nominal or midpoint height is invented.
-        checked.append({key: value for key, value in item.items() if key not in ("height_interval_m", "quality")}
+        checked.append({key: value for key, value in item.items() if key not in ("height_interval_m", "quality", "domain_mode")}
                        | {"height_m": None, "quality": "unknown"})
     shadow = document | {"profile": "source-horizontal-surfaces-v1", "surfaces": checked}
     validated, calibration, world = _surfaces(shadow, source, camera_hash, evidence, receipts)
@@ -118,6 +124,65 @@ def _outward(value, lower):
     return result
 
 
+def _cap_hull(points, axis):
+    axes = [index for index in range(3) if index != axis]
+    ordered = sorted(set(points), key=lambda point: tuple(point[index] for index in axes))
+    if len(ordered) < 3:
+        return ordered
+    def cross(a, b, c):
+        i, j = axes
+        return (b[i]-a[i])*(c[j]-a[j]) - (b[j]-a[j])*(c[i]-a[i])
+    halves = []
+    for sequence in (ordered, reversed(ordered)):
+        half = []
+        for point in sequence:
+            while len(half) > 1 and cross(half[-2], half[-1], point) <= 0:
+                half.pop()
+            half.append(point)
+        halves.append(half)
+    return halves[0][:-1] + halves[1][:-1]
+
+
+def _clip_support(points, domain):
+    # Positive ray depth makes the eight-vertex height slab convex; clipping keeps correlations.
+    faces = [[points[index] for index in face] for face in (
+        (0, 2, 3, 1), (4, 5, 7, 6), (0, 1, 5, 4),
+        (2, 6, 7, 3), (0, 4, 6, 2), (1, 3, 7, 5))]
+    for axis, bound, sign in ((0, domain[0], 1), (1, domain[1], 1),
+                              (0, domain[2], -1), (1, domain[3], -1)):
+        bound = Fraction(bound)
+        clipped, cap = [], []
+        for face in faces:
+            output = []
+            previous, distance = face[-1], sign*(face[-1][axis]-bound)
+            for current in face:
+                next_distance = sign*(current[axis]-bound)
+                if (distance >= 0) != (next_distance >= 0):
+                    weight = distance/(distance-next_distance)
+                    point = tuple(a+weight*(b-a) for a, b in zip(previous, current, strict=True))
+                    output.append(point); cap.append(point)
+                if next_distance >= 0:
+                    output.append(current)
+                    if next_distance == 0:
+                        cap.append(current)
+                previous, distance = current, next_distance
+            deduplicated = list(dict.fromkeys(output))
+            if deduplicated:
+                clipped.append(deduplicated)
+        if not clipped:
+            return []
+        if cap:
+            clipped.append(_cap_hull(cap, axis))
+        faces = clipped
+    return list(dict.fromkeys(point for face in faces for point in face))
+
+
+def _bounds_envelope(minimum, maximum):
+    return {"minimum": [_outward(value, True) for value in minimum],
+        "maximum": [_outward(value, False) for value in maximum], "unit": "m",
+        "kind": "outer_axis_aligned_enclosure", "certificate": "exact_rational_eight_vertex_extrema_outward_binary64"}
+
+
 def _plane_box(origin, transform, xs, ys, surface):
     directions = [_multiply(transform, (u, v, Fraction(1))) for u in xs for v in ys]
     denominators = [direction[2] for direction in directions]
@@ -135,11 +200,25 @@ def _plane_box(origin, transform, xs, ys, surface):
     if any(abs(value) > 1_000_000 for value in (*minimum, *maximum)):
         return None, "envelope_exceeds_coordinate_bound"
     domain = surface["bounds_xy_m"]
-    if domain is not None and any(minimum[axis] < Fraction(domain[axis]) or maximum[axis] > Fraction(domain[axis+2]) for axis in (0, 1)):
-        return None, "envelope_exceeds_declared_surface_domain"
-    envelope: AxisAlignedEnvelope = {"minimum": [_outward(value, True) for value in minimum],
-        "maximum": [_outward(value, False) for value in maximum], "unit": "m",
-        "kind": "outer_axis_aligned_enclosure", "certificate": "exact_rational_eight_vertex_extrema_outward_binary64"}
+    envelope: AxisAlignedEnvelope = _bounds_envelope(minimum, maximum)
+    exceeds = domain is not None and any(minimum[axis] < Fraction(domain[axis]) or maximum[axis] > Fraction(domain[axis+2]) for axis in (0, 1))
+    if surface.get("domain_mode") != CONDITIONAL_DOMAIN_MODE:
+        if exceeds:
+            return None, "envelope_exceeds_declared_surface_domain"
+        return envelope, None
+    original = dict(envelope)
+    if exceeds:
+        points = _clip_support(points, domain)
+        if not points:
+            return None, "ray_height_region_disjoint_from_declared_support"
+        minimum = tuple(min(point[axis] for point in points) for axis in range(3))
+        maximum = tuple(max(point[axis] for point in points) for axis in range(3))
+        envelope = _bounds_envelope(minimum, maximum)
+    envelope["certificate"] = "exact_rational_convex_ray_height_region_support_clipping_outward_binary64"
+    envelope["support_conditioning"] = {"mode": CONDITIONAL_DOMAIN_MODE, "bounds_xy_m": domain,
+        "unconditioned_world_envelope_m": original, "region_restricted": exceeds,
+        "scope": "Conditional on the supplied static-support hypothesis; no contact, load or grasp evidence. "
+                 "An enclosed point need not satisfy the correlated pixel/height constraints; radial outer rays may be infeasible."}
     return envelope, None
 
 
@@ -250,7 +329,10 @@ def _enclose_radial(annotation, surface, camera, prepared, inverse):
     envelope, reason = _plane_box(*prepared, *box["intervals"], surface)
     if envelope is None:
         return None, reason
-    envelope["certificate"] = "exact_rational_monotone_radial_outer_box_plane_extrema_outward_binary64"
+    envelope["certificate"] = ("exact_rational_monotone_radial_outer_box_support_clipping_outward_binary64"
+        if "support_conditioning" in envelope else "exact_rational_monotone_radial_outer_box_plane_extrema_outward_binary64")
+    if "support_conditioning" in envelope:
+        envelope["support_conditioning"]["unconditioned_world_envelope_m"]["certificate"] = "exact_rational_monotone_radial_outer_box_plane_extrema_outward_binary64"
     xs, ys = pixels
     diagnostic = {"profile": RADIAL_PROFILE, "radial_k1": camera["radial_k1"],
         "distorted_normalized_intervals": [_outward_pair(pair) for pair in box["distorted"]],
@@ -415,6 +497,13 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
             "constant-sign affine plane denominator gives extrema on the outer ray rectangle and height endpoints")
         metadata["certificate"]["conditions"] = ("Fixed 0<radial_k1<=1 pinhole coefficients, complete distorted radius<=4, "
             "authored closed pixel/height ranges, forward depths within1000m")
+    conditioned = [surface["id"] for surface in surfaces.values() if surface.get("domain_mode") == CONDITIONAL_DOMAIN_MODE]
+    if conditioned:
+        metadata["support_conditioning"] = {"mode": CONDITIONAL_DOMAIN_MODE, "surface_ids": conditioned,
+            "scope": "Explicit static-support hypothesis, not recovered membership or physical contact; "
+                     "original pixel/height ranges remain saved and no midpoint is selected",
+            "empty_intersection": "unavailable", "available_enclosures_retain_original": True}
+        metadata["certificate"]["proof"] += "; conditional supports clip the convex ray/height region with four exact half-planes before outward enclosure"
     encoded = _encode(metadata, MAX_METADATA_BYTES, deadline)
     _require(cache_bytes+len(encoded) <= MAX_CACHE_BYTES, "complete metadata/source cache exceeds 8 MiB")
     _check(deadline)

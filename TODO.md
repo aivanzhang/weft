@@ -1,6 +1,17 @@
 # Weft iteration backlog
 
-## Current milestone — November 1, 2026: separate arm/leg feedback
+## Current milestone — November 1, 2026: support bounds and contact-aware control
+
+- [x] Refresh the private remote; local main and origin matched `deeabdc`. Preserve independent avatar work and all saved evidence; no full-worktree clean claim.
+- [x] Diagnose the saved v5 recording without new simulation/replay/media work. The full learned episode first fails equipment speed/spin at control 49, alongside a forearm boundary contact; do not confuse it with the earlier mixed-control episode. [Exact evidence](docs/handoffs/split-limb-contact-diagnosis.md).
+- [x] Add opt-in finite-support conditioning to the existing collection/config/fitter-input/report workflow. Preserve correlated pixel/height bounds, original ranges, missing/excluded slots and strict defaults; reject empty intersections. **134 distinct focused checks pass**, with seven byte-identical default comparisons and a bounded 1,200-slot workload. [Scope and reproducible evidence](docs/handoffs/contact-reconstruction-resume.md).
+- [x] Implement an explicitly authored joint-only clearance correction around a pinned base controller; **29 analytical checks pass**. Geometry, scorer, task and equipment-force/root channels remain unchanged. Required-contact tasks explicitly reject. [Contract](docs/handoffs/equipment-clearance-controller.md).
+- [x] Complete one fixed 254-control native comparison and detached geometric-derivative check, 1.704560 seconds /134,938,624 B peak RSS. Preserve the failed task: rotation improves, displacement/speed worsen and `sam-2` still fails. **Do not promote it or alter the lab default.** [All gates, identities and next hypothesis](docs/handoffs/equipment-clearance-results.md).
+- [ ] Checkpoint this reviewed scope and publish only under the applicable main-branch review/merge authorization. Keep all independently owned avatar changes untouched.
+- [ ] Implement and verify a dynamics-aware, minimum-change joint-action projection before another contact-control comparison; account for torque, inertia and braking distance instead of repeating gain tuning.
+- [ ] Qualify unfamiliar-video body/ground/equipment reconstruction and independent physical-contact accuracy. The integrated lab remains usable, but these results do not complete the generalized product.
+
+## Historical milestone — November 1, 2026: separate arm/leg feedback
 
 - [x] Preserve the matched v4 failure: completed comparison, no feasible policy, unstable `sam-2`; published at `52a2559`.
 - [x] Complete opt-in v5 across the existing trainer, saved proof, independent evaluator, public workflow and lab. Keep the scorer, full interval, action bounds and default v4 behavior unchanged. [Ownership and exact contract](docs/handoffs/split-limb-feedback-workflow.md).
@@ -14,7 +25,7 @@
 - [x] Publish and independently remote-verify the 12-file lab fix/results/launch checkpoint `45066305bee39506f0da063a4cd85ce106bf313d`. Owned paths/index/stash are clean; two separate avatar edits remain preserved. Receipt: `.local/split-limb-feedback-lab-publication-01.json`.
 - [x] Complete the [bounded independent-source screen](docs/handoffs/exercise-source-readiness-02.md): no matched acquisition-ready licensed video/calibration/floor/force unit qualified. No media, paid call or repeated blocked source route.
 - [x] Screen two additional calibrated contact-data routes ([BEHAVE/RICH](docs/handoffs/exercise-contact-source-readiness-03.md)); no permitted acquisition or agreement, no media/model download.
-- [ ] Inspect the existing v5 recording with the bounded failure diagnostic before a distinct contact-aware control or reconstruction change. Reuse recorded data; do not repeat completed replay/training or alter gates.
+- [x] Inspect the existing v5 recording with the bounded failure diagnostic; the current milestone records the distinct contact-aware comparison and its retained failure.
 - [ ] Reliable unfamiliar-video reconstruction and independent physical-contact accuracy remain open; this controller hypothesis does not complete those requirements.
 
 ## Historical milestone — November 1, 2026: missing-frame fitting and fitted controls

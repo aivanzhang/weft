@@ -1,5 +1,50 @@
 # Combined Weft implementation handoff
 
+## Current support/contact work — November 1, 2026, PST
+
+This turn made progress: the saved v5 failure is now localized, the existing
+finite-support input/report path handles explicit conditional support bounds,
+and one new current-geometry controller was tested and rejected for promotion.
+The complete goal remains active; no definition of completion or frozen task
+limit changed. Fresh remote fetch matched `deeabdc` at the start of this work.
+
+- [Saved diagnosis](split-limb-contact-diagnosis.md): full learned episode first
+  crosses equipment speed/spin at step49, 1.600–1.633 seconds, with a co-occurring
+  forearm contact. The earlier mixed-control episode is different evidence.
+  No trajectory/replay/decoding was repeated for this diagnosis.
+- [Support-input improvement](contact-reconstruction-resume.md): opt-in exact
+  correlated ray/height clipping to finite static-support bounds, original
+  uncertainty retained, impossible intersections rejected. Existing public
+  collection/config/report integration and strict defaults preserved; 134
+  focused checks pass. The copied authored workflow mocks runtime capture only;
+  it is not unfamiliar-video or frozen CLI acceptance.
+- [Authored clearance controller](equipment-clearance-controller.md): 29
+  analytical checks pass. It uses current simulated separation/relative speed,
+  no new root/equipment force channel or geometry change. Required-contact
+  tasks reject. No learned-policy tag or public default was added.
+- [Actual native comparison](equipment-clearance-results.md): 254 controls,
+  same initial snapshot and frozen v5 base, one verified native distance
+  derivative, 1.704560 seconds /134,938,624 B peak RSS. Rotation improves but
+  displacement/speed regress; only `sam-2` still fails. The correction saturates
+  and fails five controls earlier. Retain it as a failed experiment, not a fix.
+
+All native jobs are terminal/reaped. Both parallel implementation lanes are
+finished; root owns integration, publication and the next controller hypothesis.
+No paid request, provider/key/ledger operation, acquisition, agreement,
+deployment, server or browser work occurred. Avatar work is independently dirty
+and changing; preserve it without staging or claiming a clean worktree. Stash
+was empty at the start; inspect again before checkpoint. Current scoped Git
+checkpoint/review state is recorded in
+`.local/support-contact-resume-checkpoint-01.json` when present; absence means
+the changes are not yet checkpointed.
+
+Next: review a dynamics-aware minimum-change joint-action projection using base
+torque, inertia and braking distance. Do not rerun this fixed force correction,
+enlarge gain searches, weaken gates or invent contact evidence. Independently
+measured unfamiliar-video ground/equipment accuracy remains open, while the
+[existing playable lab](../local-lab.md#try-separate-arm-and-leg-feedback) stays
+available. The full video→world→RL scope is unchanged.
+
 ## Active separate arm/leg feedback — November 1, 2026, PST
 
 Latest lab implementation checkpoint is published/private-remote-verified:

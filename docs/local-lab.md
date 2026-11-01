@@ -57,6 +57,14 @@ The new report lists missing fields and every original frame. Download
 frame and source identity. Keep unsupported pixel locations, surface heights,
 body mappings and uncertainty unknown; confidence is not a measured error bound.
 
+For a bench or other fixed support with supplied height and finite top bounds,
+you can explicitly add `"domain_mode": "condition_on_declared_support"` to its
+entry in `surface_intervals.surfaces`. This keeps the possible locations that
+intersect that support, while retaining the original uncertainty range. Use it
+only as an explicit assumption that the selected point lies on that support;
+it does not detect contact. Without the option, the complete range must fit.
+Missing/occluded points and disjoint regions remain unavailable.
+
 **3. Check the supplied inputs.** Save the result in another new directory:
 
 ```sh
