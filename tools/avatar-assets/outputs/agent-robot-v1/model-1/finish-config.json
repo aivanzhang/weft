@@ -1,0 +1,596 @@
+{
+  "authored_actions": [
+    {
+      "id": "idle",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Torso": [
+              2,
+              0,
+              1.5
+            ],
+            "UpperArmLeft": [
+              3,
+              0,
+              3
+            ],
+            "UpperArmRight": [
+              -3,
+              0,
+              -3
+            ]
+          },
+          "second": 1
+        },
+        {
+          "rotations": {},
+          "second": 2
+        },
+        {
+          "rotations": {
+            "Torso": [
+              -2,
+              0,
+              -1.5
+            ],
+            "UpperArmLeft": [
+              -3,
+              0,
+              -3
+            ],
+            "UpperArmRight": [
+              3,
+              0,
+              3
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "look_around",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              0,
+              0,
+              18
+            ]
+          },
+          "second": 1
+        },
+        {
+          "rotations": {},
+          "second": 2
+        },
+        {
+          "rotations": {
+            "Head": [
+              0,
+              0,
+              -18
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "wave",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "ForearmLeft": [
+              -48,
+              -12,
+              0
+            ],
+            "HandLeft": [
+              0,
+              -14,
+              0
+            ],
+            "UpperArmLeft": [
+              -8,
+              -10,
+              0
+            ]
+          },
+          "second": 0.8
+        },
+        {
+          "rotations": {
+            "ForearmLeft": [
+              -48,
+              -12,
+              0
+            ],
+            "HandLeft": [
+              0,
+              14,
+              0
+            ],
+            "UpperArmLeft": [
+              -8,
+              -10,
+              0
+            ]
+          },
+          "second": 1.4
+        },
+        {
+          "rotations": {
+            "ForearmLeft": [
+              -48,
+              -12,
+              0
+            ],
+            "HandLeft": [
+              0,
+              -14,
+              0
+            ],
+            "UpperArmLeft": [
+              -8,
+              -10,
+              0
+            ]
+          },
+          "second": 2
+        },
+        {
+          "rotations": {
+            "ForearmLeft": [
+              -48,
+              -12,
+              0
+            ],
+            "HandLeft": [
+              0,
+              14,
+              0
+            ],
+            "UpperArmLeft": [
+              -8,
+              -10,
+              0
+            ]
+          },
+          "second": 2.6
+        },
+        {
+          "rotations": {
+            "ForearmLeft": [
+              -24,
+              -6,
+              0
+            ],
+            "UpperArmLeft": [
+              -4,
+              -5,
+              0
+            ]
+          },
+          "second": 3.2
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "celebrate",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              14,
+              0,
+              0
+            ],
+            "Torso": [
+              6,
+              0,
+              0
+            ]
+          },
+          "second": 0.8
+        },
+        {
+          "rotations": {
+            "Head": [
+              -6,
+              0,
+              0
+            ],
+            "Torso": [
+              -1,
+              0,
+              0
+            ]
+          },
+          "second": 1.6
+        },
+        {
+          "rotations": {
+            "Head": [
+              10,
+              0,
+              0
+            ],
+            "Torso": [
+              4,
+              0,
+              0
+            ]
+          },
+          "second": 2.4
+        },
+        {
+          "rotations": {
+            "Head": [
+              -3,
+              0,
+              0
+            ]
+          },
+          "second": 3.2
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "authored_rig": {
+    "base_bones": [
+      "Root"
+    ],
+    "bones": [
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.34
+        ],
+        "name": "Root",
+        "parent": null,
+        "tail": [
+          0.5,
+          0.5,
+          0.39
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.39
+        ],
+        "name": "Torso",
+        "parent": "Root",
+        "tail": [
+          0.5,
+          0.5,
+          0.62
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.5,
+          0.645
+        ],
+        "name": "Head",
+        "parent": "Torso",
+        "tail": [
+          0.5,
+          0.5,
+          0.9
+        ]
+      },
+      {
+        "head": [
+          0.64,
+          0.5,
+          0.6
+        ],
+        "name": "UpperArmLeft",
+        "parent": "Torso",
+        "tail": [
+          0.75,
+          0.5,
+          0.515
+        ]
+      },
+      {
+        "head": [
+          0.75,
+          0.5,
+          0.515
+        ],
+        "name": "ForearmLeft",
+        "parent": "UpperArmLeft",
+        "tail": [
+          0.855,
+          0.48,
+          0.445
+        ]
+      },
+      {
+        "head": [
+          0.855,
+          0.48,
+          0.445
+        ],
+        "name": "HandLeft",
+        "parent": "ForearmLeft",
+        "tail": [
+          0.94,
+          0.46,
+          0.385
+        ]
+      },
+      {
+        "head": [
+          0.36,
+          0.5,
+          0.6
+        ],
+        "name": "UpperArmRight",
+        "parent": "Torso",
+        "tail": [
+          0.25,
+          0.5,
+          0.515
+        ]
+      },
+      {
+        "head": [
+          0.25,
+          0.5,
+          0.515
+        ],
+        "name": "ForearmRight",
+        "parent": "UpperArmRight",
+        "tail": [
+          0.145,
+          0.48,
+          0.445
+        ]
+      },
+      {
+        "head": [
+          0.145,
+          0.48,
+          0.445
+        ],
+        "name": "HandRight",
+        "parent": "ForearmRight",
+        "tail": [
+          0.06,
+          0.46,
+          0.385
+        ]
+      }
+    ],
+    "height_meters": 1.2,
+    "layers": [
+      {
+        "bones": [
+          "Root"
+        ],
+        "feather": 0,
+        "max": [
+          1,
+          1,
+          1
+        ],
+        "min": [
+          0,
+          0,
+          0
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "Torso"
+        ],
+        "feather": 0,
+        "max": [
+          0.71,
+          1,
+          0.65
+        ],
+        "min": [
+          0.29,
+          0,
+          0.355
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "UpperArmLeft"
+        ],
+        "feather": 0,
+        "max": [
+          1,
+          1,
+          0.635
+        ],
+        "min": [
+          0.64,
+          0,
+          0.49
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "UpperArmRight"
+        ],
+        "feather": 0,
+        "max": [
+          0.36,
+          1,
+          0.635
+        ],
+        "min": [
+          0,
+          0,
+          0.49
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "ForearmLeft"
+        ],
+        "feather": 0,
+        "max": [
+          1,
+          1,
+          0.515
+        ],
+        "min": [
+          0.735,
+          0,
+          0.34
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "ForearmRight"
+        ],
+        "feather": 0,
+        "max": [
+          0.265,
+          1,
+          0.515
+        ],
+        "min": [
+          0,
+          0,
+          0.34
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "HandLeft"
+        ],
+        "feather": 0,
+        "max": [
+          1,
+          1,
+          0.46
+        ],
+        "min": [
+          0.835,
+          0,
+          0.32
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "HandRight"
+        ],
+        "feather": 0,
+        "max": [
+          0.165,
+          1,
+          0.46
+        ],
+        "min": [
+          0,
+          0,
+          0.32
+        ],
+        "min_vertices": 1
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "feather": 0,
+        "max": [
+          1,
+          1,
+          1
+        ],
+        "min": [
+          0,
+          0,
+          0.645
+        ],
+        "min_vertices": 1
+      }
+    ],
+    "space": "normalized_bounds_blender_z_up"
+  },
+  "camera_view": "three_quarter",
+  "export_model": true,
+  "id": "agent-robot-v1-attempt-1",
+  "normal_strength": 0.6,
+  "prompt": "Create a friendly blue and cream workshop robot with copper metal details, a rounded torso, two arms and two planted feet. Animate a gentle idle, looking left and right, a small friendly hand wave and a modest celebratory nod. Preserve the existing hard-surface design; no props, facial animation or walking.",
+  "resolution": 512,
+  "rights": "User-described subject with optional selected references. Generated hidden surfaces and agent-authored rig, scale and motion are assumptions. Source provenance is retained by the pipeline; commercial rights are not independently verified.",
+  "sample_states": true,
+  "samples": 8,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/inputs/source-model.glb",
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Gentle, slow torso and arm shifts while both feet remain planted."
+    },
+    {
+      "id": "look_around",
+      "meaning": "Turn the head gently left, then right, and return to center while keeping the torso mostly still."
+    },
+    {
+      "id": "wave",
+      "meaning": "Raise one forearm and make a small friendly side-to-side hand wave, then lower it."
+    },
+    {
+      "id": "celebrate",
+      "meaning": "Give a modest upbeat head nod with a slight upper-torso dip, then return upright with feet planted."
+    }
+  ],
+  "style": "Rounded friendly hard-surface 3D robot, blue and cream paint with copper metal details",
+  "subject": "Friendly blue and cream workshop robot with copper metal details, a rounded torso, two arms and two planted feet; preserve its existing hard-surface design."
+}

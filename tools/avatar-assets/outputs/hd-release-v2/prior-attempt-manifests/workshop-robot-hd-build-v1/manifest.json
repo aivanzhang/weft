@@ -1,0 +1,2048 @@
+{
+  "artifacts": [
+    {
+      "bytes": 32715,
+      "path": "blender-build.json",
+      "sha256": "cb68dc657418035eaed0d60c363728798e06fdcfb60e0af5e41fad8a2ee0a42b"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "09ed217d756453a1163c23dd7a5f024f1a6ce2ac25e441a36fa1d9c31b5c74af"
+    },
+    {
+      "bytes": 567,
+      "path": "build-handle.json",
+      "sha256": "27373587d3656e5524eb30c75b486c3feb318df9cca1bdab913a094559f1cfea"
+    },
+    {
+      "bytes": 7086,
+      "path": "build.log",
+      "sha256": "65acf1360e1f7ac2c7068b453322c5f4c881c7e87ff62d8e38a44587a23f2cdd"
+    },
+    {
+      "bytes": 902,
+      "path": "job.json",
+      "sha256": "d28e60d744d60700a702de18fb9c3e3adbdd889f9ea3519f54187b020e1dafda"
+    },
+    {
+      "bytes": 6320008,
+      "path": "model.glb",
+      "sha256": "24a77d371a72a00a08ff810bab2417653d85306997c28174033beda603caeb78"
+    },
+    {
+      "bytes": 448330,
+      "path": "portrait.png",
+      "sha256": "3c0b463e5f412a814b36893dd7979912fb839b77b7a7826a58e627f8f33830ed"
+    },
+    {
+      "bytes": 3335,
+      "path": "render-attributes.json",
+      "sha256": "ec180ff8c332042958629b3b1322e5fd865fceb185dcdf72da8e5ebd44e328bb"
+    },
+    {
+      "bytes": 4639,
+      "path": "rig-contract.json",
+      "sha256": "3e5964ca8cf1999f120e0311c3b3d221e8720cd615fc9762b846e12ed7bff36c"
+    },
+    {
+      "bytes": 8539,
+      "path": "rig-verification.json",
+      "sha256": "759291abaf7bd0f751506a5e48fa9b43955258e2228be8d5b0a187c4e353d0b2"
+    },
+    {
+      "bytes": 8290780,
+      "path": "source.blend",
+      "sha256": "1396c63c73a6efd231cd0b95eab774135fd396d80601b336930d78a72da52b5a"
+    },
+    {
+      "bytes": 18366,
+      "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "a23351bf8b9d3150edd4e3f68b0830a27904ad1aa14587e056c41d19cdffe5bf"
+    },
+    {
+      "bytes": 48583,
+      "path": "sources/__pycache__/blender_geometry.cpython-311.pyc",
+      "sha256": "6f47539e23c5fe87a66d4f2e7dbdef7609a2def8bbb6adacc3f1632c4a0325d5"
+    },
+    {
+      "bytes": 18815,
+      "path": "sources/__pycache__/blender_surfaces_hd.cpython-311.pyc",
+      "sha256": "88d59c03faa4359693217a1cc903e3eeb77deb6cbcd77e479b7d226bf6b0b28e"
+    },
+    {
+      "bytes": 15064,
+      "path": "sources/blender_build.py",
+      "sha256": "be91f6c003879867b10a1029863c5901740129027294e94abd9d4d25f7b4c3ad"
+    },
+    {
+      "bytes": 7068,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "52118ba67160280a33ad5e89aee34a3d31d3bf61c4f8552fbda34a3fe3735444"
+    },
+    {
+      "bytes": 19840,
+      "path": "sources/blender_geometry.py",
+      "sha256": "f83189ce388aa600fb8c0ff7b7b93e094294c5f1de0ad6979cc00828b4bb97f7"
+    },
+    {
+      "bytes": 23506,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "8b39effb0b95a788566549af3e0ed416c290c862ca87aa782f7e3e379579cb03"
+    },
+    {
+      "bytes": 9781,
+      "path": "sources/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a"
+    },
+    {
+      "bytes": 2741,
+      "path": "sources/prompt.txt",
+      "sha256": "56c748bf33231aef853497be204800ebdc8a8aef7af3e55a07365913b98a0c59"
+    },
+    {
+      "bytes": 1087233,
+      "path": "sources/scene.json",
+      "sha256": "627527976060e4a51aaf7093ebb260cdd0be81334ec1075944dc702bf02286e7"
+    },
+    {
+      "bytes": 154134,
+      "path": "textures/brass-basecolor.png",
+      "sha256": "f335f7db46fb95dd18d9bf17025d934522bb80e1c1a5b6f94f2afef806946bcf"
+    },
+    {
+      "bytes": 365804,
+      "path": "textures/brass-normal.png",
+      "sha256": "995b81d4bbf123fe93c10abdef17898c6e1138837ebb6bdcdcd0f1aca4c3e5c4"
+    },
+    {
+      "bytes": 619346,
+      "path": "textures/metal-basecolor.png",
+      "sha256": "09aeec83e9390bbd7165f7d292bf73051aed8732a93497703d5f529ecc0dcc52"
+    },
+    {
+      "bytes": 1636238,
+      "path": "textures/metal-normal.png",
+      "sha256": "18633bbefe950adfb615d54b93ae2afc7227c0ba077adffdb30e7182bbdf340e"
+    }
+  ],
+  "authored_assumptions": [
+    "All geometry, hidden surfaces, mechanical details and material finishes are authored locally; no image-to-3D recovery or external assets are used.",
+    "The original blue/cream robot identity, all 17 bone names, parent relationships, major pivots, left-hand board and right-hand probe are retained.",
+    "Anatomical left is world +X, right is world -X, the rest-facing direction is -Y and units are meters with Z up before glTF export.",
+    "Closed body lofts and beveled panels are overlapping manufactured components, not one welded watertight outer surface.",
+    "The visible grip fingers and thumb are rigidly weighted to each hand bone; they are not independent finger joints or finger controls.",
+    "Board traces, pads and chip pins are static decorative geometry; probe motion and inspection are authored gestures, not contact-constrained manufacturing or a circuit simulation.",
+    "The four clips have matching authored endpoints as loop intent only. Rendered loop boundaries and state quality require downstream verification.",
+    "This general-profile revision uses real metallic-roughness PBR and richer geometry. It is not the matte diffuse weft-v1 deliverable and has not been validated against Weft.",
+    "Original bone rests are retained, while new shell surfaces, backside panels and small surface patterns are deliberate design assumptions.",
+    "Keyframe rotations and translations use model-rest axes; the backend converts them through bone rest bases.",
+    "HD textures are seeded, locally authored procedural patterns at native1024/2048 resolution, not neural output, reference-extracted texture maps or evidence of photorealism. Studio floor and exposure are render settings, not simulation geometry."
+  ],
+  "build_report": {
+    "actions": [
+      "idle",
+      "working",
+      "making_something",
+      "milestone_level_up"
+    ],
+    "blender": "4.5.13 LTS",
+    "bones": [
+      "root",
+      "torso",
+      "head",
+      "upper_arm_right",
+      "forearm_right",
+      "hand_right",
+      "probe",
+      "upper_arm_left",
+      "forearm_left",
+      "hand_left",
+      "workpiece",
+      "thigh_right",
+      "shin_right",
+      "foot_right",
+      "thigh_left",
+      "shin_left",
+      "foot_left"
+    ],
+    "color_management": "AgX",
+    "control_vertices": 3974,
+    "device": "CPU",
+    "embedded_images": 4,
+    "embedded_normal_maps": 2,
+    "exported_vertices": 47644,
+    "fur_cards": 0,
+    "fur_representation": {
+      "glb": "opaque triangle strands or none",
+      "native": "same geometry as GLB",
+      "native_hair_exported_to_glb": false
+    },
+    "fur_strands": 0,
+    "mixed_weight_vertices": 0,
+    "native_grooms": [],
+    "parts": [
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_body_shell",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "chest_panel_gasket",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "ivory_chest_armor",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "recessed_control_bezel",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "control_glass",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "power_ring",
+        "shape": "torus",
+        "surface_faces": 192,
+        "surface_vertices": 192
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "power_indicator",
+        "shape": "cylinder",
+        "surface_faces": 34,
+        "surface_vertices": 64
+      },
+      {
+        "control_vertices": 24,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "display_meter",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 24
+      },
+      {
+        "control_vertices": 24,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "chest_recessed_vents",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 24
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "chest_fasteners",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_hatch_gasket",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_service_hatch",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_hatch_vents",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_hatch_latch",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_hatch_fasteners",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "waist_flexible_seal",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "waist_upper_collar",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pelvis_enclosure",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pelvis_front_guard",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "neck_gimbal",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "neck_upper_collar",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "head_main_enclosure",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "crown_parting_seam",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "blue_crown_shell",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "visor_gasket",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "recessed_visor",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "warm_eye_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_glint_right",
+        "shape": "sphere",
+        "surface_faces": 128,
+        "surface_vertices": 114
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "temple_gasket_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "temple_disc_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "warm_eye_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_glint_left",
+        "shape": "sphere",
+        "surface_faces": 128,
+        "surface_vertices": 114
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "temple_gasket_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "temple_disc_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 170,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "curved_smile",
+        "shape": "mesh",
+        "surface_faces": 176,
+        "surface_vertices": 170
+      },
+      {
+        "control_vertices": 40,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rear_head_vent_array",
+        "shape": "mesh",
+        "surface_faces": 30,
+        "surface_vertices": 40
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "antenna_socket",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "antenna_telescoping_stem",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "antenna_brass_tip",
+        "shape": "sphere",
+        "surface_faces": 512,
+        "surface_vertices": 482
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_gimbal_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_outer_collar_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_shell_cap_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_upper_arm_right",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "upper_arm_cuff_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_bearing_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_outer_hub_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_hub_center_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_forearm_shell_right",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "wrist_seal_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "wrist_blue_cuff_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "hand_palm_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_right_0",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_right_1",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_right_2",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_thumb_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "hip_bearing_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "thigh_shell_right",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "thigh_lower_trim_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_bearing_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_front_guard_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_guard_fastener_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shin_armor_right",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shin_inset_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "ankle_collar_right",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rubber_sole_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "boot_shell_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "ivory_toe_cap_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "heel_guard_right",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "sole_tread_right",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_gimbal_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_outer_collar_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shoulder_shell_cap_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_upper_arm_left",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "upper_arm_cuff_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_bearing_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_outer_hub_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "elbow_hub_center_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_forearm_shell_left",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "wrist_seal_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "wrist_blue_cuff_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "hand_palm_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_left_0",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_left_1",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_grip_finger_left_2",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "static_thumb_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "hip_bearing_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "thigh_shell_left",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "thigh_lower_trim_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_bearing_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_front_guard_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "knee_guard_fastener_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 322,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shin_armor_left",
+        "shape": "mesh",
+        "surface_faces": 352,
+        "surface_vertices": 322
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "shin_inset_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "ankle_collar_left",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "rubber_sole_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "boot_shell_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "ivory_toe_cap_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "heel_guard_left",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "sole_tread_left",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "board_frame",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "board_substrate",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "board_microchip",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 80,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "fixed_copper_trace_network",
+        "shape": "mesh",
+        "surface_faces": 60,
+        "surface_vertices": 80
+      },
+      {
+        "control_vertices": 144,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "chip_pin_array",
+        "shape": "mesh",
+        "surface_faces": 108,
+        "surface_vertices": 144
+      },
+      {
+        "control_vertices": 80,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "board_edge_contacts",
+        "shape": "mesh",
+        "surface_faces": 60,
+        "surface_vertices": 80
+      },
+      {
+        "control_vertices": 32,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "board_corner_fasteners",
+        "shape": "mesh",
+        "surface_faces": 24,
+        "surface_vertices": 32
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_contact_pad",
+        "shape": "cylinder",
+        "surface_faces": 34,
+        "surface_vertices": 64
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_soft_grip",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_painted_barrel",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_brass_collar",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_metal_shaft",
+        "shape": "cylinder",
+        "surface_faces": 226,
+        "surface_vertices": 256
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "probe_tapered_contact_tip",
+        "shape": "cone",
+        "surface_faces": 33,
+        "surface_vertices": 33
+      }
+    ],
+    "polygons": 38058,
+    "portrait_only": true,
+    "preview_only": true,
+    "previews_rendered": true,
+    "render_engine": "CYCLES",
+    "render_resolution": 640,
+    "samples": 32,
+    "scene_schema_version": 2,
+    "textures": [
+      {
+        "algorithm": "brushed_v1",
+        "bytes": 154134,
+        "kind": "basecolor",
+        "material": "brass",
+        "path": "textures/brass-basecolor.png",
+        "pattern": "brushed",
+        "resolution": 1024,
+        "seed": 271,
+        "sha256": "f335f7db46fb95dd18d9bf17025d934522bb80e1c1a5b6f94f2afef806946bcf",
+        "strength": 0.28
+      },
+      {
+        "algorithm": "brushed_v1",
+        "bytes": 365804,
+        "kind": "normal",
+        "material": "brass",
+        "path": "textures/brass-normal.png",
+        "pattern": "brushed",
+        "resolution": 1024,
+        "seed": 271,
+        "sha256": "995b81d4bbf123fe93c10abdef17898c6e1138837ebb6bdcdcd0f1aca4c3e5c4",
+        "strength": 0.28
+      },
+      {
+        "algorithm": "brushed_v1",
+        "bytes": 619346,
+        "kind": "basecolor",
+        "material": "metal",
+        "path": "textures/metal-basecolor.png",
+        "pattern": "brushed",
+        "resolution": 2048,
+        "seed": 173,
+        "sha256": "09aeec83e9390bbd7165f7d292bf73051aed8732a93497703d5f529ecc0dcc52",
+        "strength": 0.3
+      },
+      {
+        "algorithm": "brushed_v1",
+        "bytes": 1636238,
+        "kind": "normal",
+        "material": "metal",
+        "path": "textures/metal-normal.png",
+        "pattern": "brushed",
+        "resolution": 2048,
+        "seed": 173,
+        "sha256": "18633bbefe950adfb615d54b93ae2afc7227c0ba077adffdb30e7182bbdf340e",
+        "strength": 0.3
+      }
+    ],
+    "uv_repair": {
+      "ambiguous_tangent_faces_reprojected": 0,
+      "degenerate_faces_removed": 512,
+      "method": "Per-loop geometric-plane UV projection for collapsed UVs or cancelling UV fans; other UV seams unchanged. Tangents are computed by Blender MikkTSpace, not replaced.",
+      "minimum_absolute_uv_determinant": 1.2979879171481912e-08,
+      "minimum_geometric_edge_m": 1e-06,
+      "minimum_relative_triangle_area": 1e-06,
+      "tangent_repair_passes": 0,
+      "uv_degenerate_faces_reprojected": 640
+    },
+    "vertices": 19629
+  },
+  "generation": {
+    "local_compute": "CPU, up to 4 threads; resource usage in job.json",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_service_cost_usd": 0
+  },
+  "id": "workshop-robot-hd-v1",
+  "job": {
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-hd-build-v1/sources/blender_build.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-hd-build-v1/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-hd-build-v1",
+      "640",
+      "32",
+      "portrait-only"
+    ],
+    "elapsed_seconds": 7.711,
+    "exit_code": 0,
+    "failure": null,
+    "final_output_bytes": 19126126,
+    "limits": {
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "pid": 88186,
+    "sampled_peak_rss_bytes": 1108377600,
+    "sampling_interval_seconds": 0.25
+  },
+  "kind": "authored_3d_avatar",
+  "origin": "Agent-authored procedural geometry and skeletal keyframes; not neural reconstruction or an analytic fixture",
+  "output_profile": "general",
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 448330,
+    "format": "PNG",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 640,
+    "kind": "image",
+    "metadata_keys": [
+      "Camera",
+      "Date",
+      "File",
+      "Frame",
+      "RenderTime",
+      "Scene",
+      "Time",
+      "cycles.ViewLayer.render_time",
+      "cycles.ViewLayer.samples",
+      "cycles.ViewLayer.synchronization_time",
+      "cycles.ViewLayer.total_time",
+      "dpi",
+      "exif"
+    ],
+    "mode": "RGBA",
+    "sha256": "3c0b463e5f412a814b36893dd7979912fb839b77b7a7826a58e627f8f33830ed",
+    "width": 640
+  },
+  "preview_scope": "portrait only; four exported clips still independently skin-tested",
+  "references": [],
+  "rejected_attempts": [],
+  "render_attributes": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 428796,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "blue",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9806665041421923e-07,
+        "normal_tangent_dot_error": 0.0001262729517934602,
+        "tangent_squared_length_error": 0.00013845032026305049,
+        "vertices": 10051
+      },
+      {
+        "material": "graphite",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.801148787894391e-07,
+        "normal_tangent_dot_error": 0.00013945349089183878,
+        "tangent_squared_length_error": 0.00014849681966921935,
+        "vertices": 12535
+      },
+      {
+        "material": "cream",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.951345929285253e-07,
+        "normal_tangent_dot_error": 0.0001296027336219474,
+        "tangent_squared_length_error": 0.00013771544603358166,
+        "vertices": 9224
+      },
+      {
+        "material": "metal",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9197447187480066e-07,
+        "normal_tangent_dot_error": 0.0001316160304836167,
+        "tangent_squared_length_error": 0.00014087564642029093,
+        "vertices": 7990
+      },
+      {
+        "material": "visor",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7771409699385288e-07,
+        "normal_tangent_dot_error": 0.00013021971474280747,
+        "tangent_squared_length_error": 0.00012602830863883696,
+        "vertices": 916
+      },
+      {
+        "material": "brass",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9678812535062207e-07,
+        "normal_tangent_dot_error": 0.00013835826937125262,
+        "tangent_squared_length_error": 0.00013016641563878828,
+        "vertices": 3911
+      },
+      {
+        "material": "eye",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9678812535062207e-07,
+        "normal_tangent_dot_error": 0.00013793404702866496,
+        "tangent_squared_length_error": 0.00013448177794428418,
+        "vertices": 1306
+      },
+      {
+        "material": "blue_edge",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.909889804085907e-07,
+        "normal_tangent_dot_error": 0.0001289576480860699,
+        "tangent_squared_length_error": 0.0001230503353313317,
+        "vertices": 1022
+      },
+      {
+        "material": "circuit",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.5601997538361445e-07,
+        "normal_tangent_dot_error": 0.00012444656188988212,
+        "tangent_squared_length_error": 0.00011837386905622083,
+        "vertices": 549
+      },
+      {
+        "material": "copper",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.084314007471221e-07,
+        "normal_tangent_dot_error": 0.00013933427920065355,
+        "tangent_squared_length_error": 0.00012096216132118087,
+        "vertices": 140
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "24a77d371a72a00a08ff810bab2417653d85306997c28174033beda603caeb78",
+    "status": "validated_render_attributes",
+    "vertices": 47644
+  },
+  "rig_verification": {
+    "attachments": [
+      {
+        "mode": "rigid_child",
+        "node": "workpiece",
+        "parent_bone": "hand_left",
+        "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          -0.26999998092651367,
+          0.019999980926513672,
+          0.09999999403953552
+        ]
+      },
+      {
+        "mode": "rigid_child",
+        "node": "probe",
+        "parent_bone": "hand_right",
+        "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          0.04999998211860657,
+          0.0700000524520874,
+          0.06000000238418579
+        ]
+      }
+    ],
+    "authored_assumptions": [
+      "All geometry, hidden surfaces, mechanical details and material finishes are authored locally; no image-to-3D recovery or external assets are used.",
+      "The original blue/cream robot identity, all 17 bone names, parent relationships, major pivots, left-hand board and right-hand probe are retained.",
+      "Anatomical left is world +X, right is world -X, the rest-facing direction is -Y and units are meters with Z up before glTF export.",
+      "Closed body lofts and beveled panels are overlapping manufactured components, not one welded watertight outer surface.",
+      "The visible grip fingers and thumb are rigidly weighted to each hand bone; they are not independent finger joints or finger controls.",
+      "Board traces, pads and chip pins are static decorative geometry; probe motion and inspection are authored gestures, not contact-constrained manufacturing or a circuit simulation.",
+      "The four clips have matching authored endpoints as loop intent only. Rendered loop boundaries and state quality require downstream verification.",
+      "This general-profile revision uses real metallic-roughness PBR and richer geometry. It is not the matte diffuse weft-v1 deliverable and has not been validated against Weft.",
+      "Original bone rests are retained, while new shell surfaces, backside panels and small surface patterns are deliberate design assumptions.",
+      "Keyframe rotations and translations use model-rest axes; the backend converts them through bone rest bases.",
+      "HD textures are seeded, locally authored procedural patterns at native1024/2048 resolution, not neural output, reference-extracted texture maps or evidence of photorealism. Studio floor and exposure are render settings, not simulation geometry."
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "foot_left": "foot_left",
+      "foot_right": "foot_right",
+      "forearm_left": "forearm_left",
+      "forearm_right": "forearm_right",
+      "hand_left": "hand_left",
+      "hand_right": "hand_right",
+      "head": "head",
+      "probe": "probe",
+      "root": "root",
+      "shin_left": "shin_left",
+      "shin_right": "shin_right",
+      "thigh_left": "thigh_left",
+      "thigh_right": "thigh_right",
+      "torso": "torso",
+      "upper_arm_left": "upper_arm_left",
+      "upper_arm_right": "upper_arm_right",
+      "workpiece": "workpiece"
+    },
+    "bones": [
+      "head",
+      "probe",
+      "hand_right",
+      "forearm_right",
+      "upper_arm_right",
+      "workpiece",
+      "hand_left",
+      "forearm_left",
+      "upper_arm_left",
+      "torso",
+      "foot_right",
+      "shin_right",
+      "thigh_right",
+      "foot_left",
+      "shin_left",
+      "thigh_left",
+      "root"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 2000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 10,
+    "mesh_vertices": 47644,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.026073865416640255,
+          "motion_observed": true,
+          "name": "idle",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.0787583666720354,
+          "motion_observed": true,
+          "name": "making_something",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 1.9306627990247136,
+          "motion_observed": true,
+          "name": "milestone_level_up",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.0655040927236883,
+          "motion_observed": true,
+          "name": "working",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 118
+    },
+    "primitive_count": 10,
+    "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+    "schema_version": 1,
+    "sha256": "24a77d371a72a00a08ff810bab2417653d85306997c28174033beda603caeb78",
+    "skeleton_roots": [
+      {
+        "name": "root",
+        "node": 16,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "New locally authored shapes/materials; reference resemblance is not independent rights verification",
+  "scene_schema_version": 2,
+  "scene_sha256": "627527976060e4a51aaf7093ebb260cdd0be81334ec1075944dc702bf02286e7",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration_seconds": 4,
+      "id": "idle",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "An attentive settling sway with a small head tilt, tools held steadily at waist level."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "working",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Lifts the circuit board below the visor and studies it with a gentle head-and-body scan; the probe rests low."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "making_something",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Makes short precise probe gestures near the board's contact guide while the left hand steadies it. Copper tracks are fixed geometry, not newly manufactured marks."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "milestone_level_up",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Raises both tools into a wide open V with a small hop and preparatory knee bend; hands stay outside the face silhouette."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Designer retro-future character: shaped enamel shells, satin ivory armor, dark rubber seals, brushed metal collars and restrained warm brass accents.; native-HD procedural surface and grounded-studio edition",
+  "subject": "A polished blue-and-ivory workshop robot with a friendly inset visor, metal joint hardware, a detailed circuit board and a precision probe.",
+  "tools": {
+    "encoder": "libx264",
+    "encoder_options": {
+      "crf": 18,
+      "preset": "medium",
+      "threads": 1
+    },
+    "ffmpeg_libraries": {
+      "libavcodec": [
+        63,
+        1,
+        102
+      ],
+      "libavdevice": [
+        63,
+        1,
+        102
+      ],
+      "libavfilter": [
+        12,
+        1,
+        102
+      ],
+      "libavformat": [
+        63,
+        1,
+        102
+      ],
+      "libavutil": [
+        61,
+        1,
+        102
+      ],
+      "libswresample": [
+        7,
+        1,
+        102
+      ],
+      "libswscale": [
+        10,
+        1,
+        102
+      ]
+    },
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "pyav": "19.0.2",
+    "python": "3.14.7"
+  }
+}

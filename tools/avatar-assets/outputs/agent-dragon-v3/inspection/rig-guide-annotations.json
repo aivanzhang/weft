@@ -1,0 +1,86 @@
+{
+  "kind": "analytic_coordinate_annotations",
+  "native_inspection_sha256": "fc1b40abca90cb7cd7b1e6385cde159fc821564195e23b6b2d756024b2037cd5",
+  "raw_model_renders_preserved": true,
+  "reference_images_edited": false,
+  "schema_version": 1,
+  "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "views": [
+    {
+      "canvas_pixels": [
+        768,
+        768
+      ],
+      "path": "guide-front.png",
+      "raw_path": "guide-front-raw.png",
+      "raw_sha256": "aa53ea27ab4146218cda787a405d54a1086eebb18cf49531516aade227979c54",
+      "sha256": "287d08ee6a4af872a5d927c5076860f84ab068c282ec75dafeb038d98c6fc084",
+      "ticks": [
+        {
+          "horizontal_canvas_x": 204.0663143160313,
+          "value": 0,
+          "vertical_canvas_y": 655.1864406779661
+        },
+        {
+          "horizontal_canvas_x": 294.0331571580157,
+          "value": 0.25,
+          "vertical_canvas_y": 519.593220338983
+        },
+        {
+          "horizontal_canvas_x": 384.0,
+          "value": 0.5,
+          "vertical_canvas_y": 384.0
+        },
+        {
+          "horizontal_canvas_x": 473.9668428419844,
+          "value": 0.75,
+          "vertical_canvas_y": 248.40677966101697
+        },
+        {
+          "horizontal_canvas_x": 563.9336856839686,
+          "value": 1,
+          "vertical_canvas_y": 112.81355932203391
+        }
+      ],
+      "view": "front"
+    },
+    {
+      "canvas_pixels": [
+        768,
+        768
+      ],
+      "path": "guide-side.png",
+      "raw_path": "guide-side-raw.png",
+      "raw_sha256": "a95cb4333bf4a1f963dc22968765f01ee273f547a2e00b3034b9d295ccf77138",
+      "sha256": "1581345d9c80629bf2b450b3c3f9ea9ae7f32ef161e985e3f3c2966f574dfb84",
+      "ticks": [
+        {
+          "horizontal_canvas_x": 112.81355932203388,
+          "value": 0,
+          "vertical_canvas_y": 586.3169316590183
+        },
+        {
+          "horizontal_canvas_x": 248.40677966101697,
+          "value": 0.25,
+          "vertical_canvas_y": 485.1584658295092
+        },
+        {
+          "horizontal_canvas_x": 384.0,
+          "value": 0.5,
+          "vertical_canvas_y": 384.0
+        },
+        {
+          "horizontal_canvas_x": 519.593220338983,
+          "value": 0.75,
+          "vertical_canvas_y": 282.84153417049083
+        },
+        {
+          "horizontal_canvas_x": 655.1864406779661,
+          "value": 1,
+          "vertical_canvas_y": 181.6830683409816
+        }
+      ],
+      "view": "side"
+    }
+  ]
+}

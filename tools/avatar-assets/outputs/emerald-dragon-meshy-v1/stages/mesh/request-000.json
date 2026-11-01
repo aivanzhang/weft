@@ -1,0 +1,30 @@
+{
+  "balance_before": {
+    "balance": 3168,
+    "monthly_credits": 2968,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "4k",
+    "mode": "preview",
+    "model_type": "standard",
+    "pose_mode": "",
+    "prompt": "A complete adorable emerald green baby dragon, full body, standing upright on two broad three-toed feet. Large rounded head, expressive amber eyes, short smiling muzzle, two swept ivory horns and small dorsal spines. Rounded belly with pale cream segmented plates. Two short arms held apart from the torso, relaxed three-clawed hands. Two broad bat-like wings attached behind the shoulders, spread sideways with visible green membranes and sturdy spars, separated from arms and body. One long tapering tail extending backward in a gentle curve, separated from the legs. Fine pebbled scales, subtle color variation, believable thickness and polished animated-film craftsmanship. Symmetric neutral pose. No fur, clothes, pedestal, props, text, additional characters or scenery.",
+    "should_remesh": true,
+    "target_formats": [
+      "glb"
+    ],
+    "target_polycount": 35000,
+    "topology": "triangle"
+  },
+  "created": "2026-10-31T21:08:57.393010-07:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 25,
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "request_sha256": "990fae6635b00887450bfcd3fa332f2999ac999b70fbebb8264e266a983e0208"
+}

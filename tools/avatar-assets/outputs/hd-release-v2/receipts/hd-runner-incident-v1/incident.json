@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "kind": "runner_reliability_incident",
+  "status": "documented_cause_unconfirmed_repair_tested",
+  "attempt": "outputs/muse-panda-hd-build-v2",
+  "outer_tool_session_reported_by_job_owner": 47929,
+  "outer_cli_error": "[Errno 1] Operation not permitted",
+  "recorded_process_id": 91265,
+  "observed": {
+    "failure_manifest_present": true,
+    "job_json_present": false,
+    "monitor_checkpoint_present": false,
+    "blender_build_report_present": true,
+    "portrait_model_and_blend_present": true,
+    "log_contains_blender_quit": true,
+    "native_exit_code": null,
+    "native_elapsed_seconds": null,
+    "sampled_peak_rss_bytes": null,
+    "missing_metrics_reconstructed": false,
+    "original_attempt_modified": false
+  },
+  "diagnosis": {
+    "cause": "Unconfirmed: the original attempt has no traceback or monitor checkpoint.",
+    "confirmed_runner_defects": [
+      "PermissionError from process-group signaling escaped before run_bounded returned its resource measurements.",
+      "Cleanup repeated signaling in finally and used unbounded wait() after SIGKILL.",
+      "Output-inventory failures after native completion could discard prior RSS and timing observations.",
+      "Only PID and command were checkpointed; the caller could not recover measured resource history after an outer exception."
+    ],
+    "possible_not_proven_paths": [
+      "Live-process RSS inspection failure triggered cleanup and the group signal was denied.",
+      "A measured resource breach triggered cleanup and the group signal was denied.",
+      "Final output accounting or the caller's job.json write encountered a transient permission error."
+    ],
+    "log_limit": "Blender's finish text and internal render-memory counters do not establish the OS exit status, whole-job runtime, or resident-memory peak.",
+    "prior_similar_incident": "outputs/quality-runner-incident-v1/incident.json"
+  },
+  "repair": {
+    "file": "avatar_assets/runner.py",
+    "sha256": "87806259168e58f88a87a642e278641ea373d2fda7f4d674da8b384d1bd63a5f",
+    "checkpoint": "<logstem>-monitor.json, atomic replacement after flushed/fsynced content; every output scan and before each stop signal",
+    "measurements": "Observed elapsed time, sampled direct-child peak RSS, sample count, output bytes, all failure reasons, signal/wait errors, and actually reaped exit code",
+    "cleanup": "SIGTERM and at most 5s wait, then SIGKILL and at most 2s wait; denied group signals fall back only to the directly owned child",
+    "uncertain_cleanup": "Null exit_code, cleanup_incomplete, manual_stop_required=true; never report successful completion when owned-child exit is unverified",
+    "unchanged_limits": "The caller's 2048 MiB memory, wall-time, output and 16 MiB log limits remain enforced; recorded breaches survive a later zero exit code",
+    "measurement_limitations": "Quarter-second sampling is not an instantaneous maximum; descendant RSS and descendant exit are not independently verified. A denied signal is recorded, not treated as successful termination."
+  },
+  "verification": {
+    "command": ".venv/bin/python -B -m unittest tests.test_runner_reliability tests.test_workflow",
+    "working_directory": "tools/avatar-assets",
+    "tests": 22,
+    "elapsed_seconds": 1.521,
+    "result": "passed",
+    "new_test_file": "tests/test_runner_reliability.py",
+    "new_test_sha256": "c80971e7bff1410e296119afa72cc8c85745715d9e185421a6564fa8c5509d38",
+    "faults": [
+      "RSS inspection races actual child exit",
+      "Actual recorded RSS breach followed by exit 0",
+      "Checkpoint contents inspected before an injected denied signal",
+      "Group denial with successful owned-child fallback",
+      "Both group and child signal denials with bounded unresolved cleanup",
+      "Successful signal without observed exit",
+      "Live RSS-monitor denial after a previous measured sample",
+      "Unexpected monitor exception after a previous measured sample",
+      "Final output-inventory permission denial",
+      "Process-status permission denial",
+      "Cleanup wait permission denial",
+      "Existing monitor preservation",
+      "Invalid nonfinite and nonpositive limits"
+    ],
+    "existing_real_process_checks": "Wall, RSS and output-budget enforcement plus cleanup after an unexpected monitor exception all passed using small Python subprocesses.",
+    "native_blender_jobs": 0,
+    "diff_check": "git diff --check -- tools/avatar-assets/avatar_assets/runner.py tools/avatar-assets/tests/test_runner_reliability.py passed"
+  },
+  "evidence": [
+    {
+      "path": "outputs/muse-panda-hd-build-v2/manifest.json",
+      "bytes": 5680,
+      "sha256": "15bcb821f587b4dd88ecd6e629f69070564e460516baea3dcbd5d56147f12c62"
+    },
+    {
+      "path": "outputs/muse-panda-hd-build-v2/build.log",
+      "bytes": 11515,
+      "sha256": "775728adc2c1db7ea8670639e8cc5b11504f4ed83ad2b71ceeabbe8cd70116e1"
+    },
+    {
+      "path": "outputs/muse-panda-hd-build-v2/build-handle.json",
+      "bytes": 555,
+      "sha256": "0630aa9251f712d534b2ee053592710e7899dd912f50a7185f338412c25988ac"
+    },
+    {
+      "path": "outputs/muse-panda-hd-build-v2/blender-build.json",
+      "bytes": 76972,
+      "sha256": "9a7af0d8fe18eb3e5f1a985cb8113820f4ab45c79db2348d730f123d5df101f4"
+    }
+  ],
+  "next_safe_action": "The job owner may run a new uniquely named 640px build with the repaired runner. Do not promote or fabricate missing measurements for the preserved 768px attempt. If a new report says manual_stop_required, resolve that owned process before another native job.",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "recurring_service_cost_usd": 0
+}

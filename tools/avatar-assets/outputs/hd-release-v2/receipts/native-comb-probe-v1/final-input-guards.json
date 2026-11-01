@@ -1,0 +1,14 @@
+{
+  "cases_passed": 14,
+  "changes_since_native_probe": [
+    "Restrict direction components to [-1,1]; the successful [0,0,-1] probe remains valid.",
+    "Add the existing resource/input limits to returned report metadata."
+  ],
+  "native_jobs_added": 0,
+  "native_probe_source_sha256": "4e83dd09eec76b21dc6bab2b6947f14de5951bdb8a931241912f7a156795b4ec",
+  "ready_for_optional_integration": true,
+  "scope": "Actual helper entry point with minimal Blender/vector stand-ins; verifies input guards only, not native behavior",
+  "source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/blender_comb_groom.py",
+  "source_sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f",
+  "status": "bounded_input_guards_passed"
+}

@@ -1,0 +1,39 @@
+{
+  "execution_sources": {
+    "meshy.py": "4b05c9cd6de354a539f590489ca9a194d6e4b8e84bddab1991f280f16f0b6ca7",
+    "meshy_access.py": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+  },
+  "observed": "2026-10-31T11:16:49.856983-07:00",
+  "task": {
+    "consumed_credits": 10,
+    "created_at": 1793470529117,
+    "finished_at": 1793470575641,
+    "hd_texture": true,
+    "id": "01a1932c-7881-71e8-8071-9a7c8bce89ae",
+    "mode": "refine",
+    "model_type": "standard",
+    "model_urls": {
+      "glb": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/model.glb"
+    },
+    "name": "",
+    "progress": 100,
+    "prompt": "A complete friendly compact humanoid workshop robot, standing upright in an A-pose. Large rounded rectangular head, cream ceramic faceplate and two inset circular glass eyes, dark blue enamel torso and limb shells, brushed copper joint collars. Clear separate arms, elbows, wrists, three-finger hands, hips, knees and broad rounded feet. Small chest access panel, subtle real screws and seams, backpack-like battery housing. Premium animated-film craftsmanship, believable thickness and soft beveled edges. No fur, no weapons, no logos, no writing, no base or props. Full body, all limbs intact, symmetrical mechanical construction.",
+    "seed": 600924157,
+    "started_at": 1793470529122,
+    "status": "SUCCEEDED",
+    "task_error": null,
+    "texture_image_url": "",
+    "texture_prompt": "Premium animated-film robot. Painted deep blue enamel shell, brushed copper joints, cream ceramic faceplate, dark inset glass eyes with cyan centers. Real seams, fasteners and rounded manufactured edges; subtly worn but clean. No animal fur, no logos, text, pedestal or floating props.",
+    "texture_resolution": "4k",
+    "texture_urls": [
+      {
+        "base_color": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/texture_0.png",
+        "metallic": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/texture_0_metallic.png",
+        "normal": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/texture_0_normal.png",
+        "roughness": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/texture_0_roughness.png"
+      }
+    ],
+    "thumbnail_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932c-7881-71e8-8071-9a7c8bce89ae/output/preview.png",
+    "type": "text-to-3d-refine"
+  }
+}

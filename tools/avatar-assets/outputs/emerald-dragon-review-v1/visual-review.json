@@ -1,0 +1,70 @@
+{
+  "evidence": [
+    {
+      "path": "outputs/emerald-dragon-media-v1/portrait.png",
+      "sha256": "11ec19ab50fa187553870bd7b4128b8b3f86fddf6d25bc7d6289d9bdea986d2d"
+    },
+    {
+      "path": "outputs/emerald-dragon-media-v1/portrait-raw.png",
+      "sha256": "6ec3d66d7d5daf0dfb97b4d9abc8a203676231816016c9b870467d81732ee8e1"
+    },
+    {
+      "path": "outputs/emerald-dragon-reload-v1/independent-back.png",
+      "sha256": "477d640134761f45964852db9ff360097ad102408be04975d1d141d330ceb9d8"
+    },
+    {
+      "path": "outputs/browser-dragon-media-v2/desktop.png",
+      "sha256": "dae516375ae4f7bfd0547578adf334acced8c3862772b22cb46d8691833da830"
+    },
+    {
+      "path": "outputs/browser-dragon-media-v2/emerald-dragon-celebrate.png",
+      "sha256": "1e76d7bf0b27c2f3e908353306d350f33dc751efef0da563cd6735d987405893"
+    },
+    {
+      "path": "outputs/emerald-dragon-media-v1/contact-sheets/idle.png",
+      "sha256": "267238d1984f668229ea92a6c475e25f4a96aa841c6e0ee87cca7676ab525e59"
+    },
+    {
+      "path": "outputs/emerald-dragon-media-v1/contact-sheets/look_around.png",
+      "sha256": "e601b9adb83428a35477d174f99ed09a420c048f05f1b9535e4440791a029d62"
+    },
+    {
+      "path": "outputs/emerald-dragon-media-v1/contact-sheets/milestone_level_up.png",
+      "sha256": "e467a94f2a94c6e69fdd1bb06b42e88713d674f98bedf2b63e09870e6bec9ae4"
+    },
+    {
+      "path": "outputs/emerald-dragon-media-v1/contact-sheets/wing_flap.png",
+      "sha256": "39c93f3f152ababf00314868eb31301a031461c3e37255fd59fc25b76bc4d619"
+    }
+  ],
+  "framing": "Final native portrait shows full tail and body. Browser per-asset camera -31deg/80deg/85% reveals tail; previous camera evidence preserved.",
+  "human_approval": false,
+  "identity": "Same green scaled dragon, orange horns/spines, amber eyes, cream belly, two wings and long tail across native samples and browser. No texture/shape replacement between states.",
+  "limitations": [
+    "Coarse/faceted scales and silhouette remain visible close up; 4K texture is not Muse-quality equivalence.",
+    "No blink, mouth, finger, walk or flight-control delivery.",
+    "Arms/legs have bones but broad articulation is not accepted; delivered clips leave arm/foot rotations at rest.",
+    "Endpoint pixels match, but loop velocity and visual seamlessness are not certified.",
+    "No Weft mapping or physics alignment."
+  ],
+  "media_manifest_sha256": "cfee8bfc03adc559ef1aaaa6b226f95a8b3b80c106c0e847f197425dc38031ed",
+  "model_manifest_sha256": "1793ea697f51b0f10d2c0c40b5e94a0a56d7ec3b65ce08c03466aa734d25b491",
+  "model_sha256": "b87ee5f5fe0c3b9ab6b84d9a310104a75408ccc247d68c27fbb1d85685840d14",
+  "new_provider_calls": 0,
+  "physical_motion_verified": false,
+  "portrait_filter": "Local OIDN-filtered portrait accepted for presentation; raw portrait preserved. Filtering softens sampling noise, not geometry defects.",
+  "quality_equivalence_verified": false,
+  "recorded": "2026-10-31T21:36:56.067429-07:00",
+  "rejected_attempts": [
+    "finished-v1: tail hidden by camera",
+    "finished-v2: raised-arm celebration pulled belly geometry"
+  ],
+  "schema_version": 1,
+  "states": {
+    "idle": "Subtle body/head motion and tail sway; not a repeated still.",
+    "look_around": "Clear side-to-side head inspection with tilt, tail response and stationary feet.",
+    "milestone_level_up": "Small bow/head lift with wing and tail flourish. Revised pose avoids the rejected arm-raised belly pull.",
+    "wing_flap": "Wings move through three flaps without pulling head/feet in sampled poses; standing, not flight."
+  },
+  "status": "accepted_for_sampled_authored_standing_gestures"
+}

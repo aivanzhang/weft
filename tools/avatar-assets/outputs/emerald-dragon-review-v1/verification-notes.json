@@ -1,0 +1,31 @@
+{
+  "browser_v2_sha256": "34825236e9591bb837132ecff745960443692710296f430ba4e244ca1813c7b1",
+  "fixture_scope": "Unit tests use analytic fixtures. Delivery audit, native reload and browser checks use actual generated assets.",
+  "full_suite": {
+    "command": ".venv/bin/python -m unittest discover -s tests -v",
+    "log": "outputs/dragon-workflow-tests-v1.txt",
+    "passed": 261,
+    "scope": "Before final descriptive metadata and optional camera edits",
+    "seconds": 8.329
+  },
+  "initial_check_invocation_failures": [
+    "Direct tests.test_generated_workflow module invocation missed test_three_d path; unittest discovery passed.",
+    "System python lacked PyYAML; existing isolated tool .venv validated successfully, no install needed.",
+    "First metadata exporter expected dict instead of returned list of matrices; corrected read-only exporter passed."
+  ],
+  "schema_version": 1,
+  "skill": {
+    "command": ".venv/bin/python /Users/ivan/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/avatar-asset-workflow",
+    "result": "Skill is valid!"
+  },
+  "targeted_after_camera": {
+    "command": ".venv/bin/python -m unittest discover -s tests -p test_gallery.py -v",
+    "passed": 24,
+    "seconds": 0.255
+  },
+  "targeted_after_metadata": {
+    "command": ".venv/bin/python -m unittest discover -s tests -p test_generated_workflow.py -v",
+    "passed": 16,
+    "seconds": 0.014
+  }
+}

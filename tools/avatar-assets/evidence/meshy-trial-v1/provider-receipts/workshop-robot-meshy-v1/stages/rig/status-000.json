@@ -1,0 +1,32 @@
+{
+  "execution_sources": {
+    "meshy.py": "4b05c9cd6de354a539f590489ca9a194d6e4b8e84bddab1991f280f16f0b6ca7",
+    "meshy_access.py": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+  },
+  "observed": "2026-10-31T11:19:03.426947-07:00",
+  "task": {
+    "consumed_credits": 5,
+    "created_at": 1793470696739,
+    "expires_at": 1793729922304,
+    "finished_at": 1793470722304,
+    "id": "01a1932f-00fe-7455-bb70-c6a3b335a554",
+    "name": "",
+    "progress": 100,
+    "result": {
+      "basic_animations": {
+        "running_armature_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Running_withSkin_armature.glb",
+        "running_fbx_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Running_withSkin.fbx",
+        "running_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Running_withSkin.glb",
+        "walking_armature_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Walking_withSkin_armature.glb",
+        "walking_fbx_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Walking_withSkin.fbx",
+        "walking_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Animation_Walking_withSkin.glb"
+      },
+      "rigged_character_fbx_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Character_output.fbx",
+      "rigged_character_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a1932f-00fe-7455-bb70-c6a3b335a554/output/Character_output.glb"
+    },
+    "started_at": 1793470696748,
+    "status": "SUCCEEDED",
+    "task_error": null,
+    "type": "rig"
+  }
+}

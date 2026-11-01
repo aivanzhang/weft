@@ -119,6 +119,16 @@ def _duration(value):
     return value
 
 
+def _initial_view(value):
+    bounds = {"azimuth_degrees": (-180, 180), "elevation_degrees": (5, 175), "radius_percent": (55, 250)}
+    _require(isinstance(value, dict) and set(value) == set(bounds), "Invalid initial camera fields")
+    for key, (low, high) in bounds.items():
+        number = value[key]
+        _require(type(number) in (int, float) and math.isfinite(number) and low <= number <= high,
+                 "Initial camera value outside bounds")
+    return value
+
+
 def _fingerprint(info):
     return info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns
 
@@ -141,17 +151,22 @@ class _Catalog:
         assets, seen = [], set()
         for entry in entries:
             _require(isinstance(entry, dict) and set(entry) <=
-                     {"id", "title", "description", "kind", "pack", "media_pack", "mapping_pack"},
+                     {"id", "title", "description", "kind", "pack", "media_pack", "mapping_pack", "initial_view"},
                      "Invalid gallery asset fields")
             identifier = _slug(entry.get("id"))
             _require(identifier not in seen, "Duplicate gallery asset")
             seen.add(identifier)
             kind = entry.get("kind")
-            _require(kind in ("authored_3d", "reference_2d"), "Unsupported gallery asset kind")
+            _require(kind in ("authored_3d", "generated_3d", "reference_2d"), "Unsupported gallery asset kind")
             pack = self._pack(entry.get("pack"))
             base = {"id": identifier, "title": _text(entry.get("title"), 160, "asset title"),
                     "description": _text(entry.get("description"), 4000, "asset description"), "kind": kind}
-            if kind == "authored_3d":
+            if "initial_view" in entry:
+                _require(kind != "reference_2d", "A 2D reference cannot have a 3D camera")
+                base["initial_view"] = _initial_view(entry["initial_view"])
+            if kind == "generated_3d" and pack["data"].get("kind") == "generated_geometry_preview":
+                base.update(self._generated_preview(identifier, entry, pack))
+            elif kind in ("authored_3d", "generated_3d"):
                 base.update(self._authored(identifier, entry, pack))
             else:
                 _require(not entry.get("media_pack") and not entry.get("mapping_pack"),
@@ -201,9 +216,30 @@ class _Catalog:
     def _image(self, identifier, key, pack, name, optional=False):
         return self._resource(identifier, key, pack, name, {".png", ".webp", ".jpg", ".jpeg"}, optional=optional)
 
+    def _generated_preview(self, identifier, entry, pack):
+        _require(not entry.get("media_pack") and not entry.get("mapping_pack"), "Geometry previews have no verified media/mapping")
+        data = pack["data"]
+        _require(data.get("status") == "needs_visual_review", "Generated preview did not complete")
+        facts = data.get("preflight", {})
+        vertices = facts.get("vertices")
+        _require(type(vertices) is int and 0 < vertices <= 100000, "Invalid generated vertex count")
+        rigs = data.get("native", {}).get("rigs", [])
+        _require(isinstance(rigs, list) and len(rigs) <= 16, "Invalid generated rig inventory")
+        bones = sum(len(rig.get("bones", [])) for rig in rigs)
+        _require(bones <= 256, "Generated rig count exceeds gallery bound")
+        model = self._resource(identifier, "model", pack, "original.glb", {".glb"})
+        poster = self._image(identifier, "poster", pack, "front.png")
+        return {"poster": poster, "portrait": poster, "model": model, "states": [],
+                "downloads": {"model": model,
+                    "manifest": self._resource(identifier, "manifest", pack, "manifest.json", {".json"}, attachment=True),
+                    "blend": self._resource(identifier, "blend", pack, "source.blend", {".blend"}, attachment=True)},
+                "facts": {"vertices": vertices, "bones": bones, "animations": 0},
+                "notice": "Generated 3D candidate; visual quality is under review. No verified animation or Weft mapping in this preview."}
+
     def _authored(self, identifier, entry, pack):
         data = pack["data"]
-        _require(data.get("kind") == "authored_3d_avatar", "Expected an authored 3D pack")
+        expected = "generated_3d_avatar" if entry["kind"] == "generated_3d" else "authored_3d_avatar"
+        _require(data.get("kind") == expected, "Expected a matching authored/generated 3D pack")
         model = self._resource(identifier, "model", pack, "model.glb", {".glb"})
         poster = self._image(identifier, "poster", pack, "portrait.png")
         downloads = {"model": model,
@@ -261,7 +297,10 @@ class _Catalog:
                  and isinstance(animations, list) and 0 < len(animations) <= MAX_STATES,
                  "Expected bounded numeric rig facts")
         facts = {"vertices": vertices, "bones": len(bones), "animations": len(animations)}
-        notice = "Authored 3D; seamless loops are not certified."
+        notice = ("Generated 3D with authored finishing" if entry["kind"] == "generated_3d" else "Authored 3D")
+        notice += "; seamless loops are not certified."
+        if entry['kind'] == 'generated_3d':
+            notice += ' Visual quality and task meaning remain under review.'
         if media:
             notice += " Video timing may differ from 3D clips."
         if entry.get("mapping_pack"):

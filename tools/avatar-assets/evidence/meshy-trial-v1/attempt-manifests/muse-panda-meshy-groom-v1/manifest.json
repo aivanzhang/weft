@@ -1,0 +1,114 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "9ef482b16a6306a00bc9b01c7d5e5cc2e2498a20b291f1d88a2000b3c981c88a"
+    },
+    {
+      "bytes": 2014,
+      "path": "finish-config.json",
+      "sha256": "832f74d5c987e2db8ae9673680f567ad486ff78dae32db8909adb7e59ea47699"
+    },
+    {
+      "bytes": 590,
+      "path": "finish-handle.json",
+      "sha256": "3e5e8210a61e642befa49d45f68bedc569081f4ce4b11873942884005a8de2e6"
+    },
+    {
+      "bytes": 1378,
+      "path": "finish-monitor.json",
+      "sha256": "5f76540ecd9eea33df4ec0bd493079865449985dc963c8aebe1c5f0393947767"
+    },
+    {
+      "bytes": 1397,
+      "path": "finish.log",
+      "sha256": "844a66c295e316cbc87f4601e03fe8a3026cb98fc39b973bf2b1733402ca04bf"
+    },
+    {
+      "bytes": 1512,
+      "path": "job.json",
+      "sha256": "9e13e182d723ecf12d3704a3f6e8da1616b904f31c7523e44d49466c1f770848"
+    },
+    {
+      "bytes": 44000,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "db3c1426413e346eaab218182b41248d31853de1b456d9352be3f41852eba32b"
+    },
+    {
+      "bytes": 37913,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "7d1546c97207a0be11b42aa57fec1603ea33ffeda34f1133163338f5b7c87df7"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 9815,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "c6eb49b223dd746e4422477a29548271d493817f1119e0b91dd10c0e079560a7"
+    },
+    {
+      "bytes": 24438,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "e1b98b31dbbcea7de734fb3f948affd23637e94cf86a205f90bb6b773fbf0d3c"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v1/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v1/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.302,
+    "exit_code": 1,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 160035,
+    "last_rss_sample_elapsed_seconds": 1.041,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 83921,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 160035,
+    "sampled_peak_rss_bytes": 458850304,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_avatar_lookdev",
+  "schema_version": 1,
+  "status": "failed"
+}

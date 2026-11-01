@@ -9,7 +9,7 @@ from PIL import Image
 
 from avatar_assets.media import encode_video, image_info, video_info
 from avatar_assets.safety import read_json, require, write_json
-from avatar_assets.scene import read_scene
+from avatar_assets.export2d import read_render_scene
 
 
 def package_frames(out, frame_root, scene, spec):
@@ -53,4 +53,4 @@ def package_frames(out, frame_root, scene, spec):
 
 if __name__ == "__main__":
     out, frame_root, scene, spec = sys.argv[1:]
-    package_frames(out, frame_root, read_scene(scene), read_json(spec))
+    package_frames(out, frame_root, read_render_scene(scene), read_json(spec))

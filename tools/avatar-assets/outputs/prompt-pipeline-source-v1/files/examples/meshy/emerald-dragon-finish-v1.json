@@ -1,0 +1,890 @@
+{
+  "authored_actions": [
+    {
+      "id": "idle",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Body": [
+              1,
+              0,
+              0
+            ],
+            "Head": [
+              0,
+              0,
+              2
+            ],
+            "TailMid": [
+              0,
+              0,
+              3
+            ]
+          },
+          "second": 1
+        },
+        {
+          "rotations": {},
+          "second": 2
+        },
+        {
+          "rotations": {
+            "Body": [
+              -1,
+              0,
+              0
+            ],
+            "Head": [
+              0,
+              0,
+              -2
+            ],
+            "TailMid": [
+              0,
+              0,
+              -3
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "look_around",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              0,
+              0,
+              18
+            ],
+            "Neck": [
+              0,
+              0,
+              4
+            ],
+            "TailMid": [
+              0,
+              0,
+              -7
+            ]
+          },
+          "second": 0.8
+        },
+        {
+          "rotations": {
+            "Head": [
+              -4,
+              0,
+              18
+            ],
+            "TailMid": [
+              0,
+              0,
+              5
+            ]
+          },
+          "second": 1.6
+        },
+        {
+          "rotations": {
+            "Head": [
+              2,
+              0,
+              -18
+            ],
+            "Neck": [
+              0,
+              0,
+              -4
+            ],
+            "TailMid": [
+              0,
+              0,
+              7
+            ]
+          },
+          "second": 2.6
+        },
+        {
+          "rotations": {
+            "Head": [
+              -3,
+              0,
+              -12
+            ],
+            "TailTip": [
+              0,
+              0,
+              -12
+            ]
+          },
+          "second": 3.4
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "wing_flap",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              -24,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              24,
+              0
+            ],
+            "WingTip_L": [
+              0,
+              -12,
+              0
+            ],
+            "WingTip_R": [
+              0,
+              12,
+              0
+            ]
+          },
+          "second": 0.5
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              22,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              -22,
+              0
+            ],
+            "WingTip_L": [
+              0,
+              12,
+              0
+            ],
+            "WingTip_R": [
+              0,
+              -12,
+              0
+            ]
+          },
+          "second": 1
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              -24,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              24,
+              0
+            ],
+            "WingTip_L": [
+              0,
+              -12,
+              0
+            ],
+            "WingTip_R": [
+              0,
+              12,
+              0
+            ]
+          },
+          "second": 1.5
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              22,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              -22,
+              0
+            ],
+            "WingTip_L": [
+              0,
+              12,
+              0
+            ],
+            "WingTip_R": [
+              0,
+              -12,
+              0
+            ]
+          },
+          "second": 2
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              -24,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              24,
+              0
+            ],
+            "WingTip_L": [
+              0,
+              -12,
+              0
+            ],
+            "WingTip_R": [
+              0,
+              12,
+              0
+            ]
+          },
+          "second": 2.5
+        },
+        {
+          "rotations": {
+            "WingRoot_L": [
+              0,
+              16,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              -16,
+              0
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    },
+    {
+      "id": "milestone_level_up",
+      "keys": [
+        {
+          "rotations": {},
+          "second": 0
+        },
+        {
+          "rotations": {
+            "Head": [
+              8,
+              0,
+              0
+            ],
+            "Neck": [
+              3,
+              0,
+              0
+            ]
+          },
+          "second": 0.7
+        },
+        {
+          "rotations": {
+            "Forearm_L": [
+              -12,
+              0,
+              0
+            ],
+            "Forearm_R": [
+              -12,
+              0,
+              0
+            ],
+            "Head": [
+              -8,
+              0,
+              0
+            ],
+            "TailMid": [
+              0,
+              0,
+              12
+            ],
+            "UpperArm_L": [
+              0,
+              -18,
+              0
+            ],
+            "UpperArm_R": [
+              0,
+              18,
+              0
+            ],
+            "WingRoot_L": [
+              0,
+              -18,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              18,
+              0
+            ]
+          },
+          "second": 1.4
+        },
+        {
+          "rotations": {
+            "Forearm_L": [
+              -12,
+              0,
+              0
+            ],
+            "Forearm_R": [
+              -12,
+              0,
+              0
+            ],
+            "Head": [
+              -5,
+              0,
+              4
+            ],
+            "TailMid": [
+              0,
+              0,
+              -12
+            ],
+            "UpperArm_L": [
+              0,
+              -18,
+              0
+            ],
+            "UpperArm_R": [
+              0,
+              18,
+              0
+            ],
+            "WingRoot_L": [
+              0,
+              -18,
+              0
+            ],
+            "WingRoot_R": [
+              0,
+              18,
+              0
+            ]
+          },
+          "second": 2.2
+        },
+        {
+          "rotations": {
+            "Head": [
+              2,
+              0,
+              -3
+            ],
+            "TailMid": [
+              0,
+              0,
+              8
+            ]
+          },
+          "second": 3
+        },
+        {
+          "rotations": {},
+          "second": 4
+        }
+      ]
+    }
+  ],
+  "authored_rig": {
+    "base_bones": [
+      "Root",
+      "Body",
+      "Neck",
+      "Head"
+    ],
+    "bones": [
+      {
+        "head": [
+          0.5,
+          0.32,
+          0.18
+        ],
+        "name": "Root",
+        "parent": null,
+        "tail": [
+          0.5,
+          0.3,
+          0.33
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.3,
+          0.3
+        ],
+        "name": "Body",
+        "parent": "Root",
+        "tail": [
+          0.5,
+          0.25,
+          0.52
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.25,
+          0.52
+        ],
+        "name": "Neck",
+        "parent": "Body",
+        "tail": [
+          0.5,
+          0.21,
+          0.69
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.21,
+          0.69
+        ],
+        "name": "Head",
+        "parent": "Neck",
+        "tail": [
+          0.5,
+          0.18,
+          0.89
+        ]
+      },
+      {
+        "head": [
+          0.64,
+          0.23,
+          0.52
+        ],
+        "name": "UpperArm_L",
+        "parent": "Body",
+        "tail": [
+          0.73,
+          0.19,
+          0.42
+        ]
+      },
+      {
+        "head": [
+          0.73,
+          0.19,
+          0.42
+        ],
+        "name": "Forearm_L",
+        "parent": "UpperArm_L",
+        "tail": [
+          0.7,
+          0.105,
+          0.33
+        ]
+      },
+      {
+        "head": [
+          0.68,
+          0.32,
+          0.25
+        ],
+        "name": "Thigh_L",
+        "parent": "Root",
+        "tail": [
+          0.7,
+          0.33,
+          0.1
+        ]
+      },
+      {
+        "head": [
+          0.7,
+          0.33,
+          0.1
+        ],
+        "name": "Foot_L",
+        "parent": "Thigh_L",
+        "tail": [
+          0.73,
+          0.2,
+          0.035
+        ]
+      },
+      {
+        "head": [
+          0.64,
+          0.3,
+          0.5
+        ],
+        "name": "WingRoot_L",
+        "parent": "Body",
+        "tail": [
+          0.72,
+          0.3,
+          0.66
+        ]
+      },
+      {
+        "head": [
+          0.72,
+          0.3,
+          0.66
+        ],
+        "name": "WingTip_L",
+        "parent": "WingRoot_L",
+        "tail": [
+          0.98,
+          0.3,
+          0.69
+        ]
+      },
+      {
+        "head": [
+          0.36,
+          0.23,
+          0.52
+        ],
+        "name": "UpperArm_R",
+        "parent": "Body",
+        "tail": [
+          0.27,
+          0.19,
+          0.42
+        ]
+      },
+      {
+        "head": [
+          0.27,
+          0.19,
+          0.42
+        ],
+        "name": "Forearm_R",
+        "parent": "UpperArm_R",
+        "tail": [
+          0.30000000000000004,
+          0.105,
+          0.33
+        ]
+      },
+      {
+        "head": [
+          0.31999999999999995,
+          0.32,
+          0.25
+        ],
+        "name": "Thigh_R",
+        "parent": "Root",
+        "tail": [
+          0.30000000000000004,
+          0.33,
+          0.1
+        ]
+      },
+      {
+        "head": [
+          0.30000000000000004,
+          0.33,
+          0.1
+        ],
+        "name": "Foot_R",
+        "parent": "Thigh_R",
+        "tail": [
+          0.27,
+          0.2,
+          0.035
+        ]
+      },
+      {
+        "head": [
+          0.36,
+          0.3,
+          0.5
+        ],
+        "name": "WingRoot_R",
+        "parent": "Body",
+        "tail": [
+          0.28,
+          0.3,
+          0.66
+        ]
+      },
+      {
+        "head": [
+          0.28,
+          0.3,
+          0.66
+        ],
+        "name": "WingTip_R",
+        "parent": "WingRoot_R",
+        "tail": [
+          0.020000000000000018,
+          0.3,
+          0.69
+        ]
+      },
+      {
+        "head": [
+          0.5,
+          0.4,
+          0.26
+        ],
+        "name": "TailBase",
+        "parent": "Root",
+        "tail": [
+          0.47,
+          0.59,
+          0.13
+        ]
+      },
+      {
+        "head": [
+          0.47,
+          0.59,
+          0.13
+        ],
+        "name": "TailMid",
+        "parent": "TailBase",
+        "tail": [
+          0.37,
+          0.79,
+          0.07
+        ]
+      },
+      {
+        "head": [
+          0.37,
+          0.79,
+          0.07
+        ],
+        "name": "TailTip",
+        "parent": "TailMid",
+        "tail": [
+          0.28,
+          0.98,
+          0.065
+        ]
+      }
+    ],
+    "height_meters": 1.2,
+    "layers": [
+      {
+        "bones": [
+          "Head"
+        ],
+        "feather": 0.025,
+        "max": [
+          1.1,
+          0.5,
+          1.1
+        ],
+        "min": [
+          -0.1,
+          -0.1,
+          0.69
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "Root",
+          "UpperArm_R",
+          "Forearm_R"
+        ],
+        "feather": 0.035,
+        "max": [
+          0.41,
+          0.26,
+          0.55
+        ],
+        "min": [
+          0.1,
+          -0.1,
+          0.27
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "Root",
+          "UpperArm_L",
+          "Forearm_L"
+        ],
+        "feather": 0.035,
+        "max": [
+          0.9,
+          0.26,
+          0.55
+        ],
+        "min": [
+          0.59,
+          -0.1,
+          0.27
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "Root",
+          "Thigh_R",
+          "Foot_R"
+        ],
+        "feather": 0.035,
+        "max": [
+          0.43,
+          0.48,
+          0.3
+        ],
+        "min": [
+          0.02,
+          0.05,
+          -0.1
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "Root",
+          "Thigh_L",
+          "Foot_L"
+        ],
+        "feather": 0.035,
+        "max": [
+          0.98,
+          0.48,
+          0.3
+        ],
+        "min": [
+          0.57,
+          0.05,
+          -0.1
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "Root",
+          "TailBase",
+          "TailMid",
+          "TailTip"
+        ],
+        "feather": 0.045,
+        "max": [
+          1.1,
+          1.1,
+          0.45
+        ],
+        "min": [
+          -0.1,
+          0.43,
+          -0.1
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "WingRoot_R",
+          "WingTip_R"
+        ],
+        "feather": 0.025,
+        "max": [
+          0.38,
+          0.4,
+          0.755
+        ],
+        "min": [
+          -0.1,
+          0.23,
+          0.485
+        ],
+        "min_vertices": 25
+      },
+      {
+        "bones": [
+          "WingRoot_L",
+          "WingTip_L"
+        ],
+        "feather": 0.025,
+        "max": [
+          1.1,
+          0.4,
+          0.755
+        ],
+        "min": [
+          0.62,
+          0.23,
+          0.485
+        ],
+        "min_vertices": 25
+      }
+    ],
+    "space": "normalized_bounds_blender_z_up"
+  },
+  "camera_view": "three_quarter",
+  "id": "emerald-dragon-finished-v1",
+  "normal_strength": 0.7,
+  "portrait_denoise": false,
+  "prompt": "A complete adorable emerald green baby dragon, full body, standing upright on two broad three-toed feet. Large rounded head, expressive amber eyes, short smiling muzzle, two swept ivory horns and small dorsal spines. Rounded belly with pale cream segmented plates. Two short arms held apart from the torso, relaxed three-clawed hands. Two broad bat-like wings attached behind the shoulders, spread sideways with visible green membranes and sturdy spars, separated from arms and body. One long tapering tail extending backward in a gentle curve, separated from the legs. Fine pebbled scales, subtle color variation, believable thickness and polished animated-film craftsmanship. Symmetric neutral pose. No fur, clothes, pedestal, props, text, additional characters or scenery.",
+  "resolution": 1024,
+  "rights": "User requested a new standalone dragon and motions after approving the previous generated examples. Original text direction; no reference image upload. Generated hidden surfaces and locally authored creature rig are assumptions. Provider account terms apply; commercial rights not independently verified. This job is mesh+texture only; local wing/tail rigging and motions are recorded separately. Exact user request: I like this!!! Can you end to end create a dragon for me + have motions.",
+  "samples": 32,
+  "schema_version": 1,
+  "source": "../../outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+  "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Gentle breathing, friendly head tilt and a relaxed tail sway."
+    },
+    {
+      "id": "look_around",
+      "meaning": "Turns its head to inspect both sides, with a curious tilt and tail response."
+    },
+    {
+      "id": "wing_flap",
+      "meaning": "Three broad paired wing flaps while standing; no flight or physical lift is claimed."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Bows, lifts its head and arms, spreads its wings and wags its tail in celebration."
+    }
+  ],
+  "style": "Premium animated-film creature with rounded expressive features, fine emerald scales, warm ivory belly plates, amber eyes and green wing membranes. A standalone original dragon, visually related to the friendly shoulder companion but not an exact reconstruction.",
+  "subject": "Friendly emerald baby dragon"
+}

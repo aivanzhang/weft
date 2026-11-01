@@ -1,0 +1,157 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-celebrate.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-1/states/celebrate.png",
+      "sha256": "ae72ad7aba615eb3f365481f9dd1697a957038d2e8775647099f73fc593301e9",
+      "state_ids": [
+        "celebrate"
+      ]
+    },
+    {
+      "id": "image-01-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-1/states/idle.png",
+      "sha256": "acbf3bf4dc7bfb4aab0d84c67c81d548044691d46e71e80ebc638e723433da1b",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-02-look_around.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-1/states/look_around.png",
+      "sha256": "f09c34bdd9567dccd09a2b6d6360d44668683b04951c9bd52ecca766c9392b28",
+      "state_ids": [
+        "look_around"
+      ]
+    },
+    {
+      "id": "image-03-wave.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-1/states/wave.png",
+      "sha256": "b8168986f3e0130ea7b157cd03b6dd51c4e61218698c659ab54f0132bbbd9a07",
+      "state_ids": [
+        "wave"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/exported-preview-1/front.png",
+      "sha256": "d22ab835a4fd50e9cc3cc56d587ab418c94db95cc58cf631cf85ea92e795b481",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/exported-preview-1/three-quarter.png",
+      "sha256": "ed48d78101332414deadc1d5401cb91cab23c2d19abac0a12dbc22ec0c8c4b25",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/model-1/portrait.png",
+      "sha256": "4ec8d42026a13d2ec735aebf15cdc3e20e5a86d6c117ee9b38b8a9e02b5c66ba",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "0e74c71d7ea14c9b63588f2523d4f149c8c7dccddff71ef9b4879594fb207900",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Rounded head and torso, slim articulated limbs, two arms and two feet preserve the supplied robot's visible design."
+      },
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue and cream painted hard surfaces and copper details match the request. No added props or hair are visible."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look_around.png",
+          "image-03-wave.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The complete robot, including hands and feet, remains inside every sampled frame."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look_around.png",
+          "image-03-wave.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled articulation preserves the hard-surface silhouette without obvious tearing, collapse or clipping. Feet retain their positions."
+      }
+    ],
+    "limitations": [
+      "Contact sheets cannot establish timing, all-frame collision freedom, physical ground contact or seamless loops.",
+      "Supplied independent reports establish bounded structural and numerical motion checks; the target runtime was not exercised.",
+      "Exact preservation of unseen source surfaces and authored rig assumptions cannot be established from these views."
+    ],
+    "required_repairs": [
+      "Make the raised hand's alternating side-to-side motion visibly readable while preserving the small friendly gesture. Provide samples at opposing wrist extremes, followed by the lowered resting pose."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-01-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Small arm and upper-body shifts are visible across samples, with feet stationary, consistent with a gentle idle."
+      },
+      {
+        "evidence_ids": [
+          "image-02-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns toward opposing directions and returns to its starting orientation while the torso remains mostly still."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png"
+        ],
+        "id": "wave",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "The forearm visibly rises and lowers, but the raised-hand samples do not clearly demonstrate alternating side-to-side waving. Arm movement alone does not establish the requested gesture."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png"
+        ],
+        "id": "celebrate",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "A modest downward head tilt with slight upper-body dip and return is visible, consistent with the specifically requested celebratory nod. Feet remain stationary."
+      }
+    ],
+    "summary": "The robot's appearance and sampled articulation match the request, but the wave needs clearer visible side-to-side hand motion.",
+    "verdict": "repair"
+  }
+}

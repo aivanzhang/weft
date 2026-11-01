@@ -1,0 +1,154 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-2/states/idle.png",
+      "sha256": "5252d39e4be9ae57d846afbcbd7c15856286d7eeb1609ff18e8c59076eef0741",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-01-look_around.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-2/states/look_around.png",
+      "sha256": "202b590cad1451b720a98c65623228d67a4e4ea2e79b1fa0530b944641b90e74",
+      "state_ids": [
+        "look_around"
+      ]
+    },
+    {
+      "id": "image-02-milestone_level_up.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-2/states/milestone_level_up.png",
+      "sha256": "44cef2fb78877f44009e42022e1ee22728f278a697666634fbec26df7277e2ca",
+      "state_ids": [
+        "milestone_level_up"
+      ]
+    },
+    {
+      "id": "image-03-wing_flap.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-2/states/wing_flap.png",
+      "sha256": "b58d1229e7c58206ef36a8f848d34bc51d072813e87b8242ff55ed1ec3c6bd1f",
+      "state_ids": [
+        "wing_flap"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-2/front.png",
+      "sha256": "02dd516bb4fa8724db9006f037bba8538a5088e4d5cdf1285410a66f1f265e58",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-2/three-quarter.png",
+      "sha256": "7d16fae82c0f31f1659ced680273df62f5c9de0604eb60f31a5bb9d2989a4489",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/model-2/portrait.png",
+      "sha256": "d17aff1897a036efb454729c0860a396833f2d1f4ee3d98b302d74231c127013",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "34f696204794cd7f048862b697172608f82a12708261d1d14ce3c93b8607e954",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Rounded upright dragon retains amber eyes, orange horns and back spines, cream belly, two small wings and a long tail."
+      },
+      {
+        "evidence_ids": [
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Green scaled surfaces, rounded proportions and friendly expression match the requested stylized appearance. No fur or hair was requested."
+      },
+      {
+        "evidence_ids": [
+          "image-00-idle.png",
+          "image-01-look_around.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Sampled poses keep horns, feet, wings and the entire tail inside the frame."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled head turns, bow and wing articulation preserve connected body contours without visible major collapse, tearing or clipping."
+      }
+    ],
+    "limitations": [
+      "Contact sheets establish sampled pose changes, not continuous timing, smooth velocity, collision freedom or seamless loops.",
+      "The far wing is partly occluded in the motion views, limiting inspection of its full movement.",
+      "Supplied proofs report successful local structure, render-attribute and native-reload checks; target runtime execution remains unverified.",
+      "Hidden surfaces, rig placement, weights and physical scale remain authored assumptions."
+    ],
+    "required_repairs": [],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-00-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Small torso and tail silhouette changes read as gentle idle motion; feet remain in the same sampled positions."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Head and neck visibly turn toward opposing directions with slight torso follow, then return to the starting stance."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wing_flap.png"
+        ],
+        "id": "wing_flap",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Wing silhouettes alternate between raised and lowered positions while the body stays standing; the nearer wing shows the change most clearly."
+      },
+      {
+        "evidence_ids": [
+          "image-02-milestone_level_up.png"
+        ],
+        "id": "milestone_level_up",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Torso, neck and head incline into a shallow bow as the tail changes its sweep, then return upright. The retained friendly expression supports the happy gesture without requiring facial animation."
+      }
+    ],
+    "summary": "The supplied samples support the requested dragon appearance and all four grounded actions, with no major visible deformation.",
+    "verdict": "accept"
+  }
+}

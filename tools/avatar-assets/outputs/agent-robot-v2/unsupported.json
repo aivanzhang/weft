@@ -1,0 +1,447 @@
+{
+  "findings": {
+    "measurements": {
+      "sampled_states": [
+        {
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            21.6,
+            43.2,
+            62.400000000000006,
+            79.19999999999999,
+            96.0
+          ],
+          "id": "celebrate",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            0.9,
+            1.8,
+            2.6,
+            3.3,
+            4.0
+          ]
+        },
+        {
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            28.799999999999997,
+            64.80000000000001,
+            96.0
+          ],
+          "id": "idle",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            1.2,
+            2.7,
+            4.0
+          ]
+        },
+        {
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            24.0,
+            38.400000000000006,
+            64.80000000000001,
+            76.80000000000001,
+            96.0
+          ],
+          "id": "look",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            1.0,
+            1.6,
+            2.7,
+            3.2,
+            4.0
+          ]
+        },
+        {
+          "duration_seconds": 4.0,
+          "frames": [
+            0.0,
+            21.6,
+            34.8,
+            48.0,
+            61.199999999999996,
+            74.4,
+            96.0
+          ],
+          "id": "wave",
+          "loop_verified": false,
+          "sampling_method": "authored_keyframes",
+          "seconds": [
+            0.0,
+            0.9,
+            1.45,
+            2.0,
+            2.55,
+            3.1,
+            4.0
+          ]
+        }
+      ],
+      "skin_motion": {
+        "animation_verified": true,
+        "animations": [
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.08414588433122809,
+            "motion_observed": true,
+            "name": "celebrate",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          },
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.01083425673130361,
+            "motion_observed": true,
+            "name": "idle",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          },
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.09093912237189747,
+            "motion_observed": true,
+            "name": "look",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          },
+          {
+            "loop": "not_claimed",
+            "max_sampled_displacement_m": 0.27830473610796896,
+            "motion_observed": true,
+            "name": "wave",
+            "sample_count": 33,
+            "sample_times_seconds": [
+              0.0,
+              0.02083333395421505,
+              0.25,
+              0.2708333283662796,
+              0.5,
+              0.5208333432674408,
+              0.75,
+              0.7708333432674408,
+              1.0,
+              1.0208333134651184,
+              1.25,
+              1.2708333134651184,
+              1.5,
+              1.5208333134651184,
+              1.75,
+              1.7708333134651184,
+              2.0,
+              2.020833373069763,
+              2.25,
+              2.270833373069763,
+              2.5,
+              2.520833373069763,
+              2.75,
+              2.770833373069763,
+              3.0,
+              3.020833373069763,
+              3.25,
+              3.270833373069763,
+              3.5,
+              3.520833373069763,
+              3.75,
+              3.770833373069763,
+              4.0
+            ]
+          }
+        ],
+        "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+        "probe_vertices": 128
+      },
+      "weight_coverage": {
+        "input_world_bounds": {
+          "max": [
+            0.5865200161933899,
+            0.35863998532295227,
+            0.9501749277114868
+          ],
+          "min": [
+            -0.5867930054664612,
+            -0.364734947681427,
+            -0.9517750144004822
+          ]
+        },
+        "layers": [
+          {
+            "bones": [
+              "Torso"
+            ],
+            "selected_vertices": 9500
+          },
+          {
+            "bones": [
+              "Head"
+            ],
+            "selected_vertices": 15850
+          },
+          {
+            "bones": [
+              "ArmLeft"
+            ],
+            "selected_vertices": 1173
+          },
+          {
+            "bones": [
+              "ForearmLeft"
+            ],
+            "selected_vertices": 1238
+          },
+          {
+            "bones": [
+              "HandLeft"
+            ],
+            "selected_vertices": 3309
+          },
+          {
+            "bones": [
+              "ArmRight"
+            ],
+            "selected_vertices": 1379
+          },
+          {
+            "bones": [
+              "ForearmRight"
+            ],
+            "selected_vertices": 1124
+          },
+          {
+            "bones": [
+              "HandRight"
+            ],
+            "selected_vertices": 3096
+          }
+        ],
+        "positive_vertices_per_bone": {
+          "ArmLeft": 1173,
+          "ArmRight": 1379,
+          "ForearmLeft": 1238,
+          "ForearmRight": 1124,
+          "HandLeft": 3309,
+          "HandRight": 3096,
+          "Head": 15850,
+          "Root": 9796,
+          "Torso": 8541
+        }
+      }
+    },
+    "repair_images": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v2/evidence-2/states/celebrate.png",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v2/evidence-2/states/idle.png",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v2/evidence-2/states/look.png",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v2/evidence-2/states/wave.png"
+    ],
+    "review": {
+      "checks": [
+        {
+          "evidence_ids": [
+            "image-04-front.png",
+            "image-05-three-quarter.png",
+            "image-06-portrait.png"
+          ],
+          "name": "identity",
+          "passed": true,
+          "reason": "The friendly robot retains its oversized rounded head, rounded torso, two articulated arms, two feet, and blue, cream, and copper palette."
+        },
+        {
+          "evidence_ids": [
+            "image-04-front.png",
+            "image-05-three-quarter.png",
+            "image-06-portrait.png"
+          ],
+          "name": "appearance",
+          "passed": true,
+          "reason": "Rounded hard-surface panels and copper joints match the requested workshop style. No props or hair are required or visible."
+        },
+        {
+          "evidence_ids": [
+            "image-00-celebrate.png",
+            "image-01-idle.png",
+            "image-02-look.png",
+            "image-03-wave.png"
+          ],
+          "name": "framing",
+          "passed": true,
+          "reason": "Every sampled pose includes the complete head, hands, and feet with adequate margins; feet remain visually stationary."
+        },
+        {
+          "evidence_ids": [
+            "image-03-wave.png"
+          ],
+          "name": "deformation",
+          "passed": false,
+          "reason": "Raised-arm samples show a long, narrow copper-colored projection below the wrist, suggesting stretched hand or wrist geometry inconsistent with rigid mechanical articulation."
+        }
+      ],
+      "limitations": [
+        "Contact sheets cannot establish continuous motion quality, collision freedom, physical ground contact, or seamless loops.",
+        "Exact preservation of the source model cannot be independently established from the supplied views.",
+        "Supplied reports establish local structural validation and sampled movement; the target runtime was not exercised."
+      ],
+      "required_repairs": [
+        "Inspect the waving wrist and hand weights and joint pivot. Remove the visible elongated projection by preserving rigid component shapes during articulation, then supply updated wave samples."
+      ],
+      "state_reviews": [
+        {
+          "evidence_ids": [
+            "image-01-idle.png"
+          ],
+          "id": "idle",
+          "meaning_passed": true,
+          "motion_passed": true,
+          "reason": "Subtle head and upper-body settling is visible while arms remain relaxed and feet stay fixed."
+        },
+        {
+          "evidence_ids": [
+            "image-02-look.png"
+          ],
+          "id": "look",
+          "meaning_passed": true,
+          "motion_passed": true,
+          "reason": "The head visibly turns in both directions and returns to its starting orientation while the body remains stable."
+        },
+        {
+          "evidence_ids": [
+            "image-03-wave.png"
+          ],
+          "id": "wave",
+          "meaning_passed": true,
+          "motion_passed": false,
+          "reason": "One arm lifts and the hand alternates orientation before returning to rest, conveying a small greeting. The elongated wrist-area projection prevents acceptance of its deformation."
+        },
+        {
+          "evidence_ids": [
+            "image-00-celebrate.png"
+          ],
+          "id": "celebrate",
+          "meaning_passed": true,
+          "motion_passed": true,
+          "reason": "Visible downward and upward head tilts convey the specifically requested modest nod; torso and feet remain stable."
+        }
+      ],
+      "summary": "Identity, appearance, framing, and requested action meanings pass the sampled review. The waving wrist needs a bounded deformation repair.",
+      "verdict": "repair"
+    }
+  },
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v2",
+  "reason": "No accepted model within the bounded local repair attempts",
+  "request_sha256": "dbdb042d3367b8d91d6cfb2aab6f0d86a6635ccc4cf97569e7cf2e2be770c805",
+  "schema_version": 1,
+  "stage": "repair_budget",
+  "status": "unsupported"
+}

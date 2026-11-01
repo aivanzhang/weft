@@ -1,0 +1,527 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7798,
+      "path": "attempt-manifests/muse-panda-meshy-finish-v1/manifest.json",
+      "sha256": "c79f2cf32d2ff1e8ab00ad5c06dd084746eac820339f8596b60f20a70c9f509a"
+    },
+    {
+      "bytes": 3679,
+      "path": "attempt-manifests/muse-panda-meshy-groom-v1/manifest.json",
+      "sha256": "ccfe0edafdba031c4ab18c260836001cfba2e4ee40c20263cab63450b8525317"
+    },
+    {
+      "bytes": 3680,
+      "path": "attempt-manifests/muse-panda-meshy-groom-v2/manifest.json",
+      "sha256": "58a52a257a48184a99d46d01924158b25f7462d351097037c50f448f6227dc10"
+    },
+    {
+      "bytes": 3871,
+      "path": "attempt-manifests/muse-panda-meshy-groom-v3/manifest.json",
+      "sha256": "5cfdf241b0d329e1f663be39993a5389cb9bbba533e5f33a5493f95b87887d0a"
+    },
+    {
+      "bytes": 4335,
+      "path": "attempt-manifests/muse-panda-meshy-groom-v4/manifest.json",
+      "sha256": "504ae1ec4980333a751d9b2c0f17016c7e8bdd096bb3bd38183acffd5ec316d8"
+    },
+    {
+      "bytes": 63768,
+      "path": "attempt-manifests/muse-panda-meshy-media-v1/manifest.json",
+      "sha256": "7357146646d8f9c39c5cfce0b98ecc4ca8f297d55600964ff5aa1058be74a8ec"
+    },
+    {
+      "bytes": 7442,
+      "path": "attempt-manifests/muse-panda-meshy-motion-diagnostic-v1/manifest.json",
+      "sha256": "bf7d1a7ebeb99bccd9c65b8ebaa6ae995032358950eeaa6b877e24aa51d5902e"
+    },
+    {
+      "bytes": 3729,
+      "path": "attempt-manifests/muse-panda-meshy-refined-v1/manifest.json",
+      "sha256": "de758aa8ec956b79d92742092b57bd0afb7b99563dc5008a3ef158f09e7994d0"
+    },
+    {
+      "bytes": 7479,
+      "path": "attempt-manifests/muse-panda-meshy-refined-v2/manifest.json",
+      "sha256": "0a09ae7d5bd9ceae76a94ddd4cf23075f85b971f40c32a00d00d066d45a9183f"
+    },
+    {
+      "bytes": 7481,
+      "path": "attempt-manifests/muse-panda-meshy-refined-v3/manifest.json",
+      "sha256": "c35ba626793e8020c21aea35b933101abc1937062e2bfa03133f268a6dd77f7b"
+    },
+    {
+      "bytes": 3743,
+      "path": "attempt-manifests/muse-panda-meshy-refined-v4/manifest.json",
+      "sha256": "7c6b33d0b164a2f7fd6e481cbea3ef6d08ac13d58036a358dfd3b8f10fddad65"
+    },
+    {
+      "bytes": 7972,
+      "path": "attempt-manifests/muse-panda-meshy-refined-v5/manifest.json",
+      "sha256": "8db666a15ace702e980e665ffef47eae048a7bea7f3303614fc52b858db8ba2d"
+    },
+    {
+      "bytes": 7574,
+      "path": "attempt-manifests/muse-panda-meshy-weightfix-v1/manifest.json",
+      "sha256": "35bc321f1529517f1674aa7e8a28e23d9115ecc5b2c0ab252e979c43f7d6c93e"
+    },
+    {
+      "bytes": 2238,
+      "path": "manifests/meshy-delivery-verification-v1/manifest.json",
+      "sha256": "668f61522df6eba7f603bc6d745b612d02355358bc0de33d01671c55f9fa4847"
+    },
+    {
+      "bytes": 1476,
+      "path": "manifests/meshy-integration-review-v1/manifest.json",
+      "sha256": "39782affa8133e0643b8bddeed48e6d8d1ae333ac8e2be2925fb69a30fa42112"
+    },
+    {
+      "bytes": 91653,
+      "path": "manifests/muse-panda-meshy-media-v2/manifest.json",
+      "sha256": "6f98f918b1b2c9742619c9e43ccb06e723d523b4d354d370b73b2752f046bb2b"
+    },
+    {
+      "bytes": 129901,
+      "path": "manifests/muse-panda-meshy-media-v2-portable-v1/manifest.json",
+      "sha256": "9a9ea3e58d38d5a4589530230f4a3d138cc2c4baa994073906b0b78b0059d873"
+    },
+    {
+      "bytes": 32090,
+      "path": "manifests/muse-panda-meshy-refined-v6/manifest.json",
+      "sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380"
+    },
+    {
+      "bytes": 3431,
+      "path": "manifests/muse-panda-meshy-reload-v1/manifest.json",
+      "sha256": "2cb5287f1ecd13dce4c7c438a9ee82648b23600f8880885f2eabfd2027af3a5f"
+    },
+    {
+      "bytes": 82861,
+      "path": "manifests/workshop-robot-meshy-media-v1/manifest.json",
+      "sha256": "c45b68a197b576ac6ebe00d6c368f3bffec4768152303e90af45d5f6e6da59e3"
+    },
+    {
+      "bytes": 121112,
+      "path": "manifests/workshop-robot-meshy-media-v1-portable-v1/manifest.json",
+      "sha256": "1bed902170883a317680cdbb1c76409d32685406e067d7bafe64d1d59c4a1055"
+    },
+    {
+      "bytes": 19619,
+      "path": "manifests/workshop-robot-meshy-refined-v2/manifest.json",
+      "sha256": "34a28dad95433290314ac711f33aad31eab21cbec3eeca8322db6d29dbc77fc8"
+    },
+    {
+      "bytes": 3442,
+      "path": "manifests/workshop-robot-meshy-reload-v1/manifest.json",
+      "sha256": "b097060e516292c1cb54287dd78c8e502fb120eb3ec7977c69025b0591a99a47"
+    },
+    {
+      "bytes": 1803,
+      "path": "proofs/browser-meshy-media-v1/browser-test.json",
+      "sha256": "c8ee5944658e58efe76747bf8629e8e0b6d2a6c4cd2c00728f422fad1b35abcc"
+    },
+    {
+      "bytes": 33354,
+      "path": "proofs/meshy-delivery-verification-v1/verification.json",
+      "sha256": "5f41705dd9ea63966b816022b8f3567dfe9afa3a059494ce4e0c25e767fb0a71"
+    },
+    {
+      "bytes": 5534,
+      "path": "proofs/meshy-integration-review-v1/contract-audit.json",
+      "sha256": "2faf8711ed1747fe68ba36d916ff97c4144bf35aa205cb0fdb5a8db486c34eb8"
+    },
+    {
+      "bytes": 4343,
+      "path": "proofs/meshy-integration-review-v1/visual-review-v3.json",
+      "sha256": "fc1b8b95f3bbaed33a18e5bbc650d3d474e8988d42b0455b25a9ffbd502888cd"
+    },
+    {
+      "bytes": 1094,
+      "path": "proofs/meshy-muse-fidelity-unsupported-v1/unsupported.json",
+      "sha256": "d40560c1ba0c20cee7a839533fc49d2f5442454d681b42dc1a776e14fcaf33d4"
+    },
+    {
+      "bytes": 940,
+      "path": "proofs/meshy-weft-hd-unsupported-v1/unsupported.json",
+      "sha256": "50bc56c5ddd23b990ec901f37379aa917a7caaccbc3a76a0e14616d4148c5d0c"
+    },
+    {
+      "bytes": 39187,
+      "path": "proofs/meshy-workflow-tests-final-v1.txt",
+      "sha256": "8c53c87cee16468c962d642ae428b8ed04cb2990a88f8645082ff6f1ee0eaf9f"
+    },
+    {
+      "bytes": 2916,
+      "path": "provider-receipts/muse-panda-meshy-v1/inputs/config.json",
+      "sha256": "c583113d4f35449146685b5125ff6c564ac478b353e8c99675504743653ee939"
+    },
+    {
+      "bytes": 4118,
+      "path": "provider-receipts/muse-panda-meshy-v1/plan.json",
+      "sha256": "2b7aa12694e8cccce460867cf4fe2660d0bf7954fd19f98d3aa54e13232111c7"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_idle/download-000.json",
+      "sha256": "7bed2a2d56859aadc2e95e12a4dfbbd6632bc9115134a194b8679f8f764933b4"
+    },
+    {
+      "bytes": 633,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_idle/downloads/manifest.json",
+      "sha256": "403847958e90fb1d7b5076ae5b9e52af06efd49ca655eae55987d3a9a825d894"
+    },
+    {
+      "bytes": 693,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_idle/request-000.json",
+      "sha256": "8ac0beac754157a8d6bab47c1d18e5c057b1295bbbffd3f4198a4ccc9ec92c65"
+    },
+    {
+      "bytes": 1135,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_idle/status-000.json",
+      "sha256": "a4458d680424bd8dd33569ee8be362ae0903d903047519c7aae9efe9c15f99e2"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_idle/submission-000.json",
+      "sha256": "909cd7ae61313eb7c306cd8aac73db7bc738254eddfce66ccbca2c888c6f668d"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_making_something/download-000.json",
+      "sha256": "dd1409231862be86e0eb8a91d9f8e724b0efd53f26e18f8b7f8218da6aeae2b1"
+    },
+    {
+      "bytes": 645,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_making_something/downloads/manifest.json",
+      "sha256": "97da33e2a8a0a1481238a92adcdd74443f537d70627804b668e39496e49f0583"
+    },
+    {
+      "bytes": 693,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_making_something/request-000.json",
+      "sha256": "d7583fabe6d98da3b53b77c4c6e77d63475a57a7ba956f906ed084acd65c2be1"
+    },
+    {
+      "bytes": 1135,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_making_something/status-000.json",
+      "sha256": "95ca6baf51379a93799be533d5fd4685eef1075f967ee2d56ca18ec45e813909"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_making_something/submission-000.json",
+      "sha256": "c2f3cea77738312c8987df5a46db0ce199635d931a06cd87d8a9cecd53e364dd"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_milestone_level_up/download-000.json",
+      "sha256": "043d42e70734b5e3ea5ec6c30293cc4c260a11c1d7c8a73e37dd535019f53d5e"
+    },
+    {
+      "bytes": 647,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_milestone_level_up/downloads/manifest.json",
+      "sha256": "7f9d19d9bed495331471e5d99e93032df993dea66b6437416032ce9b232bc2d1"
+    },
+    {
+      "bytes": 693,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_milestone_level_up/request-000.json",
+      "sha256": "a842dc10b303b40eec0bf7725df7089e01d1d00ecbde154bc187b42b7749d012"
+    },
+    {
+      "bytes": 1135,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_milestone_level_up/status-000.json",
+      "sha256": "add2377d9003150c2429e184edaf008153009f1012736f9ff4eb9f235cc2dfda"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_milestone_level_up/submission-000.json",
+      "sha256": "9e75609c8082c35b0ed97afd78b37796aae3646588588a51aff61fa0afb355d7"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_working/download-000.json",
+      "sha256": "98b21e3851dc0aa7462d6bb84e4c2c217467c58ef6c47d275e7afc3357a0eefd"
+    },
+    {
+      "bytes": 636,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_working/downloads/manifest.json",
+      "sha256": "26c7bec609527d00900d92dd83f51a39ed41235db4fae4b4897c9092a315e432"
+    },
+    {
+      "bytes": 693,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_working/request-000.json",
+      "sha256": "445703f5ddd5ae6e24c2a2bd851135a1ec8966cc93fcf3e95cd31bcb6a64a477"
+    },
+    {
+      "bytes": 1135,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_working/status-000.json",
+      "sha256": "065ec46e3728ef6dced74984e8321796225ac0a20da6c11a5e8b8e2759c59212"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/animate_working/submission-000.json",
+      "sha256": "0b535fa6639cd9940ee89ece65a6f2226c1baca5dbfab7061e3be531bd92bb71"
+    },
+    {
+      "bytes": 608,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/download-000.json",
+      "sha256": "653057dc4e10681598472dc6a6eb6cf549eab297f7fc680f81be5933180cce05"
+    },
+    {
+      "bytes": 943,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/downloads/manifest.json",
+      "sha256": "4aab1f324c408b5f2d6bcad61dbb9e7852d927a6f8c3e11c3ee76988dba800ed"
+    },
+    {
+      "bytes": 1441,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/request-000.json",
+      "sha256": "38adbd20dccb65125b0f26316093e5e78ef9d92291d899c182235a4829f8ab54"
+    },
+    {
+      "bytes": 1288,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-000.json",
+      "sha256": "3962ff1847eef9fc9c77c7d4ac9b4902a386bd0388d2acd046018fb02ef4617d"
+    },
+    {
+      "bytes": 1288,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-001.json",
+      "sha256": "0ff07d92db0f4a3f4eb5999c1bbaea97c1db37f97598d6298ab87dc0db7571ba"
+    },
+    {
+      "bytes": 1288,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-002.json",
+      "sha256": "39055171e444ebcdd6cb7df0b76d5ca019c56a4fd1030eb60b6d9b679e8631b5"
+    },
+    {
+      "bytes": 1492,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-003.json",
+      "sha256": "630056210eb81c831935c74a8a739b4ac12a7544a6fd7775a7332391f925e856"
+    },
+    {
+      "bytes": 1492,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-004.json",
+      "sha256": "a7fb880f751c743c554554158444e8f0482ef5dbce578f77b0e06b1594140583"
+    },
+    {
+      "bytes": 2535,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/status-005.json",
+      "sha256": "d21753f701259d469e5206a528d895cd4451ab7448d4896bdfcfe8ea3ab95c59"
+    },
+    {
+      "bytes": 132,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/mesh/submission-000.json",
+      "sha256": "9c37ec39cbbde5fae384fcf385326cd78dd98ece4698960b701f406345fc2432"
+    },
+    {
+      "bytes": 441,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_idle/download-000.json",
+      "sha256": "68076d65bc65bde82c6706f169c25b52070951e6e3e5b66f06f2125b244a2743"
+    },
+    {
+      "bytes": 634,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_idle/downloads/manifest.json",
+      "sha256": "078195b7469704a42e58aad9a0ec9e5ed9e57c5374daa584a0edaafeb88faa71"
+    },
+    {
+      "bytes": 798,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_idle/request-000.json",
+      "sha256": "ac20e5474e0d8f1a1d219d72fccd61f872b8830518d5365367472199c86466b3"
+    },
+    {
+      "bytes": 847,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_idle/status-000.json",
+      "sha256": "73cb50f1ee8bfddc16e8a793acfdc2cab2e868e57cf26bbececee05deb5ff06c"
+    },
+    {
+      "bytes": 336,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_idle/submission-000.json",
+      "sha256": "c136d7d005cf1c23db46e0ba1450d3201af6492639e1cec3360514b3d75a2359"
+    },
+    {
+      "bytes": 441,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_making_something/download-000.json",
+      "sha256": "3c3b6ac61629ccadae08fab31c9cbf1e85213779605334e729f3c1d9fad15664"
+    },
+    {
+      "bytes": 646,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_making_something/downloads/manifest.json",
+      "sha256": "742b97fb3aa2a4d042a461542b8721e75e91567e475047e0a183b0dceabe14c3"
+    },
+    {
+      "bytes": 873,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_making_something/request-000.json",
+      "sha256": "a29b4f8b06676f56e6b37fde3355044c5c160f1b2aef576559f2eac79fce80d6"
+    },
+    {
+      "bytes": 847,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_making_something/status-000.json",
+      "sha256": "dc1db0a657c556ef6240bfd287c81653af741d22f24c1d3c60909b46f2554037"
+    },
+    {
+      "bytes": 336,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_making_something/submission-000.json",
+      "sha256": "3200e75bb48392847963ba9e19ccc7c197973641a0abc10b3c0ff2a77705d3d7"
+    },
+    {
+      "bytes": 441,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_milestone_level_up/download-000.json",
+      "sha256": "8fa3a21a78f50686433ccf8bca15d51e36f278c4e861ab93b6ee992a0d5f0006"
+    },
+    {
+      "bytes": 648,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_milestone_level_up/downloads/manifest.json",
+      "sha256": "564e7141ca15d9babd268022ea3069569c197743d6f0cd9b968c192688319f9c"
+    },
+    {
+      "bytes": 831,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_milestone_level_up/request-000.json",
+      "sha256": "7577bfcf4243535219a1acaaf0edaee9c0d7ab34042c3c1b1531e425bcf8cb64"
+    },
+    {
+      "bytes": 847,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_milestone_level_up/status-000.json",
+      "sha256": "a7f0bfe3698aa59baf3c1f80f13bac757f8e13f37ec68bb3530d820df3923388"
+    },
+    {
+      "bytes": 336,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_milestone_level_up/submission-000.json",
+      "sha256": "d0863600d08648e21b695db9472b364b8ffdbaadaf5836910591afa2d6b4fa32"
+    },
+    {
+      "bytes": 441,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_working/download-000.json",
+      "sha256": "e3083d81a775fa0485d6b2fdd9449782dcc8527cbdccdb192a90f47a3cc81b67"
+    },
+    {
+      "bytes": 637,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_working/downloads/manifest.json",
+      "sha256": "25758e5a210eb9da8fda8fe02dffefde69f73f25cae82f8a1687d81752d54d8b"
+    },
+    {
+      "bytes": 851,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_working/request-000.json",
+      "sha256": "dfccf9c59fd27257ecb7ef6322e076c836d683f985e54ef179ce06ddf4cc757e"
+    },
+    {
+      "bytes": 847,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_working/status-000.json",
+      "sha256": "92ab5732c6a710061beeda530a24a9eae9982fa47a7ef00eb90274b33b74b179"
+    },
+    {
+      "bytes": 336,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/motion_working/submission-000.json",
+      "sha256": "5f1985066563510f52ded7b44aa2086da87a770ff2887cca65df3785c0eddae8"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/rig/download-000.json",
+      "sha256": "ef8f3275f29f3f497bc7f7fa5f9d1c77dfc0f340bdb259ac7f151c90e5835623"
+    },
+    {
+      "bytes": 624,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/rig/downloads/manifest.json",
+      "sha256": "3cf10618d71cbc360a9f4fc2d952a215aa74e9743985e2f5d56da23fe3d47b94"
+    },
+    {
+      "bytes": 656,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/rig/request-000.json",
+      "sha256": "75d154f7d744a57ef06d77b915ee4cd8a1d74fc4c43dfaed59452e9a6546fd6a"
+    },
+    {
+      "bytes": 2054,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/rig/status-000.json",
+      "sha256": "82692e784165eb631a21e9933da19320e821a8a68f02622a3f89e9521dc7520c"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/muse-panda-meshy-v1/stages/rig/submission-000.json",
+      "sha256": "6f39a2ec9b969f60b27b7aabd5448d6c2da44688da5706a7c6a052a5403c92b8"
+    },
+    {
+      "bytes": 1702,
+      "path": "provider-receipts/workshop-robot-meshy-v1/inputs/config.json",
+      "sha256": "79f676c5de1b00a2696d26183a2db5dd736dc3ae4cedd0142753ab4cf2df6f10"
+    },
+    {
+      "bytes": 2814,
+      "path": "provider-receipts/workshop-robot-meshy-v1/plan.json",
+      "sha256": "e4aa94dcc2f979f6f741ceaa2198c1416634a09eb9b0c2323b580d64ab898389"
+    },
+    {
+      "bytes": 938,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/mesh/downloads/manifest.json",
+      "sha256": "be24dc06ccd694f39c7f98407e19ab8991072d67d82e1b8ffb20d9f4150d7c5d"
+    },
+    {
+      "bytes": 1290,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/mesh/request-000.json",
+      "sha256": "5620e8cbee48a18bed0d310395a0a41290f927579c966db51a1e2374ffcca542"
+    },
+    {
+      "bytes": 1270,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/mesh/status-000.json",
+      "sha256": "27034540191ba1337e65d7a204525882c5fb8796828019a5046fa8afb4e4c16f"
+    },
+    {
+      "bytes": 1542,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/mesh/status-001.json",
+      "sha256": "038b578b86bd24d8e9085c9295091867492727db3bd12f638bd1fc6d2a8a779e"
+    },
+    {
+      "bytes": 132,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/mesh/submission-000.json",
+      "sha256": "3f03d76ba4561213d8a78e9ac210757af8537d3d84c8d0959f24b17efa58e27a"
+    },
+    {
+      "bytes": 440,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/rig/download-000.json",
+      "sha256": "38c117e6acb4db9cdd14ba1f57c7603a5388ccb3aefde45f1828c05344ca5095"
+    },
+    {
+      "bytes": 624,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/rig/downloads/manifest.json",
+      "sha256": "40acbd90a8a28c668a4eb40d791d72b5c1917048822c0aaf48e3927438b5e651"
+    },
+    {
+      "bytes": 656,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/rig/request-000.json",
+      "sha256": "6d69d586e5872a26afa14f45593138419c604f751fb18b1005f668ed35b609a8"
+    },
+    {
+      "bytes": 2054,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/rig/status-000.json",
+      "sha256": "27d646ff7e404bbf137e32cc847d08e8d483276f568700589e8f9a81927b144f"
+    },
+    {
+      "bytes": 335,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/rig/submission-000.json",
+      "sha256": "1be089a98165e1340d7cf39ad03f83a88d4f919f2abd0a51a82b66c105300441"
+    },
+    {
+      "bytes": 608,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/texture/download-000.json",
+      "sha256": "9c1e4226f9da8090dd948064407ee8688fac5045386dd715a0bb82e140888ac9"
+    },
+    {
+      "bytes": 946,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/texture/downloads/manifest.json",
+      "sha256": "27338eff1442e9ee6e1e9b3ea4a356eee6d48e0f8e3684be6c55a35ea913aa7e"
+    },
+    {
+      "bytes": 893,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/texture/request-000.json",
+      "sha256": "52859a1c57fed4ff0d9bbe3a866a7018e76f780ead47eaaff24302986ebb4f75"
+    },
+    {
+      "bytes": 2666,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/texture/status-000.json",
+      "sha256": "54ce9904c55a9b9f5a50833d01a9136c9d9e171a7f94b798d5ba234144671515"
+    },
+    {
+      "bytes": 132,
+      "path": "provider-receipts/workshop-robot-meshy-v1/stages/texture/submission-000.json",
+      "sha256": "e69a75e12bc98c3b57c8be8738d02efecd957ce7b382f4aecfca0486da5e6782"
+    }
+  ],
+  "kind": "generated_trial_evidence_checkpoint",
+  "schema_version": 1,
+  "status": "preserved"
+}

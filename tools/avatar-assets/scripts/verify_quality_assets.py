@@ -21,12 +21,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from avatar_assets.safety import artifacts, contained, local_file, new_directory, read_json, require, sha256, write_json
 from avatar_assets.scene import read_scene
-from avatar_assets.three_d import _GLB, _WIDTHS, MAX_VERTICES, validate_glb, validate_render_attributes
+from avatar_assets.three_d import _GLB, _WIDTHS, MAX_VERTICES, MAX_TRIANGLE_INDICES, validate_glb, validate_render_attributes
 
 UNIQUE_SCALARS = 3_000_000
 DECODE_WORK_SCALARS = 6_000_000
-MAX_IMAGE_BYTES = 4 * 1024 * 1024
-MAX_TEXTURE_PIXELS = 16_777_216
+MAX_IMAGE_BYTES = 8 * 1024 * 1024
+MAX_TEXTURE_PIXELS = 32 * 1024 * 1024
+
+
+class UnsupportedProof(ValueError):
+    """Preserved legacy evidence lacks a field required by the current proof contract."""
 
 
 def peak_rss_bytes():
@@ -50,13 +54,18 @@ class AttributeReader:
         self.glb, self.budget = glb, budget
         self.seen, self.unique, self.work = set(), 0, 0
         total = 0
-        for accessor in glb.doc.get("accessors", []):
+        index_accessors = {primitive["indices"] for mesh in glb.doc.get("meshes", [])
+                           for primitive in mesh.get("primitives", []) if "indices" in primitive}
+        for index, accessor in enumerate(glb.doc.get("accessors", [])):
             count, width = accessor.get("count"), _WIDTHS.get(accessor.get("type"))
-            require(type(count) is int and 0 < count <= MAX_VERTICES and width, "Invalid accessor bound")
+            unsigned_indices = (index in index_accessors and accessor.get("type") == "SCALAR"
+                                and accessor.get("componentType") in (5121, 5123, 5125))
+            limit = MAX_TRIANGLE_INDICES if unsigned_indices else MAX_VERTICES
+            require(type(count) is int and 0 < count <= limit and width, "Invalid accessor bound")
             total += count*width
         require(total <= UNIQUE_SCALARS, "Quality proof unique-scalar limit exceeded")
 
-    def rows(self, index, kind=None, components=None):
+    def rows(self, index, kind=None, components=None, *, count_limit=MAX_VERTICES):
         self.budget.check()
         accessor = self.glb.doc["accessors"][index]
         amount = accessor["count"]*_WIDTHS[accessor["type"]]
@@ -68,7 +77,7 @@ class AttributeReader:
         # Clearing the cache releases Python tuples; compact arrays retain only needed cross-attribute data.
         self.glb.cache.clear()
         self.glb.value_count = 0
-        return self.glb.accessor(index, kind, components)
+        return self.glb.accessor(index, kind, components, count_limit=count_limit)
 
 
 def _tracked_file(pack, inventory, relative, maximum=64*1024*1024):
@@ -78,6 +87,51 @@ def _tracked_file(pack, inventory, relative, maximum=64*1024*1024):
     require(path.stat().st_size == record["bytes"] and sha256(path) == record["sha256"],
             f"Preserved artifact hash differs: {relative}")
     return path
+
+
+def _material_proof(document, scene, backend, embedded):
+    atlases = [row for row in backend.get("textures", []) if row.get("kind") == "fur_atlas"]
+    derived = {row["material"]: row for row in atlases}
+    require(len(derived) == len(atlases), "Duplicate generated card material evidence")
+    materials = []
+    for material in document["materials"]:
+        name = material.get("name")
+        card = derived.get(name)
+        if card and "source_material" not in card:
+            raise UnsupportedProof("Legacy hair-card report lacks an explicit source-material binding (source_material); rebuild into a new pack, do not infer material names")
+        source_name = card.get("source_material") if card else name
+        binding = "explicit_source_material" if card else "authored_material_name"
+        require(source_name in scene["materials"], "Material lacks an explicit source-material binding")
+        source = scene["materials"][source_name]
+        pbr = material.get("pbrMetallicRoughness", {})
+        roughness, metallic = pbr.get("roughnessFactor", 1), pbr.get("metallicFactor", 1)
+        expected_roughness = .78 if card else source.get("roughness", .5)
+        expected_metallic = 0 if card else source.get("metallic", 0)
+        require(abs(roughness-expected_roughness) < 1e-6 and abs(metallic-expected_metallic) < 1e-6,
+                "Exported PBR settings differ from source")
+        alpha = material.get("alphaMode", "OPAQUE")
+        require(alpha == ("MASK" if card else "OPAQUE"), "Unexpected material alpha mode")
+        normal, base = "normalTexture" in material, "baseColorTexture" in pbr
+        if card:
+            require(base and not normal and material.get("doubleSided", False) is card.get("double_sided", True)
+                    and abs(material.get("alphaCutoff", .5)-card["alpha_cutoff"]) < 1e-6,
+                    "Generated hair-card material lost MASK, sidedness or atlas settings")
+        else:
+            require("surface" not in source or normal and base, "Baked surface is missing a portable material texture")
+        for container, field, kind in ((pbr, "baseColorTexture", "basecolor"), (material, "normalTexture", "normal")):
+            if field not in container:
+                continue
+            require(container[field].get("texCoord", 0) == 0, "Texture does not use verified UV0")
+            expected = ([card] if card and kind == "basecolor" else
+                        [row for row in backend.get("textures", []) if row["material"] == name and row["kind"] == kind])
+            require(len(expected) == 1, "Material texture lacks unique preserved-source evidence")
+            image_index = document["textures"][container[field]["index"]]["source"]
+            require(embedded[image_index]["sha256"] == expected[0]["sha256"], "Material texture is bound to the wrong preserved image")
+        materials.append({"name": name, "source_material": source_name, "source_binding": binding, "generated_hair_cards": bool(card),
+                          "roughness": roughness, "metallic": metallic, "basecolor_texture": base,
+                          "normal_texture": normal, "alpha_mode": alpha})
+    require(set(derived) <= {material["name"] for material in materials}, "Generated card material absent from GLB")
+    return materials
 
 
 def _triangle_features(positions, indices, budget):
@@ -143,7 +197,9 @@ def _primitive(reader, primitive, joints_count, budget):
         influences[len(distinct)] += 1
     require(error < .001, "Exported weights are not normalized")
     del rows, joints
-    indices = array("I", (row[0] for row in reader.rows(primitive["indices"], "SCALAR", (5121, 5123, 5125)))) if "indices" in primitive else array("I", range(count))
+    indices = (array("I", (row[0] for row in reader.rows(primitive["indices"], "SCALAR", (5121, 5123, 5125),
+                                                       count_limit=MAX_TRIANGLE_INDICES)))
+               if "indices" in primitive else array("I", range(count)))
     require(len(indices) % 3 == 0 and all(index < count for index in indices), "Invalid triangle index")
     features = _triangle_features(positions, indices, budget)
     return {"material": primitive["material"], "vertices": count, "triangles": len(indices)//3,
@@ -213,7 +269,7 @@ def verify_pack(identifier, pack, budget):
         digest = hashlib.sha256(raw).hexdigest()
         actual_hashes[digest] += 1
         with Image.open(BytesIO(raw)) as decoded:
-            require(decoded.format == "PNG" and decoded.width in (256, 512) and decoded.height == decoded.width,
+            require(decoded.format == "PNG" and decoded.width in (256, 512, 1024, 2048) and decoded.height == decoded.width,
                     "Unexpected baked PNG dimensions")
             pixels += decoded.width*decoded.height
             require(pixels <= MAX_TEXTURE_PIXELS, "Decoded PNG pixel budget exceeded")
@@ -221,21 +277,7 @@ def verify_pack(identifier, pack, budget):
             embedded.append({"name": image.get("name"), "sha256": digest, "bytes": len(raw),
                              "width": decoded.width, "height": decoded.height, "mode": decoded.mode})
     require(actual_hashes == expected_hashes, "Embedded PNG bytes differ from preserved texture sources")
-    materials = []
-    for material in glb.doc["materials"]:
-        source = scene["materials"][material["name"]]
-        pbr = material.get("pbrMetallicRoughness", {})
-        roughness, metallic = pbr.get("roughnessFactor", 1), pbr.get("metallicFactor", 1)
-        require(abs(roughness-source.get("roughness", .5)) < 1e-6 and abs(metallic-source.get("metallic", 0)) < 1e-6,
-                "Exported PBR settings differ from source")
-        require(material.get("alphaMode", "OPAQUE") == "OPAQUE", "Unexpected transparent material")
-        normal, base = "normalTexture" in material, "baseColorTexture" in pbr
-        require("surface" not in source or normal and base, "Baked surface is missing a portable material texture")
-        for container, field in ((pbr, "baseColorTexture"), (material, "normalTexture")):
-            if field in container:
-                require(container[field].get("texCoord", 0) == 0, "Texture does not use verified UV0")
-        materials.append({"name": material["name"], "roughness": roughness, "metallic": metallic,
-                          "basecolor_texture": base, "normal_texture": normal, "alpha_mode": "OPAQUE"})
+    materials = _material_proof(glb.doc, scene, backend, embedded)
     require(len(embedded) == backend["embedded_images"], "Embedded image count differs from backend report")
     require(sha256(model) == glb.hash, "GLB changed during verification")
     budget.check()
@@ -308,6 +350,8 @@ def main():
             gc.collect()
         status = "passed" if all(report["status"] == "passed" for report in reports) else "failed"
         error = None if status == "passed" else "See asset reports for failed attribute checks"
+    except UnsupportedProof as failure:
+        status, error = "unsupported", str(failure)
     except Exception as failure:
         status, error = "failed", str(failure)
     finally:
@@ -317,7 +361,8 @@ def main():
               "limits": {"wall_seconds": args.timeout, "process_rss_mb": args.memory_mb,
                          "unique_scalars_per_glb": UNIQUE_SCALARS, "decoded_work_scalars_per_glb": DECODE_WORK_SCALARS,
                          "png_bytes_each": MAX_IMAGE_BYTES, "png_pixels_total_per_glb": MAX_TEXTURE_PIXELS,
-                         "exported_vertices": MAX_VERTICES, "existing_glb_validator_limits_unchanged": True},
+                         "exported_vertices": MAX_VERTICES, "triangle_index_elements_per_accessor": MAX_TRIANGLE_INDICES,
+                         "existing_glb_validator_limits_unchanged": True},
               "elapsed_seconds": round(time.monotonic()-budget.start, 4), "process_peak_rss_bytes": peak_rss_bytes(),
               "tools": {"python": sys.version, "Pillow": PILLOW_VERSION}, "provider_calls": 0, "provider_cost_usd": 0,
               "artifacts": artifacts(out)}

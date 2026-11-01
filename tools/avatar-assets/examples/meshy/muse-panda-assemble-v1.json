@@ -1,0 +1,32 @@
+{
+  "id": "muse-panda-meshy-assembled-v1",
+  "schema_version": 1,
+  "source": "../../outputs/muse-panda-meshy-rig-smoothed-v1/model.glb",
+  "source_sha256": "4e80378f691a5a14d6c13b0fb829a6a54e9262ae293ed2011199f9b10be6ad35",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Stand comfortably in place with arms relaxed, gentle breathing and a small friendly head tilt. Both feet stay planted. No walking, jumping or exaggerated gestures.",
+      "sha256": "d16fab5606e26bb6d73b66bf223eba22f758f71dae1747fb49a499631237a428",
+      "source": "../../outputs/muse-panda-meshy-motion-idle-v1/model.glb"
+    },
+    {
+      "id": "making_something",
+      "meaning": "Stand in place crafting a small imaginary object between both hands at belly height. Look down, cup the left hand, and use precise short right-hand shaping movements, then raise the hands slightly to inspect the result. Keep feet planted.",
+      "sha256": "2ae03d1950466576ae9b4bd226daf7100ece95623f17f556da2146114ed615e2",
+      "source": "../../outputs/muse-panda-meshy-motion-making_something-v1/model.glb"
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "A joyful small celebration in place: bend knees slightly, straighten proudly, lift both forearms in a small victory gesture, nod happily, then settle back. Keep feet on the ground and do not spin.",
+      "sha256": "8925e7b719e0b595dfebf8c4b8e6615f33fabf91124612b32473e6a1beb50bc0",
+      "source": "../../outputs/muse-panda-meshy-motion-milestone_level_up-v1/model.glb"
+    },
+    {
+      "id": "working",
+      "meaning": "Stand focused in place and inspect an imaginary handheld workpiece. Hold it near the belly with the left hand, lean the head closer, make two deliberate right-hand adjustments, pause to check, then relax. No walking.",
+      "sha256": "df3987ae137b9a3749cb849ff62aae7df69b77d7325ff2b98809f15f9079e980",
+      "source": "../../outputs/muse-panda-meshy-motion-working-v1/model.glb"
+    }
+  ]
+}

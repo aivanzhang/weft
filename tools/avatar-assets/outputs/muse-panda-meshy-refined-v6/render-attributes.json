@@ -1,0 +1,47 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 836874,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "Material_0",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.3298794560311364e-07,
+      "normal_tangent_dot_error": 0.0003097282524358036,
+      "tangent_squared_length_error": 0.0001529199200431819,
+      "vertices": 67787
+    },
+    {
+      "material": "PortableCoat_0_cutout_fur",
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.0428617375500835e-07,
+      "normal_tangent_dot_error": 0.00013541436516106842,
+      "tangent_squared_length_error": 0.0001494618764681377,
+      "vertices": 13894
+    },
+    {
+      "material": "PortableCoat_1_cutout_fur",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9824599029050205e-07,
+      "normal_tangent_dot_error": 0.00013379285863734935,
+      "tangent_squared_length_error": 0.0001501878818332969,
+      "vertices": 11305
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "a874d80ca58c0524d0b3a5a1a52d66700a4dc6c540c298936de24d108f001fd8",
+  "status": "validated_render_attributes",
+  "vertices": 92986
+}

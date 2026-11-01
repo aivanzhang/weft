@@ -1,0 +1,71 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The friendly upright dragon retains rounded proportions, amber eyes, orange horns and spines, a cream belly, two small wings and a long tail."
+    },
+    {
+      "evidence_ids": ["image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Green scaled skin and softly rounded stylized forms match the request. No fur or hair is required."
+    },
+    {
+      "evidence_ids": ["image-00-idle.png", "image-01-look_around.png", "image-02-milestone_level_up.png", "image-03-wing_flap.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The sampled views contain the whole dragon, including horns, wings, feet and tail, with margins."
+    },
+    {
+      "evidence_ids": ["image-00-idle.png", "image-02-milestone_level_up.png", "image-03-wing_flap.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "Moving tail sections flatten into irregular bands with stretched spines, especially during the flourish. Raised wing poses show pinched, angular membrane folds rather than intact wing articulation."
+    }
+  ],
+  "limitations": [
+    "Contact sheets establish sampled pose changes only; they do not establish continuous smoothness, collision freedom, ground forces or seamless loops.",
+    "Supplied proofs report local structure, render attributes and native reload passing; target runtime verification remains false.",
+    "Hidden surfaces, anatomical placement and physical scale remain authored assumptions."
+  ],
+  "required_repairs": [
+    "Refine tail weights and joint transitions so the flourish preserves rounded tail volume and attached spine shapes without flattened bands.",
+    "Refine wing pivots and membrane weights so both wings raise and lower without pinching or angular collapse.",
+    "Make the milestone action visibly read as a shallow torso-and-neck bow followed by a return to standing, retaining planted feet and the sideways tail flourish.",
+    "Provide updated sampled motion evidence after these local rig and animation repairs."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-00-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Small torso and tail changes read as gentle idle movement with feet remaining in the same sampled positions; tail deformation still requires repair."
+    },
+    {
+      "evidence_ids": ["image-01-look_around.png"],
+      "id": "look_around",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns between sideward and forward-facing orientations with slight upper-body follow and stable sampled foot positions."
+    },
+    {
+      "evidence_ids": ["image-03-wing_flap.png"],
+      "id": "wing_flap",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Wing silhouettes visibly alternate while the dragon remains standing. The action is readable, but folded membrane deformation prevents acceptance."
+    },
+    {
+      "evidence_ids": ["image-02-milestone_level_up.png"],
+      "id": "milestone_level_up",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "Head and tail geometry change, but the torso remains nearly upright and the small head dip does not clearly communicate the requested happy bow. The tail flourish visibly flattens the tail."
+    }
+  ],
+  "summary": "Identity and framing pass. Local skinning repairs and a clearer milestone bow are needed before acceptance.",
+  "verdict": "repair"
+}

@@ -1,0 +1,167 @@
+{
+  "archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+  "models": [
+    {
+      "attachment": {
+        "bone": "CompanionAnchor",
+        "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance",
+        "parent_bone": "RightShoulder",
+        "rest_geometry_changed": false,
+        "selected_vertices": 4682,
+        "selector": {
+          "anchor_from_bone": "RightArm",
+          "bone": "CompanionAnchor",
+          "dominant_channel": 1,
+          "dominant_ratio": 1.05,
+          "expand_meters": 0.025,
+          "max_vertices": 20000,
+          "min_vertices": 500,
+          "parent_bone": "RightShoulder",
+          "regions": [
+            {
+              "center": [
+                0.11,
+                0.22,
+                0.68
+              ],
+              "radius": [
+                0.25,
+                0.4,
+                0.28
+              ]
+            }
+          ]
+        }
+      },
+      "bones": 25,
+      "folder": "outputs/muse-panda-meshy-refined-v6",
+      "manifest_sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380",
+      "mesh_vertices": 92986,
+      "model_sha256": "a874d80ca58c0524d0b3a5a1a52d66700a4dc6c540c298936de24d108f001fd8",
+      "nodes": {
+        "Armature": 25,
+        "CompanionAnchor": 11,
+        "Head": 2,
+        "Hips": 24,
+        "LeftArm": 6,
+        "LeftForeArm": 5,
+        "LeftLeg": 18,
+        "LeftUpLeg": 19,
+        "RightArm": 10,
+        "RightForeArm": 9,
+        "RightLeg": 22,
+        "RightShoulder": 12,
+        "RightUpLeg": 23,
+        "Spine": 13,
+        "Spine01": 14,
+        "Spine02": 15
+      },
+      "render_attributes": {
+        "checks": [
+          "finite normals/UV0/tangents",
+          "matching counts",
+          "unit normals/tangents",
+          "orthogonal normal/tangent frames",
+          "tangent handedness",
+          "normal-map UV0 binding"
+        ],
+        "decoded_scalar_values": 836874,
+        "limits": {
+          "decoded_surface_values": 900000,
+          "normal_tangent_squared_length_tolerance": 0.001,
+          "orthogonality_tolerance": 0.002,
+          "vertices": 100000
+        },
+        "primitives": [
+          {
+            "material": "Material_0",
+            "normal_mapped": true,
+            "normal_squared_length_error": 2.3298794560311364e-07,
+            "normal_tangent_dot_error": 0.0003097282524358036,
+            "tangent_squared_length_error": 0.0001529199200431819,
+            "vertices": 67787
+          },
+          {
+            "material": "PortableCoat_0_cutout_fur",
+            "normal_mapped": false,
+            "normal_squared_length_error": 2.0428617375500835e-07,
+            "normal_tangent_dot_error": 0.00013541436516106842,
+            "tangent_squared_length_error": 0.0001494618764681377,
+            "vertices": 13894
+          },
+          {
+            "material": "PortableCoat_1_cutout_fur",
+            "normal_mapped": false,
+            "normal_squared_length_error": 1.9824599029050205e-07,
+            "normal_tangent_dot_error": 0.00013379285863734935,
+            "tangent_squared_length_error": 0.0001501878818332969,
+            "vertices": 11305
+          }
+        ],
+        "schema_version": 1,
+        "sha256": "a874d80ca58c0524d0b3a5a1a52d66700a4dc6c540c298936de24d108f001fd8",
+        "status": "validated_render_attributes",
+        "vertices": 92986
+      }
+    },
+    {
+      "attachment": null,
+      "bones": 24,
+      "folder": "outputs/workshop-robot-meshy-refined-v2",
+      "manifest_sha256": "34a28dad95433290314ac711f33aad31eab21cbec3eeca8322db6d29dbc77fc8",
+      "mesh_vertices": 45386,
+      "model_sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb",
+      "nodes": {
+        "Armature": 24,
+        "Head": 2,
+        "Hips": 23,
+        "LeftArm": 6,
+        "LeftForeArm": 5,
+        "LeftLeg": 17,
+        "LeftUpLeg": 18,
+        "RightArm": 10,
+        "RightForeArm": 9,
+        "RightLeg": 21,
+        "RightShoulder": 11,
+        "RightUpLeg": 22,
+        "Spine": 12,
+        "Spine01": 13,
+        "Spine02": 14
+      },
+      "render_attributes": {
+        "checks": [
+          "finite normals/UV0/tangents",
+          "matching counts",
+          "unit normals/tangents",
+          "orthogonal normal/tangent frames",
+          "tangent handedness",
+          "normal-map UV0 binding"
+        ],
+        "decoded_scalar_values": 408474,
+        "limits": {
+          "decoded_surface_values": 900000,
+          "normal_tangent_squared_length_tolerance": 0.001,
+          "orthogonality_tolerance": 0.002,
+          "vertices": 100000
+        },
+        "primitives": [
+          {
+            "material": "Material_0",
+            "normal_mapped": true,
+            "normal_squared_length_error": 2.474546407782441e-07,
+            "normal_tangent_dot_error": 0.0001496573930634959,
+            "tangent_squared_length_error": 0.00015058724304140014,
+            "vertices": 45386
+          }
+        ],
+        "schema_version": 1,
+        "sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb",
+        "status": "validated_render_attributes",
+        "vertices": 45386
+      }
+    }
+  ],
+  "unchanged_fidelity_weft_conversion": "unsupported: current geometry,4K textures and PBR exceed the frozen consumer profile",
+  "weft_contract_sha256": "e03897de484ff0429dc6e92eb0ddbcc30f00534f146ddda18ce4e516dfbd6d34",
+  "weft_runtime_verified": false
+}

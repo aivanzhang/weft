@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The rounded robot consistently has two arms, two feet, a large rounded head and the requested workshop character."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Blue and cream hard-surface panels, copper accents and mechanical joints match the description. No props or hair are requested or visible."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The complete body, hands and feet remain inside every supplied motion sample."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "When the arm lifts, the adjacent blue upper-torso panel pulls outward into a triangular shape beneath the shoulder. This distorts the rigid body shell."
+    }
+  ],
+  "limitations": [
+    "Contact sheets establish sampled poses only; they do not establish continuous collision freedom, ground forces or seamless loops.",
+    "The original source model is not independently shown, so exact preservation cannot be established.",
+    "Supplied proofs report native reload and local structural validation; target runtime compatibility remains unverified.",
+    "Hidden surfaces, rig placement and scale are authored assumptions."
+  ],
+  "required_repairs": [
+    "Correct weights around the waving shoulder so torso-shell vertices remain rigidly attached to the torso and arm vertices follow their mechanical segments. Recheck the raised-arm and wrist extrema for shell distortion and joint gaps."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Small torso and relaxed-arm changes are visible between samples while the feet retain their positions, consistent with a gentle idle."
+    },
+    {
+      "evidence_ids": ["image-02-look.png"],
+      "id": "look",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns in opposite directions and returns to its starting orientation while the torso and feet remain steady."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "One arm visibly lifts, the hand alternates orientation and the arm lowers, conveying a small friendly wave. The associated torso deformation requires repair."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly pitches through a restrained nod and returns upright, matching the specifically requested modest celebratory nod. Feet remain stationary in the samples."
+    }
+  ],
+  "summary": "Identity, palette, framing and sampled action meanings pass. The wave visibly distorts the hard-surface torso near the raised shoulder.",
+  "verdict": "repair"
+}

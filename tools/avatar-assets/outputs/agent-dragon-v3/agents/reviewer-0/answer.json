@@ -1,0 +1,71 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "Rounded upright dragon retains amber eyes, orange horns and spines, cream belly, two small wings and a long tail."
+    },
+    {
+      "evidence_ids": ["image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Green scaled surfaces and friendly stylized proportions match the requested appearance. No hair or fur is required."
+    },
+    {
+      "evidence_ids": ["image-05-three-quarter.png", "image-02-milestone_level_up.png", "image-03-wing_flap.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "Full body, horns, feet and wings remain inside the sampled frames; the long tail is visible in the alternate rest view and bow samples."
+    },
+    {
+      "evidence_ids": ["image-02-milestone_level_up.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "At 0.8 and 1.5 seconds, the muzzle and mouth visibly pinch and collapse beneath the eyes instead of retaining the intact head shape during the bow."
+    }
+  ],
+  "limitations": [
+    "Contact sheets cannot establish continuous motion, collision freedom, ground forces or seamless loops.",
+    "Idle changes are too subtle in the supplied images to establish the requested torso sway and tail-tip movement visually.",
+    "Supplied structural and attribute proofs report success but do not establish visual deformation quality; the target runtime remains unverified.",
+    "Hidden surfaces, rig placement and physical scale are authored assumptions."
+  ],
+  "required_repairs": [
+    "Repair head and neck skin weights so the muzzle, eyes and jaw move together without facial collapse during the bow; distribute the shallow bend through the torso and neck.",
+    "Make idle torso sway and tail-tip movement visibly readable while preserving gentle motion and planted feet.",
+    "Provide updated motion evidence for the repaired idle and bow, including a view that exposes the tail and facial silhouette."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-00-idle.png"],
+      "id": "idle",
+      "meaning_passed": false,
+      "motion_passed": false,
+      "reason": "Samples appear essentially unchanged; neither torso sway nor tail-tip movement is clearly readable. Reported numerical displacement does not resolve that visual gap."
+    },
+    {
+      "evidence_ids": ["image-01-look_around.png"],
+      "id": "look_around",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Head orientation visibly changes toward each side and returns, with slight upper-body follow and apparently stationary feet."
+    },
+    {
+      "evidence_ids": ["image-03-wing_flap.png"],
+      "id": "wing_flap",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Both wings visibly alternate raised and lowered positions while the dragon remains standing."
+    },
+    {
+      "evidence_ids": ["image-02-milestone_level_up.png"],
+      "id": "milestone_level_up",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "Head lowering and a sideways tail flourish visibly change geometry and return toward standing, but facial collapse undermines the requested happy shallow bow."
+    }
+  ],
+  "summary": "Identity and framing pass, but bow deformation needs repair and idle motion lacks sufficient visible evidence.",
+  "verdict": "repair"
+}

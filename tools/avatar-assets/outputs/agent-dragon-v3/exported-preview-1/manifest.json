@@ -1,0 +1,342 @@
+{
+  "artifacts": [
+    {
+      "bytes": 217396,
+      "path": "back.png",
+      "sha256": "bd3b3bf982a2a31205855b140523db2b6a3a84bf8f365fe9d02f23c583ed02ad"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "3d8a2de43b04ace3ff3a87456d3d7d05174d421b7b3dc13562854bfdba3339de"
+    },
+    {
+      "bytes": 216436,
+      "path": "front.png",
+      "sha256": "967ceaca9bf4deacd33e4efdd2aab7c041f240695d4fb3e0facf3a6ae784104b"
+    },
+    {
+      "bytes": 1558,
+      "path": "job.json",
+      "sha256": "acefbd31a3249b1298d0d546a1924a84e4c9c736b5117d00f071e8cbdf8569b1"
+    },
+    {
+      "bytes": 4964,
+      "path": "native-inspection.json",
+      "sha256": "c751aef1b879ecdef373f41c68ec67aaf3fbeb2eaab2c7a2bf177f4563745be1"
+    },
+    {
+      "bytes": 26492316,
+      "path": "original.glb",
+      "sha256": "9e8003616008a25d6b635363bcd66571f5340207cfaf1fb920fe90b5b571f4ef"
+    },
+    {
+      "bytes": 705,
+      "path": "preflight.json",
+      "sha256": "164936d06b534eb492e7701fdb38b78ec48c32a3fa5a4032341175cb8b9afa68"
+    },
+    {
+      "bytes": 624,
+      "path": "preview-handle.json",
+      "sha256": "672f069c131a23fc3db9be4c63c9b6c72052be79ca5a64cc53085cde37147c64"
+    },
+    {
+      "bytes": 1416,
+      "path": "preview-monitor.json",
+      "sha256": "cc137d2f252f828e9e09701348eabc68cb2652db6d70feee506623095777efaa"
+    },
+    {
+      "bytes": 16987,
+      "path": "preview.log",
+      "sha256": "e5c5cc436005628b4593e990ff253b31b5dec98535b5bb99ffb09182502e110e"
+    },
+    {
+      "bytes": 30275139,
+      "path": "source.blend",
+      "sha256": "85a64214ad58c65dd593fc3d8bed60b700f13407eec47be8cf533262a1ece99d"
+    },
+    {
+      "bytes": 37922,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "f64ea31f0757633261d1ad21279b3f68f135de0a574a86fd341d1c90772ae0e8"
+    },
+    {
+      "bytes": 8201,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "a589c58ea4e69b0002e7a9990d54aa344ceaf513914794465652567a404da401"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 224786,
+      "path": "three-quarter.png",
+      "sha256": "609495394eea3834a0bf691c8dab8955735810f41714836af0ba4e3eef0e5771"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [
+      "idle",
+      "look_around",
+      "milestone_level_up",
+      "wing_flap"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.5308043360710144,
+        1.0723233222961426,
+        1.600000262260437
+      ],
+      "min": [
+        -0.5308043360710144,
+        -1.0723233222961426,
+        0.0
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 36501,
+        "name": "Mesh_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 36322
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "967ceaca9bf4deacd33e4efdd2aab7c041f240695d4fb3e0facf3a6ae784104b",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "609495394eea3834a0bf691c8dab8955735810f41714836af0ba4e3eef0e5771",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "bd3b3bf982a2a31205855b140523db2b6a3a84bf8f365fe9d02f23c583ed02ad",
+        "view": "back"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              0.0,
+              -0.4503757655620575,
+              0.19200000166893005
+            ],
+            "name": "Root",
+            "parent": null,
+            "tail": [
+              0.0,
+              -0.4503757655620575,
+              0.39732468128204346
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              -0.5361616611480713,
+              0.64000004529953
+            ],
+            "name": "Chest",
+            "parent": "Root",
+            "tail": [
+              0.0,
+              -0.5701335668563843,
+              0.8174117803573608
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              -0.6005009412765503,
+              0.9280000329017639
+            ],
+            "name": "Neck",
+            "parent": "Chest",
+            "tail": [
+              0.0,
+              -0.6648403406143188,
+              1.1200001239776611
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              -0.6648403406143188,
+              1.1200001239776611
+            ],
+            "name": "Head",
+            "parent": "Neck",
+            "tail": [
+              0.0,
+              -0.7917447090148926,
+              1.2777938842773438
+            ]
+          },
+          {
+            "head": [
+              -0.1486251950263977,
+              -0.6005010604858398,
+              0.7200000882148743
+            ],
+            "name": "ArmLeft",
+            "parent": "Chest",
+            "tail": [
+              -0.18183879554271698,
+              -0.7212768793106079,
+              0.5898498892784119
+            ]
+          },
+          {
+            "head": [
+              0.1486251950263977,
+              -0.6005010604858398,
+              0.7200000882148743
+            ],
+            "name": "ArmRight",
+            "parent": "Chest",
+            "tail": [
+              0.18183879554271698,
+              -0.7212768793106079,
+              0.5898498892784119
+            ]
+          },
+          {
+            "head": [
+              -0.1804734766483307,
+              -0.45037588477134705,
+              0.8320001363754272
+            ],
+            "name": "WingLeft",
+            "parent": "Chest",
+            "tail": [
+              -0.3123377561569214,
+              -0.4184090197086334,
+              0.9512434005737305
+            ]
+          },
+          {
+            "head": [
+              0.1804734766483307,
+              -0.45037588477134705,
+              0.8320001363754272
+            ],
+            "name": "WingRight",
+            "parent": "Chest",
+            "tail": [
+              0.3123377561569214,
+              -0.4184090197086334,
+              0.9512434005737305
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              -0.3216969668865204,
+              0.351999968290329
+            ],
+            "name": "TailBase",
+            "parent": "Root",
+            "tail": [
+              0.0,
+              0.10723233222961426,
+              0.19199998676776886
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              0.10723218321800232,
+              0.19200003147125244
+            ],
+            "name": "TailMid",
+            "parent": "TailBase",
+            "tail": [
+              0.0,
+              0.5790544748306274,
+              0.10400005429983139
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              0.5790542960166931,
+              0.10400008410215378
+            ],
+            "name": "TailTip",
+            "parent": "TailMid",
+            "tail": [
+              0.0,
+              1.0582633018493652,
+              0.13081346452236176
+            ]
+          }
+        ],
+        "name": "CreatureRig"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "9e8003616008a25d6b635363bcd66571f5340207cfaf1fb920fe90b5b571f4ef",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 4,
+    "attributes": [
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "9e8003616008a25d6b635363bcd66571f5340207cfaf1fb920fe90b5b571f4ef",
+    "skins": 1,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      }
+    ],
+    "triangles": 36501,
+    "vertices": 36322
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "9e8003616008a25d6b635363bcd66571f5340207cfaf1fb920fe90b5b571f4ef",
+  "status": "needs_visual_review"
+}

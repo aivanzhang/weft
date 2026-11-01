@@ -1,0 +1,103 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 428796,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "blue",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9806665041421923e-07,
+      "normal_tangent_dot_error": 0.0001262729517934602,
+      "tangent_squared_length_error": 0.00013845032026305049,
+      "vertices": 10051
+    },
+    {
+      "material": "graphite",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.801148787894391e-07,
+      "normal_tangent_dot_error": 0.00013945349089183878,
+      "tangent_squared_length_error": 0.00014849681966921935,
+      "vertices": 12535
+    },
+    {
+      "material": "cream",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.951345929285253e-07,
+      "normal_tangent_dot_error": 0.0001296027336219474,
+      "tangent_squared_length_error": 0.00013771544603358166,
+      "vertices": 9224
+    },
+    {
+      "material": "metal",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.9197447187480066e-07,
+      "normal_tangent_dot_error": 0.0001316160304836167,
+      "tangent_squared_length_error": 0.00014087564642029093,
+      "vertices": 7990
+    },
+    {
+      "material": "visor",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.7771409699385288e-07,
+      "normal_tangent_dot_error": 0.00013021971474280747,
+      "tangent_squared_length_error": 0.00012602830863883696,
+      "vertices": 916
+    },
+    {
+      "material": "brass",
+      "normal_mapped": true,
+      "normal_squared_length_error": 1.9678812535062207e-07,
+      "normal_tangent_dot_error": 0.00013835826937125262,
+      "tangent_squared_length_error": 0.00013016641563878828,
+      "vertices": 3911
+    },
+    {
+      "material": "eye",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.9678812535062207e-07,
+      "normal_tangent_dot_error": 0.00013793404702866496,
+      "tangent_squared_length_error": 0.00013448177794428418,
+      "vertices": 1306
+    },
+    {
+      "material": "blue_edge",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.909889804085907e-07,
+      "normal_tangent_dot_error": 0.0001289576480860699,
+      "tangent_squared_length_error": 0.0001230503353313317,
+      "vertices": 1022
+    },
+    {
+      "material": "circuit",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.5601997538361445e-07,
+      "normal_tangent_dot_error": 0.00012444656188988212,
+      "tangent_squared_length_error": 0.00011837386905622083,
+      "vertices": 549
+    },
+    {
+      "material": "copper",
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.084314007471221e-07,
+      "normal_tangent_dot_error": 0.00013933427920065355,
+      "tangent_squared_length_error": 0.00012096216132118087,
+      "vertices": 140
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "cbb2fd7b9fe5ac82c54b8969e85a7c667eb859683abb6ab659b19d43fc7269a1",
+  "status": "validated_render_attributes",
+  "vertices": 47644
+}

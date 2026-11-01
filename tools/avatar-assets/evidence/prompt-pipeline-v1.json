@@ -1,0 +1,280 @@
+{
+  "agent_calls": 28,
+  "agent_usage": {
+    "cached_input_tokens": 16640,
+    "input_tokens": 666866,
+    "output_tokens": 31201,
+    "reasoning_output_tokens": 1638
+  },
+  "deliveries": [
+    {
+      "bones": 9,
+      "browser_evidence": "outputs/browser-agent-dragon-v1/browser-test.json",
+      "browser_sha256": "09c51320869dff9c203681fe8dd7038718b33bcccec54182d6bec046c04c1aab",
+      "clips": [
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 96,
+          "id": "idle",
+          "source_pngs": 97,
+          "unique_decoded_thumbnails": 96
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 96,
+          "id": "look_around",
+          "source_pngs": 97,
+          "unique_decoded_thumbnails": 96
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 96,
+          "id": "wing_flap",
+          "source_pngs": 97,
+          "unique_decoded_thumbnails": 96
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 96,
+          "id": "milestone_level_up",
+          "source_pngs": 97,
+          "unique_decoded_thumbnails": 96
+        }
+      ],
+      "delivery_sha256": "0a897035f23b5d68aae87ffea2756ec119974cd7a7692fef0984789d387980cc",
+      "execution_event_span_seconds": 757.037716,
+      "job": "agent-dragon-v3",
+      "media_render": {
+        "elapsed_seconds": 534.994,
+        "process_exit_verified": true,
+        "sampled_peak_rss_bytes": 1177485312
+      },
+      "media_spec": {
+        "portrait": 1600,
+        "samples": 8,
+        "seconds": 4,
+        "size": 720
+      },
+      "model_sha256": "71484ae9183e78415096fc252f5c58d00eeecf8a6bca4a8d472b9ba60789de00",
+      "packs": [
+        {
+          "manifest_sha256": "34f696204794cd7f048862b697172608f82a12708261d1d14ce3c93b8607e954",
+          "path": "model-2"
+        },
+        {
+          "manifest_sha256": "1cf913f44b2a98b68a855f8eef67d49b9cf84bf1a76c385cd3a46e15b57b2182",
+          "path": "reload-2"
+        },
+        {
+          "manifest_sha256": "419f90ffbf4b4ff150a68eab57e7acee666b8812846d967b2da65547aac8d120",
+          "path": "media"
+        },
+        {
+          "manifest_sha256": "0a8082f886bc801a9fdfd96058b227651bafaf6b00b3dab3db2e9b9b50e3751b",
+          "path": "media-portable"
+        },
+        {
+          "manifest_sha256": "48cff26ee392d0f45727b6dd10e010d823b1f874706e9a4cea9bb01facc20914",
+          "path": "exported-preview-2"
+        }
+      ],
+      "vertices": 36322
+    },
+    {
+      "bones": 11,
+      "browser_evidence": "outputs/browser-agent-robot-v1/browser-test.json",
+      "browser_sha256": "faabd5a5df798d333ae7292a647c136f6de2d6f41aeac58076cd09c3c255a7dd",
+      "clips": [
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 48,
+          "id": "idle",
+          "source_pngs": 49,
+          "unique_decoded_thumbnails": 48
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 48,
+          "id": "look",
+          "source_pngs": 49,
+          "unique_decoded_thumbnails": 48
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 48,
+          "id": "wave",
+          "source_pngs": 49,
+          "unique_decoded_thumbnails": 47
+        },
+        {
+          "exact_first_frame_fallback": true,
+          "frames": 48,
+          "id": "celebrate",
+          "source_pngs": 49,
+          "unique_decoded_thumbnails": 48
+        }
+      ],
+      "delivery_sha256": "487ce897f5eba38387a976904cb66ccb678cfceeaea7d0e9fd810b50b5b178f1",
+      "execution_event_span_seconds": 195.415325,
+      "job": "agent-robot-v3",
+      "media_render": {
+        "elapsed_seconds": 55.215,
+        "process_exit_verified": true,
+        "sampled_peak_rss_bytes": 640729088
+      },
+      "media_spec": {
+        "portrait": 512,
+        "samples": 4,
+        "seconds": 2,
+        "size": 256
+      },
+      "model_sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e",
+      "packs": [
+        {
+          "manifest_sha256": "61cd4572faea439b6ad4e5ce12f3e08f8c5b140a72f0eeebd4bfe8bc64e764f6",
+          "path": "model-1"
+        },
+        {
+          "manifest_sha256": "b2bca666ee0e34b52ffca4f0a161bad5a5dffe82bbdfedc94452a4aa51571e06",
+          "path": "reload-1"
+        },
+        {
+          "manifest_sha256": "6f55749827926a45c3a368e1b05f5eb5660b47af38038035bcbebac7d8ba2c62",
+          "path": "media"
+        },
+        {
+          "manifest_sha256": "1d8c676d02dda058f192878fbf017d40d41bb525a94e4840373d3575a144302f",
+          "path": "media-portable"
+        },
+        {
+          "manifest_sha256": "7731c23711f782f0cecc556ccc52272ecc0573e24afffacb0b62c087a624f2c8",
+          "path": "exported-preview-1"
+        }
+      ],
+      "vertices": 45386
+    }
+  ],
+  "git": {
+    "head": "41cfee28ceef55146fbbf6e29ef8248c475bd46d",
+    "remote_publication": false,
+    "state": "Local uncommitted/unpushed; selected release files allowlisted, not a remote backup"
+  },
+  "human_approval": false,
+  "jobs": [
+    {
+      "agent_calls": 1,
+      "bytes": 25450322,
+      "files": 26,
+      "job": "agent-dragon-v1",
+      "request_sha256": "fcf13d3531859db40a0b8ac82fb10dd757505c44ac15e22bf3c175c43de2a570",
+      "status": "checkpointed_error",
+      "status_sha256": "310cd855609a2c9d5bfe3d1589aef93e24aeedad329cc0860e96c702955dbf50"
+    },
+    {
+      "agent_calls": 3,
+      "bytes": 167659073,
+      "files": 132,
+      "job": "agent-dragon-v2",
+      "request_sha256": "29288b0ea380a60fdbabdbb045dd36ca90e1ab84a7e758ce9a70d07996844040",
+      "status": "unsupported",
+      "status_sha256": "09f31b80fc0503eb13cec34c45afd76f049ff356120ca98b577f0ba3e38356f2"
+    },
+    {
+      "agent_calls": 7,
+      "bytes": 771830184,
+      "files": 932,
+      "job": "agent-dragon-v3",
+      "request_sha256": "a00ca418866faad56d86ac0a3bd41ecae4d88802cbe3a177fc5e1a47806c3f52",
+      "status": "complete",
+      "status_sha256": "0c72235d98e148ac4c5382c4502c94abe92403cb5b04bc32f4c6685a62991aa1"
+    },
+    {
+      "agent_calls": 5,
+      "bytes": 350705844,
+      "files": 297,
+      "job": "agent-robot-v1",
+      "request_sha256": "3112dc5ad2e278d6b0de02215794497a933272d2b957c7151b76fe51f994064c",
+      "status": "unsupported",
+      "status_sha256": "57193681c5f2e5a1996fb609ff797298bfe5afd316fc5e3911177f34a489e268"
+    },
+    {
+      "agent_calls": 7,
+      "bytes": 498600030,
+      "files": 456,
+      "job": "agent-robot-v2",
+      "request_sha256": "dbdb042d3367b8d91d6cfb2aab6f0d86a6635ccc4cf97569e7cf2e2be770c805",
+      "status": "unsupported",
+      "status_sha256": "ee4adb31ef7a69b1d50f930f6ca35261360714b8eb3efa9ac205f1ec851a03b3"
+    },
+    {
+      "agent_calls": 5,
+      "bytes": 377494426,
+      "files": 605,
+      "job": "agent-robot-v3",
+      "request_sha256": "b5aad39c906d7ea897f61fb8d0102c64b3bd10b087727c2d248ef808f7ca8cb6",
+      "status": "complete",
+      "status_sha256": "1333921a91b9bbe1fcbf82516b65f5872b39cb886091d608e04599aeb51428d4"
+    }
+  ],
+  "kind": "prompt_pipeline_release_index",
+  "new_meshy_calls": 0,
+  "new_meta_calls": 0,
+  "next_safe_action": "User review via browser/gallery-agent-v1.json. New geometry needs a new prepared job and actual authorized ledger allowance; never duplicate completed provider tasks.",
+  "no_active_owned_jobs": true,
+  "original_archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+  "persistent_server": false,
+  "proof_files": [
+    {
+      "path": "outputs/prompt-pipeline-audit-v1/manifest.json",
+      "sha256": "4b7019c8fb22c9f56e556c990cd52e8ff6684a661bbd14cca80396c9395abc53"
+    },
+    {
+      "path": "outputs/prompt-pipeline-source-v1/manifest.json",
+      "sha256": "9feddd627b0ec303dcd43a07ead4d0ffcff21aad8572c970c123acea3a271d8c"
+    },
+    {
+      "path": "outputs/agent-resume-proof-v1/manifest.json",
+      "sha256": "2eaa9dd01029889b919ef3c40cc972f963c9ef341aad033245ca4356f78a7aa5"
+    },
+    {
+      "path": "outputs/browser-agent-dragon-v1/browser-test.json",
+      "sha256": "09c51320869dff9c203681fe8dd7038718b33bcccec54182d6bec046c04c1aab"
+    },
+    {
+      "path": "outputs/browser-agent-robot-v1/browser-test.json",
+      "sha256": "faabd5a5df798d333ae7292a647c136f6de2d6f41aeac58076cd09c3c255a7dd"
+    },
+    {
+      "path": "outputs/robot-wrist-diagnostic-v1/report.json",
+      "sha256": "8019edb810e37c35a28ea57204ec5092593f5f228c733524e44a742a06a772cb"
+    },
+    {
+      "path": "outputs/prompt-workflow-tests-v3.txt",
+      "sha256": "b7805b35606c338bab155a7f04f330d1573b4e790476be8fbd69e377e9676706"
+    },
+    {
+      "path": "browser/gallery-agent-v1.json",
+      "sha256": "35366118bc7fd8a49b9e019b20dfab4a6f75cc3a46665f52002de188be1f6f6c"
+    },
+    {
+      "path": "docs/prompt-pipeline-results-v1.md",
+      "sha256": "e4fc556c5db883ca51cd0ce62615c5f6be1e9520be9b6597b58a78e96d036bc3"
+    },
+    {
+      "path": "docs/prompt-pipeline.md",
+      "sha256": "de9ef72054b6c33b03288cb61caec50d48b1d103b49223ab50b6824224bdf363"
+    },
+    {
+      "path": "skills/avatar-asset-workflow/SKILL.md",
+      "sha256": "f148efcc8c5470967f4ede1f96d9a80bc3c9f08cb65de6f7e0f8f0b6058c936a"
+    }
+  ],
+  "quality_equivalence_verified": false,
+  "recorded": "2026-10-31T22:37:16.548334-07:00",
+  "schema_version": 1,
+  "scope": "Actual AI-agent planning, rig/action authoring, review/repairs and complete exports on two previously generated unrigged sources; no fresh paid synthesis in this wrapper test",
+  "source_checkpoint": "outputs/prompt-pipeline-source-v1",
+  "status": "verified_supported_scope",
+  "usd_cost": null,
+  "weft_runtime_verified": false
+}

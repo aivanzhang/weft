@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1832,
+      "path": "agent-process.json",
+      "sha256": "c8ee0ee8b8d4701e19b38d8c523d0fd06c324df73c5b183b27d5fb43d0aae415"
+    },
+    {
+      "bytes": 3263,
+      "path": "agent.jsonl",
+      "sha256": "e2b7271894c5ec911e4f119944c90654c7bd9124760a8f52a6efe461a343d4f3"
+    },
+    {
+      "bytes": 0,
+      "path": "agent.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2230,
+      "path": "answer.json",
+      "sha256": "6a4d5c1ff600253af98f950d680b767d357a38e9c30aeeed42b14d49bc870dd7"
+    },
+    {
+      "bytes": 2574,
+      "path": "invocation.json",
+      "sha256": "3b6d7d41f1a696c9c6e00f5ce834cb9ed2e448094bf0d61f1a5eaf604e5c3406"
+    },
+    {
+      "bytes": 3866,
+      "path": "invocation.txt",
+      "sha256": "8b94117fc471591853d5de96aec683029a26a5147309909dab90c8017aaf239e"
+    },
+    {
+      "bytes": 3385,
+      "path": "prompt.txt",
+      "sha256": "2f87611ceb097b6ae4475df53adc9102b22e0f55b0cb40720e054ace2d31ee8a"
+    },
+    {
+      "bytes": 418,
+      "path": "request.json",
+      "sha256": "d31c4453c7860bb7182aa89bbced8692e0caffaf090dda243d5422c3faa7e895"
+    },
+    {
+      "bytes": 1252,
+      "path": "schema.json",
+      "sha256": "d2743c9a88f5420b7403022809bcf0e604c9e987e36cace80815f29bdaadbfec"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "397d97dfd05fb885ca6d8cae6ea56426019cf7ff82ca4d6d0f6766aca24700ce"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "automatic_resubmission_allowed": false,
+  "error": "Tool activity is not allowed in structured avatar agents",
+  "execution_kind": "codex_cli",
+  "schema_version": 1,
+  "status": "failed_or_uncertain"
+}

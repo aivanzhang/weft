@@ -1,0 +1,155 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-celebrate.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/evidence-1/states/celebrate.png",
+      "sha256": "a0b9c17d8a75a7fe047c04de5dcfd39b39e5d92f1e1641ca47ad1c6eff2da5a8",
+      "state_ids": [
+        "celebrate"
+      ]
+    },
+    {
+      "id": "image-01-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/evidence-1/states/idle.png",
+      "sha256": "22062e307e99986d4eaf0ece4eb8b0e5ced5be55f06670ddadce552558a4b47a",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-02-look.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/evidence-1/states/look.png",
+      "sha256": "4dd030d12cda22314860144e14dd86a98a8f046d400de5defef504489dc6e0d6",
+      "state_ids": [
+        "look"
+      ]
+    },
+    {
+      "id": "image-03-wave.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/evidence-1/states/wave.png",
+      "sha256": "4fe9cfcb6e9200a8eba45635e9236bf0a83c03eb4cca7e41b13d1b3ab885bad2",
+      "state_ids": [
+        "wave"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/exported-preview-1/front.png",
+      "sha256": "bd268ca6e2198ef7f0da6796b64e00a1d49c3acc410790d9702d8b997ff6cddc",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/exported-preview-1/three-quarter.png",
+      "sha256": "70289609d3b5cd5557ea631de106663a2f796e17b3bd36941c19ed4337349164",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/model-1/portrait.png",
+      "sha256": "8c5d384190aebe3a07ec046046e3e887c2675f6d724e981e27a139127873bc11",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "61cd4572faea439b6ad4e5ce12f3e08f8c5b140a72f0eeebd4bfe8bc64e764f6",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Consistent friendly robot with an oversized rounded head, rounded torso, two arms and two feet."
+      },
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue and cream hard-surface panels and copper details match the request. No props or hair are present or required."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look.png",
+          "image-03-wave.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The entire robot, including both feet and the extended waving hand, remains inside the sampled frames."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look.png",
+          "image-03-wave.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled articulation preserves panel shapes and limb continuity without visible major stretching, collapse or clipping."
+      }
+    ],
+    "limitations": [
+      "Contact sheets cannot establish all-frame collision freedom, physical ground contact, motion timing or seamless loops.",
+      "The original source model is not independently pictured, so exact preservation cannot be established.",
+      "Supplied proofs report local structure and motion validation; target runtime compatibility remains unverified."
+    ],
+    "required_repairs": [],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-01-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Subtle torso and arm shifts provide a restrained idle while the feet retain their sampled positions."
+      },
+      {
+        "evidence_ids": [
+          "image-02-look.png"
+        ],
+        "id": "look",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns in opposing directions and returns to its starting orientation while the body stays steady."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png"
+        ],
+        "id": "wave",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "One arm lifts, the hand visibly alternates orientation through a small wave, and the arm lowers."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png"
+        ],
+        "id": "celebrate",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly tips down and returns upright, matching the specifically requested modest celebratory nod; feet remain stationary in the samples."
+      }
+    ],
+    "summary": "The supplied samples support the requested robot appearance and all four restrained actions without visible major deformation.",
+    "verdict": "accept"
+  }
+}

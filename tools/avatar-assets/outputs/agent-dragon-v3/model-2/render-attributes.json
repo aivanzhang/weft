@@ -1,0 +1,31 @@
+{
+  "checks": [
+    "finite normals/UV0/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "normal-map UV0 binding"
+  ],
+  "decoded_scalar_values": 326898,
+  "limits": {
+    "decoded_surface_values": 900000,
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "Material_0",
+      "normal_mapped": true,
+      "normal_squared_length_error": 2.2934206800329093e-07,
+      "normal_tangent_dot_error": 0.0001329119806268153,
+      "tangent_squared_length_error": 0.00015893641908615308,
+      "vertices": 36322
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "71484ae9183e78415096fc252f5c58d00eeecf8a6bca4a8d472b9ba60789de00",
+  "status": "validated_render_attributes",
+  "vertices": 36322
+}

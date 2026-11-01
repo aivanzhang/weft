@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "tests": [
+    "five assets, one lazy 3D viewer, local-only loading",
+    "play advances actual model time; pause holds the pose",
+    "seeking is absolute at 0.5x/2x and works at/after a finished endpoint",
+    "panda: four skeletal clips, seeking and camera rotation",
+    "robot: four skeletal clips, seeking and camera rotation",
+    "fox: four skeletal clips, seeking and camera rotation",
+    "lamp: four skeletal clips, seeking and camera rotation",
+    "most detailed model remains controllable during actual skeletal playback",
+    "video seeking/repeat/play; portrait mode stops playback",
+    "injected delayed play rejection cannot show an error on a newer view",
+    "reference pack is labeled 2D, never presented as geometry",
+    "search and 390px layout without horizontal document overflow",
+    "reduced motion defaults to static portrait, no GLB fetch or autoplay",
+    "failed 3D load leaves the static portrait usable",
+    "accelerated timeout with delayed real video clears its error on successful load"
+  ],
+  "loads_ms": [
+    {
+      "asset": "panda",
+      "ms": 140
+    },
+    {
+      "asset": "robot",
+      "ms": 388
+    },
+    {
+      "asset": "fox",
+      "ms": 354
+    },
+    {
+      "asset": "lamp",
+      "ms": 395
+    }
+  ],
+  "browser": "156.0.8078.76",
+  "external_requests": [],
+  "initial_ready_ms": 4615,
+  "detailed_playback_observation": {
+    "asset": "panda",
+    "vertices": 76851,
+    "elapsed_ms": 2002.6000001907341,
+    "callbacks": 36,
+    "max_gap_ms": 83.30000000000109,
+    "clip_time_seconds": 2.1165,
+    "renderer_task_seconds": 0.031789,
+    "js_heap_bytes": 12494880,
+    "scope": "Two-second browser responsiveness sample with software WebGL; RAF callbacks are not measured rendered frames or a sustained performance guarantee."
+  },
+  "idle_observation": {
+    "seconds": 1,
+    "renderer_task_seconds": 0.023073000000000003,
+    "js_heap_bytes": 16485828,
+    "models_in_dom": 1
+  }
+}

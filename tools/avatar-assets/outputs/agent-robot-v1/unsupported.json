@@ -1,0 +1,102 @@
+{
+  "findings": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Rounded head and torso, slim articulated limbs, two arms and two feet preserve the supplied robot's visible design."
+      },
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue and cream painted hard surfaces and copper details match the request. No added props or hair are visible."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look_around.png",
+          "image-03-wave.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The complete robot, including hands and feet, remains inside every sampled frame."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look_around.png",
+          "image-03-wave.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled articulation preserves the hard-surface silhouette without obvious tearing, collapse or clipping. Feet retain their positions."
+      }
+    ],
+    "limitations": [
+      "Contact sheets cannot establish timing, all-frame collision freedom, physical ground contact or seamless loops.",
+      "Supplied independent reports establish bounded structural and numerical motion checks; the target runtime was not exercised.",
+      "Exact preservation of unseen source surfaces and authored rig assumptions cannot be established from these views."
+    ],
+    "required_repairs": [
+      "Make the raised hand's alternating side-to-side motion visibly readable while preserving the small friendly gesture. Provide samples at opposing wrist extremes, followed by the lowered resting pose."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-01-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Small arm and upper-body shifts are visible across samples, with feet stationary, consistent with a gentle idle."
+      },
+      {
+        "evidence_ids": [
+          "image-02-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns toward opposing directions and returns to its starting orientation while the torso remains mostly still."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png"
+        ],
+        "id": "wave",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "The forearm visibly rises and lowers, but the raised-hand samples do not clearly demonstrate alternating side-to-side waving. Arm movement alone does not establish the requested gesture."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png"
+        ],
+        "id": "celebrate",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "A modest downward head tilt with slight upper-body dip and return is visible, consistent with the specifically requested celebratory nod. Feet remain stationary."
+      }
+    ],
+    "summary": "The robot's appearance and sampled articulation match the request, but the wave needs clearer visible side-to-side hand motion.",
+    "verdict": "repair"
+  },
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1",
+  "reason": "No accepted model within the bounded local repair attempts",
+  "request_sha256": "3112dc5ad2e278d6b0de02215794497a933272d2b957c7151b76fe51f994064c",
+  "schema_version": 1,
+  "stage": "repair_budget",
+  "status": "unsupported"
+}

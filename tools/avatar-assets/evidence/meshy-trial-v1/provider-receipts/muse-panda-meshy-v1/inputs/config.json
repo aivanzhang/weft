@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "muse-panda-meshy-v1",
+  "subject": "Muse panda with a small green shoulder dragon",
+  "style": "Premium animated-film character. Dense soft ivory and charcoal fur, warm brown expressive eyes, rounded plush proportions. Green dragon with fine scales, pale belly, horns and thin wing membranes. Preserve the reference palette and identity; no clothing, pedestal, text or extra characters.",
+  "prompt": "Preserve the provided panda and its small green dragon on the panda's anatomical right shoulder (viewer-left). Dense ivory and charcoal panda fur with directional clumps and soft patch borders; warm brown irises, dark pupils, moist dark brown nose, smiling rounded muzzle. The dragon has emerald green pebbled scales, lighter green belly plates, curved horns and thin green wings. Keep original colors and proportions. Detailed physically based surfaces, no painted lighting, no base or added objects.",
+  "reference": "../../outputs/reference-v1/originals/avatar-1792879257185832992-2.webp",
+  "reference_sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2",
+  "generation": {"mode": "image", "geometry_resolution": "4k", "texture_resolution": "4k", "target_polycount": 60000, "pose_mode": "a-pose"},
+  "rig": "humanoid",
+  "height_meters": 1.2,
+  "max_credits": 92,
+  "states": [
+    {"id": "idle", "duration": 4, "prompt": "Stand comfortably in place with arms relaxed, gentle breathing and a small friendly head tilt. Both feet stay planted. No walking, jumping or exaggerated gestures."},
+    {"id": "making_something", "duration": 4, "prompt": "Stand in place crafting a small imaginary object between both hands at belly height. Look down, cup the left hand, and use precise short right-hand shaping movements, then raise the hands slightly to inspect the result. Keep feet planted."},
+    {"id": "milestone_level_up", "duration": 4, "prompt": "A joyful small celebration in place: bend knees slightly, straighten proudly, lift both forearms in a small victory gesture, nod happily, then settle back. Keep feet on the ground and do not spin."},
+    {"id": "working", "duration": 4, "prompt": "Stand focused in place and inspect an imaginary handheld workpiece. Hold it near the belly with the left hand, lean the head closer, make two deliberate right-hand adjustments, pause to check, then relax. No walking."}
+  ],
+  "rights": "User supplied the Muse reference and explicitly authorized using their Meshy API key to create this avatar. Original image/clip creator license and original 3D sources are unknown; embedded generated-media metadata is provenance, not rights verification. Hidden geometry and rig are newly generated assumptions, not recovered source anatomy. No unrelated files may be uploaded. Exact user request: 'I want you to create the muse quality avatar but make sure it is a repetable process that can be generalizd as well!'"
+}

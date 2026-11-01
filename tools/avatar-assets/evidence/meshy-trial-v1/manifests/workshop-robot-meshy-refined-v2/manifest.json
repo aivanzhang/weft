@@ -1,0 +1,653 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "b77e6a8662548136dfd843692e0ac42cbfb003095261922da1d41d83f16bffae"
+    },
+    {
+      "bytes": 11712,
+      "path": "exported-nodes.json",
+      "sha256": "9301d1052186ef83f4b080018968976e56a132272333348403a8aa7ed694288d"
+    },
+    {
+      "bytes": 8544,
+      "path": "finish-config.json",
+      "sha256": "4c30859e603d0d8d9e1660ac99c196c64380fefc2f960ec5eeb6c9d15984f0f0"
+    },
+    {
+      "bytes": 608,
+      "path": "finish-handle.json",
+      "sha256": "648cd9b77be54e7b88e297deb701d1b6a3b56cd768e1fc12267af9afca2f0ab5"
+    },
+    {
+      "bytes": 1404,
+      "path": "finish-monitor.json",
+      "sha256": "4aeb75210e5c75f111609dc1fb13c9a50357a820d96a3050eca1a9003761887c"
+    },
+    {
+      "bytes": 1556,
+      "path": "finish-report.json",
+      "sha256": "a41e8fc9734f09469024c3aff54629b7cd575c6b82d40c15395af1a97c133442"
+    },
+    {
+      "bytes": 123661,
+      "path": "finish.log",
+      "sha256": "3ed2d24064caaf2d52c21ad594330501bbe4caf2e16783905a48fa645731142d"
+    },
+    {
+      "bytes": 1538,
+      "path": "job.json",
+      "sha256": "0dc24a8c16926a11c6d038693af6d5ce765bf3499cfd19ddb498c26b04622db0"
+    },
+    {
+      "bytes": 24501644,
+      "path": "model.glb",
+      "sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb"
+    },
+    {
+      "bytes": 464971,
+      "path": "portrait.png",
+      "sha256": "62c65a751882f53b6529afa7967dd107e4e18c02f1dc2f2953c63add3abf4426"
+    },
+    {
+      "bytes": 877,
+      "path": "render-attributes.json",
+      "sha256": "fb9da8b7e88b6593dc4db5dad0dea5a3bc9c6113ea4df4daa96c34312a6af65d"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/idle/0000.png",
+      "sha256": "476f66449809303f548632574c88e62f28415f4bae2bf8cd4509ac7e6649deab"
+    },
+    {
+      "bytes": 149784,
+      "path": "renders/idle/0001.png",
+      "sha256": "9433d310bd68452fb2fb9a071c6600c774a144299bc76f7cad3502ad7dd1feed"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/idle/0002.png",
+      "sha256": "eb45d951401185800c95ffc0ec7f38462505b68f7fd4e071d00c6238c52ed34f"
+    },
+    {
+      "bytes": 149718,
+      "path": "renders/idle/0003.png",
+      "sha256": "8590e54245119830819f6513db7fe33cc399fb5f7f000656868f12f7d903604e"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/idle/0004.png",
+      "sha256": "bed16b86479475e9b5f3a0a8e045ad4ea973a3fc1bddd9ed45c8ed9e486d8032"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/making_something/0000.png",
+      "sha256": "dfe1a459193099ed414b9392d545800d03eee609b85d504f054f60a87c21d81d"
+    },
+    {
+      "bytes": 149047,
+      "path": "renders/making_something/0001.png",
+      "sha256": "bf221e1685ad4e87a3a5330dd114b9fc96e5aae3345e4e68570272cdcc742343"
+    },
+    {
+      "bytes": 149019,
+      "path": "renders/making_something/0002.png",
+      "sha256": "805e4c23c19c6cd974ae502cc0fbbb4e5f80c47c0e2204637a52ac83b5a67d8f"
+    },
+    {
+      "bytes": 148931,
+      "path": "renders/making_something/0003.png",
+      "sha256": "09594239ee9dbed6123c91679311097070aa67a8fb82ba450a934cb4962bcd31"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/making_something/0004.png",
+      "sha256": "d52dc28e625e6472b2f558a61e081281c6477c03cb6299e1893d928c38bf2c37"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/milestone_level_up/0000.png",
+      "sha256": "7ad9a2258f99c8ba10f54a66fe86f5d626c267040f23c84e5742ec467be947dd"
+    },
+    {
+      "bytes": 150042,
+      "path": "renders/milestone_level_up/0001.png",
+      "sha256": "20c60964c4076e4bde6459d0a07f09754a2128e594b1e4f985a6c95d2dd2084c"
+    },
+    {
+      "bytes": 149621,
+      "path": "renders/milestone_level_up/0002.png",
+      "sha256": "18beed21c4eb48947c37dd676434eb5bab4b423de267b403e48e70f6874de827"
+    },
+    {
+      "bytes": 149660,
+      "path": "renders/milestone_level_up/0003.png",
+      "sha256": "545d080e30a5bf139367051e29dbc7dc24da891dbc8395cc01f3e8db9a4e8e40"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/milestone_level_up/0004.png",
+      "sha256": "0530103e92a2c81edce1a0e7eb2ed69b8bb14932409dcd4946dd8a515a72ff0b"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/working/0000.png",
+      "sha256": "d049d9a87611a216a5a334a531713fcbc2a8302e119217f406089bfacc01e9b2"
+    },
+    {
+      "bytes": 149312,
+      "path": "renders/working/0001.png",
+      "sha256": "13fc492ba3aaaaebb4055697539afd6a23af3046fb953fc453fcb9c7564a129e"
+    },
+    {
+      "bytes": 148993,
+      "path": "renders/working/0002.png",
+      "sha256": "e50e7fa9d04e6696a728fa2db8cd98a1a5e7c34b6aac8c596f908c8212475192"
+    },
+    {
+      "bytes": 149302,
+      "path": "renders/working/0003.png",
+      "sha256": "4ea5f922e4b77e6d9c790d70494eb9ec16fa2e3b127eca01a8ca3eb14919f934"
+    },
+    {
+      "bytes": 149825,
+      "path": "renders/working/0004.png",
+      "sha256": "53d5431bf993563c061d392faad38a8e2a7d480494445d6bc8e66f4f3d306b5f"
+    },
+    {
+      "bytes": 1664,
+      "path": "rig-contract.json",
+      "sha256": "3c0ab28a8e7ceb542d920e2e07ff0052140ddcd7ffe2bb6cdb64298401f481ae"
+    },
+    {
+      "bytes": 6390,
+      "path": "rig-verification.json",
+      "sha256": "36ed09529dc420a4624e58907681efaf912eb749d886ee12e2e77ff823e8f647"
+    },
+    {
+      "bytes": 29681900,
+      "path": "source.blend",
+      "sha256": "80344640736738c0b5c88229325d95b2cfdf020958fc70fc8ebf62abb58f53e1"
+    },
+    {
+      "bytes": 44379,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "07436aea0fd44d590a446ad66c9e6d0083cc2d895f3d87cb38a4f3fdcde10a95"
+    },
+    {
+      "bytes": 37919,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "d7c2b21791d193de49fd6bb078a1c1d7a7c06c4123ccf42aa23fbf9d87005736"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 21139,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "ca8dbb9522f8e116911f2137a00769298584376130971391944cad91f722adc8"
+    },
+    {
+      "bytes": 7860,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 8455,
+      "path": "sources/finish-design.json",
+      "sha256": "7f52f5c9ca446242a77d90c0e708afbb69d2d0740fa99a87308db8dfb2817ca0"
+    },
+    {
+      "bytes": 12119,
+      "path": "sources/finish_generated.py",
+      "sha256": "7f526231cb84e950bd4bbdd111499cff94c6153219ed27aebd8f593d8839c72a"
+    }
+  ],
+  "finish": {
+    "animation_verified": false,
+    "attachment": null,
+    "blender_version": "4.5.13 LTS",
+    "emitter_scale_applied": true,
+    "groom": null,
+    "motion_origin": "Explicit locally authored replacement actions; rejected provider motions preserved separately",
+    "normal_strength": 0.5,
+    "schema_version": 1,
+    "smoothing": null,
+    "source_bounds_blender_z_up": {
+      "max": [
+        0.3701401948928833,
+        0.22820013761520386,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701401352882385,
+        -0.22820012271404266,
+        -1.0171509501333276e-07
+      ]
+    },
+    "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+    "source_unchanged": true,
+    "states": [
+      {
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "idle",
+        "loop_verified": false
+      },
+      {
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "making_something",
+        "loop_verified": false
+      },
+      {
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "milestone_level_up",
+        "loop_verified": false
+      },
+      {
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "working",
+        "loop_verified": false
+      }
+    ],
+    "weft_runtime_verified": false,
+    "world_rest_position_max_error": 0.0
+  },
+  "has_transparency": false,
+  "id": "workshop-robot-meshy-refined-v1",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-refined-v2/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-refined-v2/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-refined-v2"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 12.922,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 57971150,
+    "last_rss_sample_elapsed_seconds": 12.661,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 86877,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 49,
+    "sampled_max_output_bytes": 57971150,
+    "sampled_peak_rss_bytes": 1242333184,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_3d_avatar",
+  "new_provider_calls": 0,
+  "quality_equivalence_verified": false,
+  "reduced_motion": "portrait.png and renders/STATE/0000.png; no autoplay",
+  "representations": {
+    "browser": "Skinned alpha-masked cards if configured; not native strands",
+    "native": "Editable hair if configured"
+  },
+  "rig_verification": {
+    "attachments": [],
+    "authored_assumptions": [
+      "Hidden surfaces and humanoid skeleton are generated assumptions"
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "Head": "Head",
+      "Hips": "Hips",
+      "LeftArm": "LeftArm",
+      "LeftFoot": "LeftFoot",
+      "LeftForeArm": "LeftForeArm",
+      "LeftHand": "LeftHand",
+      "LeftLeg": "LeftLeg",
+      "LeftShoulder": "LeftShoulder",
+      "LeftToeBase": "LeftToeBase",
+      "LeftUpLeg": "LeftUpLeg",
+      "RightArm": "RightArm",
+      "RightFoot": "RightFoot",
+      "RightForeArm": "RightForeArm",
+      "RightHand": "RightHand",
+      "RightLeg": "RightLeg",
+      "RightShoulder": "RightShoulder",
+      "RightToeBase": "RightToeBase",
+      "RightUpLeg": "RightUpLeg",
+      "Spine": "Spine",
+      "Spine01": "Spine01",
+      "Spine02": "Spine02",
+      "head_end": "head_end",
+      "headfront": "headfront",
+      "neck": "neck"
+    },
+    "bones": [
+      "head_end",
+      "headfront",
+      "Head",
+      "neck",
+      "LeftHand",
+      "LeftForeArm",
+      "LeftArm",
+      "LeftShoulder",
+      "RightHand",
+      "RightForeArm",
+      "RightArm",
+      "RightShoulder",
+      "Spine",
+      "Spine01",
+      "Spine02",
+      "LeftToeBase",
+      "LeftFoot",
+      "LeftLeg",
+      "LeftUpLeg",
+      "RightToeBase",
+      "RightFoot",
+      "RightLeg",
+      "RightUpLeg",
+      "Hips"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 2000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "triangle_index_elements_per_accessor": 300000,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 1,
+    "mesh_vertices": 45386,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.014797454456209542,
+          "motion_observed": true,
+          "name": "idle",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.14559417685769147,
+          "motion_observed": true,
+          "name": "making_something",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.15527512602372107,
+          "motion_observed": true,
+          "name": "milestone_level_up",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.11080994877408587,
+          "motion_observed": true,
+          "name": "working",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 128
+    },
+    "primitive_count": 1,
+    "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+    "schema_version": 1,
+    "sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb",
+    "skeleton_roots": [
+      {
+        "name": "Hips",
+        "node": 23,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "Original user-authorized character direction; no reference upload. Neural output and hidden surfaces are authored assumptions. This second subject tests reusable prompt-only generation and rigging; it does not claim completed actions until independently authored and verified. No borrowed Weft credentials or Meta budget. Meshy account terms apply; commercial rights are not independently verified.",
+  "schema_version": 1,
+  "source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb",
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "id": "idle",
+      "loop_verified": false,
+      "meaning": "Gentle torso breathing and friendly head tilt, planted feet."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "making_something",
+      "loop_verified": false,
+      "meaning": "Repeated small shaping gestures over an imaginary workpiece; no visible prop or articulated fingers."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "meaning": "Small raised-arm celebration and nod; feet remain in the authored rest pose."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "working",
+      "loop_verified": false,
+      "meaning": "Slower inspection head turns with two short hand adjustments; no visible prop or articulated fingers."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Premium animated-film robot. Painted deep blue enamel shell, brushed copper joints, cream ceramic faceplate, dark inset glass eyes with cyan centers. Real seams, fasteners and rounded manufactured edges; subtly worn but clean. No animal fur, no logos, text, pedestal or floating props.",
+  "subject": "Friendly blue and copper workshop robot",
+  "weft_runtime_verified": false
+}

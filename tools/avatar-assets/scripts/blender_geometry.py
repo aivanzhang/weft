@@ -124,7 +124,16 @@ def attach_surface(material, name, source, out):
     folder = Path(out)/"textures"
     folder.mkdir(exist_ok=True)
     settings = source["surface"]
-    color, normal = surface_pixels(source["color"], settings)
+    if settings["resolution"] >= 1024:
+        if __package__:
+            from .blender_surfaces_hd import ALGORITHM, surface_pixels_hd
+        else:
+            from blender_surfaces_hd import ALGORITHM, surface_pixels_hd
+        color, normal = surface_pixels_hd(source["color"], settings)
+        algorithm = ALGORITHM
+    else:
+        color, normal = surface_pixels(source["color"], settings)
+        algorithm = "anisotropic_irregular_fur_v2" if settings["pattern"] == "fur" else settings["pattern"]+"_v1"
     nodes, links = material.node_tree.nodes, material.node_tree.links
     bsdf = nodes.get("Principled BSDF")
     report = []
@@ -152,7 +161,7 @@ def attach_surface(material, name, source, out):
         report.append({"material": name, "kind": kind, "path": "textures/"+Path(image.filepath_raw).name,
                        "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw),
                        "resolution": settings["resolution"], "pattern": settings["pattern"],
-                       "algorithm": "anisotropic_irregular_fur_v2" if settings["pattern"] == "fur" else settings["pattern"]+"_v1",
+                       "algorithm": algorithm,
                        "strength": settings["strength"], "seed": settings["seed"]})
     return report
 
@@ -283,7 +292,19 @@ def repair_surface_uvs(obj):
             "method": "Per-loop geometric-plane UV projection for collapsed UVs or cancelling UV fans; other UV seams unchanged. Tangents are computed by Blender MikkTSpace, not replaced."}
 
 
-def build_part(part, materials, quality):
+def validate_card_material_export(exported, generated_names, sidedness=None):
+    """User material names are unrestricted; validate only the generated materials' exact identities."""
+    expected = set(generated_names)
+    sidedness = sidedness if sidedness is not None else dict.fromkeys(expected, True)
+    matches = [material for material in exported.get("materials", []) if material.get("name") in expected]
+    if (len(matches) != len(expected) or {material["name"] for material in matches} != expected
+            or any(material.get("alphaMode") != "MASK"
+                   or material.get("doubleSided", False) != sidedness.get(material["name"])
+                   or "baseColorTexture" not in material.get("pbrMetallicRoughness", {}) for material in matches)):
+        raise ValueError("Hair-card export must retain each generated MASK texture and requested material sidedness")
+
+
+def build_part(part, materials, quality, card_materials=None):
     import bpy
 
     common = {"location": part["location"], "rotation": part.get("rotation", [0, 0, 0])}
@@ -346,20 +367,36 @@ def build_part(part, materials, quality):
         if obj.data.uv_layers.active:
             for loop in obj.data.loops:
                 uv[loop.vertex_index] = tuple(obj.data.uv_layers.active.data[loop.index].uv)
-        generated = fur_geometry([tuple(vertex.co) for vertex in obj.data.vertices],
-                                 [tuple(triangle.vertices) for triangle in obj.data.loop_triangles],
-                                 _get_weights(obj), uv, part["fur"],
-                                 [tuple(vertex.normal) for vertex in obj.data.vertices])
+        vertices = [tuple(vertex.co) for vertex in obj.data.vertices]
+        triangles = [tuple(triangle.vertices) for triangle in obj.data.loop_triangles]
+        normals = [tuple(vertex.normal) for vertex in obj.data.vertices]
+        cards = part["fur"].get("mode") == "cards"
+        if cards:
+            if __package__:
+                from .blender_fur_cards import card_geometry
+            else:
+                from blender_fur_cards import card_geometry
+            if card_materials is None or part["material"] not in card_materials:
+                raise ValueError("Hair cards require an explicit separate generated-material map")
+            generated = card_geometry(vertices, triangles, _get_weights(obj), part["fur"], normals)
+        else:
+            generated = fur_geometry(vertices, triangles, _get_weights(obj), uv, part["fur"], normals)
         data = bpy.data.meshes.new(part["name"]+"_fur")
         data.from_pydata(generated["vertices"], [], generated["faces"])
         data.update()
         fur = bpy.data.objects.new(part["name"]+"_fur", data)
         bpy.context.collection.objects.link(fur)
-        data.materials.append(materials[part["material"]])
+        data.materials.append(card_materials[part["material"]] if cards else materials[part["material"]])
         _uv_mesh(data, generated["uv"], explicit=True)
         _set_weights(fur, generated["weights"])
+        if cards:
+            for polygon in data.polygons:
+                polygon.use_smooth = True
+            data.normals_split_custom_set_from_vertices(generated["normals"])
         objects.append(fur)
     return objects, {"name": part["name"], "shape": shape, "control_vertices": len(part.get("vertices", [])),
                      "surface_vertices": len(obj.data.vertices), "surface_faces": len(obj.data.polygons),
-                     "fur_strands": fur_count, "fur_vertices": 3*fur_count,
+                     "fur_strands": 0 if part.get("fur", {}).get("mode") == "cards" else fur_count,
+                     "fur_cards": fur_count if part.get("fur", {}).get("mode") == "cards" else 0,
+                     "fur_vertices": (6 if part.get("fur", {}).get("mode") == "cards" else 3)*fur_count,
                      "mixed_weight_vertices": sum(len(weight) > 1 for item in objects for weight in _get_weights(item))}

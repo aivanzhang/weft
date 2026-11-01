@@ -1,0 +1,398 @@
+{
+  "artifacts": [
+    {
+      "bytes": 242779,
+      "path": "back.png",
+      "sha256": "3741fddb18702223ac70d4c92096d7d861dd4bf7655ebaab9cc2f37bca5b0edf"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "74f76ff0de62ebf40d74bca2114768c2ba3486457ea06c98642c94728c3fa1d0"
+    },
+    {
+      "bytes": 245895,
+      "path": "front.png",
+      "sha256": "a8d73d8ed267742ae2800d08802961e0b06dc94c0db7da1c1a45113fbb824f63"
+    },
+    {
+      "bytes": 1554,
+      "path": "job.json",
+      "sha256": "b1e21fc33f3546b18e3a446e6afc8c4d9b4ac3243d168ca7b5377ac4754573a4"
+    },
+    {
+      "bytes": 6601,
+      "path": "native-inspection.json",
+      "sha256": "9d1848f5788941f2b065c70b8dc9c07ec1c43098e75629f14613349440ffa6b1"
+    },
+    {
+      "bytes": 24476380,
+      "path": "original.glb",
+      "sha256": "89c6086b14d336d695ba5837c34d6a6a02856f0bed955095af5ab4841c94a5a5"
+    },
+    {
+      "bytes": 705,
+      "path": "preflight.json",
+      "sha256": "a5235ad9da5d08991eddf6145dac11c34b69c5ec4e4e2e5f39031cc6fa56bb1a"
+    },
+    {
+      "bytes": 621,
+      "path": "preview-handle.json",
+      "sha256": "d792f75b17d07335367325927435aba7f9c571c00cc861e715a8e77d66bf6e1a"
+    },
+    {
+      "bytes": 1412,
+      "path": "preview-monitor.json",
+      "sha256": "acb7b4bbc65fbe2273d85de5f02dc6a2545f7faad7f8ce2293b8690741a5d154"
+    },
+    {
+      "bytes": 16868,
+      "path": "preview.log",
+      "sha256": "1aa1bc885bd0a327557922654b5430747be22395c345a544477c0fbd14a7dbc4"
+    },
+    {
+      "bytes": 29335208,
+      "path": "source.blend",
+      "sha256": "c75777f6ba06d4a2572b2fc147854bed0156eb26b571801bb5980d9178e46460"
+    },
+    {
+      "bytes": 37921,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "4aab669002495884a93e3199c6b70297257feee823a11bc06afe5fe5374d5ed9"
+    },
+    {
+      "bytes": 5248,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "360ff4a80d9e9006417421d936ab849074f1d3f219f32e78468599b30d33bfae"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 246113,
+      "path": "three-quarter.png",
+      "sha256": "6c8a50eb6966acbf6743247456bad9ba64ee17646d6c329e688282c0dc399401"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [
+      "celebrate",
+      "idle",
+      "look_around",
+      "wave"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.37014004588127136,
+        0.2282000482082367,
+        1.2000001668930054
+      ],
+      "min": [
+        -0.37014004588127136,
+        -0.22819998860359192,
+        -3.46072823731447e-08
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 51320,
+        "name": "Mesh_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 45386
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "a8d73d8ed267742ae2800d08802961e0b06dc94c0db7da1c1a45113fbb824f63",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "6c8a50eb6966acbf6743247456bad9ba64ee17646d6c329e688282c0dc399401",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "3741fddb18702223ac70d4c92096d7d861dd4bf7655ebaab9cc2f37bca5b0edf",
+        "view": "back"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              0.0,
+              0.0,
+              0.40799999237060547
+            ],
+            "name": "Root",
+            "parent": null,
+            "tail": [
+              0.0,
+              2.053712533367502e-09,
+              0.46799999475479126
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              2.053712533367502e-09,
+              0.46799999475479126
+            ],
+            "name": "Torso",
+            "parent": "Root",
+            "tail": [
+              0.0,
+              1.1380294040463923e-08,
+              0.740479588508606
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              1.2322277420651062e-08,
+              0.7680000066757202
+            ],
+            "name": "Head",
+            "parent": "Torso",
+            "tail": [
+              0.0,
+              2.1648858705702878e-08,
+              1.0404796600341797
+            ]
+          },
+          {
+            "head": [
+              0.10363917052745819,
+              2.5580467521990613e-08,
+              0.7200000286102295
+            ],
+            "name": "UpperArmLeft",
+            "parent": "Torso",
+            "tail": [
+              0.1850700080394745,
+              2.3836424389855893e-08,
+              0.6119999885559082
+            ]
+          },
+          {
+            "head": [
+              0.18507002294063568,
+              -2.667593612670771e-08,
+              0.612000048160553
+            ],
+            "name": "ForearmLeft",
+            "parent": "UpperArmLeft",
+            "tail": [
+              0.2665008306503296,
+              -0.009128020144999027,
+              0.5280000567436218
+            ]
+          },
+          {
+            "head": [
+              0.2665008306503296,
+              -0.009127970784902573,
+              0.5280001163482666
+            ],
+            "name": "HandLeft",
+            "parent": "ForearmLeft",
+            "tail": [
+              0.34585773944854736,
+              -0.020000267773866653,
+              0.4422413408756256
+            ]
+          },
+          {
+            "head": [
+              -0.10363917052745819,
+              2.5580467521990613e-08,
+              0.7200000286102295
+            ],
+            "name": "UpperArmRight",
+            "parent": "Torso",
+            "tail": [
+              -0.1850700080394745,
+              2.3836424389855893e-08,
+              0.6119999885559082
+            ]
+          },
+          {
+            "head": [
+              -0.18507002294063568,
+              -2.667593612670771e-08,
+              0.612000048160553
+            ],
+            "name": "ForearmRight",
+            "parent": "UpperArmRight",
+            "tail": [
+              -0.2665008306503296,
+              -0.009128020144999027,
+              0.5280000567436218
+            ]
+          },
+          {
+            "head": [
+              -0.2665008306503296,
+              -0.009127970784902573,
+              0.5280001163482666
+            ],
+            "name": "HandRight",
+            "parent": "ForearmRight",
+            "tail": [
+              -0.34585773944854736,
+              -0.020000267773866653,
+              0.4422413408756256
+            ]
+          },
+          {
+            "head": [
+              0.07402801513671875,
+              -9.862414218630988e-10,
+              0.41999998688697815
+            ],
+            "name": "ThighLeft",
+            "parent": "Root",
+            "tail": [
+              0.11104212701320648,
+              -2.8766791615453258e-08,
+              0.2160000056028366
+            ]
+          },
+          {
+            "head": [
+              0.1110420972108841,
+              -2.4778426421789845e-08,
+              0.2160000205039978
+            ],
+            "name": "ShinLeft",
+            "parent": "ThighLeft",
+            "tail": [
+              0.1332506239414215,
+              -5.8698116589539495e-08,
+              0.054000064730644226
+            ]
+          },
+          {
+            "head": [
+              0.13325060904026031,
+              -5.717615891853711e-08,
+              0.054000064730644226
+            ],
+            "name": "FootLeft",
+            "parent": "ShinLeft",
+            "tail": [
+              0.13325048983097076,
+              -0.1623598039150238,
+              0.034595973789691925
+            ]
+          },
+          {
+            "head": [
+              -0.07402801513671875,
+              -9.862414218630988e-10,
+              0.41999998688697815
+            ],
+            "name": "ThighRight",
+            "parent": "Root",
+            "tail": [
+              -0.11104212701320648,
+              -2.8766791615453258e-08,
+              0.2160000056028366
+            ]
+          },
+          {
+            "head": [
+              -0.1110420972108841,
+              -2.4778426421789845e-08,
+              0.2160000205039978
+            ],
+            "name": "ShinRight",
+            "parent": "ThighRight",
+            "tail": [
+              -0.1332506239414215,
+              -5.8698116589539495e-08,
+              0.054000064730644226
+            ]
+          },
+          {
+            "head": [
+              -0.13325060904026031,
+              -5.717615891853711e-08,
+              0.054000064730644226
+            ],
+            "name": "FootRight",
+            "parent": "ShinRight",
+            "tail": [
+              -0.13325048983097076,
+              -0.1623598039150238,
+              0.034595973789691925
+            ]
+          }
+        ],
+        "name": "CreatureRig"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "89c6086b14d336d695ba5837c34d6a6a02856f0bed955095af5ab4841c94a5a5",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 4,
+    "attributes": [
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "89c6086b14d336d695ba5837c34d6a6a02856f0bed955095af5ab4841c94a5a5",
+    "skins": 1,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      }
+    ],
+    "triangles": 51320,
+    "vertices": 45386
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "89c6086b14d336d695ba5837c34d6a6a02856f0bed955095af5ab4841c94a5a5",
+  "status": "needs_visual_review"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "agent-robot-v3-attempt-1",
+  "kind": "generated_render",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration": 4.0,
+      "id": "idle",
+      "loop": false,
+      "meaning": "Gentle, small torso sway with relaxed arms and both feet planted."
+    },
+    {
+      "duration": 4.0,
+      "id": "look",
+      "loop": false,
+      "meaning": "Head slowly turns left, then right, and returns to center while the torso and feet remain steady."
+    },
+    {
+      "duration": 4.0,
+      "id": "wave",
+      "loop": false,
+      "meaning": "One arm lifts slightly and the hand makes a small friendly side-to-side wave, then lowers."
+    },
+    {
+      "duration": 4.0,
+      "id": "celebrate",
+      "loop": false,
+      "meaning": "Head makes a modest celebratory nod and returns upright, with both feet planted."
+    }
+  ],
+  "style": "Friendly hard-surface workshop robot with rounded blue and cream body panels, copper metal accents and restrained mechanical articulation.",
+  "subject": "A friendly blue and cream workshop robot with copper metal details, a rounded torso, two arms and two planted feet, preserving the supplied model's existing hard-surface design."
+}

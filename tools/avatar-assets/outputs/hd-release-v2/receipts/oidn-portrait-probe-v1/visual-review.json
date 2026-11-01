@@ -1,0 +1,60 @@
+{
+  "actual_full_image_filter_executions": 1,
+  "alpha_exactly_preserved": true,
+  "claims_not_made": [
+    "Exact preservation of every hair pixel",
+    "Recovered missing geometry/detail",
+    "Muse quality parity",
+    "Equivalence to linear-HDR denoising with albedo/normal guides"
+  ],
+  "input_bytes_unchanged": true,
+  "job_wall_seconds": 1.023,
+  "limits": {
+    "output_mb": 64,
+    "rss_mb": 2048,
+    "wall_seconds": 90
+  },
+  "native_seconds": 0.544097,
+  "observations": [
+    "Sampling grain is visibly reduced in the gray background, white head/belly and dark coat.",
+    "Eye rims, pupils, nose highlights, smile line, dragon horn/wing contours and raised crown-scale shapes remain recognizable and aligned.",
+    "Short directional coat texture remains visible, especially on the dark arms and eye patches; subpixel hairs and some surface detail are softened.",
+    "The denoiser does not fix the underlying v1 solid forelock, inner-ear disks, stylized facial form or lighting; these require the separate v2 geometry/presentation changes."
+  ],
+  "peak_rss_bytes": 1018085376,
+  "processing_report_sha256": "f448ea113183c7362a00c684bd1955812e4b98e2442502833e3ccd310817bba3",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reviewed_images": [
+    {
+      "bytes": 3377526,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/hd-fur-look-v1/dense-directed-1600.png",
+      "sha256": "0364b027c172bbbfe9285dda858212d73885f6d56a781c19e7a309410c23cbb4",
+      "width": 1600
+    },
+    {
+      "bytes": 1266146,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/.local/oidn-portrait-probe-v1/dense-directed-denoised-1600.png",
+      "sha256": "ca31b50b5966a77ad9cad8265877637435c0054e746e11353abe9b2a82268460",
+      "width": 1600
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Visual comparison of the actual 1600px locally rendered input and its single color-only OIDN output; no new render or generation",
+  "source_files": {
+    "tools/avatar-assets/scripts/denoise_portrait.py": "a52da20a3e8f0bacd4f579a0ff918c874a2a09b01b77f8baac35872ee72c1897",
+    "tools/avatar-assets/tests/test_denoise_portrait.py": "45b2301294e9b39e3cf78c7b28fd0660bd416ff0284ebe0fdde3b42afe1bb225"
+  },
+  "status": "acceptable_postprocess_candidate_with_detail_softening",
+  "validation": {
+    "checks": 12,
+    "command": ".venv/bin/python -m unittest discover -s tests -p test_denoise_portrait.py -v",
+    "failed": 0,
+    "scope": "Analytic PNG fixtures and mocked filter roundtrip; zero native denoising executions",
+    "seconds": 0.007
+  }
+}

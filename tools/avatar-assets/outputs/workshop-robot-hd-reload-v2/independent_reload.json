@@ -1,0 +1,836 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "workshop-robot-hd-v1_skinned_mesh": 0.026265864558716635
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.026265864558716635,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/probe",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right",
+        "AvatarRig/workpiece"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "workshop-robot-hd-v1_skinned_mesh": 0.07543789528654882
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.07543789528654882,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_right",
+        "AvatarRig/probe"
+      ],
+      "name": "making_something",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "workshop-robot-hd-v1_skinned_mesh": 1.9018162402868328
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.9018162402868328,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/foot_left",
+        "AvatarRig/foot_right",
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/probe",
+        "AvatarRig/root",
+        "AvatarRig/shin_left",
+        "AvatarRig/shin_right",
+        "AvatarRig/thigh_left",
+        "AvatarRig/thigh_right",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right",
+        "AvatarRig/workpiece"
+      ],
+      "name": "milestone_level_up",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "workshop-robot-hd-v1_skinned_mesh": 0.06546016573071131
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.06546016573071131,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "AvatarRig/forearm_left",
+        "AvatarRig/forearm_right",
+        "AvatarRig/hand_left",
+        "AvatarRig/hand_right",
+        "AvatarRig/head",
+        "AvatarRig/probe",
+        "AvatarRig/torso",
+        "AvatarRig/upper_arm_left",
+        "AvatarRig/upper_arm_right",
+        "AvatarRig/workpiece"
+      ],
+      "name": "working",
+      "owners": [
+        {
+          "name": "AvatarRig",
+          "slot": "OBAvatarRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.0,
+            0.8799999952316284
+          ],
+          "name": "root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            5.134281000351848e-09,
+            1.0299999713897705
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            5.134280112173428e-09,
+            1.0299999713897705
+          ],
+          "name": "torso",
+          "parent": "root",
+          "tail_local": [
+            0.0,
+            2.9030609027813625e-08,
+            1.7281403541564941
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            3.080568333757583e-08,
+            1.779999852180481
+          ],
+          "name": "head",
+          "parent": "torso",
+          "tail_local": [
+            0.0,
+            5.4702017138197334e-08,
+            2.478140354156494
+          ]
+        },
+        {
+          "head_local": [
+            -0.4300000071525574,
+            2.3959980666177216e-08,
+            1.5799999237060547
+          ],
+          "name": "upper_arm_right",
+          "parent": "torso",
+          "tail_local": [
+            -0.4300000071525574,
+            3.7198951474692876e-08,
+            1.9667816162109375
+          ]
+        },
+        {
+          "head_local": [
+            -0.6100000143051147,
+            -0.03999999165534973,
+            1.2399998903274536
+          ],
+          "name": "forearm_right",
+          "parent": "upper_arm_right",
+          "tail_local": [
+            -0.6100000143051147,
+            -0.039999980479478836,
+            1.59679114818573
+          ]
+        },
+        {
+          "head_local": [
+            -0.44999998807907104,
+            -0.2800000011920929,
+            1.029999852180481
+          ],
+          "name": "hand_right",
+          "parent": "forearm_right",
+          "tail_local": [
+            -0.44999998807907104,
+            -0.2800000011920929,
+            1.134880781173706
+          ]
+        },
+        {
+          "head_local": [
+            -0.4000000059604645,
+            -0.3400000035762787,
+            1.0999999046325684
+          ],
+          "name": "probe",
+          "parent": "hand_right",
+          "tail_local": [
+            -0.4000000059604645,
+            -0.3400000035762787,
+            1.2048808336257935
+          ]
+        },
+        {
+          "head_local": [
+            0.4300000071525574,
+            2.3959980666177216e-08,
+            1.5799999237060547
+          ],
+          "name": "upper_arm_left",
+          "parent": "torso",
+          "tail_local": [
+            0.4300000071525574,
+            3.7198951474692876e-08,
+            1.9667816162109375
+          ]
+        },
+        {
+          "head_local": [
+            0.6100000143051147,
+            -0.03999999165534973,
+            1.2399998903274536
+          ],
+          "name": "forearm_left",
+          "parent": "upper_arm_left",
+          "tail_local": [
+            0.6100000143051147,
+            -0.039999980479478836,
+            1.59679114818573
+          ]
+        },
+        {
+          "head_local": [
+            0.44999998807907104,
+            -0.2800000011920929,
+            1.029999852180481
+          ],
+          "name": "hand_left",
+          "parent": "forearm_left",
+          "tail_local": [
+            0.44999998807907104,
+            -0.2800000011920929,
+            1.3186172246932983
+          ]
+        },
+        {
+          "head_local": [
+            0.18000000715255737,
+            -0.3799999952316284,
+            1.0499998331069946
+          ],
+          "name": "workpiece",
+          "parent": "hand_left",
+          "tail_local": [
+            0.18000000715255737,
+            -0.3799999952316284,
+            1.338617205619812
+          ]
+        },
+        {
+          "head_local": [
+            -0.23000000417232513,
+            1.3691403566440385e-09,
+            0.9199999570846558
+          ],
+          "name": "thigh_right",
+          "parent": "root",
+          "tail_local": [
+            -0.23000000417232513,
+            1.5077663562124144e-08,
+            1.3204996585845947
+          ]
+        },
+        {
+          "head_local": [
+            -0.25,
+            -1.2322276532472642e-08,
+            0.5199999809265137
+          ],
+          "name": "shin_right",
+          "parent": "thigh_right",
+          "tail_local": [
+            -0.25,
+            -6.594298440631974e-10,
+            0.8607345223426819
+          ]
+        },
+        {
+          "head_local": [
+            -0.25999999046325684,
+            -0.020000018179416656,
+            0.18000003695487976
+          ],
+          "name": "foot_right",
+          "parent": "shin_right",
+          "tail_local": [
+            -0.25999999046325684,
+            -0.02000000700354576,
+            0.5207345485687256
+          ]
+        },
+        {
+          "head_local": [
+            0.23000000417232513,
+            1.3691403566440385e-09,
+            0.9199999570846558
+          ],
+          "name": "thigh_left",
+          "parent": "root",
+          "tail_local": [
+            0.23000000417232513,
+            1.5077663562124144e-08,
+            1.3204996585845947
+          ]
+        },
+        {
+          "head_local": [
+            0.25,
+            -1.2322276532472642e-08,
+            0.5199999809265137
+          ],
+          "name": "shin_left",
+          "parent": "thigh_left",
+          "tail_local": [
+            0.25,
+            -6.594298440631974e-10,
+            0.8607345223426819
+          ]
+        },
+        {
+          "head_local": [
+            0.25999999046325684,
+            -0.020000018179416656,
+            0.18000003695487976
+          ],
+          "name": "foot_left",
+          "parent": "shin_left",
+          "tail_local": [
+            0.25999999046325684,
+            -0.02000000700354576,
+            0.5207345485687256
+          ]
+        }
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      1.5199999809265137,
+      0.7639999985694885,
+      2.5410001277923584
+    ],
+    "max": [
+      0.7599999904632568,
+      0.29500001668930054,
+      2.549999952316284
+    ],
+    "min": [
+      -0.7599999904632568,
+      -0.468999981880188,
+      0.008999896235764027
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.0300741046667099,
+        0.1363995373249054,
+        0.2792120575904846,
+        1.0
+      ],
+      "name": "blue",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.007850573398172855,
+        0.03468407690525055,
+        0.06603033095598221,
+        1.0
+      ],
+      "name": "blue_edge",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "brass",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.007194409146904945,
+        0.059253521263599396,
+        0.06838485598564148,
+        1.0
+      ],
+      "name": "circuit",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.4919050335884094,
+        0.15487249195575714,
+        0.03310476616024971,
+        1.0
+      ],
+      "name": "copper",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.8377929329872131,
+        0.7580553889274597,
+        0.5623173713684082,
+        1.0
+      ],
+      "name": "cream",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        1.0,
+        0.6829298734664917,
+        0.2049017697572708,
+        1.0
+      ],
+      "name": "eye",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.012510408647358418,
+        0.020774012431502342,
+        0.02638549543917179,
+        1.0
+      ],
+      "name": "graphite",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "metal",
+      "uses_nodes": true
+    },
+    {
+      "diffuse_rgba": [
+        0.0027089782524853945,
+        0.006941255647689104,
+        0.010816383175551891,
+        1.0
+      ],
+      "name": "visor",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "AvatarRig",
+      "materials": [
+        "blue",
+        "graphite",
+        "cream",
+        "metal",
+        "visor",
+        "brass",
+        "eye",
+        "blue_edge",
+        "circuit",
+        "copper"
+      ],
+      "name": "workshop-robot-hd-v1_skinned_mesh",
+      "polygons": 38058,
+      "unweighted_vertices": 0,
+      "vertices": 47644,
+      "weighted_vertices": 47644
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "blue",
+      "material_index": 0,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        0,
+        838,
+        1675,
+        2512,
+        3350,
+        4188,
+        5025,
+        5862,
+        6700,
+        7538,
+        8375,
+        9212,
+        10050
+      ]
+    },
+    {
+      "material": "graphite",
+      "material_index": 1,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        10051,
+        11095,
+        12140,
+        13185,
+        14229,
+        15273,
+        16318,
+        17363,
+        18407,
+        19451,
+        20496,
+        21541,
+        22585
+      ]
+    },
+    {
+      "material": "cream",
+      "material_index": 2,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        22586,
+        23355,
+        24123,
+        24892,
+        25660,
+        26429,
+        27198,
+        27966,
+        28735,
+        29503,
+        30272,
+        31040,
+        31809
+      ]
+    },
+    {
+      "material": "metal",
+      "material_index": 3,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        31810,
+        32476,
+        33142,
+        33807,
+        34473,
+        35139,
+        35804,
+        36470,
+        37136,
+        37802,
+        38468,
+        39133,
+        39799
+      ]
+    },
+    {
+      "material": "visor",
+      "material_index": 4,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        39800,
+        39876,
+        39952,
+        40029,
+        40105,
+        40181,
+        40258,
+        40334,
+        40410,
+        40486,
+        40562,
+        40639,
+        40715
+      ]
+    },
+    {
+      "material": "brass",
+      "material_index": 5,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        40716,
+        41042,
+        41368,
+        41694,
+        42019,
+        42345,
+        42671,
+        42997,
+        43323,
+        43648,
+        43974,
+        44300,
+        44626
+      ]
+    },
+    {
+      "material": "eye",
+      "material_index": 6,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        44627,
+        44736,
+        44845,
+        44953,
+        45062,
+        45171,
+        45279,
+        45388,
+        45497,
+        45606,
+        45715,
+        45823,
+        45932
+      ]
+    },
+    {
+      "material": "blue_edge",
+      "material_index": 7,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        45933,
+        46018,
+        46103,
+        46188,
+        46273,
+        46358,
+        46443,
+        46529,
+        46614,
+        46699,
+        46784,
+        46869,
+        46954
+      ]
+    },
+    {
+      "material": "circuit",
+      "material_index": 8,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        46955,
+        47005,
+        47055,
+        47104,
+        47154,
+        47204,
+        47254,
+        47304,
+        47354,
+        47403,
+        47453,
+        47503
+      ]
+    },
+    {
+      "material": "copper",
+      "material_index": 9,
+      "object": "workshop-robot-hd-v1_skinned_mesh",
+      "probe_vertices": [
+        47504,
+        47517,
+        47529,
+        47542,
+        47555,
+        47567,
+        47580,
+        47592,
+        47605,
+        47618,
+        47630,
+        47643
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        -7.710000038146973,
+        2.041800022125244
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -0.08699998259544373,
+        1.279499888420105
+      ],
+      "path": "independent-front.png",
+      "sha256": "46eff778e9178ea489e4fc56fe6e1a64f0d6446bca71fc9e98ffbaf29ae89f6c",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        7.5360002517700195,
+        2.041800022125244
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -0.08699998259544373,
+        1.279499888420105
+      ],
+      "path": "independent-back.png",
+      "sha256": "11cb29b2c1f20c7d4cdb6da9882e4d33822a3b8e9ae12b401d621c0c204bd3f3",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        7.623000144958496,
+        -0.08699998259544373,
+        2.041800022125244
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -0.08699998259544373,
+        1.279499888420105
+      ],
+      "path": "independent-side.png",
+      "sha256": "b2c07b51a7f89747df84e289192d90c4c0d0613022a2d4f7e129ca4be26421c6",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-hd-build-v2/model.glb",
+  "source_sha256": "cbb2fd7b9fe5ac82c54b8969e85a7c667eb859683abb6ab659b19d43fc7269a1",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 0.8555721670854837,
+  "weft_runtime_verified": false
+}

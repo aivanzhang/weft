@@ -1,0 +1,21 @@
+{
+  "balance_before": {
+    "balance": 3210,
+    "monthly_credits": 3010,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "duration": 4,
+    "mode": "prime",
+    "prompt": "Stand in place crafting a small imaginary object between both hands at belly height. Look down, cup the left hand, and use precise short right-hand shaping movements, then raise the hands slightly to inspect the result. Keep feet planted."
+  },
+  "created": "2026-10-31T11:25:48.776231-07:00",
+  "endpoint": "/openapi/v1/text-to-motion",
+  "estimated_credits": 10,
+  "execution_sources": {
+    "meshy.py": "4b05c9cd6de354a539f590489ca9a194d6e4b8e84bddab1991f280f16f0b6ca7",
+    "meshy_access.py": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+  },
+  "request_sha256": "9538d88e68d438be90b84693191678a16c9d981623d52e9621fb12b00ad497be"
+}

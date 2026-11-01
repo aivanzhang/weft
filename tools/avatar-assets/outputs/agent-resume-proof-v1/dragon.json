@@ -1,0 +1,21 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "avatar_assets",
+    "generate",
+    "--resume",
+    "outputs/agent-dragon-v3"
+  ],
+  "exit_code": 0,
+  "generation_calls": 0,
+  "observation_source": "Completed local command tool result, recorded without rerunning the passed check",
+  "stdout": {
+    "gallery_catalog": "outputs/agent-dragon-v3/gallery.json",
+    "model": "model-2/model.glb",
+    "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3",
+    "resumed_without_generation": true,
+    "status": "complete"
+  },
+  "tool_observed_wall_seconds": 0.744258625
+}

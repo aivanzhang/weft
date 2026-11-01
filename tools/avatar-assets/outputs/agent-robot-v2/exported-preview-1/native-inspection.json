@@ -1,0 +1,192 @@
+{
+  "actions": [
+    "celebrate",
+    "idle",
+    "look",
+    "wave"
+  ],
+  "animation_verified": false,
+  "assumptions": [
+    "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+    "Raw generated units are not a calibrated physical measurement",
+    "Hidden geometry is generated, not recovered"
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up": {
+    "max": [
+      0.3701399862766266,
+      0.22819997370243073,
+      1.1999999284744263
+    ],
+    "min": [
+      -0.3701399862766266,
+      -0.22819997370243073,
+      0.0
+    ]
+  },
+  "material_count": 1,
+  "meshes": [
+    {
+      "faces": 51320,
+      "name": "Mesh_0",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "vertices": 45386
+    }
+  ],
+  "renders": [
+    {
+      "path": "front.png",
+      "sha256": "279e9aa330fe2bb97b39322e8c727fd4458dbfa8155639b67c956a2d5d9c81e4",
+      "view": "front"
+    },
+    {
+      "path": "three-quarter.png",
+      "sha256": "95646fd39755d58712a362c2d8b7e3a7e335c586e8aafddddb59abf90830379d",
+      "view": "three-quarter"
+    },
+    {
+      "path": "back.png",
+      "sha256": "b9a51de265e81b3b65103546ed7e2ce1d06b1ae4fa6dc0c57ff5e48e6bbb914a",
+      "view": "back"
+    }
+  ],
+  "rigs": [
+    {
+      "bones": [
+        {
+          "head": [
+            0.0,
+            0.0,
+            0.05999999865889549
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.0,
+            1.2733019083555064e-08,
+            0.4320000112056732
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            1.2733018195376644e-08,
+            0.43199998140335083
+          ],
+          "name": "Torso",
+          "parent": "Root",
+          "tail": [
+            0.0,
+            2.320458136750858e-08,
+            0.7379307150840759
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            2.4028434353340344e-08,
+            0.7619998455047607
+          ],
+          "name": "Head",
+          "parent": "Torso",
+          "tail": [
+            0.0,
+            3.449999752547228e-08,
+            1.0679305791854858
+          ]
+        },
+        {
+          "head": [
+            0.09623641520738602,
+            7.771824961366747e-09,
+            0.7223999500274658
+          ],
+          "name": "ArmLeft",
+          "parent": "Torso",
+          "tail": [
+            0.18358945846557617,
+            -0.013691996224224567,
+            0.6215999126434326
+          ]
+        },
+        {
+          "head": [
+            0.1835894137620926,
+            -0.013692001812160015,
+            0.6215998530387878
+          ],
+          "name": "ForearmLeft",
+          "parent": "ArmLeft",
+          "tail": [
+            0.25613683462142944,
+            -0.04335799068212509,
+            0.5303998589515686
+          ]
+        },
+        {
+          "head": [
+            0.25613680481910706,
+            -0.043357979506254196,
+            0.5303998589515686
+          ],
+          "name": "HandLeft",
+          "parent": "ForearmLeft",
+          "tail": [
+            0.34429869055747986,
+            -0.06687647104263306,
+            0.4520736336708069
+          ]
+        },
+        {
+          "head": [
+            -0.09623641520738602,
+            7.771824961366747e-09,
+            0.7223999500274658
+          ],
+          "name": "ArmRight",
+          "parent": "Torso",
+          "tail": [
+            -0.18358945846557617,
+            -0.013691996224224567,
+            0.6215999126434326
+          ]
+        },
+        {
+          "head": [
+            -0.1835894137620926,
+            -0.013692001812160015,
+            0.6215998530387878
+          ],
+          "name": "ForearmRight",
+          "parent": "ArmRight",
+          "tail": [
+            -0.25613683462142944,
+            -0.04335799068212509,
+            0.5303998589515686
+          ]
+        },
+        {
+          "head": [
+            -0.25613680481910706,
+            -0.043357979506254196,
+            0.5303998589515686
+          ],
+          "name": "HandRight",
+          "parent": "ForearmRight",
+          "tail": [
+            -0.34429869055747986,
+            -0.06687647104263306,
+            0.4520736336708069
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "schema_version": 1,
+  "source_is_untextured": false,
+  "source_sha256": "d9551992f7dca3998b2048914c2be3c3e28c4745584831ea7e3d03fb6809f336",
+  "source_unchanged": true
+}

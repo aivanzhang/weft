@@ -109,11 +109,42 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(catalog.data["assets"][0]["portrait"], "/asset/robot/portrait")
         self.assertEqual(catalog.routes["/asset/robot/portrait"].relative, "outputs/media/portrait.webp")
 
+    def test_bounded_optional_camera_and_legacy_default(self):
+        self.assertNotIn("initial_view", self.load().data["assets"][0])
+        view = {"azimuth_degrees": -31, "elevation_degrees": 80, "radius_percent": 85}
+        self.fixture.config["assets"][0]["initial_view"] = view
+        self.fixture.write_catalog()
+        self.assertEqual(self.load().data["assets"][0]["initial_view"], view)
+        for invalid in ({**view, "radius_percent": 0}, {**view, "azimuth_degrees": "alert(1)"},
+                        {**view, "elevation_degrees": float('nan')}, {**view, "extra": 1}):
+            self.fixture.config["assets"][0]["initial_view"] = invalid
+            self.fixture.write_catalog()
+            with self.assertRaises(ValueError):
+                self.load()
+        self.fixture.config["assets"][0].pop("initial_view")
+        self.fixture.config["assets"][1]["initial_view"] = view
+        self.fixture.write_catalog()
+        with self.assertRaisesRegex(ValueError, "2D reference"):
+            self.load()
+
     def test_unlisted_files_do_not_get_routes(self):
         (self.fixture.root/"outputs/model/private.txt").write_text("not public")
         catalog = self.load()
         self.assertFalse(any("private" in r.relative for r in catalog.routes.values()))
         self.assertNotIn("/outputs/model/model.glb", catalog.routes)
+
+    def test_generated_geometry_preview_has_no_fabricated_animation(self):
+        self.fixture._pack("outputs/generated", {"original.glb": self.fixture.model,
+                           "front.png": b"analytic-png", "source.blend": b"analytic-blend"},
+                           {"kind": "generated_geometry_preview", "status": "needs_visual_review",
+                            "preflight": {"vertices": 3}, "native": {"rigs": []}})
+        self.fixture.config["assets"].append({"id": "candidate", "title": "Candidate",
+            "description": "Analytic routing fixture", "kind": "generated_3d", "pack": "outputs/generated"})
+        self.fixture.write_catalog()
+        asset = self.load().data["assets"][-1]
+        self.assertEqual(asset["states"], [])
+        self.assertEqual(asset["facts"], {"vertices": 3, "bones": 0, "animations": 0})
+        self.assertIn("No verified animation", asset["notice"])
 
     def test_scoped_local_vendor_is_a_safe_whitelisted_file(self):
         catalog = self.load()

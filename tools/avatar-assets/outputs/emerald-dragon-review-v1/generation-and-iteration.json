@@ -1,0 +1,46 @@
+{
+  "final_recipe": "examples/meshy/emerald-dragon-finish-v3.json",
+  "iterations": [
+    {
+      "decision": "superseded",
+      "folder": "outputs/emerald-dragon-finished-v1",
+      "reason": "Tail occluded by the body from this camera side; geometry/rig kept."
+    },
+    {
+      "decision": "rejected celebration gesture",
+      "folder": "outputs/emerald-dragon-finished-v2",
+      "reason": "Raised forearm weights pulled the belly surface; sampled wing/head/tail motions were retained."
+    }
+  ],
+  "notes": [
+    "Final celebration removes arm rotations; uses a bow, wing flourish and tail wag.",
+    "Arm controls outside the delivered pose range need additional skinning work.",
+    "No procedural stand-in, paid motion or animation from a static mesh is claimed."
+  ],
+  "original_model_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "provider": {
+    "calls": 2,
+    "credits": 35,
+    "ledger": {
+      "approved_additional_credits": 35,
+      "base_project_credit_limit": 140,
+      "job_scoped_allowances": {
+        "emerald-dragon-meshy-v1": 35
+      },
+      "paid_submissions": 15,
+      "pricing_overruns": 0,
+      "project_credit_limit": 175,
+      "provider_reported_credits": 167,
+      "refunds_reopen_allowance": false,
+      "reserved_credits": 167,
+      "settled_tasks": 15,
+      "unknown_submissions": 0
+    },
+    "mesh_seed": 536030566,
+    "mesh_task": "01a1954b-d585-72d0-b0eb-26b636356569",
+    "texture_seed": 3041861271,
+    "texture_task": "01a1954d-4400-77c2-b0bc-c3c7cd1e424f"
+  },
+  "recorded": "2026-10-31T21:20:58.392561-07:00",
+  "schema_version": 1
+}

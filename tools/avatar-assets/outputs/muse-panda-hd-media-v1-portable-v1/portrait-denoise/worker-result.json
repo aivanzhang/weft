@@ -1,0 +1,83 @@
+{
+  "alpha_unchanged": true,
+  "change_metrics_are_quality_scores": false,
+  "input": {
+    "alpha_sha256": "47d23dadd0f8a03d2ce179b07af10b6a2461477526e919003bad797678040ea0",
+    "bytes": 3575920,
+    "color_space": "8-bit display-referred sRGB, explicitly selected; no ICC transform",
+    "dpi": [
+      71.9836,
+      71.9836
+    ],
+    "gamma_chunk": null,
+    "height": 1600,
+    "mode": "RGBA",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-media-v1/portrait-raw.png",
+    "sha256": "a8daca9ee6d387b2980945d09516dd6341727738b890845b66de393f8cf5e947",
+    "width": 1600
+  },
+  "kind": "render_portrait_denoise",
+  "limitations": [
+    "Color-only display-referred denoising; no albedo/normal guides.",
+    "Fine hair or texture can be softened; compare this result with the unchanged raw render.",
+    "No geometry, rig, texture source or render-camera change; not evidence of Muse parity."
+  ],
+  "native": {
+    "api_documentation": "https://github.com/RenderKit/oidn/blob/v2.3.3/doc/api.md",
+    "api_header": "https://github.com/RenderKit/oidn/blob/v2.3.3/include/OpenImageDenoise/oidn.h",
+    "auxiliary_images": [],
+    "device": "CPU",
+    "filter": "RT",
+    "hdr": false,
+    "libraries": [
+      {
+        "bytes": 155808,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+        "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+      },
+      {
+        "bytes": 47280496,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+        "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+      },
+      {
+        "bytes": 302112,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+        "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+      },
+      {
+        "bytes": 382752,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+        "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+      }
+    ],
+    "maxMemoryMB_requested": 768,
+    "memory_request_is_hard_limit": false,
+    "name": "Open Image Denoise",
+    "native_seconds": 0.682439,
+    "quality": "high",
+    "quality_enum": 6,
+    "srgb": true,
+    "threads": 4,
+    "version": "2.3.3"
+  },
+  "output": {
+    "bytes": 1359003,
+    "height": 1600,
+    "mode": "RGBA",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-media-v1/portrait-denoise/portrait.png",
+    "sha256": "2517b636e5968efaa751c9334247f9e57f31b014394ef2f9fc47685eb157cc42",
+    "width": 1600
+  },
+  "peak_rss_bytes": 1023016960,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "raw_input_unchanged": true,
+  "reference_images_used": [],
+  "rgb_mean_absolute_change_8bit": 2.7773401737213135,
+  "rgb_rmse_change_8bit": 6.049849987030029,
+  "schema_version": 1,
+  "status": "needs_visual_review",
+  "wall_seconds": 0.94282,
+  "worker_source_sha256": "a52da20a3e8f0bacd4f579a0ff918c874a2a09b01b77f8baac35872ee72c1897"
+}

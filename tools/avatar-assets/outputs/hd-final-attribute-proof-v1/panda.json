@@ -1,0 +1,1212 @@
+{
+  "automatic_surface_gate": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 691659,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "charcoal",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.999798948659759e-07,
+        "normal_tangent_dot_error": 0.00012457219249029094,
+        "tangent_squared_length_error": 0.00014242651676732443,
+        "vertices": 10935
+      },
+      {
+        "material": "charcoal_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.2179656333776165e-07,
+        "normal_tangent_dot_error": 0.0001432396352063492,
+        "tangent_squared_length_error": 0.0001439165430632272,
+        "vertices": 21288
+      },
+      {
+        "material": "ivory",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.0080138374289902e-07,
+        "normal_tangent_dot_error": 0.00012036325256169211,
+        "tangent_squared_length_error": 0.00012579571135407086,
+        "vertices": 2955
+      },
+      {
+        "material": "ivory_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.2396112697720127e-07,
+        "normal_tangent_dot_error": 0.00015036156432834957,
+        "tangent_squared_length_error": 0.00014706258335195344,
+        "vertices": 24840
+      },
+      {
+        "material": "sclera",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.097339797391129e-07,
+        "normal_tangent_dot_error": 0.00010410389984904893,
+        "tangent_squared_length_error": 0.00012742858912062616,
+        "vertices": 2228
+      },
+      {
+        "material": "iris",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.8499882248335098e-07,
+        "normal_tangent_dot_error": 0.00011567586022182105,
+        "tangent_squared_length_error": 0.00011891229325211583,
+        "vertices": 904
+      },
+      {
+        "material": "pupil",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7752004488613693e-07,
+        "normal_tangent_dot_error": 0.00010374292405401775,
+        "tangent_squared_length_error": 0.00011582667585408046,
+        "vertices": 890
+      },
+      {
+        "material": "nose",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9426214414863807e-07,
+        "normal_tangent_dot_error": 0.0003689648475146967,
+        "tangent_squared_length_error": 0.00013189429267868036,
+        "vertices": 1498
+      },
+      {
+        "material": "dragon_green",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9661537198345513e-07,
+        "normal_tangent_dot_error": 0.0009648771159243008,
+        "tangent_squared_length_error": 0.00013389527467699835,
+        "vertices": 7364
+      },
+      {
+        "material": "dragon_belly",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.967496601196217e-07,
+        "normal_tangent_dot_error": 0.00010798020184996093,
+        "tangent_squared_length_error": 0.0001104762870600684,
+        "vertices": 813
+      },
+      {
+        "material": "dragon_horn",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.0178937276682518e-07,
+        "normal_tangent_dot_error": 0.0006017171230725538,
+        "tangent_squared_length_error": 0.00012803233907643374,
+        "vertices": 751
+      },
+      {
+        "material": "horn",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9582932964112842e-07,
+        "normal_tangent_dot_error": 0.000732905036621212,
+        "tangent_squared_length_error": 0.00011149677133559521,
+        "vertices": 326
+      },
+      {
+        "material": "wing",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.8242505817056553e-07,
+        "normal_tangent_dot_error": 0.00010786986319732961,
+        "tangent_squared_length_error": 0.00012190365610109666,
+        "vertices": 1036
+      },
+      {
+        "material": "gold",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8437120719028144e-07,
+        "normal_tangent_dot_error": 7.072173098521262e-05,
+        "tangent_squared_length_error": 0.00010350911947298869,
+        "vertices": 1023
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "028ff0056c77e0463ae37a3e3400833748f6716e0b10ad80e9e15092483051b2",
+    "status": "validated_render_attributes",
+    "vertices": 76851
+  },
+  "clips": [
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.04682431624518282,
+      "motion_observed": true,
+      "name": "idle",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.5389261782309862,
+      "motion_observed": true,
+      "name": "making_something",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.171914766118815,
+      "motion_observed": true,
+      "name": "milestone_level_up",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.7244451603737465,
+      "motion_observed": true,
+      "name": "working",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    }
+  ],
+  "elapsed_seconds": 1.191,
+  "embedded_images": [
+    {
+      "bytes": 3290753,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "charcoal-normal",
+      "sha256": "efb29342104db3da448fb5e1d1baab69c958c1a901291e9535fb644f0d623cdb",
+      "width": 2048
+    },
+    {
+      "bytes": 78229,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "charcoal-basecolor",
+      "sha256": "23019e7d43da00abf63cacc97c11a84f88540b1199d83befa3cf3c3314af1c57",
+      "width": 2048
+    },
+    {
+      "bytes": 278130,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "charcoal-fur-atlas",
+      "sha256": "2d84ca2c84915244d41f97a770d6de86d5b2eb4ceb060aab615d217744ed1eb4",
+      "width": 1024
+    },
+    {
+      "bytes": 6166949,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "ivory-normal",
+      "sha256": "01955510354b58497453f654087b81bae7f4b8316f2e6dd1314b5c1c5014b6f6",
+      "width": 2048
+    },
+    {
+      "bytes": 2231095,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "ivory-basecolor",
+      "sha256": "4d4adb652f965ec274c8c029ef71642f47f0d5bf40767817143e9d0148c0682d",
+      "width": 2048
+    },
+    {
+      "bytes": 350574,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "ivory-fur-atlas",
+      "sha256": "76e32a8b5f998f05ffced1219e092e078b1eaa407a94840fe5e379da8d11abe4",
+      "width": 1024
+    },
+    {
+      "bytes": 557468,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "iris-normal",
+      "sha256": "89be0d6befbb6ca4081911cc94e50a8155befaf0022017f0b0ef6f0756745df2",
+      "width": 1024
+    },
+    {
+      "bytes": 949787,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "iris-basecolor",
+      "sha256": "d26c8bada86c7518c692b1707649b7388e923226265961e4fa497942febcd0f6",
+      "width": 1024
+    },
+    {
+      "bytes": 1237241,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "dragon_green-normal",
+      "sha256": "411b998ed13ef9b4bcd7ef680fd8814475a8889258e8ba1f52b9437dbf99a13c",
+      "width": 1024
+    },
+    {
+      "bytes": 630731,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "dragon_green-basecolor",
+      "sha256": "100c904e64f642b1db7b44ab7a38958613686e85f83356ada3c02dccf9916598",
+      "width": 1024
+    },
+    {
+      "bytes": 316060,
+      "height": 512,
+      "mode": "RGBA",
+      "name": "dragon_belly-normal",
+      "sha256": "d241d93889a6934ff22d4b27b384a883d76a5897a1f725a59b6eee6c44afd235",
+      "width": 512
+    },
+    {
+      "bytes": 110437,
+      "height": 512,
+      "mode": "RGBA",
+      "name": "dragon_belly-basecolor",
+      "sha256": "2ea3ea90f429da4436cdeb1176a36510cd808080520238ff5d257bfd6294a224",
+      "width": 512
+    },
+    {
+      "bytes": 259663,
+      "height": 512,
+      "mode": "RGBA",
+      "name": "wing-normal",
+      "sha256": "bd3a3086699af270dd20c6be4ae0c360989482e6cdf1978b498d53be853afd78",
+      "width": 512
+    },
+    {
+      "bytes": 87176,
+      "height": 512,
+      "mode": "RGBA",
+      "name": "wing-basecolor",
+      "sha256": "0d1ea642e2ab0f001f748ca597aab2a0dae001f534317982dc01227d2d237139",
+      "width": 512
+    }
+  ],
+  "embedded_png_hashes_equal_preserved_sources": true,
+  "fur": {
+    "distinction": "Strand count comes from hash-verified backend metadata. Slender isolated triangles are independent geometry evidence, not recovered strand labels; small non-fur details can also match.",
+    "geometry_criterion": "Unshared triangle indices; shortest edge0.0002–0.005m, longest0.001–0.052m, aspect>=3",
+    "independent_isolated_slender_triangles": 112,
+    "source_reported_strand_vertices": 46128,
+    "source_reported_strands": 0
+  },
+  "id": "panda",
+  "input_hashes": {
+    "backend_report": "8ac7e8ee90179066e2c2e9b304473606c50b1bd8f2986426832df59550c62e0a",
+    "blend": "7ad0b99fd58e2a9a454e7ef182f8c0bb66655ae8d4cae77dd746f75dbc398dcd",
+    "manifest": "8179c8439c06c730d6da636a020cb0e0502743e39fba8ea45f44eb609c9ae48b",
+    "model": "028ff0056c77e0463ae37a3e3400833748f6716e0b10ad80e9e15092483051b2",
+    "scene": "54b0e62afbddf522111c084263f3eb81af8af78889023d8d26f656fb7c6b4eb5"
+  },
+  "joints": 22,
+  "materials": [
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "charcoal",
+      "normal_texture": true,
+      "roughness": 0.800000011920929,
+      "source_binding": "authored_material_name",
+      "source_material": "charcoal"
+    },
+    {
+      "alpha_mode": "MASK",
+      "basecolor_texture": true,
+      "generated_hair_cards": true,
+      "metallic": 0,
+      "name": "charcoal_cutout_fur",
+      "normal_texture": false,
+      "roughness": 0.7799999713897705,
+      "source_binding": "explicit_source_material",
+      "source_material": "charcoal"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "ivory",
+      "normal_texture": true,
+      "roughness": 0.8199999928474426,
+      "source_binding": "authored_material_name",
+      "source_material": "ivory"
+    },
+    {
+      "alpha_mode": "MASK",
+      "basecolor_texture": true,
+      "generated_hair_cards": true,
+      "metallic": 0,
+      "name": "ivory_cutout_fur",
+      "normal_texture": false,
+      "roughness": 0.7799999713897705,
+      "source_binding": "explicit_source_material",
+      "source_material": "ivory"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "sclera",
+      "normal_texture": false,
+      "roughness": 0.23999999463558197,
+      "source_binding": "authored_material_name",
+      "source_material": "sclera"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "iris",
+      "normal_texture": true,
+      "roughness": 0.11999999731779099,
+      "source_binding": "authored_material_name",
+      "source_material": "iris"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "pupil",
+      "normal_texture": false,
+      "roughness": 0.03500000014901161,
+      "source_binding": "authored_material_name",
+      "source_material": "pupil"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "nose",
+      "normal_texture": false,
+      "roughness": 0.27000001072883606,
+      "source_binding": "authored_material_name",
+      "source_material": "nose"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "dragon_green",
+      "normal_texture": true,
+      "roughness": 0.5299999713897705,
+      "source_binding": "authored_material_name",
+      "source_material": "dragon_green"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "dragon_belly",
+      "normal_texture": true,
+      "roughness": 0.7200000286102295,
+      "source_binding": "authored_material_name",
+      "source_material": "dragon_belly"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "dragon_horn",
+      "normal_texture": false,
+      "roughness": 0.6399999856948853,
+      "source_binding": "authored_material_name",
+      "source_material": "dragon_horn"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "horn",
+      "normal_texture": false,
+      "roughness": 0.6000000238418579,
+      "source_binding": "authored_material_name",
+      "source_material": "horn"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "wing",
+      "normal_texture": true,
+      "roughness": 0.7799999713897705,
+      "source_binding": "authored_material_name",
+      "source_material": "wing"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0.1599999964237213,
+      "name": "gold",
+      "normal_texture": false,
+      "roughness": 0.36000001430511475,
+      "source_binding": "authored_material_name",
+      "source_material": "gold"
+    }
+  ],
+  "mixed_weight_vertices_exported": 3745,
+  "model_bytes": 22349912,
+  "normal_mapped_material_count": 6,
+  "not_verified_here": [
+    "Native render appearance",
+    "Reference likeness",
+    "Weft runtime alignment",
+    "Seamless loops"
+  ],
+  "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3",
+  "pbr_material_count": 14,
+  "preserved_textures": [
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/charcoal-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 78229,
+      "kind": "basecolor",
+      "material": "charcoal",
+      "path": "textures/charcoal-basecolor.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 72,
+      "sha256": "23019e7d43da00abf63cacc97c11a84f88540b1199d83befa3cf3c3314af1c57",
+      "strength": 0.06
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/charcoal-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 3290753,
+      "kind": "normal",
+      "material": "charcoal",
+      "path": "textures/charcoal-normal.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 72,
+      "sha256": "efb29342104db3da448fb5e1d1baab69c958c1a901291e9535fb644f0d623cdb",
+      "strength": 0.06
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/dragon_belly-basecolor.png",
+      "algorithm": "scales_v1",
+      "bytes": 110437,
+      "kind": "basecolor",
+      "material": "dragon_belly",
+      "path": "textures/dragon_belly-basecolor.png",
+      "pattern": "scales",
+      "resolution": 512,
+      "seed": 75,
+      "sha256": "2ea3ea90f429da4436cdeb1176a36510cd808080520238ff5d257bfd6294a224",
+      "strength": 0.17
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/dragon_belly-normal.png",
+      "algorithm": "scales_v1",
+      "bytes": 316060,
+      "kind": "normal",
+      "material": "dragon_belly",
+      "path": "textures/dragon_belly-normal.png",
+      "pattern": "scales",
+      "resolution": 512,
+      "seed": 75,
+      "sha256": "d241d93889a6934ff22d4b27b384a883d76a5897a1f725a59b6eee6c44afd235",
+      "strength": 0.17
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/dragon_green-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 630731,
+      "kind": "basecolor",
+      "material": "dragon_green",
+      "path": "textures/dragon_green-basecolor.png",
+      "pattern": "scales",
+      "resolution": 1024,
+      "seed": 74,
+      "sha256": "100c904e64f642b1db7b44ab7a38958613686e85f83356ada3c02dccf9916598",
+      "strength": 0.48
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/dragon_green-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 1237241,
+      "kind": "normal",
+      "material": "dragon_green",
+      "path": "textures/dragon_green-normal.png",
+      "pattern": "scales",
+      "resolution": 1024,
+      "seed": 74,
+      "sha256": "411b998ed13ef9b4bcd7ef680fd8814475a8889258e8ba1f52b9437dbf99a13c",
+      "strength": 0.48
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/iris-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 949787,
+      "kind": "basecolor",
+      "material": "iris",
+      "path": "textures/iris-basecolor.png",
+      "pattern": "iris",
+      "resolution": 1024,
+      "seed": 177,
+      "sha256": "d26c8bada86c7518c692b1707649b7388e923226265961e4fa497942febcd0f6",
+      "strength": 0.5
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/iris-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 557468,
+      "kind": "normal",
+      "material": "iris",
+      "path": "textures/iris-normal.png",
+      "pattern": "iris",
+      "resolution": 1024,
+      "seed": 177,
+      "sha256": "89be0d6befbb6ca4081911cc94e50a8155befaf0022017f0b0ef6f0756745df2",
+      "strength": 0.5
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/ivory-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 2231095,
+      "kind": "basecolor",
+      "material": "ivory",
+      "path": "textures/ivory-basecolor.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 71,
+      "sha256": "4d4adb652f965ec274c8c029ef71642f47f0d5bf40767817143e9d0148c0682d",
+      "strength": 0.29
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/ivory-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 6166949,
+      "kind": "normal",
+      "material": "ivory",
+      "path": "textures/ivory-normal.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 71,
+      "sha256": "01955510354b58497453f654087b81bae7f4b8316f2e6dd1314b5c1c5014b6f6",
+      "strength": 0.29
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/wing-basecolor.png",
+      "algorithm": "scales_v1",
+      "bytes": 87176,
+      "kind": "basecolor",
+      "material": "wing",
+      "path": "textures/wing-basecolor.png",
+      "pattern": "scales",
+      "resolution": 512,
+      "seed": 76,
+      "sha256": "0d1ea642e2ab0f001f748ca597aab2a0dae001f534317982dc01227d2d237139",
+      "strength": 0.1
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/wing-normal.png",
+      "algorithm": "scales_v1",
+      "bytes": 259663,
+      "kind": "normal",
+      "material": "wing",
+      "path": "textures/wing-normal.png",
+      "pattern": "scales",
+      "resolution": 512,
+      "seed": 76,
+      "sha256": "bd3a3086699af270dd20c6be4ae0c360989482e6cdf1978b498d53be853afd78",
+      "strength": 0.1
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/charcoal-fur-atlas.png",
+      "alpha_cutoff": 0.45,
+      "alpha_mode": "MASK",
+      "kind": "fur_atlas",
+      "material": "charcoal_cutout_fur",
+      "path": "textures/charcoal-fur-atlas.png",
+      "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+      "resolution": 1024,
+      "seed": 193,
+      "sha256": "2d84ca2c84915244d41f97a770d6de86d5b2eb4ceb060aab615d217744ed1eb4",
+      "source_material": "charcoal"
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-hd-build-v3/textures/ivory-fur-atlas.png",
+      "alpha_cutoff": 0.45,
+      "alpha_mode": "MASK",
+      "kind": "fur_atlas",
+      "material": "ivory_cutout_fur",
+      "path": "textures/ivory-fur-atlas.png",
+      "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+      "resolution": 1024,
+      "seed": 193,
+      "sha256": "76e32a8b5f998f05ffced1219e092e078b1eaa407a94840fe5e379da8d11abe4",
+      "source_material": "ivory"
+    }
+  ],
+  "primitives": [
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 10585,
+        "2": 350
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 48,
+      "isolated_triangles": 144,
+      "material": 0,
+      "mixed_weight_vertices": 350,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.999798948659759e-07,
+      "normal_tangent_dot_error": 0.00012457219249029094,
+      "tangent_squared_length_error": 0.00014242651676732443,
+      "triangles": 17984,
+      "uv0_bounds": [
+        [
+          -0.14709876477718353,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 10935,
+      "weight_sum_error": 2.9802322387695312e-08,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 18012,
+        "2": 3276
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 1,
+      "mixed_weight_vertices": 3276,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.2179656333776165e-07,
+      "normal_tangent_dot_error": 0.0001432396352063492,
+      "tangent_squared_length_error": 0.0001439165430632272,
+      "triangles": 14192,
+      "uv0_bounds": [
+        [
+          0.0037499999161809683,
+          0.9962499737739563
+        ],
+        [
+          0.003750026226043701,
+          0.9962499737739563
+        ]
+      ],
+      "vertices": 21288,
+      "weight_sum_error": 2.9802322387695312e-08,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 2955
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 2,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.0080138374289902e-07,
+      "normal_tangent_dot_error": 0.00012036325256169211,
+      "tangent_squared_length_error": 0.00012579571135407086,
+      "triangles": 5248,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 2955,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 24840
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 3,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.2396112697720127e-07,
+      "normal_tangent_dot_error": 0.00015036156432834957,
+      "tangent_squared_length_error": 0.00014706258335195344,
+      "triangles": 16560,
+      "uv0_bounds": [
+        [
+          0.0037499999161809683,
+          0.9962499737739563
+        ],
+        [
+          0.003750026226043701,
+          0.9962499737739563
+        ]
+      ],
+      "vertices": 24840,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 2228
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 4,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.097339797391129e-07,
+      "normal_tangent_dot_error": 0.00010410389984904893,
+      "tangent_squared_length_error": 0.00012742858912062616,
+      "triangles": 3872,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 2228,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 904
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 5,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8499882248335098e-07,
+      "normal_tangent_dot_error": 0.00011567586022182105,
+      "tangent_squared_length_error": 0.00011891229325211583,
+      "triangles": 1472,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 904,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 890
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 6,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.7752004488613693e-07,
+      "normal_tangent_dot_error": 0.00010374292405401775,
+      "tangent_squared_length_error": 0.00011582667585408046,
+      "triangles": 1376,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 890,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1498
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 16,
+      "material": 7,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9426214414863807e-07,
+      "normal_tangent_dot_error": 0.0003689648475146967,
+      "tangent_squared_length_error": 0.00013189429267868036,
+      "triangles": 2448,
+      "uv0_bounds": [
+        [
+          -0.07620301097631454,
+          1.007156252861023
+        ],
+        [
+          -0.06908524036407471,
+          1.0
+        ]
+      ],
+      "vertices": 1498,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 7245,
+        "2": 119
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 310,
+      "material": 8,
+      "mixed_weight_vertices": 119,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9661537198345513e-07,
+      "normal_tangent_dot_error": 0.0009648771159243008,
+      "tangent_squared_length_error": 0.00013389527467699835,
+      "triangles": 10648,
+      "uv0_bounds": [
+        [
+          -0.13314591348171234,
+          1.0277851819992065
+        ],
+        [
+          -0.12201821804046631,
+          1.0
+        ]
+      ],
+      "vertices": 7364,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 813
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 64,
+      "material": 9,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.967496601196217e-07,
+      "normal_tangent_dot_error": 0.00010798020184996093,
+      "tangent_squared_length_error": 0.0001104762870600684,
+      "triangles": 1080,
+      "uv0_bounds": [
+        [
+          -0.07618504762649536,
+          1.007151484489441
+        ],
+        [
+          -0.06910204887390137,
+          1.0
+        ]
+      ],
+      "vertices": 813,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 751
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 48,
+      "material": 10,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.0178937276682518e-07,
+      "normal_tangent_dot_error": 0.0006017171230725538,
+      "tangent_squared_length_error": 0.00012803233907643374,
+      "triangles": 1068,
+      "uv0_bounds": [
+        [
+          -0.1165587306022644,
+          1.0
+        ],
+        [
+          -4.8160552978515625e-05,
+          1.0
+        ]
+      ],
+      "vertices": 751,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 326
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 56,
+      "material": 11,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9582932964112842e-07,
+      "normal_tangent_dot_error": 0.000732905036621212,
+      "tangent_squared_length_error": 0.00011149677133559521,
+      "triangles": 192,
+      "uv0_bounds": [
+        [
+          -0.07618199288845062,
+          1.0071576833724976
+        ],
+        [
+          -0.06906414031982422,
+          1.0
+        ]
+      ],
+      "vertices": 326,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1036
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 64,
+      "isolated_triangles": 144,
+      "material": 12,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8242505817056553e-07,
+      "normal_tangent_dot_error": 0.00010786986319732961,
+      "tangent_squared_length_error": 0.00012190365610109666,
+      "triangles": 1200,
+      "uv0_bounds": [
+        [
+          -0.27707716822624207,
+          1.0548183917999268
+        ],
+        [
+          -0.015288949012756348,
+          1.005054235458374
+        ]
+      ],
+      "vertices": 1036,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1023
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 13,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8437120719028144e-07,
+      "normal_tangent_dot_error": 7.072173098521262e-05,
+      "tangent_squared_length_error": 0.00010350911947298869,
+      "triangles": 1840,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 1023,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    }
+  ],
+  "process_cumulative_peak_rss_bytes": 167723008,
+  "reader": {
+    "method": "Existing _GLB.accessor decoder with cache released per attribute; compact cross-attribute arrays only.",
+    "total_decoded_work_scalars": 1786047,
+    "unique_decoded_scalars": 1786047
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "triangles": 79180,
+  "validation_failures": [],
+  "vertices": 76851
+}

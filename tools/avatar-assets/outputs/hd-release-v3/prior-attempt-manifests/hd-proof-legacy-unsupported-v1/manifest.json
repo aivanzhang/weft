@@ -1,0 +1,61 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16641,
+      "path": "sources/scene.py",
+      "sha256": "f16bab19c3d8025f0a5acebe693fcf0b9b0a94cb1f0e853a1045996d5ec4be26"
+    },
+    {
+      "bytes": 33690,
+      "path": "sources/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+    },
+    {
+      "bytes": 22597,
+      "path": "sources/verify_quality_assets.py",
+      "sha256": "9a5db8e226002b1673ad3dbb3b51332f149dd563956b0ee4ef718193d7d76924"
+    }
+  ],
+  "command": [
+    "scripts/verify_quality_assets.py",
+    "--pack",
+    "panda=outputs/muse-panda-hd-build-v1",
+    "--pack",
+    "fox=outputs/fox-hd-build-v1",
+    "--output",
+    "outputs/hd-proof-legacy-unsupported-v1",
+    "--timeout",
+    "120",
+    "--memory-mb",
+    "1024"
+  ],
+  "elapsed_seconds": 0.9028,
+  "error": "Legacy hair-card report lacks an explicit source-material binding (source_material); rebuild into a new pack, do not infer material names",
+  "kind": "independent_quality_attribute_proof",
+  "limits": {
+    "decoded_work_scalars_per_glb": 6000000,
+    "existing_glb_validator_limits_unchanged": true,
+    "exported_vertices": 100000,
+    "png_bytes_each": 8388608,
+    "png_pixels_total_per_glb": 33554432,
+    "process_rss_mb": 1024,
+    "triangle_index_elements_per_accessor": 300000,
+    "unique_scalars_per_glb": 3000000,
+    "wall_seconds": 120
+  },
+  "process_peak_rss_bytes": 157810688,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reports": [],
+  "schema_version": 1,
+  "status": "unsupported",
+  "tools": {
+    "Pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  }
+}

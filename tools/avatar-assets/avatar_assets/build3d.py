@@ -46,29 +46,33 @@ def contract_for(scene, glb):
             "weft_compatibility": "Not evaluated by this local-control contract; use separate Weft metadata and its frozen importer"}
 
 
-def build_3d(config_path, output, blender=None, resolution=384, samples=8, timeout=300):
+def build_3d(config_path, output, blender=None, resolution=384, samples=8, timeout=300, portrait_only=False):
     existed = Path(output).exists()
     try:
-        return _build_3d(config_path, output, blender, resolution, samples, timeout)
+        return _build_3d(config_path, output, blender, resolution, samples, timeout, portrait_only)
     except Exception as error:
         if not existed:
             preserve_failure(output, error)
         raise
 
 
-def _build_3d(config_path, output, blender, resolution, samples, timeout):
+def _build_3d(config_path, output, blender, resolution, samples, timeout, portrait_only=False):
     scene = read_scene(config_path)
     require(type(resolution) is int and 128 <= resolution <= 1024 and resolution % 2 == 0, "Invalid render resolution")
     require(type(samples) is int and 1 <= samples <= 64, "Samples outside 1–64")
     require(30 <= timeout <= 1800, "Timeout outside 30–1800 seconds")
+    require(not any("direction" in part.get("native_groom", {}) for part in scene["parts"]) or timeout <= 600,
+            "Native comb builds require a wall-time budget of at most 600 seconds")
+    require(type(portrait_only) is bool, "portrait_only must be a boolean")
     exe = Path(blender) if blender else ROOT / ".tools/Blender.app/Contents/MacOS/Blender"
     require(exe.is_file(), "Blender not found; pass --blender PATH")
     out = new_directory(output)
     sources = out / "sources"
     sources.mkdir()
     write_json(sources / "scene.json", scene)
-    shutil.copyfile(ROOT / "scripts/blender_build.py", sources / "blender_build.py")
-    shutil.copyfile(ROOT / "scripts/blender_geometry.py", sources / "blender_geometry.py")
+    for name in ("blender_build.py", "blender_geometry.py", "blender_fur_cards.py",
+                 "blender_surfaces_hd.py", "blender_native_groom.py", "blender_comb_groom.py"):
+        shutil.copyfile(ROOT / "scripts" / name, sources / name)
     (sources / "prompt.txt").write_text(scene["prompt"] + "\n")
     references = []
     for index, reference in enumerate(scene.get("references", [])):
@@ -82,7 +86,8 @@ def _build_3d(config_path, output, blender, resolution, samples, timeout):
         references.append({"path": str(destination.relative_to(out)), "role": reference["role"], "inspection": info})
     command = [str(exe.resolve()), "--background", "--factory-startup", "--disable-autoexec", "--python-exit-code", "1",
                "--threads", "4", "--python", str(sources / "blender_build.py"), "--",
-               str(sources / "scene.json"), str(out), str(resolution), str(samples)]
+               str(sources / "scene.json"), str(out), str(resolution), str(samples),
+               "portrait-only" if portrait_only else "sampled-poses"]
     job = run_bounded(command, out / "build.log", out, timeout=timeout, memory_mb=2048)
     write_json(out / "job.json", job)
     success = job["exit_code"] == 0 and not job["failure"] and (out / "blender-build.json").exists()
@@ -98,6 +103,8 @@ def _build_3d(config_path, output, blender, resolution, samples, timeout):
               "tools": tools_info(), "authored_assumptions": scene["authored_assumptions"],
               "output_profile": scene.get("output_profile", "general"), "references": references,
               "scene_schema_version": scene["schema_version"],
+              "preview_scope": (f"portrait only; {len(scene['states'])} configured clips, see rig_verification for motion checks"
+                                if portrait_only else "portrait and sampled poses"),
               "rejected_attempts": [] if success else [{"reason": "Backend failed; inspect build.log and job.json", "preserved": True}]}
     if success:
         result["build_report"] = read_json(out / "blender-build.json")
@@ -111,7 +118,7 @@ def _build_3d(config_path, output, blender, resolution, samples, timeout):
             write_json(out / "render-attributes.json", render_attributes)
             result["render_attributes"] = render_attributes
         result["portrait"] = image_info(out / "portrait.png")
-        for s in scene["states"]:
+        for s in ([] if portrait_only else scene["states"]):
             files = sorted((out / "renders" / s["id"]).glob("*.png"))
             contact_sheet([Image.open(p) for p in files], [p.stem for p in files], out / (s["id"] + "-contact.png"))
     result["artifacts"] = artifacts(out)

@@ -1,0 +1,673 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Root",
+        "Torso"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.34
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.5,
+            0.5,
+            0.41
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.39
+          ],
+          "name": "Torso",
+          "parent": "Root",
+          "tail": [
+            0.5,
+            0.5,
+            0.62
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.64
+          ],
+          "name": "Head",
+          "parent": "Torso",
+          "tail": [
+            0.5,
+            0.5,
+            0.9
+          ]
+        },
+        {
+          "head": [
+            0.64,
+            0.5,
+            0.6
+          ],
+          "name": "UpperArmLeft",
+          "parent": "Torso",
+          "tail": [
+            0.75,
+            0.5,
+            0.51
+          ]
+        },
+        {
+          "head": [
+            0.75,
+            0.5,
+            0.51
+          ],
+          "name": "ForearmLeft",
+          "parent": "UpperArmLeft",
+          "tail": [
+            0.86,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "head": [
+            0.86,
+            0.48,
+            0.44
+          ],
+          "name": "HandLeft",
+          "parent": "ForearmLeft",
+          "tail": [
+            0.95,
+            0.46,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.36,
+            0.5,
+            0.6
+          ],
+          "name": "UpperArmRight",
+          "parent": "Torso",
+          "tail": [
+            0.25,
+            0.5,
+            0.51
+          ]
+        },
+        {
+          "head": [
+            0.25,
+            0.5,
+            0.51
+          ],
+          "name": "ForearmRight",
+          "parent": "UpperArmRight",
+          "tail": [
+            0.14,
+            0.48,
+            0.44
+          ]
+        },
+        {
+          "head": [
+            0.14,
+            0.48,
+            0.44
+          ],
+          "name": "HandRight",
+          "parent": "ForearmRight",
+          "tail": [
+            0.05,
+            0.46,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.6,
+            0.5,
+            0.35
+          ],
+          "name": "ThighLeft",
+          "parent": "Root",
+          "tail": [
+            0.65,
+            0.5,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.65,
+            0.5,
+            0.18
+          ],
+          "name": "ShinLeft",
+          "parent": "ThighLeft",
+          "tail": [
+            0.68,
+            0.5,
+            0.045
+          ]
+        },
+        {
+          "head": [
+            0.68,
+            0.5,
+            0.045
+          ],
+          "name": "FootLeft",
+          "parent": "ShinLeft",
+          "tail": [
+            0.68,
+            0.28,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.4,
+            0.5,
+            0.35
+          ],
+          "name": "ThighRight",
+          "parent": "Root",
+          "tail": [
+            0.35,
+            0.5,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.35,
+            0.5,
+            0.18
+          ],
+          "name": "ShinRight",
+          "parent": "ThighRight",
+          "tail": [
+            0.32,
+            0.5,
+            0.045
+          ]
+        },
+        {
+          "head": [
+            0.32,
+            0.5,
+            0.045
+          ],
+          "name": "FootRight",
+          "parent": "ShinRight",
+          "tail": [
+            0.32,
+            0.28,
+            0.035
+          ]
+        }
+      ],
+      "height_meters": 1.2,
+      "layers": [
+        {
+          "bones": [
+            "Root",
+            "Torso"
+          ],
+          "feather": 0.01,
+          "max": [
+            1,
+            1,
+            1
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ThighLeft"
+          ],
+          "feather": 0.006,
+          "max": [
+            0.8,
+            1,
+            0.36
+          ],
+          "min": [
+            0.51,
+            0,
+            0.18
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ThighRight"
+          ],
+          "feather": 0.006,
+          "max": [
+            0.49,
+            1,
+            0.36
+          ],
+          "min": [
+            0.2,
+            0,
+            0.18
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ShinLeft"
+          ],
+          "feather": 0.006,
+          "max": [
+            0.82,
+            1,
+            0.18
+          ],
+          "min": [
+            0.51,
+            0,
+            0.045
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ShinRight"
+          ],
+          "feather": 0.006,
+          "max": [
+            0.49,
+            1,
+            0.18
+          ],
+          "min": [
+            0.18,
+            0,
+            0.045
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "FootLeft"
+          ],
+          "feather": 0.005,
+          "max": [
+            0.84,
+            1,
+            0.065
+          ],
+          "min": [
+            0.51,
+            0,
+            0
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "FootRight"
+          ],
+          "feather": 0.005,
+          "max": [
+            0.49,
+            1,
+            0.065
+          ],
+          "min": [
+            0.16,
+            0,
+            0
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "UpperArmLeft"
+          ],
+          "feather": 0.008,
+          "max": [
+            0.84,
+            1,
+            0.63
+          ],
+          "min": [
+            0.63,
+            0,
+            0.505
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "UpperArmRight"
+          ],
+          "feather": 0.008,
+          "max": [
+            0.37,
+            1,
+            0.63
+          ],
+          "min": [
+            0.16,
+            0,
+            0.505
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ForearmLeft"
+          ],
+          "feather": 0.008,
+          "max": [
+            0.94,
+            1,
+            0.515
+          ],
+          "min": [
+            0.73,
+            0,
+            0.425
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "ForearmRight"
+          ],
+          "feather": 0.008,
+          "max": [
+            0.27,
+            1,
+            0.515
+          ],
+          "min": [
+            0.06,
+            0,
+            0.425
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "HandLeft"
+          ],
+          "feather": 0.006,
+          "max": [
+            1,
+            1,
+            0.435
+          ],
+          "min": [
+            0.83,
+            0,
+            0.34
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "HandRight"
+          ],
+          "feather": 0.006,
+          "max": [
+            0.17,
+            1,
+            0.435
+          ],
+          "min": [
+            0,
+            0,
+            0.34
+          ],
+          "min_vertices": 1
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0.006,
+          "max": [
+            1,
+            1,
+            1
+          ],
+          "min": [
+            0,
+            0,
+            0.645
+          ],
+          "min_vertices": 1
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.2,
+    "input_world_bounds": {
+      "max": [
+        0.5865200161933899,
+        0.35863998532295227,
+        0.9501749277114868
+      ],
+      "min": [
+        -0.5867930054664612,
+        -0.364734947681427,
+        -0.9517750144004822
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "Root",
+          "Torso"
+        ],
+        "selected_vertices": 45073
+      },
+      {
+        "bones": [
+          "ThighLeft"
+        ],
+        "selected_vertices": 2969
+      },
+      {
+        "bones": [
+          "ThighRight"
+        ],
+        "selected_vertices": 2969
+      },
+      {
+        "bones": [
+          "ShinLeft"
+        ],
+        "selected_vertices": 1439
+      },
+      {
+        "bones": [
+          "ShinRight"
+        ],
+        "selected_vertices": 1404
+      },
+      {
+        "bones": [
+          "FootLeft"
+        ],
+        "selected_vertices": 1148
+      },
+      {
+        "bones": [
+          "FootRight"
+        ],
+        "selected_vertices": 1069
+      },
+      {
+        "bones": [
+          "UpperArmLeft"
+        ],
+        "selected_vertices": 1598
+      },
+      {
+        "bones": [
+          "UpperArmRight"
+        ],
+        "selected_vertices": 1429
+      },
+      {
+        "bones": [
+          "ForearmLeft"
+        ],
+        "selected_vertices": 1841
+      },
+      {
+        "bones": [
+          "ForearmRight"
+        ],
+        "selected_vertices": 1706
+      },
+      {
+        "bones": [
+          "HandLeft"
+        ],
+        "selected_vertices": 2915
+      },
+      {
+        "bones": [
+          "HandRight"
+        ],
+        "selected_vertices": 2717
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 15400
+      }
+    ],
+    "max_influences": 4,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "FootLeft": 1148,
+      "FootRight": 1069,
+      "ForearmLeft": 1713,
+      "ForearmRight": 1583,
+      "HandLeft": 2915,
+      "HandRight": 2717,
+      "Head": 15400,
+      "Root": 11181,
+      "ShinLeft": 1264,
+      "ShinRight": 1239,
+      "ThighLeft": 2969,
+      "ThighRight": 2969,
+      "Torso": 11181,
+      "UpperArmLeft": 1581,
+      "UpperArmRight": 1406
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        0.00013649463653564453,
+        0.0030474811792373657,
+        0.9517750144004822
+      ],
+      "uniform_scale": 0.6309314317008219
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.4458401203155518,
+    "view": "three_quarter"
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.6,
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.37014004588127136,
+      0.22819998860359192,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.37014004588127136,
+      -0.22819998860359192,
+      0.0
+    ]
+  },
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "source_unchanged": true,
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "celebrate",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "look_around",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "wave",
+      "loop_verified": false
+    }
+  ],
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

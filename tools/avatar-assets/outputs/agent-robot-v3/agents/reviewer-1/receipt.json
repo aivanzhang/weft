@@ -1,0 +1,226 @@
+{
+  "answer_sha256": "1bb7e90c49f30843af9a356539d3e3f78c057bb27809554a5b9340e2d69a5066",
+  "artifacts": [
+    {
+      "bytes": 2690,
+      "path": "agent-process.json",
+      "sha256": "27ae27c0b9ef78cecb6d3b602101806d55d0e60f961a3ceea0f34af45c689843"
+    },
+    {
+      "bytes": 3688,
+      "path": "agent.jsonl",
+      "sha256": "b1b2e4067e667b97aad7a365c303d87374383601e63f30ecfbf540d28905f1c6"
+    },
+    {
+      "bytes": 29,
+      "path": "agent.stderr",
+      "sha256": "3e75d28a6681c31400a3f0fcb564c7613fd42796fb83294e4d53fea86bcbd401"
+    },
+    {
+      "bytes": 2885,
+      "path": "answer.json",
+      "sha256": "1bb7e90c49f30843af9a356539d3e3f78c057bb27809554a5b9340e2d69a5066"
+    },
+    {
+      "bytes": 288900,
+      "path": "image-00.png",
+      "sha256": "a0b9c17d8a75a7fe047c04de5dcfd39b39e5d92f1e1641ca47ad1c6eff2da5a8"
+    },
+    {
+      "bytes": 273487,
+      "path": "image-01.png",
+      "sha256": "22062e307e99986d4eaf0ece4eb8b0e5ced5be55f06670ddadce552558a4b47a"
+    },
+    {
+      "bytes": 252953,
+      "path": "image-02.png",
+      "sha256": "4dd030d12cda22314860144e14dd86a98a8f046d400de5defef504489dc6e0d6"
+    },
+    {
+      "bytes": 292301,
+      "path": "image-03.png",
+      "sha256": "4fe9cfcb6e9200a8eba45635e9236bf0a83c03eb4cca7e41b13d1b3ab885bad2"
+    },
+    {
+      "bytes": 245848,
+      "path": "image-04.png",
+      "sha256": "bd268ca6e2198ef7f0da6796b64e00a1d49c3acc410790d9702d8b997ff6cddc"
+    },
+    {
+      "bytes": 246118,
+      "path": "image-05.png",
+      "sha256": "70289609d3b5cd5557ea631de106663a2f796e17b3bd36941c19ed4337349164"
+    },
+    {
+      "bytes": 248609,
+      "path": "image-06.png",
+      "sha256": "8c5d384190aebe3a07ec046046e3e887c2675f6d724e981e27a139127873bc11"
+    },
+    {
+      "bytes": 3495,
+      "path": "invocation.json",
+      "sha256": "0e4d2f6ae13af01066704646299ad71d37c15336ddfd5bef7f28f339a3fdbced"
+    },
+    {
+      "bytes": 29398,
+      "path": "invocation.txt",
+      "sha256": "5d85a93e29277d89c165a24aab786d75e96e087f993fe2b0cffb3441eb8a35b3"
+    },
+    {
+      "bytes": 28917,
+      "path": "prompt.txt",
+      "sha256": "e446fec65d8bf8af301fe0cd25c61e30171f19bc4368b23b08926e12565fcb4a"
+    },
+    {
+      "bytes": 1424,
+      "path": "request.json",
+      "sha256": "07c3dabb25ca5f510beefa61d5143e9678fedee87e7b2d7289478501ece24999"
+    },
+    {
+      "bytes": 2220,
+      "path": "schema.json",
+      "sha256": "89efb0eb6778e6cb4bc87f5441f7872431963fcfff15c2ee7c8364ac0616bfdf"
+    },
+    {
+      "bytes": 504,
+      "path": "version-process.json",
+      "sha256": "e7bf01d0c005e9de4aa2bf37527f795cb42c1281e5d66756f1ba6e72a8233d85"
+    },
+    {
+      "bytes": 18,
+      "path": "version.jsonl",
+      "sha256": "728b255fa6d47ac8019747aaf2876baaafacdb93dfba1e4697257224bbc75a5c"
+    },
+    {
+      "bytes": 0,
+      "path": "version.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bootstrap_warnings": [
+    "Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."
+  ],
+  "cli_version": "codex-cli 0.166.0",
+  "event_count": 5,
+  "execution_kind": "codex_cli",
+  "process": {
+    "cleanup": [],
+    "command": [
+      "/Users/ivan/.codex/packages/standalone/releases/0.166.0-aarch64-apple-darwin/bin/codex",
+      "exec",
+      "--ignore-user-config",
+      "--ephemeral",
+      "--skip-git-repo-check",
+      "--sandbox",
+      "read-only",
+      "--json",
+      "--color",
+      "never",
+      "--cd",
+      "/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/avatar-data-agent-0bxstxh3",
+      "--config",
+      "approval_policy=\"never\"",
+      "--config",
+      "web_search=\"disabled\"",
+      "--config",
+      "project_doc_max_bytes=0",
+      "--config",
+      "mcp_servers={}",
+      "--config",
+      "suppress_unstable_features_warning=true",
+      "--enable",
+      "skip_host_skill_discovery",
+      "--enable",
+      "omit_skill_descriptions",
+      "--output-schema",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/schema.json",
+      "--output-last-message",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/answer.json",
+      "--disable",
+      "shell_tool",
+      "--disable",
+      "apps",
+      "--disable",
+      "plugins",
+      "--disable",
+      "hooks",
+      "--disable",
+      "browser_use",
+      "--disable",
+      "browser_use_external",
+      "--disable",
+      "computer_use",
+      "--disable",
+      "in_app_browser",
+      "--disable",
+      "image_generation",
+      "--disable",
+      "multi_agent",
+      "--disable",
+      "view_image",
+      "--disable",
+      "sleep_tool",
+      "--disable",
+      "skill_search",
+      "--disable",
+      "workspace_dependencies",
+      "--disable",
+      "memories",
+      "--disable",
+      "request_permissions_tool",
+      "--disable",
+      "unbounded_connection_retries",
+      "--disable",
+      "code_mode_host",
+      "--disable",
+      "code_mode",
+      "--disable",
+      "in_app_local_automation",
+      "--disable",
+      "shell_snapshot",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-00.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-01.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-02.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-03.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-04.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-05.png",
+      "--image",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/agents/reviewer-1/image-06.png",
+      "-"
+    ],
+    "descendant_rss_measured": false,
+    "elapsed_seconds": 15.805,
+    "exit_code": 0,
+    "failure": null,
+    "limits": {
+      "answer_bytes": 1048576,
+      "cleanup_seconds": 4,
+      "output_bytes": 50331648,
+      "rss_bytes": 1073741824,
+      "stream_bytes_each": 4194304,
+      "wall_seconds": 240.0
+    },
+    "manual_stop_required": false,
+    "pid": 60570,
+    "rss_samples": 52,
+    "sampled_peak_rss_bytes": 151568384,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "succeeded",
+  "thread_id": "01a1958f-f9ca-7e00-a86c-ea692c0df513",
+  "tool_activity": false,
+  "usage": {
+    "cache_write_input_tokens": 0,
+    "cached_input_tokens": 0,
+    "input_tokens": 27524,
+    "output_tokens": 731,
+    "reasoning_output_tokens": 32
+  }
+}

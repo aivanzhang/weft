@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The rounded robot has two articulated arms, two feet, blue and cream panels, and copper details consistent with the requested subject."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Rounded hard-surface panels and mechanical joints retain the friendly workshop style. No props or hair are requested or visible."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "Head, hands, and both feet remain fully inside every supplied motion sample."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "Raised-arm samples show a long pointed strip hanging below the wrist and apparent pulling of the adjacent torso panel. These violate rigid mechanical articulation."
+    }
+  ],
+  "limitations": [
+    "Contact sheets cannot establish continuous timing, all-frame collision freedom, ground contact forces, or seamless loops.",
+    "Exact preservation of the original source model cannot be established without a separate source appearance reference.",
+    "Supplied proofs report local structure and changing geometry; the target runtime remains unverified."
+  ],
+  "required_repairs": [
+    "Correct wave skin assignments around the left shoulder, forearm, and wrist so only the intended mechanical components follow each joint. Remove the stretched wrist strip and keep torso panels rigid, then provide updated motion evidence."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Small head and arm pose changes support gentle settling while the feet remain visually fixed; supplied motion proof also reports changing geometry."
+    },
+    {
+      "evidence_ids": ["image-02-look.png"],
+      "id": "look",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns in both directions and returns while torso and feet remain stable."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": true,
+      "motion_passed": false,
+      "reason": "The arm lifts and the hand alternates orientation, conveying a small wave, but the wrist strip and torso pulling make the deformation unacceptable."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Visible down-and-up head pitch matches the specifically requested modest nod, with stable arms, torso, and feet."
+    }
+  ],
+  "summary": "The robot and requested actions read correctly, but the wave requires a bounded skin-weight repair.",
+  "verdict": "repair"
+}

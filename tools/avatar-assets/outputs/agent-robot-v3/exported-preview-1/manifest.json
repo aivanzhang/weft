@@ -1,0 +1,342 @@
+{
+  "artifacts": [
+    {
+      "bytes": 242741,
+      "path": "back.png",
+      "sha256": "a4891b16ac35cf7a1a9611bebae7ffe199d596a1c071640015ff3cbfe308ba91"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "c9426b135a9a419e25dd02d6fd91f056bfd03f1a2001933d1d1164289c250695"
+    },
+    {
+      "bytes": 245848,
+      "path": "front.png",
+      "sha256": "bd268ca6e2198ef7f0da6796b64e00a1d49c3acc410790d9702d8b997ff6cddc"
+    },
+    {
+      "bytes": 1554,
+      "path": "job.json",
+      "sha256": "0111a2644b61860957d53dae8d2fff780d87cdb953fd37d25eefe174a67091b0"
+    },
+    {
+      "bytes": 5129,
+      "path": "native-inspection.json",
+      "sha256": "1b19a96f9a2f7b59f663fb6ebe40b1343b0def9e1bb54e8dc018a5ec244b6313"
+    },
+    {
+      "bytes": 24466992,
+      "path": "original.glb",
+      "sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e"
+    },
+    {
+      "bytes": 705,
+      "path": "preflight.json",
+      "sha256": "28feb234b593dd35c34016407f9663bca656ff3741291c5f500a0bafb1dbf8fc"
+    },
+    {
+      "bytes": 621,
+      "path": "preview-handle.json",
+      "sha256": "0a10e4d890377820da437529d395b175564e3e128f9e2967dd837cfe139dca12"
+    },
+    {
+      "bytes": 1412,
+      "path": "preview-monitor.json",
+      "sha256": "3af38b2f75cd952b2189a24fd99d1f9ed7b9d8b92a24ff76d1ee19db7e7f2494"
+    },
+    {
+      "bytes": 17112,
+      "path": "preview.log",
+      "sha256": "c61af2bd335f7bc1921fcebc8a0359d3a63e819056db398d9f76b840a99e3a17"
+    },
+    {
+      "bytes": 29114248,
+      "path": "source.blend",
+      "sha256": "09640cc711912959bde3618a8866aadcfce1990741b9bb8fc23519283b3badd3"
+    },
+    {
+      "bytes": 37921,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "8c82161dab4944f6cf05a5d61d939184c9f1d9d7a316b3d4ffbebb11dc4073c1"
+    },
+    {
+      "bytes": 8201,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "a589c58ea4e69b0002e7a9990d54aa344ceaf513914794465652567a404da401"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 246118,
+      "path": "three-quarter.png",
+      "sha256": "70289609d3b5cd5557ea631de106663a2f796e17b3bd36941c19ed4337349164"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [
+      "celebrate",
+      "idle",
+      "look",
+      "wave"
+    ],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.370140016078949,
+        0.22819998860359192,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.3701399862766266,
+        -0.22819998860359192,
+        -7.07142646660941e-08
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 51320,
+        "name": "Mesh_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 45386
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "bd268ca6e2198ef7f0da6796b64e00a1d49c3acc410790d9702d8b997ff6cddc",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "70289609d3b5cd5557ea631de106663a2f796e17b3bd36941c19ed4337349164",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "a4891b16ac35cf7a1a9611bebae7ffe199d596a1c071640015ff3cbfe308ba91",
+        "view": "back"
+      }
+    ],
+    "rigs": [
+      {
+        "bones": [
+          {
+            "head": [
+              0.0,
+              0.004563999827951193,
+              0.40799999237060547
+            ],
+            "name": "Root",
+            "parent": null,
+            "tail": [
+              0.0,
+              0.00456400029361248,
+              0.41999995708465576
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              0.00456400029361248,
+              0.41999995708465576
+            ],
+            "name": "Torso",
+            "parent": "Root",
+            "tail": [
+              0.0,
+              0.004564011003822088,
+              0.735090970993042
+            ]
+          },
+          {
+            "head": [
+              0.0,
+              1.0103804903849323e-08,
+              0.7559999227523804
+            ],
+            "name": "Head",
+            "parent": "Torso",
+            "tail": [
+              0.0,
+              2.0888911933525378e-08,
+              1.0710909366607666
+            ]
+          },
+          {
+            "head": [
+              -0.09623642265796661,
+              8.871580803315737e-09,
+              0.7200000286102295
+            ],
+            "name": "UpperArmL",
+            "parent": "Torso",
+            "tail": [
+              -0.1813686192035675,
+              -0.01369198877364397,
+              0.6300000548362732
+            ]
+          },
+          {
+            "head": [
+              -0.1813686043024063,
+              -0.013691984117031097,
+              0.6300000548362732
+            ],
+            "name": "ForearmL",
+            "parent": "UpperArmL",
+            "tail": [
+              -0.25539660453796387,
+              -0.045639973133802414,
+              0.5364001393318176
+            ]
+          },
+          {
+            "head": [
+              -0.2553965747356415,
+              -0.045639969408512115,
+              0.5364000797271729
+            ],
+            "name": "HandL",
+            "parent": "ForearmL",
+            "tail": [
+              -0.3385877013206482,
+              -0.07128459215164185,
+              0.4487453103065491
+            ]
+          },
+          {
+            "head": [
+              0.09623642265796661,
+              8.871580803315737e-09,
+              0.7200000286102295
+            ],
+            "name": "UpperArmR",
+            "parent": "Torso",
+            "tail": [
+              0.1813686192035675,
+              -0.01369198877364397,
+              0.6300000548362732
+            ]
+          },
+          {
+            "head": [
+              0.1813686043024063,
+              -0.013691984117031097,
+              0.6300000548362732
+            ],
+            "name": "ForearmR",
+            "parent": "UpperArmR",
+            "tail": [
+              0.25539660453796387,
+              -0.045639973133802414,
+              0.5364001393318176
+            ]
+          },
+          {
+            "head": [
+              0.2553965747356415,
+              -0.045639969408512115,
+              0.5364000797271729
+            ],
+            "name": "HandR",
+            "parent": "ForearmR",
+            "tail": [
+              0.3385877013206482,
+              -0.07128459215164185,
+              0.4487453103065491
+            ]
+          },
+          {
+            "head": [
+              -0.09623642265796661,
+              0.004563997499644756,
+              0.41999998688697815
+            ],
+            "name": "LegL",
+            "parent": "Root",
+            "tail": [
+              -0.09781696647405624,
+              0.004563996568322182,
+              0.4081045687198639
+            ]
+          },
+          {
+            "head": [
+              0.09623642265796661,
+              0.004563997499644756,
+              0.41999998688697815
+            ],
+            "name": "LegR",
+            "parent": "Root",
+            "tail": [
+              0.09781696647405624,
+              0.004563996568322182,
+              0.4081045687198639
+            ]
+          }
+        ],
+        "name": "CreatureRig"
+      }
+    ],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 4,
+    "attributes": [
+      [
+        "JOINTS_0",
+        "NORMAL",
+        "POSITION",
+        "TANGENT",
+        "TEXCOORD_0",
+        "WEIGHTS_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e",
+    "skins": 1,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      }
+    ],
+    "triangles": 51320,
+    "vertices": 45386
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e",
+  "status": "needs_visual_review"
+}

@@ -1,0 +1,134 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "9ea3a18511175f0aa3348bdf1bad9e43a9ae080506eeefb91d78412d829d1413"
+    },
+    {
+      "bytes": 2014,
+      "path": "finish-config.json",
+      "sha256": "832f74d5c987e2db8ae9673680f567ad486ff78dae32db8909adb7e59ea47699"
+    },
+    {
+      "bytes": 590,
+      "path": "finish-handle.json",
+      "sha256": "2144bf691e5ce2e167cd6bb52a85555f7e4bc9a01adca3b1c84dd7f8e99ecca2"
+    },
+    {
+      "bytes": 1384,
+      "path": "finish-monitor.json",
+      "sha256": "582bd3a8661157c20ba1149b8c6aaec4381f0e4dce6d197c4349d1a43bd3206f"
+    },
+    {
+      "bytes": 7137,
+      "path": "finish-report.json",
+      "sha256": "b1a0692db50977c9c22abd82c862cb29a94a35bd59200b48fdd464e5a4ecbd41"
+    },
+    {
+      "bytes": 6358,
+      "path": "finish.log",
+      "sha256": "86897fd9db1be19cd514bf28513fd39a4c993a464221373076501845cb958830"
+    },
+    {
+      "bytes": 1518,
+      "path": "job.json",
+      "sha256": "01944c07d3c6837b57f17e6915435cca1c9cbc6af15afcfc938f236c2c1e1e7d"
+    },
+    {
+      "bytes": 548854,
+      "path": "portrait.png",
+      "sha256": "d6afa778c4824c7160c0636c3fbeffac614cfd3c3de8cd5d1e34b06f4de78f8b"
+    },
+    {
+      "bytes": 66095092,
+      "path": "source.blend",
+      "sha256": "70bfcfc9628bfb83c0eb69cc7686dd6c3a8f187d32f66c26a89af93dbdd081e7"
+    },
+    {
+      "bytes": 42726,
+      "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "92bba64316fd8507a1e744f9cf5f94c2eb2d6983d53abb63bda29eecb09e038d"
+    },
+    {
+      "bytes": 44373,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "8eaaa9cc90c9df3752b5c2a036be69bd634503fb2387ff136391c84a0da1d019"
+    },
+    {
+      "bytes": 37913,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "7237e27c464ef6969f965866e627daed77f69e4f3f3c3f78190474d04152da43"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 10604,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "bbf16a5e3efc4416625f0a62a1543c28eccb43c25eb94800b0901623bdbf7622"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v4/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v4/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/muse-panda-meshy-groom-v4"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 9.669,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 66860183,
+    "last_rss_sample_elapsed_seconds": 9.416,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 85174,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 37,
+    "sampled_max_output_bytes": 66860183,
+    "sampled_peak_rss_bytes": 1863172096,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_avatar_lookdev",
+  "schema_version": 1,
+  "status": "needs_review"
+}

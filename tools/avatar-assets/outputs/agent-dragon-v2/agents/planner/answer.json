@@ -1,0 +1,38 @@
+{
+  "appearance_checks": [
+    "Friendly upright dragon with rounded proportions and an intact scaled body.",
+    "Emerald scales, amber eyes, orange horns and orange back spines.",
+    "Cream belly, exactly two small wings and a long tail.",
+    "Standing poses retain grounded feet; expression remains static."
+  ],
+  "generation_prompt": "A friendly upright emerald dragon with rounded stylized 3D proportions, clearly defined scales, amber eyes, orange horns and orange back spines, a cream belly, exactly two small wings and a long tail. Use softly shaded scale materials and smooth horns, with a warm fixed expression. Neutral standing pose with feet grounded, forelimbs relaxed, wings slightly separated from the body and tail resting in a gentle curve. Preserve the continuous scaled body.",
+  "height_meters": 1.5,
+  "limitations": [
+    "Height is an authored assumption; no physical scale was supplied.",
+    "The supplied model metadata does not establish its visible appearance, body integrity or rig suitability; these remain unverified.",
+    "Unseen surfaces and bone articulation are authored assumptions, not recovered anatomy.",
+    "Planned actions use skeletal articulation without flight physics, facial animation or dynamic wing membranes."
+  ],
+  "reason": "The requested grounded motions are suitable for modest skeletal articulation; compatibility of the supplied model remains unverified.",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Gentle torso sway with small head and tail movements while both feet remain planted."
+    },
+    {
+      "id": "look_around",
+      "meaning": "Turn the head and neck slowly left and right, with a slight upward glance and grounded feet."
+    },
+    {
+      "id": "wing_flap",
+      "meaning": "Perform gentle symmetrical flaps of the two small wings while standing, without lift or takeoff."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Perform a happy shallow bow through the torso and neck, sweep the long tail in a controlled flourish, then return upright."
+    }
+  ],
+  "status": "ready",
+  "style": "Rounded friendly stylized 3D dragon with emerald scales, amber eyes, orange horns and a cream belly",
+  "subject": "A friendly upright emerald dragon with amber eyes, orange horns and back spines, a cream belly, two small wings and a long tail, preserving its intact scaled body."
+}

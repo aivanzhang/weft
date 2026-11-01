@@ -9,7 +9,8 @@ from avatar_assets.safety import LIMITS, local_file, require, slug
 SCENE_LIMITS = {"parts": 64, "bones": 32, "materials": 16, "states": 12,
                 "keys_per_state": 64, "extent_m": 20, "max_seconds": 20}
 QUALITY_LIMITS = {"parts": 128, "control_vertices": 30000, "faces": 60000,
-                  "fur_strands": 24000, "scene_bytes": 8 * 1024 * 1024}
+                  "fur_strands": 24000, "fur_vertices": 72000, "native_fibers": 240000,
+                  "texture_pixels": 32 * 1024 * 1024, "scene_bytes": 8 * 1024 * 1024}
 
 
 def read_scene(path):
@@ -57,9 +58,10 @@ def _integer(value, low, high, label):
 def _surface(surface):
     require(isinstance(surface, dict) and set(surface) == {"pattern", "resolution", "strength", "seed"},
             "Surface needs pattern, resolution, strength and seed")
-    require(surface["pattern"] in ("fur", "scales", "brushed"), "Unsupported surface pattern")
-    require(type(surface["resolution"]) is int and surface["resolution"] in (256, 512),
-            "Surface resolution must be 256 or 512")
+    require(surface["pattern"] in ("fur", "scales", "brushed", "iris"), "Unsupported surface pattern")
+    require(type(surface["resolution"]) is int and surface["resolution"] in (256, 512, 1024, 2048),
+            "Surface resolution must be 256, 512, 1024 or 2048")
+    require(surface["pattern"] != "iris" or surface["resolution"] >= 1024, "Iris surface requires HD resolution")
     _number(surface["strength"], 0, 1, "surface strength")
     _integer(surface["seed"], 0, 2**31-1, "surface seed")
 
@@ -71,14 +73,40 @@ def _quality_part(part, bones, totals):
     _number(part.get("bevel", 0), 0, .3, "bevel width")
     if "fur" in part:
         fur = part["fur"]
-        require(isinstance(fur, dict) and set(fur) == {"count", "length", "width", "seed"},
-                "Fur needs count, length, width and seed")
+        require(isinstance(fur, dict) and {"count", "length", "width", "seed"} <= set(fur)
+                and set(fur) <= {"count", "length", "width", "seed", "mode", "direction"},
+                "Fur needs bounded count, length, width, seed and optional mode/direction")
+        require(fur.get("mode", "triangles") in ("triangles", "cards"), "Unsupported fur mode")
+        cards = fur.get("mode") == "cards"
+        if "direction" in fur:
+            require(cards, "Comb direction requires hair cards")
+            vector(fur["direction"], 3, "fur comb direction", 1)
+            require(sum(value*value for value in fur["direction"]) > 1e-8, "Zero fur comb direction")
         _integer(fur["count"], 0, 10000, "fur count")
         _integer(fur["seed"], 0, 2**31-1, "fur seed")
         _number(fur["length"], .001, .04, "fur length")
-        _number(fur["width"], .0003, .004, "fur width")
+        _number(fur["width"], .0003, .04 if cards else .004, "fur width")
         totals["fur_strands"] += fur["count"]
         require(totals["fur_strands"] <= QUALITY_LIMITS["fur_strands"], "Aggregate fur limit exceeded")
+        totals["fur_vertices"] += fur["count"]*(6 if cards else 3)
+        require(totals["fur_vertices"] <= QUALITY_LIMITS["fur_vertices"], "Aggregate fur vertex limit exceeded")
+    if "native_groom" in part:
+        groom = part["native_groom"]
+        required = {"parents", "children", "length", "radius", "roughness", "seed"}
+        require(isinstance(groom, dict) and set(groom) in (required, required | {"direction", "comb"}),
+                "Native groom requires six explicit fields and optional paired direction/comb")
+        _integer(groom["parents"], 16, 10000, "native groom parents")
+        _integer(groom["children"], 0, 30, "native groom children")
+        _integer(groom["seed"], 0, 2**31-1, "native groom seed")
+        _number(groom["length"], .001, .04, "native groom length")
+        _number(groom["radius"], .00001, .001, "native groom radius")
+        _number(groom["roughness"], 0, .01, "native groom roughness")
+        if "direction" in groom:
+            vector(groom["direction"], 3, "native groom direction", 1)
+            require(math.hypot(*groom["direction"]) > 1e-8, "Zero or unstable native groom direction")
+            _number(groom["comb"], 0, .95, "native groom comb")
+        totals["native_fibers"] += groom["parents"]*(groom["children"]+1)
+        require(totals["native_fibers"] <= QUALITY_LIMITS["native_fibers"], "Aggregate native groom limit exceeded")
     if part["shape"] != "mesh":
         require(not any(key in part for key in ("vertices", "faces", "uv", "weights")),
                 "Explicit topology and weights require shape mesh")
@@ -136,6 +164,7 @@ def validate_scene(data):
     require(all(isinstance(x, str) and len(x) < 4000 for x in data["authored_assumptions"]), "Invalid authored assumptions")
     mats = data.get("materials")
     require(isinstance(mats, dict) and 0 < len(mats) <= SCENE_LIMITS["materials"], "Material limit exceeded")
+    texture_pixels = 0
     for name, material in mats.items():
         slug(name)
         require(isinstance(material, dict), "Invalid material")
@@ -147,6 +176,10 @@ def validate_scene(data):
         if "surface" in material:
             require(quality, "Surface textures require scene schema_version 2")
             _surface(material["surface"])
+            texture_pixels += 2*material["surface"]["resolution"]**2
+        if "fur_atlas" in material:
+            require(quality and material["fur_atlas"] in ("fine-v1", "distance-v1"),
+                    "Fur atlas requires a known schema v2 profile")
         if data.get("output_profile") == "weft-v1":
             require(material.get("metallic", 0) == 0 and material.get("roughness", .5) == 1,
                     "Weft variant must explicitly author matte diffuse materials")
@@ -167,8 +200,13 @@ def validate_scene(data):
     parts = data.get("parts")
     require(isinstance(parts, list) and 0 < len(parts) <= (QUALITY_LIMITS["parts"] if quality else SCENE_LIMITS["parts"]),
             "Part limit exceeded")
+    card_materials = {p.get("material") for p in parts
+                      if isinstance(p, dict) and isinstance(p.get("fur"), dict) and p["fur"].get("mode") == "cards"
+                      and p["fur"].get("count") and isinstance(p.get("material"), str)}
+    texture_pixels += len(card_materials)*1024**2
+    require(texture_pixels <= QUALITY_LIMITS["texture_pixels"], "Aggregate texture pixel limit exceeded")
     part_names = set()
-    totals = {"control_vertices": 0, "faces": 0, "fur_strands": 0}
+    totals = {"control_vertices": 0, "faces": 0, "fur_strands": 0, "fur_vertices": 0, "native_fibers": 0}
     for p in parts:
         slug(p["name"])
         require(p["name"] not in part_names, "Part names must be unique")
@@ -183,8 +221,13 @@ def validate_scene(data):
         if quality:
             _quality_part(p, names, totals)
         else:
-            require(not any(key in p for key in ("vertices", "faces", "uv", "weights", "segments", "rings", "bevel", "bevel_segments", "fur")),
+            require(not any(key in p for key in ("vertices", "faces", "uv", "weights", "segments", "rings", "bevel", "bevel_segments", "fur", "native_groom")),
                     "Quality geometry fields require scene schema_version 2")
+    for material in card_materials:
+        coverage = {bool(part.get("native_groom")) for part in parts if part["material"] == material
+                    and part.get("fur", {}).get("mode") == "cards" and part["fur"]["count"]}
+        require(len(coverage) == 1,
+                f"Hair-card parts sharing material {material!r} must all use native_groom or all omit it; use separate materials for mixed coverage")
     states = data.get("states")
     require(isinstance(states, list) and 0 < len(states) <= SCENE_LIMITS["states"], "State limit exceeded")
     ids = set()
@@ -217,6 +260,15 @@ def validate_scene(data):
     require(camera["target"] != camera["position"], "Camera cannot be at target")
     vector(data.get("background", [.95, .96, .98, 1]), 4, "background", 1)
     require(all(0 <= v <= 1 for v in data.get("background", [.95, .96, .98, 1])), "Negative background channel")
+    if "studio" in data:
+        studio = data["studio"]
+        require(quality and isinstance(studio, dict) and {"ground_z", "world_strength", "exposure"} <= set(studio)
+                and set(studio) <= {"ground_z", "world_strength", "exposure", "preset"},
+                "Studio needs ground_z, world_strength and exposure, with optional preset, in v2")
+        require("preset" not in studio or studio["preset"] == "plush", "Unsupported studio preset")
+        _number(studio["ground_z"], -5, 5, "studio ground")
+        _number(studio["world_strength"], .05, 2, "studio world strength")
+        _number(studio["exposure"], -2, 2, "studio exposure")
     attachments = data.get("attachments", [])
     require(isinstance(attachments, list) and len(attachments) <= 16, "Attachment limit exceeded")
     parents = {b["name"]: b.get("parent") for b in bones}

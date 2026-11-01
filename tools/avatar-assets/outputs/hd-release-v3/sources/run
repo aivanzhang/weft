@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+tool_dir=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
+cd "$tool_dir"
+exec "$tool_dir/.venv/bin/python" -m avatar_assets "$@"

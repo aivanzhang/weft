@@ -1,0 +1,103 @@
+{
+  "artifacts": [
+    {
+      "bytes": 23669,
+      "path": "lamp.json",
+      "sha256": "f7e5a8cacff0bc81c083a8bbf857a14950e35e1ee969ee84dd88665860c86949"
+    },
+    {
+      "bytes": 35409,
+      "path": "panda.json",
+      "sha256": "d446028bb16528186b844742de8eae8c82d7412fa6883fb856c5dfbc2b2cbb47"
+    },
+    {
+      "bytes": 22681,
+      "path": "robot.json",
+      "sha256": "6ed3171a71ff6cfd6843e21e77b0497929706b4a8be75cb385f28087762c0680"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 16968,
+      "path": "sources/scene.py",
+      "sha256": "a7040834a3ad4f2dde3dbb9e74632bd9266db1ddb0666690519935ed5de4fd59"
+    },
+    {
+      "bytes": 33690,
+      "path": "sources/three_d.py",
+      "sha256": "8f983891ea5f50b9b533baedbd3627d87560d2042ba96d94a08e30bba97b5693"
+    },
+    {
+      "bytes": 22597,
+      "path": "sources/verify_quality_assets.py",
+      "sha256": "9a5db8e226002b1673ad3dbb3b51332f149dd563956b0ee4ef718193d7d76924"
+    }
+  ],
+  "command": [
+    "scripts/verify_quality_assets.py",
+    "--pack",
+    "panda=outputs/muse-panda-hd-build-v3",
+    "--pack",
+    "robot=outputs/workshop-robot-hd-build-v2",
+    "--pack",
+    "lamp=outputs/lamp-hd-build-v2",
+    "--output",
+    "outputs/hd-final-attribute-proof-v1",
+    "--timeout",
+    "120",
+    "--memory-mb",
+    "1024"
+  ],
+  "elapsed_seconds": 2.4622,
+  "error": null,
+  "kind": "independent_quality_attribute_proof",
+  "limits": {
+    "decoded_work_scalars_per_glb": 6000000,
+    "existing_glb_validator_limits_unchanged": true,
+    "exported_vertices": 100000,
+    "png_bytes_each": 8388608,
+    "png_pixels_total_per_glb": 33554432,
+    "process_rss_mb": 1024,
+    "triangle_index_elements_per_accessor": 300000,
+    "unique_scalars_per_glb": 3000000,
+    "wall_seconds": 120
+  },
+  "process_peak_rss_bytes": 176570368,
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reports": [
+    {
+      "id": "panda",
+      "model_sha256": "028ff0056c77e0463ae37a3e3400833748f6716e0b10ad80e9e15092483051b2",
+      "report": "panda.json",
+      "status": "passed",
+      "triangles": 79180,
+      "vertices": 76851
+    },
+    {
+      "id": "robot",
+      "model_sha256": "cbb2fd7b9fe5ac82c54b8969e85a7c667eb859683abb6ab659b19d43fc7269a1",
+      "report": "robot.json",
+      "status": "passed",
+      "triangles": 38058,
+      "vertices": 47644
+    },
+    {
+      "id": "lamp",
+      "model_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+      "report": "lamp.json",
+      "status": "passed",
+      "triangles": 44754,
+      "vertices": 37762
+    }
+  ],
+  "schema_version": 1,
+  "status": "passed",
+  "tools": {
+    "Pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  }
+}

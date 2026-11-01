@@ -11,6 +11,13 @@ const label = (name) => ({ idle: "Idle", making_something: "Crafting", milestone
 const player = () => state.mode === "model" ? model : video;
 const duration = () => Number.isFinite(player().duration) ? player().duration : 0;
 const playing = () => state.mode !== "portrait" && state.ready && !player().paused;
+const initialView = () => state.asset?.initial_view || { azimuth_degrees: 25, elevation_degrees: 75, radius_percent: 125 };
+
+function resetCamera() {
+  const view = initialView();
+  model.cameraOrbit = `${view.azimuth_degrees}deg ${view.elevation_degrees}deg ${view.radius_percent}%`;
+  model.cameraTarget = "auto auto auto";
+}
 
 function setError(message = "") {
   $("error").textContent = message;
@@ -48,7 +55,7 @@ function paintTransport() {
   $("seek").value = String(position);
   $("seek").setAttribute("aria-valuetext", `${position.toFixed(1)} of ${seconds.toFixed(1)} seconds`);
   $("time").textContent = `${position.toFixed(1)} / ${seconds.toFixed(1)} s`;
-  $("duration-note").textContent = seconds ? `${seconds.toFixed(1)} seconds · ${state.mode === "model" ? "Skeletal animation" : "Video"}` : "Static image";
+  $("duration-note").textContent = seconds ? `${seconds.toFixed(1)} seconds · ${state.mode === "model" ? "Skeletal animation" : "Video"}` : state.mode === "model" ? "Static 3D model" : "Static image";
 }
 
 function tick(now) {
@@ -60,7 +67,7 @@ function tick(now) {
 }
 
 async function togglePlay() {
-  if (!state.ready || state.mode === "portrait") return;
+  if (!state.ready || !state.clip || state.mode === "portrait") return;
   if (playing()) return stopAll();
   const version = state.version;
   try {
@@ -96,7 +103,12 @@ async function chooseState(id) {
   for (const button of $("state-list").children) button.setAttribute("aria-pressed", String(button.dataset.state === state.clip?.id));
   $("state-meaning").textContent = state.clip?.meaning || "No animation is included in this asset.";
   if (state.mode === "model" && model.loaded && state.loadedModel === state.asset.model) {
-    if (!model.availableAnimations.includes(state.clip?.id)) {
+    if (!state.clip) {
+      state.ready = true;
+      setError();
+      clearTimeout(loadTimer);
+      $("loading").hidden = true;
+    } else if (!model.availableAnimations.includes(state.clip.id)) {
       state.ready = false;
       setError("This state is not present in the model. Choose another asset or view its saved media.");
     } else {
@@ -170,10 +182,9 @@ function chooseAsset(id) {
     model.removeAttribute("src");
   }
   model.alt = `${asset.title}, interactive 3D model. Drag to rotate and scroll to zoom.`;
-  model.cameraOrbit = "25deg 75deg 125%";
-  model.cameraTarget = "auto auto auto";
+  resetCamera();
   $("asset-title").textContent = asset.title;
-  $("asset-kind").textContent = asset.kind === "reference_2d" ? "ORIGINAL REFERENCE · 2D ONLY" : "AUTHORED 3D COLLECTION";
+  $("asset-kind").textContent = { reference_2d: "ORIGINAL REFERENCE · 2D ONLY", generated_3d: "GENERATED 3D CANDIDATE", authored_3d: "AUTHORED 3D COLLECTION" }[asset.kind];
   $("description").textContent = asset.description;
   $("notice").textContent = asset.notice;
   for (const button of $("asset-list").children) button.setAttribute("aria-pressed", String(button.dataset.asset === id));
@@ -246,8 +257,7 @@ model.addEventListener("load", async (event) => {
   if (!state.asset?.model || new URL(event.detail.url, location.href).pathname !== state.asset.model) return;
   const asset = state.asset;
   state.loadedModel = state.asset.model;
-  model.cameraOrbit = "25deg 75deg 125%";
-  model.cameraTarget = "auto auto auto";
+  resetCamera();
   await model.updateComplete;
   if (state.asset !== asset) return;
   model.jumpCameraToGoal();
@@ -297,12 +307,11 @@ $("repeat").addEventListener("change", () => {
 });
 for (const button of document.querySelectorAll("[data-mode]")) button.addEventListener("click", () => setMode(button.dataset.mode));
 for (const button of document.querySelectorAll("[data-view]")) button.addEventListener("click", () => {
-  model.cameraOrbit = `${{ front: 0, side: 90, back: 180 }[button.dataset.view]}deg 80deg 125%`;
+  model.cameraOrbit = `${{ front: 0, side: 90, back: 180 }[button.dataset.view]}deg 80deg ${initialView().radius_percent}%`;
   if (reducedMotion.matches) model.jumpCameraToGoal();
 });
 $("reset-camera").addEventListener("click", () => {
-  model.cameraOrbit = "25deg 75deg 125%";
-  model.cameraTarget = "auto auto auto";
+  resetCamera();
   if (reducedMotion.matches) model.jumpCameraToGoal();
 });
 $("fullscreen").addEventListener("click", async () => {

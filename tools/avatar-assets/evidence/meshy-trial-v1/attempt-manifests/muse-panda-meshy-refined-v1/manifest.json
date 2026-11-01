@@ -1,0 +1,118 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "cf3cc717628f5be9e4b9b531a35735039ca564b1e08fceae32074dfd70878b0b"
+    },
+    {
+      "bytes": 12802,
+      "path": "finish-config.json",
+      "sha256": "cfcf6712b663cf3587923e39e5d16b4f2979766edb646b4bd69b280eba7e34e2"
+    },
+    {
+      "bytes": 596,
+      "path": "finish-handle.json",
+      "sha256": "fdadca86728591bea54355fb476e5a6846e754be961e03f8c3048c5de55384ad"
+    },
+    {
+      "bytes": 1392,
+      "path": "finish-monitor.json",
+      "sha256": "4ebe792853a126b839c1f36c7796e30dbb60cf14ac0195f8ec1f060f45f778fc"
+    },
+    {
+      "bytes": 9434,
+      "path": "finish.log",
+      "sha256": "7e24150f9c1decf8adc5b194b6e4669d308c6f5925cd750f037f56fcfa9d348d"
+    },
+    {
+      "bytes": 1526,
+      "path": "job.json",
+      "sha256": "dceed2d3dea4727841ce1cb8940fb94540e401581d27b475e3676a01ae366ca5"
+    },
+    {
+      "bytes": 48580696,
+      "path": "model.glb",
+      "sha256": "6a1edff8ed56b185928c8b1ab545a86a63887d1cd300d1c0bf9d3c373bc5c500"
+    },
+    {
+      "bytes": 1087828,
+      "path": "portrait.png",
+      "sha256": "d199429a5d267d037e0a3d2c52f2e50cbd128b682c8028a30cc6de2e71f09931"
+    },
+    {
+      "bytes": 42728,
+      "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "8f924e943662f794b5b5cfd6c8684e3fccdff12071e550e517eed6cd70b4ef0e"
+    },
+    {
+      "bytes": 19060,
+      "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "a3c5c5d09bc500d18ae31970537b9656eef892c324c3e99635556cf99e678c32"
+    },
+    {
+      "bytes": 44375,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "45072081106758d606007dd065be75015a88e2a58e087901e3550ca3c0358aab"
+    },
+    {
+      "bytes": 37915,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "43b653545f6be7e660a5fcd961114829aafcb2b1f33848e24bdb03941c2dc36b"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 21022,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "34a4bc42207ec3955baef79ec138bd68fa66652989289f6d0e5e41a024d7f2f8"
+    },
+    {
+      "bytes": 7860,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 12713,
+      "path": "sources/finish-design.json",
+      "sha256": "028145446c663dd0a1cd6d537e4199337d03e04aedb6227e0e63936fe2b3a4f0"
+    },
+    {
+      "bytes": 12119,
+      "path": "sources/finish_generated.py",
+      "sha256": "7f526231cb84e950bd4bbdd111499cff94c6153219ed27aebd8f593d8839c72a"
+    },
+    {
+      "bytes": 241708,
+      "path": "textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "31e26d78c2304a86d5ccd95a8562879d67b02ed8d5552ec874b2d5aefe9aa9d1"
+    },
+    {
+      "bytes": 289636,
+      "path": "textures/PortableCoat_1-fur-atlas.png",
+      "sha256": "65c9a47c27a183c7ee250997fca9e811ce4ca6ecb695d5167ac6f29f0ad6729f"
+    }
+  ],
+  "error": "Finishing failed; inspect preserved attempt",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Finishing failed; inspect preserved attempt"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

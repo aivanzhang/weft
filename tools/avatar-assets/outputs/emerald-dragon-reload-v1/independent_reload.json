@@ -1,0 +1,691 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.03351122877223337
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.03351122877223337,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/Body",
+        "CreatureRig/Forearm_L",
+        "CreatureRig/Forearm_R",
+        "CreatureRig/Head",
+        "CreatureRig/Neck",
+        "CreatureRig/TailMid",
+        "CreatureRig/TailTip",
+        "CreatureRig/UpperArm_L",
+        "CreatureRig/UpperArm_R",
+        "CreatureRig/WingRoot_L",
+        "CreatureRig/WingRoot_R",
+        "CreatureRig/WingTip_L",
+        "CreatureRig/WingTip_R"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.12777909925339984
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.12777909925339984,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/Head",
+        "CreatureRig/Neck",
+        "CreatureRig/TailMid",
+        "CreatureRig/TailTip"
+      ],
+      "name": "look_around",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.12808670079927922
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.12808670079927922,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/Head",
+        "CreatureRig/Neck",
+        "CreatureRig/TailMid",
+        "CreatureRig/TailTip",
+        "CreatureRig/WingRoot_L",
+        "CreatureRig/WingRoot_R",
+        "CreatureRig/WingTip_L",
+        "CreatureRig/WingTip_R"
+      ],
+      "name": "milestone_level_up",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.15279114270695038
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.15279114270695038,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/WingRoot_L",
+        "CreatureRig/WingRoot_R",
+        "CreatureRig/WingTip_L",
+        "CreatureRig/WingTip_R"
+      ],
+      "name": "wing_flap",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            -0.2895272672176361,
+            0.2160000056028366
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            -0.3154861032962799,
+            0.3612481951713562
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.32169702649116516,
+            0.36000001430511475
+          ],
+          "name": "Body",
+          "parent": "Root",
+          "tail_local": [
+            0.0,
+            -0.39881211519241333,
+            0.6131374835968018
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.40212130546569824,
+            0.624000072479248
+          ],
+          "name": "Neck",
+          "parent": "Body",
+          "tail_local": [
+            0.0,
+            -0.4664607048034668,
+            0.8280001878738403
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            -0.4664607346057892,
+            0.8280001282691956
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail_local": [
+            0.0,
+            -0.5086249709129333,
+            1.0377088785171509
+          ]
+        },
+        {
+          "head_local": [
+            0.11146889626979828,
+            -0.43429097533226013,
+            0.6240000128746033
+          ],
+          "name": "UpperArm_L",
+          "parent": "Body",
+          "tail_local": [
+            0.18312743306159973,
+            -0.4986304044723511,
+            0.5040000677108765
+          ]
+        },
+        {
+          "head_local": [
+            0.18312746286392212,
+            -0.4986303448677063,
+            0.5040000677108765
+          ],
+          "name": "Forearm_L",
+          "parent": "UpperArm_L",
+          "tail_local": [
+            0.16222885251045227,
+            -0.618250846862793,
+            0.4095084071159363
+          ]
+        },
+        {
+          "head_local": [
+            0.11146891862154007,
+            -0.3216969966888428,
+            0.6000000238418579
+          ],
+          "name": "WingRoot_L",
+          "parent": "Body",
+          "tail_local": [
+            0.17516541481018066,
+            -0.3216969966888428,
+            0.7919999361038208
+          ]
+        },
+        {
+          "head_local": [
+            0.17516539990901947,
+            -0.3216969668865204,
+            0.7919999361038208
+          ],
+          "name": "WingTip_L",
+          "parent": "WingRoot_L",
+          "tail_local": [
+            0.3744641840457916,
+            -0.3216969668865204,
+            0.8266583681106567
+          ]
+        },
+        {
+          "head_local": [
+            -0.11146889626979828,
+            -0.43429097533226013,
+            0.6240000128746033
+          ],
+          "name": "UpperArm_R",
+          "parent": "Body",
+          "tail_local": [
+            -0.18312743306159973,
+            -0.4986304044723511,
+            0.5040000677108765
+          ]
+        },
+        {
+          "head_local": [
+            -0.18312746286392212,
+            -0.4986303448677063,
+            0.5040000677108765
+          ],
+          "name": "Forearm_R",
+          "parent": "UpperArm_R",
+          "tail_local": [
+            -0.16222885251045227,
+            -0.618250846862793,
+            0.4095084071159363
+          ]
+        },
+        {
+          "head_local": [
+            -0.11146891862154007,
+            -0.3216969966888428,
+            0.6000000238418579
+          ],
+          "name": "WingRoot_R",
+          "parent": "Body",
+          "tail_local": [
+            -0.17516541481018066,
+            -0.3216969966888428,
+            0.7919999361038208
+          ]
+        },
+        {
+          "head_local": [
+            -0.17516539990901947,
+            -0.3216969668865204,
+            0.7919999361038208
+          ],
+          "name": "WingTip_R",
+          "parent": "WingRoot_R",
+          "tail_local": [
+            -0.3744641840457916,
+            -0.3216969668865204,
+            0.8266583681106567
+          ]
+        },
+        {
+          "head_local": [
+            0.14331716299057007,
+            -0.2895272374153137,
+            0.29999998211860657
+          ],
+          "name": "Thigh_L",
+          "parent": "Root",
+          "tail_local": [
+            0.15924133360385895,
+            -0.2734423577785492,
+            0.1199999749660492
+          ]
+        },
+        {
+          "head_local": [
+            0.15924133360385895,
+            -0.2734423577785492,
+            0.1199999749660492
+          ],
+          "name": "Foot_L",
+          "parent": "Thigh_L",
+          "tail_local": [
+            0.17854821681976318,
+            -0.4424538016319275,
+            0.05695495009422302
+          ]
+        },
+        {
+          "head_local": [
+            -0.14331716299057007,
+            -0.2895272374153137,
+            0.29999998211860657
+          ],
+          "name": "Thigh_R",
+          "parent": "Root",
+          "tail_local": [
+            -0.15924133360385895,
+            -0.2734423577785492,
+            0.1199999749660492
+          ]
+        },
+        {
+          "head_local": [
+            -0.15924133360385895,
+            -0.2734423577785492,
+            0.1199999749660492
+          ],
+          "name": "Foot_R",
+          "parent": "Thigh_R",
+          "tail_local": [
+            -0.17854821681976318,
+            -0.4424538016319275,
+            0.05695495009422302
+          ]
+        },
+        {
+          "head_local": [
+            2.7939679458910405e-09,
+            -0.16084851324558258,
+            0.3120000660419464
+          ],
+          "name": "TailBase",
+          "parent": "Root",
+          "tail_local": [
+            -0.023886192589998245,
+            0.14476357400417328,
+            0.1560000330209732
+          ]
+        },
+        {
+          "head_local": [
+            -0.023886188864707947,
+            0.14476348459720612,
+            0.1560000628232956
+          ],
+          "name": "TailMid",
+          "parent": "TailBase",
+          "tail_local": [
+            -0.10350687056779861,
+            0.4664604663848877,
+            0.08400001376867294
+          ]
+        },
+        {
+          "head_local": [
+            -0.10350683331489563,
+            0.4664604365825653,
+            0.08400002866983414
+          ],
+          "name": "TailTip",
+          "parent": "TailMid",
+          "tail_local": [
+            -0.1809118241071701,
+            0.7965799570083618,
+            0.07751887291669846
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      0.7962066531181335,
+      1.6084849834442139,
+      1.2000000476837158
+    ],
+    "max": [
+      0.3981033265590668,
+      0.8042423725128174,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.3981033265590668,
+      -0.8042426109313965,
+      -2.4272374332667823e-08
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "Material_0",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "CreatureRig",
+      "materials": [
+        "Material_0"
+      ],
+      "name": "Mesh_0",
+      "polygons": 36501,
+      "unweighted_vertices": 0,
+      "vertices": 36322,
+      "weighted_vertices": 36322
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "Material_0",
+      "material_index": 0,
+      "object": "Mesh_0",
+      "probe_vertices": [
+        0,
+        286,
+        572,
+        858,
+        1144,
+        1430,
+        1716,
+        2002,
+        2288,
+        2574,
+        2860,
+        3146,
+        3432,
+        3718,
+        4004,
+        4290,
+        4576,
+        4862,
+        5148,
+        5434,
+        5720,
+        6006,
+        6292,
+        6578,
+        6864,
+        7150,
+        7436,
+        7722,
+        8008,
+        8294,
+        8580,
+        8866,
+        9152,
+        9438,
+        9724,
+        10010,
+        10296,
+        10582,
+        10868,
+        11154,
+        11440,
+        11726,
+        12012,
+        12298,
+        12584,
+        12870,
+        13156,
+        13442,
+        13728,
+        14014,
+        14300,
+        14586,
+        14872,
+        15158,
+        15444,
+        15730,
+        16016,
+        16302,
+        16588,
+        16874,
+        17160,
+        17446,
+        17732,
+        18018,
+        18303,
+        18589,
+        18875,
+        19161,
+        19447,
+        19733,
+        20019,
+        20305,
+        20591,
+        20877,
+        21163,
+        21449,
+        21735,
+        22021,
+        22307,
+        22593,
+        22879,
+        23165,
+        23451,
+        23737,
+        24023,
+        24309,
+        24595,
+        24881,
+        25167,
+        25453,
+        25739,
+        26025,
+        26311,
+        26597,
+        26883,
+        27169,
+        27455,
+        27741,
+        28027,
+        28313,
+        28599,
+        28885,
+        29171,
+        29457,
+        29743,
+        30029,
+        30315,
+        30601,
+        30887,
+        31173,
+        31459,
+        31745,
+        32031,
+        32317,
+        32603,
+        32889,
+        33175,
+        33461,
+        33747,
+        34033,
+        34319,
+        34605,
+        34891,
+        35177,
+        35463,
+        35749,
+        36035,
+        36321
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        -4.8254547119140625,
+        1.082545518875122
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -1.1920928955078125e-07,
+        0.6000000238418579
+      ],
+      "path": "independent-front.png",
+      "sha256": "1ede9aa8d8d4a16015f15166d8968a76d46815986e4c22fa3d3148b24e5021c0",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        4.8254547119140625,
+        1.082545518875122
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -1.1920928955078125e-07,
+        0.6000000238418579
+      ],
+      "path": "independent-back.png",
+      "sha256": "477d640134761f45964852db9ff360097ad102408be04975d1d141d330ceb9d8",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        4.8254547119140625,
+        -1.1920928955078125e-07,
+        1.082545518875122
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        -1.1920928955078125e-07,
+        0.6000000238418579
+      ],
+      "path": "independent-side.png",
+      "sha256": "a28037abb9b76b8ef79e8e5b7be8e29b535e65b69211f862707f7e6b9d529fcf",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-finished-v3/model.glb",
+  "source_sha256": "b87ee5f5fe0c3b9ab6b84d9a310104a75408ccc247d68c27fbb1d85685840d14",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 1.376200791914016,
+  "weft_runtime_verified": false
+}

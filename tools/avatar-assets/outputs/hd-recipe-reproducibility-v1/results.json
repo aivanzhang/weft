@@ -1,0 +1,66 @@
+{
+  "results": [
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "scripts/author_combed_groom.py",
+        "--source",
+        "examples/scenes/muse-panda-hd-v3.json",
+        "--id",
+        "muse-panda-hd-v4",
+        "--out",
+        "examples/scenes/muse-panda-hd-v4.json",
+        "--check"
+      ],
+      "elapsed_seconds": 0.329,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"path\": \"examples/scenes/muse-panda-hd-v4.json\", \"check\": true, \"sha256\": \"54b0e62afbddf522111c084263f3eb81af8af78889023d8d26f656fb7c6b4eb5\", \"emitters\": 31, \"native_fiber_upper_bound\": 238328}\n"
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "scripts/author_combed_groom.py",
+        "--source",
+        "examples/scenes/fox-hd-v2.json",
+        "--id",
+        "fox-hd-v3",
+        "--out",
+        "examples/scenes/fox-hd-v3.json",
+        "--check"
+      ],
+      "elapsed_seconds": 0.247,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"path\": \"examples/scenes/fox-hd-v3.json\", \"check\": true, \"sha256\": \"62492cb84a45051e33fe53f141996a8d18ff5688295d67cc12a092bc9b6ae615\", \"emitters\": 20, \"native_fiber_upper_bound\": 155000}\n"
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "scripts/author_hd_companions.py",
+        "--only",
+        "workshop-robot",
+        "--check"
+      ],
+      "elapsed_seconds": 0.149,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"path\": \"examples/scenes/workshop-robot-hd-v1.json\", \"sha256\": \"627527976060e4a51aaf7093ebb260cdd0be81334ec1075944dc702bf02286e7\", \"check\": true, \"bytes\": 1087233, \"texture_pixels\": 10485760, \"representations\": {\"glb\": {\"hair_cards\": 0, \"hair_card_vertices\": 0, \"native_strands_exported\": false, \"skeletal_clips\": \"All four original clips preserved unchanged\"}, \"native_blender\": {\"groom_parents\": 0, \"fiber_upper_bound\": 0, \"simulation\": false}}, \"studio\": {\"ground_z\": 0.009, \"world_strength\": 0.3, \"exposure\": 0.55}}\n"
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "scripts/author_hd_companions.py",
+        "--only",
+        "lamp",
+        "--check"
+      ],
+      "elapsed_seconds": 0.115,
+      "exit_code": 0,
+      "stderr": "",
+      "stdout": "{\"path\": \"examples/scenes/lamp-hd-v1.json\", \"sha256\": \"4bcb6521903442a1eed96f63c11772b7de3c483eebb08d6f6ef1e7a23a755e2e\", \"check\": true, \"bytes\": 726394, \"texture_pixels\": 10485760, \"representations\": {\"glb\": {\"hair_cards\": 0, \"hair_card_vertices\": 0, \"native_strands_exported\": false, \"skeletal_clips\": \"All four original clips preserved unchanged\"}, \"native_blender\": {\"groom_parents\": 0, \"fiber_upper_bound\": 0, \"simulation\": false}}, \"studio\": {\"ground_z\": -0.0005, \"world_strength\": 0.3, \"exposure\": 0.55}}\n"
+    }
+  ],
+  "scope": "Exact deterministic scene recipe bytes; not a bit-identical GLB rebuild guarantee",
+  "status": "passed"
+}

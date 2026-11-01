@@ -1,0 +1,77 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "blender_version": "4.5.13 LTS",
+  "emitter_scale_applied": true,
+  "groom": null,
+  "motion_origin": "Explicit locally authored replacement actions; rejected provider motions preserved separately",
+  "normal_strength": 0.5,
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.3701401948928833,
+      0.22820013761520386,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.3701401352882385,
+      -0.22820012271404266,
+      -1.0171509501333276e-07
+    ]
+  },
+  "source_sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+  "source_unchanged": true,
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "making_something",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "milestone_level_up",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "working",
+      "loop_verified": false
+    }
+  ],
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

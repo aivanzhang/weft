@@ -1,0 +1,158 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-1/states/idle.png",
+      "sha256": "1b18eeca646adf1b42569c9efb3a5b585d96051248303e5020ea08413e4bac41",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-01-look_around.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-1/states/look_around.png",
+      "sha256": "3748048186cbe2a6747121be06b4a801777f4c9e766785c8fd733d56a58285b2",
+      "state_ids": [
+        "look_around"
+      ]
+    },
+    {
+      "id": "image-02-milestone_level_up.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-1/states/milestone_level_up.png",
+      "sha256": "81b657460c57997059226fefade466d647ef8cbc4a97779beacf52c967e1aca3",
+      "state_ids": [
+        "milestone_level_up"
+      ]
+    },
+    {
+      "id": "image-03-wing_flap.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-1/states/wing_flap.png",
+      "sha256": "88357b7c63fee1193ae2489034cce3252007fd42b9eccdff3abfe26181123fa8",
+      "state_ids": [
+        "wing_flap"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-1/front.png",
+      "sha256": "967ceaca9bf4deacd33e4efdd2aab7c041f240695d4fb3e0facf3a6ae784104b",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-1/three-quarter.png",
+      "sha256": "609495394eea3834a0bf691c8dab8955735810f41714836af0ba4e3eef0e5771",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/model-1/portrait.png",
+      "sha256": "fe031541272350449dc8f16968ff2e102013d949c35af279405c7ed4f6655587",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "080b2050d00b83518dd1c485836e097acb13914b8c444117e7fea4faaa5d6b71",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "The friendly upright dragon retains rounded proportions, amber eyes, orange horns and spines, a cream belly, two small wings and a long tail."
+      },
+      {
+        "evidence_ids": [
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Green scaled skin and softly rounded stylized forms match the request. No fur or hair is required."
+      },
+      {
+        "evidence_ids": [
+          "image-00-idle.png",
+          "image-01-look_around.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The sampled views contain the whole dragon, including horns, wings, feet and tail, with margins."
+      },
+      {
+        "evidence_ids": [
+          "image-00-idle.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "deformation",
+        "passed": false,
+        "reason": "Moving tail sections flatten into irregular bands with stretched spines, especially during the flourish. Raised wing poses show pinched, angular membrane folds rather than intact wing articulation."
+      }
+    ],
+    "limitations": [
+      "Contact sheets establish sampled pose changes only; they do not establish continuous smoothness, collision freedom, ground forces or seamless loops.",
+      "Supplied proofs report local structure, render attributes and native reload passing; target runtime verification remains false.",
+      "Hidden surfaces, anatomical placement and physical scale remain authored assumptions."
+    ],
+    "required_repairs": [
+      "Refine tail weights and joint transitions so the flourish preserves rounded tail volume and attached spine shapes without flattened bands.",
+      "Refine wing pivots and membrane weights so both wings raise and lower without pinching or angular collapse.",
+      "Make the milestone action visibly read as a shallow torso-and-neck bow followed by a return to standing, retaining planted feet and the sideways tail flourish.",
+      "Provide updated sampled motion evidence after these local rig and animation repairs."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-00-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Small torso and tail changes read as gentle idle movement with feet remaining in the same sampled positions; tail deformation still requires repair."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns between sideward and forward-facing orientations with slight upper-body follow and stable sampled foot positions."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wing_flap.png"
+        ],
+        "id": "wing_flap",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Wing silhouettes visibly alternate while the dragon remains standing. The action is readable, but folded membrane deformation prevents acceptance."
+      },
+      {
+        "evidence_ids": [
+          "image-02-milestone_level_up.png"
+        ],
+        "id": "milestone_level_up",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "Head and tail geometry change, but the torso remains nearly upright and the small head dip does not clearly communicate the requested happy bow. The tail flourish visibly flattens the tail."
+      }
+    ],
+    "summary": "Identity and framing pass. Local skinning repairs and a clearer milestone bow are needed before acceptance.",
+    "verdict": "repair"
+  }
+}

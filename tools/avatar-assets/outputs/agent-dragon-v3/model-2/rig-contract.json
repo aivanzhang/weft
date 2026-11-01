@@ -1,0 +1,40 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Hidden surfaces are generated; bone placement, weights, scale and motion are locally authored assumptions"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "ArmLeft": "ArmLeft",
+    "ArmRight": "ArmRight",
+    "Chest": "Chest",
+    "Head": "Head",
+    "Neck": "Neck",
+    "Root": "Root",
+    "Tail": "Tail",
+    "WingLeft": "WingLeft",
+    "WingRight": "WingRight"
+  },
+  "rest_pose": "Default exported node transforms and inverse bind matrices; authored, not recovered anatomy",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "Head",
+      "Neck",
+      "ArmLeft",
+      "ArmRight",
+      "WingLeft",
+      "WingRight",
+      "Chest",
+      "Tail",
+      "Root"
+    ],
+    "name": "Locally authored creature controls, NOT Weft"
+  },
+  "units": "meters",
+  "weft_runtime_verified": false
+}

@@ -1,0 +1,113 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "checks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "type": "array"
+          },
+          "name": {
+            "enum": [
+              "identity",
+              "appearance",
+              "framing",
+              "deformation"
+            ],
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "passed",
+          "reason",
+          "evidence_ids"
+        ],
+        "type": "object"
+      },
+      "maxItems": 4,
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "required_repairs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "state_reviews": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_ids": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "type": "array"
+          },
+          "id": {
+            "type": "string"
+          },
+          "meaning_passed": {
+            "type": "boolean"
+          },
+          "motion_passed": {
+            "type": "boolean"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "meaning_passed",
+          "motion_passed",
+          "reason",
+          "evidence_ids"
+        ],
+        "type": "object"
+      },
+      "maxItems": 8,
+      "type": "array"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "verdict": {
+      "enum": [
+        "accept",
+        "repair",
+        "unsupported"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "verdict",
+    "summary",
+    "checks",
+    "state_reviews",
+    "required_repairs",
+    "limitations"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,70 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Hidden surfaces and humanoid skeleton are generated assumptions"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "Head": "Head",
+    "Hips": "Hips",
+    "LeftArm": "LeftArm",
+    "LeftFoot": "LeftFoot",
+    "LeftForeArm": "LeftForeArm",
+    "LeftHand": "LeftHand",
+    "LeftLeg": "LeftLeg",
+    "LeftShoulder": "LeftShoulder",
+    "LeftToeBase": "LeftToeBase",
+    "LeftUpLeg": "LeftUpLeg",
+    "RightArm": "RightArm",
+    "RightFoot": "RightFoot",
+    "RightForeArm": "RightForeArm",
+    "RightHand": "RightHand",
+    "RightLeg": "RightLeg",
+    "RightShoulder": "RightShoulder",
+    "RightToeBase": "RightToeBase",
+    "RightUpLeg": "RightUpLeg",
+    "Spine": "Spine",
+    "Spine01": "Spine01",
+    "Spine02": "Spine02",
+    "head_end": "head_end",
+    "headfront": "headfront",
+    "neck": "neck"
+  },
+  "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "head_end",
+      "headfront",
+      "Head",
+      "neck",
+      "LeftHand",
+      "LeftForeArm",
+      "LeftArm",
+      "LeftShoulder",
+      "RightHand",
+      "RightForeArm",
+      "RightArm",
+      "RightShoulder",
+      "Spine",
+      "Spine01",
+      "Spine02",
+      "LeftToeBase",
+      "LeftFoot",
+      "LeftLeg",
+      "LeftUpLeg",
+      "RightToeBase",
+      "RightFoot",
+      "RightLeg",
+      "RightUpLeg",
+      "Hips"
+    ],
+    "name": "Local provider bone controls, NOT Weft"
+  },
+  "units": "meters",
+  "weft_runtime_verified": false
+}

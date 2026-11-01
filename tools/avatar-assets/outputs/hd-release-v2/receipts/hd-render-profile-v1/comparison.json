@@ -1,0 +1,82 @@
+{
+  "timings": [
+    {
+      "persistent_data": false,
+      "frame": 0,
+      "file": "baseline-000.png",
+      "elapsed_seconds": 3.972786874976009
+    },
+    {
+      "persistent_data": false,
+      "frame": 24,
+      "file": "baseline-024.png",
+      "elapsed_seconds": 3.6829057920258492
+    },
+    {
+      "persistent_data": false,
+      "frame": 48,
+      "file": "baseline-048.png",
+      "elapsed_seconds": 3.6504107920918614
+    },
+    {
+      "persistent_data": false,
+      "frame": 72,
+      "file": "baseline-072.png",
+      "elapsed_seconds": 3.6760175419040024
+    },
+    {
+      "persistent_data": true,
+      "frame": 0,
+      "file": "cached-000.png",
+      "elapsed_seconds": 3.874957791995257
+    },
+    {
+      "persistent_data": true,
+      "frame": 24,
+      "file": "cached-024.png",
+      "elapsed_seconds": 3.5805278341285884
+    },
+    {
+      "persistent_data": true,
+      "frame": 48,
+      "file": "cached-048.png",
+      "elapsed_seconds": 3.5625663748942316
+    },
+    {
+      "persistent_data": true,
+      "frame": 72,
+      "file": "cached-072.png",
+      "elapsed_seconds": 3.3713852087967098
+    }
+  ],
+  "pixel_comparisons": [
+    {
+      "frame": 0,
+      "identical_pixels": true,
+      "max_channel_difference": 0,
+      "mean_channel_difference": 0.0
+    },
+    {
+      "frame": 24,
+      "identical_pixels": true,
+      "max_channel_difference": 0,
+      "mean_channel_difference": 0.0
+    },
+    {
+      "frame": 48,
+      "identical_pixels": true,
+      "max_channel_difference": 0,
+      "mean_channel_difference": 0.0
+    },
+    {
+      "frame": 72,
+      "identical_pixels": true,
+      "max_channel_difference": 0,
+      "mean_channel_difference": 0.0
+    }
+  ],
+  "medians": {
+    "False": 3.679461666964926,
+    "True": 3.57154710451141
+  }
+}

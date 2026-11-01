@@ -1,0 +1,20 @@
+{
+  "browser_report": "outputs/hd-gallery-browser-v1/browser-test.json",
+  "media_verification": "outputs/hd-media-verification-v1/verification.json",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "recorded_at": "2026-10-30 19:40:08 PDT",
+  "release_details": "outputs/hd-release-v3/release.json",
+  "release_manifest": {
+    "bytes": 21517,
+    "path": "outputs/hd-release-v3/manifest.json",
+    "sha256": "d8ea8ca94d35d9da75679df1918b17fcdf455d40f3c02ebc9800c77d18120442"
+  },
+  "schema_version": 1,
+  "server_running_by_this_task": false,
+  "source_snapshot": "outputs/hd-release-v3/sources",
+  "start_from_weft_root": "./tools/avatar-assets/run gallery",
+  "status": "verified_stylized_hd_upgrade_not_muse_parity",
+  "url": "http://127.0.0.1:8765/#panda",
+  "visual_review": "outputs/hd-visual-review-v1/review.json"
+}

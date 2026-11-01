@@ -1,0 +1,55 @@
+{
+  "actions": [],
+  "animation_verified": false,
+  "assumptions": [
+    "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+    "Raw generated units are not a calibrated physical measurement",
+    "Hidden geometry is generated, not recovered"
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up": {
+    "max": [
+      0.5865200161933899,
+      0.35863998532295227,
+      0.9501749277114868
+    ],
+    "min": [
+      -0.5867930054664612,
+      -0.364734947681427,
+      -0.9517750144004822
+    ]
+  },
+  "material_count": 1,
+  "meshes": [
+    {
+      "faces": 51320,
+      "name": "Mesh_0",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "vertices": 45081
+    }
+  ],
+  "renders": [
+    {
+      "path": "front.png",
+      "sha256": "a16bfb1aa4b565cf318513165bb64dc4f1da8dc80f62cd0b3be54bdb7b9c4f1d",
+      "view": "front"
+    },
+    {
+      "path": "three-quarter.png",
+      "sha256": "445c33781850ea88971a6206e640e9b5cc01304976ca398380f85d2cbe5ca5ad",
+      "view": "three-quarter"
+    },
+    {
+      "path": "back.png",
+      "sha256": "89012dca4f94d23bab789758340afeb70567a99bd479fd68634e7388519f9ca4",
+      "view": "back"
+    }
+  ],
+  "rigs": [],
+  "schema_version": 1,
+  "source_is_untextured": false,
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "source_unchanged": true
+}

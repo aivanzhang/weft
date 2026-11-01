@@ -1,0 +1,581 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Root"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.5,
+            0.29,
+            0.12
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.5,
+            0.29,
+            0.32
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.25,
+            0.4
+          ],
+          "name": "Chest",
+          "parent": "Root",
+          "tail": [
+            0.5,
+            0.22,
+            0.64
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.22,
+            0.64
+          ],
+          "name": "Neck",
+          "parent": "Chest",
+          "tail": [
+            0.5,
+            0.19,
+            0.76
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.19,
+            0.76
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail": [
+            0.5,
+            0.1,
+            0.85
+          ]
+        },
+        {
+          "head": [
+            0.36,
+            0.22,
+            0.45
+          ],
+          "name": "ArmLeft",
+          "parent": "Chest",
+          "tail": [
+            0.31,
+            0.13,
+            0.32
+          ]
+        },
+        {
+          "head": [
+            0.64,
+            0.22,
+            0.45
+          ],
+          "name": "ArmRight",
+          "parent": "Chest",
+          "tail": [
+            0.69,
+            0.13,
+            0.32
+          ]
+        },
+        {
+          "head": [
+            0.33,
+            0.29,
+            0.52
+          ],
+          "name": "WingLeft",
+          "parent": "Chest",
+          "tail": [
+            0.08,
+            0.32,
+            0.67
+          ]
+        },
+        {
+          "head": [
+            0.67,
+            0.29,
+            0.52
+          ],
+          "name": "WingRight",
+          "parent": "Chest",
+          "tail": [
+            0.92,
+            0.32,
+            0.67
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.35,
+            0.22
+          ],
+          "name": "TailBase",
+          "parent": "Root",
+          "tail": [
+            0.5,
+            0.55,
+            0.12
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.55,
+            0.12
+          ],
+          "name": "TailMid",
+          "parent": "TailBase",
+          "tail": [
+            0.5,
+            0.77,
+            0.065
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.77,
+            0.065
+          ],
+          "name": "TailTip",
+          "parent": "TailMid",
+          "tail": [
+            0.5,
+            0.97,
+            0.08
+          ]
+        }
+      ],
+      "height_meters": 1.6,
+      "layers": [
+        {
+          "bones": [
+            "Root"
+          ],
+          "feather": 0,
+          "max": [
+            1,
+            1,
+            1
+          ],
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "min_vertices": 1000
+        },
+        {
+          "bones": [
+            "Chest"
+          ],
+          "feather": 0.07,
+          "max": [
+            0.77,
+            0.37,
+            0.66
+          ],
+          "min": [
+            0.23,
+            0.06,
+            0.34
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "Neck"
+          ],
+          "feather": 0.04,
+          "max": [
+            0.66,
+            0.29,
+            0.78
+          ],
+          "min": [
+            0.34,
+            0.11,
+            0.59
+          ],
+          "min_vertices": 200
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0.035,
+          "max": [
+            0.8,
+            0.32,
+            1.02
+          ],
+          "min": [
+            0.2,
+            0,
+            0.73
+          ],
+          "min_vertices": 1000
+        },
+        {
+          "bones": [
+            "ArmLeft"
+          ],
+          "feather": 0.025,
+          "max": [
+            0.4,
+            0.25,
+            0.46
+          ],
+          "min": [
+            0.22,
+            0.065,
+            0.29
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "ArmRight"
+          ],
+          "feather": 0.025,
+          "max": [
+            0.78,
+            0.25,
+            0.46
+          ],
+          "min": [
+            0.6,
+            0.065,
+            0.29
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "WingLeft"
+          ],
+          "feather": 0.02,
+          "max": [
+            0.32,
+            0.39,
+            0.715
+          ],
+          "min": [
+            -0.01,
+            0.245,
+            0.5
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "WingRight"
+          ],
+          "feather": 0.02,
+          "max": [
+            1.01,
+            0.39,
+            0.715
+          ],
+          "min": [
+            0.68,
+            0.245,
+            0.5
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "TailBase"
+          ],
+          "feather": 0.045,
+          "max": [
+            0.78,
+            0.59,
+            0.33
+          ],
+          "min": [
+            0.22,
+            0.36,
+            0.015
+          ],
+          "min_vertices": 250
+        },
+        {
+          "bones": [
+            "TailMid"
+          ],
+          "feather": 0.035,
+          "max": [
+            0.82,
+            0.81,
+            0.23
+          ],
+          "min": [
+            0.18,
+            0.55,
+            0.005
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "TailTip"
+          ],
+          "feather": 0.025,
+          "max": [
+            0.85,
+            1.02,
+            0.18
+          ],
+          "min": [
+            0.15,
+            0.77,
+            -0.01
+          ],
+          "min_vertices": 100
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.6,
+    "input_world_bounds": {
+      "max": [
+        0.46567198634147644,
+        0.9276279807090759,
+        0.7014100551605225
+      ],
+      "min": [
+        -0.4641580283641815,
+        -0.9508010745048523,
+        -0.6999800801277161
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "Root"
+        ],
+        "selected_vertices": 36010
+      },
+      {
+        "bones": [
+          "Chest"
+        ],
+        "selected_vertices": 9120
+      },
+      {
+        "bones": [
+          "Neck"
+        ],
+        "selected_vertices": 2441
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 5816
+      },
+      {
+        "bones": [
+          "ArmLeft"
+        ],
+        "selected_vertices": 1873
+      },
+      {
+        "bones": [
+          "ArmRight"
+        ],
+        "selected_vertices": 1618
+      },
+      {
+        "bones": [
+          "WingLeft"
+        ],
+        "selected_vertices": 1020
+      },
+      {
+        "bones": [
+          "WingRight"
+        ],
+        "selected_vertices": 1064
+      },
+      {
+        "bones": [
+          "TailBase"
+        ],
+        "selected_vertices": 5127
+      },
+      {
+        "bones": [
+          "TailMid"
+        ],
+        "selected_vertices": 2881
+      },
+      {
+        "bones": [
+          "TailTip"
+        ],
+        "selected_vertices": 888
+      }
+    ],
+    "max_influences": 3,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "ArmLeft": 1873,
+      "ArmRight": 1618,
+      "Chest": 6817,
+      "Head": 5816,
+      "Neck": 2266,
+      "Root": 19673,
+      "TailBase": 5048,
+      "TailMid": 2802,
+      "TailTip": 888,
+      "WingLeft": 1020,
+      "WingRight": 1064
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        -0.0007569789886474609,
+        0.011586546897888184,
+        0.6999800801277161
+      ],
+      "uniform_scale": 1.141723464230688
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.9126970767974854,
+    "view": "three_quarter"
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.6,
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.5308043956756592,
+      1.0723233222961426,
+      1.600000023841858
+    ],
+    "min": [
+      -0.5308043956756592,
+      -1.0723233222961426,
+      0.0
+    ]
+  },
+  "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "source_unchanged": true,
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        38.400000000000006,
+        60.0,
+        76.80000000000001,
+        96.0
+      ],
+      "id": "look_around",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        1.6,
+        2.5,
+        3.2,
+        4.0
+      ]
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        36.0,
+        55.199999999999996,
+        74.4,
+        96.0
+      ],
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.5,
+        2.3,
+        3.1,
+        4.0
+      ]
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        16.799999999999997,
+        33.599999999999994,
+        50.400000000000006,
+        67.19999999999999,
+        81.6,
+        96.0
+      ],
+      "id": "wing_flap",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.7,
+        1.4,
+        2.1,
+        2.8,
+        3.4,
+        4.0
+      ]
+    }
+  ],
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

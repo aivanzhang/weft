@@ -1,0 +1,33 @@
+{
+  "balance_before": {
+    "balance": 3300,
+    "monthly_credits": 3100,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "enable_pbr": true,
+    "geometry_resolution": "4k",
+    "image_url": {
+      "encoding": "base64 data URI; original bytes",
+      "local_reference": "inputs/reference.webp",
+      "sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2"
+    },
+    "model_type": "standard",
+    "pose_mode": "a-pose",
+    "should_remesh": true,
+    "should_texture": true,
+    "target_formats": [
+      "glb"
+    ],
+    "target_polycount": 60000,
+    "texture_prompt": "Preserve the provided panda and its small green dragon on the panda's anatomical right shoulder (viewer-left). Dense ivory and charcoal panda fur with directional clumps and soft patch borders; warm brown irises, dark pupils, moist dark brown nose, smiling rounded muzzle. The dragon has emerald green pebbled scales, lighter green belly plates, curved horns and thin green wings. Keep original colors and proportions. Detailed physically based surfaces, no painted lighting, no base or added objects.",
+    "texture_resolution": "4k",
+    "topology": "triangle"
+  },
+  "created": "2026-10-31T11:11:26.414331-07:00",
+  "endpoint": "/openapi/v1/image-to-3d",
+  "estimated_credits": 35,
+  "request_sha256": "652e7228649b3a424e6fa93741c9bfeb343fc7ce2f2dfbcaccbc8e8654995600"
+}

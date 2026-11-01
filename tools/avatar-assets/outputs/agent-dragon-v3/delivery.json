@@ -1,0 +1,146 @@
+{
+  "editable_source": "model-2/source.blend",
+  "gallery_catalog": "outputs/agent-dragon-v3/gallery.json",
+  "generation_cost": {
+    "paid_submissions": 0,
+    "reserved_credits": 0
+  },
+  "generation_mode": "reused_generated_source",
+  "human_approval": false,
+  "limitations": [
+    "The supplied model metadata does not establish its appearance, mesh integrity, rig or suitability for articulation; these remain unverified.",
+    "Height is an authored assumption; no physical scale was supplied.",
+    "Wing flaps are grounded skeletal articulation without flight physics. Facial animation is excluded.",
+    "Keeping the existing scaled body intact remains a requirement whose feasibility depends on the unseen source geometry.",
+    "Contact sheets establish sampled pose changes, not continuous timing, smooth velocity, collision freedom or seamless loops.",
+    "The far wing is partly occluded in the motion views, limiting inspection of its full movement.",
+    "Supplied proofs report successful local structure, render-attribute and native-reload checks; target runtime execution remains unverified.",
+    "Hidden surfaces, rig placement, weights and physical scale remain authored assumptions."
+  ],
+  "loop_verified": false,
+  "model": "model-2/model.glb",
+  "new_meshy_credits": 0,
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3",
+  "packs": [
+    {
+      "manifest_sha256": "34f696204794cd7f048862b697172608f82a12708261d1d14ce3c93b8607e954",
+      "path": "model-2"
+    },
+    {
+      "manifest_sha256": "1cf913f44b2a98b68a855f8eef67d49b9cf84bf1a76c385cd3a46e15b57b2182",
+      "path": "reload-2"
+    },
+    {
+      "manifest_sha256": "419f90ffbf4b4ff150a68eab57e7acee666b8812846d967b2da65547aac8d120",
+      "path": "media"
+    },
+    {
+      "manifest_sha256": "0a8082f886bc801a9fdfd96058b227651bafaf6b00b3dab3db2e9b9b50e3751b",
+      "path": "media-portable"
+    },
+    {
+      "manifest_sha256": "48cff26ee392d0f45727b6dd10e010d823b1f874706e9a4cea9bb01facc20914",
+      "path": "exported-preview-2"
+    }
+  ],
+  "plan_sha256": "126be611eb1f45fcceb18d7559ec198a196412e0885a501930dec660a0333d03",
+  "quality_equivalence_verified": false,
+  "recorded": "2026-10-31T22:23:21.807131-07:00",
+  "request_sha256": "a00ca418866faad56d86ac0a3bd41ecae4d88802cbe3a177fc5e1a47806c3f52",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Rounded upright dragon retains amber eyes, orange horns and back spines, cream belly, two small wings and a long tail."
+      },
+      {
+        "evidence_ids": [
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Green scaled surfaces, rounded proportions and friendly expression match the requested stylized appearance. No fur or hair was requested."
+      },
+      {
+        "evidence_ids": [
+          "image-00-idle.png",
+          "image-01-look_around.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Sampled poses keep horns, feet, wings and the entire tail inside the frame."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled head turns, bow and wing articulation preserve connected body contours without visible major collapse, tearing or clipping."
+      }
+    ],
+    "limitations": [
+      "Contact sheets establish sampled pose changes, not continuous timing, smooth velocity, collision freedom or seamless loops.",
+      "The far wing is partly occluded in the motion views, limiting inspection of its full movement.",
+      "Supplied proofs report successful local structure, render-attribute and native-reload checks; target runtime execution remains unverified.",
+      "Hidden surfaces, rig placement, weights and physical scale remain authored assumptions."
+    ],
+    "required_repairs": [],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-00-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Small torso and tail silhouette changes read as gentle idle motion; feet remain in the same sampled positions."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Head and neck visibly turn toward opposing directions with slight torso follow, then return to the starting stance."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wing_flap.png"
+        ],
+        "id": "wing_flap",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Wing silhouettes alternate between raised and lowered positions while the body stays standing; the nearer wing shows the change most clearly."
+      },
+      {
+        "evidence_ids": [
+          "image-02-milestone_level_up.png"
+        ],
+        "id": "milestone_level_up",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Torso, neck and head incline into a shallow bow as the tail changes its sweep, then return upright. The retained friendly expression supports the happy gesture without requiring facial animation."
+      }
+    ],
+    "summary": "The supplied samples support the requested dragon appearance and all four grounded actions, with no major visible deformation.",
+    "verdict": "accept"
+  },
+  "schema_version": 1,
+  "scope": "Generated/reused geometry, agent-authored design, independent native motion proof, agent visual review and actual media; not universal quality or human approval.",
+  "selected_attempt": 2,
+  "status": "complete",
+  "weft_runtime_verified": false
+}

@@ -1,0 +1,2528 @@
+{
+  "schema_version": 1,
+  "id": "humanoid-robot-weft-v1",
+  "subject": "A friendly blue-and-cream humanoid craft robot with a dark visor, warm indicator eyes, actual elbow and knee joints, a held circuit workpiece and assembly probe.",
+  "style": "Original matte retro-future toy biped, rounded blue shells, cream limb panels, dark joint hubs and muted gold details.",
+  "prompt": "Create a genuinely new complete humanoid robot, not a lamp or an animal reskin. Give it a rounded blue torso, cream front panel, friendly dark visor with two warm eyes, small antenna, two articulated arms and legs with real elbow/knee pivots, solid toy hands and broad feet. Anatomical left is world +X and right is world -X for a front facing -Y. Use only opaque matte diffuse materials with metallic=0 and roughness=1 exactly. The left hand carries a small circuit workpiece and the right holds an assembly probe. Idle gently rocks; making_something uses short probe strokes at the low-held workpiece; working raises the workpiece for inspection; milestone_level_up raises both tools with one joyful hop. Key only the ten body-frame bones; head/hands/feet/tool descendants keep authored local rest transforms. Supply editable scene data, real skin weights and complete hidden surfaces for weft-v1; do not change or simulate Weft physics, actions or rewards.",
+  "references": [],
+  "rights": {
+    "holder": "Unspecified; original asset authored locally for Ivan",
+    "license": "No separate asset license specified",
+    "source": "Original local procedural geometry, materials, rig and authored action keys",
+    "declaration": "No external model, texture, font or reference image is used. This records local authorship and provenance, not an independent legal rights review."
+  },
+  "authored_assumptions": [
+    "Original robot design without an image reference; all visible and hidden surfaces, proportions and mechanics are authored.",
+    "The biped has real independently weighted torso, upper arms, forearms, thighs and shins, with rigid toy-like joints rather than deforming soft skin.",
+    "Anatomical left is world +X and right is world -X for the -Y-facing rest pose.",
+    "Head, hands, feet and held-tool descendants are unbound rest transforms under the ten controlled body bones; no finger, visor or antenna actuation is inferred.",
+    "The workpiece and assembly probe are rigid held props. Probe strokes and inspection are gestures; no circuit simulation, generated marks or manufacturing occurs.",
+    "Weft retargeting uses the existing simulated body frames; authored clips are provenance and not alternate simulation actions.",
+    "Materials are explicitly opaque matte diffuse with metallic=0 and roughness=1. Gold is a paint color, not a metallic shader.",
+    "Keyframe rotations/translations use model rest axes and are converted through bone rest bases by the builder."
+  ],
+  "materials": {
+    "blue": {
+      "color": [
+        0.25882352941176473,
+        0.48627450980392156,
+        0.6274509803921569,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    },
+    "cream": {
+      "color": [
+        0.9137254901960784,
+        0.8862745098039215,
+        0.8,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    },
+    "joint": {
+      "color": [
+        0.2196078431372549,
+        0.2784313725490196,
+        0.3254901960784314,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    },
+    "visor": {
+      "color": [
+        0.13725490196078433,
+        0.2196078431372549,
+        0.27450980392156865,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    },
+    "gold": {
+      "color": [
+        0.8392156862745098,
+        0.6823529411764706,
+        0.3803921568627451,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    },
+    "eye": {
+      "color": [
+        1.0,
+        0.9019607843137255,
+        0.6588235294117647,
+        1
+      ],
+      "roughness": 1,
+      "metallic": 0
+    }
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "head": [
+        0,
+        0,
+        0.88
+      ],
+      "tail": [
+        0,
+        0,
+        1.1
+      ]
+    },
+    {
+      "name": "torso",
+      "parent": "root",
+      "head": [
+        0,
+        0,
+        1.03
+      ],
+      "tail": [
+        0,
+        0,
+        1.25
+      ]
+    },
+    {
+      "name": "head",
+      "parent": "torso",
+      "head": [
+        0,
+        0,
+        1.78
+      ],
+      "tail": [
+        0,
+        0,
+        2.0
+      ]
+    },
+    {
+      "name": "upper_arm_right",
+      "parent": "torso",
+      "head": [
+        -0.43,
+        0,
+        1.58
+      ],
+      "tail": [
+        -0.43,
+        0,
+        1.8
+      ]
+    },
+    {
+      "name": "forearm_right",
+      "parent": "upper_arm_right",
+      "head": [
+        -0.61,
+        -0.04,
+        1.24
+      ],
+      "tail": [
+        -0.61,
+        -0.04,
+        1.46
+      ]
+    },
+    {
+      "name": "hand_right",
+      "parent": "forearm_right",
+      "head": [
+        -0.45,
+        -0.28,
+        1.03
+      ],
+      "tail": [
+        -0.45,
+        -0.28,
+        1.25
+      ]
+    },
+    {
+      "name": "thigh_right",
+      "parent": "root",
+      "head": [
+        -0.23,
+        0,
+        0.92
+      ],
+      "tail": [
+        -0.23,
+        0,
+        1.1400000000000001
+      ]
+    },
+    {
+      "name": "shin_right",
+      "parent": "thigh_right",
+      "head": [
+        -0.25,
+        0,
+        0.52
+      ],
+      "tail": [
+        -0.25,
+        0,
+        0.74
+      ]
+    },
+    {
+      "name": "foot_right",
+      "parent": "shin_right",
+      "head": [
+        -0.26,
+        -0.02,
+        0.18
+      ],
+      "tail": [
+        -0.26,
+        -0.02,
+        0.4
+      ]
+    },
+    {
+      "name": "upper_arm_left",
+      "parent": "torso",
+      "head": [
+        0.43,
+        0,
+        1.58
+      ],
+      "tail": [
+        0.43,
+        0,
+        1.8
+      ]
+    },
+    {
+      "name": "forearm_left",
+      "parent": "upper_arm_left",
+      "head": [
+        0.61,
+        -0.04,
+        1.24
+      ],
+      "tail": [
+        0.61,
+        -0.04,
+        1.46
+      ]
+    },
+    {
+      "name": "hand_left",
+      "parent": "forearm_left",
+      "head": [
+        0.45,
+        -0.28,
+        1.03
+      ],
+      "tail": [
+        0.45,
+        -0.28,
+        1.25
+      ]
+    },
+    {
+      "name": "thigh_left",
+      "parent": "root",
+      "head": [
+        0.23,
+        0,
+        0.92
+      ],
+      "tail": [
+        0.23,
+        0,
+        1.1400000000000001
+      ]
+    },
+    {
+      "name": "shin_left",
+      "parent": "thigh_left",
+      "head": [
+        0.25,
+        0,
+        0.52
+      ],
+      "tail": [
+        0.25,
+        0,
+        0.74
+      ]
+    },
+    {
+      "name": "foot_left",
+      "parent": "shin_left",
+      "head": [
+        0.26,
+        -0.02,
+        0.18
+      ],
+      "tail": [
+        0.26,
+        -0.02,
+        0.4
+      ]
+    },
+    {
+      "name": "workpiece",
+      "parent": "hand_left",
+      "head": [
+        0.18,
+        -0.38,
+        1.05
+      ],
+      "tail": [
+        0.18,
+        -0.38,
+        1.27
+      ]
+    },
+    {
+      "name": "probe",
+      "parent": "hand_right",
+      "head": [
+        -0.4,
+        -0.34,
+        1.1
+      ],
+      "tail": [
+        -0.4,
+        -0.34,
+        1.32
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "name": "torso_shell",
+      "shape": "sphere",
+      "location": [
+        0,
+        0,
+        1.36
+      ],
+      "scale": [
+        0.4,
+        0.25,
+        0.42
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "torso"
+    },
+    {
+      "name": "front_panel",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.229,
+        1.35
+      ],
+      "scale": [
+        0.3,
+        0.048,
+        0.29
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "torso"
+    },
+    {
+      "name": "control_panel",
+      "shape": "cube",
+      "location": [
+        0,
+        -0.273,
+        1.35
+      ],
+      "scale": [
+        0.16,
+        0.019,
+        0.115
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "torso"
+    },
+    {
+      "name": "status_lamp",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.296,
+        1.39
+      ],
+      "scale": [
+        0.035,
+        0.014,
+        0.035
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "eye",
+      "bone": "torso"
+    },
+    {
+      "name": "status_bar",
+      "shape": "cube",
+      "location": [
+        0,
+        -0.296,
+        1.29
+      ],
+      "scale": [
+        0.09,
+        0.012,
+        0.015
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "torso"
+    },
+    {
+      "name": "waist_joint",
+      "shape": "cylinder",
+      "location": [
+        0,
+        0,
+        0.98
+      ],
+      "scale": [
+        0.25,
+        0.25,
+        0.08
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "torso"
+    },
+    {
+      "name": "pelvis_shell",
+      "shape": "sphere",
+      "location": [
+        0,
+        0,
+        0.9
+      ],
+      "scale": [
+        0.31,
+        0.23,
+        0.17
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "root"
+    },
+    {
+      "name": "neck_joint",
+      "shape": "sphere",
+      "location": [
+        0,
+        0,
+        1.78
+      ],
+      "scale": [
+        0.12,
+        0.12,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "head"
+    },
+    {
+      "name": "head_shell",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.005,
+        2.06
+      ],
+      "scale": [
+        0.39,
+        0.3,
+        0.32
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "head"
+    },
+    {
+      "name": "face_visor",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.269,
+        2.075
+      ],
+      "scale": [
+        0.31,
+        0.064,
+        0.18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "visor",
+      "bone": "head"
+    },
+    {
+      "name": "eye_right",
+      "shape": "cube",
+      "location": [
+        -0.1,
+        -0.327,
+        2.1
+      ],
+      "scale": [
+        0.032,
+        0.012,
+        0.055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "eye",
+      "bone": "head"
+    },
+    {
+      "name": "eye_left",
+      "shape": "cube",
+      "location": [
+        0.1,
+        -0.327,
+        2.1
+      ],
+      "scale": [
+        0.032,
+        0.012,
+        0.055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "eye",
+      "bone": "head"
+    },
+    {
+      "name": "friendly_mouth",
+      "shape": "cube",
+      "location": [
+        0,
+        -0.332,
+        2.0
+      ],
+      "scale": [
+        0.073,
+        0.009,
+        0.012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "head"
+    },
+    {
+      "name": "antenna_shaft",
+      "shape": "cylinder",
+      "location": [
+        0,
+        0.015,
+        2.43
+      ],
+      "scale": [
+        0.025,
+        0.025,
+        0.09
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "head"
+    },
+    {
+      "name": "antenna_tip",
+      "shape": "sphere",
+      "location": [
+        0,
+        0.015,
+        2.53
+      ],
+      "scale": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "head"
+    },
+    {
+      "name": "ear_cap_right",
+      "shape": "cylinder",
+      "location": [
+        -0.385,
+        0.005,
+        2.065
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.045
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "material": "blue",
+      "bone": "head"
+    },
+    {
+      "name": "shoulder_cap_right",
+      "shape": "sphere",
+      "location": [
+        -0.43,
+        0,
+        1.58
+      ],
+      "scale": [
+        0.16,
+        0.15,
+        0.16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "upper_arm_right"
+    },
+    {
+      "name": "upper_arm_right",
+      "shape": "cylinder",
+      "location": [
+        -0.52,
+        -0.02,
+        1.4100000000000001
+      ],
+      "scale": [
+        0.115,
+        0.115,
+        0.20886205974278818
+      ],
+      "rotation": [
+        0.10360277589804398,
+        -2.6546934217785245,
+        0
+      ],
+      "material": "blue",
+      "bone": "upper_arm_right"
+    },
+    {
+      "name": "elbow_hub_right",
+      "shape": "sphere",
+      "location": [
+        -0.61,
+        -0.04,
+        1.24
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "forearm_right"
+    },
+    {
+      "name": "forearm_shell_right",
+      "shape": "sphere",
+      "location": [
+        -0.53,
+        -0.16,
+        1.135
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.19266727796904173
+      ],
+      "rotation": [
+        0.7378007774472738,
+        2.4905159321453136,
+        0
+      ],
+      "material": "cream",
+      "bone": "forearm_right"
+    },
+    {
+      "name": "solid_hand_right",
+      "shape": "sphere",
+      "location": [
+        -0.45,
+        -0.28,
+        1.03
+      ],
+      "scale": [
+        0.13,
+        0.14,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "hand_right"
+    },
+    {
+      "name": "hip_hub_right",
+      "shape": "sphere",
+      "location": [
+        -0.23,
+        0,
+        0.92
+      ],
+      "scale": [
+        0.155,
+        0.145,
+        0.155
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "thigh_right"
+    },
+    {
+      "name": "thigh_shell_right",
+      "shape": "cylinder",
+      "location": [
+        -0.24,
+        0.0,
+        0.72
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.21626983146060855
+      ],
+      "rotation": [
+        0.0,
+        -3.0916342578678506,
+        0
+      ],
+      "material": "blue",
+      "bone": "thigh_right"
+    },
+    {
+      "name": "knee_hub_right",
+      "shape": "sphere",
+      "location": [
+        -0.25,
+        0,
+        0.52
+      ],
+      "scale": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "shin_right"
+    },
+    {
+      "name": "knee_cap_right",
+      "shape": "sphere",
+      "location": [
+        -0.25,
+        -0.126,
+        0.52
+      ],
+      "scale": [
+        0.09,
+        0.035,
+        0.09
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "shin_right"
+    },
+    {
+      "name": "shin_shell_right",
+      "shape": "sphere",
+      "location": [
+        -0.255,
+        -0.01,
+        0.35
+      ],
+      "scale": [
+        0.128,
+        0.128,
+        0.18399663040392888
+      ],
+      "rotation": [
+        0.058730484146560936,
+        -3.112189365385788,
+        0
+      ],
+      "material": "cream",
+      "bone": "shin_right"
+    },
+    {
+      "name": "shin_front_right",
+      "shape": "sphere",
+      "location": [
+        -0.255,
+        -0.117,
+        0.34
+      ],
+      "scale": [
+        0.078,
+        0.025,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "shin_right"
+    },
+    {
+      "name": "foot_shell_right",
+      "shape": "cube",
+      "location": [
+        -0.26,
+        -0.1,
+        0.12
+      ],
+      "scale": [
+        0.17,
+        0.23,
+        0.11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "foot_right"
+    },
+    {
+      "name": "toe_cap_right",
+      "shape": "cube",
+      "location": [
+        -0.26,
+        -0.302,
+        0.14
+      ],
+      "scale": [
+        0.16,
+        0.035,
+        0.07
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "foot_right"
+    },
+    {
+      "name": "ear_cap_left",
+      "shape": "cylinder",
+      "location": [
+        0.385,
+        0.005,
+        2.065
+      ],
+      "scale": [
+        0.1,
+        0.1,
+        0.045
+      ],
+      "rotation": [
+        0,
+        1.5707963267948966,
+        0
+      ],
+      "material": "blue",
+      "bone": "head"
+    },
+    {
+      "name": "shoulder_cap_left",
+      "shape": "sphere",
+      "location": [
+        0.43,
+        0,
+        1.58
+      ],
+      "scale": [
+        0.16,
+        0.15,
+        0.16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "upper_arm_left"
+    },
+    {
+      "name": "upper_arm_left",
+      "shape": "cylinder",
+      "location": [
+        0.52,
+        -0.02,
+        1.4100000000000001
+      ],
+      "scale": [
+        0.115,
+        0.115,
+        0.20886205974278818
+      ],
+      "rotation": [
+        0.10360277589804398,
+        2.6546934217785245,
+        0
+      ],
+      "material": "blue",
+      "bone": "upper_arm_left"
+    },
+    {
+      "name": "elbow_hub_left",
+      "shape": "sphere",
+      "location": [
+        0.61,
+        -0.04,
+        1.24
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "forearm_left"
+    },
+    {
+      "name": "forearm_shell_left",
+      "shape": "sphere",
+      "location": [
+        0.53,
+        -0.16,
+        1.135
+      ],
+      "scale": [
+        0.125,
+        0.125,
+        0.19266727796904173
+      ],
+      "rotation": [
+        0.7378007774472738,
+        -2.4905159321453136,
+        0
+      ],
+      "material": "cream",
+      "bone": "forearm_left"
+    },
+    {
+      "name": "solid_hand_left",
+      "shape": "sphere",
+      "location": [
+        0.45,
+        -0.28,
+        1.03
+      ],
+      "scale": [
+        0.13,
+        0.14,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "hand_left"
+    },
+    {
+      "name": "hip_hub_left",
+      "shape": "sphere",
+      "location": [
+        0.23,
+        0,
+        0.92
+      ],
+      "scale": [
+        0.155,
+        0.145,
+        0.155
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "thigh_left"
+    },
+    {
+      "name": "thigh_shell_left",
+      "shape": "cylinder",
+      "location": [
+        0.24,
+        0.0,
+        0.72
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.21626983146060855
+      ],
+      "rotation": [
+        0.0,
+        3.0916342578678506,
+        0
+      ],
+      "material": "blue",
+      "bone": "thigh_left"
+    },
+    {
+      "name": "knee_hub_left",
+      "shape": "sphere",
+      "location": [
+        0.25,
+        0,
+        0.52
+      ],
+      "scale": [
+        0.14,
+        0.14,
+        0.14
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "joint",
+      "bone": "shin_left"
+    },
+    {
+      "name": "knee_cap_left",
+      "shape": "sphere",
+      "location": [
+        0.25,
+        -0.126,
+        0.52
+      ],
+      "scale": [
+        0.09,
+        0.035,
+        0.09
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "shin_left"
+    },
+    {
+      "name": "shin_shell_left",
+      "shape": "sphere",
+      "location": [
+        0.255,
+        -0.01,
+        0.35
+      ],
+      "scale": [
+        0.128,
+        0.128,
+        0.18399663040392888
+      ],
+      "rotation": [
+        0.058730484146560936,
+        3.112189365385788,
+        0
+      ],
+      "material": "cream",
+      "bone": "shin_left"
+    },
+    {
+      "name": "shin_front_left",
+      "shape": "sphere",
+      "location": [
+        0.255,
+        -0.117,
+        0.34
+      ],
+      "scale": [
+        0.078,
+        0.025,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "shin_left"
+    },
+    {
+      "name": "foot_shell_left",
+      "shape": "cube",
+      "location": [
+        0.26,
+        -0.1,
+        0.12
+      ],
+      "scale": [
+        0.17,
+        0.23,
+        0.11
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "foot_left"
+    },
+    {
+      "name": "toe_cap_left",
+      "shape": "cube",
+      "location": [
+        0.26,
+        -0.302,
+        0.14
+      ],
+      "scale": [
+        0.16,
+        0.035,
+        0.07
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "foot_left"
+    },
+    {
+      "name": "workpiece_frame",
+      "shape": "cube",
+      "location": [
+        0.18,
+        -0.38,
+        1.05
+      ],
+      "scale": [
+        0.23,
+        0.045,
+        0.16
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "workpiece"
+    },
+    {
+      "name": "workpiece_blue_inset",
+      "shape": "cube",
+      "location": [
+        0.18,
+        -0.43,
+        1.05
+      ],
+      "scale": [
+        0.19,
+        0.012,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "blue",
+      "bone": "workpiece"
+    },
+    {
+      "name": "workpiece_trace_a",
+      "shape": "cube",
+      "location": [
+        0.18,
+        -0.445,
+        1.08
+      ],
+      "scale": [
+        0.13,
+        0.007,
+        0.012
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "workpiece"
+    },
+    {
+      "name": "workpiece_trace_b",
+      "shape": "cube",
+      "location": [
+        0.13,
+        -0.445,
+        1.025
+      ],
+      "scale": [
+        0.012,
+        0.007,
+        0.06
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "gold",
+      "bone": "workpiece"
+    },
+    {
+      "name": "probe_handle",
+      "shape": "cylinder",
+      "location": [
+        -0.30000000000000004,
+        -0.365,
+        1.1
+      ],
+      "scale": [
+        0.04,
+        0.04,
+        0.11132385189167686
+      ],
+      "rotation": [
+        0.2449786631268641,
+        1.5707963267948966,
+        0
+      ],
+      "material": "blue",
+      "bone": "probe"
+    },
+    {
+      "name": "probe_tip",
+      "shape": "cylinder",
+      "location": [
+        -0.07500000000000001,
+        -0.42000000000000004,
+        1.1
+      ],
+      "scale": [
+        0.02,
+        0.02,
+        0.13883356942757039
+      ],
+      "rotation": [
+        0.23554498072086333,
+        1.5707963267948966,
+        0
+      ],
+      "material": "gold",
+      "bone": "probe"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "circuit_workpiece",
+      "parent_bone": "hand_left",
+      "child_bone": "workpiece",
+      "placement": "Held by anatomical left hand/world +X, with its face toward the front camera at rest.",
+      "authored_assumption": "Fixed painted guide traces, not a simulated circuit or newly drawn marks."
+    },
+    {
+      "name": "assembly_probe",
+      "parent_bone": "hand_right",
+      "child_bone": "probe",
+      "placement": "Held in anatomical right hand/world -X; points toward the workpiece at rest.",
+      "authored_assumption": "Rigid toy assembly probe; no inferred finger control or physical tool interaction."
+    }
+  ],
+  "camera": {
+    "target": [
+      0,
+      -0.02,
+      1.3
+    ],
+    "position": [
+      3,
+      -6,
+      2.9
+    ],
+    "orthographic_scale": 3.35
+  },
+  "background": [
+    0.94,
+    0.95,
+    0.96,
+    1
+  ],
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Friendly attentive body rock with tools held at waist height and both feet planted.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0.035
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0.0175
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                -0.0175
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                -0.035
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.0175
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0.0175
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0.0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "working",
+      "meaning": "Raises the circuit workpiece toward the face and leans forward to inspect it while the probe hand rests.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.1,
+                0,
+                -0.05
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                -1.0,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                -0.3,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.17,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                -1.0,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                -0.3,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.1,
+                0,
+                0.05
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                -1.0,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                -0.3,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.17,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                -1.0,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                -0.3,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.1,
+                0,
+                -0.05
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                -1.0,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                -0.3,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "making_something",
+      "meaning": "Uses repeated short probe strokes toward the waist-held circuit guide while the left arm steadies it; guide marks remain fixed.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 12,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 36,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 60,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 84,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "torso": {
+              "rotation": [
+                0.07,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                0,
+                0.025
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Raises both tools above shoulder level with one cheerful hop and a preparatory knee bend.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -0.0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0.0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -0.0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0.0,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 18,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.015,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -0.4,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0.4,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -0.5,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0.5,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0.2,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0.2,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                -0.02
+              ]
+            }
+          }
+        },
+        {
+          "frame": 36,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.06,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -1.6,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                1.6,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -2.0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                2.0,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0.08
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.06,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -1.6,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                1.6,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -2.0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                2.0,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0.12
+              ]
+            }
+          }
+        },
+        {
+          "frame": 60,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.054,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -1.4400000000000002,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                1.4400000000000002,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -1.8,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                1.8,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                -0.04,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                -0.04,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0.08,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0.08,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 78,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.015,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -0.4,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0.4,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -0.5,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0.5,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "torso": {
+              "rotation": [
+                -0.0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                -0.0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0.0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0,
+                -0.0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0.0,
+                0
+              ]
+            },
+            "thigh_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "thigh_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "shin_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "output_profile": "weft-v1",
+  "binding_design": {
+    "root": "mobile_root",
+    "torso": "torso",
+    "upper_arm_left": "left_shoulder_body",
+    "upper_arm_right": "right_shoulder_body",
+    "forearm_left": "left_elbow_body",
+    "forearm_right": "right_elbow_body",
+    "thigh_left": "left_hip_body",
+    "thigh_right": "right_hip_body",
+    "shin_left": "left_knee_body",
+    "shin_right": "right_knee_body"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1159,
+      "path": "job.json",
+      "sha256": "eb3777af28a565c1f349618fcabeaaaea8990bc8e236401e67e87d2f8b32294a"
+    },
+    {
+      "bytes": 275,
+      "path": "verification-handle.json",
+      "sha256": "f0cefe547b865c979b7360cd1ae7489f822a64f5e9ad7e9cb017f261454fc8b6"
+    },
+    {
+      "bytes": 1061,
+      "path": "verification-monitor.json",
+      "sha256": "2d8fd6f027923c34ce77ba83e1b1c310aa3a0203bb893c67e7c2ffe0c2f7ccb7"
+    },
+    {
+      "bytes": 33354,
+      "path": "verification.json",
+      "sha256": "5f41705dd9ea63966b816022b8f3567dfe9afa3a059494ce4e0c25e767fb0a71"
+    },
+    {
+      "bytes": 166,
+      "path": "verification.log",
+      "sha256": "5676f4f7945684f6b4fb34e42b98a5c8af58f08d40f8ca8958255fe588717330"
+    },
+    {
+      "bytes": 5049,
+      "path": "verify_meshy_delivery_v1.py",
+      "sha256": "bbbe8d5a6387d4d4eb169518cd9f2adcb9f2e11940acda967c58cd6206557f45"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "scratch.verify_meshy_delivery_v1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/meshy-delivery-verification-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 4.945,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 39842,
+    "last_rss_sample_elapsed_seconds": 4.684,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 1024,
+      "wall_seconds": 180
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "verification-monitor.json",
+    "monitor_errors": [],
+    "pid": 92278,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 18,
+    "sampled_max_output_bytes": 39842,
+    "sampled_peak_rss_bytes": 269156352,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

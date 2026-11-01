@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "panda",
+      "title": "HD Muse-inspired panda",
+      "description": "Refined panda and green shoulder dragon with 2K surface detail. Portraits and videos use dense combed native hair; interactive 3D uses lighter cutout fur cards. Newly authored, not the original Muse model or an exact-quality match.",
+      "kind": "authored_3d",
+      "pack": "outputs/muse-panda-hd-build-v3",
+      "media_pack": "outputs/muse-panda-hd-media-v1-portable-v1"
+    },
+    {
+      "id": "robot",
+      "title": "HD workshop robot",
+      "description": "Blue-and-cream workshop robot with high-resolution brushed surfaces, beveled shells, layered joints, circuit board and probe. Native 1600-pixel portrait and 720-pixel action previews; no animal fur.",
+      "kind": "authored_3d",
+      "pack": "outputs/workshop-robot-hd-build-v2",
+      "media_pack": "outputs/workshop-robot-hd-media-v1-portable-v1"
+    },
+    {
+      "id": "fox",
+      "title": "HD fox craftsperson",
+      "description": "Orange fox with a teal scarf, sketchbook and pencil. Portraits and videos use dense combed native hair; interactive 3D uses lighter cutout fur cards. Includes HD coat textures and four skeletal actions.",
+      "kind": "authored_3d",
+      "pack": "outputs/fox-hd-build-v2",
+      "media_pack": "outputs/fox-hd-media-v1-portable-v1"
+    },
+    {
+      "id": "lamp",
+      "title": "HD articulated desk lamp",
+      "description": "Burgundy-and-brass lamp with high-resolution metal surfaces, hollow reflector, machined hinges, springs, wiring and tracing stylus. Native 1600-pixel portrait and 720-pixel action previews; no animal fur.",
+      "kind": "authored_3d",
+      "pack": "outputs/lamp-hd-build-v2",
+      "media_pack": "outputs/lamp-hd-media-v1-portable-v1"
+    },
+    {
+      "id": "reference",
+      "title": "Original panda reference",
+      "description": "The supplied portrait and four original video clips. This reference pack contains no 3D mesh or rig.",
+      "kind": "reference_2d",
+      "pack": "outputs/reference-v1"
+    }
+  ]
+}

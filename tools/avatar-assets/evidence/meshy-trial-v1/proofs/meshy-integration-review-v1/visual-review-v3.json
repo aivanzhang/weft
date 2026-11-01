@@ -1,0 +1,65 @@
+{
+  "evidence": [
+    {
+      "path": "outputs/muse-panda-meshy-media-v2/portrait.png",
+      "sha256": "e8d91d7a297431613ba0de63309f6eb36cc6ea7e4a9d65aa200f4de0d4553e47"
+    },
+    {
+      "path": "outputs/muse-panda-meshy-media-v2/portrait-raw.png",
+      "sha256": "bf7d7fbdf86867ff1d40c40709c6572faa9a38b1b32d3d60b1d5ab72ca9ee844"
+    },
+    {
+      "path": "outputs/muse-panda-meshy-media-v2/contact-sheets/making_something.png",
+      "sha256": "90e8c5a76ee3cf68fce91c1861d6af51c21d7291628d15d0a9473246973d1967"
+    },
+    {
+      "path": "outputs/muse-panda-meshy-media-v2/contact-sheets/milestone_level_up.png",
+      "sha256": "b086865c7a5c1713de62bd2c290a6b069f4f1403e5c5d3690d7d40273e8c19f3"
+    },
+    {
+      "path": "outputs/workshop-robot-meshy-media-v1/portrait.png",
+      "sha256": "119e67e79ae82e4a8b744ad6afdbec38be722331035b1ccf9b45f7b306cf2dad"
+    },
+    {
+      "path": "outputs/browser-meshy-media-v1/desktop.png",
+      "sha256": "ca37f0ae2c8805ab84b394e06c915e392ee0fa37520f5ee106b5cc2f3ee7fe3b"
+    }
+  ],
+  "human_approval": false,
+  "models": [
+    {
+      "folder": "muse-panda-meshy-refined-v6",
+      "model_sha256": "a874d80ca58c0524d0b3a5a1a52d66700a4dc6c540c298936de24d108f001fd8"
+    },
+    {
+      "folder": "workshop-robot-meshy-refined-v2",
+      "model_sha256": "47576c7f64cf16fd2f6b704307fe76a3cd9aa7541ab50a530885449b2beea8bb"
+    }
+  ],
+  "observations": [
+    "Both real models load and move;4K basecolor/normal textures are present, with2K metallic-roughness maps.",
+    "Panda likeness is closer than the prior procedural base, but smaller eyes/flatter muzzle and coarse fur/dragon detail remain below the Muse reference.",
+    "Panda uses299000 configured native fibers and2400 portable skinned cards. Those counts describe separate representations, not independently counted visible hairs or quality equivalence.",
+    "The rigid companion selection is spatial/color authored and expanded25mm; sampled restrained motion keeps it at the right shoulder. It is not an independently controlled dragon and boundary selection is not exhaustive.",
+    "Paid panda provider clips are rejected for severe belly/limb/dragon stretching. Four local gestures replace them explicitly; they are not accepted provider animations.",
+    "Native contact review: idle is plausible and the small celebration is distinguishable. Crafting/working show hand/head changes but are not clearly recognizable task actions; their meaning remains unaccepted. No visible workpiece or articulated fingers.",
+    "No seamless loop or Weft HD compatibility is claimed. Native portraits are opaque; browser cards use glTF MASK, despite the historical manifest has_transparency field referring to the portrait.",
+    "Final1600px panda portrait retains triangular coat/cheek and patch-transition artifacts, coarse glossy dragon surfaces and a flatter muzzle than the original. Raw and denoised renders were compared; denoising removes noise but softens fur and does not fix these defects.",
+    "Final browser screenshot shows sparse bright fur speckles and a much coarser coat than Muse. The model is a review candidate, not promoted as equivalent to the reference.",
+    "Final panda crafting contact sheet has genuine slight skeletal motion but lacks a clearly recognizable making task. The celebration raises one forearm slightly; it is weak but distinguishable.",
+    "Robot is a genuinely different prompt-only generated model; its blue/copper/cream surfaces and humanoid skin are visible. It has no fur by design and no independent finger controls.",
+    "Media four-second clips and full portraits have verified dimensions, frames, silence and fallbacks. No geometric or semantic quality approval is inferred from encoding success."
+  ],
+  "quality_target_met": false,
+  "recorded": "2026-10-31T12:31:52.021220-07:00",
+  "reviewer": "Agent sampled visual inspection",
+  "schema_version": 1,
+  "state_meaning_acceptance": {
+    "idle": "plausible sampled gesture",
+    "making_something": "not accepted; lacks recognizable object/task interaction",
+    "milestone_level_up": "weak but distinguishable small celebration",
+    "working": "not accepted; lacks recognizable object/task interaction"
+  },
+  "supersedes_review_sha256": "d40ca43c0e3622996acfe7e3292cad1f8e05d8487d56a5b50fe22ed567241a95",
+  "verdict": "partial"
+}

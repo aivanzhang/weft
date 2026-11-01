@@ -1,0 +1,73 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The rounded workshop robot retains its large head, rounded torso, two arms, two feet and matching panel details across supplied views."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Blue and cream hard surfaces with copper joints and trim match the request. No props or hair are present or required."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look_around.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The entire robot, including hands and feet, remains inside every sampled frame. Feet retain their sampled positions."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png", "image-05-three-quarter.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "During the raised-arm poses, the moving wrist and hand develop long, thin trailing spikes instead of preserving the compact hard-surface shape visible at rest."
+    }
+  ],
+  "limitations": [
+    "Supplied structural proofs report successful loading and numerical movement; they do not establish action meaning or acceptable deformation.",
+    "Contact sheets do not establish all-frame collision freedom, physical ground contact, timing smoothness or seamless loops.",
+    "The target runtime was not exercised. Hidden surfaces, scale and rig remain authored assumptions.",
+    "Idle and celebrate changes are not visually distinguishable enough in the supplied samples to verify their intended meanings."
+  ],
+  "required_repairs": [
+    "Correct moving forearm, wrist and hand weights and joint placement so the wave preserves rigid panel and finger shapes without stretched spikes.",
+    "Make the wave visibly alternate the raised hand side to side before lowering it; provide samples showing both directions.",
+    "Make the gentle idle torso and arm shifts perceptible while keeping both feet planted.",
+    "Correct or strengthen the celebratory head pitch and slight torso dip so a modest nod and return upright are visibly readable.",
+    "Provide updated motion evidence at informative poses for all repaired states."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": false,
+      "motion_passed": false,
+      "reason": "Samples appear effectively identical. Reported numerical displacement does not visibly demonstrate gentle torso and arm shifts."
+    },
+    {
+      "evidence_ids": ["image-02-look_around.png"],
+      "id": "look_around",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns in opposite directions and returns to its starting orientation while the torso and feet remain substantially still."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "One forearm visibly rises and lowers, but a friendly side-to-side hand wave is unclear and the raised hand visibly stretches into thin spikes."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": false,
+      "motion_passed": false,
+      "reason": "The sampled poses appear effectively unchanged; a head nod and upper-torso dip cannot be visually confirmed despite reported numerical movement."
+    }
+  ],
+  "summary": "Identity, palette and framing pass. Repair wave deformation and provide visibly readable idle, wave and celebratory nod motion.",
+  "verdict": "repair"
+}

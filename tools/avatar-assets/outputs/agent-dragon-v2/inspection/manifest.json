@@ -1,0 +1,174 @@
+{
+  "artifacts": [
+    {
+      "bytes": 217494,
+      "path": "back.png",
+      "sha256": "19f4660450c291ce9201c9ed378f7bcfb3e7106105825af1e60fa5cc3b4234f7"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "6cdf696c86c18d66dc5c49553911c26aea95bd7dc4dfb7fc37b90acc6f07f9d7"
+    },
+    {
+      "bytes": 216410,
+      "path": "front.png",
+      "sha256": "fe9bb4ea22b3ee31156d83bb3d3064836020ab6661edc442eb1256f42a5e30f0"
+    },
+    {
+      "bytes": 1533,
+      "path": "job.json",
+      "sha256": "7efd2baf326fb78e800437c3f55c32b89176671a43dfeac4306d8ccaa74d1db0"
+    },
+    {
+      "bytes": 1350,
+      "path": "native-inspection.json",
+      "sha256": "cd9b2f9a1f41a84693d233eea6fb10f7ac940b8b2c5117bd9ff9de08552b068e"
+    },
+    {
+      "bytes": 25349908,
+      "path": "original.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+    },
+    {
+      "bytes": 651,
+      "path": "preflight.json",
+      "sha256": "84f2dbdc6273c6835dd61eba104a81f4cab355bf74c938cd3e918e23ea246906"
+    },
+    {
+      "bytes": 600,
+      "path": "preview-handle.json",
+      "sha256": "060a110a2bfc59b6c963914e60444ff6ba56eeb5ec7623feca881f5e0f5e954a"
+    },
+    {
+      "bytes": 1391,
+      "path": "preview-monitor.json",
+      "sha256": "90bf82b7bb735076acd47daf500918281787e8fe919f775fc329ab0222c40e9b"
+    },
+    {
+      "bytes": 16716,
+      "path": "preview.log",
+      "sha256": "9c5bdbc4de1b77532641e55fee6a9d60b8a48effbc84f7b5804e9caab260bada"
+    },
+    {
+      "bytes": 27849641,
+      "path": "source.blend",
+      "sha256": "80e4176c40f96d2b1af4c9920b27e7d6614d02f61543cc63108e8603471b4055"
+    },
+    {
+      "bytes": 37914,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "8e71a355efce6be90dd6e3fd310f41deca8aa51317da679dc5f1fb462ec55ab5"
+    },
+    {
+      "bytes": 5248,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "360ff4a80d9e9006417421d936ab849074f1d3f219f32e78468599b30d33bfae"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 224774,
+      "path": "three-quarter.png",
+      "sha256": "8c0994030effebd9f3aac2e462b6b8cda4dc70b989f1a0144880a94b56062cc6"
+    }
+  ],
+  "kind": "generated_geometry_preview",
+  "native": {
+    "actions": [],
+    "animation_verified": false,
+    "assumptions": [
+      "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+      "Raw generated units are not a calibrated physical measurement",
+      "Hidden geometry is generated, not recovered"
+    ],
+    "blender_version": "4.5.13 LTS",
+    "bounds_blender_z_up": {
+      "max": [
+        0.46567198634147644,
+        0.9276279807090759,
+        0.7014100551605225
+      ],
+      "min": [
+        -0.4641580283641815,
+        -0.9508010745048523,
+        -0.6999800801277161
+      ]
+    },
+    "material_count": 1,
+    "meshes": [
+      {
+        "faces": 36501,
+        "name": "Mesh_0",
+        "uv_layers": [
+          "UVMap"
+        ],
+        "vertices": 36010
+      }
+    ],
+    "renders": [
+      {
+        "path": "front.png",
+        "sha256": "fe9bb4ea22b3ee31156d83bb3d3064836020ab6661edc442eb1256f42a5e30f0",
+        "view": "front"
+      },
+      {
+        "path": "three-quarter.png",
+        "sha256": "8c0994030effebd9f3aac2e462b6b8cda4dc70b989f1a0144880a94b56062cc6",
+        "view": "three-quarter"
+      },
+      {
+        "path": "back.png",
+        "sha256": "19f4660450c291ce9201c9ed378f7bcfb3e7106105825af1e60fa5cc3b4234f7",
+        "view": "back"
+      }
+    ],
+    "rigs": [],
+    "schema_version": 1,
+    "source_is_untextured": false,
+    "source_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+    "source_unchanged": true
+  },
+  "new_provider_cost_usd": 0,
+  "preflight": {
+    "animations": 0,
+    "attributes": [
+      [
+        "NORMAL",
+        "POSITION",
+        "TEXCOORD_0"
+      ]
+    ],
+    "schema_version": 1,
+    "scope": "Bounded geometry/embedded-image preflight; not likeness, rig or motion acceptance",
+    "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+    "skins": 0,
+    "source_unchanged": true,
+    "textures": [
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      },
+      {
+        "format": "JPEG",
+        "height": 2048,
+        "width": 2048
+      },
+      {
+        "format": "JPEG",
+        "height": 4096,
+        "width": 4096
+      }
+    ],
+    "triangles": 36501,
+    "vertices": 36010
+  },
+  "provider_calls": 0,
+  "schema_version": 1,
+  "source_glb_sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+  "status": "needs_visual_review"
+}

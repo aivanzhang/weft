@@ -1,0 +1,242 @@
+{
+  "comparison_evidence": [
+    {
+      "path": "outputs/reference-v1/originals/avatar-1792879257185832992-2.webp",
+      "sha256": "c072bc988b0116ba6ac02641467cde3cddf65ac76a98be5a19c0c54553c9f3b2"
+    },
+    {
+      "path": "outputs/muse-panda-quality-media-v6/portrait.webp",
+      "sha256": "054f17001209c8335a1f8f8c080eceb8c027c52ed3af6dbb480b7fe17c565886"
+    },
+    {
+      "path": "outputs/hd-gallery-browser-v1/desktop.png",
+      "sha256": "2eaf4cac769541820c91d1b2b021ecbb144db6d18f8660c7564947b2540ff18a"
+    },
+    {
+      "path": "outputs/hd-gallery-browser-v1/mobile.png",
+      "sha256": "4665a9c6246595c838d93e0e8f98a44600995eaa853612544b385422dbe73ab9"
+    }
+  ],
+  "loops": "Not certified. Endpoint equality and browser Repeat do not establish velocity continuity or a seamless playback boundary.",
+  "models": [
+    {
+      "id": "panda",
+      "inspected_evidence": [
+        {
+          "path": "outputs/muse-panda-hd-media-v1/portrait.png",
+          "sha256": "2517b636e5968efaa751c9334247f9e57f31b014394ef2f9fc47685eb157cc42"
+        },
+        {
+          "path": "outputs/muse-panda-hd-media-v1/contact-sheets/idle.png",
+          "sha256": "62b481ebd03baa2f5c76b775521bddf59896dc8d2fd937b4d390585023b4ec23"
+        },
+        {
+          "path": "outputs/muse-panda-hd-media-v1/contact-sheets/working.png",
+          "sha256": "9e2ae33a0010f8202d4584e1f8d9d064f28d5f5c30174af823291ceb1edd36d3"
+        },
+        {
+          "path": "outputs/muse-panda-hd-media-v1/contact-sheets/making_something.png",
+          "sha256": "6b6fda8087dd8164c7cba882d7a2b227015815164de6e3251f527cce62119af8"
+        },
+        {
+          "path": "outputs/muse-panda-hd-media-v1/contact-sheets/milestone_level_up.png",
+          "sha256": "78fbaedd3f2bbf1efea1aab8c27666eba3ca40c7a2d15dd97edb640e1205ea2c"
+        },
+        {
+          "path": "outputs/muse-panda-hd-reload-v2/independent-front.png",
+          "sha256": "f1f0fe02736380b74991908c905334f19874bb8a28f0c1099af1edb4ec4a3bb9"
+        },
+        {
+          "path": "outputs/muse-panda-hd-reload-v2/independent-side.png",
+          "sha256": "fc0f8aa1f7bbda4519faa25341f976133d42943a184cb1c7116a21c9499f1288"
+        },
+        {
+          "path": "outputs/muse-panda-hd-reload-v2/independent-back.png",
+          "sha256": "9773621dc13c948eac2c7bb64ac7d8b587ea8b3cd4a012c1e9bfab53140ad556"
+        },
+        {
+          "path": "outputs/hd-gallery-browser-v1/panda-celebrate.png",
+          "sha256": "4547840443a298030f13d10e0ab2ec3b49a1f6b000f7eb0309fef3b4ab62214e"
+        },
+        {
+          "path": "outputs/muse-panda-hd-media-v1/portrait-raw.png",
+          "sha256": "a8daca9ee6d387b2980945d09516dd6341727738b890845b66de393f8cf5e947"
+        }
+      ],
+      "media_manifest_sha256": "c18f4a756c872129f8c0f71fdbfaa6a876e6550b157aa3365822f96be48557e7",
+      "model_manifest_sha256": "8179c8439c06c730d6da636a020cb0e0502743e39fba8ea45f44eb609c9ae48b",
+      "model_sha256": "028ff0056c77e0463ae37a3e3400833748f6716e0b10ad80e9e15092483051b2",
+      "observations": [
+        "Black/ivory panda, golden orb, broad head and green anatomical-right/viewer-left shoulder dragon remain consistent across sampled states. The dragon stays attached during arm raises.",
+        "Compared with preserved quality-v6, the native render has denser directional coat detail, furred inner ears/crown/paws, a curved integrated smile, larger convex eyes and raised dragon scales with shaped wings/horns. These are newly authored changes, not a recovered source model.",
+        "Idle gently tilts/breathes; crafting brings the orb between both paws for short working gestures; working lifts it higher for inspection; celebration raises both paws and opens the dragon wings. No physical jump or actual object manufacture is inferred.",
+        "Filtered native portrait is cleaner than raw but softens fine hair. The Muse reference still has different proportions, richer fur breakup, warmer eye shading and more polished organic sculpting. Exact quality parity is not demonstrated.",
+        "Browser card fur is much less prominent at the default viewing size than the native groom; it can read as a smooth coat. This is a disclosed portable approximation, not the same hair rendering."
+      ],
+      "verdict": "accepted_as_stylized_hd_upgrade_not_muse_parity"
+    },
+    {
+      "id": "fox",
+      "inspected_evidence": [
+        {
+          "path": "outputs/fox-hd-media-v1/portrait.png",
+          "sha256": "c5118168de8bfbaeef07d9a7b864b573c6f010d9cdbcadfd9116110d5c8c5be2"
+        },
+        {
+          "path": "outputs/fox-hd-media-v1/contact-sheets/idle.png",
+          "sha256": "ef6c52d2a5362eb83c4e27734983188a88cf8cc372e91b6b66d28aa50bae3a39"
+        },
+        {
+          "path": "outputs/fox-hd-media-v1/contact-sheets/working.png",
+          "sha256": "b6d26410d62eef2a9d9b69f95735c225cb4371cf9b66fdf9e0b3dabee72b6d7c"
+        },
+        {
+          "path": "outputs/fox-hd-media-v1/contact-sheets/making_something.png",
+          "sha256": "25ea1ca60d7573ddb5a36a05e16d71a2bef8b008df7105015dfbcbe8463a879d"
+        },
+        {
+          "path": "outputs/fox-hd-media-v1/contact-sheets/milestone_level_up.png",
+          "sha256": "e5d973dc1fd6b28814ac504b6df6868c39fc267940eae441aa2c3b9ceac4f1fb"
+        },
+        {
+          "path": "outputs/fox-hd-reload-v2/independent-front.png",
+          "sha256": "562a75a0fad187ec9a9561ae6f72302110e7265d6b640580b02c4f9044e127e0"
+        },
+        {
+          "path": "outputs/fox-hd-reload-v2/independent-side.png",
+          "sha256": "e0bf6f2355fcfa8d3d430c556cc7cf40c8fd907ac81c1df6b4546f4305745767"
+        },
+        {
+          "path": "outputs/fox-hd-reload-v2/independent-back.png",
+          "sha256": "5efbd2c661a4d51d8359514d69bc41016654add1caacb69053967bb778b32bce"
+        },
+        {
+          "path": "outputs/hd-gallery-browser-v1/fox-celebrate.png",
+          "sha256": "a3610cf622cb5c2c9bf4ce1f024cacdf16825cdb7f88599b41bcb19d543e3fa4"
+        },
+        {
+          "path": "outputs/fox-hd-media-v1/portrait-raw.png",
+          "sha256": "dffae7e5b740121e873c8529430092249a1f71b8438bfd9b2334bbf68bfd2222"
+        }
+      ],
+      "media_manifest_sha256": "8110b434b9ae458aceeac53659d223bd3f72f8d0f0e69dfbc5eeb04bdecbe3b1",
+      "model_manifest_sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be",
+      "model_sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+      "observations": [
+        "Orange/cream identity, teal scarf, pointed ears, white tail tip, sketchbook and pencil persist. Native portrait shows directional coat fibers; eyes/brows and muzzle remain stylized.",
+        "Idle sways gently; crafting makes small pencil gestures near the held page; working raises the book near the face; celebration lifts both props with an authored hop. Existing page marks are fixed geometry, not newly drawn output.",
+        "Native-render hair and interactive alpha-masked cards look different. Filtering softens fibers; browser fur is subtle at default size. No dynamic hair, cloth or recovered fox anatomy is claimed."
+      ],
+      "verdict": "accepted_as_stylized_hd_upgrade_not_muse_parity"
+    },
+    {
+      "id": "robot",
+      "inspected_evidence": [
+        {
+          "path": "outputs/workshop-robot-hd-media-v1/portrait.png",
+          "sha256": "09c8728a6e27cb7023f4e4141f17b2239236c103df9afe92fab0dfd6c87ca3c1"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-media-v1/contact-sheets/idle.png",
+          "sha256": "fb909ed0f04c12069a3f7b6509329f12cc220d81b009052004704dfdb9f98f23"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-media-v1/contact-sheets/working.png",
+          "sha256": "fc57af894caf5ef9ec5bac5008da10c65c6b1d12e6abc25b5c818acf4507f06e"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-media-v1/contact-sheets/making_something.png",
+          "sha256": "23189095fac58e9d21680af7acce6600c19816f2efc7c79d5935cb844189d3c3"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-media-v1/contact-sheets/milestone_level_up.png",
+          "sha256": "6bdc913a6d0c1318d78ab910d6ea5f42bc8cc4ebe5f0c25bcbcfc188912a1d66"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-reload-v2/independent-front.png",
+          "sha256": "46eff778e9178ea489e4fc56fe6e1a64f0d6446bca71fc9e98ffbaf29ae89f6c"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-reload-v2/independent-side.png",
+          "sha256": "b2c07b51a7f89747df84e289192d90c4c0d0613022a2d4f7e129ca4be26421c6"
+        },
+        {
+          "path": "outputs/workshop-robot-hd-reload-v2/independent-back.png",
+          "sha256": "11cb29b2c1f20c7d4cdb6da9882e4d33822a3b8e9ae12b401d621c0c204bd3f3"
+        },
+        {
+          "path": "outputs/hd-gallery-browser-v1/robot-celebrate.png",
+          "sha256": "0eb227764332b62571414cc0c2d654ecfa43bbde0f1d42b33989fee3319a89b3"
+        }
+      ],
+      "media_manifest_sha256": "78513390fef3989a5a56dda7c63b6647fc27cb1a5967743b203d7faaf5455cfc",
+      "model_manifest_sha256": "0fa026da4eecc6c84bfd3395a794ac28b13a8c709201b47e5be0be1583555cab",
+      "model_sha256": "cbb2fd7b9fe5ac82c54b8969e85a7c667eb859683abb6ab659b19d43fc7269a1",
+      "observations": [
+        "Blue/cream shells, visor, gold accents, layered joints, rear panel, circuit board and probe retain identity. HD surfaces and native lighting improve the finish without adding animal fur.",
+        "Idle gently settles; working holds the board higher for inspection; crafting makes short probe strokes at the board; celebration spreads both tools outward. Small crafting gestures are subtle in thumbnail sheets.",
+        "Fingers and circuit traces are fixed modeled details, not recovered finger anatomy, functioning electronics or separately simulated controls. Some shell transitions remain visibly stylized."
+      ],
+      "verdict": "accepted_as_stylized_hd_upgrade_not_muse_parity"
+    },
+    {
+      "id": "lamp",
+      "inspected_evidence": [
+        {
+          "path": "outputs/lamp-hd-media-v1/portrait.png",
+          "sha256": "1b031ee8b56038871953b9a188d26a099e439426552014e1f925280548347e32"
+        },
+        {
+          "path": "outputs/lamp-hd-media-v1/contact-sheets/idle.png",
+          "sha256": "8fef3b6cc8d955434646a6ae931b8d217b6c61359f6a5c832191e32bedebbdf4"
+        },
+        {
+          "path": "outputs/lamp-hd-media-v1/contact-sheets/working.png",
+          "sha256": "29661f8b05fccb9f8c7960e4794fa1b932db8f849ad9e854baa6127cb09ce0a2"
+        },
+        {
+          "path": "outputs/lamp-hd-media-v1/contact-sheets/making_something.png",
+          "sha256": "8578e77e2c3612e8223460cd9633c25be14b399b035fb73182f87ce00261bf85"
+        },
+        {
+          "path": "outputs/lamp-hd-media-v1/contact-sheets/milestone_level_up.png",
+          "sha256": "09e9bb5cb5b47aafe77fa6d23e92dc39f210a27857af80794bb32e6f0923cab1"
+        },
+        {
+          "path": "outputs/lamp-hd-reload-v2/independent-front.png",
+          "sha256": "4bde982d183c51424aa586b5ea0ff90c01a1b8349f7961d0bd212cf33d093dd7"
+        },
+        {
+          "path": "outputs/lamp-hd-reload-v2/independent-side.png",
+          "sha256": "015cf42b3078572652b25d274535f057698d846b02276399386bdbec5e76e8d1"
+        },
+        {
+          "path": "outputs/lamp-hd-reload-v2/independent-back.png",
+          "sha256": "242ef1a3fdb74e0d3473a4de9b53472b39612b1f3c866d88b61addc90aeab750"
+        },
+        {
+          "path": "outputs/hd-gallery-browser-v1/lamp-celebrate.png",
+          "sha256": "d9473e25d3ef31bfd66835703927b53d30516a3db8434fe48da5ed172d7965ea"
+        },
+        {
+          "path": "outputs/lamp-hd-media-v1/portrait-raw.png",
+          "sha256": "21655faf39b175cb0b9415aa68df84411cf9b3fa05726429f1b40fadfcd9a561"
+        }
+      ],
+      "media_manifest_sha256": "87bf7bd2cc39a65a265b9b939d87717c313f3f4058199a432893f99ee80dc399",
+      "model_manifest_sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115",
+      "model_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+      "observations": [
+        "Burgundy/brass identity, hollow shade, bulb/reflector, springs, hinge hardware, wire, pad and stylus are preserved. No animal fur is added to metal parts.",
+        "Idle swivels/tilts; crafting uses short stylus tracing gestures over a fixed circular guide with the shade lowered; working makes a broader inspection sweep; celebration extends the arm and nods the shade. Guide marks remain fixed geometry.",
+        "Hard-surface skinning and authored hinge axes are intentional. There is no functioning lighting simulation, physical contact proof or new Weft control mapping."
+      ],
+      "verdict": "accepted_as_stylized_hd_upgrade_not_muse_parity"
+    }
+  ],
+  "recorded_at": "2026-10-30 19:36:38 PDT",
+  "reviewer": "Assistant sampled visual inspection; not human approval",
+  "schema_version": 1,
+  "scope": "Portraits, 12-frame per-state contact sheets, independent front/side/back GLB renders and browser screenshots; not every-frame manual playback or physical simulation.",
+  "transparency": "All supplied HD portraits/video previews are opaque; only the browser card texture uses alpha masking."
+}

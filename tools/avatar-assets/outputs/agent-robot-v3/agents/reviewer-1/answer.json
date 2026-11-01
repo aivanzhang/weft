@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "Consistent friendly robot with an oversized rounded head, rounded torso, two arms and two feet."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Blue and cream hard-surface panels and copper details match the request. No props or hair are present or required."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The entire robot, including both feet and the extended waving hand, remains inside the sampled frames."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "deformation",
+      "passed": true,
+      "reason": "Sampled articulation preserves panel shapes and limb continuity without visible major stretching, collapse or clipping."
+    }
+  ],
+  "limitations": [
+    "Contact sheets cannot establish all-frame collision freedom, physical ground contact, motion timing or seamless loops.",
+    "The original source model is not independently pictured, so exact preservation cannot be established.",
+    "Supplied proofs report local structure and motion validation; target runtime compatibility remains unverified."
+  ],
+  "required_repairs": [],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Subtle torso and arm shifts provide a restrained idle while the feet retain their sampled positions."
+    },
+    {
+      "evidence_ids": ["image-02-look.png"],
+      "id": "look",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns in opposing directions and returns to its starting orientation while the body stays steady."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "One arm lifts, the hand visibly alternates orientation through a small wave, and the arm lowers."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly tips down and returns upright, matching the specifically requested modest celebratory nod; feet remain stationary in the samples."
+    }
+  ],
+  "summary": "The supplied samples support the requested robot appearance and all four restrained actions without visible major deformation.",
+  "verdict": "accept"
+}

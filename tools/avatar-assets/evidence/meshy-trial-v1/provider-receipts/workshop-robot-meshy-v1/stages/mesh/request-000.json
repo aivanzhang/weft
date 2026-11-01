@@ -1,0 +1,26 @@
+{
+  "balance_before": {
+    "balance": 3265,
+    "monthly_credits": 3065,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "geometry_resolution": "4k",
+    "mode": "preview",
+    "model_type": "standard",
+    "pose_mode": "a-pose",
+    "prompt": "A complete friendly compact humanoid workshop robot, standing upright in an A-pose. Large rounded rectangular head, cream ceramic faceplate and two inset circular glass eyes, dark blue enamel torso and limb shells, brushed copper joint collars. Clear separate arms, elbows, wrists, three-finger hands, hips, knees and broad rounded feet. Small chest access panel, subtle real screws and seams, backpack-like battery housing. Premium animated-film craftsmanship, believable thickness and soft beveled edges. No fur, no weapons, no logos, no writing, no base or props. Full body, all limbs intact, symmetrical mechanical construction.",
+    "should_remesh": true,
+    "target_formats": [
+      "glb"
+    ],
+    "target_polycount": 50000,
+    "topology": "triangle"
+  },
+  "created": "2026-10-31T11:11:29.859248-07:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 25,
+  "request_sha256": "062bb4a774968a46fd55abe7841e2b23bb01a136362780d9ce38d625b62dbc63"
+}

@@ -1,0 +1,9 @@
+{
+  "command": ".venv/bin/python -m unittest discover -s tests -q",
+  "tests_run": 164,
+  "elapsed_seconds": 7.653,
+  "passed": 156,
+  "errors": 8,
+  "error_scope": "Only tests.test_gallery.HTTPTests setup could not bind loopback under filesystem/network sandbox; production-code assertions did not fail. Repeat that group or final suite under narrow loopback-test permission after final edits.",
+  "provider_calls": 0
+}

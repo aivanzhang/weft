@@ -1,0 +1,27 @@
+{
+  "balance_before": {
+    "balance": 3143,
+    "monthly_credits": 2943,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "enable_pbr": true,
+    "mode": "refine",
+    "preview_task_id": "01a1954b-d585-72d0-b0eb-26b636356569",
+    "target_formats": [
+      "glb"
+    ],
+    "texture_prompt": "Premium animated-film creature with rounded expressive features, fine emerald scales, warm ivory belly plates, amber eyes and green wing membranes. A standalone original dragon, visually related to the friendly shoulder companion but not an exact reconstruction.",
+    "texture_resolution": "4k"
+  },
+  "created": "2026-10-31T21:10:31.212573-07:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 10,
+  "execution_sources": {
+    "meshy.py": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+    "meshy_access.py": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+  },
+  "request_sha256": "8df8719870047fb2382022daef93229262a0eb06ea27b18fc6b6d83340c6a1b3"
+}

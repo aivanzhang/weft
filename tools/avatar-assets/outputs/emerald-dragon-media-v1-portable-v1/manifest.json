@@ -1,0 +1,3210 @@
+{
+  "artifacts": [
+    {
+      "bytes": 257167,
+      "path": "animations/idle.mp4",
+      "sha256": "b9e557580152b240871a84b8e5d2d08e01f987f775c188c8fffb112bacc7e884"
+    },
+    {
+      "bytes": 293585,
+      "path": "animations/look_around.mp4",
+      "sha256": "a13b39a0416f47e2c678a5e07fe45ec368cd2918848e0b43ec385317ad4e9913"
+    },
+    {
+      "bytes": 290489,
+      "path": "animations/milestone_level_up.mp4",
+      "sha256": "af4e6a83ef23e90c8d9beef446fad3727b253fdb4719a874f033d1043d54b174"
+    },
+    {
+      "bytes": 207652,
+      "path": "animations/wing_flap.mp4",
+      "sha256": "c97b10ab0599c585d72d15a26d5b435408b9d428b08fdff902ce3a0d6c908ce2"
+    },
+    {
+      "bytes": 218298,
+      "path": "contact-sheets/idle.png",
+      "sha256": "267238d1984f668229ea92a6c475e25f4a96aa841c6e0ee87cca7676ab525e59"
+    },
+    {
+      "bytes": 198226,
+      "path": "contact-sheets/look_around.png",
+      "sha256": "e601b9adb83428a35477d174f99ed09a420c048f05f1b9535e4440791a029d62"
+    },
+    {
+      "bytes": 193548,
+      "path": "contact-sheets/milestone_level_up.png",
+      "sha256": "e467a94f2a94c6e69fdd1bb06b42e88713d674f98bedf2b63e09870e6bec9ae4"
+    },
+    {
+      "bytes": 141398,
+      "path": "contact-sheets/wing_flap.png",
+      "sha256": "39c93f3f152ababf00314868eb31301a031461c3e37255fd59fc25b76bc4d619"
+    },
+    {
+      "bytes": 556946,
+      "path": "fallbacks/idle.png",
+      "sha256": "380f3b70ab98b0d55f6089dba86c8df59abbbf0f3c7b3204bc10e116a9076f11"
+    },
+    {
+      "bytes": 556946,
+      "path": "fallbacks/look_around.png",
+      "sha256": "01abdbf8b4ef9e306118f0feea4df19b16213993d2f3e5c8eff4c887304c61e5"
+    },
+    {
+      "bytes": 556946,
+      "path": "fallbacks/milestone_level_up.png",
+      "sha256": "9b2d9e4dfcf13e42d2a87a701b0eb661d180d23cb0e5e10ec748f27391d0c68e"
+    },
+    {
+      "bytes": 556946,
+      "path": "fallbacks/wing_flap.png",
+      "sha256": "4b9089cba12781d963d64776b2f33bc3e2cbc09dc6d97f733690080994c214d5"
+    },
+    {
+      "bytes": 1665,
+      "path": "job.json",
+      "sha256": "cc8e6ab87d810591c65f444350af2a1793f7b6afeff7f5b5382a4c35a72af489"
+    },
+    {
+      "bytes": 543,
+      "path": "packaging-handle.json",
+      "sha256": "7add45125d59db9e76a7c788efe0e63475f87438257d7c3aeeb43d967aad3e51"
+    },
+    {
+      "bytes": 1445,
+      "path": "packaging-job.json",
+      "sha256": "b1506daca4ce73b3061b643db83720c3f39f093a5b452e1b9c7015ed0a85312a"
+    },
+    {
+      "bytes": 1335,
+      "path": "packaging-monitor.json",
+      "sha256": "0f860c50238a1eee5c5c7bb384594a2b0779afe12aed35b3d02da4f96155792d"
+    },
+    {
+      "bytes": 9271,
+      "path": "packaging-result.json",
+      "sha256": "e4b2d770ea0b4c31a34cdf13f5db53f57d0d16f2388239186bf0f9361c890516"
+    },
+    {
+      "bytes": 0,
+      "path": "packaging.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 774,
+      "path": "portrait-denoise/denoise-handle.json",
+      "sha256": "4b9a516f2961fc2e7b1d5524610cbdd0a6e0ae899277c23c4e97fa459a003882"
+    },
+    {
+      "bytes": 1562,
+      "path": "portrait-denoise/denoise-monitor.json",
+      "sha256": "596055d48825669fef7e023cc53d1de38dd7fb2b36dd05cf9faf176d34f21670"
+    },
+    {
+      "bytes": 282,
+      "path": "portrait-denoise/denoise.log",
+      "sha256": "f7d49993ccedd6374805d5e656a52e378f1dd1f2592e73ad1cc987faac208087"
+    },
+    {
+      "bytes": 1292755,
+      "path": "portrait-denoise/portrait.png",
+      "sha256": "11ec19ab50fa187553870bd7b4128b8b3f86fddf6d25bc7d6289d9bdea986d2d"
+    },
+    {
+      "bytes": 6729,
+      "path": "portrait-denoise/report.json",
+      "sha256": "c5662562243a0ebd9f5a744ec1a2beec87ba626c3c68f0b8ba2ddbc4c8da71ad"
+    },
+    {
+      "bytes": 3273,
+      "path": "portrait-denoise/worker-result.json",
+      "sha256": "4357a914ed97320517eb90b547318bb6c242c0e5dc4dab07ed438697d92e157e"
+    },
+    {
+      "bytes": 2588388,
+      "path": "portrait-raw.png",
+      "sha256": "6ec3d66d7d5daf0dfb97b4d9abc8a203676231816016c9b870467d81732ee8e1"
+    },
+    {
+      "bytes": 1292755,
+      "path": "portrait.png",
+      "sha256": "11ec19ab50fa187553870bd7b4128b8b3f86fddf6d25bc7d6289d9bdea986d2d"
+    },
+    {
+      "bytes": 817972,
+      "path": "portrait.webp",
+      "sha256": "efee2ffbb5c27c9dd9556d2830f1dbd418409ff939bb4db68ff9d8af243a37be"
+    },
+    {
+      "bytes": 439,
+      "path": "render-complete.json",
+      "sha256": "2805559776f43f43d57ff6393b688ba23184488a73df00f12636f03830e98d44"
+    },
+    {
+      "bytes": 705,
+      "path": "render-handle.json",
+      "sha256": "96f9a1ef5eb8e359832d25b585279698ea95afd876249f441da3dbc21f51a8cf"
+    },
+    {
+      "bytes": 1507,
+      "path": "render-monitor.json",
+      "sha256": "245a156cf850e195a700e4da3f3929d5355eaa934ea75e8097f5ccde323efb0b"
+    },
+    {
+      "bytes": 610,
+      "path": "resume-input-receipt.json",
+      "sha256": "bf736c9233ef0484b712232c9f282f324fb309e18070ef38147807605787bccb"
+    },
+    {
+      "bytes": 91073,
+      "path": "source-manifest.json",
+      "sha256": "cfee8bfc03adc559ef1aaaa6b226f95a8b3b80c106c0e847f197425dc38031ed"
+    },
+    {
+      "bytes": 37911,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "2c67e8418a5de5d270a3b385824a671c2953c57b74970034cfacd2dc01e6dfc2"
+    },
+    {
+      "bytes": 3521,
+      "path": "sources/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 16884,
+      "path": "sources/denoise_portrait.py",
+      "sha256": "a52da20a3e8f0bacd4f579a0ff918c874a2a09b01b77f8baac35872ee72c1897"
+    },
+    {
+      "bytes": 70,
+      "path": "sources/output-spec.json",
+      "sha256": "ded38a65670ec1c7f7131f4a8d3e40d3ddc3bbec66fa1b4a77d58fd75d947faa"
+    },
+    {
+      "bytes": 2961,
+      "path": "sources/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a"
+    },
+    {
+      "bytes": 776,
+      "path": "sources/prompt.txt",
+      "sha256": "d0023bd341fb71b384c0d122fb381521afdd321e22c33d292c2d5832acbf3ba8"
+    },
+    {
+      "bytes": 1166,
+      "path": "sources/scene.json",
+      "sha256": "4e71f0f029b94c68bed4c680707e34014fec9c36a8bfe39d5fd10ded31a4c4bb"
+    }
+  ],
+  "clips": [
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/idle.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 556946,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "380f3b70ab98b0d55f6089dba86c8df59abbbf0f3c7b3204bc10e116a9076f11",
+        "width": 720
+      },
+      "id": "idle",
+      "inspection": {
+        "adjacent_mae_max": 0.000633,
+        "adjacent_mae_mean": 0.000419,
+        "audio": false,
+        "boundary_mae": 0.000934,
+        "bytes": 257167,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "b9e557580152b240871a84b8e5d2d08e01f987f775c188c8fffb112bacc7e884",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "Gentle breathing, friendly head tilt and a relaxed tail sway.",
+      "path": "animations/idle.mp4",
+      "source_clip_seconds": 4.0
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/look_around.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 556946,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "01abdbf8b4ef9e306118f0feea4df19b16213993d2f3e5c8eff4c887304c61e5",
+        "width": 720
+      },
+      "id": "look_around",
+      "inspection": {
+        "adjacent_mae_max": 0.002249,
+        "adjacent_mae_mean": 0.001124,
+        "audio": false,
+        "boundary_mae": 0.001015,
+        "bytes": 293585,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "a13b39a0416f47e2c678a5e07fe45ec368cd2918848e0b43ec385317ad4e9913",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "Turns its head to inspect both sides, with a curious tilt and tail response.",
+      "path": "animations/look_around.mp4",
+      "source_clip_seconds": 4.0
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/wing_flap.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 556946,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "4b9089cba12781d963d64776b2f33bc3e2cbc09dc6d97f733690080994c214d5",
+        "width": 720
+      },
+      "id": "wing_flap",
+      "inspection": {
+        "adjacent_mae_max": 0.005221,
+        "adjacent_mae_mean": 0.002504,
+        "audio": false,
+        "boundary_mae": 0.000649,
+        "bytes": 207652,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "c97b10ab0599c585d72d15a26d5b435408b9d428b08fdff902ce3a0d6c908ce2",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "Three broad paired wing flaps while standing; no flight or physical lift is claimed.",
+      "path": "animations/wing_flap.mp4",
+      "source_clip_seconds": 4.0
+    },
+    {
+      "exact_endpoint_mae": 0.0,
+      "fallback": "fallbacks/milestone_level_up.png",
+      "fallback_inspection": {
+        "alpha_extrema": [
+          255,
+          255
+        ],
+        "bytes": 556946,
+        "format": "PNG",
+        "frames": 1,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "image",
+        "metadata_keys": [
+          "Camera",
+          "Date",
+          "File",
+          "Frame",
+          "RenderTime",
+          "Scene",
+          "Time",
+          "cycles.ViewLayer.render_time",
+          "cycles.ViewLayer.samples",
+          "cycles.ViewLayer.synchronization_time",
+          "cycles.ViewLayer.total_time",
+          "dpi",
+          "exif"
+        ],
+        "mode": "RGBA",
+        "sha256": "9b2d9e4dfcf13e42d2a87a701b0eb661d180d23cb0e5e10ec748f27391d0c68e",
+        "width": 720
+      },
+      "id": "milestone_level_up",
+      "inspection": {
+        "adjacent_mae_max": 0.003925,
+        "adjacent_mae_mean": 0.001226,
+        "audio": false,
+        "boundary_mae": 0.000949,
+        "bytes": 290489,
+        "codec": "h264",
+        "contact_sample_frames": [
+          0,
+          8,
+          16,
+          24,
+          32,
+          40,
+          52,
+          60,
+          68,
+          76,
+          84,
+          95
+        ],
+        "duration_seconds": 4.0,
+        "format": "MP4",
+        "fps": 24.0,
+        "frames": 96,
+        "has_transparency": false,
+        "height": 720,
+        "kind": "video",
+        "loop": "unverified",
+        "metadata": {
+          "compatible_brands": "isomiso2avc1mp41",
+          "encoder": "Lavf63.1.102",
+          "major_brand": "isom",
+          "minor_version": "512"
+        },
+        "motion_detected": true,
+        "pixel_format": "yuv420p",
+        "sha256": "af4e6a83ef23e90c8d9beef446fad3727b253fdb4719a874f033d1043d54b174",
+        "unique_thumbnails": 96,
+        "width": 720
+      },
+      "loop_declaration": "not_certified; visual seam review required",
+      "loop_requested": false,
+      "meaning": "Bows, lifts its head, spreads its wings and wags its tail in a happy flourish; feet stay planted.",
+      "path": "animations/milestone_level_up.mp4",
+      "source_clip_seconds": 4.0
+    }
+  ],
+  "distribution": {
+    "historical_records": "Original render/packaging jobs and absolute paths describe source creation, not new jobs or portable dependency paths.",
+    "implementation_sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+    "kind": "portable_byte_preserving_subset",
+    "limits": {
+      "file_bytes": 67108864,
+      "manifest_bytes": 1048576,
+      "output_bytes": 67108864,
+      "path_depth": 12,
+      "retained_entries": 256,
+      "source_bytes": 536870912,
+      "source_entries": 4096,
+      "tree_entries": 8192,
+      "wall_seconds": 60
+    },
+    "native_frames_included": false,
+    "omission_policy": [
+      "frames/**",
+      "render.log"
+    ],
+    "omitted_artifacts": [
+      {
+        "bytes": 556946,
+        "path": "frames/idle/0000.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "380f3b70ab98b0d55f6089dba86c8df59abbbf0f3c7b3204bc10e116a9076f11"
+      },
+      {
+        "bytes": 556852,
+        "path": "frames/idle/0001.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c8e5165a06c1351bd6f855e86891b52c8c9b39ef374c319899774326d75471c9"
+      },
+      {
+        "bytes": 557224,
+        "path": "frames/idle/0002.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "21c8d88eede83d3013b9207f4525bef82e502df244f5d874d9c73c55cfa8e038"
+      },
+      {
+        "bytes": 557489,
+        "path": "frames/idle/0003.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e477d4eb09862c6454c399c0cdc7704baeda5ea5b3fe037509f547843d2ecf24"
+      },
+      {
+        "bytes": 557402,
+        "path": "frames/idle/0004.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3e61c7405598ee9a60c7cd56ec85b5553b30b77a231e27577d671c523b4c4f83"
+      },
+      {
+        "bytes": 557549,
+        "path": "frames/idle/0005.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d7d7e04ae7baf85a800d432b339b50453a7ec89b2536dfde85b4ebb4aff44701"
+      },
+      {
+        "bytes": 557557,
+        "path": "frames/idle/0006.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "338f98240a779cff707a4ee27e6b0f22615d86282d0408d40cd2f221daf7ed9b"
+      },
+      {
+        "bytes": 558042,
+        "path": "frames/idle/0007.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d8b126a9b7fa4b0246bb7f25ad15647a89ab025b9f1b4c9c2f72f54c4ca43f00"
+      },
+      {
+        "bytes": 557553,
+        "path": "frames/idle/0008.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3bdc46007a9a96d7f73538f7533ac58c1d4b3260cd0ba71bf894a7fb7c2c09a0"
+      },
+      {
+        "bytes": 557281,
+        "path": "frames/idle/0009.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "07558413aba73150a7bffddd7b0ffcb54d61f455b98e111bbfe0b8d163e6ba11"
+      },
+      {
+        "bytes": 556802,
+        "path": "frames/idle/0010.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cb58ff7300f9f85c1d8d0584a82ff00d5f2fc34b289d0594e7def0dfdfbf05a3"
+      },
+      {
+        "bytes": 556956,
+        "path": "frames/idle/0011.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "42bd2453ecd6df3d6a5c23baf380eee7a19369e78c4e90880f8141d62080ef48"
+      },
+      {
+        "bytes": 557435,
+        "path": "frames/idle/0012.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "da6c6df0e085c7a1686c1ba8cd0614bdc59bf3ddf5df993ce8f539cd2c274df3"
+      },
+      {
+        "bytes": 557352,
+        "path": "frames/idle/0013.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f9c4c7f9ced0b3928340c46e0af756fba5d71e2725989111d939cd189ab02205"
+      },
+      {
+        "bytes": 557078,
+        "path": "frames/idle/0014.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a9bc2336c1d2c629d61c49b2285533687227b9350bc8d80a773363b9edd755d5"
+      },
+      {
+        "bytes": 557537,
+        "path": "frames/idle/0015.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9155ad8441136c6efe1e115dda06c3067495501c979bc82ce8915fe1081c2c6b"
+      },
+      {
+        "bytes": 557328,
+        "path": "frames/idle/0016.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d5956b63f36a2ceec7b3e61d4789d0bb50a8c5ef2fd453ca5955a30755fa0a2c"
+      },
+      {
+        "bytes": 557482,
+        "path": "frames/idle/0017.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9d03c0a9106eaa14c0d4f404f2a9dea13c112cbdb12fb3bedcae2965c1594bd6"
+      },
+      {
+        "bytes": 558154,
+        "path": "frames/idle/0018.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e4fc7e1deb8c67a5199d2edd5cae79b2c41a830cc717fd64e3852e51d206e362"
+      },
+      {
+        "bytes": 557599,
+        "path": "frames/idle/0019.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ba1c82ab7aa164c686482fde78ac262bdefa7d9946bb2babd649a1f0fbbd0e8b"
+      },
+      {
+        "bytes": 557662,
+        "path": "frames/idle/0020.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "136266a75d7876425c61f2f3efdbadaaa62aed4e458a6345d7ae060a6cd66886"
+      },
+      {
+        "bytes": 557629,
+        "path": "frames/idle/0021.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d06825ad009c5ebc771aa1b7d42ba58e4ba611c93b6ab98bc14124ab4208d035"
+      },
+      {
+        "bytes": 557461,
+        "path": "frames/idle/0022.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6f3a429ec846b4b3d078a022acbfdb675a000d17075e1d29adfc880279bab096"
+      },
+      {
+        "bytes": 557132,
+        "path": "frames/idle/0023.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1d0a1ba7583f5a78aa495732df8e31f3bd228c9775defcc63fabe4116dc3fbb7"
+      },
+      {
+        "bytes": 557373,
+        "path": "frames/idle/0024.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "263090d8f724d67f2006d2a48dcd0d4634156b0112769223772523a016aea338"
+      },
+      {
+        "bytes": 556917,
+        "path": "frames/idle/0025.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f4b2f266f6028150a0058c4e159fcd7aecacc3264c61a6dc98b9808b59966cef"
+      },
+      {
+        "bytes": 557876,
+        "path": "frames/idle/0026.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e59255c5d64b35ccccab402c069c1f467cefcf22fb6ab955d8795034fff4a225"
+      },
+      {
+        "bytes": 557772,
+        "path": "frames/idle/0027.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "60bffbce2097eba4147a2ef7c87c79fa47f421095f65d153fa9681e556139ac9"
+      },
+      {
+        "bytes": 557849,
+        "path": "frames/idle/0028.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "40fcc0fb2a23ba1d26cbfba8dc27473989125624fd9fdf4b779c048ea4bc92dd"
+      },
+      {
+        "bytes": 557243,
+        "path": "frames/idle/0029.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "27aee95b70a136003fe3d9d1b3587e81e928e7c6f031fed74b151a5f1a780632"
+      },
+      {
+        "bytes": 557737,
+        "path": "frames/idle/0030.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1b5a11ff7ba94e7ec223091ded60b725ab741d36fe653c50730306efe05af61c"
+      },
+      {
+        "bytes": 557833,
+        "path": "frames/idle/0031.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9fd00c08ad03ee7d752352fdef486a15f401d65ecbde99ee9de45ba70cfd2106"
+      },
+      {
+        "bytes": 558115,
+        "path": "frames/idle/0032.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4c65fd173ba8cd49e66fafd3fa43d85352f13023e012360ace08d2ccd0634aa9"
+      },
+      {
+        "bytes": 557571,
+        "path": "frames/idle/0033.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5f288562e143eb0e1782f3e1dc40a895f02a8a8ce921a9adddec4ca51656e897"
+      },
+      {
+        "bytes": 557689,
+        "path": "frames/idle/0034.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "07413b67af5de77e29708a8051b95cac6c61313ac07996fc3b75ab270ab02e67"
+      },
+      {
+        "bytes": 557231,
+        "path": "frames/idle/0035.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "34ffc59928a55f3f91ac53f2f70c827d96f323222b9f5769ac9b25a97ad50cb6"
+      },
+      {
+        "bytes": 558031,
+        "path": "frames/idle/0036.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "08e9356e26a5d34526bc337aa6a076178674932339c3e2b476235b9ae3fe3e2d"
+      },
+      {
+        "bytes": 557692,
+        "path": "frames/idle/0037.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a749d79c237761b10a531707b861ef915e5018b56a5e359ee7d82514f6212126"
+      },
+      {
+        "bytes": 557535,
+        "path": "frames/idle/0038.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b479c70c96fa940698b38bc2d9c3b036442d33d21f31aaa3b39bcd4537d4d49a"
+      },
+      {
+        "bytes": 557467,
+        "path": "frames/idle/0039.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "82add83af9b34915c62d74c0a66b5688878198640de231a8a63b850dded6feda"
+      },
+      {
+        "bytes": 557354,
+        "path": "frames/idle/0040.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e9f0c6e83951c8568d3378e037acb9d665b6b8c3ca7786269e787092c4cddcfa"
+      },
+      {
+        "bytes": 556997,
+        "path": "frames/idle/0041.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "166e9c10a9ef7804956517fdb7258f007ecba99b66046fe6d1efbdbee99642f4"
+      },
+      {
+        "bytes": 557135,
+        "path": "frames/idle/0042.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "edd60e4edfc2257a2e05d0ad93f7282e1ae95a0a00044024e628672093ef73ee"
+      },
+      {
+        "bytes": 557493,
+        "path": "frames/idle/0043.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ea390ccc6af06e91bc53bdc78a8feb26ab9d405b383d31a38bf0d116c3c686f9"
+      },
+      {
+        "bytes": 557201,
+        "path": "frames/idle/0044.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7b81f2c6f018163e928c92cf280681cfed28b3f11016095c0832e81d5c053941"
+      },
+      {
+        "bytes": 557455,
+        "path": "frames/idle/0045.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "27290c8ed9f693743b45abbbb93db8240aaa8598998e8fd7839290e6885f56ac"
+      },
+      {
+        "bytes": 557095,
+        "path": "frames/idle/0046.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "80e13b0ded90269be7040b8c1d7134c4db2866afc633dd917582007696df8735"
+      },
+      {
+        "bytes": 557185,
+        "path": "frames/idle/0047.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b90356c2a138db33e3dd6a3a3496e62dfdf3f25b9ca0977a571bc1473b3fd3a8"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/idle/0048.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "463ebc8ccf1148f2b2c0fe7a0790689c852b6efe447d03cb5abc64810eabbedf"
+      },
+      {
+        "bytes": 557267,
+        "path": "frames/idle/0049.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "074a3613ba55ab2503e8a2c56bff2828b3fa7316623c149c45729bc77a1eec9b"
+      },
+      {
+        "bytes": 556841,
+        "path": "frames/idle/0050.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "193de9214e70dddd83953279b5aec6342c0ccdf0358d60d5721fddaad2ffbc19"
+      },
+      {
+        "bytes": 556626,
+        "path": "frames/idle/0051.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f83ab4192fffa9e98e8f3865363cb6c9f0597205a86cca685e3b42dd01a0809a"
+      },
+      {
+        "bytes": 556367,
+        "path": "frames/idle/0052.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "afe5e9dbfc545bddeb80e5d11990a36b80d17d925cbebe8f6af83e6965483349"
+      },
+      {
+        "bytes": 556971,
+        "path": "frames/idle/0053.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9689308c7d62b3153619fcbf239b38bac38d8e50d246282c62752de9727ca18d"
+      },
+      {
+        "bytes": 556073,
+        "path": "frames/idle/0054.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9f9fb113bc448f505734cb710fc8d8bd07c7b484b2f7b18c5318adbec0b3ed12"
+      },
+      {
+        "bytes": 556609,
+        "path": "frames/idle/0055.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "821cb8befca9ded24d3c35e48c4e798c95daa005c4ebe461353cfa9c3d07c2b4"
+      },
+      {
+        "bytes": 557394,
+        "path": "frames/idle/0056.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e4e11a36a72f952f7ab1c7b5d9f9ea733f9bddd589879caa3fb67a8110ed44e9"
+      },
+      {
+        "bytes": 556740,
+        "path": "frames/idle/0057.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e6dc2b219df5897f0f5e5184c118b3ad0efa6a6a43c46b989b460666cb924db7"
+      },
+      {
+        "bytes": 557396,
+        "path": "frames/idle/0058.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "aa9559ddf72fa1003d9783e6e195d2a5b8028fc644c1c7ed344ac8e857a68888"
+      },
+      {
+        "bytes": 556358,
+        "path": "frames/idle/0059.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "265e9ad92df90f733b5f595caebc6bcab984fa0fa1524b80bc9f2df6fb2cd3a0"
+      },
+      {
+        "bytes": 557321,
+        "path": "frames/idle/0060.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "401f479f7b5b2fd2087fee309651d125f698fa66a1801329b5e103a4aa862d89"
+      },
+      {
+        "bytes": 558193,
+        "path": "frames/idle/0061.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7fd9bb6f20ea543ebdb6d507268b3c29ef126b39e1b1ac8fc609ac782d3dc310"
+      },
+      {
+        "bytes": 557393,
+        "path": "frames/idle/0062.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "07aa75756aa6dcee4467bcd51332c0e83a92028050cc554d93c2f51543228006"
+      },
+      {
+        "bytes": 557179,
+        "path": "frames/idle/0063.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2079dc32445009d56efa9dc3561931d1158d1d699daf2954afa463085ff7df07"
+      },
+      {
+        "bytes": 556543,
+        "path": "frames/idle/0064.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b5a8f948deaa34703255f97b102c903b85355c651e0b4cbf7962c3b6f2e41ee2"
+      },
+      {
+        "bytes": 557203,
+        "path": "frames/idle/0065.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cd935b453b0b8a050ae22840a247810c5e22c6fffb900d783872c3fd2dda369b"
+      },
+      {
+        "bytes": 556601,
+        "path": "frames/idle/0066.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "605fe31bdd3ba873106ebe2bf9193f372563cb5ec6ede3750a680a7509e59731"
+      },
+      {
+        "bytes": 556907,
+        "path": "frames/idle/0067.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ec686be9862d3a8d07e925bbe235e9e99acc7dc69d4d183905a9460f55783af8"
+      },
+      {
+        "bytes": 556773,
+        "path": "frames/idle/0068.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "77e31c399b7f4744f57dd8cb2905a3b5f27fdf14152e90ced722f9d30c20f00a"
+      },
+      {
+        "bytes": 557344,
+        "path": "frames/idle/0069.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e05c3b0f525baa72fa01ab998a0562105aa403ef0ba485808426a09c4f158d81"
+      },
+      {
+        "bytes": 557448,
+        "path": "frames/idle/0070.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3aacc33e94bf811fb3be89b37e3ba93c382a0b5b70d7f04513497dde1235d5c7"
+      },
+      {
+        "bytes": 557026,
+        "path": "frames/idle/0071.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "db409d26cd7d2da7db95ba4e28cb4cd94f25d3e45fae220e9a34a01154aa8730"
+      },
+      {
+        "bytes": 556857,
+        "path": "frames/idle/0072.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f916ddf838378ada6052b39884fd74835140e10ffd8a0e36a334079d828e9c92"
+      },
+      {
+        "bytes": 557023,
+        "path": "frames/idle/0073.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e1f209a5e9953dd35dc3e06b6cc550bad634caffde4fd74a2da55eb2d66e6329"
+      },
+      {
+        "bytes": 557510,
+        "path": "frames/idle/0074.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ce3b4391630e8e12e6cfa064a2f0aa2c500181befa3aacb10ad136ca6a31e9ef"
+      },
+      {
+        "bytes": 557048,
+        "path": "frames/idle/0075.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f51fd2888115f07d7705eb11b73c6ebe5a0a5ba8a265b153a292f7129a3c6e83"
+      },
+      {
+        "bytes": 556424,
+        "path": "frames/idle/0076.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e2f93da3a50c73a89bbdc8261f9969c46e27b43f0e28d60207cfca9cc9af8588"
+      },
+      {
+        "bytes": 556741,
+        "path": "frames/idle/0077.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5a64900fe8e712975c7690e1ab34a0cca15ebfa64007a10c9a35b8d68bf9d6ff"
+      },
+      {
+        "bytes": 556395,
+        "path": "frames/idle/0078.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ed875b7acdf7805b0d7ade81e038ef823013bcb638bc476e7802db4c9b5d349b"
+      },
+      {
+        "bytes": 556885,
+        "path": "frames/idle/0079.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5c7ec76ac883c3f86f244dd8dab292ff58b092022904e42983bb290253e5b9e5"
+      },
+      {
+        "bytes": 557932,
+        "path": "frames/idle/0080.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "98054887e06583950f095b9e2921677042c099b4aeb649045787b2ae6dad2365"
+      },
+      {
+        "bytes": 557377,
+        "path": "frames/idle/0081.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0d1e0e0d5a8c82cd310da62a04e727f31f1e4b180a92c0f8ea8f9def0183641a"
+      },
+      {
+        "bytes": 556704,
+        "path": "frames/idle/0082.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3b661a3b9025fcd49fc1fb04b87743ecfa423b7d7125e3e32b66339051320ebe"
+      },
+      {
+        "bytes": 556952,
+        "path": "frames/idle/0083.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a35ecdb9b62708300c3d4747e617f5b0374fdaee5938a2a11d3dbd28151c6e7b"
+      },
+      {
+        "bytes": 557446,
+        "path": "frames/idle/0084.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "96e10da6c4ff9f21c9c33fa1d602753275e9b8eb7826018dae9a0c2a18ef97f2"
+      },
+      {
+        "bytes": 557419,
+        "path": "frames/idle/0085.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "32d8ce4164608deee39eca457dd4a3bec8e607067857e794c469f7e2f3e74c43"
+      },
+      {
+        "bytes": 556067,
+        "path": "frames/idle/0086.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "15e577eedf60ece6d6a90f796856f1c4c437af723e82f1dd45b1757a194305ab"
+      },
+      {
+        "bytes": 556538,
+        "path": "frames/idle/0087.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c6983d5f53b7d68d3db77bde9c1dbaf52e2572039f6829e52ee27f90202a3503"
+      },
+      {
+        "bytes": 556453,
+        "path": "frames/idle/0088.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "af7b6fb1da59672e3c0a557f18c9dc2ef1673379bd72b78138a5e82a04a83175"
+      },
+      {
+        "bytes": 557510,
+        "path": "frames/idle/0089.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0dbeec2a8970623e46faf98bcdd465afd0fd0904c3c3f1ed7a80ee56c883703d"
+      },
+      {
+        "bytes": 556920,
+        "path": "frames/idle/0090.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "238e535cf7c9aea7cde16d7da097aa909b763e23cce49d43e0be66b12ef484fe"
+      },
+      {
+        "bytes": 557510,
+        "path": "frames/idle/0091.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ce099047835446b95576bea521ef40a16c1e25b2da3eb556b59167f2d3b8e72f"
+      },
+      {
+        "bytes": 556945,
+        "path": "frames/idle/0092.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5f0cb8ae722c0916af1864367806bfd376b2e56bb12d6c0922220b1ba951248b"
+      },
+      {
+        "bytes": 557015,
+        "path": "frames/idle/0093.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b18b39b49583fd2ce2ecc05176b68a3ab9a1f8f0bc037489614e327e03829024"
+      },
+      {
+        "bytes": 557807,
+        "path": "frames/idle/0094.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9b7d702de918b3f25a14f28100f5e3f80376dc657db676890182c0d0506021a3"
+      },
+      {
+        "bytes": 556923,
+        "path": "frames/idle/0095.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f0f3da5bb6143eb13b229fb285eaf8e39da8508e1f829bb8abca685abfea3b4"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/idle/0096.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9213470ef83c117c5efd8cdfcc63ad3c20273058c3d73152dfa61acc23e29356"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/look_around/0000.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "01abdbf8b4ef9e306118f0feea4df19b16213993d2f3e5c8eff4c887304c61e5"
+      },
+      {
+        "bytes": 557516,
+        "path": "frames/look_around/0001.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "50f1e8af7135689ef4cde067b867c941755b6c48c8a6b527751daaaca4983596"
+      },
+      {
+        "bytes": 556750,
+        "path": "frames/look_around/0002.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bd769c7679c42bf58c659529d50d10ca05fcb43aa090b822a273c6e9970bb2dc"
+      },
+      {
+        "bytes": 556681,
+        "path": "frames/look_around/0003.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "af343ede86968d25ecd060f26d0af2b207770e651363d30ebde93b1081e53f87"
+      },
+      {
+        "bytes": 556838,
+        "path": "frames/look_around/0004.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bc71529bdbacbe149754883a452cf816001d757fe67bdfd195dca73feceeef75"
+      },
+      {
+        "bytes": 556446,
+        "path": "frames/look_around/0005.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dad4cddc642f4935071115816e8d8d4c1669e54b2aee08f673adaa77fdf80c93"
+      },
+      {
+        "bytes": 556213,
+        "path": "frames/look_around/0006.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "91ff6b7cc8fc0d3e6d71402771fc7d4db7573b1d90ffc4a8d148cb9f7099dba5"
+      },
+      {
+        "bytes": 556815,
+        "path": "frames/look_around/0007.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "48168261923f555b1bc2638a377167f9753f78c4c6c4f75986a3311b6d00f6c0"
+      },
+      {
+        "bytes": 556858,
+        "path": "frames/look_around/0008.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3fb6fec1492d7cbb0c444ecf23e29a7e6e24a8251f352fdbd8dedb33f19b26c8"
+      },
+      {
+        "bytes": 556917,
+        "path": "frames/look_around/0009.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a516d782efa9006274ba073912a76567a33c663312d92b1a9a2cf16ad5fbcc7a"
+      },
+      {
+        "bytes": 557226,
+        "path": "frames/look_around/0010.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9a99b9e20f274a6a2871358e91a2b1782a05a6b9b9c8d6b0eb8f602ca7a088d8"
+      },
+      {
+        "bytes": 557017,
+        "path": "frames/look_around/0011.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "372e1253482126181c24e10fbb52c0d51ffeadda191ce2144a32e4257e325d52"
+      },
+      {
+        "bytes": 557249,
+        "path": "frames/look_around/0012.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3525786e22b47b93ca8f523f17a9f3b92dbc5019c4a43b8f23ecc38473d50853"
+      },
+      {
+        "bytes": 557208,
+        "path": "frames/look_around/0013.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fe9435abd0ac48f170a701dbe081c713862aabbd4469408fff7a8805d8ff6510"
+      },
+      {
+        "bytes": 557297,
+        "path": "frames/look_around/0014.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "329b2a750d8380198620f8453ea11acf9c756f8e27fcbad5e89751409668aa00"
+      },
+      {
+        "bytes": 557541,
+        "path": "frames/look_around/0015.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0d4e77928a78c6f66ee383501852cc8cea14ef0c341f2545b11812fb59d03900"
+      },
+      {
+        "bytes": 557812,
+        "path": "frames/look_around/0016.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "77e1de6454e380afcbbe1730ce3537af551aba4822ca5c0067e854b0dcaa0a48"
+      },
+      {
+        "bytes": 557924,
+        "path": "frames/look_around/0017.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0d7364063ec03f3a0e07654957329d27ed35f527db2dc6664e5ad1567cfd4da1"
+      },
+      {
+        "bytes": 558144,
+        "path": "frames/look_around/0018.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bddbfe448ecf309a6d6003d56a01bf5fb5c5f0fab305eae7a44a91bec2231780"
+      },
+      {
+        "bytes": 558669,
+        "path": "frames/look_around/0019.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f538df1bb87a592e46ab27384ff306bf08377117a5d570d95031dc1cf83a487a"
+      },
+      {
+        "bytes": 558720,
+        "path": "frames/look_around/0020.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8a3e7f5e8e6bfbe49a2e710a7402d155bb88c3eefda0445ffa82b304730188dc"
+      },
+      {
+        "bytes": 558259,
+        "path": "frames/look_around/0021.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "89c6c18e8a1cf1168b9ece856d20e84c8e75a630a46fb174379a342888c2307a"
+      },
+      {
+        "bytes": 557543,
+        "path": "frames/look_around/0022.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3ba1ce9700e1779aae7fe0ffcca21f1675604c083afce0dec88d77f4b4a3b77f"
+      },
+      {
+        "bytes": 558020,
+        "path": "frames/look_around/0023.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7136f2fd96ac7da89d006d285e79b53123592fcd3b755972e46f9a635975b7bf"
+      },
+      {
+        "bytes": 558036,
+        "path": "frames/look_around/0024.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "19b09929f0161eb3e3408f58289fb9d1f714e8efb2de4630651e8095a2c846f9"
+      },
+      {
+        "bytes": 558520,
+        "path": "frames/look_around/0025.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "78de7f7466e6103741307fcfc673040e21f0e559efc250c6de72a3bd0cf72270"
+      },
+      {
+        "bytes": 558589,
+        "path": "frames/look_around/0026.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9e51e6525d88347f016e6e7e930a45a93fbbbc660351699e6c6a549b7b895c4d"
+      },
+      {
+        "bytes": 557995,
+        "path": "frames/look_around/0027.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a3e2fb852e3525829a6f6765d81915269fe341190470bb3805ca1f1577fbff9d"
+      },
+      {
+        "bytes": 558683,
+        "path": "frames/look_around/0028.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4a6256cbe471815908d53199a0f8d761bd936d94a54523fbf9726fa20529e5bc"
+      },
+      {
+        "bytes": 558801,
+        "path": "frames/look_around/0029.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "237961f4380057744ca555f6eec63e5cb5b1ae0018fbc6de8dc0aedfe16ac80e"
+      },
+      {
+        "bytes": 557344,
+        "path": "frames/look_around/0030.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "87b5690b896bdd312377b88b62591c3fba3501d7d834afff6d71abcf4a652e7e"
+      },
+      {
+        "bytes": 558543,
+        "path": "frames/look_around/0031.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3484fcb7ddc052b2f238418d8bbecebe3819532d688723ef4154c8c3e4f78916"
+      },
+      {
+        "bytes": 558155,
+        "path": "frames/look_around/0032.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3c2b21760e97a11992b87893cf6dd6931e9a5084b463ec00cfced634d88a7f1c"
+      },
+      {
+        "bytes": 558343,
+        "path": "frames/look_around/0033.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0bac396265383bd398e672bf51a05bccabe6785a3ca36aacbf4e4f32152ef056"
+      },
+      {
+        "bytes": 558652,
+        "path": "frames/look_around/0034.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5ee1ad605bc2bf3b81292b2276d41f2aedf56c06ead6923bdabdf542ea7d5215"
+      },
+      {
+        "bytes": 558880,
+        "path": "frames/look_around/0035.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2ab660a6037839ff96892f27e1ab88c59add57f74f26e0233a7793f0e3d8afef"
+      },
+      {
+        "bytes": 558178,
+        "path": "frames/look_around/0036.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b80d3cb3d5678be47cab33d4593014386bc7ec6f96a9c2cfa66937e11a5711f9"
+      },
+      {
+        "bytes": 558242,
+        "path": "frames/look_around/0037.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "10fafc572a1c46cd490d0a5557a03257eef000f945b6420afec5fac79bb448e9"
+      },
+      {
+        "bytes": 558554,
+        "path": "frames/look_around/0038.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dc203d51420b1be34b9c425654eec0fd077a2d845064da00d0f3c965be2635d9"
+      },
+      {
+        "bytes": 558465,
+        "path": "frames/look_around/0039.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0f71ad9f9008b9f0b4e188e436bf55b067b97abec73506b17c35e549caf69a64"
+      },
+      {
+        "bytes": 557467,
+        "path": "frames/look_around/0040.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6c72115cca72889df534574f73faac4de4397ba2eaf3aa469cc23cf4edd37ba1"
+      },
+      {
+        "bytes": 558559,
+        "path": "frames/look_around/0041.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2451ffbd76918d177670c3e4897a1955c642b1237a06ab28edb15f8464a4233b"
+      },
+      {
+        "bytes": 557662,
+        "path": "frames/look_around/0042.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1e873d26e1b1cf6c28d5d21a120c72b6ab624bd412750bb4acc382ca731ceef6"
+      },
+      {
+        "bytes": 558020,
+        "path": "frames/look_around/0043.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5fac8a3bb1ceccd4b06a89df91b7381a0657a161c978a652b41d749e694e04b0"
+      },
+      {
+        "bytes": 557582,
+        "path": "frames/look_around/0044.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4363ba4395e4bb668c24eca0609b533651f46247859db0792d97dd3eb4bd7676"
+      },
+      {
+        "bytes": 558044,
+        "path": "frames/look_around/0045.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a22d6779fa8aa9c905b575c7bb18bb58ec3b9ec3d44637027667ecae44cb5037"
+      },
+      {
+        "bytes": 558080,
+        "path": "frames/look_around/0046.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8aede31882c0d540697f132d4423dc28f969879d3244cde943aa220b779a4b50"
+      },
+      {
+        "bytes": 558333,
+        "path": "frames/look_around/0047.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6273ca6b08d9b485ad97168381637cc1daf8e0aac4f1a75b554294ca474a2c5f"
+      },
+      {
+        "bytes": 557601,
+        "path": "frames/look_around/0048.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a93fd134fdb4119049e405bcf4eccaf0debe48f1c1d83c6f962b14520e9d41ff"
+      },
+      {
+        "bytes": 558629,
+        "path": "frames/look_around/0049.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e31a6d178e11514385f40b4312c367d8a51388f3f705db3312c18085ceef2bb9"
+      },
+      {
+        "bytes": 558298,
+        "path": "frames/look_around/0050.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3b5fb31b259c7f05a3af13f7ef4b9e4074a54c061307b5e0ea980dac7b821c89"
+      },
+      {
+        "bytes": 558329,
+        "path": "frames/look_around/0051.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "66fceae142e98b307864e1fa52742fcc5dccc5050fd576d63dbbd3cc062562f2"
+      },
+      {
+        "bytes": 558906,
+        "path": "frames/look_around/0052.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cc3f3b73335b89b9b109d34d0947822e4249377a4eebf11471b4405e32b7d8e1"
+      },
+      {
+        "bytes": 558916,
+        "path": "frames/look_around/0053.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d8e8fc7eaa256b61d7b0283aa3d84ad800e6b50d1037ddeaf5302badb4d3e7a8"
+      },
+      {
+        "bytes": 559413,
+        "path": "frames/look_around/0054.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "796f81e31dfb0912557626fb82156669baab7685cd61d1a7b6eabd8b91a5cff5"
+      },
+      {
+        "bytes": 558834,
+        "path": "frames/look_around/0055.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ca291edf125add60be7728e550b5c2984143b1927e672325b7bf66864be83b55"
+      },
+      {
+        "bytes": 559461,
+        "path": "frames/look_around/0056.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "41d5b74f5c60a2c1f4bc1e3b616ad4254577b8a0a0874bd369a2f5968370cdda"
+      },
+      {
+        "bytes": 559759,
+        "path": "frames/look_around/0057.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0e819516c849bcf21dd8c6b77926b30af4e8e59cce4ce1f5d685b54dfc674fe2"
+      },
+      {
+        "bytes": 559100,
+        "path": "frames/look_around/0058.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "71a630d286c5f76e377d9008e27d05d11181f5e070935f6a7d3c725f81a3c099"
+      },
+      {
+        "bytes": 559172,
+        "path": "frames/look_around/0059.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "083bef0ba0fd3f25293a15430903c074e6e97acfa6bbb3f8ff23fc87603fe704"
+      },
+      {
+        "bytes": 559122,
+        "path": "frames/look_around/0060.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2523be365d0a2cd89ed77dec25f03e2bc5011ecefd9710fd54af2289f2c017af"
+      },
+      {
+        "bytes": 558910,
+        "path": "frames/look_around/0061.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "57ae25236b8806346e8099adbebe6a804b76a974182ff9c4ecd839cd288f5083"
+      },
+      {
+        "bytes": 559231,
+        "path": "frames/look_around/0062.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "479719b134478532f7ea71e184f36b4ca8db566f1a8c00997d49edfeaacf5d3a"
+      },
+      {
+        "bytes": 558855,
+        "path": "frames/look_around/0063.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "24157768a9b89d796d34d4f346bc21030c240b0440cdde09bbfef0ebd8ccfbb2"
+      },
+      {
+        "bytes": 559180,
+        "path": "frames/look_around/0064.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0ab3f0e1bf9e240dd793db52d658da7f39a61b40efa07d6442493d7a488b32c7"
+      },
+      {
+        "bytes": 559034,
+        "path": "frames/look_around/0065.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2abbcb4ade6d23d86a455e8eb6dd6443856fe627edba9163933901f09882d164"
+      },
+      {
+        "bytes": 559913,
+        "path": "frames/look_around/0066.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "62669b6e0eff82934e601431375b7bf3200a9b8f4bb1b3ef42918fe3c5122969"
+      },
+      {
+        "bytes": 559673,
+        "path": "frames/look_around/0067.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1ec57c7870e2da4eabafce149c6e9d551b177a4075435a0f3ab0d2541a72c8ea"
+      },
+      {
+        "bytes": 559476,
+        "path": "frames/look_around/0068.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6a7c18998453cd2b7c65ff7e9e6aca6b6f43fa5610655d35ce5ba3cb05201e0d"
+      },
+      {
+        "bytes": 558874,
+        "path": "frames/look_around/0069.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cd90a4217d4ce162b63c1580f0e1fdffbf8da1de68a81b6b30071efaaf22b8ca"
+      },
+      {
+        "bytes": 559296,
+        "path": "frames/look_around/0070.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a8cee4c7b0eadc59fd852a666a362f82fa691ee945c5efeb60d43c17e4667717"
+      },
+      {
+        "bytes": 558345,
+        "path": "frames/look_around/0071.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "94ff2a15d0f14ef0ba1c19cdaeee0033d9395b03d22e365bba61cdd1f487fd2e"
+      },
+      {
+        "bytes": 558397,
+        "path": "frames/look_around/0072.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "496a741a920506c3d173dabadc770e9c972bfa5256b15eedfe60794b091e8c4e"
+      },
+      {
+        "bytes": 558406,
+        "path": "frames/look_around/0073.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b2d2ddb959239be1f6139a5a7066ae65b89ce5722441301a36ad6f44c82cb2f6"
+      },
+      {
+        "bytes": 558065,
+        "path": "frames/look_around/0074.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cc623c9f1a72aff5baa71f2082f97a2d9b023935c03e6af6839df8d7ea8bf00b"
+      },
+      {
+        "bytes": 557900,
+        "path": "frames/look_around/0075.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "47150dc80f4aa6039c47adabee1162f20add56033c7bff275b3f07ad46058e83"
+      },
+      {
+        "bytes": 558202,
+        "path": "frames/look_around/0076.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8bd8f293971d4a2c561fd8f5e49fb9881a8c7976cddde63f5da6c2b3a5263cfc"
+      },
+      {
+        "bytes": 557287,
+        "path": "frames/look_around/0077.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4ef0e58c8a8ea169c6dd50364dcf1c65a140a006532ce973cf6f16f216abdb84"
+      },
+      {
+        "bytes": 557003,
+        "path": "frames/look_around/0078.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8c27aa75655ece2804f5773ba3f6d5b4624e0bf239c172a894c20229637afdca"
+      },
+      {
+        "bytes": 557351,
+        "path": "frames/look_around/0079.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "502b615b8e2e1a1001779178bb4e852ff8ca53d8e61c8827293a15a90d653acb"
+      },
+      {
+        "bytes": 556738,
+        "path": "frames/look_around/0080.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f01eabd4218bce093f6f42972351b0b53c84648599c80fc76b49b4765f4d97e9"
+      },
+      {
+        "bytes": 557477,
+        "path": "frames/look_around/0081.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3ba7cc4f828e213d8d81bd368923d821570528a26858c8642c481fc4e644566c"
+      },
+      {
+        "bytes": 556922,
+        "path": "frames/look_around/0082.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d98b36701deb6d378b505776f2c2d3f5e126a62166b78a2d67004029b42ffc88"
+      },
+      {
+        "bytes": 556779,
+        "path": "frames/look_around/0083.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "41e0866b85472e0fdad0840efb79ec179bc3f08c0c76296f55bcfa463efc3c4b"
+      },
+      {
+        "bytes": 557130,
+        "path": "frames/look_around/0084.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "34a167a0fd3ad98fa17bab39189ac95c0ee207a8678fa088604bd6a56af87518"
+      },
+      {
+        "bytes": 557278,
+        "path": "frames/look_around/0085.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "66b770eb8d46f504495d67181b4fdacf866690f979ff04d80605c133424c98c8"
+      },
+      {
+        "bytes": 557507,
+        "path": "frames/look_around/0086.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "80121a963c5497bdd319aa50e508f45e7f7b4f9b0d6e0a33ae95e75de0d05cac"
+      },
+      {
+        "bytes": 557081,
+        "path": "frames/look_around/0087.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bd426ec98f33b7bb4c9a3ff051fefdf6ded358f06035fb243e961c8535da8047"
+      },
+      {
+        "bytes": 557522,
+        "path": "frames/look_around/0088.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4ddf00d941b57ed892ae01f5c55d338ead3e3271db73069194b3ebc121e9427d"
+      },
+      {
+        "bytes": 557019,
+        "path": "frames/look_around/0089.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e94c1bddd49aa85acf26b4dff4e44a0c5d7ce0cfae5885d6edc1bc0354031dd9"
+      },
+      {
+        "bytes": 557104,
+        "path": "frames/look_around/0090.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8c57fa07d886f5b4c6a6c68030b2dcb111c752cca6059c1890db4fe6a0ca7a0e"
+      },
+      {
+        "bytes": 556916,
+        "path": "frames/look_around/0091.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "485b6c1e140919e1c5258794665274d3a76c3c7fffa4614311c86bbcc58b02c1"
+      },
+      {
+        "bytes": 556664,
+        "path": "frames/look_around/0092.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fc649aa0e049d30c4c858ee11376719c0cecc862bb2fb63f0f079528884c80a3"
+      },
+      {
+        "bytes": 557246,
+        "path": "frames/look_around/0093.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0df1dc4a59f05c160ed9e29888fe58ade9fd9239ac0f0d605c4ed4650604fd79"
+      },
+      {
+        "bytes": 557493,
+        "path": "frames/look_around/0094.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4c88051159d098f7908b8bdc63593a8dee5211dd78e14f24d6499747442439ea"
+      },
+      {
+        "bytes": 557585,
+        "path": "frames/look_around/0095.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "134b0ef47e6b9127957472404b329419f4daba57728ae569fa31a66d7192dd81"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/look_around/0096.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4daa6eac055cf95a98fd4182169e61c99138508c38ac4c1e872e315f061b019e"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/milestone_level_up/0000.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9b2d9e4dfcf13e42d2a87a701b0eb661d180d23cb0e5e10ec748f27391d0c68e"
+      },
+      {
+        "bytes": 557769,
+        "path": "frames/milestone_level_up/0001.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "022a66115329b224dc6bcdbae7d264e80a26bb1f326da05f6b8e2589dbc91f96"
+      },
+      {
+        "bytes": 557061,
+        "path": "frames/milestone_level_up/0002.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9bce5771acdd7a8acdffd3405854deb54f4c81921010f4dc3f20d15528ae4312"
+      },
+      {
+        "bytes": 557416,
+        "path": "frames/milestone_level_up/0003.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "aaf49676f7c8d90ec089e683385487064a85fcf7003e4a755f82303908dd16ff"
+      },
+      {
+        "bytes": 557187,
+        "path": "frames/milestone_level_up/0004.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8eeec2891555ac8881618b8b2512edc60953e5bd5a050efeb161d75e0996e87d"
+      },
+      {
+        "bytes": 556808,
+        "path": "frames/milestone_level_up/0005.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e5275c225f947bb1ce4170c600ced32f06bc7c292b806ce64255aa44ec839627"
+      },
+      {
+        "bytes": 556896,
+        "path": "frames/milestone_level_up/0006.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8ca03e5685a2359299adfe5d3f5783baed073895403c86b16467d81b27e3834d"
+      },
+      {
+        "bytes": 556572,
+        "path": "frames/milestone_level_up/0007.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fc4d2467659622a65d66a5f505c469bc7c1f9557038392b4eb88967c8c0c297c"
+      },
+      {
+        "bytes": 556015,
+        "path": "frames/milestone_level_up/0008.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f5c6b702aa3815cdf27cfea3369b7c8e68d13f2814814ab0a24833755661bc49"
+      },
+      {
+        "bytes": 556887,
+        "path": "frames/milestone_level_up/0009.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4c3d9db550f1076fb9f0cf3dabb984f70a4fa101618512eb84d54f2678553063"
+      },
+      {
+        "bytes": 555971,
+        "path": "frames/milestone_level_up/0010.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "444c5c2086ce9fb97ee15d4941777423a289c5be30e893c22f5da91eee1cabda"
+      },
+      {
+        "bytes": 555478,
+        "path": "frames/milestone_level_up/0011.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "98d63c4b23012236d388a349b4197e5fe9a8577da1ce2199efde6c86dffcf058"
+      },
+      {
+        "bytes": 555582,
+        "path": "frames/milestone_level_up/0012.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "73ace6cb0c3e67ec9c14163b48de5074c4e29257407c89d6ef2996229b059269"
+      },
+      {
+        "bytes": 555666,
+        "path": "frames/milestone_level_up/0013.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d8c0bb1d92545183cba59760104338fc8d35794d9cb1e27a4d73d756072d167c"
+      },
+      {
+        "bytes": 555390,
+        "path": "frames/milestone_level_up/0014.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "478aefecb96981eb051a562ffeb956730104a9961088309811077645ed7fbd58"
+      },
+      {
+        "bytes": 555254,
+        "path": "frames/milestone_level_up/0015.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "94cb63ad2a818ab865e7debf1d8afb4f23d8531e7181e7f9f1ef630f06d2a733"
+      },
+      {
+        "bytes": 555080,
+        "path": "frames/milestone_level_up/0016.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d3289e3c01654c9b5a62f52801f6fa0765746735ad47ea767a587f3c2e54b8c7"
+      },
+      {
+        "bytes": 555850,
+        "path": "frames/milestone_level_up/0017.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6c874189df2cc610fb757a24e199f1f1ab8e48fb9b252266db52ea6b050a64b6"
+      },
+      {
+        "bytes": 555162,
+        "path": "frames/milestone_level_up/0018.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f486a80f6a6223b0d9cdaa4603106567e444a4ddac5dc760eced80bac9f4c097"
+      },
+      {
+        "bytes": 555367,
+        "path": "frames/milestone_level_up/0019.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "39dfe8ff1b541727bc68aad6cfb62c88e77d038fe7442258de4649791a911043"
+      },
+      {
+        "bytes": 555626,
+        "path": "frames/milestone_level_up/0020.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a125a26d4f124326db82697c8900aaeeffcc053ce61b160bde0dbcdfb6662315"
+      },
+      {
+        "bytes": 555655,
+        "path": "frames/milestone_level_up/0021.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c6f609795952b88381885f0dce03ded4946735f991bd482b393a472d2e788ff0"
+      },
+      {
+        "bytes": 555775,
+        "path": "frames/milestone_level_up/0022.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "53b7cf1c256df6001e977a866005a4ad13f0fbaf4631372084ab37dc07835360"
+      },
+      {
+        "bytes": 555987,
+        "path": "frames/milestone_level_up/0023.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8183da15919b3595d7f49e88a05c2a5266e7441a7f2122ca90ada5d96b38bc23"
+      },
+      {
+        "bytes": 556521,
+        "path": "frames/milestone_level_up/0024.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cc81d07c3d0f114b397a056e3a131f6ba974a98237c4006ad09911f67a819d2c"
+      },
+      {
+        "bytes": 556477,
+        "path": "frames/milestone_level_up/0025.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a0f12ec35c8aa488d292754ab17e62b37480d243afe7341876c98f90ad4ab415"
+      },
+      {
+        "bytes": 555789,
+        "path": "frames/milestone_level_up/0026.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0a35736010f8593c481fb3fbedeedc923bdcc60df89f0726c1211f9c07367e36"
+      },
+      {
+        "bytes": 556669,
+        "path": "frames/milestone_level_up/0027.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a671aae48227d124120b36a57ed35bbccb17ee81c8c2809ee1b1effcf4c93c78"
+      },
+      {
+        "bytes": 556344,
+        "path": "frames/milestone_level_up/0028.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ee19c6edb9271f827d8ee73df073d822678f99d38c4ab43bcd4e50bd47edb593"
+      },
+      {
+        "bytes": 555525,
+        "path": "frames/milestone_level_up/0029.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7f931149e1e5e6e66b625d6312ec520d4571c071a54eded7d58b27608b015749"
+      },
+      {
+        "bytes": 555753,
+        "path": "frames/milestone_level_up/0030.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fb7f17596e72641f8e0982dbcfcccbabfab35274d0a717e35cc019208541e095"
+      },
+      {
+        "bytes": 555509,
+        "path": "frames/milestone_level_up/0031.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b900e1155f1639387354d60485d2aa71bd2e24c01e821f3d74f7cf30e80a7d7a"
+      },
+      {
+        "bytes": 554883,
+        "path": "frames/milestone_level_up/0032.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4537b402541e912159fff171e9be60a4f851221796c56cb92a4953710eb7fb77"
+      },
+      {
+        "bytes": 555406,
+        "path": "frames/milestone_level_up/0033.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "748a6de52f7733407c0104685e4d35eb7270e5082777d63f93272841ccf09eef"
+      },
+      {
+        "bytes": 555551,
+        "path": "frames/milestone_level_up/0034.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cb8ebb72724485592dc15600c17afd0325d54ba1701e76e803333ec81195184d"
+      },
+      {
+        "bytes": 555324,
+        "path": "frames/milestone_level_up/0035.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fc06968c951b4c9ce6fc7fde30fccc998ea6939c6eb9b370d7d6586d4b6fc456"
+      },
+      {
+        "bytes": 554875,
+        "path": "frames/milestone_level_up/0036.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "35153a8a6a45483acb5893a7fcf6f93a76087ddeb9f455b1d94946965609b5ec"
+      },
+      {
+        "bytes": 554895,
+        "path": "frames/milestone_level_up/0037.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3bc99e6194f8619495bb4687386186edaeaa037038de8730e665c63871edebfe"
+      },
+      {
+        "bytes": 554562,
+        "path": "frames/milestone_level_up/0038.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5d38928b30e06dff2b4f96028c13e3c2667fa66dc96ac59ab99433fc1c078f6e"
+      },
+      {
+        "bytes": 554324,
+        "path": "frames/milestone_level_up/0039.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1a3dbdc92b5206d5b83e6c698060924c6431f656f7269b494b977c4e0f78253b"
+      },
+      {
+        "bytes": 553885,
+        "path": "frames/milestone_level_up/0040.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dcc63ac1deb83022c5f859ae48e97135400950a4746e7ba5798172bc7f73678c"
+      },
+      {
+        "bytes": 553884,
+        "path": "frames/milestone_level_up/0041.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3fb0206e29693254910fd84033f6d22e51a3357d69fe67270d29360bf88d1d87"
+      },
+      {
+        "bytes": 554534,
+        "path": "frames/milestone_level_up/0042.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9acad26ff4687d3b45aa15a5bf56a44a34c363ffad7bf00fce685b0a0a296642"
+      },
+      {
+        "bytes": 553290,
+        "path": "frames/milestone_level_up/0043.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8efbbac0db5bb27d2bdcd6d6106f3afffe7827de89a58053e7e015e3a777438f"
+      },
+      {
+        "bytes": 552961,
+        "path": "frames/milestone_level_up/0044.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fa332e25bc165fbee886f7b1cb25480cfcd1b75e06cb19b5d8c59374cd7c12dd"
+      },
+      {
+        "bytes": 553000,
+        "path": "frames/milestone_level_up/0045.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7a9ba9227cf02a3deb940654831e827460c420629e1849bfc414a2e86cf2db3d"
+      },
+      {
+        "bytes": 552553,
+        "path": "frames/milestone_level_up/0046.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "93783447006adf3307747c3006fa540007ef8e467c0e6543a19777552dc78d67"
+      },
+      {
+        "bytes": 552025,
+        "path": "frames/milestone_level_up/0047.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3a10a30588b8434fe37f47fc880dafb4e0d3f153b2269808ea83f456097b7509"
+      },
+      {
+        "bytes": 552431,
+        "path": "frames/milestone_level_up/0048.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "72c661d63df950b4b3c45151e538956d99ae850e40d1b1491b255f6a4350e584"
+      },
+      {
+        "bytes": 552244,
+        "path": "frames/milestone_level_up/0049.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b226c41a75e2eafd1ca6d0ca9efab7f6b4cfa1fc632a4c11d1b6218dcd0e39a6"
+      },
+      {
+        "bytes": 552150,
+        "path": "frames/milestone_level_up/0050.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dbe1ed0706fd2ed792b6b91740839b04ceb7e790764fbc9c4d2ab824c6b4a917"
+      },
+      {
+        "bytes": 552209,
+        "path": "frames/milestone_level_up/0051.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b74e9ecd15d006ae3b80849913aad8e9c09e2534b7ad36f02c76b89540c87d8a"
+      },
+      {
+        "bytes": 551795,
+        "path": "frames/milestone_level_up/0052.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "679d889f77f0ee97665b62037490f79f805049f98623cde937805ffdae310917"
+      },
+      {
+        "bytes": 551736,
+        "path": "frames/milestone_level_up/0053.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d553fe67ea1a51489dee03b4d831aeabfb7a264d88c8f466c2575d104f070052"
+      },
+      {
+        "bytes": 552201,
+        "path": "frames/milestone_level_up/0054.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0f8b7a6fe9c800e97c4b27b89abd271ba79983f12ed95624257ed22d3079d32c"
+      },
+      {
+        "bytes": 552744,
+        "path": "frames/milestone_level_up/0055.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2a851b4138f3781d764d5a172305b93ec4951c0ab0e952fc3e06dbb148f5ae01"
+      },
+      {
+        "bytes": 552669,
+        "path": "frames/milestone_level_up/0056.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c80a8e89abbbaab265235ab78d640ad5bb903a031e733203b5188877ec52406c"
+      },
+      {
+        "bytes": 552903,
+        "path": "frames/milestone_level_up/0057.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a2fa2fc8e28da147b2a983e58fa3de3d7211488f7eff4d70923b7de6bb20e1cd"
+      },
+      {
+        "bytes": 553251,
+        "path": "frames/milestone_level_up/0058.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f52b872a2abc54be4ed8803043fa84fc6bb107ef736faa20dacfa1cfb6e38957"
+      },
+      {
+        "bytes": 554076,
+        "path": "frames/milestone_level_up/0059.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "9e714820324c41ffb6a7b978a52801ed313f39e57972a8f4adb59325faf3df23"
+      },
+      {
+        "bytes": 554070,
+        "path": "frames/milestone_level_up/0060.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c4f8b7a567b2533c253e68cfdca86cf6b40b21d9769656c6432d3b3aca5aa9b1"
+      },
+      {
+        "bytes": 554579,
+        "path": "frames/milestone_level_up/0061.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "72b06ec35dec80b6df59ff2e86511cdbb77c735f415c2e8e3f770acf09271e2a"
+      },
+      {
+        "bytes": 554272,
+        "path": "frames/milestone_level_up/0062.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "99590349344f9b8d9841f0f6293bb2f7b8b89a2b69962eba98d889d3830f880c"
+      },
+      {
+        "bytes": 554991,
+        "path": "frames/milestone_level_up/0063.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1490272f1527d3a003d7066dde98a5ecc37301a95cd0921521466ea096f53c12"
+      },
+      {
+        "bytes": 556872,
+        "path": "frames/milestone_level_up/0064.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "278e47992a0197728e10b9ceb72793ba6cef3f783e0b99a52083c7c8d31d6ea0"
+      },
+      {
+        "bytes": 557444,
+        "path": "frames/milestone_level_up/0065.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5e2eb9c007cc11dbac5f3e2a59b8e8e1fe34423c24f87d4d493d754a789952d6"
+      },
+      {
+        "bytes": 557208,
+        "path": "frames/milestone_level_up/0066.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a878ffceab7f9f679a702a7008e6223464ee50607b354340b900a532f8121809"
+      },
+      {
+        "bytes": 558719,
+        "path": "frames/milestone_level_up/0067.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a26c33aaccd9bc2f4b8ed0c02cdf68bdb5e84cb117042333d8dc83c0a2fd003f"
+      },
+      {
+        "bytes": 558316,
+        "path": "frames/milestone_level_up/0068.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "301bd2b5cece5b30e40935713df9d5007bdca4050e6e763efc6a6e0e761cffc7"
+      },
+      {
+        "bytes": 557995,
+        "path": "frames/milestone_level_up/0069.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dd7edfd45b2ba55658cb903abbfce1988976503f59bd2006b132968cb2fa9258"
+      },
+      {
+        "bytes": 558652,
+        "path": "frames/milestone_level_up/0070.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2bc9a1e92da179ed9dd6b0b95941fd01548be1cf9759046e49fef56662f9b5a2"
+      },
+      {
+        "bytes": 558874,
+        "path": "frames/milestone_level_up/0071.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6b04f31298af6efdee2d785edd9c58e6860cab5fde1ee98abf9c362549b91afa"
+      },
+      {
+        "bytes": 559152,
+        "path": "frames/milestone_level_up/0072.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "30886c5f9394f741ecbf97acf0109dd9af4dbaf1b04bea041d4aa5bb0d227f25"
+      },
+      {
+        "bytes": 558808,
+        "path": "frames/milestone_level_up/0073.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e3afbfd76b9ef674857d15ad14b8ef5b44322f87ec751b309225614bf49f065b"
+      },
+      {
+        "bytes": 558637,
+        "path": "frames/milestone_level_up/0074.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "47bc2b3b60a7f933af778391e3afc039062a126153f4a10111354871490347a3"
+      },
+      {
+        "bytes": 558558,
+        "path": "frames/milestone_level_up/0075.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4c9158f22dd5adfabad9a84c5c5247fd1b6c201c8e93789da53dc8b62a8b3d40"
+      },
+      {
+        "bytes": 558658,
+        "path": "frames/milestone_level_up/0076.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6ca7cc97d6905425ecdcbf6484621288f8f66f942ec764dd602e45141f68a993"
+      },
+      {
+        "bytes": 558261,
+        "path": "frames/milestone_level_up/0077.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "588729860b191b3dd72c6656ecb1f6b3c5f85bc9346df8763f9fb98c6fce0659"
+      },
+      {
+        "bytes": 558207,
+        "path": "frames/milestone_level_up/0078.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cfc4b966cd75f88e4641c1bf92bacca67a840cb2db67827a6a3891fb498fe825"
+      },
+      {
+        "bytes": 558112,
+        "path": "frames/milestone_level_up/0079.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2949cd969f1ba10d119e6c7c7c707cf80e6cde0a402365ba2017385b088ff8fa"
+      },
+      {
+        "bytes": 558220,
+        "path": "frames/milestone_level_up/0080.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "491f472bbd5a6e5b193b2a3123d78212f423854051ae29db981d2232f1546325"
+      },
+      {
+        "bytes": 558634,
+        "path": "frames/milestone_level_up/0081.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0a2ee1350caa9da8f1195acf7e34763da839a1150597ff47e771ab716361c36e"
+      },
+      {
+        "bytes": 558654,
+        "path": "frames/milestone_level_up/0082.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "748e309d2ac1c2d2708a66ba3ad086f076a0aabf172af07b71a6927ed29e73cf"
+      },
+      {
+        "bytes": 558303,
+        "path": "frames/milestone_level_up/0083.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "14a7eaee2103daee33a8efa168ffa42c4cf327c408b7045f75a414bf60b48d1f"
+      },
+      {
+        "bytes": 557219,
+        "path": "frames/milestone_level_up/0084.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "74d3e36a276b0f6463a670a98d514cb8c30ca76c5c792b652a3e5bfa03e1d444"
+      },
+      {
+        "bytes": 557469,
+        "path": "frames/milestone_level_up/0085.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1080e553754ed46933ba065918416000988c0bba1fce1e1242f88fcf1467990a"
+      },
+      {
+        "bytes": 558006,
+        "path": "frames/milestone_level_up/0086.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bd8a9422bd9ed6fcf700bf8f9ad94a3e6493cbf425b4fe1a704457df7f848a64"
+      },
+      {
+        "bytes": 557367,
+        "path": "frames/milestone_level_up/0087.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "49c29e923753264372fd484e20aeb6408e1da1191452bd2c642fd5b0a5d2c1e9"
+      },
+      {
+        "bytes": 557547,
+        "path": "frames/milestone_level_up/0088.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "363f0c8af12f48db7c430185e6a0ccb4765cea80f5c3d02d141c68eac73f4be8"
+      },
+      {
+        "bytes": 557322,
+        "path": "frames/milestone_level_up/0089.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "37edaa6ad47c78d27a957075a5f97132f57a14dc46164518c43228743817845c"
+      },
+      {
+        "bytes": 557624,
+        "path": "frames/milestone_level_up/0090.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f949d4f52882bf48c9b923b2a0e881e1b8fcf23ebd510610cbb9ccb7b359c590"
+      },
+      {
+        "bytes": 557625,
+        "path": "frames/milestone_level_up/0091.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0486f32da04d9cd830e14e0926114773b2053e4c79442623a33a89ba22788b08"
+      },
+      {
+        "bytes": 557960,
+        "path": "frames/milestone_level_up/0092.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "69ecd3e2aa408ac9894af5a931638a415344de3e5b2913ac7258db4f0bc228a5"
+      },
+      {
+        "bytes": 556900,
+        "path": "frames/milestone_level_up/0093.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "da2ba0b51294ba59107fc4c693535ffe8655be642f0f6ffd6645fb8db7a5d9a7"
+      },
+      {
+        "bytes": 557619,
+        "path": "frames/milestone_level_up/0094.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "db97481312545f959b3f6987909d2fe6b8547560a4882503e643f0f749ec80ff"
+      },
+      {
+        "bytes": 557255,
+        "path": "frames/milestone_level_up/0095.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8f386d0444542575930e90c74e145f01eac5c315ba2c6db58399ab07d38b7ae3"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/milestone_level_up/0096.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a90ccf055233b18933ebf5aec36c9671a324280b18763793de3ad6c7af055b48"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/wing_flap/0000.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4b9089cba12781d963d64776b2f33bc3e2cbc09dc6d97f733690080994c214d5"
+      },
+      {
+        "bytes": 556729,
+        "path": "frames/wing_flap/0001.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f9652627b9fc344421413cf9b3e8e9671a48b6b0348626d4d6aa65a5d913a5c"
+      },
+      {
+        "bytes": 556980,
+        "path": "frames/wing_flap/0002.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "39510555676227ac5ec2d6ac7a176f9f49a5d26bf146ae95c7d84f93cd62e774"
+      },
+      {
+        "bytes": 556472,
+        "path": "frames/wing_flap/0003.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "25fe265130c93b064cf739fd5c6e7df7caed88abdad016fe1eaa06ecf7bf68a3"
+      },
+      {
+        "bytes": 555528,
+        "path": "frames/wing_flap/0004.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0ca34d2a2b031d86a2eeec02a7a69774e622a26ddce9b0bc53b16bdf5598c74d"
+      },
+      {
+        "bytes": 554885,
+        "path": "frames/wing_flap/0005.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f2b9c28a9a7f56d6d32eeb7ba4f4075d54fef2a8c28aee3e25a310a3bea6c75e"
+      },
+      {
+        "bytes": 554524,
+        "path": "frames/wing_flap/0006.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8df9caddd91b1b10e713962dc2fc69f497d6e16748eec4346eafe78d3211c696"
+      },
+      {
+        "bytes": 554329,
+        "path": "frames/wing_flap/0007.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e6d038e64280f0be3d2caf94827d2bff21a6f59f533a20403d63c52d3b2e5ff1"
+      },
+      {
+        "bytes": 554215,
+        "path": "frames/wing_flap/0008.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ac99b5108e5baccb49db7f0a741c984288924e2611c52c4f49a07d3f31d4eb21"
+      },
+      {
+        "bytes": 554214,
+        "path": "frames/wing_flap/0009.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0c39eef2b8c9f67f3aca287cb7b2f903b5adb29848a708ea55a1642ff275d45b"
+      },
+      {
+        "bytes": 553467,
+        "path": "frames/wing_flap/0010.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dda7daaf2014192fcd3d2f3822a92a7659f40a45cbbe09f4eb3634ed24dc98b4"
+      },
+      {
+        "bytes": 553759,
+        "path": "frames/wing_flap/0011.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d78e378fffdf3e5abf9384f10742a3e25f34b2dc2f987d518a460ddc7e4474f2"
+      },
+      {
+        "bytes": 553477,
+        "path": "frames/wing_flap/0012.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c6ae7b72ed8a85059785390ef709e5f429f9cd8095210daf68c6640008eb3ef8"
+      },
+      {
+        "bytes": 553859,
+        "path": "frames/wing_flap/0013.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ae1e9225fdcef8c16e4daa8483bfcfc334c1ddce9fb30ad0b37ea7b486355da3"
+      },
+      {
+        "bytes": 553825,
+        "path": "frames/wing_flap/0014.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "420a1a44666f23b5d3d71631643bfd77b5358bc86603707e09c8bb3d26e7dd71"
+      },
+      {
+        "bytes": 554451,
+        "path": "frames/wing_flap/0015.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "f4bbf7505a011af42526c25f5adb364bf2dab5290d900045000adf5194842ac8"
+      },
+      {
+        "bytes": 554559,
+        "path": "frames/wing_flap/0016.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "132d2d8e3dc85bf644457adb43e898387b8daf5b7df13f8b7d0d78b8b036159d"
+      },
+      {
+        "bytes": 555388,
+        "path": "frames/wing_flap/0017.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "289e6f1b601697d9af0ebc0fb184245182baf7acaaa5f14e41c351a0a0b0562b"
+      },
+      {
+        "bytes": 556342,
+        "path": "frames/wing_flap/0018.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "cf6c02ac0759f828a5b2e53fd925d2d98494cae40290654b896222f82d3ce18a"
+      },
+      {
+        "bytes": 557241,
+        "path": "frames/wing_flap/0019.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ca9a4911b52a14baeafb4026da5294716e9e9df59f57ee56639b36a10f87985e"
+      },
+      {
+        "bytes": 557793,
+        "path": "frames/wing_flap/0020.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b9ae94cecc3baf92c4297e29f9334cebb30fd4850811a347d71c2d3140d5224e"
+      },
+      {
+        "bytes": 557416,
+        "path": "frames/wing_flap/0021.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3922246471168421c890c35da234318f0c5287eb9eb8175210639a55bf6a367c"
+      },
+      {
+        "bytes": 558069,
+        "path": "frames/wing_flap/0022.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7f1a277007ab3067c461c1375161fa7be46d1c917afe378abbe812fd25b61b38"
+      },
+      {
+        "bytes": 558560,
+        "path": "frames/wing_flap/0023.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "461f1aff9b3eb4a1ce327f3dde3078175e2ab42f908f606daad330d4cc61d689"
+      },
+      {
+        "bytes": 558424,
+        "path": "frames/wing_flap/0024.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "20414788ebbf3d8537dcf4270aa37e4de479deb949d6f30fe3e57fe3e79ef91f"
+      },
+      {
+        "bytes": 558651,
+        "path": "frames/wing_flap/0025.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "66fe40397a954635407912404a4e4bc828866c45053f549663e3ca26d7931337"
+      },
+      {
+        "bytes": 558067,
+        "path": "frames/wing_flap/0026.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "84ca0cf3a42e88c601ad8bb95cb9c27cd32a3bea7205de34df1f441a29b22de5"
+      },
+      {
+        "bytes": 557444,
+        "path": "frames/wing_flap/0027.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "5de137da736cbfda47d0ef1f781d6f9eac83ed50860bbe3826f0bf8284cf8899"
+      },
+      {
+        "bytes": 557761,
+        "path": "frames/wing_flap/0028.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bda22077ce31066b7c750eaedd99f730648d8dce4f0dfc73338e3185c1bbdb08"
+      },
+      {
+        "bytes": 557212,
+        "path": "frames/wing_flap/0029.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "647ae55bb46e2d74ce99a3597cc03ab81d17295304867fcaf5da03949173c648"
+      },
+      {
+        "bytes": 556507,
+        "path": "frames/wing_flap/0030.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "88be6ff11f993bd0d297d21716767be9e5d7dcf1cc99fc2fa810d29329ee96a1"
+      },
+      {
+        "bytes": 555334,
+        "path": "frames/wing_flap/0031.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3182b3ab59a592bf7a4752a240e8aeb959ccf3306e4c7f5031d46c6eec484313"
+      },
+      {
+        "bytes": 554410,
+        "path": "frames/wing_flap/0032.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e01e83e8010c2f3b5c8fe532bc197cdeffe223aae7d921aebb8a8afee0865c8d"
+      },
+      {
+        "bytes": 554375,
+        "path": "frames/wing_flap/0033.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b1ab2143044625e3e3385f794e6bae394f0ac14036041bd12abfdd8193875a7e"
+      },
+      {
+        "bytes": 553797,
+        "path": "frames/wing_flap/0034.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8ca239826dbe7871ed726ddbae61d3a6a898624ee8962f7fa05065c9b0944953"
+      },
+      {
+        "bytes": 553535,
+        "path": "frames/wing_flap/0035.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6e8136c0f593de4c8485ffaeb8772e15f53fc9ecf7c4166e69527974699dc08d"
+      },
+      {
+        "bytes": 553477,
+        "path": "frames/wing_flap/0036.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f653827e385703cc4d25ac89e1726cfe7b9be3115bf90b24ea2a3cbd9107b3f"
+      },
+      {
+        "bytes": 553859,
+        "path": "frames/wing_flap/0037.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a2be85efe8d4aa47723960a9d099e481d5f4224457fbacfe4c3a4056435a9edf"
+      },
+      {
+        "bytes": 553825,
+        "path": "frames/wing_flap/0038.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "948aa1f80c2221bcc48416ab26ea068dd74c8ef216a5f8e37a6a3aef95b97a1d"
+      },
+      {
+        "bytes": 554451,
+        "path": "frames/wing_flap/0039.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "89d74f1602fcc35ca948aaf932787781d48cdbf5f1ecad645b5028982a2f599a"
+      },
+      {
+        "bytes": 554559,
+        "path": "frames/wing_flap/0040.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6343ed1b18c01d274bb285eb762484ae48342263eab57139c236aad2cf2e1463"
+      },
+      {
+        "bytes": 555388,
+        "path": "frames/wing_flap/0041.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "59f13be64a44bf970a508feff7499d077607f9a90d108b2632b48d8bc4accb4b"
+      },
+      {
+        "bytes": 556342,
+        "path": "frames/wing_flap/0042.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "e95ce469a899cec3a2fc05b63f3e044e5739015b3b734ee1c98d614f0557e149"
+      },
+      {
+        "bytes": 557241,
+        "path": "frames/wing_flap/0043.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d7c5f2d5851e4c31324f6112b9642c646971b9ab20d962329790786ac63a59df"
+      },
+      {
+        "bytes": 557793,
+        "path": "frames/wing_flap/0044.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "7c31c42403f48a98b95e76cd69f27ab98d78f3ca721d4c2792ccee29db1562de"
+      },
+      {
+        "bytes": 557416,
+        "path": "frames/wing_flap/0045.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "da5b6e9b259470b9ad7d5c62128bed0c9144a427715768e8eb7152f20da62577"
+      },
+      {
+        "bytes": 558069,
+        "path": "frames/wing_flap/0046.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "38b98554332f819221e2033287f7878ac3679b39ee2eda165b27076db4d9f11a"
+      },
+      {
+        "bytes": 558560,
+        "path": "frames/wing_flap/0047.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "97dbce82c98fcf2a6f2d6ba372fe042da57f632cc483e225518fa04dcc98f5df"
+      },
+      {
+        "bytes": 558424,
+        "path": "frames/wing_flap/0048.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d3233f4107d73ea1d78c9643aa6a332b68947195682798f64640ad5163753a70"
+      },
+      {
+        "bytes": 558651,
+        "path": "frames/wing_flap/0049.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "dda2204cf769335c97aadf3050aba724e68be3dc6999d724da01f87841f4fa8c"
+      },
+      {
+        "bytes": 558067,
+        "path": "frames/wing_flap/0050.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "06e6ddd093d3ede8e9a9a12dfab3c7840eecbb3a81866261767c140bf913a0a5"
+      },
+      {
+        "bytes": 557444,
+        "path": "frames/wing_flap/0051.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0b4358605e67639803af34b7e9e7773583233eec2e871aec777415ea46295b0d"
+      },
+      {
+        "bytes": 557761,
+        "path": "frames/wing_flap/0052.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8cfda5ec4cb5688a255342cd59c6aa823632ea70763e767455309379d51762ec"
+      },
+      {
+        "bytes": 557212,
+        "path": "frames/wing_flap/0053.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "b856985faeb56fc7092f97d33b481a02a0d9e271e0f76a2513c8af4e79bf5d34"
+      },
+      {
+        "bytes": 556507,
+        "path": "frames/wing_flap/0054.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4145aa638d5bfae9bdf6c6d4cad62aba8d4693e64d60a71bf1420247dc61c51f"
+      },
+      {
+        "bytes": 555334,
+        "path": "frames/wing_flap/0055.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a4c7a05925703483f2698fa1e00e131cb7ab6dfb74f8c12dae411dde4197e393"
+      },
+      {
+        "bytes": 554410,
+        "path": "frames/wing_flap/0056.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c4e7823e2a0323b6168c9e73d583f343015b65c55fd1737fa70631116a4ea226"
+      },
+      {
+        "bytes": 554375,
+        "path": "frames/wing_flap/0057.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "211de9f065afff4c9eb077e1b73a4dccb58345d9737cf574165dd0cd0947d1bc"
+      },
+      {
+        "bytes": 553797,
+        "path": "frames/wing_flap/0058.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c89e6e89022847e83cc7b503165b6ac151ef8bd8f49dee2938756bdf2272f937"
+      },
+      {
+        "bytes": 553535,
+        "path": "frames/wing_flap/0059.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "39223797a2d1f926ced6b12c6e46935594e3da00b8fe3b00be487cd12511ef9f"
+      },
+      {
+        "bytes": 553477,
+        "path": "frames/wing_flap/0060.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "3dde53dbcf3f94727877748123088e51057f4b60b03644d770c2d36d24a4e7c6"
+      },
+      {
+        "bytes": 553446,
+        "path": "frames/wing_flap/0061.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a8535d113ad9c379e9c45d01ddbab33225eeb46bd0289dc5b5d6dfd0864281e1"
+      },
+      {
+        "bytes": 554011,
+        "path": "frames/wing_flap/0062.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "47fad5ad30549ddeb829b3eaff4ac32c745ad3b395ebddf7af4635e1ed2626ac"
+      },
+      {
+        "bytes": 553784,
+        "path": "frames/wing_flap/0063.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a2d9ee275d700dc0cc8c3464876c158f254f103a78960f04c963cdb471fb048f"
+      },
+      {
+        "bytes": 554784,
+        "path": "frames/wing_flap/0064.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1f4d9b34bbf2e36c55effbcc2aa5d8e826ce23d2c56c6769da2ea231194a26d2"
+      },
+      {
+        "bytes": 555372,
+        "path": "frames/wing_flap/0065.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "bc5a122c94d2b4b9daba112c9207c1dc711c15e07ace961ee61ab46f43243156"
+      },
+      {
+        "bytes": 556222,
+        "path": "frames/wing_flap/0066.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2674ec83467b546d6c206b30971a7c9002664bf3f5c9e2bc2a30745b65788180"
+      },
+      {
+        "bytes": 557587,
+        "path": "frames/wing_flap/0067.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f30091a0c875abdc11b6b1e3ad76fd3b6da3d48de8015552a5d884198e3cf39"
+      },
+      {
+        "bytes": 557731,
+        "path": "frames/wing_flap/0068.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "201f7d122341b293d76c0d726c772e547dde03092636293161bb9d5859e6e4bf"
+      },
+      {
+        "bytes": 558257,
+        "path": "frames/wing_flap/0069.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c3966a0d505d473fcf6d5b4aeb9b5fa6afcb57ee77ddb992486f10c6901dd2e3"
+      },
+      {
+        "bytes": 558382,
+        "path": "frames/wing_flap/0070.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d46b9ceb7f9b8d445463fff8bf2099a63c3e5e2e66738f811cba098f8cdbe6b3"
+      },
+      {
+        "bytes": 558562,
+        "path": "frames/wing_flap/0071.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "4f6acc8dc11712c53ad44a8c53dbf6665b0f0446fa152e4667f6ed641798c07e"
+      },
+      {
+        "bytes": 558467,
+        "path": "frames/wing_flap/0072.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d53d71ccd29c661aaf223c3a9c20e0db1afa001366a16270cc450f7bd8586f17"
+      },
+      {
+        "bytes": 558394,
+        "path": "frames/wing_flap/0073.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "50bccd542ba24b14b179ad0ea60805a92264500fca28d0d4eb63bd629e83c292"
+      },
+      {
+        "bytes": 558465,
+        "path": "frames/wing_flap/0074.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "12da30c5b825aff866b5d1cbc0bbf390f7a15b394fdee2ec33b8df83ef6f0c41"
+      },
+      {
+        "bytes": 558272,
+        "path": "frames/wing_flap/0075.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2892e274f76871a52a57998df0b6f674fa90f46a8be5313b78a7e2d2192a87da"
+      },
+      {
+        "bytes": 558721,
+        "path": "frames/wing_flap/0076.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "c7553726168a8360a6b9a5e3c11f1b0926cd92d45557fe74d543998bbc7efaa5"
+      },
+      {
+        "bytes": 558327,
+        "path": "frames/wing_flap/0077.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ac579d753b39dbadf75d1c9300c5da38aef15625ad4a3402437ecce0408582c4"
+      },
+      {
+        "bytes": 558402,
+        "path": "frames/wing_flap/0078.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d849363bfbdeb1f9b8354b454f0b90c6a9da0626fa0471c2423cdd6d97718c94"
+      },
+      {
+        "bytes": 558300,
+        "path": "frames/wing_flap/0079.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "90bbba631cd2c3a5042212cce53a33473c7ff36b79918ffa453125057122bbbf"
+      },
+      {
+        "bytes": 558223,
+        "path": "frames/wing_flap/0080.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "a816899445183067cea249668528cbb0828b49102facba6ca21d3fbfd3be461f"
+      },
+      {
+        "bytes": 558316,
+        "path": "frames/wing_flap/0081.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "8bb8640fbad22622601ac791964badc573311f8fbab86d2b7925775fb17dc906"
+      },
+      {
+        "bytes": 557947,
+        "path": "frames/wing_flap/0082.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "fc6547d7560300d37ac16ce19fca250e6c11a09fcdb142a3078d428d5b0a5670"
+      },
+      {
+        "bytes": 558191,
+        "path": "frames/wing_flap/0083.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "2bd3a705bfa6a19cf879825c27ab53ab3604611fb24859312cf036f5bb73a0b8"
+      },
+      {
+        "bytes": 558112,
+        "path": "frames/wing_flap/0084.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "0a2086d16dacc9ea1b9400ab2a7cf666993cd98d33a060c5a09d39206128126d"
+      },
+      {
+        "bytes": 557761,
+        "path": "frames/wing_flap/0085.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "818afc502696242eb4c847e39b618ef372972b41d28920838fdc2bb9cb7c4937"
+      },
+      {
+        "bytes": 557642,
+        "path": "frames/wing_flap/0086.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1fe6e59a0dcb2bf4f4f011052d31e6e84d693a2cd8d762ca06e17a2a8a7ddcac"
+      },
+      {
+        "bytes": 557664,
+        "path": "frames/wing_flap/0087.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "d855d0af7612f5f3cd10b3307cc4e9a09f94310971d0dca9ac83ac8fdc02550e"
+      },
+      {
+        "bytes": 557514,
+        "path": "frames/wing_flap/0088.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "63d34b8dde8e6973f50ac9e99d1a583feec84d1533ecbd2ca89b5d6757a7b621"
+      },
+      {
+        "bytes": 557483,
+        "path": "frames/wing_flap/0089.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "768e3744874fe9f0979af6950c48c4cc8d8105c517b2c72eb3dcabddd883d458"
+      },
+      {
+        "bytes": 557591,
+        "path": "frames/wing_flap/0090.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "93aeb5570032e6bfae050327e99a8d3f1fac95e9683480d521ba72cbd28190d5"
+      },
+      {
+        "bytes": 557495,
+        "path": "frames/wing_flap/0091.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "80daaf3666c1cf4928742e53f9227fcc3fb8c62168365449c7a28b22c39e095c"
+      },
+      {
+        "bytes": 557383,
+        "path": "frames/wing_flap/0092.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "6ea41805ea4de7da80c92bde16e50f17d1b953121cc15278bcae5e45111d6958"
+      },
+      {
+        "bytes": 557050,
+        "path": "frames/wing_flap/0093.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "ffa91bf6e4982c65af21e8931e84b87afacb1aa2b6dd5839fb5c2c2f18e6d047"
+      },
+      {
+        "bytes": 557206,
+        "path": "frames/wing_flap/0094.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "90dc16ec7bbe9d7cb02630df2f560a8516ab90b030bcded779f4b74c6ec1ebc8"
+      },
+      {
+        "bytes": 556934,
+        "path": "frames/wing_flap/0095.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "64a24c2088cdcf62eddbc0564627151b245537cf9b608dbcb1c90bd5265c141f"
+      },
+      {
+        "bytes": 556946,
+        "path": "frames/wing_flap/0096.png",
+        "reason": "Native rendered frame; unchanged in the full local source pack",
+        "sha256": "1f1f07636784b690ccd42c865e527d0d149685429adc73a2aa91e37887093e4b"
+      },
+      {
+        "bytes": 2262390,
+        "path": "render.log",
+        "reason": "Verbose native-render log; unchanged in the full local source pack",
+        "sha256": "7ada03c9f2b6dced4138c9f03aa5fd78ca504ec896b97092e0f1aee48ae3ab37"
+      }
+    ],
+    "parent_3d_binding": "Original parent_3d_manifest_sha256 retained without alteration.",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "regeneration": "No media decoding, rendering, re-encoding, or generation; every retained original file is byte-identical.",
+    "retained_original_artifact_bytes": 10131694,
+    "schema_version": 1,
+    "source_artifact_bytes": 228465845,
+    "source_inventory_verified": 428,
+    "source_manifest": {
+      "bytes": 91073,
+      "path": "source-manifest.json",
+      "sha256": "cfee8bfc03adc559ef1aaaa6b226f95a8b3b80c106c0e847f197425dc38031ed"
+    },
+    "source_pack_name": "emerald-dragon-media-v1",
+    "source_preservation": "Full source pack and its original manifest remain unchanged; omitted files are not deleted."
+  },
+  "has_transparency": false,
+  "id": "emerald-dragon-finished-v3",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/sources/blender_render.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-finished-v3/source.blend",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1",
+      "720",
+      "1600",
+      "4",
+      "8",
+      "false"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 527.181,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 220987427,
+    "last_rss_sample_elapsed_seconds": 526.92,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 1200
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "render-monitor.json",
+    "monitor_errors": [],
+    "pid": 45170,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2043,
+    "sampled_max_output_bytes": 220987427,
+    "sampled_peak_rss_bytes": 1179238400,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "rendered_2d_avatar",
+  "origin": "Native 3D skeletal rendering at 24fps; not stock video or repeated stills",
+  "output_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "packaging_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "avatar_assets.packaging",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/sources/output-spec.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 7.92,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 228464335,
+    "last_rss_sample_elapsed_seconds": 7.66,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 768,
+      "wall_seconds": 180
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "packaging-monitor.json",
+    "monitor_errors": [],
+    "pid": 46367,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 30,
+    "sampled_max_output_bytes": 228464335,
+    "sampled_peak_rss_bytes": 295731200,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "parent_3d": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-finished-v3",
+  "parent_3d_manifest_sha256": "1793ea697f51b0f10d2c0c40b5e94a0a56d7ec3b65ce08c03466aa734d25b491",
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 817972,
+    "format": "WEBP",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 1600,
+    "kind": "image",
+    "metadata_keys": [
+      "background",
+      "duration",
+      "loop",
+      "timestamp"
+    ],
+    "mode": "RGB",
+    "sha256": "efee2ffbb5c27c9dd9556d2830f1dbd418409ff939bb4db68ff9d8af243a37be",
+    "width": 1600
+  },
+  "portrait_postprocessing": {
+    "input": {
+      "bytes": 2588388,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-raw.png",
+      "sha256": "6ec3d66d7d5daf0dfb97b4d9abc8a203676231816016c9b870467d81732ee8e1",
+      "width": 1600
+    },
+    "job": {
+      "cleanup_events": [],
+      "cleanup_status": "not_required",
+      "command": [
+        "/usr/bin/env",
+        "-i",
+        "PATH=/usr/bin:/bin:/usr/sbin:/sbin",
+        "LANG=en_US.UTF-8",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "OMP_NUM_THREADS=4",
+        "OPENBLAS_NUM_THREADS=1",
+        "VECLIB_MAXIMUM_THREADS=1",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/denoise_portrait.py",
+        "--worker",
+        "--input",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-raw.png",
+        "--output",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-denoise/portrait.png",
+        "--report",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-denoise/worker-result.json"
+      ],
+      "descendant_exit_verified": false,
+      "elapsed_seconds": 1.024,
+      "exit_code": 0,
+      "failure": null,
+      "failure_reasons": [],
+      "final_output_bytes": 1298529,
+      "last_rss_sample_elapsed_seconds": 0.769,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 64,
+        "rss_mb": 2048,
+        "wall_seconds": 90
+      },
+      "manual_stop_required": false,
+      "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+      "monitor_checkpoint": "denoise-monitor.json",
+      "monitor_errors": [],
+      "pid": 46357,
+      "process_exit_verified": true,
+      "rss_exit_race_observed": true,
+      "rss_samples": 3,
+      "sampled_max_output_bytes": 1298529,
+      "sampled_peak_rss_bytes": 993951744,
+      "sampling_interval_seconds": 0.25,
+      "schema_version": 1,
+      "status": "finished"
+    },
+    "libraries": [
+      {
+        "bytes": 155808,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+        "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+      },
+      {
+        "bytes": 47280496,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+        "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+      },
+      {
+        "bytes": 302112,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+        "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+      },
+      {
+        "bytes": 382752,
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+        "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+      }
+    ],
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "raw_input_unchanged": true,
+    "schema_version": 1,
+    "status": "needs_visual_review",
+    "worker": {
+      "alpha_unchanged": true,
+      "change_metrics_are_quality_scores": false,
+      "input": {
+        "alpha_sha256": "47d23dadd0f8a03d2ce179b07af10b6a2461477526e919003bad797678040ea0",
+        "bytes": 2588388,
+        "color_space": "8-bit display-referred sRGB, explicitly selected; no ICC transform",
+        "dpi": [
+          71.9836,
+          71.9836
+        ],
+        "gamma_chunk": null,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-raw.png",
+        "sha256": "6ec3d66d7d5daf0dfb97b4d9abc8a203676231816016c9b870467d81732ee8e1",
+        "width": 1600
+      },
+      "kind": "render_portrait_denoise",
+      "limitations": [
+        "Color-only display-referred denoising; no albedo/normal guides.",
+        "Fine hair or texture can be softened; compare this result with the unchanged raw render.",
+        "No geometry, rig, texture source or render-camera change; not evidence of Muse parity."
+      ],
+      "native": {
+        "api_documentation": "https://github.com/RenderKit/oidn/blob/v2.3.3/doc/api.md",
+        "api_header": "https://github.com/RenderKit/oidn/blob/v2.3.3/include/OpenImageDenoise/oidn.h",
+        "auxiliary_images": [],
+        "device": "CPU",
+        "filter": "RT",
+        "hdr": false,
+        "libraries": [
+          {
+            "bytes": 155808,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+            "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+          },
+          {
+            "bytes": 47280496,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+            "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+          },
+          {
+            "bytes": 302112,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+            "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+          },
+          {
+            "bytes": 382752,
+            "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+            "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+          }
+        ],
+        "maxMemoryMB_requested": 768,
+        "memory_request_is_hard_limit": false,
+        "name": "Open Image Denoise",
+        "native_seconds": 0.551826,
+        "quality": "high",
+        "quality_enum": 6,
+        "srgb": true,
+        "threads": 4,
+        "version": "2.3.3"
+      },
+      "output": {
+        "bytes": 1292755,
+        "height": 1600,
+        "mode": "RGBA",
+        "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-media-v1/portrait-denoise/portrait.png",
+        "sha256": "11ec19ab50fa187553870bd7b4128b8b3f86fddf6d25bc7d6289d9bdea986d2d",
+        "width": 1600
+      },
+      "peak_rss_bytes": 1017348096,
+      "provider_calls": 0,
+      "provider_cost_usd": 0,
+      "raw_input_unchanged": true,
+      "reference_images_used": [],
+      "rgb_mean_absolute_change_8bit": 0.8424128890037537,
+      "rgb_rmse_change_8bit": 1.737170696258545,
+      "schema_version": 1,
+      "status": "needs_visual_review",
+      "wall_seconds": 0.788843,
+      "worker_source_sha256": "a52da20a3e8f0bacd4f579a0ff918c874a2a09b01b77f8baac35872ee72c1897"
+    }
+  },
+  "preset": "preview",
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "reduced_motion": "Use still PNG fallback; do not autoplay video",
+  "rejected_attempts": [],
+  "rights": "User requested a new standalone dragon and motions after approving the previous generated examples. Original text direction; no reference image upload. Generated hidden surfaces and locally authored creature rig are assumptions. Provider account terms apply; commercial rights not independently verified. This job is mesh+texture only; local wing/tail rigging and motions are recorded separately. Exact user request: I like this!!! Can you end to end create a dragon for me + have motions.",
+  "schema_version": 1,
+  "status": "needs_visual_review",
+  "style": "Premium animated-film creature with rounded expressive features, fine emerald scales, warm ivory belly plates, amber eyes and green wing membranes. A standalone original dragon, visually related to the friendly shoulder companion but not an exact reconstruction.",
+  "subject": "Friendly emerald baby dragon"
+}

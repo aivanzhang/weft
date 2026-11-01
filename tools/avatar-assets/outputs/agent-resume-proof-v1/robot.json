@@ -1,0 +1,28 @@
+{
+  "agent_receipts_unchanged": {
+    "agents/author-0/receipt.json": "d677c702abe36a68c5d8930eda8536822fd44faafb962cc5d2a95065e17fcf27",
+    "agents/author-1/receipt.json": "5b3b8f9ad864fccbd5053a359cbb4bfb2ad8768b5dedf30751147780136d193d",
+    "agents/planner/receipt.json": "ef48e1937ea62ada0d38495b7e114a2c8e774a6e83d5983c03be1b28ba3805b9",
+    "agents/reviewer-0/receipt.json": "9283adfcddacfea5a4d80add8e746bb9e03aec169c39de60f1100286ae383a25",
+    "agents/reviewer-1/receipt.json": "885057cfc32090205212da42cf14377246f44a86f67b37c3cbacace6313cc4b4"
+  },
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "avatar_assets",
+    "generate",
+    "--resume",
+    "outputs/agent-robot-v3"
+  ],
+  "elapsed_seconds": 0.592917,
+  "exit_code": 0,
+  "generation_calls": 0,
+  "stderr": "",
+  "stdout": {
+    "gallery_catalog": "outputs/agent-robot-v3/gallery.json",
+    "model": "model-1/model.glb",
+    "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3",
+    "resumed_without_generation": true,
+    "status": "complete"
+  }
+}

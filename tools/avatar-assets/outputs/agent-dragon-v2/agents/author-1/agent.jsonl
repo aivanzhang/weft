@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a1957b-1fcc-7023-a2f1-4684a58d4b09"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Code Mode is unavailable because code-mode host is disabled. Code mode will fail closed; enable `features.code_mode_host` and install `codex-code-mode-host`."}}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"{\"design_json\":\"{}\",\"reason\":\"The reported failure is missing verified skin motion. The previous design already supplies a rig and four changing action curves, but no resulting skin, deformation findings, or motion evidence is supplied. These authoring fields cannot establish why skin motion failed or repair an execution or binding failure; repeating the rig would not address the demonstrated defect.\",\"status\":\"unsupported\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":20020,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":139,"reasoning_output_tokens":51}}

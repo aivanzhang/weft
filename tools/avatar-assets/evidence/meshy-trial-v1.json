@@ -1,0 +1,207 @@
+{
+  "active_owned_jobs": [],
+  "catalog": "browser/gallery-meshy-v2.json",
+  "catalog_sha256": "889167c3c83ec8cd33e4867e2d75eaf4abe331df8ba3f3a67ca0654c237d66a3",
+  "commands_documented_in": [
+    "docs/meshy-workflow.md",
+    "docs/meshy-delivery-v1.md",
+    "TODO.md"
+  ],
+  "git_base": "342a3bb0eda25a0501dee4dbd78a9327cbc50b69",
+  "git_state": "New avatar work remains local/uncommitted/unpushed; unrelated changes preserved",
+  "human_approval": false,
+  "kind": "generated_avatar_trial",
+  "next_safe_action": "Local low-cost still/pose diagnosis of mesh/material versus groom/skin defects; no duplicate paid tasks or credit-ceiling expansion",
+  "original_archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+  "persistent_server": false,
+  "preserved_records": {
+    "folder": "evidence/meshy-trial-v1",
+    "manifest_sha256": "b86df0b226e4d16a8b35db810a7b97f6d8d6afa7c5532b171171cb400a144155"
+  },
+  "provider": {
+    "dollar_cost": null,
+    "ledger": {
+      "paid_submissions": 13,
+      "pricing_overruns": 0,
+      "project_credit_limit": 140,
+      "provider_reported_credits": 132,
+      "refunds_reopen_allowance": false,
+      "reserved_credits": 132,
+      "settled_tasks": 13,
+      "unknown_submissions": 0
+    },
+    "meta_budget_used": false,
+    "model": "Meshy7.1",
+    "new_account_subscription_or_deployment": false
+  },
+  "quality_target_met": false,
+  "recorded": "2026-10-31T12:32:40.980225-07:00",
+  "rejected_and_failed_attempts": [
+    {
+      "folder": "outputs/muse-panda-meshy-preflight-rejected-v1",
+      "preserved_locally": true,
+      "reason": "Raw generated mesh exceeds local100k runtime vertex limit"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-groom-v1",
+      "manifest_sha256": "ccfe0edafdba031c4ab18c260836001cfba2e4ee40c20263cab63450b8525317",
+      "preserved_locally": true,
+      "reason": "Parent centimeter scale invalidated native groom signature",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-groom-v2",
+      "manifest_sha256": "58a52a257a48184a99d46d01924158b25f7462d351097037c50f448f6227dc10",
+      "preserved_locally": true,
+      "reason": "Parent centimeter scale/groom transform mismatch",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-groom-v3",
+      "manifest_sha256": "5cfdf241b0d329e1f663be39993a5389cb9bbba533e5f33a5493f95b87887d0a",
+      "preserved_locally": true,
+      "reason": "Non-bone density group misclassified as skin weight",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-groom-v4",
+      "manifest_sha256": "504ae1ec4980333a751d9b2c0f17016c7e8bdd096bb3bd38183acffd5ec316d8",
+      "preserved_locally": true,
+      "reason": "Completed diagnostic; coarse surface not accepted as Muse quality",
+      "status": "needs_review"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-finish-v1",
+      "manifest_sha256": "c79f2cf32d2ff1e8ab00ad5c06dd084746eac820339f8596b60f20a70c9f509a",
+      "preserved_locally": true,
+      "reason": "Provider weights/motions produced visual distortion",
+      "status": "needs_review"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-motion-diagnostic-v1",
+      "manifest_sha256": "bf7d1a7ebeb99bccd9c65b8ebaa6ae995032358950eeaa6b877e24aa51d5902e",
+      "preserved_locally": true,
+      "reason": "Distortion persists without grooming/smoothing",
+      "status": null
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-weightfix-v1",
+      "manifest_sha256": "35bc321f1529517f1674aa7e8a28e23d9115ecc5b2c0ab252e979c43f7d6c93e",
+      "preserved_locally": true,
+      "reason": "Native report serialization failed on NumPy integer",
+      "status": null
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v1",
+      "manifest_sha256": "de758aa8ec956b79d92742092b57bd0afb7b99563dc5008a3ef158f09e7994d0",
+      "preserved_locally": true,
+      "reason": "Blender action-slot binding failure",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v2",
+      "manifest_sha256": "0a09ae7d5bd9ceae76a94ddd4cf23075f85b971f40c32a00d00d066d45a9183f",
+      "preserved_locally": true,
+      "reason": "Tangent vertex splits exceeded100k vertex limit",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v3",
+      "manifest_sha256": "c35ba626793e8020c21aea35b933101abc1937062e2bfa03133f268a6dd77f7b",
+      "preserved_locally": true,
+      "reason": "Exported zero tangents rejected",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v4",
+      "manifest_sha256": "7c6b33d0b164a2f7fd6e481cbea3ef6d08ac13d58036a358dfd3b8f10fddad65",
+      "preserved_locally": true,
+      "reason": "Dense90-child native groom exceeded unchanged2GiB sampled memory limit",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v5",
+      "manifest_sha256": "8db666a15ace702e980e665ffef47eae048a7bea7f3303614fc52b858db8ba2d",
+      "preserved_locally": true,
+      "reason": "Native render completed; nonorthogonal tangents rejected in postprocessing. Native result reused intov6.",
+      "status": "failed"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-media-v1",
+      "manifest_sha256": "7357146646d8f9c39c5cfce0b98ecc4ca8f297d55600964ff5aa1058be74a8ec",
+      "preserved_locally": true,
+      "reason": "1200s time limit;365 completed frames preserved and verified for single continuation",
+      "status": "failed"
+    }
+  ],
+  "rejected_provider_motion_source": "outputs/muse-panda-meshy-v1/stages/animate_*; all four preserved. Current gestures are authored replacements, not accepted provider clips.",
+  "remaining_limits": [
+    "Muse face/coat/dragon quality unmet",
+    "Crafting/working task semantics not accepted",
+    "No independent finger/dragon controls",
+    "No certified seamless loops",
+    "No new HD Weft conversion/mapping accepted",
+    "Humanoid automatic rigging does not cover arbitrary creature/object articulation"
+  ],
+  "remote_backup_claimed": false,
+  "schema_version": 1,
+  "selected": [
+    {
+      "folder": "outputs/muse-panda-meshy-refined-v6",
+      "manifest_sha256": "0e13062df24a2520dbd24db4ab60cb1223f69ef00e8cd14f6d5a64dc827e0380",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/muse-panda-meshy-refined-v6/manifest.json"
+    },
+    {
+      "folder": "outputs/workshop-robot-meshy-refined-v2",
+      "manifest_sha256": "34a28dad95433290314ac711f33aad31eab21cbec3eeca8322db6d29dbc77fc8",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/workshop-robot-meshy-refined-v2/manifest.json"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-media-v2",
+      "manifest_sha256": "6f98f918b1b2c9742619c9e43ccb06e723d523b4d354d370b73b2752f046bb2b",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/muse-panda-meshy-media-v2/manifest.json"
+    },
+    {
+      "folder": "outputs/workshop-robot-meshy-media-v1",
+      "manifest_sha256": "c45b68a197b576ac6ebe00d6c368f3bffec4768152303e90af45d5f6e6da59e3",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/workshop-robot-meshy-media-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-media-v2-portable-v1",
+      "manifest_sha256": "9a9ea3e58d38d5a4589530230f4a3d138cc2c4baa994073906b0b78b0059d873",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/muse-panda-meshy-media-v2-portable-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/workshop-robot-meshy-media-v1-portable-v1",
+      "manifest_sha256": "1bed902170883a317680cdbb1c76409d32685406e067d7bafe64d1d59c4a1055",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/workshop-robot-meshy-media-v1-portable-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/muse-panda-meshy-reload-v1",
+      "manifest_sha256": "2cb5287f1ecd13dce4c7c438a9ee82648b23600f8880885f2eabfd2027af3a5f",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/muse-panda-meshy-reload-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/workshop-robot-meshy-reload-v1",
+      "manifest_sha256": "b097060e516292c1cb54287dd78c8e502fb120eb3ec7977c69025b0591a99a47",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/workshop-robot-meshy-reload-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/meshy-delivery-verification-v1",
+      "manifest_sha256": "668f61522df6eba7f603bc6d745b612d02355358bc0de33d01671c55f9fa4847",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/meshy-delivery-verification-v1/manifest.json"
+    },
+    {
+      "folder": "outputs/meshy-integration-review-v1",
+      "manifest_sha256": "39782affa8133e0643b8bddeed48e6d8d1ae333ac8e2be2925fb69a30fa42112",
+      "preserved_manifest": "evidence/meshy-trial-v1/manifests/meshy-integration-review-v1/manifest.json"
+    }
+  ],
+  "source_snapshot": {
+    "folder": "outputs/meshy-source-snapshot-v1",
+    "manifest_sha256": "82dd710088c5b022bb2bc8885338278e8dbbc3e0a1f95de6a0891b07842260af"
+  },
+  "status": "workflow_verified_visual_target_unmet",
+  "thread": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+  "workspace": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

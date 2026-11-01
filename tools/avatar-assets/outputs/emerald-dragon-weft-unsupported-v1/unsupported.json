@@ -1,0 +1,17 @@
+{
+  "animation_verified": false,
+  "boundary": "2D images and videos do not specify hidden surfaces or a controllable rig.",
+  "geometry_created": false,
+  "reason": "The verified browser model has 36,322 vertices and PBR normal/metallic-roughness maps, above the 20,000-vertex diffuse-only Weft contract. It has a locally authored 19-bone creature skin, not a mapping to Weft body frames or its 19 joint angles. No faithful unchanged conversion or runtime alignment is delivered. Keep the existing consumer and earlier compatible assets unchanged; an optimized derivative would require new mapping and independent visual/import verification.",
+  "required_inputs": [
+    "Authored or licensed GLB mesh, materials, skeleton and skin weights",
+    "Units, axes, rest pose and explicit bone-to-simulated-joint mapping",
+    "Authoritative target joint schema and attachment specification",
+    "Disclosure of inferred surfaces, anatomy and rig decisions"
+  ],
+  "rig_created": false,
+  "schema_version": 1,
+  "status": "unsupported",
+  "subject": "Unchanged-fidelity emerald dragon for the frozen Weft importer",
+  "weft_runtime_verified": false
+}

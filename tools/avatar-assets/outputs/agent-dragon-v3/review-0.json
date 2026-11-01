@@ -1,0 +1,155 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-0/states/idle.png",
+      "sha256": "782617eca03288e2718a2dd77f22e2c63cee384b1e4f22f00c905bd783c37805",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-01-look_around.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-0/states/look_around.png",
+      "sha256": "89ff4fff91a1f4c0846e539bba265b6f36312b6a879b533d5f6fec462ac39fb7",
+      "state_ids": [
+        "look_around"
+      ]
+    },
+    {
+      "id": "image-02-milestone_level_up.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-0/states/milestone_level_up.png",
+      "sha256": "e958e47e7f5c7bdf10232cbfb2c67566eb032217a92b7c269eea46ac5d0e40cc",
+      "state_ids": [
+        "milestone_level_up"
+      ]
+    },
+    {
+      "id": "image-03-wing_flap.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/evidence-0/states/wing_flap.png",
+      "sha256": "9683f88698bf50edd4f670c0b7792bdd2bafd1596c5d02d5bfed0fea39288512",
+      "state_ids": [
+        "wing_flap"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-0/front.png",
+      "sha256": "c4d1d66797bf508189dd37db3d75d5c4a9e53e36a4a36810c910f1291f8307bd",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/exported-preview-0/three-quarter.png",
+      "sha256": "8e9e154915e41dad3c7c09ff827d54ad3fbe5958c7dcd0446822948068829bf7",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-dragon-v3/model-0/portrait.png",
+      "sha256": "3685137e06b2cd500e2bef00eb5c47191d3d563bed5bfcfd4be5628b6a0dd65f",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "92973b09ee4675c77b168bfcd87c36f8559d01be632ce04173c43ef149d70b56",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Rounded upright dragon retains amber eyes, orange horns and spines, cream belly, two small wings and a long tail."
+      },
+      {
+        "evidence_ids": [
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Green scaled surfaces and friendly stylized proportions match the requested appearance. No hair or fur is required."
+      },
+      {
+        "evidence_ids": [
+          "image-05-three-quarter.png",
+          "image-02-milestone_level_up.png",
+          "image-03-wing_flap.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "Full body, horns, feet and wings remain inside the sampled frames; the long tail is visible in the alternate rest view and bow samples."
+      },
+      {
+        "evidence_ids": [
+          "image-02-milestone_level_up.png"
+        ],
+        "name": "deformation",
+        "passed": false,
+        "reason": "At 0.8 and 1.5 seconds, the muzzle and mouth visibly pinch and collapse beneath the eyes instead of retaining the intact head shape during the bow."
+      }
+    ],
+    "limitations": [
+      "Contact sheets cannot establish continuous motion, collision freedom, ground forces or seamless loops.",
+      "Idle changes are too subtle in the supplied images to establish the requested torso sway and tail-tip movement visually.",
+      "Supplied structural and attribute proofs report success but do not establish visual deformation quality; the target runtime remains unverified.",
+      "Hidden surfaces, rig placement and physical scale are authored assumptions."
+    ],
+    "required_repairs": [
+      "Repair head and neck skin weights so the muzzle, eyes and jaw move together without facial collapse during the bow; distribute the shallow bend through the torso and neck.",
+      "Make idle torso sway and tail-tip movement visibly readable while preserving gentle motion and planted feet.",
+      "Provide updated motion evidence for the repaired idle and bow, including a view that exposes the tail and facial silhouette."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-00-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": false,
+        "motion_passed": false,
+        "reason": "Samples appear essentially unchanged; neither torso sway nor tail-tip movement is clearly readable. Reported numerical displacement does not resolve that visual gap."
+      },
+      {
+        "evidence_ids": [
+          "image-01-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Head orientation visibly changes toward each side and returns, with slight upper-body follow and apparently stationary feet."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wing_flap.png"
+        ],
+        "id": "wing_flap",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Both wings visibly alternate raised and lowered positions while the dragon remains standing."
+      },
+      {
+        "evidence_ids": [
+          "image-02-milestone_level_up.png"
+        ],
+        "id": "milestone_level_up",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "Head lowering and a sideways tail flourish visibly change geometry and return toward standing, but facial collapse undermines the requested happy shallow bow."
+      }
+    ],
+    "summary": "Identity and framing pass, but bow deformation needs repair and idle motion lacks sufficient visible evidence.",
+    "verdict": "repair"
+  }
+}

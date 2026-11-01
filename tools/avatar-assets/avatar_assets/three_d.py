@@ -13,6 +13,7 @@ from pathlib import Path
 MAX_FILE_BYTES = 64 * 1024 * 1024
 MAX_JSON_BYTES = 2 * 1024 * 1024
 MAX_VERTICES = 100_000
+MAX_TRIANGLE_INDICES = 300_000
 MAX_NODES = 256
 # Dense real fur needs position, four joints/weights and indices without widening the vertex/file limits.
 MAX_ACCESSOR_VALUES = 2_000_000
@@ -254,21 +255,27 @@ class _GLB:
                     if key in container:
                         _index(container[key].get("index"), len(doc.get("textures", [])), "material texture")
 
-    def accessor(self, index, kind=None, components=None):
+    def accessor(self, index, kind=None, components=None, *, count_limit=MAX_VERTICES):
         _index(index, len(self.doc.get("accessors", [])), "accessor")
         a = self.doc["accessors"][index]
         _require(not a.get("sparse"), "Sparse accessors are unsupported")
         _require(kind is None or a.get("type") == kind, f"Accessor must be {kind}")
         _require(components is None or a.get("componentType") in components,
                  "Unsupported accessor component type")
-        if index in self.cache:
-            return self.cache[index]
         _require(a.get("type") in _WIDTHS and a.get("componentType") in _COMPONENTS,
                  "Unsupported accessor shape or component type")
         width = _WIDTHS[a["type"]]
         fmt, size = _COMPONENTS[a["componentType"]]
         count = a.get("count")
-        _require(type(count) is int and 0 < count <= MAX_VERTICES, "Accessor count outside bounds")
+        _require(type(count_limit) is int and count_limit in (MAX_VERTICES, MAX_TRIANGLE_INDICES),
+                 "Unsupported accessor count limit")
+        _require(count_limit == MAX_VERTICES or kind == "SCALAR" and a["componentType"] in (5121, 5123, 5125),
+                 "Expanded accessor count is only for triangle indices")
+        _require(type(count) is int and 0 < count <= count_limit, "Accessor count outside bounds")
+        # A cached wide index accessor must not bypass a later call's stricter limit.
+        if index in self.cache:
+            _require(len(self.cache[index]) == count, "Cached accessor count differs from metadata")
+            return self.cache[index]
         self.value_count += count * width
         _require(self.value_count <= MAX_ACCESSOR_VALUES, "Decoded accessor values exceed bound")
         view = self.doc.get("bufferViews", [])[_index(a.get("bufferView"),
@@ -516,7 +523,8 @@ def _validate_glb(path, contract):
             vertex_count += len(positions)
             _require(vertex_count <= MAX_VERTICES, "Aggregate vertex count exceeds bound")
             if "indices" in primitive:
-                indices = glb.accessor(primitive["indices"], "SCALAR", (5121, 5123, 5125))
+                indices = glb.accessor(primitive["indices"], "SCALAR", (5121, 5123, 5125),
+                                       count_limit=MAX_TRIANGLE_INDICES)
                 _require(len(indices) % 3 == 0 and all(type(v[0]) is int and v[0] < len(positions) for v in indices),
                          "Invalid triangle indices")
             else:
@@ -583,6 +591,7 @@ def _validate_glb(path, contract):
         "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
         "visual_review": "required; materials/textures are not rendered by this validator",
         "limits": {"file_bytes": MAX_FILE_BYTES, "vertices": MAX_VERTICES,
+                   "triangle_index_elements_per_accessor": MAX_TRIANGLE_INDICES,
                    "nodes": MAX_NODES, "accessor_values": MAX_ACCESSOR_VALUES,
                    "motion_probe_vertices": MAX_MOTION_PROBES},
     }

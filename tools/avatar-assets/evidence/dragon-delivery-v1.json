@@ -1,0 +1,243 @@
+{
+  "cost": {
+    "aggregate_authorization_credits": 175,
+    "aggregate_credits": 167,
+    "aggregate_paid_calls": 15,
+    "dragon_credits": 35,
+    "dragon_paid_calls": 2,
+    "meta_usage": 0,
+    "new_provider_rig_or_motion_calls": 0,
+    "paid_retries": 0,
+    "usd_per_credit": null
+  },
+  "git": {
+    "head": "791127de2a71939ab7d251a8d703b41d7b93652f",
+    "remote_publication": false,
+    "state": "Local uncommitted/unpushed follow-up; unrelated dirty work preserved"
+  },
+  "human_approval": false,
+  "kind": "dragon_delivery_index",
+  "next_safe_action": "Start gallery-meshy-v3 locally for user review; new character needs a new plan and subject-specific authored rig, within explicit spending authorization.",
+  "no_active_owned_jobs": true,
+  "original_archive_sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+  "packs": [
+    {
+      "manifest_sha256": "1793ea697f51b0f10d2c0c40b5e94a0a56d7ec3b65ce08c03466aa734d25b491",
+      "path": "outputs/emerald-dragon-finished-v3"
+    },
+    {
+      "manifest_sha256": "cfee8bfc03adc559ef1aaaa6b226f95a8b3b80c106c0e847f197425dc38031ed",
+      "path": "outputs/emerald-dragon-media-v1"
+    },
+    {
+      "manifest_sha256": "8d132800885a2a7d196336893bb5cf7435c6b622e39cbedaddfa489e2e8d4e53",
+      "path": "outputs/emerald-dragon-media-v1-portable-v1"
+    },
+    {
+      "manifest_sha256": "453c0ae6950230b6600dbb162580e53272a38437d9afffdd6837b2f09a90b059",
+      "path": "outputs/emerald-dragon-reload-v1"
+    },
+    {
+      "manifest_sha256": "251760f27c13d164a0e5b6c59c3e40e505375efae9b341f7d1917156ecb515f8",
+      "path": "outputs/emerald-dragon-review-v1"
+    },
+    {
+      "manifest_sha256": "ac1bfbcfd7f313046b1abad86c695fc78dd9462ed922a971bd8d21ce907eb09d",
+      "path": "outputs/emerald-dragon-delivery-verification-v1"
+    },
+    {
+      "manifest_sha256": "e92f9f2b3f749d0c539095a31152639fdfbedc609a96a23d13a9a71ebe03adb6",
+      "path": "outputs/dragon-source-snapshot-v1"
+    }
+  ],
+  "persistent_server": false,
+  "proof_files": [
+    {
+      "path": "outputs/browser-dragon-media-v1/browser-test.json",
+      "sha256": "b923b5fd04ccda6044e3f6024731f8cfe6149570fbb1b201bad5c437967f279c"
+    },
+    {
+      "path": "outputs/browser-dragon-media-v2/browser-test.json",
+      "sha256": "34825236e9591bb837132ecff745960443692710296f430ba4e244ca1813c7b1"
+    },
+    {
+      "path": "outputs/emerald-dragon-weft-unsupported-v1/unsupported.json",
+      "sha256": "738f8a35d8e8a460e7cc0a814bea4a85893a82e41e79a87f6d49210fe988c60f"
+    },
+    {
+      "path": "outputs/dragon-workflow-tests-v1.txt",
+      "sha256": "81da2c7812ba7d35ebeadba971f7f30b9b77cc94fffa1536de13dc59ddaaa775"
+    },
+    {
+      "path": "examples/meshy/emerald-dragon-approval-v1.json",
+      "sha256": "0573154e4081c835168f7c6f431131c2c7f30c2035482850de8b7d80538a52b6"
+    },
+    {
+      "path": "browser/gallery-meshy-v3.json",
+      "sha256": "7535e1f62f1812a998f41244ee60ba8b783d723d40aaf71dd18590ae479feb1b"
+    }
+  ],
+  "quality_equivalence_verified": false,
+  "raw_generation_artifacts": [
+    {
+      "bytes": 1916,
+      "path": "outputs/emerald-dragon-meshy-v1/inputs/config.json",
+      "sha256": "54a48a877468ff490152bad560853bdead63eedce0de5ffd655b55083c34f319"
+    },
+    {
+      "bytes": 3004,
+      "path": "outputs/emerald-dragon-meshy-v1/plan.json",
+      "sha256": "d74a91542e849fa16bcbc8c5e04526d9260bcf9000a45cc02b34d70f15010800"
+    },
+    {
+      "bytes": 22319,
+      "path": "outputs/emerald-dragon-meshy-v1/sources/meshy.py",
+      "sha256": "2204f28fb65d3bd5c3a6cbea9376da24becf45350b790ff3ed9908b014197b4b"
+    },
+    {
+      "bytes": 12782,
+      "path": "outputs/emerald-dragon-meshy-v1/sources/meshy_access.py",
+      "sha256": "61311d5458485a2231fc801e27c5b40e701fcd23fab944f083df4588ad9b3652"
+    },
+    {
+      "bytes": 606,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/download-000.json",
+      "sha256": "fc44143d6b23559b4876a65e485a279d2b7f185b68f78379d0605ca39d18769f"
+    },
+    {
+      "bytes": 939,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/manifest.json",
+      "sha256": "220075b2222ea20c2a117b09f8a8e94376345b7372f5a1e35276268a82cafd38"
+    },
+    {
+      "bytes": 1372384,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/model.glb",
+      "sha256": "e527f63fe31f9c7e3f7f39f36284e38d93ba0aa1b549e5649ab7ada8f58c99dc"
+    },
+    {
+      "bytes": 83297,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/downloads/thumbnail.png",
+      "sha256": "d1ce285d959b772d826d284ae2f4a4c6af7299183f62616a391020c656e13913"
+    },
+    {
+      "bytes": 1631,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/request-000.json",
+      "sha256": "86cff91e147c5440fcb70705a3aa6304c0bc6fcff2236b3e4a34383602065877"
+    },
+    {
+      "bytes": 1615,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-000.json",
+      "sha256": "0cf5ea28ffc1301eaa7934b139ee4894bf669450722ee4928ca3501d4f14c8b2"
+    },
+    {
+      "bytes": 1616,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-001.json",
+      "sha256": "795ea33912cfebb7040dd7d7b68d36b563e460075e87f07cba467ea4833f23d2"
+    },
+    {
+      "bytes": 1616,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-002.json",
+      "sha256": "b579ef3a057e5442b604a785e6d7e94e7484a1676a2bca538c5507bdc45d46ba"
+    },
+    {
+      "bytes": 1616,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-003.json",
+      "sha256": "22038f13f1bf11948aaabb8e9340ca3423667f8cdca657150a7313d06506c0c2"
+    },
+    {
+      "bytes": 1616,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-004.json",
+      "sha256": "adaebb8a64c3811503ea89f9994d2b89febbfce0d33c2a1a59c07d9168930305"
+    },
+    {
+      "bytes": 1616,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-005.json",
+      "sha256": "fd2bb01bcb0e6a8e120cf31ae4bad5582394e62942ed0e931d2383aefdb29c61"
+    },
+    {
+      "bytes": 1888,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/status-006.json",
+      "sha256": "185685173c12da6f369a781496795362b8dbd1e3155172cc664fa80ce5e03be9"
+    },
+    {
+      "bytes": 336,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/submission-000.json",
+      "sha256": "b8fdf1b0adfa0f3ccd3540287c98ff0de1fd008dc46485b171d0be45530697d9"
+    },
+    {
+      "bytes": 15225,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/tools/0981d30cd2dacb01-meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 22815,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/mesh/tools/77809002b222f68d-meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    },
+    {
+      "bytes": 607,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/download-000.json",
+      "sha256": "39d9a26b1081ac53c53c8c68c5f30851cce98f09bd974b629656fd5ce2863839"
+    },
+    {
+      "bytes": 944,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/manifest.json",
+      "sha256": "547076ee65c6be582b6d474d345461a9a97e0d70a9221c239d3cedd6c68e304a"
+    },
+    {
+      "bytes": 25349908,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+    },
+    {
+      "bytes": 99206,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/thumbnail.png",
+      "sha256": "26c4d421c06e40bd995208a7ae69968c0045be8f4c126e93e638fac9e6d87519"
+    },
+    {
+      "bytes": 1074,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/request-000.json",
+      "sha256": "d1a7c03265b602bfb1f52eaba5441d8d37f748ffda5b9eda12b65db1ffbe2c68"
+    },
+    {
+      "bytes": 1875,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/status-000.json",
+      "sha256": "97cef1befa7b80f1165896a60be96a5fc876201ff35115b7446816f5fc236682"
+    },
+    {
+      "bytes": 1876,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/status-001.json",
+      "sha256": "d02810cded3a7cfb7e0b27215c9e77122545317dd12f9855de4fca845be1192c"
+    },
+    {
+      "bytes": 1876,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/status-002.json",
+      "sha256": "dc86c2972f2315384b2815c4f0636eb4e9a53bb51d33ca5a92f006bd2b35c56c"
+    },
+    {
+      "bytes": 2787,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/status-003.json",
+      "sha256": "da6ccf7cdb6430b2d9b802fdd433441e30c12e8383da03ad7c2e24b77745ea85"
+    },
+    {
+      "bytes": 336,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/submission-000.json",
+      "sha256": "82824b364bc7bfa1ce4ffe6c3661954ceb8428f50c520bb98e6ae7df9ddd03a9"
+    },
+    {
+      "bytes": 15225,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/tools/0981d30cd2dacb01-meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df"
+    },
+    {
+      "bytes": 22815,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/tools/77809002b222f68d-meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3"
+    }
+  ],
+  "recorded": "2026-10-31T21:37:51.438793-07:00",
+  "schema_version": 1,
+  "source_checkpoint": "outputs/dragon-source-snapshot-v1",
+  "status": "complete_for_four_authored_standing_states",
+  "weft_runtime_verified": false
+}

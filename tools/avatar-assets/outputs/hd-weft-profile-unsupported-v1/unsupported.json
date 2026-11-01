@@ -1,0 +1,17 @@
+{
+  "animation_verified": false,
+  "boundary": "2D images and videos do not specify hidden surfaces or a controllable rig.",
+  "geometry_created": false,
+  "reason": "The HD browser models in outputs/muse-panda-hd-build-v3, fox-hd-build-v2, workshop-robot-hd-build-v2 and lamp-hd-build-v2 exceed the frozen 20000-vertex Weft profile and use surface features outside its diffuse-only material contract. No new valid runtime mapping or alignment proof is included. Native hair is not GLB geometry. Existing matte Weft bundles and their mappings remain unchanged; do not relabel these HD files as Weft-ready or attach previous mappings to them.",
+  "required_inputs": [
+    "Authored or licensed GLB mesh, materials, skeleton and skin weights",
+    "Units, axes, rest pose and explicit bone-to-simulated-joint mapping",
+    "Authoritative target joint schema and attachment specification",
+    "Disclosure of inferred surfaces, anatomy and rig decisions"
+  ],
+  "rig_created": false,
+  "schema_version": 1,
+  "status": "unsupported",
+  "subject": "HD PBR avatar release as a frozen Weft profile replacement",
+  "weft_runtime_verified": false
+}

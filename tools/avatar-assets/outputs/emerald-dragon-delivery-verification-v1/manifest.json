@@ -1,0 +1,74 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1235,
+      "path": "job.json",
+      "sha256": "8de2f7d6fb245e224e25aaddf9f737ddcc62fa1b1d1167b9881ad21f08a36600"
+    },
+    {
+      "bytes": 356,
+      "path": "verification-handle.json",
+      "sha256": "0fa18109412b1c5e7299f2b4a655c07d29502101436f4aeb568e9b2383293063"
+    },
+    {
+      "bytes": 1141,
+      "path": "verification-monitor.json",
+      "sha256": "859cb51006bc3ed8666360d7544703f157e63b08825929acdeeab8df50115ecf"
+    },
+    {
+      "bytes": 22819,
+      "path": "verification.json",
+      "sha256": "9b608b90a542f7fe4b6dcc6c696dc026ab72a06ea48da0e9727d9b5ca60e0a72"
+    },
+    {
+      "bytes": 109,
+      "path": "verification.log",
+      "sha256": "ecf84544c41391b5f6814b22a2c1c24f04c0e32c0c4e656ea9ec9500d22bb0e8"
+    },
+    {
+      "bytes": 5099,
+      "path": "verify_dragon.py",
+      "sha256": "97b9ca83b8d72be7ab7ca616390e6ffb4eb70204dcf0544e41cb4362fee19d91"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-delivery-verification-v1/verify_dragon.py",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-delivery-verification-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.063,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 29460,
+    "last_rss_sample_elapsed_seconds": 2.808,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 512,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "verification-monitor.json",
+    "monitor_errors": [],
+    "pid": 47052,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 11,
+    "sampled_max_output_bytes": 29460,
+    "sampled_peak_rss_bytes": 201048064,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "dragon_delivery_verification",
+  "schema_version": 1,
+  "status": "passed"
+}

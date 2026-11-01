@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "10/31/2026, 22:25:39 PDT",
+  "timezone": "America/Los_Angeles",
+  "scope": "Real browser GLB loading, each declared skeletal clip and supplied video, static/reduced-motion/failure fallback. Not a visual-quality, seamless-loop, physics or sustained-FPS certification.",
+  "catalog": {
+    "path": "outputs/agent-robot-v3/gallery.json",
+    "sha256": "e8538c5064083124ae59095d6a5e1d005a19f258a0251354b457b59132694dd0",
+    "expanded_sha256": "332af2208c07f34ad3c5e74d21f3adf744bd3dcdb1304eece721b4d7f389f8a6"
+  },
+  "limits": {
+    "wall_ms": 900000,
+    "sampled_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "log_bytes": 1048576,
+    "events": 2000,
+    "event_bytes": 524288,
+    "assets": 24,
+    "states_per_asset": 8,
+    "operation_ms": 15000
+  },
+  "assets": [
+    {
+      "id": "agent-robot-v3",
+      "model": "/asset/agent-robot-v3/model",
+      "animations": [
+        {
+          "id": "idle",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08339999999999964,
+          "paused_at": 0.16669999999999985,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08330000000000018,
+          "paused_at": 0.1333000000000002,
+          "seek_seconds": 2
+        },
+        {
+          "id": "wave",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.1,
+          "paused_at": 0.18330000000000019,
+          "seek_seconds": 2
+        },
+        {
+          "id": "celebrate",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08319999999999983,
+          "paused_at": 0.16660000000000036,
+          "seek_seconds": 2
+        }
+      ],
+      "videos": [
+        {
+          "id": "idle",
+          "width": 256,
+          "height": 256,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.084,
+          "paused_at": 0.1157,
+          "seek_seconds": 1
+        },
+        {
+          "id": "look",
+          "width": 256,
+          "height": 256,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0858,
+          "paused_at": 0.117,
+          "seek_seconds": 1
+        },
+        {
+          "id": "wave",
+          "width": 256,
+          "height": 256,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0851,
+          "paused_at": 0.1163,
+          "seek_seconds": 1
+        },
+        {
+          "id": "celebrate",
+          "width": 256,
+          "height": 256,
+          "duration_seconds": 2,
+          "playback_advanced_to": 0.0857,
+          "paused_at": 0.1163,
+          "seek_seconds": 1
+        }
+      ],
+      "missing_videos": [],
+      "model_manifest": {
+        "path": "outputs/agent-robot-v3/model-1/manifest.json",
+        "sha256": "61cd4572faea439b6ad4e5ce12f3e08f8c5b140a72f0eeebd4bfe8bc64e764f6"
+      },
+      "media_manifest": {
+        "path": "outputs/agent-robot-v3/media-portable/manifest.json",
+        "sha256": "1d8c676d02dda058f192878fbf017d40d41bb525a94e4840373d3575a144302f"
+      },
+      "load_ms": 1720,
+      "portrait": {
+        "width": 512,
+        "height": 512
+      },
+      "static_fallbacks": [
+        {
+          "id": "idle",
+          "source": "/asset/agent-robot-v3/still-idle",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "id": "look",
+          "source": "/asset/agent-robot-v3/still-look",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "id": "wave",
+          "source": "/asset/agent-robot-v3/still-wave",
+          "width": 256,
+          "height": 256
+        },
+        {
+          "id": "celebrate",
+          "source": "/asset/agent-robot-v3/still-celebrate",
+          "width": 256,
+          "height": 256
+        }
+      ],
+      "elapsed_ms": 5410
+    }
+  ],
+  "checks": [
+    "Every declared GLB clip loads, plays, pauses and seeks; every supplied video decodes and plays; portraits and per-state static images decode",
+    "Reduced motion selects static portraits for every asset without any GLB/video fetch or autoplay",
+    "Intentionally failed GLB/video requests disable playback and leave the real static portrait usable",
+    "390px portrait layout has no horizontal overflow"
+  ],
+  "errors": [],
+  "expected_failure_observations": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    },
+    {
+      "kind": "console",
+      "message": "TypeError: Failed to fetch\n    at Ql.load (http://127.0.0.1:57951/vendor/model-viewer.min.js:48:203748)\n    at ap.load (http://127.0.0.1:57951/vendor/model-viewer.min.js:552:34811)\n    at http://127.0.0.1:57951/vendor/model-viewer.min.js:594:5683\n    at new Promise (<anonymous>)\n    at http://127.0.0.1:57951/vendor/model-viewer.min.js:594:5661\n    at Pg.preload (http://127.0.0.1:57951/vendor/model-viewer.min.js:594:5700)\n    at Pg.load (http://127.0.0.1:57951/vendor/model-viewer.min.js:594:5909)\n    at http://127.0.0.1:57951/vendor/model-viewer.min.js:1008:3644\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:57951/vendor/model-viewer.min.js:1008:3613"
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    }
+  ],
+  "external_requests": [],
+  "request_failures": [
+    {
+      "url": "http://127.0.0.1:57951/asset/agent-robot-v3/model",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    },
+    {
+      "url": "http://127.0.0.1:57951/asset/agent-robot-v3/video-idle",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    }
+  ],
+  "resources": {
+    "sampled_peak_rss_bytes": 2735898624,
+    "sampling_interval_ms": 2000,
+    "scope": "RSS summed for this test and its descendants; shared pages may be counted twice. Sampled enforcement, not a hard OS allocation cap."
+  },
+  "artifacts": [
+    {
+      "path": "source-catalog.json",
+      "bytes": 548,
+      "sha256": "e8538c5064083124ae59095d6a5e1d005a19f258a0251354b457b59132694dd0"
+    },
+    {
+      "path": "source-test.mjs",
+      "bytes": 27417,
+      "sha256": "8318268e16ee04ee802deecc9fe29ed54e99b8967975020043ae45da47f6f824"
+    },
+    {
+      "path": "asset-01-model.png",
+      "bytes": 294980,
+      "sha256": "9dcbed3aac15e9d3a53c809de884bcff6b952bf00d593ce9ba4d9ff7dc391395"
+    },
+    {
+      "path": "reduced-motion.png",
+      "bytes": 193290,
+      "sha256": "0cd7fcae548bd3950b672e6bf57f866ce41014e5a8346a8d1758179e89a4758f"
+    },
+    {
+      "path": "model-failure-static-fallback.png",
+      "bytes": 89498,
+      "sha256": "0f65601fbd0765cc9c8b73586b44f2df0170ac98ca50479fa3e52402de2551d4"
+    },
+    {
+      "path": "mobile-portrait.png",
+      "bytes": 120414,
+      "sha256": "998ddec1fc8b08480599b8800afe36350e40577600d4289d95bdf680f91171a2"
+    },
+    {
+      "path": "server.log",
+      "bytes": 6,
+      "sha256": "4d71b9e9464143e3903daff8af97f59b0c0b0ca46a30c8240ecc42217a916bd3"
+    }
+  ],
+  "cleanup": {
+    "started": true,
+    "browser_exit_verified": true,
+    "server_exit_verified": true
+  },
+  "server_pid": 61291,
+  "browser_pid": 61292,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true,
+    "software_webgl": true
+  },
+  "initial_library_ms": 2316,
+  "elapsed_ms": 10610,
+  "finished_local": "10/31/2026, 22:25:50 PDT",
+  "output_bytes_before_report": 726153
+}

@@ -133,7 +133,7 @@ class QualitySceneTests(unittest.TestCase):
             validate_scene(scene)
 
     def test_surface_fields_are_bounded_and_data_only(self):
-        for field, value in (("pattern", "python"), ("resolution", 1024), ("strength", 1.1), ("seed", "1")):
+        for field, value in (("pattern", "python"), ("resolution", 4096), ("strength", 1.1), ("seed", "1")):
             with self.subTest(field=field):
                 self.reject(lambda scene: scene["materials"]["body"]["surface"].update({field: value}))
         self.reject(lambda scene: scene["materials"]["body"]["surface"].update(expression="execute"))

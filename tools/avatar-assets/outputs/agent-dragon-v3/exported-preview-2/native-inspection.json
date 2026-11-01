@@ -1,0 +1,192 @@
+{
+  "actions": [
+    "idle",
+    "look_around",
+    "milestone_level_up",
+    "wing_flap"
+  ],
+  "animation_verified": false,
+  "assumptions": [
+    "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+    "Raw generated units are not a calibrated physical measurement",
+    "Hidden geometry is generated, not recovered"
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up": {
+    "max": [
+      0.5308043956756592,
+      1.0723233222961426,
+      1.600000262260437
+    ],
+    "min": [
+      -0.5308043360710144,
+      -1.0723233222961426,
+      0.0
+    ]
+  },
+  "material_count": 1,
+  "meshes": [
+    {
+      "faces": 36501,
+      "name": "Mesh_0",
+      "uv_layers": [
+        "UVMap"
+      ],
+      "vertices": 36322
+    }
+  ],
+  "renders": [
+    {
+      "path": "front.png",
+      "sha256": "02dd516bb4fa8724db9006f037bba8538a5088e4d5cdf1285410a66f1f265e58",
+      "view": "front"
+    },
+    {
+      "path": "three-quarter.png",
+      "sha256": "7d16fae82c0f31f1659ced680273df62f5c9de0604eb60f31a5bb9d2989a4489",
+      "view": "three-quarter"
+    },
+    {
+      "path": "back.png",
+      "sha256": "7fa555246c699ec129342e3041227182cffc144d456743e015eba105956f9844",
+      "view": "back"
+    }
+  ],
+  "rigs": [
+    {
+      "bones": [
+        {
+          "head": [
+            0.0,
+            -0.4503757655620575,
+            0.19200000166893005
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.0,
+            -0.4503757655620575,
+            0.4236031174659729
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            -0.5361616611480713,
+            0.64000004529953
+          ],
+          "name": "Chest",
+          "parent": "Root",
+          "tail": [
+            0.0,
+            -0.5701335668563843,
+            0.8174117803573608
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            -0.6005009412765503,
+            0.9280000329017639
+          ],
+          "name": "Neck",
+          "parent": "Chest",
+          "tail": [
+            0.0,
+            -0.6648403406143188,
+            1.1200001239776611
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            -0.6648403406143188,
+            1.1200001239776611
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail": [
+            0.0,
+            -0.7917447090148926,
+            1.2777938842773438
+          ]
+        },
+        {
+          "head": [
+            -0.1486251950263977,
+            -0.6005010604858398,
+            0.7200000882148743
+          ],
+          "name": "ArmLeft",
+          "parent": "Chest",
+          "tail": [
+            -0.18183879554271698,
+            -0.7212768793106079,
+            0.5898498892784119
+          ]
+        },
+        {
+          "head": [
+            0.1486251950263977,
+            -0.6005010604858398,
+            0.7200000882148743
+          ],
+          "name": "ArmRight",
+          "parent": "Chest",
+          "tail": [
+            0.18183879554271698,
+            -0.7212768793106079,
+            0.5898498892784119
+          ]
+        },
+        {
+          "head": [
+            -0.19108951091766357,
+            -0.47182220220565796,
+            0.8320000767707825
+          ],
+          "name": "WingLeft",
+          "parent": "Chest",
+          "tail": [
+            -0.3187964856624603,
+            -0.4288235604763031,
+            0.9522957801818848
+          ]
+        },
+        {
+          "head": [
+            0.19108951091766357,
+            -0.47182220220565796,
+            0.8320000767707825
+          ],
+          "name": "WingRight",
+          "parent": "Chest",
+          "tail": [
+            0.3187964856624603,
+            -0.4288235604763031,
+            0.9522957801818848
+          ]
+        },
+        {
+          "head": [
+            0.0,
+            -0.2573576271533966,
+            0.31999996304512024
+          ],
+          "name": "Tail",
+          "parent": "Root",
+          "tail": [
+            0.0,
+            -0.028375566005706787,
+            0.28525474667549133
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "schema_version": 1,
+  "source_is_untextured": false,
+  "source_sha256": "71484ae9183e78415096fc252f5c58d00eeecf8a6bca4a8d472b9ba60789de00",
+  "source_unchanged": true
+}

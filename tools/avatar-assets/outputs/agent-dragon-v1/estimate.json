@@ -1,0 +1,21 @@
+{
+  "agent_billing": "Existing authenticated local Codex CLI; account-specific usage/price unknown. No account/key creation or purchase.",
+  "automatic_paid_retries": 0,
+  "deadline_scope": "No new stage after this invocation deadline; resume opens another watch window, not another call/repair allowance. Each in-flight stage retains its bounded deadline.",
+  "expected_agent_calls": 3,
+  "local_compute": "No hosted compute. Preview/native media use4CPU threads/2GiB sampled child RSS.",
+  "maximum_agent_calls": 5,
+  "maximum_local_repairs": 1,
+  "new_meshy_credits": 0,
+  "new_meshy_paid_calls": 0,
+  "new_meta_calls": 0,
+  "per_invocation_stage_start_deadline_seconds": 3600,
+  "planning_token_estimate": {
+    "input_per_call": "up to approximately24000 text tokens plus up to8 selected images",
+    "output_per_call": "typically1000–8000 tokens; transport bytes/deadline are bounded"
+  },
+  "recurring_services": 0,
+  "schema_version": 1,
+  "total_output_bytes": 2147483648,
+  "usd_cost": null
+}

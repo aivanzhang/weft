@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "recorded_local": "10/31/2026, 22:23:41 PDT",
+  "timezone": "America/Los_Angeles",
+  "scope": "Real browser GLB loading, each declared skeletal clip and supplied video, static/reduced-motion/failure fallback. Not a visual-quality, seamless-loop, physics or sustained-FPS certification.",
+  "catalog": {
+    "path": "outputs/agent-dragon-v3/gallery.json",
+    "sha256": "fd0e3c8537a1c17a6bd21b5cad7afc6904a52c5010799e147a0adb1de85f08dc",
+    "expanded_sha256": "f2b3779a2d67d5198ee49a448aef6cba7b12eac4ff10b9977de83a32c96aec8a"
+  },
+  "limits": {
+    "wall_ms": 900000,
+    "sampled_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "log_bytes": 1048576,
+    "events": 2000,
+    "event_bytes": 524288,
+    "assets": 24,
+    "states_per_asset": 8,
+    "operation_ms": 15000
+  },
+  "assets": [
+    {
+      "id": "agent-dragon-v3",
+      "model": "/asset/agent-dragon-v3/model",
+      "animations": [
+        {
+          "id": "idle",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.08319999999999983,
+          "paused_at": 0.16659999999999947,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look_around",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.09989999999999963,
+          "paused_at": 0.1832999999999993,
+          "seek_seconds": 2
+        },
+        {
+          "id": "wing_flap",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.09989999999999966,
+          "paused_at": 0.20000000000000004,
+          "seek_seconds": 2
+        },
+        {
+          "id": "milestone_level_up",
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.1,
+          "paused_at": 0.18339999999999967,
+          "seek_seconds": 2
+        }
+      ],
+      "videos": [
+        {
+          "id": "idle",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0915,
+          "paused_at": 0.1239,
+          "seek_seconds": 2
+        },
+        {
+          "id": "look_around",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.084,
+          "paused_at": 0.1159,
+          "seek_seconds": 2
+        },
+        {
+          "id": "wing_flap",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0853,
+          "paused_at": 0.1167,
+          "seek_seconds": 2
+        },
+        {
+          "id": "milestone_level_up",
+          "width": 720,
+          "height": 720,
+          "duration_seconds": 4,
+          "playback_advanced_to": 0.0845,
+          "paused_at": 0.1165,
+          "seek_seconds": 2
+        }
+      ],
+      "missing_videos": [],
+      "model_manifest": {
+        "path": "outputs/agent-dragon-v3/model-2/manifest.json",
+        "sha256": "34f696204794cd7f048862b697172608f82a12708261d1d14ce3c93b8607e954"
+      },
+      "media_manifest": {
+        "path": "outputs/agent-dragon-v3/media-portable/manifest.json",
+        "sha256": "0a8082f886bc801a9fdfd96058b227651bafaf6b00b3dab3db2e9b9b50e3751b"
+      },
+      "load_ms": 1742,
+      "portrait": {
+        "width": 1600,
+        "height": 1600
+      },
+      "static_fallbacks": [
+        {
+          "id": "idle",
+          "source": "/asset/agent-dragon-v3/still-idle",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "look_around",
+          "source": "/asset/agent-dragon-v3/still-look_around",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "wing_flap",
+          "source": "/asset/agent-dragon-v3/still-wing_flap",
+          "width": 720,
+          "height": 720
+        },
+        {
+          "id": "milestone_level_up",
+          "source": "/asset/agent-dragon-v3/still-milestone_level_up",
+          "width": 720,
+          "height": 720
+        }
+      ],
+      "elapsed_ms": 5831
+    }
+  ],
+  "checks": [
+    "Every declared GLB clip loads, plays, pauses and seeks; every supplied video decodes and plays; portraits and per-state static images decode",
+    "Reduced motion selects static portraits for every asset without any GLB/video fetch or autoplay",
+    "Intentionally failed GLB/video requests disable playback and leave the real static portrait usable",
+    "390px portrait layout has no horizontal overflow"
+  ],
+  "errors": [],
+  "expected_failure_observations": [
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    },
+    {
+      "kind": "console",
+      "message": "TypeError: Failed to fetch\n    at Ql.load (http://127.0.0.1:57701/vendor/model-viewer.min.js:48:203748)\n    at ap.load (http://127.0.0.1:57701/vendor/model-viewer.min.js:552:34811)\n    at http://127.0.0.1:57701/vendor/model-viewer.min.js:594:5683\n    at new Promise (<anonymous>)\n    at http://127.0.0.1:57701/vendor/model-viewer.min.js:594:5661\n    at Pg.preload (http://127.0.0.1:57701/vendor/model-viewer.min.js:594:5700)\n    at Pg.load (http://127.0.0.1:57701/vendor/model-viewer.min.js:594:5909)\n    at http://127.0.0.1:57701/vendor/model-viewer.min.js:1008:3644\n    at Array.map (<anonymous>)\n    at http://127.0.0.1:57701/vendor/model-viewer.min.js:1008:3613"
+    },
+    {
+      "kind": "console",
+      "message": "Failed to load resource: net::ERR_FAILED"
+    }
+  ],
+  "external_requests": [],
+  "request_failures": [
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-milestone_level_up",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-idle",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-look_around",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-wing_flap",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-wing_flap",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-milestone_level_up",
+      "error": "net::ERR_ABORTED",
+      "injected": false
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/model",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    },
+    {
+      "url": "http://127.0.0.1:57701/asset/agent-dragon-v3/video-idle",
+      "error": "net::ERR_FAILED",
+      "injected": true
+    }
+  ],
+  "resources": {
+    "sampled_peak_rss_bytes": 2696626176,
+    "sampling_interval_ms": 2000,
+    "scope": "RSS summed for this test and its descendants; shared pages may be counted twice. Sampled enforcement, not a hard OS allocation cap."
+  },
+  "artifacts": [
+    {
+      "path": "source-catalog.json",
+      "bytes": 551,
+      "sha256": "fd0e3c8537a1c17a6bd21b5cad7afc6904a52c5010799e147a0adb1de85f08dc"
+    },
+    {
+      "path": "source-test.mjs",
+      "bytes": 27417,
+      "sha256": "8318268e16ee04ee802deecc9fe29ed54e99b8967975020043ae45da47f6f824"
+    },
+    {
+      "path": "asset-01-model.png",
+      "bytes": 273708,
+      "sha256": "b43ba73ba8c20201356e47a79a1497baffbb0cbb11a85a09c67781890f3e2583"
+    },
+    {
+      "path": "reduced-motion.png",
+      "bytes": 223955,
+      "sha256": "d5781aec938d9d2e00c5f548daa9588410d637dcf8906bd20f2f7437325f0fc1"
+    },
+    {
+      "path": "model-failure-static-fallback.png",
+      "bytes": 223950,
+      "sha256": "7d16ba7e53207a094226a7b3f457e02270bd8ca96204ac0c796b08661a181c43"
+    },
+    {
+      "path": "mobile-portrait.png",
+      "bytes": 108689,
+      "sha256": "62f0793540424fcb83da85b16b85da2cee2273c1006edc577dd37bbc455d75a8"
+    },
+    {
+      "path": "server.log",
+      "bytes": 6,
+      "sha256": "1bbc31c193eac47c5eb207d2441f8e27c95fb0e1953e029f1e74048a21d18d35"
+    }
+  ],
+  "cleanup": {
+    "started": true,
+    "browser_exit_verified": true,
+    "server_exit_verified": true
+  },
+  "server_pid": 60613,
+  "browser_pid": 60614,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "headless": true,
+    "software_webgl": true
+  },
+  "initial_library_ms": 2455,
+  "elapsed_ms": 11760,
+  "finished_local": "10/31/2026, 22:23:52 PDT",
+  "output_bytes_before_report": 858276
+}

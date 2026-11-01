@@ -1,0 +1,1390 @@
+{
+  "automatic_surface_gate": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 543762,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "coat",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.0475810047493326e-07,
+        "normal_tangent_dot_error": 0.0003181611995015654,
+        "tangent_squared_length_error": 0.00015659801807288432,
+        "vertices": 7079
+      },
+      {
+        "material": "coat_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.2047269077063447e-07,
+        "normal_tangent_dot_error": 0.00015201348947702087,
+        "tangent_squared_length_error": 0.00015682468200495236,
+        "vertices": 20406
+      },
+      {
+        "material": "cream",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.004848775882806e-07,
+        "normal_tangent_dot_error": 0.00021994152109519214,
+        "tangent_squared_length_error": 0.0001405458216483524,
+        "vertices": 3876
+      },
+      {
+        "material": "cream_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.114279871179292e-07,
+        "normal_tangent_dot_error": 0.0001289648140163635,
+        "tangent_squared_length_error": 0.00014753896168873126,
+        "vertices": 6750
+      },
+      {
+        "material": "nose",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.811164134224441e-07,
+        "normal_tangent_dot_error": 0.0001908715621361523,
+        "tangent_squared_length_error": 0.0001320956763182224,
+        "vertices": 2212
+      },
+      {
+        "material": "eye_white",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8649664212944117e-07,
+        "normal_tangent_dot_error": 0.00010971835367400845,
+        "tangent_squared_length_error": 0.0001235975477991147,
+        "vertices": 2812
+      },
+      {
+        "material": "iris",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7156809861695876e-07,
+        "normal_tangent_dot_error": 9.794229744825543e-05,
+        "tangent_squared_length_error": 0.00010091643434506636,
+        "vertices": 1382
+      },
+      {
+        "material": "pupil",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.6028638794018946e-07,
+        "normal_tangent_dot_error": 8.674173296085996e-05,
+        "tangent_squared_length_error": 0.00011423708917457365,
+        "vertices": 1382
+      },
+      {
+        "material": "ear_inner",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.849501138906362e-07,
+        "normal_tangent_dot_error": 0.00011345099571191675,
+        "tangent_squared_length_error": 0.00012029409566949312,
+        "vertices": 256
+      },
+      {
+        "material": "dark",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9531507522430047e-07,
+        "normal_tangent_dot_error": 9.290834633404743e-05,
+        "tangent_squared_length_error": 0.00011974039056372732,
+        "vertices": 6774
+      },
+      {
+        "material": "dark_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.021224656534315e-07,
+        "normal_tangent_dot_error": 0.00014099586590266,
+        "tangent_squared_length_error": 0.0001400276269611922,
+        "vertices": 2844
+      },
+      {
+        "material": "scarf",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.904166051502898e-07,
+        "normal_tangent_dot_error": 0.00011350295116940856,
+        "tangent_squared_length_error": 0.00012424333763139117,
+        "vertices": 1433
+      },
+      {
+        "material": "scarf_seam",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7305606547779462e-07,
+        "normal_tangent_dot_error": 0.0009307761208937615,
+        "tangent_squared_length_error": 0.00011574169155181835,
+        "vertices": 523
+      },
+      {
+        "material": "book",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8593948780676328e-07,
+        "normal_tangent_dot_error": 0.00011899470285403613,
+        "tangent_squared_length_error": 0.00012221036649728845,
+        "vertices": 864
+      },
+      {
+        "material": "paper",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8031609627655598e-07,
+        "normal_tangent_dot_error": 0.00011321144872233901,
+        "tangent_squared_length_error": 0.00011673628976804906,
+        "vertices": 551
+      },
+      {
+        "material": "page_edge",
+        "normal_mapped": false,
+        "normal_squared_length_error": 9.664481481763687e-08,
+        "normal_tangent_dot_error": 3.867094932674675e-05,
+        "tangent_squared_length_error": 2.00753763246464e-05,
+        "vertices": 168
+      },
+      {
+        "material": "gold",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9366606207604775e-07,
+        "normal_tangent_dot_error": 0.00012913716095031003,
+        "tangent_squared_length_error": 0.00012958732085821545,
+        "vertices": 1024
+      },
+      {
+        "material": "pencil_wood",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7749479686024472e-07,
+        "normal_tangent_dot_error": 7.901545080946093e-05,
+        "tangent_squared_length_error": 0.00011499985085960951,
+        "vertices": 49
+      },
+      {
+        "material": "graphite",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.733051364638527e-07,
+        "normal_tangent_dot_error": 8.793135713469624e-05,
+        "tangent_squared_length_error": 0.00013263075465985708,
+        "vertices": 33
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+    "status": "validated_render_attributes",
+    "vertices": 60418
+  },
+  "clips": [
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.10692145133073712,
+      "motion_observed": true,
+      "name": "idle",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.13909633870677693,
+      "motion_observed": true,
+      "name": "making_something",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 1.863331510010119,
+      "motion_observed": true,
+      "name": "milestone_level_up",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    },
+    {
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.1829980709476341,
+      "motion_observed": true,
+      "name": "working",
+      "sample_count": 33,
+      "sample_times_seconds": [
+        0.0,
+        0.02083333395421505,
+        0.25,
+        0.2708333283662796,
+        0.5,
+        0.5208333432674408,
+        0.75,
+        0.7708333432674408,
+        1.0,
+        1.0208333134651184,
+        1.25,
+        1.2708333134651184,
+        1.5,
+        1.5208333134651184,
+        1.75,
+        1.7708333134651184,
+        2.0,
+        2.020833373069763,
+        2.25,
+        2.270833373069763,
+        2.5,
+        2.520833373069763,
+        2.75,
+        2.770833373069763,
+        3.0,
+        3.020833373069763,
+        3.25,
+        3.270833373069763,
+        3.5,
+        3.520833373069763,
+        3.75,
+        3.770833373069763,
+        4.0
+      ]
+    }
+  ],
+  "elapsed_seconds": 1.3725,
+  "embedded_images": [
+    {
+      "bytes": 7405002,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "coat-normal",
+      "sha256": "9a2c4f79407b55a517e8c7c17abda16be4322b0038b6dade16e2d0a722cf5f00",
+      "width": 2048
+    },
+    {
+      "bytes": 2803577,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "coat-basecolor",
+      "sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb",
+      "width": 2048
+    },
+    {
+      "bytes": 331274,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "coat-fur-atlas",
+      "sha256": "cf9ea3638cf874fcee338b194daec29ab43094cffe9d3ca268cb065b2c231d2e",
+      "width": 1024
+    },
+    {
+      "bytes": 6576439,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "cream-normal",
+      "sha256": "10db338dc004efeb58da4773876caec7c33b90d83c1c6291160889e6fa595ed0",
+      "width": 2048
+    },
+    {
+      "bytes": 2887743,
+      "height": 2048,
+      "mode": "RGBA",
+      "name": "cream-basecolor",
+      "sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150",
+      "width": 2048
+    },
+    {
+      "bytes": 350422,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "cream-fur-atlas",
+      "sha256": "6dea8e04e463e86503f9682282fdfd7529386145c407f10f41dacbd3fd8037a3",
+      "width": 1024
+    },
+    {
+      "bytes": 1658373,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "dark-normal",
+      "sha256": "b57163525037f3be2bb56d241ffa7971200c538792548caa3317972566e750c6",
+      "width": 1024
+    },
+    {
+      "bytes": 449468,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "dark-basecolor",
+      "sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91",
+      "width": 1024
+    },
+    {
+      "bytes": 301979,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "dark-fur-atlas",
+      "sha256": "5cfe9fa842369a456dd8f78db5fe7b6f85f20d490ba1552841821b88c0ab6dc9",
+      "width": 1024
+    },
+    {
+      "bytes": 335906,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "scarf-normal",
+      "sha256": "e3743d9c76ee03b9ead3a3446abd489a3b10291dd62fc5e1f1df65ce36ba7bb7",
+      "width": 1024
+    },
+    {
+      "bytes": 20655,
+      "height": 1024,
+      "mode": "RGBA",
+      "name": "scarf-basecolor",
+      "sha256": "b8d726911c50e1b0025f229ac8e1e330000f2c61d9f23846e5c9347b29de1cb3",
+      "width": 1024
+    }
+  ],
+  "embedded_png_hashes_equal_preserved_sources": true,
+  "fur": {
+    "distinction": "Strand count comes from hash-verified backend metadata. Slender isolated triangles are independent geometry evidence, not recovered strand labels; small non-fur details can also match.",
+    "geometry_criterion": "Unshared triangle indices; shortest edge0.0002–0.005m, longest0.001–0.052m, aspect>=3",
+    "independent_isolated_slender_triangles": 203,
+    "source_reported_strand_vertices": 30000,
+    "source_reported_strands": 0
+  },
+  "id": "fox",
+  "input_hashes": {
+    "backend_report": "fe8fa99e8f60ce57411c08b7b83be1bc936298cd75cb9dadb9b07ce96484e5bc",
+    "blend": "c0e347af52a10b2478a4b75571a251e1c3421e486f93bfc3cef27f86c86dba59",
+    "manifest": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be",
+    "model": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+    "scene": "62492cb84a45051e33fe53f141996a8d18ff5688295d67cc12a092bc9b6ae615"
+  },
+  "joints": 20,
+  "materials": [
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "coat",
+      "normal_texture": true,
+      "roughness": 0.8299999833106995,
+      "source_binding": "authored_material_name",
+      "source_material": "coat"
+    },
+    {
+      "alpha_mode": "MASK",
+      "basecolor_texture": true,
+      "generated_hair_cards": true,
+      "metallic": 0,
+      "name": "coat_cutout_fur",
+      "normal_texture": false,
+      "roughness": 0.7799999713897705,
+      "source_binding": "explicit_source_material",
+      "source_material": "coat"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "cream",
+      "normal_texture": true,
+      "roughness": 0.8799999952316284,
+      "source_binding": "authored_material_name",
+      "source_material": "cream"
+    },
+    {
+      "alpha_mode": "MASK",
+      "basecolor_texture": true,
+      "generated_hair_cards": true,
+      "metallic": 0,
+      "name": "cream_cutout_fur",
+      "normal_texture": false,
+      "roughness": 0.7799999713897705,
+      "source_binding": "explicit_source_material",
+      "source_material": "cream"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "nose",
+      "normal_texture": false,
+      "roughness": 0.3100000023841858,
+      "source_binding": "authored_material_name",
+      "source_material": "nose"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "eye_white",
+      "normal_texture": false,
+      "roughness": 0.1899999976158142,
+      "source_binding": "authored_material_name",
+      "source_material": "eye_white"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "iris",
+      "normal_texture": false,
+      "roughness": 0.20000000298023224,
+      "source_binding": "authored_material_name",
+      "source_material": "iris"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "pupil",
+      "normal_texture": false,
+      "roughness": 0.11999999731779099,
+      "source_binding": "authored_material_name",
+      "source_material": "pupil"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "ear_inner",
+      "normal_texture": false,
+      "roughness": 0.8999999761581421,
+      "source_binding": "authored_material_name",
+      "source_material": "ear_inner"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "dark",
+      "normal_texture": true,
+      "roughness": 0.75,
+      "source_binding": "authored_material_name",
+      "source_material": "dark"
+    },
+    {
+      "alpha_mode": "MASK",
+      "basecolor_texture": true,
+      "generated_hair_cards": true,
+      "metallic": 0,
+      "name": "dark_cutout_fur",
+      "normal_texture": false,
+      "roughness": 0.7799999713897705,
+      "source_binding": "explicit_source_material",
+      "source_material": "dark"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": true,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "scarf",
+      "normal_texture": true,
+      "roughness": 0.7900000214576721,
+      "source_binding": "authored_material_name",
+      "source_material": "scarf"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "scarf_seam",
+      "normal_texture": false,
+      "roughness": 0.800000011920929,
+      "source_binding": "authored_material_name",
+      "source_material": "scarf_seam"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "book",
+      "normal_texture": false,
+      "roughness": 0.5099999904632568,
+      "source_binding": "authored_material_name",
+      "source_material": "book"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "paper",
+      "normal_texture": false,
+      "roughness": 0.9200000166893005,
+      "source_binding": "authored_material_name",
+      "source_material": "paper"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "page_edge",
+      "normal_texture": false,
+      "roughness": 0.9100000262260437,
+      "source_binding": "authored_material_name",
+      "source_material": "page_edge"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0.5799999833106995,
+      "name": "gold",
+      "normal_texture": false,
+      "roughness": 0.27000001072883606,
+      "source_binding": "authored_material_name",
+      "source_material": "gold"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0,
+      "name": "pencil_wood",
+      "normal_texture": false,
+      "roughness": 0.800000011920929,
+      "source_binding": "authored_material_name",
+      "source_material": "pencil_wood"
+    },
+    {
+      "alpha_mode": "OPAQUE",
+      "basecolor_texture": false,
+      "generated_hair_cards": false,
+      "metallic": 0.10000000149011612,
+      "name": "graphite",
+      "normal_texture": false,
+      "roughness": 0.3799999952316284,
+      "source_binding": "authored_material_name",
+      "source_material": "graphite"
+    }
+  ],
+  "mixed_weight_vertices_exported": 5242,
+  "model_bytes": 27709020,
+  "normal_mapped_material_count": 4,
+  "not_verified_here": [
+    "Native render appearance",
+    "Reference likeness",
+    "Weft runtime alignment",
+    "Seamless loops"
+  ],
+  "pack": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2",
+  "pbr_material_count": 19,
+  "preserved_textures": [
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/coat-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 2803577,
+      "kind": "basecolor",
+      "material": "coat",
+      "path": "textures/coat-basecolor.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 51,
+      "sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb",
+      "strength": 0.5
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/coat-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 7405002,
+      "kind": "normal",
+      "material": "coat",
+      "path": "textures/coat-normal.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 51,
+      "sha256": "9a2c4f79407b55a517e8c7c17abda16be4322b0038b6dade16e2d0a722cf5f00",
+      "strength": 0.5
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/cream-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 2887743,
+      "kind": "basecolor",
+      "material": "cream",
+      "path": "textures/cream-basecolor.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 52,
+      "sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150",
+      "strength": 0.35
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/cream-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 6576439,
+      "kind": "normal",
+      "material": "cream",
+      "path": "textures/cream-normal.png",
+      "pattern": "fur",
+      "resolution": 2048,
+      "seed": 52,
+      "sha256": "10db338dc004efeb58da4773876caec7c33b90d83c1c6291160889e6fa595ed0",
+      "strength": 0.35
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/dark-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 449468,
+      "kind": "basecolor",
+      "material": "dark",
+      "path": "textures/dark-basecolor.png",
+      "pattern": "fur",
+      "resolution": 1024,
+      "seed": 53,
+      "sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91",
+      "strength": 0.4
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/dark-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 1658373,
+      "kind": "normal",
+      "material": "dark",
+      "path": "textures/dark-normal.png",
+      "pattern": "fur",
+      "resolution": 1024,
+      "seed": 53,
+      "sha256": "b57163525037f3be2bb56d241ffa7971200c538792548caa3317972566e750c6",
+      "strength": 0.4
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/scarf-basecolor.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 20655,
+      "kind": "basecolor",
+      "material": "scarf",
+      "path": "textures/scarf-basecolor.png",
+      "pattern": "brushed",
+      "resolution": 1024,
+      "seed": 54,
+      "sha256": "b8d726911c50e1b0025f229ac8e1e330000f2c61d9f23846e5c9347b29de1cb3",
+      "strength": 0.22
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/scarf-normal.png",
+      "algorithm": "native_hd_surfaces_v1",
+      "bytes": 335906,
+      "kind": "normal",
+      "material": "scarf",
+      "path": "textures/scarf-normal.png",
+      "pattern": "brushed",
+      "resolution": 1024,
+      "seed": 54,
+      "sha256": "e3743d9c76ee03b9ead3a3446abd489a3b10291dd62fc5e1f1df65ce36ba7bb7",
+      "strength": 0.22
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/coat-fur-atlas.png",
+      "alpha_cutoff": 0.45,
+      "alpha_mode": "MASK",
+      "kind": "fur_atlas",
+      "material": "coat_cutout_fur",
+      "path": "textures/coat-fur-atlas.png",
+      "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+      "resolution": 1024,
+      "seed": 193,
+      "sha256": "cf9ea3638cf874fcee338b194daec29ab43094cffe9d3ca268cb065b2c231d2e",
+      "source_material": "coat"
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/cream-fur-atlas.png",
+      "alpha_cutoff": 0.45,
+      "alpha_mode": "MASK",
+      "kind": "fur_atlas",
+      "material": "cream_cutout_fur",
+      "path": "textures/cream-fur-atlas.png",
+      "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+      "resolution": 1024,
+      "seed": 193,
+      "sha256": "6dea8e04e463e86503f9682282fdfd7529386145c407f10f41dacbd3fd8037a3",
+      "source_material": "cream"
+    },
+    {
+      "absolute_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/textures/dark-fur-atlas.png",
+      "alpha_cutoff": 0.45,
+      "alpha_mode": "MASK",
+      "kind": "fur_atlas",
+      "material": "dark_cutout_fur",
+      "path": "textures/dark-fur-atlas.png",
+      "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+      "resolution": 1024,
+      "seed": 193,
+      "sha256": "5cfe9fa842369a456dd8f78db5fe7b6f85f20d490ba1552841821b88c0ab6dc9",
+      "source_material": "dark"
+    }
+  ],
+  "primitives": [
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 5545,
+        "2": 1186,
+        "3": 348
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 112,
+      "isolated_triangles": 296,
+      "material": 0,
+      "mixed_weight_vertices": 1534,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.0475810047493326e-07,
+      "normal_tangent_dot_error": 0.0003181611995015654,
+      "tangent_squared_length_error": 0.00015659801807288432,
+      "triangles": 11200,
+      "uv0_bounds": [
+        [
+          -0.1530475616455078,
+          1.0071512460708618
+        ],
+        [
+          -0.0690382719039917,
+          1.0
+        ]
+      ],
+      "vertices": 7079,
+      "weight_sum_error": 2.9802322387695312e-08,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 16698,
+        "2": 2520,
+        "3": 1188
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 1,
+      "mixed_weight_vertices": 3708,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.2047269077063447e-07,
+      "normal_tangent_dot_error": 0.00015201348947702087,
+      "tangent_squared_length_error": 0.00015682468200495236,
+      "triangles": 13604,
+      "uv0_bounds": [
+        [
+          0.0037499999161809683,
+          0.9962499737739563
+        ],
+        [
+          0.003750026226043701,
+          0.9962499737739563
+        ]
+      ],
+      "vertices": 20406,
+      "weight_sum_error": 8.009374141693115e-08,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 3876
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 28,
+      "isolated_triangles": 96,
+      "material": 2,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.004848775882806e-07,
+      "normal_tangent_dot_error": 0.00021994152109519214,
+      "tangent_squared_length_error": 0.0001405458216483524,
+      "triangles": 6496,
+      "uv0_bounds": [
+        [
+          -0.1505824625492096,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 3876,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 6750
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 3,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.114279871179292e-07,
+      "normal_tangent_dot_error": 0.0001289648140163635,
+      "tangent_squared_length_error": 0.00014753896168873126,
+      "triangles": 4500,
+      "uv0_bounds": [
+        [
+          0.0037499999161809683,
+          0.9962499737739563
+        ],
+        [
+          0.003750026226043701,
+          0.9962499737739563
+        ]
+      ],
+      "vertices": 6750,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 2212
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 4,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.811164134224441e-07,
+      "normal_tangent_dot_error": 0.0001908715621361523,
+      "tangent_squared_length_error": 0.0001320956763182224,
+      "triangles": 3824,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 2212,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 2812
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 5,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8649664212944117e-07,
+      "normal_tangent_dot_error": 0.00010971835367400845,
+      "tangent_squared_length_error": 0.0001235975477991147,
+      "triangles": 5024,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 2812,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1382
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 6,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.7156809861695876e-07,
+      "normal_tangent_dot_error": 9.794229744825543e-05,
+      "tangent_squared_length_error": 0.00010091643434506636,
+      "triangles": 2432,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 1382,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1382
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 7,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.6028638794018946e-07,
+      "normal_tangent_dot_error": 8.674173296085996e-05,
+      "tangent_squared_length_error": 0.00011423708917457365,
+      "triangles": 2432,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 1382,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 256
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 8,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.849501138906362e-07,
+      "normal_tangent_dot_error": 0.00011345099571191675,
+      "tangent_squared_length_error": 0.00012029409566949312,
+      "triangles": 320,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 256,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 6774
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 9,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9531507522430047e-07,
+      "normal_tangent_dot_error": 9.290834633404743e-05,
+      "tangent_squared_length_error": 0.00011974039056372732,
+      "triangles": 11520,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.9999999403953552
+        ]
+      ],
+      "vertices": 6774,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 2844
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 10,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 2.021224656534315e-07,
+      "normal_tangent_dot_error": 0.00014099586590266,
+      "tangent_squared_length_error": 0.0001400276269611922,
+      "triangles": 1896,
+      "uv0_bounds": [
+        [
+          0.0037499999161809683,
+          0.9962499737739563
+        ],
+        [
+          0.003750026226043701,
+          0.9962499737739563
+        ]
+      ],
+      "vertices": 2844,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1433
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 48,
+      "material": 11,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.904166051502898e-07,
+      "normal_tangent_dot_error": 0.00011350295116940856,
+      "tangent_squared_length_error": 0.00012424333763139117,
+      "triangles": 2320,
+      "uv0_bounds": [
+        [
+          -0.11656156182289124,
+          1.0
+        ],
+        [
+          -0.14186227321624756,
+          1.0
+        ]
+      ],
+      "vertices": 1433,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 523
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 42,
+      "material": 12,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.7305606547779462e-07,
+      "normal_tangent_dot_error": 0.0009307761208937615,
+      "tangent_squared_length_error": 0.00011574169155181835,
+      "triangles": 612,
+      "uv0_bounds": [
+        [
+          -0.027783524245023727,
+          1.0277774333953857
+        ],
+        [
+          -0.1220083236694336,
+          1.0
+        ]
+      ],
+      "vertices": 523,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 864
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 16,
+      "isolated_triangles": 272,
+      "material": 13,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8593948780676328e-07,
+      "normal_tangent_dot_error": 0.00011899470285403613,
+      "tangent_squared_length_error": 0.00012221036649728845,
+      "triangles": 296,
+      "uv0_bounds": [
+        [
+          0.1249999925494194,
+          0.8750000596046448
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 864,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 551
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 23,
+      "isolated_triangles": 174,
+      "material": 14,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.8031609627655598e-07,
+      "normal_tangent_dot_error": 0.00011321144872233901,
+      "tangent_squared_length_error": 0.00011673628976804906,
+      "triangles": 188,
+      "uv0_bounds": [
+        [
+          0.125,
+          0.875
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 551,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 168
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 15,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 9.664481481763687e-08,
+      "normal_tangent_dot_error": 3.867094932674675e-05,
+      "tangent_squared_length_error": 2.00753763246464e-05,
+      "triangles": 84,
+      "uv0_bounds": [
+        [
+          0.125,
+          0.875
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 168,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 1024
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 24,
+      "isolated_triangles": 175,
+      "material": 16,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.9366606207604775e-07,
+      "normal_tangent_dot_error": 0.00012913716095031003,
+      "tangent_squared_length_error": 0.00012958732085821545,
+      "triangles": 952,
+      "uv0_bounds": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ]
+      ],
+      "vertices": 1024,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 49
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 17,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.7749479686024472e-07,
+      "normal_tangent_dot_error": 7.901545080946093e-05,
+      "tangent_squared_length_error": 0.00011499985085960951,
+      "triangles": 46,
+      "uv0_bounds": [
+        [
+          0.01000000536441803,
+          0.9900000095367432
+        ],
+        [
+          0.5099999904632568,
+          0.9900000095367432
+        ]
+      ],
+      "vertices": 49,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    },
+    {
+      "attributes_finite": true,
+      "influence_histogram": {
+        "1": 33
+      },
+      "invalid_tangent_vertices": 0,
+      "isolated_slender_triangles": 0,
+      "isolated_triangles": 0,
+      "material": 18,
+      "mixed_weight_vertices": 0,
+      "near_zero_area_triangles": 0,
+      "normal_squared_length_error": 1.733051364638527e-07,
+      "normal_tangent_dot_error": 8.793135713469624e-05,
+      "tangent_squared_length_error": 0.00013263075465985708,
+      "triangles": 30,
+      "uv0_bounds": [
+        [
+          0.01000000536441803,
+          0.9900000095367432
+        ],
+        [
+          0.5099999904632568,
+          0.9900000095367432
+        ]
+      ],
+      "vertices": 33,
+      "weight_sum_error": 0.0,
+      "zero_tangent_vertices": 0
+    }
+  ],
+  "process_cumulative_peak_rss_bytes": 171360256,
+  "reader": {
+    "method": "Existing _GLB.accessor decoder with cache released per attribute; compact cross-attribute arrays only.",
+    "total_decoded_work_scalars": 1418070,
+    "unique_decoded_scalars": 1410774
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "triangles": 67776,
+  "validation_failures": [],
+  "vertices": 60418
+}

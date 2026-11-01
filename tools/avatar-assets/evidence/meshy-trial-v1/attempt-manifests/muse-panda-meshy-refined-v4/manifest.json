@@ -1,0 +1,118 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "8994248185e94fe29d3809f8bfd810940086c6d810a6380792530954f6c88e89"
+    },
+    {
+      "bytes": 12834,
+      "path": "finish-config.json",
+      "sha256": "2e931e048f9f590dc7cb16500cb97137a456331243d58c96015b46db872486c4"
+    },
+    {
+      "bytes": 596,
+      "path": "finish-handle.json",
+      "sha256": "3abaca8858c8ecb299d453554644ea3bd39e4a3b40574d71ad680607061547c2"
+    },
+    {
+      "bytes": 1495,
+      "path": "finish-monitor.json",
+      "sha256": "8a38eb94bec95d10c140d7ee7aa60d4459f4a1a436616c222772d90348e8da61"
+    },
+    {
+      "bytes": 7901,
+      "path": "finish.log",
+      "sha256": "6b559d31bcde4cca716c202a16cde24bd5525686c2c1585cfcbd66d1d894c1ff"
+    },
+    {
+      "bytes": 1667,
+      "path": "job.json",
+      "sha256": "3c9ec0709f272fd5790347b4ad7bc02bf87af7255d12b2e6c0da86eca7304ca9"
+    },
+    {
+      "bytes": 47402208,
+      "path": "model.glb",
+      "sha256": "53c778aa0646fd945937474997fe33e1db99d40001009a6ea46e0c8cb98c754f"
+    },
+    {
+      "bytes": 42728,
+      "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "d4b9dff1eb631039b766e7bd74de5271e0b3fe7d08fb9a4893796983b5d4d37a"
+    },
+    {
+      "bytes": 19060,
+      "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "09c5c9fd274e598d547d47ecac0dcd782ee15d9ed7f09dd239d991edb660ba34"
+    },
+    {
+      "bytes": 44375,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "6ef783c74e5fd1336a4816dc50ddb1213916607d8a4278c09e355cab3c9b4a02"
+    },
+    {
+      "bytes": 37915,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "da8afc77e2db914eb071c857e5393ba3030954fc2dfb2679fad8148aa1ccc579"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 21559,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "87951732b29a15247884e7cb407198d2738251fdc8ef0753b9b56ecc561c6ebe"
+    },
+    {
+      "bytes": 7860,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "423029b300b968c857091d717387f244efc85b2b4d434f34eb1eedd5faddf5a5"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 12745,
+      "path": "sources/finish-design.json",
+      "sha256": "c0e5e8c68afe33c4c310f45b3005258a8776a8ec780d8ef7084c17f06ca86c3a"
+    },
+    {
+      "bytes": 12907,
+      "path": "sources/finish_generated.py",
+      "sha256": "cf14ab88b34358bed642142df7b4a3aab2ceb4a9ba34368360160245fa20fbc4"
+    },
+    {
+      "bytes": 2452,
+      "path": "sources/generated_tangents.py",
+      "sha256": "eec7535416da2373acfbbc15c3c496bd48d08af1e5b3e76a949b0b79f2859207"
+    },
+    {
+      "bytes": 241708,
+      "path": "textures/PortableCoat_0-fur-atlas.png",
+      "sha256": "31e26d78c2304a86d5ccd95a8562879d67b02ed8d5552ec874b2d5aefe9aa9d1"
+    },
+    {
+      "bytes": 289636,
+      "path": "textures/PortableCoat_1-fur-atlas.png",
+      "sha256": "65c9a47c27a183c7ee250997fca9e811ce4ca6ecb695d5167ac6f29f0ad6729f"
+    }
+  ],
+  "error": "Finishing failed; inspect preserved attempt",
+  "rejected_attempts": [
+    {
+      "preserved": true,
+      "reason": "Finishing failed; inspect preserved attempt"
+    }
+  ],
+  "schema_version": 1,
+  "status": "failed"
+}

@@ -1,0 +1,228 @@
+{
+  "api": "comb_native_groom(groom, direction, amount=.65)",
+  "artifacts": [
+    {
+      "bytes": 19976,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/blender_comb_groom.py",
+      "sha256": "4e83dd09eec76b21dc6bab2b6947f14de5951bdb8a931241912f7a156795b4ec"
+    },
+    {
+      "bytes": 19976,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/sources/blender_comb_groom.py",
+      "sha256": "4e83dd09eec76b21dc6bab2b6947f14de5951bdb8a931241912f7a156795b4ec"
+    },
+    {
+      "bytes": 23509,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/sources/blender_native_groom.py",
+      "sha256": "97d7beb6776e7aa11b496b3c90265eea3aa83c92a0fa39d27cb32f23d7dd1d4f"
+    },
+    {
+      "bytes": 11067,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/sources/runner-snapshot.py",
+      "sha256": "87806259168e58f88a87a642e278641ea373d2fda7f4d674da8b384d1bd63a5f"
+    },
+    {
+      "bytes": 1078,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/job-plan.json",
+      "sha256": "06889f43fcaa92db5b64cb251f0a2dfba8b025df79649a11292518d23ee2da5a"
+    },
+    {
+      "bytes": 1370,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/job.json",
+      "sha256": "b02d0c26a5660165a4793b0122b45a3df953478761522798d00807e51a9f6716"
+    },
+    {
+      "bytes": 8563,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/probe-result.json",
+      "sha256": "165dc8f2cd4a6327bb189b82ea3530b9b356cc4ea9aa4817e6dc45f51e5e2f96"
+    },
+    {
+      "bytes": 239,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/initialization.json",
+      "sha256": "68a2218634230155831e6bb4536879d10264145b3cc9c85640f6c416f0f8cf79"
+    },
+    {
+      "bytes": 466453,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/front-radial.png",
+      "sha256": "59754b414c7aab1a23ccc7c3467445c1c2d7d11102aeb26ac5cd207156abe1b5"
+    },
+    {
+      "bytes": 460535,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/front-combed.png",
+      "sha256": "4f23c380e421d35d642d5204da7911ef157ed9d66e82574e0c14f430f383ad14"
+    },
+    {
+      "bytes": 459561,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/combed-bent.png",
+      "sha256": "8423eaaecc247b71167a326d6047be5dcd21ddcc4cb2baa383bfc19c62deffa8"
+    },
+    {
+      "bytes": 3309955,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/uncombed.blend",
+      "sha256": "f178889c097b59cd3223d2dca8e675ba02007c8eb1a0384bbeb00cabcffd8eb4"
+    },
+    {
+      "bytes": 3316588,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/combed.blend",
+      "sha256": "dc990774dd471f0940f4ecf87ddfc4e758491f03e9f5e8c09315a1b485579650"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "job": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/job.json",
+      "result": "Module import failed before fixture/render work"
+    },
+    {
+      "attempt": 2,
+      "job": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-2/job.json",
+      "result": "Fresh original hair parents were empty; stopped before key edits/render"
+    },
+    {
+      "attempt": 3,
+      "job": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/job.json",
+      "result": "Initialization, edits, three renders, skin bend and save/reload passed"
+    }
+  ],
+  "cost": {
+    "native_jobs": 3,
+    "paid_cost_usd": 0,
+    "provider_calls": 0,
+    "total_observed_job_wall_seconds": 9.594
+  },
+  "implementation": "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/blender_comb_groom.py",
+  "input_contract": {
+    "amount": "Finite 0..0.95; validated visual probe used 0.65",
+    "direction": "Finite nonzero 3-vector in emitter object rest axes; normalized by helper",
+    "emitter": "Mesh with one native HAIR system and one explicit skin armature; unit world scale; rig rest pose; Object mode",
+    "limits": {
+      "comb_wall_seconds": 20,
+      "parents_per_emitter": 10000,
+      "stored_keys_per_emitter": 150000,
+      "stored_keys_per_parent": [
+        2,
+        33
+      ],
+      "stored_parent_arc_length_m": 0.08
+    },
+    "recomb": "Rejected if native_comb_settings is already present; begin with a preserved uncombed source"
+  },
+  "limits_and_nonclaims": [
+    "Native Blender particle hair only; no GLB/browser hair or hair dynamics.",
+    "Evidence is an analytic sphere and skinned two-bone limb, not a panda, actual-reference recovery, Weft runtime alignment or Muse parity.",
+    "Root-surface distances are sampled against the evaluated triangle surface with a 3 mm acceptance tolerance; observed maximum is below 1.96 mm.",
+    "The helper preserves stored parent arc lengths, not exact rendered child paths; configured clump/roughness and interpolation remain active.",
+    "Changes to emitter topology, parent counts or regeneration settings can invalidate the groom; comb once after settings settle.",
+    "On any post-mutation failure discard the new attempt; no automatic fallback or silent acceptance.",
+    "Three probe jobs reached the revised cap; no fourth probe was run.",
+    "Probe-result artifact inventory captured the monitor before it finalized; use this report and job.json for final job status, not its earlier monitor hash."
+  ],
+  "mechanical_results": {
+    "all_original_key_max_setter_error_m": 3.9092480010822133e-07,
+    "all_original_parent_arc_max_change_m": 2.1081876183659531e-07,
+    "all_original_parent_roots_max_shift_m": 0.0,
+    "bone_checks": [
+      {
+        "max_bent_stored_arc_length_m": 0.03500031771120014,
+        "max_root_motion_m": 0.0,
+        "object": "NativeGroom_Analytic_sphere",
+        "root_surface_distance_m": 0.0017618078272789717,
+        "weights_preserved": true
+      },
+      {
+        "max_bent_stored_arc_length_m": 0.03500028088398719,
+        "max_root_motion_m": 0.49649373359807675,
+        "object": "NativeGroom_Analytic_limb",
+        "root_surface_distance_m": 0.0019541000947356224,
+        "weights_preserved": true
+      }
+    ],
+    "front_on_projection": [
+      {
+        "combed_mean_projected_length_m": 0.025096872748860567,
+        "front_facing_samples": 3,
+        "object": "NativeGroom_Analytic_sphere",
+        "radial_mean_projected_length_m": 0.008549450274969372
+      },
+      {
+        "combed_mean_projected_length_m": 0.021036999688684884,
+        "front_facing_samples": 12,
+        "object": "NativeGroom_Analytic_limb",
+        "radial_mean_projected_length_m": 0.008725662299816929
+      }
+    ],
+    "projection_scope": "Existing helper samples 96 parents per emitter, of which 3 sphere and 12 limb samples satisfy the front-facing criterion; not all fibers.",
+    "save_reload_original_local_key_hashes_identical": true,
+    "weights_and_child_settings_preserved": true
+  },
+  "method": "Initialize persistent original parent keys by entering/leaving Particle Edit on the owned emitter; edit original keys through ParticleHairKey.co_object_set using the evaluated object, modifier and parent; no dynamics.",
+  "next_safe_action": "Parent may call the optional helper after add_native_groom and after all settings are finalized, while rig is in rest pose. Set per-part rest-object direction vectors, preserve a new native artifact, then independently review actual panda portrait and attachment/motion proofs.",
+  "resource_result": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/sources/blender_comb_groom.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 8.549,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 8271230,
+    "last_rss_sample_elapsed_seconds": 8.287,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 180
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "probe-monitor.json",
+    "monitor_errors": [],
+    "pid": 94727,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 32,
+    "sampled_max_output_bytes": 8271230,
+    "sampled_peak_rss_bytes": 945389568,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "reviewed_at": "2026-10-30T18:58:49.875979-07:00",
+  "schema_version": 1,
+  "sources": [
+    "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+    "https://github.com/blender/blender/blob/v4.5.3/source/blender/editors/physics/particle_edit.cc"
+  ],
+  "status": "mechanically_verified_on_analytic_fixtures_visual_review_passed",
+  "validated_blender_version": "4.5.13 LTS",
+  "visual_review": {
+    "observations": [
+      "Front-radial shows a relatively smooth/velvety front and obvious radial silhouette hairs.",
+      "Front-combed shows visible downward hair flow across the sphere and dark limb, while retaining fine filament edges; camera, materials, lighting, count and strand length are unchanged.",
+      "Combed-bent shows the limb bending without a detached fur shell; the sphere remains fixed.",
+      "The constant vector creates a simple directional groom, not an anatomically authored panda or reference-matched fur pattern."
+    ],
+    "reviewed_paths": [
+      "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/front-radial.png",
+      "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/front-combed.png",
+      "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-3/combed-bent.png"
+    ],
+    "verdict": "Useful native combing capability; character-quality acceptance remains separate."
+  }
+}

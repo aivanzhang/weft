@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The rounded robot retains its oversized head, rounded torso, two arms, two feet and mechanical details across supplied views."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Blue and cream panels, copper accents and rounded hard surfaces match the description. No props or hair are requested or visible."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "The entire robot, including hands and feet, remains inside every sampled frame."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "During the raised-arm wave, long pointed strips hang below the wrist and forearm, visibly breaking the rigid mechanical silhouette."
+    }
+  ],
+  "limitations": [
+    "Contact sheets establish sampled poses only; they do not establish all-frame collision freedom, ground contact forces or seamless loops.",
+    "Exact preservation of the original source model cannot be established from the supplied views alone.",
+    "Supplied reports describe successful local structural and attribute validation; target runtime verification remains absent."
+  ],
+  "required_repairs": [
+    "Correct the waving arm's joint assignments and skin weights so wrist and forearm surfaces remain rigid without stretched strips. Preserve the small arm lift and make the hand's side-to-side greeting visibly clear, then supply updated motion views."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Subtle head settling is visible between samples while the arms remain relaxed and feet retain their positions; this fits a gentle idle."
+    },
+    {
+      "evidence_ids": ["image-02-look.png"],
+      "id": "look",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns through opposing orientations and returns to its starting pose while the body and feet remain stable."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": false,
+      "motion_passed": true,
+      "reason": "The arm lifts, hand orientation changes and the arm returns to rest, but dangling stretched surfaces obscure a clean friendly hand wave."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly dips and rises while the torso and feet stay stable, matching the specifically requested modest celebratory nod."
+    }
+  ],
+  "summary": "The robot matches the requested appearance and sampled restrained motions, but the waving arm needs a local deformation repair.",
+  "verdict": "repair"
+}

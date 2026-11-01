@@ -8,12 +8,13 @@ import { chromium } from "playwright-core";
 
 const root = fileURLToPath(new URL("../../", import.meta.url));
 const out = path.resolve(root, process.argv[2] || "outputs/gallery-browser-v1");
+const catalogPath = process.argv[3] || "";
 await mkdir(out, { recursive: false });
 const report = { status: "running", tests: [], loads_ms: [], browser: null, external_requests: [] };
 let browser;
 let page;
 const errors = [];
-const server = spawn(path.join(root, ".venv/bin/python"), ["-u", "-c", "from avatar_assets.gallery import create_server; s=create_server(port=0); print(s.server_address[1],flush=True); s.serve_forever()"], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
+const server = spawn(path.join(root, ".venv/bin/python"), ["-u", "-c", "import sys; from avatar_assets.gallery import create_server; s=create_server(port=0,catalog_path=sys.argv[1] or None); print(s.server_address[1],flush=True); s.serve_forever()", catalogPath], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
 let serverLog = "";
 server.stderr.on("data", (data) => { serverLog += data; });
 const deadline = setTimeout(() => { server.kill("SIGTERM"); process.exitCode = 1; }, 120000);
@@ -44,9 +45,9 @@ try {
   await page.waitForFunction(() => document.querySelector("model-viewer")?.loaded && !document.querySelector("#play").disabled);
   report.initial_ready_ms = Math.round(performance.now() - started);
   const catalog = await (await page.request.get(`${origin}/api/catalog`)).json();
-  assert.equal(catalog.assets.length, 5);
+  assert.ok(catalog.assets.length >= 2 && catalog.assets.length <= 24);
   assert.equal(await page.locator("model-viewer").count(), 1);
-  report.tests.push("five assets, one lazy 3D viewer, local-only loading");
+  report.tests.push(`${catalog.assets.length} assets, one lazy 3D viewer, local-only loading`);
   await page.screenshot({ path: path.join(out, "desktop.png"), fullPage: true });
 
   await page.locator("#play").click();
@@ -75,7 +76,11 @@ try {
     await page.locator('[data-mode="model"]').click();
     await page.waitForFunction(() => document.querySelector("model-viewer").loaded && !document.querySelector("#play").disabled);
     report.loads_ms.push({ asset: asset.id, ms: Math.round(performance.now() - start) });
-    await page.waitForFunction(() => Math.abs(document.querySelector("model-viewer").getCameraOrbit().theta - 25 * Math.PI / 180) < .1);
+    const initialAzimuth = asset.initial_view?.azimuth_degrees ?? 25;
+    await page.waitForFunction((degrees) => {
+      const delta = document.querySelector("model-viewer").getCameraOrbit().theta - degrees * Math.PI / 180;
+      return Math.abs(Math.atan2(Math.sin(delta), Math.cos(delta))) < .1;
+    }, initialAzimuth);
     const animations = await page.locator("model-viewer").evaluate((el) => el.availableAnimations);
     assert.equal(animations.length, 4);
     for (const animation of animations) {
@@ -92,6 +97,11 @@ try {
     await page.waitForFunction(() => Math.abs(document.querySelector("model-viewer").getCameraOrbit().theta) < .1);
     await page.locator('[data-view="side"]').click();
     await page.waitForFunction(() => Math.abs(document.querySelector("model-viewer").getCameraOrbit().theta - Math.PI / 2) < .1);
+    await page.locator("#reset-camera").click();
+    await page.waitForFunction((degrees) => {
+      const delta = document.querySelector("model-viewer").getCameraOrbit().theta - degrees * Math.PI / 180;
+      return Math.abs(Math.atan2(Math.sin(delta), Math.cos(delta))) < .1;
+    }, initialAzimuth);
     report.tests.push(`${asset.id}: four skeletal clips, seeking and camera rotation`);
   }
 
@@ -188,7 +198,7 @@ try {
   const reducedModelRequests = [];
   motionPage.on("request", (request) => { if (/\/asset\/[^/]+\/model$/.test(request.url())) reducedModelRequests.push(request.url()); });
   await motionPage.goto(origin);
-  await motionPage.waitForFunction(() => document.querySelectorAll(".asset-card").length === 5);
+  await motionPage.waitForFunction(count => document.querySelectorAll(".asset-card").length === count, catalog.assets.length);
   assert.equal(await motionPage.locator("#portrait").isVisible(), true);
   assert.equal(await motionPage.locator("#play").isDisabled(), true);
   assert.equal(await motionPage.locator("model-viewer").getAttribute("src"), null);
@@ -215,7 +225,7 @@ try {
   });
   await slowPage.goto(origin);
   await slowPage.locator('[data-mode="video"]').waitFor();
-  await slowPage.waitForFunction(() => document.querySelectorAll(".asset-card").length === 5);
+  await slowPage.waitForFunction(count => document.querySelectorAll(".asset-card").length === count, catalog.assets.length);
   await slowPage.locator('[data-mode="video"]').click();
   await slowPage.locator("#error").filter({ hasText: "longer than expected" }).waitFor({ state: "visible" });
   await slowPage.waitForFunction(() => !document.querySelector("#play").disabled);

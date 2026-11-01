@@ -1,0 +1,520 @@
+{
+  "animation_verified": false,
+  "attachment": {
+    "bone": "CompanionAnchor",
+    "limitation": "Color-selected accessory region; inspect boundary vertices and deformation before acceptance",
+    "parent_bone": "RightShoulder",
+    "rest_geometry_changed": false,
+    "selected_vertices": 4682,
+    "selector": {
+      "anchor_from_bone": "RightArm",
+      "bone": "CompanionAnchor",
+      "dominant_channel": 1,
+      "dominant_ratio": 1.05,
+      "expand_meters": 0.025,
+      "max_vertices": 20000,
+      "min_vertices": 500,
+      "parent_bone": "RightShoulder",
+      "regions": [
+        {
+          "center": [
+            0.11,
+            0.22,
+            0.68
+          ],
+          "radius": [
+            0.25,
+            0.4,
+            0.28
+          ]
+        }
+      ]
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "emitter_scale_applied": true,
+  "groom": {
+    "armature": "Armature",
+    "clump_factor": 0.06,
+    "comb": {
+      "amount": 0.55,
+      "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+      "direction_rest_object_axes": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "hair_dynamics": false,
+      "initialization": {
+        "method": "Particle Edit enter/exit on owned emitter",
+        "parents": 6500
+      },
+      "limitations": [
+        "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+        "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+        "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+      ],
+      "limits": {
+        "amount_range": [
+          0,
+          0.95
+        ],
+        "direction_component_range": [
+          -1,
+          1
+        ],
+        "parents": 10000,
+        "stored_keys": 150000,
+        "stored_parent_arc_length_m": 0.08,
+        "wall_seconds": 20
+      },
+      "max_arc_length_change_m": 1.792301328670809e-07,
+      "max_key_error_m": 2.682209014892578e-07,
+      "max_root_shift_m": 0.0,
+      "max_stored_arc_length_m": 0.00900028177716914,
+      "mean_tip_displacement_m": 0.005571512916555217,
+      "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+      "native_only": true,
+      "parallel_direction_strands_unchanged": 0,
+      "parents": 6500,
+      "schema_version": 1,
+      "seconds": 0.8909918749704957,
+      "settings_preserved": {
+        "child_seed": 831,
+        "hair_dynamics": false,
+        "seed": 831,
+        "settings": {
+          "child_percent": 4,
+          "child_type": "INTERPOLATED",
+          "clump_factor": 0.05999999865889549,
+          "count": 6500,
+          "hair_length": 0.008999999612569809,
+          "hair_step": 3,
+          "material": 2,
+          "radius_scale": 7.999999797903001e-05,
+          "rendered_child_count": 30,
+          "root_radius": 2.0,
+          "roughness_1": 0.0010000000474974513,
+          "roughness_2": 0.0003499999875202775,
+          "tip_radius": 0.11999999731779099,
+          "type": "HAIR",
+          "use_modifier_stack": true,
+          "use_regrow_hair": false
+        }
+      },
+      "skin_signature": {
+        "geometry_weights_sha256": "f3513a489c9d6a4d3ae28f56d84f533bd17f703e2a1a0b2297a991840c161ee6",
+        "mixed_weight_vertices": 49352,
+        "vertices": 67787
+      },
+      "status": "combed_pending_render_review",
+      "stored_keys": 26000
+    },
+    "copied_skin": {
+      "geometry_weights_sha256": "f3513a489c9d6a4d3ae28f56d84f533bd17f703e2a1a0b2297a991840c161ee6",
+      "mixed_weight_vertices": 49352,
+      "vertices": 67787
+    },
+    "density_excluded_vertices": 4883,
+    "density_selected_vertices": 62904,
+    "dynamics_enabled": false,
+    "emitter_surface_visible": false,
+    "fur_max_chroma": 0.18,
+    "gltf_export_supported": false,
+    "kind": "editable_native_blender_particle_hair",
+    "limitations": [
+      "Native Blender hair is not exported as glTF geometry or browser hair.",
+      "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+      "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+    ],
+    "mask_config": [
+      {
+        "center": [
+          0.45,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.66,
+          0.16,
+          0.75
+        ],
+        "radius": [
+          0.055,
+          0.16,
+          0.05
+        ]
+      },
+      {
+        "center": [
+          0.56,
+          0.08,
+          0.67
+        ],
+        "radius": [
+          0.07,
+          0.17,
+          0.055
+        ]
+      },
+      {
+        "center": [
+          0.11,
+          0.22,
+          0.68
+        ],
+        "radius": [
+          0.22,
+          0.35,
+          0.27
+        ]
+      }
+    ],
+    "material": {
+      "base_color_linear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "material": "NativeGroom_Material_0_hair",
+      "model": "CHIANG",
+      "parametrization": "COLOR",
+      "shader": "ShaderNodeBsdfHairPrincipled",
+      "shader_roughness": 0.38,
+      "texture_color_sampling": true
+    },
+    "native_only": true,
+    "native_parameters": {
+      "child_type": "INTERPOLATED",
+      "hair_step": 3,
+      "radius_parameter_description": "Multiplier of diameter properties",
+      "radius_scale": 7.999999797903001e-05,
+      "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+      "render_children": 45,
+      "render_step": 3,
+      "root_diameter_m": 0.00016,
+      "root_radius": 2.0,
+      "root_radius_description": "Strand diameter width at the root",
+      "tip_diameter_m": 9.600000000000001e-06,
+      "tip_radius": 0.11999999731779099,
+      "use_modifier_stack": true,
+      "use_parent_particles": true,
+      "viewport_children": 4
+    },
+    "object": "NativeGroom_char1",
+    "render_children_override_after_comb": 45,
+    "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+    "render_fiber_upper_bound": 299000,
+    "reserved_prefix": "NativeGroom_",
+    "schema_version": 1,
+    "settings": {
+      "children": 30,
+      "length": 0.009,
+      "parents": 6500,
+      "radius": 8e-05,
+      "roughness": 0.001,
+      "seed": 831
+    },
+    "source_object": "char1"
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.12,
+  "portable_fur": [
+    {
+      "cards": 1320,
+      "config": {
+        "brightness": [
+          0,
+          0.35
+        ],
+        "color": [
+          0.09,
+          0.08,
+          0.075,
+          1
+        ],
+        "count": 1320
+      },
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_0_cutout_fur",
+        "path": "textures/PortableCoat_0-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "31e26d78c2304a86d5ccd95a8562879d67b02ed8d5552ec874b2d5aefe9aa9d1"
+      },
+      "vertices": 7920
+    },
+    {
+      "cards": 1080,
+      "config": {
+        "brightness": [
+          0.35,
+          1.01
+        ],
+        "color": [
+          0.92,
+          0.9,
+          0.85,
+          1
+        ],
+        "count": 1080
+      },
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "double_sided": false,
+        "kind": "fur_atlas",
+        "material": "PortableCoat_1_cutout_fur",
+        "path": "textures/PortableCoat_1-fur-atlas.png",
+        "pattern": "10 curved fibers per tile; sixteen seeded tiles",
+        "profile": "distance-v1",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "65c9a47c27a183c7ee250997fca9e811ce4ca6ecb695d5167ac6f29f0ad6729f"
+      },
+      "vertices": 6480
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": {
+    "authored_not_recovered": true,
+    "iterations": 8,
+    "max_vertex_shift_m": 0.06052721492061473,
+    "strength": 0.35,
+    "topology_uv_and_weights_preserved": true
+  },
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.4573468267917633,
+      0.44253480434417725,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.4573468565940857,
+      -0.4425346553325653,
+      -3.754360378138699e-08
+    ]
+  },
+  "source_sha256": "cf39ef220692ad5873123fff561939cdc72d4f9b4da99ca138a6fe6cc1e6477a",
+  "source_unchanged": true,
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "making_something",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "milestone_level_up",
+      "loop_verified": false
+    },
+    {
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "working",
+      "loop_verified": false
+    }
+  ],
+  "weft_runtime_verified": false,
+  "weight_constraints": {
+    "authored_not_recovered": true,
+    "changed_vertices": 65290,
+    "config": {
+      "fallback_bone": "Spine02",
+      "regions": {
+        "LeftArm": {
+          "center": [
+            0.8,
+            0.5,
+            0.49
+          ],
+          "radius": [
+            0.16,
+            0.32,
+            0.16
+          ]
+        },
+        "LeftForeArm": {
+          "center": [
+            0.87,
+            0.5,
+            0.37
+          ],
+          "radius": [
+            0.16,
+            0.32,
+            0.17
+          ]
+        },
+        "LeftHand": {
+          "center": [
+            0.91,
+            0.5,
+            0.27
+          ],
+          "radius": [
+            0.13,
+            0.32,
+            0.14
+          ]
+        },
+        "LeftLeg": {
+          "center": [
+            0.7,
+            0.5,
+            0.08
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.12
+          ]
+        },
+        "LeftShoulder": {
+          "center": [
+            0.68,
+            0.5,
+            0.51
+          ],
+          "radius": [
+            0.22,
+            0.36,
+            0.13
+          ]
+        },
+        "LeftUpLeg": {
+          "center": [
+            0.7,
+            0.5,
+            0.12
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.16
+          ]
+        },
+        "RightArm": {
+          "center": [
+            0.2,
+            0.25,
+            0.53
+          ],
+          "radius": [
+            0.17,
+            0.28,
+            0.14
+          ]
+        },
+        "RightForeArm": {
+          "center": [
+            0.2,
+            0.23,
+            0.46
+          ],
+          "radius": [
+            0.17,
+            0.25,
+            0.15
+          ]
+        },
+        "RightHand": {
+          "center": [
+            0.25,
+            0.26,
+            0.4
+          ],
+          "radius": [
+            0.16,
+            0.25,
+            0.15
+          ]
+        },
+        "RightLeg": {
+          "center": [
+            0.3,
+            0.4,
+            0.08
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.12
+          ]
+        },
+        "RightShoulder": {
+          "center": [
+            0.25,
+            0.5,
+            0.51
+          ],
+          "radius": [
+            0.22,
+            0.36,
+            0.13
+          ]
+        },
+        "RightUpLeg": {
+          "center": [
+            0.3,
+            0.4,
+            0.12
+          ],
+          "radius": [
+            0.23,
+            0.45,
+            0.16
+          ]
+        }
+      }
+    },
+    "method": "Bound provider bone weights to authored ellipsoids; transfer removed weight to torso"
+  },
+  "world_rest_position_max_error": 0.05908496677875519
+}

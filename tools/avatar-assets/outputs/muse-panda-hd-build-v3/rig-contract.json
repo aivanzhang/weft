@@ -1,0 +1,141 @@
+{
+  "attachment_design": [
+    {
+      "authored_assumption": "Fixed shoulder parent; local dragon head/tail/wing keyframes are authored gestures, not recovered or simulated controls.",
+      "child_bone": "dragon_root",
+      "name": "shoulder_dragon",
+      "parent_bone": "right_shoulder",
+      "placement": "Anatomical right/viewer-left shoulder; dragon root [-0.57,-0.045,1.40] meters in author Z-up space."
+    },
+    {
+      "authored_assumption": "New action prop, not present in the supplied reference. Shape remains constant.",
+      "child_bone": "craft_orb",
+      "name": "golden_craft_orb",
+      "parent_bone": "hand_right",
+      "placement": "Small golden orb at the right paw; follows the right hand through actual skeletal transforms."
+    }
+  ],
+  "attachments": [
+    {
+      "mode": "rigid_child",
+      "node": "dragon_root",
+      "parent_bone": "right_shoulder",
+      "placement": "Anatomical right/viewer-left shoulder; dragon root [-0.57,-0.045,1.40] meters in author Z-up space.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        -0.13999998569488525,
+        0.07999992370605469,
+        0.04500000178813934
+      ]
+    },
+    {
+      "mode": "rigid_child",
+      "node": "craft_orb",
+      "parent_bone": "hand_right",
+      "placement": "Small golden orb at the right paw; follows the right hand through actual skeletal transforms.",
+      "rotation_xyzw": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "translation_m": [
+        0,
+        0.029999971389770508,
+        0.09000000357627869
+      ]
+    }
+  ],
+  "authored_assumptions": [
+    "The supplied opaque 2D portrait supplies appearance only; back, underside, rig, topology, UVs, weights and fur placement are newly authored.",
+    "Browser fur is a bounded skinned cutout-card groom; native Blender hair is separate editable geometry and is not exported as GLB hair. Neither representation simulates hair dynamics.",
+    "Arms and legs have continuous meshes with blended two-bone skinning. Torso, head, paws and facial components remain separate authored surfaces.",
+    "Eyes, eyelids, nose, mouth and paw digits are modeled geometry, not independently actuated facial muscles or fingers.",
+    "The green dragon stays attached to the torso-side anatomical-right shoulder helper; head, tail and wings have local authored controls only.",
+    "The golden orb is an authored action prop, not part of the reference portrait. Crafting gestures do not change its geometry or simulate manufacture.",
+    "General PBR edition: embedded normal maps, short fur and glossy surfaces have not been reduced to or approved by the Weft diffuse-only profile.",
+    "All native glTF transforms are authored meters/Y-up/+Z-front after Blender export; scale is not calibrated to the live simulator.",
+    "The neutral pose is arms resting beside the rounded body, feet flat, face forward; it is not an observed simulator pose.",
+    "The new continuous head deformation authors the muzzle and chin from visual interpretation; it is not a scan, image-to-mesh recovery or a new face control rig.",
+    "Iris and pupil geometry are glossy opaque curved shells. There is no refractive transparent cornea, painted catchlight or eye-tracking behavior.",
+    "Every iris uses disk UV0 centered at [0.5,0.5], rim radius 0.5; the central pupil shell covers part of the native radial color texture.",
+    "Dragon horn ridges, visible crown scales and thickened curved wing membranes are authored geometry; the remaining scales are procedural surface detail.",
+    "No new clip boundary, visual quality or hair-density claim follows from preserving authored keys. Native render and exported-model inspection remain required.",
+    "Existing native hair lengths are 1.8 times v1 and ribbon lengths 1.4 times v1. Hair remains static authored grooming following skin weights, without hair dynamics.",
+    "The solid three-spike forelock is removed. A low rounded emitter, mostly buried in the existing head, supplies a separate fine crown groom; no bare cone or triangle is used as a hair strand.",
+    "The new eye-patch offset is .033m from the authored face surface to cover the longer white head groom. Hair overlap and final facial-line visibility still require rendered inspection.",
+    "Panda iris radii are .0715/.0795m and pupil radius is 70% of the iris; dragon iris radii are .0365/.0415m and pupil radius is 72%. Radial UV0 and opaque glossy eye shells remain unchanged in meaning.",
+    "The surface plan is 22,020,096 pixels for two channels, plus one 1024-square card atlas per fur material; no external texture acquisition is involved.",
+    "The plush lighting and viewer-left camera are authored presentation choices, not a reference-camera calibration. Organic facial form still differs from Muse and no parity is asserted.",
+    "The v3 charcoal material changes sRGB color to[0.04,0.038,0.034,1] and existing procedural HD fur strength to0.06. This is an authored look adjustment, not reference-color calibration or a rendered improvement claim.",
+    "The fourteen previously bare panda foot/toe/paw-digit surfaces receive606 native parents with30 children, adding18,786 configured fibers and180 exported six-vertex hair cards. Dragon feet and all other surfaces are unchanged.",
+    "The complete v3 recipe requests7,688 skinned hair cards and at most238,328 configured native parent/child hairs. Native Blender strands are not exported as GLB hairs, and these counts are not independently counted rendered fibers.",
+    "All v2 geometry, existing grooms, ivory/facial materials, UVs, rig, attachments, four clips and presentation settings are preserved. The shorter added contact fur can intersect the unchanged authored floor; it is not contact simulation.",
+    "Native hair is authored into directional rest-space curves, retaining the emitter skin; there is no dynamic hair simulation. The GLB contains its separate masked-card coat."
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "craft_orb": "craft_orb",
+    "dragon_head": "dragon_head",
+    "dragon_root": "dragon_root",
+    "dragon_tail": "dragon_tail",
+    "dragon_wing_inner": "dragon_wing_inner",
+    "dragon_wing_outer": "dragon_wing_outer",
+    "foot_left": "foot_left",
+    "foot_right": "foot_right",
+    "forearm_left": "forearm_left",
+    "forearm_right": "forearm_right",
+    "hand_left": "hand_left",
+    "hand_right": "hand_right",
+    "head": "head",
+    "right_shoulder": "right_shoulder",
+    "root": "root",
+    "shin_left": "shin_left",
+    "shin_right": "shin_right",
+    "thigh_left": "thigh_left",
+    "thigh_right": "thigh_right",
+    "torso": "torso",
+    "upper_arm_left": "upper_arm_left",
+    "upper_arm_right": "upper_arm_right"
+  },
+  "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "craft_orb",
+      "dragon_head",
+      "dragon_root",
+      "dragon_tail",
+      "dragon_wing_inner",
+      "dragon_wing_outer",
+      "foot_left",
+      "foot_right",
+      "forearm_left",
+      "forearm_right",
+      "hand_left",
+      "hand_right",
+      "head",
+      "right_shoulder",
+      "root",
+      "shin_left",
+      "shin_right",
+      "thigh_left",
+      "thigh_right",
+      "torso",
+      "upper_arm_left",
+      "upper_arm_right"
+    ],
+    "name": "Local authored bone controls v1; NOT a Weft joint schema"
+  },
+  "units": "meters",
+  "weft_compatibility": "Not evaluated by this local-control contract; use separate Weft metadata and its frozen importer"
+}

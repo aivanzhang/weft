@@ -1,0 +1,17 @@
+{
+  "animation_verified": false,
+  "boundary": "2D images and videos do not specify hidden surfaces or a controllable rig.",
+  "geometry_created": false,
+  "reason": "Sampled native and browser views retain differences in eye size, muzzle sculpting, fur breakup, coarse generated texture detail and dragon surface finish. Paid generated motions distorted the original weights; authored repairs and pantomime gestures are separate, not accepted provider animation. The workflow and real controllable candidates exist, but Muse quality and original source reconstruction are not achieved or certified.",
+  "required_inputs": [
+    "Authored or licensed GLB mesh, materials, skeleton and skin weights",
+    "Units, axes, rest pose and explicit bone-to-simulated-joint mapping",
+    "Authoritative target joint schema and attachment specification",
+    "Disclosure of inferred surfaces, anatomy and rig decisions"
+  ],
+  "rig_created": false,
+  "schema_version": 1,
+  "status": "unsupported",
+  "subject": "Muse-equivalent finished avatar from this Meshy trial",
+  "weft_runtime_verified": false
+}

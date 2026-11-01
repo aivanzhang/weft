@@ -1,0 +1,68 @@
+{
+  "checks": [
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "identity",
+      "passed": true,
+      "reason": "The friendly robot retains its oversized rounded head, rounded torso, two articulated arms, two feet, and blue, cream, and copper palette."
+    },
+    {
+      "evidence_ids": ["image-04-front.png", "image-05-three-quarter.png", "image-06-portrait.png"],
+      "name": "appearance",
+      "passed": true,
+      "reason": "Rounded hard-surface panels and copper joints match the requested workshop style. No props or hair are required or visible."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png", "image-01-idle.png", "image-02-look.png", "image-03-wave.png"],
+      "name": "framing",
+      "passed": true,
+      "reason": "Every sampled pose includes the complete head, hands, and feet with adequate margins; feet remain visually stationary."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "name": "deformation",
+      "passed": false,
+      "reason": "Raised-arm samples show a long, narrow copper-colored projection below the wrist, suggesting stretched hand or wrist geometry inconsistent with rigid mechanical articulation."
+    }
+  ],
+  "limitations": [
+    "Contact sheets cannot establish continuous motion quality, collision freedom, physical ground contact, or seamless loops.",
+    "Exact preservation of the source model cannot be independently established from the supplied views.",
+    "Supplied reports establish local structural validation and sampled movement; the target runtime was not exercised."
+  ],
+  "required_repairs": [
+    "Inspect the waving wrist and hand weights and joint pivot. Remove the visible elongated projection by preserving rigid component shapes during articulation, then supply updated wave samples."
+  ],
+  "state_reviews": [
+    {
+      "evidence_ids": ["image-01-idle.png"],
+      "id": "idle",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Subtle head and upper-body settling is visible while arms remain relaxed and feet stay fixed."
+    },
+    {
+      "evidence_ids": ["image-02-look.png"],
+      "id": "look",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "The head visibly turns in both directions and returns to its starting orientation while the body remains stable."
+    },
+    {
+      "evidence_ids": ["image-03-wave.png"],
+      "id": "wave",
+      "meaning_passed": true,
+      "motion_passed": false,
+      "reason": "One arm lifts and the hand alternates orientation before returning to rest, conveying a small greeting. The elongated wrist-area projection prevents acceptance of its deformation."
+    },
+    {
+      "evidence_ids": ["image-00-celebrate.png"],
+      "id": "celebrate",
+      "meaning_passed": true,
+      "motion_passed": true,
+      "reason": "Visible downward and upward head tilts convey the specifically requested modest nod; torso and feet remain stable."
+    }
+  ],
+  "summary": "Identity, appearance, framing, and requested action meanings pass the sampled review. The waving wrist needs a bounded deformation repair.",
+  "verdict": "repair"
+}

@@ -1,0 +1,60 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Hidden surfaces and humanoid skeleton are generated assumptions"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "Body": "Body",
+    "Foot_L": "Foot_L",
+    "Foot_R": "Foot_R",
+    "Forearm_L": "Forearm_L",
+    "Forearm_R": "Forearm_R",
+    "Head": "Head",
+    "Neck": "Neck",
+    "Root": "Root",
+    "TailBase": "TailBase",
+    "TailMid": "TailMid",
+    "TailTip": "TailTip",
+    "Thigh_L": "Thigh_L",
+    "Thigh_R": "Thigh_R",
+    "UpperArm_L": "UpperArm_L",
+    "UpperArm_R": "UpperArm_R",
+    "WingRoot_L": "WingRoot_L",
+    "WingRoot_R": "WingRoot_R",
+    "WingTip_L": "WingTip_L",
+    "WingTip_R": "WingTip_R"
+  },
+  "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "Head",
+      "Neck",
+      "Forearm_L",
+      "UpperArm_L",
+      "WingTip_L",
+      "WingRoot_L",
+      "Forearm_R",
+      "UpperArm_R",
+      "WingTip_R",
+      "WingRoot_R",
+      "Body",
+      "Foot_L",
+      "Thigh_L",
+      "Foot_R",
+      "Thigh_R",
+      "TailTip",
+      "TailMid",
+      "TailBase",
+      "Root"
+    ],
+    "name": "Local provider bone controls, NOT Weft"
+  },
+  "units": "meters",
+  "weft_runtime_verified": false
+}

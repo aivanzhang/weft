@@ -1,0 +1,23 @@
+{
+  "balance_before": {
+    "balance": 3240,
+    "monthly_credits": 3040,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "ai_model": "meshy-7.1",
+    "enable_pbr": true,
+    "mode": "refine",
+    "preview_task_id": "01a19328-d810-7246-8101-fb010c440a75",
+    "target_formats": [
+      "glb"
+    ],
+    "texture_prompt": "Premium animated-film robot. Painted deep blue enamel shell, brushed copper joints, cream ceramic faceplate, dark inset glass eyes with cyan centers. Real seams, fasteners and rounded manufactured edges; subtly worn but clean. No animal fur, no logos, text, pedestal or floating props.",
+    "texture_resolution": "4k"
+  },
+  "created": "2026-10-31T11:15:27.532322-07:00",
+  "endpoint": "/openapi/v2/text-to-3d",
+  "estimated_credits": 10,
+  "request_sha256": "d1348e9b4758948e3913e1e5ffc7579420119822e7d8f01f44be041db987371b"
+}

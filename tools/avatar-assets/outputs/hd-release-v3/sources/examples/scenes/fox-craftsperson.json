@@ -1,0 +1,1886 @@
+{
+  "schema_version": 1,
+  "id": "fox-craftsperson",
+  "subject": "A small red fox craftsperson with a sea-green scarf, a blue sketchbook and a golden pencil.",
+  "style": "Warm tactile storybook toy, rounded smooth forms, expressive head, clear material blocks and complete stylized 3D geometry.",
+  "prompt": "Create an editable, controllable full-body stylized red fox craftsperson. Preserve the red-orange coat, cream muzzle/chest/tail tip, dark sock paws, oversized triangular ears, sea-green scarf, navy sketchbook, golden pencil and curled sweeping tail in every state. Author unseen surfaces consistently; this is an original toy-like 3D design, not a recovered scan. Idle should breathe and listen, making_something should sketch with repeated short pencil strokes, working should read the sketchbook with a slow gaze scan, and milestone_level_up should lift both tools and hop once. Keep the camera fixed and the whole body visible.",
+  "authored_assumptions": [
+    "Original primitive-based full 3D design; no source mesh or photographic reconstruction.",
+    "Soft toy proportions and unseen back surfaces are authored.",
+    "Each visible part is rigidly weighted to one articulated bone; this is a controllable toy rig, not deforming skin or physical simulation.",
+    "Sketchbook pages are solid geometry; pencil motion conveys sketching without creating a dynamic ink texture.",
+    "Keyframe rotations and translations are expressed in model rest axes (X right, Y rear, Z up). The builder converts these offsets through each bone rest basis before writing Blender pose transforms."
+  ],
+  "materials": {
+    "coat": {
+      "color": [
+        0.8392156862745098,
+        0.4196078431372549,
+        0.19607843137254902,
+        1
+      ],
+      "roughness": 0.55,
+      "metallic": 0
+    },
+    "cream": {
+      "color": [
+        0.9686274509803922,
+        0.8941176470588236,
+        0.7254901960784313,
+        1
+      ],
+      "roughness": 0.55,
+      "metallic": 0
+    },
+    "dark": {
+      "color": [
+        0.21176470588235294,
+        0.16862745098039217,
+        0.18823529411764706,
+        1
+      ],
+      "roughness": 0.55,
+      "metallic": 0
+    },
+    "scarf": {
+      "color": [
+        0.21176470588235294,
+        0.48627450980392156,
+        0.47843137254901963,
+        1
+      ],
+      "roughness": 0.55,
+      "metallic": 0
+    },
+    "book": {
+      "color": [
+        0.2196078431372549,
+        0.2823529411764706,
+        0.40784313725490196,
+        1
+      ],
+      "roughness": 0.55,
+      "metallic": 0
+    },
+    "gold": {
+      "color": [
+        0.9098039215686274,
+        0.7176470588235294,
+        0.3176470588235294,
+        1
+      ],
+      "roughness": 0.3,
+      "metallic": 0.3
+    }
+  },
+  "bones": [
+    {
+      "name": "root",
+      "parent": null,
+      "head": [
+        0,
+        0,
+        0.06
+      ],
+      "tail": [
+        0,
+        0,
+        0.3
+      ]
+    },
+    {
+      "name": "torso",
+      "parent": "root",
+      "head": [
+        0,
+        0,
+        0.74
+      ],
+      "tail": [
+        0,
+        0,
+        1.44
+      ]
+    },
+    {
+      "name": "head",
+      "parent": "torso",
+      "head": [
+        0,
+        0,
+        1.65
+      ],
+      "tail": [
+        0,
+        0,
+        2.15
+      ]
+    },
+    {
+      "name": "ear_left",
+      "parent": "head",
+      "head": [
+        -0.29,
+        0,
+        2.18
+      ],
+      "tail": [
+        -0.29,
+        0,
+        2.42
+      ]
+    },
+    {
+      "name": "ear_right",
+      "parent": "head",
+      "head": [
+        0.29,
+        0,
+        2.18
+      ],
+      "tail": [
+        0.29,
+        0,
+        2.42
+      ]
+    },
+    {
+      "name": "tail",
+      "parent": "torso",
+      "head": [
+        0,
+        0.18,
+        0.98
+      ],
+      "tail": [
+        0,
+        0.18,
+        1.22
+      ]
+    },
+    {
+      "name": "upper_arm_left",
+      "parent": "torso",
+      "head": [
+        -0.39,
+        0,
+        1.5
+      ],
+      "tail": [
+        -0.39,
+        0,
+        1.74
+      ]
+    },
+    {
+      "name": "forearm_left",
+      "parent": "upper_arm_left",
+      "head": [
+        -0.54,
+        -0.12,
+        1.23
+      ],
+      "tail": [
+        -0.54,
+        -0.12,
+        1.47
+      ]
+    },
+    {
+      "name": "hand_left",
+      "parent": "forearm_left",
+      "head": [
+        -0.28,
+        -0.4,
+        1.18
+      ],
+      "tail": [
+        -0.28,
+        -0.4,
+        1.42
+      ]
+    },
+    {
+      "name": "thigh_left",
+      "parent": "torso",
+      "head": [
+        -0.23,
+        0,
+        0.87
+      ],
+      "tail": [
+        -0.23,
+        0,
+        1.1099999999999999
+      ]
+    },
+    {
+      "name": "shin_left",
+      "parent": "thigh_left",
+      "head": [
+        -0.23,
+        -0.01,
+        0.48
+      ],
+      "tail": [
+        -0.23,
+        -0.01,
+        0.72
+      ]
+    },
+    {
+      "name": "foot_left",
+      "parent": "shin_left",
+      "head": [
+        -0.23,
+        -0.03,
+        0.18
+      ],
+      "tail": [
+        -0.23,
+        -0.03,
+        0.42
+      ]
+    },
+    {
+      "name": "upper_arm_right",
+      "parent": "torso",
+      "head": [
+        0.39,
+        0,
+        1.5
+      ],
+      "tail": [
+        0.39,
+        0,
+        1.74
+      ]
+    },
+    {
+      "name": "forearm_right",
+      "parent": "upper_arm_right",
+      "head": [
+        0.54,
+        -0.12,
+        1.23
+      ],
+      "tail": [
+        0.54,
+        -0.12,
+        1.47
+      ]
+    },
+    {
+      "name": "hand_right",
+      "parent": "forearm_right",
+      "head": [
+        0.28,
+        -0.4,
+        1.26
+      ],
+      "tail": [
+        0.28,
+        -0.4,
+        1.5
+      ]
+    },
+    {
+      "name": "thigh_right",
+      "parent": "torso",
+      "head": [
+        0.23,
+        0,
+        0.87
+      ],
+      "tail": [
+        0.23,
+        0,
+        1.1099999999999999
+      ]
+    },
+    {
+      "name": "shin_right",
+      "parent": "thigh_right",
+      "head": [
+        0.23,
+        -0.01,
+        0.48
+      ],
+      "tail": [
+        0.23,
+        -0.01,
+        0.72
+      ]
+    },
+    {
+      "name": "foot_right",
+      "parent": "shin_right",
+      "head": [
+        0.23,
+        -0.03,
+        0.18
+      ],
+      "tail": [
+        0.23,
+        -0.03,
+        0.42
+      ]
+    },
+    {
+      "name": "sketchbook",
+      "parent": "hand_left",
+      "head": [
+        -0.16,
+        -0.49,
+        1.12
+      ],
+      "tail": [
+        -0.16,
+        -0.49,
+        1.27
+      ]
+    },
+    {
+      "name": "pencil",
+      "parent": "hand_right",
+      "head": [
+        0.29,
+        -0.45,
+        1.32
+      ],
+      "tail": [
+        0.29,
+        -0.45,
+        1.47
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "name": "rounded_torso",
+      "shape": "sphere",
+      "location": [
+        0,
+        0,
+        1.2
+      ],
+      "scale": [
+        0.39,
+        0.28,
+        0.52
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "coat",
+      "bone": "torso"
+    },
+    {
+      "name": "cream_chest",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.238,
+        1.22
+      ],
+      "scale": [
+        0.24,
+        0.075,
+        0.35
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "torso"
+    },
+    {
+      "name": "large_head",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.015,
+        1.99
+      ],
+      "scale": [
+        0.42,
+        0.34,
+        0.4
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "coat",
+      "bone": "head"
+    },
+    {
+      "name": "cream_muzzle",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.315,
+        1.86
+      ],
+      "scale": [
+        0.29,
+        0.18,
+        0.18
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "head"
+    },
+    {
+      "name": "nose",
+      "shape": "sphere",
+      "location": [
+        0,
+        -0.478,
+        1.91
+      ],
+      "scale": [
+        0.075,
+        0.055,
+        0.055
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "head"
+    },
+    {
+      "name": "scarf_collar",
+      "shape": "torus",
+      "location": [
+        0,
+        0,
+        1.63
+      ],
+      "scale": [
+        0.32,
+        0.25,
+        0.065
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "scarf",
+      "bone": "torso"
+    },
+    {
+      "name": "scarf_tail",
+      "shape": "cube",
+      "location": [
+        -0.12,
+        -0.29,
+        1.4
+      ],
+      "scale": [
+        0.065,
+        0.035,
+        0.21
+      ],
+      "rotation": [
+        0,
+        -0.12,
+        -0.06
+      ],
+      "material": "scarf",
+      "bone": "torso"
+    },
+    {
+      "name": "sweeping_tail",
+      "shape": "sphere",
+      "location": [
+        0.45,
+        0.3,
+        1.08
+      ],
+      "scale": [
+        0.55,
+        0.2,
+        0.22
+      ],
+      "rotation": [
+        0,
+        -0.25,
+        0.2
+      ],
+      "material": "coat",
+      "bone": "tail"
+    },
+    {
+      "name": "cream_tail_tip",
+      "shape": "sphere",
+      "location": [
+        0.86,
+        0.38,
+        1.19
+      ],
+      "scale": [
+        0.22,
+        0.19,
+        0.18
+      ],
+      "rotation": [
+        0,
+        -0.25,
+        0.2
+      ],
+      "material": "cream",
+      "bone": "tail"
+    },
+    {
+      "name": "ear_left",
+      "shape": "cone",
+      "location": [
+        -0.29,
+        0,
+        2.34
+      ],
+      "scale": [
+        0.16,
+        0.15,
+        0.27
+      ],
+      "rotation": [
+        0,
+        -0.15,
+        0
+      ],
+      "material": "coat",
+      "bone": "ear_left"
+    },
+    {
+      "name": "inner_ear_left",
+      "shape": "cone",
+      "location": [
+        -0.29,
+        -0.104,
+        2.34
+      ],
+      "scale": [
+        0.09,
+        0.035,
+        0.17
+      ],
+      "rotation": [
+        0,
+        -0.15,
+        0
+      ],
+      "material": "cream",
+      "bone": "ear_left"
+    },
+    {
+      "name": "eye_left",
+      "shape": "sphere",
+      "location": [
+        -0.17,
+        -0.323,
+        2.055
+      ],
+      "scale": [
+        0.041,
+        0.026,
+        0.063
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "head"
+    },
+    {
+      "name": "eye_glint_left",
+      "shape": "sphere",
+      "location": [
+        -0.163,
+        -0.346,
+        2.077
+      ],
+      "scale": [
+        0.013,
+        0.009,
+        0.017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "head"
+    },
+    {
+      "name": "upper_arm_left",
+      "shape": "sphere",
+      "location": [
+        -0.465,
+        -0.06,
+        1.365
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.1656804152578089
+      ],
+      "rotation": [
+        0.37056590653429455,
+        -2.6344941491974563,
+        0
+      ],
+      "material": "coat",
+      "bone": "upper_arm_left"
+    },
+    {
+      "name": "forearm_left",
+      "shape": "sphere",
+      "location": [
+        -0.41000000000000003,
+        -0.26,
+        1.205
+      ],
+      "scale": [
+        0.115,
+        0.115,
+        0.19267848867997694
+      ],
+      "rotation": [
+        0.8133588621939253,
+        1.7607846147136126,
+        0
+      ],
+      "material": "coat",
+      "bone": "forearm_left"
+    },
+    {
+      "name": "paw_left",
+      "shape": "sphere",
+      "location": [
+        -0.28,
+        -0.4,
+        1.18
+      ],
+      "scale": [
+        0.115,
+        0.105,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "hand_left"
+    },
+    {
+      "name": "thigh_left",
+      "shape": "sphere",
+      "location": [
+        -0.23,
+        -0.005,
+        0.675
+      ],
+      "scale": [
+        0.165,
+        0.165,
+        0.1950640920313116
+      ],
+      "rotation": [
+        0.02563540852167748,
+        3.141592653589793,
+        0
+      ],
+      "material": "coat",
+      "bone": "thigh_left"
+    },
+    {
+      "name": "shin_left",
+      "shape": "sphere",
+      "location": [
+        -0.23,
+        -0.02,
+        0.32999999999999996
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.15033296378372907
+      ],
+      "rotation": [
+        0.0665681637758238,
+        3.141592653589793,
+        0
+      ],
+      "material": "dark",
+      "bone": "shin_left"
+    },
+    {
+      "name": "foot_left",
+      "shape": "sphere",
+      "location": [
+        -0.23,
+        -0.1,
+        0.15
+      ],
+      "scale": [
+        0.16,
+        0.23,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "foot_left"
+    },
+    {
+      "name": "ear_right",
+      "shape": "cone",
+      "location": [
+        0.29,
+        0,
+        2.34
+      ],
+      "scale": [
+        0.16,
+        0.15,
+        0.27
+      ],
+      "rotation": [
+        0,
+        0.15,
+        0
+      ],
+      "material": "coat",
+      "bone": "ear_right"
+    },
+    {
+      "name": "inner_ear_right",
+      "shape": "cone",
+      "location": [
+        0.29,
+        -0.104,
+        2.34
+      ],
+      "scale": [
+        0.09,
+        0.035,
+        0.17
+      ],
+      "rotation": [
+        0,
+        0.15,
+        0
+      ],
+      "material": "cream",
+      "bone": "ear_right"
+    },
+    {
+      "name": "eye_right",
+      "shape": "sphere",
+      "location": [
+        0.17,
+        -0.323,
+        2.055
+      ],
+      "scale": [
+        0.041,
+        0.026,
+        0.063
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "head"
+    },
+    {
+      "name": "eye_glint_right",
+      "shape": "sphere",
+      "location": [
+        0.163,
+        -0.346,
+        2.077
+      ],
+      "scale": [
+        0.013,
+        0.009,
+        0.017
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "cream",
+      "bone": "head"
+    },
+    {
+      "name": "upper_arm_right",
+      "shape": "sphere",
+      "location": [
+        0.465,
+        -0.06,
+        1.365
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.1656804152578089
+      ],
+      "rotation": [
+        0.37056590653429455,
+        2.6344941491974563,
+        0
+      ],
+      "material": "coat",
+      "bone": "upper_arm_right"
+    },
+    {
+      "name": "forearm_right",
+      "shape": "sphere",
+      "location": [
+        0.41000000000000003,
+        -0.26,
+        1.245
+      ],
+      "scale": [
+        0.115,
+        0.115,
+        0.19163767896736802
+      ],
+      "rotation": [
+        0.8191201147481959,
+        -1.4559197213779973,
+        0
+      ],
+      "material": "coat",
+      "bone": "forearm_right"
+    },
+    {
+      "name": "paw_right",
+      "shape": "sphere",
+      "location": [
+        0.28,
+        -0.4,
+        1.26
+      ],
+      "scale": [
+        0.115,
+        0.105,
+        0.12
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "hand_right"
+    },
+    {
+      "name": "thigh_right",
+      "shape": "sphere",
+      "location": [
+        0.23,
+        -0.005,
+        0.675
+      ],
+      "scale": [
+        0.165,
+        0.165,
+        0.1950640920313116
+      ],
+      "rotation": [
+        0.02563540852167748,
+        3.141592653589793,
+        0
+      ],
+      "material": "coat",
+      "bone": "thigh_right"
+    },
+    {
+      "name": "shin_right",
+      "shape": "sphere",
+      "location": [
+        0.23,
+        -0.02,
+        0.32999999999999996
+      ],
+      "scale": [
+        0.13,
+        0.13,
+        0.15033296378372907
+      ],
+      "rotation": [
+        0.0665681637758238,
+        3.141592653589793,
+        0
+      ],
+      "material": "dark",
+      "bone": "shin_right"
+    },
+    {
+      "name": "foot_right",
+      "shape": "sphere",
+      "location": [
+        0.23,
+        -0.1,
+        0.15
+      ],
+      "scale": [
+        0.16,
+        0.23,
+        0.13
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "material": "dark",
+      "bone": "foot_right"
+    },
+    {
+      "name": "sketchbook_cover",
+      "shape": "cube",
+      "location": [
+        -0.16,
+        -0.49,
+        1.12
+      ],
+      "scale": [
+        0.25,
+        0.045,
+        0.2
+      ],
+      "rotation": [
+        0.08,
+        0,
+        -0.12
+      ],
+      "material": "book",
+      "bone": "sketchbook"
+    },
+    {
+      "name": "sketchbook_pages",
+      "shape": "cube",
+      "location": [
+        -0.16,
+        -0.54,
+        1.12
+      ],
+      "scale": [
+        0.215,
+        0.012,
+        0.17
+      ],
+      "rotation": [
+        0.08,
+        0,
+        -0.12
+      ],
+      "material": "cream",
+      "bone": "sketchbook"
+    },
+    {
+      "name": "pencil_shaft",
+      "shape": "cylinder",
+      "location": [
+        0.09499999999999999,
+        -0.51,
+        1.23
+      ],
+      "scale": [
+        0.025,
+        0.025,
+        0.22299103120977762
+      ],
+      "rotation": [
+        0.2724263737110589,
+        -2.003204102365435,
+        0
+      ],
+      "material": "gold",
+      "bone": "pencil"
+    },
+    {
+      "name": "pencil_tip",
+      "shape": "cone",
+      "location": [
+        -0.13,
+        -0.58,
+        1.125
+      ],
+      "scale": [
+        0.026,
+        0.026,
+        0.03499999999999996
+      ],
+      "rotation": [
+        0.2897517014360481,
+        -2.0344439357957,
+        0
+      ],
+      "material": "dark",
+      "bone": "pencil"
+    }
+  ],
+  "attachments": [
+    {
+      "name": "sketchbook",
+      "parent_bone": "hand_left",
+      "child_bone": "sketchbook",
+      "placement": "Held against left paw, visible in front of chest.",
+      "authored_assumption": "Rigid held prop; no page-turning simulation."
+    },
+    {
+      "name": "pencil",
+      "parent_bone": "hand_right",
+      "child_bone": "pencil",
+      "placement": "Held diagonally in right paw toward sketchbook.",
+      "authored_assumption": "Rigid tool; short wrist rotations convey drawing."
+    }
+  ],
+  "camera": {
+    "target": [
+      0,
+      -0.02,
+      1.3
+    ],
+    "position": [
+      3,
+      -6,
+      2.8
+    ],
+    "orthographic_scale": 3.3
+  },
+  "background": [
+    0.95,
+    0.94,
+    0.9,
+    1
+  ],
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Quiet attentive breathing, alternating ear twitches and a slow tail sway.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "head": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "tail": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "head": {
+              "rotation": [
+                -0.025,
+                0,
+                0.035
+              ]
+            },
+            "torso": {
+              "rotation": [
+                -0.012,
+                0,
+                0
+              ]
+            },
+            "ear_left": {
+              "rotation": [
+                0.1,
+                0,
+                0
+              ]
+            },
+            "ear_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "tail": {
+              "rotation": [
+                0,
+                0,
+                0.1
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "head": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "tail": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.025,
+                0,
+                -0.035
+              ]
+            },
+            "torso": {
+              "rotation": [
+                0.012,
+                0,
+                0
+              ]
+            },
+            "ear_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_right": {
+              "rotation": [
+                0.1,
+                0,
+                0
+              ]
+            },
+            "tail": {
+              "rotation": [
+                0,
+                0,
+                -0.1
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "head": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "torso": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "ear_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "tail": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "making_something",
+      "meaning": "Looks down at the sketchbook and draws a craft pattern with several short pencil strokes.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.08
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                -0.08,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 12,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0.07
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0.12,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.08
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                -0.08,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 36,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0.07
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0.12,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.08
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                -0.08,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 60,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0.07
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0.12,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.08
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                -0.08,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 84,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                0.07
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0.12,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.12,
+                0,
+                0
+              ]
+            },
+            "forearm_right": {
+              "rotation": [
+                0,
+                0,
+                -0.08
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                -0.08,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Celebrates a finished pattern by raising the sketchbook and pencil, hopping once, then returning to rest.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "head": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0.55,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                -0.55,
+                0
+              ]
+            },
+            "head": {
+              "rotation": [
+                -0.08,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 42,
+          "bones": {
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                1.4,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                -1.4,
+                0
+              ]
+            },
+            "head": {
+              "rotation": [
+                -0.14,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0.0,
+                0.0,
+                0.18
+              ]
+            }
+          }
+        },
+        {
+          "frame": 60,
+          "bones": {
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                1.1,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                -1.1,
+                0
+              ]
+            },
+            "head": {
+              "rotation": [
+                -0.08,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "upper_arm_left": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "upper_arm_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "head": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            },
+            "root": {
+              "location": [
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "working",
+      "meaning": "Reads and checks the sketchbook, slowly scanning the page while the pencil hand rests.",
+      "loop": true,
+      "duration": 4,
+      "keyframes": [
+        {
+          "frame": 0,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0.08,
+                0,
+                0
+              ]
+            },
+            "hand_left": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 24,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0.1,
+                0,
+                0
+              ]
+            },
+            "hand_left": {
+              "rotation": [
+                -0.12,
+                0,
+                0
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 48,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.1,
+                0,
+                0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0.08,
+                0,
+                0
+              ]
+            },
+            "hand_left": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 72,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.15,
+                0,
+                0
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0.1,
+                0,
+                0
+              ]
+            },
+            "hand_left": {
+              "rotation": [
+                -0.12,
+                0,
+                0
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        },
+        {
+          "frame": 96,
+          "bones": {
+            "head": {
+              "rotation": [
+                0.1,
+                0,
+                -0.1
+              ]
+            },
+            "forearm_left": {
+              "rotation": [
+                0.08,
+                0,
+                0
+              ]
+            },
+            "hand_left": {
+              "rotation": [
+                -0.1,
+                0,
+                0
+              ]
+            },
+            "hand_right": {
+              "rotation": [
+                0,
+                0,
+                0
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

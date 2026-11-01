@@ -1,0 +1,510 @@
+{
+  "bounds": {
+    "cleanup_seconds": 7,
+    "heavy_native_workers": 2,
+    "media_wall_seconds": 1200,
+    "native_sampled_rss_mib": 2048,
+    "output_mib": 512,
+    "packaging_rss_mib": 768,
+    "packaging_wall_seconds": 180,
+    "portrait_filter_wall_seconds": 90,
+    "scope": "Sampled direct-child RSS; not instantaneous OS or descendant memory caps",
+    "threads_per_native_job": 4
+  },
+  "costs": {
+    "local_cpu_storage_only": true,
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_services": 0
+  },
+  "deferred_integration": "weft_metadata.py and its analytic alignment test are preserved drafts, not a runtime capture/calibrated mapping. Other Weft edits remain separately owned.",
+  "exact_user_request": "you're working on making these avatars better right? I want the same textures and hd quality as the muse ones for example fura and hari",
+  "git": "Follow-up local and uncommitted/unpushed; earlier migration remains published. Unrelated Weft dirty work preserved.",
+  "intermediate_evidence": [
+    {
+      "artifacts": [
+        {
+          "bytes": 2163,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/blender-build.json",
+          "sha256": "139983578c7c68f4f24867a1cc07f1371bde94708ae0ae1c9b6532b4d459a198"
+        },
+        {
+          "bytes": 121,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/blender-extensions/.cache/compat.dat",
+          "sha256": "5650934ef7dc16629b0de45c1ef4ee3edf87e85edab2ed8237fb0cce06764d98"
+        },
+        {
+          "bytes": 537,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/build-handle.json",
+          "sha256": "b87a22a543f03371fe9ecc04ed85dcb2f5d2cf2540d453c6278796394dd9e75e"
+        },
+        {
+          "bytes": 7189,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/build.log",
+          "sha256": "cd58f220a4b0b629792449af4aeb557160708034b4f02bfd5822e2008f858f51"
+        },
+        {
+          "bytes": 288,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/intent.json",
+          "sha256": "635fd5a83a59557770f20272a3ce5c3e4e71b221b4264334b032cb3d6574b503"
+        },
+        {
+          "bytes": 870,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/job.json",
+          "sha256": "916f623939b7589fac67605d5d82673acdb9fe9355c5102a2b01e07c93b04c87"
+        },
+        {
+          "bytes": 1326772,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/model.glb",
+          "sha256": "12066faf89f03b7649d979b1ecd5e4c24f30ef0d7fc6ea252a7e71cf212f1350"
+        },
+        {
+          "bytes": 225898,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/portrait.png",
+          "sha256": "51060cd6615d72dc255942bff3bc055749d64639f835ee2d4bea84391673dde1"
+        },
+        {
+          "bytes": 2621246,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/source.blend",
+          "sha256": "5977f4a712a707e22cf7a33a337bdc5c637500cdc576b2654a20b21e98409094"
+        },
+        {
+          "bytes": 15064,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/sources/blender_build.py",
+          "sha256": "be91f6c003879867b10a1029863c5901740129027294e94abd9d4d25f7b4c3ad"
+        },
+        {
+          "bytes": 7068,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/sources/blender_fur_cards.py",
+          "sha256": "52118ba67160280a33ad5e89aee34a3d31d3bf61c4f8552fbda34a3fe3735444"
+        },
+        {
+          "bytes": 19840,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/sources/blender_geometry.py",
+          "sha256": "f83189ce388aa600fb8c0ff7b7b93e094294c5f1de0ad6979cc00828b4bb97f7"
+        },
+        {
+          "bytes": 2970,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/sources/scene.json",
+          "sha256": "f123e7cb20ce97ca8ea6d0dea3688009988978c047c1649765e28dae85f52301"
+        },
+        {
+          "bytes": 326829,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/textures/body-fur-atlas.png",
+          "sha256": "b2e495a2a799271d10f55ec9f827498aefabb029da0dd0c2df515eff72051620"
+        },
+        {
+          "bytes": 6409,
+          "path": "tools/avatar-assets/outputs/hd-card-probe-v1/verification.json",
+          "sha256": "d018dec58d5c5865b8f1cf561b1149a3b4bb14b679f42720dff367ed0b453640"
+        }
+      ],
+      "full_files_copied_into_release": false,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/hd-card-probe-v1",
+      "preserved_locally": true,
+      "reason": "Analytic card fixture, not a completed character; it has native reports but no pack manifest"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 3402298,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/baseline-1600.png",
+          "sha256": "a27d25c773386fe6eaa91a095359a7da7dc9060498e72865cd995a0aa3a89ad9"
+        },
+        {
+          "bytes": 3377526,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/dense-directed-1600.png",
+          "sha256": "0364b027c172bbbfe9285dda858212d73885f6d56a781c19e7a309410c23cbb4"
+        },
+        {
+          "bytes": 204,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/head-fiber-check.json",
+          "sha256": "5c5407457fca96f19d2c8274a7304d64cddee63e49e7e6d5787bc89ba39251ec"
+        },
+        {
+          "bytes": 346,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/intent.json",
+          "sha256": "127f8607466100dca563809b3e6ab198e6e154d09ae9ab71f6d361fd21605c4a"
+        },
+        {
+          "bytes": 723,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/job.json",
+          "sha256": "ad27067fd952eb9a6a767f697b0aad863af6deed421953397ddb4f68406208bd"
+        },
+        {
+          "bytes": 403,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/render-handle.json",
+          "sha256": "be3d0f840ed3865e41c217cf6562e50ff68d7304f5cc09f3312140e2dcf01938"
+        },
+        {
+          "bytes": 19617,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/render.log",
+          "sha256": "4b34730e807594c37b44389ec4f9ebff3e57e950a8608b238dc1ad9ad362dbcb"
+        },
+        {
+          "bytes": 416,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/settings.json",
+          "sha256": "7db2a06f9a224986ce260b52bfbe2dd0ceaf6d2c381ba1e87f7557cb3f60719b"
+        },
+        {
+          "bytes": 23506,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/sources/blender_native_groom.py",
+          "sha256": "8b39effb0b95a788566549af3e0ed416c290c862ca87aa782f7e3e379579cb03"
+        },
+        {
+          "bytes": 2193,
+          "path": "tools/avatar-assets/outputs/hd-fur-look-v1/sources/render.py",
+          "sha256": "041cd74bb3d0a8c40d4a1575207419bf6d8dfc35b2cd4e413db1fb598636e2a6"
+        }
+      ],
+      "full_files_copied_into_release": false,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/hd-fur-look-v1",
+      "preserved_locally": true,
+      "reason": "Superseded dense/radial coat look development; not the final combed character"
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 586,
+          "path": ".local/native-comb-probe-v1/attempt-2/api-inspection.json",
+          "sha256": "6ffb98f469fd78f21cb68d47a87b3d3b8f49a14f2cd8eea4f4efdc79b4035527"
+        },
+        {
+          "bytes": 121,
+          "path": ".local/native-comb-probe-v1/attempt-2/blender-extensions/.cache/compat.dat",
+          "sha256": "674f70ac7b016c9b920f793a9cea80a7d82761dbd6fa91e5fe9a3f065f31cd38"
+        },
+        {
+          "bytes": 950,
+          "path": ".local/native-comb-probe-v1/attempt-2/job-plan.json",
+          "sha256": "ad04d6f4fbd3a95dcba42dd19bc50289bb5c0d3f2d4de698858b7d4145849a1b"
+        },
+        {
+          "bytes": 1367,
+          "path": ".local/native-comb-probe-v1/attempt-2/job.json",
+          "sha256": "02e6bc04c948733563b37bd51aba99d663e05990245e18e633be07cd2a45df42"
+        },
+        {
+          "bytes": 270,
+          "path": ".local/native-comb-probe-v1/attempt-2/probe-failure.json",
+          "sha256": "1b0355999ce60a38695ea7b942a05060e1be52e763cf2b8356f13f26fbebd951"
+        },
+        {
+          "bytes": 449,
+          "path": ".local/native-comb-probe-v1/attempt-2/probe-handle.json",
+          "sha256": "66f3a0a8526ae856c12aeae1bc854c6ab09d38f83a0101821e13993d5f2f0b49"
+        },
+        {
+          "bytes": 1237,
+          "path": ".local/native-comb-probe-v1/attempt-2/probe-monitor.json",
+          "sha256": "3c80f3efbd9fa46385df66a574e84b6b5b545b4c9cf5c56bfbce4fddc7e8f9c6"
+        },
+        {
+          "bytes": 1674,
+          "path": ".local/native-comb-probe-v1/attempt-2/probe.log",
+          "sha256": "46b8adfd837ae208b030b42813589a744ce468c853206ac9e517a6e917d30b2f"
+        },
+        {
+          "bytes": 18016,
+          "path": ".local/native-comb-probe-v1/attempt-2/sources/blender_comb_groom.py",
+          "sha256": "28e43557bda752199cbf589e2b7b360c173600190500cd0915cbd2b7bd7a7593"
+        },
+        {
+          "bytes": 23509,
+          "path": ".local/native-comb-probe-v1/attempt-2/sources/blender_native_groom.py",
+          "sha256": "97d7beb6776e7aa11b496b3c90265eea3aa83c92a0fa39d27cb32f23d7dd1d4f"
+        },
+        {
+          "bytes": 11067,
+          "path": ".local/native-comb-probe-v1/attempt-2/sources/runner-snapshot.py",
+          "sha256": "87806259168e58f88a87a642e278641ea373d2fda7f4d674da8b384d1bd63a5f"
+        }
+      ],
+      "full_files_copied_into_release": false,
+      "path": "/Users/ivan/kintsugi/weft/.local/native-comb-probe-v1/attempt-2",
+      "preserved_locally": true,
+      "reason": "Failed analytic initialization probe; retained before corrected attempt-3"
+    }
+  ],
+  "job_handles": {
+    "23067": "robot/lamp reloads finished",
+    "29760": "temporary browser check finished",
+    "33572": "panda media finished",
+    "58161": "lamp media finished",
+    "79384": "fox media finished",
+    "93216": "robot media finished"
+  },
+  "limitations": [
+    "Exact Muse sculpting/groom/shading parity is not demonstrated",
+    "No dynamic hair or facial-muscle simulation",
+    "No new Weft profile conversion or runtime alignment",
+    "All loops uncertified",
+    "Short retimed previews, not new eight-second Muse timing",
+    "Bit-identical GLB rebuilds not guaranteed; preserve hashes",
+    "Sampled visual review, not human approval or every-frame seam playback"
+  ],
+  "live_owned_jobs_or_servers": [],
+  "packs": [
+    {
+      "editable_source": {
+        "bytes": 36859262,
+        "path": "outputs/muse-panda-hd-build-v3/source.blend",
+        "sha256": "7ad0b99fd58e2a9a454e7ef182f8c0bb66655ae8d4cae77dd746f75dbc398dcd"
+      },
+      "full_media_manifest": {
+        "bytes": 59141,
+        "path": "outputs/muse-panda-hd-media-v1/manifest.json",
+        "sha256": "c18f4a756c872129f8c0f71fdbfaa6a876e6550b157aa3365822f96be48557e7"
+      },
+      "id": "panda",
+      "model": {
+        "bytes": 22349912,
+        "path": "outputs/muse-panda-hd-build-v3/model.glb",
+        "sha256": "028ff0056c77e0463ae37a3e3400833748f6716e0b10ad80e9e15092483051b2"
+      },
+      "model_manifest": {
+        "bytes": 245227,
+        "path": "outputs/muse-panda-hd-build-v3/manifest.json",
+        "sha256": "8179c8439c06c730d6da636a020cb0e0502743e39fba8ea45f44eb609c9ae48b"
+      },
+      "portable_media_manifest": {
+        "bytes": 79338,
+        "path": "outputs/muse-panda-hd-media-v1-portable-v1/manifest.json",
+        "sha256": "051bd113446e434392eadf7a07221bc19115e41c7f63d188b1874b8d9bbcaf60"
+      },
+      "pose_and_mapping": "Authored rig-contract.json in model pack; not a newly calibrated Weft mapping"
+    },
+    {
+      "editable_source": {
+        "bytes": 39356116,
+        "path": "outputs/fox-hd-build-v2/source.blend",
+        "sha256": "c0e347af52a10b2478a4b75571a251e1c3421e486f93bfc3cef27f86c86dba59"
+      },
+      "full_media_manifest": {
+        "bytes": 58882,
+        "path": "outputs/fox-hd-media-v1/manifest.json",
+        "sha256": "8110b434b9ae458aceeac53659d223bd3f72f8d0f0e69dfbc5eeb04bdecbe3b1"
+      },
+      "id": "fox",
+      "model": {
+        "bytes": 27709020,
+        "path": "outputs/fox-hd-build-v2/model.glb",
+        "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78"
+      },
+      "model_manifest": {
+        "bytes": 170381,
+        "path": "outputs/fox-hd-build-v2/manifest.json",
+        "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be"
+      },
+      "portable_media_manifest": {
+        "bytes": 79072,
+        "path": "outputs/fox-hd-media-v1-portable-v1/manifest.json",
+        "sha256": "5cc2a98370a9bbacf445e2432169de3c0c6dcf4c04d4b6929bec8ae6972656ee"
+      },
+      "pose_and_mapping": "Authored rig-contract.json in model pack; not a newly calibrated Weft mapping"
+    },
+    {
+      "editable_source": {
+        "bytes": 8290780,
+        "path": "outputs/workshop-robot-hd-build-v2/source.blend",
+        "sha256": "79f6378ec13532d03f65301cfede68c116c90d97b4931ea8da0b8c733f4d2f12"
+      },
+      "full_media_manifest": {
+        "bytes": 74953,
+        "path": "outputs/workshop-robot-hd-media-v1/manifest.json",
+        "sha256": "78513390fef3989a5a56dda7c63b6647fc27cb1a5967743b203d7faaf5455cfc"
+      },
+      "id": "robot",
+      "model": {
+        "bytes": 6320008,
+        "path": "outputs/workshop-robot-hd-build-v2/model.glb",
+        "sha256": "cbb2fd7b9fe5ac82c54b8969e85a7c667eb859683abb6ab659b19d43fc7269a1"
+      },
+      "model_manifest": {
+        "bytes": 59705,
+        "path": "outputs/workshop-robot-hd-build-v2/manifest.json",
+        "sha256": "0fa026da4eecc6c84bfd3395a794ac28b13a8c709201b47e5be0be1583555cab"
+      },
+      "portable_media_manifest": {
+        "bytes": 104178,
+        "path": "outputs/workshop-robot-hd-media-v1-portable-v1/manifest.json",
+        "sha256": "001e6d8cceb65471ed782eae488b14dfb2998f8ad9fe3d7929b9c07ddf504b4d"
+      },
+      "pose_and_mapping": "Authored rig-contract.json in model pack; not a newly calibrated Weft mapping"
+    },
+    {
+      "editable_source": {
+        "bytes": 8337219,
+        "path": "outputs/lamp-hd-build-v2/source.blend",
+        "sha256": "814c852f51f2ad8cfa8d49c2fb260ec0416cd77b25abe38821e47ca739fcca4e"
+      },
+      "full_media_manifest": {
+        "bytes": 58960,
+        "path": "outputs/lamp-hd-media-v1/manifest.json",
+        "sha256": "87bf7bd2cc39a65a265b9b939d87717c313f3f4058199a432893f99ee80dc399"
+      },
+      "id": "lamp",
+      "model": {
+        "bytes": 5109552,
+        "path": "outputs/lamp-hd-build-v2/model.glb",
+        "sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949"
+      },
+      "model_manifest": {
+        "bytes": 51284,
+        "path": "outputs/lamp-hd-build-v2/manifest.json",
+        "sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115"
+      },
+      "portable_media_manifest": {
+        "bytes": 79150,
+        "path": "outputs/lamp-hd-media-v1-portable-v1/manifest.json",
+        "sha256": "c28d17ff84164399b22a4c5f98b7f5bb7aa6191348c9ed76604325cc32af9e0b"
+      },
+      "pose_and_mapping": "Authored rig-contract.json in model pack; not a newly calibrated Weft mapping"
+    }
+  ],
+  "prior_attempts": [
+    {
+      "bytes": 104247,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/muse-panda-hd-build-v1/manifest.json",
+      "reason": "Superseded: shorter radial coat, bare ear/forelock details; not Muse parity",
+      "sha256": "48d6dc11d98e6e133528bab56d6b6702c5bba529034f2da72bcc5cbfd182bbb9"
+    },
+    {
+      "bytes": 5680,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/muse-panda-hd-build-v2/manifest.json",
+      "reason": "Rejected final acceptance: outer monitor EPERM, missing verified exit/RSS; native files preserved",
+      "sha256": "15bcb821f587b4dd88ecd6e629f69070564e460516baea3dcbd5d56147f12c62"
+    },
+    {
+      "bytes": 107511,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/fox-hd-build-v1/manifest.json",
+      "reason": "Superseded by persistent directional native groom and explicit card-source material metadata",
+      "sha256": "60a99a50c8e552d3652ec57204745e483106588d9264029dda70a3fd60386de2"
+    },
+    {
+      "bytes": 58598,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/workshop-robot-hd-build-v1/manifest.json",
+      "reason": "Superseded by final metadata/runner rebuild; original files preserved",
+      "sha256": "2781b39c21142fe9293f253b94cbb1017bf1981b485f73dcb6403fcb509abfbd"
+    },
+    {
+      "bytes": 50177,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/lamp-hd-build-v1/manifest.json",
+      "reason": "Superseded by final metadata/runner rebuild; original files preserved",
+      "sha256": "753fe8852ce482dc4ecdb94491eeac5a5de148cdf55eec046a8ebd67ffa24643"
+    },
+    {
+      "bytes": 2420,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/hd-proof-integration-v1/manifest.json",
+      "reason": "Superseded temporary atlas-path fallback; final proof requires explicit source_material",
+      "sha256": "6ea3863924812de9c33b2f21b6dd9f5adcb339ded34103d9d82e7e210ec1f628"
+    },
+    {
+      "bytes": 1819,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/hd-proof-legacy-unsupported-v1/manifest.json",
+      "reason": "Honest unsupported result for legacy missing source-material binding",
+      "sha256": "b23d8b2bb1b31054660f6c5ea4ac8ce841dd09b42731e5075ef7b645297f12d5"
+    },
+    {
+      "bytes": 21512,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/hd-release-v1/manifest.json",
+      "reason": "Rejected incomplete release: assumed analytic probe had a manifest; corrected inventory in v2, source copies preserved",
+      "sha256": "9e5c540d631222215ca2768d46015de693e8bd369606c533b9466aa75b115adc"
+    },
+    {
+      "bytes": 21701,
+      "full_attempt_preserved_locally": true,
+      "path": "outputs/hd-release-v2/manifest.json",
+      "reason": "Rejected incomplete release: unsupported results use unsupported.json, not manifest.json; v3 preflights all proof paths",
+      "sha256": "2fce55156bcd0cd4212e30360ff58a6dc26393c4240bbde57663e4f3f038f82e"
+    }
+  ],
+  "proofs": [
+    {
+      "bytes": 2867,
+      "path": "outputs/hd-final-attribute-proof-v1/manifest.json",
+      "sha256": "b1e623932da5a40e0f63e427301455439dc1ef3d29c9e3cb6647bede87b861fd"
+    },
+    {
+      "bytes": 1990,
+      "path": "outputs/hd-final-attribute-proof-v2/manifest.json",
+      "sha256": "748c91a0f7ffe30332fadd5c2990c554cc66478b5809c7d6b05649d80aa300bd"
+    },
+    {
+      "bytes": 252,
+      "path": "outputs/hd-recipe-reproducibility-v1/manifest.json",
+      "sha256": "a1ea258eb6b0b296b585d8c7b0e4db86cf633bcd251f9019e141c7687c125614"
+    },
+    {
+      "bytes": 414,
+      "path": "outputs/hd-media-verification-v1/manifest.json",
+      "sha256": "a905a85231a987db56d5a515edccb4ee720bcae531d4fd2224de6703bffa6558"
+    },
+    {
+      "bytes": 287,
+      "path": "outputs/hd-visual-review-v1/manifest.json",
+      "sha256": "ad92b5be9d793620a89a8800cc2850ed4a9d4816c0470a1ab74223512c68feed"
+    },
+    {
+      "bytes": 1973,
+      "path": "outputs/hd-gallery-browser-v1/browser-test.json",
+      "sha256": "19b7b5b82173c2e8bd8652caf356a24eae2de2ea2a827278cfa1926b64b0f212"
+    },
+    {
+      "bytes": 3420,
+      "path": "outputs/muse-panda-hd-reload-v2/manifest.json",
+      "sha256": "b94a1744fb901eb8187c892176fcf02415ebcc5e393b005955e51ba03bd71461"
+    },
+    {
+      "bytes": 3398,
+      "path": "outputs/fox-hd-reload-v2/manifest.json",
+      "sha256": "9e391241a3f8256ab479da2fab1371f41a0141c5a61232fa579562085b34e9b8"
+    },
+    {
+      "bytes": 3431,
+      "path": "outputs/workshop-robot-hd-reload-v2/manifest.json",
+      "sha256": "988e2937bd448e43b076a92a5e84f556304b33a6fc176841a9e562ed794154b6"
+    },
+    {
+      "bytes": 3400,
+      "path": "outputs/lamp-hd-reload-v2/manifest.json",
+      "sha256": "19e3b0fc7a464ca608c5ed8d155d2515420ec3dfe0b84f6eaa3426e92335e7ac"
+    },
+    {
+      "bytes": 1221,
+      "path": "outputs/hd-muse-fidelity-unsupported-v1/unsupported.json",
+      "sha256": "6f5586ba5f6c2346a00e224c167742660bae060a5357862d04c10d6b9b103385"
+    },
+    {
+      "bytes": 1141,
+      "path": "outputs/hd-weft-profile-unsupported-v1/unsupported.json",
+      "sha256": "22a81e8868861e75b6d83f9975550ab9076d234c144a955fdc2402465d5d1757"
+    }
+  ],
+  "recorded_at": "2026-10-30 19:40:08 PDT",
+  "reference_archive": {
+    "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+    "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+    "unchanged": true
+  },
+  "representations": "Native Blender hair in portraits/videos and editable sources; separate skinned MASK cards in GLB. Native strands are not exported. OIDN denoises existing renders, never generates replacement art.",
+  "rights": "Newly authored geometry, groom and seeded textures. Supplied Muse reference has no independently verified license; generated-media metadata is provenance only. Hidden geometry, anatomy and rig are authored assumptions.",
+  "schema_version": 1,
+  "session": "01a18ebe-a17c-7cc0-9117-06ca476fb31c",
+  "source_snapshot_files": 101,
+  "status": "verified_stylized_hd_upgrade_not_muse_parity",
+  "tools": {
+    "geometry_renderer": "Local Blender 4.5.13 CPU, four threads",
+    "neural_text_to_3d_provider": null,
+    "portrait_filter": "Bundled OIDN 2.3.3 CPU, isolated worker"
+  },
+  "workspace": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

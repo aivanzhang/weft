@@ -1,4 +1,4 @@
-"""Command-line entry points; no credentials, uploads or implicit provider calls."""
+"""Local authoring defaults; remote generation requires explicit Meshy commands."""
 
 import argparse
 import json
@@ -35,6 +35,10 @@ def verify_pack(folder):
 def main():
     parser = argparse.ArgumentParser(description="Local avatar assets: editable 3D, 2D media, provenance and verification")
     sub = parser.add_subparsers(dest="command", required=True)
+    from avatar_assets.meshy import add_commands
+    add_commands(sub)
+    from avatar_assets.pipeline import add_commands as pipeline_commands
+    pipeline_commands(sub)
     inspect = sub.add_parser("inspect", help="Safely inspect a flat media ZIP without trusting its labels")
     inspect.add_argument("archive")
     inspect.add_argument("--out", required=True)
@@ -46,11 +50,14 @@ def main():
     build.add_argument("--resolution", type=int, default=384)
     build.add_argument("--samples", type=int, default=8)
     build.add_argument("--timeout", type=int, default=300)
+    build.add_argument("--portrait-only", action="store_true", help="Skip pose contact renders during bounded look development; export every clip")
     export = sub.add_parser("export2d", help="Render full skeletal clips, a portrait and static fallbacks")
     export.add_argument("folder")
     export.add_argument("--out", required=True)
     export.add_argument("--preset", choices=["muse", "preview"], default="muse")
     export.add_argument("--blender")
+    export.add_argument("--denoise-portrait", action="store_true", help="Filter the rendered portrait in an isolated CPU worker; retain the raw PNG")
+    export.add_argument('--resume-frames', help='Reuse hash-bound completed generated frames after one wall-time failure; new output required')
     for name in ("size", "portrait", "seconds", "samples"):
         export.add_argument("--" + name, type=int)
     verify = sub.add_parser("verify", help="Recheck pack hashes and independently decode the rig")
@@ -93,12 +100,18 @@ def main():
     plan.add_argument("--out", required=True)
     args = parser.parse_args()
     try:
-        if args.command == "inspect":
+        if args.command == "generate":
+            from avatar_assets.pipeline import main as generate_main
+            result = generate_main(args)
+        elif args.command == "meshy":
+            from avatar_assets.meshy import main as meshy_main
+            result = meshy_main(args)
+        elif args.command == "inspect":
             from avatar_assets.archive import inspect_bounded
             result = inspect_bounded(args.archive, args.out, args.sha256)
         elif args.command == "build3d":
             from avatar_assets.build3d import build_3d
-            result = build_3d(args.scene, args.out, args.blender, args.resolution, args.samples, args.timeout)
+            result = build_3d(args.scene, args.out, args.blender, args.resolution, args.samples, args.timeout, args.portrait_only)
         elif args.command == "verify":
             result = verify_pack(args.folder)
         elif args.command == "gallery":
@@ -108,7 +121,7 @@ def main():
         elif args.command == "export2d":
             from avatar_assets.export2d import export_2d
             result = export_2d(args.folder, args.out, args.preset, args.blender, args.size,
-                               args.portrait, args.seconds, args.samples)
+                               args.portrait, args.seconds, args.samples, args.denoise_portrait, args.resume_frames)
         elif args.command == "reload3d":
             from avatar_assets.review import reload_3d
             result = reload_3d(args.folder, args.out, args.blender)

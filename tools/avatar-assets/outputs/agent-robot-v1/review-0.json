@@ -1,0 +1,160 @@
+{
+  "evidence": [
+    {
+      "id": "image-00-celebrate.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-0/states/celebrate.png",
+      "sha256": "1ed9f88ea16e2a0929efe63e2a2a7921fcc72530962182008bc98911cdbc2656",
+      "state_ids": [
+        "celebrate"
+      ]
+    },
+    {
+      "id": "image-01-idle.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-0/states/idle.png",
+      "sha256": "7a677f264ba6519fe2ec8f21420bd0ab591e9371e69d66bda736f34946660e1f",
+      "state_ids": [
+        "idle"
+      ]
+    },
+    {
+      "id": "image-02-look_around.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-0/states/look_around.png",
+      "sha256": "822d55015b05c52be663494c68f12ce33ae29aa5cc6a19f1cc38ba8db929c0a0",
+      "state_ids": [
+        "look_around"
+      ]
+    },
+    {
+      "id": "image-03-wave.png",
+      "kind": "native_motion_contact_sheet",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/evidence-0/states/wave.png",
+      "sha256": "052e287168f43b9490e5f1e585f72d5a8b0ad995cb250fc60f8cc9ee2b227dfa",
+      "state_ids": [
+        "wave"
+      ]
+    },
+    {
+      "id": "image-04-front.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/exported-preview-0/front.png",
+      "sha256": "a8d73d8ed267742ae2800d08802961e0b06dc94c0db7da1c1a45113fbb824f63",
+      "state_ids": []
+    },
+    {
+      "id": "image-05-three-quarter.png",
+      "kind": "exported_glb_rest_view",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/exported-preview-0/three-quarter.png",
+      "sha256": "6c8a50eb6966acbf6743247456bad9ba64ee17646d6c329e688282c0dc399401",
+      "state_ids": []
+    },
+    {
+      "id": "image-06-portrait.png",
+      "kind": "native_hair_portrait",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v1/model-0/portrait.png",
+      "sha256": "781b50b9f0f2aecc48338ecc8ad48b015081b8336eebcccc7b2458c6881c15ee",
+      "state_ids": []
+    }
+  ],
+  "human_approval": false,
+  "model_manifest_sha256": "eeb188d2ebb10c65abf39d0fc7ca577c7cb5502128a5eb83facfa0a784bcfbae",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "The rounded workshop robot retains its large head, rounded torso, two arms, two feet and matching panel details across supplied views."
+      },
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue and cream hard surfaces with copper joints and trim match the request. No props or hair are present or required."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look_around.png",
+          "image-03-wave.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The entire robot, including hands and feet, remains inside every sampled frame. Feet retain their sampled positions."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png",
+          "image-05-three-quarter.png"
+        ],
+        "name": "deformation",
+        "passed": false,
+        "reason": "During the raised-arm poses, the moving wrist and hand develop long, thin trailing spikes instead of preserving the compact hard-surface shape visible at rest."
+      }
+    ],
+    "limitations": [
+      "Supplied structural proofs report successful loading and numerical movement; they do not establish action meaning or acceptable deformation.",
+      "Contact sheets do not establish all-frame collision freedom, physical ground contact, timing smoothness or seamless loops.",
+      "The target runtime was not exercised. Hidden surfaces, scale and rig remain authored assumptions.",
+      "Idle and celebrate changes are not visually distinguishable enough in the supplied samples to verify their intended meanings."
+    ],
+    "required_repairs": [
+      "Correct moving forearm, wrist and hand weights and joint placement so the wave preserves rigid panel and finger shapes without stretched spikes.",
+      "Make the wave visibly alternate the raised hand side to side before lowering it; provide samples showing both directions.",
+      "Make the gentle idle torso and arm shifts perceptible while keeping both feet planted.",
+      "Correct or strengthen the celebratory head pitch and slight torso dip so a modest nod and return upright are visibly readable.",
+      "Provide updated motion evidence at informative poses for all repaired states."
+    ],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-01-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": false,
+        "motion_passed": false,
+        "reason": "Samples appear effectively identical. Reported numerical displacement does not visibly demonstrate gentle torso and arm shifts."
+      },
+      {
+        "evidence_ids": [
+          "image-02-look_around.png"
+        ],
+        "id": "look_around",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns in opposite directions and returns to its starting orientation while the torso and feet remain substantially still."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png"
+        ],
+        "id": "wave",
+        "meaning_passed": false,
+        "motion_passed": true,
+        "reason": "One forearm visibly rises and lowers, but a friendly side-to-side hand wave is unclear and the raised hand visibly stretches into thin spikes."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png"
+        ],
+        "id": "celebrate",
+        "meaning_passed": false,
+        "motion_passed": false,
+        "reason": "The sampled poses appear effectively unchanged; a head nod and upper-torso dip cannot be visually confirmed despite reported numerical movement."
+      }
+    ],
+    "summary": "Identity, palette and framing pass. Repair wave deformation and provide visibly readable idle, wave and celebratory nod motion.",
+    "verdict": "repair"
+  }
+}

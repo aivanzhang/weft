@@ -1,0 +1,18 @@
+{
+  "blender": "4.5.13 LTS",
+  "rendered_frames_per_state": 97,
+  "video_frames_per_state": 96,
+  "endpoint_extra_frame": true,
+  "duration_seconds": 4,
+  "fps": 24,
+  "samples": 8,
+  "portrait_samples": 32,
+  "denoising": {
+    "portrait": false,
+    "video": "OpenImageDenoise CPU"
+  },
+  "native_pixels": 720,
+  "portrait_native_pixels": 1600,
+  "transparent": false,
+  "source_animations_retimed": true
+}

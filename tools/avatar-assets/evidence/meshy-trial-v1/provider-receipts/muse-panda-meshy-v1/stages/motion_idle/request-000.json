@@ -1,0 +1,21 @@
+{
+  "balance_before": {
+    "balance": 3220,
+    "monthly_credits": 3020,
+    "monthly_resets_at": 1796061365000,
+    "permanent_credits": 200
+  },
+  "body": {
+    "duration": 4,
+    "mode": "prime",
+    "prompt": "Stand comfortably in place with arms relaxed, gentle breathing and a small friendly head tilt. Both feet stay planted. No walking, jumping or exaggerated gestures."
+  },
+  "created": "2026-10-31T11:25:45.999701-07:00",
+  "endpoint": "/openapi/v1/text-to-motion",
+  "estimated_credits": 10,
+  "execution_sources": {
+    "meshy.py": "4b05c9cd6de354a539f590489ca9a194d6e4b8e84bddab1991f280f16f0b6ca7",
+    "meshy_access.py": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+  },
+  "request_sha256": "9c118f0cbff4e2a098262a49520f12d57b9c0a34cf9af1e8a2279ba6df1eeb43"
+}

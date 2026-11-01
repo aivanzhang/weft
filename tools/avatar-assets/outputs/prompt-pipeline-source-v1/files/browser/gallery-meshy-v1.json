@@ -1,0 +1,26 @@
+{
+  "assets": [
+    {
+      "description": "Reference-generated panda, authored skin repairs and local gestures. Native portrait hair and browser cutout fur are different. Muse likeness/quality remains under review; no Weft mapping.",
+      "id": "panda-candidate",
+      "kind": "generated_3d",
+      "pack": "outputs/muse-panda-meshy-refined-v6",
+      "title": "Muse panda — generated candidate"
+    },
+    {
+      "description": "Text-generated robot, genuine humanoid skin and four locally authored skeletal gestures. No articulated fingers, tool interaction or Weft mapping.",
+      "id": "robot-candidate",
+      "kind": "generated_3d",
+      "pack": "outputs/workshop-robot-meshy-refined-v2",
+      "title": "Workshop robot — generated candidate"
+    },
+    {
+      "description": "Original user-supplied portrait and clips, not a 3D model.",
+      "id": "reference",
+      "kind": "reference_2d",
+      "pack": "outputs/reference-v1",
+      "title": "Original Muse reference"
+    }
+  ],
+  "schema_version": 1
+}

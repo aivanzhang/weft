@@ -1,0 +1,171 @@
+{
+  "input": {
+    "bytes": 4070721,
+    "height": 1600,
+    "mode": "RGBA",
+    "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-raw.png",
+    "sha256": "dffae7e5b740121e873c8529430092249a1f71b8438bfd9b2334bbf68bfd2222",
+    "width": 1600
+  },
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/usr/bin/env",
+      "-i",
+      "PATH=/usr/bin:/bin:/usr/sbin:/sbin",
+      "LANG=en_US.UTF-8",
+      "PYTHONDONTWRITEBYTECODE=1",
+      "OMP_NUM_THREADS=4",
+      "OPENBLAS_NUM_THREADS=1",
+      "VECLIB_MAXIMUM_THREADS=1",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/denoise_portrait.py",
+      "--worker",
+      "--input",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-raw.png",
+      "--output",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-denoise/portrait.png",
+      "--report",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-denoise/worker-result.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.304,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 1117076,
+    "last_rss_sample_elapsed_seconds": 1.043,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 2048,
+      "wall_seconds": 90
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "denoise-monitor.json",
+    "monitor_errors": [],
+    "pid": 99221,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 1117076,
+    "sampled_peak_rss_bytes": 1000488960,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "libraries": [
+    {
+      "bytes": 155808,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+      "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+    },
+    {
+      "bytes": 47280496,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+      "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+    },
+    {
+      "bytes": 302112,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+      "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+    },
+    {
+      "bytes": 382752,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+      "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+    }
+  ],
+  "provider_calls": 0,
+  "provider_cost_usd": 0,
+  "raw_input_unchanged": true,
+  "schema_version": 1,
+  "status": "needs_visual_review",
+  "worker": {
+    "alpha_unchanged": true,
+    "change_metrics_are_quality_scores": false,
+    "input": {
+      "alpha_sha256": "47d23dadd0f8a03d2ce179b07af10b6a2461477526e919003bad797678040ea0",
+      "bytes": 4070721,
+      "color_space": "8-bit display-referred sRGB, explicitly selected; no ICC transform",
+      "dpi": [
+        71.9836,
+        71.9836
+      ],
+      "gamma_chunk": null,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-raw.png",
+      "sha256": "dffae7e5b740121e873c8529430092249a1f71b8438bfd9b2334bbf68bfd2222",
+      "width": 1600
+    },
+    "kind": "render_portrait_denoise",
+    "limitations": [
+      "Color-only display-referred denoising; no albedo/normal guides.",
+      "Fine hair or texture can be softened; compare this result with the unchanged raw render.",
+      "No geometry, rig, texture source or render-camera change; not evidence of Muse parity."
+    ],
+    "native": {
+      "api_documentation": "https://github.com/RenderKit/oidn/blob/v2.3.3/doc/api.md",
+      "api_header": "https://github.com/RenderKit/oidn/blob/v2.3.3/include/OpenImageDenoise/oidn.h",
+      "auxiliary_images": [],
+      "device": "CPU",
+      "filter": "RT",
+      "hdr": false,
+      "libraries": [
+        {
+          "bytes": 155808,
+          "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise.dylib",
+          "sha256": "83d76a6271d9fcf58a52e51cb720b4224d5bd6057e6e4c04b569371ab01cfaa4"
+        },
+        {
+          "bytes": 47280496,
+          "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_core.dylib",
+          "sha256": "dc6ab8759da67555cb25e9e4c14a08829ef95d9ff14fe0dd2b1b6f0bee0a7a5e"
+        },
+        {
+          "bytes": 302112,
+          "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libOpenImageDenoise_device_cpu.dylib",
+          "sha256": "c4429328016a97d5bcf83587e816e42bdf45b2550034b66c40a410ad56b26739"
+        },
+        {
+          "bytes": 382752,
+          "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/lib/libtbb.dylib",
+          "sha256": "9e5310a0d7e0e126a3fd33cbd1199748cd7b642dab42d2a4d804f54a63ec1f69"
+        }
+      ],
+      "maxMemoryMB_requested": 768,
+      "memory_request_is_hard_limit": false,
+      "name": "Open Image Denoise",
+      "native_seconds": 0.720433,
+      "quality": "high",
+      "quality_enum": 6,
+      "srgb": true,
+      "threads": 4,
+      "version": "2.3.3"
+    },
+    "output": {
+      "bytes": 1111382,
+      "height": 1600,
+      "mode": "RGBA",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-media-v1/portrait-denoise/portrait.png",
+      "sha256": "c5118168de8bfbaeef07d9a7b864b573c6f010d9cdbcadfd9116110d5c8c5be2",
+      "width": 1600
+    },
+    "peak_rss_bytes": 1022361600,
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "raw_input_unchanged": true,
+    "reference_images_used": [],
+    "rgb_mean_absolute_change_8bit": 2.0099563598632812,
+    "rgb_rmse_change_8bit": 4.7573933601379395,
+    "schema_version": 1,
+    "status": "needs_visual_review",
+    "wall_seconds": 0.98134,
+    "worker_source_sha256": "a52da20a3e8f0bacd4f579a0ff918c874a2a09b01b77f8baac35872ee72c1897"
+  }
+}

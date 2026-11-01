@@ -1,0 +1,1062 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Root"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.5,
+            0.51,
+            0.34
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.5,
+            0.51,
+            0.39
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.51,
+            0.35
+          ],
+          "name": "Torso",
+          "parent": "Root",
+          "tail": [
+            0.5,
+            0.51,
+            0.62
+          ]
+        },
+        {
+          "head": [
+            0.5,
+            0.5,
+            0.63
+          ],
+          "name": "Head",
+          "parent": "Torso",
+          "tail": [
+            0.5,
+            0.5,
+            0.87
+          ]
+        },
+        {
+          "head": [
+            0.37,
+            0.5,
+            0.6
+          ],
+          "name": "UpperArmL",
+          "parent": "Torso",
+          "tail": [
+            0.255,
+            0.47,
+            0.525
+          ]
+        },
+        {
+          "head": [
+            0.255,
+            0.47,
+            0.525
+          ],
+          "name": "ForearmL",
+          "parent": "UpperArmL",
+          "tail": [
+            0.155,
+            0.4,
+            0.447
+          ]
+        },
+        {
+          "head": [
+            0.155,
+            0.4,
+            0.447
+          ],
+          "name": "HandL",
+          "parent": "ForearmL",
+          "tail": [
+            0.075,
+            0.36,
+            0.395
+          ]
+        },
+        {
+          "head": [
+            0.63,
+            0.5,
+            0.6
+          ],
+          "name": "UpperArmR",
+          "parent": "Torso",
+          "tail": [
+            0.745,
+            0.47,
+            0.525
+          ]
+        },
+        {
+          "head": [
+            0.745,
+            0.47,
+            0.525
+          ],
+          "name": "ForearmR",
+          "parent": "UpperArmR",
+          "tail": [
+            0.845,
+            0.4,
+            0.447
+          ]
+        },
+        {
+          "head": [
+            0.845,
+            0.4,
+            0.447
+          ],
+          "name": "HandR",
+          "parent": "ForearmR",
+          "tail": [
+            0.925,
+            0.36,
+            0.395
+          ]
+        },
+        {
+          "head": [
+            0.37,
+            0.51,
+            0.35
+          ],
+          "name": "LegL",
+          "parent": "Root",
+          "tail": [
+            0.3,
+            0.51,
+            0.025
+          ]
+        },
+        {
+          "head": [
+            0.63,
+            0.51,
+            0.35
+          ],
+          "name": "LegR",
+          "parent": "Root",
+          "tail": [
+            0.7,
+            0.51,
+            0.025
+          ]
+        }
+      ],
+      "height_meters": 1.2,
+      "layers": [
+        {
+          "bones": [
+            "Torso"
+          ],
+          "feather": 0,
+          "max": [
+            0.7,
+            1,
+            0.635
+          ],
+          "min": [
+            0.3,
+            0,
+            0.335
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "LegL"
+          ],
+          "feather": 0,
+          "max": [
+            0.46,
+            1,
+            0.345
+          ],
+          "min": [
+            0.18,
+            0,
+            0
+          ],
+          "min_vertices": 300
+        },
+        {
+          "bones": [
+            "LegR"
+          ],
+          "feather": 0,
+          "max": [
+            0.82,
+            1,
+            0.345
+          ],
+          "min": [
+            0.54,
+            0,
+            0
+          ],
+          "min_vertices": 300
+        },
+        {
+          "bones": [
+            "UpperArmL"
+          ],
+          "feather": 0,
+          "max": [
+            0.405,
+            1,
+            0.62
+          ],
+          "min": [
+            0.205,
+            0,
+            0.515
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "UpperArmR"
+          ],
+          "feather": 0,
+          "max": [
+            0.795,
+            1,
+            0.62
+          ],
+          "min": [
+            0.595,
+            0,
+            0.515
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "ForearmL"
+          ],
+          "feather": 0,
+          "max": [
+            0.275,
+            1,
+            0.525
+          ],
+          "min": [
+            0.105,
+            0,
+            0.435
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "ForearmR"
+          ],
+          "feather": 0,
+          "max": [
+            0.895,
+            1,
+            0.525
+          ],
+          "min": [
+            0.725,
+            0,
+            0.435
+          ],
+          "min_vertices": 150
+        },
+        {
+          "bones": [
+            "HandL"
+          ],
+          "feather": 0,
+          "max": [
+            0.205,
+            1,
+            0.445
+          ],
+          "min": [
+            0,
+            0,
+            0.345
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "HandR"
+          ],
+          "feather": 0,
+          "max": [
+            1,
+            1,
+            0.445
+          ],
+          "min": [
+            0.795,
+            0,
+            0.345
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0,
+          "max": [
+            1,
+            1,
+            1
+          ],
+          "min": [
+            0,
+            0,
+            0.64
+          ],
+          "min_vertices": 1000
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.2,
+    "input_world_bounds": {
+      "max": [
+        0.5865200161933899,
+        0.35863998532295227,
+        0.9501749277114868
+      ],
+      "min": [
+        -0.5867930054664612,
+        -0.364734947681427,
+        -0.9517750144004822
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "Torso"
+        ],
+        "selected_vertices": 9500
+      },
+      {
+        "bones": [
+          "LegL"
+        ],
+        "selected_vertices": 4621
+      },
+      {
+        "bones": [
+          "LegR"
+        ],
+        "selected_vertices": 4769
+      },
+      {
+        "bones": [
+          "UpperArmL"
+        ],
+        "selected_vertices": 1552
+      },
+      {
+        "bones": [
+          "UpperArmR"
+        ],
+        "selected_vertices": 1738
+      },
+      {
+        "bones": [
+          "ForearmL"
+        ],
+        "selected_vertices": 1576
+      },
+      {
+        "bones": [
+          "ForearmR"
+        ],
+        "selected_vertices": 1805
+      },
+      {
+        "bones": [
+          "HandL"
+        ],
+        "selected_vertices": 3288
+      },
+      {
+        "bones": [
+          "HandR"
+        ],
+        "selected_vertices": 3548
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 15499
+      }
+    ],
+    "max_influences": 1,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "ForearmL": 1300,
+      "ForearmR": 1485,
+      "HandL": 3288,
+      "HandR": 3548,
+      "Head": 15499,
+      "LegL": 4621,
+      "LegR": 4769,
+      "Root": 534,
+      "Torso": 7389,
+      "UpperArmL": 1276,
+      "UpperArmR": 1372
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        0.00013649463653564453,
+        0.0030474811792373657,
+        0.9517750144004822
+      ],
+      "uniform_scale": 0.6309314317008219
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 1.4458401203155518,
+    "view": "three_quarter"
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_strength": 0.6,
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.37014004588127136,
+      0.22819998860359192,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.37014004588127136,
+      -0.22819998860359192,
+      0.0
+    ]
+  },
+  "source_sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            18452,
+            18527
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.00970926925563895,
+          "posed_length": 0.018329479733533192,
+          "rest_length": 0.008620210477894241,
+          "rest_normalized_bounds": [
+            [
+              0.4802495137517483,
+              0.6604873261112107,
+              0.6398311996527036
+            ],
+            [
+              0.47569744563516486,
+              0.6776996863442539,
+              0.6407591942644439
+            ]
+          ],
+          "second": 1.7,
+          "stretch_ratio": 2.1263378406522095
+        },
+        {
+          "endpoint_indices": [
+            8113,
+            8131
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.007915793467210998,
+          "posed_length": 0.019196158103679643,
+          "rest_length": 0.011280364636468644,
+          "rest_normalized_bounds": [
+            [
+              0.5215104514438552,
+              0.3491384196488471,
+              0.6399584555642424
+            ],
+            [
+              0.5312188552726006,
+              0.3303528669587434,
+              0.6411619726355087
+            ]
+          ],
+          "second": 1.7,
+          "stretch_ratio": 1.7017320558610118
+        },
+        {
+          "endpoint_indices": [
+            8113,
+            8128
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.00764161778165072,
+          "posed_length": 0.021079639343078837,
+          "rest_length": 0.013438021561428117,
+          "rest_normalized_bounds": [
+            [
+              0.5215104514438552,
+              0.3491384196488471,
+              0.6399584555642424
+            ],
+            [
+              0.5197018971522095,
+              0.3201589735881149,
+              0.6415946526688475
+            ]
+          ],
+          "second": 1.7,
+          "stretch_ratio": 1.5686564608278997
+        },
+        {
+          "endpoint_indices": [
+            18527,
+            18590
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.007600576427741779,
+          "posed_length": 0.02224826251847175,
+          "rest_length": 0.01464768609072997,
+          "rest_normalized_bounds": [
+            [
+              0.47569744563516486,
+              0.6776996863442539,
+              0.6407591942644439
+            ],
+            [
+              0.49419037859508486,
+              0.6664745307015522,
+              0.6399716182561073
+            ]
+          ],
+          "second": 1.7,
+          "stretch_ratio": 1.5188926346907399
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        40.8,
+        62.400000000000006,
+        96.0
+      ],
+      "id": "celebrate",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.7,
+        2.6,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            8305,
+            8352
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.008963530053145815,
+          "posed_length": 0.024674269946061724,
+          "rest_length": 0.01571073989291591,
+          "rest_normalized_bounds": [
+            [
+              0.5811083531356566,
+              0.44496699542817725,
+              0.6393212322663772
+            ],
+            [
+              0.6019740573931756,
+              0.45026576813269636,
+              0.6406083448486191
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 1.5705351953021345
+        },
+        {
+          "endpoint_indices": [
+            8348,
+            8377
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.008830086734425441,
+          "posed_length": 0.0221097713371365,
+          "rest_length": 0.013279684602711058,
+          "rest_normalized_bounds": [
+            [
+              0.5919093939140435,
+              0.5067772616496461,
+              0.6394715849768485
+            ],
+            [
+              0.6090821205492277,
+              0.5144703670690982,
+              0.6407655520929674
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 1.6649319617593006
+        },
+        {
+          "endpoint_indices": [
+            9153,
+            9189
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "Head": 1.0
+            }
+          ],
+          "excess_length": 0.008830086734425441,
+          "posed_length": 0.0221097713371365,
+          "rest_length": 0.013279684602711058,
+          "rest_normalized_bounds": [
+            [
+              0.5919093939140435,
+              0.5067772616496461,
+              0.6394715849768485
+            ],
+            [
+              0.6090821205492277,
+              0.5144703670690982,
+              0.6407655520929674
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 1.6649319617593006
+        },
+        {
+          "endpoint_indices": [
+            18527,
+            18590
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.008740299973953708,
+          "posed_length": 0.023387986064683678,
+          "rest_length": 0.01464768609072997,
+          "rest_normalized_bounds": [
+            [
+              0.47569744563516486,
+              0.6776996863442539,
+              0.6407591942644439
+            ],
+            [
+              0.49419037859508486,
+              0.6664745307015522,
+              0.6399716182561073
+            ]
+          ],
+          "second": 3.0,
+          "stretch_ratio": 1.5967017534247372
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            18527,
+            18590
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.02878044822147329,
+          "posed_length": 0.04342813431220326,
+          "rest_length": 0.01464768609072997,
+          "rest_normalized_bounds": [
+            [
+              0.47569744563516486,
+              0.6776996863442539,
+              0.6407591942644439
+            ],
+            [
+              0.49419037859508486,
+              0.6664745307015522,
+              0.6399716182561073
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 2.9648460544008706
+        },
+        {
+          "endpoint_indices": [
+            18589,
+            18590
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.02852083128653964,
+          "posed_length": 0.05930476888488625,
+          "rest_length": 0.03078393759834661,
+          "rest_normalized_bounds": [
+            [
+              0.530601800675516,
+              0.6984510072388826,
+              0.6423449261051446
+            ],
+            [
+              0.49419037859508486,
+              0.6664745307015522,
+              0.6399716182561073
+            ]
+          ],
+          "second": 3.0,
+          "stretch_ratio": 1.926484183364232
+        },
+        {
+          "endpoint_indices": [
+            8967,
+            8969
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.02852083128653964,
+          "posed_length": 0.05930476888488625,
+          "rest_length": 0.03078393759834661,
+          "rest_normalized_bounds": [
+            [
+              0.530601800675516,
+              0.6984510072388826,
+              0.6423449261051446
+            ],
+            [
+              0.49419037859508486,
+              0.6664745307015522,
+              0.6399716182561073
+            ]
+          ],
+          "second": 3.0,
+          "stretch_ratio": 1.926484183364232
+        },
+        {
+          "endpoint_indices": [
+            18445,
+            18452
+          ],
+          "endpoint_influences": [
+            {
+              "Head": 1.0
+            },
+            {
+              "Root": 1.0
+            }
+          ],
+          "excess_length": 0.02843195342332086,
+          "posed_length": 0.047109103772786216,
+          "rest_length": 0.018677150349465356,
+          "rest_normalized_bounds": [
+            [
+              0.4551939693018565,
+              0.6557995655286105,
+              0.6402271234898915
+            ],
+            [
+              0.4802495137517483,
+              0.6604873261112107,
+              0.6398311996527036
+            ]
+          ],
+          "second": 1.0,
+          "stretch_ratio": 2.522285407106269
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "look",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [
+        {
+          "endpoint_indices": [
+            11376,
+            11424
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "ForearmR": 1.0
+            }
+          ],
+          "excess_length": 0.06673114624809919,
+          "posed_length": 0.07094406239293741,
+          "rest_length": 0.004212916144838226,
+          "rest_normalized_bounds": [
+            [
+              0.7225130696138654,
+              0.5029369033882807,
+              0.5073172149134789
+            ],
+            [
+              0.7257142584537529,
+              0.5026189487435128,
+              0.5044170516960997
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 16.83965689178502
+        },
+        {
+          "endpoint_indices": [
+            11396,
+            11418
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "ForearmR": 1.0
+            }
+          ],
+          "excess_length": 0.06669308652957787,
+          "posed_length": 0.06960211522793018,
+          "rest_length": 0.002909028698352321,
+          "rest_normalized_bounds": [
+            [
+              0.7245091099812163,
+              0.4848176680079889,
+              0.5079234437972926
+            ],
+            [
+              0.7282242145006872,
+              0.4829389745914293,
+              0.5082604583795683
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 23.926238770814788
+        },
+        {
+          "endpoint_indices": [
+            11396,
+            11436
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "ForearmR": 1.0
+            }
+          ],
+          "excess_length": 0.06660252735420572,
+          "posed_length": 0.06980763769872383,
+          "rest_length": 0.0032051103445181234,
+          "rest_normalized_bounds": [
+            [
+              0.7245091099812163,
+              0.4848176680079889,
+              0.5079234437972926
+            ],
+            [
+              0.7274170985630329,
+              0.4825491362876465,
+              0.5061426557643153
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 21.780104331858553
+        },
+        {
+          "endpoint_indices": [
+            11397,
+            11438
+          ],
+          "endpoint_influences": [
+            {
+              "Root": 1.0
+            },
+            {
+              "ForearmR": 1.0
+            }
+          ],
+          "excess_length": 0.06660252735420572,
+          "posed_length": 0.06980763769872383,
+          "rest_length": 0.0032051103445181234,
+          "rest_normalized_bounds": [
+            [
+              0.7245091099812163,
+              0.4848176680079889,
+              0.5079234437972926
+            ],
+            [
+              0.7274170985630329,
+              0.4825491362876465,
+              0.5061426557643153
+            ]
+          ],
+          "second": 0.8000000000000002,
+          "stretch_ratio": 21.780104331858553
+        }
+      ],
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        19.200000000000003,
+        33.599999999999994,
+        48.0,
+        62.400000000000006,
+        76.80000000000001,
+        96.0
+      ],
+      "id": "wave",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes",
+      "seconds": [
+        0.0,
+        0.8,
+        1.4,
+        2.0,
+        2.6,
+        3.2,
+        4.0
+      ]
+    }
+  ],
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

@@ -1,0 +1,38 @@
+{
+  "appearance_checks": [
+    "Friendly upright dragon with an intact emerald scaled body.",
+    "Amber eyes, orange horns and back spines, and a cream belly.",
+    "Two small wings and a long tail.",
+    "Feet remain grounded throughout every animation."
+  ],
+  "generation_prompt": "Create a friendly upright emerald dragon with amber eyes, orange horns and back spines, a cream belly, two small wings and a long tail. Preserve the scaled body and all requested accessories during articulation. Use modest skeletal rotations for gentle idle, looking around, standing wing flaps, and a happy bow with a tail flourish. Keep feet grounded, wings attached, and facial features static. The authored height is 1.8 meters. Supplied model reuse is intended, but its geometry and rig have not been inspected.",
+  "height_meters": 1.8,
+  "limitations": [
+    "The supplied model's appearance, topology and rig are unverified; compatibility and preservation remain unresolved.",
+    "The backend supports skeletal articulation and static textures; these specific motions have not been generated or validated.",
+    "Wing flaps are grounded skeletal motions without flight physics; facial features remain static.",
+    "Height, unseen surfaces and any required rig are authored assumptions."
+  ],
+  "reason": "The requested grounded motions fit modest skeletal articulation and require neither flight physics nor facial animation.",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "Stand upright with a gentle torso sway and a slow, small tail sweep."
+    },
+    {
+      "id": "look_around",
+      "meaning": "Turn the head and neck slowly left and right while the torso stays upright and feet remain planted."
+    },
+    {
+      "id": "wing_flap",
+      "meaning": "Raise and lower both small wings gently while standing firmly on the ground."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Perform a happy forward bow, return upright, and finish with a broad controlled tail flourish."
+    }
+  ],
+  "status": "ready",
+  "style": "",
+  "subject": "A friendly upright emerald dragon with amber eyes, orange horns and back spines, a cream belly, two small wings and a long tail; its scaled body remains intact."
+}

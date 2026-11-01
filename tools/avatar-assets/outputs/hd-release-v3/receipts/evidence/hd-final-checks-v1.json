@@ -1,0 +1,25 @@
+{
+  "generation_calls": 0,
+  "provider_cost_usd": 0,
+  "python_suite": {
+    "command": ".venv/bin/python -m unittest discover -s tests -v",
+    "elapsed_seconds": 8.191,
+    "log_sha256": "4d57995870394c7f9173786a6ad47b4e8ba9f42608a517dadb00b6791b33a9e1",
+    "scope": "Core and HD implementation, including analytic safety/resource fixtures; actual asset proofs are separately bound in the HD release",
+    "status": "passed",
+    "tests": 209
+  },
+  "recorded_at": "2026-10-30 19:38:26 PDT",
+  "schema_version": 1,
+  "skill_validation": {
+    "command": ".venv/bin/python /Users/ivan/.codex/skills/.system/skill-creator/scripts/quick_validate.py skills/avatar-asset-workflow",
+    "exit_code": 0,
+    "output": "Skill is valid!",
+    "skill_sha256": "c885afffc5a94aa01e0ab50fabc3f329bde92647d8add729916052090e5fbdb3"
+  },
+  "whitespace_check": {
+    "command": "git diff --check -- tools/avatar-assets",
+    "cwd": "/Users/ivan/kintsugi/weft",
+    "exit_code": 0
+  }
+}

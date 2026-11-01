@@ -1,0 +1,27 @@
+{
+  "execution_sources": {
+    "meshy.py": "22685c351cf0b5f6ed987006f6b9387c1582ad5203fc4173359fdc8dac7b0bec",
+    "meshy_access.py": "81332eafc9ffe78ef3eb4ed534a84b65cc0a11e277b2296f973363b26a83d830"
+  },
+  "observed": "2026-10-31T11:31:42.692368-07:00",
+  "task": {
+    "consumed_credits": 3,
+    "created_at": 1793471267238,
+    "expires_at": 1793730483326,
+    "finished_at": 1793471283326,
+    "id": "01a19337-bd76-74e4-8225-027b0c75133b",
+    "name": "",
+    "progress": 100,
+    "result": {
+      "animation_fbx_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19337-bd76-74e4-8225-027b0c75133b/output/Animation_01a19335-f33a-76a7-910d-46de7fe47a76_withSkin.fbx",
+      "animation_glb_url": "https://assets.meshy.ai/61e9f790-de11-4041-beb8-a6278be03bdd/tasks/01a19337-bd76-74e4-8225-027b0c75133b/output/Animation_01a19335-f33a-76a7-910d-46de7fe47a76_withSkin.glb",
+      "processed_animation_fps_fbx_url": "",
+      "processed_armature_fbx_url": "",
+      "processed_usdz_url": ""
+    },
+    "started_at": 1793471267246,
+    "status": "SUCCEEDED",
+    "task_error": null,
+    "type": "animate"
+  }
+}

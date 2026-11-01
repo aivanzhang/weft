@@ -1,0 +1,26 @@
+{
+  "assets": [
+    {
+      "description": "Meshy reference-based shape and texture, with separate local split-normal smoothing. Fur appearance and likeness are still under review; this is a static 3D preview, not completed animation.",
+      "id": "panda-candidate",
+      "kind": "generated_3d",
+      "pack": "outputs/muse-panda-meshy-preview-v2",
+      "title": "Muse panda — generated candidate"
+    },
+    {
+      "description": "Text-only Meshy example with 4K textures. Static geometry preview; rig and animation review are separate.",
+      "id": "robot-candidate",
+      "kind": "generated_3d",
+      "pack": "outputs/workshop-robot-meshy-textured-preview-v1",
+      "title": "Workshop robot — generated candidate"
+    },
+    {
+      "description": "Original user-supplied portrait and clips, not a 3D model.",
+      "id": "reference",
+      "kind": "reference_2d",
+      "pack": "outputs/reference-v1",
+      "title": "Original Muse reference"
+    }
+  ],
+  "schema_version": 1
+}

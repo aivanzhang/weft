@@ -1,0 +1,563 @@
+{
+  "actions": [
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.06666237242867912
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.06666237242867912,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/Head"
+      ],
+      "name": "celebrate",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.020142991781572674
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.020142991781572674,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/ForearmL",
+        "CreatureRig/ForearmR",
+        "CreatureRig/HandL",
+        "CreatureRig/HandR",
+        "CreatureRig/Head",
+        "CreatureRig/Torso",
+        "CreatureRig/UpperArmL",
+        "CreatureRig/UpperArmR"
+      ],
+      "name": "idle",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.09108836425215157
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.09108836425215157,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/Head"
+      ],
+      "name": "look",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    },
+    {
+      "displacement_by_mesh_m": {
+        "Mesh_0": 0.3230304528759231
+      },
+      "duration_seconds": 4.0,
+      "frame_range": [
+        0.0,
+        96.0
+      ],
+      "loop": "not_claimed",
+      "max_sampled_displacement_m": 0.3230304528759231,
+      "motion_observed": true,
+      "moving_pose_bones": [
+        "CreatureRig/ForearmR",
+        "CreatureRig/HandR",
+        "CreatureRig/UpperArmR"
+      ],
+      "name": "wave",
+      "owners": [
+        {
+          "name": "CreatureRig",
+          "slot": "OBCreatureRig"
+        }
+      ],
+      "sample_frames": [
+        0.0,
+        13.152000000000001,
+        24.0,
+        35.232,
+        48.0,
+        58.848,
+        72.0,
+        85.152,
+        96.0
+      ]
+    }
+  ],
+  "armatures": [
+    {
+      "bones": [
+        {
+          "head_local": [
+            0.0,
+            0.004563999827951193,
+            0.40799999237060547
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail_local": [
+            0.0,
+            0.00456400029361248,
+            0.41999995708465576
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            0.00456400029361248,
+            0.41999995708465576
+          ],
+          "name": "Torso",
+          "parent": "Root",
+          "tail_local": [
+            0.0,
+            0.004564011003822088,
+            0.735090970993042
+          ]
+        },
+        {
+          "head_local": [
+            0.0,
+            1.0103804903849323e-08,
+            0.7559999227523804
+          ],
+          "name": "Head",
+          "parent": "Torso",
+          "tail_local": [
+            0.0,
+            2.0888911933525378e-08,
+            1.0710909366607666
+          ]
+        },
+        {
+          "head_local": [
+            -0.09623642265796661,
+            8.871580803315737e-09,
+            0.7200000286102295
+          ],
+          "name": "UpperArmL",
+          "parent": "Torso",
+          "tail_local": [
+            -0.1813686192035675,
+            -0.01369198877364397,
+            0.6300000548362732
+          ]
+        },
+        {
+          "head_local": [
+            -0.1813686043024063,
+            -0.013691984117031097,
+            0.6300000548362732
+          ],
+          "name": "ForearmL",
+          "parent": "UpperArmL",
+          "tail_local": [
+            -0.25539660453796387,
+            -0.045639973133802414,
+            0.5364001393318176
+          ]
+        },
+        {
+          "head_local": [
+            -0.2553965747356415,
+            -0.045639969408512115,
+            0.5364000797271729
+          ],
+          "name": "HandL",
+          "parent": "ForearmL",
+          "tail_local": [
+            -0.3385877013206482,
+            -0.07128459215164185,
+            0.4487453103065491
+          ]
+        },
+        {
+          "head_local": [
+            0.09623642265796661,
+            8.871580803315737e-09,
+            0.7200000286102295
+          ],
+          "name": "UpperArmR",
+          "parent": "Torso",
+          "tail_local": [
+            0.1813686192035675,
+            -0.01369198877364397,
+            0.6300000548362732
+          ]
+        },
+        {
+          "head_local": [
+            0.1813686043024063,
+            -0.013691984117031097,
+            0.6300000548362732
+          ],
+          "name": "ForearmR",
+          "parent": "UpperArmR",
+          "tail_local": [
+            0.25539660453796387,
+            -0.045639973133802414,
+            0.5364001393318176
+          ]
+        },
+        {
+          "head_local": [
+            0.2553965747356415,
+            -0.045639969408512115,
+            0.5364000797271729
+          ],
+          "name": "HandR",
+          "parent": "ForearmR",
+          "tail_local": [
+            0.3385877013206482,
+            -0.07128459215164185,
+            0.4487453103065491
+          ]
+        },
+        {
+          "head_local": [
+            -0.09623642265796661,
+            0.004563997499644756,
+            0.41999998688697815
+          ],
+          "name": "LegL",
+          "parent": "Root",
+          "tail_local": [
+            -0.09781696647405624,
+            0.004563996568322182,
+            0.4081045687198639
+          ]
+        },
+        {
+          "head_local": [
+            0.09623642265796661,
+            0.004563997499644756,
+            0.41999998688697815
+          ],
+          "name": "LegR",
+          "parent": "Root",
+          "tail_local": [
+            0.09781696647405624,
+            0.004563996568322182,
+            0.4081045687198639
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up_m": {
+    "dimensions": [
+      0.7402799725532532,
+      0.45639997720718384,
+      1.2000001668930054
+    ],
+    "max": [
+      0.3701399862766266,
+      0.22819998860359192,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.3701399862766266,
+      -0.22819998860359192,
+      -6.848949851701036e-08
+    ]
+  },
+  "excluded_importer_display_helpers": [
+    "Icosphere"
+  ],
+  "limits": {
+    "action_time_samples": 9,
+    "actions": 16,
+    "probe_vertices": 128,
+    "render_resolution": 256,
+    "render_samples": 8,
+    "render_threads": 4,
+    "source_bytes": 67108864,
+    "vertices": 100000
+  },
+  "materials": [
+    {
+      "diffuse_rgba": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "name": "Material_0",
+      "uses_nodes": true
+    }
+  ],
+  "meshes": [
+    {
+      "armature": "CreatureRig",
+      "materials": [
+        "Material_0"
+      ],
+      "name": "Mesh_0",
+      "polygons": 51320,
+      "unweighted_vertices": 0,
+      "vertices": 45386,
+      "weighted_vertices": 45386
+    }
+  ],
+  "native_loading_verified": true,
+  "probe_coverage": [
+    {
+      "material": "Material_0",
+      "material_index": 0,
+      "object": "Mesh_0",
+      "probe_vertices": [
+        0,
+        357,
+        715,
+        1072,
+        1429,
+        1787,
+        2144,
+        2502,
+        2859,
+        3216,
+        3574,
+        3931,
+        4288,
+        4646,
+        5003,
+        5360,
+        5718,
+        6075,
+        6433,
+        6790,
+        7147,
+        7505,
+        7862,
+        8219,
+        8577,
+        8934,
+        9291,
+        9649,
+        10006,
+        10364,
+        10721,
+        11078,
+        11436,
+        11793,
+        12150,
+        12508,
+        12865,
+        13222,
+        13580,
+        13937,
+        14294,
+        14652,
+        15009,
+        15367,
+        15724,
+        16081,
+        16439,
+        16796,
+        17153,
+        17511,
+        17868,
+        18225,
+        18583,
+        18940,
+        19298,
+        19655,
+        20012,
+        20370,
+        20727,
+        21084,
+        21442,
+        21799,
+        22156,
+        22514,
+        22871,
+        23229,
+        23586,
+        23943,
+        24301,
+        24658,
+        25015,
+        25373,
+        25730,
+        26087,
+        26445,
+        26802,
+        27160,
+        27517,
+        27874,
+        28232,
+        28589,
+        28946,
+        29304,
+        29661,
+        30018,
+        30376,
+        30733,
+        31091,
+        31448,
+        31805,
+        32163,
+        32520,
+        32877,
+        33235,
+        33592,
+        33949,
+        34307,
+        34664,
+        35021,
+        35379,
+        35736,
+        36094,
+        36451,
+        36808,
+        37166,
+        37523,
+        37880,
+        38238,
+        38595,
+        38952,
+        39310,
+        39667,
+        40025,
+        40382,
+        40739,
+        41097,
+        41454,
+        41811,
+        42169,
+        42526,
+        42883,
+        43241,
+        43598,
+        43956,
+        44313,
+        44670,
+        45028,
+        45385
+      ]
+    }
+  ],
+  "probe_vertices": 128,
+  "renders": [
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        -3.6000003814697266,
+        0.9600000381469727
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5999999642372131
+      ],
+      "path": "independent-front.png",
+      "sha256": "d72af94a2d1abace652044429f35245cba1a2e2dcd3463ecf44ac4b03a7e3fd4",
+      "view": "front"
+    },
+    {
+      "camera_position_blender_z_up": [
+        0.0,
+        3.6000003814697266,
+        0.9600000381469727
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5999999642372131
+      ],
+      "path": "independent-back.png",
+      "sha256": "8367b14873946770cb46630375900944242226f825d8a195c6d0c8e363ec8558",
+      "view": "back"
+    },
+    {
+      "camera_position_blender_z_up": [
+        3.6000003814697266,
+        0.0,
+        0.9600000381469727
+      ],
+      "camera_target_blender_z_up": [
+        0.0,
+        0.0,
+        0.5999999642372131
+      ],
+      "path": "independent-side.png",
+      "sha256": "9165c8abfecfee47b615ba8687c6585264ec1f03223c910a897acfa9c4c3f2ea",
+      "view": "side"
+    }
+  ],
+  "sampled_animation_verified": true,
+  "schema_version": 1,
+  "scope": "Native GLB reload, material/rig inspection, sampled deformation and three-view renders; not physical simulation or exhaustive motion review",
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3/model-0/model.glb",
+  "source_sha256": "9b9b22cef5e51745aee79626d099f38d8935543d819d539c3a28ea76d4d88616",
+  "source_unchanged": true,
+  "status": "passed",
+  "tool": "Blender built-in glTF importer and evaluated dependency graph",
+  "verifier_sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+  "wall_seconds": 1.2747156249824911,
+  "weft_runtime_verified": false
+}

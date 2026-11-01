@@ -1,0 +1,32 @@
+{
+  "agent_model": null,
+  "agent_timeout": 240,
+  "created": "2026-10-31T21:59:44.517478-07:00",
+  "id": "agent-dragon-v2",
+  "max_agent_calls": 5,
+  "max_credits": 0,
+  "max_repairs": 1,
+  "media_spec": {
+    "portrait": 1600,
+    "samples": 8,
+    "seconds": 4,
+    "size": 720
+  },
+  "preset": "preview",
+  "prompt": "Create a friendly upright emerald dragon with amber eyes, orange horns and back spines, a cream belly, two small wings and a long tail. Keep the scaled body intact and animate gentle idle, looking around, standing wing flaps and a happy bow with a tail flourish. No flight physics or facial animation.",
+  "reference": null,
+  "reuse_model": {
+    "bytes": 25349908,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+  },
+  "schema_version": 1,
+  "states": [
+    "idle",
+    "look_around",
+    "wing_flap",
+    "milestone_level_up"
+  ],
+  "style": "Rounded friendly stylized 3D dragon with emerald scales, amber eyes, orange horns and a cream belly"
+}
