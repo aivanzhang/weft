@@ -1,11 +1,176 @@
 # Exercise reconstruction workstream
 
-## Ownership and current status
+## Current status and ownership — October 31, 2026, 9:19 PM PDT
 
-- Owner: `/root/exercise_reconstruction`, delegated by root after the user's parallel-agent request on October 31, 2026 (America/Los_Angeles).
-- Implemented and tested: source-only temporal support candidates and an opt-in path in the existing ground estimator. Four original sources abstain; the unfamiliar Interval clip now yields a conditional, more consistent foot-plane candidate under unchanged screening. Physical ground/contact remain unverified. That input-envelope milestone is published. The source-equivalence adapter and real-video hand/equipment study pass independent code review and saved-artifact audit; root owns publication.
-- Owned files: `src/weft/exercise_support_evidence.py`, `src/weft/ground_orientation.py`, their focused tests, `docs/ground-orientation.md` and this handoff. Root owns CLI/camera-root/worker/sandbox/recording integration and Git publication. Separate avatar work is untouched.
-- No live jobs or native/inference runs owned by this workstream. All source studies and focused checks are terminal. Parent reported application network authorization revoked; this workstream made no network request and continues local-only. Do not retry any denied external request or download a model/video.
+**The complete saved wrist-to-equipment composition now works on the exposed
+kettlebell development clip.** It retains all259 source/518 wrist/1,036 pair
+slots, with64 conditional image overlaps and146 conditional image exclusions.
+These are not physical contact/noncontact/grasp labels. The first attempt's
+partition-join failure remains intact; the reviewed restrict-only correction
+completed in a distinct02 output with unchanged evidence and thresholds.
+
+- Owner: `/root/exercise_reconstruction`, the user's dedicated parallel
+  unfamiliar-exercise / ground-equipment reconstruction lane. Root owns shared
+  CLI/lab/recording/scorer, native acceptance, common guides and Git. Avatar
+  work remains separate. No live process or native lease remains here; exec
+  session `5452` terminated with exit0 after the one reviewed02 invocation.
+  Earlier session`78730` remains a preserved exit1. No retry is authorized.
+- Current implementation entry points: [precursor qualification](pose-precursor-qualification.md),
+  [partition-safe canonical export](partitioned-exercise-observations.md), and
+  [conditional silhouette evidence](equipment-silhouette-evidence.md). Root
+  published the released precursor/exporter and surrounding milestone at
+  `f1e61e6625e94df766838a1efac098ba09a9860e`; publication receipt
+  `.local/camera-reference-play-publication-01.json`, SHA
+  `d2d39947780329c35fe0e4bf7068c452761055f00f2e4cb3085eaf1144c260b9`.
+  Previously completed product paths are frozen. The narrow selected-frame
+  registry/silhouette correction is now separately implemented, tested and
+  independently reviewed:32 focused analytical checks pass. Current
+  ownership is recorded in [selected-world-evidence.md](selected-world-evidence.md).
+- Physical ground, heel recovery, equipment contact/grasp/load, and reliable
+  unfamiliar-video reconstruction remain open. The original floor/task failures,
+  right-heel inconsistency and temporal identity uncertainty are unchanged.
+  All current work is local-only; no network/API, model or video job is pending.
+
+### Latest exact evidence
+
+`artifacts/pose-equipment-silhouette-02` is **completed**,342 artifact files /
+21,514,503 B. Its exact viewer inputs are `silhouette/metadata.json` and
+`silhouette/frames.jsonl`. Root owns the saved-data-only inspector/CLI; it must
+not decode source media or rerun this composition to display it.
+
+| Completed02 member | SHA256 |
+| --- | --- |
+| `manifest.json` | `455665c0aaa6d71e582801033c502bbf35d4bcb3046cbb28041aa2d39ff444b4` |
+| `worker-members.json` | `97aa080eea75086f5145a6d776f4fa23ae66284600fac243fccf35e754818075` |
+| `result.json` | `6726db41564e512918b0a9137fc4c9e14b89852bca4beb7128bae39047b16b35` |
+| `silhouette/metadata.json` —6,271 B | `7b83945b884c9022b25756fb447ee187a65273f2f1a44c2f29f687bc967a6cc9` |
+| `silhouette/frames.jsonl` —1,336,696 B | `f3fbceb46092ea26ef38ab8fb482d99e31bfe39f01cd2e57e42c5d2a4a440138` |
+| External `.local/pose-equipment-silhouette-02/process.json` | `53b5aea32b42b25fd70cd51d6b96dd0ee6c4a00565c13eb188e82768811fe2ec` |
+
+- One ordinary canonical export, precursor preparation, annotation preparation,
+  silhouette preparation and complete27-member source-equivalence validation.
+  Exactly146 allowlisted PNG reads/decodes:140,014 encoded B /253,054 binary B /
+  7,509 foreground row runs. Both wrists share masks;73 pose-frame queries and
+  210 pair relations. No video decode, model, native physics, network/API or
+  paid call. Total input16,874,974 B; parent1.204844 s;131,661,824 B observed
+  peak child RSS; no bound violation. These are observed work figures, not a
+  hard memory ceiling or physical-accuracy measurement.
+- Complete pair outcomes:64 conditional intersections +146 conditional
+  exclusions +82 low-confidence +4 source-unavailable +12 mask-preinitialization
+  +720 explicitly excluded +8 metadata-tail =1,036. Raw reasons are preserved:
+  explicit selection precedes unsampled classification. Structural source
+  denominators remain77 construction /52 later sampled /128 unsampled decoded /
+  2 container-only. Original frame0 remains unavailable; no later start chosen.
+- New metadata explicitly records `canonical_frame_selection`: consistency was
+  checked only on the selected original frames; excluded conflicting labels are
+  preserved, not reconciled. Source/derivative IDs and clocks, temporal audit,
+  authored2px uncertainty,0.5 threshold and unknown physical claims are unchanged.
+- Plan `.local/pose-equipment-silhouette-02/plan-02.json` SHA
+  `c7d44a9b755e29e1ca9fa1cf486b1fe00facd24567de570294e2ea4e6255b393`;
+  helper SHA `905c85a0e243b77fa4ab111266e86d0f96fc9d6dea73a6f1e085f0fe834d6dee`;
+  runtime SHA `e71bd09a7660c2a2766ce2fe96937efa04329574618342cb5dfdfe4cd6d3135c`.
+  Base committed`f1e61e6` plus only the two reviewed registry/silhouette overrides;
+  other18 runtime members are byte-identical01. All36 metadata/proof inputs came
+  from exact retained01 copies; no original pose-source reread or new discovery.
+  Independent plan/helper review cleared before execution. No repeat is needed.
+
+### Preserved01 failure
+
+`artifacts/pose-equipment-silhouette-01` is an immutable **failed attempt**, not a
+completed reportable silhouette run. It retains45 members plus
+`worker-members.json`:46 actual files /19,646,903 B. The external receipt's51-file
+count includes reserved terminal/log slots; it is not the actual artifact count.
+There is no completed `manifest.json`, `result.json`, `silhouette/metadata.json`
+or `silhouette/frames.jsonl`.
+
+| Saved member | SHA256 |
+| --- | --- |
+| `worker-members.json` — failed-attempt integrity seal | `c55d01035df2872194a96c5f87e07799912ee4eadb84e1be4c75d4ad94b0d859` |
+| `failure.json` | `2bb8b2c7b08934cb3841915116b04e59a044834e276438590d891fee4823a601` |
+| `human-observations.json` | `f9bdded7fc9aed56fbc3543ee966a9aec7da04c2e55227e7c9a05351df617516` |
+| `annotation-metadata.json` | `1113f4feae6bc4b94c8c44a79cd4536cebdcd8c1fb86ccf93d331a6144ec6567` |
+| `annotation-frames.jsonl` | `9413876a809d7d0cedc216d5bbe8d8d09142ac765d0ea01c12c2c2a08810b59c` |
+| `source-annotations.json` | `fdf1693d179e6d1661fe1eabd9d57c77b9590e1623a1b30959ebb6f1d8435ad6` |
+| External `.local/pose-equipment-silhouette-01/process.json` | `b620a80c2c719e80438ef1918df91e56a4c3bdc7c1dcfb3c327ae534a2ed74a3` |
+
+- One ordinary canonical export, one precursor preparation, one annotation
+  preparation and one attempted silhouette preparation. Exact source prefix:
+  original even frames0–152,77 sampled construction poses;52 later sampled,
+  128 unsampled decoded and2 metadata-only frames remain. All259 source slots
+  and518 wrist slots are saved.109 wrist estimates copied;41 below the fixed
+  confidence threshold;2 unavailable source-entity slots;2 unavailable precursor
+  pose-status slots;104 later-excluded;256 unsampled;4 metadata-only. Frame0
+  remains unavailable.75 exact precursor array comparisons passed; none of the
+  excluded image arrays was queried. Temporal/audit labels remain unchanged.
+- Named wrists are the original landmark15/16, never substituted heels/hands.
+  The2px range is authored, not calibrated from confidence; the threshold is
+  fixed at0.5. Contact/grasp/load and identity authentication remain unknown.
+  This kettlebell clip is exposed development evidence, not a new holdout.
+- Input reads:9 copied metadata members /9,188,055 B plus the established full
+  27-member source-equivalence loader /7,546,905 B =16,734,960 B. Original and
+  derivative source identities/clocks remain separate. Zero PNG reads/decodes,
+  video decodes, model/native physics/API calls or paid spend. Runtime:
+  1.084970 s parent /.976599 s worker;125,239,296 B observed peak child RSS;
+  no bound violation. The512MiB RSS acceptance cap is not hard memory isolation.
+- Frozen plan `.local/pose-equipment-silhouette-01/plan-01.json` SHA
+  `e7ee9f15c527f2c8db275edd27335ad8c2f5111d47d1fd2d573296476180758c`;
+  runner SHA `44390cd5c378d2cc033fcf19839cae9e47138cc799b7c96624864126cf22d40b`;
+  runtime SHA `4a146126131d55c2ab0a9d29cbdaefd6c19767195c5284ba7cd91562f3eabde9`.
+  The exact command and15 passing synthetic checks are in local `README.md`
+  and `executor-freeze-01.json`; do not rerun either preparation or study.
+
+### Next safe action
+
+1. [x] Independent saved-only audit passed:9 selected files /843,062 B /0.0051 s;
+   complete46-file failed-attempt inventory and selected hashes agree. Receipt
+   `.local/pose-equipment-silhouette-saved-audit-01.json`, SHA
+   `dc847eff37db08a0c21431b674d7bea47d8689cb6bc9865db6ae6a675533143d`.
+   No source/proof-body/PNG/media reads or adapter reexecution occurred.
+2. [x] Independently reviewed the implemented root-approved partition-admission fix.
+   The failed01 runtime calls alias-aware `WorldEvidence.construction_bytes()`
+   before applying its explicit selection. At frame154 the human row is `unassigned`; another
+   canonical reservation conflicts despite that entire frame being excluded.
+   Proposed restrict-only source-frame selection must withhold every source on
+   excluded frames while retaining original partition labels/all slots, and
+   still reject conflicts or held-out access on selected frames. No relabeling,
+   source rewrite or default-gate relaxation. Active ownership and API are in
+   [selected-world-evidence.md](selected-world-evidence.md); no source run is
+   authorized by that pure implementation scope.
+3. [x] Prepared/reviewed/executed the distinct02 plan once. Original inputs,
+   settings, thresholds and all01 failure evidence remain unchanged.
+4. [x] Independent selected saved-only02 audit passed: all259 source/518 wrist/
+   1,036 pair slots and146 raster receipt descriptors/seal pins agree, without
+   PNG/proof-body/media reads or decoding. Receipt
+   `.local/pose-equipment-silhouette-saved-audit-03.json`, SHA
+   `df14184701f34c9b986de7f38c030c071a1a2ce4cb499f2642fc547075dc43ce`.
+   Checker-only audit02 failure remains: it expected annotation-stage
+   `source_entity_unavailable` rather than pair-stage`human_source_unavailable`.
+   Corrected03 reused prior custody checks; the scientific result did not change.
+   Root's actual public offline inspector also passed:0.382827 s /92,815,360 B
+   peak RSS /16 files /2,621,027 B at`artifacts/pose-equipment-inspection-01`,
+   seal`4eba1a16087850001109c3b14e847fdf6f1660941b6dcb9542d14fd49f2ef0a9`.
+   Saved-page audit retained259 frames/1,036 views/20 links; receipt SHA
+   `3165be98a0078199304963a791b8d1ff70ae94899715345fba0c29bca28ea4cd`.
+   Root owns publication; no further source or inspector rerun is needed.
+5. [ ] After releasing this milestone, implement the root-approved optional
+   silhouette constraint in the existing equipment co-motion selector. Retain
+   the old box-only candidate/window/slot records and require every original
+   window point to have qualified image support; unavailable/conflicting input
+   abstains. No physical contact claim or body/floor shift. New consumer/tests/
+   handoff plus the necessary opt-in selector call only; current registry and
+   silhouette files stay frozen. Pure checks authorized; no source evaluation
+   without a separately reviewed interface/bounds/plan. Existing mask centroid/
+   bounds/axis calculations already exist; do not duplicate them.
+
+The source-qualified wrist/silhouette comparison now works. The next concrete
+gain is using it to constrain the existing support selector, not another
+provenance-only wrapper. Even a successful image comparison cannot
+establish3D ground, physical contact/noncontact, grasp or load.
+
+## Historical early milestones (as recorded)
+
+The following sections preserve earlier plans, receipts and ownership snapshots.
+Their “next” actions are historical; use the current section above to resume.
 
 ## Root review and saved evidence audit
 

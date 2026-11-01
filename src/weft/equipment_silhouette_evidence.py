@@ -258,7 +258,8 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
              and equipment['source']['decoded_frames'] == pose['decoded_frames'], 'equipment image/decoded source coverage differs')
     mapping,proof = _equipment_mapping(equipment,pose,source_equivalence,deadline)
     aliases = None if mapping is None else {equipment['source']['sha256']:source}
-    exported = json.loads(registry.construction_bytes(source_aliases=aliases))
+    exported = json.loads(registry.construction_bytes(source_aliases=aliases,
+        source_frame_selection=None if selected is None else {source:sorted(selected)}))
     sources = {s['document_sha256']:s for s in exported['sources']}
     human_rows = {(s['document_sha256'],r['object_id'],r['frame']):r for s in exported['sources'] for r in s['observations']}
     _require(set(equipment_ids) <= {o['id'] for o in equipment['objects']}, 'equipment IDs absent from exact document')
@@ -387,6 +388,8 @@ def prepare_equipment_silhouette_evidence(pose_annotations, *, equipment_documen
         'body_or_floor_installed':False,'native_calls':0,'image_decodes_in_adapter':0,
         'bounds':{'cooperative_seconds':MAX_SECONDS,'mask_metadata_bytes':MAX_MASK_BYTES,'equipment_metadata_bytes':MAX_EQUIPMENT_BYTES,
             'binary_raster_bytes':MAX_RASTER_BYTES,'raster_loads':MAX_LOADS,'foreground_runs':MAX_RUNS,'result_cache_bytes':MAX_CACHE_BYTES}}
+    if selected is not None:
+        description['canonical_frame_selection'] = exported['source_frame_selection']
     encoded = _encode(description,256<<10,deadline)
     _require(cache_bytes+len(encoded) <= MAX_CACHE_BYTES, 'complete result/report cache exceeds eight MiB')
     _check(deadline)

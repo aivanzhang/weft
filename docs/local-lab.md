@@ -84,6 +84,36 @@ retains one conditional point and four unavailable slots. Its source is a synthe
 descriptor, not a video or physical-validation result. Existing video sandbox and
 recording workflows below remain separate from this diagnostic.
 
+## Inspect saved wrist and equipment evidence
+
+For a **completed** equipment-image study, create an offline report without
+reprocessing the video or running the simulator:
+
+```sh
+.venv-lab/bin/python -m weft equipment-evidence-report \
+  --run path/to/completed-equipment-study \
+  --out artifacts/my-equipment-report-01
+```
+
+Open the printed `index.html`. Choose a page, original frame, wrist and object.
+The report shows image overlap or separation, authored uncertainty, original
+timestamps and why unavailable comparisons could not be made. Every frame and
+pair remains in the raw downloads. The output directory must be new.
+
+Image overlap is **not proof of touch**; image separation is not proof of physical
+non-contact. Contact, support, grasp and load remain unknown. The command verifies
+the selected saved metadata bytes, not all original video/mask evidence, and does
+not turn a failed study into a successful result. A missing completed manifest
+means the study must be resolved before this report can be generated.
+[Implementation, checks and current source status](handoffs/equipment-silhouette-inspection.md).
+
+The [completed kettlebell example](../artifacts/pose-equipment-inspection-01/index.html)
+retains all 259 source frames and 1,036 wrist/object pairs. It shows 64 conditional
+image overlaps, 146 separations and 826 unavailable comparisons. Only the explicit
+construction selection was checked for partition consistency; excluded labels
+remain unreconciled. This is an exposed development clip, not an unfamiliar-video
+or physical-contact validation. The report opens without rerunning processing.
+
 ## Fit a body using uncertain support ranges (experimental)
 
 For an existing saved body, you can supply camera calibration, annotated image

@@ -194,6 +194,11 @@ def main():
     surface_inputs.add_argument("--manifest-sha256", help="Optional exact prior output-manifest SHA256; requires --resume")
     surface_inputs.add_argument("--out", required=True, help="New output directory; supplied inputs stay unchanged")
     surface_inputs.add_argument("--max-seconds", type=float, default=30., help="Cooperative metadata/packaging deadline; no native model, fitting or media decoding")
+    equipment_report = commands.add_parser("equipment-evidence-report", help="Inspect saved wrist/equipment image evidence without rerunning reconstruction")
+    equipment_report.add_argument("--run", required=True, help="Completed sealed study with silhouette metadata and full frame records")
+    equipment_report.add_argument("--out", required=True, help="New offline report directory outside the original study")
+    equipment_report.add_argument("--manifest-sha256", help="Optional exact study seal SHA256")
+    equipment_report.add_argument("--max-seconds", type=float, default=10., help="Cooperative saved-metadata/report deadline; no video, mask or physics processing")
     body_lab = commands.add_parser("body-lab", help="Prepare a visual whole-body lab from verified source and learning runs")
     body_lab.add_argument("--source-lab", required=True, help="Completed mobile exercise lab directory")
     body_lab.add_argument("--learning", required=True, help="Completed imitate learning directory")
@@ -557,6 +562,13 @@ def main():
             result = prepare_exercise_surface_collection(args.observation or [], args.out,
                 source_sha256=args.source_sha256, camera=args.camera, body=args.body,
                 selection=args.selection, request=args.request, resume=args.resume,
+                expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
+                progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
+        elif args.command == "equipment-evidence-report":
+            from weft.equipment_silhouette_inspection import prepare_equipment_silhouette_inspection
+            labels = {"inputs": "Read saved image evidence", "report": "Build frame-by-frame inspection",
+                      "seal": "Save report and uncertainty"}
+            result = prepare_equipment_silhouette_inspection(args.run, args.out,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds,
                 progress=lambda stage, detail: print(f"{labels.get(stage, stage)}: {detail}", file=sys.stderr, flush=True))
         elif args.command == "body-lab":
@@ -934,6 +946,10 @@ def main():
             print(f"Saved surface-input report: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("inspection_path"):
             print(f"Saved comparison page: {result['inspection_path']}", file=sys.stderr)
+        if args.command == "equipment-evidence-report":
+            if result.get("status") != "completed" or result.get("sealed") is not True or not result.get("report_path"):
+                parser.exit(1, f"weft: equipment evidence inspection stopped; inspect preserved output: {args.out}\n")
+            print(f"Saved equipment-evidence report: {result['report_path']}", file=sys.stderr)
         if args.command == "body-reference-trial" and result.get("status") != "completed":
             parser.exit(1, f"weft: reference controller trial stopped; preserved report: {Path(args.out) / 'report.json'}\n")
         if args.command == "spatial-scene" and result.get("status") != "constructed_hypothesis":

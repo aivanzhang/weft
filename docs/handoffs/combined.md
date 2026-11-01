@@ -1,5 +1,110 @@
 # Combined Weft implementation handoff
 
+## Equipment evidence and saved inspector — October 31, 2026
+
+The full goal remains active. Root owns inspector/CLI integration and publication;
+`/root/exercise_reconstruction` owns the restrict-only evidence-selection fix;
+`/root/support_learning` independently reviews and audits it. The UI agent has
+finished the reporter and actual analytical producer composition. Separate avatar
+work remains untouched. All scientific jobs described below are terminal.
+
+Published checkpoint `f1e61e6625e94df766838a1efac098ba09a9860e` contains the playable
+fitted lab, precursor custody and initial partition-safe exporter. Receipt
+`.local/camera-reference-play-publication-01.json`, SHA
+`d2d39947780329c35fe0e4bf7068c452761055f00f2e4cb3085eaf1144c260b9`, verifies
+the push, clean owned scope/index and empty stash; 1,249 unrelated avatar entries
+were preserved. [Existing playable sandbox](../local-lab.md#compare-a-fitted-reference-without-changing-the-task).
+
+### Actual composition failure, not a contact result
+
+One reviewed invocation of `.local/pose-equipment-silhouette-01/run.py` is terminal
+failed; handle `78730` is closed. Preserve `artifacts/pose-equipment-silhouette-01`.
+The shared registry rejected conflicting canonical partitions at original frame
+154 before any PNG read. Human computation selection marked later rows
+`unassigned`, while equipment retained a different canonical reservation. Do not
+relabel either source or relax the selected-frame holdout guard.
+
+The attempt took 1.084970 seconds and read 16,734,960 copied metadata/proof bytes;
+observed child peak RSS was 125,239,296 bytes. No PNG, video, model, native physics
+or API work occurred. Its completed annotation stage retains 259 source/518 wrist
+slots: 109 copied estimates, 409 unavailable, the original-start abstention, and
+the fixed 77/52/128/2 structural groups. There is no completed root manifest and
+no silhouette metadata/frame output.
+
+Independent audit `.local/pose-equipment-silhouette-saved-audit-01.json`, SHA
+`dc847eff37db08a0c21431b674d7bea47d8689cb6bc9865db6ae6a675533143d`, verifies
+the saved failure and partial stages using nine saved files/843,062 bytes, without
+repeating source/proof/media processing. Exact failure/process/runtime pins are
+in that receipt and the reconstruction handoff.
+
+### Corrected composition and real report passed
+
+The distinct, reviewed composition 02 is complete; handle `5452` closed with
+exit 0. Its committed-base runtime changes only the two reviewed evidence modules;
+all source bytes, settings, the 77-row prefix and 146-mask allowance are unchanged.
+The new selection restricts export before payload access and retains original
+partition labels. It does not reconcile excluded conflicts or permit selected
+holdouts. Thirty-two focused cases pass; defaults remain byte-identical.
+
+`artifacts/pose-equipment-silhouette-02` has 342 files/21,514,503 bytes and seal
+`455665c0aaa6d71e582801033c502bbf35d4bcb3046cbb28041aa2d39ff444b4`.
+The run took 1.204844 seconds with 131,661,824-byte observed child peak RSS.
+It loaded 146 exact existing masks: 140,014 encoded bytes/253,054 binary bytes,
+7,509 foreground runs and 210 pair relations. All 259 source/518 wrist/1,036
+pair slots remain: 64 conditional image intersections, 146 exclusions and 826
+unavailable. Structural groups stay 77/52/128/2. Contact, physical noncontact,
+grasp, load, depth and physical accuracy remain unknown/unverified. No source
+video decoding, inference, physics, API calls or paid work occurred.
+
+Saved audit `.local/pose-equipment-silhouette-saved-audit-03.json`, SHA
+`df14184701f34c9b986de7f38c030c071a1a2ce4cb499f2642fc547075dc43ce`, passes.
+The checker-only status-name failure in audit 02 stays preserved; completed
+checks were reused. Combined audit reads were 3,777,988 bytes, no source/proof/PNG
+or scientific execution repeated. The original failed study 01 remains unchanged.
+
+The actual public `equipment-evidence-report` command now renders this result:
+[open the report](../../artifacts/pose-equipment-inspection-01/index.html).
+Acceptance took 0.382827 seconds, 92,815,360-byte observed child peak RSS,
+16 files/2,621,027 bytes. Seal:
+`4eba1a16087850001109c3b14e847fdf6f1660941b6dcb9542d14fd49f2ef0a9`.
+Receipt `.local/equipment-evidence-inspection-acceptance-01.json`, SHA
+`d00c9fa067a4201097c989cc4c73ea328de83592a4301fec64442071ade5efa6`.
+Independent saved-page audit verifies all 259 frames/1,036 selected pair views,
+20 local links, every output pin and exact downloadable inputs. Receipt
+`.local/equipment-evidence-inspection-saved-audit-01.json`, SHA
+`3165be98a0078199304963a791b8d1ff70ae94899715345fba0c29bca28ea4cd`.
+Scripted navigation took 10.60 ms and allocated no additional DOM nodes; this is
+a Node test, not browser responsiveness or physical validation.
+
+### Parallel implementation and next action
+
+- Reconstruction owns `world_evidence.py`, the narrow silhouette caller change,
+  new `tests/test_selected_world_evidence.py` and a dedicated handoff. Its optional
+  source-qualified frame selection restricts all aliased documents before export;
+  it never rewrites original partitions or admits selected holdouts. Excluded
+  conflicting labels remain explicitly unreconciled. Default bytes stay exact.
+  That correction and its distinct 02 run passed independent review and saved
+  audit as above. Attempt 01 must not be repeated or relabeled successful.
+- Root's [inspector wrapper](equipment-silhouette-inspection.md) and the
+  [report renderer](equipment-silhouette-report.md) have 58 distinct new checks
+  plus five affected legacy passes. With the 32 registry cases, this checkpoint
+  has 90 distinct new cases. Actual analytical producer output retains all seven
+  frames/14 pairs; actual saved-source acceptance now also passes above. The
+  public CLI rejected failed 01 before output; missing-seal errors now explain
+  that the user should inspect the original failure/process receipt.
+- Root owns scoped publication; `.local/equipment-evidence-publication-01.json`
+  records the actual result when present, otherwise publication is unfinished.
+  The accepted inspector runtime is `.local/equipment-evidence-inspection-runtime-02`,
+  manifest SHA `67b0225ea9af00780ca429174348fb0881111be5a6cbb5256eab70ba3141ac34`.
+- Reconstruction next owns an opt-in silhouette consistency constraint inside
+  the existing equipment co-motion selector. Preserve its original baseline and
+  complete windows/slots; missing/conflicting evidence abstains. Only pure
+  implementation/analytical checks are authorized until a new bounded saved
+  consumer plan is reviewed. No new source/raster/model/native run is needed now.
+
+No API spend, browser, server, deployment, source acquisition or avatar changes
+belong to this milestone. Generalized physical reconstruction remains unfinished.
+
 ### Interactive camera sandbox passed — October 31, 2026, 8:34 PM PDT
 
 Run 02 is terminal, not running. Its real jogging fit passed all fourteen construction

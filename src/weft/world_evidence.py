@@ -10,6 +10,8 @@ measurements/references. Its source entries contain document identity, source/ti
 coordinate contracts, qualified objects, filtered camera claims, observations,
 evidence metadata, and filtered relationships. No raw payload/provenance/limits
 or scene blobs cross this boundary. All references are document-qualified.
+Optional ``source_frame_selection`` restricts every aliased media group to
+explicit original decoded frames; excluded partition labels are not reconciled.
 """
 
 from collections import Counter
@@ -29,6 +31,7 @@ MAX_DOCUMENTS = 8
 MAX_INPUT_BYTES = 64 * 1024 * 1024
 MAX_JSON_NODES = 2_000_000
 MAX_JSON_DEPTH = 64
+MAX_SELECTED_FRAMES_PER_SOURCE = 1800
 EXPORT_PARTITIONS = frozenset({"construction", "generation", "development_validation"})
 _DIGEST = re.compile(r"[0-9a-f]{64}")
 _LIMITS = (
@@ -152,7 +155,7 @@ class WorldEvidence:
                 "total_bytes": sum(len(source.raw) for source in self._sources),
                 "total_slots": sum(len(source.document["observations"]) for source in self._sources)}
 
-    def _check_partitions(self, source_aliases):
+    def _checked_aliases(self, source_aliases):
         aliases = {} if source_aliases is None else source_aliases
         if (not isinstance(aliases, Mapping) or len(aliases) > MAX_DOCUMENTS
                 or any(not isinstance(key, str) or not _DIGEST.fullmatch(key)
@@ -162,6 +165,35 @@ class WorldEvidence:
         media = {source.document["source"]["sha256"] for source in self._sources}
         if set(aliases) - media:
             raise ValueError("Source aliases must reference included observation media")
+        return dict(aliases)
+
+    def _frame_selection(self, selection, aliases):
+        if selection is None:
+            return None
+        if not isinstance(selection, Mapping) or not 1 <= len(selection) <= MAX_DOCUMENTS:
+            raise ValueError("Frame selection must explicitly cover every canonical media group")
+        intervals = {}
+        for source in self._sources:
+            metadata = source.document["source"]
+            identity = aliases.get(metadata["sha256"], metadata["sha256"])
+            intervals.setdefault(identity, []).append(metadata.get("decode_interval", (0, metadata["decoded_frames"] - 1)))
+        if (any(type(key) is not str or not _DIGEST.fullmatch(key) for key in selection)
+                or set(selection) != set(intervals)):
+            raise ValueError("Frame selection must name exactly the canonical media groups after aliases")
+        result = {}
+        for identity, frames in selection.items():
+            if type(frames) not in (list, tuple) or len(frames) > MAX_SELECTED_FRAMES_PER_SOURCE:
+                raise ValueError("Frame selection exceeds the bounded ordered original-frame collection")
+            previous = -1
+            for frame in frames:
+                if (type(frame) is not int or frame <= previous
+                        or not any(first <= frame <= last for first, last in intervals[identity])):
+                    raise ValueError("Frame selection requires ordered unique original decoded frame integers")
+                previous = frame
+            result[identity] = frozenset(frames)
+        return result
+
+    def _check_partitions(self, aliases, selection=None):
         partitions = {}
         for source in self._sources:
             identity = source.document["source"]["sha256"]
@@ -171,13 +203,15 @@ class WorldEvidence:
                     if row["visibility"] != "not_sampled" or row["measurements"]:
                         raise ValueError("Unsampled partition must retain an empty not_sampled observation")
                     continue
+                if selection is not None and row["frame"] not in selection[identity]:
+                    continue
                 # A missing sample is not a holdout; every actual frame reservation must agree.
                 key = (identity, row["frame"])
                 previous = partitions.setdefault(key, row["partition"])
                 if previous != row["partition"]:
                     raise ValueError(f"Conflicting canonical frame partitions at frame {row['frame']}")
 
-    def construction_bytes(self, *, allowed_partitions=("construction",), source_aliases=None):
+    def construction_bytes(self, *, allowed_partitions=("construction",), source_aliases=None, source_frame_selection=None):
         """Export typed evidence only; development access requires explicit opt-in."""
         if not isinstance(allowed_partitions, (tuple, list, set, frozenset)):
             raise ValueError("Allowed partitions must be an explicit collection")
@@ -187,22 +221,35 @@ class WorldEvidence:
             raise ValueError("Only construction, generation and development_validation may be exported")
         allowed = frozenset(allowed_partitions)
         # Verified aliases add restrictions; they never rewrite slots or grant partition access.
-        self._check_partitions(source_aliases)
-        sources = [self._construction_source(source, allowed) for source in self._sources]
+        aliases = self._checked_aliases(source_aliases)
+        selection = self._frame_selection(source_frame_selection, aliases)
+        self._check_partitions(aliases, selection)
+        sources = [self._construction_source(source, allowed, None if selection is None else
+                   selection[aliases.get(source.document["source"]["sha256"], source.document["source"]["sha256"])])
+                   for source in self._sources]
         output = {"profile": "world-construction-evidence-v1", "schema_version": 1,
                   "physical_validation": "unverified", "allowed_partitions": sorted(allowed),
                   "sources": sources, "limits": list(_LIMITS)}
+        if selection is not None:
+            output["source_frame_selection"] = {
+                "profile": "restrict-only-original-frame-selection-v1",
+                "frames_by_canonical_source_sha256": {identity: sorted(frames) for identity, frames in selection.items()},
+                "partition_consistency_scope": "selected_frames_only",
+                "excluded_partition_labels": "preserved_not_reconciled",
+                "source_aliases": aliases, "maximum_frames_per_source": MAX_SELECTED_FRAMES_PER_SOURCE,
+            }
         return json.dumps(output, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
 
     @staticmethod
-    def _construction_source(source, allowed):
+    def _construction_source(source, allowed, selected=None):
         doc, digest = source.document, source.digest
         admitted_ids = {identifier for row in doc["observations"] if row["partition"] in allowed
+                        and (selected is None or row["frame"] in selected)
                         for identifier in row["evidence_ids"]}
         withheld_times = {obj["id"]: [] for obj in doc["objects"]}
         rows = []
         for row in doc["observations"]:
-            admitted = row["partition"] in allowed
+            admitted = row["partition"] in allowed and (selected is None or row["frame"] in selected)
             if not admitted:
                 withheld_times[row["object_id"]].append(row["time_s"])
             rows.append({key: row[key] for key in ("id", "frame", "time_s", "object_id", "visibility", "partition")})
