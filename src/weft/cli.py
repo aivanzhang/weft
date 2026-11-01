@@ -1,6 +1,7 @@
 import argparse
 import json
 from pathlib import Path
+import shlex
 import sys
 
 from weft.compare import compare_runs, save_comparison
@@ -219,11 +220,13 @@ def main():
     body_reference_propose.add_argument("--run", required=True, help="Sealed construction-only exercise-body source")
     body_reference_propose.add_argument("--out", required=True, help="New proposal and inspection directory")
     body_reference_propose.add_argument("--manifest-sha256", help="Optional exact body-source manifest hash")
-    body_reference_propose.add_argument("--objective", choices=("image-first", "floor-first", "camera-root", "surface-intervals", "camera-surface-intervals"), default="image-first",
+    body_reference_propose.add_argument("--objective", choices=("image-first", "floor-first", "camera-root", "surface-intervals", "camera-surface-intervals", "camera-multiview-surface-intervals"), default="image-first",
                                         help="Image-first default; camera-root keeps body angles and shape fixed")
-    body_reference_propose.add_argument("--surface-config", help="Exact source/camera/static-surface interval inputs and authored weight; required for either surface-interval objective")
+    body_reference_propose.add_argument("--surface-config", help="Exact source/camera/static-surface interval inputs and authored weight; required for surface-interval objectives")
     body_reference_propose.add_argument("--camera-image-scale", type=float,
-                                        help="Explicit [1e-6,1] authored loss units/pixel; required only for camera-surface-intervals, which saves an uninstalled angle proposal")
+                                        help="Explicit [1e-6,1] authored loss units/pixel; required for camera surface fitting, which saves an uninstalled angle proposal")
+    body_reference_propose.add_argument("--secondary-view-config",
+                                        help="Exact second-view observations, explicit world/clock mapping and authored weight; only for camera-multiview-surface-intervals")
     body_reference_propose.add_argument("--camera", help="Explicit frozen camera-hypothesis JSON; required only for camera-root")
     body_reference_propose.add_argument("--camera-focal-px", type=float,
                                         help="Alternative to --camera: explicitly authored pinhole focal length in pixels, not calibration")
@@ -593,10 +596,12 @@ def main():
             result = prepare_whole_body_reference_report(args.run, args.out,
                 expected_manifest_sha256=args.manifest_sha256, max_seconds=args.max_seconds)
         elif args.command == "body-reference-propose":
-            if (args.objective in {"surface-intervals", "camera-surface-intervals"}) != (args.surface_config is not None):
+            if (args.objective in {"surface-intervals", "camera-surface-intervals", "camera-multiview-surface-intervals"}) != (args.surface_config is not None):
                 raise ValueError("Surface-interval objectives require --surface-config; other objectives do not accept it")
-            if (args.objective == "camera-surface-intervals") != (args.camera_image_scale is not None):
-                raise ValueError("--objective camera-surface-intervals requires --camera-image-scale; other objectives do not accept it")
+            if (args.objective in {"camera-surface-intervals", "camera-multiview-surface-intervals"}) != (args.camera_image_scale is not None):
+                raise ValueError("Camera surface objectives require --camera-image-scale; other objectives do not accept it")
+            if (args.objective == "camera-multiview-surface-intervals") != (args.secondary_view_config is not None):
+                raise ValueError("camera-multiview-surface-intervals requires --secondary-view-config; other objectives do not accept it")
             if args.objective == "camera-root":
                 if bool(args.camera) == (args.camera_focal_px is not None):
                     raise ValueError("camera-root requires exactly one of --camera or --camera-focal-px")
@@ -617,10 +622,12 @@ def main():
                     expected_manifest_sha256=args.manifest_sha256,
                     proposal_objective={"image-first": "image_v1", "floor-first": "floor_first_v1",
                                         "surface-intervals": "surface_interval_v1",
-                                        "camera-surface-intervals": "camera_surface_interval_v1"}[args.objective],
+                                        "camera-surface-intervals": "camera_surface_interval_v1",
+                                        "camera-multiview-surface-intervals": "camera_multiview_surface_interval_v1"}[args.objective],
                     fit_seconds=30 if args.fit_seconds is None else args.fit_seconds, max_seconds=args.max_seconds,
                     **({"surface_config": args.surface_config} if args.surface_config is not None else {}),
-                    **({"camera_image_scale": args.camera_image_scale} if args.camera_image_scale is not None else {}))
+                    **({"camera_image_scale": args.camera_image_scale} if args.camera_image_scale is not None else {}),
+                    **({"secondary_view_config": args.secondary_view_config} if args.secondary_view_config is not None else {}))
         elif args.command == "body-reference-trial":
             from weft.shared_exercise_reference_trial import prepare_reference_trial
 
@@ -949,6 +956,12 @@ def main():
         if args.command == "shared-exercise-build" and result.get("status") != "ready":
             parser.exit(1, f"weft: exercise build {result.get('status', 'not_ready')}; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "body-reference-propose" and result.get("status") != "completed":
+            if (result.get("error") or {}).get("stage") == "inspection" and result.get("proposal_manifest_sha256"):
+                recovery = shlex.join([sys.executable, "-m", "weft", "body-reference-report",
+                    "--run", str(Path(args.out) / "proposal"), "--manifest-sha256", result["proposal_manifest_sha256"],
+                    "--out", str(Path(args.out).with_name(Path(args.out).name + "-report-recovery"))])
+                print("Proposal saved; viewer generation failed. Do not repeat fitting.\n"
+                      "Recover the saved viewer with a new output directory:\n" + recovery, file=sys.stderr)
             parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
         if args.command == "surface-anchors":
             if result.get("status") != "completed" or result.get("sealed") is not True:

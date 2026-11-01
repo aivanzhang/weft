@@ -16,10 +16,15 @@ from weft.source_surface_fit_inputs import surface_fit_member_names, validate_su
 
 
 PROFILE = "camera-reference-inputs-v1"
+MULTIVIEW_PROFILE = "camera-multiview-reference-inputs-v1"
+MULTIVIEW_METHOD = "blocked-multiview-camera-body-surface-interval-reference-v1"
+MULTIVIEW_OBJECTIVE = "camera_multiview_surface_interval_v1"
 PROPOSAL_GATES = LEGACY_GATES | frozenset({
     "surface_interval_nonregression", "camera_projection_domain", "camera_endpoint_depth_change"})
 _ORIGINAL_ALIASES = {"human.json": "inputs/human.json", "evidence.json": "inputs/evidence-original.json",
                      "camera.json": "inputs/source-camera.json", "ground.json": "inputs/ground.json"}
+_SECONDARY_ALIASES = {"inputs/two-view-root/camera.json": "inputs/secondary-camera.json",
+                      "inputs/two-view-root/evidence.json": "inputs/secondary-evidence.json"}
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,7 +58,8 @@ class CameraReferenceInputs:
 
 def load_camera_reference_inputs(proposal, scene_run, task_path, *, expected_proposal_manifest_sha256=None,
                                  expected_scene_manifest_sha256=None, expected_task_sha256=None,
-                                 max_seconds=10, max_input_bytes=MAX_CAMERA_INPUT_BYTES):
+                                 max_seconds=10, max_input_bytes=MAX_CAMERA_INPUT_BYTES,
+                                 multiview_max_input_bytes=None):
     """Reuse bounded selected reads and require the distinct camera route."""
     _require(type(max_input_bytes) is int and 1024 <= max_input_bytes <= MAX_CAMERA_INPUT_BYTES,
              "camera aggregate read bound must be 1 KiB–64 MiB, including rechecks")
@@ -61,12 +67,13 @@ def load_camera_reference_inputs(proposal, scene_run, task_path, *, expected_pro
         expected_proposal_manifest_sha256=expected_proposal_manifest_sha256,
         expected_scene_manifest_sha256=expected_scene_manifest_sha256, expected_task_sha256=expected_task_sha256,
         max_seconds=max_seconds, max_input_bytes=min(max_input_bytes, MAX_INPUT_BYTES),
-        camera_max_input_bytes=max_input_bytes)
+        camera_max_input_bytes=max_input_bytes, multiview_max_input_bytes=multiview_max_input_bytes)
     _require(isinstance(value, CameraReferenceInputs), "camera angle-overlay inputs required")
     return value
 
 
-def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_files, *, read, check, finish, pins):
+def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_files, *, read, check, finish, pins,
+                 select_multiview_budget=None):
     proposal_pin, scene_pin, task_pin = pins
     _require("candidate-human.json" not in proposal_files,
              "camera angle overlay cannot also publish a replacement human")
@@ -79,7 +86,8 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
         return raw[name]
 
     report = saved_report._json(selected("report.json"))
-    _require(report.get("profile") == saved_report.CAMERA_METHOD,
+    multiview = report.get("profile") == MULTIVIEW_METHOD
+    _require(report.get("profile") in {saved_report.CAMERA_METHOD, MULTIVIEW_METHOD},
              "angle overlay requires the actual camera producer report")
     _require(report.get("status") == "unadmitted_construction_proposal" and report.get("promoted") is False
              and report.get("geometry_admission") == "unsupported_angle_overlay_not_a_human_spec"
@@ -87,6 +95,9 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
              and type(report.get("gates")) is dict and set(report["gates"]) == PROPOSAL_GATES
              and all(value is True for value in report["gates"].values()),
              "complete uninstalled camera proposal with all fourteen saved gates passing required")
+    # Only a sealed, passing two-view producer can select its explicit read allowance.
+    if multiview and select_multiview_budget is not None:
+        select_multiview_budget()
     documents = {"report.json": report}
     for name in ("angle-proposal.json", "inputs/human.json", "inputs/evidence-derived.json"):
         documents[name] = saved_report._json(selected(name))
@@ -94,25 +105,37 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
     documents["plan.json"] = plan
     _require(type(plan.get("schema_version")) is int and plan["schema_version"] == 1
              and plan.get("profile") == "whole-body-reference-candidate-plan-v1" and plan.get("status") == "frozen"
-             and plan.get("proposal_objective") == "camera_surface_interval_v1", "frozen camera input plan required")
+             and plan.get("proposal_objective") == (MULTIVIEW_OBJECTIVE if multiview else "camera_surface_interval_v1"),
+             "frozen camera input plan required")
     descriptor = plan.get("surface_constraints")
     names = surface_fit_member_names(descriptor)
+    secondary = plan.get("secondary_view")
+    if multiview:
+        from weft.camera_multiview_inputs import camera_multiview_member_names, validate_camera_multiview_snapshot
+        names = names | camera_multiview_member_names(secondary)
+    else:
+        _require("secondary_view" not in plan, "single-view proposal cannot silently consume a secondary view")
     _require(type(plan.get("input_files")) is dict
              and all(name in proposal_files and plan["input_files"].get(name) == proposal_files[name]
                      for name in names | {"inputs/human.json", "inputs/evidence-derived.json"}),
              "camera plan input pins differ from study seal")
     for name in sorted(names):
-        selected(name, 64 << 10 if name.endswith("surface-config.json") else 8 << 20)
+        selected(name, 64 << 10 if name.endswith(("surface-config.json", "camera-secondary-config.json")) else 8 << 20)
     check()
     validate_surface_fit_snapshot(raw, descriptor, source_sha256=documents["inputs/human.json"].get("source_sha256"))
+    if multiview:
+        validate_camera_multiview_snapshot(raw, secondary,
+            source_sha256=documents["inputs/human.json"].get("source_sha256"))
     check()
     source_identity = plan.get("source")
+    original_aliases = _ORIGINAL_ALIASES | (_SECONDARY_ALIASES if multiview else {})
+    source_extras = tuple(saved_report._CAMERA_EXTRAS) + (tuple(_SECONDARY_ALIASES.values()) if multiview else ())
     _require(type(source_identity) is dict and source_identity.get("profile") == "camera-body-reference-inputs-v1"
              and type(source_identity.get("copied_files")) is dict
              and all(name in proposal_files and source_identity["copied_files"].get(name) == proposal_files[name]
-                     for name in {*saved_report._CAMERA_EXTRAS, "inputs/human.json", "inputs/evidence-derived.json"}),
+                     for name in {*source_extras, "inputs/human.json", "inputs/evidence-derived.json"}),
              "camera original-copy pins differ from plan and study seal")
-    for name in saved_report._CAMERA_EXTRAS:
+    for name in source_extras:
         selected(name, 256 << 10 if name.endswith("manifest.json") else 8 << 20)
     _require(raw["inputs/source-camera.json"] == raw.get("inputs/surface-camera.json")
              and raw["inputs/evidence-original.json"] == raw["inputs/evidence-derived.json"],
@@ -121,9 +144,13 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
     documents.update({name: saved_report._json(value) for name, value in raw.items() if name not in documents})
     proof = documents["inputs/camera-inputs-proof.json"]
     _require(type(proof.get("selected_members")) is dict, "camera original-source proof required")
-    for original, alias in _ORIGINAL_ALIASES.items():
+    for original, alias in original_aliases.items():
         _require(type(proof["selected_members"].get(original)) is dict
-                 and proof["selected_members"][original].get("bytes") == len(raw[alias]),
+                 and proof["selected_members"][original].get("bytes") == len(raw[alias])
+                 and (not multiview or original not in _SECONDARY_ALIASES
+                      or proof["selected_members"][original].get("sha256") == proposal_files[alias]
+                      == documents["inputs/body-manifest.json"]["files"].get(original)
+                      and proof["selected_members"][original].get("copied_member") == alias),
                  "camera selected-source byte count differs")
     model = saved_report._model(documents, {name: proposal_files[name] for name in raw}, check)
     _complete_geometry(documents, model)
@@ -133,7 +160,7 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
     status = scene_manifest.get("status")
     _require(status == "ready" or status == "constructed"
              and scene_manifest.get("profile") == "camera-shared-candidate-v1", "sealed original camera scene required")
-    _require({"scene.json", "camera-coupling.json", *_ORIGINAL_ALIASES} <= scene_files.keys(),
+    _require({"scene.json", "camera-coupling.json", *original_aliases} <= scene_files.keys(),
              "original camera scene lacks its exact source views")
     scene_raw = read(source, "scene.json", scene_files["scene.json"])
     scene, original = saved_report._json(scene_raw), documents["inputs/human.json"]
@@ -150,7 +177,7 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
              and scene["source_binding"].get("source_sha256") == model["source_sha256"]
              and scene["source_binding"].get("total_source_frames") == coupling["clock"]["total_source_frames"],
              "original camera scene source or frame denominator differs")
-    for original_name, alias in _ORIGINAL_ALIASES.items():
+    for original_name, alias in original_aliases.items():
         _require(read(source, original_name, scene_files[original_name]) == raw[alias],
                  "original camera scene view differs from proposal input: " + original_name)
     _require(canonical(saved_report._json(read(source, "camera-coupling.json", scene_files["camera-coupling.json"])))
@@ -184,7 +211,14 @@ def _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_fi
         "scene_file_sha256": sha256(scene_raw).hexdigest(), "scene_sha256": canonical(scene),
         "task_file_sha256": sha256(task_raw).hexdigest(), "task_sha256": canonical(task),
         **{key: task[key] for key in IDENTITIES}}
-    receipt = {"schema_version": 1, "profile": PROFILE, "status": "selected_metadata_verified",
+    if multiview:
+        identities.update(additional_view_sha256=canonical(documents["angle-proposal.json"]["additional_view"]),
+            multiview_qualification_sha256=canonical(report["multiview_images"]),
+            secondary_view_config_sha256=secondary["config_sha256"], secondary_source_sha256=secondary["secondary_source_sha256"],
+            secondary_camera_sha256=secondary["camera_sha256"], secondary_evidence_sha256=secondary["evidence_sha256"],
+            secondary_world_alignment_sha256=secondary["world_alignment_sha256"],
+            secondary_observation_sha256s=list(secondary["observation_sha256s"]))
+    receipt = {"schema_version": 1, "profile": MULTIVIEW_PROFILE if multiview else PROFILE, "status": "selected_metadata_verified",
         "identities": identities, "scene_completion": {"route": "camera_manifest_" + status, "status": status},
         "external_pins_supplied": {"proposal_manifest": proposal_pin is not None,
             "scene_manifest": scene_pin is not None, "task": task_pin is not None}, **read_receipt,

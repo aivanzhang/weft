@@ -4,6 +4,15 @@ Supply a local video, inspect each processing stage, interact with the generated
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.
 
+## Start here
+
+- **Play with a ready exercise:** [launch the exercise sandbox](#recommended-exercise-sandbox).
+- **Try your own video:** [build a person-only 3D environment](#build-from-your-person-only-exercise-video).
+- **Understand a result:** [inspect saved evidence](#inspect-the-labs-saved-evidence) and [check a recording](#check-a-recordings-replay-evidence).
+
+The ground, equipment and second-camera sections below are optional advanced
+workflows, not prerequisites for trying the sandbox.
+
 ## Collect missing ground or equipment inputs
 
 Use `surface-inputs` when you have saved video observations but need help preparing
@@ -541,6 +550,11 @@ code/settings, worker counts and logs. This command never changes the body,
 policy or working sandbox. A completed command means the proposal and report
 were saved, **not** that the candidate passed or was installed.
 
+If fitting finishes but viewer generation fails, the CLI prints a separate
+`body-reference-report` recovery command with the completed proposal's exact
+manifest hash. Use a new output directory. This rebuilds only the viewer;
+**do not rerun fitting** or overwrite the failed workflow.
+
 The input must be a supported, sealed `exercise-body` construction output.
 It reuses saved poses, without decoding video, running inference or making API
 calls. The normal selective-crop recovery output is supported when its complete
@@ -627,6 +641,40 @@ finishes in 12.725 seconds with two complete 254-step trials, two 255-frame vide
 and exact replay of both journals. Both controllers still fail equipment
 stability; the fitted version slightly reduces displacement but worsens the
 original-target tracking score. The working sandbox is unchanged.
+
+### Try the optional two-camera fitted sandbox
+
+The saved jogging example now fits both supplied camera views while keeping one
+unchanged body, world, clock and task. A second camera is optional, not required
+for the normal video workflow.
+
+- [Inspect the fit, missing points and both cameras](../artifacts/camera-multiview-real-01/inspection-recovered-01/index.html).
+- [Compare full simulation trials and recordings](../artifacts/camera-multiview-consumer-01/trial/index.html).
+- [Replay the verified mixed-control session](../artifacts/camera-multiview-lab-recovery-01/lab/sessions/session-5548b0b5549c/replay.html).
+
+Start the prepared sandbox yourself using its exact verified runtime:
+
+```sh
+PYTHONPATH="$PWD/.local/camera-multiview-lab-runtime-01/src" \
+  .venv-lab/bin/python -B -P -m weft lab \
+  --resume artifacts/camera-multiview-lab-recovery-01/lab
+```
+
+Open the printed local address. For terminal-only controls, replace `lab` with
+`lab-console`, then try `controls`, `mode fitted`, `record start`, `step 6`,
+`mode manual`, `reset 29`, `record stop`, and `record evidence`. Recordings are
+new sessions; the completed source run stays unchanged.
+
+Both 238-step comparison recordings replay exactly. The new sandbox also passed
+manual/coast/programmed/fitted switching, reset, ten recorded actions, exact replay
+and reopening in 8.20 seconds. It reuses the original task and recipe; no refitting
+or training occurs when reopening. Terminal behavior and saved-page data were
+verified; browser interaction was not exercised.
+
+Image-point error improves in both views, but fitted controls score slightly
+worse on the original task. Body-position assistance remains explicit; this is
+not learned balance, verified ground/equipment contact, or unfamiliar-video
+accuracy. [Inputs, settings, checks and preserved failures](handoffs/camera-multiview-workflow.md).
 
 ### Inspect the lab's saved evidence
 

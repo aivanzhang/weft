@@ -16,7 +16,7 @@ from weft.io import canonical_hash, local_time
 from weft.shared_exercise_reference_controller import (
     RUNTIME_SHA256, prepare_reference_controller, reference_action_contract,
 )
-from weft.shared_exercise_reference_inputs import MAX_CAMERA_INPUT_BYTES, load_reference_inputs
+from weft.shared_exercise_reference_inputs import MAX_CAMERA_INPUT_BYTES, MAX_MULTIVIEW_INPUT_BYTES, load_reference_inputs
 from weft.shared_world_packaging import collect_shared_source_files, read_package_file, write_package_files
 
 
@@ -67,12 +67,17 @@ def _safe_path(value):
     return path
 
 
-def _runtime_snapshot(deadline, *, camera=False):
+def _runtime_snapshot(deadline, *, camera=False, multiview=False):
+    _require(not multiview or camera, "multiview runtime requires authenticated camera inputs")
     if camera:
         from weft.camera_reference_controller import RUNTIME_SHA256 as reviewed
         from weft.camera_reference_recording import REQUIRED_RUNTIME_FILES
         names = tuple(sorted(set(RUNTIME_FILES) | REQUIRED_RUNTIME_FILES | {
             "camera_reference_inputs.py", "source_surface_fit_inputs.py"}))
+        if multiview:
+            from weft.camera_multiview_inputs import RUNTIME_MODULES
+            names = tuple(sorted(set(names) | {name + ".py" for name in RUNTIME_MODULES}
+                                 | {"camera_multiview_report.py"}))
     else:
         reviewed = RUNTIME_SHA256
         names = RUNTIME_FILES
@@ -126,7 +131,9 @@ def _recheck(inputs, proof, runtime, runtime_versions, task_path, deadline):
     receipt = inputs.receipt()
     selected = receipt["selected_files"]
     metadata_read = receipt["input_bytes_read"]
-    metadata_limit = MAX_CAMERA_INPUT_BYTES if receipt.get("profile") == "camera-reference-inputs-v1" else MAX_INPUT_BYTES
+    metadata_limit = (MAX_MULTIVIEW_INPUT_BYTES if receipt.get("profile") == "camera-multiview-reference-inputs-v1"
+                      else MAX_CAMERA_INPUT_BYTES if receipt.get("profile") == "camera-reference-inputs-v1"
+                      else MAX_INPUT_BYTES)
     _require(metadata_read <= metadata_limit, "aggregate selected metadata read bound exhausted")
     for item in selected:
         _require(metadata_read + item["bytes"] <= metadata_limit, "aggregate selected metadata read bound exhausted")
@@ -256,12 +263,18 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
             expected_proposal_manifest_sha256=expected_proposal_manifest_sha256,
             expected_scene_manifest_sha256=expected_scene_manifest_sha256, expected_task_sha256=expected_task_sha256,
             max_seconds=min(10., work_deadline - time.monotonic()), max_input_bytes=2 * (MAX_INPUT_BYTES // 3),
-            allow_camera=True, camera_max_input_bytes=2 * (MAX_CAMERA_INPUT_BYTES // 3))
-        camera = inputs.receipt().get("profile") == "camera-reference-inputs-v1"
+            allow_camera=True, camera_max_input_bytes=2 * (MAX_CAMERA_INPUT_BYTES // 3),
+            multiview_max_input_bytes=2 * (MAX_MULTIVIEW_INPUT_BYTES // 3))
+        input_profile = inputs.receipt().get("profile")
+        multiview = input_profile == "camera-multiview-reference-inputs-v1"
+        camera = input_profile in {"camera-reference-inputs-v1", "camera-multiview-reference-inputs-v1"}
         if camera:
             from weft.camera_reference_inputs import CameraReferenceInputs
             _require(isinstance(inputs, CameraReferenceInputs), "camera route requires authenticated camera inputs")
-        report["limits"]["maximum_selected_metadata_read_bytes"] = MAX_CAMERA_INPUT_BYTES if camera else MAX_INPUT_BYTES
+        report["limits"]["maximum_selected_metadata_read_bytes"] = (
+            MAX_MULTIVIEW_INPUT_BYTES if multiview else MAX_CAMERA_INPUT_BYTES if camera else MAX_INPUT_BYTES)
+        if multiview:
+            report["limits"]["maximum_multiview_selected_metadata_read_bytes"] = MAX_MULTIVIEW_INPUT_BYTES
         raw_scene, raw_task = json.loads(inputs.scene_bytes), json.loads(inputs.task_bytes)
         _require((raw_scene.get("profile") == "shared-world-v6") is camera,
                  "authenticated input family differs from scene profile")
@@ -271,9 +284,11 @@ def prepare_reference_trial(proposal, scene_run, task_path, out, *, seed=1729, m
                  "raw task horizon must be at most 900 before any models")
         report.update(scene_sha256=canonical_hash(raw_scene), task_sha256=canonical_hash(raw_task),
                       source_identities=inputs.identities, horizon_steps=horizon,
-                      controller_family="camera_angle_overlay" if camera else "legacy_body_reference")
+                      controller_family=("camera_multiview_angle_overlay" if multiview else
+                                         "camera_angle_overlay" if camera else "legacy_body_reference"))
         emit("inputs_verified", horizon_steps=horizon)
-        runtime = _runtime_snapshot(work_deadline, camera=True) if camera else _runtime_snapshot(work_deadline)
+        runtime = (_runtime_snapshot(work_deadline, camera=True, multiview=True) if multiview else
+                   _runtime_snapshot(work_deadline, camera=True) if camera else _runtime_snapshot(work_deadline))
         versions = _runtime_versions()
         emit("runtime_pinned", files=len(runtime))
         _check(work_deadline)

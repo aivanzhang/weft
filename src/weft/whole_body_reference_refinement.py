@@ -460,14 +460,17 @@ class _SurfaceIntervalFit:
 def propose_whole_body_reference_refinement(human_document: bytes, evidence_document: bytes, *, joint_mask=None,
                                             settings=None, proposal_objective='image_v1', surface_interval_objective=None,
                                             surface_interval_weight=None, surface_interval_settings=None,
-                                            camera_document=None, camera_image_scale=None):
+                                            camera_document=None, camera_image_scale=None, camera_secondary_view=None):
     """Return a separately proposed body; no source, default runtime or policy is modified."""
     started = time.monotonic(); limits = _settings(settings)
     _require(isinstance(proposal_objective, str) and proposal_objective in
-             ('image_v1', 'floor_first_v1', 'surface_interval_v1', 'camera_surface_interval_v1'), 'unknown proposal objective')
+             ('image_v1', 'floor_first_v1', 'surface_interval_v1', 'camera_surface_interval_v1',
+              'camera_multiview_surface_interval_v1'), 'unknown proposal objective')
     floor_first = proposal_objective == 'floor_first_v1'
-    camera_mode = proposal_objective == 'camera_surface_interval_v1'
-    surface_mode = proposal_objective in ('surface_interval_v1', 'camera_surface_interval_v1')
+    multiview_mode = proposal_objective == 'camera_multiview_surface_interval_v1'
+    camera_mode = multiview_mode or proposal_objective == 'camera_surface_interval_v1'
+    surface_mode = camera_mode or proposal_objective == 'surface_interval_v1'
+    _require(multiview_mode or camera_secondary_view is None, 'secondary view requires explicit camera_multiview_surface_interval_v1 objective')
     _require(camera_mode or camera_document is None and camera_image_scale is None,
              'camera inputs require explicit camera_surface_interval_v1 objective')
     _require(surface_mode or all(value is None for value in (surface_interval_objective, surface_interval_weight, surface_interval_settings)),
@@ -484,6 +487,10 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         from weft.camera_body_fit import METHOD, prepare_camera_body_fit
         camera = prepare_camera_body_fit(human_document, evidence_document, camera_document, image_scale=camera_image_scale,
                                          surface_objective=surface_interval_objective)
+        if multiview_mode:
+            from weft.camera_multiview_fit import METHOD, prepare_camera_multiview_fit
+            camera = prepare_camera_multiview_fit(camera, camera_secondary_view, deadline=started + limits['maximum_seconds'])
+            _require(camera.ready, 'secondary camera view unavailable; no geometry or implicit single-view fallback')
         spec, evidence, method = camera.body, camera.evidence, METHOD
     else:
         spec, evidence = _document(human_document), _document(evidence_document)
@@ -501,6 +508,9 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     image_scale = 1. if camera_mode else root_audit['scale']['model_units_per_pixel']
     schedule, samples, lookup = _schedule(times)
     _require(limits['maximum_geometry_calls'] >= 2 * len(samples), 'work bound cannot cover baseline and final audit')
+    if multiview_mode:
+        _require(limits['maximum_geometry_calls'] >= 2 * camera.projection_count * len(rows),
+                 'projection work bound cannot cover both view baseline and final audits')
     changes = np.zeros_like(original); affected = [[] for _ in times]
     for j, sample in enumerate(samples):
         for index, weight in sample['weights']:
@@ -547,10 +557,11 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         key = (index, derivatives)
         if key not in cache:
             check()
-            limit = limits['maximum_geometry_calls'] - (len(rows) if phase == 'fit' else 0)
-            if projection_calls >= limit:
+            count = camera.projection_count if multiview_mode else 1
+            limit = limits['maximum_geometry_calls'] - (count * len(rows) if phase == 'fit' else 0)
+            if projection_calls + count > limit:
                 raise TimeoutError('camera projection bound exhausted; final source audit reserved')
-            projection_calls += 1
+            projection_calls += count
             cache[key] = camera.project(index, value, derivatives=derivatives)
             check()
         return cache[key]
@@ -559,6 +570,8 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         return camera_projection(index, value)['image'] if camera_mode else _project(value['points'])
 
     def loss(index, value, delta, neighbors):
+        if multiview_mode:
+            return _loss(dict(rows[index], weights=rows[index]['objective_weights']), image(index, value), delta, neighbors, projected=True)
         return (_loss(rows[index], image(index, value), delta, neighbors, projected=True) if camera_mode
                 else _loss(rows[index], value['points'], delta, neighbors))
 
@@ -604,10 +617,12 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
                         cost += surface.weight * surface.cost(surface.current[i])
                     full = state(geometry, original[i] + changes[i], roots[i], True)
                     projection = camera_projection(i, full, True) if camera_mode else None
+                    point_count = len(row['weights']) if multiview_mode else 12
                     residual = ((projection['image'] if camera_mode else _project(full['points'])) - row['target']).ravel()
-                    jac = (np.take(projection['image_jac'], columns, axis=2).reshape(24, n) if camera_mode else
+                    jac = (np.take(projection['image_jac'], columns, axis=2).reshape(2 * point_count, n) if camera_mode else
                            np.take(full['point_jac'][:, [0, 2], :] * np.array([1., -1.])[None, :, None], columns, axis=2).reshape(24, n))
-                    robust = row['weights'] * np.minimum(1., .05 / np.maximum(np.linalg.norm(residual.reshape(12, 2), axis=1), 1e-15))
+                    robust = (row['objective_weights'] if multiview_mode else row['weights']) * np.minimum(
+                        1., .05 / np.maximum(np.linalg.norm(residual.reshape(point_count, 2), axis=1), 1e-15))
                     diagonal = np.repeat(robust, 2)
                     prior, temporal = .001, .0005
                     hessian = jac.T @ (diagonal[:, None] * jac) + np.eye(n) * (prior + temporal * len(adjacent) + 1e-6)
@@ -829,6 +844,10 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
         gates['camera_endpoint_depth_change'] = all(float(np.max(abs(row['after_projection']['camera_depth'] - row['before_projection']['camera_depth'])))
                                                     <= .08 + tolerance for row in rows)
         gates['source_endpoint_image_nonregression'] &= gates['camera_projection_domain']
+    multiview_audit = camera.audit(rows, tolerance, deadline=final_deadline) if multiview_mode else None
+    if multiview_mode:
+        for name in ('source_endpoint_image_nonregression', 'camera_projection_domain', 'camera_endpoint_depth_change'):
+            gates[name] = all(view['gates'][name] for view in multiview_audit['views'])
     source_rows = []
     for i, row in enumerate(rows):
         points = [dict(point, error_before_px=float(row['before_errors'][j] / image_scale) if point['weight'] else None,
@@ -919,13 +938,17 @@ def propose_whole_body_reference_refinement(human_document: bytes, evidence_docu
     if camera_mode:
         report['camera_fit'] = root_audit | {'projection_calls': projection_calls,
             'maximum_projection_calls': limits['maximum_geometry_calls'], 'grid_camera_projection_calls': 0}
-        report['candidate_kind'] = 'camera-body-angle-proposal-v1'
+        report['candidate_kind'] = candidate['profile'] if multiview_mode else 'camera-body-angle-proposal-v1'
         report['geometry_admission'] = 'unsupported_angle_overlay_not_a_human_spec'
         report['contract']['image_constraint'] = 'Confident source-knot pixels through unchanged supplied K/R/t/k; no grid-camera interpolation'
         report['contract']['endpoint_displacement_scope'] = 'Legacy pelvis-relative local-y plus source-knot supplied-camera depth, each <=0.08; no depth recovery'
         report['surface_intervals']['weight_units'] = 'authored_camera_loss_units_squared_per_supplied_world_metre_squared'
         report['objective']['primary'] = 'Fixed-camera pixel residual in explicit authored loss units plus angular regularization and weighted outside-envelope loss'
         report['image_summary']['invalid_final_known_endpoints'] = sum(int(np.count_nonzero((row['weights'] > 0) & ~row['after_projection']['valid'])) for row in rows)
+        if multiview_mode:
+            report['multiview_images'] = multiview_audit
+            report['contract']['image_constraint'] = 'Every qualified source-knot endpoint through both unchanged cameras; each view must independently satisfy raw-pixel/domain/depth gates'
+            report['objective']['primary'] = 'Each supplied camera uses its explicit authored pixel loss scale and view weight, plus the unchanged angular and interval terms'
         result = {'status': status, 'human_candidate': None, 'angle_proposal': candidate, 'report': report}
     else:
         result = {'status': status, 'human_candidate': candidate, 'report': report}

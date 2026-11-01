@@ -23,9 +23,12 @@ PROFILE = "whole-body-reference-report-v1"
 SURFACE_METHOD = "blocked-whole-body-surface-interval-reference-v1"
 CAMERA_METHOD = "blocked-camera-body-surface-interval-reference-v1"
 CAMERA_OVERLAY = "camera-body-angle-proposal-v1"
+MULTIVIEW_METHOD = "blocked-multiview-camera-body-surface-interval-reference-v1"
+MULTIVIEW_OVERLAY = "camera-body-multiview-angle-proposal-v1"
+CAMERA_METHODS = {CAMERA_METHOD, MULTIVIEW_METHOD}
 SURFACE_PROFILE = "whole-body-surface-interval-fit-v1"
 SURFACE_OBJECTIVE = "source-surface-interval-objective-v1"
-METHODS = {"blocked-whole-body-floor-reference-v1", "blocked-whole-body-floor-first-reference-v1", SURFACE_METHOD, CAMERA_METHOD}
+METHODS = {"blocked-whole-body-floor-reference-v1", "blocked-whole-body-floor-first-reference-v1", SURFACE_METHOD, *CAMERA_METHODS}
 LIMIT = .025
 MEMBERS = {"candidate-human.json": "candidate-human.json.txt", "report.json": "proposal-report.json.txt",
            "inputs/human.json": "source-human.json.txt", "inputs/evidence-derived.json": "evidence-derived.json.txt"}
@@ -34,6 +37,7 @@ _CAMERA_EXTRAS = {'inputs/evidence-original.json': 'evidence-original.json.txt',
                   'inputs/body-manifest.json': 'source-body-manifest.json.txt',
                   'inputs/camera-inputs-proof.json': 'camera-inputs-proof.json.txt'}
 MAX_BYTES, MAX_HTML = 16 * 1024 * 1024, 2 * 1024 * 1024
+MULTIVIEW_INPUT_BYTES = 24 * 1024 * 1024
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
 _TARGET_HASHES = ('original_observation_sha256', 'proposal_sha256', 'decision_sha256')
 _CAMERA_POINTS = {'left_shoulder': 11, 'right_shoulder': 12, 'left_elbow': 13, 'right_elbow': 14,
@@ -229,11 +233,12 @@ def _camera_image_admissions(report, body, documents, hashes, references, check)
 
 
 def _camera_inputs(report, overlay, body, evidence, documents, hashes, check):
+    multiview = report.get('profile') == MULTIVIEW_METHOD
     _require(type(overlay) is dict and set(overlay) == {'schema_version', 'profile', 'input_bindings',
              'reference_candidate', 'whole_body_reference_refinement', 'installation', 'body_installed',
-             'raw_camera_changed', 'root_or_floor_changed', 'promoted', 'contact', 'physical_validation'}
+             'raw_camera_changed', 'root_or_floor_changed', 'promoted', 'contact', 'physical_validation'} | ({'additional_view'} if multiview else set())
              and type(overlay['schema_version']) is int and overlay['schema_version'] == 1
-             and overlay['profile'] == report.get('candidate_kind') == CAMERA_OVERLAY
+             and overlay['profile'] == report.get('candidate_kind') == (MULTIVIEW_OVERLAY if multiview else CAMERA_OVERLAY)
              and overlay['installation'] == report.get('geometry_admission') == 'unsupported_angle_overlay_not_a_human_spec'
              and all(overlay[k] is False for k in ('body_installed', 'raw_camera_changed', 'root_or_floor_changed', 'promoted'))
              and overlay['contact'] == 'unknown' and overlay['physical_validation'] == 'unverified',
@@ -357,7 +362,7 @@ def _camera_inputs(report, overlay, body, evidence, documents, hashes, check):
     return fit
 
 
-def _camera_targets(camera, report, body, evidence, proposed, check):
+def _camera_targets(camera, report, body, evidence, proposed, check, *, allow_missing_unqualified=False):
     originals, references = body['reference'], report['references']
     _require(len(proposed) == len(originals) and all(type(row) is dict and set(row) == {'time_s', 'joints'} for row in proposed),
              'Camera overlay must contain only complete original-clock angular reference rows')
@@ -368,8 +373,10 @@ def _camera_targets(camera, report, body, evidence, proposed, check):
     frames = {row['id']: row for row in evidence['frames']}
     losses, invalid_after, depth_deltas = [[], []], 0, []
     for ref in references:
-        check(); frame = frames[ref['evidence_id']]
+        check()
         admitted = camera['source_slots'][ref['frame']]['landmarks_used']
+        # A second camera can lack this original body knot; it supplies no observed target.
+        frame = frames.get(ref['evidence_id'], {}) if allow_missing_unqualified and not admitted else frames[ref['evidence_id']]
         raw = frame.get('identity_raw', frame) if admitted else {}
         points = ref['points']
         _require(len(points) == 12 and {p['joint'] for p in points} == set(_CAMERA_POINTS), 'Camera endpoint inventory differs')
@@ -473,7 +480,7 @@ def _surface_result(result, slot, body_hash):
 
 def _surface_model(report, candidate, source, documents, hashes, check):
     surface = report.get('surface_intervals')
-    camera_mode = report['profile'] == CAMERA_METHOD
+    camera_mode = report['profile'] in CAMERA_METHODS
     weight_units = ('authored_camera_loss_units_squared_per_supplied_world_metre_squared' if camera_mode
                     else 'existing_model_objective_units_per_supplied_world_metre_squared')
     _require(type(surface) is dict and type(surface.get('schema_version')) is int and surface['schema_version'] == 1
@@ -680,7 +687,8 @@ def _surface_model(report, candidate, source, documents, hashes, check):
 
 def _model(documents, hashes, check):
     report = documents["report.json"]
-    camera_mode = report.get('profile') == CAMERA_METHOD
+    camera_mode = report.get('profile') in CAMERA_METHODS
+    multiview_mode = report.get('profile') == MULTIVIEW_METHOD
     candidate = documents['angle-proposal.json' if camera_mode else 'candidate-human.json']
     source, evidence = documents["inputs/human.json"], documents["inputs/evidence-derived.json"]
     method = report.get("profile")
@@ -748,7 +756,9 @@ def _model(documents, hashes, check):
         _require(isinstance(points, list) and len(points) <= 32, "Endpoint details exceed their bound")
         names = set()
         for point in points:
-            joint = _text(point.get("joint"), 100); _require(joint not in names, "Duplicate endpoint"); names.add(joint)
+            joint = _text(point.get("joint"), 100)
+            identity_key = (_text(point.get('view_id'), 80), joint) if multiview_mode else joint
+            _require(identity_key not in names, "Duplicate endpoint"); names.add(identity_key)
             _text(point.get("status"), 100)
             for field in ("source_confidence", "weight"): _number(point.get(field), low=0, high=1)
             for field in ("error_before_px", "error_after_px"): _number(point.get(field), low=0, high=1_000_000)
@@ -757,13 +767,14 @@ def _model(documents, hashes, check):
                          "Missing or low-confidence endpoint errors must stay unknown")
         by_id[identity] = (index, ref)
         _require(identity in frames_by_id, 'A target reference has no source frame')
+        primary_points = points[:12] if multiview_mode else points
         if camera_mode and not camera['source_slots'][ref['frame']]['landmarks_used']:
-            _require(ref.get('target_origin') is None and all(p.get('landmark_source') == 'not_read_unqualified_source' for p in points),
+            _require(ref.get('target_origin') is None and all(p.get('landmark_source') == 'not_read_unqualified_source' for p in primary_points),
                      'Unqualified camera source cannot expose fitting target provenance')
             target_info[identity] = {'target_origin': None, 'target_landmark_source': 'not_read_unqualified_source',
                                     'target_label': 'Unavailable — not construction-qualified source image'}
         else:
-            target_info[identity] = _target_info(frames_by_id[identity], ref)
+            target_info[identity] = _target_info(frames_by_id[identity], {**ref, 'points': primary_points} if multiview_mode else ref)
     support_names, primitive_names = report.get("support_names"), report.get("support_primitive_names")
     _require(isinstance(support_names, list) and isinstance(primitive_names, list)
              and 1 <= len(support_names) == len(primitive_names) <= 64 and len(set(support_names)) == len(support_names),
@@ -893,15 +904,15 @@ def _model(documents, hashes, check):
         _require(counter.get('floor_descent_accepts', -1) + counter.get('image_tiebreak_accepts', -1) == report.get('accepted_updates')
                  and counter.get('backtrack_trials') == report.get('accepted_updates', -1) + counter.get('rejected_backtracks', -1),
                  "Completed-trial counters differ")
-    elif method in {SURFACE_METHOD, CAMERA_METHOD}:
-        _require(type(objective) is dict and objective.get('profile') == ('camera_surface_interval_v1' if camera_mode else 'surface_interval_v1')
+    elif method in {SURFACE_METHOD, *CAMERA_METHODS}:
+        _require(type(objective) is dict and objective.get('profile') == ('camera_multiview_surface_interval_v1' if multiview_mode else 'camera_surface_interval_v1' if camera_mode else 'surface_interval_v1')
                  and objective.get('interval_units') == 'supplied_world_metre_squared'
                  and objective.get('weight_status') == 'authored' and objective.get('grid_interval_targets') == 0
                  and objective.get('weight') == report.get('surface_intervals', {}).get('weight'),
                  'Missing supported source-knot surface objective')
         for key in ('primary', 'acceptance'): _text(objective.get(key), 512)
     else: _require(objective is None, "Image-first profile cannot silently claim a floor-first objective")
-    surface = _surface_model(report, candidate, source, documents, hashes, check) if method in {SURFACE_METHOD, CAMERA_METHOD} else None
+    surface = _surface_model(report, candidate, source, documents, hashes, check) if method in {SURFACE_METHOD, *CAMERA_METHODS} else None
     if surface is None:
         _require('surface_intervals' not in report and 'surface_intervals' not in marker,
                  'Legacy profile cannot silently claim surface constraints')
@@ -918,8 +929,14 @@ def _model(documents, hashes, check):
             average = image.get(f'mean_error_{side}_px')
             if errors and all(e is not None for e in errors) and average is not None:
                 _require(math.isclose(average, sum(errors) / len(errors), rel_tol=1e-9, abs_tol=1e-10), 'Saved mean endpoint error differs')
+    multiview = None
     if camera_mode:
-        _camera_targets(camera, report, source, evidence, new_refs, check)
+        if multiview_mode:
+            from weft.camera_multiview_report import validate_multiview_report
+
+            multiview = validate_multiview_report(report, candidate, source, evidence, documents, hashes, check)
+        else:
+            _camera_targets(camera, report, source, evidence, new_refs, check)
         _require(surface['summary']['source_frame_slots'] == camera['complete_source_frame_slots'],
                  'Surface and camera complete original source denominators differ')
     return {'method': method, 'status': report['status'], 'promoted': False, 'physical_validation': 'unverified',
@@ -932,7 +949,9 @@ def _model(documents, hashes, check):
             'support_names': support_names, 'support_primitive_names': primitive_names,
             'support_labels': [_support_label(name, primitive) for name, primitive in zip(support_names, primitive_names)],
             'source': source_rows, 'grid': grid_rows, **({'surface_intervals': surface} if surface is not None else {}),
-            **({'camera_fit': camera, 'candidate_kind': CAMERA_OVERLAY} if camera_mode else {}),
+            **({'camera_fit': {k: v for k, v in camera.items() if k != 'multiview'} if multiview_mode else camera,
+                'candidate_kind': MULTIVIEW_OVERLAY if multiview_mode else CAMERA_OVERLAY} if camera_mode else {}),
+            **({'camera_multiview': multiview} if multiview is not None else {}),
             'scope': 'Saved source image estimates and authored-floor sample checks, not measured truth, physical poses, contact, anatomy or task/policy proof.'}
 
 
@@ -1026,11 +1045,20 @@ def _camera_html(camera, esc, fmt):
 <details><summary>Exact original-input bindings and saved camera work</summary><pre>{esc(json.dumps(camera['input_bindings'], indent=2))}</pre><p>Saved projection calls: {camera['projection_calls']} / {camera['maximum_projection_calls']}; control-grid camera projections: {camera['grid_camera_projection_calls']}. This report checks selected saved bytes and arithmetic, not camera projection, source decoding or geometry. The selected source receipt is not a fresh verification of the whole source package.</p></details></section>'''
 
 
-def _render(summary, palette, members=None):
+def _render(summary, palette, members=None, *, packed_payload=None):
     esc = lambda value: html.escape(str(value), quote=True)
     fmt = lambda value: "Unknown" if value is None else esc(value)
     proposed = 'Proposed angles' if 'camera_fit' in summary else 'Proposed body'
     comparison = 'Both angle sets' if 'camera_fit' in summary else 'Both bodies'
+    multiview = summary.get('camera_multiview')
+    script, camera_html, view_controls = _SCRIPT, _camera_html(summary.get('camera_fit'), esc, fmt), ''
+    image_text = f'Reported confident endpoint error: {fmt(summary["image_summary"].get("mean_error_before_px"))} → {fmt(summary["image_summary"].get("mean_error_after_px"))} pixels; reported pairs: {fmt(summary["image_summary"].get("confident_source_endpoint_pairs"))}. {comparison} are compared against the <strong>same selected source-image targets</strong>. These are body-fitting errors, not before/after crop-detector accuracy. Missing targets remain unknown.'
+    if multiview is not None:
+        from weft.camera_multiview_report import multiview_html, multiview_script, view_controls_html
+
+        script, camera_html = multiview_script(_SCRIPT, packed=packed_payload is not None), multiview_html(summary, esc, fmt)
+        view_controls = view_controls_html(multiview, esc)
+        image_text = 'Image agreement is reported separately for each supplied camera below. Every view must satisfy its own raw-pixel, projection-domain and depth-change checks; an improved pooled mean cannot compensate for a regressing view. Missing targets remain unknown.'
     labels = {'rejected_construction_proposal': 'Rejected proposal — not promoted',
               'unadmitted_construction_proposal': 'Unadmitted proposal — not promoted',
               'partial_budget_exhausted': 'Incomplete proposal — not promoted'}
@@ -1042,10 +1070,14 @@ def _render(summary, palette, members=None):
     objective = summary['objective']
     objective_html = ('<p>Image-first proposal. No floor-first objective was reported.</p>' if objective is None else
         '<p>The existing image and regularization objective includes an authored surface-range term at original source knots only. No surface targets are assigned to the control grid. The unchanged floor and source-image gates still apply.</p>'
-        if objective.get('profile') in {'surface_interval_v1', 'camera_surface_interval_v1'} else
+        if objective.get('profile') in {'surface_interval_v1', 'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'} else
         f'<p>Saved squared <strong>excess above 0.025</strong>: {fmt(objective.get("primary_before"))} → {fmt(objective.get("primary_after"))} model units² over {fmt(objective.get("unique_samples"))} unique sampled times. Lower is not a pass; zero would mean no saved excess above the limit, not zero penetration or contact.</p><details><summary>Saved floor-first counters</summary><pre>{esc(json.dumps(objective.get("counters"),indent=2))}</pre><p>Backtrack counts cover completed trials only. Interrupted trials may still add geometry calls. No per-update ledger was saved; these aggregates do not establish each optimization step.</p></details>')
-    data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029')
-    script_hash = base64.b64encode(sha256(_SCRIPT.encode()).digest()).decode()
+    data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029') if packed_payload is None else packed_payload.decode()
+    script_hash = base64.b64encode(sha256(script.encode()).digest()).decode()
+    payload_notice = ''
+    if packed_payload is not None:
+        _require(multiview is not None, 'Packed display data requires explicit multiview mode')
+        payload_notice = '<p id="payload-error" class="notice" role="alert" hidden></p>'
     members = MEMBERS if members is None else members
     links = ''.join(f'<li><a href="artifacts/{name}">{esc(source)}'
                     f'{" (gzip download; decompress to read)" if name.endswith(".gz") else ""}</a></li>'
@@ -1055,15 +1087,17 @@ def _render(summary, palette, members=None):
                     if 'artifact_storage' in summary else '')
     if 'surface_input_validator' in summary:
         links += '<li><a href="artifacts/source_surface_fit_inputs.py.txt">Current surface-input validation helper</a> (inspection code, not a study input)</li>'
+    for name in summary.get('multiview_inspection_helpers', {}):
+        links += f'<li><a href="artifacts/{name}.txt">{esc(name)}</a> (inspection code, not a study input)</li>'
     css = """body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.5 system-ui,sans-serif}main{max-width:1100px;margin:auto;padding:30px 20px}h1{font:700 2.4rem/1.1 Georgia,serif}section{background:var(--weft-surface);border:1px solid var(--weft-border);border-radius:14px;padding:22px;margin:20px 0}a{color:var(--weft-primary)}.notice{border-left:4px solid var(--weft-primary);padding:10px 16px}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--weft-border)}.scroll{overflow-x:auto}code,pre,.identity{overflow-wrap:anywhere}pre{white-space:pre-wrap}label{display:inline-block;margin:8px 14px 8px 0}select,button{font:inherit;padding:7px;max-width:100%}button:focus-visible,select:focus-visible{outline:3px solid var(--weft-primary)}svg{width:100%;height:auto}.before{fill:none;stroke:var(--weft-ink);stroke-width:2}.after{fill:none;stroke:var(--weft-primary);stroke-width:2.5}.limit{fill:none;stroke:var(--weft-muted);stroke-dasharray:7 5;stroke-width:1.5}svg text{fill:var(--weft-ink);font-size:13px}.dot-before{fill:var(--weft-ink)}.dot-after{fill:var(--weft-primary)}small{color:var(--weft-muted)}@media(max-width:600px){main{padding:16px 10px}section{padding:14px}td,th{padding:6px;font-size:.85rem}}"""
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-{script_hash}'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Weft · Reference proposal</title><style>{palette}{css}</style></head><body><main>
 <header><p>weft · saved reference proposal</p><h1>{labels[summary['status']]}</h1><p class="notice">The floor penetration limit remains <strong>0.025 model units</strong>. Fewer failures or smaller image error do not make a proposal pass. Source image estimates are <strong>not measured truth</strong>. No geometry, physics, policy, model or media processing runs in this report.</p><p>Method: <code>{esc(summary['method'])}</code></p></header>
-{_camera_html(summary.get('camera_fit'), esc, fmt)}
+{payload_notice}{camera_html}
 <section><h2>What changed, and what did not</h2><p>Source slots: {fmt(summary['source_counts'].get('retained_pose_slots'))}; body references: {fmt(summary['source_counts'].get('body_reference_knots'))}; retained slots without a body reference: {summary['source_slots_without_body_reference']}. Declared decoded frames: {fmt(summary['source_counts'].get('declared_decoded_frames'))}; container frame count: {fmt(summary['source_counts'].get('declared_frame_count'))}.</p>
 <div class="scroll"><table><thead><tr><th>Sampling view</th><th>Checks</th><th>Input body failures</th><th>{proposed} failures</th><th>Unknown input / proposed</th></tr></thead><tbody>{counts}</tbody></table></div><p>Counts cover saved checks only. Body references without saved geometry: {summary['source_references_without_geometry']}. The grid schedule is not re-created here; missing checks do not imply success. Source and grid checks overlap in time: {summary['unique_sample_times']} unique nominal sampled times. They are <strong>not distinct physical poses</strong> and not a continuous-time collision check. Root, shape, floor, clocks and nonreference fields match the supplied input body (after any pose recovery), not a body from before crop selection.</p>
-<p>Input body → {proposed}. Reported worst floor penetration: {fmt(summary['saved_floor_summary'].get('before_maximum_penetration_model_units'))} → {fmt(summary['saved_floor_summary'].get('after_maximum_penetration_model_units'))} model units. Reported confident endpoint error: {fmt(summary['image_summary'].get('mean_error_before_px'))} → {fmt(summary['image_summary'].get('mean_error_after_px'))} pixels; reported pairs: {fmt(summary['image_summary'].get('confident_source_endpoint_pairs'))}. {comparison} are compared against the <strong>same selected source-image targets</strong>. These are body-fitting errors, not before/after crop-detector accuracy. Missing targets remain unknown.</p>{objective_html}<details><summary>Saved gate outcomes — not a new evaluation</summary><table><tbody>{gates}</tbody></table></details></section>
+<p>Input body → {proposed}. Reported worst floor penetration: {fmt(summary['saved_floor_summary'].get('before_maximum_penetration_model_units'))} → {fmt(summary['saved_floor_summary'].get('after_maximum_penetration_model_units'))} model units. {image_text}</p>{objective_html}<details><summary>Saved gate outcomes — not a new evaluation</summary><table><tbody>{gates}</tbody></table></details></section>
 <section><h2>Floor penetration by saved sample</h2><label>Sampling view <select id="mode"><option value="source">Retained source slots</option><option value="grid">Control grid</option></select></label>
 <p>Input body: teal line. {proposed}: clay line. Dashed line: unchanged 0.025 limit. Missing values break the line; they are not plotted as zero.</p>
 <svg id="chart" viewBox="0 0 950 290" role="img" aria-labelledby="chart-title chart-description"><title id="chart-title">Input body and {proposed.lower()} maximum floor penetration</title><desc id="chart-description">Model-unit penetration by nominal time. Use the sample selector for exact values and unknowns.</desc><path d="M50 35V250H900" fill="none" stroke="currentColor"/><text x="5" y="20">model units</text><text id="ymax" x="5" y="43"></text><text x="28" y="254">0</text><text id="tfirst" x="50" y="278"></text><text id="tlast" x="800" y="278"></text><g id="lines"></g><circle id="before-dot" r="4" class="dot-before"/><circle id="after-dot" r="4" class="dot-after"/></svg>
@@ -1071,10 +1105,10 @@ def _render(summary, palette, members=None):
 <p id="identity" aria-live="polite"></p><p id="source-id" class="identity"></p><p id="context" class="identity"></p><p id="penetration"></p>
 <h3>Signed support gaps</h3><p>Negative means below the authored floor; positive means above it. A larger signed gap alone does not establish support or contact. Capsule endpoints −1 and +1 and the center sample 0 are points on saved shapes, not extra body parts. Labels describe authored collision shapes, not recovered anatomy.</p><label><input id="affected" type="checkbox" checked> Show changed, below-floor or unknown gaps</label>
 <div class="scroll"><table><thead><tr><th>Authored shape / support point</th><th>Saved identity</th><th>Input body gap</th><th>{proposed} gap</th><th>Change</th></tr></thead><tbody id="gaps"></tbody></table></div>
-<h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p><p id="target-label"></p><details id="target-details" hidden><summary>Selected target provenance</summary><dl id="target-metadata" class="identity"></dl><p>Preserved observation and selected proposal hashes match the copied input. The decision hash is a saved identifier; decision bytes and image pixels are not read or independently verified here. Original whole-frame estimates remain provenance, not alternative fitting targets.</p></details><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Input body error (px)</th><th>{proposed} error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
+<h3>Source endpoint agreement</h3><p>Only confident source-knot estimates supply targets. Control-grid samples have no source-image targets, including times that coincide with a source slot.</p>{view_controls}<p id="target-label"></p><details id="target-details" hidden><summary>Selected target provenance</summary><dl id="target-metadata" class="identity"></dl><p>Preserved observation and selected proposal hashes match the copied input. The decision hash is a saved identifier; decision bytes and image pixels are not read or independently verified here. Original whole-frame estimates remain provenance, not alternative fitting targets.</p></details><div class="scroll"><table><thead><tr><th>Endpoint</th><th>Saved status</th><th>Source confidence</th><th>Input body error (px)</th><th>{proposed} error (px)</th></tr></thead><tbody id="points"></tbody></table></div><noscript>Enable local JavaScript for sample selection, or inspect the exact supporting JSON below. No backend is used.</noscript></section>
 {_surface_html(summary.get('surface_intervals'), esc, fmt, members['report.json'])}
 <section><h2>Exact copied evidence</h2><p>Only {'four' if len(members) == 4 else len(members)} selected members were hash-checked and copied. Other manifest members were not read. External manifest hash supplied: {str(summary['external_manifest_pin_supplied']).lower()}. Without one, the local manifest identity is frozen for consistency, not externally authenticated. The stated video source ID is not a new hash of video bytes.{storage_note}</p><ul>{links}<li><a href="source-manifest.json.txt">Original manifest</a></li><li><a href="report.json">Report data and provenance</a></li></ul><p class="identity">Source manifest SHA256: <code>{summary['source_manifest_sha256']}</code></p><p>{esc(summary['scope'])}</p><small>Generated {esc(summary['created_at'])} (America/Los_Angeles).</small></section>
-</main><script id="data" type="application/json">{data}</script><script>{_SCRIPT}</script></body></html>'''.encode()
+</main><script id="data" type="application/json">{data}</script><script>{script}</script></body></html>'''.encode()
 
 
 def _alias_artifacts(raw, members, hashes):
@@ -1111,11 +1145,16 @@ def _compress_report(raw, members, stored, storage):
 
 
 def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256=None, max_seconds=10,
-                                        max_input_bytes=MAX_BYTES, max_output_bytes=MAX_BYTES):
+                                        max_input_bytes=None, max_output_bytes=MAX_BYTES):
     """Copy selected sealed JSON into a new bounded, offline inspection report."""
     _require(type(max_seconds) in (int, float) and math.isfinite(max_seconds) and 0 < max_seconds <= 30, "Report time bound must be 0–30 seconds")
-    for value in (max_input_bytes, max_output_bytes):
-        _require(type(value) is int and 1024 <= value <= MAX_BYTES, "Report byte bounds must be 1 KiB–16 MiB")
+    requested_input_bytes = max_input_bytes
+    _require(max_input_bytes is None or type(max_input_bytes) is int and 1024 <= max_input_bytes <= MULTIVIEW_INPUT_BYTES,
+             "Report input byte bound must be 1 KiB–24 MiB or automatic")
+    _require(type(max_output_bytes) is int and 1024 <= max_output_bytes <= MAX_BYTES,
+             "Report output byte bound must be 1 KiB–16 MiB")
+    # Classify under the legacy envelope before granting the explicit two-view input allowance.
+    max_input_bytes = MAX_BYTES if max_input_bytes is None else min(MAX_BYTES, max_input_bytes)
     if expected_manifest_sha256 is not None:
         _require(isinstance(expected_manifest_sha256, str) and _SHA.fullmatch(expected_manifest_sha256), "Expected manifest must be an exact SHA256")
     source, out = Path(source).absolute(), Path(out).absolute()
@@ -1142,16 +1181,23 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
                  and not Path(name).is_absolute() and all(part not in ('', '.', '..') for part in name.split('/'))
                  and name != 'manifest.json' and isinstance(identity, str) and _SHA.fullmatch(identity), "Unsafe manifest member or identity")
     _require(not any(parent.as_posix() in files for name in files for parent in Path(name).parents), 'Manifest file/directory paths overlap')
-    raw, total = {}, len(manifest_raw)
+    raw, total, multiview_mode = {}, len(manifest_raw), False
     def read_selected(name, bound=MAX_BYTES):
         nonlocal total
         check(); remaining = max_input_bytes - total
         _require(remaining > 0, "Selected report input byte bound exhausted")
         _require(name in files, 'Study lacks required sealed surface input: ' + name)
-        raw[name] = read_package_file(source, name, max_bytes=min(bound, remaining), expected_sha256=files[name]); total += len(raw[name])
+        member_bound = min(bound, 8 << 20) if multiview_mode else bound
+        raw[name] = read_package_file(source, name, max_bytes=min(member_bound, remaining), expected_sha256=files[name]); total += len(raw[name])
     _require('report.json' in files, "Study lacks required sealed report inputs")
     read_selected('report.json'); report_document = _json(raw['report.json'])
-    camera_mode = report_document.get('profile') == CAMERA_METHOD
+    camera_mode = report_document.get('profile') in CAMERA_METHODS
+    multiview_mode = report_document.get('profile') == MULTIVIEW_METHOD
+    _require(requested_input_bytes is None or multiview_mode or requested_input_bytes <= MAX_BYTES,
+             "Explicit input byte bound exceeds the legacy 16 MiB envelope")
+    if multiview_mode:
+        _require(len(raw['report.json']) <= 8 << 20, 'Multiview report member exceeds its 8 MiB byte bound')
+    max_input_bytes = requested_input_bytes if requested_input_bytes is not None else MULTIVIEW_INPUT_BYTES if multiview_mode else MAX_BYTES
     members = ({'angle-proposal.json': 'angle-proposal.json.txt', **{name: value for name, value in MEMBERS.items()
                 if name != 'candidate-human.json'}} if camera_mode else dict(MEMBERS))
     _require(set(members) <= set(files), "Study lacks required sealed report inputs")
@@ -1160,13 +1206,13 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
     for name in members:
         if name not in raw: read_selected(name)
     documents = {name: _json(value) for name, value in raw.items()}
-    if documents['report.json'].get('profile') in {SURFACE_METHOD, CAMERA_METHOD}:
+    if documents['report.json'].get('profile') in {SURFACE_METHOD, *CAMERA_METHODS}:
         from weft.source_surface_fit_inputs import surface_fit_member_names, validate_surface_fit_snapshot
 
         read_selected('plan.json', 128 << 10); plan = _json(raw['plan.json'])
         _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
                  and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen'
-                 and plan.get('proposal_objective') == ('camera_surface_interval_v1' if camera_mode else 'surface_interval_v1'),
+                 and plan.get('proposal_objective') == ('camera_multiview_surface_interval_v1' if multiview_mode else 'camera_surface_interval_v1' if camera_mode else 'surface_interval_v1'),
                  'Surface report requires its frozen input plan')
         descriptor = plan.get('surface_constraints'); names = surface_fit_member_names(descriptor)
         _require(type(plan.get('input_files')) is dict and all(plan['input_files'].get(name) == files.get(name)
@@ -1196,6 +1242,24 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
                                     ('camera.json', 'inputs/source-camera.json'), ('ground.json', 'inputs/ground.json')):
                 _require(type(proof['selected_members'].get(original)) is dict
                          and proof['selected_members'][original].get('bytes') == len(raw[alias]), 'Camera selected-source byte count differs')
+            if multiview_mode:
+                from weft.camera_multiview_inputs import camera_multiview_member_names, validate_camera_multiview_snapshot
+
+                descriptor = plan.get('secondary_view'); names = camera_multiview_member_names(descriptor)
+                _require(all(name in files and plan['input_files'].get(name) == files[name] for name in names),
+                         'Frozen second-camera input pins differ from the study seal')
+                _require(all(source_identity['copied_files'].get(name) == files.get(name)
+                             for name in ('inputs/secondary-camera.json', 'inputs/secondary-evidence.json')),
+                         'Second-camera aliases differ from original selected source copies')
+                for name in sorted(names):
+                    if name not in raw: read_selected(name, 64 << 10 if name.endswith('-config.json') else 16 << 10 if name.endswith('-alignment.json') else 8 << 20)
+                for alias in ('inputs/secondary-camera.json', 'inputs/secondary-evidence.json'):
+                    receipts = [row for row in proof['selected_members'].values() if row.get('copied_member') == alias]
+                    _require(len(receipts) == 1 and type(receipts[0].get('bytes')) is int and receipts[0]['bytes'] == len(raw[alias]),
+                             'Secondary selected-source byte count differs')
+                check(); validate_camera_multiview_snapshot(raw, descriptor, source_sha256=documents['inputs/human.json']['source_sha256']); check()
+                members.update({name: Path(name).name + '.txt' for name in sorted(names)})
+                documents.update({name: _json(raw[name]) for name in names})
     model = _model(documents, {name: files[name] for name in members}, check)
     check()
     palette_path = Path(__file__).parent / 'assets/brand.css'
@@ -1203,24 +1267,45 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
     _require(len(palette_raw) <= 16384 and b'</' not in palette_raw, "Invalid report palette")
     implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=256 * 1024)
     helper = None
+    multiview_helpers = {}
     if 'surface_intervals' in model:
         helper = read_package_file(Path(__file__).parent, 'source_surface_fit_inputs.py', max_bytes=128 << 10)
         model['surface_input_validator'] = {'path': 'artifacts/source_surface_fit_inputs.py.txt',
             'sha256': sha256(helper).hexdigest(), 'bytes': len(helper)}
+    if multiview_mode:
+        for name in ('camera_multiview_report.py', 'camera_multiview_inputs.py'):
+            multiview_helpers[name] = read_package_file(Path(__file__).parent, name, max_bytes=128 << 10)
+        model['multiview_inspection_helpers'] = {name: {'path': 'artifacts/' + name + '.txt',
+            'sha256': sha256(value).hexdigest(), 'bytes': len(value)} for name, value in multiview_helpers.items()}
     model.update(schema_version=1, profile=PROFILE, created_at=datetime.now(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S %Z'),
         source_manifest_sha256=manifest_sha, external_manifest_pin_supplied=expected_manifest_sha256 is not None,
         selected_members={name: {'sha256': files[name], 'bytes': len(value)} for name, value in raw.items()},
         selected_input_bytes=total, source_read_byte_bound=2 * max_input_bytes,
-        local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0),
+        local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0) + len(multiview_helpers) * (128 << 10),
         implementation_sha256=sha256(implementation).hexdigest(), palette_sha256=sha256(palette_raw).hexdigest())
+    if multiview_mode:
+        model['selected_input_byte_bound'] = max_input_bytes
+    payload_raw = None
     def assemble(stored):
+        nonlocal payload_raw
         check()
-        page = _render(model, palette_raw.decode(), members)
+        page = None if payload_raw is not None else _render(model, palette_raw.decode(), members)
+        if multiview_mode and (payload_raw is not None or len(page) > MAX_HTML):
+            from weft.camera_multiview_report import build_multiview_display_payload, PAYLOAD_PROFILE
+
+            if payload_raw is None:
+                payload_raw = build_multiview_display_payload(model, check)
+            model['display_payload'] = {'profile': PAYLOAD_PROFILE, 'encoding': 'inline_shared_point_tables',
+                'sha256': sha256(payload_raw).hexdigest(), 'bytes': len(payload_raw),
+                'scope': 'Selected-view display copy with shared point fields; complete plain model remains in report.json'}
+            page = _render(model, palette_raw.decode(), members, packed_payload=payload_raw)
         _require(len(page) <= MAX_HTML, "Offline report HTML exceeds its 2 MiB bound")
-        output = {'index.html': page, 'report.json': _bytes(model), 'source-manifest.json.txt': manifest_raw,
+        model_raw = ((json.dumps(model, separators=(',', ':'), allow_nan=False) + '\n').encode() if payload_raw is not None else _bytes(model))
+        output = {'index.html': page, 'report.json': model_raw, 'source-manifest.json.txt': manifest_raw,
                   **{'artifacts/' + name: value for name, value in stored.items()}}
         if helper is not None:
             output['artifacts/source_surface_fit_inputs.py.txt'] = helper
+        output.update({'artifacts/' + name + '.txt': value for name, value in multiview_helpers.items()})
         return output
 
     output = assemble({members[name]: value for name, value in raw.items()})
@@ -1239,7 +1324,8 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
         check(); read_package_file(source, name, max_bytes=len(raw[name]), expected_sha256=files[name])
     check(); read_package_file(source, 'manifest.json', max_bytes=128 * 1024, expected_sha256=manifest_sha)
     for directory, expected in ((out, {'index.html', 'report.json', 'source-manifest.json.txt', 'artifacts'}),
-                                (out / 'artifacts', set(members.values()) | ({'source_surface_fit_inputs.py.txt'} if helper is not None else set()))):
+                                (out / 'artifacts', set(members.values()) | ({'source_surface_fit_inputs.py.txt'} if helper is not None else set())
+                                 | {name + '.txt' for name in multiview_helpers})):
         with os.scandir(directory) as entries:
             actual = set()
             for entry in entries:

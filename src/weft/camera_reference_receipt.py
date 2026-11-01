@@ -52,8 +52,10 @@ def saved_reference_bindings(scene, task, envelope, contract, native, members, *
     _require(sha256(reference['document_utf8'].encode()).hexdigest() == pin == recipe_file_sha256
              == members.get('reference-controller.json') == contract.get('reference_controller_sha256'),
              'Fitted recipe bytes differ from the recording/lab identity')
+    multiview = recipe.get('profile') == 'camera-multiview-source-fit-controller-recipe-v1'
     _require(json.loads(reference['document_utf8']) == recipe
-             and recipe.get('profile') == 'camera-source-fit-controller-recipe-v1'
+             and recipe.get('profile') in {'camera-source-fit-controller-recipe-v1',
+                                          'camera-multiview-source-fit-controller-recipe-v1'}
              and recipe.get('interpretation') == 'archived_execution_only_not_source_fit_admission'
              and recipe.get('scene_sha256') == _canonical(scene) and recipe.get('task_sha256') == _canonical(task)
              and recipe.get('gates_sha256') == task.get('gates_sha256')
@@ -95,6 +97,52 @@ def saved_reference_bindings(scene, task, envelope, contract, native, members, *
              and recipe.get('angle_proposal_sha256') == source.get('angle_proposal_sha256')
              and recipe.get('proposal_report_sha256') == source.get('proposal_report_sha256')
              and trial_report.get('source_identities') == source, 'Fitted recipe and retained source identities differ')
+    if multiview:
+        overlay = recipe.get('angle_proposal')
+        _require(trial_report.get('controller_family') == 'camera_multiview_angle_overlay'
+                 and type(overlay) is dict and overlay.get('profile') == 'camera-body-multiview-angle-proposal-v1'
+                 and type(overlay.get('additional_view')) is dict and type(recipe.get('multiview_images')) is dict,
+                 'Multiview recipe requires its distinct overlay and qualification')
+        extension = overlay['additional_view']
+        binding = extension.get('binding')
+        _require(type(binding) is dict and binding.get('profile') == 'camera-multiview-evidence-extension-v1'
+                 and extension.get('binding_canonical_sha256') == _canonical(binding)
+                 and recipe.get('additional_view_sha256') == source.get('additional_view_sha256') == _canonical(extension)
+                 and recipe.get('multiview_qualification_sha256') == source.get('multiview_qualification_sha256')
+                     == _canonical(recipe['multiview_images'])
+                 and recipe['multiview_images'].get('binding_canonical_sha256') == extension['binding_canonical_sha256'],
+                 'Multiview recipe qualification differs from retained source identity')
+        secondary = binding.get('secondary_input_bindings')
+        views = binding.get('views')
+        _require(type(secondary) is dict and type(views) is list and len(views) == 2
+                 and type(views[1]) is dict and views[1].get('source_sha256') == source.get('secondary_source_sha256'),
+                 'Multiview secondary source identity is unavailable')
+        for name, key, original in (
+                ('inputs/secondary-camera.json', 'camera', 'camera.json'),
+                ('inputs/secondary-evidence.json', 'evidence', 'evidence.json')):
+            expected = _hash(source.get('secondary_' + key + '_sha256'))
+            _require(secondary.get(key + '_raw_sha256') == expected
+                     == members.get('source-run/inputs/two-view-root/' + original)
+                     == members.get('reference-trial/' + aliases.get(name, '')),
+                     'Multiview secondary raw input differs from original source or trial')
+        expected = _hash(source.get('secondary_view_config_sha256'))
+        _require(members.get('reference-trial/' + aliases.get('inputs/camera-secondary-config.json', '')) == expected,
+                 'Multiview config is absent from retained trial')
+        expected = _hash(source.get('secondary_world_alignment_sha256'))
+        _require(secondary.get('alignment_raw_sha256') == expected
+                 == members.get('reference-trial/' + aliases.get('inputs/camera-secondary-alignment.json', '')),
+                 'Multiview explicit world/clock alignment is absent from retained trial')
+        observation_pins = source.get('secondary_observation_sha256s')
+        _require(type(observation_pins) is list and 1 <= len(observation_pins) <= 8
+                 and len(set(observation_pins)) == len(observation_pins)
+                 and all(_hash(value) for value in observation_pins)
+                 and secondary.get('observation_document_sha256s') == sorted(observation_pins)
+                 and all(members.get('reference-trial/' + aliases.get(f'inputs/camera-secondary-observation-{index:02d}.json', '')) == pin
+                         for index, pin in enumerate(observation_pins)),
+                 'Multiview observation inventory differs from retained trial')
+    else:
+        _require(not {'additional_view_sha256', 'multiview_qualification_sha256', 'multiview_images'} & recipe.keys(),
+                 'Single-view recipe cannot carry unversioned multiview qualification')
     outcomes = {row['mode']: {'steps': row['steps'], 'success': row['metrics']['success'],
                             'mean_reward': row['metrics'].get('mean_reward')} for row in trial_report.get('trials', [])}
     _require(set(outcomes) == {'authored', 'reference_proposal'}

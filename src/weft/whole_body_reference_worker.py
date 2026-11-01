@@ -31,6 +31,7 @@ SURFACE_MODULES = {'source_surface_fit_inputs', 'source_surface_envelopes', 'sou
                    'source_surface_anchors', 'camera_pose', 'camera_ground', 'world_alignment', 'world_evidence', 'observations'}
 CAMERA_MODULES = {'camera_body_fit', 'camera_shared_contract', 'camera_body', 'camera_reference',
                   'multiview_root', 'multiview_body', 'multiview_pose', 'multiview_segments'}
+MULTIVIEW_MODULES = {'camera_multiview_inputs', 'camera_multiview_fit'}
 SURFACE_ROLES = {'camera': 'inputs/surface-camera.json', 'surface_intervals': 'inputs/surface-intervals.json',
                  'annotations': 'inputs/surface-annotations.json', 'body_binding': 'inputs/surface-body-binding.json'}
 SETTINGS = {'finalization_seconds': 8, 'maximum_geometry_calls': 120000, 'maximum_sweeps': 2}
@@ -119,13 +120,42 @@ def _write(root_fd, name, raw, bound):
         _require(sha256(stream.read(bound + 1)).digest() == sha256(raw).digest(), 'Worker output readback differs')
 
 
+def _secondary_members(value):
+    # The plan is checked before any frozen package code can be imported.
+    _require(type(value) is dict and set(value) == {'profile', 'config_sha256', 'primary_source_sha256',
+        'secondary_source_sha256', 'camera_sha256', 'evidence_sha256', 'observation_sha256s',
+        'world_alignment_sha256', 'correspondence_sha256', 'image_scale', 'weight'}
+        and value['profile'] == 'camera-secondary-view-fit-config-v1', 'Frozen secondary input descriptor required')
+    for key in ('config_sha256', 'primary_source_sha256', 'secondary_source_sha256',
+                'camera_sha256', 'evidence_sha256', 'correspondence_sha256'):
+        _require(type(value[key]) is str and _SHA.fullmatch(value[key]), 'Exact secondary input identities required')
+    _require(value['primary_source_sha256'] != value['secondary_source_sha256'], 'Distinct secondary source required')
+    observations, alignment = value['observation_sha256s'], value['world_alignment_sha256']
+    _require(type(observations) is list and 1 <= len(observations) <= 8
+             and all(type(pin) is str and _SHA.fullmatch(pin) for pin in observations)
+             and len(set(observations)) == len(observations), 'Invalid secondary observation inventory')
+    _require(alignment is None or type(alignment) is str and _SHA.fullmatch(alignment), 'Invalid secondary alignment pin')
+    scale, weight = value['image_scale'], value['weight']
+    _require(type(scale) in (int, float) and math.isfinite(scale) and 1e-6 <= scale <= 1,
+             'Explicit secondary image scale must be within [1e-6,1]')
+    _require(type(weight) in (int, float) and math.isfinite(weight) and 0 < weight <= 1000,
+             'Explicit secondary authored weight must be within (0,1000]')
+    return {'inputs/camera-secondary-config.json': value['config_sha256'],
+            'inputs/secondary-camera.json': value['camera_sha256'],
+            'inputs/secondary-evidence.json': value['evidence_sha256'],
+            **{f'inputs/camera-secondary-observation-{i:02d}.json': pin for i, pin in enumerate(observations)},
+            **({'inputs/camera-secondary-alignment.json': alignment} if alignment is not None else {})}
+
+
 def _plan(raw):
     plan = _json(raw)
     _require(type(plan.get('schema_version')) is int and plan['schema_version'] == 1
              and plan.get('profile') == 'whole-body-reference-candidate-plan-v1' and plan.get('status') == 'frozen', 'Frozen worker plan required')
-    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1', 'surface_interval_v1', 'camera_surface_interval_v1'}, 'Unsupported proposal objective')
-    camera_mode = plan['proposal_objective'] == 'camera_surface_interval_v1'
-    surface_mode = plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}
+    _require(plan.get('proposal_objective') in {'image_v1', 'floor_first_v1', 'surface_interval_v1',
+        'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}, 'Unsupported proposal objective')
+    multiview_mode = plan['proposal_objective'] == 'camera_multiview_surface_interval_v1'
+    camera_mode = plan['proposal_objective'] in {'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}
+    surface_mode = plan['proposal_objective'] == 'surface_interval_v1' or camera_mode
     input_files, runtime_files = INPUT_FILES, RUNTIME_FILES
     if surface_mode:
         surface = plan.get('surface_constraints')
@@ -153,6 +183,15 @@ def _plan(raw):
         runtime_files = runtime_files | {f'runtime/weft/{name}.py' for name in CAMERA_MODULES}
     else:
         _require('camera_image_scale' not in plan, 'Other objectives cannot silently consume a camera image scale')
+    secondary_members = {}
+    if multiview_mode:
+        secondary_members = _secondary_members(plan.get('secondary_view'))
+        _require(plan['secondary_view']['primary_source_sha256'] == plan['surface_constraints']['source_sha256'],
+                 'Secondary primary source differs from surface source')
+        input_files = input_files | set(secondary_members)
+        runtime_files = runtime_files | {f'runtime/weft/{name}.py' for name in MULTIVIEW_MODULES}
+    else:
+        _require('secondary_view' not in plan, 'Other objectives cannot silently consume a secondary view')
     for key, names in (('input_files', input_files), ('runtime_files', runtime_files)):
         values = plan.get(key)
         _require(type(values) is dict and set(values) == names, 'Worker requires the exact bounded ' + key)
@@ -162,6 +201,8 @@ def _plan(raw):
     if surface_mode:
         _require(plan['surface_constraints']['config_sha256'] == plan['input_files']['inputs/surface-config.json'],
                  'Frozen surface config identity differs')
+    _require(all(plan['input_files'].get(name) == pin for name, pin in secondary_members.items()),
+             'Frozen secondary member identity differs')
     settings = plan.get('settings')
     _require(type(settings) is dict and set(settings) == set(SETTINGS) | {'maximum_seconds'}, 'Unexpected fit settings')
     seconds = settings['maximum_seconds']
@@ -354,8 +395,56 @@ def _verify_files(root_fd, plan, check):
         os.close(directory)
 
 
+def _multiview_result(candidate, report, plan):
+    extra, fit = candidate.get('additional_view'), report['camera_fit'].get('multiview')
+    _require(type(extra) is dict and set(extra) == {'binding', 'binding_canonical_sha256'}
+             and type(extra['binding']) is dict and _canonical(extra['binding']) == extra['binding_canonical_sha256']
+             and type(fit) is dict and fit.get('additional_view') == extra, 'Secondary evidence extension differs')
+    binding, descriptor = extra['binding'], plan['secondary_view']
+    _require(binding.get('schema_version') == 1 and binding.get('profile') == 'camera-multiview-evidence-extension-v1'
+             and binding.get('primary_input_bindings_canonical_sha256') == _canonical(candidate['input_bindings'])
+             and binding.get('contact') == 'unknown' and binding.get('physical_validation') == 'unverified',
+             'Secondary view cannot change primary bindings or physical admission')
+    pins = binding.get('secondary_input_bindings')
+    _require(type(pins) is dict, 'Secondary input bindings required')
+    for key, field in (('camera_raw_sha256', 'camera_sha256'), ('evidence_raw_sha256', 'evidence_sha256'),
+                       ('alignment_raw_sha256', 'world_alignment_sha256'),
+                       ('correspondence_canonical_sha256', 'correspondence_sha256')):
+        _require(pins.get(key) == descriptor[field], 'Secondary output input identity differs')
+    _require(pins.get('observation_document_sha256s') == sorted(descriptor['observation_sha256s']),
+             'Secondary output observation inventory differs')
+    _require(_canonical(binding.get('correspondence')) == descriptor['correspondence_sha256'],
+             'Secondary correspondence differs')
+    views, audit = binding.get('views'), report.get('multiview_images')
+    _require(type(views) is list and len(views) == 2 and all(type(view) is dict for view in views)
+             and fit.get('views') == views, 'Two explicit output views required')
+    for view, source, scale, weight in zip(views,
+            (descriptor['primary_source_sha256'], descriptor['secondary_source_sha256']),
+            (plan['camera_image_scale'], descriptor['image_scale']), (1., descriptor['weight']), strict=True):
+        _require(view.get('source_sha256') == source and view.get('image_loss_scale_per_pixel') == scale
+                 and view.get('authored_view_weight') == weight, 'Secondary view source or authored loss units differ')
+    _require(type(audit) is dict and audit.get('profile') == 'camera-multiview-image-audit-v1'
+             and audit.get('binding_canonical_sha256') == extra['binding_canonical_sha256']
+             and type(audit.get('views')) is list and len(audit['views']) == 2, 'Separate per-view final audit required')
+    gates = {'source_endpoint_image_nonregression', 'camera_projection_domain', 'camera_endpoint_depth_change'}
+    for index, (saved, view) in enumerate(zip(audit['views'], views, strict=True)):
+        _require(type(saved) is dict and all(saved.get(key) == value for key, value in view.items())
+                 and saved.get('point_range') == [12 * index, 12 * (index + 1)]
+                 and type(saved.get('gates')) is dict and set(saved['gates']) == gates
+                 and all(type(value) is bool for value in saved['gates'].values())
+                 and type(saved.get('known_targets')) is int and saved['known_targets'] > 0,
+                 'Separate per-view gates and known targets required')
+    _require(type(audit.get('accepted')) is bool
+             and audit['accepted'] == all(all(view['gates'].values()) for view in audit['views'])
+             and type(report.get('gates')) is dict
+             and all(type(report['gates'].get(key)) is bool and report['gates'][key] ==
+                     all(view['gates'][key] for view in audit['views']) for key in gates),
+             'Pooled image success cannot override per-view qualification')
+
+
 def _result(result, plan):
-    camera_mode = plan['proposal_objective'] == 'camera_surface_interval_v1'
+    multiview_mode = plan['proposal_objective'] == 'camera_multiview_surface_interval_v1'
+    camera_mode = plan['proposal_objective'] in {'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}
     keys = {'status', 'human_candidate', 'report'} | ({'angle_proposal'} if camera_mode else set())
     _require(type(result) is dict and set(result) == keys, 'Unexpected fitter result shape')
     if camera_mode:
@@ -364,7 +453,8 @@ def _result(result, plan):
     method = {'image_v1': 'blocked-whole-body-floor-reference-v1',
               'floor_first_v1': 'blocked-whole-body-floor-first-reference-v1',
               'surface_interval_v1': 'blocked-whole-body-surface-interval-reference-v1',
-              'camera_surface_interval_v1': 'blocked-camera-body-surface-interval-reference-v1'}[plan['proposal_objective']]
+              'camera_surface_interval_v1': 'blocked-camera-body-surface-interval-reference-v1',
+              'camera_multiview_surface_interval_v1': 'blocked-multiview-camera-body-surface-interval-reference-v1'}[plan['proposal_objective']]
     _require(type(candidate) is dict and type(report) is dict and result['status'] in
              {'partial_budget_exhausted', 'rejected_construction_proposal', 'unadmitted_construction_proposal'}, 'Unsupported proposal result')
     _require(report.get('status') == result['status'] and report.get('profile') == method and report.get('promoted') is False
@@ -378,8 +468,9 @@ def _result(result, plan):
         _require(report.get(key) == marker.get(key) == plan['input_files'][name], 'Returned input identity differs')
     if camera_mode:
         scope = 'unsupported_angle_overlay_not_a_human_spec'
+        overlay_profile = 'camera-body-multiview-angle-proposal-v1' if multiview_mode else 'camera-body-angle-proposal-v1'
         _require(type(candidate.get('schema_version')) is int and candidate['schema_version'] == 1
-                 and candidate.get('profile') == report.get('candidate_kind') == 'camera-body-angle-proposal-v1'
+                 and candidate.get('profile') == report.get('candidate_kind') == overlay_profile
                  and candidate.get('installation') == report.get('geometry_admission') == scope
                  and all(candidate.get(key) is False for key in ('body_installed', 'raw_camera_changed', 'root_or_floor_changed', 'promoted'))
                  and candidate.get('contact') == 'unknown' and candidate.get('physical_validation') == 'unverified',
@@ -392,8 +483,16 @@ def _result(result, plan):
         for key, name in (('body_raw_sha256', 'inputs/human.json'), ('evidence_raw_sha256', 'inputs/evidence-derived.json'),
                           ('camera_raw_sha256', 'inputs/surface-camera.json')):
             _require(bindings.get(key) == plan['input_files'][name], 'Returned raw camera/body/evidence identity differs')
+        if multiview_mode:
+            _multiview_result(candidate, report, plan)
+        else:
+            _require('additional_view' not in candidate and 'multiview' not in camera and 'multiview_images' not in report,
+                     'Single-view output cannot silently consume a secondary view')
     _require(report.get('candidate_sha256') == _canonical(candidate), 'Returned canonical candidate identity differs')
-    output = {'angle-proposal.json' if camera_mode else 'candidate-human.json': _encode(candidate), 'report.json': _encode(report)}
+    # Keep all second-view evidence within existing byte caps without storing presentation whitespace.
+    report_raw = ((json.dumps(report, sort_keys=True, separators=(',', ':'), allow_nan=False) + '\n').encode()
+                  if multiview_mode else _encode(report))
+    output = {'angle-proposal.json' if camera_mode else 'candidate-human.json': _encode(candidate), 'report.json': report_raw}
     _require(sum(len(raw) for raw in output.values()) <= OUTPUT_LIMIT, 'Combined proposal output exceeds 16 MiB')
     return output
 
@@ -425,10 +524,12 @@ def run_worker(study, expected_plan_sha256):
         plan_raw = _read(root_fd, 'plan.json', PLAN_LIMIT, expected_plan_sha256)
         plan_sha = sha256(plan_raw).hexdigest()
         plan = _plan(plan_raw)
-        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}:
+        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}:
             guards.runtime_modules = RUNTIME_MODULES | SURFACE_MODULES
-        if plan['proposal_objective'] == 'camera_surface_interval_v1':
+        if plan['proposal_objective'] in {'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}:
             guards.runtime_modules = guards.runtime_modules | CAMERA_MODULES
+        if plan['proposal_objective'] == 'camera_multiview_surface_interval_v1':
+            guards.runtime_modules = guards.runtime_modules | MULTIVIEW_MODULES
         worker = Path(__file__).resolve(strict=True)
         _require(worker == path / 'runtime/weft/whole_body_reference_worker.py', 'Worker must execute from this frozen runtime')
         _verify_files(root_fd, plan, guards.check)
@@ -439,10 +540,14 @@ def run_worker(study, expected_plan_sha256):
         guards.check()
         fit = _load_runtime(worker.parent.parent, guards, versions)
         surface_options = {}
-        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1'}:
+        if plan['proposal_objective'] in {'surface_interval_v1', 'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'}:
             from weft.source_surface_fit_inputs import prepare_surface_fit_objective
             surface_options = prepare_surface_fit_objective(inputs, plan['surface_constraints'],
-                **({'camera_image_scale': plan['camera_image_scale']} if plan['proposal_objective'] == 'camera_surface_interval_v1' else {}))
+                **({'camera_image_scale': plan['camera_image_scale']} if plan['proposal_objective'] in
+                    {'camera_surface_interval_v1', 'camera_multiview_surface_interval_v1'} else {}))
+        if plan['proposal_objective'] == 'camera_multiview_surface_interval_v1':
+            from weft.camera_multiview_inputs import prepare_camera_multiview_options
+            surface_options.update(prepare_camera_multiview_options(inputs, plan['secondary_view']))
         guards.check(); guards.counts['fitter_calls'] += 1
         result = fit(inputs['inputs/human.json'], inputs['inputs/evidence-derived.json'],
                      proposal_objective=plan['proposal_objective'], settings=plan['settings'], **surface_options)

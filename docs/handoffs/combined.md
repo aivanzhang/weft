@@ -1,5 +1,86 @@
 # Combined Weft implementation handoff
 
+## Optional second-view fitting — October 31, 2026, 11:00 PM PDT
+
+Equipment support is now published at `41cfee28ceef55146fbbf6e29ef8248c475bd46d`;
+the exact remote result is in `.local/equipment-support-publication-01.json`, SHA
+`c461b151ee7ddc39059ec99334e935cfc49cfed6e3c62e173ba3b7eaebeaedf8`.
+Published scope/index are clean and stash empty at that checkpoint; separate
+avatar work is deliberately preserved. The previous conditional publication
+note below is historical. All earlier fits/trials/equipment runs are terminal.
+
+The active change is an optional supplied second-camera term in the existing
+body fitter, not a replacement pipeline or a requirement for two input videos.
+Root owns exact secondary input/config, pipeline/worker/CLI and acceptance;
+reconstruction owns the pure fitter and narrow QP integration; the consumer
+agent owns explicit versioned loader/controller/trial/lab/recording compatibility;
+UI owns saved per-view validation and report display. No overlapping writes or
+scorer/avatar ownership. [Current contract and commands](camera-multiview-workflow.md).
+
+Root has 53 distinct new passing metadata/mock cases plus 126 affected legacy
+checks. Reconstruction has 30 new analytical cases; consumers have 36 new/ten
+affected cases with independent review clear. Reconstruction's analytical
+test resolves a declared two-camera ambiguity. One real-source fit now completed;
+its saved arithmetic passes independent audit. Mean source-point errors improve
+12.7922→10.8681 and 27.0366→24.9719 pixels across the two views. Per-view
+raw-pixel/domain/depth checks remain mandatory alongside the
+original fourteen gates; original body/root/floor/timing/partitions stay fixed.
+The explicit two-view report gets a 24-MiB selected-input allowance and its
+consumer keeps all three read passes within 80 MiB; legacy limits remain unchanged.
+Output stays 16 MiB and HTML stays 2 MiB. Single-view defaults and
+the old playable lab's frozen runtime are preserved, not repinned.
+
+One source-metadata preparation now passed in 1.156 seconds, retaining all 240
+slots per view and 1,241/704 known targets. No fitting, native engine, inference
+or paid call occurred. Process `.local/camera-multiview-source-process-01.json`,
+SHA `0ee7cd1cfc20de88f7e200aa0b9fb4831b8b50419f9116ead846ac30b445c6e5`,
+is terminal; do not repeat it. Exact original world/clock/person assumptions and
+all unavailable surface terms remain. [Prepared inputs and next boundary](camera-multiview-workflow.md#actual-saved-input-preparation--october-31-2026-1034-pm-pdt).
+
+Lossless input encoding in `secondary-inputs-02` retained every JSON value and
+slot; exact prior inputs and raw identities remain preserved. One reviewed frozen
+fit in `artifacts/camera-multiview-real-01/fit-01` completed in 4.167 worker seconds:
+all fourteen gates pass, two models, four data allocations and 18,266 forward calls,
+with no physics stepping or source processing. The outer workflow failed only
+on the 2-MiB HTML limit. The completed proposal seal is
+`27c1922017155f2160b805af3fdccf4d3620933944dfab56911d921e9b797adc`;
+the failed outer seal is
+`7454d904787761c163a52328cb7df17f62d951efced7c4bf4572f8ed43f7806a`.
+**Do not refit.** Saved-result viewer recovery has now passed in 0.830 seconds:
+26 files/16,614,274 bytes, all 21 logical input identities and 27 local links
+verified; all 480 camera slots remain. [Open the viewer](../../artifacts/camera-multiview-real-01/inspection-recovered-01/index.html).
+
+The matched trial also completed: both original 238-step intervals, two exports
+and exact replays. Fitted reward is 0.806152 versus 0.826209 authored, with slightly
+worse angular tracking; image improvement is not task improvement. The subsequent
+lab attachment failed because the fit-specific snapshot lacked three project
+metadata files. Lab-only recovery now passes in 8.20 seconds: ten mixed actions,
+one reset, export, exact replay and fresh resume. All 277 code/asset files and the
+completed recipe stay identical; only the three committed project files were
+added. [Try the prepared sandbox](../local-lab.md#try-the-optional-two-camera-fitted-sandbox).
+**Do not repeat the completed trial.** No native job, paid API, deployment or
+acquisition is active. Both independent saved trial/lab audits and UI's actual
+saved-page audit passed without repeating physics or using a browser.
+
+The next independent reconstruction lane is optional named wrist/pinky/index/thumb
+image evidence for existing equipment candidates. Reconstruction owns isolated
+new helper/tests and narrow pose/silhouette preparation edits; root owns later
+CLI/UI integration. No source/native pilot is running or authorized by that lane
+assignment yet. Preserve default wrist results and missing evidence; this can
+qualify image consistency, not contact/grasp/load or unknown ground calibration.
+
+Main/cached origin advanced independently to avatar-only commit
+`050deb54933d052abcca1b786dabdd00ad5aaa53`; the science runtime intentionally keeps
+its reviewed `41cfee2` base and exact overrides. Two unrelated avatar files remain
+dirty and are excluded. A fresh `git fetch origin main` confirms no local/remote
+divergence. At this prepublication snapshot, the 29-path two-view checkpoint is
+reviewed and locally verified; stash/index were empty at refresh. Root publishes
+only that scope, excluding all active avatar and hand-point edits. The actual
+commit/private remote/scoped state must be read from
+`.local/camera-multiview-publication-01.json`; absence means publication unfinished.
+Keep the goal active: unfamiliar-video ground/equipment reconstruction and
+independent physical accuracy remain open. [Current acceptance and next actions](camera-multiview-workflow.md#real-two-view-fit--october-31-2026-1100-pm-pdt).
+
 ## Saved support comparison — October 31, 2026, 9:54 PM PDT
 
 Equipment evidence/inspection is published and remotely verified at

@@ -14,6 +14,7 @@ from weft.shared_world_packaging import read_package_file, validate_package_layo
 PROFILE = "shared-exercise-reference-inputs-v1"
 MAX_INPUT_BYTES = 32 * 1024 * 1024
 MAX_CAMERA_INPUT_BYTES = 64 * 1024 * 1024
+MAX_MULTIVIEW_INPUT_BYTES = 80 * 1024 * 1024
 MAX_FILE_BYTES = 8 * 1024 * 1024
 MAX_MANIFEST_BYTES = 128 * 1024
 MAX_MEMBERS = 1024
@@ -169,7 +170,7 @@ def _complete_geometry(documents, model):
 def load_reference_inputs(proposal, scene_run, task_path, *, expected_proposal_manifest_sha256=None,
                           expected_scene_manifest_sha256=None, expected_task_sha256=None,
                           max_seconds=10, max_input_bytes=MAX_INPUT_BYTES, allow_camera=False,
-                          camera_max_input_bytes=None):
+                          camera_max_input_bytes=None, multiview_max_input_bytes=None):
     """Freeze exact selected bytes; callers still admit sources, runtime and provider.
 
     Without an expected seal, the current bounded local manifest is frozen and
@@ -179,13 +180,13 @@ def load_reference_inputs(proposal, scene_run, task_path, *, expected_proposal_m
         _require(type(allow_camera) is bool, "camera opt-in must be explicit")
         return _load(proposal, scene_run, task_path, expected_proposal_manifest_sha256,
                      expected_scene_manifest_sha256, expected_task_sha256, max_seconds, max_input_bytes,
-                     allow_camera, camera_max_input_bytes)
+                     allow_camera, camera_max_input_bytes, multiview_max_input_bytes)
     except (KeyError, TypeError, AttributeError, IndexError, OverflowError, RecursionError) as error:
         raise ValueError("Saved reference inputs: malformed metadata contract") from error
 
 
 def _load(proposal, scene_run, task_path, proposal_pin, scene_pin, task_pin, max_seconds, max_input_bytes,
-          allow_camera=False, camera_max_input_bytes=None):
+          allow_camera=False, camera_max_input_bytes=None, multiview_max_input_bytes=None):
     _require(type(max_seconds) in (int, float) and math.isfinite(max_seconds) and 0 < max_seconds <= 10,
              "time bound must be positive and at most ten seconds")
     _require(type(max_input_bytes) is int and 1024 <= max_input_bytes <= MAX_INPUT_BYTES,
@@ -193,6 +194,9 @@ def _load(proposal, scene_run, task_path, proposal_pin, scene_pin, task_pin, max
     _require(camera_max_input_bytes is None or allow_camera and type(camera_max_input_bytes) is int
              and 1024 <= camera_max_input_bytes <= MAX_CAMERA_INPUT_BYTES,
              "explicit camera aggregate read bound must be 1 KiB–64 MiB with camera opt-in")
+    _require(multiview_max_input_bytes is None or allow_camera and type(multiview_max_input_bytes) is int
+             and 1024 <= multiview_max_input_bytes <= MAX_MULTIVIEW_INPUT_BYTES,
+             "explicit multiview aggregate read bound must be 1 KiB–80 MiB with camera opt-in")
     for pin in (proposal_pin, scene_pin, task_pin):
         _pin(pin)
     proposal, source, task_path = _path(proposal), _path(scene_run), _path(task_path)
@@ -236,6 +240,12 @@ def _load(proposal, scene_run, task_path, proposal_pin, scene_pin, task_pin, max
             "input_bytes_read": 2 * selected_bytes, "maximum_input_bytes": max_input_bytes,
             "maximum_seconds": max_seconds, "seconds": time.monotonic() - started}
 
+    def select_multiview_budget():
+        nonlocal max_input_bytes
+        if multiview_max_input_bytes is not None:
+            max_input_bytes = multiview_max_input_bytes
+            _require(selected_bytes <= max_input_bytes // 2, "selected metadata byte bound exhausted")
+
     not_failed(proposal); not_failed(source)
     proposal_manifest_raw = read(proposal, "manifest.json", proposal_pin, MAX_MANIFEST_BYTES)
     proposal_manifest, proposal_files = _manifest(proposal_manifest_raw)
@@ -248,7 +258,8 @@ def _load(proposal, scene_run, task_path, proposal_pin, scene_pin, task_pin, max
             _require(selected_bytes <= max_input_bytes // 2, "selected metadata byte bound exhausted")
         from weft.camera_reference_inputs import _load_camera
         return _load_camera(proposal, source, task_path, proposal_manifest_raw, proposal_files,
-                            read=read, check=check, finish=finish, pins=(proposal_pin, scene_pin, task_pin))
+                            read=read, check=check, finish=finish, pins=(proposal_pin, scene_pin, task_pin),
+                            select_multiview_budget=select_multiview_budget)
     _require(set(saved_report.MEMBERS) <= set(proposal_files), "proposal lacks required sealed inputs")
     raw = {name: read(proposal, name, proposal_files[name]) for name in saved_report.MEMBERS}
     documents = {name: saved_report._json(value) for name, value in raw.items()}

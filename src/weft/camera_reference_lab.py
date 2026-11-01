@@ -106,7 +106,8 @@ def _attachment(manifest_raw, read, scene, task, source_manifest_raw, source_fil
     _require(plan.get('profile') == TRIAL_PROFILE + '-plan' and plan.get('status') == 'frozen'
              and report.get('profile') == TRIAL_PROFILE and report.get('status') == 'completed'
              and report.get('error') is None and report.get('same_initial_state') is True
-             and plan.get('controller_family') == report.get('controller_family') == 'camera_angle_overlay'
+             and plan.get('controller_family') == report.get('controller_family')
+             and report['controller_family'] in {'camera_angle_overlay', 'camera_multiview_angle_overlay'}
              and plan.get('modes') == ['authored', 'reference_proposal']
              and type(plan.get('seed')) is int and 0 <= plan['seed'] < 2 ** 31 and plan['seed'] == report.get('seed')
              and plan.get('reset_options') == report.get('reset_options') == {'jitter': False, 'jitter_scale': 0.},
@@ -169,11 +170,20 @@ def _attachment(manifest_raw, read, scene, task, source_manifest_raw, source_fil
              and inputs.identities == plan.get('source_identities') == report.get('source_identities')
              and inputs.identities['scene_sha256'] == scene_pin and inputs.identities['task_sha256'] == task_pin,
              'trial proposal/source identities or complete selected inventory differ')
+    multiview = inputs.receipt().get('profile') == 'camera-multiview-reference-inputs-v1'
+    _require(report['controller_family'] == ('camera_multiview_angle_overlay' if multiview else 'camera_angle_overlay')
+             and recipe.get('profile') == ('camera-multiview-source-fit-controller-recipe-v1' if multiview
+                                           else 'camera-source-fit-controller-recipe-v1'),
+             'trial controller family differs from its admitted proposal and recipe')
     _require(recipe.get('input_human_sha256') == inputs.identities['original_human_sha256']
              and recipe.get('input_evidence_sha256') == inputs.identities['input_evidence_sha256']
              and recipe.get('angle_proposal_sha256') == inputs.identities['angle_proposal_sha256']
              and recipe.get('proposal_report_sha256') == inputs.identities['proposal_report_sha256'],
              'fitted recipe differs from the exact original proposal')
+    if multiview:
+        _require(all(recipe.get(key) == inputs.identities[key] for key in
+                     ('additional_view_sha256', 'multiview_qualification_sha256')),
+                 'multiview recipe differs from the exact retained qualification')
     rows = report.get('trials')
     _require(type(rows) is list and len(rows) == 2 and [row.get('mode') for row in rows] == plan['modes'],
              'both matched saved controller outcomes are required')

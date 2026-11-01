@@ -159,7 +159,7 @@ def _seal(root, profile, status, deadline, *, max_bytes=MAX_BYTES, media_name=No
     return sha256(raw).hexdigest()
 
 
-def _runtime(*, surface=False, camera=False):
+def _runtime(*, surface=False, camera=False, multiview=False):
     modules = RUNTIME_MODULES
     if surface:
         from weft.source_surface_fit_inputs import RUNTIME_MODULES as surface_modules
@@ -169,6 +169,11 @@ def _runtime(*, surface=False, camera=False):
             raise ValueError("Camera fitting requires the surface-input runtime")
         from weft.source_surface_fit_inputs import CAMERA_RUNTIME_MODULES
         modules = (*modules, *CAMERA_RUNTIME_MODULES)
+    if multiview:
+        if not camera:
+            raise ValueError("Secondary-view fitting requires the camera-input runtime")
+        from weft.camera_multiview_inputs import RUNTIME_MODULES as multiview_modules
+        modules = (*modules, *multiview_modules)
     source = Path(__file__).parent
     files = {f"runtime/weft/{name}.py": read_package_file(source, name + ".py", max_bytes=2 * 1024 * 1024)
              for name in modules}
@@ -177,15 +182,19 @@ def _runtime(*, surface=False, camera=False):
 
 def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha256=None,
                                           proposal_objective="image_v1", fit_seconds=30., max_seconds=60., surface_config=None,
-                                          camera_image_scale=None):
+                                          camera_image_scale=None, secondary_view_config=None):
     """Deliver a proposal and report, never install a body or change any acceptance gate."""
     from weft.whole_body_reference_report import prepare_whole_body_reference_report
 
-    camera_mode = proposal_objective == "camera_surface_interval_v1"
-    if proposal_objective not in {"image_v1", "floor_first_v1", "surface_interval_v1", "camera_surface_interval_v1"}:
+    multiview_mode = proposal_objective == "camera_multiview_surface_interval_v1"
+    camera_mode = proposal_objective in {"camera_surface_interval_v1", "camera_multiview_surface_interval_v1"}
+    if proposal_objective not in {"image_v1", "floor_first_v1", "surface_interval_v1", "camera_surface_interval_v1",
+                                  "camera_multiview_surface_interval_v1"}:
         raise ValueError("Unknown body proposal objective")
-    if (proposal_objective in {"surface_interval_v1", "camera_surface_interval_v1"}) != (surface_config is not None):
+    if (proposal_objective == "surface_interval_v1" or camera_mode) != (surface_config is not None):
         raise ValueError("Surface-interval fitting requires an explicit surface config and matching objective")
+    if multiview_mode != (secondary_view_config is not None):
+        raise ValueError("Two-view fitting requires an explicit secondary-view config and matching objective")
     if camera_mode:
         if type(camera_image_scale) not in (int, float) or not math.isfinite(camera_image_scale) or not 1e-6 <= camera_image_scale <= 1:
             raise ValueError("Camera image scale must be explicit within [1e-6,1] authored loss units per pixel")
@@ -213,14 +222,23 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         from weft.source_surface_fit_inputs import prepare_surface_fit_inputs
         surface_files, surface_descriptor = prepare_surface_fit_inputs(surface_config,
             source_sha256=snapshot["identity"]["source_sha256"], deadline=deadline)
+    secondary_files, secondary_descriptor = {}, None
+    if multiview_mode:
+        from weft.camera_multiview_inputs import prepare_camera_multiview_inputs
+        secondary_files, secondary_descriptor = prepare_camera_multiview_inputs(secondary_view_config,
+            source_files=snapshot["files"], source_sha256=snapshot["identity"]["source_sha256"],
+            deadline=min(deadline, time.monotonic() + 5))
+        if any(name in snapshot["files"] and raw != snapshot["files"][name] for name, raw in secondary_files.items()):
+            raise ValueError("Secondary inputs cannot replace any original source snapshot member")
     if camera_mode:
         if ("inputs/surface-camera.json" not in surface_files
                 or surface_files["inputs/surface-camera.json"] != snapshot["files"].get("inputs/source-camera.json")):
             raise ValueError("Surface config camera must match the exact original camera-body source bytes")
-        runtime, versions = _runtime(surface=True, camera=True)
+        runtime, versions = _runtime(surface=True, camera=True, **({"multiview": True} if multiview_mode else {}))
     else:
         runtime, versions = _runtime(surface=True) if surface_config is not None else _runtime()
-    initial = {**snapshot["files"], **surface_files, **runtime}
+    copied_inputs = {**snapshot["files"], **surface_files, **secondary_files}
+    initial = {**copied_inputs, **runtime}
     recovery = snapshot["identity"].get("recovery")
     media_name, output_limit = None, MAX_BYTES
     input_limit = 32 * 1024 * 1024
@@ -251,7 +269,7 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
         plan = {"schema_version": 1, "profile": "whole-body-reference-candidate-plan-v1", "status": "frozen",
                 "proposal_objective": proposal_objective,
                 "input_files": {name: sha256(initial[name]).hexdigest() for name in
-                                ("inputs/human.json", "inputs/evidence-derived.json", *surface_files)},
+                                ("inputs/human.json", "inputs/evidence-derived.json", *surface_files, *secondary_files)},
                 "runtime_files": {name: sha256(raw).hexdigest() for name, raw in runtime.items()},
                 "runtime_versions": versions,
                 "settings": {"maximum_seconds": fit_seconds, "finalization_seconds": 8,
@@ -259,7 +277,7 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
                 "source": snapshot["identity"],
                 "bounds": {"worker_wall_seconds": 45, "workflow_seconds": max_seconds,
                            "output_bytes": output_limit, "output_files": MAX_FILES, "log_bytes_per_stream": MAX_LOG_BYTES,
-                           "copied_input_bytes": sum(map(len, snapshot["files"].values())) + sum(map(len, surface_files.values())),
+                           "copied_input_bytes": sum(map(len, copied_inputs.values())),
                            "source_media_bytes": len(initial[media_name]) if media_name else 0,
                            "memory_scope": "Bounded input, geometry calls and output; observed RSS, not a hard RSS cap",
                            "execution_scope": "Reviewed trusted fitter in a restricted child, not an OS sandbox for generated code"},
@@ -269,8 +287,12 @@ def prepare_whole_body_reference_proposal(source, out, *, expected_manifest_sha2
             result["surface_constraints"] = surface_descriptor
         if camera_mode:
             plan["camera_image_scale"] = camera_image_scale
-            result.update(camera_image_scale=camera_image_scale, candidate_kind="camera-body-angle-proposal-v1",
+            result.update(camera_image_scale=camera_image_scale,
+                          candidate_kind="camera-body-multiview-angle-proposal-v1" if multiview_mode else "camera-body-angle-proposal-v1",
                           installation="unsupported_angle_overlay_not_a_human_spec")
+        if secondary_descriptor is not None:
+            plan["secondary_view"] = secondary_descriptor
+            result["secondary_view"] = secondary_descriptor
         plan_raw = _bytes(plan)
         write_package_files(study, {"plan.json": plan_raw})
         stage = "proposal"

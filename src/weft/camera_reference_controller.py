@@ -24,9 +24,16 @@ from weft.spatial_pose import SPATIAL_JOINT_LIMITS, SPATIAL_JOINT_NAMES
 
 PROFILE = "camera-source-fit-controller-v1"
 RECIPE_PROFILE = "camera-source-fit-controller-recipe-v1"
+MULTIVIEW_PROFILE = "camera-multiview-source-fit-controller-v1"
+MULTIVIEW_RECIPE_PROFILE = "camera-multiview-source-fit-controller-recipe-v1"
 RECIPE_INTERPRETATION = "archived_execution_only_not_source_fit_admission"
 METHOD = "blocked-camera-body-surface-interval-reference-v1"
+MULTIVIEW_METHOD = "blocked-multiview-camera-body-surface-interval-reference-v1"
 OVERLAY_PROFILE = "camera-body-angle-proposal-v1"
+MULTIVIEW_OVERLAY_PROFILE = "camera-body-multiview-angle-proposal-v1"
+MULTIVIEW_OBJECTIVE = "camera_multiview_surface_interval_v1"
+MULTIVIEW_EXTENSION = "camera-multiview-evidence-extension-v1"
+MULTIVIEW_AUDIT = "camera-multiview-image-audit-v1"
 MAX_RECIPE_BYTES, MAX_SECONDS = 1 << 20, 5.
 PROPOSAL_GATES = shared.PROPOSAL_GATES | frozenset({
     "surface_interval_nonregression", "camera_projection_domain", "camera_endpoint_depth_change"})
@@ -70,6 +77,9 @@ _RECIPE_KEYS = frozenset({"schema_version", "profile", "interpretation", "scene_
     "gates_sha256", "action_contract_sha256", *IDENTITIES, "input_human_sha256", "input_evidence_sha256",
     "angle_proposal_sha256", "angle_proposal_canonical_sha256", "proposal_report_sha256",
     "runtime_sha256", "feedback_gains", "clock_binding", "proposal_gates", "angle_proposal"})
+_MULTIVIEW_RECIPE_KEYS = _RECIPE_KEYS | frozenset({
+    "additional_view_sha256", "multiview_qualification_sha256", "multiview_images"})
+_VIEW_GATES = frozenset({"source_endpoint_image_nonregression", "camera_projection_domain", "camera_endpoint_depth_change"})
 
 
 def _require(value, message):
@@ -172,9 +182,218 @@ def _context(original, scene, task, action, runtime, selector, deadline):
         "horizon_steps": clock["horizon_steps"]}
 
 
+def _multiview_binding(overlay, original, deadline):
+    extension = overlay["additional_view"]
+    _require(type(extension) is dict and set(extension) == {"binding", "binding_canonical_sha256"}
+             and _hash(extension["binding_canonical_sha256"]), "exact multiview extension required")
+    binding = extension["binding"]
+    keys = {"schema_version", "profile", "primary_input_bindings_canonical_sha256", "views",
+            "secondary_original_view", "secondary_input_bindings", "alignment", "correspondence",
+            "qualification", "assumptions", "contact", "physical_validation"}
+    _require(type(binding) is dict and set(binding) == keys and binding["schema_version"] == 1
+             and type(binding["schema_version"]) is int and binding["profile"] == MULTIVIEW_EXTENSION
+             and canonical_hash(binding) == extension["binding_canonical_sha256"]
+             and binding["primary_input_bindings_canonical_sha256"] == canonical_hash(overlay["input_bindings"])
+             and binding["contact"] == "unknown" and binding["physical_validation"] == "unverified"
+             and type(binding["assumptions"]) is str and 0 < len(binding["assumptions"]) <= 2000,
+             "multiview binding identity or scope differs")
+    root = original["camera_reference"]["root_refinement"]
+    views, originals = binding["views"], root["views"]
+    _require(type(views) is list and len(views) == len(originals) == 2
+             and _same(binding["secondary_original_view"], originals[1])
+             and originals[0]["name"] != originals[1]["name"]
+             and originals[0]["source_sha256"] == original["source_sha256"] != originals[1]["source_sha256"],
+             "exact original primary and secondary views required")
+    for index, (view, source) in enumerate(zip(views, originals, strict=True)):
+        _require(type(view) is dict and set(view) == {"view_id", "source_sha256", "image_loss_scale_per_pixel", "authored_view_weight"}
+                 and view["view_id"] == source["name"] and view["source_sha256"] == source["source_sha256"]
+                 and _number(view["image_loss_scale_per_pixel"], 1e-6, 1.)
+                 and _number(view["authored_view_weight"], 0., 1000.) and view["authored_view_weight"] > 0
+                 and (index != 0 or view["authored_view_weight"] == 1.), "invalid named view scale or weight")
+    pins = binding["secondary_input_bindings"]
+    _require(type(pins) is dict and set(pins) == {"camera_raw_sha256", "evidence_raw_sha256", "camera_canonical_sha256",
+        "evidence_canonical_sha256", "observation_document_sha256s", "alignment_raw_sha256",
+        "alignment_canonical_sha256", "correspondence_canonical_sha256"}
+        and all(_hash(value) for key, value in pins.items() if key != "observation_document_sha256s")
+        and pins["camera_canonical_sha256"] == originals[1]["camera_sha256"]
+        and pins["evidence_canonical_sha256"] == originals[1]["evidence_sha256"], "secondary original-input pins differ")
+    observations = pins["observation_document_sha256s"]
+    _require(type(observations) is list and 1 <= len(observations) <= 8 and all(map(_hash, observations))
+             and observations == sorted(set(observations)), "bounded exact secondary observation inventory required")
+    relation = binding["correspondence"]
+    _require(type(relation) is dict and set(relation) == {"primary_entity_ref", "secondary_entity_ref", "status", "method", "uncertainty"}
+             and relation["status"] == "assumed" and canonical_hash(relation) == pins["correspondence_canonical_sha256"]
+             and all(type(relation[k]) is str and 0 < len(relation[k].strip()) <= 2000 for k in ("method", "uncertainty")),
+             "explicit assumed cross-view human correspondence required")
+    for name in ("primary_entity_ref", "secondary_entity_ref"):
+        entity = relation[name]
+        _require(type(entity) is dict and set(entity) == {"document_sha256", "object_id"}
+                 and _hash(entity["document_sha256"]) and type(entity["object_id"]) is str
+                 and 0 < len(entity["object_id"]) <= 80, "invalid qualified human entity reference")
+    _require(relation["secondary_entity_ref"]["document_sha256"] in observations,
+             "secondary human is outside the exact observation inventory")
+    alignment = binding["alignment"]
+    _require(type(alignment) is dict and canonical_hash(alignment) == pins["alignment_canonical_sha256"]
+             and alignment.get("from_frame") == {"id": "camera-world:" + pins["camera_canonical_sha256"], "length_unit": "m", "axes": "x_right_y_depth_z_up"}
+             and alignment.get("to_frame") == {"id": "camera-world:" + overlay["input_bindings"]["camera_canonical_sha256"], "length_unit": "m", "axes": "x_right_y_depth_z_up"}
+             and alignment.get("spatial") == {"scale": 1., "rotation_wxyz": [1., 0., 0., 0.], "translation": [0., 0., 0.]}
+             and alignment.get("clock") == {"rate": 1., "source_origin_s": 0., "target_origin_s": 0.},
+             "original same-world/clock mapping changed")
+    qualified = binding["qualification"]
+    _require(type(qualified) is dict and set(qualified) == {"status", "reason", "known_targets_by_view", "missing_targets_by_view",
+        "source_slots_by_view", "secondary_source_slots_canonical_sha256", "original_root_source_binding_canonical_sha256",
+        "minimum_camera_baseline_supplied_units", "maximum_camera_baseline_supplied_units",
+        "secondary_declared_frames", "secondary_decoded_frames", "secondary_pose_rows"}
+        and qualified["status"] == "conditional_two_view_ready" and qualified["reason"] is None
+        and _hash(qualified["secondary_source_slots_canonical_sha256"])
+        and qualified["original_root_source_binding_canonical_sha256"] == canonical_hash(root["roots"]),
+        "conditional multiview source qualification required")
+    total = 12 * len(original["reference"])
+    for key in ("known_targets_by_view", "missing_targets_by_view", "source_slots_by_view"):
+        _require(type(qualified[key]) is list and len(qualified[key]) == 2
+                 and all(type(value) is int for value in qualified[key]), "exact per-view qualification denominators required")
+    _require(all(0 < known <= total and missing == total - known for known, missing in
+                 zip(qualified["known_targets_by_view"], qualified["missing_targets_by_view"], strict=True))
+             and all(root["source_frames"] <= slots <= 1800 for slots in qualified["source_slots_by_view"])
+             and all(type(qualified[key]) is int and 0 < qualified[key] <= maximum for key, maximum in (
+                 ("secondary_declared_frames", 1800), ("secondary_decoded_frames", 1800), ("secondary_pose_rows", 900)))
+             and qualified["secondary_declared_frames"] == root["source_frames"]
+             and qualified["source_slots_by_view"][1] == max(qualified["secondary_declared_frames"], qualified["secondary_decoded_frames"])
+             and _number(qualified["minimum_camera_baseline_supplied_units"], 0., 1e6)
+             and _number(qualified["maximum_camera_baseline_supplied_units"], 0., 1e6)
+             and 0 < qualified["maximum_camera_baseline_supplied_units"]
+             and qualified["minimum_camera_baseline_supplied_units"] <= qualified["maximum_camera_baseline_supplied_units"],
+             "missing view targets, source slots or usable camera baseline")
+    _check(deadline)
+    return binding
+
+
+def _multiview_summary(audit, overlay, original, deadline):
+    binding = overlay["additional_view"]["binding"]
+    qualified = binding["qualification"]
+    _require(type(audit) is dict and set(audit) == {"schema_version", "profile", "binding_canonical_sha256", "views", "accepted", "scope"}
+             and type(audit["schema_version"]) is int and audit["schema_version"] == 1 and audit["profile"] == MULTIVIEW_AUDIT
+             and audit["binding_canonical_sha256"] == overlay["additional_view"]["binding_canonical_sha256"]
+             and audit["accepted"] is True and type(audit["scope"]) is str and 0 < len(audit["scope"]) <= 2000
+             and type(audit["views"]) is list and len(audit["views"]) == 2, "complete passing per-view audit required")
+    keys = {"point_range", "reference_count", "known_targets", "missing_targets", "invalid_before_known", "invalid_after_known",
+            "mean_error_before_px", "mean_error_after_px", "maximum_camera_depth_change_supplied_units", "gates"}
+    for index, (view, expected) in enumerate(zip(audit["views"], binding["views"], strict=True)):
+        _require(type(view) is dict and set(view) == set(expected) | keys
+                 and all(_same(view[k], v) for k, v in expected.items())
+                 and view["point_range"] == [12 * index, 12 * (index + 1)]
+                 and all(type(view[k]) is int for k in ("reference_count", "known_targets", "missing_targets", "invalid_before_known", "invalid_after_known"))
+                 and view["reference_count"] == len(original["reference"])
+                 and view["known_targets"] == qualified["known_targets_by_view"][index]
+                 and view["missing_targets"] == qualified["missing_targets_by_view"][index]
+                 and view["invalid_before_known"] == view["invalid_after_known"] == 0
+                 and type(view["gates"]) is dict and set(view["gates"]) == _VIEW_GATES
+                 and all(value is True for value in view["gates"].values())
+                 and all(_number(view[k], 0., 1e6) for k in ("mean_error_before_px", "mean_error_after_px"))
+                 and view["mean_error_after_px"] <= view["mean_error_before_px"] + 1e-8
+                 and _number(view["maximum_camera_depth_change_supplied_units"], 0., .08 + shared.TOLERANCE),
+                 "per-view gates, errors or target counts differ")
+    _check(deadline)
+
+
+def _multiview_report(report, overlay, original, deadline):
+    binding = overlay["additional_view"]["binding"]
+    metadata, audit = report["camera_fit"].get("multiview"), report.get("multiview_images")
+    _multiview_summary(audit, overlay, original, deadline)
+    _require(type(metadata) is dict and metadata.get("profile") == MULTIVIEW_EXTENSION and metadata.get("schema_version") == 1
+             and _same(metadata.get("additional_view"), overlay["additional_view"])
+             and _same(metadata.get("views"), binding["views"])
+             and canonical_hash(metadata.get("secondary_source_slots")) == binding["qualification"]["secondary_source_slots_canonical_sha256"]
+             and len(metadata["secondary_source_slots"]) == binding["qualification"]["source_slots_by_view"][1]
+             and report["camera_fit"]["complete_source_frame_slots"] == binding["qualification"]["source_slots_by_view"][0]
+             and report["camera_fit"]["image_loss_scale_per_pixel"] == binding["views"][0]["image_loss_scale_per_pixel"],
+             "multiview metadata, original slots or authored scales differ")
+    _require(all(report["gates"][key] == all(v["gates"][key] for v in audit["views"]) for key in _VIEW_GATES),
+             "global camera gates must be the conjunction of every view")
+    slots = metadata["secondary_source_slots"]
+    qualification = binding["qualification"]
+    by_frame = {row["frame"]: index for index, row in enumerate(report["references"])}
+    source = binding["views"][1]["source_sha256"]
+    fps = original["camera_reference"]["root_refinement"]["fps"]
+    observed = 0
+    for frame, slot in enumerate(slots):
+        _check(deadline)
+        supplied = frame < qualification["secondary_declared_frames"]
+        reference = by_frame.get(frame)
+        _require(type(slot) is dict and type(slot.get("source_frame")) is int and slot["source_frame"] == frame
+                 and slot.get("source_status") == ("decoded" if frame < qualification["secondary_decoded_frames"] else "metadata_only_not_decoded")
+                 and (slot.get("reference_index") is None if reference is None else type(slot.get("reference_index")) is int and slot["reference_index"] == reference)
+                 and (slot.get("camera_status") == "supplied" and _number(slot.get("camera_time_s"), 0., 60.)
+                      and abs(slot["camera_time_s"] - frame / fps) <= 1e-10 if supplied else
+                      slot.get("camera_status") == "unavailable_original_metadata_slot" and slot.get("camera_time_s") is None)
+                 and type(slot.get("landmarks_used")) is bool and (reference is not None or not slot["landmarks_used"]),
+                 "secondary source slots, clocks or original reference joins differ")
+        if slot.get("evidence_id") is not None:
+            observed += 1
+            _require(slot["evidence_id"] == f"{source}:frame:{frame}" and _number(slot.get("source_time_s"), 0., 60.)
+                     and abs(slot["source_time_s"] - frame / fps) <= 1e-10
+                     and (slot.get("decoder_timestamp_s") is None or _number(slot["decoder_timestamp_s"], 0., 60.)),
+                     "secondary original source identity or time changed")
+        else:
+            _require(slot.get("source_time_s") is None and slot.get("decoder_timestamp_s") is None
+                     and slot.get("status") == "unsampled", "missing secondary pose cannot gain a source time")
+    _require(observed == qualification["secondary_pose_rows"], "secondary pose count differs from complete slots")
+    errors, maximum_depth = [[[], []], [[], []]], [0., 0.]
+    order = metadata["point_order"]
+    _require(type(order) is list and len(order) == 24 and len({(p["view_id"], p["joint"]) for p in order}) == 24
+             and all(p["view_id"] == binding["views"][index // 12]["view_id"] for index, p in enumerate(order)),
+             "complete ordered view/endpoint identities required")
+    for reference in report["references"]:
+        _check(deadline)
+        points = reference.get("points")
+        _require(type(points) is list and len(points) == 24, "both endpoint inventories required")
+        for index, point in enumerate(points):
+            view_index = index // 12
+            view = binding["views"][view_index]
+            weight = point.get("weight")
+            _require({key: point.get(key) for key in ("view_id", "joint")} == order[index]
+                     and _number(weight, 0., 1.) and point.get("confidence_weight") == weight
+                     and point.get("authored_view_weight") == view["authored_view_weight"]
+                     and _number(point.get("objective_weight"), 0., 1000.)
+                     and point["objective_weight"] == weight * view["authored_view_weight"],
+                     "view identity, source confidence or authored objective weight differs")
+            depths = [point.get("depth_" + side + "_supplied_camera_units") for side in ("before", "after")]
+            _require(all(_number(value, -1e6, 1e6) for value in depths), "finite source camera depths required")
+            maximum_depth[view_index] = max(maximum_depth[view_index], abs(depths[1] - depths[0]))
+            if weight == 0:
+                _require(all(point.get(key) is None for key in ("target_px", "target_authored_loss_units", "error_before_px", "error_after_px")),
+                         "unknown source endpoint cannot gain a target")
+                continue
+            _require(weight >= .5 and point.get("source_confidence") == weight and point["objective_weight"] > 0
+                     and all(.2 <= depth <= 100. for depth in depths), "qualified nonzero source target required")
+            target, scaled = point.get("target_px"), point.get("target_authored_loss_units")
+            _require(all(type(value) is list and len(value) == 2 and all(_number(x, -1e6, 1e6) for x in value) for value in (target, scaled))
+                     and all(math.isclose(loss, pixel * view["image_loss_scale_per_pixel"], rel_tol=1e-12, abs_tol=1e-12)
+                             for loss, pixel in zip(scaled, target)), "per-view authored pixel conversion differs")
+            for side_index, side in enumerate(("before", "after")):
+                prediction = point.get("predicted_" + side + "_px")
+                _require(point.get("projection_" + side) == "valid" and type(prediction) is list and len(prediction) == 2
+                         and all(_number(value, -1e6, 1e6) for value in prediction), "known endpoint projection is unavailable")
+                error = math.hypot(*(a - b for a, b in zip(prediction, target)))
+                _require(_number(point.get("error_" + side + "_px"), 0., 1e6)
+                         and math.isclose(error, point["error_" + side + "_px"], rel_tol=1e-9, abs_tol=1e-10),
+                         "saved raw-pixel error differs")
+                errors[view_index][side_index].append(error)
+            _require(errors[view_index][1][-1] <= errors[view_index][0][-1] + 1e-8,
+                     "one view endpoint regressed despite aggregate improvement")
+    for index, view in enumerate(audit["views"]):
+        _require(len(errors[index][0]) == view["known_targets"] and math.isclose(maximum_depth[index],
+                 view["maximum_camera_depth_change_supplied_units"], rel_tol=1e-9, abs_tol=1e-10)
+                 and all(math.isclose(sum(values) / len(values), view["mean_error_" + side + "_px"], rel_tol=1e-9, abs_tol=1e-10)
+                         for side, values in zip(("before", "after"), errors[index])), "per-view audit hides missing endpoints or changed errors")
+
+
 def _overlay(original, overlay, scene, original_raw_pin, deadline):
-    _require(set(overlay) == _OVERLAY_KEYS and type(overlay["schema_version"]) is int and overlay["schema_version"] == 1
-             and overlay["profile"] == OVERLAY_PROFILE and overlay["installation"] == _INSTALLATION
+    multiview = overlay.get("profile") == MULTIVIEW_OVERLAY_PROFILE
+    _require(set(overlay) == (_OVERLAY_KEYS | {"additional_view"} if multiview else _OVERLAY_KEYS)
+             and type(overlay["schema_version"]) is int and overlay["schema_version"] == 1
+             and overlay["profile"] == (MULTIVIEW_OVERLAY_PROFILE if multiview else OVERLAY_PROFILE)
+             and overlay["installation"] == _INSTALLATION
              and all(overlay[k] is False for k in ("body_installed", "raw_camera_changed", "root_or_floor_changed", "promoted"))
              and overlay["contact"] == "unknown" and overlay["physical_validation"] == "unverified", "uninstalled angle overlay required")
     pins, binding = overlay["input_bindings"], original["camera_reference"]
@@ -198,8 +417,10 @@ def _overlay(original, overlay, scene, original_raw_pin, deadline):
     _require(type(marker) is dict and set(marker) == {"schema_version", "method", "status", "promoted",
         "input_human_sha256", "input_evidence_sha256", "surface_intervals"}
         and _same({k: v for k, v in marker.items() if k != "surface_intervals"}, {
-            "schema_version": 1, "method": METHOD, "status": _STATUS, "promoted": False,
+            "schema_version": 1, "method": MULTIVIEW_METHOD if multiview else METHOD, "status": _STATUS, "promoted": False,
             "input_human_sha256": original_raw_pin, "input_evidence_sha256": pins["evidence_raw_sha256"]}), "overlay refinement provenance changed")
+    if multiview:
+        _multiview_binding(overlay, original, deadline)
     refs, evidence, roots = (original[k] for k in ("reference", "reference_evidence", "root_reference"))
     targets = overlay["reference_candidate"]
     _require(all(type(rows) is list for rows in (refs, targets, evidence, roots))
@@ -234,9 +455,11 @@ def _overlay(original, overlay, scene, original_raw_pin, deadline):
 
 def _report(report, overlay, original, scene, deadline):
     pins = overlay["input_bindings"]
+    multiview = overlay["profile"] == MULTIVIEW_OVERLAY_PROFILE
+    method = MULTIVIEW_METHOD if multiview else METHOD
     _require(type(report.get("schema_version")) is int and report["schema_version"] == 1
-             and report.get("profile") == METHOD and report.get("status") == _STATUS
-             and report.get("candidate_kind") == OVERLAY_PROFILE and report.get("geometry_admission") == _INSTALLATION
+             and report.get("profile") == method and report.get("status") == _STATUS
+             and report.get("candidate_kind") == overlay["profile"] and report.get("geometry_admission") == _INSTALLATION
              and report.get("promoted") is False and report.get("physical_validation") == "unverified"
              and report.get("failures") == [] and report.get("budget_reason") is None,
              "complete passing unadmitted camera proposal required")
@@ -246,7 +469,7 @@ def _report(report, overlay, original, scene, deadline):
              and report.get("candidate_sha256") == canonical_hash(overlay), "proposal report identity differs")
     _require(type(report.get("gates")) is dict and set(report["gates"]) == PROPOSAL_GATES
              and all(value is True for value in report["gates"].values()), "all fourteen unchanged proposal gates must pass")
-    _require(report["contract"].get("method") == METHOD and all(
+    _require(report["contract"].get("method") == method and all(
         _same(report["contract"].get(k), v) for k, v in _LIMITS.items()), "proposal numerical limits changed")
     surface, marker = report["surface_intervals"], overlay["whole_body_reference_refinement"]["surface_intervals"]
     inputs = surface["inputs"]
@@ -267,7 +490,10 @@ def _report(report, overlay, original, scene, deadline):
                  "projection_calls", "maximum_projection_calls", "grid_camera_projection_calls"}})
              and _number(fit.get("image_loss_scale_per_pixel"), 1e-6, 1.)
              and fit.get("image_loss_scale_status") == "authored" and fit.get("image_loss_units") == "authored_loss_units_not_metres"
-             and report["objective"].get("profile") == "camera_surface_interval_v1", "camera objective/coupling differs")
+             and report["objective"].get("profile") == (MULTIVIEW_OBJECTIVE if multiview else "camera_surface_interval_v1"),
+             "camera objective/coupling differs")
+    _require(multiview or "multiview_images" not in report and "multiview" not in fit,
+             "single-view report cannot silently claim an additional view")
     rows, refs = report["references"], original["reference"]
     _require(type(rows) is list and len(rows) == len(refs), "report dropped original reference rows")
     source_frames = []
@@ -326,19 +552,28 @@ def _report(report, overlay, original, scene, deadline):
                  and (slot.get("decoder_timestamp_s") is None or _number(slot["decoder_timestamp_s"], 0., 60.))
                  and slot.get("status") == (retained_row.get("status") if retained_row else "unsampled"),
                  "complete source clocks/statuses were changed")
+    if multiview:
+        _multiview_report(report, overlay, original, deadline)
 
 
-def _provider(original, overlay, scene, task, action, runtime, selector, clock, arrays, provenance, qualification):
+def _provider(original, overlay, scene, task, action, runtime, selector, clock, arrays, provenance, qualification,
+              *, multiview_images=None):
     times, old, new, slopes = arrays
-    recipe = {"schema_version": 1, "profile": RECIPE_PROFILE, "interpretation": RECIPE_INTERPRETATION,
+    multiview = overlay["profile"] == MULTIVIEW_OVERLAY_PROFILE
+    recipe = {"schema_version": 1, "profile": MULTIVIEW_RECIPE_PROFILE if multiview else RECIPE_PROFILE,
+        "interpretation": RECIPE_INTERPRETATION,
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "gates_sha256": task["gates_sha256"],
         "action_contract_sha256": canonical_hash(action), **{k: task[k] for k in IDENTITIES}, **provenance,
         "runtime_sha256": runtime, "feedback_gains": {"joint_position": 40., "joint_velocity": 5.},
         "clock_binding": clock, "proposal_gates": {k: True for k in sorted(PROPOSAL_GATES)}, "angle_proposal": overlay}
+    if multiview:
+        recipe.update(additional_view_sha256=canonical_hash(overlay["additional_view"]),
+            multiview_qualification_sha256=canonical_hash(multiview_images), multiview_images=multiview_images)
     recipe_json = json.dumps(recipe, sort_keys=True, separators=(",", ":"), allow_nan=False)
     _require(len(recipe_json.encode()) <= MAX_RECIPE_BYTES, "archived recipe exceeds one MiB")
     identity = {k: v for k, v in recipe.items() if k not in {"schema_version", "profile", "interpretation", "angle_proposal"}}
-    identity.update(profile=PROFILE, controller_kind="camera_source_fit_authored_alternative", learned=False,
+    identity.update(profile=MULTIVIEW_PROFILE if multiview else PROFILE,
+        controller_kind="camera_multiview_source_fit_authored_alternative" if multiview else "camera_source_fit_authored_alternative", learned=False,
         qualification=qualification, reference_count=len(times), recipe_sha256=canonical_hash(recipe),
         controller_implementation_sha256=runtime["camera_reference_controller.py"], scope=_SCOPE,
         body_installed=False, physical_validation="unverified", contact="unknown")
@@ -368,7 +603,9 @@ def prepare_camera_reference_controller(original_human_bytes, angle_proposal_byt
             "angle_proposal_sha256": sha256(angle_proposal_bytes).hexdigest(),
             "angle_proposal_canonical_sha256": canonical_hash(overlay), "proposal_report_sha256": sha256(report_bytes).hexdigest()}
         result = _provider(original, overlay, scene, task, action, runtime, reference_velocity_index, clock, arrays,
-                           provenance, "saved_passed_camera_overlay_boundary_checked")
+                           provenance, "saved_passed_multiview_overlay_boundary_checked" if overlay["profile"] == MULTIVIEW_OVERLAY_PROFILE
+                           else "saved_passed_camera_overlay_boundary_checked",
+                           multiview_images=report.get("multiview_images"))
         _check(deadline)
         return result
     except (KeyError, TypeError, AttributeError, IndexError, OverflowError, RecursionError) as error:
@@ -380,21 +617,28 @@ def prepare_camera_reference_recipe(recipe, *, scene, task, action_contract, run
     try:
         deadline = time.monotonic() + MAX_SECONDS
         recipe = _copy(recipe, MAX_RECIPE_BYTES, deadline)
-        _require(set(recipe) == _RECIPE_KEYS and type(recipe["schema_version"]) is int and recipe["schema_version"] == 1
-                 and recipe["profile"] == RECIPE_PROFILE and recipe["interpretation"] == RECIPE_INTERPRETATION
+        multiview = recipe.get("profile") == MULTIVIEW_RECIPE_PROFILE
+        _require(set(recipe) == (_MULTIVIEW_RECIPE_KEYS if multiview else _RECIPE_KEYS)
+                 and type(recipe["schema_version"]) is int and recipe["schema_version"] == 1
+                 and recipe["profile"] == (MULTIVIEW_RECIPE_PROFILE if multiview else RECIPE_PROFILE)
+                 and recipe["interpretation"] == RECIPE_INTERPRETATION
                  and all(_hash(recipe[k]) for k in recipe if k.endswith("_sha256") and k != "runtime_sha256"),
                  "unsupported archived recipe fields or identity")
         scene, task, action, runtime = (_copy(value, limit, deadline) for value, limit in (
             (scene, 8 << 20), (task, 64 << 10), (action_contract, 16 << 10), (runtime_sha256, 64 << 10)))
         original, overlay = scene["human_spec"], recipe["angle_proposal"]
+        _require(overlay.get("profile") == (MULTIVIEW_OVERLAY_PROFILE if multiview else OVERLAY_PROFILE),
+                 "archived recipe and overlay family differ")
         clock = _context(original, scene, task, action, runtime, reference_velocity_index, deadline)
         arrays = _overlay(original, overlay, scene, recipe["input_human_sha256"], deadline)
         provenance = {k: recipe[k] for k in ("input_human_sha256", "input_evidence_sha256", "angle_proposal_sha256",
                                             "angle_proposal_canonical_sha256", "proposal_report_sha256")}
         _require(recipe["angle_proposal_canonical_sha256"] == canonical_hash(overlay)
                  and recipe["input_evidence_sha256"] == overlay["input_bindings"]["evidence_raw_sha256"], "archived overlay identity differs")
+        if multiview:
+            _multiview_summary(recipe["multiview_images"], overlay, original, deadline)
         result = _provider(original, overlay, scene, task, action, runtime, reference_velocity_index, clock, arrays,
-                           provenance, RECIPE_INTERPRETATION)
+                           provenance, RECIPE_INTERPRETATION, multiview_images=recipe.get("multiview_images"))
         _require(_same(result.recipe(), recipe), "archived execution changed on reconstruction")
         _check(deadline)
         return result
