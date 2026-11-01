@@ -681,23 +681,40 @@ This single-leg squat example has a 3D body, illustrative muscles, 22 joint/root
 
 The preset pins trusted snapshot **`225a53c8c0a9fb25f03b8473adfdf7f2754e037d`** and `artifacts/person-clock-workflow-01/lab`. Its updated evidence views and recording receipts preserve the original 26 policy/18 lab simulation-source pins, scene, task and policy. The actual metadata-only `--console --check` passes with 202 runtime files, no server or physics. It does not retrain or modify older examples. The original training/evaluation/lab run took 30.7 seconds with no API charge. The [verified full recording replay](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/replay.html) and [video](../artifacts/person-clock-workflow-01/lab/sessions/session-b0beff1e2d13/video.mp4) preserve 242 actions, a reset and 244 frames; the full 234-step post-reset trial passes and replays exactly. That older export predates durable receipts and is not backfilled. [Current evidence and limits](handoffs/combined.md#recording-receipt--verified).
 
-### Try separate arm and leg feedback
+<a id="try-separate-arm-and-leg-feedback"></a>
+
+### Experimental equipment sandbox
 
 This experimental person-and-equipment lab is ready in this workspace. It uses
 separate learned corrections for the torso, arms and legs; the default exercise
 example above is unchanged. From the repository root:
 
 ```sh
-PYTHONPATH="$PWD/.local/lab-loader-retention-01/runtime-candidate/src" \
-  .venv-lab/bin/python -B -P -m weft lab \
-  --resume artifacts/split-limb-feedback-play-05/lab
+.venv-lab/bin/python scripts/play_sandbox.py --example equipment
 ```
 
 Open the printed local link yourself. Choose **Sandbox → Separate arm/leg feedback**,
 then **Step** or **Start**. Switch to manual controls to try your own actions.
 Use **Record & start → Stop & save** to save video, actions and interactive replay;
-**Recording evidence** shows the saved verification. For terminal controls, replace
-`lab` with `lab-console` in the same command.
+**Recording evidence** shows the saved verification. Add `--console` for terminal
+controls without a server, or `--check` to verify metadata without opening the lab:
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example equipment --console
+.venv-lab/bin/python scripts/play_sandbox.py --example equipment --check
+```
+
+The launcher uses fixed reviewed Git snapshot
+`fdab07bbdf8cad4c3c4362836ee6f1aef146bee2`, not mutable development code. It keeps
+the same saved lab, its 25 policy/17 lab pins, and recordings under
+`artifacts/split-limb-feedback-play-05/lab/sessions`. It does not enable the
+experimental action-projection helpers. The complete source checks still run
+when the lab opens; `--check` verifies metadata only.
+
+The named preset passes its actual metadata check and a separate fresh open
+with full source checks. That read-only open took 3.04 seconds and 365.9 MiB peak
+memory; the saved state, policy and recording remained unchanged. It ran no
+actions, video decoding or new recording export.
 
 The [checked recording](../artifacts/split-limb-feedback-play-05/lab/sessions/session-1dcf521d278e/replay.html)
 and [video](../artifacts/split-limb-feedback-play-05/lab/sessions/session-1dcf521d278e/video.mp4)
@@ -705,17 +722,19 @@ contain 266 actions, one reset and 268 frames. Every recorded action/state repla
 exactly, and reopening in a fresh process preserves the recording and policy.
 The complete post-reset task interval is 254 steps / 8.47 seconds.
 
-The launcher includes the verified lower-memory loader. Two consecutive opens
-with both sessions retained completed at 476.5 MiB peak memory; the old loader
-exceeded its 512 MiB bound during the second open. All source checks and the
-scene, policy, controls and saved recording are unchanged. This checks reopening,
-not the complete build/export/reload workload. [Exact comparison](handoffs/lab-loader-retention.md).
+The preset includes the same lower-memory loader used in the recorded
+retained-open comparison: two consecutive opens with both sessions retained
+completed at 476.5 MiB peak memory; the old loader exceeded 512 MiB during the
+second open. That comparison checks reopening, not the complete
+build/export/reload workload or every later runtime.
+[Exact comparison](handoffs/lab-loader-retention.md) · [Named preset checks](handoffs/equipment-lab-launcher.md).
 
 **The task still fails equipment stability.** The learned and original controllers
 each pass 0/3 development starts. Virtual root assistance, equipment geometry and
 illustrative muscles remain explicit assumptions; this is not validated human
-biomechanics or general unfamiliar-video reconstruction. The pinned local runtime
-and saved artifacts are not included in a fresh clone. [Exact checks and retained
+biomechanics or general unfamiliar-video reconstruction. The launcher builds its
+runtime cache from Git; the saved lab artifacts are not included in a fresh clone.
+[Exact checks and retained
 memory failures](handoffs/split-limb-feedback-play.md).
 
 ### Inspect body-fitting proposals

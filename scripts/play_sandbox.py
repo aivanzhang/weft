@@ -21,14 +21,19 @@ VIDEO_TRUSTED_COMMIT = "d0cdbe87d9f89b002e13c969ca1ac1549ae20107"
 PERSON_TRUSTED_COMMIT = "e1c54236ebf625264e2cb335cab65ba53a907ac1"
 FEEDBACK_TRUSTED_COMMIT = "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
 EXERCISE_TRUSTED_COMMIT = "225a53c8c0a9fb25f03b8473adfdf7f2754e037d"
+EQUIPMENT_TRUSTED_COMMIT = "fdab07bbdf8cad4c3c4362836ee6f1aef146bee2"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
 VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"
 PERSON_LAB = "artifacts/single-leg-person-workflow-01/build/learning_workflow/lab"
 FEEDBACK_LAB = "artifacts/person-feedback-workflow-01/lab"
 EXERCISE_LAB = "artifacts/person-clock-workflow-01/lab"
+EQUIPMENT_LAB = "artifacts/split-limb-feedback-play-05/lab"
 EXPORT_PATHS = ("src/weft", "pyproject.toml", "requirements-lab.lock")
 MAX_FILES, MAX_BYTES, MAX_FILE_BYTES = 256, 16 * 1024 * 1024, 2 * 1024 * 1024
+# This immutable export has 292 files / 6,345,775 bytes; its sealed lab has 1,191 members.
+EQUIPMENT_MAX_FILES, EQUIPMENT_MAX_BYTES, EQUIPMENT_MAX_FILE_BYTES = 292, 8 * 1024 * 1024, 512 * 1024
+EQUIPMENT_MAX_MANIFEST_FILES = 1191
 POLICY_FILES = frozenset((
     "body_frame.py", "errors.py", "human.py", "io.py", "mobile_human.py", "observations.py",
     "root_motion.py", "shared_exercise_feasibility_evaluation.py", "shared_exercise_feasibility_learning.py",
@@ -51,6 +56,7 @@ FEEDBACK_POLICY_FILES = PERSON_POLICY_FILES | {
     "shared_exercise_feasibility_learning.py", "shared_exercise_selection.py",
     "shared_exercise_feedback_learning.py", "shared_exercise_feedback_residual.py",
 }
+EQUIPMENT_POLICY_FILES = FEEDBACK_POLICY_FILES - {"person_inventory.py"}
 DIR_FLAGS = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
 
 
@@ -65,6 +71,8 @@ def _preset(example):
         return FEEDBACK_TRUSTED_COMMIT, FEEDBACK_LAB, "shared-exercise-policy-v4", FEEDBACK_POLICY_FILES
     if example == "exercise":
         return EXERCISE_TRUSTED_COMMIT, EXERCISE_LAB, "shared-exercise-policy-v4", FEEDBACK_POLICY_FILES
+    if example == "equipment":
+        return EQUIPMENT_TRUSTED_COMMIT, EQUIPMENT_LAB, "shared-exercise-policy-v5", EQUIPMENT_POLICY_FILES
     raise ValueError("Unknown sandbox example")
 
 
@@ -75,7 +83,7 @@ def _lab_files(example):
 
 def _trusted_commit(value):
     value = TRUSTED_COMMIT if value is None else value
-    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT, FEEDBACK_TRUSTED_COMMIT, EXERCISE_TRUSTED_COMMIT}:
+    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT, FEEDBACK_TRUSTED_COMMIT, EXERCISE_TRUSTED_COMMIT, EQUIPMENT_TRUSTED_COMMIT}:
         raise ValueError("Runtime revision must be one of the launcher's fixed trusted examples")
     return value
 
@@ -167,6 +175,8 @@ def _git(project, *args, limit, data=None):
 
 def _trusted_tree(project, trusted_commit=None):
     trusted_commit = _trusted_commit(trusted_commit)
+    maximum_files, maximum_bytes, maximum_file_bytes = (EQUIPMENT_MAX_FILES, EQUIPMENT_MAX_BYTES, EQUIPMENT_MAX_FILE_BYTES) \
+        if trusted_commit == EQUIPMENT_TRUSTED_COMMIT else (MAX_FILES, MAX_BYTES, MAX_FILE_BYTES)
     raw = _git(project, "ls-tree", "-rz", "--long", trusted_commit, "--", *EXPORT_PATHS, limit=128 * 1024)
     rows, total = {}, 0
     for entry in raw.split(b"\0"):
@@ -179,11 +189,11 @@ def _trusted_tree(project, trusted_commit=None):
                 or not (name.startswith("src/weft/") or name in EXPORT_PATHS[1:]) or name in rows):
             raise ValueError("Trusted export contains an unsupported path or file type")
         size = int(size)
-        if not 0 <= size <= MAX_FILE_BYTES:
+        if not 0 <= size <= maximum_file_bytes:
             raise ValueError("Trusted export exceeds its individual file bound")
         total += size
         rows[name] = (oid, size)
-        if len(rows) > MAX_FILES or total > MAX_BYTES:
+        if len(rows) > maximum_files or total > maximum_bytes:
             raise ValueError("Trusted export exceeds its file or byte bound")
     if not {"src/weft/__init__.py", "src/weft/__main__.py", *EXPORT_PATHS[1:]} <= set(rows):
         raise ValueError("Trusted Git checkpoint is missing required runtime files")
@@ -335,8 +345,9 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
     manifest_raw = _read(lab, "run/manifest.json", 512 * 1024)
     manifest = _json(manifest_raw)
     sealed = manifest.get("files")
+    maximum_members = EQUIPMENT_MAX_MANIFEST_FILES if example == "equipment" else 1024
     if (manifest.get("status") != "ready" or manifest.get("control_profile") != "shared_exercise"
-            or not isinstance(sealed, dict) or len(sealed) > 1024):
+            or not isinstance(sealed, dict) or len(sealed) > maximum_members):
         raise ValueError("Expected a ready sealed human-control lab")
 
     def document(name, limit):
@@ -373,15 +384,15 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
-    parser.add_argument("--example", choices=("video", "person", "feedback", "exercise"), help="Choose a saved video, person-only, feedback-controller or exercise example; omitted keeps the original sandbox")
+    parser.add_argument("--example", choices=("video", "person", "feedback", "exercise", "equipment"), help="Choose a saved example; equipment is experimental. Omitted keeps the original sandbox")
     parser.add_argument("--lab", help="Override the selected example's lab with another strictly compatible saved lab")
     parser.add_argument("--check", action="store_true", help="Check runtime and lab identity only; no server or physics")
-    parser.add_argument("--console", action="store_true", help="With --example feedback or exercise: interact and record in the terminal, without a server")
+    parser.add_argument("--console", action="store_true", help="With --example feedback, exercise or equipment: interact and record in the terminal, without a server")
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
-    if args.console and args.example not in ("feedback", "exercise"):
-        parser.error("--console requires --example feedback or exercise; older frozen examples have no terminal interface")
+    if args.console and args.example not in ("feedback", "exercise", "equipment"):
+        parser.error("--console requires --example feedback, exercise or equipment; older frozen examples have no terminal interface")
     if args.console and args.port != 0:
         parser.error("--port applies only to the browser sandbox, not --console")
     commit, default_lab, _, policy_files = _preset(args.example)
@@ -389,11 +400,15 @@ def main(argv=None):
     lab = lab if lab.is_absolute() else PROJECT / lab
     try:
         runtime, hashes = prepare_runtime(PROJECT, trusted_commit=commit)
-        if args.example in ("feedback", "exercise") and "src/weft/lab_console.py" not in hashes:
+        if args.example in ("feedback", "exercise", "equipment") and "src/weft/lab_console.py" not in hashes:
             raise ValueError(f"Trusted {args.example} runtime is missing its terminal interface")
         check_compatibility(PROJECT, runtime, hashes, lab, example=args.example)
         print(f"Verified trusted runtime {commit[:12]}: {len(hashes)} files, {len(policy_files)} policy pins, "
               f"{len(_lab_files(args.example))} lab pins and dependency versions.", flush=True)
+        if args.example == "equipment":
+            print("Experimental equipment sandbox. The reference example fails equipment stability "
+                  "(0/3 development starts); inspect the selected lab's evaluation for its result. "
+                  "The saved v5 controller is unchanged.", flush=True)
         if args.check:
             print("Check only: sealed runtime/lab metadata identity. No server, physics, session or media reads.")
             print("Complete source, training and evaluation admission still runs when the sandbox opens.")

@@ -23,6 +23,7 @@ ACTUAL_VIDEO_COMMIT = launcher.VIDEO_TRUSTED_COMMIT
 ACTUAL_PERSON_COMMIT = launcher.PERSON_TRUSTED_COMMIT
 ACTUAL_FEEDBACK_COMMIT = launcher.FEEDBACK_TRUSTED_COMMIT
 ACTUAL_EXERCISE_COMMIT = launcher.EXERCISE_TRUSTED_COMMIT
+ACTUAL_EQUIPMENT_COMMIT = launcher.EQUIPMENT_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -106,8 +107,176 @@ def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_PERSON_COMMIT == "e1c54236ebf625264e2cb335cab65ba53a907ac1"
     assert ACTUAL_FEEDBACK_COMMIT == "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
     assert ACTUAL_EXERCISE_COMMIT == "225a53c8c0a9fb25f03b8473adfdf7f2754e037d"
+    assert ACTUAL_EQUIPMENT_COMMIT == "fdab07bbdf8cad4c3c4362836ee6f1aef146bee2"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
+    assert error.value.code == 2
+
+
+@pytest.fixture
+def equipment_metadata(tmp_path, monkeypatch):
+    project = tmp_path / "project"
+    runtime = project / ".local/playable-runtime" / ACTUAL_EQUIPMENT_COMMIT
+    runtime.mkdir(parents=True)
+    python = project / ".venv-lab/bin/python"
+    python.parent.mkdir(parents=True)
+    python.write_text("Authored fixture; never execute\n")
+    names = launcher.POLICY_FILES | launcher.FEEDBACK_POLICY_FILES | {"lab_console.py", "__init__.py", "__main__.py"}
+    hashes = {"src/weft/" + name: hashlib.sha256(name.encode()).hexdigest() for name in names}
+    monkeypatch.setattr(launcher, "PROJECT", project)
+
+    def prepare(root, *, trusted_commit):
+        assert root == project and trusted_commit == ACTUAL_EQUIPMENT_COMMIT
+        return runtime, hashes
+
+    monkeypatch.setattr(launcher, "prepare_runtime", prepare)
+    versions = {"python": platform.python_version(), **{name: importlib.metadata.version(name)
+                for name in ("mujoco", "numpy", "gymnasium")}}
+    monkeypatch.setattr(launcher, "_installed_versions", lambda *_: versions)
+    return project, runtime, hashes
+
+
+def equipment_manifest_members(lab, count):
+    manifest = json.loads((lab / "run/manifest.json").read_bytes())
+    for index in range(count - len(manifest["files"])):
+        manifest["files"][f"source/evidence-{index:04d}.json"] = "0" * 64
+    raw = json_bytes(manifest)
+    (lab / "run/manifest.json").write_bytes(raw)
+    config = json.loads((lab / "lab-config.json").read_bytes())
+    config["manifest_sha256"] = hashlib.sha256(raw).hexdigest()
+    (lab / "lab-config.json").write_bytes(json_bytes(config))
+
+
+def test_equipment_preset_has_exact_v5_policy_and_original_lab_closure():
+    assert launcher._preset("equipment") == (ACTUAL_EQUIPMENT_COMMIT,
+        "artifacts/split-limb-feedback-play-05/lab", "shared-exercise-policy-v5", launcher.EQUIPMENT_POLICY_FILES)
+    assert launcher.EQUIPMENT_POLICY_FILES == launcher.FEEDBACK_POLICY_FILES - {"person_inventory.py"}
+    assert len(launcher.EQUIPMENT_POLICY_FILES) == 25 and launcher._lab_files("equipment") == launcher.LAB_RUNTIME_FILES
+    assert len(launcher._lab_files("equipment")) == 17
+    assert (launcher.MAX_FILES, launcher.MAX_BYTES, launcher.MAX_FILE_BYTES) == (256, 16 << 20, 2 << 20)
+    assert (launcher.EQUIPMENT_MAX_FILES, launcher.EQUIPMENT_MAX_BYTES, launcher.EQUIPMENT_MAX_FILE_BYTES) == (292, 8 << 20, 512 << 10)
+    assert launcher.EQUIPMENT_MAX_MANIFEST_FILES == 1191
+
+
+def equipment_tree(count, size=1):
+    names = ["src/weft/__init__.py", "src/weft/__main__.py", "pyproject.toml", "requirements-lab.lock"]
+    names += [f"src/weft/example_{index}.py" for index in range(count - len(names))]
+    return b"".join(f"100644 blob {'0' * 40} {size}\t{name}\0".encode() for name in names)
+
+
+@pytest.mark.parametrize("commit", [ACTUAL_COMMIT, ACTUAL_VIDEO_COMMIT, ACTUAL_PERSON_COMMIT,
+                                  ACTUAL_FEEDBACK_COMMIT, ACTUAL_EXERCISE_COMMIT])
+def test_equipment_runtime_allowance_does_not_expand_old_presets(monkeypatch, tmp_path, commit):
+    monkeypatch.setattr(launcher, "_git", lambda *_a, **_k: equipment_tree(292))
+    assert len(launcher._trusted_tree(tmp_path, ACTUAL_EQUIPMENT_COMMIT)) == 292
+    with pytest.raises(ValueError, match="file or byte bound"):
+        launcher._trusted_tree(tmp_path, commit)
+    assert not (tmp_path / ".local").exists()
+
+
+@pytest.mark.parametrize("count,size", [(293, 1), (22, 400000), (4, 524289)])
+def test_equipment_runtime_caps_reject_before_cache_or_launch(monkeypatch, tmp_path, count, size):
+    monkeypatch.setattr(launcher, "_git", lambda *_a, **_k: equipment_tree(count, size))
+    with pytest.raises(ValueError, match="bound"):
+        launcher.prepare_runtime(tmp_path, trusted_commit=ACTUAL_EQUIPMENT_COMMIT)
+    assert not (tmp_path / ".local").exists()
+
+
+@pytest.mark.parametrize("console", [False, True])
+@pytest.mark.parametrize("override", [False, True])
+def test_equipment_check_reads_only_metadata_and_preserves_recordings(equipment_metadata, monkeypatch, capsys, console, override):
+    project, _, hashes = equipment_metadata
+    location = "artifacts/compatible-equipment" if override else None
+    lab = saved_lab(project, hashes, example="equipment", location=location)
+    equipment_manifest_members(lab, 1191)
+    sessions = lab / "sessions"; sessions.mkdir()
+    recording = sessions / "existing.json"; recording.write_text("Existing saved recording\n")
+    before = {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    original_read, reads = launcher._read, []
+    def read(root, name, limit):
+        reads.append(name)
+        return original_read(root, name, limit)
+    monkeypatch.setattr(launcher, "_read", read)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("Metadata check cannot launch"))
+    args = ["--example", "equipment", "--check"] + (["--console"] if console else []) + (["--lab", location] if override else [])
+    assert launcher.main(args) == 0
+    assert reads == ["run/manifest.json", "run/policy.json", "run/exercise-lab.json", "lab-config.json"]
+    output = capsys.readouterr().out
+    assert "25 policy pins, 17 lab pins" in output and "0/3 development starts" in output
+    assert "The reference example fails equipment stability" in output
+    assert "inspect the selected lab's evaluation for its result" in output
+    assert "sandbox: task fails" not in output
+    assert "saved v5 controller is unchanged" in output and "No server, physics, session or media reads" in output
+    assert "Opening" not in output
+    assert before == {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+
+
+def test_equipment_help_does_not_assign_reference_result_to_custom_lab(capsys):
+    with pytest.raises(SystemExit) as error:
+        launcher.main(["--help"])
+    assert error.value.code == 0
+    output = capsys.readouterr().out
+    assert "equipment is experimental" in output and "fails its task" not in output
+
+
+@pytest.mark.parametrize("example,count", [("equipment", 1192), (None, 1025), ("exercise", 1025)])
+def test_equipment_manifest_allowance_is_scoped_and_bounded(equipment_metadata, example, count):
+    project, runtime, hashes = equipment_metadata
+    lab = saved_lab(project, hashes, example=example)
+    equipment_manifest_members(lab, count)
+    with pytest.raises(ValueError, match="ready sealed"):
+        launcher.check_compatibility(project, runtime, hashes, lab, example=example)
+
+
+@pytest.mark.parametrize("damage", ["profile", "missing_pin", "extra_pin", "lab_inventory", "version", "unsealed"])
+def test_equipment_requires_exact_profile_pins_versions_and_seal(equipment_metadata, monkeypatch, capsys, damage):
+    project, _, hashes = equipment_metadata
+    lab = saved_lab(project, hashes, example="equipment")
+    name = "exercise-lab.json" if damage == "lab_inventory" else "policy.json"
+    value = json.loads((lab / "run" / name).read_bytes())
+    if damage == "profile":value["profile"] = "shared-exercise-policy-v4"
+    elif damage == "missing_pin":value["runtime_sha256"].pop("shared_exercise_feedback_learning.py")
+    elif damage == "extra_pin":value["runtime_sha256"]["person_inventory.py"] = "0" * 64
+    elif damage == "lab_inventory":value["runtime_sha256"]["person_inventory.py"] = "0" * 64
+    elif damage == "version":value["runtime_versions"]["mujoco"] = "0.0.0"
+    else:value["unexpected"] = True
+    if damage == "unsealed":(lab / "run" / name).write_bytes(json_bytes(value))
+    else:reseal(lab, name, value)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("Incompatible equipment lab cannot launch"))
+    assert launcher.main(["--example", "equipment", "--check"]) == 1
+    assert "No fallback to development code" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("console", [False, True])
+def test_equipment_launch_keeps_saved_lab_recordings_and_selected_interface(equipment_metadata, monkeypatch, capsys, console):
+    project, runtime, hashes = equipment_metadata
+    lab = saved_lab(project, hashes, example="equipment")
+    calls, directories = [], []
+    class Replaced(BaseException):pass
+    def replace(python, command, env):calls.append((python, command, env));raise Replaced
+    monkeypatch.setattr(launcher.os, "chdir", directories.append)
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    args = ["--example", "equipment"] + (["--console"] if console else ["--port", "8768"])
+    with pytest.raises(Replaced):launcher.main(args)
+    suffix = ["lab-console", "--resume", str(lab)] if console else ["lab", "--resume", str(lab), "--port", "8768"]
+    assert calls[0][1] == [str(project / ".venv-lab/bin/python"), "-P", "-m", "weft", *suffix]
+    assert calls[0][2]["PYTHONPATH"] == str(runtime / "src") and directories == [project]
+    assert f"Recordings stay in {lab / 'sessions'}" in capsys.readouterr().out
+    assert not (lab / "sessions").exists()
+
+
+def test_equipment_requires_console_module_before_metadata_admission(equipment_metadata, monkeypatch, capsys):
+    _, _, hashes = equipment_metadata
+    hashes.pop("src/weft/lab_console.py")
+    monkeypatch.setattr(launcher, "check_compatibility", lambda *_a, **_k: pytest.fail("Missing interface cannot admit lab"))
+    assert launcher.main(["--example", "equipment", "--check"]) == 1
+    assert "missing its terminal interface" in capsys.readouterr().err
+
+
+def test_equipment_console_rejects_port_before_preparing_runtime(monkeypatch):
+    monkeypatch.setattr(launcher, "prepare_runtime", lambda *_a, **_k: pytest.fail("Invalid mode cannot prepare runtime"))
+    with pytest.raises(SystemExit) as error:
+        launcher.main(["--example", "equipment", "--console", "--port", "8768"])
     assert error.value.code == 2
 
 

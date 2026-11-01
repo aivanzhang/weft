@@ -1,6 +1,6 @@
 # Combined Weft implementation handoff
 
-## Current contact-refinement and depth work — November 1, 2026, 12:32 PM PST
+## Current contact-refinement and launcher work — November 1, 2026, 1:00 PM PST
 
 The complete goal remains active. The interactive lab and recording workflow remain
 usable; the new contact-action projector is experimental and has not completed the
@@ -48,32 +48,47 @@ Parallel ownership:
   default single-round output unchanged. Implementation and independent review are
   complete: 47 distinct focused pure checks pass, including 12 exact saved-default
   comparisons. See [contract and release pins](equipment-action-relinearization.md).
-  Its new native experiment is complete and still abstains at control50: 45
-  predictions, two converged local solves/four aggregate sweeps, no actual50 or
-  fallback. All49 prefix controls and all23 first-round predictions match saved
+  Its new native experiment is complete and still abstains at control 50: 45
+  predictions, two converged local solves/four aggregate sweeps, no actual 50 or
+  fallback. All49 prefix controls and all 23 first-round predictions match saved
   results; live state and accumulated task metrics remain unchanged. Its
   [saved diagnosis](equipment-action-relinearization-diagnosis.md) is complete:
-  best measured normalized violation improves only1.12338→1.02970; speed/spin
+  best measured normalized violation improves only 1.12338→1.02970; speed/spin
   still fail. The full candidate is falsely predicted feasible despite a converged
-  solve. The `.1` coordinate probes exceed candidate component changes by2.657×
-  to10.628×; this supports testing derivative scale, not a feasibility claim.
+  solve. The `.1` coordinate probes exceed candidate component changes by 2.657×
+  to 10.628×; this supports testing derivative scale, not a feasibility claim.
+  Its [short experimental equipment launcher](equipment-lab-launcher.md) is now
+  verified, with 40 distinct focused checks, actual metadata admission and one
+  fresh read-only open. The agent finalizes its handoff/guide; source/tests are
+  frozen. Existing defaults and source/controller identities remain unchanged.
 - `/root/reconstruction_next_step`: [explicit depth core](equipment-depth-prior-core.md)
   is root-reviewed, with 101 distinct guarded analytical checks and all release pins
   verified. Root completed ratio-one native acceptance using the existing equal-depth
   assumption; its saved-only numerical/provenance/report audit is complete. This
   agent finished the [two-round native result handoff](equipment-action-relinearization-native.md).
-  It now prepares a separate fixed-center `.025` diagnostic:19 new predictions
-  after49 exact prefix controls, using the same measured center and three saved
-  candidate responses. No optimization/new candidate/actual50; original runtime
-  and gates stay fixed. No new real-object ratio is inferred.
+  Root completed its [fixed-center `.025` diagnostic](equipment-action-local-scale-native.md):
+  all three saved candidate maximum normalized prediction errors improve
+  `1.83449→0.22572`, `0.90305→0.11008`, `0.36428→0.14228`. It used19 new
+  probes after 49 exact prefix controls, with the same cached center/candidates
+  and all 12 original constraints. No optimization/new candidate/actual 50.
+  Root also completed the [separate `.025` two-round decision](equipment-action-small-scale-native.md):
+  it abstains after 39 predictions, with exact49-prefix/base parity and no actual 50.
+  Both rounds stop at local speed-row/action-box conflicts with0 solver sweeps.
+  Changed first-round probes select center V2.71296 instead of the prior 1.12338;
+  fixed-center fit improvement does not guarantee a successful changed search.
+  This lane has no remaining live work. No nonlinear infeasibility is inferred.
 - `/root/equipment_control_review`: [guided depth workflow](equipment-depth-prior-workflow.md)
   is complete and root-reviewed: 25 distinct checks pass (22 new, three affected
   legacy), with actual request→configuration→proposal composition under explicit
   native mocks. The unchanged compiler forwards complete priors. A 12-object,
   2,000-character-per-object fake-DOM batch takes 20.474 ms for 240 edits, adds no
   nodes and retains all 60 row handlers. No browser-performance claim. Product
-  files are frozen. This reviewer now checks the new fixed-center diagnostic
-  criteria and harness, with no duplicate native or source verification.
+  files are frozen. Its diagnostic/controller reviews and [saved-only multiscale
+  check](equipment-action-multiscale-proposal.md) are complete. One solve at the old
+  improved center yields no candidate: local speed-row minimum 0.168765 exceeds
+  0.15 even over the original action box. Zero sweeps/proposals/new simulations;
+  no nonlinear infeasibility claim and no trial of that empty proposal.
+  This lane has no active process or further assigned work.
 - Root: integration, bounded execution, TODO/combined records and scoped Git work.
 
 The [depth native check](equipment-depth-prior-native.md) passes in 4.158781 seconds /
@@ -94,9 +109,57 @@ Attempt01 is preserved: an isolated test-loader resource-reader error before any
 public stage/native/source-proof call. Attempt02 changes only that harness loader
 after an exact no-native palette-resource check; no product or gate was changed.
 
+The new user launch command is:
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example equipment
+```
+
+Add `--check` for metadata-only verification or `--console` for terminal controls.
+The user starts the server; root started none. This selects trusted Git `fdab07b`,
+not mutable development code, with 25 policy / 17 lab pins and the existing
+`artifacts/split-limb-feedback-play-05/lab/sessions` recordings. Its original v5
+learned controller remains 0/3; the new experimental contact helper is not enabled.
+The reference-result notice does not mislabel a compatible custom `--lab` override.
+
+Actual metadata check:0.553207seconds/43,335,680B,292runtimefiles/6,345,775B,
+four metadata inputs, no native/source proof. Seal
+`9ebb35b67ab15a725b4c46ce5fe1208646d7914386accb480377abdf118bcbe8`.
+Fresh ordinary-loader open:3.037478seconds/383,647,744B,28 models/1 data/2 forwards/1 reset,
+zero actions/substeps/replay/media. All15 scoped public-summary fields match prior
+qualified output;1,192 run members and9 saved-session members remain unchanged.
+Seal `1c530872abc0b4ed9116ba0e45cd5c4a89a5097ebca8ba6d2e2a1faa433d64ee`;
+root verified three sealed members once. Saved audit
+`.local/equipment-lab-launcher-01/open-saved-audit-01.json`, SHA
+`72fd7d13b6f590ce03f0e3f2d7b7deb1befb7592cff389b646f010d1094e2b62`.
+This is one fresh open, not a new repeated-play/export/reload or browser-performance proof.
+Both processes are terminal/reaped; no source checks were skipped.
+
+The smaller-scale controller run completed/reaped PID 45480 in 0.985848 seconds/
+138,133,504B,5 files/254,972B,1,408 substeps/90 forwards/39 copies. Its original 49
+actual controls/metrics remain unchanged and the exercise is incomplete. Seal
+`fde8aab1176648f0ef16fbd652d8e6f04efd7de7f9fdb1ff020d91e84d5a4fd3`;
+root verified all four members. Audit
+`.local/equipment-action-small-scale-native-01/saved-audit-01.json`, SHA
+`c06a39921243d2fb203619cb02fb2da320958615a2d7549a934838d9d25e8db1`.
+The global-vs-local prediction counter mismatch was fixed before execution;
+old base 73 maps to newlocal 1, with exact physical response/value parity.
+
+The fixed-center diagnostic completed/reaped PID 44515 in **1.132474 seconds /140,820,480 B**:
+11 models,2 data,70 forwards,1 reset,1,088substeps,19 copies and no projector/optimizer calls.
+Five files/1,356,484B retain all 36 comparison rows and bounded already-returned
+probe contact observations; old contact pairs remain unavailable, so no contact-set
+change or causality is inferred. Source/runtime/task/gates and live metrics stay exact.
+Seal `9ddf6aa7cd8ee615b78bf88b68e63c3b1094cb932c436b1e93656f7977ecf6b6`;
+root verified all four members once. Saved audit:
+`.local/equipment-action-local-scale-native-01/saved-audit-01.json`, SHA
+`06607356cc967262b915c525d0ae200d50a7b96608d1c8da72e187281355ea7d`.
+This positive local-fit diagnostic justifies a separate controller test, not feasibility,
+learning, final-holdout or physical success.
+
 The two-round run completed in **1.259598 seconds /138,346,496 B peak RSS**,
 with five files/282,542 B. Native counts: 11 models, two data objects, 96 forwards,
-one reset, 1,504 substeps and45 copies. Result directory:
+one reset, 1,504 substeps and 45 copies. Result directory:
 `artifacts/equipment-action-relinearization-native-02`; frozen plan
 `6ce2135128459539b5e5225e68610260cb578911ff7e0fd349e02b41b6b7609a`,
 seal `a8bd7d3558d0ad7a73e1971a6463d18bc9c593371eaf2f7d185177f9daf27b3e`.
@@ -104,9 +167,9 @@ Root independently verified all four sealed members and retained a saved-only au
 `.local/equipment-action-relinearization-native-02/saved-audit-01.json`, SHA
 `3f8b9ab9885ca33143c3c8157226155a2d018025ec1026f4704e02aa0859b2c8`.
 The first launch is preserved: sandbox permissions denied the `/bin/ps` memory
-observer before worker output; pid42422 was killed/reaped at0.0052seconds.
+observer before worker output; PID 42422 was killed/reaped at0.0052 seconds.
 The fresh attempt retained the same runtime/limits and used narrow approved
-process-observer permission; pid42861 is terminal/reaped. No failed artifact was
+process-observer permission; PID 42861 is terminal/reaped. No failed artifact was
 overwritten and no memory check was removed.
 
 All executed native handles are terminal/reaped. The depth work preserves original
@@ -133,14 +196,23 @@ without another per-checkpoint question; the updated `AGENTS.md` records its sco
 Other authorization boundaries and repository protections still apply.
 Publication receipt `.local/equipment-depth-prior-publication-01.json`, SHA
 `ace884bb0cd2cae5cc40327ef8abf982943d955be2e02be169f3676bc5354065`.
-A fresh fetch now matches local/remote `48aa8ff571aa9f993bce23e98e575febb72c3e36`,
-including the separate avatar delivery. Stash/index were empty; two independently
-owned avatar edits remain. Root is publishing only the reviewed two-round source,
-47-check evidence, native abstention/diagnosis and standing-approval records. The
-exact new commit/remote outcome belongs in `.local/equipment-action-relinearization-publication-01.json`;
-absence means publication is unfinished. Do not include the next unexecuted diagnostic
-preparation or independent avatar edits. Next: review/freeze its one bounded run,
-then use the saved comparisons to decide whether the smaller probes help.
+Fresh remote fetch first matched the separate avatar delivery at `48aa8ff571aa9f993bce23e98e575febb72c3e36`.
+Root then committed/pushed and independently verified **`cd82a3e52df3041079d9abd7254f900e6f459e33`**:
+exactly eight paths for the reviewed helper,47-check evidence, native abstention/diagnosis
+and standing-approval records. Publication receipt
+`.local/equipment-action-relinearization-publication-01.json`, SHA
+`5c729c77ebc6383e395ff52801db939651baf666035faf488baa34a110a4ee1f`.
+Published scope/index/stash were clean; two independently owned avatar edits remain.
+The subsequent completed diagnostics and launcher were not included. Root now
+prepares their scoped publication; exact outcome belongs in
+`.local/equipment-lab-launcher-publication-01.json` (absence means unfinished).
+Do not include independent avatar edits or an unreviewed next-study artifact.
+All current agents and native processes are terminal. Next: develop a distinct
+bounded pre-contact/look-ahead hypothesis using the preserved failure/contact
+evidence, rather than repeating the completed control-50 scale searches. Preserve
+source geometry, original scorer and action limits for any matched comparison.
+Keep the complete goal active and the existing demo usable; unfamiliar-video
+reconstruction, independent physical-contact accuracy and broader learning remain open.
 These improvements do not close unfamiliar-video or physical-accuracy gaps.
 
 ## Historical prediction and lab-memory work — November 1, 2026, 11:10 AM PST
