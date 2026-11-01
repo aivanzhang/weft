@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 12:24 PST. Current follow-up status is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 12:31 PST. Current follow-up status is below; earlier sections are historical checkpoints.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -91,21 +91,22 @@ The current recipe is `examples/meshy/muse-panda-dance-flight-v2.json`.
   charges are not exposed. No recurring service. Twelve preserved attempts have
   an 8,334,093 B compact history in `outputs/compound-motion-history-v1`.
 
-### Ownership, remaining save and next safe action
+### Ownership, saved work and next safe action
 
 No owned native job, browser or persistent server remains running. HD handle 55110
 finished; rejected media-v1 handle 36851 remains stopped. Do not reuse those stale
-handles or duplicate completed renders. Parent owns final release/save; all
+handles or duplicate completed renders. The preview is saved; all
 commands and resource limits are in [compound motion](docs/compound-motion.md).
 
 - [x] Final review, media audit, delivery summary, rig/consumer results, cost and
   gallery receipts are sealed in [the delivery manifest](outputs/compound-motion-delivery-v1/manifest.json),
   SHA `ee1512e11ff534fc2d01955a2320bc50be4546dc6bbef8cb7c20342b63d213b0`.
   [Evidence index](evidence/compound-motion-v1.json) records the tested preview and limits.
-- [ ] Parent verifies Git save/push in the existing private repository. Receipt:
-  Weft-root `.local/avatar-compound-motion-v1/receipt.json`. A missing successful
-  remote-verification field is **not** proof of a push. Keep unrelated Weft work
-  and every local rejected/source output intact.
+- [x] Asset/code checkpoint `ad58c639282895a58eca225871474df8422fe1ec` was pushed
+  to private `origin/main` and verified with a fresh `git ls-remote` response.
+  The Weft-root `.local/avatar-compound-motion-v1/receipt.json` records this and
+  the final documentation revision. Unrelated Weft edits and every local
+  rejected/source output remain intact.
 
 The bounded dance/flight preview is tested and reviewable. Remaining cosmetic
 quality and faithful Weft conversion are explicit limitations, not hidden pending
@@ -148,12 +149,11 @@ The original Muse-equivalence target remains unverified.
   181 MB; prior native/export comparison error 0.000000361 m. Earlier fixtures wrongly
   included a bone-display helper; they are preserved, not generated-asset failures.
 
-Last recorded shared-controls checkpoint:
-`1df6880ef6ea0d24894ff4e3e5da874a797b7e03`. A later code/model/media publication
-must be recorded by the parent; do not infer a push from local evidence hashes.
+Shared-controls checkpoint: `1df6880ef6ea0d24894ff4e3e5da874a797b7e03`.
+Saved code/model/media checkpoint: `ad58c639282895a58eca225871474df8422fe1ec`.
 The local preview completion gate is satisfied by reviewed full-resolution media,
 real browser playback, immutable proof/source bindings and explicit limitations.
-Remote-save status remains conditional on the publication receipt above.
+That checkpoint is remote-verified; no deployment or public publication occurred.
 
 The sections below preserve prior milestones. Their cost totals, live handles,
 “current” labels and publication status describe those earlier recording times,
