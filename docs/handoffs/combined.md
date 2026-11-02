@@ -1,5 +1,33 @@
 # Combined Weft implementation handoff
 
+## Different-motion end to end — November 2, 2026, PST
+
+ASPset `04ac-0006` now runs through frozen pose/geometry construction, shared
+physics and exact recording. The same subject/cameras and prior manual regions
+are explicit; the previous conditional floor is an **authored static-setup
+assumption**, not a new measurement. All 555 source slots remain. All 47 source
+and 111 grid floor checks pass unchanged, but 44/47 source poses float, three
+intersect slightly and 185 limb poses are weakly constrained. All four joint
+trajectories reach their iteration cap. No physical/contact accuracy claim.
+
+The assisted 184-step/3.68-second programmed episode passes the existing
+tracking gates. All **190 recorded actions /192 events** replay exactly;
+the export receipt is available. Construction takes 2.924 s /292.2 MB; shared
+preparation, interaction, export and replay take 11.489 s /435.2 MB. Saved-only
+audit verifies nine packages/969 members, 48 trial losses and all 6,660 image
+slots. Console resume/reference step/quit also passes without changing the
+394-member run or ready lifecycle. No new training or paid call.
+
+`camera-body --control-joint` now opens construction-only bodies without a
+fabricated policy or edited source seal; **39 focused tests pass**. The selection
+is separate manual metadata, not inferred intent. [Commands, exact seals,
+retained audit-packaging failure and next work](aspset-next-clip.md).
+
+All root jobs are terminal/reaped; preserve separate avatar changes. Root owns
+both tracks and the full goal stays active. Next qualify ground/contact and
+new subjects/cameras, not another unchanged replay. Publication receipt:
+`.local/aspset-next-publication-01.json` once pushed.
+
 ## Reconstructed-body learning — November 2, 2026, PST
 
 The existing learner now attaches to coupling v2 with every reconstruction
@@ -23,10 +51,10 @@ unchanged after close; real console resume/learned step/quit exits zero.
 The next different motion, ASPset `04ac-0006`, is acquired under CC0 without
 whole-archive download. Three views have **185 verified frames each**, zero
 native/decoder offset; source and clock packages are sealed. Same subject/cameras,
-not a fresh final holdout or independent physical truth. No inference/reference
-coordinates/body fit on that clip yet. Next apply the frozen method with explicit
-source/ground/calibration assumptions and all missing slots; broader physical
-ground/equipment contact remains open. All root jobs are reaped, API cost $0.
+not a fresh final holdout or independent physical truth. Acquisition preceded
+inference/body fitting; the different-motion milestone above records that later
+work. Reference coordinates remain excluded. Broader physical ground/equipment
+contact remains open. All root jobs are reaped, API cost $0.
 Preserve avatar renderer/test edits. The goal remains active; publication receipt
 is `.local/reconstructed-camera-learning-publication-01.json` after push.
 

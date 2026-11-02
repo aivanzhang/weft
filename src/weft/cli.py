@@ -289,6 +289,7 @@ def main():
     camera_body = commands.add_parser('camera-body', help='Build a manual camera-aware body lab using supplied calibration; no model calls')
     camera_body.add_argument('--run', required=True, help='Completed original mobile exercise run/ directory')
     camera_body.add_argument('--camera', required=True, help='Source-pinned camera JSON with one transform per original frame')
+    camera_body.add_argument('--control-joint', help='Initial manual joint; required for construction-only bodies without a task/policy selector')
     camera_body.add_argument('--ground', help='Optional source/calibration-pinned horizontal ground JSON; no pose-based floor fit')
     camera_body.add_argument('--root-view', help='Optional second-view config for hip-midpoint root; requires --ground, preserves monocular shape')
     camera_body.add_argument('--additional-view', action='append', default=[],
@@ -743,7 +744,7 @@ def main():
                 root_view_path=args.root_view, body_view=args.body_view, partial_segments=args.partial_segments,
                 additional_view_paths=args.additional_view, limb_fit=args.fit_limbs, partial_pixel_fit=args.fit_partial_pixels,
                 pixel_uncertainty_path=args.partial_pixel_uncertainty, partial_depth_branches=args.partial_depth_branches,
-                joint_pixel_uncertainty_path=args.fit_joint_pixels)
+                joint_pixel_uncertainty_path=args.fit_joint_pixels, control_joint=args.control_joint)
         elif args.command == "spatial-fixture":
             from weft.spatial_lab import write_sealed_spatial_fixture
             result = write_sealed_spatial_fixture(args.out)

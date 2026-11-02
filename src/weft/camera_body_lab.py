@@ -48,7 +48,8 @@ def _root_view_inputs(config_path, out, *, additional=False):
 
 def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, root_view_path=None, body_view=None,
                             partial_segments=False, additional_view_paths=(), limb_fit=False, partial_pixel_fit=False,
-                            pixel_uncertainty_path=None, partial_depth_branches=False, joint_pixel_uncertainty_path=None):
+                            pixel_uncertainty_path=None, partial_depth_branches=False, joint_pixel_uncertainty_path=None,
+                            control_joint=None):
     started = time.monotonic()
     source_run, camera_path, out = (Path(value).resolve() for value in (source_run, camera_path, out))
     if (not isinstance(additional_view_paths, (list, tuple)) or len(additional_view_paths) > 2
@@ -118,10 +119,18 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         return value
 
     original, evidence, source = (read_input(name) for name in ('human.json', 'evidence.json', 'source.json'))
-    selector_file = 'policy.json' if 'policy.json' in manifest['files'] else 'task-proposal.json'
-    selector = read_input(selector_file)
-    if not isinstance(selector.get('selected_joint'), str):
-        raise ValueError('Camera-body source must identify an explicit control joint')
+    selector_file = None
+    if control_joint is not None:
+        if not isinstance(control_joint, str) or control_joint not in original.get('motor_limits', {}):
+            raise ValueError('Manual control joint must name an existing body joint motor')
+        selector = {'selected_joint': control_joint}
+    else:
+        selector_file = 'policy.json' if 'policy.json' in manifest['files'] else 'task-proposal.json'
+        if selector_file not in manifest['files']:
+            raise ValueError('Construction-only bodies require --control-joint for initial manual inspection')
+        selector = read_input(selector_file)
+        if not isinstance(selector.get('selected_joint'), str):
+            raise ValueError('Camera-body source must identify an explicit control joint')
     artifact = source.get('artifact')
     if (not isinstance(artifact, str) or Path(artifact).name != artifact
             or manifest['files'].get(artifact) != original.get('source_sha256')
@@ -199,6 +208,11 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
         copied[name] = destination
     (run/'source-input-manifest.json').write_bytes(manifest_bytes)
     (run/'camera.json').write_bytes(camera_bytes)
+    if control_joint is not None:
+        write_json(run/'manual-control-selection.json', {
+            'selected_joint': control_joint, 'authority': 'explicit_manual_control',
+            'source_manifest_sha256': verified['manifest_sha256'],
+            'scope': 'Initial manual control only; not inferred task intent, reward or a learned policy'})
     if uncertainty_bytes is not None:
         (run/'partial-pixel-uncertainty.json').write_bytes(uncertainty_bytes)
     if joint_uncertainty_bytes is not None:
@@ -232,7 +246,8 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
                   'camera_file_sha256': sha256(camera_bytes).hexdigest(), 'copied_source_files': copied,
                   'selected_joint_source': ('Original policy metadata only; no weights or performance transferred'
                                             if selector_file == 'policy.json' else
-                                            'Source task proposal only; no learned policy exists'),
+                                            'Source task proposal only; no learned policy exists' if selector_file else
+                                            'Explicit manual control selection; no source task or policy changed'),
                   'new_training': False, 'new_inference': False, 'reference_joints_used_for_fitting': False}
     if ground_bytes is not None:
         provenance['ground_file_sha256'] = sha256(ground_bytes).hexdigest()

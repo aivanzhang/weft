@@ -35,8 +35,9 @@ def source_run(tmp_path, *, travel=18., with_policy=True, selected_joint='left_k
     write_json(root/'evidence.json', evidence)
     write_json(root/'pose-landmarks.json', {'frames': evidence['frames']})
     write_json(root/'source.json', {'sha256': source_hash, 'artifact': 'source.mp4', 'scope': 'Analytic fixture'})
-    write_json(root/('policy.json' if with_policy else 'task-proposal.json'),
-               {'selected_joint': selected_joint, 'scope': 'Selector metadata, not a trained policy'})
+    if with_policy is not None:
+        write_json(root/('policy.json' if with_policy else 'task-proposal.json'),
+                   {'selected_joint': selected_joint, 'scope': 'Selector metadata, not a trained policy'})
     write_json(root/'manifest.json', {'files': {p.name: digest(p) for p in root.iterdir() if p.is_file()}})
     camera_path = tmp_path/'camera.json'; write_json(camera_path, camera)
     return root, evidence, camera, camera_path, original
@@ -159,6 +160,43 @@ def test_untrained_source_requires_a_valid_explicit_control_joint(tmp_path, sele
     source, _, _, camera_path, _ = source_run(tmp_path, with_policy=False, selected_joint=selected_joint)
     with pytest.raises(ValueError): prepare_camera_body_lab(source, camera_path, tmp_path/'lab')
     assert not (tmp_path/'lab').exists()
+
+
+@pytest.mark.parametrize('with_policy', [None, True])
+def test_explicit_manual_cli_selection_preserves_body_and_original_source(tmp_path, monkeypatch, with_policy):
+    import sys
+    from weft.cli import main
+    source, evidence, camera, camera_path, original = source_run(tmp_path, with_policy=with_policy)
+    before = verify_artifacts(source)
+    expected, _ = make_camera_body(evidence, camera, original)
+    out = tmp_path/'lab'
+    monkeypatch.setattr(sys, 'argv', ['weft', 'camera-body', '--run', str(source), '--camera', str(camera_path),
+                                    '--control-joint', 'right_knee', '--out', str(out)])
+    main()
+    assert json.loads((out/'run/human.json').read_bytes()) == expected
+    selection = json.loads((out/'run/manual-control-selection.json').read_bytes())
+    assert selection['selected_joint'] == 'right_knee' and selection['source_manifest_sha256'] == before['manifest_sha256']
+    assert selection['authority'] == 'explicit_manual_control' and not (out/'run/policy.json').exists()
+    if with_policy:
+        assert (out/'run/inputs/original/policy.json').read_bytes() == (source/'policy.json').read_bytes()
+    session = CameraHumanSession(out/'run')
+    try:
+        assert session.env.selected_joint == 'right_knee'
+    finally:
+        session.env.close()
+    assert verify_artifacts(source) == before
+
+
+@pytest.mark.parametrize('joint', [None, '', True, 'root_x', 'unknown_joint'])
+def test_manual_selector_rejects_before_body_construction(tmp_path, monkeypatch, joint):
+    source, _, _, camera_path, _ = source_run(tmp_path, with_policy=None)
+    before = verify_artifacts(source)
+    def forbidden(*args, **kwargs):
+        pytest.fail('Invalid or missing manual selection must fail before reconstruction')
+    monkeypatch.setattr('weft.camera_body_lab.make_camera_body', forbidden)
+    with pytest.raises(ValueError, match='control-joint|joint motor'):
+        prepare_camera_body_lab(source, camera_path, tmp_path/'lab', control_joint=joint)
+    assert not (tmp_path/'lab').exists() and verify_artifacts(source) == before
 
 
 @pytest.mark.parametrize('damage', ['camera_source', 'output_inside', 'input_mutation'])

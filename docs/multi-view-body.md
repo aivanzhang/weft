@@ -66,6 +66,7 @@ Matching frame rate alone does not prove physical synchronization.
 ```sh
 .venv-lab/bin/python -m weft camera-body \
   --run path/to/original-mobile-run \
+  --control-joint right_knee \
   --camera first-camera.json --ground ground.json \
   --root-view root-view.json --additional-view third-view.json \
   --body-view both --out artifacts/my-three-camera-lab
@@ -73,8 +74,18 @@ Matching frame rate alone does not prove physical synchronization.
 
 Omit `--body-view` for root position only, or choose `directions`/`dimensions`
 separately. No model call, training or server starts. Additional views can be
-combined with `--partial-segments`. Shared-world/learning adapters that require
-the older two-view method remain unavailable; they are not silently bypassed.
+combined with `--partial-segments`.
+
+The input can also be a construction-only body prepared with
+`exercise-body --evidence-run path/to/sealed-poses --out artifacts/my-body`.
+Pass that output as `--run`. `--control-joint` selects the first joint for manual
+inspection; it does not infer a task, reward or policy. The selection is saved
+separately, and the source remains unchanged. Without this flag, an existing
+source task/policy selector is required.
+
+Grounded reconstructed bodies can now enter the [shared-world workflow](local-lab.md#import-a-camera-based-body-experimental)
+through its existing source and floor checks. Failed candidates remain available
+for inspection; they are not automatically admitted or trained.
 
 ## What is retained
 

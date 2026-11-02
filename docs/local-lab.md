@@ -591,6 +591,29 @@ export/replay receipt. **This does not demonstrate unassisted balance, recovered
 equipment or physical contact accuracy.** The earlier untrained lab and export
 guard failure remain preserved. [Exact evidence and limits](handoffs/reconstructed-camera-learning.md).
 
+### Try a different motion
+
+A second ASPset motion now has a ready shared-world lab. It used the same frozen
+pose/geometry settings, with supplied cameras and an explicitly assumed floor:
+
+```sh
+PYTHONPATH="$PWD/.local/aspset-next-body-01/runtime/src" \
+  .venv-lab/bin/python -B -P -m weft lab-console \
+  --resume artifacts/aspset-next-shared-01/lab
+```
+
+Try `controls`, `record start`, `mode reference`, `step 6`, `reset 29`,
+`record stop`, then `record evidence`. Replace `lab-console` with `lab` to start
+the graphical sandbox yourself. This lab has manual, coast and programmed
+reference modes, **not a trained policy**; the learned example above remains
+available separately.
+
+The complete 3.68-second assisted episode passes its simulator tracking gates,
+and all 190 recorded actions replay exactly. Three virtual body-position forces
+remain explicit. Most reconstructed poses float above the assumed floor;
+contact, physical accuracy and new-subject/camera generalization are unverified.
+[Input assumptions, artifacts and reproduction](handoffs/aspset-next-clip.md).
+
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to
 inspect it. Its body geometry passes the source/grid check but floats above the
