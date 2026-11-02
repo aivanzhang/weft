@@ -1,0 +1,37 @@
+{
+  "cleanup_events": [],
+  "cleanup_status": "not_required",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-candidate-preparation-v1/derive.py"
+  ],
+  "descendant_exit_verified": false,
+  "elapsed_seconds": 0.783,
+  "exit_code": 0,
+  "failure": null,
+  "failure_reasons": [],
+  "final_output_bytes": 39985737,
+  "last_rss_sample_elapsed_seconds": 0.522,
+  "limits": {
+    "cleanup_grace_seconds": 7,
+    "log_bytes": 16777216,
+    "output_inventory_entries": 100000,
+    "output_mb": 64,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "manual_stop_required": false,
+  "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+  "monitor_checkpoint": "cpu-monitor.json",
+  "monitor_errors": [],
+  "pid": 21054,
+  "process_exit_verified": true,
+  "rss_exit_race_observed": true,
+  "rss_samples": 2,
+  "sampled_max_output_bytes": 39985737,
+  "sampled_peak_rss_bytes": 361840640,
+  "sampling_interval_seconds": 0.25,
+  "schema_version": 1,
+  "status": "finished"
+}

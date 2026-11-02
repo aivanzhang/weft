@@ -1,0 +1,149 @@
+{
+  "area_build": "outputs/panda-edge-fringe-area-v1/build-report.json",
+  "config": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+  "correspondence": "outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+  "derivative_prepared": "outputs/fringe-shading-candidate-preparation-v1/prepared.json",
+  "finish_manifest": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+  "finish_report": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+  "front_image": "outputs/panda-fringe-normal-eevee-preview-v1/front.png",
+  "frozen_finisher": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_finish_generated.py",
+  "frozen_part_helper": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_part_rigs.py",
+  "inputs": [
+    {
+      "bytes": 35435020,
+      "path": "outputs/panda-fringe-source-normal-v1/model.glb",
+      "sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75"
+    },
+    {
+      "bytes": 33519456,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+    },
+    {
+      "bytes": 39741,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 1523,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 73661,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655"
+    },
+    {
+      "bytes": 1234,
+      "path": "outputs/panda-fringe-source-normal-v1/build-report.json",
+      "sha256": "4d126d67f24da1579348d2dcc0bb233aa5358b17ba924cfe32456d35a9fb0de5"
+    },
+    {
+      "bytes": 27228,
+      "path": "outputs/panda-edge-fringe-area-v1/build-report.json",
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "bytes": 370862,
+      "path": "outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+      "sha256": "d2a4ba4771f8f25ea7ad9f4fe40c38b60cf126e1e11aab05b766ec8c81a5d531"
+    },
+    {
+      "bytes": 5441,
+      "path": "outputs/fringe-source-normal-audit-v1/audit.json",
+      "sha256": "06d58eccf8b4eb7636362b68f305a543788422bc89a0ac702bad0f2e1defe98b"
+    },
+    {
+      "bytes": 2229,
+      "path": "outputs/fringe-source-normal-audit-v1/manifest.json",
+      "sha256": "cc35156ca20447ae36d83fdee08106ba7841eab8cdd29cb2f0fe517124bb389f"
+    },
+    {
+      "bytes": 7725,
+      "path": "outputs/fringe-shading-candidate-preparation-v1/prepared.json",
+      "sha256": "9704c37cdbe4cc4a44c1219e91566f341dea879a29b234941a15a18b4c71c1a0"
+    },
+    {
+      "bytes": 6241,
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/manifest.json",
+      "sha256": "9b48289cced1c9c4c936964f46783df1d20f64af56de954ee057f08000013b87"
+    },
+    {
+      "bytes": 239553,
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/front.png",
+      "sha256": "9817df91e7d85f077ce7056444ce1feffe100ad46d39aee12084ecd6db867b58"
+    },
+    {
+      "bytes": 203399,
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "263123834b7d0aec92dc90e84e50d5346e78bc4c327d212374904949c5bd1cdc"
+    },
+    {
+      "bytes": 47396,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b"
+    },
+    {
+      "bytes": 5789,
+      "path": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 8,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "model": "outputs/panda-fringe-source-normal-v1/model.glb",
+  "normal_build": "outputs/panda-fringe-source-normal-v1/build-report.json",
+  "original_model": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "pose_image": "outputs/panda-fringe-normal-eevee-preview-v1/renders/dance_flight/0001.png",
+  "preview_manifest": "outputs/panda-fringe-normal-eevee-preview-v1/manifest.json",
+  "prior_audit": "outputs/fringe-source-normal-audit-v1/audit.json",
+  "prior_manifest": "outputs/fringe-source-normal-audit-v1/manifest.json",
+  "python": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+  "recorded_local": "2026-11-01 19:35:31 PST",
+  "rig_contract": "outputs/panda-adaptive-undercoat-finish-v2/rig-contract.json",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 15542,
+      "path": "outputs/fringe-part-ownership-review-v1/audit.py",
+      "sha256": "4d38ae061f7a759d858a2b8776722d222be96a687acd171c2f2492518d0b86a3"
+    },
+    {
+      "bytes": 2031,
+      "path": "outputs/fringe-part-ownership-review-v1/execute_cpu.py",
+      "sha256": "c4c31a4a89f84f5cbfabc08f6f4463e530888cab51f761922ede14d6d79cfecd"
+    },
+    {
+      "bytes": 3424,
+      "path": "outputs/fringe-part-ownership-review-v1/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/fringe-part-ownership-review-v1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/fringe-part-ownership-review-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/fringe-part-ownership-review-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "work": "Explicit part material/bone ownership, exact positive weight accounting, authored normal-image hashes; no texture decode, native, provider, geometry mutation, appearance acceptance, or retry."
+}

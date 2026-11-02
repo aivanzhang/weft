@@ -1,0 +1,70 @@
+{
+  "actual_gpu_derivatives_visibility_or_shading": false,
+  "actual_model_build_or_render": false,
+  "alpha_cutoff": 0.18,
+  "atlas": "outputs/panda-fringe-color-atlas-v1/source-color-atlas.png",
+  "automatic_retry": false,
+  "cell_dimensions": [
+    64,
+    32
+  ],
+  "dark_source_luminance_max": 0.05,
+  "heights_from_root": [
+    0.1,
+    0.35,
+    0.5,
+    0.85
+  ],
+  "inputs": [
+    {
+      "bytes": 36470928,
+      "path": "outputs/panda-fringe-color-atlas-v1/model.glb",
+      "sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec"
+    },
+    {
+      "bytes": 1343238,
+      "path": "outputs/panda-fringe-color-atlas-v1/source-color-atlas.png",
+      "sha256": "862d3c11f2762834c110456cf71fc92e05612d5f5c682dc515144a4503f3ca89"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    },
+    {
+      "bytes": 5022,
+      "path": "outputs/panda-fringe-color-atlas-v1/color-error-audit.json",
+      "sha256": "d003410c3f46a8473a73f24ee53364875182dc7881131b8ac2167b343155f144"
+    },
+    {
+      "bytes": 5559,
+      "path": "outputs/panda-fringe-color-atlas-v1/manifest.json",
+      "sha256": "dffdc9b4d6681611978da1a94f558e2b265810b0243a5722b2fd56f706c7c5e9"
+    }
+  ],
+  "isolated_control": "same mip texels with bilinear neighbor indices clamped to each unchanged cell rectangle",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 32,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "lods": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "mip_input_rows_per_batch": 128,
+  "mip_model": "sRGB8 RGB decode\u2192straight linear-light2x2BOX\u2192sRGB8 encode; linear alphaBOX\u21928bit; bilinear CLAMP samples",
+  "model": "outputs/panda-fringe-color-atlas-v1/model.glb",
+  "neighbor_brightening_threshold": 0.05,
+  "packing_policy": "stable luminance-bin32, then linear R/G/B, then source fin ID; byte-identical cell permutation only",
+  "packing_trigger": "at least one modeled visible source-dark tip with neighbor-added luminance >0.05",
+  "padding_px": 2,
+  "sampling_batch": 8192,
+  "schema_version": 1,
+  "tip_reference": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz"
+}

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-culling-native-control-v1/native_probe.py"
+  ],
+  "prepared_sha256": "75dfa2724abe724ea1691379328f7787051d0fa4fe8b7a174bc1bd93752537f0"
+}

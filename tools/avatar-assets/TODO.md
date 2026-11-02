@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 18:55 PST. The core text-to-3D workflow exists; consistent hands-off quality and accepted fresh Studio delivery remain incomplete. This checkpoint adds area-weighted fringe evidence and an exact-root source guard; appearance is not accepted. Previous private checkpoint: `cb143c5`; exact current commit/push is recorded in `.local/avatar-quality-publication-v6/receipt.json` after publication. No paid allowance or default/quality promotion.
+- Recorded: 2026-11-01 20:01 PST. Exported-preview culling, source-normal shading and texture-packing components are verified. Matched previews lose most coat speckles; contact defects and sparse fur remain, with no quality/default promotion. Prior private checkpoint `8afc084`; current exact commit/push status is in `.local/avatar-quality-publication-v7/receipt.json`. Fresh Studio allowance remains pending.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -839,6 +839,132 @@ Pending fresh-case grants and the exhausted 13-call study are unchanged.
 - Next local quality work must address visible-tip color fidelity and pixel-scale
   coverage before another actual candidate. Do not rerender this unchanged model,
   relax the budget, or mistake another hand-authored panda for fresh acceptance.
+
+### Current continuation: renderer, strip color and shading
+
+- Previous goal turn was **progress**: private checkpoint `8afc084` saves the
+  admission guard, allocation evidence and split 695-case verification. Current
+  work changes exported preview semantics and adds actual matched comparisons;
+  the full hands-off/fresh-Studio goal remains incomplete.
+- `outputs/fringe-shading-review-v1` finds median fin/source normal angle 90.27°;
+  materials share metallic 0 / roughness about .92. Simple outward blending on
+  double-sided faces reverses inward on backfaces. These are measurements, not
+  appearance acceptance. CPU .263 s, exited; RSS unsampled. Manifest SHA
+  `5f3d2e255e4806c027109c4559f067eb00d00c5c2cbaae726522d60db6888bcc`.
+- The actual tiny GLB control `outputs/fringe-culling-native-control-v1` proves
+  Cycles renders the tested single-sided backfaces (81/81 sampled pixels) while
+  EEVEE culls them (0/81). EEVEE preserves shared authored normals on opposed
+  single-sided faces; Cycles changes them. One invocation: 6.240 s /
+  340,951,040 B sampled RSS, exited, under 60 s / 1 GiB / 16 MiB. Findings SHA
+  `2e91babb1a9ddb34dfa567bc3901fb540ffc0d800771fa6260f38803c0e3b450`.
+  This is a renderer fixture, not an avatar or universal glTF conformance proof.
+- Production exported preview now requires EEVEE with exact 1..64 sample control,
+  records engine/settings, and fails explicitly without fallback. Native hair,
+  framing/actions/API and Weft remain unchanged. Six focused setup tests pass;
+  49 surrounding provider/guide/pipeline/evidence/custody checks pass in .849 s
+  (1.278 s controller / 177,815,552 B sampled RSS). All 145 source pins match.
+  Evidence: `outputs/export-preview-engine-tests-v1` and
+  `outputs/fringe-preview-integration-tests-v1`.
+- Source-normal derivative `outputs/panda-fringe-source-normal-v1/model.glb`, SHA
+  `1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75`,
+  uses declared source-outward shading normals and paired single-sided windings:
+  70,567 vertices / 81,781 triangles / 35,435,020 B. Build .769 s /
+  270,581,760 B sampled RSS. Independent audit preserves all original padded BIN
+  bytes, protected attributes, rig/actions and material settings. Exact declared
+  float32 normalization is verified, not raw source-normal bit equality. Audit
+  manifest `cc35156ca20447ae36d83fdee08106ba7841eab8cdd29cb2f0fe517124bb389f`;
+  .257 s CPU, RSS unsampled, exited. No physical hair-volume claim.
+- Generic `outputs/fringe-color-atlas-analytic-v1` helper passed once: 2.084 s /
+  467,845,120 B sampled RSS, unchanged geometry/skin, deterministic bytes and six
+  invalid-input rejections. Sharp-stripe mean error .285454→.000838; worst .0476
+  remains. Cells can widen a sampled tip by .125mm; deep mip isolation is unproved.
+  Actual color-only `outputs/panda-fringe-color-atlas-v1/model.glb`, SHA
+  `8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec`,
+  passed its predeclared 9,600-tip gate using the original 4096² texture: p95
+  .003572 / p99 .004260 / maximum .019307 / >.1 errors 194→0. No tip was hidden
+  below alpha cutoff. Actual build 1.278 s / 368,738,304 B sampled RSS, exited.
+  Geometry/normal/index/skin/action bytes are preserved; only color/UV and
+  disclosed alpha resampling change. Manifest SHA
+  `dffdc9b4d6681611978da1a94f558e2b265810b0243a5722b2fd56f706c7c5e9`.
+- Combined `outputs/panda-fringe-color-source-normal-v1/model.glb`, SHA
+  `52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85`,
+  is 36,932,384 B / 70,567 vertices / 81,781 triangles. It applies the same
+  source-normal policy to the color-only source; .512 s / 236,060,672 B sampled
+  RSS, exited. This build's internal preservation/standard checks pass; the
+  separate independent normal audit above belongs to the normal-only derivative.
+- Four matched actual EEVEE previews are in
+  `outputs/panda-fringe-{area,normal,color,combined}-eevee-preview-v1` (brace
+  notation names four distinct folders). All have four 512px rest views and four
+  actual poses at 0/1.36/2.36/4 seconds, 16 samples, identical bounds and lights.
+  Their total time is 15.037 s; max sampled child RSS 1,087,225,856 B; total output
+  317,982,046 B including editable scenes. Each stayed within 120 s / 2 GiB /
+  128 MiB and exited. Driver/GPU memory is not fully measured; no speed claim.
+  Parent inspected six images: source normals remove most white-body speckling;
+  color-only does not; combined adds light dark-region flecks despite its LOD0
+  color pass. No coat/default promotion. Cheek/shoulder defects persist. Review
+  SHA `d8000297e802d7ca313676140e4e83c35fb2b2f669245ee37f20066d8646b28a` at
+  `outputs/fringe-four-way-review-v1/review.json`. No full video/browser acceptance.
+- `outputs/fringe-part-ownership-review-v1` disproves an exported assignment leak:
+  0/4,800 fin roots and 0/23,023 undercoat vertices carry any positive companion
+  weight; both authored undercoat images bind only to body materials. All 25,644
+  companion vertices are exclusively companion-weighted. Do not widen masks to
+  hide unexplained dragon flecks. One .263 s CPU pass, RSS unsampled, exited;
+  manifest `26624f57cdb7b3a4c2bcae1fd28849d2552ab45bc55665802bf2139d88997c33`.
+- The modeled filter screen `outputs/fringe-atlas-mip-review-v1` completed in
+  1.302 s / 284,704,768 B sampled RSS, exited, within 30 s / 512 MiB / 32 MiB.
+  Neighbor contamination appears at LOD4..5, not LOD0..3. Sorting unchanged cells
+  by source color reduces affected modeled observations 2,383→110 at LOD4 and
+  364→23 across the sampled LOD5 heights; residual errors and filtered-alpha
+  changes remain. This is not actual GPU-level/visibility evidence. Manifest
+  SHA `a7cde333dc58d8377ab484fe4d94580f433f27e911ded7f9ef140055745532b6`.
+- Actual packed derivative `outputs/panda-fringe-packed-v1/model.glb`, SHA
+  `502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304`,
+  is 38,532,288 B. All 4,800 RGBA cells and protected geometry/normals/skin/actions
+  are exact. Only cell placement/UVs change; original bytes remain embedded.
+  Build .783 s / 361,840,640 B sampled RSS, exited within 30 s / 512 MiB / 64 MiB.
+  Float32 UV rounding is ≤2.961e−8; 9,600 nominal-tip colors differ from the old
+  atlas by at most 2.210e−14 and still pass p95/p99/error-count gates. Preparation
+  `outputs/fringe-packed-candidate-preparation-v1/prepared.json`, SHA
+  `9c58554e460ee5de789866823f2f843d0db129042dfea68bfa4697b4bb1cb2fe`.
+- One matched `outputs/panda-fringe-packed-eevee-preview-v1` render completed
+  eight images in 3.629 s / 1,087,504,384 B sampled RSS / 82,342,882 B retained
+  output. Handle **36648**, Blender PID **21404**, exited. Root inspected five
+  images: most black-region speckles disappear; pale cheek marks and mottled
+  shoulder remain after takeoff, and the coat is still sparse short-pile.
+  Texture packing changes both color filtering and filtered-alpha visibility;
+  do not claim isolated proof of color-bleed causality. Review SHA
+  `6f4efdcfcf8cfb8026998d62134bc51c1c6a69ab87442ab841689276465edcbc` at
+  `outputs/fringe-packed-visual-review-v1/review.json`. No profile/default change.
+- Independent `outputs/fringe-packed-independent-audit-v2` passes exact old BIN
+  prefix (36,897,372 B), geometry/normals/skin/inverse binds/actions, all 4,800
+  RGBA cells, independently recomputed float32 UV bytes and the 9,600-tip gate.
+  Packed/original LOD0 RGB differs by at most 2.60e−14. V2 takes .254 s; no RSS
+  sample was captured, so memory is unknown. Its checker explicitly allows the
+  exact provenance-generator string change. V1's .257 s failure is preserved:
+  it omitted that metadata-only transition from its strict allowlist and stopped
+  before pixel/UV checks. No model repair or threshold relaxation occurred.
+  Sealed V2 manifest SHA
+  `e5b763779773993fe66dd3492871fc76a00b15dfd696eb23e64829f9a3898fec`;
+  the agent released ownership. All current native/test/audit jobs are terminal;
+  no browser, Studio server or generation job is running for this work.
+- Skill docs now route exported review through the measured renderer policy.
+  Global Python lacked PyYAML; the existing package `.venv` validated the skill
+  successfully with `quick_validate.py`. No dependency installation or env change.
+- Next local action: preserve the matched controls and independently audited
+  packing result; address the measured coat/contact defects with a changed,
+  bounded hypothesis before promoting a reusable fur profile. Do not rerun these
+  completed preparations or mistake this assisted panda for fresh acceptance.
+  Fresh tests still await the allowance below.
+  No Meshy, Meta, image-generation or pipeline-role AI calls ran in this work.
+- Compact save: `evidence/fringe-shading-color-v1` retains 235 files /
+  12,298,460 B, manifest SHA
+  `878fbafbfc198ea562031b6bf861c232440e4d21d206b80d5e0877a0d7c132d9`.
+  `evidence/fringe-packing-followup-v1` adds 79 files / 4,273,650 B, manifest SHA
+  `0006260f39ff213124b56d108b0c8bdf73a59c63438174068305fe79c6bfd0f0`.
+  All 356 retained origin mappings match; large GLB/Blend files remain local with
+  hashes and are not remotely backed up by these bundles. Exact commit/private
+  push status belongs to `.local/avatar-quality-publication-v7/receipt.json`;
+  a missing receipt is not a verified push. Preserve unrelated Weft owner work.
 
 ### Fresh examples — prepared estimate, authorization pending
 

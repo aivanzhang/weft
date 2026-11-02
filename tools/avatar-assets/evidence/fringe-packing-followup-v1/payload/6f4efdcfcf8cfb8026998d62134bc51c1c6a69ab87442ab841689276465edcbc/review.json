@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 19:53:46 PST",
+  "status": "partial_appearance_improvement_not_quality_accepted",
+  "quality_approved": false,
+  "muse_parity": false,
+  "automatic_profile_promoted": false,
+  "reviewer": "parent_direct_image_inspection",
+  "directly_inspected_images": [
+    {
+      "path": "outputs/panda-fringe-combined-eevee-preview-v1/front.png",
+      "sha256": "4401f1b2bbe8bb95048c7948a1c59cdcb30c281279894cf1e0a5447f8ee86f68"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-eevee-preview-v1/front.png",
+      "sha256": "f15d645c285ea03dce7422182e6f6dd89f4699a18adeae8c5352e95ac5441be1"
+    },
+    {
+      "path": "outputs/panda-fringe-combined-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "777482791260e56e576c91210d127cf2690790a755c78a908d050df4ceb5803e"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "14ed277946848d2cf6ff7c7d2a61068e178181d66b344451e2a359071df92ac4"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-eevee-preview-v1/back.png",
+      "sha256": "aff6b39ca2b52bb6bd92ca4e5a19434a7ae71ecebce5702aef68c7054d880b9f"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "outputs/fringe-packed-candidate-preparation-v1/prepared.json",
+      "sha256": "9c58554e460ee5de789866823f2f843d0db129042dfea68bfa4697b4bb1cb2fe"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-v1/model.glb",
+      "sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-v1/build-report.json",
+      "sha256": "14631436a2a4e8d120da995984ceee1d222ed5f2c605898e4dc8d4570885d132"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-v1/lod0-color-audit.json",
+      "sha256": "e04ae153b1ecbc28a8ec8182d8847119dde3d81c6a7ed3d7381b9ce70c4878c0"
+    },
+    {
+      "path": "outputs/fringe-packed-eevee-preview-preparation-v1/prepared.json",
+      "sha256": "70df60117136d71b8114e1fcdb235c4c28ee5391b7e3da56efd35625b064fcc4"
+    },
+    {
+      "path": "outputs/panda-fringe-combined-eevee-preview-v1/native-inspection.json",
+      "sha256": "bfd4e9d9c82a24c640ccde015715967451b3e11f28f026da2ef83ce9c918f796"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-eevee-preview-v1/native-inspection.json",
+      "sha256": "cb721d52e1bee2c2f80a52b76d03bec30cacc43af5508b3174d08cfcb21ab0a9"
+    },
+    {
+      "path": "outputs/panda-fringe-packed-eevee-preview-v1/job.json",
+      "sha256": "22627dfcd01668466731c9b013eb1e40a3ff788828ddd3691c95d95657b3a883"
+    },
+    {
+      "path": "outputs/fringe-atlas-mip-review-v1/manifest.json",
+      "sha256": "a7cde333dc58d8377ab484fe4d94580f433f27e911ded7f9ef140055745532b6"
+    }
+  ],
+  "source_model_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+  "candidate_model_sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304",
+  "same_bounds_and_render_policy": true,
+  "preview_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-packed-eevee-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-packed-eevee-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-packed-eevee-preview-v1",
+      "512",
+      "16",
+      "false",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-packed-eevee-preview-v1/motion-states.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.629,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 82342882,
+    "last_rss_sample_elapsed_seconds": 3.367,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "preview-monitor.json",
+    "monitor_errors": [],
+    "pid": 21404,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 13,
+    "sampled_max_output_bytes": 82342882,
+    "sampled_peak_rss_bytes": 1087504384,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "observations": [
+    "Reordering unchanged texture cells substantially removes bright flecks on black ears, limbs and tail in the matched front and flight images.",
+    "Broad white-coat source-normal improvement remains; no denser strands or changed geometry were added.",
+    "Flying shoulder companion retains bright details; takeoff exposes the same pale cheek marks and torn-looking/mottled shoulder surface.",
+    "Back view remains sparse short-pile rather than dense Muse-like fur; tail attachment and crest remain authored source shapes."
+  ],
+  "limits": [
+    "This is one existing assisted panda, not a fresh hands-off prompt or Studio acceptance.",
+    "Five images inspected directly; eight new images rendered. No full video, browser, shadows-at-other-lights or whole-surface image proof.",
+    "Atlas packing changes both color filtering and filtered-alpha visibility. The comparison supports a packing-related improvement, not isolated proof that color bleed alone caused every fleck.",
+    "Nominal-tip LOD0 colors remain unchanged to numerical precision after float32 export; deep mip isolation remains incomplete.",
+    "No default, approved asset or gallery changed."
+  ],
+  "new_meshy_meta_image_or_pipeline_role_calls": 0
+}

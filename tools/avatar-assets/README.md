@@ -80,6 +80,14 @@ math and approved assets are unchanged. Verification covers **695 tests across
 two runs**: 668 passed initially, and all 27 sandbox-blocked localhost tests
 passed with local permission. This verifies software, not hands-off visual quality.
 
+Exported-model review now uses [verified EEVEE culling](docs/exported-preview-renderer.md),
+while native hair rendering stays unchanged. A matched source-normal experiment
+removes most white-body speckling; the separate color-atlas correction passes its
+measured color gate. Reordering unchanged texture patches then removes most
+dark-region flecks in matched actual previews without changing geometry or motion.
+Cheek/shoulder defects and sparse fur remain; no experimental coat is promoted.
+The renderer change passes six focused and 49 integration checks.
+
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
 existing read-only gallery remains separate on port 8765.

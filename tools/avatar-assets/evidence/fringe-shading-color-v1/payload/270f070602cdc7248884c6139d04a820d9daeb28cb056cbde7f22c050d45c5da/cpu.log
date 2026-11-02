@@ -1,0 +1,38 @@
+{
+  "status": "passed_color_atlas_analytic_screen",
+  "elapsed_seconds": 1.8678770000115037,
+  "errors": {
+    "black_white_transition": {
+      "atlas": {
+        "mean_absolute_linear_rgb": 0.0008378852704928328,
+        "p95_max_channel_error": 0.002886458032568706,
+        "maximum_channel_error": 0.04759632732488917,
+        "visible_samples": 16942
+      },
+      "endpoint_interpolation": {
+        "mean_absolute_linear_rgb": 0.2854543680039983,
+        "p95_max_channel_error": 1.0,
+        "maximum_channel_error": 1.0,
+        "visible_samples": 16942
+      },
+      "fins_sampled": 256,
+      "samples_per_fin": 257
+    },
+    "colored_gradient": {
+      "atlas": {
+        "mean_absolute_linear_rgb": 0.0008535120985515928,
+        "p95_max_channel_error": 0.0032704955250762,
+        "maximum_channel_error": 0.005181056604175935,
+        "visible_samples": 16942
+      },
+      "endpoint_interpolation": {
+        "mean_absolute_linear_rgb": 0.006053387141722173,
+        "p95_max_channel_error": 0.08305232037307037,
+        "maximum_channel_error": 0.42146703218021664,
+        "visible_samples": 16942
+      },
+      "fins_sampled": 256,
+      "samples_per_fin": 257
+    }
+  }
+}

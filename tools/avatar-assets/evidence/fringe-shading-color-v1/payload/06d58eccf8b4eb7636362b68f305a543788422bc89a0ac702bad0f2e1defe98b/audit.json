@@ -1,0 +1,155 @@
+{
+  "attribute_checks_passed": true,
+  "budgets": {
+    "file_bytes": 35435020,
+    "file_cap": 67108864,
+    "joint_count": 19,
+    "triangle_cap": 100000,
+    "triangles": 81781,
+    "vertex_cap": 100000,
+    "vertices": 70567
+  },
+  "candidate_accepted": false,
+  "candidate_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+  "elapsed_seconds": 0.083889,
+  "exact_JSON_allowlist": {
+    "appended_accessors": 2,
+    "appended_materials": 1,
+    "appended_views": 2,
+    "buffer_byte_length_extended": true,
+    "changed_primitive": [
+      0,
+      7
+    ],
+    "changed_primitive_fields": [
+      "attributes.NORMAL",
+      "indices",
+      "material"
+    ],
+    "generator_metadata_changed": true,
+    "other_fields_exact": true
+  },
+  "inputs_unchanged": true,
+  "known_color_defect_preserved": {
+    "evidence_scope": "Hash-bound baseline measurement; colors unchanged, no new texture decode",
+    "reported_tip_count": 9600,
+    "reported_tips_over_0_1": 194,
+    "status": "unresolved"
+  },
+  "limitations": [
+    "No native render, texture decode, 102-pose rerun, browser, provider, or AI-role call was made.",
+    "Parent verified a separate native control for EEVEE culling; this audit does not independently repeat that result or claim Cycles compatibility.",
+    "Opposed coincident triangles add no thickness or recovered hair; source normals are an authored shading policy.",
+    "Structural preservation is not appearance, dense-fur, Muse parity, fresh-prompt success, physics or Weft consumer acceptance."
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 8,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "material": {
+    "definition": {
+      "alphaCutoff": 0.18,
+      "alphaMode": "MASK",
+      "doubleSided": false,
+      "name": "ExperimentalSourceSurfaceFinNormals",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 15,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.92
+      }
+    },
+    "new_index": 10,
+    "only_clone_name_and_doubleSided_changed": true,
+    "original_materials_preserved": true
+  },
+  "normals": {
+    "byte_exact_against_formula": true,
+    "changed_components_vs_unnormalized_stored_source": 4494,
+    "formula": "Stored source NORMAL float32 divided by its float32 Euclidean length; root endpoint pairs repeat at corresponding fin tips; float32 serialization.",
+    "geometric_face_normal_agreement_required": false,
+    "maximum_component_change_from_unit_normalization": 1.1920928955078125e-07,
+    "maximum_float64_unit_error": 9.924439492436932e-08,
+    "new_accessor": 134,
+    "reason": "This explicit policy intentionally supplies authored source-surface shading normals, not fin-plane geometric normals.",
+    "source_primitive": [
+      0,
+      5
+    ],
+    "vertices": 19200
+  },
+  "policy": "source-surface-normals-opposed-culled-faces-v1",
+  "preservation": {
+    "all_original_accessors_views_materials_images_textures_samplers_exact": true,
+    "all_prefix_bytes_exact": true,
+    "animation_json_sha256": "586f9808f9fb5f1e2d3214f813a54c643a5327e754622dc7cfed0764d5de5a00",
+    "original_base_primitives_skins_nodes_scenes_animations_exact": true,
+    "original_declared_payload_bytes": 34939730,
+    "original_padded_BIN_bytes": 34939732,
+    "original_padded_BIN_sha256": "3dda854e336818a9aa5ba60fba650d977cc87d7d25b57467ca6ee6a6c90f61fc",
+    "original_payload_sha256": "cb252f0d819e0b98eb30688a4ef76b7eabbb71b4596a2587dfcb905c98cf4a80",
+    "protected_fin_attributes": {
+      "COLOR_0": {
+        "accessor": 130,
+        "bufferView": 137,
+        "bytes": 230400,
+        "exact": true,
+        "sha256": "ebc82d0ebc0f0c935fd8b1b2fa575397e2976c33cce67ec6c4990d53beb39d86"
+      },
+      "JOINTS_0": {
+        "accessor": 131,
+        "bufferView": 138,
+        "bytes": 153600,
+        "exact": true,
+        "sha256": "d0d859b873881504fbd784cc35c278e20534867fe00a47b59cb9c2cef31c850a"
+      },
+      "POSITION": {
+        "accessor": 127,
+        "bufferView": 134,
+        "bytes": 230400,
+        "exact": true,
+        "sha256": "03f51865eb30e1034d1572194959857fb887c1a452d3c7631a895145431ed89c"
+      },
+      "TEXCOORD_0": {
+        "accessor": 129,
+        "bufferView": 136,
+        "bytes": 153600,
+        "exact": true,
+        "sha256": "ca6c9496a5d56e1c123832bf0a6ba403765d534b6c1c795be719f666540f726d"
+      },
+      "WEIGHTS_0": {
+        "accessor": 132,
+        "bufferView": 139,
+        "bytes": 307200,
+        "exact": true,
+        "sha256": "d3567f6360850b4012b37adc22440a0bcef2c2ea43cd79936ec1120b87da1261"
+      }
+    },
+    "skin_json_sha256": "c590d5e3f88b2af00af4cc7bb33dd2787f98870e4f83a91e64d616530b39402e",
+    "source_padding_bytes_preserved": 2
+  },
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "status": "passed_authored_normal_derivative_audit",
+  "topology": {
+    "indices_byte_exact": true,
+    "new_fin_triangles": 19200,
+    "no_new_vertices": true,
+    "old_fin_triangles": 9600,
+    "ordering": "All original fin triangles, then each original triangle with indices reversed [2,1,0] in original row order",
+    "positions_unchanged_not_triangle_count": true,
+    "root_positions_exact": true,
+    "volumetric_fur": false
+  }
+}

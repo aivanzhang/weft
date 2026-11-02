@@ -1,0 +1,17 @@
+{
+  "float32_export_uvs": true,
+  "limits": [
+    "Finite nominal-tip samples only; no GPU/mip or whole-surface acceptance."
+  ],
+  "measurements": {
+    "maximum_change_from_original_atlas": 2.2093438190040615e-14,
+    "maximum_linear_component_error": 0.01930716728828108,
+    "minimum_alpha": 0.9999999999999999,
+    "p95": 0.003572128672665792,
+    "p99": 0.004259863724205019,
+    "tip_count": 9600,
+    "tips_below_mask_cutoff": 0,
+    "tips_over_010": 0
+  },
+  "status": "passed"
+}

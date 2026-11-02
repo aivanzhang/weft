@@ -119,6 +119,12 @@ The agent runner uses the existing authenticated local Codex CLI in an isolated 
 
 The AI calls use remote models through the existing login. “Local workflow” describes native build/storage and orchestration, not on-device neural generation. No new account, key, subscription or hosted service is created.
 
+Exported GLB inspection/review uses bounded EEVEE Next, with the actual engine
+and sample count recorded. Native hair/portrait rendering remains Cycles. A real
+front/back control found that Cycles did not apply the tested glTF culling and
+authored-normal behavior. Unsupported EEVEE/sample controls fail without an
+engine fallback. [Evidence and renderer limits](exported-preview-renderer.md).
+
 ## Outputs and browser review
 
 | Preset | Portrait | Clips | Sampling |

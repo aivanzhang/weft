@@ -1,0 +1,95 @@
+{
+  "automatic_retry": false,
+  "command": ".venv/bin/python -B outputs/fringe-atlas-mip-review-v1/execute.py",
+  "conditional_packing_trigger": "at least one modeled visible source-dark tip with neighbor-added luminance >0.05",
+  "heights": [
+    0.1,
+    0.35,
+    0.5,
+    0.85
+  ],
+  "inputs": [
+    {
+      "bytes": 36470928,
+      "path": "outputs/panda-fringe-color-atlas-v1/model.glb",
+      "sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec"
+    },
+    {
+      "bytes": 1343238,
+      "path": "outputs/panda-fringe-color-atlas-v1/source-color-atlas.png",
+      "sha256": "862d3c11f2762834c110456cf71fc92e05612d5f5c682dc515144a4503f3ca89"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    },
+    {
+      "bytes": 5022,
+      "path": "outputs/panda-fringe-color-atlas-v1/color-error-audit.json",
+      "sha256": "d003410c3f46a8473a73f24ee53364875182dc7881131b8ac2167b343155f144"
+    },
+    {
+      "bytes": 5559,
+      "path": "outputs/panda-fringe-color-atlas-v1/manifest.json",
+      "sha256": "dffdc9b4d6681611978da1a94f558e2b265810b0243a5722b2fd56f706c7c5e9"
+    }
+  ],
+  "kind": "cpu_atlas_filtering_control_not_gpu",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 32,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "lods": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T19:43:20.904450-08:00",
+  "schema_version": 1,
+  "source_image_redecode": false,
+  "sources": [
+    {
+      "bytes": 2269,
+      "path": "config.json",
+      "sha256": "8fa10867b0ee0b7d6df58957360d97bcf95d3741fe0e48af9828339f384532f9"
+    },
+    {
+      "bytes": 1955,
+      "path": "execute.py",
+      "sha256": "9af790a064fe6d717c33ab7150e8107764b47518fcfb104f0d30332c884f0dcf"
+    },
+    {
+      "bytes": 15824,
+      "path": "screen.py",
+      "sha256": "e3946b4ffd55c9007a56e7f6625c9a0eba27ec39d341e7b0d3ae3c3a8cd440ac"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 3424,
+      "path": "sources/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

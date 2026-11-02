@@ -1,0 +1,111 @@
+{
+  "baseline_build_report": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/build-report.json",
+  "build_report": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-source-normal-v1/build-report.json",
+  "candidate": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-source-normal-v1/model.glb",
+  "candidate_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+  "checks": "Original payload/padded BIN prefix and exact JSON allowlist; preserved fin attributes and all original rig/action/image data; exact float32-normalized source endpoint normals repeated at tips; exact old then reversed indices; unchanged material settings except explicit cloned single-sided policy; counts. No geometric-normal agreement gate, native calls, texture decode, or motion rerun.",
+  "command": [
+    ".venv/bin/python",
+    "outputs/fringe-source-normal-audit-v1/execute_cpu.py"
+  ],
+  "correspondence": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+  "geometry_created_by_audit": false,
+  "inputs": [
+    {
+      "bytes": 34973564,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/model.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 35435020,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-source-normal-v1/model.glb",
+      "sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75"
+    },
+    {
+      "bytes": 370862,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+      "sha256": "d2a4ba4771f8f25ea7ad9f4fe40c38b60cf126e1e11aab05b766ec8c81a5d531"
+    },
+    {
+      "bytes": 1234,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-source-normal-v1/build-report.json",
+      "sha256": "4d126d67f24da1579348d2dcc0bb233aa5358b17ba924cfe32456d35a9fb0de5"
+    },
+    {
+      "bytes": 27228,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/build-report.json",
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "bytes": 7725,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-candidate-preparation-v1/prepared.json",
+      "sha256": "9704c37cdbe4cc4a44c1219e91566f341dea879a29b234941a15a18b4c71c1a0"
+    },
+    {
+      "bytes": 7589,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-candidate-preparation-v1/derive.py",
+      "sha256": "9df9720fb91eb9113c4bb1f245339882804b00c673e544e50eae8b4bb1108de7"
+    },
+    {
+      "bytes": 18745,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-audit-v1/audit.json",
+      "sha256": "1ff1f062ab63a2525b422089ebe45ebc9da234049f4cd796a0a45c7b0a7645e7"
+    },
+    {
+      "bytes": 2085,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-audit-v1/manifest.json",
+      "sha256": "7aa51d825fb7746bf1fc08737ef1c924cfbef12f4a258571c483f9bfa3b13812"
+    },
+    {
+      "bytes": 2348,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-source-normal-v1/manifest.json",
+      "sha256": "ebb4defdbc8a47268869b76eb8175f8b200ff64ea341a7425d1b5bc038ab49d0"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 8,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "new_provider_calls": 0,
+  "policy": "source-surface-normals-opposed-culled-faces-v1",
+  "prepared_at": "2026-11-01T19:22:28.003281-08:00",
+  "python": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/model.glb",
+  "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "sources": [
+    {
+      "bytes": 13398,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/audit.py",
+      "sha256": "81124a3b1c44e0bdd1c0f21e0d0c2797740b593f5d36123a675536e2431346ac"
+    },
+    {
+      "bytes": 2190,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/execute_cpu.py",
+      "sha256": "84ce3daa09f9c80dac5d6a3e8ef9e49b5e90f51b32c8a33b983aad3d8245ef51"
+    },
+    {
+      "bytes": 3424,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-source-normal-audit-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

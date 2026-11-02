@@ -1,0 +1,1054 @@
+{
+  "candidate_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "double_sided_view_diagnostics": [
+    {
+      "75pct_source_blend_inward_after_double_sided_flip": 932,
+      "geometric_backfacing_fins": 932,
+      "scope": "Source-normal-facing subset, not visibility; body occlusion and pixel footprint are not evaluated.",
+      "source_facing_fins": 2022,
+      "view": "back"
+    },
+    {
+      "75pct_source_blend_inward_after_double_sided_flip": 1134,
+      "geometric_backfacing_fins": 1134,
+      "scope": "Source-normal-facing subset, not visibility; body occlusion and pixel footprint are not evaluated.",
+      "source_facing_fins": 2184,
+      "view": "front"
+    },
+    {
+      "75pct_source_blend_inward_after_double_sided_flip": 1021,
+      "geometric_backfacing_fins": 1021,
+      "scope": "Source-normal-facing subset, not visibility; body occlusion and pixel footprint are not evaluated.",
+      "source_facing_fins": 2089,
+      "view": "side"
+    },
+    {
+      "75pct_source_blend_inward_after_double_sided_flip": 1144,
+      "geometric_backfacing_fins": 1144,
+      "scope": "Source-normal-facing subset, not visibility; body occlusion and pixel footprint are not evaluated.",
+      "source_facing_fins": 2191,
+      "view": "three-quarter"
+    }
+  ],
+  "duplicated_winding_proposal": {
+    "candidate_triangles_after": 81781,
+    "candidate_triangles_before": 72181,
+    "candidate_vertices_unchanged_if_sharing_accessors": 70567,
+    "implemented": false,
+    "mechanism": "Add reversed index triangles with same positions/UVs/weights/source-outward shading normals; doubleSided=false intends exactly one front winding per view.",
+    "risks": [
+      "Coincident opposite surfaces have no physical thickness; culling and shadow behavior must be verified in the target renderer.",
+      "Source-outward shading normals intentionally differ from one or both geometric face normals; this requires an explicit authored policy.",
+      "The Cycles preview/importer culling behavior is not established by the glTF flag alone.",
+      "This does not correct known long-edge color interpolation errors."
+    ]
+  },
+  "elapsed_seconds": 0.068939,
+  "fins": 4800,
+  "inputs_unchanged": true,
+  "known_color_defect_not_resolved": {
+    "limitation": "Diagnostic only; no GPU mip/filter, shadow or appearance equivalence. Source colors are not whitened or suppressed.",
+    "maximum_linear_component_error": 0.6493915013921101,
+    "method": "LOD0 source color versus endpoint COLOR_0 interpolation at nominal physical tip roots",
+    "quantiles_linear_component_error": {
+      "p50": 0.0024499642981961004,
+      "p95": 0.026552556983353275,
+      "p99": 0.219569091528084
+    },
+    "tip_centers_m": [
+      -0.0025,
+      0.0025
+    ],
+    "tip_count": 9600,
+    "tips_over_005": 277,
+    "tips_over_010": 194
+  },
+  "lambert_cosine_diagnostic": {
+    "camera_backface_rule": "Use geometric winding sign against preserved orthographic view direction; glTF double-sided rule reverses back-side shading normals.",
+    "method": "max(0,N dot direction_to_saved_area_light_center), before any albedo/intensity/distance/environment/occlusion/PBR effects",
+    "rows": [
+      {
+        "75pct_source_blend_abs_difference_median": 0.05876470688511855,
+        "absolute_cosine_difference": {
+          "max": 0.949489195940224,
+          "median": 0.22209370523260374,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8272193230455617
+        },
+        "current_fin_cosine": {
+          "max": 0.961431799028922,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8018754353615146
+        },
+        "fraction_abs_difference_over_025": 0.4742828882294758,
+        "light_center": "Fill",
+        "source_cosine": {
+          "max": 0.909885418931012,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.6953278516654113
+        },
+        "source_facing_fins": 2022,
+        "view": "back"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.0,
+        "absolute_cosine_difference": {
+          "max": 0.8520974830916284,
+          "median": 0.04396212547047196,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.6407435139759213
+        },
+        "current_fin_cosine": {
+          "max": 0.8520974830916284,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.6215772733430507
+        },
+        "fraction_abs_difference_over_025": 0.3189910979228487,
+        "light_center": "Key",
+        "source_cosine": {
+          "max": 0.7423076466647817,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.43053123175642904
+        },
+        "source_facing_fins": 2022,
+        "view": "back"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.24147736163120653,
+        "absolute_cosine_difference": {
+          "max": 0.9974386602430018,
+          "median": 0.4876417829350508,
+          "min": 0.0,
+          "p05": 0.023222031517757778,
+          "p95": 0.9316230325394037
+        },
+        "current_fin_cosine": {
+          "max": 0.9998505578199227,
+          "median": 0.4955923059930245,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.958026838717934
+        },
+        "fraction_abs_difference_over_025": 0.7265084075173096,
+        "light_center": "Rim",
+        "source_cosine": {
+          "max": 0.998907610065063,
+          "median": 0.40384489486541364,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9317740393168001
+        },
+        "source_facing_fins": 2022,
+        "view": "back"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.23970626533694986,
+        "absolute_cosine_difference": {
+          "max": 0.9984329666215643,
+          "median": 0.5429992513218859,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9485246809748443
+        },
+        "current_fin_cosine": {
+          "max": 0.9999953908810422,
+          "median": 0.16085244403974513,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9516025126433875
+        },
+        "fraction_abs_difference_over_025": 0.7541208791208791,
+        "light_center": "Fill",
+        "source_cosine": {
+          "max": 0.9997588907076908,
+          "median": 0.16797147479637908,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9328910398512159
+        },
+        "source_facing_fins": 2184,
+        "view": "front"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.21259279188270658,
+        "absolute_cosine_difference": {
+          "max": 0.9993181131634823,
+          "median": 0.541418257629205,
+          "min": 0.0,
+          "p05": 0.013461821106908332,
+          "p95": 0.9371302719216275
+        },
+        "current_fin_cosine": {
+          "max": 0.9999574981875409,
+          "median": 0.3559641866582396,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9480804467889759
+        },
+        "fraction_abs_difference_over_025": 0.76007326007326,
+        "light_center": "Key",
+        "source_cosine": {
+          "max": 0.9997280735993862,
+          "median": 0.36898967060268556,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9454898452558447
+        },
+        "source_facing_fins": 2184,
+        "view": "front"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.1973547014830232,
+        "absolute_cosine_difference": {
+          "max": 0.7584954506816634,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.4863616505586503
+        },
+        "current_fin_cosine": {
+          "max": 0.7584954506816634,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.45700686209907676
+        },
+        "fraction_abs_difference_over_025": 0.17307692307692307,
+        "light_center": "Rim",
+        "source_cosine": {
+          "max": 0.6301383965088452,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.26610085232310604
+        },
+        "source_facing_fins": 2184,
+        "view": "front"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.21340533149561966,
+        "absolute_cosine_difference": {
+          "max": 0.9997588907076908,
+          "median": 0.458586538789438,
+          "min": 0.0,
+          "p05": 0.0306844341928936,
+          "p95": 0.9462384146466222
+        },
+        "current_fin_cosine": {
+          "max": 0.9999530322729839,
+          "median": 0.5018443820553036,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9493218262123841
+        },
+        "fraction_abs_difference_over_025": 0.7166108185734801,
+        "light_center": "Fill",
+        "source_cosine": {
+          "max": 0.9997588907076908,
+          "median": 0.49828525997537026,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9538981617714157
+        },
+        "source_facing_fins": 2089,
+        "view": "side"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.13812591559788912,
+        "absolute_cosine_difference": {
+          "max": 0.9303230963784679,
+          "median": 0.17951567763268853,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.7586221889181953
+        },
+        "current_fin_cosine": {
+          "max": 0.9524633087560761,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.7166153500298901
+        },
+        "fraction_abs_difference_over_025": 0.4399234083293442,
+        "light_center": "Key",
+        "source_cosine": {
+          "max": 0.8816845760680853,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.6595068011655276
+        },
+        "source_facing_fins": 2089,
+        "view": "side"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.18556383945274674,
+        "absolute_cosine_difference": {
+          "max": 0.9971957796853399,
+          "median": 0.39928292090662226,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9156222578914653
+        },
+        "current_fin_cosine": {
+          "max": 0.9984595083884197,
+          "median": 0.08715255823364113,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9088794152888375
+        },
+        "fraction_abs_difference_over_025": 0.6476783149832456,
+        "light_center": "Rim",
+        "source_cosine": {
+          "max": 0.9971957796853399,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8284620319328683
+        },
+        "source_facing_fins": 2089,
+        "view": "side"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.23224725206269872,
+        "absolute_cosine_difference": {
+          "max": 0.9804777599955057,
+          "median": 0.3478037260707154,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8770334115495233
+        },
+        "current_fin_cosine": {
+          "max": 0.9884982795893066,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8495084018642309
+        },
+        "fraction_abs_difference_over_025": 0.5810132359653126,
+        "light_center": "Fill",
+        "source_cosine": {
+          "max": 0.9619803434516309,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.8180145109794411
+        },
+        "source_facing_fins": 2191,
+        "view": "three-quarter"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.19448308233729306,
+        "absolute_cosine_difference": {
+          "max": 0.9993181131634823,
+          "median": 0.5005697364768734,
+          "min": 0.0,
+          "p05": 0.04421341514485466,
+          "p95": 0.9351195135300054
+        },
+        "current_fin_cosine": {
+          "max": 0.9995146061055407,
+          "median": 0.4430525473141295,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.94488423114039
+        },
+        "fraction_abs_difference_over_025": 0.7530807850296668,
+        "light_center": "Key",
+        "source_cosine": {
+          "max": 0.9997280735993862,
+          "median": 0.4220378596742673,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.9454841977824991
+        },
+        "source_facing_fins": 2191,
+        "view": "three-quarter"
+      },
+      {
+        "75pct_source_blend_abs_difference_median": 0.1828695907684182,
+        "absolute_cosine_difference": {
+          "max": 0.8111152434506401,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.5886406173379869
+        },
+        "current_fin_cosine": {
+          "max": 0.8111152434506401,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.583470436032387
+        },
+        "fraction_abs_difference_over_025": 0.25376540392514835,
+        "light_center": "Rim",
+        "source_cosine": {
+          "max": 0.6884667478785289,
+          "median": 0.0,
+          "min": 0.0,
+          "p05": 0.0,
+          "p95": 0.34516885451874624
+        },
+        "source_facing_fins": 2191,
+        "view": "three-quarter"
+      }
+    ],
+    "scope": "An explanatory cosine calculation, not a rendered brightness prediction or specular model."
+  },
+  "limitations": [
+    "No model, geometry, normal, image, material, action, or production file was changed.",
+    "Normal mismatch supports a shading-discontinuity hypothesis; it does not isolate the cause of each visible speckle or prove a blend improves appearance.",
+    "No texture decode, native render, browser, provider, AI-role call, collision, or physical fur claim.",
+    "Bands use actual stored endpoint colors and are not anatomical labels or exact visible-tip colors."
+  ],
+  "luminance_bands": [
+    {
+      "angle_after_best_global_sign_choice_degrees": {
+        "max": 89.99919673271631,
+        "median": 83.45793202592317,
+        "min": 62.44776239876311,
+        "p05": 78.4919841318949,
+        "p95": 89.3467571958754
+      },
+      "band": "low_luminance",
+      "fin_vs_source_endpoint_angle_degrees": {
+        "max": 117.5522376012369,
+        "median": 90.30128248796748,
+        "min": 68.36036099181479,
+        "p05": 79.41221050067423,
+        "p95": 100.56631630110778
+      },
+      "fins": 2345,
+      "source_endpoint_normal_difference_degrees": {
+        "max": 43.617154437799265,
+        "median": 6.075548577369382,
+        "min": 0.007119289322213912,
+        "p05": 2.262164480892593,
+        "p95": 12.586238184646156
+      }
+    },
+    {
+      "angle_after_best_global_sign_choice_degrees": {
+        "max": 89.77604801353134,
+        "median": 83.73793746529203,
+        "min": 54.18180108529236,
+        "p05": 75.145483424175,
+        "p95": 89.12198052470704
+      },
+      "band": "middle_luminance",
+      "fin_vs_source_endpoint_angle_degrees": {
+        "max": 125.81819891470764,
+        "median": 92.34569210671454,
+        "min": 69.52344178236444,
+        "p05": 78.78331913280026,
+        "p95": 101.36093497166873
+      },
+      "fins": 67,
+      "source_endpoint_normal_difference_degrees": {
+        "max": 53.40542319760935,
+        "median": 3.950289724258929,
+        "min": 0.1884541940149222,
+        "p05": 0.47196911959325993,
+        "p95": 20.9151418059664
+      }
+    },
+    {
+      "angle_after_best_global_sign_choice_degrees": {
+        "max": 89.9858700153679,
+        "median": 83.53466040315965,
+        "min": 66.91565124010997,
+        "p05": 79.51700346664256,
+        "p95": 89.32297475675544
+      },
+      "band": "high_luminance",
+      "fin_vs_source_endpoint_angle_degrees": {
+        "max": 113.08434875989002,
+        "median": 90.17810232401393,
+        "min": 70.91494422875364,
+        "p05": 80.0393791787345,
+        "p95": 100.05363447399995
+      },
+      "fins": 2388,
+      "source_endpoint_normal_difference_degrees": {
+        "max": 31.788959372159095,
+        "median": 3.9652140545151457,
+        "min": 0.0,
+        "p05": 1.748798574910224,
+        "p95": 7.605498023374511
+      }
+    }
+  ],
+  "materials": {
+    "fin": {
+      "alphaCutoff": 0.18,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "name": "ExperimentalEdgeFringe",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 15,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.92
+      }
+    },
+    "fin_has_normal_texture": false,
+    "limitation": "The source normal texture is not decoded; these comparisons use serialized vertex normals only.",
+    "source": {
+      "doubleSided": true,
+      "name": "body_surface__short_pile_adaptive_v1",
+      "normalTexture": {
+        "index": 9
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 10
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.9200000166893005
+      }
+    },
+    "source_has_normal_texture": true
+  },
+  "normative_reference": {
+    "paraphrase": "Single-sided materials enable backface culling. Double-sided materials disable it and reverse back-facing shading normals before lighting.",
+    "section": "3.9.5",
+    "url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#double-sided",
+    "verified_by": "Parent session primary-source lookup"
+  },
+  "quality_approved": false,
+  "relationships": {
+    "angle_after_best_global_sign_choice_degrees": {
+      "max": 89.99919673271631,
+      "median": 83.48371235340011,
+      "min": 54.18180108529236,
+      "p05": 79.0495387940774,
+      "p95": 89.32913938925171
+    },
+    "average_source_vs_source_face_geometric_angle_degrees": {
+      "max": 28.139613069409197,
+      "median": 2.0390333749437968,
+      "min": 0.05772705240818782,
+      "p05": 0.6542357234471995,
+      "p95": 7.048426117875264
+    },
+    "fin_vs_actual_triangle_dot": {
+      "max": 1.0000000000000002,
+      "median": 0.9999999999997867,
+      "min": 0.9999999999729297,
+      "p05": 0.9999999999960909,
+      "p95": 0.9999999999999986
+    },
+    "fin_vs_average_source_abs_dot": {
+      "max": 0.17378532566871574,
+      "median": 0.11592159201809242,
+      "min": 3.0425795191448002e-05,
+      "p05": 0.010433068386049339,
+      "p95": 0.17335446201225266
+    },
+    "fin_vs_source_endpoint_angle_degrees": {
+      "max": 125.81819891470764,
+      "median": 90.27227112202162,
+      "min": 68.36036099181479,
+      "p05": 79.74912970123623,
+      "p95": 100.29268267735367
+    },
+    "fraction_endpoint_angles_between_60_and_120_degrees": 0.9998958333333333,
+    "source_endpoint_normal_difference_degrees": {
+      "max": 53.40542319760935,
+      "median": 4.724820394296495,
+      "min": 0.0,
+      "p05": 1.9438848863563403,
+      "p95": 11.480535097508996
+    }
+  },
+  "schema_version": 1,
+  "source_blend_vector_diagnostics": {
+    "0": {
+      "angle_to_average_source_degrees": {
+        "max": 100.00796233381895,
+        "median": 90.27951696051755,
+        "min": 79.99202067799014,
+        "p05": 80.14625342324729,
+        "p95": 99.8776743674458
+      },
+      "back_side_dot_source_after_gltf_reversal": {
+        "max": 0.17378503368051534,
+        "median": 0.004878471925097633,
+        "min": -0.17378532566871574,
+        "p05": -0.17113379067389353,
+        "p95": 0.17154523367852176
+      },
+      "back_side_inward_count": 2345,
+      "front_side_dot_source": {
+        "max": 0.17378532566871574,
+        "median": -0.004878471925097633,
+        "min": -0.17378503368051534,
+        "p05": -0.17154523367852176,
+        "p95": 0.17113379067389353
+      },
+      "front_side_inward_count": 2455,
+      "scope": "Hypothetical vectors only; no model or normals written"
+    },
+    "0.5": {
+      "angle_to_average_source_degrees": {
+        "max": 50.00398116690948,
+        "median": 45.13975848025878,
+        "min": 39.99601033899508,
+        "p05": 40.073126711623644,
+        "p95": 49.9388371837229
+      },
+      "back_side_dot_source_after_gltf_reversal": {
+        "max": -0.6427343799422451,
+        "median": -0.7053798721508322,
+        "min": -0.76608920031179,
+        "p05": -0.7652234283728517,
+        "p95": -0.6436049900058687
+      },
+      "back_side_inward_count": 4800,
+      "front_side_dot_source": {
+        "max": 0.76608920031179,
+        "median": 0.7053798721508322,
+        "min": 0.6427343799422451,
+        "p05": 0.6436049900058687,
+        "p95": 0.7652234283728517
+      },
+      "front_side_inward_count": 0,
+      "scope": "Hypothetical vectors only; no model or normals written"
+    },
+    "0.75": {
+      "angle_to_average_source_degrees": {
+        "max": 19.21069261221658,
+        "median": 18.46273656464887,
+        "min": 17.23842452076663,
+        "p05": 17.259632907641603,
+        "p95": 19.203686899239678
+      },
+      "back_side_dot_source_after_gltf_reversal": {
+        "max": -0.9443149802752371,
+        "median": -0.9485298199446592,
+        "min": -0.9550798353277803,
+        "p05": -0.9549700746239653,
+        "p95": -0.9443552061967008
+      },
+      "back_side_inward_count": 4800,
+      "front_side_dot_source": {
+        "max": 0.9550798353277803,
+        "median": 0.9485298199446592,
+        "min": 0.9443149802752371,
+        "p05": 0.9443552061967008,
+        "p95": 0.9549700746239653
+      },
+      "front_side_inward_count": 0,
+      "scope": "Hypothetical vectors only; no model or normals written"
+    },
+    "1": {
+      "angle_to_average_source_degrees": {
+        "max": 1.2074182697257333e-06,
+        "median": 0.0,
+        "min": 0.0,
+        "p05": 0.0,
+        "p95": 0.0
+      },
+      "back_side_dot_source_after_gltf_reversal": {
+        "max": -0.9999999999999998,
+        "median": -1.0,
+        "min": -1.0000000000000004,
+        "p05": -1.0000000000000002,
+        "p95": -0.9999999999999999
+      },
+      "back_side_inward_count": 4800,
+      "front_side_dot_source": {
+        "max": 1.0000000000000004,
+        "median": 1.0,
+        "min": 0.9999999999999998,
+        "p05": 0.9999999999999999,
+        "p95": 1.0000000000000002
+      },
+      "front_side_inward_count": 0,
+      "scope": "Hypothetical vectors only; no model or normals written"
+    }
+  },
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "measured_shading_relationships",
+  "witnesses": [
+    {
+      "exported_fin_vertex_indices": [
+        15380,
+        15381,
+        15382,
+        15383
+      ],
+      "fin_ordinal": 3845,
+      "fin_vs_source_endpoint_angle_degrees": [
+        90.06311401345579,
+        90.03319750499574
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.004846334690228105,
+        0.00494873127900064,
+        0.0057935998775064945
+      ],
+      "root_glTF_Y_up_m": [
+        0.3454938232898712,
+        1.0217875838279724,
+        0.03918025270104408
+      ],
+      "serialized_fin_normal_glTF": [
+        0.4414498709341204,
+        -0.1274183364625579,
+        -0.8881928726269778
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.715722260413972,
+          -0.5461170058665007,
+          0.43531352132839035
+        ],
+        [
+          0.7477325710500077,
+          -0.4944215359658558,
+          0.44321929895268447
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        20009,
+        20163
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        10568,
+        10569,
+        10570,
+        10571
+      ],
+      "fin_ordinal": 2642,
+      "fin_vs_source_endpoint_angle_degrees": [
+        90.06652555171743,
+        89.9666717996884
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.004629024188034236,
+        0.004493132117204368,
+        0.004931560950353742
+      ],
+      "root_glTF_Y_up_m": [
+        -0.3538092076778412,
+        0.3189518302679062,
+        -0.23106380552053452
+      ],
+      "serialized_fin_normal_glTF": [
+        -0.9995271641777143,
+        -0.0015541633014230355,
+        -0.030708836631969823
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          -0.02509958512384009,
+          0.5626906996308055,
+          0.8262863833899273
+        ],
+        [
+          -0.028300314308728265,
+          0.47780533218751864,
+          0.8780097703005373
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        483,
+        484
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        5128,
+        5129,
+        5130,
+        5131
+      ],
+      "fin_ordinal": 1282,
+      "fin_vs_source_endpoint_angle_degrees": [
+        89.848995497978,
+        89.86744958518143
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.004873348632827401,
+        0.004873348632827401,
+        0.004891412332653999
+      ],
+      "root_glTF_Y_up_m": [
+        -0.15549717843532562,
+        0.07254914194345474,
+        -0.02964840643107891
+      ],
+      "serialized_fin_normal_glTF": [
+        -0.9304896831871861,
+        0.012716470612574342,
+        0.36609731063935674
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          -0.35900578644818765,
+          -0.26060418650008016,
+          -0.8962144292943234
+        ],
+        [
+          -0.35320647503777974,
+          -0.3164057935841617,
+          -0.8804161287583067
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        5076,
+        5209
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        17908,
+        17909,
+        17910,
+        17911
+      ],
+      "fin_ordinal": 4477,
+      "fin_vs_source_endpoint_angle_degrees": [
+        89.76373103942159,
+        90.21193187950745
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.005548771936446428,
+        0.005332321394234896,
+        0.005895022302865982
+      ],
+      "root_glTF_Y_up_m": [
+        -0.15990646928548813,
+        0.386171817779541,
+        0.26909247040748596
+      ],
+      "serialized_fin_normal_glTF": [
+        -0.4187547265993395,
+        0.0008952275383170151,
+        -0.9080989359746917
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.7745057984035445,
+          -0.5186038642481758,
+          -0.3622027059895435
+        ],
+        [
+          0.7668426387284203,
+          -0.537959737237755,
+          -0.35007383298258526
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        5705,
+        5989
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        7660,
+        7661,
+        7662,
+        7663
+      ],
+      "fin_ordinal": 1915,
+      "fin_vs_source_endpoint_angle_degrees": [
+        89.90057591011924,
+        89.96328061987448
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.9527494013309479,
+        0.8724454343318939,
+        0.8338110744953156
+      ],
+      "root_glTF_Y_up_m": [
+        0.14017664641141891,
+        0.7935531437397003,
+        -0.19987288117408752
+      ],
+      "serialized_fin_normal_glTF": [
+        0.9823221113521677,
+        0.005549743853627976,
+        0.18711619355838383
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.1761979915395385,
+          -0.3890955465031438,
+          -0.904189650166851
+        ],
+        [
+          0.16730145473986796,
+          -0.4810041602365007,
+          -0.8606074721248373
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        13773,
+        13774
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        12444,
+        12445,
+        12446,
+        12447
+      ],
+      "fin_ordinal": 3111,
+      "fin_vs_source_endpoint_angle_degrees": [
+        89.923083539127,
+        90.12070735668004
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.9477203190326691,
+        0.8717645108699799,
+        0.8232351243495941
+      ],
+      "root_glTF_Y_up_m": [
+        0.2529069483280182,
+        0.24510657042264938,
+        -0.21677979081869125
+      ],
+      "serialized_fin_normal_glTF": [
+        0.5684559817544935,
+        -0.0018630541921151312,
+        0.822711569042646
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.7639758181332964,
+          -0.37218822053236783,
+          -0.5270833689318132
+        ],
+        [
+          0.7595259873836795,
+          -0.3796129688062623,
+          -0.5282180121909348
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        16759,
+        16798
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        1932,
+        1933,
+        1934,
+        1935
+      ],
+      "fin_ordinal": 483,
+      "fin_vs_source_endpoint_angle_degrees": [
+        90.15725291360972,
+        89.93341690812468
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.9787942171096802,
+        0.9028801918029785,
+        0.8453881740570068
+      ],
+      "root_glTF_Y_up_m": [
+        0.25300756096839905,
+        0.3750312030315399,
+        0.17637847363948822
+      ],
+      "serialized_fin_normal_glTF": [
+        0.6291155735679659,
+        -0.004470789748597433,
+        -0.7772989174913811
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.7743743962053939,
+          -0.05209827599134066,
+          0.630579149782374
+        ],
+        [
+          0.7779892544047496,
+          0.015299788402883577,
+          0.6280912644716283
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        16604,
+        16920
+      ],
+      "source_primitive": 5
+    },
+    {
+      "exported_fin_vertex_indices": [
+        1760,
+        1761,
+        1762,
+        1763
+      ],
+      "fin_ordinal": 440,
+      "fin_vs_source_endpoint_angle_degrees": [
+        89.83788572917628,
+        89.80956998690841
+      ],
+      "linear_endpoint_mean_rgb": [
+        0.9591548144817352,
+        0.8826533854007721,
+        0.8405619263648987
+      ],
+      "root_glTF_Y_up_m": [
+        0.3065403550863266,
+        0.7065128684043884,
+        0.03512238338589668
+      ],
+      "serialized_fin_normal_glTF": [
+        -0.19682536591427324,
+        -0.01119270896424675,
+        -0.9803746725608299
+      ],
+      "source_endpoint_normals_glTF": [
+        [
+          0.6970940207196356,
+          -0.7041940061633654,
+          -0.13479884257857144
+        ],
+        [
+          0.7485900743063745,
+          -0.6466914092043123,
+          -0.14629805846735394
+        ]
+      ],
+      "source_exported_vertex_indices": [
+        18473,
+        18793
+      ],
+      "source_primitive": 5
+    }
+  ]
+}

@@ -1,0 +1,240 @@
+{
+  "actual_peak_memory_measured": false,
+  "all_read_only_inputs_checked_unchanged_after_run": true,
+  "candidate_sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304",
+  "combined_monitor_elapsed_seconds": 0.511,
+  "failed_predecessor": {
+    "files": [
+      {
+        "bytes": 10611,
+        "path": "audit.py",
+        "sha256": "e4f09f56fd5a21510b691fb7e1ec4b2579185069788c8eb99fa99640d12c7496"
+      },
+      {
+        "bytes": 1663,
+        "path": "config.json",
+        "sha256": "a5f94f667bb4875401dee1ce864a4e4d24be82302870181f1516576847c55e9c"
+      },
+      {
+        "bytes": 243,
+        "path": "cpu-handle.json",
+        "sha256": "0dbfafb55c752cafde3afb3bf3efb42a800af12ce9c49f5c57c5e3cd633090ec"
+      },
+      {
+        "bytes": 979,
+        "path": "cpu-monitor.json",
+        "sha256": "f25ddd33eda9881e567f02b75212a72f29f213512fff04cf55a1cdba76a50647"
+      },
+      {
+        "bytes": 709,
+        "path": "cpu.log",
+        "sha256": "7fe7289b1bb34456c0ff153e7ae49d653005d8a41202c21c0a0edc8ced1e11e5"
+      },
+      {
+        "bytes": 1797,
+        "path": "execute.py",
+        "sha256": "bb0bd710591ef544cdecf1c709638b858f8581880ed1ba98b2566a805bcd8d77"
+      },
+      {
+        "bytes": 88,
+        "path": "execution-started.json",
+        "sha256": "45f1212bc5003eafac61a16299eb51ba60806c54c9cb041a2600cfe1ba6506ab"
+      },
+      {
+        "bytes": 186,
+        "path": "failure.json",
+        "sha256": "7a176defac6ec3e7ab60e4ad8c64b94d1a95959a19e536974232677e3a66aa29"
+      },
+      {
+        "bytes": 1071,
+        "path": "job.json",
+        "sha256": "362144a3abfdf23d2b3fcab3b6399fab53482d37e00cc8f9adc5fda5f93bf9d6"
+      },
+      {
+        "bytes": 2592,
+        "path": "prepared.json",
+        "sha256": "48ea017498914b5d315b80ee85721d597c2cc60f4e20c662e81d17d88039e5ca"
+      },
+      {
+        "bytes": 96,
+        "path": "sources/avatar_assets/__init__.py",
+        "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+      },
+      {
+        "bytes": 11421,
+        "path": "sources/avatar_assets/runner.py",
+        "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+      },
+      {
+        "bytes": 3759,
+        "path": "sources/avatar_assets/safety.py",
+        "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+      },
+      {
+        "bytes": 3424,
+        "path": "sources/glb_read.py",
+        "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+      }
+    ],
+    "path": "outputs/fringe-packed-independent-audit-v1",
+    "status": "checker_omitted_generator_metadata_change"
+  },
+  "files": [
+    {
+      "bytes": 2917,
+      "path": "README.md",
+      "sha256": "cdcea2c61b63c0e63214c3ca07fd709311ce84b411055fdd4b0d0b973f5141d5"
+    },
+    {
+      "bytes": 11112,
+      "path": "audit.py",
+      "sha256": "359de1c169ae5b478f848b06d3654993138d12f495fe7b7cdff2899ac58aed11"
+    },
+    {
+      "bytes": 1818,
+      "path": "checker-only.diff",
+      "sha256": "db1c214dbf721f80f60104d8578339e32a0e4288057d741fc02bfde1ec5ba58a"
+    },
+    {
+      "bytes": 1663,
+      "path": "config.json",
+      "sha256": "a5f94f667bb4875401dee1ce864a4e4d24be82302870181f1516576847c55e9c"
+    },
+    {
+      "bytes": 243,
+      "path": "cpu-handle.json",
+      "sha256": "d685ded47eebdb8787db438c2ef4b143305aa0f40d0a42756438f3be6eff43a4"
+    },
+    {
+      "bytes": 985,
+      "path": "cpu-monitor.json",
+      "sha256": "cafc06f2223cb679bd15401d26a271c7b7904cec463822cf2f26551a65aa7dde"
+    },
+    {
+      "bytes": 541,
+      "path": "cpu.log",
+      "sha256": "3d99e1b7388d0395edad7fb23fb9bb36e01057cd0665647c26bb037bfca6793c"
+    },
+    {
+      "bytes": 1801,
+      "path": "execute.py",
+      "sha256": "ef63268d810f08d39b49a50a456841559bd8baac461c63187a2279c92e38e624"
+    },
+    {
+      "bytes": 88,
+      "path": "execution-started.json",
+      "sha256": "35d99fc36bd41bec2986f5e99fe0b168bae8ffae6bb7962432a9b982980a56f0"
+    },
+    {
+      "bytes": 1077,
+      "path": "job.json",
+      "sha256": "3d86efc3d6e895168e82eea4e252aee1c211e78169c0eaa8f530155e9b210a97"
+    },
+    {
+      "bytes": 5388,
+      "path": "prepared.json",
+      "sha256": "69d278f107ac0369d91d51a73749d53e3673bc0e97193a12e3a916bbf219431d"
+    },
+    {
+      "bytes": 2603,
+      "path": "result.json",
+      "sha256": "303d2fef2f2e84f69f7e1d7c1d5a466683e90349c3bf213f1a805a9691f9ac10"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 3424,
+      "path": "sources/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 435279,
+      "path": "tip-check.npz",
+      "sha256": "99daea8926675a41c2b2e6f7110f2c18928b66eb1218ce2f9c27830777eb3c1f"
+    }
+  ],
+  "inputs": [
+    {
+      "bytes": 36932384,
+      "path": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "bytes": 38532288,
+      "path": "outputs/panda-fringe-packed-v1/model.glb",
+      "sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304"
+    },
+    {
+      "bytes": 1445764,
+      "path": "outputs/panda-fringe-packed-v1/packed-color-atlas.png",
+      "sha256": "8e1b443bcfcd1f90f38006be1c5f54a04ab46fdd4d0f4e058df11076265274ac"
+    },
+    {
+      "bytes": 91934,
+      "path": "outputs/fringe-atlas-mip-review-v1/packing-only-permutation.npz",
+      "sha256": "97a62ea8c4171737872fc100e45c529c6ddf8b0a830468f000e28562cc01a677"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-independent-audit-v2/audit.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.254,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 480153,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 14.743
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 22103,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 480153,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "no_owned_live_job": true,
+  "prepared_sha256": "69d278f107ac0369d91d51a73749d53e3673bc0e97193a12e3a916bbf219431d",
+  "quality_approved": false,
+  "schema_version": 1,
+  "sealed_at": "2026-11-01T20:00:02.346163-08:00",
+  "source_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+  "status": "passed_independent_exported_packing_audit"
+}

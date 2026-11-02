@@ -24,6 +24,8 @@ For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate
 
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Its measured UV routing preserves color coordinates; normal textures and exported tangent frames must share the current saved bake policy. Rebuild both after a policy change, preserve raw exports, and never treat this technical component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted.
 
+For exported GLB review, use the bounded EEVEE path and read [renderer semantics](../../docs/exported-preview-renderer.md). The measured Cycles control ignored single-sided culling and altered authored normals; native hair/portrait rendering remains separate. Missing EEVEE or sample controls must fail explicitly, not silently fall back. Compare changes under the same renderer. A correct LOD0 color sample does not prove correct small-scale texture filtering; keep experimental fur variants unpromoted until their actual display-size appearance passes.
+
 ## Authorized neural generation
 
 Read [Meshy workflow](../../docs/meshy-workflow.md) when the user wants automatic text/reference-to-3D and has authorized their designated Meshy key. Do not ask them to operate the platform instead of completing the work. Never use the unrelated Meta key/ledger, create accounts, buy credits or expand the credit ceiling automatically.

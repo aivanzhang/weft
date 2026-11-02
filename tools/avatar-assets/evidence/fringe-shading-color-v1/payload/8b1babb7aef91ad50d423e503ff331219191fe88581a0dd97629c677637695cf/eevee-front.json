@@ -1,0 +1,85 @@
+{
+  "beauty": "eevee-front.png",
+  "beauty_sha256": "f2e7bfa3e74f21b3af7475b384d53623667c2f5cf09a5bfb466a0e106e350f42",
+  "cycles_samples": null,
+  "eevee_samples": 4,
+  "elapsed_seconds": 5.337783624883741,
+  "engine": "BLENDER_EEVEE_NEXT",
+  "normal_pass": "eevee-front-normal-0001.exr",
+  "normal_sha256": "816aa188b789ac0c8ed9d92f83c6cb2980f606ce7509a92695475926b912698b",
+  "regions": [
+    {
+      "case": "front_single",
+      "center_pixel_bottom_up": [
+        34,
+        93
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        -1.0,
+        -1.52587890625e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7828129507877208,
+        0.7828129507877208,
+        0.7828129507877208
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "reversed_single",
+      "center_pixel_bottom_up": [
+        93,
+        93
+      ],
+      "expected_glTF_visible": false,
+      "mean_engine_Normal_pass": null,
+      "mean_png_noncolor_rgb": null,
+      "roi_pixels": 81,
+      "visible_pixels": 0
+    },
+    {
+      "case": "double_sided",
+      "center_pixel_bottom_up": [
+        34,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        -1.0,
+        -1.52587890625e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7826192930892661,
+        0.7826192930892661,
+        0.7826192930892661
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "opposed_duplicates",
+      "center_pixel_bottom_up": [
+        93,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.7998046875,
+        -0.599609375,
+        -2.1338462829589844e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.6245461371209886,
+        0.6245461371209886,
+        0.6245461371209886
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    }
+  ],
+  "view": "front"
+}

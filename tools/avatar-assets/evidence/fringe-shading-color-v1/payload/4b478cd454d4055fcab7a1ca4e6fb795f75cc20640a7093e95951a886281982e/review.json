@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 19:25:43 PST",
+  "status": "partial_shading_improvement_not_final_quality",
+  "quality_approved": false,
+  "production_fur_profile_promoted": false,
+  "scope": "Parent directly inspected these three512px existing images; metadata verified for all16 produced images. No full video/browser/fresh prompt acceptance.",
+  "changed_factor": "Authored source-surface shading normals and paired single-sided windings; geometry positions, colors, alpha and animation are held fixed.",
+  "observations": [
+    "Matched baseline has conspicuous white stipples/dashes across face and belly, dark marks over ears/arms.",
+    "Source-normal variant largely removes those white-body speckles and produces smoother continuous surface shading with softer silhouette fibers.",
+    "The white coat is still a short matte surface with sparse outline fibers, not proven dense Muse-like fur.",
+    "Detached-dragon pose still exposes cheek/shoulder defects. Light speckles on the dragon persist in both EEVEE variants and need a separate ownership/source diagnosis.",
+    "Known194/9600 tip-color interpolation errors are inherited unchanged; appearance improvement does not repair them."
+  ],
+  "comparisons": [
+    {
+      "folder": "outputs/panda-fringe-area-eevee-preview-v1",
+      "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+      "render_policy": {
+        "engine": "BLENDER_EEVEE_NEXT",
+        "engine_fallback": false,
+        "policy": "gltf-single-sided-culling-eevee-next-v1",
+        "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+        "sample_control": "scene.eevee.taa_render_samples",
+        "samples_actual": 16,
+        "samples_requested": 16,
+        "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+      },
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "rest_images": 4,
+      "pose_images": 4,
+      "elapsed_seconds": 5.355,
+      "sampled_peak_rss_bytes": 980336640,
+      "output_bytes": 78336571
+    },
+    {
+      "folder": "outputs/panda-fringe-normal-eevee-preview-v1",
+      "source_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+      "render_policy": {
+        "engine": "BLENDER_EEVEE_NEXT",
+        "engine_fallback": false,
+        "policy": "gltf-single-sided-culling-eevee-next-v1",
+        "reason": "Respect imported glTF single-sided culling and authored-normal semantics",
+        "sample_control": "scene.eevee.taa_render_samples",
+        "samples_actual": 16,
+        "samples_requested": 16,
+        "scope": "Exported GLB review only; native hair/portrait renderers are separate"
+      },
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "rest_images": 4,
+      "pose_images": 4,
+      "elapsed_seconds": 3.049,
+      "sampled_peak_rss_bytes": 981647360,
+      "output_bytes": 78714540
+    }
+  ],
+  "images_reviewed": [
+    {
+      "path": "outputs/panda-fringe-area-eevee-preview-v1/front.png",
+      "sha256": "11f55585feefc2f088205e458ed951c4ae1db0bec874f310e8a28ff20873c05f"
+    },
+    {
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/front.png",
+      "sha256": "9817df91e7d85f077ce7056444ce1feffe100ad46d39aee12084ecd6db867b58"
+    },
+    {
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "263123834b7d0aec92dc90e84e50d5346e78bc4c327d212374904949c5bd1cdc"
+    }
+  ],
+  "new_generation_calls": 0,
+  "next_action": "Evaluate independent color-only/combined changes, preserve this matched control, and check non-furry companion ownership before fur-profile promotion."
+}

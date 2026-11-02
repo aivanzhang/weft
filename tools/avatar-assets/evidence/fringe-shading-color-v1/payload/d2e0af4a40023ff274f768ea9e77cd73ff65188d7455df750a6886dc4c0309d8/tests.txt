@@ -1,0 +1,22 @@
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/lib/python3.14/site-packages/PIL/Image.py:3593: DecompressionBombWarning: Image size (16781312 pixels) exceeds limit of 16777216 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "pipeline", "status": "cancelled"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "fixture", "status": "checked"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "awaiting_generation_authorization"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "ready"}
+{"stage": "geometry", "status": "reused_generated_source"}
+{"stage": "pipeline", "status": "planned"}
+{"stage": "pipeline", "status": "checkpointed_error"}
+{"stage": "planner", "status": "running"}
+{"stage": "planner", "status": "unsupported"}
+{"stage": "planner", "status": "unsupported"}
+----------------------------------------------------------------------
+Ran 49 tests in 0.849s
+
+OK

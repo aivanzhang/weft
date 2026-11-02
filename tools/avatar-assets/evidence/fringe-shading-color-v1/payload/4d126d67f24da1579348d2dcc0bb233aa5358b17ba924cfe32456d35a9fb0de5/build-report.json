@@ -1,0 +1,26 @@
+{
+  "candidate_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+  "file_bytes": 35435020,
+  "fins": 4800,
+  "json_allowlist_verified": true,
+  "limitations": [
+    "Authored shading normals intentionally do not match plane geometry.",
+    "Culling compatibility must be independently verified; Cycles is not automatically glTF-conformant.",
+    "Unchanged texture interpolation retains the known194/9600 nominal-tip color defect.",
+    "Same sampled rig/action evidence applies to unchanged positions/skin, not new physical motion.",
+    "Not dense fur, fresh prompt acceptance, Muse parity or Weft consumer compatibility."
+  ],
+  "median_absolute_source_geometric_dot": 0.1134856641292572,
+  "new_provider_calls": 0,
+  "original_binary_prefix_exact": true,
+  "policy": "source-surface-normals-opposed-culled-faces-v1",
+  "position_color_uv_skin_animation_exact": true,
+  "preserved_binary_bytes": 34939730,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_normals_unit_error": 1.1920928955078125e-07,
+  "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "status": "pending_native_culling_and_appearance_review",
+  "triangles": 81781,
+  "vertices": 70567
+}

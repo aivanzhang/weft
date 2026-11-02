@@ -1,0 +1,85 @@
+{
+  "beauty": "eevee-back.png",
+  "beauty_sha256": "4f7d92415f73e2267db1868f695b31fc504006a8cf5be70bf5127859f8a6f564",
+  "cycles_samples": null,
+  "eevee_samples": 4,
+  "elapsed_seconds": 5.3924106657505035,
+  "engine": "BLENDER_EEVEE_NEXT",
+  "normal_pass": "eevee-back-normal-0001.exr",
+  "normal_sha256": "03daa22d137279fcf375cc6d3f482127fa769f0a51c30de2176a7491a35c36ec",
+  "regions": [
+    {
+      "case": "front_single",
+      "center_pixel_bottom_up": [
+        93,
+        93
+      ],
+      "expected_glTF_visible": false,
+      "mean_engine_Normal_pass": null,
+      "mean_png_noncolor_rgb": null,
+      "roi_pixels": 81,
+      "visible_pixels": 0
+    },
+    {
+      "case": "reversed_single",
+      "center_pixel_bottom_up": [
+        34,
+        93
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        1.0,
+        -1.52587890625e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7828129507877208,
+        0.7828129507877208,
+        0.7828129507877208
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "double_sided",
+      "center_pixel_bottom_up": [
+        93,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        1.0,
+        -1.52587890625e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7831034373354029,
+        0.7831034373354029,
+        0.7831034373354029
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "opposed_duplicates",
+      "center_pixel_bottom_up": [
+        34,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.7998046875,
+        -0.599609375,
+        -2.1338462829589844e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.0003873154429005988,
+        0.0003873154429005988,
+        0.0003873154429005988
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    }
+  ],
+  "view": "back"
+}

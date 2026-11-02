@@ -1,0 +1,76 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1234,
+      "path": "build-report.json",
+      "sha256": "4d126d67f24da1579348d2dcc0bb233aa5358b17ba924cfe32456d35a9fb0de5"
+    },
+    {
+      "bytes": 35435020,
+      "path": "model.glb",
+      "sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75"
+    },
+    {
+      "bytes": 2074,
+      "path": "preflight.json",
+      "sha256": "6b79052b0c639b00c2e303a93e940df45a60a274294ad47315951463685212c4"
+    },
+    {
+      "bytes": 4055,
+      "path": "render-attributes.json",
+      "sha256": "87277f6eb4fc733a3500a25e2c540ae5ff55ef9f516da1592c8bef8740a383d9"
+    },
+    {
+      "bytes": 1523,
+      "path": "rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 3318,
+      "path": "rig-verification.json",
+      "sha256": "4b590ff6066b8786347c69c6561917f1629f157e475f6f645b2cbd604f47a4a8"
+    }
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-candidate-preparation-v1/derive.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.769,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 35447224,
+    "last_rss_sample_elapsed_seconds": 0.512,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 17580,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 35447224,
+    "sampled_peak_rss_bytes": 270581760,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_provider_calls": 0,
+  "prepared_sha256": "9704c37cdbe4cc4a44c1219e91566f341dea879a29b234941a15a18b4c71c1a0",
+  "quality_approved": false,
+  "schema_version": 1
+}

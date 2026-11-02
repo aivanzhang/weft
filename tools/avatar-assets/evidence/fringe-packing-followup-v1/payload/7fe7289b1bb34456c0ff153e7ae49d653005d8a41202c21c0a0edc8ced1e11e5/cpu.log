@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-independent-audit-v1/audit.py", line 166, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-independent-audit-v1/audit.py", line 78, in main
+    require(restored == a, 'JSON mutation outside append-only packing allowlist')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-independent-audit-v1/sources/glb_read.py", line 14, in require
+    raise ValueError(message)
+ValueError: JSON mutation outside append-only packing allowlist

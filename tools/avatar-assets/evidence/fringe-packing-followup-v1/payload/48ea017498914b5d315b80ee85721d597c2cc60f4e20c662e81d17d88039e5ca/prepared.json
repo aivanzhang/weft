@@ -1,0 +1,85 @@
+{
+  "automatic_retry": false,
+  "command": ".venv/bin/python -B outputs/fringe-packed-independent-audit-v1/execute.py",
+  "gate": {
+    "expected_tips": 9600,
+    "p95": 0.02,
+    "p99": 0.05,
+    "tips_over_010_max": 48
+  },
+  "inputs": [
+    {
+      "bytes": 36932384,
+      "path": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "bytes": 38532288,
+      "path": "outputs/panda-fringe-packed-v1/model.glb",
+      "sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304"
+    },
+    {
+      "bytes": 1445764,
+      "path": "outputs/panda-fringe-packed-v1/packed-color-atlas.png",
+      "sha256": "8e1b443bcfcd1f90f38006be1c5f54a04ab46fdd4d0f4e058df11076265274ac"
+    },
+    {
+      "bytes": 91934,
+      "path": "outputs/fringe-atlas-mip-review-v1/packing-only-permutation.npz",
+      "sha256": "97a62ea8c4171737872fc100e45c529c6ddf8b0a830468f000e28562cc01a677"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    }
+  ],
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 15
+  },
+  "native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T19:56:40.894429-08:00",
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 10611,
+      "path": "audit.py",
+      "sha256": "e4f09f56fd5a21510b691fb7e1ec4b2579185069788c8eb99fa99640d12c7496"
+    },
+    {
+      "bytes": 1663,
+      "path": "config.json",
+      "sha256": "a5f94f667bb4875401dee1ce864a4e4d24be82302870181f1516576847c55e9c"
+    },
+    {
+      "bytes": 1797,
+      "path": "execute.py",
+      "sha256": "bb0bd710591ef544cdecf1c709638b858f8581880ed1ba98b2566a805bcd8d77"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 3424,
+      "path": "sources/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    }
+  ],
+  "status": "prepared_not_executed"
+}

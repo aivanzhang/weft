@@ -1,0 +1,333 @@
+{
+  "active_mesh_node": 19,
+  "active_meshes": 1,
+  "authored_exported_parent_graph_exact": true,
+  "decoded_scalar_values": 977074,
+  "elapsed_seconds": 0.026677,
+  "excluded_parts": {
+    "shoulder-dragon": {
+      "bones": [
+        "CompanionRoot",
+        "DragonWingLeft",
+        "DragonWingRight"
+      ],
+      "joint_slots": [
+        16,
+        17,
+        18
+      ],
+      "recorded_faces_by_material": {
+        "companion_cap": 313,
+        "companion_surface": 27205
+      },
+      "recorded_native_vertices": 25642,
+      "root_bone": "CompanionRoot",
+      "source_materials": [
+        "companion_surface",
+        "companion_cap"
+      ]
+    }
+  },
+  "exported_triangles": 81781,
+  "exported_vertices": 70567,
+  "fins": {
+    "all_fin_vertex_ownership": {
+      "any_positive_part_weight": 0,
+      "exported_vertices": 19200,
+      "maximum_normalized_part_weight": 0.0,
+      "minimum_positive_part_weight": null,
+      "mixed_part_and_outside_weights": 0,
+      "no_positive_part_weight": 19200,
+      "part_only_positive_weights": 0
+    },
+    "count": 4800,
+    "fin_primitive": [
+      0,
+      7
+    ],
+    "root_count_with_any_positive_excluded_part_weight": 0,
+    "root_endpoints": {
+      "any_positive_part_weight": 0,
+      "exported_vertices": 9600,
+      "maximum_normalized_part_weight": 0.0,
+      "minimum_positive_part_weight": null,
+      "mixed_part_and_outside_weights": 0,
+      "no_positive_part_weight": 9600,
+      "part_only_positive_weights": 0
+    },
+    "root_position_uv_and_normalized_skin_inheritance_exact": true,
+    "source_primitive": [
+      0,
+      5
+    ]
+  },
+  "joint_names_in_skin_slot_order": [
+    "Root",
+    "Pelvis",
+    "Torso",
+    "Neck",
+    "Head",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightForearm",
+    "RightHand",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftForearm",
+    "LeftHand",
+    "Tail",
+    "RightFoot",
+    "LeftFoot",
+    "CompanionRoot",
+    "DragonWingRight",
+    "DragonWingLeft"
+  ],
+  "limitations": [
+    "No source-color sampling, texture decode, rendering, native execution or pose replay.",
+    "Exported UV/normal seam copies are counted separately; counts are not distinct anatomical points.",
+    "No assignment leak does not exclude projected overlap/intersection, source partition errors or source texture/normal/shading defects.",
+    "Visible light flecks remain unexplained by this ownership test; no appearance, Muse quality, physics or Weft acceptance."
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 8,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "membership_threshold": "Exact stored weight > 0; no positive influence discarded",
+  "model_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+  "native_groom": {
+    "current_export_has_only_audited_base_and_fin_primitives": true,
+    "native_particle_density_not_reopened_or_independently_evaluated": true,
+    "report_excluded_part_vertices": 25642,
+    "report_names": [
+      "shoulder-dragon"
+    ]
+  },
+  "primitive_inventory": [
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 2148,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 2148,
+        "part_only_positive_weights": 0
+      },
+      "material": "body_surface",
+      "material_index": 0,
+      "normal_image": {
+        "image_index": 0,
+        "sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+        "texcoord": 0
+      },
+      "primitive": [
+        0,
+        0
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 2603,
+      "triangles_with_any_excluded_part_weight": 0
+    },
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": true,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 24705,
+        "exported_vertices": 24705,
+        "maximum_normalized_part_weight": 1.0,
+        "minimum_positive_part_weight": 0.00010002708586398512,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 0,
+        "part_only_positive_weights": 24705
+      },
+      "material": "companion_surface",
+      "material_index": 1,
+      "normal_image": {
+        "image_index": 0,
+        "sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+        "texcoord": 0
+      },
+      "primitive": [
+        0,
+        1
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 27205,
+      "triangles_with_any_excluded_part_weight": 27205
+    },
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 3,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 3,
+        "part_only_positive_weights": 0
+      },
+      "material": "body_cap",
+      "material_index": 2,
+      "normal_image": null,
+      "primitive": [
+        0,
+        2
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 1,
+      "triangles_with_any_excluded_part_weight": 0
+    },
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": true,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 939,
+        "exported_vertices": 939,
+        "maximum_normalized_part_weight": 1.0,
+        "minimum_positive_part_weight": 0.00025620756787247956,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 0,
+        "part_only_positive_weights": 939
+      },
+      "material": "companion_cap",
+      "material_index": 3,
+      "normal_image": null,
+      "primitive": [
+        0,
+        3
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 313,
+      "triangles_with_any_excluded_part_weight": 313
+    },
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 549,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 549,
+        "part_only_positive_weights": 0
+      },
+      "material": "body_surface__color_rear-tail-base",
+      "material_index": 4,
+      "normal_image": {
+        "image_index": 0,
+        "sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+        "texcoord": 0
+      },
+      "primitive": [
+        0,
+        4
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 738,
+      "triangles_with_any_excluded_part_weight": 0
+    },
+    {
+      "authored_undercoat_image": true,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 21919,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 21919,
+        "part_only_positive_weights": 0
+      },
+      "material": "body_surface__short_pile_adaptive_v1",
+      "material_index": 5,
+      "normal_image": {
+        "image_index": 3,
+        "sha256": "0f33f9671b450c7fe80358a82ad010cd27293470f46b908642df0390d4b4fc49",
+        "texcoord": 0
+      },
+      "primitive": [
+        0,
+        5
+      ],
+      "recorded_undercoat_source_material": "body_surface",
+      "triangles": 31353,
+      "triangles_with_any_excluded_part_weight": 0
+    },
+    {
+      "authored_undercoat_image": true,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 1104,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 1104,
+        "part_only_positive_weights": 0
+      },
+      "material": "body_cap__short_pile_adaptive_v1",
+      "material_index": 6,
+      "normal_image": {
+        "image_index": 4,
+        "sha256": "216d1b75b2af72607619daaf989b75e81023aaf1271b10509bd5a4a4e2cde4b5",
+        "texcoord": 1
+      },
+      "primitive": [
+        0,
+        6
+      ],
+      "recorded_undercoat_source_material": "body_cap",
+      "triangles": 368,
+      "triangles_with_any_excluded_part_weight": 0
+    },
+    {
+      "authored_undercoat_image": false,
+      "declared_excluded_part_material": false,
+      "excluded_part_ownership": {
+        "any_positive_part_weight": 0,
+        "exported_vertices": 19200,
+        "maximum_normalized_part_weight": 0.0,
+        "minimum_positive_part_weight": null,
+        "mixed_part_and_outside_weights": 0,
+        "no_positive_part_weight": 19200,
+        "part_only_positive_weights": 0
+      },
+      "material": "ExperimentalSourceSurfaceFinNormals",
+      "material_index": 10,
+      "normal_image": null,
+      "primitive": [
+        0,
+        7
+      ],
+      "recorded_undercoat_source_material": null,
+      "triangles": 19200,
+      "triangles_with_any_excluded_part_weight": 0
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "scope": "Declared authored part materials and actual positive exported bone weights; not recovered anatomy",
+  "status": "no_exported_assignment_leak_found",
+  "undercoat": {
+    "embedded_png_hashes_match_recorded_bakes": true,
+    "excluded_part_material_primitives_using_authored_undercoat_images": [],
+    "primitives": [
+      [
+        0,
+        5
+      ],
+      [
+        0,
+        6
+      ]
+    ],
+    "triangles": 31721,
+    "vertices_with_any_positive_excluded_part_weight": 0
+  }
+}

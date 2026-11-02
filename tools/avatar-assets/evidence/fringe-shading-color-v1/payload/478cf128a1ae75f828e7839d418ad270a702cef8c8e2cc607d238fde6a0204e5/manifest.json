@@ -1,0 +1,182 @@
+{
+  "artifacts": [
+    {
+      "bytes": 234856,
+      "path": "back.png",
+      "sha256": "e5d919f9aa23a904185c29fd0833049ede359a81746d50949578b57447519624"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "7b2cac770ff5ba63918ab28daa2b01e14d2323e262eb82d7b46c656c1d99a863"
+    },
+    {
+      "bytes": 252995,
+      "path": "front.png",
+      "sha256": "11f55585feefc2f088205e458ed951c4ae1db0bec874f310e8a28ff20873c05f"
+    },
+    {
+      "bytes": 1686,
+      "path": "job.json",
+      "sha256": "65c402c7c1937bbd51ac62d645c55262d18a19d81fa806d862c7056940aea61a"
+    },
+    {
+      "bytes": 102,
+      "path": "motion-states.json",
+      "sha256": "23a55db0c3cfe70c013c39aea41f35c9ffa36627fd942928010201ee15eed2b7"
+    },
+    {
+      "bytes": 10430,
+      "path": "native-inspection.json",
+      "sha256": "16efd30ed6098ec836f127bb0e51c906836a6e2b4f0bfeff0a239e305ee80fc8"
+    },
+    {
+      "bytes": 34973564,
+      "path": "original.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 745,
+      "path": "preview-handle.json",
+      "sha256": "0d0663f8e75dcfe0747a2dd6f360838759a8d59a4f23b232df01f6b7a2acc7bc"
+    },
+    {
+      "bytes": 1536,
+      "path": "preview-monitor.json",
+      "sha256": "b78b9833c89cfd3f878380f250f8466deb950766e5504a7e2fcd8a9ddd8b13e4"
+    },
+    {
+      "bytes": 2737,
+      "path": "preview.log",
+      "sha256": "e29e775da098d87953f1d4b4a5144cb9089fc331efa7ee54b7aa8e1cd5793f93"
+    },
+    {
+      "bytes": 204742,
+      "path": "renders/dance_flight/0000.png",
+      "sha256": "7b990ea46bc327654ad5521c9bc54f61d42f5271068f28b4b0eb9bc383040960"
+    },
+    {
+      "bytes": 211340,
+      "path": "renders/dance_flight/0001.png",
+      "sha256": "41518a5835644c53e43c8d7626cad1da764bf68f7e7524a0bff50bf820b0a0cf"
+    },
+    {
+      "bytes": 207936,
+      "path": "renders/dance_flight/0002.png",
+      "sha256": "1cdafd1b577372f1f0d329025f2cfc6fcae36306a5de2b186b5c85b2b92d828e"
+    },
+    {
+      "bytes": 204742,
+      "path": "renders/dance_flight/0003.png",
+      "sha256": "510297fccddc9ba64e39d7da41c72d332ae0de60c5522c6f83e07eba3bab3c21"
+    },
+    {
+      "bytes": 221449,
+      "path": "side.png",
+      "sha256": "c5d841a1bbb40b04c28f0e8841c156fbd2c622e3fa2d9e08619de7651b9e7adc"
+    },
+    {
+      "bytes": 41496847,
+      "path": "source.blend",
+      "sha256": "95a392d0ea6eca2e6af24996041c18d24ddfd64aab8fcce8ae763bc3ab396d98"
+    },
+    {
+      "bytes": 37922,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "7f8518667da622999ce571ae34eb6e5a81b64df98f95f6a37d043fa00aa56ba0"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 242735,
+      "path": "three-quarter.png",
+      "sha256": "63c84d716c1e7cbbf15348ba3197a490400bd2dcf43e7515616a65a167c16d87"
+    }
+  ],
+  "automatic_retry": false,
+  "comparison_limits": [
+    "New bounded EEVEE renderer verified on actual glTF control; old Cycles images are not a same-renderer comparison.",
+    "Baseline and source-normal variant share shape, color, alpha, skin, camera-fit bounds and lights; variable is authored normal/opposed-face culling policy.",
+    "Known194/9600 source-tip color defects remain in both variants.",
+    "Four sampled action poses, not a full clip, seamless loop, collision, GPU-memory guarantee or fresh prompt acceptance.",
+    "Sampled child RSS does not measure all driver/GPU allocation."
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-area-eevee-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-area-eevee-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-area-eevee-preview-v1",
+      "512",
+      "16",
+      "false",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-area-eevee-preview-v1/motion-states.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 5.355,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 78336571,
+    "last_rss_sample_elapsed_seconds": 5.1,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "preview-monitor.json",
+    "monitor_errors": [],
+    "pid": 18412,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 20,
+    "sampled_max_output_bytes": 78336571,
+    "sampled_peak_rss_bytes": 980336640,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 4,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "new_generation_calls": 0,
+  "prepared_path": "outputs/fringe-baseline-eevee-preview-preparation-v1/prepared.json",
+  "prepared_sha256": "a09f7c891d435434fea04ee8210163b6d4df2bccd1cccc3f272f659578b8be50",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_glb_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "status": "needs_visual_review"
+}

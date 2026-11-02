@@ -1,0 +1,41 @@
+{
+  "all_prepared_sources_unchanged": true,
+  "all_prior_source_artifacts_unchanged": true,
+  "determinism": {
+    "atlas_sha256": "759b74da955207818a3627850f4905b3afba449c961eecb3ae1e13fd77816578",
+    "full_4800_fin_repetition_byte_identical": true,
+    "uv_sha256": "7929b7289c0351e97618e927762d00f77e1ba737f977ef72a1a2bbc483be075e"
+  },
+  "geometry_and_skin_hashes": {
+    "colors": "745e9625d9d579bc09c5d65f969daa510c8ec0dc751e769380f127e4fe40d357",
+    "fin_directions": "cb765c2bbfc8d1929c7587248b5a9e7a5b2e3587c161fa5ee959cfc640c38c8b",
+    "joints": "3be44c16e080d44d3b01a609bd2043e573e96d56f57adc3779cb58d8a2eba2bb",
+    "normals": "bcdef84f969dfe83b57ad97da60d30dbab31de9ce2adf4da38d5f1343330c408",
+    "outward_normals": "3ddf34efdda982ba6ad2168af4292995c71c677f2dc97e17652737d788283ec5",
+    "positions": "f5721df2d814f2a4c68c0524f9b57ade7ebb3ae98ed5d88d5ff8ac2fda90038a",
+    "root_centers": "708d6c78bdba105f1e0a785a8fdc6f08bf6ae869a397fc38c4187a46bcacede4",
+    "root_corner_ids": "b276fef19ec0117ed2662a8eb63561bb34bb9c8a40e8d7c7d00325bcf15872a3",
+    "root_face_ids": "7af3c5b5e36cb35d35e278c5ce2553fee7ade6ea55a33ed689cb072dc0f98de1",
+    "root_source_uv": "d99942a8f5bc38466faf2d7650e8c6524412d7d84af966d81044ad4ff26bc7ad",
+    "root_vertex_ids": "2e2b6b8188d631d754faf26043eab191ed3fb33646b3f6b8c55da66944210d39",
+    "triangles": "c22f63c1034accb5a70fc4bd342a66a24cff8415eb1506b9c39e333dd8bcf854",
+    "uv": "de6f121df97121cdac00bdc8cb459beb65322f0144cffcbd916d5ef3b50a39c9",
+    "weights": "14f04b46cc5fc05766db2ea9a9c83109bd7d080d6a386d11a5e68551e7b68b8d"
+  },
+  "helper_sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5",
+  "not_proven": [
+    "GPU color equivalence",
+    "deep-mip color/alpha isolation",
+    "actual-avatar memory bounds",
+    "actual-avatar fur quality"
+  ],
+  "output_scope": "analytic fixtures only",
+  "prepared_sha256": "bdc4889c1caee263d2bdfc5828166a46e8c3992ac0816b0183357ab6469191f5",
+  "process_exit_verified": true,
+  "result_sha256": "25999d3d53b7804c29749943e8b71cf3efcdd9a8bb06002762fe642244c13fa3",
+  "schema_version": 1,
+  "selection_matches_frozen_analytic_source": true,
+  "status": "verified_analytic_color_atlas_sources_and_outputs",
+  "verified_at": "2026-11-01T19:15:45.852626-08:00",
+  "viewed_image": "analytic-color-comparison.png"
+}

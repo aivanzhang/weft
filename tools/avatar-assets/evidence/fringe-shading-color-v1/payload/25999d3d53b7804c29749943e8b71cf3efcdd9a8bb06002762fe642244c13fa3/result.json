@@ -1,0 +1,389 @@
+{
+  "actual_avatar_used": false,
+  "cases": {
+    "black_white_transition": {
+      "measurements": {
+        "fractional_lod0": {
+          "atlas": {
+            "maximum_channel_error": 0.04759632732488917,
+            "mean_absolute_linear_rgb": 0.0008378852704928328,
+            "p95_max_channel_error": 0.002886458032568706,
+            "visible_samples": 16942
+          },
+          "endpoint_interpolation": {
+            "maximum_channel_error": 1.0,
+            "mean_absolute_linear_rgb": 0.2854543680039983,
+            "p95_max_channel_error": 1.0,
+            "visible_samples": 16942
+          },
+          "fins_sampled": 256,
+          "samples_per_fin": 257
+        },
+        "limits": [
+          "Fractional LOD0 is CPU bilinear sampling, not actual GPU validation.",
+          "Deep mipmaps, anisotropic filtering, alpha-to-coverage and perspective remain unverified."
+        ],
+        "physical_alpha_width_checks": [
+          {
+            "edge_span_m": 0.00899997353553772,
+            "maximum_width_change_m": 0.0001252437723451294,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.0024883960031729657,
+                0.002487297373590991
+              ],
+              "widths_m": [
+                0.001386470532452222,
+                0.0013930623099440709
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.002481804225681117,
+                0.002481804225681117
+              ],
+              "widths_m": [
+                0.0012634240192710422,
+                0.0012678185375989415
+              ]
+            },
+            "source_fin": 46,
+            "two_horizontal_texel_bound_m": 0.00029999911203049123
+          },
+          {
+            "edge_span_m": 0.009422355331480503,
+            "maximum_width_change_m": 8.051329018599063e-05,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.002509714274083308,
+                0.0025108644639431077
+              ],
+              "widths_m": [
+                0.0013434217562462436,
+                0.0013457221359658433
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.002480959527588311,
+                0.002482109717448111
+              ],
+              "widths_m": [
+                0.001262908466060253,
+                0.0012698096052190522
+              ]
+            },
+            "source_fin": 1623,
+            "two_horizontal_texel_bound_m": 0.00031407849746756256
+          },
+          {
+            "edge_span_m": 0.01303000096231699,
+            "maximum_width_change_m": 3.1811525786906714e-06,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.0024860707402467597,
+                0.0024844801639574143
+              ],
+              "widths_m": [
+                0.0012629175737401965,
+                0.0012597364211615059
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.0024812990113787237,
+                0.002482889587668069
+              ],
+              "widths_m": [
+                0.0012660987263188872,
+                0.0012629175737401965
+              ]
+            },
+            "source_fin": 12,
+            "two_horizontal_texel_bound_m": 0.0004343333712313324
+          }
+        ],
+        "texel_centers": {
+          "atlas": {
+            "maximum_channel_error": 0.0034441917088040563,
+            "mean_absolute_linear_rgb": 0.00035497694051959765,
+            "mean_dark_source_brightening": 0.0,
+            "p95_max_channel_error": 0.002886458032568706,
+            "visible_samples": 89510
+          },
+          "endpoint_interpolation": {
+            "maximum_channel_error": 1.0,
+            "mean_absolute_linear_rgb": 0.2953589543067814,
+            "mean_dark_source_brightening": 0.3098003483561942,
+            "p95_max_channel_error": 1.0,
+            "visible_samples": 89510
+          }
+        }
+      },
+      "settings_and_bounds": {
+        "alpha_policy": "resample unchanged physical two-tip UV mapping; no per-fin width stretch",
+        "atlas_dimensions": [
+          4096,
+          2400
+        ],
+        "batch_fins": 128,
+        "cell_dimensions": [
+          64,
+          32
+        ],
+        "elapsed_seconds": 0.32308687502518296,
+        "fins": 4800,
+        "geometry_mutated": false,
+        "interior_samples": [
+          60,
+          28
+        ],
+        "limits": [
+          "Finite samples and sRGB8 quantization do not reproduce arbitrary subtexel source markings.",
+          "Color follows each source edge and extends along fin height, not a recovered volumetric coat.",
+          "Two-pixel gutters are not proof of isolation at deep mip levels or anisotropic filtering.",
+          "Per-fin UVs follow the existing four-vertex skin; bending does not create extra attachment points.",
+          "Source texture RGB assumes the originating material is opaque; source alpha is not a shape mask."
+        ],
+        "material_requirements": "White baseColorFactor; omit/neutralize former fin COLOR_0 to avoid double tint; MASK cutoff 0.18.",
+        "maximum_horizontal_sample_pitch_m": 0.0002171666856156662,
+        "padding_px": 2,
+        "pixels": 9830400,
+        "policy": "source-edge-color-atlas-analytic-v1",
+        "quality_approved": false,
+        "sampling": "REPEAT texel centers, linear-light LOD0, sRGB8 encoding",
+        "source_colors_whitened_or_suppressed": false,
+        "source_fin_policy": "area-share-edge-fin-analytic-v1",
+        "source_pixels": 32768,
+        "weights_mutated": false
+      },
+      "source_sha256": "2b8c97ff8b7bdbe727c8958783f47b3ba7e945f9d29b88374276c586702358cb"
+    },
+    "colored_gradient": {
+      "measurements": {
+        "fractional_lod0": {
+          "atlas": {
+            "maximum_channel_error": 0.005181056604175935,
+            "mean_absolute_linear_rgb": 0.0008535120985515928,
+            "p95_max_channel_error": 0.0032704955250762,
+            "visible_samples": 16942
+          },
+          "endpoint_interpolation": {
+            "maximum_channel_error": 0.42146703218021664,
+            "mean_absolute_linear_rgb": 0.006053387141722173,
+            "p95_max_channel_error": 0.08305232037307037,
+            "visible_samples": 16942
+          },
+          "fins_sampled": 256,
+          "samples_per_fin": 257
+        },
+        "limits": [
+          "Fractional LOD0 is CPU bilinear sampling, not actual GPU validation.",
+          "Deep mipmaps, anisotropic filtering, alpha-to-coverage and perspective remain unverified."
+        ],
+        "physical_alpha_width_checks": [
+          {
+            "edge_span_m": 0.00899997353553772,
+            "maximum_width_change_m": 0.0001252437723451294,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.0024883960031729657,
+                0.002487297373590991
+              ],
+              "widths_m": [
+                0.001386470532452222,
+                0.0013930623099440709
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.002481804225681117,
+                0.002481804225681117
+              ],
+              "widths_m": [
+                0.0012634240192710422,
+                0.0012678185375989415
+              ]
+            },
+            "source_fin": 46,
+            "two_horizontal_texel_bound_m": 0.00029999911203049123
+          },
+          {
+            "edge_span_m": 0.009422355331480503,
+            "maximum_width_change_m": 8.051329018599063e-05,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.002509714274083308,
+                0.0025108644639431077
+              ],
+              "widths_m": [
+                0.0013434217562462436,
+                0.0013457221359658433
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.002480959527588311,
+                0.002482109717448111
+              ],
+              "widths_m": [
+                0.001262908466060253,
+                0.0012698096052190522
+              ]
+            },
+            "source_fin": 1623,
+            "two_horizontal_texel_bound_m": 0.00031407849746756256
+          },
+          {
+            "edge_span_m": 0.01303000096231699,
+            "maximum_width_change_m": 3.1811525786906714e-06,
+            "resampled_alpha": {
+              "centers_m": [
+                -0.0024860707402467597,
+                0.0024844801639574143
+              ],
+              "widths_m": [
+                0.0012629175737401965,
+                0.0012597364211615059
+              ]
+            },
+            "source_alpha": {
+              "centers_m": [
+                -0.0024812990113787237,
+                0.002482889587668069
+              ],
+              "widths_m": [
+                0.0012660987263188872,
+                0.0012629175737401965
+              ]
+            },
+            "source_fin": 12,
+            "two_horizontal_texel_bound_m": 0.0004343333712313324
+          }
+        ],
+        "texel_centers": {
+          "atlas": {
+            "maximum_channel_error": 0.004240275393986859,
+            "mean_absolute_linear_rgb": 0.0008875434016902233,
+            "mean_dark_source_brightening": null,
+            "p95_max_channel_error": 0.003351031808743188,
+            "visible_samples": 89510
+          },
+          "endpoint_interpolation": {
+            "maximum_channel_error": 0.4310260793097347,
+            "mean_absolute_linear_rgb": 0.006217133306256807,
+            "mean_dark_source_brightening": null,
+            "p95_max_channel_error": 0.0832102899438305,
+            "visible_samples": 89510
+          }
+        }
+      },
+      "settings_and_bounds": {
+        "alpha_policy": "resample unchanged physical two-tip UV mapping; no per-fin width stretch",
+        "atlas_dimensions": [
+          4096,
+          2400
+        ],
+        "batch_fins": 128,
+        "cell_dimensions": [
+          64,
+          32
+        ],
+        "elapsed_seconds": 0.331022874917835,
+        "fins": 4800,
+        "geometry_mutated": false,
+        "interior_samples": [
+          60,
+          28
+        ],
+        "limits": [
+          "Finite samples and sRGB8 quantization do not reproduce arbitrary subtexel source markings.",
+          "Color follows each source edge and extends along fin height, not a recovered volumetric coat.",
+          "Two-pixel gutters are not proof of isolation at deep mip levels or anisotropic filtering.",
+          "Per-fin UVs follow the existing four-vertex skin; bending does not create extra attachment points.",
+          "Source texture RGB assumes the originating material is opaque; source alpha is not a shape mask."
+        ],
+        "material_requirements": "White baseColorFactor; omit/neutralize former fin COLOR_0 to avoid double tint; MASK cutoff 0.18.",
+        "maximum_horizontal_sample_pitch_m": 0.0002171666856156662,
+        "padding_px": 2,
+        "pixels": 9830400,
+        "policy": "source-edge-color-atlas-analytic-v1",
+        "quality_approved": false,
+        "sampling": "REPEAT texel centers, linear-light LOD0, sRGB8 encoding",
+        "source_colors_whitened_or_suppressed": false,
+        "source_fin_policy": "area-share-edge-fin-analytic-v1",
+        "source_pixels": 65536,
+        "weights_mutated": false
+      },
+      "source_sha256": "67736c3af46213034d28c379976b3baaca0a538d57a8c8378b1832bd8082fb50"
+    }
+  },
+  "determinism": {
+    "atlas_sha256": "759b74da955207818a3627850f4905b3afba449c961eecb3ae1e13fd77816578",
+    "full_4800_fin_repetition_byte_identical": true,
+    "uv_sha256": "7929b7289c0351e97618e927762d00f77e1ba737f977ef72a1a2bbc483be075e"
+  },
+  "elapsed_seconds": 1.8678770000115037,
+  "fin_array_hashes_unchanged": {
+    "colors": "745e9625d9d579bc09c5d65f969daa510c8ec0dc751e769380f127e4fe40d357",
+    "fin_directions": "cb765c2bbfc8d1929c7587248b5a9e7a5b2e3587c161fa5ee959cfc640c38c8b",
+    "joints": "3be44c16e080d44d3b01a609bd2043e573e96d56f57adc3779cb58d8a2eba2bb",
+    "normals": "bcdef84f969dfe83b57ad97da60d30dbab31de9ce2adf4da38d5f1343330c408",
+    "outward_normals": "3ddf34efdda982ba6ad2168af4292995c71c677f2dc97e17652737d788283ec5",
+    "positions": "f5721df2d814f2a4c68c0524f9b57ade7ebb3ae98ed5d88d5ff8ac2fda90038a",
+    "root_centers": "708d6c78bdba105f1e0a785a8fdc6f08bf6ae869a397fc38c4187a46bcacede4",
+    "root_corner_ids": "b276fef19ec0117ed2662a8eb63561bb34bb9c8a40e8d7c7d00325bcf15872a3",
+    "root_face_ids": "7af3c5b5e36cb35d35e278c5ce2553fee7ade6ea55a33ed689cb072dc0f98de1",
+    "root_source_uv": "d99942a8f5bc38466faf2d7650e8c6524412d7d84af966d81044ad4ff26bc7ad",
+    "root_vertex_ids": "2e2b6b8188d631d754faf26043eab191ed3fb33646b3f6b8c55da66944210d39",
+    "triangles": "c22f63c1034accb5a70fc4bd342a66a24cff8415eb1506b9c39e333dd8bcf854",
+    "uv": "de6f121df97121cdac00bdc8cb459beb65322f0144cffcbd916d5ef3b50a39c9",
+    "weights": "14f04b46cc5fc05766db2ea9a9c83109bd7d080d6a386d11a5e68551e7b68b8d"
+  },
+  "gpu_or_native_used": false,
+  "invalid_inputs_rejected": [
+    {
+      "case": "fin_count",
+      "error": "Fin count outside 1..4800"
+    },
+    {
+      "case": "cell_width",
+      "error": "Invalid bounded atlas cell/padding"
+    },
+    {
+      "case": "batch_count",
+      "error": "Batch count outside 1..128"
+    },
+    {
+      "case": "nonfinite_uv",
+      "error": "Nonfinite source edge UVs"
+    },
+    {
+      "case": "source_pixel_budget",
+      "error": "Source image budget or material binding invalid"
+    },
+    {
+      "case": "source_dimension",
+      "error": "Source image exceeds RGB(A)8 bounds"
+    }
+  ],
+  "kind": "analytic_source_edge_color_atlas_not_avatar",
+  "known_color_oracle_cases": 7,
+  "known_srgb_encoding_values": [
+    0,
+    188,
+    255
+  ],
+  "limits": [
+    "Atlas samples improve source-edge color matching but are not exact texture equivalence.",
+    "No whitening, color suppression, source-mesh edits or new skin anchors are performed.",
+    "The source edge is the color assumption for the full protruding fin height.",
+    "60\u00d728 interior samples, sRGB8 quantization and mip filtering limit retained detail.",
+    "The previous 512px phase-dependent merging and 256px unresolved-tip limits remain."
+  ],
+  "new_provider_or_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "selection_matches_previous_frozen_area_allocation": true,
+  "status": "passed_color_atlas_analytic_screen"
+}

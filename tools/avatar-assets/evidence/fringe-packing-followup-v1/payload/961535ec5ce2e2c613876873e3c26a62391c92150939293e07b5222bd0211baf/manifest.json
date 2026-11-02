@@ -1,0 +1,76 @@
+{
+  "artifacts": [
+    {
+      "bytes": 928,
+      "path": "build-report.json",
+      "sha256": "14631436a2a4e8d120da995984ceee1d222ed5f2c605898e4dc8d4570885d132"
+    },
+    {
+      "bytes": 489,
+      "path": "lod0-color-audit.json",
+      "sha256": "e04ae153b1ecbc28a8ec8182d8847119dde3d81c6a7ed3d7381b9ce70c4878c0"
+    },
+    {
+      "bytes": 38532288,
+      "path": "model.glb",
+      "sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304"
+    },
+    {
+      "bytes": 1445764,
+      "path": "packed-color-atlas.png",
+      "sha256": "8e1b443bcfcd1f90f38006be1c5f54a04ab46fdd4d0f4e058df11076265274ac"
+    },
+    {
+      "bytes": 2213,
+      "path": "preflight.json",
+      "sha256": "d0c5c8c3484108a1cdb5d7efda574ab6be036820910632e6b1a1a997a2d837b9"
+    },
+    {
+      "bytes": 4055,
+      "path": "render-attributes.json",
+      "sha256": "e6bc143ec88b2030e4cffedbc9a3bd4697f2ce6d99e3caa97d62f2551c02052d"
+    }
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-packed-candidate-preparation-v1/derive.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.783,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 39985737,
+    "last_rss_sample_elapsed_seconds": 0.522,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 21054,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 2,
+    "sampled_max_output_bytes": 39985737,
+    "sampled_peak_rss_bytes": 361840640,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_provider_calls": 0,
+  "prepared_sha256": "9c58554e460ee5de789866823f2f843d0db129042dfea68bfa4697b4bb1cb2fe",
+  "quality_approved": false,
+  "schema_version": 1
+}

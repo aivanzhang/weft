@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "path": "manifest.json",
+      "bytes": 2116,
+      "sha256": "5f3d2e255e4806c027109c4559f067eb00d00c5c2cbaae726522d60db6888bcc"
+    },
+    {
+      "path": "measurement.json",
+      "bytes": 30662,
+      "sha256": "2df90d950256c5d893020a6d437656e280d7f87eef3f6efb60409f8bc27f4861"
+    },
+    {
+      "path": "review.md",
+      "bytes": 7420,
+      "sha256": "d5f0e8532b377204f1cab66a8d3d23664b537e80e51818cc718dfde1c1566b6e"
+    }
+  ],
+  "metric_label_erratum": "The sealed angle_after_best_global_sign_choice_degrees field is a per-comparison absolute-dot lower bound, not a globally achievable sign assignment. Numeric values unchanged.",
+  "model_changed": false,
+  "quality_approved": false,
+  "live_handles": []
+}

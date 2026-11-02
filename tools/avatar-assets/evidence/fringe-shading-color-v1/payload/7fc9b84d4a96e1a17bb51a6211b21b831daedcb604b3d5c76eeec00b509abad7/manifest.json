@@ -1,0 +1,182 @@
+{
+  "artifacts": [
+    {
+      "bytes": 223128,
+      "path": "back.png",
+      "sha256": "123841dc40f410e15d55079d2ee3ae36235c08ff45a8583f8c54dc45327b2126"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "04d18eaf8cadf5fab62dead0cce6ff866c6553d73bd1543e5d24be0bd49d2d07"
+    },
+    {
+      "bytes": 241384,
+      "path": "front.png",
+      "sha256": "4401f1b2bbe8bb95048c7948a1c59cdcb30c281279894cf1e0a5447f8ee86f68"
+    },
+    {
+      "bytes": 1705,
+      "path": "job.json",
+      "sha256": "b71b714030ea97d55f850bb7f27fd0e3d8f965710f5170781bd59b8c93f9d45f"
+    },
+    {
+      "bytes": 102,
+      "path": "motion-states.json",
+      "sha256": "23a55db0c3cfe70c013c39aea41f35c9ffa36627fd942928010201ee15eed2b7"
+    },
+    {
+      "bytes": 10443,
+      "path": "native-inspection.json",
+      "sha256": "bfd4e9d9c82a24c640ccde015715967451b3e11f28f026da2ef83ce9c918f796"
+    },
+    {
+      "bytes": 36932384,
+      "path": "original.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "bytes": 761,
+      "path": "preview-handle.json",
+      "sha256": "eb88238b2fadb10fe8f28ff0432d83cce44e5c61279c20d503d73fa41e65e5b6"
+    },
+    {
+      "bytes": 1555,
+      "path": "preview-monitor.json",
+      "sha256": "63d15bb198779781f1769f0fe5794027175fca1ff42a50782169ecc261b5997c"
+    },
+    {
+      "bytes": 2769,
+      "path": "preview.log",
+      "sha256": "0dffb84d0acb9c08993ecb2b2c86b4bc0414dfb4ab841fcbddfd55f741328fbf"
+    },
+    {
+      "bytes": 198721,
+      "path": "renders/dance_flight/0000.png",
+      "sha256": "465d06c025636ab3fe1989520e2851d98dac0da90318733f4861e0566bfe5a2b"
+    },
+    {
+      "bytes": 204935,
+      "path": "renders/dance_flight/0001.png",
+      "sha256": "777482791260e56e576c91210d127cf2690790a755c78a908d050df4ceb5803e"
+    },
+    {
+      "bytes": 201438,
+      "path": "renders/dance_flight/0002.png",
+      "sha256": "fdef1e22dccdfe548954708a2c484327b071845ae180919f476c92baaf99af02"
+    },
+    {
+      "bytes": 198721,
+      "path": "renders/dance_flight/0003.png",
+      "sha256": "9940e346f433690ba9cdd962b4ac5296ada3715cbeab055d8c422466a80b4711"
+    },
+    {
+      "bytes": 210463,
+      "path": "side.png",
+      "sha256": "c4219f2f89390c4e93e8b510063f474a63cfacf563e7c278900dcfcdc52bff3d"
+    },
+    {
+      "bytes": 41928415,
+      "path": "source.blend",
+      "sha256": "55f8659f13f69c4cce02bb80414605d930e8727a64918671c1258ccf805477b4"
+    },
+    {
+      "bytes": 37926,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "70040eabb74fd5908fff28c1939526549a06146979caa3d21dfa0fa86d158cfe"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 232586,
+      "path": "three-quarter.png",
+      "sha256": "adcb6365654b5373a9b48c2dbf0ae34fb95c1f9b5ba341cdd901c7e1872fa60b"
+    }
+  ],
+  "automatic_retry": false,
+  "comparison_limits": [
+    "Same bounded EEVEE engine512px/sample16,4restviews and4actualposes as existing baseline/normal-only controls.",
+    "Source color-atlas resampling passed predeclared9600-tip gate; residual finite-resolution color/alpha/mip limits remain.",
+    "Color-only versus combined differ only in authored normal/opposed-face culling policy; body geometry/skin/action are unchanged.",
+    "Sampled action images, not full video/browser/collision/hair-physics/fresh-prompt acceptance.",
+    "Sampled child RSS excludes some driver/GPU allocations; no quality/default promotion."
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-combined-eevee-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-combined-eevee-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-combined-eevee-preview-v1",
+      "512",
+      "16",
+      "false",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-combined-eevee-preview-v1/motion-states.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.062,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 80657620,
+    "last_rss_sample_elapsed_seconds": 2.805,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "preview-monitor.json",
+    "monitor_errors": [],
+    "pid": 19352,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 11,
+    "sampled_max_output_bytes": 80657620,
+    "sampled_peak_rss_bytes": 1084014592,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 4,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "new_generation_calls": 0,
+  "prepared_path": "outputs/fringe-combined-eevee-preview-preparation-v1/prepared.json",
+  "prepared_sha256": "223a3d6e432c79736c80aa07aa9837fa6a2a5a2815345d8ce09f5e15fd12c6a1",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_glb_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+  "status": "needs_visual_review"
+}

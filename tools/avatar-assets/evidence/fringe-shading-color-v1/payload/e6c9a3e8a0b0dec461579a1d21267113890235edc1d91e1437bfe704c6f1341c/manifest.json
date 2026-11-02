@@ -1,0 +1,76 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1270,
+      "path": "build-report.json",
+      "sha256": "651d41cf6a19145de8b39f3609108d6816f3c7d9072280fd20d61c9fcfe6fdec"
+    },
+    {
+      "bytes": 36932384,
+      "path": "model.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "bytes": 2135,
+      "path": "preflight.json",
+      "sha256": "42a88b30c4996354bdf0dc60f1a04e4b24c21d9bf49d643d60f346c82b39b7fb"
+    },
+    {
+      "bytes": 4055,
+      "path": "render-attributes.json",
+      "sha256": "262fa40416e5db804350b2db71bce4d00caed0e561b684e8ac58c21ed69277fa"
+    },
+    {
+      "bytes": 1523,
+      "path": "rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 3318,
+      "path": "rig-verification.json",
+      "sha256": "979fdab778a494c66fb61c90ace1420fa416422d60fcc1a72a3ceb1ab939960a"
+    }
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-combined-candidate-preparation-v1/derive.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.512,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 36944685,
+    "last_rss_sample_elapsed_seconds": 0.257,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 64,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 19165,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 36944685,
+    "sampled_peak_rss_bytes": 236060672,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_provider_calls": 0,
+  "prepared_sha256": "2a68304dcdb26842f23337ebf1b8a6327f91f8be2d0e2901a5f595b38cb11941",
+  "quality_approved": false,
+  "schema_version": 1
+}

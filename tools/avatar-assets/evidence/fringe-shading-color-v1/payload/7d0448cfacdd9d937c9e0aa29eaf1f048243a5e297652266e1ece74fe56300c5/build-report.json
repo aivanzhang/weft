@@ -1,0 +1,127 @@
+{
+  "atlas": {
+    "alpha_policy": "resample unchanged physical two-tip UV mapping; no per-fin width stretch",
+    "atlas_dimensions": [
+      4096,
+      2400
+    ],
+    "batch_fins": 128,
+    "cell_dimensions": [
+      64,
+      32
+    ],
+    "elapsed_seconds": 0.3316689170897007,
+    "fins": 4800,
+    "geometry_mutated": false,
+    "interior_samples": [
+      60,
+      28
+    ],
+    "limits": [
+      "Finite samples and sRGB8 quantization do not reproduce arbitrary subtexel source markings.",
+      "Color follows each source edge and extends along fin height, not a recovered volumetric coat.",
+      "Two-pixel gutters are not proof of isolation at deep mip levels or anisotropic filtering.",
+      "Per-fin UVs follow the existing four-vertex skin; bending does not create extra attachment points.",
+      "Source texture RGB assumes the originating material is opaque; source alpha is not a shape mask."
+    ],
+    "material_requirements": "White baseColorFactor; omit/neutralize former fin COLOR_0 to avoid double tint; MASK cutoff 0.18.",
+    "maximum_horizontal_sample_pitch_m": 0.0003333251806907356,
+    "padding_px": 2,
+    "pixels": 9830400,
+    "policy": "source-edge-color-atlas-analytic-v1",
+    "quality_approved": false,
+    "sampling": "REPEAT texel centers, linear-light LOD0, sRGB8 encoding",
+    "source_colors_whitened_or_suppressed": false,
+    "source_fin_policy": "area-share-edge-fin-analytic-v1",
+    "source_pixels": 16777216,
+    "weights_mutated": false
+  },
+  "color_gate_passed": true,
+  "elapsed_seconds": 1.0701426672749221,
+  "limitations": [
+    "CPU structure/color result, not actual GPU or native visual acceptance.",
+    "Source fin geometric normals are unchanged; their lighting issue is a separate control.",
+    "Unique-cell alpha resampling and deep mip behavior require separate visual evaluation."
+  ],
+  "model_bytes": 36470928,
+  "model_sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec",
+  "new_native_provider_ai_role_calls": 0,
+  "preservation": {
+    "fin_primitive": 7,
+    "json_allowlist_passed": true,
+    "mesh": 0,
+    "new_material": 10,
+    "new_material_definition": {
+      "alphaCutoff": 0.18,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "name": "ExperimentalEdgeFringeSourceColorAtlas",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 16,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.92
+      }
+    },
+    "new_uv_accessor": 134,
+    "node": 19,
+    "old_COLOR_0_accessor_retained_but_unbound": 130,
+    "old_material_retained": 9,
+    "original_base_rig_actions_and_fin_geometry_exact": true,
+    "original_bin_prefix_bytes": 34939732,
+    "original_bin_prefix_includes_original_chunk_padding": true,
+    "original_material": {
+      "alphaCutoff": 0.18,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "name": "ExperimentalEdgeFringe",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 15,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.92
+      }
+    },
+    "shading_change": "none; same normals, doubleSided, MASK cutoff, roughness, metalness and sampler",
+    "skin": 0,
+    "source_fin_array_hashes": {
+      "colors": "ebc82d0ebc0f0c935fd8b1b2fa575397e2976c33cce67ec6c4990d53beb39d86",
+      "indices": "c22f63c1034accb5a70fc4bd342a66a24cff8415eb1506b9c39e333dd8bcf854",
+      "joints": "d0d859b873881504fbd784cc35c278e20534867fe00a47b59cb9c2cef31c850a",
+      "normals": "e6908181f8346b26c4beefb4926fdbb1491ccdb449ae5f0b3fc373181b637c95",
+      "positions": "03f51865eb30e1034d1572194959857fb887c1a452d3c7631a895145431ed89c",
+      "uv": "ca6c9496a5d56e1c123832bf0a6ba403765d534b6c1c795be719f666540f726d",
+      "weights": "d3567f6360850b4012b37adc22440a0bcef2c2ea43cd79936ec1120b87da1261"
+    },
+    "unchanged_fin_attribute_ids": {
+      "JOINTS_0": 131,
+      "NORMAL": 128,
+      "POSITION": 127,
+      "WEIGHTS_0": 132
+    },
+    "unchanged_fin_indices_id": 133
+  },
+  "quality_approved": false,
+  "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "source_texture_dimensions": [
+    4096,
+    4096
+  ],
+  "status": "technical_color_gate_passed_pending_native_review"
+}

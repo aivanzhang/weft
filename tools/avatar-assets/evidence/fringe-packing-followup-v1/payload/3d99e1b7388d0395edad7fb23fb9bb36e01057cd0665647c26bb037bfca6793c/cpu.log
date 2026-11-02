@@ -1,0 +1,19 @@
+{
+  "status": "passed_independent_exported_packing_audit",
+  "color": {
+    "tip_count": 9600,
+    "p50": 0.00019141658427283782,
+    "p95": 0.003572128672665792,
+    "p99": 0.004259863724205019,
+    "maximum_linear_component_error": 0.01930716728827997,
+    "tips_over_010": 0,
+    "maximum_color_change_from_original_atlas_due_to_UV_rounding": 2.5979218776228663e-14,
+    "fixed_gate": {
+      "expected_tips": 9600,
+      "p95": 0.02,
+      "p99": 0.05,
+      "tips_over_010_max": 48
+    }
+  },
+  "elapsed_seconds": 0.19083587499335408
+}

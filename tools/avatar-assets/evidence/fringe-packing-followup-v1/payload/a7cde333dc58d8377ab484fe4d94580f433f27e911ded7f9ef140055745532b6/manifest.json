@@ -1,0 +1,169 @@
+{
+  "actual_gpu_or_appearance_acceptance": false,
+  "actual_model_build_or_render": false,
+  "files": [
+    {
+      "bytes": 4477,
+      "path": "README.md",
+      "sha256": "8343c614a0914c2c291f5d45735f85251e990b5ab17bea46c9c3bcf002c30ab6"
+    },
+    {
+      "bytes": 2269,
+      "path": "config.json",
+      "sha256": "8fa10867b0ee0b7d6df58957360d97bcf95d3741fe0e48af9828339f384532f9"
+    },
+    {
+      "bytes": 236,
+      "path": "cpu-handle.json",
+      "sha256": "15208eb2e03a18269c2cbeeb3b9d75684563b77e245a005c29bf910592f65d34"
+    },
+    {
+      "bytes": 1023,
+      "path": "cpu-monitor.json",
+      "sha256": "49e80ab15f713de903885aaeba13e74d15c431d7cfa6c48e0ccdf481d4452f3a"
+    },
+    {
+      "bytes": 172,
+      "path": "cpu.log",
+      "sha256": "ba82101e7ef5ec34a72bb297802f765fb0e26c304432b022087ef12ba3a757ca"
+    },
+    {
+      "bytes": 4346635,
+      "path": "current-samples.npz",
+      "sha256": "36f9067bf0b6e3093dbd9c229f6d7c429bf926b0f819b53845e8ec94fb8af595"
+    },
+    {
+      "bytes": 1955,
+      "path": "execute.py",
+      "sha256": "9af790a064fe6d717c33ab7150e8107764b47518fcfb104f0d30332c884f0dcf"
+    },
+    {
+      "bytes": 138,
+      "path": "execution-started.json",
+      "sha256": "dee9f875f9ba15ef4fd0ff8be2bbb85ff289a1cd03ca0bfcbf255a5f74b31274"
+    },
+    {
+      "bytes": 1117,
+      "path": "job.json",
+      "sha256": "ae85a034b0a0c82091018c8f25aeefcdf2d41f518ac1b4ab31312a1485d71e42"
+    },
+    {
+      "bytes": 4315229,
+      "path": "packed-samples.npz",
+      "sha256": "ff0994a52a273ef69e598ad1ea10d0c8746b0aa7191745323fddc1dba371e242"
+    },
+    {
+      "bytes": 91934,
+      "path": "packing-only-permutation.npz",
+      "sha256": "97a62ea8c4171737872fc100e45c529c6ddf8b0a830468f000e28562cc01a677"
+    },
+    {
+      "bytes": 2761,
+      "path": "prepared.json",
+      "sha256": "202f4cee2c77291c5731416281a96bee92817db0208cbc3b86cc8749d4cff751"
+    },
+    {
+      "bytes": 362190,
+      "path": "result.json",
+      "sha256": "dd3ca5b32c7dc25cbd6fa5dab139ca53df3367ddfc6f32008c24f5cf6a62fe52"
+    },
+    {
+      "bytes": 15824,
+      "path": "screen.py",
+      "sha256": "e3946b4ffd55c9007a56e7f6625c9a0eba27ec39d341e7b0d3ae3c3a8cd440ac"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 3424,
+      "path": "sources/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    }
+  ],
+  "inputs": [
+    {
+      "bytes": 36470928,
+      "path": "outputs/panda-fringe-color-atlas-v1/model.glb",
+      "sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec"
+    },
+    {
+      "bytes": 1343238,
+      "path": "outputs/panda-fringe-color-atlas-v1/source-color-atlas.png",
+      "sha256": "862d3c11f2762834c110456cf71fc92e05612d5f5c682dc515144a4503f3ca89"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    },
+    {
+      "bytes": 5022,
+      "path": "outputs/panda-fringe-color-atlas-v1/color-error-audit.json",
+      "sha256": "d003410c3f46a8473a73f24ee53364875182dc7881131b8ac2167b343155f144"
+    },
+    {
+      "bytes": 5559,
+      "path": "outputs/panda-fringe-color-atlas-v1/manifest.json",
+      "sha256": "dffdc9b4d6681611978da1a94f558e2b265810b0243a5722b2fd56f706c7c5e9"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-atlas-mip-review-v1/screen.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.302,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 9158949,
+    "last_rss_sample_elapsed_seconds": 1.042,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 20510,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 9158949,
+    "sampled_peak_rss_bytes": 284704768,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "sealed_actual_atlas_cpu_filtering_review",
+  "new_native_provider_ai_role_calls": 0,
+  "no_owned_live_job": true,
+  "original_inputs_and_prepared_sources_checked_unchanged_after_run": true,
+  "prepared_sha256": "202f4cee2c77291c5731416281a96bee92817db0208cbc3b86cc8749d4cff751",
+  "schema_version": 1,
+  "sealed_at": "2026-11-01T19:47:05.086871-08:00",
+  "source_image_redecoded": false,
+  "status": "completed_cpu_filtering_screen"
+}

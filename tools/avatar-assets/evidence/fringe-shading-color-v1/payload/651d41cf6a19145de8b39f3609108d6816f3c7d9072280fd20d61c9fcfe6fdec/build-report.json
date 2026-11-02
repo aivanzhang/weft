@@ -1,0 +1,26 @@
+{
+  "candidate_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+  "file_bytes": 36932384,
+  "fins": 4800,
+  "json_allowlist_verified": true,
+  "limitations": [
+    "Authored shading normals intentionally do not match plane geometry.",
+    "Culling compatibility must be independently verified; Cycles is not automatically glTF-conformant.",
+    "Color/alpha resampling limits are inherited from the source color-atlas report; not arbitrary texel or mip equivalence.",
+    "Same sampled rig/action evidence applies to unchanged positions/skin, not new physical motion.",
+    "Not dense fur, fresh prompt acceptance, Muse parity or Weft consumer compatibility."
+  ],
+  "median_absolute_source_geometric_dot": 0.1134856641292572,
+  "new_provider_calls": 0,
+  "original_binary_prefix_exact": true,
+  "policy": "source-surface-normals-opposed-culled-faces-v1",
+  "position_color_uv_skin_animation_exact": true,
+  "preserved_binary_bytes": 36436570,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_normals_unit_error": 1.1920928955078125e-07,
+  "source_sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec",
+  "status": "pending_native_culling_and_appearance_review",
+  "triangles": 81781,
+  "vertices": 70567
+}

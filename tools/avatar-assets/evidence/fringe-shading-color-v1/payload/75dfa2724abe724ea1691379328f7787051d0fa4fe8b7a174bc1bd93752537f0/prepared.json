@@ -1,0 +1,88 @@
+{
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-culling-native-control-v1/native_probe.py"
+  ],
+  "fixture_sha256": "fddd171a23a4506a1787b515016384f59b6588bb07cfdfcd1b2cd3590d1cbecb",
+  "frozen_files": [
+    {
+      "bytes": 2762,
+      "path": "execute.py",
+      "sha256": "28d00f501dfc858912cadd4f92eccb87410ee29e61c17881361d7f2376bc58da"
+    },
+    {
+      "bytes": 2434,
+      "path": "fixture-spec-v2.json",
+      "sha256": "be4b6053f2e8891d8ffa0dd31685cbea60df16934dcf563da2fb5cc84075301a"
+    },
+    {
+      "bytes": 2175,
+      "path": "fixture-spec.json",
+      "sha256": "cdc1ab695992c8cfbfa4b867c39a3ad3769e85edee1719304847371252b23949"
+    },
+    {
+      "bytes": 4156,
+      "path": "fixture-v2.glb",
+      "sha256": "fddd171a23a4506a1787b515016384f59b6588bb07cfdfcd1b2cd3590d1cbecb"
+    },
+    {
+      "bytes": 4156,
+      "path": "fixture.glb",
+      "sha256": "31be5dbffa36fd2d099a56940db21b474ff02d363ac07e5c7e41f937ab8baf3c"
+    },
+    {
+      "bytes": 8203,
+      "path": "native_probe.py",
+      "sha256": "0d79a1cfd70516477bd9bae85e29085e9bd903057b5d95f63b759f0ad823f98a"
+    },
+    {
+      "bytes": 4828,
+      "path": "sources/blender_gltf_import_material.py",
+      "sha256": "10282aec1e08e1bfec176ea7a84eca80cb5ce393cd361f8419da255371da73d0"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "cycles_samples": 4,
+    "native_attempts": 1,
+    "output_mib": 16,
+    "resolution": 128,
+    "rss_mib": 1024,
+    "threads": 4,
+    "wall_seconds": 60
+  },
+  "new_ai_role_calls": 0,
+  "new_paid_cost_usd": 0,
+  "new_provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 19:12:18 PST",
+  "schema_version": 1,
+  "scope": "Imported glTF single-sided visibility and shared authored-normal opposed-quad control; no avatar quality inference. EEVEE is attempted only within this same invocation, after Cycles checkpoints.",
+  "status": "root_released_single_native_control",
+  "unexecuted_prior_fixture": "fixture.glb retained; fixture-v2.glb is the sole executed source.",
+  "workaround_case": "Both duplicate windings have the identical tilted glTF normal [0.8,0,0.6]; winding geometric normals remain opposed."
+}

@@ -1,0 +1,86 @@
+{
+  "artifacts": [
+    {
+      "bytes": 15542,
+      "path": "audit.py",
+      "sha256": "4d38ae061f7a759d858a2b8776722d222be96a687acd171c2f2492518d0b86a3"
+    },
+    {
+      "bytes": 234,
+      "path": "cpu-handle.json",
+      "sha256": "a968c1568dcb382890b793f54c15a241337859fc86a0b020523363c5ffedebd9"
+    },
+    {
+      "bytes": 1057,
+      "path": "cpu-job.json",
+      "sha256": "2e9bb40c2dd6d5af5f6fbcccc5e98e53e99ac2cbe5b0e3ffffb7c1e11cb80fc2"
+    },
+    {
+      "bytes": 969,
+      "path": "cpu-monitor.json",
+      "sha256": "67caf4e77751ea1a0dd9ab1a515dd5862f7e72b628885570c303c7382c0afe02"
+    },
+    {
+      "bytes": 139,
+      "path": "cpu.log",
+      "sha256": "55b8bb5c3e5bdf9c99994cdfab0feec1d4b737f76637d4c4c6885e946f7795e9"
+    },
+    {
+      "bytes": 2031,
+      "path": "execute_cpu.py",
+      "sha256": "c4c31a4a89f84f5cbfabc08f6f4463e530888cab51f761922ede14d6d79cfecd"
+    },
+    {
+      "bytes": 3424,
+      "path": "glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 2196,
+      "path": "manifest.json",
+      "sha256": "26624f57cdb7b3a4c2bcae1fd28849d2552ab45bc55665802bf2139d88997c33"
+    },
+    {
+      "bytes": 10083,
+      "path": "ownership.json",
+      "sha256": "ecc3112f877ca607733453fd3eb27a27718c486c421c47ff28fc3af39ef91c3c"
+    },
+    {
+      "bytes": 6400,
+      "path": "prepared.json",
+      "sha256": "6eafa9a196d6a7ae7d4ebcbbfb41c963031a558ad11c86842215e0bbcdd6592c"
+    },
+    {
+      "bytes": 3442,
+      "path": "review.md",
+      "sha256": "d19dd7cbe93ef35face91ce405bb808d9f48eb0408cf9febeb4920b7a3539a73"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "measurement_manifest_sha256": "26624f57cdb7b3a4c2bcae1fd28849d2552ab45bc55665802bf2139d88997c33",
+  "native_calls": 0,
+  "no_owned_running_jobs": true,
+  "ownership_report_sha256": "ecc3112f877ca607733453fd3eb27a27718c486c421c47ff28fc3af39ef91c3c",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 19:36:58 PST",
+  "schema_version": 1,
+  "scope": "No exported assignment leak found; visible-fleck cause and appearance acceptance unresolved",
+  "status": "frozen_read_only_review",
+  "texture_decodes": 0,
+  "total_artifact_bytes": 60697
+}

@@ -1,0 +1,95 @@
+{
+  "animations": 0,
+  "cases": [
+    {
+      "center_blender": [
+        -0.6,
+        0,
+        0.6
+      ],
+      "center_gltf": [
+        -0.6,
+        0.6,
+        0
+      ],
+      "doubleSided": false,
+      "expected_back_visible": false,
+      "expected_front_visible": true,
+      "id": "front_single",
+      "material": "front_single_material",
+      "normal_signs_gltf_z": [
+        1
+      ]
+    },
+    {
+      "center_blender": [
+        0.6,
+        0,
+        0.6
+      ],
+      "center_gltf": [
+        0.6,
+        0.6,
+        0
+      ],
+      "doubleSided": false,
+      "expected_back_visible": true,
+      "expected_front_visible": false,
+      "id": "reversed_single",
+      "material": "reversed_single_material",
+      "normal_signs_gltf_z": [
+        -1
+      ]
+    },
+    {
+      "center_blender": [
+        -0.6,
+        0,
+        -0.6
+      ],
+      "center_gltf": [
+        -0.6,
+        -0.6,
+        0
+      ],
+      "doubleSided": true,
+      "expected_back_visible": true,
+      "expected_front_visible": true,
+      "id": "double_sided",
+      "material": "double_sided_material",
+      "normal_signs_gltf_z": [
+        1
+      ]
+    },
+    {
+      "center_blender": [
+        0.6,
+        0,
+        -0.6
+      ],
+      "center_gltf": [
+        0.6,
+        -0.6,
+        0
+      ],
+      "doubleSided": false,
+      "expected_back_visible": true,
+      "expected_front_visible": true,
+      "id": "opposed_duplicates",
+      "material": "opposed_duplicates_material",
+      "normal_signs_gltf_z": [
+        1,
+        -1
+      ]
+    }
+  ],
+  "expected_limit": "Normal-pass and beauty evidence are renderer observations, not physical/appearance or continuous-motion approval.",
+  "explicit_normals": true,
+  "geometry": "Four separate 0.8m quads; final region has exact coincident opposite-winding primitives, not a thickness offset.",
+  "kind": "analytic_imported_glTF_culling_control_not_avatar",
+  "materials_modified_after_import": false,
+  "normative_target": "glTF 2.0 section 3.9.5: cull back faces for doubleSided=false; reverse backface normals before lighting when true.",
+  "schema_version": 1,
+  "skins": 0,
+  "textures": 0
+}

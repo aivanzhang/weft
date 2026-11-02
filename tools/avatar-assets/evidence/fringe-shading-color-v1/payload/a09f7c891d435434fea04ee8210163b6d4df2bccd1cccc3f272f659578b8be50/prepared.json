@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "recorded_local": "2026-11-01 19:21:07 PST",
+  "source": "outputs/panda-edge-fringe-area-v1/model.glb",
+  "output": "outputs/panda-fringe-area-eevee-preview-v1",
+  "inputs": [
+    {
+      "path": "outputs/panda-edge-fringe-area-v1/model.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/MacOS/Blender",
+      "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55"
+    },
+    {
+      "path": "outputs/fringe-baseline-eevee-preview-preparation-v1/execute.py",
+      "sha256": "7abc38f31b599c55870bfb0cb14132d891ca0106aa52806b5cbb9a7085fae45f"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/findings.json",
+      "sha256": "2e91babb1a9ddb34dfa567bc3901fb540ffc0d800771fa6260f38803c0e3b450"
+    }
+  ],
+  "motion_states": [
+    {
+      "id": "dance_flight",
+      "seconds": [
+        0,
+        1.36,
+        2.36,
+        4
+      ]
+    }
+  ],
+  "limits": {
+    "max_native_attempts": 1,
+    "wall_seconds": 120,
+    "sampled_direct_child_rss_mib": 2048,
+    "output_mib": 128,
+    "threads": 4,
+    "resolution": 512,
+    "samples": 16,
+    "views": 4,
+    "pose_images": 4
+  },
+  "comparison_limits": [
+    "New bounded EEVEE renderer verified on actual glTF control; old Cycles images are not a same-renderer comparison.",
+    "Baseline and source-normal variant share shape, color, alpha, skin, camera-fit bounds and lights; variable is authored normal/opposed-face culling policy.",
+    "Known194/9600 source-tip color defects remain in both variants.",
+    "Four sampled action poses, not a full clip, seamless loop, collision, GPU-memory guarantee or fresh prompt acceptance.",
+    "Sampled child RSS does not measure all driver/GPU allocation."
+  ],
+  "new_generation_calls": 0,
+  "quality_approved": false
+}

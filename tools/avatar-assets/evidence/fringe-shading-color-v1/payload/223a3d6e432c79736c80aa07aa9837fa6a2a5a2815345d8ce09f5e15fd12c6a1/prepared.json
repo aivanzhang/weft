@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_executed",
+  "recorded_local": "2026-11-01 19:28:02 PST",
+  "source": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+  "output": "outputs/panda-fringe-combined-eevee-preview-v1",
+  "inputs": [
+    {
+      "path": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/MacOS/Blender",
+      "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55"
+    },
+    {
+      "path": "outputs/fringe-combined-eevee-preview-preparation-v1/execute.py",
+      "sha256": "7abc38f31b599c55870bfb0cb14132d891ca0106aa52806b5cbb9a7085fae45f"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/findings.json",
+      "sha256": "2e91babb1a9ddb34dfa567bc3901fb540ffc0d800771fa6260f38803c0e3b450"
+    }
+  ],
+  "motion_states": [
+    {
+      "id": "dance_flight",
+      "seconds": [
+        0,
+        1.36,
+        2.36,
+        4
+      ]
+    }
+  ],
+  "limits": {
+    "max_native_attempts": 1,
+    "wall_seconds": 120,
+    "sampled_direct_child_rss_mib": 2048,
+    "output_mib": 128,
+    "threads": 4,
+    "resolution": 512,
+    "samples": 16,
+    "views": 4,
+    "pose_images": 4
+  },
+  "comparison_limits": [
+    "Same bounded EEVEE engine512px/sample16,4restviews and4actualposes as existing baseline/normal-only controls.",
+    "Source color-atlas resampling passed predeclared9600-tip gate; residual finite-resolution color/alpha/mip limits remain.",
+    "Color-only versus combined differ only in authored normal/opposed-face culling policy; body geometry/skin/action are unchanged.",
+    "Sampled action images, not full video/browser/collision/hair-physics/fresh-prompt acceptance.",
+    "Sampled child RSS excludes some driver/GPU allocations; no quality/default promotion."
+  ],
+  "new_generation_calls": 0,
+  "quality_approved": false
+}

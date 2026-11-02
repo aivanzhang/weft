@@ -1,0 +1,93 @@
+{
+  "beauty": "cycles-back.png",
+  "beauty_sha256": "f7ddcaadf59e490ba36ec66b88ff3f9ba2a55610810513894b74650349f2d385",
+  "cycles_samples": 4,
+  "eevee_samples": null,
+  "elapsed_seconds": 0.1979574579745531,
+  "engine": "CYCLES",
+  "normal_pass": "cycles-back-normal-0001.exr",
+  "normal_sha256": "ff24fa5b3e8c8681e615d323a6581c562bf4255d20bdabc8d3b6bf93a73b2fd3",
+  "regions": [
+    {
+      "case": "front_single",
+      "center_pixel_bottom_up": [
+        93,
+        93
+      ],
+      "expected_glTF_visible": false,
+      "mean_engine_Normal_pass": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7829581940615619,
+        0.7829581940615619,
+        0.7829581940615619
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "reversed_single",
+      "center_pixel_bottom_up": [
+        34,
+        93
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7828613652123345,
+        0.7828613652123345,
+        0.7828613652123345
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "double_sided",
+      "center_pixel_bottom_up": [
+        93,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean_png_noncolor_rgb": [
+        0.7831518517600166,
+        0.7831518517600166,
+        0.7831518517600166
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    },
+    {
+      "case": "opposed_duplicates",
+      "center_pixel_bottom_up": [
+        34,
+        34
+      ],
+      "expected_glTF_visible": true,
+      "mean_engine_Normal_pass": [
+        0.995791494846344,
+        -0.09164801249165594,
+        -2.03275566165735e-05
+      ],
+      "mean_png_noncolor_rgb": [
+        0.0003873154429005988,
+        0.0003873154429005988,
+        0.0003873154429005988
+      ],
+      "roi_pixels": 81,
+      "visible_pixels": 81
+    }
+  ],
+  "view": "back"
+}

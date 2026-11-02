@@ -1,0 +1,62 @@
+{
+  "PNG_color_metadata_unchanged": true,
+  "all_4800_RGBA_cells_byte_identical": true,
+  "all_old_geometry_normals_indices_skin_inverse_binds_actions_exact": true,
+  "allowed_generator_metadata_change": {
+    "candidate": "Experimental color-coherent atlas packing; RGBA cells, geometry and motion unchanged",
+    "source": "Experimental source-surface fin shading; original geometry and motion unchanged"
+  },
+  "candidate_sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304",
+  "color": {
+    "fixed_gate": {
+      "expected_tips": 9600,
+      "p95": 0.02,
+      "p99": 0.05,
+      "tips_over_010_max": 48
+    },
+    "maximum_color_change_from_original_atlas_due_to_UV_rounding": 2.5979218776228663e-14,
+    "maximum_linear_component_error": 0.01930716728827997,
+    "p50": 0.00019141658427283782,
+    "p95": 0.003572128672665792,
+    "p99": 0.004259863724205019,
+    "tip_count": 9600,
+    "tips_over_010": 0
+  },
+  "elapsed_seconds": 0.19083587499335408,
+  "embedded_packed_PNG_matches_published_file": true,
+  "exact_json_allowlist_passed": true,
+  "exact_old_BIN_prefix_bytes": 36897372,
+  "exported_UV_bytes_equal_recomputed_float32_mapping": true,
+  "fin_bindings": {
+    "mesh": 0,
+    "packed_uv": 137,
+    "primitive": 7,
+    "source_uv": 134,
+    "unchanged_attributes": {
+      "JOINTS_0": 131,
+      "NORMAL": 135,
+      "POSITION": 127,
+      "WEIGHTS_0": 132
+    },
+    "unchanged_indices": 136
+  },
+  "includes_old_BIN_padding": true,
+  "limits": [
+    "Source tip colors are reused from the pinned prior 4K-source audit, not reacquired or independently decoded here.",
+    "Byte-preserved rig/actions prove unchanged data, not a new full motion/intersection/render evaluation.",
+    "This checks actual exported UV/color at LOD0, not GPU mip behavior, filtered alpha visibility or appearance."
+  ],
+  "maximum_float32_UV_rounding": 2.960364020587747e-08,
+  "native_render_or_motion_rerun": false,
+  "new_material_equivalent_except_name_and_texture_index": true,
+  "old_BIN_prefix_sha256": "783d412d398a1d88eedac52bf72740b50c3403ebed42dae603770b69fddfa45b",
+  "original_4k_texture_redecoded": false,
+  "original_atlas_RGBA_sha256": "8fb4b02b24c4c43060c120658585d6db4fa076b2d8eeb7cb6c77299d7ac9d885",
+  "packed_atlas_RGBA_sha256": "e4246ab44f50e0835c4622eb9d7f38787d51f443840aebb7634b2d60becb4363",
+  "preserved_MASK_cutoff": 0.18,
+  "preserved_doubleSided": false,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+  "status": "passed_independent_exported_packing_audit"
+}

@@ -1,0 +1,183 @@
+{
+  "build_report": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/build-report.json",
+  "candidate": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/model.glb",
+  "candidate_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+  "command": [
+    ".venv/bin/python",
+    "outputs/fringe-shading-review-v1/execute_cpu.py"
+  ],
+  "correspondence": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+  "geometry_created": false,
+  "inputs": [
+    {
+      "bytes": 33519456,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+    },
+    {
+      "bytes": 34973564,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/model.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 370862,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+      "sha256": "d2a4ba4771f8f25ea7ad9f4fe40c38b60cf126e1e11aab05b766ec8c81a5d531"
+    },
+    {
+      "bytes": 27228,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-v1/build-report.json",
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "bytes": 10690,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/native-inspection.json",
+      "sha256": "6721d657c620f6daf5bf16666418461f4ec6fbd0037f4170db9d4c2a8f54e0bb"
+    },
+    {
+      "bytes": 12033,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 15402,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-area-candidate-preparation-v1/sources/edge_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "bytes": 17900,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-allocation-analytic-v2/screen.py",
+      "sha256": "ab4453a7ff4c95a2b6c85c3839777a01546a81ddc1fcef58d355f43f13c9bbb2"
+    },
+    {
+      "bytes": 11031,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-analytic-v1/screen.py",
+      "sha256": "0744c44d29140d9e0b4d1a64becc88382f57e760cbeb4b06635d5092cc962e11"
+    },
+    {
+      "bytes": 27932,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-audit-v1/audit.py",
+      "sha256": "f003bddbe60c7740412af6b9b20a971e9b657d197885a48415cdfe03621cc802"
+    },
+    {
+      "bytes": 35106,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 8585,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_hd_uv1_attributes.py",
+      "sha256": "321e1397c18ec4ee2bdf48fecd6d83b6b4e3e054bfb6c12045e33aec36f15a70"
+    },
+    {
+      "bytes": 4828,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/material.py",
+      "sha256": "10282aec1e08e1bfec176ea7a84eca80cb5ce393cd361f8419da255371da73d0"
+    },
+    {
+      "bytes": 2085,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-audit-v1/manifest.json",
+      "sha256": "7aa51d825fb7746bf1fc08737ef1c924cfbef12f4a258571c483f9bfa3b13812"
+    }
+  ],
+  "inspection": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-area-preview-v1/native-inspection.json",
+  "limits": {
+    "attempts": 1,
+    "output_mb": 8,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "native_calls": 0,
+  "prepared_at": "2026-11-01T19:08:33.019249-08:00",
+  "provider_calls": 0,
+  "python": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+  "quality_approved": false,
+  "schema_version": 1,
+  "settings": {
+    "color_bands_linear_luminance": [
+      0.1,
+      0.5
+    ],
+    "physical_render": false,
+    "preview_light_offsets": {
+      "Fill": [
+        3,
+        -1,
+        2
+      ],
+      "Key": [
+        -2,
+        -3,
+        4
+      ],
+      "Rim": [
+        0,
+        3,
+        3
+      ]
+    },
+    "preview_view_offsets": {
+      "back": [
+        0,
+        3,
+        0.05
+      ],
+      "front": [
+        0,
+        -3,
+        0.05
+      ],
+      "side": [
+        3,
+        0,
+        0.05
+      ],
+      "three-quarter": [
+        -1.6,
+        -3,
+        0.1
+      ]
+    },
+    "source_blend_weights": [
+      0,
+      0.5,
+      0.75,
+      1
+    ],
+    "source_view_facing_dot": 0.15
+  },
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "sources": [
+    {
+      "bytes": 1847,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/execute_cpu.py",
+      "sha256": "490ace12f74cb31073678687615506be12519670174e7ee2cfc94831ab342027"
+    },
+    {
+      "bytes": 3424,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 13241,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/measure.py",
+      "sha256": "a5a0cde1164572959c728c7be934d226d606291bdb85299b5d9b5c93c62c66a1"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-shading-review-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

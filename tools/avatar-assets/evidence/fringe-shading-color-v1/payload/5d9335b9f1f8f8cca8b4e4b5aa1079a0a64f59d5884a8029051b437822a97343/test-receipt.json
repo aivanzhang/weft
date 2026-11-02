@@ -1,0 +1,35 @@
+{
+  "actual_verification_owner": "Root will run the separate actual exported baseline/derivative comparison.",
+  "bounds": "1..64 requested samples, exact readback required; no fallback",
+  "camera_framing_actions_and_output_API": "Existing main signature, camera/framing/actions/output paths retained; only the exported-preview engine setup and additive report fields changed.",
+  "command": ".venv/bin/python -B -m unittest discover -s tests -p test_export_preview_engine.py -v",
+  "engine": "BLENDER_EEVEE_NEXT",
+  "errors": 0,
+  "exit_code": 0,
+  "failures": 0,
+  "metadata": "native-inspection.json now adds render_engine and render_policy with requested/actual samples and named control.",
+  "native_hair_portrait_renderers_changed": false,
+  "native_provider_ai_role_calls": 0,
+  "policy": "gltf-single-sided-culling-eevee-next-v1",
+  "post_test_change": "Helper docstring only clarified that the Cycles finding is from the pinned control; executable AST unchanged.",
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 19:19:35 PST",
+  "sample_control": "scene.eevee.taa_render_samples",
+  "schema_version": 1,
+  "source_files": [
+    {
+      "bytes": 13587,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 4670,
+      "path": "tests/test_export_preview_engine.py",
+      "sha256": "9ef0415fb1352ae1c699bfa4fb56e799481baf6b90a8871475c7aa29152e7edd"
+    }
+  ],
+  "status": "focused_setup_metadata_tests_passed_native_preview_pending_root",
+  "test_runner_elapsed_seconds": 0.002,
+  "tests": 6,
+  "tool_chunk_id": "f46f3d"
+}

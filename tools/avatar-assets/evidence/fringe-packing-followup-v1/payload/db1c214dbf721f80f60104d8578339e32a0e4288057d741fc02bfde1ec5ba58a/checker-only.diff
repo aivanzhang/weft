@@ -1,0 +1,24 @@
+--- v1/audit.py
++++ v2/audit.py
+@@ -75,6 +75,10 @@
+     require(original_fin == old, 'Fin geometry, normals, indices or skin binding changed')
+     restored['meshes'][0]['primitives'][7] = original_fin
+     restored['buffers'][0]['byteLength'] = a['buffers'][0]['byteLength']
++    require(a['asset'].get('generator') == 'Experimental source-surface fin shading; original geometry and motion unchanged'
++            and b['asset'].get('generator') == 'Experimental color-coherent atlas packing; RGBA cells, geometry and motion unchanged',
++            'Unexpected exporter provenance label')
++    restored['asset']['generator'] = a['asset']['generator']
+     require(restored == a, 'JSON mutation outside append-only packing allowlist')
+     src_material, new_material = a['materials'][old['material']], b['materials'][new['material']]
+     checked_material = deepcopy(new_material)
+@@ -136,7 +140,9 @@
+                         exported_packed_rgb=new_rgb, maximum_component_error=error)
+     result = {'schema_version': 1, 'status': 'passed_independent_exported_packing_audit',
+         'source_sha256': CONFIG['inputs'][0]['sha256'], 'candidate_sha256': CONFIG['inputs'][1]['sha256'],
+-        'exact_json_allowlist_passed': True, 'exact_old_BIN_prefix_bytes': source.bin_size,
++        'exact_json_allowlist_passed': True,
++        'allowed_generator_metadata_change': {'source': a['asset']['generator'], 'candidate': b['asset']['generator']},
++        'exact_old_BIN_prefix_bytes': source.bin_size,
+         'old_BIN_prefix_sha256': prefix.hexdigest(), 'includes_old_BIN_padding': True,
+         'all_old_geometry_normals_indices_skin_inverse_binds_actions_exact': True,
+         'fin_bindings': {'mesh': 0, 'primitive': 7, 'unchanged_attributes': {k: v for k, v in old['attributes'].items() if k != 'TEXCOORD_0'},

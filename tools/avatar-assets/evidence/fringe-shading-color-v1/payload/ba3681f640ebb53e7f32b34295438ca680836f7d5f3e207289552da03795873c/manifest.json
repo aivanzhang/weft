@@ -1,0 +1,182 @@
+{
+  "artifacts": [
+    {
+      "bytes": 235718,
+      "path": "back.png",
+      "sha256": "d4fe15be051f2e5aa72129e974c87adfba6de5656d8c1fb0b5ee6878840ac8aa"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "8e2a2afdcb929244714ed5bc3880fc6862f9368b7b80179e96bfdb27f56b24ca"
+    },
+    {
+      "bytes": 253443,
+      "path": "front.png",
+      "sha256": "ce121264b81737a96d62284771f63e8a25b1400ff500791171b6e168395c1dcb"
+    },
+    {
+      "bytes": 1693,
+      "path": "job.json",
+      "sha256": "3dde77aeab4a385fd84a521c9d77f8e54d32efffc520496a36df46845bc6f8b8"
+    },
+    {
+      "bytes": 102,
+      "path": "motion-states.json",
+      "sha256": "23a55db0c3cfe70c013c39aea41f35c9ffa36627fd942928010201ee15eed2b7"
+    },
+    {
+      "bytes": 10446,
+      "path": "native-inspection.json",
+      "sha256": "7322a7468f329d9a5ba10a156a0e4d03b0df49095c8011412fd609f9aed973c0"
+    },
+    {
+      "bytes": 36470928,
+      "path": "original.glb",
+      "sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec"
+    },
+    {
+      "bytes": 749,
+      "path": "preview-handle.json",
+      "sha256": "9694f7d9b962eac12ab48bb0c12bd8003ccbd12a1777ad7e1f4989c91380e46d"
+    },
+    {
+      "bytes": 1543,
+      "path": "preview-monitor.json",
+      "sha256": "39001e73ba39cb18b7d0107b013d5d96c22700d40fb404eb41119c8d99fc3c06"
+    },
+    {
+      "bytes": 2745,
+      "path": "preview.log",
+      "sha256": "bcadf09eb90d6b132f983868af5672f0101aebddebd28059bcb24d2a6ed2de57"
+    },
+    {
+      "bytes": 206167,
+      "path": "renders/dance_flight/0000.png",
+      "sha256": "36855f45e22708a93d182951d105f038c14ace530405cb7f3be950c2d2395a0d"
+    },
+    {
+      "bytes": 212575,
+      "path": "renders/dance_flight/0001.png",
+      "sha256": "2f96dbee9272605972731f05471c6279debdf934c437d3335f8a04c1af18f578"
+    },
+    {
+      "bytes": 209202,
+      "path": "renders/dance_flight/0002.png",
+      "sha256": "9526d0d359a03acb39088e7d4fe94fc02806c8de2d7212681b04c49bf26370d4"
+    },
+    {
+      "bytes": 206167,
+      "path": "renders/dance_flight/0003.png",
+      "sha256": "76d9c2dfc4a1d4578aa8c24ec98db623d97085b56543f6d802e22f378316b395"
+    },
+    {
+      "bytes": 221957,
+      "path": "side.png",
+      "sha256": "3493713e066afafdc6a3d02ca60e185ebf8766efb21f35cd459907408384c071"
+    },
+    {
+      "bytes": 41928415,
+      "path": "source.blend",
+      "sha256": "458e09c87b0a8203a368448a116d153d4ebb2bcbc7f54cfdc0d477a2973347bc"
+    },
+    {
+      "bytes": 37923,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "1fd8001b333708233ead2de6850bbe466f1bf3764ca49cda610085f72fd13ee7"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 243345,
+      "path": "three-quarter.png",
+      "sha256": "ac3ad4ca554a51d97f31c3faf911ae92b59c86f80c5f6a05307be71853a99d40"
+    }
+  ],
+  "automatic_retry": false,
+  "comparison_limits": [
+    "Same bounded EEVEE engine512px/sample16,4restviews and4actualposes as existing baseline/normal-only controls.",
+    "Source color-atlas resampling passed predeclared9600-tip gate; residual finite-resolution color/alpha/mip limits remain.",
+    "Color-only versus combined differ only in authored normal/opposed-face culling policy; body geometry/skin/action are unchanged.",
+    "Sampled action images, not full video/browser/collision/hair-physics/fresh-prompt acceptance.",
+    "Sampled child RSS excludes some driver/GPU allocations; no quality/default promotion."
+  ],
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-color-eevee-preview-v1/sources/blender_provider_preview.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-color-eevee-preview-v1/original.glb",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-color-eevee-preview-v1",
+      "512",
+      "16",
+      "false",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-fringe-color-eevee-preview-v1/motion-states.json"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.571,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 80273315,
+    "last_rss_sample_elapsed_seconds": 3.306,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "preview-monitor.json",
+    "monitor_errors": [],
+    "pid": 19218,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 13,
+    "sampled_max_output_bytes": 80273315,
+    "sampled_peak_rss_bytes": 1087225856,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 4,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "new_generation_calls": 0,
+  "prepared_path": "outputs/fringe-color-eevee-preview-preparation-v1/prepared.json",
+  "prepared_sha256": "c4dce9dd8e83fccdf66ba00cb016b025f60caa4e15b777881efd2bcdc262250d",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_glb_sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec",
+  "status": "needs_visual_review"
+}

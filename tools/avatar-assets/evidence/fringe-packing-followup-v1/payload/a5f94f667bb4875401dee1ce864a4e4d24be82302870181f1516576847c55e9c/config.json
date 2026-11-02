@@ -1,0 +1,47 @@
+{
+  "atlas": "outputs/panda-fringe-packed-v1/packed-color-atlas.png",
+  "candidate": "outputs/panda-fringe-packed-v1/model.glb",
+  "gate": {
+    "expected_tips": 9600,
+    "p95": 0.02,
+    "p99": 0.05,
+    "tips_over_010_max": 48
+  },
+  "inputs": [
+    {
+      "bytes": 36932384,
+      "path": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+      "sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85"
+    },
+    {
+      "bytes": 38532288,
+      "path": "outputs/panda-fringe-packed-v1/model.glb",
+      "sha256": "502b92030c037e8e97a95befc16a0809473e4dbb6f567a8a1b13d3e788c9e304"
+    },
+    {
+      "bytes": 1445764,
+      "path": "outputs/panda-fringe-packed-v1/packed-color-atlas.png",
+      "sha256": "8e1b443bcfcd1f90f38006be1c5f54a04ab46fdd4d0f4e058df11076265274ac"
+    },
+    {
+      "bytes": 91934,
+      "path": "outputs/fringe-atlas-mip-review-v1/packing-only-permutation.npz",
+      "sha256": "97a62ea8c4171737872fc100e45c529c6ddf8b0a830468f000e28562cc01a677"
+    },
+    {
+      "bytes": 918983,
+      "path": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz",
+      "sha256": "8fc5a2ed2ee1e39b4f0906a98398ad47de179c00cbfc0e6f2404025393b1afdd"
+    }
+  ],
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 15
+  },
+  "permutation": "outputs/fringe-atlas-mip-review-v1/packing-only-permutation.npz",
+  "scope": "Independent exported byte/JSON/RGBA/float32UV/LOD0 audit; no native rendering or motion re-execution",
+  "source": "outputs/panda-fringe-color-source-normal-v1/model.glb",
+  "tip_reference": "outputs/panda-fringe-color-atlas-v1/nominal-tip-errors.npz"
+}

@@ -12,11 +12,37 @@ sys.path.insert(0, str(Path(__file__).parent))
 from blender_verify import hash_file, source_header, write_json, imported_bindings, bind_action, clear_actions, set_frame
 
 
+def configure_exported_preview_engine(scene, samples):
+    """The pinned Cycles control ignored glTF culling; never fall back to it."""
+    if type(samples) is not int or not 1 <= samples <= 64:
+        raise ValueError('Exported preview samples must be an integer in 1..64')
+    try:
+        scene.render.engine = 'BLENDER_EEVEE_NEXT'
+        if scene.render.engine != 'BLENDER_EEVEE_NEXT':
+            raise ValueError('EEVEE Next engine selection did not take effect')
+        controls = getattr(scene, 'eevee', None)
+        if controls is None or not hasattr(controls, 'taa_render_samples'):
+            raise ValueError('EEVEE render-sample control is unavailable')
+        controls.taa_render_samples = samples
+        actual = controls.taa_render_samples
+        if type(actual) is not int or actual != samples:
+            raise ValueError('EEVEE render-sample control did not preserve the requested bound')
+    except (AttributeError, TypeError, ValueError, RuntimeError) as error:
+        raise ValueError('Exported glTF preview requires bounded EEVEE Next; no engine fallback') from error
+    return {'policy': 'gltf-single-sided-culling-eevee-next-v1',
+            'engine': scene.render.engine, 'samples_requested': samples, 'samples_actual': actual,
+            'sample_control': 'scene.eevee.taa_render_samples', 'engine_fallback': False,
+            'reason': 'Respect imported glTF single-sided culling and authored-normal semantics',
+            'scope': 'Exported GLB review only; native hair/portrait renderers are separate'}
+
+
 def main(model, output, resolution, samples, rig_guides=False, motion_path=None):
     model, out = Path(model), Path(output)
     doc = source_header(model)
     bpy.ops.wm.read_factory_settings(use_empty=True)
     bpy.ops.import_scene.gltf(filepath=str(model))
+    scene = bpy.context.scene
+    engine_policy = configure_exported_preview_engine(scene, samples)
     rigs = [obj for obj in bpy.context.scene.objects if obj.type == "ARMATURE"]
     helpers = {b.custom_shape for rig in rigs for b in rig.pose.bones if b.custom_shape}
     meshes = [obj for obj in bpy.context.scene.objects if obj.type == "MESH" and obj not in helpers]
@@ -30,6 +56,7 @@ def main(model, output, resolution, samples, rig_guides=False, motion_path=None)
     center, extent = (low+high)*.5, max(high-low)
     material_counts = {obj.name: Counter(polygon.material_index for polygon in obj.data.polygons) for obj in meshes}
     report = {"schema_version": 1, "source_sha256": hash_file(model), "blender_version": bpy.app.version_string,
+              "render_engine": engine_policy['engine'], "render_policy": engine_policy,
               "bounds_blender_z_up": {"min": list(low), "max": list(high)},
               "meshes": [{"name": obj.name, "vertices": len(obj.data.vertices), "faces": len(obj.data.polygons),
                           "uv_layers": list(obj.data.uv_layers.keys()),
@@ -53,11 +80,6 @@ def main(model, output, resolution, samples, rig_guides=False, motion_path=None)
     for image in bpy.data.images:
         if image.size[0] and image.size[1]:
             image.pack()
-    scene = bpy.context.scene
-    scene.render.engine = "CYCLES"
-    scene.cycles.device = "CPU"
-    scene.cycles.samples = samples
-    scene.cycles.use_denoising = bool(motion_path)
     scene.render.threads_mode, scene.render.threads = "FIXED", 4
     scene.render.resolution_x = scene.render.resolution_y = resolution
     scene.render.resolution_percentage = 100

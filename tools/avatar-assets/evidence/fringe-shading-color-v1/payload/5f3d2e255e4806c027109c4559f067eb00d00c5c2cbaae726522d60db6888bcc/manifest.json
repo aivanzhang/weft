@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "bytes": 229,
+      "path": "cpu-handle.json",
+      "sha256": "91cef67a61f1c896b3d98ebffba50c493c1db2e0ae316b7d3158ad213e27033d"
+    },
+    {
+      "bytes": 1052,
+      "path": "cpu-job.json",
+      "sha256": "81bc2e875c6efd19aa53f23b842f436be8e10715ab64ab46497fdae319073106"
+    },
+    {
+      "bytes": 964,
+      "path": "cpu-monitor.json",
+      "sha256": "3a8b4ebf6114fbe3315f2ab0c3c48b87b2730e1b937ce3fd1fd3ca8468016558"
+    },
+    {
+      "bytes": 102,
+      "path": "cpu.log",
+      "sha256": "87b0a4c9b043e5c197a04955ff7ebd6d1c6b136441f71ebd4f6d8707857ed913"
+    },
+    {
+      "bytes": 1847,
+      "path": "execute_cpu.py",
+      "sha256": "490ace12f74cb31073678687615506be12519670174e7ee2cfc94831ab342027"
+    },
+    {
+      "bytes": 3424,
+      "path": "glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 13241,
+      "path": "measure.py",
+      "sha256": "a5a0cde1164572959c728c7be934d226d606291bdb85299b5d9b5c93c62c66a1"
+    },
+    {
+      "bytes": 30662,
+      "path": "measurement.json",
+      "sha256": "2df90d950256c5d893020a6d437656e280d7f87eef3f6efb60409f8bc27f4861"
+    },
+    {
+      "bytes": 6726,
+      "path": "prepared.json",
+      "sha256": "7e9cf74263e94fd52d74834344e68becca8554bd46d71f7f3b62a5760d17ccb7"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "geometry_created": false,
+  "inputs_unchanged": true,
+  "native_calls": 0,
+  "prepared_sha256": "7e9cf74263e94fd52d74834344e68becca8554bd46d71f7f3b62a5760d17ccb7",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "measured"
+}

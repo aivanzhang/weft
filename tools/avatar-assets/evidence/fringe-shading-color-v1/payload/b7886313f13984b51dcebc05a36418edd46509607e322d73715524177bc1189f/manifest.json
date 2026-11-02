@@ -1,0 +1,28 @@
+{
+  "artifacts": [
+    {
+      "bytes": 13587,
+      "path": "blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 3627,
+      "path": "changes.patch",
+      "sha256": "da715084a75946e1166094d873d09778bbfe484be046a49d3ad15000040af97b"
+    },
+    {
+      "bytes": 1656,
+      "path": "test-receipt.json",
+      "sha256": "5d9335b9f1f8f8cca8b4e4b5aa1079a0a64f59d5884a8029051b437822a97343"
+    },
+    {
+      "bytes": 4670,
+      "path": "test_export_preview_engine.py",
+      "sha256": "9ef0415fb1352ae1c699bfa4fb56e799481baf6b90a8871475c7aa29152e7edd"
+    }
+  ],
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "focused_setup_metadata_tests_passed_native_preview_pending_root"
+}

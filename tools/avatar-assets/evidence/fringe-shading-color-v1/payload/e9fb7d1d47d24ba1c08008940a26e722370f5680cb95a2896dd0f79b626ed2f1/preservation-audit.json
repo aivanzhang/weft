@@ -1,0 +1,71 @@
+{
+  "fin_primitive": 7,
+  "json_allowlist_passed": true,
+  "mesh": 0,
+  "new_material": 10,
+  "new_material_definition": {
+    "alphaCutoff": 0.18,
+    "alphaMode": "MASK",
+    "doubleSided": true,
+    "name": "ExperimentalEdgeFringeSourceColorAtlas",
+    "pbrMetallicRoughness": {
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "baseColorTexture": {
+        "index": 16,
+        "texCoord": 0
+      },
+      "metallicFactor": 0,
+      "roughnessFactor": 0.92
+    }
+  },
+  "new_uv_accessor": 134,
+  "node": 19,
+  "old_COLOR_0_accessor_retained_but_unbound": 130,
+  "old_material_retained": 9,
+  "original_base_rig_actions_and_fin_geometry_exact": true,
+  "original_bin_prefix_bytes": 34939732,
+  "original_bin_prefix_includes_original_chunk_padding": true,
+  "original_material": {
+    "alphaCutoff": 0.18,
+    "alphaMode": "MASK",
+    "doubleSided": true,
+    "name": "ExperimentalEdgeFringe",
+    "pbrMetallicRoughness": {
+      "baseColorFactor": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "baseColorTexture": {
+        "index": 15,
+        "texCoord": 0
+      },
+      "metallicFactor": 0,
+      "roughnessFactor": 0.92
+    }
+  },
+  "shading_change": "none; same normals, doubleSided, MASK cutoff, roughness, metalness and sampler",
+  "skin": 0,
+  "source_fin_array_hashes": {
+    "colors": "ebc82d0ebc0f0c935fd8b1b2fa575397e2976c33cce67ec6c4990d53beb39d86",
+    "indices": "c22f63c1034accb5a70fc4bd342a66a24cff8415eb1506b9c39e333dd8bcf854",
+    "joints": "d0d859b873881504fbd784cc35c278e20534867fe00a47b59cb9c2cef31c850a",
+    "normals": "e6908181f8346b26c4beefb4926fdbb1491ccdb449ae5f0b3fc373181b637c95",
+    "positions": "03f51865eb30e1034d1572194959857fb887c1a452d3c7631a895145431ed89c",
+    "uv": "ca6c9496a5d56e1c123832bf0a6ba403765d534b6c1c795be719f666540f726d",
+    "weights": "d3567f6360850b4012b37adc22440a0bcef2c2ea43cd79936ec1120b87da1261"
+  },
+  "unchanged_fin_attribute_ids": {
+    "JOINTS_0": 131,
+    "NORMAL": 128,
+    "POSITION": 127,
+    "WEIGHTS_0": 132
+  },
+  "unchanged_fin_indices_id": 133
+}

@@ -1,0 +1,121 @@
+{
+  "automatic_retry": false,
+  "command": ".venv/bin/python -B outputs/fringe-color-candidate-preparation-v1/execute.py",
+  "gate_declared_before_execution": {
+    "expected_old_tips_over_010": 194,
+    "p95_max_linear_component_error": 0.02,
+    "p99_max_linear_component_error": 0.05,
+    "tips": 9600,
+    "tips_over_010_max": 48
+  },
+  "helper_sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5",
+  "inputs": [
+    {
+      "bytes": 34973564,
+      "path": "outputs/panda-edge-fringe-area-v1/model.glb",
+      "sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d"
+    },
+    {
+      "bytes": 370862,
+      "path": "outputs/panda-edge-fringe-area-v1/source-correspondence.npz",
+      "sha256": "d2a4ba4771f8f25ea7ad9f4fe40c38b60cf126e1e11aab05b766ec8c81a5d531"
+    },
+    {
+      "bytes": 31762,
+      "path": "outputs/panda-edge-fringe-area-v1/two-tip-atlas.png",
+      "sha256": "694926f07435efe2ec0b5303c1caaedaa4028e1d5b1ab21c0ba6a368cca0994b"
+    },
+    {
+      "bytes": 27228,
+      "path": "outputs/panda-edge-fringe-area-v1/build-report.json",
+      "sha256": "44f1ee5d6e6616aa3de62d347084a4c388079ffbe056dfa3c069d788bf503a9d"
+    },
+    {
+      "bytes": 1523,
+      "path": "outputs/panda-edge-fringe-area-v1/rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 3170,
+      "path": "outputs/panda-edge-fringe-area-v1/manifest.json",
+      "sha256": "2e448010c84067887e4fbe9404fb2319b8ecbef18e1a49e9e4a9a9c82e9f8b95"
+    }
+  ],
+  "kind": "actual_color_only_fringe_cpu_derivative",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 64,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "memory_plan": "read-only source mmap; one uint8 RGB decode;128-fin batches;stream BIN prefix;free image/atlas arrays before validators",
+  "native_provider_ai_role_calls": 0,
+  "output": "outputs/panda-fringe-color-atlas-v1",
+  "prepared_at": "2026-11-01T19:25:34.626282-08:00",
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 2463,
+      "path": "README.md",
+      "sha256": "e9d2a2279240f0ac5b90659af24f18ab3378174147fbc3488aadf116f3c8452f"
+    },
+    {
+      "bytes": 17550,
+      "path": "build_candidate.py",
+      "sha256": "8f4db2fadb32501dbfbbe43cbe325489c5d46d97a1fd15e627af61991574b7a1"
+    },
+    {
+      "bytes": 2086,
+      "path": "candidate.json",
+      "sha256": "038269a653907e762e36e85b0f666fa22951b29da9cec9cf87dc1ceee836bfcc"
+    },
+    {
+      "bytes": 2326,
+      "path": "execute.py",
+      "sha256": "f1caab360884855e1f0750a96127cb17a61687a0907426f3901f1afdc25122c5"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 8121,
+      "path": "sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 9639,
+      "path": "sources/color_atlas.py",
+      "sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5"
+    },
+    {
+      "bytes": 3424,
+      "path": "sources/glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 867,
+      "path": "sources/root_sampler.py",
+      "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "syntax_parsed_only": true
+}

@@ -1,0 +1,75 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5441,
+      "path": "audit.json",
+      "sha256": "06d58eccf8b4eb7636362b68f305a543788422bc89a0ac702bad0f2e1defe98b"
+    },
+    {
+      "bytes": 13398,
+      "path": "audit.py",
+      "sha256": "81124a3b1c44e0bdd1c0f21e0d0c2797740b593f5d36123a675536e2431346ac"
+    },
+    {
+      "bytes": 232,
+      "path": "cpu-handle.json",
+      "sha256": "8832c408a1fbbd78b3583049c0b03ef5f3fec22744a54fb7150ef2c0f828dc0b"
+    },
+    {
+      "bytes": 1055,
+      "path": "cpu-job.json",
+      "sha256": "ec3bdb7f7c81609b7c1675907a717f22a7d992814f5a0f59ae5740e28d3e3737"
+    },
+    {
+      "bytes": 967,
+      "path": "cpu-monitor.json",
+      "sha256": "22a179341c21241170312d99c8ad562dcd172c88c51113613ef7974b295ffa8c"
+    },
+    {
+      "bytes": 149,
+      "path": "cpu.log",
+      "sha256": "3e40cdde619c0e863b68a3383421a9270fbec0585e99977c7f8da46ee07bb53b"
+    },
+    {
+      "bytes": 2190,
+      "path": "execute_cpu.py",
+      "sha256": "84ce3daa09f9c80dac5d6a3e8ef9e49b5e90f51b32c8a33b983aad3d8245ef51"
+    },
+    {
+      "bytes": 3424,
+      "path": "glb_read.py",
+      "sha256": "63b42f4aa956fb77649b944a61042b606e0ff57c287ae840de76e52faf0911c8"
+    },
+    {
+      "bytes": 5521,
+      "path": "prepared.json",
+      "sha256": "a6300caa0dd05d17be32a59be9165845e13610fcb6c8672d5f74ed9746b28776"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "attribute_checks_passed": true,
+  "candidate_accepted": false,
+  "geometry_created": false,
+  "inputs_unchanged": true,
+  "measurement_completed": true,
+  "native_calls": 0,
+  "prepared_sha256": "a6300caa0dd05d17be32a59be9165845e13610fcb6c8672d5f74ed9746b28776",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "measured_authored_normal_policy"
+}

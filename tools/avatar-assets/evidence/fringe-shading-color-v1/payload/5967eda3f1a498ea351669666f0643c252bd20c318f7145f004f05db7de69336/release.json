@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 19:16:16 PST",
+  "decision": "Release the one CPU derivative; actual preview must use the corrected bounded EEVEE path, not Cycles.",
+  "reason": "Real imported glTF control verifies culling and same outward normals in EEVEE; Cycles fails these controls.",
+  "evidence": [
+    {
+      "path": "outputs/fringe-culling-native-control-v1/eevee-front.json",
+      "sha256": "8b1babb7aef91ad50d423e503ff331219191fe88581a0dd97629c677637695cf"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/eevee-back.json",
+      "sha256": "222d6b3e1574b2017a090ce3ac7c107900ae9768aca83e940b0f019ada6e160b"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/cycles-front.json",
+      "sha256": "226712dba62098852fe463b3d63788cd5f72d785bad7fc72037ba0daeaacca5e"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/cycles-back.json",
+      "sha256": "70a7146c607dbceb1ee912b5e29de4fe8e40fd672f1f45de96e2d0375a9c0822"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/completion.json",
+      "sha256": "2caed2f36c2375a87f8367ca0148b66842952696fb33d6c978cb98a75991990f"
+    },
+    {
+      "path": "outputs/fringe-culling-native-control-v1/findings.json",
+      "sha256": "2e91babb1a9ddb34dfa567bc3901fb540ffc0d800771fa6260f38803c0e3b450"
+    }
+  ],
+  "limits_unchanged": true,
+  "quality_approved": false
+}

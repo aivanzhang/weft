@@ -1,0 +1,106 @@
+{
+  "actual_avatar_used": false,
+  "command": ".venv/bin/python -B outputs/fringe-color-atlas-analytic-v1/execute.py",
+  "helper_sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5",
+  "kind": "analytic_per_fin_source_color_atlas_not_avatar",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 32,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T19:11:24.973027-08:00",
+  "quality_approved": false,
+  "release_required": true,
+  "schema_version": 1,
+  "settings": {
+    "alpha_cutoff": 0.18,
+    "batch_fins": 128,
+    "cell_height": 32,
+    "cell_width": 64,
+    "expected_atlas_dimensions": [
+      4096,
+      2400
+    ],
+    "max_dimension": 4096,
+    "max_fins": 4800,
+    "max_pixels": 16777216,
+    "padding": 2,
+    "source_fin_policy": "area-share-edge-fin-analytic-v1"
+  },
+  "sources": [
+    {
+      "bytes": 4425,
+      "path": "README.md",
+      "sha256": "02f8e404d41b2ddf9a7d4dca9c488316e4d1838e8bd654b1a93a1765d6d03531"
+    },
+    {
+      "bytes": 9639,
+      "path": "color_atlas.py",
+      "sha256": "63685feb39972363d8e0b55b2e51de62240dfad0d0a6992f63404120d0856bd5"
+    },
+    {
+      "bytes": 1793,
+      "path": "execute.py",
+      "sha256": "74ec12d94c87d97bdcf438b4b076e0da1f6011f525057083c8e4c00b334a5bea"
+    },
+    {
+      "bytes": 80099,
+      "path": "inputs/area_share_roots.npz",
+      "sha256": "0ff4fbbce87e2613134f72a71eb6c66c07ab92e439b0514e0d3b6852bd50f3a6"
+    },
+    {
+      "bytes": 31661,
+      "path": "inputs/silhouette.png",
+      "sha256": "78a26bb5d5b8a80e2917facafdca52442455c2d7562631a5e03bb3c1b6890fa8"
+    },
+    {
+      "bytes": 13544,
+      "path": "screen.py",
+      "sha256": "0f80b3ed9e104e95e9b780182ebedff44d84e3706c93b3d0199acd51da8eb623"
+    },
+    {
+      "bytes": 1145,
+      "path": "source-origins.json",
+      "sha256": "e0a9eb32c7a3226f73f3f7a62114fa5be334ed90d8bfcea8cc3af3d1ca18c099"
+    },
+    {
+      "bytes": 17900,
+      "path": "sources/allocation_screen_frozen.py",
+      "sha256": "ab4453a7ff4c95a2b6c85c3839777a01546a81ddc1fcef58d355f43f13c9bbb2"
+    },
+    {
+      "bytes": 15402,
+      "path": "sources/area_fringe.py",
+      "sha256": "85aa7a6028fb0f500098abd3c69a0675456c23672f9cb17642718ae5d1eaa421"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 2262,
+      "path": "sources/fixture.py",
+      "sha256": "193dffd9e39b0195b2c8e79248b145939af5a863c97460052a699da2003db2ff"
+    },
+    {
+      "bytes": 867,
+      "path": "sources/root_sampler.py",
+      "sha256": "8b0f6a9149977c47a7c124578c6418a655d68707c4964c49b872b9d1233e0347"
+    }
+  ],
+  "status": "prepared_not_executed",
+  "syntax_parsed_only": true
+}

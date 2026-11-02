@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01 19:35:15 PST",
+  "status": "partial_shading_pass_color_minification_review_needed",
+  "quality_approved": false,
+  "fur_profile_promoted": false,
+  "variants": [
+    {
+      "variant": "baseline",
+      "folder": "outputs/panda-fringe-area-eevee-preview-v1",
+      "source_sha256": "8faa6bc2db80be19b69a62ce214e2e80db32c98fd74c5cb37299c728ad00492d",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "samples": 16,
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "job": {
+        "elapsed_seconds": 5.355,
+        "sampled_peak_rss_bytes": 980336640,
+        "final_output_bytes": 78336571,
+        "process_exit_verified": true
+      },
+      "native_report_sha256": "16efd30ed6098ec836f127bb0e51c906836a6e2b4f0bfeff0a239e305ee80fc8"
+    },
+    {
+      "variant": "normal_only",
+      "folder": "outputs/panda-fringe-normal-eevee-preview-v1",
+      "source_sha256": "1204ae9d53b12bdc34ea74288cd2b63fa61df45d80665d5c6987d2072b4fac75",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "samples": 16,
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "job": {
+        "elapsed_seconds": 3.049,
+        "sampled_peak_rss_bytes": 981647360,
+        "final_output_bytes": 78714540,
+        "process_exit_verified": true
+      },
+      "native_report_sha256": "f4c5b58bf64ab0b1803e28539b10479b382fb649c8c140ae75af4261ea432737"
+    },
+    {
+      "variant": "color_only",
+      "folder": "outputs/panda-fringe-color-eevee-preview-v1",
+      "source_sha256": "8086940637ab6ec2e601448326e5be2845341d6b2933b00ad5dba4ddd40cb8ec",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "samples": 16,
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "job": {
+        "elapsed_seconds": 3.571,
+        "sampled_peak_rss_bytes": 1087225856,
+        "final_output_bytes": 80273315,
+        "process_exit_verified": true
+      },
+      "native_report_sha256": "7322a7468f329d9a5ba10a156a0e4d03b0df49095c8011412fd609f9aed973c0"
+    },
+    {
+      "variant": "combined",
+      "folder": "outputs/panda-fringe-combined-eevee-preview-v1",
+      "source_sha256": "52096c6a29dd3bf40f59ab76c63f9b5b5307d6efb4441fde2fff5f7ee5461c85",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "samples": 16,
+      "bounds": {
+        "max": [
+          0.46160688996315,
+          0.39619338512420654,
+          1.2077256441116333
+        ],
+        "min": [
+          -0.45410776138305664,
+          -0.38847076892852783,
+          -0.007999845780432224
+        ]
+      },
+      "job": {
+        "elapsed_seconds": 3.062,
+        "sampled_peak_rss_bytes": 1084014592,
+        "final_output_bytes": 80657620,
+        "process_exit_verified": true
+      },
+      "native_report_sha256": "bfd4e9d9c82a24c640ccde015715967451b3e11f28f026da2ef83ce9c918f796"
+    }
+  ],
+  "aggregate_native_seconds": 15.037,
+  "aggregate_native_output_bytes": 317982046,
+  "directly_reviewed_images": [
+    {
+      "path": "outputs/panda-fringe-area-eevee-preview-v1/front.png",
+      "sha256": "11f55585feefc2f088205e458ed951c4ae1db0bec874f310e8a28ff20873c05f"
+    },
+    {
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/front.png",
+      "sha256": "9817df91e7d85f077ce7056444ce1feffe100ad46d39aee12084ecd6db867b58"
+    },
+    {
+      "path": "outputs/panda-fringe-color-eevee-preview-v1/front.png",
+      "sha256": "ce121264b81737a96d62284771f63e8a25b1400ff500791171b6e168395c1dcb"
+    },
+    {
+      "path": "outputs/panda-fringe-combined-eevee-preview-v1/front.png",
+      "sha256": "4401f1b2bbe8bb95048c7948a1c59cdcb30c281279894cf1e0a5447f8ee86f68"
+    },
+    {
+      "path": "outputs/panda-fringe-normal-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "263123834b7d0aec92dc90e84e50d5346e78bc4c327d212374904949c5bd1cdc"
+    },
+    {
+      "path": "outputs/panda-fringe-combined-eevee-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "777482791260e56e576c91210d127cf2690790a755c78a908d050df4ceb5803e"
+    }
+  ],
+  "observations": [
+    "Baseline and color-only retain prominent white-body/dark-ear speckles; color sampling alone does not solve the shading discontinuity.",
+    "Both source-normal variants remove most broad white-body speckling and soften the outline.",
+    "Combined color+normal shows more light flecks on black limbs/ears than normal-only despite improved LOD0 color metrics; do not choose it solely from numeric color gates.",
+    "Color-atlas minification/neighbor bleed is a hypothesis, not yet measured GPU causality.",
+    "Dragon light specks and exposed cheek/shoulder defects remain. Explicit part ownership is being audited separately."
+  ],
+  "scope": [
+    "Four rest views plus four actual key poses per variant,512px/16samples; six images directly reviewed by parent.",
+    "Same renderer/camera bounds/lights; color atlas includes disclosed alpha resampling, so color/alpha is one factor.",
+    "Not full clips, browser appearance, collision, physical fur, fresh prompts or Muse parity."
+  ],
+  "new_provider_or_pipeline_role_calls": 0,
+  "next_action": "Measure atlas minification and verify explicit non-furry companion ownership; preserve all four controls and defer profile promotion."
+}
