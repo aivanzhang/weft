@@ -2,6 +2,10 @@
 
 ## Active work — November 1, 2026: generalized construction and equipment control
 
+- [x] Diagnose the new automatic-world recording: first forearm/equipment boundary contact accompanies control-57 speed/spin failure; complete authored interval still fails `sam-2`. Saved-only inspection, no new physics/media. [Exact findings](docs/handoffs/automatic-equipment-contact-diagnosis.md).
+- [x] Implement and verify smooth temporal joint corrections: 30 pure checks, unchanged root bytes and ±.25 joint bound. Complete/audit eight fixed nominal-start interventions, all 254 controls each: **0/8 task success**, no default/policy promotion. All 2,032 saved residual decisions and 117 original gate comparisons pass; the failures are retained. [Contract, bounds and results](docs/handoffs/temporal-arm-control.md).
+- [ ] Resolve source-qualified body/equipment geometry and contact evidence; do not repeat failed fixed controller sweeps or call a weak one-start rank gain successful learning. Preserve the usable lab and complete generalized-video goal.
+
 - [x] Publish and independently verify `019d49505f7ceb3bdb045f01a12ac1f59465fd2f`: saved geometry reuse and bounded two-action control. Publication receipt `.local/equipment-sequence-and-geometry-publication-01.json`; preserve independent avatar changes. The preceding turn made implementation/acceptance progress, not merely status checks.
 - [x] Implement opt-in guided automatic equipment-frame selection, complete saved receipts, explicit abstention and the offline editor/report. **86 distinct scoped cases pass**, including manual compatibility, altered receipt joins, saved-request downloads and bounded 1,800-frame scripted UI checks. Independent review closed. [Workflow and retained test corrections](docs/handoffs/equipment-frame-config.md).
 - [x] Implement and independently review bounded nonlinear search over the task's existing three root-assistance channels. **50 distinct mocked checks pass**; all joint bytes, physics limits and task gates stay unchanged. [Contract](docs/handoffs/equipment-root-search.md).

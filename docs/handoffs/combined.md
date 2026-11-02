@@ -1,5 +1,32 @@
 # Combined Weft implementation handoff
 
+## Temporal control study closed — November 1, 2026, 5:40 PM PST
+
+This turn made progress: [new-world saved contact diagnosis](automatic-equipment-contact-diagnosis.md),
+a tested smooth temporal actor and an actual [eight-candidate comparison](temporal-arm-control.md).
+All eight complete the full interval; **0/8 succeed**. Body/floor and `sam-3` pass;
+all four `sam-2` stability terms fail. One slightly better maximum-excess rank has
+worse mean excess/reward; no first crossing is delayed. No candidate or default
+is promoted. Keep all failures and do not repeat the same controller sweep.
+
+The new helper passes 30 pure checks and preserves same-state authored root bytes
+and the original ±.25 joint correction bound. Actual 2,032 controls/32,512 substeps
+finish in 6.530473 seconds /215,842,816 B, with exact lossless saved arithmetic.
+Root's independent cached audit checks 117 original gate terms and custody joins;
+no repeated rollout/media read. PID 4945 and diagnostic PID 2743 are reaped.
+No paid call, key/ledger change, deployment, browser/server or source acquisition.
+Peer agents remain at usage limits; no peer review of this root-owned work claimed.
+
+Root owns the six-file actor/diagnosis checkpoint: source, tests, TODO, this note
+and the two linked handoffs. Standing approval covers its exact-path publication.
+Independent avatar changes remain untouched; latest observed main includes their
+`ead2244` checkpoint after console acceptance `91ec429`. Publication identity will
+be in `.local/temporal-arm-publication-01.json`; inspect it instead of inventing a
+future commit hash. Next substantive work is evidence-qualified geometry/contact
+reconstruction, not more of the unchanged failed interventions. Full goal active;
+no unfamiliar-video or physical-accuracy completion claim. The verified playable
+console command below remains unchanged and available.
+
 ## Automatic-equipment play verified — November 1, 2026, 5:15 PM PST
 
 The full goal remains active. Previous turn and this turn made concrete progress,
