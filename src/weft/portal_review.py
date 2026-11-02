@@ -8,6 +8,7 @@ from weft.io import digest, local_time, write_json
 from weft.lab_worker import atomic_json
 from weft.meta_access import access_status
 from weft.scene_advisor import ESTIMATE, MODEL, advise_run
+from weft.portal_supports import body_path
 
 TERMINAL = {"proposed", "failed", "cancelled", "interrupted"}
 
@@ -28,7 +29,7 @@ def construction_input(root):
     route = status.get("route")
     if route not in {"exercise", "objects"}:
         raise ValueError("This project's construction format is not supported by Muse review")
-    source = root / ("build/body_source" if route == "exercise" else "planar/run")
+    source = body_path(root, config) if route == "exercise" else root / "planar/run"
     names = ["evidence.json", config["source_file"]] + (["human.json"] if route == "exercise" else [])
     manifest_path = source / "manifest.json"
     if any(p.is_symlink() for p in (manifest_path, *manifest_path.parents)) or manifest_path.stat().st_size > 1_000_000:
@@ -46,9 +47,13 @@ def construction_input(root):
             raise ValueError("Construction evidence no longer matches its saved manifest")
     if pins[config["source_file"]] != config["source_sha256"]:
         raise ValueError("Construction video differs from the uploaded source")
-    return source, {"construction_directory": source.relative_to(root).as_posix(),
-                    "manifest_sha256": digest(manifest_path), "input_sha256": pins,
-                    "scope": "Construction observations and authored body assumptions only; no scores, policies or final evaluation"}
+    binding = {"construction_directory": source.relative_to(root).as_posix(),
+               "manifest_sha256": digest(manifest_path), "input_sha256": pins,
+               "scope": "Construction observations and authored body assumptions only; no scores, policies or final evaluation"}
+    if config.get("kind") == "support_experiment":
+        binding.update(review_scope="original_body_only",
+                       scope="Original body construction evidence only. Added supports, load windows and child-world control settings are not reviewed; no scores, policies or final evaluation.")
+    return source, binding
 
 
 def execute_review(root, *, project):
@@ -63,12 +68,17 @@ def execute_review(root, *, project):
     try:
         source, binding = construction_input(root)
         write_json(folder / "binding.json", binding)
+        body_only = binding.get("review_scope") == "original_body_only"
         if (folder / "cancel-request.json").exists():
             atomic_json(folder / "status.json", {"status": "cancelled", "message": "Cancelled before any Muse request"})
             return 0
-        atomic_json(folder / "status.json", {"status": "running", "message": "Muse is reviewing construction evidence and proposing tests"})
+        atomic_json(folder / "status.json", {"status": "running", "message":
+            "Muse is reviewing original body evidence only, not added supports, load windows or child-world control settings."
+            if body_only else "Muse is reviewing construction evidence and proposing tests"})
         receipt = advise_run(source, folder / "advice", execute=True, max_cost_usd=ESTIMATE, project_root=project)
-        atomic_json(folder / "status.json", {"status": "proposed", "message": "Review ready. These proposals have not been tested or applied.",
+        atomic_json(folder / "status.json", {"status": "proposed", "message":
+            "Original-body review ready. Added supports, load windows and child-world control settings were not reviewed. Proposals have not been tested or applied."
+            if body_only else "Review ready. These proposals have not been tested or applied.",
             "seconds": time.monotonic() - started, "cost_usd": receipt["cost_usd"], "completed_at": local_time()})
         return 0
     except Exception as error:

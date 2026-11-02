@@ -7,6 +7,7 @@
   let selected = null, timer = null, pending = false, uploading = false, lastProjects = "", lastDetail = "";
   let museAvailable = false, reviewing = false;
   let checking = false;
+  let creatingSupport = false, selectedJob = null;
   const reviewActive = job => ["queued", "running", "cancelling"].includes(job.muse?.status);
   const checkActive = job => ["queued", "running", "cancelling"].includes(job.muse?.checks?.status);
   const terminal = new Set(["ready", "failed", "cancelled", "interrupted"]);
@@ -26,6 +27,7 @@
   async function show(job) {
     if (!job) return;
     selected = job.id;
+    selectedJob = job;
     const signature = JSON.stringify([job, museAvailable, reviewing, checking]);
     if (lastDetail === signature) return;
     lastDetail = signature;
@@ -52,13 +54,18 @@
     $("sandbox").hidden = !job.sandbox;
     $("sandbox-help").hidden = !job.sandbox;
     if (job.sandbox) $("sandbox").href = `${job.sandbox}#token=${encodeURIComponent(token)}`;
-    artifactLink("source-download", job, "source" + job.name.slice(job.name.lastIndexOf(".")).toLowerCase(), !!job.source_sha256);
+    artifactLink("source-download", job, "source" + job.name.slice(job.name.lastIndexOf(".")).toLowerCase(), job.source_available ?? !!job.source_sha256);
     artifactLink("plan-download", job, "analysis/plan.json", !!job.plan);
     artifactLink("receipt-download", job, "analysis/receipt.json", !!job.receipt);
     artifactLink("failure-download", job, "failure.json", job.status === "failed");
+    $("support-editor").hidden = !job.support_experiment_available;
+    $("experiment-note").hidden = job.kind !== "support_experiment";
+    $("experiment-note").textContent = job.kind === "support_experiment" ? "Authored support experiment: source-bound body, user-specified box and load task. Equipment/contact are not recovered. This is a new task, not a scored repair of the parent project." : "";
+    artifactLink("support-priors-download", job, "support-priors.json", job.kind === "support_experiment");
     $("muse-review").hidden = job.status !== "ready" && !job.muse;
     $("review-muse").hidden = !!job.muse;
     $("review-muse").disabled = !museAvailable || reviewing;
+    $("muse-scope").hidden = job.kind !== "support_experiment";
     $("muse-status").textContent = job.muse ? (job.muse.message || job.muse.error || job.muse.status) : museAvailable ? "One bounded request, charged to the Meta allowance shown above." : "Meta key or remaining allowance is unavailable. Your simulation remains usable.";
     const advice = job.muse?.proposal?.advice;
     $("muse-summary").textContent = advice?.summary || "";
@@ -124,7 +131,7 @@
           const button = document.createElement("button"); button.type = "button"; button.className = "project-card";
           button.setAttribute("aria-pressed", String(selected === job.id));
           const name = document.createElement("strong"); name.textContent = job.name;
-          const meta = document.createElement("small"); meta.textContent = job.ai ? "OpenAI + local reconstruction" : "Local reconstruction";
+          const meta = document.createElement("small"); meta.textContent = job.kind === "support_experiment" ? "Authored support experiment · reused body" : job.ai ? "OpenAI + local reconstruction" : "Local reconstruction";
           const title = document.createElement("span"); title.append(name,meta);
           const state = document.createElement("span"); state.className = "state"; state.textContent = labels[job.status] || job.status;
           button.append(title,state); button.onclick = () => { selected = job.id; lastProjects = ""; show(job); refresh(); }; return button;
@@ -180,6 +187,34 @@
       if (selected === identity) await show(job);
     } catch (e) { error(e.message); }
     finally { checking = false; lastDetail = ""; refresh(); }
+  };
+  $("support-form").onsubmit = async event => {
+    event.preventDefault();
+    if (creatingSupport || !selectedJob?.support_experiment_available) return;
+    if (!$("support-confirm").checked) return error("Confirm that support placement and load are your simulation assumptions.");
+    const number = id => {
+      if (!$(id).value.trim() || !Number.isFinite(Number($(id).value))) throw new Error("Enter every position, dimension and load-window value.");
+      return Number($(id).value);
+    };
+    let priors;
+    try {
+      priors = {schema_version:1,profile:"shared-static-support-priors-v1",source_sha256:selectedJob.source_sha256,scale:1,
+        root_assistance:$("support-root").checked,objects:[{id:"support_box",label:"User-authored support box",role:"static",shape:"box",
+          position:[number("support-x"),number("support-y"),number("support-z")],size:[number("support-width"),number("support-depth"),number("support-height")],
+          quaternion:[1,0,0,0],velocity:[0,0,0],angular_velocity:[0,0,0],mass:10,friction:[.8,.01,.001],color:"#707070",
+          provenance:{mode:"authored_addition",calibration_status:"estimated_prior",physical_validation:"unverified",source_contact_verified:false,
+            assumptions:["User-specified position and size; axis-aligned static box and material defaults are authored, not measured."]}}],
+        support_requirements:[{object_id:"support_box",human_segment:$("support-segment").value,direction_world:[0,0,1],
+          minimum_load_body_weight_fraction:number("support-load")/100,start_step:number("support-start"),end_step:number("support-end")}]};
+    } catch(e) { return error(e.message); }
+    creatingSupport = true; $("support-create").disabled = true;
+    const identity = selectedJob.id;
+    try {
+      const job = await request(`/api/projects/${identity}/supports`, {method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({request_id:crypto.randomUUID().replaceAll("-",""),priors,train:$("support-train").checked})});
+      selected = job.id; $("support-status").textContent = "Separate experiment queued; the original project is unchanged."; await show(job);
+    } catch(e) { error(`${e.message}. Refresh the project list before submitting again; no automatic retry was made.`); }
+    finally { creatingSupport = false; $("support-create").disabled = false; refresh(); }
   };
   $("refresh").onclick = refresh;
   document.addEventListener("visibilitychange", () => { clearTimeout(timer); if (!document.hidden) refresh(); });

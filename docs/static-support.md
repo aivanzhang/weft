@@ -6,6 +6,14 @@ This path does not infer contact, grasp, depth, materials, or biomechanics. A mo
 
 ## Build, inspect and play in one workflow
 
+The [web portal](portal.md) also exposes this builder through **Create a separate
+support experiment** on completed original exercise projects. Its form supports
+one axis-aligned box, explicit segment/load window, optional root assistance and
+bounded training. It reuses the complete pinned body without new inference or
+API spend. The child project has its own authored task; the parent's evidence,
+task and scores are unchanged. The API accepts the existing bounded multi-support
+prior schema. [Acceptance and limitations](handoffs/portal-support-experiments.md).
+
 Use the ordinary exercise builder with a support-prior file. In the [configuration below](#configuration), change `profile` to `shared-static-support-priors-v1` and omit `body_source_manifest_sha256`; the builder fills that identity only after preparing the actual body. Keep the exact original video hash, scale, support shapes, load windows and root-assistance choice. These are authored assumptions, not inferred contact.
 
 The simplest entry point builds an untrained scene, saves `report/index.html`,

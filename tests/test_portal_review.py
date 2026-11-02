@@ -6,7 +6,7 @@ from weft.io import digest, write_json
 from weft.meta_access import access_status, configure_access
 from weft.portal_review import construction_input, execute_review
 from weft import scene_advisor
-from test_scene_advisor import run, reply
+from test_scene_advisor import run, reply, proposal
 
 
 @pytest.fixture
@@ -88,3 +88,42 @@ def test_wrong_provider_model_keeps_usage_but_rejects_proposal(job, tmp_path, mo
     assert not (job / "muse/advice/hypotheses.json").exists()
     budget = access_status(tmp_path)
     assert budget["committed_usd"] > 0 and budget["unsettled_count"] == 0
+
+
+def test_support_child_review_is_explicitly_original_body_only(job, tmp_path, monkeypatch):
+    source = job / "body_source"
+    (job / "planar/run").rename(source)
+    evidence = json.loads((source / "evidence.json").read_text())
+    evidence["reference"] = evidence.pop("generation")
+    for row in evidence["reference"]:
+        row["object_id"] = "person"
+    write_json(source / "evidence.json", evidence)
+    write_json(source / "human.json", {"profile": "exercise-v3", "assumptions": ["Original body assumptions"]})
+    write_json(source / "manifest.json", {"files": {
+        p.name: digest(p) for p in source.iterdir() if p.name != "manifest.json"}})
+    config = json.loads((job / "job.json").read_text())
+    write_json(job / "job.json", {**config, "kind": "support_experiment", "body_source_directory": "body_source"})
+    write_json(job / "status.json", {"status": "ready", "route": "exercise"})
+    write_json(job / "support-priors.json", {"marker": "DO_NOT_EXPOSE_CHILD_SUPPORT"})
+    _, binding = construction_input(job)
+    assert binding["review_scope"] == "original_body_only"
+    assert "Added supports, load windows and child-world control settings are not reviewed" in binding["scope"]
+    assert set(binding["input_sha256"]) == {"evidence.json", "human.json", "source.mp4"}
+    before = {p.name: digest(p) for p in source.iterdir()}
+    sent = []
+    def respond(request):
+        sent.append(request)
+        assert b"DO_NOT_EXPOSE" not in request.data
+        assert "original body evidence only" in json.loads((job / "muse/status.json").read_text())["message"]
+        context = scene_advisor.prepare_context(source)
+        advice = proposal(context)
+        advice["hypotheses"][0]["object_ids"] = ["person"]
+        return reply(context, choices=[{"finish_reason": "stop", "message": {"content": json.dumps(advice)}}])
+    monkeypatch.setattr(scene_advisor, "_open", respond)
+    assert execute_review(job, project=tmp_path) == 0
+    assert len(sent) == 1
+    status = json.loads((job / "muse/status.json").read_text())
+    assert "were not reviewed" in status["message"]
+    assert "Original-body review ready" in status["message"]
+    assert json.loads((job / "muse/binding.json").read_text()) == binding
+    assert before == {p.name: digest(p) for p in source.iterdir()}

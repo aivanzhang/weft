@@ -2,6 +2,8 @@
 
 ## Product priority — November 2, 2026, 11:39 AM PST
 
+- [x] Expose [separate authored-support portal experiments](docs/handoffs/portal-support-experiments.md): complete pinned body reuse, explicit geometry/load assumptions, bounded training, interaction and exact recording replay. **35 distinct Python / five UI checks pass**. Native construction/training takes 13.45 s / 393 MB; all nine recorded actions replay exactly. Twelve negative-control trials correctly fail with zero support load; training retains authored control. No API spend, inference or parent mutation. Preserve both harness failures. Muse scope is explicitly body-only; automatic support recovery, support-aware Muse reasoning and generalization remain unfinished.
+
 - [x] Add [local experiments beside Muse review](docs/handoffs/portal-checks.md): authenticated background comparisons, unchanged task/gates, full action/state traces and unresolved physical tests. **22 Python / four UI checks pass**. Real portal acceptance 2.24 s, all 702 actions replay exactly, all 1,325 run files unchanged; zero API spend. Authored control passes; disabling root assistance and zero control fail the same 234-step task. This shows simulator dependence on assistance, not recovered balance/contact.
 
 - [x] Add [Muse construction review to the portal](docs/handoffs/portal-muse.md): authenticated/deduplicated background action, separate budget, cited evidence, alternatives/tests and receipts; ready simulations remain usable and unchanged. **72 Python / four UI checks pass.** Real API acceptance 8.62 s / $0.013384, three unaccepted proposals, all 1,325 run members verified. Meta balance now $4.750664, zero unsettled; OpenAI unchanged.

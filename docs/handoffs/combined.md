@@ -1,5 +1,7 @@
 # Combined Weft implementation handoff
 
+**Latest portal milestone — November 2, 2026 (PST):** [Separate authored-support experiments](portal-support-experiments.md) now reuse complete source-bound bodies through the portal, optionally train, and record/replay. Native worker 13.45 s / 393 MB; nine actions replay exactly; 35 Python/five UI checks pass. Twelve negative-control trials correctly fail without support load; no learned improvement, API spend or changed parent. Failed harness attempts are preserved. Source-derived equipment/contact and Muse's bounded repair loop remain open; support-child Muse review is explicitly body-only. Hosted site remains offline.
+
 **Latest portal milestone — November 2, 2026 (PST):** [Local comparisons beside Muse](portal-checks.md) are live-verified: 2.24 s, 702 exact replayed actions, unchanged run/task/scorer/advice and zero API spend. Authored control passes the 234-step task; root-unforced/coast fail. This is a simulation diagnostic, not physical validation or an accepted repair. Full goal remains active.
 
 **Latest portal milestone — November 2, 2026 (PST):** [Muse construction review](portal-muse.md) is integrated and live-verified using the existing Meta project key. One call cost $0.013384; simulation and scored run remain unchanged. Proposed tests are not yet executed or accepted. The full repair/generalization goal remains active.

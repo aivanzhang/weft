@@ -34,6 +34,19 @@ The user starts/manages this server. No browser opens automatically. Use
    Object projects compare opposite force interventions and no control. Inspect
    success/reward and download every action/state. These are local diagnostics,
    not execution of Muse's requested real-world measurements or automatic repairs.
+7. For an exercise project, expand **Create a separate support experiment** to
+   add an explicitly authored static box and load requirement. Enter position and
+   size in the sandbox's body-scaled world units, not metres; select a body
+   segment and half-open step interval. Optional training compares four controllers
+   on three changed starts. This creates a separate project without new pose
+   inference or AI calls; the original project remains unchanged.
+
+Support experiments are advanced, manual assumptions—not automatic equipment
+reconstruction or a measured correction. Their new task cannot establish an
+improvement against the parent's different task. Muse reviews their reused body
+evidence only, **not the added supports or load requirements**. Custom avatars
+are not yet qualified for this support-world profile. See the
+[support guide](static-support.md) and [verified example](handoffs/portal-support-experiments.md).
 
 Projects persist under `.local/portal/`. Closing the server preserves completed
 runs and recordings. Interrupted work is not automatically resubmitted or billed
@@ -43,6 +56,10 @@ from new recordings.
 The workspace includes a ready **single-leg-squat.webm** exercise project and its
 verified recording, plus a clearly labeled **synthetic-rigid-objects.mp4** 3D
 object project. Earlier rejected attempts remain visible with their reasons.
+An additional authored-support experiment is ready: its deliberately distant box
+cannot supply the requested forearm load, so its task fails even though the lab
+can be played and recorded. Training retained the authored controller; it did
+not discover a successful support policy.
 
 ## API configuration and spending
 

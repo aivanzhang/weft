@@ -21,6 +21,7 @@ from weft.lab_worker import atomic_json
 from weft.openai_access import MODEL, PROJECT_ROOT, OpenAIBudget, credential_status
 from weft.portal_review import TERMINAL as REVIEW_TERMINAL, availability as muse_availability
 from weft.portal_checks import TERMINAL as CHECK_TERMINAL
+from weft.portal_supports import body_path
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -104,6 +105,9 @@ class Portal:
             config = self.jobs[identity]
             folder = self._folder(identity)
             result = {k: config[k] for k in ("id", "name", "created_at", "ai", "mode", "source_sha256")}
+            result["kind"] = config.get("kind", "video")
+            result["parent_id"] = config.get("parent_id")
+            result["source_available"] = (folder / config["source_file"]).is_file()
             status = self._status(identity)
             result.update(status)
             if status["status"] == "running":
@@ -119,6 +123,8 @@ class Portal:
                 if path.is_file():
                     result[name] = bounded_json(path)
             result["sandbox"] = f"/labs/{identity}/" if status["status"] == "ready" else None
+            result["support_experiment_available"] = (status["status"] == "ready" and status.get("route") == "exercise"
+                and result["kind"] == "video" and (body_path(folder, config) / "manifest.json").is_file())
             review = folder / "muse/status.json"
             if review.is_file():
                 result["muse"] = bounded_json(review)
@@ -226,6 +232,58 @@ class Portal:
             with self.lock:
                 self.active, self.process = None, None
 
+    def support_experiment(self, identity, raw):
+        from weft.exercise_support_inputs import validate_support_priors
+        from weft.shared_world_human import _json
+
+        if not isinstance(raw, bytes) or not 1 <= len(raw) <= 128_000:
+            raise ValueError("Support request must be bounded JSON")
+        request = _json(raw)
+        if (set(request) != {"request_id", "priors", "train"} or type(request["train"]) is not bool
+                or not isinstance(request["request_id"], str) or not re.fullmatch(r"[a-f0-9]{32}", request["request_id"])):
+            raise ValueError("Invalid support request fields")
+        priors_raw = json.dumps(request["priors"], sort_keys=True, allow_nan=False).encode()
+        priors = validate_support_priors(priors_raw)
+        request_sha = hashlib.sha256(json.dumps(request, sort_keys=True, allow_nan=False).encode()).hexdigest()
+        with self.lock:
+            parent = self.jobs.get(identity)
+            if parent is None or not self.summary(identity)["support_experiment_available"]:
+                raise ValueError("Start a support experiment from a completed original exercise project")
+            if priors["source_sha256"] != parent["source_sha256"]:
+                raise ValueError("Support assumptions refer to a different source video")
+            existing = next((j for j in self.jobs.values() if j.get("request_id") == request["request_id"]), None)
+            if existing:
+                if existing.get("parent_id") != identity or existing.get("support_request_sha256") != request_sha:
+                    raise ValueError("This request identifier belongs to a different experiment")
+                return self.summary(existing["id"])
+            pending = sum(self._status(i)["status"] not in TERMINAL for i in self.jobs)
+            if len(self.jobs) >= MAX_JOBS or pending >= 4:
+                raise ValueError("Portal job capacity reached")
+            stored = sum(p.stat().st_size for p in self.root.rglob("*") if p.is_file() and not p.is_symlink())
+            if stored + (pending + 1) * MAX_JOB_BYTES > MAX_STORAGE:
+                raise ValueError("The portal's 2 GB local storage allowance is full")
+            source = body_path(self._folder(identity), parent)
+            manifest = source / "manifest.json"
+            if manifest.is_symlink() or not manifest.is_file() or manifest.stat().st_size > 1_000_000:
+                raise ValueError("Parent body manifest is missing or unsafe")
+            child_id = uuid4().hex
+            folder = self.root / child_id
+            folder.mkdir(mode=0o700)
+            config = {"id": child_id, "request_id": request["request_id"], "name": parent["name"],
+                "source_file": parent["source_file"], "source_sha256": parent["source_sha256"],
+                "created_at": local_time(), "ai": False, "mode": "exercise", "kind": "support_experiment",
+                "parent_id": identity, "parent_body_manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+                "body_source_directory": "body_source", "support_request_sha256": request_sha,
+                "support_priors_sha256": hashlib.sha256(priors_raw).hexdigest(), "train": request["train"]}
+            write_json(folder / "job.json", config)
+            (folder / "support-request.json").write_bytes(raw)
+            (folder / "support-priors.json").write_bytes(priors_raw)
+            atomic_json(folder / "status.json", {"status": "queued", "stage": "queued", "events": [
+                {"stage": "upload", "message": "New authored-support experiment; the original project is unchanged", "time": local_time()}]})
+            self.jobs[child_id] = config
+            self.wake.set()
+            return self.summary(child_id)
+
     def _review_status(self, identity):
         path = self._folder(identity) / "muse/status.json"
         return bounded_json(path) if path.is_file() else {}
@@ -271,7 +329,8 @@ class Portal:
         env = {"PATH": os.environ.get("PATH", "/usr/bin:/bin"), "PYTHONPATH": str(Path(__file__).resolve().parent.parent),
                "PYTHONUNBUFFERED": "1", "PYTHONNOUSERSITE": "1", "PYTHONDONTWRITEBYTECODE": "1",
                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "MPLCONFIGDIR": str(folder / "runtime/matplotlib")}
-        if not (review or checks) and os.environ.get("OPENAI_API_KEY"):
+        support = self.jobs[identity].get("kind") == "support_experiment" and not (review or checks)
+        if not (review or checks or support) and os.environ.get("OPENAI_API_KEY"):
             env["OPENAI_API_KEY"] = os.environ["OPENAI_API_KEY"]
         if review:
             for name in ("META_API_KEY", "MODEL_API_KEY"):
@@ -281,7 +340,7 @@ class Portal:
         reason = None
         try:
             with (work / "worker.log").open("xb") as log:
-                mode = ["checks"] if checks else ["review"] if review else []
+                mode = ["checks"] if checks else ["review"] if review else ["supports"] if support else []
                 process = subprocess.Popen([sys.executable, "-P", "-B", "-m", "weft.portal_worker", str(folder), str(self.project), *mode],
                                            stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, env=env)
                 with self.lock:
@@ -380,7 +439,7 @@ class Portal:
         if not file.is_relative_to(folder) or not file.is_file():
             raise ValueError("Artifact is outside this project")
         relative = file.relative_to(folder).as_posix()
-        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json"}:
+        if not relative.startswith(("analysis/", "muse/advice/", "muse/checks/", "build/", "lab/run/", "lab/sessions/", "planar/run/", "spatial/", "learning/")) and relative not in {self.jobs[identity]["source_file"], "failure.json", "worker.log", "muse/binding.json", "support-priors.json", "body-reuse.json"}:
             raise ValueError("File is not a public project artifact")
         return file
 
@@ -481,6 +540,16 @@ class PortalHandler(LabHandler):
                 if int(self.headers.get("Content-Length", "0")) != 0:
                     raise ValueError("Local checks take no arguments")
                 return self.reply(self.server.portal.check(match[1]), 202)
+            match = re.fullmatch(r"/api/projects/([a-f0-9]{32})/supports", path)
+            if match:
+                length = int(self.headers.get("Content-Length", "0"))
+                if not 1 <= length <= 128_000:
+                    raise ValueError("Support request must be at most 128 KB")
+                self.connection.settimeout(10)
+                raw = self.rfile.read(length)
+                if len(raw) != length:
+                    raise ValueError("Support request was interrupted")
+                return self.reply(self.server.portal.support_experiment(match[1], raw), 202)
             return self.reply({"error": "Not found"}, 404)
         except (ValueError, OSError, RuntimeError, KeyError) as error:
             return self.reply({"error": str(error)}, 400)

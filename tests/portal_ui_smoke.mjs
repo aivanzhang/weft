@@ -21,9 +21,26 @@ function setup(jobs=[]) {
       if(path.startsWith("/api/projects?"))return {ok:true,json:async()=>({id:"b".repeat(32),name:"clip.webm",status:"queued",stage:"queued",events:[]})};
       if(path.endsWith("/muse")){info.jobs[0].muse={status:"queued",message:"Waiting"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
       if(path.endsWith("/muse/checks")){info.jobs[0].muse.checks={status:"queued",message:"Waiting for local comparisons"};return {ok:true,json:async()=>structuredClone(info.jobs[0])};}
+      if(path.endsWith("/supports")){const child={id:"e".repeat(32),name:info.jobs[0].name,kind:"support_experiment",parent_id:info.jobs[0].id,status:"queued",stage:"queued",events:[],source_available:false};info.jobs.unshift(child);return {ok:true,json:async()=>structuredClone(child)};}
       return {ok:true,json:async()=>({frames:[]})};},console};
   vm.runInNewContext(code,context);
   return {elements,calls,timers,document,listeners,info};
+}
+{
+  const id="f".repeat(32), f=setup([{id,name:"body.webm",status:"ready",stage:"ready",events:[],source_sha256:"a".repeat(64),support_experiment_available:true}]);await tick();
+  const e=f.elements;assert.equal(e.get("support-editor").hidden,false);
+  e.get("support-confirm").checked=false;await e.get("support-form").onsubmit({preventDefault(){}});
+  assert.ok(!f.calls.some(c=>c.path.endsWith("/supports")));
+  e.get("support-confirm").checked=true;e.get("support-root").checked=false;e.get("support-train").checked=true;e.get("support-segment").value="left_forearm";
+  for(const [name,value] of Object.entries({x:"1",y:"0.4",z:"0.2",width:"0.2",depth:"0.2",height:"0.2",start:"0",end:"30",load:"5"}))e.get("support-"+name).value=value;
+  await e.get("support-form").onsubmit({preventDefault(){}});await tick();
+  const call=f.calls.find(c=>c.path.endsWith("/supports")),body=JSON.parse(call.options.body);
+  assert.equal(body.train,true);assert.equal(body.priors.source_sha256,"a".repeat(64));
+  assert.equal(body.priors.objects[0].provenance.source_contact_verified,false);assert.equal(body.priors.support_requirements[0].minimum_load_body_weight_fraction,.05);
+  assert.equal(e.get("source-download").hidden,true);assert.equal(e.get("experiment-note").hidden,false);
+  assert.equal(e.get("muse-scope").hidden,false);
+  assert.match(e.get("experiment-note").textContent,/not a scored repair/);assert.equal(e.get("support-editor").hidden,true);
+  console.log("PASS explicit authored support inputs create a distinct experiment without claiming recovered contact");
 }
 {
   const id="d".repeat(32), f=setup([{id,name:"exercise.webm",status:"ready",stage:"ready",events:[],sandbox:`/labs/${id}/`}]);await tick();

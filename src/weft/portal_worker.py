@@ -16,6 +16,7 @@ def main():
     root = Path(sys.argv[1])
     review = len(sys.argv) == 4 and sys.argv[3] == "review"
     checks = len(sys.argv) == 4 and sys.argv[3] == "checks"
+    supports = len(sys.argv) == 4 and sys.argv[3] == "supports"
     work = root / "muse/checks" if checks else root / "muse" if review else root
     stopped = threading.Event()
     started = time.monotonic()
@@ -31,7 +32,10 @@ def main():
                 os._exit(74)
 
     threading.Thread(target=monitor, name="weft-resource-limit", daemon=True).start()
-    if checks:
+    if supports:
+        from weft.portal_supports import execute_support_job
+        result = execute_support_job(root)
+    elif checks:
         from weft.portal_checks import execute_checks
         result = execute_checks(root)
     elif review:
