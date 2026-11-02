@@ -1,0 +1,3063 @@
+{
+  "held_boundaries": "Both other ring0 cheek disks and44 cleaner reference faces are protected; any shared vertex must remain on the proposed fixed boundary",
+  "parameters": {
+    "do_not_expand_reference_or_replacement_by_blind_rings": true,
+    "future_fit_normal_p95_limit_degrees": 45,
+    "max_interior_displacement_m_if_later_authorized": 0.015,
+    "max_replacement_faces": 512,
+    "maximum_contact_edge_distance": 3,
+    "scar_dihedral_degrees": 30,
+    "selection": "Exact24 supported outlier IDs plus edge-connected high-dihedral original-contact faces inside the already-measured reference-only band",
+    "stop_on_unsupported": true
+  },
+  "protected_source_faces": [
+    [
+      0,
+      4309
+    ],
+    [
+      0,
+      4402
+    ],
+    [
+      0,
+      4481
+    ],
+    [
+      0,
+      4587
+    ],
+    [
+      0,
+      4623
+    ],
+    [
+      0,
+      4627
+    ],
+    [
+      0,
+      4703
+    ],
+    [
+      0,
+      4705
+    ],
+    [
+      0,
+      4711
+    ],
+    [
+      0,
+      4806
+    ],
+    [
+      0,
+      4852
+    ],
+    [
+      0,
+      4854
+    ],
+    [
+      0,
+      4975
+    ],
+    [
+      0,
+      5333
+    ],
+    [
+      0,
+      5524
+    ],
+    [
+      0,
+      5527
+    ],
+    [
+      0,
+      5578
+    ],
+    [
+      0,
+      5607
+    ],
+    [
+      0,
+      5663
+    ],
+    [
+      0,
+      5678
+    ],
+    [
+      0,
+      5799
+    ],
+    [
+      0,
+      5841
+    ],
+    [
+      0,
+      5892
+    ],
+    [
+      0,
+      5917
+    ],
+    [
+      0,
+      5924
+    ],
+    [
+      0,
+      6143
+    ],
+    [
+      0,
+      6240
+    ],
+    [
+      0,
+      6377
+    ],
+    [
+      0,
+      6463
+    ],
+    [
+      0,
+      6582
+    ],
+    [
+      0,
+      6933
+    ],
+    [
+      0,
+      7083
+    ],
+    [
+      0,
+      7146
+    ],
+    [
+      0,
+      7172
+    ],
+    [
+      0,
+      7395
+    ],
+    [
+      0,
+      7402
+    ],
+    [
+      0,
+      7411
+    ],
+    [
+      0,
+      7416
+    ],
+    [
+      0,
+      7478
+    ],
+    [
+      0,
+      7494
+    ],
+    [
+      0,
+      7512
+    ],
+    [
+      0,
+      7522
+    ],
+    [
+      0,
+      7562
+    ],
+    [
+      0,
+      7686
+    ],
+    [
+      2,
+      27
+    ],
+    [
+      2,
+      28
+    ],
+    [
+      2,
+      29
+    ],
+    [
+      2,
+      30
+    ],
+    [
+      2,
+      31
+    ],
+    [
+      2,
+      32
+    ],
+    [
+      2,
+      33
+    ],
+    [
+      2,
+      36
+    ],
+    [
+      2,
+      37
+    ],
+    [
+      2,
+      38
+    ],
+    [
+      2,
+      39
+    ],
+    [
+      2,
+      40
+    ],
+    [
+      2,
+      41
+    ],
+    [
+      2,
+      43
+    ],
+    [
+      2,
+      44
+    ],
+    [
+      2,
+      46
+    ],
+    [
+      2,
+      47
+    ],
+    [
+      2,
+      48
+    ],
+    [
+      2,
+      51
+    ],
+    [
+      2,
+      52
+    ],
+    [
+      2,
+      53
+    ],
+    [
+      2,
+      54
+    ],
+    [
+      2,
+      60
+    ],
+    [
+      2,
+      63
+    ],
+    [
+      2,
+      64
+    ],
+    [
+      2,
+      233
+    ],
+    [
+      2,
+      234
+    ],
+    [
+      2,
+      235
+    ],
+    [
+      2,
+      236
+    ],
+    [
+      2,
+      237
+    ],
+    [
+      2,
+      238
+    ],
+    [
+      2,
+      239
+    ],
+    [
+      2,
+      240
+    ],
+    [
+      2,
+      241
+    ],
+    [
+      2,
+      242
+    ],
+    [
+      2,
+      243
+    ],
+    [
+      2,
+      244
+    ],
+    [
+      2,
+      245
+    ],
+    [
+      2,
+      246
+    ],
+    [
+      2,
+      247
+    ],
+    [
+      2,
+      248
+    ],
+    [
+      2,
+      249
+    ],
+    [
+      2,
+      250
+    ],
+    [
+      2,
+      251
+    ],
+    [
+      2,
+      252
+    ],
+    [
+      2,
+      253
+    ],
+    [
+      2,
+      254
+    ],
+    [
+      2,
+      255
+    ],
+    [
+      2,
+      256
+    ],
+    [
+      2,
+      257
+    ],
+    [
+      2,
+      258
+    ],
+    [
+      2,
+      346
+    ],
+    [
+      2,
+      347
+    ],
+    [
+      2,
+      348
+    ],
+    [
+      2,
+      349
+    ],
+    [
+      2,
+      350
+    ],
+    [
+      2,
+      351
+    ],
+    [
+      2,
+      352
+    ],
+    [
+      2,
+      353
+    ],
+    [
+      2,
+      354
+    ],
+    [
+      2,
+      355
+    ],
+    [
+      2,
+      356
+    ],
+    [
+      2,
+      357
+    ],
+    [
+      2,
+      358
+    ],
+    [
+      2,
+      359
+    ],
+    [
+      2,
+      360
+    ],
+    [
+      2,
+      361
+    ],
+    [
+      2,
+      362
+    ],
+    [
+      2,
+      363
+    ],
+    [
+      2,
+      364
+    ],
+    [
+      2,
+      365
+    ],
+    [
+      2,
+      366
+    ],
+    [
+      2,
+      367
+    ],
+    [
+      2,
+      368
+    ]
+  ],
+  "replacement": [
+    {
+      "connected_from_source_face": [
+        0,
+        4574
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 38.811228622234275,
+      "partition_original_face_id": 29576,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4554
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4570
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 37.538414413426295,
+      "partition_original_face_id": 29586,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4558
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4579
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 37.538414413426295,
+      "partition_original_face_id": 29605,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4570
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        73
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 36.490923214398045,
+      "partition_original_face_id": 29610,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4571
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4603
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 38.811228622234275,
+      "partition_original_face_id": 29617,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4574
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4751
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 39.77692447694561,
+      "partition_original_face_id": 29620,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4575
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        66
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 49.85091221853973,
+      "partition_original_face_id": 29636,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4579
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        69
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 76.53902463021322,
+      "partition_original_face_id": 29675,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4603
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4661
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 43.85640999546067,
+      "partition_original_face_id": 29752,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4635
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4699
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 43.85640999546067,
+      "partition_original_face_id": 29815,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4661
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        279
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 37.891677120455,
+      "partition_original_face_id": 29929,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4699
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4725
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 70.0047289392873,
+      "partition_original_face_id": 29944,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4704
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 32.160623640789765,
+      "partition_original_face_id": 29982,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4717
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 70.0047289392873,
+      "partition_original_face_id": 29998,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4725
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 59.76817427489124,
+      "partition_original_face_id": 30049,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4751
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4725
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 56.38467200604307,
+      "partition_original_face_id": 30051,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4752
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4717
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 50.915475534417354,
+      "partition_original_face_id": 30078,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4762
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 48.896557684987805,
+      "partition_original_face_id": 30113,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4780
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4780
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 48.896557684987805,
+      "partition_original_face_id": 30151,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4797
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4762
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 41.81260572528927,
+      "partition_original_face_id": 30181,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4812
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        339
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 32.03103861576662,
+      "partition_original_face_id": 30195,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4816
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        345
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 41.81260572528927,
+      "partition_original_face_id": 30206,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4823
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        339
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 32.03103861576662,
+      "partition_original_face_id": 30232,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4832
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        82
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 108.41450544994461,
+      "partition_original_face_id": 30368,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4884
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4946
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 31.489548951494957,
+      "partition_original_face_id": 30399,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4901
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 43.57636378102819,
+      "partition_original_face_id": 30426,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4912
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4953
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 116.96071902325838,
+      "partition_original_face_id": 30468,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4940
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 31.489548951494957,
+      "partition_original_face_id": 30476,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4946
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 73.77031549012506,
+      "partition_original_face_id": 30477,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4947
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 42.736302531792475,
+      "partition_original_face_id": 30482,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4948
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 40.015277451095166,
+      "partition_original_face_id": 30496,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4953
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4962
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 62.161188965112174,
+      "partition_original_face_id": 30504,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4958
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 114.8393946106131,
+      "partition_original_face_id": 30513,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4962
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 81.26309003399795,
+      "partition_original_face_id": 30567,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        4991
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4962
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 72.51787670004694,
+      "partition_original_face_id": 30583,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        4999
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 72.51787670004694,
+      "partition_original_face_id": 30593,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5006
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        4948
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 42.736302531792475,
+      "partition_original_face_id": 30594,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5007
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 20.74905566706448,
+      "partition_original_face_id": 30596,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5008
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        322
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 49.95997115611971,
+      "partition_original_face_id": 31276,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5321
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5511
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 53.12260403024802,
+      "partition_original_face_id": 31303,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5336
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5461
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 90.74139532492333,
+      "partition_original_face_id": 31334,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5348
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5452
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 35.07805034724243,
+      "partition_original_face_id": 31342,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5350
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        322
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 85.10015856661403,
+      "partition_original_face_id": 31370,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5367
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5367
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 85.10015856661403,
+      "partition_original_face_id": 31435,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5401
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5462
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 104.66257336301943,
+      "partition_original_face_id": 31467,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5416
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 78.25738863395955,
+      "partition_original_face_id": 31547,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5445
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5505
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 75.88765172868327,
+      "partition_original_face_id": 31550,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5446
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5503
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 70.156374934195,
+      "partition_original_face_id": 31552,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5448
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 32.327681242587886,
+      "partition_original_face_id": 31561,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5452
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 65.90540860792244,
+      "partition_original_face_id": 31572,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5460
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 40.82428671223061,
+      "partition_original_face_id": 31575,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5461
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 104.66257336301943,
+      "partition_original_face_id": 31578,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5462
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5416
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 62.4768574224774,
+      "partition_original_face_id": 31605,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5476
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5571
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 68.773528502134,
+      "partition_original_face_id": 31612,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5481
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5461
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 70.156374934195,
+      "partition_original_face_id": 31656,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5503
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5460
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 75.88765172868327,
+      "partition_original_face_id": 31664,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5505
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 53.12260403024802,
+      "partition_original_face_id": 31682,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5511
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5646
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 54.39461369201531,
+      "partition_original_face_id": 31812,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5571
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 54.39461369201531,
+      "partition_original_face_id": 31920,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5646
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 63.13901900207195,
+      "partition_original_face_id": 31940,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5659
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5680
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 74.85439435016632,
+      "partition_original_face_id": 31971,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5677
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 74.85439435016632,
+      "partition_original_face_id": 31974,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5680
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5732
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 34.36335163670299,
+      "partition_original_face_id": 31994,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5693
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5659
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 34.36335163670299,
+      "partition_original_face_id": 32045,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5732
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        100
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 75.65726198758036,
+      "partition_original_face_id": 32112,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5774
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        102
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 77.51183615425299,
+      "partition_original_face_id": 32147,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5795
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        319
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 75.65726198758036,
+      "partition_original_face_id": 32170,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5810
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        294
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 77.51183615425299,
+      "partition_original_face_id": 32172,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5812
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        103
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 49.85036420369363,
+      "partition_original_face_id": 32241,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5850
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5937
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 54.1279589055952,
+      "partition_original_face_id": 32353,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5921
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 31.462867144641656,
+      "partition_original_face_id": 32379,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        5937
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5921
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 45.18339785030919,
+      "partition_original_face_id": 32450,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        5982
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        5937
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 31.462867144641656,
+      "partition_original_face_id": 32480,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6001
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6001
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 45.18339785030919,
+      "partition_original_face_id": 32482,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6002
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        112
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 43.4257883240894,
+      "partition_original_face_id": 32523,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6031
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6002
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 43.688182629393076,
+      "partition_original_face_id": 32542,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6043
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6031
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 33.59221684298303,
+      "partition_original_face_id": 32589,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6062
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6043
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 43.688182629393076,
+      "partition_original_face_id": 32595,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6066
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6177
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 58.269717619505265,
+      "partition_original_face_id": 32709,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6136
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        112
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 58.269717619505265,
+      "partition_original_face_id": 32770,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6177
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        115
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 42.15573401069454,
+      "partition_original_face_id": 32804,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6197
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6197
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 42.15573401069454,
+      "partition_original_face_id": 32806,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6199
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6254
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 88.6703123023797,
+      "partition_original_face_id": 32854,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6228
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        115
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 42.74946215899807,
+      "partition_original_face_id": 32894,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6254
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6336
+      ],
+      "contact_interface_edge_distance": 3,
+      "original_body_dihedral_degrees": 88.6703123023797,
+      "partition_original_face_id": 32915,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6266
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6330
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 68.74964867387426,
+      "partition_original_face_id": 32986,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6315
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6389
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 40.94954211222561,
+      "partition_original_face_id": 33007,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6330
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        2,
+        116
+      ],
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 35.80433295148504,
+      "partition_original_face_id": 33010,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6332
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6409
+      ],
+      "contact_interface_edge_distance": 2,
+      "original_body_dihedral_degrees": 68.74964867387426,
+      "partition_original_face_id": 33017,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6336
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": 0,
+      "original_body_dihedral_degrees": 43.324086426703786,
+      "partition_original_face_id": 33104,
+      "reason": "exact_supported_reference_outlier",
+      "source_face": [
+        0,
+        6389
+      ]
+    },
+    {
+      "connected_from_source_face": [
+        0,
+        6389
+      ],
+      "contact_interface_edge_distance": 1,
+      "original_body_dihedral_degrees": 43.324086426703786,
+      "partition_original_face_id": 33133,
+      "reason": "connected_high_dihedral_contact_face",
+      "source_face": [
+        0,
+        6409
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        56
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        57
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        58
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        61
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        66
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        68
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        69
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        70
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        71
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        72
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        73
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        74
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        75
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        76
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        77
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        78
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        79
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        80
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        81
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        82
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        83
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        84
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        85
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        86
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        87
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        88
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        89
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        90
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        91
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        92
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        95
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        100
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        101
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        102
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        103
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        104
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        106
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        107
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        109
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        112
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        114
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        115
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        116
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        118
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        266
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        267
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        268
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        269
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        270
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        271
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        272
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        273
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        274
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        275
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        276
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        277
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        278
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        279
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        280
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        281
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        282
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        283
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        284
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        285
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        286
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        287
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        288
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        289
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        290
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        291
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        292
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        293
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        294
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        295
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        296
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        297
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        298
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        299
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        300
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        301
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        302
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        303
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        304
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        305
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        306
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        307
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        308
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        309
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        310
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        311
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        312
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        313
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        314
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        315
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        316
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        317
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        318
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        319
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        320
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        321
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        322
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        323
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        324
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        325
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        326
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        327
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        328
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        329
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        330
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        331
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        332
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        333
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        334
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        335
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        336
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        337
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        338
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        339
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        340
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        341
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        342
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        343
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        344
+      ]
+    },
+    {
+      "connected_from_source_face": null,
+      "contact_interface_edge_distance": null,
+      "original_body_dihedral_degrees": null,
+      "partition_original_face_id": null,
+      "reason": "existing_loop27_patch",
+      "source_face": [
+        2,
+        345
+      ]
+    }
+  ],
+  "retired_without_replacement": [
+    [
+      0,
+      4961
+    ]
+  ],
+  "source_model_modified": false,
+  "source_model_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+}

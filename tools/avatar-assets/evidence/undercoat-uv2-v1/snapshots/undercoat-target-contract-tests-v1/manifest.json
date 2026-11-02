@@ -1,0 +1,69 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1253,
+      "path": "inputs.json",
+      "sha256": "e1f90d42bd88982892bcf2739fb59cbfd665accaee38cd598814cf051b33def3"
+    },
+    {
+      "bytes": 327,
+      "path": "tests-handle.json",
+      "sha256": "38a2d364e9e53da779d14ec9197dbe0267f9f9920ad6b9a1349c8e5476f0859e"
+    },
+    {
+      "bytes": 1106,
+      "path": "tests-monitor.json",
+      "sha256": "f93815fbe16fe1fda0c58ee587a8dfa8b72e542549214b4270468565197dc59b"
+    },
+    {
+      "bytes": 173,
+      "path": "tests.log",
+      "sha256": "d0ec1e1c8d57e4e0286cb2bacf3024ac74a5d1a9722256e2ef4d26a62236fbeb"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_uv1_tangent_repair",
+      "tests.test_hd_uv1_attributes",
+      "tests.test_undercoat_target_binding",
+      "tests.test_finish_quality_contracts",
+      "tests.test_scene_quality"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.522,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 2749,
+    "last_rss_sample_elapsed_seconds": 0.261,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 8,
+      "rss_mb": 512,
+      "wall_seconds": 45
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 58236,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 1,
+    "sampled_max_output_bytes": 2749,
+    "sampled_peak_rss_bytes": 57229312,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_generation_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1
+}

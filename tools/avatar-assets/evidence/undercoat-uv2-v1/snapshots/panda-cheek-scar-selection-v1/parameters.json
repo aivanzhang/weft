@@ -1,0 +1,10 @@
+{
+  "do_not_expand_reference_or_replacement_by_blind_rings": true,
+  "future_fit_normal_p95_limit_degrees": 45,
+  "max_interior_displacement_m_if_later_authorized": 0.015,
+  "max_replacement_faces": 512,
+  "maximum_contact_edge_distance": 3,
+  "scar_dihedral_degrees": 30,
+  "selection": "Exact24 supported outlier IDs plus edge-connected high-dihedral original-contact faces inside the already-measured reference-only band",
+  "stop_on_unsupported": true
+}

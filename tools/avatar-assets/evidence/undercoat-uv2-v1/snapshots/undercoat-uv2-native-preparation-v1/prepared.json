@@ -1,0 +1,66 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "controller_python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+  "cost": {
+    "local_energy": "unpriced",
+    "provider_calls": 0,
+    "recurring_services": 0
+  },
+  "limits": {
+    "attempts": 1,
+    "output_mib": 32,
+    "rss_mib": 1536,
+    "seconds": 60,
+    "threads": 4
+  },
+  "output": "outputs/undercoat-uv2-native-v1",
+  "schema_version": 1,
+  "scope": "Analytic native UV2 bake and material/UV preservation, no avatar-quality claim",
+  "snapshots": [
+    {
+      "bytes": 6276,
+      "path": "check.py",
+      "sha256": "3ced255d558483f032a36c19cbe1b1f65d7eece7d73e607c7d316d8a7c2b2a28"
+    },
+    {
+      "bytes": 1867,
+      "path": "execute.py",
+      "sha256": "138233d19e04fc2e7cefa87a3dd0a0e23244aa5dd68bb10b9937c9ff835e328c"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 40912,
+      "path": "sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 14944,
+      "path": "sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    }
+  ]
+}

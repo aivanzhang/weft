@@ -30,20 +30,24 @@ contains `groom` with direction/comb and `groom_flow`:
 UVs are the coordinates that place a texture on a surface. Each selected material
 is measured separately. Adequate original UV0 coordinates stay unchanged. A
 region whose coordinates overlap distinct surfaces or have insufficient density
-can receive an authored, normal-only UV1 atlas. Color textures remain on their
+can receive an authored normal-only atlas: UV1 for a single-layer source, or UV2
+when original UV1 already serves source textures. Color textures remain on their
 original coordinates. The new atlas uses 1024 pixels; retained UV0 uses the
 requested 1024 or 2048 pixels. The report records this per-material choice.
 
 The selection comes from the existing measured fur mask, not a panda-specific
-rule. Only selected faces use cloned materials with replaced normal response,
-roughness and metallic value. Original material graphs, images, positions,
+rule. Only selected faces use cloned materials with replaced normal response.
+Existing linked roughness/metallic maps are preserved; configured constants apply
+only to unlinked sockets. Original material graphs, images, positions,
 weights and animation data are not intentionally modified by this adapter.
 The exporter still runs independently and must be verified.
 
 New atlas bakes declare `mikk-unshared-triangle-v-up-v2` in their plan and material
 reports. This matches Blender's per-triangle texture orientation even when authored
 corner normals point to opposite sides of a face. The exported correction requires
-that exact saved bake policy; missing or older policies fail. Rebuild the normal
+that exact saved bake policy, clone name, face count, UV index and PNG hash;
+missing or changed evidence fails. Original source UV1 tangents are not selected
+just because they use UV1. Rebuild the normal
 textures and tangents together, never reinterpret an old PNG by changing tangent
 signs alone. The [MikkTSpace implementation](https://github.com/mmikk/MikkTSpace/blob/master/mikktspace.c#L913-L926)
 defines this per-face orientation; native fixtures check Blender's actual result.
@@ -66,7 +70,8 @@ set the private export budget or raise resource limits.
 - Flow directions are computed once per call and shared read-only across
   material bakes. One float atlas is retained at a time; completed PNGs are
   packed without keeping each decoded float buffer resident.
-- Preexisting UV1, conflicting layer names, unsupported material graphs,
+- One or two original UV layers are supported, with active/render UV0. Three
+  source layers, conflicting layer names, unsupported material graphs,
   ambiguous polygon ownership, invalid frames or insufficient budgets fail
   explicitly. No source repaint, hidden remesh, budget increase or paid retry
   follows from failure.
@@ -96,10 +101,16 @@ It also checks unchanged source color pixels, geometry, UV0, excluded faces and
 active/render UV settings. Analytic triangles are not generated avatar examples.
 
 **Weft compatibility is unchanged:** its diffuse UV0-only importer does not accept
-this HD normal-mapped/UV1 representation. Do not strip detail silently or claim
+this HD normal-mapped/extra-UV representation. Do not strip detail silently or claim
 consumer acceptance from the authoring validator.
 
 ## Current verification
+
+The [UV2 preservation increment](undercoat-uv2-preservation.md) passes 111 unique
+focused checks and an actual analytic Blender bake/export. Original UV1 normal
+and roughness/metallic maps survive; only the explicitly authored tangent bytes
+change in the export derivative. This is component evidence, not full finishing
+acceptance of the repaired panda or a fresh Studio delivery.
 
 The integration passes **682 software tests**, an analytic native/exported frame
 proof, and an actual existing-source panda finish and reload. It has not passed

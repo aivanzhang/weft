@@ -235,10 +235,45 @@ def _undercoat_frame_policy(report, enabled):
             and isinstance(materials, list) and 1 <= len(materials) <= 4,
             'Adaptive undercoat frame-policy evidence is incomplete')
     require(all(isinstance(row, dict) and type(row.get('normal_texcoord')) is int
-                and row['normal_texcoord'] in (0, 1)
+                and row['normal_texcoord'] in (0, 1, 2)
                 and (row['normal_texcoord'] == 0 or row.get('frame_policy') == NORMAL_UV1_FRAME_POLICY)
                 for row in materials), 'Adaptive undercoat material was baked with a different frame policy')
     return NORMAL_UV1_FRAME_POLICY
+
+
+def _undercoat_tangent_targets(report, enabled):
+    if not enabled:
+        return None
+    _undercoat_frame_policy(report, True)
+    from avatar_assets.generated_tangents import validate_authored_normal_targets
+    undercoat = report['fur_undercoat']
+    targets = []
+    for row in undercoat['materials']:
+        if row['normal_texcoord'] == 0:
+            continue
+        targets.append({key: row.get(key) for key in
+                        ('material', 'normal_texcoord', 'selected_faces', 'texture_sha256', 'frame_policy')})
+    targets = validate_authored_normal_targets(targets)
+    if any(row['normal_texcoord'] == 2 for row in targets):
+        allocation, originals = undercoat.get('authored_uv'), undercoat.get('original_uv_layers')
+        require(isinstance(allocation, dict) and type(allocation.get('index')) is int and allocation['index'] == 2
+                and allocation.get('name') == 'AuthoredUndercoatUV2'
+                and isinstance(allocation.get('sha256'), str) and len(allocation['sha256']) == 64
+                and all(value in '0123456789abcdef' for value in allocation['sha256']),
+                'UV2 undercoat needs exact authored-layer evidence')
+        require(isinstance(originals, list) and len(originals) == 2
+                and all(isinstance(row, dict) and type(row.get('index')) is int and row['index'] == index
+                        and isinstance(row.get('name'), str) and row['name']
+                        and row.get('active_render') is (index == 0)
+                        and isinstance(row.get('sha256'), str) and len(row['sha256']) == 64
+                        and all(value in '0123456789abcdef' for value in row['sha256'])
+                        for index, row in enumerate(originals))
+                and len({row['name'] for row in originals}) == 2,
+                'UV2 undercoat needs preserved original UV0/UV1 evidence')
+        require(all(row['normal_texcoord'] == 2 and row.get('normal_uv_map') == allocation['name']
+                    for row in undercoat['materials'] if row['normal_texcoord'] != 0),
+                'Authored undercoat layer binding differs from allocation')
+    return targets
 
 
 def reuse_native(folder, out, cfg):
@@ -393,12 +428,11 @@ def finish(config_path, output, reuse=None):
         require(job['exit_code'] == 0 and not job['failure'], 'Finishing failed; inspect preserved attempt')
         report = read_json(out/'finish-report.json')
         from avatar_assets.generated_tangents import repair
-        frame_policy = _undercoat_frame_policy(report, undercoat_budget is not None)
+        tangent_targets = _undercoat_tangent_targets(report, undercoat_budget is not None)
         native_export = out/'model-native-export.glb'
         (out/'model.glb').rename(native_export)
         tangent_source = _portable_fringe_export(out, report) if fringe_budget is not None else native_export
-        tangent_report = repair(tangent_source, out/'model.glb', correct_normal_uv1=undercoat_budget is not None,
-                                normal_uv1_frame_policy=frame_policy)
+        tangent_report = repair(tangent_source, out/'model.glb', authored_normal_targets=tangent_targets)
         write_json(out/'tangent-repair.json', tangent_report)
         doc = _GLB(out/'model.glb').doc
         contract = rig_contract(doc, authored=bool(cfg.get('authored_rig')))

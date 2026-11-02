@@ -5,6 +5,39 @@ new accepted avatar. Approved panda/dragon assets remain unchanged. The public
 portable-fringe option stays unsupported. No new provider or pipeline-role AI
 calls, deployment, server or browser session occurred.
 
+## November 2 continuation — reference folds, not a successful repair
+
+Recorded November 2, 2026, 1:04 a.m. PST. The reference-only diagnosis
+`outputs/panda-cheek-reference-field-v1` reproduces the failed fit's exact 304
+supported corners: custom-normal p95 63.6724°, geometric-normal p95 64.24°.
+Twenty-three of the 24 supported outlier faces have source geometric creases
+above 30°; only seven have custom/geometric disagreement above 15°. Replacing
+custom normals alone does not remove the folded surface.
+
+A provenance/curvature-selected outer field has 44 cleaner faces across eight
+angular sectors, but supports only four of the 78 original boundary vertices.
+The resulting boundary cannot be assumed to join a smooth fitted patch.
+No new fit or model was produced. CPU 0.783 s / 148,914,176 B sampled RSS,
+PID 57710 exited. Manifest SHA256:
+`fc2b8c2b197569e084b9603dbc0b4dd4863decb807409dfe5b76b82350ae93ee`.
+
+The subsequent targeted scar-ownership screen, not a blind ring expansion,
+selects the exact 24 outliers and 67 connected high-dihedral contact faces.
+`outputs/panda-cheek-scar-selection-v1` retains all 118 protected faces and
+stays within the 512-face envelope: 215 replacement faces plus the one explicit
+retired flap. It still has three boundary cycles (59/3/3), one valence-four edge,
+invalid selected vertex links at 3009/3091 and 43 unsupported retained boundary
+faces. Boundary-normal p95 remains 67.30°. Result: **unsupported_stop_branch**.
+No fit, GLB or native preview followed. CPU 0.522 s / 108,838,912 B,
+PID 59162 exited. Manifest SHA256:
+`a20057d64c5f3f85cd06fc0f78b14846f9b072872936944ac9e04e686264aadd`.
+
+Do not repeat that selection, relax the unchanged 45° gate or silently alter
+protected boundaries. A different geometry method needs an explicit, valid
+topology and supported boundary before fitting. The independent
+[UV2 material-preservation improvement](undercoat-uv2-preservation.md) passes its
+component checks but has not delivered a fully repaired/furry avatar.
+
 ## Reproducible evidence
 
 Every directory below retains its controller/configuration snapshots, receipts

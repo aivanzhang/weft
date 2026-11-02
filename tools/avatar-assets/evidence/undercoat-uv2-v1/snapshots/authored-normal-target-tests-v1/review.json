@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "passed_analytic_contract_tests",
+  "reviewed_at": "2026-11-02T01:02:01.091625-08:00",
+  "new_tests": 11,
+  "legacy_tests": 11,
+  "total_tests": 22,
+  "unittest_seconds": 0.046,
+  "bounded_process_seconds": 0.262,
+  "sampled_peak_rss_bytes": null,
+  "rss_limit_mib": 512,
+  "rss_limitation": "Process exited before the first RSS sample; no measured peak is claimed.",
+  "process_exit_verified": true,
+  "sources_unchanged": true,
+  "concrete_blockers": [],
+  "verified": [
+    "Exact UV2 authored material, texture hash, face count and frame policy selection.",
+    "Known rotated, mirrored and smoothed frames produce the independently specified world-space normal vectors.",
+    "All bytes outside the selected tangent accessor remain identical, including original UV1 frames, both embedded PNGs, positions, normals, UVs, skin and animation.",
+    "Explicit empty targets preserve healthy source UV1 and UV2 bytes.",
+    "Invalid untargeted UV1/UV2 XYZ, orthogonality, handedness and normals reject without a derivative.",
+    "Unsafe storage aliases, incorrect materials/UV/count/hash, remote/data URLs, extensions, shared corners and over-budget primitives reject without writes.",
+    "Legacy UV1 opt-in tests retain their prior behavior."
+  ],
+  "limits": [
+    "Analytic fixtures, not actual native exporter or avatar appearance acceptance.",
+    "This suite does not prove source UV1 tangent orientation from an unknown bake; valid source frames are preserved byte-for-byte.",
+    "No native, browser, provider or AI-role calls."
+  ],
+  "test_source_sha256": "35e9c994e72e813ef9911bd0969659ee5f669d42b6fd048993e065608faafc1d",
+  "production_source_sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+}

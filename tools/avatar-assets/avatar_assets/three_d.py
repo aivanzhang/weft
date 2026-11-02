@@ -53,7 +53,7 @@ def validate_render_attributes(path):
             normal_uv = None
             if normal_mapped:
                 normal_uv = material["normalTexture"].get("texCoord", 0)
-                _require(type(normal_uv) is int and normal_uv in (0, 1), "Normal map requires exact integer UV index 0 or 1")
+                _require(type(normal_uv) is int and normal_uv in (0, 1, 2), "Normal map requires exact integer UV index 0, 1 or 2")
             _require("NORMAL" in attrs, "Portable surface requires normals")
             normals = surface_accessor(attrs["NORMAL"], "VEC3", (5126,), "normal")
             normal_error = max(abs(sum(value*value for value in row)-1) for row in normals)
@@ -61,7 +61,9 @@ def validate_render_attributes(path):
             _require(not normal_mapped or "TEXCOORD_"+str(normal_uv) in attrs and "TANGENT" in attrs,
                      f"Normal-mapped material requires UV{normal_uv} and tangents")
             verified_uv_sets = []
-            for uv_index in (0, 1):
+            _require(all(name in ("TEXCOORD_0", "TEXCOORD_1", "TEXCOORD_2")
+                         for name in attrs if name.startswith("TEXCOORD_")), "Unsupported surface UV attribute")
+            for uv_index in (0, 1, 2):
                 name = "TEXCOORD_"+str(uv_index)
                 if name in attrs:
                     surface_accessor(attrs[name], "VEC2", (5121, 5123, 5126), "UV"+str(uv_index))
@@ -81,14 +83,14 @@ def validate_render_attributes(path):
     _require(primitives, "No surface primitives to verify")
     return {"schema_version": 1, "status": "validated_render_attributes", "sha256": glb.hash,
             "vertices": vertices, "primitives": primitives, "decoded_scalar_values": glb.value_count,
-            "checks": ["finite normals/UV0/UV1/tangents", "matching counts", "unit normals/tangents",
-                       "orthogonal normal/tangent frames", "tangent handedness", "selected normal-map UV0/UV1 binding"],
+            "checks": ["finite normals/UV0/UV1/UV2/tangents", "matching counts", "unit normals/tangents",
+                       "orthogonal normal/tangent frames", "tangent handedness", "selected normal-map UV0/UV1/UV2 binding"],
             "tangent_uv_derivation_verified": False, "weft_runtime_verified": False,
             "limitations": ["Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
-                            "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."],
+                            "This HD check does not change Weft's diffuse UV0-only contract; normal maps and extra UV sets remain unsupported there."],
             "limits": {"vertices": MAX_VERTICES, "file_bytes": MAX_FILE_BYTES,
                        "decoded_surface_values": surface_value_limit, "decoded_global_values": MAX_ACCESSOR_VALUES,
-                       "normal_map_uv_indices": [0, 1],
+                       "normal_map_uv_indices": [0, 1, 2],
                        "normal_tangent_squared_length_tolerance": .001, "orthogonality_tolerance": .002}}
 
 

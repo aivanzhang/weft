@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 00:31 PST. Normal-transfer guard and contact-color checkpoint is verified and ready for its avatar-only save; the post-push result belongs in `.local/avatar-quality-publication-v10/receipt.json` and `outputs/contour-contact-checkpoint-v1/publication.json`. Previous avatar checkpoint `f05dc2f` is privately pushed. All owned workers exited. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits.
+- Recorded: 2026-11-02 01:04 PST. UV2 source-texture preservation is implemented and component-verified; its avatar-only save result belongs in `.local/avatar-quality-publication-v11/receipt.json` and `outputs/undercoat-uv2-checkpoint-v1/publication.json`. Previous checkpoint `5783a36` is privately pushed, verified in `.local/avatar-quality-publication-v10/receipt.json`; the corrected root-scoped clean check is in `outputs/contour-contact-checkpoint-v1/publication-verification.json`. All owned workers exited. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -50,7 +50,51 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   calls. The next safe work is a bounded local repair/quality guard, followed by
   scoped source/evidence checkpointing. Fresh Studio acceptance remains separate.
 
-### Current checkpoint: guard verified; contact color improves, cheek unresolved
+### Latest increment: preserve source maps; cheek branch remains unsupported
+
+- [UV2 handoff](docs/undercoat-uv2-preservation.md): adaptive undercoat now keeps
+  original UV0/UV1 and linked roughness/metallic maps. It adds a distinct UV2
+  atlas where needed. Export tangent correction requires the exact native clone,
+  face count, UV index, PNG hash and bake policy; original source UV1 is not
+  reinterpreted. Existing file/vertex/decoded-value bounds and Weft remain unchanged.
+- 111 unique focused checks pass: 74 root contracts, 26 adapter/planner checks,
+  11 new target-binding checks. The latter run also repeated 11 legacy checks;
+  do not count them twice or rerun unchanged passing tests. Raw evidence is in
+  `outputs/undercoat-target-contract-tests-v1`, `undercoat-source-uv-tests-v1`,
+  and `authored-normal-target-tests-v1`.
+- Actual analytic Blender bake/export `outputs/undercoat-uv2-native-v2` passes in
+  1.565 s / 292,388,864 B sampled RSS; PID 58824 exited. Preserve v1's checker-only
+  float64 image-array failure, PID 58626 exited. Production code was unchanged
+  for v2. The exact frozen preparation command is in the UV2 handoff.
+- Export check `outputs/undercoat-uv2-native-export-check-v1` passes in 0.263 s,
+  PID 59207 exited before an RSS sample. Original PNG bytes/routes and source UV1
+  survive; only 90 authored tangent bytes change. Corrected analytic GLB SHA
+  `f811549aae8f165cbc3e8f43e4ae6ea190f1fa862c872d1eddf733c1c46c8555`.
+  This fixture is not a generated avatar, full finishing or motion acceptance.
+- Exact compact evidence `evidence/undercoat-uv2-v1` contains 116 snapshots /
+  2,775,651 B, including analytic model/scene and failed attempts. Manifest SHA
+  `e092fa988c703ba144fa9781aa0f9a0382fd4cd5467867d233f79a8b27a8871c`.
+  Large real panda source models remain local with recorded hashes. Packaging
+  `outputs/undercoat-uv2-checkpoint-v1` passed in 0.265 s; PID 59785 exited, RSS
+  unsampled. No claim of full real-model remote backup is made.
+- Cheek diagnosis `outputs/panda-cheek-reference-field-v1` exactly reproduces
+  the old 304 supported corners. Geometric normals still disagree by p95 64.24°;
+  23/24 outlier faces touch real creases. Cleaner reference faces support only
+  4/78 original boundary vertices. Simply changing custom normals cannot solve it.
+- `outputs/panda-cheek-scar-selection-v1` is **unsupported_stop_branch**: 215
+  selected replacement faces plus the one retired flap stay below the 512-face
+  limit and preserve 118 protected faces, but still form three boundary loops,
+  a valence-four edge and invalid vertex links at 3009/3091. Forty-three retained
+  boundary faces lack clean support. No fit/model/render was produced; PID 59162
+  exited, 0.522 s / 108,838,912 B. Do not repeat this selection or loosen the 45° gate.
+- Next safe work: integrate the real UV-repaired source with explicit new-material
+  mask ownership, then full native/exported fur and motion review. Its old normal-
+  transfer recipe remains rejected; do not bypass that guard or enable fringe.
+  A new geometry method must resolve the preserved topology/boundary evidence
+  before another curved fit. The failed cheek branch is stopped, not the overall
+  goal. Fresh Studio acceptance and the pending paid allowance remain separate.
+
+### Previous checkpoint: normal guard and partial contact-color repair
 
 - [Normal-transfer guard](docs/normal-transfer-guard.md) implemented in the pure
   planner, native receipt writer and pipeline. Prepared jobs pin both helpers;

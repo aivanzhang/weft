@@ -26,6 +26,7 @@ CHUNK = 16384
 PROFILE = 'short-pile-v1'
 ADAPTIVE_UV_POLICY = 'material-adaptive-v1'
 NORMAL_UV1_NAME = 'AuthoredUndercoatUV1'
+NORMAL_UV2_NAME = 'AuthoredUndercoatUV2'
 
 
 def validate_undercoat(settings):
@@ -429,11 +430,12 @@ def _clone_material(original, image, uv_name, roughness):
         raise ValueError('Undercoat material copy did not isolate the source graph')
     clone.name = original.name+'__short_pile_adaptive_v1'
     shader = _material_shader(clone)
-    for name in ('Normal', 'Roughness', 'Metallic'):
-        for link in list(shader.inputs[name].links):
-            clone.node_tree.links.remove(link)
-    shader.inputs['Roughness'].default_value = roughness
-    shader.inputs['Metallic'].default_value = 0
+    for link in list(shader.inputs['Normal'].links):
+        clone.node_tree.links.remove(link)
+    # Existing response maps can depend on preserved source UV1.
+    for name, value in (('Roughness', roughness), ('Metallic', 0)):
+        if not shader.inputs[name].links:
+            shader.inputs[name].default_value = value
     uv = clone.node_tree.nodes.new('ShaderNodeUVMap')
     uv.uv_map = uv_name
     texture = clone.node_tree.nodes.new('ShaderNodeTexImage')
@@ -475,8 +477,59 @@ def _original_uv_layer(mesh, index, name):
     # Tangent/UV CustomData allocation can invalidate previously saved RNA handles.
     layer = mesh.uv_layers[index]
     if layer.name != name:
-        raise ValueError('Original undercoat UV0 identity changed unexpectedly')
+        raise ValueError(f'Original undercoat UV{index} identity changed unexpectedly')
     return layer
+
+
+def plan_undercoat_uv_layers(names, active_index, active_render, attribute_names):
+    """Keep at most two source layers; allocate only the next index, never an arbitrary UV slot."""
+    if (not isinstance(names, (list, tuple)) or not 1 <= len(names) <= 2 or
+            any(not isinstance(name, str) or not name or len(name.encode('utf-8')) > 63
+                or not name.isprintable() for name in names) or len(set(names)) != len(names)):
+        raise ValueError('Adaptive undercoat requires one or two uniquely named source UV layers')
+    if (type(active_index) is not int or active_index != 0 or
+            not isinstance(active_render, (list, tuple)) or len(active_render) != len(names) or
+            any(type(value) is not bool for value in active_render) or
+            list(active_render) != [True]+[False]*(len(names)-1)):
+        raise ValueError('Adaptive undercoat requires active and render UV0')
+    if (not isinstance(attribute_names, (list, tuple)) or len(attribute_names) > 256 or
+            any(not isinstance(name, str) for name in attribute_names)):
+        raise ValueError('Adaptive undercoat attribute inventory is invalid or oversized')
+    if any(name.startswith('AuthoredUndercoatUV') for name in (*names, *attribute_names)):
+        raise ValueError('Authored undercoat UV name conflicts with existing data')
+    index = len(names)
+    return {'original_indices': list(range(index)), 'original_names': list(names),
+        'authored_index': index, 'authored_name': NORMAL_UV1_NAME if index == 1 else NORMAL_UV2_NAME,
+        'max_source_layers': 2, 'max_total_layers': 3}
+
+
+def _uv_values(mesh, index, name):
+    values = np.asarray([tuple(value.uv) for value in _original_uv_layer(mesh, index, name).data], dtype=np.float32)
+    values = _array(values, (len(mesh.loops), 2), f'UV{index}')
+    if np.any(np.abs(values) > 1e6):
+        raise ValueError(f'Original undercoat UV{index} exceeds the coordinate bound')
+    return values
+
+
+def _restore_uv_defaults(mesh, originals, authored_index):
+    mesh.uv_layers.active_index = 0
+    if authored_index is not None:
+        mesh.uv_layers[authored_index].active_render = False
+    for row in originals:
+        _original_uv_layer(mesh, row['index'], row['name']).active_render = row['active_render']
+
+
+def _response_policy(material, roughness):
+    shader = _material_shader(material)
+    result = {}
+    for name, value in (('Roughness', roughness), ('Metallic', 0)):
+        socket = shader.inputs[name]
+        if len(socket.links) > 1:
+            raise ValueError('Adaptive undercoat response socket has ambiguous links')
+        result[name.lower()] = {'mode': 'preserved_link' if socket.links else 'authored_constant',
+            'authored_value': None if socket.links else value,
+            'original_default_value': float(socket.default_value), 'original_link_count': len(socket.links)}
+    return result
 
 
 def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget):
@@ -492,12 +545,16 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
         raise ValueError('Adaptive undercoat needs bounded mesh/materials and shared prepared flow')
     _export_budget(export_vertex_budget, len(mesh.vertices))
     mask = _array(mask, (len(mesh.vertices),), 'vertex mask', 'b')
-    if len(mesh.uv_layers) != 1 or mesh.uv_layers.active_index != 0:
-        raise ValueError('Adaptive undercoat requires only original UV0; preexisting UV1 is unsupported')
-    original_uv_name = mesh.uv_layers[0].name
-    if original_uv_name == NORMAL_UV1_NAME or mesh.attributes.get(NORMAL_UV1_NAME) is not None:
-        raise ValueError('Authored undercoat UV1 name conflicts with existing data')
-    original_active, original_render = mesh.uv_layers.active_index, mesh.uv_layers[0].active_render
+    allocation = plan_undercoat_uv_layers([layer.name for layer in mesh.uv_layers], mesh.uv_layers.active_index,
+        [layer.active_render for layer in mesh.uv_layers], list(mesh.attributes.keys()))
+    original_uv_name = allocation['original_names'][0]
+    original_active, original_render = 0, True
+    original_arrays, original_layers = [], []
+    for index, name in enumerate(allocation['original_names']):
+        values = _uv_values(mesh, index, name)
+        original_arrays.append(values)
+        original_layers.append({'index': index, 'name': name, 'sha256': hashlib.sha256(values.tobytes()).hexdigest(),
+            'active_render': mesh.uv_layers[index].active_render})
     mesh.calc_loop_triangles()
     if not 1 <= len(mesh.loop_triangles) <= MAX_TRIANGLES:
         raise ValueError('Undercoat triangle count exceeds bounds')
@@ -512,15 +569,20 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
     slots = np.unique(material_ids[selected])
     if np.any(slots < 0) or np.any(slots >= len(mesh.materials)) or len(mesh.materials)+len(slots) > 32:
         raise ValueError('Adaptive undercoat material ownership or clone count exceeds bounds')
-    for slot in slots:
-        _material_shader(mesh.materials[int(slot)])
-    uv0_loops = np.asarray([tuple(value.uv) for value in
-        _original_uv_layer(mesh, original_active, original_uv_name).data], dtype=np.float32)
+    response_policies = {int(slot): _response_policy(mesh.materials[int(slot)], settings['roughness']) for slot in slots}
+    uv0_loops = original_arrays[0]
     uv0 = uv0_loops[loops]
     normals = np.asarray([tuple(value.vector) for value in mesh.corner_normals], dtype=np.float32)[loops]
     normals = _array(normals, (len(triangles), 3, 3), 'normals')
     plan, payloads = plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, settings,
                                            export_vertex_budget=export_vertex_budget)
+    authored_index = allocation['authored_index'] if payloads else None
+    authored_name = allocation['authored_name'] if payloads else None
+    plan['uv_layer_allocation'] = allocation
+    plan['authored_normal_texcoord'] = authored_index
+    for region in plan['regions']:
+        region['normal_texcoord'] = authored_index if region['region_id'] in payloads else 0
+        region['atlas_method_names_are_layout_labels'] = True
     paths = {int(slot): Path(out)/'textures'/f'authored-short-pile-normal-material-{int(slot):02d}.png' for slot in slots}
     if any(path.exists() for path in paths.values()):
         raise ValueError('Adaptive undercoat texture output already exists')
@@ -530,12 +592,12 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
     signs = np.asarray([value.bitangent_sign for value in mesh.loops], dtype=np.float32)[loops]
     tangents = _array(tangents, (len(triangles), 3, 3), 'tangents')
     signs = _array(signs, (len(triangles), 3), 'bitangent signs')
-    uv1_loops, authored = uv0_loops.copy(), {}
+    atlas_loops, authored = uv0_loops.copy(), {}
     for slot, payload in payloads.items():
         ids = payload['face_ids']
         frames = atlas_tangents(vertices, triangles, ids, payload['uvs'], normals[ids])
         authored[slot] = frames
-        uv1_loops[loops[ids].ravel()] = payload['uvs'].reshape(-1, 2)
+        atlas_loops[loops[ids].ravel()] = payload['uvs'].reshape(-1, 2)
     for slot in slots:
         ids = np.flatnonzero(selected & (material_ids == slot))
         unit_normal = _unit(normals[ids])
@@ -549,13 +611,12 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
     directions = _prepare_directions(vertices, prepared_flow, started)
     flow_elapsed = time.monotonic()-flow_started
     if payloads:
-        new_uv = mesh.uv_layers.new(name=NORMAL_UV1_NAME)
-        if new_uv.name != NORMAL_UV1_NAME:
-            raise ValueError('Native UV1 layer name changed unexpectedly')
-        new_uv.data.foreach_set('uv', uv1_loops.ravel())
+        new_uv = mesh.uv_layers.new(name=authored_name)
+        if new_uv.name != authored_name or len(mesh.uv_layers) != authored_index+1:
+            raise ValueError('Native authored UV layer identity or index changed unexpectedly')
+        new_uv.data.foreach_set('uv', atlas_loops.ravel())
         new_uv.active_render = False
-        mesh.uv_layers.active_index = original_active
-        _original_uv_layer(mesh, original_active, original_uv_name).active_render = original_render
+        _restore_uv_defaults(mesh, original_layers, authored_index)
     Path(out, 'textures').mkdir(exist_ok=True)
     work = {'started': started, 'remaining_raster': MAX_RASTER_WORK-plan['raster_candidates']}
     rows, clones = [], {}
@@ -563,7 +624,7 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
         slot = region['region_id']
         ids = np.flatnonzero(selected & (material_ids == slot))
         authored_uv = slot in payloads
-        target_uv = NORMAL_UV1_NAME if authored_uv else original_uv_name
+        target_uv = authored_name if authored_uv else original_uv_name
         frames = authored.get(slot)
         bake_settings = {key: value for key, value in settings.items() if key != 'uv_policy'}
         bake_settings.update(resolution=1024 if authored_uv else settings['resolution'], min_faces=1, max_faces=len(ids))
@@ -583,7 +644,8 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
         mesh.materials.append(clone)
         rows.append({'source_material': original.name, 'material': clone.name,
             'source_material_index': slot, 'selected_faces': len(ids), 'normal_uv_map': target_uv,
-            'normal_texcoord': 1 if authored_uv else 0, 'basecolor_graph_preserved': True,
+            'normal_texcoord': authored_index if authored_uv else 0, 'basecolor_graph_preserved': True,
+            'response_policy': 'preserve-linked-response-v1', 'response_sockets': response_policies[slot],
             'frame_policy': NORMAL_UV1_FRAME_POLICY if authored_uv else None,
             'texture_path': str(paths[slot].relative_to(out)), 'texture_sha256': image_hash,
             'bake': baked, 'atlas': payloads[slot]['report'] if authored_uv else None,
@@ -591,14 +653,13 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
     for index in polygons:
         polygon = mesh.polygons[int(index)]
         polygon.material_index = clones[polygon.material_index]
-    mesh.uv_layers.active_index = original_active
-    uv_layer = _original_uv_layer(mesh, original_active, original_uv_name)
-    uv_layer.active_render = original_render
-    if payloads:
-        mesh.uv_layers[1].active_render = False
-    actual_uv0 = np.asarray([tuple(value.uv) for value in uv_layer.data], dtype=np.float32)
-    if not np.array_equal(actual_uv0, uv0_loops):
-        raise ValueError('Original undercoat UV0 changed unexpectedly')
+    _restore_uv_defaults(mesh, original_layers, authored_index)
+    for row, before in zip(original_layers, original_arrays):
+        if not np.array_equal(_uv_values(mesh, row['index'], row['name']), before):
+            raise ValueError(f'Original undercoat UV{row["index"]} changed unexpectedly')
+    authored_hash = hashlib.sha256(atlas_loops.tobytes()).hexdigest() if payloads else None
+    if payloads and not np.array_equal(_uv_values(mesh, authored_index, authored_name), atlas_loops):
+        raise ValueError('Authored undercoat UV coordinates changed unexpectedly')
     return {'schema_version': 1, 'profile': PROFILE, 'settings': settings, 'uv_policy': ADAPTIVE_UV_POLICY,
         'frame_policy': NORMAL_UV1_FRAME_POLICY,
         'plan': plan, 'materials': rows, 'selected_triangles': int(selected.sum()),
@@ -606,7 +667,9 @@ def _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_ve
         'excluded_polygons': len(mesh.polygons)-len(polygons),
         'selected_faces_sha256': hashlib.sha256(np.flatnonzero(selected).astype('<i4').tobytes()).hexdigest(),
         'original_uv0_sha256': hashlib.sha256(uv0_loops.tobytes()).hexdigest(),
-        'authored_uv1_sha256': hashlib.sha256(uv1_loops.tobytes()).hexdigest() if payloads else None,
+        'authored_uv1_sha256': authored_hash if authored_index == 1 else None,
+        'authored_uv': {'index': authored_index, 'name': authored_name, 'sha256': authored_hash} if payloads else None,
+        'original_uv_layers': original_layers, 'response_policy': 'preserve-linked-response-v1',
         'original_active_uv_index': original_active, 'original_uv0_active_render': original_render,
         'original_uvs_changed': False, 'original_materials_preserved': True, 'source_images_unchanged': True,
         'original_normal_replaced_only_on_selected_faces': True, 'palette_changed': False,

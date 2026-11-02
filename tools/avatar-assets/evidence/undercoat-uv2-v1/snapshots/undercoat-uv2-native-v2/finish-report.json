@@ -1,0 +1,306 @@
+{
+  "fur_undercoat": {
+    "assumption": "Authored optional short-pile surface detail, not dense fur, recovered fibers or measured coat coverage",
+    "authored_uv": {
+      "index": 2,
+      "name": "AuthoredUndercoatUV2",
+      "sha256": "1c9b23ae70cd0fd393b6e2f0db91fd9fa7c4c7f1a03c149621f0642e9fc7eed0"
+    },
+    "authored_uv1_sha256": null,
+    "elapsed_seconds": 0.847485,
+    "excluded_polygons": 1,
+    "excluded_triangles": 1,
+    "frame_policy": "mikk-unshared-triangle-v-up-v2",
+    "geometry_displaced": false,
+    "materials": [
+      {
+        "atlas": null,
+        "authored_tangents_sha256": null,
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 524800,
+          "elapsed_seconds": 0.425294,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 19.86899676622974,
+          "normal_float32_sha256": "c3208919cb15ecb769e4043471cf664a410cec664dffbb6e8d816a7d1da53a6f",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 1048576,
+          "selected_faces_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+          "selected_triangles": 1,
+          "settings": {
+            "max_faces": 1,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 41,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 1
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": null,
+        "material": "HealthyUV0__short_pile_adaptive_v1",
+        "normal_texcoord": 0,
+        "normal_uv_map": "OriginalUV0",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.0,
+            "original_link_count": 1
+          },
+          "roughness": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.5,
+            "original_link_count": 1
+          }
+        },
+        "selected_faces": 1,
+        "source_material": "HealthyUV0",
+        "source_material_index": 0,
+        "texture_path": "textures/authored-short-pile-normal-material-00.png",
+        "texture_sha256": "36275dd52868ef3000da36d670ebf96721622eed838cf71625cabb72165ba261"
+      },
+      {
+        "atlas": {
+          "authored_not_recovered": true,
+          "cell_pixels": 512,
+          "columns": 2,
+          "faces": 4,
+          "frame_policy": "mikk-unshared-triangle-v-up-v2",
+          "geometry_changed": false,
+          "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+          "max_meters_per_texel": 5.578751860423712e-05,
+          "median_meters_per_texel": 5.578751860423712e-05,
+          "padding_px": 2,
+          "resolution": 1024,
+          "uv0_changed": false,
+          "uv1_float32_sha256": "ef614e4aa3312164576924cdbb68f6f02c85ce8e7b0b412fdf54a69d0ff64a61"
+        },
+        "authored_tangents_sha256": "9491c973107a6952e54e0d1b2f600625e2a686c15af935d1f84d4ed07a877704",
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 258658,
+          "elapsed_seconds": 0.704748,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 19.200696790904225,
+          "normal_float32_sha256": "1f8a87be9de8e53f8f7105be925d2143d4ef04f7fb443e9b98b1a04e7ef01465",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 516128,
+          "selected_faces_sha256": "baed642339816affb3fe8719792d0e4ce82f12db72b7373d244eaa65445800fe",
+          "selected_triangles": 4,
+          "settings": {
+            "max_faces": 4,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 41,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 4
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "AliasedUV0__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "normal_uv_map": "AuthoredUndercoatUV2",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.0,
+            "original_link_count": 1
+          },
+          "roughness": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.5,
+            "original_link_count": 1
+          }
+        },
+        "selected_faces": 4,
+        "source_material": "AliasedUV0",
+        "source_material_index": 1,
+        "texture_path": "textures/authored-short-pile-normal-material-01.png",
+        "texture_sha256": "ede6205d251c89f172dec4055c59edd7182cbeb3e559c043584163002dd93f12"
+      }
+    ],
+    "max_simultaneous_float_atlases": 1,
+    "original_active_uv_index": 0,
+    "original_materials_preserved": true,
+    "original_normal_replaced_only_on_selected_faces": true,
+    "original_uv0_active_render": true,
+    "original_uv0_sha256": "e1dc37aded76513ca2a399745b249dd818de30123e170abefe7e367ac1b8c1aa",
+    "original_uv_layers": [
+      {
+        "active_render": true,
+        "index": 0,
+        "name": "OriginalUV0",
+        "sha256": "e1dc37aded76513ca2a399745b249dd818de30123e170abefe7e367ac1b8c1aa"
+      },
+      {
+        "active_render": false,
+        "index": 1,
+        "name": "SourceUV1",
+        "sha256": "976a1d95e1a982d7e1bad30cf9f9e5e6e9b020897b5fb9240a0a0a74e1e6ff97"
+      }
+    ],
+    "original_uvs_changed": false,
+    "palette_changed": false,
+    "plan": {
+      "additional_export_vertices": 6,
+      "additional_material_seam_reserve_vertices": 0,
+      "aggregate_raster_limit": 32000000,
+      "aggregate_runtime_seconds": 90.0,
+      "atlas_regions": [
+        1
+      ],
+      "authored_normal_texcoord": 2,
+      "automatic_quality_policy_promoted": false,
+      "elapsed_seconds": 0.141816,
+      "excluded_triangles": 1,
+      "export_vertex_budget": {
+        "portable_export_vertices": 0,
+        "reserve_vertices": 4096,
+        "source_export_vertices": 18
+      },
+      "frame_policy": "mikk-unshared-triangle-v-up-v2",
+      "hd_only": true,
+      "limitations": [
+        "Normal UV1 and selected tangents are authored, not recovered.",
+        "Weft rejects normal maps and TEXCOORD_1; no importer change is implied.",
+        "This plan establishes no visible softness or animation quality."
+      ],
+      "max_simultaneous_float_atlases": 1,
+      "normal_texture_policy": "One normal image per selected material region",
+      "original_uv0_unchanged": true,
+      "pitch_m": 0.004,
+      "projected_export_vertex_ceiling": 4120,
+      "quality_approved": false,
+      "raster_candidates": 5242880,
+      "regions": [
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 0,
+          "covered_texels": 524800,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 1.952171979973131e-05,
+          "effective_texels_per_pitch": 204.8999801777226,
+          "material_split_corner_bound": 2,
+          "material_split_extra_vertices": 2,
+          "method": "keep_uv0",
+          "normal_texcoord": 0,
+          "raster_candidates": 1048576,
+          "reasons": [],
+          "region_id": 0,
+          "selected_faces": 1,
+          "selection_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.00019999999105930338,
+          "unique_conflicting_texels": 0,
+          "uv1_extra_vertices": 0
+        },
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 1049600,
+          "covered_texels": 1048576,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 2.762135930893375e-05,
+          "effective_texels_per_pitch": 144.81546528038737,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "authored_uv1",
+          "normal_texcoord": 2,
+          "raster_candidates": 4194304,
+          "reasons": [
+            "different_surface_uv_aliases"
+          ],
+          "region_id": 1,
+          "selected_faces": 4,
+          "selection_sha256": "5b3f9ec0646608dae43294162f92f82b97e7011a2bfa51a25fe477d18bdc6b21",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.0008000000387430178,
+          "unique_conflicting_texels": 1048576,
+          "uv1_extra_vertices": 4
+        }
+      ],
+      "reserve_vertices": 4096,
+      "resolution": 1024,
+      "schema_version": 1,
+      "scope": "Per-material alias/density measurements; not visual quality or recovered fur",
+      "selected_triangles": 5,
+      "source_export_vertices": 18,
+      "source_export_vertices_scope": "Pinned source GLB vertices plus planned whole-coat exported corners; not a measured source-only count",
+      "uv_layer_allocation": {
+        "authored_index": 2,
+        "authored_name": "AuthoredUndercoatUV2",
+        "max_source_layers": 2,
+        "max_total_layers": 3,
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_names": [
+          "OriginalUV0",
+          "SourceUV1"
+        ]
+      },
+      "uv_policy": "material-adaptive-v1",
+      "weft_appearance_compatible": false
+    },
+    "profile": "short-pile-v1",
+    "quality_approved": false,
+    "raster_candidate_pixels_including_plan": 6807584,
+    "response_policy": "preserve-linked-response-v1",
+    "schema_version": 1,
+    "selected_faces_sha256": "05ef821dcea36df53b6d8c2c96ecebf0066171f03cbc1c6e7c1a6f76d2991cfd",
+    "selected_polygons": 5,
+    "selected_triangles": 5,
+    "settings": {
+      "max_faces": 10,
+      "min_faces": 1,
+      "pitch_m": 0.004,
+      "profile": "short-pile-v1",
+      "resolution": 1024,
+      "roughness": 0.92,
+      "seed": 41,
+      "strength": 0.22,
+      "uv_policy": "material-adaptive-v1"
+    },
+    "shared_flow": {
+      "array_bytes": 144,
+      "directions_float32_sha256": "4c36d8ba03877d0193e8b3d86b106ceda28c81d8ff14827ffaad1d1059e3e307",
+      "elapsed_seconds": 5.9e-05,
+      "evaluated_vertices": 12,
+      "material_bakes": 2,
+      "read_only": true
+    },
+    "skin_or_animation_changed": false,
+    "source_images_unchanged": true,
+    "uv_policy": "material-adaptive-v1",
+    "weft_appearance_compatible": false
+  }
+}

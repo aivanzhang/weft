@@ -53,27 +53,76 @@ def _exclusive_tangents(glb, accessor_index, count, owner):
     return start
 
 
-def _uv1_corrections(glb):
+def validate_authored_normal_targets(targets):
+    require(isinstance(targets, list) and len(targets) <= MAX_UV1_PRIMITIVES,
+            'Authored normal targets must be a bounded list')
+    names, result = set(), []
+    fields = {'material', 'normal_texcoord', 'selected_faces', 'texture_sha256', 'frame_policy'}
+    for row in targets:
+        require(isinstance(row, dict) and set(row) == fields, 'Invalid authored normal target fields')
+        name, digest = row['material'], row['texture_sha256']
+        require(isinstance(name, str) and 0 < len(name) <= 256 and name not in names,
+                'Authored normal targets need unique material names')
+        require(type(row['normal_texcoord']) is int and row['normal_texcoord'] in (1, 2),
+                'Authored normal target requires UV1 or UV2')
+        require(type(row['selected_faces']) is int and 1 <= row['selected_faces'] <= MAX_UV1_FACES,
+                'Authored normal target face count exceeds bounds')
+        require(isinstance(digest, str) and len(digest) == 64
+                and all(value in '0123456789abcdef' for value in digest),
+                'Authored normal target needs an exact texture hash')
+        require(row['frame_policy'] == NORMAL_UV1_FRAME_POLICY,
+                'Authored normal target needs the exact baked frame policy')
+        names.add(name)
+        result.append(dict(row))
+    return result
+
+
+def _target_materials(glb, targets):
+    materials, result = glb.doc.get('materials', []), {}
+    for target in targets:
+        matches = [index for index, material in enumerate(materials) if material.get('name') == target['material']]
+        require(len(matches) == 1, 'Authored normal material is absent or ambiguous')
+        index = matches[0]
+        normal = materials[index].get('normalTexture')
+        require(isinstance(normal, dict) and type(normal.get('texCoord', 0)) is int
+                and normal.get('texCoord', 0) == target['normal_texcoord'],
+                'Authored normal material UV binding differs from the bake receipt')
+        texture = glb.doc['textures'][normal['index']]
+        image = glb.doc['images'][texture['source']]
+        require(image['mimeType'] == 'image/png', 'Authored normal bake requires embedded PNG bytes')
+        view = glb.doc['bufferViews'][image['bufferView']]
+        start = view.get('byteOffset', 0)
+        digest = hashlib.sha256(glb.binary[start:start+view['byteLength']]).hexdigest()
+        require(digest == target['texture_sha256'], 'Authored normal texture differs from the bake receipt')
+        result[index] = target
+    return result
+
+
+def _uv1_corrections(glb, targets=None):
     doc, planned = glb.doc, []
+    selected = _target_materials(glb, targets) if targets is not None else None
+    face_counts = {index: 0 for index in selected} if selected is not None else {}
     for mesh_index, mesh in enumerate(doc.get('meshes', [])):
         for primitive_index, primitive in enumerate(mesh.get('primitives', [])):
-            material = doc.get('materials', [])[_index(primitive.get('material'),
-                len(doc.get('materials', [])), 'UV1 material')]
+            material_index = _index(primitive.get('material'), len(doc.get('materials', [])), 'UV1 material')
+            material = doc['materials'][material_index]
             normal = material.get('normalTexture')
             if normal is None:
                 continue
             uv_index = normal.get('texCoord', 0)
-            require(type(uv_index) is int and uv_index in (0, 1), 'Invalid normal-map UV selector')
-            if uv_index == 0:
+            require(type(uv_index) is int and uv_index in ((0, 1, 2) if selected is not None else (0, 1)),
+                    'Invalid normal-map UV selector')
+            if uv_index == 0 or selected is not None and material_index not in selected:
                 continue
             require(len(planned) < MAX_UV1_PRIMITIVES, 'UV1 correction exceeds four primitives')
             require(type(primitive.get('mode', 4)) is int and primitive.get('mode', 4) == 4
                     and not primitive.get('targets'), 'UV1 correction requires unmorphed indexed triangles')
             attrs = primitive.get('attributes', {})
-            require({'POSITION', 'NORMAL', 'TEXCOORD_1', 'TANGENT'} <= set(attrs),
-                    'UV1 correction needs positions, normals, UV1 and tangents')
+            uv_name = 'TEXCOORD_'+str(uv_index)
+            require({'POSITION', 'NORMAL', uv_name, 'TANGENT'} <= set(attrs),
+                    'Authored correction needs positions, normals, selected UV and tangents')
             ids = {name: _index(attrs[name], len(doc['accessors']), 'UV1 '+name+' accessor')
-                   for name in ('POSITION', 'NORMAL', 'TEXCOORD_1', 'TANGENT')}
+                   for name in ('POSITION', 'NORMAL', uv_name, 'TANGENT')}
             index_id = _index(primitive.get('indices'), len(doc['accessors']), 'UV1 index accessor')
             index_spec = doc['accessors'][index_id]
             require(type(index_spec.get('componentType')) is int and index_spec['componentType'] in (5121, 5123, 5125),
@@ -83,13 +132,17 @@ def _uv1_corrections(glb):
             maximum = MAX_UV1_FACES*3
             points = _array(glb, ids['POSITION'], 3, 5126, maximum).astype(np.float64)
             normals = _array(glb, ids['NORMAL'], 3, 5126, maximum).astype(np.float64)
-            uv = _array(glb, ids['TEXCOORD_1'], 2, 5126, maximum).astype(np.float64)
+            uv = _array(glb, ids[uv_name], 2, 5126, maximum).astype(np.float64)
             old = _array(glb, ids['TANGENT'], 4, 5126, maximum)
             indices = _array(glb, index_id, 1, index_spec['componentType'], maximum).ravel()
             count = len(points)
             require(len(normals) == len(uv) == len(old) == len(indices) == count and count % 3 == 0
                     and indices.max() < count and np.all(np.bincount(indices, minlength=count) == 1),
                     'UV1 atlas must reference every corner vertex exactly once')
+            if selected is not None:
+                face_counts[material_index] += count//3
+                require(face_counts[material_index] <= selected[material_index]['selected_faces'],
+                        'Authored normal face count differs from the bake receipt')
             require(np.all(uv >= -1e-6) and np.all(uv <= 1+1e-6), 'UV1 atlas coordinates exceed bounds')
             sizes = np.linalg.norm(normals, axis=1)
             require(np.all(np.abs(sizes-1) < .001), 'UV1 correction requires unit normals')
@@ -122,25 +175,35 @@ def _uv1_corrections(glb):
             data = corrected.tobytes()
             planned.append({'owner': (mesh_index, primitive_index), 'offset': offset, 'data': data,
                 'report': {'mesh': mesh_index, 'primitive': primitive_index, 'faces': count//3,
+                    'material': material.get('name'), 'normal_texcoord': uv_index,
                     'vertices': count, 'tangent_accessor': ids['TANGENT'],
                     'source_tangents_sha256': hashlib.sha256(old.tobytes()).hexdigest(),
                     'authored_tangents_sha256': hashlib.sha256(data).hexdigest()}})
+    require(selected is None or all(face_counts[index] == target['selected_faces']
+                                   for index, target in selected.items()),
+            'Authored normal face count differs from the bake receipt')
     return planned
 
 
-def repair(source, target, *, correct_normal_uv1=False, normal_uv1_frame_policy=None):
+def repair(source, target, *, correct_normal_uv1=False, normal_uv1_frame_policy=None,
+           authored_normal_targets=None):
     require(type(correct_normal_uv1) is bool, 'UV1 correction must be explicitly boolean')
     require((correct_normal_uv1 and type(normal_uv1_frame_policy) is str
              and normal_uv1_frame_policy == NORMAL_UV1_FRAME_POLICY)
             or (not correct_normal_uv1 and normal_uv1_frame_policy is None),
             'UV1 correction requires the exact new baked frame policy; legacy or missing policy is unsupported')
+    if authored_normal_targets is not None:
+        require(not correct_normal_uv1 and normal_uv1_frame_policy is None,
+                'Authored normal targets cannot be combined with legacy UV1 correction')
+        authored_normal_targets = validate_authored_normal_targets(authored_normal_targets)
     require(not target.exists(), 'Tangent derivative already exists')
     glb = _GLB(source)
     raw = bytearray(source.read_bytes())
     require(hashlib.sha256(raw).hexdigest() == glb.hash, 'Native tangent source changed during read')
     json_size = struct.unpack_from('<I', raw, 12)[0]
     binary_start = 28+json_size
-    corrections = _uv1_corrections(glb) if correct_normal_uv1 else []
+    corrections = (_uv1_corrections(glb, authored_normal_targets) if authored_normal_targets is not None
+                   else _uv1_corrections(glb) if correct_normal_uv1 else [])
     corrected_owners = {entry['owner'] for entry in corrections}
     for entry in corrections:
         start = binary_start+entry['offset']
@@ -156,6 +219,13 @@ def repair(source, target, *, correct_normal_uv1=False, normal_uv1_frame_policy=
             lengths = np.linalg.norm(tangent[:, :3], axis=1)
             undefined = np.flatnonzero((lengths < 1e-8) | (np.abs((tangent[:, :3]*normals).sum(axis=1)) >= .002))
             require(np.all((lengths < 1e-8) | (np.abs(lengths-1) < .001)), 'Nonzero invalid tangents need explicit review')
+            if authored_normal_targets is not None:
+                material = glb.doc['materials'][primitive['material']]
+                normal_uv = material.get('normalTexture', {}).get('texCoord', 0)
+                require(normal_uv == 0 or len(undefined) == 0
+                        and np.all(np.abs(np.linalg.norm(normals, axis=1)-1) < .001)
+                        and np.all(np.abs(np.abs(tangent[:, 3])-1) < 1e-6),
+                        'Unselected source normal-map tangents require explicit repair; preserving their UV frame')
             total += len(tangent)
             a = glb.doc['accessors'][attrs['TANGENT']]
             view = glb.doc['bufferViews'][a['bufferView']]
@@ -177,11 +247,16 @@ def repair(source, target, *, correct_normal_uv1=False, normal_uv1_frame_policy=
             'method': 'Orthogonalize rare invalid export tangents; choose an axis fallback only for zero/parallel tangents',
             'geometry_uv_weights_motion_unchanged': True, 'texture_bytes_unchanged': True,
             'limitation': 'Normal-map direction at degenerate UVs is authored, not recovered'}
-    if correct_normal_uv1:
-        report['normal_uv1_correction'] = {'policy': NORMAL_UV1_FRAME_POLICY,
+    if correct_normal_uv1 or authored_normal_targets is not None:
+        key = 'normal_uv1_correction' if correct_normal_uv1 else 'authored_normal_correction'
+        report[key] = {'policy': NORMAL_UV1_FRAME_POLICY,
             'primitives': [entry['report'] for entry in corrections],
             'vertices': sum(entry['report']['vertices'] for entry in corrections),
             'uv_basis': 'Blender bake basis (u, 1-v_export); preserve PNG green-axis handedness',
             'uv1_correction_changes_only_selected_tangent_float4_bytes': True, 'quality_approved': False,
             'limits': {'primitives': MAX_UV1_PRIMITIVES, 'faces_per_primitive': MAX_UV1_FACES}}
+        if authored_normal_targets is not None:
+            report[key]['targets'] = authored_normal_targets
+            report[key]['authored_correction_changes_only_selected_tangent_float4_bytes'] = True
+            report[key].pop('uv1_correction_changes_only_selected_tangent_float4_bytes')
     return report

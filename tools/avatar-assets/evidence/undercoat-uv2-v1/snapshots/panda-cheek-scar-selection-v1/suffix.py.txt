@@ -1,0 +1,120 @@
+REF=ROOT/'outputs/panda-cheek-reference-field-v1'
+ref_report=json.loads((REF/'support-reconciliation.json').read_text())
+diagnostics=json.loads((REF/'face-diagnostics.json').read_text())
+field=json.loads((REF/'proposed-reference-field.json').read_text())['field']
+old_fit=json.loads((ROOT/'outputs/panda-cheek-curved-candidate-v1/fit-report.json').read_text())
+parameters=json.loads((OUT/'parameters.json').read_text())
+extra_inputs=[REF/'manifest.json',REF/'support-reconciliation.json',REF/'face-diagnostics.json',
+              REF/'proposed-reference-field.json',ROOT/'outputs/panda-cheek-curved-candidate-v1/fit-report.json']
+write('extra-inputs.json',[{'path':str(p.relative_to(ROOT)),'bytes':p.stat().st_size,'sha256':digest(p)}for p in extra_inputs])
+by_id={(int(r['source_primitive']),int(r['source_triangle'])):r for r in diagnostics}
+witness_ids={(0,int(r['source_triangle']))for r in ref_report['supported_outlier_faces']}
+require_witnesses=len(witness_ids)==24
+assert require_witnesses
+witnesses={lookup[x]for x in witness_ids}
+retired={lookup[(0,4961)]}
+protected_ids={(0,int(r['source_triangle']))for r in field}
+for component in prior['components'][1:]:protected_ids.update(map(tuple,component['source_face_ids']))
+protected={lookup[x]for x in protected_ids}
+protected_vertices={int(v)for f in protected for v in wf[f]}
+assert not(seed|witnesses|retired)&protected
+allowed={lookup[key]for key,r in by_id.items()
+    if r['maximum_original_body_edge_dihedral_degrees']>parameters['scar_dihedral_degrees']
+    and r['contact_interface_edge_distance']<=parameters['maximum_contact_edge_distance']
+    and lookup[key]not in protected|retired}
+selected=set(seed)|witnesses;parent={f:None for f in selected};queue=deque(sorted(selected))
+while queue:
+    f=queue.popleft()
+    for other in sorted(adj[f]):
+        if other in allowed and other not in selected:
+            selected.add(other);parent[other]=f;queue.append(other)
+assert len(selected)<=parameters['max_replacement_faces'],'Targeted scar ownership exceeds512faces'
+selection=[]
+for f in sorted(selected):
+    key=source_ids[f];r=by_id.get(key)
+    reason='existing_loop27_patch'if f in seed else 'exact_supported_reference_outlier'if f in witnesses else 'connected_high_dihedral_contact_face'
+    selection.append({'source_face':list(key),'reason':reason,
+        'connected_from_source_face':list(source_ids[parent[f]])if parent.get(f)is not None else None,
+        'partition_original_face_id':r['partition_original_face_id']if r else None,
+        'contact_interface_edge_distance':r['contact_interface_edge_distance']if r else None,
+        'original_body_dihedral_degrees':r['maximum_original_body_edge_dihedral_degrees']if r else None})
+write('selection.json',{'source_model_sha256':digest(SOURCE),'replacement':selection,
+    'retired_without_replacement':[[0,4961]],'protected_source_faces':[list(x)for x in sorted(protected_ids)],
+    'held_boundaries':'Both other ring0 cheek disks and44 cleaner reference faces are protected; any shared vertex must remain on the proposed fixed boundary',
+    'parameters':parameters,'source_model_modified':False})
+
+
+def normal_angle(a,b):
+    a=np.asarray(a,dtype=float);b=np.asarray(b,dtype=float)
+    return float(np.degrees(np.arccos(np.clip(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)),-1,1))))
+
+
+cross=np.cross(points[faces[:,1]]-points[faces[:,0]],points[faces[:,2]]-points[faces[:,0]])
+areas=np.linalg.norm(cross,axis=1);geometric=cross/np.maximum(areas[:,None],1e-30)
+normal_basis=np.asarray(old_fit['basis_blender_columns']);normal_origin=np.asarray(old_fit['origin_blender_m']);coeff=np.asarray(old_fit['quadratic_coefficients'])
+
+
+def boundary_support(chosen,boundary):
+    removed=set(chosen)|retired
+    boundary_vertices=sorted({int(v)for edge in boundary for v in edge});outside_faces=set();edge_issues=[]
+    for edge in boundary:
+        remaining=[f for f in edge_faces[edge]if f not in removed]
+        outside_faces.update(remaining)
+        if len(remaining)!=1:edge_issues.append({'body_edge':list(edge),'retained_source_faces':[list(source_ids[f])for f in remaining]})
+    face_rows=[]
+    for f in sorted(outside_faces):
+        key=source_ids[f];row=by_id.get(key);reasons=[]
+        if key[0]!=0:reasons.append('retained_authored_or_repainted_cap_not_original_reference')
+        if row is None:reasons.append('outside_measured_reference_only_band')
+        elif row['rejected_reasons']:reasons.extend(row['rejected_reasons'])
+        face_rows.append({'source_face':list(key),'reference_support_rejections':reasons,
+            'known_cleaner_reference_face':key in protected_ids and key[0]==0})
+    vertex_rows=[]
+    for v in boundary_vertices:
+        contributions=[]
+        for f in vertex_faces[v]:
+            if f in removed:continue
+            for corner,vertex in enumerate(wf[f]):
+                if int(vertex)==v:contributions.append(normals[faces[f,corner]])
+        if not contributions:
+            vertex_rows.append({'body_welded_vertex':v,'normal_supported':False});continue
+        mean=np.sum(contributions,axis=0);mean/=np.linalg.norm(mean)
+        position=blender(unique[[v]])[0];p=(position-normal_origin)@normal_basis/old_fit['normalization_scale_m'];x,y=p[:2]
+        n=np.asarray([-(coeff[1]+2*coeff[3]*x+coeff[4]*y),-(coeff[2]+coeff[4]*x+2*coeff[5]*y),1.])@normal_basis.T
+        vertex_rows.append({'body_welded_vertex':v,'position_blender_m':position.tolist(),'normal_supported':True,
+            'retained_custom_mean_vs_frozen_fit_degrees':normal_angle(blender(mean[None,:])[0],n)})
+    valid=[r['retained_custom_mean_vs_frozen_fit_degrees']for r in vertex_rows if r['normal_supported']]
+    intrusions=sorted((set(int(v)for f in chosen for v in wf[f])&protected_vertices)-set(boundary_vertices))
+    return {'boundary_vertices':len(boundary_vertices),'outside_faces':face_rows,'edge_attachment_issues':edge_issues,
+        'unsupported_retained_boundary_faces':sum(bool(r['reference_support_rejections'])for r in face_rows),
+        'protected_vertices_that_would_become_interior':intrusions,
+        'retained_custom_mean_vs_frozen_fit_degrees':{'count':len(valid),'median':float(np.median(valid))if valid else None,
+            'p95':float(np.percentile(valid,95))if valid else None,'max':max(valid)if valid else None},
+        'vertex_rows':vertex_rows,
+        'smooth_join_evidence_passes':not edge_issues and not intrusions and all(not r['reference_support_rejections']for r in face_rows),
+        'scope':'Support uses provenance/crease rules only. Frozen failed-fit comparison is diagnostic, not a new fit or altered45-degree fit gate.'}
+
+
+variants=[]
+for name,chosen in [('exact24_outlier_addition',seed|witnesses),('connected_provenance_scar_selection',selected)]:
+    outcome,boundary=screen(chosen,retired)
+    support=boundary_support(chosen,boundary)
+    variants.append({'name':name,'topology':outcome,'boundary_support':support,
+        'candidate_supported':outcome['passes']and support['smooth_join_evidence_passes']})
+write('variant-results.json',variants)
+accepted=variants[-1]['candidate_supported']
+result={'schema_version':1,'source_model_sha256':digest(SOURCE),
+    'status':'supported_reference_domain_only'if accepted else 'unsupported_stop_branch',
+    'initial_patch_faces':len(seed),'exact_outlier_faces':len(witnesses),'allowed_high_dihedral_contact_faces':len(allowed),
+    'connected_added_scar_faces':len(selected-seed-witnesses),'replacement_faces':len(selected),'retired_original_faces':1,
+    'total_owned_face_count':len(selected|retired),'protected_face_count':len(protected),
+    'protected_source_faces_unchanged':not selected&protected,
+    'last_topology':variants[-1]['topology'],
+    'unsupported_retained_boundary_faces':variants[-1]['boundary_support']['unsupported_retained_boundary_faces'],
+    'boundary_normal_error_to_frozen_fit':variants[-1]['boundary_support']['retained_custom_mean_vs_frozen_fit_degrees'],
+    'model_modified':False,'new_fit_performed':False,'native_jobs':0,'provider_calls':0,'quality_approved':False,
+    'elapsed_seconds':time.monotonic()-START,
+    'next_action':'Report domain and boundary evidence before any new fit.'if accepted else
+        'Stop this local repair branch under the fixed512-face/protected-boundary envelope; do not run another fit or native preview. Exact failed topology/retained-normal support is preserved.',
+    'sources_unchanged':all(digest(ROOT/r['path'])==r['sha256']for r in json.loads((OUT/'inputs.json').read_text())+json.loads((OUT/'extra-inputs.json').read_text()))}
+write('report.json',result);print(json.dumps(result,sort_keys=True))

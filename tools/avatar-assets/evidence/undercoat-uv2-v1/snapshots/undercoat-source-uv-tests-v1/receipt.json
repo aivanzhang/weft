@@ -1,0 +1,80 @@
+{
+  "at": "2026-11-02T00:59:31.132448-08:00",
+  "contract": {
+    "authored_uv": "None when no atlas; otherwise{index:1or2,name:AuthoredUndercoatUV1or2,sha256:nativefloat32loopbytes}. SourceUV1 is never reported as authored.",
+    "legacy": "Single-source-layer atlas remainsUV1, with authored_uv1_sha256 onlywhen true; bake/frame math unchanged.",
+    "material_limit": "At most4 selected undercoat regions,2048faces per aliased atlas,100k aggregate export vertices remain unchanged.",
+    "normal_targets": "Native actual cloned material name +normal_texcoord+selected_faces+texture_sha256+frame_policy are reported. Only nonzero authored atlas rows are correction targets.",
+    "original_uv_layers": "[{index,name,sha256,active_render}] exactbefore/after data checks; originalUV0+UV1 preserved, all RNA handles reacquired after CustomData allocations.",
+    "response_policy": "preserve-linked-response-v1: selected clone normal deliberately replaced; Roughness/Metallic links preserved, configured roughness/metallic0 applied only to originally unlinked sockets.",
+    "source_uv_layers": "Exactly1 or2, finite float32 loop coordinates abs<=1e6, unique nonreserved names, active/renderUV0."
+  },
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_undercoat_uv_layers",
+      "tests.test_undercoat_material_adapter",
+      "tests.test_fur_undercoat",
+      "-v"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.903,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 8282,
+    "last_rss_sample_elapsed_seconds": 3.643,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 4,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 58156,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 14,
+    "sampled_max_output_bytes": 8282,
+    "sampled_peak_rss_bytes": 180666368,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_calls": 0,
+  "next_safe_action": "Root freezes adapter snapshot and runs its prepared single small real Blender UV2 export proof. Full latest-source undercoat/geometry/groom and appearance integration remain unverified.",
+  "owned_live_jobs": [],
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_files": [
+    {
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "path": "tests/test_undercoat_material_adapter.py",
+      "sha256": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937",
+      "snapshot": "sources/tests/test_undercoat_material_adapter.py"
+    },
+    {
+      "path": "tests/test_undercoat_uv_layers.py",
+      "sha256": "3e1aae4d23c3c6d4dab76974d00e4d6a04784a881e1449233deb1bf4b490c27e",
+      "snapshot": "sources/tests/test_undercoat_uv_layers.py"
+    }
+  ],
+  "status": "focused_tests_passed_source_frozen",
+  "tests": 26,
+  "unittest_seconds": 3.747,
+  "verification_scope": "Pure NumPy baker/planning and mocked Blender/material/UV/image lifecycle. Fake image-API files are analytic bytes, not PNGs or generated avatars."
+}

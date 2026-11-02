@@ -1,0 +1,16 @@
+{
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 256,
+    "wall_seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-reference-field-v1/diagnose.py"
+  ],
+  "config_sha256": "9e53b0dcc1eb5578bfb9772361b45f9f73bb973e2d01b6dd7e7b10f5fd96bc87",
+  "no_image_decode": true,
+  "no_new_fit": true,
+  "script_sha256": "0eb3cfcde9b8067d64186bc4d6f1d2c9a874442613080800ea3137d1d282a493"
+}

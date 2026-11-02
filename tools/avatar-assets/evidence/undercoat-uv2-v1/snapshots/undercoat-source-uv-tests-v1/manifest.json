@@ -1,0 +1,52 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1156,
+      "path": "job.json",
+      "sha256": "6c2b9d783bee77934f18e4a7c3902052e110c50d6b970bbc7ef697b80af7f714"
+    },
+    {
+      "bytes": 1959,
+      "path": "prepared.json",
+      "sha256": "89e878ac790d5cd97bcf23c8f85c5e44932f0ca49df87a72baef92abd4a5cc1d"
+    },
+    {
+      "bytes": 3713,
+      "path": "receipt.json",
+      "sha256": "61d3b57666628a13476b0e0896c8e56a9935b5429babdb9b3cf39b077c6b1132"
+    },
+    {
+      "bytes": 40912,
+      "path": "sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 21080,
+      "path": "sources/tests/test_undercoat_material_adapter.py",
+      "sha256": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937"
+    },
+    {
+      "bytes": 11242,
+      "path": "sources/tests/test_undercoat_uv_layers.py",
+      "sha256": "3e1aae4d23c3c6d4dab76974d00e4d6a04784a881e1449233deb1bf4b490c27e"
+    },
+    {
+      "bytes": 265,
+      "path": "tests-handle.json",
+      "sha256": "d7b8f6a9a047939da0b5fedff4ad6a4ccaf107d3ba9ea1255c64ed28f6a05ea1"
+    },
+    {
+      "bytes": 1046,
+      "path": "tests-monitor.json",
+      "sha256": "c3b5f19cab6dfa8ca374a0010154da5fe048ca01e86bc5d29d5d18c68b4ccaba"
+    },
+    {
+      "bytes": 5074,
+      "path": "tests.log",
+      "sha256": "3205b049710200ba0cc40ec432a302b9d99ba7780f03041b075588b55b8a5b5a"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "source_frozen_tests_passed"
+}

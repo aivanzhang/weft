@@ -2,6 +2,11 @@
 
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
+**Status:** the core text-to-3D workflow and saved panda/dragon examples work.
+Consistently hands-off Muse-level quality and a successful real Studio delivery
+remain unfinished. The latest [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
+passes component checks; it is not a newly accepted avatar.
+
 ## Create from a prompt — studio acceptance pending
 
 The new local studio accepts a character/style prompt, an optional reference

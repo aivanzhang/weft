@@ -1,0 +1,119 @@
+{
+  "artifacts": [
+    {
+      "bytes": 186,
+      "path": "analytic-color.png",
+      "sha256": "a6ca84ebca81277ef374003527f123af7efd54e267e20cee4f00ff5e80ba2acf"
+    },
+    {
+      "bytes": 186,
+      "path": "analytic-source-normal.png",
+      "sha256": "a50e4bf135fd4ae7876cfab7b1d43699a294f8530e12cbc6ad8fe8a1c52c25f0"
+    },
+    {
+      "bytes": 186,
+      "path": "analytic-source-response.png",
+      "sha256": "93af278d7b427a5566578bea219e023a43e6271f55412b13b29628b8bfd584ee"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "95e3c2fed522685d68d50c369539ff06ce98dea503264a12baeaffbffba91c90"
+    },
+    {
+      "bytes": 11589,
+      "path": "finish-report.json",
+      "sha256": "1f3f8fd340f18525527c0cdd10b2c458cbe11fcbd4591592ee254e28c6d4ab63"
+    },
+    {
+      "bytes": 296500,
+      "path": "model-native.glb",
+      "sha256": "c567025d9fa7e0460c500958d344556af73ed9d644d7264c7f7b26b709bc6824"
+    },
+    {
+      "bytes": 469,
+      "path": "native-handle.json",
+      "sha256": "eb7d916bb12842c8848985c9fb45ff39b527f386afef299d820aae80184bc550"
+    },
+    {
+      "bytes": 1257,
+      "path": "native-monitor.json",
+      "sha256": "9e18137730747714b965e933f0ba65d98094f0894703873a1e6361e1143f88fa"
+    },
+    {
+      "bytes": 982,
+      "path": "native.log",
+      "sha256": "1ffa1d93e42f238d55fe0dc07c7a7c45715c85e52ad629aacc8b1587fea42ed7"
+    },
+    {
+      "bytes": 349,
+      "path": "preservation.json",
+      "sha256": "fd1e9c8e6cfdd41c6535089dcd1f27321255f5db904470a18c1d18294f90952f"
+    },
+    {
+      "bytes": 856677,
+      "path": "source.blend",
+      "sha256": "0fdc3cbded8e12a46a086d62ff671a95523bc7f520737993e98f647f61fda3ab"
+    },
+    {
+      "bytes": 116214,
+      "path": "textures/authored-short-pile-normal-material-00.png",
+      "sha256": "36275dd52868ef3000da36d670ebf96721622eed838cf71625cabb72165ba261"
+    },
+    {
+      "bytes": 173536,
+      "path": "textures/authored-short-pile-normal-material-01.png",
+      "sha256": "ede6205d251c89f172dec4055c59edd7182cbeb3e559c043584163002dd93f12"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/undercoat-uv2-native-preparation-v2/check.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/undercoat-uv2-native-v2"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.565,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 1458135,
+    "last_rss_sample_elapsed_seconds": 1.303,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 1536,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 58824,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 5,
+    "sampled_max_output_bytes": 1458135,
+    "sampled_peak_rss_bytes": 292388864,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_generation_calls": 0,
+  "prepared_sha256": "c83af2b1c770fbbc57782b79c61916e8925f7dc6ef36a0553c659e4f2642ece4",
+  "schema_version": 1,
+  "scope": "Analytic native bake/export only, not avatar acceptance"
+}

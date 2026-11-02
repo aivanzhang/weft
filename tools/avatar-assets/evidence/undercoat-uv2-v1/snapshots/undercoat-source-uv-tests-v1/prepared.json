@@ -1,0 +1,61 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_undercoat_uv_layers",
+    "tests.test_undercoat_material_adapter",
+    "tests.test_fur_undercoat",
+    "-v"
+  ],
+  "limits": {
+    "memory_mb": 512,
+    "output_mb": 4,
+    "seconds": 30
+  },
+  "prepared_at": "2026-11-02T00:55:25.873122-08:00",
+  "schema_version": 1,
+  "scope": "Focused pure/mocked source-UV/response preservation tests only; no native or appearance evidence.",
+  "sources": [
+    {
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "path": "tests/test_undercoat_uv_layers.py",
+      "sha256": "3e1aae4d23c3c6d4dab76974d00e4d6a04784a881e1449233deb1bf4b490c27e"
+    },
+    {
+      "path": "tests/test_undercoat_material_adapter.py",
+      "sha256": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937"
+    },
+    {
+      "path": "tests/test_fur_undercoat.py",
+      "sha256": "5b92a9af0970f4e5ab8be2ea1ff0b384603252dc5f435abb5a420f5d8aeb4eaa"
+    },
+    {
+      "path": "tests/test_undercoat_uv_atlas.py",
+      "sha256": "ebb31504bc4f3daec4a8e4148c6b9798268c6fcd9dc4b240bb7bfd075f626821"
+    },
+    {
+      "path": "tests/test_surface_profiles.py",
+      "sha256": "fffaa13cfc6aaab1d62d1a3786e559a1aa5f81e8b1b5a7af3d3796e0f1ea8d44"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

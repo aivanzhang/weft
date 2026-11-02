@@ -1,0 +1,708 @@
+{
+  "analytic_native_scene_and_glbs_included": true,
+  "artifacts": [
+    {
+      "bytes": 1253,
+      "origin": "outputs/undercoat-target-contract-tests-v1/inputs.json",
+      "sha256": "e1f90d42bd88982892bcf2739fb59cbfd665accaee38cd598814cf051b33def3",
+      "snapshot": "snapshots/undercoat-target-contract-tests-v1/inputs.json"
+    },
+    {
+      "bytes": 2010,
+      "origin": "outputs/undercoat-target-contract-tests-v1/manifest.json",
+      "sha256": "73c92c5e8848d3b5ead892b7dc86999eb6b4cb7af9d61c48e619e1fd0a8aa56a",
+      "snapshot": "snapshots/undercoat-target-contract-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 327,
+      "origin": "outputs/undercoat-target-contract-tests-v1/tests-handle.json",
+      "sha256": "38a2d364e9e53da779d14ec9197dbe0267f9f9920ad6b9a1349c8e5476f0859e",
+      "snapshot": "snapshots/undercoat-target-contract-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1106,
+      "origin": "outputs/undercoat-target-contract-tests-v1/tests-monitor.json",
+      "sha256": "f93815fbe16fe1fda0c58ee587a8dfa8b72e542549214b4270468565197dc59b",
+      "snapshot": "snapshots/undercoat-target-contract-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 173,
+      "origin": "outputs/undercoat-target-contract-tests-v1/tests.log",
+      "sha256": "d0ec1e1c8d57e4e0286cb2bacf3024ac74a5d1a9722256e2ef4d26a62236fbeb",
+      "snapshot": "snapshots/undercoat-target-contract-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1156,
+      "origin": "outputs/undercoat-source-uv-tests-v1/job.json",
+      "sha256": "6c2b9d783bee77934f18e4a7c3902052e110c50d6b970bbc7ef697b80af7f714",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/job.json"
+    },
+    {
+      "bytes": 1541,
+      "origin": "outputs/undercoat-source-uv-tests-v1/manifest.json",
+      "sha256": "213dda548c4a6c90c84eeaea7b629234bd039929846c1988692d6fc5a2ddccdb",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1959,
+      "origin": "outputs/undercoat-source-uv-tests-v1/prepared.json",
+      "sha256": "89e878ac790d5cd97bcf23c8f85c5e44932f0ca49df87a72baef92abd4a5cc1d",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 3713,
+      "origin": "outputs/undercoat-source-uv-tests-v1/receipt.json",
+      "sha256": "61d3b57666628a13476b0e0896c8e56a9935b5429babdb9b3cf39b077c6b1132",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/undercoat-source-uv-tests-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 21080,
+      "origin": "outputs/undercoat-source-uv-tests-v1/sources/tests/test_undercoat_material_adapter.py",
+      "sha256": "56323be523483b1500ee7ba2721f3506a6e63af4d319acbb63f3afe98fbe5937",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/sources/tests/test_undercoat_material_adapter.py"
+    },
+    {
+      "bytes": 11242,
+      "origin": "outputs/undercoat-source-uv-tests-v1/sources/tests/test_undercoat_uv_layers.py",
+      "sha256": "3e1aae4d23c3c6d4dab76974d00e4d6a04784a881e1449233deb1bf4b490c27e",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/sources/tests/test_undercoat_uv_layers.py"
+    },
+    {
+      "bytes": 265,
+      "origin": "outputs/undercoat-source-uv-tests-v1/tests-handle.json",
+      "sha256": "d7b8f6a9a047939da0b5fedff4ad6a4ccaf107d3ba9ea1255c64ed28f6a05ea1",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1046,
+      "origin": "outputs/undercoat-source-uv-tests-v1/tests-monitor.json",
+      "sha256": "c3b5f19cab6dfa8ca374a0010154da5fe048ca01e86bc5d29d5d18c68b4ccaba",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 5074,
+      "origin": "outputs/undercoat-source-uv-tests-v1/tests.log",
+      "sha256": "3205b049710200ba0cc40ec432a302b9d99ba7780f03041b075588b55b8a5b5a",
+      "snapshot": "snapshots/undercoat-source-uv-tests-v1/tests.log"
+    },
+    {
+      "bytes": 2639,
+      "origin": "outputs/authored-normal-target-tests-v1/manifest.json",
+      "sha256": "925ccc167972c5194e2342e07fe0a93eef17ddbc3d4b38cd65349c15dd631002",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 2004,
+      "origin": "outputs/authored-normal-target-tests-v1/prepared.json",
+      "sha256": "4810367d39d91a6f551933c8a464ff9825b0446be2fd2fe4d70951036ce6d7a8",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 1103,
+      "origin": "outputs/authored-normal-target-tests-v1/receipt.json",
+      "sha256": "e8cbb0eb7ed9f9de97be30545929175057c205c60972aa862561d7cc6c2d4fa5",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 1771,
+      "origin": "outputs/authored-normal-target-tests-v1/review.json",
+      "sha256": "5f3de576d666fbd8f2807d1fb7e23fa23023fb95871f983537a08d87b34b4f8b",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/review.json"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 15595,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/tests/test_authored_normal_targets.py",
+      "sha256": "35e9c994e72e813ef9911bd0969659ee5f669d42b6fd048993e065608faafc1d",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/tests/test_authored_normal_targets.py"
+    },
+    {
+      "bytes": 9803,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/tests/test_three_d.py"
+    },
+    {
+      "bytes": 15126,
+      "origin": "outputs/authored-normal-target-tests-v1/sources/tests/test_uv1_tangent_repair.py",
+      "sha256": "5890287cc3b25f941a82667d89344770734f5c2d5cd89ee9a55b7a4270efe2a5",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/sources/tests/test_uv1_tangent_repair.py"
+    },
+    {
+      "bytes": 232,
+      "origin": "outputs/authored-normal-target-tests-v1/test-handle.json",
+      "sha256": "82085391ef981f3c1d02804ef9040118b7a94274da5523c10e61a4bb1b4219e7",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/test-handle.json"
+    },
+    {
+      "bytes": 970,
+      "origin": "outputs/authored-normal-target-tests-v1/test-monitor.json",
+      "sha256": "d47e4aec2951cb4288e2f68f2a781b8c888a1230cb3b84ee7699a3a650afd3ec",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/test-monitor.json"
+    },
+    {
+      "bytes": 4276,
+      "origin": "outputs/authored-normal-target-tests-v1/test.log",
+      "sha256": "716f1f086e9cabe93951f7038d903986d92fd14d4505d5a7d6288eccb5626749",
+      "snapshot": "snapshots/authored-normal-target-tests-v1/test.log"
+    },
+    {
+      "bytes": 6276,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/check.py",
+      "sha256": "3ced255d558483f032a36c19cbe1b1f65d7eece7d73e607c7d316d8a7c2b2a28",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/check.py"
+    },
+    {
+      "bytes": 1867,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/execute.py",
+      "sha256": "138233d19e04fc2e7cefa87a3dd0a0e23244aa5dd68bb10b9937c9ff835e328c",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 2052,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/prepared.json",
+      "sha256": "80dee14383dee3303e8d1fa2c2a98a908788608bb1df32d2e7d4efc0c756d047",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 1570,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/receipt.json",
+      "sha256": "20561ef6a0bd638b24faf918c98a39c0949077b92c27dacf117cb29e4dd9a316",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/receipt.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/undercoat-uv2-native-preparation-v1/started.json",
+      "sha256": "204c9014c76e27de62e2753f08b6daf30183dbd1197059ed378bcb086c02abc7",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v1/started.json"
+    },
+    {
+      "bytes": 121,
+      "origin": "outputs/undercoat-uv2-native-v1/blender-extensions/.cache/compat.dat",
+      "sha256": "c6187fbf47a79b3534e826bcb4bda1d23ae95c8f2101ed97bbe93f6f3594372e",
+      "snapshot": "snapshots/undercoat-uv2-native-v1/blender-extensions/.cache/compat.dat"
+    },
+    {
+      "bytes": 2336,
+      "origin": "outputs/undercoat-uv2-native-v1/manifest.json",
+      "sha256": "93bcdf3527cc9425df3bfc72021837cb640b4577beace7aa3eed693912651ab3",
+      "snapshot": "snapshots/undercoat-uv2-native-v1/manifest.json"
+    },
+    {
+      "bytes": 469,
+      "origin": "outputs/undercoat-uv2-native-v1/native-handle.json",
+      "sha256": "1a3b953e8db7e0e03442ed19c82abad036168bcd769b152fb23770207dd6d6ca",
+      "snapshot": "snapshots/undercoat-uv2-native-v1/native-handle.json"
+    },
+    {
+      "bytes": 1251,
+      "origin": "outputs/undercoat-uv2-native-v1/native-monitor.json",
+      "sha256": "d172fe04c9db8b336b48216f959c9c555f6ed4f9c0ce1d6f749cb1d9f098278d",
+      "snapshot": "snapshots/undercoat-uv2-native-v1/native-monitor.json"
+    },
+    {
+      "bytes": 734,
+      "origin": "outputs/undercoat-uv2-native-v1/native.log",
+      "sha256": "51bd4f6dd6131ec7c3ab89fbe41c73c5b9201f7485f0ed29055361db07b2b180",
+      "snapshot": "snapshots/undercoat-uv2-native-v1/native.log"
+    },
+    {
+      "bytes": 6306,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/check.py",
+      "sha256": "7c192dfeab10c75ce14fb31de75f0a9706ade073451688f979330dad8c1a9ffd",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/check.py"
+    },
+    {
+      "bytes": 1867,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/execute.py",
+      "sha256": "138233d19e04fc2e7cefa87a3dd0a0e23244aa5dd68bb10b9937c9ff835e328c",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/execute.py"
+    },
+    {
+      "bytes": 3491,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/prepared.json",
+      "sha256": "c83af2b1c770fbbc57782b79c61916e8925f7dc6ef36a0553c659e4f2642ece4",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/prepared.json"
+    },
+    {
+      "bytes": 1576,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/receipt.json",
+      "sha256": "bf19202affd1c23d7b2fc91a5c798e203f5b7259a5a6468d3f5026839285892e",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/receipt.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/undercoat-uv2-native-preparation-v2/started.json",
+      "sha256": "965cfd6d71586f27d1b823232ccf96faae0b85fceed5172d58b56ddc1c340a4c",
+      "snapshot": "snapshots/undercoat-uv2-native-preparation-v2/started.json"
+    },
+    {
+      "bytes": 186,
+      "origin": "outputs/undercoat-uv2-native-v2/analytic-color.png",
+      "sha256": "a6ca84ebca81277ef374003527f123af7efd54e267e20cee4f00ff5e80ba2acf",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/analytic-color.png"
+    },
+    {
+      "bytes": 186,
+      "origin": "outputs/undercoat-uv2-native-v2/analytic-source-normal.png",
+      "sha256": "a50e4bf135fd4ae7876cfab7b1d43699a294f8530e12cbc6ad8fe8a1c52c25f0",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/analytic-source-normal.png"
+    },
+    {
+      "bytes": 186,
+      "origin": "outputs/undercoat-uv2-native-v2/analytic-source-response.png",
+      "sha256": "93af278d7b427a5566578bea219e023a43e6271f55412b13b29628b8bfd584ee",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/analytic-source-response.png"
+    },
+    {
+      "bytes": 121,
+      "origin": "outputs/undercoat-uv2-native-v2/blender-extensions/.cache/compat.dat",
+      "sha256": "95e3c2fed522685d68d50c369539ff06ce98dea503264a12baeaffbffba91c90",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/blender-extensions/.cache/compat.dat"
+    },
+    {
+      "bytes": 11589,
+      "origin": "outputs/undercoat-uv2-native-v2/finish-report.json",
+      "sha256": "1f3f8fd340f18525527c0cdd10b2c458cbe11fcbd4591592ee254e28c6d4ab63",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/finish-report.json"
+    },
+    {
+      "bytes": 3799,
+      "origin": "outputs/undercoat-uv2-native-v2/manifest.json",
+      "sha256": "da8fbd8034cd6c5f1eea98583ead0bb355c5d6e69d16d5ad8b781253749aa162",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/manifest.json"
+    },
+    {
+      "bytes": 296500,
+      "origin": "outputs/undercoat-uv2-native-v2/model-native.glb",
+      "sha256": "c567025d9fa7e0460c500958d344556af73ed9d644d7264c7f7b26b709bc6824",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/model-native.glb"
+    },
+    {
+      "bytes": 469,
+      "origin": "outputs/undercoat-uv2-native-v2/native-handle.json",
+      "sha256": "eb7d916bb12842c8848985c9fb45ff39b527f386afef299d820aae80184bc550",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/native-handle.json"
+    },
+    {
+      "bytes": 1257,
+      "origin": "outputs/undercoat-uv2-native-v2/native-monitor.json",
+      "sha256": "9e18137730747714b965e933f0ba65d98094f0894703873a1e6361e1143f88fa",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/native-monitor.json"
+    },
+    {
+      "bytes": 982,
+      "origin": "outputs/undercoat-uv2-native-v2/native.log",
+      "sha256": "1ffa1d93e42f238d55fe0dc07c7a7c45715c85e52ad629aacc8b1587fea42ed7",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/native.log"
+    },
+    {
+      "bytes": 349,
+      "origin": "outputs/undercoat-uv2-native-v2/preservation.json",
+      "sha256": "fd1e9c8e6cfdd41c6535089dcd1f27321255f5db904470a18c1d18294f90952f",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/preservation.json"
+    },
+    {
+      "bytes": 856677,
+      "origin": "outputs/undercoat-uv2-native-v2/source.blend",
+      "sha256": "0fdc3cbded8e12a46a086d62ff671a95523bc7f520737993e98f647f61fda3ab",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/source.blend"
+    },
+    {
+      "bytes": 116214,
+      "origin": "outputs/undercoat-uv2-native-v2/textures/authored-short-pile-normal-material-00.png",
+      "sha256": "36275dd52868ef3000da36d670ebf96721622eed838cf71625cabb72165ba261",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/textures/authored-short-pile-normal-material-00.png"
+    },
+    {
+      "bytes": 173536,
+      "origin": "outputs/undercoat-uv2-native-v2/textures/authored-short-pile-normal-material-01.png",
+      "sha256": "ede6205d251c89f172dec4055c59edd7182cbeb3e559c043584163002dd93f12",
+      "snapshot": "snapshots/undercoat-uv2-native-v2/textures/authored-short-pile-normal-material-01.png"
+    },
+    {
+      "bytes": 241,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/check-handle.json",
+      "sha256": "ba719c842f9ca09142ee2e9faa6bce421a440fd6993f7662deecab6dd3a36379",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/check-handle.json"
+    },
+    {
+      "bytes": 978,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/check-monitor.json",
+      "sha256": "6b1f692df980c451d51343877e0234be3fb7a9170d3bde3ff3cc4e3900712787",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/check-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/check.log"
+    },
+    {
+      "bytes": 4114,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/check.py",
+      "sha256": "6df7c86dc6c349708d80d83b8170c7a1ece3cccd07dacdf7b8e2edc2b2b4976f",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/check.py"
+    },
+    {
+      "bytes": 1633,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/correction.json",
+      "sha256": "0ce3f902c9cc14c90e56ca266fb5faf6233ab62c22a6d10cd7bebfbea798c1f7",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/correction.json"
+    },
+    {
+      "bytes": 780,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/inputs.json",
+      "sha256": "e77e1e9c72e82538753aa2749c1852d0ca212b2726e8ae15b4fe94d501d4679e",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/inputs.json"
+    },
+    {
+      "bytes": 2627,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/manifest.json",
+      "sha256": "cec5a787ac7c59fc1604ea3e89858e95824cc4b82097c228b710ff30c8e1c981",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/manifest.json"
+    },
+    {
+      "bytes": 296500,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/model.glb",
+      "sha256": "f811549aae8f165cbc3e8f43e4ae6ea190f1fa862c872d1eddf733c1c46c8555",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/model.glb"
+    },
+    {
+      "bytes": 2103,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/render-attributes.json",
+      "sha256": "68a0e46e3eb6f81dce8bba2c79400f4bd6466c19643544eb7e05d16489973fa5",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/render-attributes.json"
+    },
+    {
+      "bytes": 974,
+      "origin": "outputs/undercoat-uv2-native-export-check-v1/result.json",
+      "sha256": "422360afd39cb7c38175c6dd01accc7c3b01be818ca17e2edcde39490376ecbb",
+      "snapshot": "snapshots/undercoat-uv2-native-export-check-v1/result.json"
+    },
+    {
+      "bytes": 627,
+      "origin": "outputs/panda-cheek-reference-field-v1/config.json",
+      "sha256": "9e53b0dcc1eb5578bfb9772361b45f9f73bb973e2d01b6dd7e7b10f5fd96bc87",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/config.json"
+    },
+    {
+      "bytes": 242,
+      "origin": "outputs/panda-cheek-reference-field-v1/cpu-handle.json",
+      "sha256": "44820c6946686aba5cb3a1a82fa40fa0be0024501ce32bfbe39ad8cd3de9b180",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1121,
+      "origin": "outputs/panda-cheek-reference-field-v1/cpu-job.json",
+      "sha256": "79b468e827aec7b7438504239840d089352e4e3760d5fb9e764b823d91688bba",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/cpu-job.json"
+    },
+    {
+      "bytes": 1027,
+      "origin": "outputs/panda-cheek-reference-field-v1/cpu-monitor.json",
+      "sha256": "560e99a1b5a04da2751824ed291d79cb54d43990d4e9da2dd800575670a1e510",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 2585,
+      "origin": "outputs/panda-cheek-reference-field-v1/cpu.log",
+      "sha256": "d07ee44fee3c7ac77b41be537f47237a7df033a34d75ebd164438731133c5c4a",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/cpu.log"
+    },
+    {
+      "bytes": 13932,
+      "origin": "outputs/panda-cheek-reference-field-v1/diagnose.py",
+      "sha256": "0eb3cfcde9b8067d64186bc4d6f1d2c9a874442613080800ea3137d1d282a493",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/diagnose.py"
+    },
+    {
+      "bytes": 513,
+      "origin": "outputs/panda-cheek-reference-field-v1/execution.json",
+      "sha256": "e3643a4341d2e6dd44306defca365645e2f20babeaca4888b6c671c3ca603906",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/execution.json"
+    },
+    {
+      "bytes": 226167,
+      "origin": "outputs/panda-cheek-reference-field-v1/face-diagnostics.json",
+      "sha256": "e6055ec6e2d2e21cd58c180a0921b65b03aa7ea88d5fa484f51b53a1cd759b82",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/face-diagnostics.json"
+    },
+    {
+      "bytes": 4073,
+      "origin": "outputs/panda-cheek-reference-field-v1/findings.md",
+      "sha256": "bead9d0c61d37cbaf74aeafef4c8523f19523a1d02731019ee92e35b21a15e39",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/findings.md"
+    },
+    {
+      "bytes": 1258,
+      "origin": "outputs/panda-cheek-reference-field-v1/inputs.json",
+      "sha256": "24e07d476b0d89f5b20f987b248e3f2df95d689403ac5eaaf1af6f0d2e0a8108",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/inputs.json"
+    },
+    {
+      "bytes": 2380,
+      "origin": "outputs/panda-cheek-reference-field-v1/manifest.json",
+      "sha256": "fc2b8c2b197569e084b9603dbc0b4dd4863decb807409dfe5b76b82350ae93ee",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/manifest.json"
+    },
+    {
+      "bytes": 63311,
+      "origin": "outputs/panda-cheek-reference-field-v1/proposed-reference-field.json",
+      "sha256": "f870a0ca83b11f6c7215553e0a717fb872441a098b3fc4b19667cadf6101ef84",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/proposed-reference-field.json"
+    },
+    {
+      "bytes": 4956,
+      "origin": "outputs/panda-cheek-reference-field-v1/reconcile.py",
+      "sha256": "1023a33da187bf8fc0eee8d033aee97ac92eee5f63c294ed404b743efd0809a7",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/reconcile.py"
+    },
+    {
+      "bytes": 2865,
+      "origin": "outputs/panda-cheek-reference-field-v1/summary.json",
+      "sha256": "f9e749c05ce1312ddf466fcea3b109e78cd6a0fba8dcd80b65f9156b60f0a0c9",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/summary.json"
+    },
+    {
+      "bytes": 35194,
+      "origin": "outputs/panda-cheek-reference-field-v1/support-reconciliation.json",
+      "sha256": "ab648dc87e1eafb0fabd7d61d48c2dc4f68075093c8c4911068851e03694fc30",
+      "snapshot": "snapshots/panda-cheek-reference-field-v1/support-reconciliation.json"
+    },
+    {
+      "bytes": 239,
+      "origin": "outputs/panda-cheek-scar-selection-v1/cpu-handle.json",
+      "sha256": "d2573a0fba5f1d39d3490598c2a1269ed4c0a3a1eb754fb64e10fbaf05c93e9f",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1118,
+      "origin": "outputs/panda-cheek-scar-selection-v1/cpu-job.json",
+      "sha256": "5ed8b722b3096816d4d5fbf8faaaa305b0f40c155aa429b8af446b396cb6caba",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/cpu-job.json"
+    },
+    {
+      "bytes": 1024,
+      "origin": "outputs/panda-cheek-scar-selection-v1/cpu-monitor.json",
+      "sha256": "5fc6b2473fe7b910ff7d870e2d6115b70fd1cabce58611df3486e1f481215c5c",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 1496,
+      "origin": "outputs/panda-cheek-scar-selection-v1/cpu.log",
+      "sha256": "943d46b214696ceeb7022a0b6f75869a585e0d0b78474c57dcae3a8f8a6610c6",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/cpu.log"
+    },
+    {
+      "bytes": 492,
+      "origin": "outputs/panda-cheek-scar-selection-v1/execution.json",
+      "sha256": "7759eab1b44ca29bb82300753e94a847a38985b4e03f1f5581d3c4c71a3239b0",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/execution.json"
+    },
+    {
+      "bytes": 933,
+      "origin": "outputs/panda-cheek-scar-selection-v1/extra-inputs.json",
+      "sha256": "64c852ef6cbd3f1c24ffa43aba5cfe1dc0c3e9be7fb5753936bf54db206c3b1a",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/extra-inputs.json"
+    },
+    {
+      "bytes": 3136,
+      "origin": "outputs/panda-cheek-scar-selection-v1/findings.md",
+      "sha256": "c2efd0949ef84946b2f0eec538f8f67047d06da50cf3145fbfcec24398988766",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/findings.md"
+    },
+    {
+      "bytes": 907,
+      "origin": "outputs/panda-cheek-scar-selection-v1/inputs.json",
+      "sha256": "d8f2d0f93d711aa7a4f07db7a3dff9b2c5ca0ac664f36261c4c828a79fdf24d5",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/inputs.json"
+    },
+    {
+      "bytes": 19536,
+      "origin": "outputs/panda-cheek-scar-selection-v1/junction-fans.json",
+      "sha256": "3a990266edb58d79d1049fa2cf1e36a314c0b88ea39d30d0e4209e1684e90163",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/junction-fans.json"
+    },
+    {
+      "bytes": 2693,
+      "origin": "outputs/panda-cheek-scar-selection-v1/manifest.json",
+      "sha256": "a20057d64c5f3f85cd06fc0f78b14846f9b072872936944ac9e04e686264aadd",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/manifest.json"
+    },
+    {
+      "bytes": 458,
+      "origin": "outputs/panda-cheek-scar-selection-v1/parameters.json",
+      "sha256": "1cfd79bab7ed25ee307dda3ccca954ee7fe7d396318d5ddd2882bbb3e173cd1c",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/parameters.json"
+    },
+    {
+      "bytes": 7690,
+      "origin": "outputs/panda-cheek-scar-selection-v1/prefix.py.txt",
+      "sha256": "c4f4c9ffe030e7a73dcdbf78a0b078893c0bd490f54568c1328c77cffa58a900",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/prefix.py.txt"
+    },
+    {
+      "bytes": 1710,
+      "origin": "outputs/panda-cheek-scar-selection-v1/report.json",
+      "sha256": "4b024ab966b95fab34f4e753e91d4948018fbfa1b048d10dfeb58fe20b22e46c",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/report.json"
+    },
+    {
+      "bytes": 16324,
+      "origin": "outputs/panda-cheek-scar-selection-v1/screen.py",
+      "sha256": "868e60c7cf9a30491b0c4053be14048a9a16d1921c4372ded46536a2e53aa11a",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/screen.py"
+    },
+    {
+      "bytes": 70267,
+      "origin": "outputs/panda-cheek-scar-selection-v1/selection.json",
+      "sha256": "f44b981acbcc583e3ad8b3664d93b93ab1ce861edd22ea2a91e1aab35e328b49",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/selection.json"
+    },
+    {
+      "bytes": 8634,
+      "origin": "outputs/panda-cheek-scar-selection-v1/suffix.py.txt",
+      "sha256": "543284a0f6497e70ff43b9110a56f80061061af12783fae2e6418f8e084caa34",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/suffix.py.txt"
+    },
+    {
+      "bytes": 82020,
+      "origin": "outputs/panda-cheek-scar-selection-v1/variant-results.json",
+      "sha256": "163419f49106181a88a2b7da5f919389a4d1d03113f9f8dbd0219b973edafe51",
+      "snapshot": "snapshots/panda-cheek-scar-selection-v1/variant-results.json"
+    }
+  ],
+  "files": 116,
+  "geometry_source_models": "Referenced real panda GLBs remain in their immutable local output paths; this bundle does not duplicate them",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "schema_version": 1,
+  "scope": "UV2 finishing component plus rejected cheek diagnostics; no accepted avatar or Studio delivery",
+  "snapshot_bytes": 2775651
+}

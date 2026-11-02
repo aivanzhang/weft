@@ -1,0 +1,18 @@
+{
+  "max_candidate_faces": 1200,
+  "max_custom_geometric_degrees": 15,
+  "max_reference_dihedral_degrees": 30,
+  "max_selected_faces": 768,
+  "minimum_contact_edge_distance": 2,
+  "policy": "Original body contact provenance + local dihedral/custom-geometric agreement; never failed-fit-error-based selection",
+  "protected_materials": [
+    "companion_surface",
+    "body_cap",
+    "companion_cap"
+  ],
+  "reference_margin_m": 0.02,
+  "reference_only_edge_rings": 2,
+  "schema_version": 1,
+  "scope": "Reference support only; fixed replacement domain, no new fit and no geometry changes",
+  "source_material": "body_surface"
+}

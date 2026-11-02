@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "status": "sealed",
+  "kind": "analytic_authored_normal_target_contract_and_legacy_tests",
+  "files": [
+    {
+      "path": "prepared.json",
+      "bytes": 2004,
+      "sha256": "4810367d39d91a6f551933c8a464ff9825b0446be2fd2fe4d70951036ce6d7a8"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 1103,
+      "sha256": "e8cbb0eb7ed9f9de97be30545929175057c205c60972aa862561d7cc6c2d4fa5"
+    },
+    {
+      "path": "review.json",
+      "bytes": 1771,
+      "sha256": "5f3de576d666fbd8f2807d1fb7e23fa23023fb95871f983537a08d87b34b4f8b"
+    },
+    {
+      "path": "sources/avatar_assets/generated_tangents.py",
+      "bytes": 16931,
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "path": "sources/avatar_assets/normalize_generated.py",
+      "bytes": 9246,
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "sources/avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "sources/scripts/undercoat_uv_atlas.py",
+      "bytes": 14944,
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "path": "sources/tests/test_authored_normal_targets.py",
+      "bytes": 15595,
+      "sha256": "35e9c994e72e813ef9911bd0969659ee5f669d42b6fd048993e065608faafc1d"
+    },
+    {
+      "path": "sources/tests/test_three_d.py",
+      "bytes": 9803,
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "path": "sources/tests/test_uv1_tangent_repair.py",
+      "bytes": 15126,
+      "sha256": "5890287cc3b25f941a82667d89344770734f5c2d5cd89ee9a55b7a4270efe2a5"
+    },
+    {
+      "path": "test-handle.json",
+      "bytes": 232,
+      "sha256": "82085391ef981f3c1d02804ef9040118b7a94274da5523c10e61a4bb1b4219e7"
+    },
+    {
+      "path": "test-monitor.json",
+      "bytes": 970,
+      "sha256": "d47e4aec2951cb4288e2f68f2a781b8c888a1230cb3b84ee7699a3a650afd3ec"
+    },
+    {
+      "path": "test.log",
+      "bytes": 4276,
+      "sha256": "716f1f086e9cabe93951f7038d903986d92fd14d4505d5a7d6288eccb5626749"
+    }
+  ],
+  "total_bytes": 142504,
+  "original_artifacts_unchanged": true
+}

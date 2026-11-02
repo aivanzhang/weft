@@ -1,0 +1,83 @@
+{
+  "artifact_bytes": 357871,
+  "artifact_count": 14,
+  "artifacts": [
+    {
+      "bytes": 627,
+      "path": "config.json",
+      "sha256": "9e53b0dcc1eb5578bfb9772361b45f9f73bb973e2d01b6dd7e7b10f5fd96bc87"
+    },
+    {
+      "bytes": 242,
+      "path": "cpu-handle.json",
+      "sha256": "44820c6946686aba5cb3a1a82fa40fa0be0024501ce32bfbe39ad8cd3de9b180"
+    },
+    {
+      "bytes": 1121,
+      "path": "cpu-job.json",
+      "sha256": "79b468e827aec7b7438504239840d089352e4e3760d5fb9e764b823d91688bba"
+    },
+    {
+      "bytes": 1027,
+      "path": "cpu-monitor.json",
+      "sha256": "560e99a1b5a04da2751824ed291d79cb54d43990d4e9da2dd800575670a1e510"
+    },
+    {
+      "bytes": 2585,
+      "path": "cpu.log",
+      "sha256": "d07ee44fee3c7ac77b41be537f47237a7df033a34d75ebd164438731133c5c4a"
+    },
+    {
+      "bytes": 13932,
+      "path": "diagnose.py",
+      "sha256": "0eb3cfcde9b8067d64186bc4d6f1d2c9a874442613080800ea3137d1d282a493"
+    },
+    {
+      "bytes": 513,
+      "path": "execution.json",
+      "sha256": "e3643a4341d2e6dd44306defca365645e2f20babeaca4888b6c671c3ca603906"
+    },
+    {
+      "bytes": 226167,
+      "path": "face-diagnostics.json",
+      "sha256": "e6055ec6e2d2e21cd58c180a0921b65b03aa7ea88d5fa484f51b53a1cd759b82"
+    },
+    {
+      "bytes": 4073,
+      "path": "findings.md",
+      "sha256": "bead9d0c61d37cbaf74aeafef4c8523f19523a1d02731019ee92e35b21a15e39"
+    },
+    {
+      "bytes": 1258,
+      "path": "inputs.json",
+      "sha256": "24e07d476b0d89f5b20f987b248e3f2df95d689403ac5eaaf1af6f0d2e0a8108"
+    },
+    {
+      "bytes": 63311,
+      "path": "proposed-reference-field.json",
+      "sha256": "f870a0ca83b11f6c7215553e0a717fb872441a098b3fc4b19667cadf6101ef84"
+    },
+    {
+      "bytes": 4956,
+      "path": "reconcile.py",
+      "sha256": "1023a33da187bf8fc0eee8d033aee97ac92eee5f63c294ed404b743efd0809a7"
+    },
+    {
+      "bytes": 2865,
+      "path": "summary.json",
+      "sha256": "f9e749c05ce1312ddf466fcea3b109e78cd6a0fba8dcd80b65f9156b60f0a0c9"
+    },
+    {
+      "bytes": 35194,
+      "path": "support-reconciliation.json",
+      "sha256": "ab648dc87e1eafb0fabd7d61d48c2dc4f68075093c8c4911068851e03694fc30"
+    }
+  ],
+  "model_modified": false,
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_unchanged": true,
+  "status": "sealed_reference_diagnosis_no_new_fit"
+}

@@ -239,9 +239,10 @@ class MaterialUndercoatTests(unittest.TestCase):
         self.assertIs(clone.node_tree.nodes[0].image, original.node_tree.nodes[0].image)
         bsdf = clone.node_tree.nodes[2]
         self.assertEqual(len(bsdf.inputs['Base Color'].links), 1)
-        self.assertFalse(bsdf.inputs['Roughness'].links)
-        self.assertFalse(bsdf.inputs['Metallic'].links)
-        self.assertEqual(bsdf.inputs['Roughness'].default_value, .92)
+        self.assertEqual(len(bsdf.inputs['Roughness'].links), 1)
+        self.assertEqual(len(bsdf.inputs['Metallic'].links), 1)
+        self.assertEqual(bsdf.inputs['Roughness'].default_value, .9)
+        self.assertEqual(bsdf.inputs['Metallic'].default_value, .2)
         uv, texture, normal = clone.node_tree.nodes[-3:]
         self.assertIs(texture.image, image)
         self.assertEqual(uv.uv_map, normal.uv_map)
@@ -303,10 +304,10 @@ class MaterialUndercoatTests(unittest.TestCase):
         self.assertTrue(all(i.packed and i.freed for i in images.loaded))
         self.assertFalse(report['quality_approved'])
 
-    def test_preexisting_uv1_and_ambiguous_polygons_fail_before_native_mutation(self):
-        for failure in ('uv1', 'attribute', 'polygon', 'budget', 'normal', 'tangent', 'sign'):
+    def test_invalid_uv_defaults_and_ambiguous_polygons_fail_before_native_mutation(self):
+        for failure in ('active_uv1', 'attribute', 'polygon', 'budget', 'normal', 'tangent', 'sign'):
             obj, mask, flow = native_fixture()
-            if failure == 'uv1': obj.data.uv_layers.new(name='ExistingUV1')
+            if failure == 'active_uv1': obj.data.uv_layers.new(name='ExistingUV1')
             if failure == 'attribute': obj.data.attributes[undercoat.NORMAL_UV1_NAME] = object()
             if failure == 'polygon': obj.data.polygons[0].loop_total = 4
             if failure == 'normal': obj.data.corner_normals[0].vector = (float('nan'), 0, 1)

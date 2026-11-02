@@ -1,0 +1,87 @@
+{
+  "artifacts": [
+    {
+      "bytes": 241,
+      "path": "check-handle.json",
+      "sha256": "ba719c842f9ca09142ee2e9faa6bce421a440fd6993f7662deecab6dd3a36379"
+    },
+    {
+      "bytes": 978,
+      "path": "check-monitor.json",
+      "sha256": "6b1f692df980c451d51343877e0234be3fb7a9170d3bde3ff3cc4e3900712787"
+    },
+    {
+      "bytes": 0,
+      "path": "check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 4114,
+      "path": "check.py",
+      "sha256": "6df7c86dc6c349708d80d83b8170c7a1ece3cccd07dacdf7b8e2edc2b2b4976f"
+    },
+    {
+      "bytes": 1633,
+      "path": "correction.json",
+      "sha256": "0ce3f902c9cc14c90e56ca266fb5faf6233ab62c22a6d10cd7bebfbea798c1f7"
+    },
+    {
+      "bytes": 780,
+      "path": "inputs.json",
+      "sha256": "e77e1e9c72e82538753aa2749c1852d0ca212b2726e8ae15b4fe94d501d4679e"
+    },
+    {
+      "bytes": 296500,
+      "path": "model.glb",
+      "sha256": "f811549aae8f165cbc3e8f43e4ae6ea190f1fa862c872d1eddf733c1c46c8555"
+    },
+    {
+      "bytes": 2103,
+      "path": "render-attributes.json",
+      "sha256": "68a0e46e3eb6f81dce8bba2c79400f4bd6466c19643544eb7e05d16489973fa5"
+    },
+    {
+      "bytes": 974,
+      "path": "result.json",
+      "sha256": "422360afd39cb7c38175c6dd01accc7c3b01be818ca17e2edcde39490376ecbb"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/undercoat-uv2-native-export-check-v1/check.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.263,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 307255,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 8,
+      "rss_mb": 256,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "check-monitor.json",
+    "monitor_errors": [],
+    "pid": 59207,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 307255,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_generation_calls": 0,
+  "schema_version": 1,
+  "scope": "Analytic native export/component check, not a generated avatar"
+}

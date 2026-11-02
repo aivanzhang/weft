@@ -82,12 +82,26 @@ class HDUV1AttributeTests(unittest.TestCase):
             with self.subTest(name=name), self.assertRaisesRegex(ValueError, "requires UV1 and tangents"):
                 self.validate(document, binary)
 
-    def test_selector_requires_exact_nonboolean_integer_zero_or_one(self):
-        for invalid in (True, False, 0., 1., "1", None, -1, 2, 100, math.nan):
-            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "exact integer UV index 0 or 1"):
+    def test_selector_requires_exact_nonboolean_bounded_integer(self):
+        for invalid in (True, False, 0., 1., 2., "1", None, -1, 3, 100, math.nan):
+            with self.subTest(invalid=invalid), self.assertRaisesRegex(ValueError, "exact integer UV index 0, 1 or 2"):
                 document, binary = surface_fixture()
                 document["materials"][0]["normalTexture"]["texCoord"] = invalid
                 self.validate(document, binary)
+
+    def test_uv2_normal_map_requires_its_matching_accessor_with_unchanged_decode_limit(self):
+        document, binary = surface_fixture(normal_uv=2)
+        attrs = document['meshes'][0]['primitives'][0]['attributes']
+        with self.assertRaisesRegex(ValueError, 'requires UV2 and tangents'):
+            self.validate(document, binary)
+        attrs['TEXCOORD_2'] = attrs['TEXCOORD_1']
+        report = self.validate(document, binary)
+        self.assertEqual(report['primitives'][0]['verified_uv_sets'], [0, 1, 2])
+        self.assertEqual(report['primitives'][0]['normal_map_uv_set'], 2)
+        self.assertEqual(report['limits']['decoded_surface_values'], 1100000)
+        attrs['TEXCOORD_3'] = attrs['TEXCOORD_1']
+        with self.assertRaisesRegex(ValueError, 'Unsupported surface UV attribute'):
+            self.validate(document, binary)
 
     def test_uv1_requires_finite_matching_vec2_values(self):
         for defect in ("count", "shape", "nan", "infinity"):
