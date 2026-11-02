@@ -1,0 +1,104 @@
+{
+  "accepted": false,
+  "ai_role_calls": 0,
+  "blender_executable": {
+    "bytes": 175689264,
+    "path": ".tools/Blender.app/Contents/MacOS/Blender",
+    "runtime_receipt": "outputs/fox-fringe-component-v2/runtime.json",
+    "runtime_sha256": "457b01545d34a9f0a81be80ab952b6191b1be06f4bee6893b14547b460e81f52",
+    "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55"
+  },
+  "completed_local": "2026-11-01 21:43:40 PST",
+  "correction_recommendation": {
+    "limits": [
+      "Retain every positive influence; reject more than4 instead of pruning.",
+      "Keep the original.0002normal and1e-6weight gates; no higher tolerance.",
+      "Reject ambiguous correspondence, unknown transforms, changed topology, missing bone names, changed source pins, or unnormalized helper rows.",
+      "Do not restore body normals from fringe data or modify source textures/UVs/actions.",
+      "Validate all corners and weighted poses independently; restoration is not quality acceptance.",
+      "Native editable Blend still uses lossy short2 unless a separate verified producer change replaces it."
+    ],
+    "preferred_bounded_derivative": "Keep raw native export. Restore only selected fringe NORMAL/JOINTS_0/WEIGHTS_0 from pinned helper arrays after unique position/UV and exact oriented-triangle correspondence and explicit skin-name mapping. Append new accessors; preserve all original binary and unrelated JSON/attributes.",
+    "producer_alternative": "Test an explicit FLOAT_VECTOR custom_normal attribute on a tiny native witness before any production adapter change. Never patch installed Blender/exporter globally or perturb geometry to avoid the snap."
+  },
+  "cpu_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-exporter-causes-v1/replay_witnesses.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.264,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 365296,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 10
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "replay-monitor.json",
+    "monitor_errors": [],
+    "pid": 37015,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 365296,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "evidence_limits": [
+    "Two direct raw-source downloads failed DNS under sandbox and are preserved in source-inventory.json; official version-matched source excerpts were retrieved successfully with the web tool and saved verbatim as response records.",
+    "No full C++ source-file byte hash is claimed; installed exporter files and the retained web-response records are hash-bound.",
+    "Formula agrees with the six extreme witnesses, not a full attribution of every smaller normal difference.",
+    "No native/paid/AI-role call, shared production edit, threshold change, or asset acceptance in this investigation."
+  ],
+  "installed_exporter_version": "4.5.51",
+  "installed_source_sha256": {
+    "addon_init.py": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41",
+    "constants.py": "a812f552ef90409f5cdb0965e23ac6c4fe7ade5de39bcfffbd57e462ea9355e6",
+    "primitive_attributes.py": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4",
+    "primitive_extract.py": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+  },
+  "native_calls": 0,
+  "normals": {
+    "actual_worst_witnesses_replayed": 6,
+    "beta_snap_threshold": 0.9998999834060669,
+    "corner_normal_extraction_lines": [
+      1428,
+      1475
+    ],
+    "float_vector_alternative": "Public C++ accepts POINT/CORNER FLOAT_VECTOR custom_normal without short2 decoding; native proof pending",
+    "max_snap_formula_residual_component": 6.921075943489008e-05,
+    "replay_scope": "Actual six worst triangle/helper/export witnesses; version-matched formula, not full native C++ instrumentation",
+    "rounding_digits": 4,
+    "storage_path": "Native legacy setter uses CORNER short2 custom_normal per version-matched official C source"
+  },
+  "proven_weights": {
+    "actual_witnesses_bit_exact_after_replay": 3,
+    "all_influences_option_bypasses_prune": false,
+    "extraction_lines": [
+      1536,
+      1572
+    ],
+    "normalization_lines": [
+      149,
+      169
+    ],
+    "prune_at_or_below": 0.0001,
+    "public_setting_to_disable_prune_found": false
+  },
+  "provider_generation_calls": 0,
+  "schema_version": 1,
+  "status": "read_only_causes_localized"
+}

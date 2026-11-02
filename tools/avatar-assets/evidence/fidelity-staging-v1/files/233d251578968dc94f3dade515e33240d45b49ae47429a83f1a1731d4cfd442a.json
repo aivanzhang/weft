@@ -1,0 +1,42 @@
+{
+  "decisions": [
+    "Keep public portable-fringe execution disabled; do not add this candidate to accepted gallery or replace approved assets.",
+    "Treat float normals, exact skin preservation and staged memory success as technical components, not overall avatar approval."
+  ],
+  "loop_verified": false,
+  "native_reload_caveat": "Rest render controls and rig transforms are preserved, but four of five prior rest-image comparisons differ. One back view has identical pixels; no new pixel-error tolerance or universal appearance-parity claim.",
+  "new_paid_generation_calls": 0,
+  "observations": [
+    "Native strands remain visible on dark ears, arms and legs after scene reload; white areas remain comparatively smooth.",
+    "Flying companion and alternate panda pose are visible in real sampled native/GLB renders; this is not a full video or physical flight validation.",
+    "Exposed cheek/shoulder defects remain when the dragon leaves. Exported preview reveals broad shoulder artifacts and scattered light/green fragments.",
+    "Exported fringe shows conspicuous short upright spikes/strips on some contours, with smoother-looking dark body areas; it does not match dense Muse fur."
+  ],
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 22:28:38 PST",
+  "reviewed_actual_images": [
+    {
+      "path": "outputs/panda-staged-fringe-v1/stills/005/image.png",
+      "sha256": "84f0c7b5167e9e16ae5f57f951e1e3ce8db442cf2f6642b37233c1d1937f99c3"
+    },
+    {
+      "path": "outputs/panda-staged-fringe-v1/stills/006/image.png",
+      "sha256": "1e8d5b9980cb3e8adfb06eaef54eb6b75b386924ebd9214542efc44460965602"
+    },
+    {
+      "path": "outputs/panda-staged-fringe-v1/stills/008/image.png",
+      "sha256": "69a017984d127b9ee4d9c39de7c725f1871ea4eaa0ea5e638090abf5c5283622"
+    },
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/front.png",
+      "sha256": "ad9bcd4e5c07268850c88473e4c04e0fda2d23d1525af61a6770489dc5b39864"
+    },
+    {
+      "path": "outputs/panda-staged-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "be10e95ef674eabe1c7c1a627092a23747fd96a242d0ea8bcc5201d61efe75de"
+    }
+  ],
+  "schema_version": 1,
+  "status": "not_accepted_visual_quality",
+  "weft_runtime_verified": false
+}

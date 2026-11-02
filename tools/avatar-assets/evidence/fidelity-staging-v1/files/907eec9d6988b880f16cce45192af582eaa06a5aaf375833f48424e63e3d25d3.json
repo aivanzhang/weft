@@ -1,0 +1,31 @@
+{
+  "geometry_uv_weights_motion_unchanged": true,
+  "limitation": "Normal-map direction at degenerate UVs is authored, not recovered",
+  "method": "Orthogonalize rare invalid export tangents; choose an axis fallback only for zero/parallel tangents",
+  "normal_uv1_correction": {
+    "limits": {
+      "faces_per_primitive": 2048,
+      "primitives": 4
+    },
+    "policy": "mikk-unshared-triangle-v-up-v2",
+    "primitives": [
+      {
+        "authored_tangents_sha256": "47177aebb842ed3d4395a23dc6c1bbbbca20fdd0fb668a781d5c97522ddf128d",
+        "faces": 368,
+        "mesh": 0,
+        "primitive": 6,
+        "source_tangents_sha256": "5d8bb86f4ac8ec1f241219c8212a4dc56d7307871197e02e69e626dc43cf758a",
+        "tangent_accessor": 59,
+        "vertices": 1104
+      }
+    ],
+    "quality_approved": false,
+    "uv1_correction_changes_only_selected_tangent_float4_bytes": true,
+    "uv_basis": "Blender bake basis (u, 1-v_export); preserve PNG green-axis handedness",
+    "vertices": 1104
+  },
+  "repaired_vertices": [],
+  "result_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "source_sha256": "9c7e9ad594d251cc117f46697112247289ac485d95a7f9068052f8fb284e1a82",
+  "texture_bytes_unchanged": true
+}

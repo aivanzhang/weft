@@ -1,0 +1,50 @@
+{
+  "cases": {
+    "fox": {
+      "normal_component": 0.0002,
+      "position_m": 1e-06,
+      "root_m": 1e-06,
+      "uv": 2e-06,
+      "weight": 1e-06,
+      "weighted_pose_m": 1e-05
+    },
+    "panda": {
+      "normal_component": 0.0002,
+      "position_m": 1e-06,
+      "root_m": 1e-06,
+      "uv": 2e-06,
+      "weight": 1e-06,
+      "weighted_pose_m": 1e-06
+    }
+  },
+  "limits": {
+    "clips": 8,
+    "files_max_bytes": 67108864,
+    "helper_decoded_max_bytes": 16777216,
+    "runtime_seconds": 50,
+    "samples_per_clip": 9
+  },
+  "mutable_by_repair_agent": false,
+  "native_pose_missing_is_not_pass": true,
+  "no_acceptance_from_arrays_alone": true,
+  "origins": {
+    "fox": {
+      "fields": "Original actual normal/position/UV/weight/weighted-pose gates retained. Root1e-6 also retained by parent instruction.",
+      "path": "outputs/fox-fringe-component-preparation-v2/config.json",
+      "sha256": "c9998d1e1a610a4dae29fb26d6392c1be0bc1dbc453209d74215d9e611730e48"
+    },
+    "panda": {
+      "normal_weight_root": "Parent retained normal0.0002,weight1e-6,root1e-6.",
+      "position_uv": "Independent body-correspondence search limits; exact helper mapping is still required. Search tolerance is not attachment tolerance.",
+      "weighted_pose": "New conservative1e-6 helper-sampled-motion invariant, NOT a historical whole-native pose comparator."
+    }
+  },
+  "policy": "independent-fringe-fidelity-gates-v1",
+  "schema_version": 1,
+  "unchanged": {
+    "all_other_file_bytes": "byte-exact outside three exclusive attribute ranges",
+    "raw_and_result_json": "byte-exact",
+    "selected_position_uv_indices": "byte-exact",
+    "source_body": "byte-exact, not a claim original-to-native fidelity passed"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "custody_note": "Two seal preparations stopped before writes when owner fixes or their tests changed; final receipt binds reread corrected sources.",
+  "findings": [
+    {
+      "finding": "REST reload clears animation and bones but not object transforms retained from the last sampled action; imported object animation could fail the existing rig_world check.",
+      "id": "rest_object_transform",
+      "line": 58,
+      "path": "scripts/blender_render_prepared.py",
+      "priority": "P2",
+      "resolution": "prepare_only now requires authored_rig and authored_actions. author_actions removes imported actions and creates only bone rotation/location curves.",
+      "status": "resolved_by_scope_rejection",
+      "verification": "Read-only source and new analytic regression inspected, not rerun."
+    },
+    {
+      "finding": "exists() alone admitted dangling image links.",
+      "id": "fresh_output_admission",
+      "line": 33,
+      "path": "scripts/blender_render_prepared.py",
+      "priority": "P2",
+      "resolution": "Worker rejects exists() or is_symlink() for image.png, before-render.json and render-report.json before scene loading; runner log/handle/monitor siblings remain permitted.",
+      "status": "resolved",
+      "verification": "Read-only source and six file/link admission regression cases inspected, not rerun."
+    }
+  ],
+  "limits": [
+    "Runtime/RSS/output supervision is provided by the separate run_bounded caller, not this Blender worker alone.",
+    "No native/model/provider/browser jobs, production edits or test reruns by reviewer.",
+    "Hair reload fidelity, actual memory savings, visual quality and completed full finish remain unverified."
+  ],
+  "native_calls": 0,
+  "positive_checks": [
+    "Immediate rendering still calls the same operation when tasks is None.",
+    "Recorded frame/subframe, owner/slot, rig/bones, camera, resolution, samples, denoise, timing and view transform remain explicit.",
+    "Plan and Blend hashes plus actual bone/rig matrices are checked before render; existing transform tolerance remains2e-6.",
+    "No native hair-quality parameter is lowered by staging; portable cards remain hidden in native hair renders.",
+    "Preparation is prepared_not_rendered with0rendered_images and quality_approved=false, not a completed finish-report.",
+    "Skin snapshot selects body and portable cards before export, not native hair geometry.",
+    "State sampling, edge-deformation diagnostics and loop_verified=false remain.",
+    "Public portable_fringe finish guard remains active.",
+    "Bounds remain80tasks,384MiB Blend,1600px,64samples,1024objects,16actions and four render threads."
+  ],
+  "production_edits": 0,
+  "provider_or_ai_calls": 0,
+  "quality_approved": false,
+  "reviewed_at": "2026-11-01T22:16:08.180786-08:00",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 6129,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/native_render_tasks.py"
+    },
+    {
+      "bytes": 6211,
+      "path": "scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/blender_render_prepared.py"
+    },
+    {
+      "bytes": 52503,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "77e200d9f2620cebd513e3e9891b26b53251a1b27310cd48eac54091857ef1aa",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/blender_verify.py"
+    },
+    {
+      "bytes": 14055,
+      "path": "scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 8408,
+      "path": "tests/test_native_render_tasks.py",
+      "sha256": "60c4bb4666c2bcde37e0ad0cd03d9fbdb9a9c237dd54ff2908c42e92ecb6db6b",
+      "snapshot": "outputs/staged-native-render-review-v1/sources/test_native_render_tasks.py"
+    }
+  ],
+  "status": "read_only_review_complete_no_remaining_identified_blocker_in_restricted_route"
+}

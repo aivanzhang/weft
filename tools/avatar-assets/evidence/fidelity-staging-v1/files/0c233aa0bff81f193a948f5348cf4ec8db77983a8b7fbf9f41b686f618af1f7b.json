@@ -1,0 +1,56 @@
+{
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "generation_calls": 0,
+    "local_energy": "unpriced",
+    "recurring_services": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-staged-portable-model-v1/model.glb",
+      "sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2"
+    },
+    {
+      "path": "outputs/panda-staged-portable-model-v1/rig-verification.json",
+      "sha256": "96d0bdaf5ffc4483d491c104c15a9ee9fbcc20a2bec34234a2f07e434a62aa50"
+    },
+    {
+      "path": "outputs/panda-staged-portable-model-v1/render-attributes.json",
+      "sha256": "aa545e3995ac1128028d5c4b21df58e07cfaf0d6a7677dd806a0101001ca0677"
+    },
+    {
+      "path": "outputs/panda-staged-portable-preparation-v1/launcher-output-bound-error.json",
+      "sha256": "f47699e51738c02a1c03fb5ab618ceecb6d25f36822654f1c0c6df83742c4885"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mib": 128,
+    "sampled_child_rss_mib": 2048,
+    "seconds": 120,
+    "threads": 4
+  },
+  "model": "outputs/panda-staged-portable-model-v1/model.glb",
+  "output": "outputs/panda-staged-portable-preview-v1",
+  "schema_version": 1,
+  "scope": "Independent720pxEEVEE4view+4pose diagnostic. Not native-strand parity, Muse acceptance, full animation, loop or Weft runtime compatibility.",
+  "snapshots": [
+    {
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "path": "execute.py",
+      "sha256": "90ee4ffc1e45e9ea8613b70a76b0b5ffe3b100f58fdc1c829526a659cd331da3"
+    },
+    {
+      "path": "motion.json",
+      "sha256": "9cea25b6520e9bebdc4cd9961920d1216c515887badcaa1e10b1caa90ffeed85"
+    }
+  ]
+}

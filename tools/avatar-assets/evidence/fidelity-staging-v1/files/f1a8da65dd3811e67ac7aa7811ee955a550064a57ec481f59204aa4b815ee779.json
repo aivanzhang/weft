@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "prepared_at": "2026-11-01T22:20:28.932679-08:00",
+  "scope": "One CPU-only experimental full-source skin restoration, preserving raw normals/tangents and original inputs; no native/provider call or asset quality promotion",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-skin-restore-v1/restore.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "inputs": {
+    "source": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/model.glb",
+      "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+      "bytes": 36073016
+    },
+    "snapshot": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.npz",
+      "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3",
+      "bytes": 1498381
+    },
+    "snapshot_report": {
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.json",
+      "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d",
+      "bytes": 3599
+    }
+  },
+  "source_pins": [
+    {
+      "path": "avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "bytes": 96
+    },
+    {
+      "path": "avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "bytes": 24176
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "bytes": 13676
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc",
+      "bytes": 35106
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "bytes": 11421
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "bytes": 3759
+    }
+  ],
+  "worker_sha256": "fb4869c1a9d973c7a284f034e8b016654feec39e308664e8803a65c6604e30ec",
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 96
+  },
+  "attempts": 1,
+  "experimental": true,
+  "public_guard_enabled": false
+}

@@ -1,0 +1,42 @@
+{
+  "case": "panda",
+  "derivative": {
+    "bytes": 35693452,
+    "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/model.glb",
+    "sha256": "edefc8fe726247fe6fa775968858b2629eb5723e7256e71ec49526402e1dc616"
+  },
+  "expected_clips": [
+    "dance_flight"
+  ],
+  "helper": {
+    "bytes": 567833,
+    "path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+    "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+  },
+  "inherited_body_limitations": [
+    "Partial raw native export from memory-failed full finish; no completed finish or native sampled-pose comparator.",
+    "This diagnostic cannot approve source-body normals, omitted small skin influences, appearance or resource completion."
+  ],
+  "material_name": "SourceColoredFringe",
+  "native_report": {
+    "bytes": 13534,
+    "path": "outputs/panda-portable-fringe-finish-v1/fringe-report.json",
+    "sha256": "a0209a11a07e97261af908b45ff46de08fed6e201d3e761fe8b73942d1fdeb4b"
+  },
+  "output": "outputs/fringe-fidelity-panda-independent-audit-v1/result",
+  "producer_evidence": {
+    "bytes": 3775,
+    "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/repair-report.json",
+    "sha256": "6a4b843cf29e7f19f1bbdbb172133c9f10e228ee0f8f22364675851ae3c6bd1d"
+  },
+  "source": {
+    "bytes": 35693452,
+    "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/tangent-omitted.glb",
+    "sha256": "fa9ffa8bdb4703ed03e1e19d6cb06cde6ae8af97dd971ea1e01543ec7c169830"
+  },
+  "thresholds": {
+    "bytes": 1730,
+    "path": "outputs/fringe-fidelity-independent-preparation-v1/thresholds.json",
+    "sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+  }
+}

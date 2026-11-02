@@ -1,0 +1,132 @@
+{
+  "allowed_skin_spans": [
+    {
+      "accessor": 6,
+      "count": 2148,
+      "element_bytes": 4,
+      "start": 128880,
+      "stride": 4
+    },
+    {
+      "accessor": 7,
+      "count": 2148,
+      "element_bytes": 16,
+      "start": 137472,
+      "stride": 16
+    },
+    {
+      "accessor": 15,
+      "count": 24705,
+      "element_bytes": 4,
+      "start": 25253044,
+      "stride": 4
+    },
+    {
+      "accessor": 16,
+      "count": 24705,
+      "element_bytes": 16,
+      "start": 25351864,
+      "stride": 16
+    },
+    {
+      "accessor": 24,
+      "count": 3,
+      "element_bytes": 4,
+      "start": 25910556,
+      "stride": 4
+    },
+    {
+      "accessor": 25,
+      "count": 3,
+      "element_bytes": 16,
+      "start": 25910568,
+      "stride": 16
+    },
+    {
+      "accessor": 33,
+      "count": 939,
+      "element_bytes": 4,
+      "start": 25966964,
+      "stride": 4
+    },
+    {
+      "accessor": 34,
+      "count": 939,
+      "element_bytes": 16,
+      "start": 25970720,
+      "stride": 16
+    },
+    {
+      "accessor": 42,
+      "count": 549,
+      "element_bytes": 4,
+      "start": 26020564,
+      "stride": 4
+    },
+    {
+      "accessor": 43,
+      "count": 549,
+      "element_bytes": 16,
+      "start": 26022760,
+      "stride": 16
+    },
+    {
+      "accessor": 51,
+      "count": 21919,
+      "element_bytes": 4,
+      "start": 27351112,
+      "stride": 4
+    },
+    {
+      "accessor": 52,
+      "count": 21919,
+      "element_bytes": 16,
+      "start": 27438788,
+      "stride": 16
+    },
+    {
+      "accessor": 60,
+      "count": 1104,
+      "element_bytes": 4,
+      "start": 30941152,
+      "stride": 4
+    },
+    {
+      "accessor": 61,
+      "count": 1104,
+      "element_bytes": 16,
+      "start": 30945568,
+      "stride": 16
+    },
+    {
+      "accessor": 69,
+      "count": 43200,
+      "element_bytes": 4,
+      "start": 33404928,
+      "stride": 4
+    },
+    {
+      "accessor": 70,
+      "count": 43200,
+      "element_bytes": 16,
+      "start": 33577728,
+      "stride": 16
+    }
+  ],
+  "changed_binary_bytes": 58011,
+  "every_other_json_value_exact": true,
+  "every_other_padded_binary_byte_exact": true,
+  "quality_approved": false,
+  "removed_temporary_id_bindings": [
+    "meshes/0/primitives/0/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/1/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/2/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/3/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/4/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/5/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/6/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/1/primitives/0/attributes/_AUTHOR_VERTEX_ID"
+  ],
+  "status": "passed",
+  "unused_original_id_accessors_and_bytes_retained": true
+}

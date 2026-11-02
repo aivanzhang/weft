@@ -1,0 +1,53 @@
+{
+  "analytic_probe": {
+    "elapsed_seconds": 0.264,
+    "fixture_only": true,
+    "path": "analytic-result.json",
+    "sampled_peak_rss_bytes": null,
+    "sha256": "558ca570c7fde8d6a65b4ce054a99efeda2f6246840b7d38eaf36f7d138c66c3",
+    "summary": "Actual installed Python layer-read/regular-attribute/unique-dot functions pass mocked RNA IDs through seams, duplicate triangles and separate materials;100000IDs exact in float32."
+  },
+  "api": {
+    "attribute": "_AUTHOR_VERTEX_ID",
+    "blender_type": "INT",
+    "domain": "POINT",
+    "exact_id_range": [
+      0,
+      99999
+    ],
+    "export_flag": "export_attributes=True",
+    "glTF_component_type": 5126,
+    "glTF_type": "SCALAR"
+  },
+  "exporter_version": "4.5.51",
+  "limits": [
+    "Source/analytic evidence only, not native export or skin/action preservation proof.",
+    "export_attributes=True exports every admitted underscore attribute; reject unexpected ones.",
+    "Modifiers/shared-mesh ownership require explicit guards; IDs alone do not prove unchanged topology."
+  ],
+  "lineage": {
+    "admission": "primitive_extract.py173-227 admits underscore attrs and uppercases names; rejects name collisions by skipping later duplicate",
+    "conversion": "conversion.py88-102,113-126,145-159 maps INT to FLOAT/SCALAR float32; IDs below100k stay exact",
+    "point_to_corner": "primitive_extract.py1368-1389 uses dot.vertex_index to repeat the original POINT value on every corner",
+    "skinning": "primitive_extract.py852-868/933-949 gets weights independently from vert_bones indexed by the same native vertex_index; ID does not disable pruning",
+    "splitting": "primitive_extract.py316-344 includes native vertex_index and every attribute in the unique-dot tuple; shared823-850 / per-material900-916 preserve the ID"
+  },
+  "native_calls": 0,
+  "pruning": {
+    "all_influences_option_is_later": true,
+    "constant": 0.0001,
+    "extension_api": "gather_mesh_hook sees resulting primitives and original mesh after extraction; attribute-change hook also exists but no supported hook controls min_influence",
+    "hook_failure_policy": "user_extensions.py13-17 logs and swallows hook exceptions; never use hook return as a fail-closed success gate",
+    "setting_to_disable_found": false
+  },
+  "recommendation": [
+    "Snapshot all selected source body+fringe mesh points/\u22644positiveweights and bone names in applied identity rest frames.",
+    "Stamp one global POINT INT source ID per native vertex after final topology/weight authoring; reject preexisting collisions and all unexpected underscore attributes.",
+    "Export with custom attrs enabled, no topology-changing modifier application or compression. Treat source IDs as float32 exact integers, not a5125 accessor.",
+    "Restore all exported skin rows, including body, from IDs and per-owner bone mapping; cross-check rest positions and oriented source triangle coverage.",
+    "Duplicate target IDs caused by seams/material splits are expected; each ID must select exactly one immutable source row.",
+    "Strip only the staging ID binding after guarded restoration; retain original raw export and bytes, public validator and original tolerances.",
+    "A real native skinned UV-seam/material fixture remains necessary before relying on the full Blender path."
+  ],
+  "status": "installed_source_id_route_supported_native_proof_pending"
+}

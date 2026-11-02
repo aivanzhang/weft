@@ -1,0 +1,63 @@
+{
+  "artifact_bytes": 50363,
+  "artifact_count": 11,
+  "artifacts": [
+    {
+      "bytes": 1089,
+      "path": "job.json",
+      "sha256": "45c09dcc23c6cbd9b47d2d448704c454f0cac42a98a60a3538fcc7d655ae7701"
+    },
+    {
+      "bytes": 1329,
+      "path": "prepared.json",
+      "sha256": "cc2873454bfa5de1543b5f308ea82e9906e2152cea2cd5480a7a93b849917a39"
+    },
+    {
+      "bytes": 326,
+      "path": "runtime.json",
+      "sha256": "8b3768d20fbeecbf366199640e790d456a449cc9aa30aff028bd2086d795ee88"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 14055,
+      "path": "sources/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "bytes": 13643,
+      "path": "sources/test_source_skin_snapshot.py",
+      "sha256": "7153b44578be5a240c88c4f1f3465a3d438041700456165a5db18de2f3b04661"
+    },
+    {
+      "bytes": 1546,
+      "path": "summary.json",
+      "sha256": "feef88b0a283afa8ae4c75fea515feac26797f28c2f23010cecb0d02c1d7baab"
+    },
+    {
+      "bytes": 233,
+      "path": "tests-handle.json",
+      "sha256": "9152ec5a4a9472dd285cd004fe9ef83c5a349b7bbd9b3eefa3dc0e63ca7104b6"
+    },
+    {
+      "bytes": 969,
+      "path": "tests-monitor.json",
+      "sha256": "50e9890a7a759d706417d87d279a1b726d96ddfc1ba070714fed0b183ee3c2e4"
+    },
+    {
+      "bytes": 1993,
+      "path": "tests.log",
+      "sha256": "c14534339a6ca9c00c2f4cf01598671defd05f58f18cfc1ff038b22caa12d972"
+    }
+  ],
+  "schema_version": 1,
+  "status": "sealed_focused_fixture_tests"
+}

@@ -1,0 +1,19 @@
+test_distinct_same_named_rigs_cannot_be_confused (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_distinct_same_named_rigs_cannot_be_confused) ... ok
+test_exact_complete_skin_and_all_other_bytes_preserved (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_exact_complete_skin_and_all_other_bytes_preserved) ... ok
+test_explicit_guard_hashes_new_target_and_deterministic_bytes (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_explicit_guard_hashes_new_target_and_deterministic_bytes) ... ok
+test_ids_are_exact_finite_owner_bound_and_not_nearest_matches (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_ids_are_exact_finite_owner_bound_and_not_nearest_matches) ... ok
+test_interleaved_non_skin_bytes_are_retained (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_interleaved_non_skin_bytes_are_retained) ... ok
+test_maximum_vertex_and_triangle_scale_is_bounded (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_maximum_vertex_and_triangle_scale_is_bounded) ... ok
+test_non_skin_aliases_sparse_extra_sets_and_orphans_reject (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_non_skin_aliases_sparse_extra_sets_and_orphans_reject) ... ok
+test_npz_decode_declared_budget_and_duplicate_entries_reject_before_load (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_npz_decode_declared_budget_and_duplicate_entries_reject_before_load) ... ok
+test_oversized_or_symlink_input_is_not_read (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_oversized_or_symlink_input_is_not_read) ... ok
+test_owner_frames_rig_names_and_triangle_material_proof (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_owner_frames_rig_names_and_triangle_material_proof) ... ok
+test_shared_skin_storage_requires_identical_proven_values (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_shared_skin_storage_requires_identical_proven_values) ... ok
+test_snapshot_schema_weights_and_bounds_are_strict (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_snapshot_schema_weights_and_bounds_are_strict) ... ok
+test_source_ids_resolve_coincident_points_and_remove_synthetic_root_gap (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_source_ids_resolve_coincident_points_and_remove_synthetic_root_gap) ... ok
+test_uv_seam_duplicates_keep_source_id_and_triangle_multiplicity (tests.test_source_skin_fidelity.SourceSkinFidelityTests.test_uv_seam_duplicates_keep_source_id_and_triangle_multiplicity) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.489s
+
+OK

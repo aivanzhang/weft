@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-fidelity-independent-preparation-v2/audit.py", line 446, in <module>
+    result=inspect(request,out)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-fidelity-independent-preparation-v2/audit.py", line 392, in inspect
+    require(len(set(signatures))==1,'Body-root candidates have different positions or skin; no nearest-match guess')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-fidelity-independent-preparation-v2/audit.py", line 27, in require
+    raise ValueError(message)
+ValueError: Body-root candidates have different positions or skin; no nearest-match guess

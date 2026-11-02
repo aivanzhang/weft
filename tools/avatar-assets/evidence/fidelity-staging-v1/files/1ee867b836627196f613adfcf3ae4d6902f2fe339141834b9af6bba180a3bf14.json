@@ -1,0 +1,104 @@
+{
+  "authorization": "Parent/root explicitly granted one tiny native storage experiment and native lane after cause report seal; no full avatar or render/provider work.",
+  "bounds": {
+    "checker_rss_mib": 512,
+    "checker_seconds": 15,
+    "native_rss_mib": 1024,
+    "native_seconds": 60,
+    "output_mib": 64,
+    "threads": 4
+  },
+  "cause_manifest_sha256": "a2ae7f622a2760f89825cf3eeb2e48d1dc3bf6097f270f1f84655f3a3acf10f9",
+  "checker_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-normal-storage-native-v1/check_fixture.py"
+  ],
+  "installed_pins": [
+    {
+      "bytes": 86294,
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+    },
+    {
+      "bytes": 10071,
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_attributes.py",
+      "sha256": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+    },
+    {
+      "bytes": 4185,
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/io/com/constants.py",
+      "sha256": "a812f552ef90409f5cdb0965e23ac6c4fe7ade5de39bcfffbd57e462ea9355e6"
+    },
+    {
+      "bytes": 84361,
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41"
+    },
+    {
+      "bytes": 175689264,
+      "path": ".tools/Blender.app/Contents/MacOS/Blender",
+      "runtime_receipt": "outputs/fox-fringe-component-v2/runtime.json",
+      "runtime_sha256": "457b01545d34a9f0a81be80ab952b6191b1be06f4bee6893b14547b460e81f52",
+      "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55"
+    }
+  ],
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fringe-normal-storage-native-v1/build_fixture.py"
+  ],
+  "native_retries": 0,
+  "provider_calls": 0,
+  "renders": 0,
+  "scope": "Six exact actual worst fin triangles, legacy short2 control and POINT/CORNER FLOAT_VECTOR custom_normal",
+  "source_pins": [
+    {
+      "bytes": 4371,
+      "path": "build_fixture.py",
+      "sha256": "c44c2ba092d287cfa79c8351faff37aa21a479de064930a8d642dc09d044782a"
+    },
+    {
+      "bytes": 5357,
+      "path": "check_fixture.py",
+      "sha256": "929ea4b9fffb8758212ceab96153c2a212f9713f0056ed725faecc5984a5288f"
+    },
+    {
+      "bytes": 7741,
+      "path": "config.json",
+      "sha256": "31e7c92365a1dbb689297c85924a9f87984287f74dd533c2afad1bb15edcb7cf"
+    },
+    {
+      "bytes": 1460,
+      "path": "execute.py",
+      "sha256": "3dc2393ee403aede20e55be9cd70baaba79de5352da5d7ed639da4b9b97f850e"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ]
+}

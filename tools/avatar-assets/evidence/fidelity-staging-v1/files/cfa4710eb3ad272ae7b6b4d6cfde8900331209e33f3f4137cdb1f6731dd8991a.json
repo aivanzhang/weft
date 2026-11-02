@@ -1,0 +1,22 @@
+{
+  "candidate_distinct_skin_names": [
+    "CompanionRoot",
+    "RightShoulder"
+  ],
+  "do_not_infer_pruning_gap": true,
+  "four_candidates_identical_rest_position_and_uv": true,
+  "helper_named_weights": [
+    [
+      "RightShoulder",
+      1.0
+    ]
+  ],
+  "helper_root": 315,
+  "helper_sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa",
+  "helper_vertex": 629,
+  "motion_gap_unknown_reason": "Ambiguous actual source vertex identity; checker rejects before choosing a root.",
+  "next_required_evidence": "Preserve exact authored source vertex IDs through export, then compare unchanged body and restored fringe roots.",
+  "rest_gap_m": 0,
+  "sampled_motion_gap_m": null,
+  "witness_sha256": "6b5c3227881683feab150ba3de5d0308b6a5403c3a8358c30793f23bea13070f"
+}

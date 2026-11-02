@@ -95,6 +95,14 @@ its memory limit. That option now returns **unsupported before native work**;
 existing combed-card finishing and approved assets are unchanged. The final
 guard and surrounding contracts pass 59 tests. This is not a new Studio delivery.
 
+[Export fidelity and staged rendering](docs/export-fidelity-and-staging.md) now
+prove a float-normal fix, exact full-source skin restoration and 13 native
+stills below the same 2 GiB limit. The independent panda audit verifies nine
+sampled poses and attached fringe. Its exported preview still has conspicuous
+contour spikes and cheek/shoulder defects, so this experimental route remains
+disabled and no approved asset is replaced. These repairs are not a fresh
+hands-off text-prompt acceptance.
+
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
 existing read-only gallery remains separate on port 8765.

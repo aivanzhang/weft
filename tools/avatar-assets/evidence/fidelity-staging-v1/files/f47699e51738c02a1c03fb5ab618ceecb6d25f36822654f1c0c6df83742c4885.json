@@ -1,0 +1,10 @@
+{
+  "actual_new_output_bytes": 72158012,
+  "error": "Launcher monitored outputs/ at100000MiB rather than this new output at the prepared128MiB. This is not proof of the declared live output bound.",
+  "model_sha256": "e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2",
+  "next_action": "Future launcher creates a new output directory before starting the worker and monitors that exact directory at its declared cap. Do not reuse the broad output root.",
+  "no_rerun_or_artifact_mutation": true,
+  "posthoc_prepared128MiB_check_passed": true,
+  "runtime_memory_guards": "30s and512MiB direct-child RSS were enforced; see job.json",
+  "status": "live_output_guard_configuration_error_preserved"
+}

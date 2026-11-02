@@ -1,0 +1,50 @@
+{
+  "all_children_exit_verified": true,
+  "avatar_quality_accepted": false,
+  "blend_sha256": "05f8f6fd3be45a8c6eb8721eab10a64850f96018ad733e48d30a871eb2ebb729",
+  "checker_elapsed_seconds": 0.263,
+  "checker_sampled_peak_rss_bytes": null,
+  "limitations": [
+    "Tiny exact-witness mesh normals only; no skin, rig, action, tangent or full-avatar test.",
+    "Weight pruning is unrelated and is not corrected by float normal storage.",
+    "No production/default promotion or installed exporter patch."
+  ],
+  "method_metrics": {
+    "corner-float-vector": {
+      "cases": 6,
+      "export_failed_vertices": 0,
+      "export_max_component_error": 3.4496188163757324e-05,
+      "native_failed_vertices": 0,
+      "native_max_component_error": 0.0
+    },
+    "legacy-short2": {
+      "cases": 6,
+      "export_failed_vertices": 6,
+      "export_max_component_error": 0.01371359266431682,
+      "native_failed_vertices": 6,
+      "native_max_component_error": 0.013705412858143973
+    },
+    "point-float-vector": {
+      "cases": 6,
+      "export_failed_vertices": 0,
+      "export_max_component_error": 3.4496188163757324e-05,
+      "native_failed_vertices": 0,
+      "native_max_component_error": 0.0
+    }
+  },
+  "model_sha256": "6824140c2fd02347462fcd88577f11ee936f6b00213cfc908f597854978ec7d5",
+  "native_component_verified": true,
+  "native_elapsed_seconds": 0.784,
+  "native_sampled_peak_rss_bytes": 190169088,
+  "next_scope": "Parent may consider a separately tested narrow fin producer change; existing assets and shared source remain unchanged.",
+  "original_normal_component_limit": 0.0002,
+  "owned_pids": [
+    37740,
+    37741
+  ],
+  "provider_calls": 0,
+  "renders": 0,
+  "status": "passed_native_normal_storage_component",
+  "threshold_changed": false,
+  "verification_sha256": "a17bdaaf63ae1d5434b37b3feb4eb850c4d20bcdf21ccb352ba6a7637fe5eae6"
+}

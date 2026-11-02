@@ -1,0 +1,47 @@
+{
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_source_skin_snapshot.py",
+    "-v"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "provenance": "Analytic mocked-native tests, not actual avatar generation or Blender proof",
+  "source_pins": [
+    {
+      "bytes": 14055,
+      "path": "scripts/source_skin_snapshot.py",
+      "saved_path": "sources/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "bytes": 13643,
+      "path": "tests/test_source_skin_snapshot.py",
+      "saved_path": "sources/test_source_skin_snapshot.py",
+      "sha256": "7153b44578be5a240c88c4f1f3465a3d438041700456165a5db18de2f3b04661"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "saved_path": "sources/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "saved_path": "sources/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

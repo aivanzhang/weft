@@ -1,0 +1,107 @@
+{
+  "fixture": "analytic 100000 source/exported vertices, 99998 indexed triangles",
+  "native_rendered": false,
+  "input_sizes": {
+    "source": 8807712,
+    "snapshot": 857416,
+    "snapshot_report": 1362
+  },
+  "restore_report": {
+    "schema_version": 1,
+    "policy": "experimental-source-skin-fidelity-v1",
+    "experimental": true,
+    "public_guard_enabled": false,
+    "input_sha256": {
+      "source": "c71ffd580ecd33e8a5b28fe2c03f5ac5cf13def1f590527b8967085bb66db541",
+      "snapshot": "373b7c16319a9d7c72379ac913ee5b8c3ed99b03615fd52de4bd264c8855934e",
+      "snapshot_report": "e4a945054149df7e016b1660eb1aeb7a6839533327b2c4e713e82e1e45df95b4"
+    },
+    "result_sha256": "2f5723de34cb0147750b9cd3db242997512d1d22f94256cd57e0ea177d6365dd",
+    "source_unchanged": true,
+    "source_vertices": 100000,
+    "exported_vertex_entries": 100000,
+    "triangles": 99998,
+    "owners": 1,
+    "primitives": [
+      {
+        "mesh": 0,
+        "primitive": 0,
+        "owner": 0,
+        "node": 0,
+        "skin": 0,
+        "vertices": 100000,
+        "source_ids_sha256": "20ff50e632cc575386b15d7fcd9c3842ef435388ed29ae8c30617158ee907dc5",
+        "native_to_exported_joint_slots": [
+          1,
+          0,
+          3,
+          2
+        ]
+      }
+    ],
+    "skin_writes": [
+      {
+        "accessor": 26,
+        "buffer_view": 27,
+        "byte_offset": 4802972,
+        "byte_stride": 8,
+        "element_bytes": 8,
+        "count": 100000,
+        "old_sha256": "4d097090fb915aac28662fe09375b1274edd75e1233c4c80b38041d3dc2e4282",
+        "new_sha256": "4d097090fb915aac28662fe09375b1274edd75e1233c4c80b38041d3dc2e4282",
+        "changed_rows": 0,
+        "uses": [
+          [
+            0,
+            0,
+            "JOINTS_0"
+          ]
+        ]
+      },
+      {
+        "accessor": 27,
+        "buffer_view": 28,
+        "byte_offset": 5602972,
+        "byte_stride": 16,
+        "element_bytes": 16,
+        "count": 100000,
+        "old_sha256": "f8d402d3dae2f4590e9ff7d9b85b1863ffbc9f72a986b9479a9434955f0bfba7",
+        "new_sha256": "d0ea071ad077b2e700b9907a71caffc2daeb1f97fde75084dcc97babfe4f414f",
+        "changed_rows": 100000,
+        "uses": [
+          [
+            0,
+            0,
+            "WEIGHTS_0"
+          ]
+        ]
+      }
+    ],
+    "removed_id_bindings": [
+      "/meshes/0/primitives/0/attributes/_AUTHOR_VERTEX_ID"
+    ],
+    "all_source_ids_represented": true,
+    "oriented_owner_material_triangles_exact": true,
+    "all_non_skin_binary_bytes_unchanged": true,
+    "json_changes_only_removed_id_bindings": true,
+    "normals_positions_uv_images_rig_actions_unchanged": true,
+    "original_accessors_views_and_id_payloads_retained": true,
+    "shared_storage_policy": "All live write aliases demand identical proven source bytes; non-skin/orphan overlap rejected",
+    "frame": "Exact applied Blender XYZ meters -> glTF [x,z,-y]; no nearest matching or renormalization",
+    "sampled_peak_rss_bytes": 183484416,
+    "elapsed_seconds": 0.2830179580487311,
+    "limits": {
+      "file_bytes": 67108864,
+      "npz_decoded_bytes": 8388608,
+      "vertices": 100000,
+      "triangles": 100000,
+      "bones": 64,
+      "seconds": 30,
+      "sampled_rss_bytes": 536870912
+    },
+    "motion_verified": false,
+    "body_normal_fidelity_verified": false,
+    "quality_approved": false,
+    "limitation": "Exact complete source-skin restoration is not action, appearance, physical validity, or failed-native completion proof."
+  }
+}

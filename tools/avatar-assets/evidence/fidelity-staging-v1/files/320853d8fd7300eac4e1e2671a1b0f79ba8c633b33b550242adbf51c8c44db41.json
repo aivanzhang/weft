@@ -1,0 +1,71 @@
+{
+  "ast_except_write_identical": true,
+  "correspondence_changes": false,
+  "files": [
+    {
+      "bytes": 29024,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/audit.py",
+      "sha256": "624244cbba74e34f0dd1f19c36d315dabb8be842f4a1da52758fb9928c39ef2b"
+    },
+    {
+      "bytes": 445,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/checker-only.diff",
+      "sha256": "6bdbd2ac0be5d9e2d6858ca5b2c7dcb864d2b413f420849ee49c8f034c70c431"
+    },
+    {
+      "bytes": 659,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/oracle-result.json",
+      "sha256": "864f9c4ac28e738cba0650ce9de74a51b0672ea53167f4f96255f39e91f5fd8d"
+    },
+    {
+      "bytes": 2464,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/oracles.py",
+      "sha256": "8ce5886652ec54fae1969a6e598a640952da4bda844c8d05db48ba2e954e89a8"
+    },
+    {
+      "bytes": 1902,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/panda-request.json",
+      "sha256": "a858bea0d9ac1b6eda5aae61be8bebcf9b3a50cc17fbcc594df1eb2c78cccc9a"
+    },
+    {
+      "bytes": 1631,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/run.py",
+      "sha256": "b8529365a0d2a8fafda8a937bc8599700af87ee5d48c2530e23d761379bf60e4"
+    },
+    {
+      "bytes": 1730,
+      "path": "outputs/fringe-fidelity-independent-preparation-v2/thresholds.json",
+      "sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+    },
+    {
+      "bytes": 28895,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/audit.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 2167,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v1/manifest.json",
+      "sha256": "877402e489c8cadbc5f4d29dde6ff660b02da9bc21c753247edcde36354ebb58"
+    }
+  ],
+  "limit_changes": false,
+  "limits": {
+    "output_mib": 32,
+    "rss_mib": 512,
+    "seconds": 60
+  },
+  "no_auto_retry": true,
+  "no_new_derivative": true,
+  "status": "prepared_checker_only_scalar_serialization_fix",
+  "thresholds_unchanged": true
+}

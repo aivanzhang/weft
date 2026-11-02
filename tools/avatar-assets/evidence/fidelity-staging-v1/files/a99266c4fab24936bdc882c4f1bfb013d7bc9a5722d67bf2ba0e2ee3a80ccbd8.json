@@ -1,0 +1,57 @@
+{
+  "appearance_approved": false,
+  "files": [
+    {
+      "bytes": 30424508,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/model.glb",
+      "sha256": "fe882a57853517f94c1e97b4cf68f8d360cf336d9db5415c995153d510eee057"
+    },
+    {
+      "bytes": 3813,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/repair-report.json",
+      "sha256": "b5c0acd48bfd1a0e2d162de6e5da7e985242682a7753c60cbed39cec38fc225b"
+    },
+    {
+      "bytes": 3997,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/request.json",
+      "sha256": "b58e4a9958c76863b03ff38b6498229c96d1f141c61cf13a9280d68cac7e5e24"
+    },
+    {
+      "bytes": 303,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/result.json",
+      "sha256": "96f0b544551f3fa8a5c839d804088e73ebd3cdfb178a37aac13af38dac999838"
+    },
+    {
+      "bytes": 1262,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/job.json",
+      "sha256": "4fe1294c1cfaf508a4950d83b2f92c2c98d39cac8748112f8fa015626f790d60"
+    },
+    {
+      "bytes": 378,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/producer-handle.json",
+      "sha256": "ead6ed563b7c64b5113674d526fba6ce84b754044f7bbcc6a5ca761fe5fc1553"
+    },
+    {
+      "bytes": 1168,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/producer-monitor.json",
+      "sha256": "3addf99c8492bba162e5b777994e51b5a7268635a4985d0a57ccf3a110223589"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/fringe-fidelity-fox-producer-v1/producer.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "native_calls": 0,
+  "provider_or_ai_calls": 0,
+  "result": {
+    "body_attachment_approved": false,
+    "elapsed_seconds": 0.4032861250452697,
+    "model_sha256": "fe882a57853517f94c1e97b4cf68f8d360cf336d9db5415c995153d510eee057",
+    "native_run_completed": false,
+    "quality_approved": false,
+    "status": "produced_experimental_derivative_pending_independent_audit"
+  },
+  "schema_version": 1,
+  "status": "sealed"
+}

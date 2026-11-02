@@ -1,0 +1,11 @@
+--- v1/audit.py
++++ v2/audit.py
+@@ -35,7 +35,7 @@
+ 
+ 
+ def write(path, value):
+-    encoded = json.dumps(value, indent=2, sort_keys=True, allow_nan=False)+'\n'
++    encoded = json.dumps(value, indent=2, sort_keys=True, allow_nan=False, default=lambda value: value.item() if isinstance(value, np.generic) else (_ for _ in ()).throw(TypeError(type(value).__name__)))+'\n'
+     with Path(path).open('x') as handle:
+         handle.write(encoded)
+ 

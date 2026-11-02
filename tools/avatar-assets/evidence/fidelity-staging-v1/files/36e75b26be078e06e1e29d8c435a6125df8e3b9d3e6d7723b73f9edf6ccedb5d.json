@@ -1,0 +1,114 @@
+{
+  "artifact_bytes": 256359,
+  "artifact_count": 21,
+  "artifacts": [
+    {
+      "bytes": 248,
+      "path": "analytic-handle.json",
+      "sha256": "12c067623041d41d5b2a416429d99ebbf07abf79e234de871173291e8fabf6cb"
+    },
+    {
+      "bytes": 985,
+      "path": "analytic-monitor.json",
+      "sha256": "f50c0da154bb1bdf113b2fcaba1a3d48b94607d7b2514550f2306bd4d317036c"
+    },
+    {
+      "bytes": 1824,
+      "path": "analytic-result.json",
+      "sha256": "558ca570c7fde8d6a65b4ce054a99efeda2f6246840b7d38eaf36f7d138c66c3"
+    },
+    {
+      "bytes": 84,
+      "path": "analytic.log",
+      "sha256": "3584543006cd67ee7328fdb049578cf918e18e7c2f88ae05f2674def61b0b0c9"
+    },
+    {
+      "bytes": 1994,
+      "path": "findings.md",
+      "sha256": "e2a7103561b1c1d16158867678d0fb4bb6918c2330dca6e7c994a3c3ce47a0c4"
+    },
+    {
+      "bytes": 96,
+      "path": "host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 1077,
+      "path": "job.json",
+      "sha256": "a28cd2677b54a2842554830ccf0a13432ca0264d8933e24d7be6cb172e598fed"
+    },
+    {
+      "bytes": 393,
+      "path": "prepared.json",
+      "sha256": "e7b4f697064c4a175e88a581f643d0ff4cbdc5317519e0f6900e6cd96b86afe9"
+    },
+    {
+      "bytes": 4530,
+      "path": "probe_lineage.py",
+      "sha256": "4168e80b704f1336645ad3fa2c2f363b3ee26c79b9bb40c62c9ac7e40a470bf9"
+    },
+    {
+      "bytes": 3377,
+      "path": "report.json",
+      "sha256": "b66c046b6332913fa8875517bf900a318801141207101020ccd679273fb2f142"
+    },
+    {
+      "bytes": 2381,
+      "path": "source-inventory.json",
+      "sha256": "6c278cf613feb937746fc8332ff3b2746e7f022f0fa1d553f3739f88abcb0e28"
+    },
+    {
+      "bytes": 84361,
+      "path": "sources/addon_init.py",
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41"
+    },
+    {
+      "bytes": 7955,
+      "path": "sources/conversion.py",
+      "sha256": "9d61cd2714b27d4be15e0d4c899fa59096ea7577e076deb156b846f108291813"
+    },
+    {
+      "bytes": 3635,
+      "path": "sources/gltf2_blender_utils.py",
+      "sha256": "9155b7a71b2deedd6d608f01c50769568d290b1fb9005ea5ac34bb762872401c"
+    },
+    {
+      "bytes": 6255,
+      "path": "sources/mesh.py",
+      "sha256": "b16f09b830474ac755721b489eebea3f5f4cded9114f396203d9241732e7c4b7"
+    },
+    {
+      "bytes": 24921,
+      "path": "sources/nodes.py",
+      "sha256": "077d66f73d2a22e7caf13f73be83b3d027cc03995c040a0064b3b7a77dc5bcf1"
+    },
+    {
+      "bytes": 10071,
+      "path": "sources/primitive_attributes.py",
+      "sha256": "56f4338728d0baf17a68a696fbe4300026e1e7690afc986ea6357ac63fa2d0c4"
+    },
+    {
+      "bytes": 86294,
+      "path": "sources/primitive_extract.py",
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+    },
+    {
+      "bytes": 698,
+      "path": "sources/user_extensions.py",
+      "sha256": "e76dcf9607020e4024cdabce499e29832e8aba510abf0f6f5736104a7b550000"
+    }
+  ],
+  "native_proof": false,
+  "schema_version": 1,
+  "status": "sealed_read_only_source_review"
+}

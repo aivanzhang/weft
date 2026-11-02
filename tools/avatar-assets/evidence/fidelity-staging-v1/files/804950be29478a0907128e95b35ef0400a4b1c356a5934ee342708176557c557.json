@@ -1,0 +1,58 @@
+{
+  "invocations": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest tests.test_fringe_fidelity -v",
+      "note": "The file then contained eight tests. No test-file hash was captured at that invocation; those eight tests are unchanged in this receipt snapshot.",
+      "observed_result": "passed",
+      "observed_tests": 8,
+      "observed_unittest_seconds": 0.385,
+      "raw_log_retained": false,
+      "test_file_sha256_at_invocation": null
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m unittest tests.test_fringe_fidelity.FringeFidelityTests.test_repeat_derivative_bytes_are_deterministic_and_atlas_binding_is_required tests.test_fringe_fidelity.FringeFidelityTests.test_declared_decoded_zip_bytes_rejected_before_numpy_load -v",
+      "observed_result": "passed",
+      "observed_tests": 2,
+      "observed_unittest_seconds": 0.024,
+      "raw_log_retained": false,
+      "test_file_sha256_at_invocation": "9fc6fbcdeef19beac1946650bb5fcd8800014d4bdd73969dabc9ef57bbc1d698"
+    }
+  ],
+  "limitations": [
+    "Prior tool outputs supplied the counts and measurements; raw stdout/stderr files and child job receipts were not retained.",
+    "This receipt is not a rerun or a claim that all ten tests ran together.",
+    "Exact helper parity is not proof of exported body-root coupling, action quality, or recovery of a failed native pack.",
+    "Actual panda/fox derivative orchestration transferred to pipeline_review before any producer job was started here."
+  ],
+  "maximum_fixture": {
+    "exported_corners": 57600,
+    "fins": 4800,
+    "observed_helper_seconds": 0.27993237506598234,
+    "provenance": "analytic fixture, not a generated avatar",
+    "resource_limit_bytes": 536870912,
+    "resource_limit_seconds": 30,
+    "sampled_process_peak_rss_bytes": 92389376,
+    "temporary_fixture_files_retained": false
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "public_guard_changed": false,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 21:57:57 PST",
+  "schema_version": 1,
+  "source_pins": [
+    {
+      "path": "avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "sources/fringe_fidelity.py"
+    },
+    {
+      "path": "tests/test_fringe_fidelity.py",
+      "sha256": "9fc6fbcdeef19beac1946650bb5fcd8800014d4bdd73969dabc9ef57bbc1d698",
+      "snapshot": "sources/test_fringe_fidelity.py"
+    }
+  ],
+  "status": "prior_focused_tests_observed_not_rerun",
+  "total_distinct_tests_observed_passed": 10,
+  "working_directory": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

@@ -1,0 +1,23 @@
+{
+  "all_original_inputs_unchanged": true,
+  "inputs": [
+    {
+      "key": "source",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/model.glb",
+      "expected_sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+      "actual_sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+    },
+    {
+      "key": "snapshot",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.npz",
+      "expected_sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3",
+      "actual_sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3"
+    },
+    {
+      "key": "snapshot_report",
+      "path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-staged-fringe-v1/source-skin.json",
+      "expected_sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d",
+      "actual_sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+--- v1/check.py
++++ v2/check.py
+@@ -1,6 +1,7 @@
+ """Independent source-ID, normal, skin and root-motion audit of a retained native export."""
+ 
+ from collections import Counter
++from copy import deepcopy
+ import hashlib
+ import json
+ from pathlib import Path
+@@ -68,6 +69,51 @@
+     for slot,name in enumerate(order):
+         result[:,names.index(name)]=np.where(ids==slot,weights,0).sum(axis=1)
+     return result
++
++
++def derivative_custody(source,target,out):
++    expected=deepcopy(source.doc);allowed=set();uses={};removed=[]
++    for mi,mesh in enumerate(source.doc['meshes']):
++        for pi,primitive in enumerate(mesh['primitives']):
++            attrs=primitive['attributes']
++            require('_AUTHOR_VERTEX_ID' in attrs,'Raw primitive lacks proof IDs')
++            del expected['meshes'][mi]['primitives'][pi]['attributes']['_AUTHOR_VERTEX_ID']
++            removed.append(f'meshes/{mi}/primitives/{pi}/attributes/_AUTHOR_VERTEX_ID')
++            for semantic,accessor in attrs.items():uses.setdefault(accessor,[]).append(semantic)
++            uses.setdefault(primitive['indices'],[]).append('indices')
++            allowed.update((attrs['JOINTS_0'],attrs['WEIGHTS_0']))
++    for spec in source.doc['skins']:uses.setdefault(spec['inverseBindMatrices'],[]).append('inverse_bind')
++    for animation in source.doc.get('animations',[]):
++        for sampler in animation['samplers']:
++            for field in ('input','output'):uses.setdefault(sampler[field],[]).append('animation')
++    require(expected==target.doc,'Derivative JSON changed beyond temporary ID bindings')
++    require(len(source.binary)==len(target.binary),'Padded BIN length changed')
++    mask=np.zeros(len(source.binary),dtype=np.uint8);allowed_views=set();spans=[]
++    for accessor in sorted(allowed):
++        require(set(uses[accessor])<= {'JOINTS_0','WEIGHTS_0'},'Skin accessor aliases non-skin semantics')
++        begin,end,stride,dtype,width=source.span(accessor);spec=source.doc['accessors'][accessor]
++        require(width==4 and 'min' not in spec and 'max' not in spec,'Skin accessor shape/bounds changed')
++        np.ndarray((spec['count'],width*dtype.itemsize),dtype=np.uint8,buffer=mask,offset=begin,strides=(stride,1))[:]=1
++        allowed_views.add(spec['bufferView'])
++        spans.append({'accessor':accessor,'start':begin,'stride':stride,'element_bytes':width*dtype.itemsize,'count':spec['count']})
++    for accessor in range(len(source.doc['accessors'])):
++        if accessor in allowed:continue
++        begin,end,stride,dtype,width=source.span(accessor);count=source.doc['accessors'][accessor]['count']
++        require(not np.ndarray((count,width*dtype.itemsize),dtype=np.uint8,buffer=mask,offset=begin,strides=(stride,1)).any(),
++                'Skin rewrite aliases a non-skin or orphan accessor')
++    images={image['bufferView'] for image in source.doc.get('images',[])}
++    for vi,view in enumerate(source.doc['bufferViews']):
++        if vi not in allowed_views or vi in images:
++            begin=view.get('byteOffset',0)
++            require(not mask[begin:begin+view['byteLength']].any(),'Skin rewrite aliases image/unproven bufferView')
++    raw=np.frombuffer(source.binary,dtype=np.uint8);result=np.frombuffer(target.binary,dtype=np.uint8);changed=0
++    for start in range(0,len(raw),1024*1024):
++        end=min(start+1024*1024,len(raw));difference=raw[start:end]!=result[start:end]
++        require(not np.any(difference & (mask[start:end]==0)),'Unselected BIN bytes changed')
++        changed+=int(np.count_nonzero(difference))
++    save(out/'derivative-custody.json',{'status':'passed','changed_binary_bytes':changed,'allowed_skin_spans':spans,
++        'removed_temporary_id_bindings':removed,'every_other_json_value_exact':True,'every_other_padded_binary_byte_exact':True,
++        'unused_original_id_accessors_and_bytes_retained':True,'quality_approved':False})
+ 
+ 
+ def main(request,out):
+@@ -102,25 +148,32 @@
+     actual_p=np.zeros((count,3),dtype=np.float32);actual_dense=np.zeros((count,len(names)))
+     actual_j=np.zeros((count,4),dtype=np.int32);actual_w=np.zeros((count,4),dtype=np.float32)
+     actual_owner=np.full(count,-1,dtype=np.int32);covered=np.zeros(count,dtype=bool)
+-    glb=GLB(paths['model']);records=[];topology=Counter();fin_record=None
++    raw=GLB(paths['model']);glb=GLB(paths['derivative']) if 'derivative' in paths else raw
++    if glb is not raw:derivative_custody(raw,glb,out)
++    records=[];topology=Counter();fin_record=None
+     for node_index,node in enumerate(glb.doc['nodes']):
+         if 'mesh' not in node:continue
+         require('skin' in node,'Unskinned selected owner')
+         skin_names=[glb.doc['nodes'][j]['name'] for j in glb.doc['skins'][node['skin']]['joints']]
+         require(len(skin_names)==len(set(skin_names)) and set(skin_names)==set(names),'Skin names differ')
+-        for primitive in glb.doc['meshes'][node['mesh']]['primitives']:
++        for primitive_index,primitive in enumerate(glb.doc['meshes'][node['mesh']]['primitives']):
+             attrs=primitive['attributes'];material=glb.doc['materials'][primitive['material']]['name']
+-            ai=attrs.get('_AUTHOR_VERTEX_ID');require(type(ai)is int,'Missing exported source IDs')
+-            accessor=glb.doc['accessors'][ai]
++            id_attrs=raw.doc['meshes'][node['mesh']]['primitives'][primitive_index]['attributes']
++            ai=id_attrs.get('_AUTHOR_VERTEX_ID');require(type(ai)is int,'Missing exported source IDs')
++            accessor=raw.doc['accessors'][ai]
+             require(accessor['componentType']==5126 and accessor['type']=='SCALAR'
+                     and not accessor.get('normalized',False),'Source IDs lost exact float32 scalar encoding')
+-            ids=glb.array(ai).ravel();require(np.all(ids==np.floor(ids)) and ids.min()>=0 and ids.max()<count,'Invalid exported IDs')
++            ids=raw.array(ai).ravel();require(np.all(ids==np.floor(ids)) and ids.min()>=0 and ids.max()<count,'Invalid exported IDs')
+             ids=ids.astype(np.int32)
+             matches=[o for o in owners if ids.min()>=o['vertex_start'] and ids.max()<o['vertex_start']+o['vertex_count']]
+             require(len(matches)==1 and material in matches[0]['materials'],'Primitive crosses source owner/material boundaries')
+             owner=matches[0];p=glb.array(attrs['POSITION']);j=glb.array(attrs['JOINTS_0']).astype(np.int32);w=glb.array(attrs['WEIGHTS_0'])
+             dw=dense(j,w,skin_names,names)
+             require(len(ids)==len(p) and np.max(abs(p-source_p[ids]))<=POSITION_LIMIT,'ID-bound rest position changed')
++            record={'node':node,'node_index':node_index,'ids':ids,'positions':p,'joints':j,'weights':w,
++                    'skin_names':skin_names,'primitive':primitive,'owner':owner['index']}
++            records.append(record)
++            record_index=len(records)-1
+             for local,global_id in enumerate(ids):
+                 if covered[global_id]:
+                     require(np.array_equal(actual_p[global_id],p[local]) and np.array_equal(actual_dense[global_id],dw[local])
+@@ -128,13 +181,10 @@
+                 else:
+                     actual_p[global_id]=p[local];actual_dense[global_id]=dw[local]
+                     actual_j[global_id]=j[local];actual_w[global_id]=w[local]
+-                    actual_owner[global_id]=len(records);covered[global_id]=True
++                    actual_owner[global_id]=record_index;covered[global_id]=True
+             indices=glb.array(primitive['indices']).ravel().astype(int)
+             require(indices.min()>=0 and indices.max()<len(ids) and len(indices)%3==0,'Invalid actual triangles')
+             topology.update((owner['index'],material,canonical(t)) for t in ids[indices].reshape(-1,3))
+-            record={'node':node,'node_index':node_index,'ids':ids,'positions':p,'joints':j,'weights':w,
+-                    'skin_names':skin_names,'primitive':primitive,'owner':owner['index']}
+-            records.append(record)
+             if material==fringe_name:
+                 require(fin_record is None,'Multiple fringe primitives');fin_record=record
+     require(covered.all() and fin_record is not None,'Unreferenced/missing authored source IDs')
+@@ -222,19 +272,26 @@
+                         and s['maximum_native_snapshot_root_gap_m']<=ROOT_LIMIT
+                         and s['maximum_raw_vs_source_skin_pose_error_m']<=POSE_LIMIT for s in samples))
+     for row in request['inputs'].values():pinned(row)
+-    return {'status':'passed_raw_component_gates' if passed else 'failed_raw_component_gates',
++    return {'status':'passed_component_gates' if passed else 'failed_component_gates',
+         'passed':passed,'quality_approved':False,'whole_model_normal_fidelity_approved':False,
++        'asset_kind':'full_source_skin_derivative' if glb is not raw else 'raw_native_export',
+         'elapsed_seconds':time.monotonic()-START,'limits':{'normal_component':NORMAL_LIMIT,'weight':WEIGHT_LIMIT,'root_m':ROOT_LIMIT,
+         'source_skin_pose_m':POSE_LIMIT},'pose_gate_origin':'New conservative exported-skin versus source-snapshot CPU invariant; not a historical native evaluated-pose comparator.'}
+ 
+ 
+ if __name__=='__main__':
+-    request=json.loads(Path(sys.argv[1]).read_text());out=ROOT/request['output'];out.mkdir()
+-    save(out/'request.json',request)
+-    try:
+-        result=main(request,out);save(out/'result.json',result)
+-    except Exception as error:
+-        save(out/'result.json',{'status':'audit_failed','error':str(error),'quality_approved':False,
+-             'elapsed_seconds':time.monotonic()-START})
+-        (out/'failure.txt').write_text(traceback.format_exc());raise
+-    if not result['passed']:raise SystemExit(1)
++    import gc
++    combined=json.loads(Path(sys.argv[1]).read_text());outer=ROOT/combined['output'];outer.mkdir()
++    results=[]
++    for case,request in combined['cases'].items():
++        out=outer/case;out.mkdir();save(out/'request.json',request)
++        try:
++            result=main(request,out);save(out/'result.json',result);results.append(result)
++        except Exception as error:
++            save(out/'result.json',{'status':'audit_failed','error':str(error),'quality_approved':False,
++                 'elapsed_seconds':time.monotonic()-START})
++            (out/'failure.txt').write_text(traceback.format_exc());raise
++        gc.collect()
++    save(outer/'result.json',{'status':'measurements_complete','raw_passed':results[0]['passed'],
++         'derivative_passed':results[1]['passed'],'quality_approved':False,'elapsed_seconds':time.monotonic()-START})
++    if not results[1]['passed']:raise SystemExit(1)

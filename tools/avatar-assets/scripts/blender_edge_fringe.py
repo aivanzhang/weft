@@ -311,7 +311,10 @@ def attach_edge_fringe(obj, rig, mask, images, config, native_groom, groom_flow,
     layer = output_mesh.uv_layers.new(name='FringeUV')
     for loop in output_mesh.loops:
         layer.data[loop.index].uv = out_uv[loop.vertex_index]
-    output_mesh.normals_split_custom_set_from_vertices(fins['normals'][corner_ids].tolist())
+    # Legacy short2 storage snaps near-axis directions; keep the authored float vectors.
+    custom_normals = output_mesh.attributes.new(name='custom_normal', type='FLOAT_VECTOR', domain='POINT')
+    custom_normals.data.foreach_set('vector', np.asarray(fins['normals'][corner_ids], dtype=np.float32).ravel())
+    output_mesh.update()
     output_mesh.materials.append(material)
     coat = bpy.data.objects.new('PortableEdgeFringe', output_mesh)
     bpy.context.scene.collection.objects.link(coat)
@@ -328,6 +331,7 @@ def attach_edge_fringe(obj, rig, mask, images, config, native_groom, groom_flow,
                         native_vertex_to_helper_vertex=corner_ids, **atlas['permutation'])
     report = {'cards': len(fins['root_vertex_ids']), 'vertices': len(corner_ids),
               'native_topology': 'Independent triangle corners; exact helper positions/normals/UVs/skin duplicated',
+              'native_normal_storage': 'FLOAT_VECTOR POINT custom_normal; no legacy short2 packing',
               'geometry_profile': 'edge-fringe-v1', 'sample_root_color': True,
               'material': material_report, 'geometry': fins['report'], 'atlas': atlas['report'],
               'budget': budget, 'sampling': sampling, 'config': config,

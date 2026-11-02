@@ -1,0 +1,73 @@
+{
+  "appearance_approved": false,
+  "correspondence_changes": false,
+  "files": [
+    {
+      "bytes": 789,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/ambiguity-review.json",
+      "sha256": "cfa4710eb3ad272ae7b6b4d6cfde8900331209e33f3f4137cdb1f6731dd8991a"
+    },
+    {
+      "bytes": 473,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/audit-handle.json",
+      "sha256": "ebf4fb4901a8c289e64b1413e139f0f1a3fa3068a7467022f95f7a8bf658d277"
+    },
+    {
+      "bytes": 1256,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/audit-monitor.json",
+      "sha256": "2022317cd446166d81504a8887f1de406c1c67ba03b588eaae50ff5e550ff83a"
+    },
+    {
+      "bytes": 832,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/audit.log",
+      "sha256": "c8d96494299d291e737680d1129eb83c7a706e734c7eccf91e98449aadfc9958"
+    },
+    {
+      "bytes": 1354,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/job.json",
+      "sha256": "b019f65ee0f717dbb61ca4492b735f5181f32ce9407d4162cfba7ea66ef6685a"
+    },
+    {
+      "bytes": 703,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/custody-and-fidelity.json",
+      "sha256": "af31cfa1993e9f12292d177507f30e6da0aae046a0aeeb5a689b32e881b48a5f"
+    },
+    {
+      "bytes": 54405,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/exported-to-helper.npz",
+      "sha256": "39d066e485e5aa978ec34eb1bf2f94305202eb30200c91cf2680818bf563da23"
+    },
+    {
+      "bytes": 832,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/failure.txt",
+      "sha256": "c8d96494299d291e737680d1129eb83c7a706e734c7eccf91e98449aadfc9958"
+    },
+    {
+      "bytes": 1902,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/request.json",
+      "sha256": "a858bea0d9ac1b6eda5aae61be8bebcf9b3a50cc17fbcc594df1eb2c78cccc9a"
+    },
+    {
+      "bytes": 187,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/result.json",
+      "sha256": "be4287419efe1d691985b1285fb1f5a3771d7d9fbfb346fd91ce0fddb6d2f4cf"
+    },
+    {
+      "bytes": 1078,
+      "path": "outputs/fringe-fidelity-panda-independent-audit-v2/result/root-correspondence-failure.json",
+      "sha256": "6b5c3227881683feab150ba3de5d0308b6a5403c3a8358c30793f23bea13070f"
+    }
+  ],
+  "first_failure_preserved": "outputs/fringe-fidelity-panda-independent-audit-v1",
+  "native_calls": 0,
+  "provider_or_ai_calls": 0,
+  "result": {
+    "elapsed_seconds": 0.2502129580825567,
+    "error": "Body-root candidates have different positions or skin; no nearest-match guess",
+    "quality_approved": false,
+    "status": "failed"
+  },
+  "schema_version": 1,
+  "status": "sealed_rejected_ambiguous_body_root",
+  "threshold_changes": false
+}

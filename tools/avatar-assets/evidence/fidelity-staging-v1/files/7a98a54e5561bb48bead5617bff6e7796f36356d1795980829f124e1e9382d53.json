@@ -1,0 +1,125 @@
+{
+  "cases": {
+    "raw": {
+      "expected_clips": [
+        "dance_flight"
+      ],
+      "inputs": {
+        "fringe_report": {
+          "bytes": 13623,
+          "path": "outputs/panda-staged-fringe-v1/fringe-report.json",
+          "sha256": "6f0007c703f77ebad5bce3d282a1722d64272daffcab9efb017be81c7901d5c5"
+        },
+        "helper": {
+          "bytes": 567833,
+          "path": "outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+          "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+        },
+        "independent_math": {
+          "bytes": 28895,
+          "path": "outputs/fringe-fidelity-independent-preparation-v1/audit.py",
+          "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+        },
+        "model": {
+          "bytes": 36073016,
+          "path": "outputs/panda-staged-fringe-v1/model.glb",
+          "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+        },
+        "prepare_receipt": {
+          "bytes": 1876,
+          "path": "outputs/panda-staged-fringe-preparation-v1/job-prepare-receipt.json",
+          "sha256": "04d3ca7547b7e23488b51501d0fc1e711d779ab92cd6b3cd2cc9e1f5fdb43fff"
+        },
+        "scene_plan": {
+          "bytes": 130005,
+          "path": "outputs/panda-staged-fringe-v1/prepared-native-scene.json",
+          "sha256": "610f42e84f158ed1c398c1fdae26a95b46f94cc1997147770767dee744d642b5"
+        },
+        "skin_npz": {
+          "bytes": 1498381,
+          "path": "outputs/panda-staged-fringe-v1/source-skin.npz",
+          "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3"
+        },
+        "skin_report": {
+          "bytes": 3599,
+          "path": "outputs/panda-staged-fringe-v1/source-skin.json",
+          "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+        }
+      },
+      "normal_limit": 0.0002,
+      "quality_approved": false,
+      "root_limit_m": 1e-06,
+      "source_skin_pose_limit_m": 1e-06,
+      "weight_limit": 1e-06,
+      "witness_helper_roots": [
+        315
+      ]
+    },
+    "restored": {
+      "expected_clips": [
+        "dance_flight"
+      ],
+      "inputs": {
+        "derivative": {
+          "bytes": 36072836,
+          "path": "outputs/panda-staged-skin-restore-v1/model.glb",
+          "sha256": "c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f"
+        },
+        "fringe_report": {
+          "bytes": 13623,
+          "path": "outputs/panda-staged-fringe-v1/fringe-report.json",
+          "sha256": "6f0007c703f77ebad5bce3d282a1722d64272daffcab9efb017be81c7901d5c5"
+        },
+        "helper": {
+          "bytes": 567833,
+          "path": "outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+          "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+        },
+        "independent_math": {
+          "bytes": 28895,
+          "path": "outputs/fringe-fidelity-independent-preparation-v1/audit.py",
+          "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+        },
+        "model": {
+          "bytes": 36073016,
+          "path": "outputs/panda-staged-fringe-v1/model.glb",
+          "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+        },
+        "prepare_receipt": {
+          "bytes": 1876,
+          "path": "outputs/panda-staged-fringe-preparation-v1/job-prepare-receipt.json",
+          "sha256": "04d3ca7547b7e23488b51501d0fc1e711d779ab92cd6b3cd2cc9e1f5fdb43fff"
+        },
+        "restore_receipt": {
+          "bytes": 13467,
+          "path": "outputs/panda-staged-skin-restore-v1/restore-report.json",
+          "sha256": "a58a62d949bdd2631bfde5b96c4d766378d70baa470b612f9ff18af8e1e2fccd"
+        },
+        "scene_plan": {
+          "bytes": 130005,
+          "path": "outputs/panda-staged-fringe-v1/prepared-native-scene.json",
+          "sha256": "610f42e84f158ed1c398c1fdae26a95b46f94cc1997147770767dee744d642b5"
+        },
+        "skin_npz": {
+          "bytes": 1498381,
+          "path": "outputs/panda-staged-fringe-v1/source-skin.npz",
+          "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3"
+        },
+        "skin_report": {
+          "bytes": 3599,
+          "path": "outputs/panda-staged-fringe-v1/source-skin.json",
+          "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+        }
+      },
+      "normal_limit": 0.0002,
+      "quality_approved": false,
+      "root_limit_m": 1e-06,
+      "source_skin_pose_limit_m": 1e-06,
+      "weight_limit": 1e-06,
+      "witness_helper_roots": [
+        315
+      ]
+    }
+  },
+  "output": "outputs/staged-fringe-id-audit-v2/result"
+}

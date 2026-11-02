@@ -1,0 +1,215 @@
+{
+  "checks": [
+    "finite normals/UV0/UV1/tangents",
+    "matching counts",
+    "unit normals/tangents",
+    "orthogonal normal/tangent frames",
+    "tangent handedness",
+    "selected normal-map UV0/UV1 binding"
+  ],
+  "decoded_scalar_values": 162,
+  "limitations": [
+    "Finite/unit/orthogonal frames and selected UV binding do not prove tangents derive from that UV set.",
+    "This HD check does not change Weft's diffuse UV0-only contract; normal-map/UV1 assets remain unsupported there."
+  ],
+  "limits": {
+    "decoded_global_values": 2000000,
+    "decoded_surface_values": 1100000,
+    "file_bytes": 67108864,
+    "normal_map_uv_indices": [
+      0,
+      1
+    ],
+    "normal_tangent_squared_length_tolerance": 0.001,
+    "orthogonality_tolerance": 0.002,
+    "vertices": 100000
+  },
+  "primitives": [
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 6.821201936624277e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 6.821201936624277e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 6.821201936624277e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.5897207661375035e-07,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 9.510677512203358e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 9.510677512203358e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.202872634831209e-07,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.202872634831209e-07,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.202872634831209e-07,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 2.1408189887495155e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.753265821413663e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.753265821413663e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 6.994617507416478e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.753265821413663e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 1.753265821413663e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 6.962207699245937e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 7.924600331499221e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    },
+    {
+      "material": "DiffuseControl",
+      "normal_map_uv_set": null,
+      "normal_mapped": false,
+      "normal_squared_length_error": 7.924600331499221e-08,
+      "normal_tangent_dot_error": 0.0,
+      "tangent_squared_length_error": 0.0,
+      "verified_uv_sets": [],
+      "vertices": 3
+    }
+  ],
+  "schema_version": 1,
+  "sha256": "6824140c2fd02347462fcd88577f11ee936f6b00213cfc908f597854978ec7d5",
+  "status": "validated_render_attributes",
+  "tangent_uv_derivation_verified": false,
+  "vertices": 54,
+  "weft_runtime_verified": false
+}

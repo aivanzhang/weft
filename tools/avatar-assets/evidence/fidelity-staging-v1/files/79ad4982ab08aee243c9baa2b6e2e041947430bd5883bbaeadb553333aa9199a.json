@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "status": "analytic_tests_passed",
+  "recorded_at": "2026-11-01T22:18:23.766296-08:00",
+  "tests": 14,
+  "unittest_seconds": 0.489,
+  "job": {
+    "schema_version": 1,
+    "status": "finished",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_source_skin_fidelity",
+      "-v"
+    ],
+    "pid": 41197,
+    "exit_code": 0,
+    "elapsed_seconds": 0.783,
+    "sampled_peak_rss_bytes": 183500800,
+    "rss_samples": 2,
+    "sampling_interval_seconds": 0.25,
+    "failure": null,
+    "failure_reasons": [],
+    "monitor_errors": [],
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "manual_stop_required": false,
+    "final_output_bytes": 192888,
+    "sampled_max_output_bytes": 192888,
+    "monitor_checkpoint": "tests-monitor.json",
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "descendant_exit_verified": false,
+    "limits": {
+      "wall_seconds": 30,
+      "rss_mb": 512,
+      "output_mb": 16,
+      "log_bytes": 16777216,
+      "cleanup_grace_seconds": 7,
+      "output_inventory_entries": 100000
+    },
+    "last_rss_sample_elapsed_seconds": 0.522,
+    "rss_exit_race_observed": true,
+    "process_exit_verified": true
+  },
+  "maximum_fixture": {
+    "vertices": 100000,
+    "triangles": 99998,
+    "restoration_seconds": 0.2830179580487311,
+    "self_sampled_peak_rss_bytes": 183484416
+  },
+  "source_pins": [
+    {
+      "path": "avatar_assets/source_skin_fidelity.py",
+      "bytes": 24176,
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5"
+    },
+    {
+      "path": "tests/test_source_skin_fidelity.py",
+      "bytes": 21742,
+      "sha256": "d9861c6c221fbcf55d9aeea8f01c6e31df6dfacc264224cdaaa46b720f60b00f"
+    },
+    {
+      "path": "avatar_assets/fringe_export.py",
+      "bytes": 13676,
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "path": "avatar_assets/fringe_fidelity.py",
+      "bytes": 21758,
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "bytes": 35106,
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "tests/test_fringe_fidelity.py",
+      "bytes": 14561,
+      "sha256": "9fc6fbcdeef19beac1946650bb5fcd8800014d4bdd73969dabc9ef57bbc1d698"
+    },
+    {
+      "path": "tests/test_fringe_export.py",
+      "bytes": 13362,
+      "sha256": "073a6bd6c40e0790a50d59cfd1fa1e8c37679ca5b2373eb34c1811a88e305992"
+    },
+    {
+      "path": "tests/test_three_d.py",
+      "bytes": 9803,
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "path": "scripts/source_skin_snapshot.py",
+      "bytes": 14055,
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    }
+  ],
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "tests.test_source_skin_fidelity",
+    "-v"
+  ],
+  "evidence": [
+    "tests.log",
+    "job.json",
+    "tests-monitor.json",
+    "tests-handle.json",
+    "maximum-fixture.json",
+    "prepared.json",
+    "source-preservation.json"
+  ],
+  "custody": "Exact source snapshots and raw test log retained. Temporary analytic GLB/NPZ files were removed by unittest cleanup; their hashes and generation code are retained, not claimed as durable generated avatars.",
+  "producer_schema_sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+  "limits": [
+    "Experimental opt-in only; no production enablement",
+    "No native export, actual avatar attachment, normal fidelity, action or quality proof",
+    "Source vertex IDs and exact axis-converted positions replace ambiguous coordinate-only matching",
+    "All source IDs plus owner/material oriented triangle multiplicity are required",
+    "8MiB decoded NPZ cap exceeds the5,000,000-byte maximum array payload at100k vertices and100k triangles; no lower vertex limit",
+    "Shared skin storage is admitted only for proven identical encoded writes; other overlaps reject"
+  ],
+  "cost": {
+    "provider_calls": 0,
+    "native_jobs": 0,
+    "paid_work": 0
+  },
+  "next_safe_action": "Parent integrates a new experimental source-ID export and independent full body/fringe attachment verification; preserve previous failed native outputs."
+}

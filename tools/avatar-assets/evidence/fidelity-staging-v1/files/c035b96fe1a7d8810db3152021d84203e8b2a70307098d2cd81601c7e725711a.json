@@ -1,0 +1,56 @@
+{
+  "case": "fox",
+  "derivative": {
+    "bytes": 30424508,
+    "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/model.glb",
+    "sha256": "fe882a57853517f94c1e97b4cf68f8d360cf336d9db5415c995153d510eee057"
+  },
+  "expected_clips": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "helper": {
+    "bytes": 563138,
+    "path": "outputs/fox-fringe-component-v2/fringe-correspondence.npz",
+    "sha256": "874fece1cbb9e3f0e7d386f4f6baa278118d87cfba427d59d42862ecec7f0a99"
+  },
+  "inherited_body_limitations": [
+    "Original gate already failed 43 body normals across coat/cream/scarf/scarf_seam; max component .0003999174.",
+    "Book/paper/page_edge/gold position/UV/weight aliases differ in normals; original normal comparisons were lower bounds.",
+    "Exact raw-export body custody is not original-source normal fidelity or visual approval."
+  ],
+  "inherited_diagnosis": {
+    "bytes": 38682,
+    "path": "outputs/fox-fringe-export-diagnosis-v2/diagnosis.json",
+    "sha256": "6880c2199d4b542804b71d08b6b168d88bd21ee08d15c8b559dbacd1103dc765"
+  },
+  "material_name": "SourceColoredFringe",
+  "native_report": {
+    "bytes": 14489,
+    "path": "outputs/fox-fringe-component-v2/fringe-report.json",
+    "sha256": "cda144f052d3376a1e98a1b0b0b4121d422395a0ca6b3f77ed3047072061a376"
+  },
+  "original_baseline": {
+    "bytes": 27708644,
+    "path": "outputs/fox-fringe-component-preparation-v2/inputs/base-no-legacy-cards.glb",
+    "sha256": "f34aa798252355fc6e44a03f78cdc7f31eab682a20b591a93c9dcb35ed82f8a3"
+  },
+  "output": "outputs/fringe-fidelity-fox-independent-audit-v1/result",
+  "producer_evidence": {
+    "bytes": 3813,
+    "path": "outputs/fringe-fidelity-fox-producer-v1/derivative/repair-report.json",
+    "sha256": "b5c0acd48bfd1a0e2d162de6e5da7e985242682a7753c60cbed39cec38fc225b"
+  },
+  "source": {
+    "bytes": 30424508,
+    "path": "outputs/fox-fringe-component-v2/model.glb",
+    "sha256": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92"
+  },
+  "thresholds": {
+    "bytes": 1730,
+    "path": "outputs/fringe-fidelity-independent-preparation-v1/thresholds.json",
+    "sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+  }
+}

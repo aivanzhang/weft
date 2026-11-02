@@ -1,0 +1,98 @@
+{
+  "bounds": {
+    "audit_output_mib_each": 32,
+    "audit_rss_mib_each": 512,
+    "audit_seconds_each": 60,
+    "producer_output_mib_each": 128,
+    "producer_rss_mib_each": 512,
+    "producer_seconds_each": 30
+  },
+  "files": [
+    {
+      "bytes": 1557,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/README.md",
+      "sha256": "f602df3c62bf6e296ae7bca659dbfa0db17d0d778d410476466b0e6be885db9e"
+    },
+    {
+      "bytes": 28895,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/audit.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+    },
+    {
+      "bytes": 3997,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/fox-producer-request.json",
+      "sha256": "b58e4a9958c76863b03ff38b6498229c96d1f141c61cf13a9280d68cac7e5e24"
+    },
+    {
+      "bytes": 659,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/oracle-result.json",
+      "sha256": "47281903cb8111d6efc6ab746f377833920ddb7a495ae9c43060e692f2466d4c"
+    },
+    {
+      "bytes": 2464,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/oracles.py",
+      "sha256": "8ce5886652ec54fae1969a6e598a640952da4bda844c8d05db48ba2e954e89a8"
+    },
+    {
+      "bytes": 4048,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/panda-producer-request.json",
+      "sha256": "d76586f6c5d443bb6454f190de9d228b41e7a92de080d57d8683ac6ab840e05d"
+    },
+    {
+      "bytes": 2435,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/produce.py",
+      "sha256": "08b5c5672fcf97fcbeb301e6bea33cbf154eca90dce093978ed74839a075fff8"
+    },
+    {
+      "bytes": 96,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 13676,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 21758,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 1710,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/run_producers.py",
+      "sha256": "c5d1659d648f8d6ba91951a280931da1a4ceb0f69beae748a3817edd88eb0a00"
+    },
+    {
+      "bytes": 1730,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/thresholds.json",
+      "sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+    }
+  ],
+  "native_calls": 0,
+  "no_auto_retry": true,
+  "producer_attempts": {
+    "fox": 1,
+    "panda": 1
+  },
+  "provider_or_ai_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "prepared_no_actual_derivatives_executed",
+  "thresholds_sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+}

@@ -1,0 +1,45 @@
+{
+  "api": "snapshot_skin_sources(objects,rig,out)->report",
+  "bounded_wall_seconds": 0.262,
+  "child_exit_verified": true,
+  "limitations": [
+    "No native export proof in these tests; installed source-ID review is separately sealed.",
+    "No shared finisher, public validator, thresholds, or existing output edits."
+  ],
+  "pid": 40099,
+  "policy": "source-skin-id-v1",
+  "sampled_peak_rss_bytes": null,
+  "schema": {
+    "array_hashes": "SHA256 exact C-order bytes",
+    "files": [
+      "source-skin.npz",
+      "source-skin.json"
+    ],
+    "ids": "POINT INT _AUTHOR_VERTEX_ID, globallyunique0..N-1; downstreamFLOATSCALAR exact\u226499999",
+    "npz": {
+      "joints": "<u2[N,4]",
+      "positions": "<f4[N,3]",
+      "triangle_materials": "<u2[T] owner-localmaterialslots",
+      "triangles": "<u4[T,3] globalvertexIDs",
+      "weights": "<f4[N,4]"
+    },
+    "owners": "contiguous positive vertex/triangle ranges covering arrays; exact object/mesh/material names"
+  },
+  "source_pins": [
+    {
+      "bytes": 14055,
+      "path": "scripts/source_skin_snapshot.py",
+      "saved_path": "sources/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "bytes": 13643,
+      "path": "tests/test_source_skin_snapshot.py",
+      "saved_path": "sources/test_source_skin_snapshot.py",
+      "sha256": "7153b44578be5a240c88c4f1f3465a3d438041700456165a5db18de2f3b04661"
+    }
+  ],
+  "status": "focused_tests_passed",
+  "test_count": 12,
+  "test_reported_seconds": 0.026
+}

@@ -1,0 +1,148 @@
+{
+  "fringe_exported_corners": 43200,
+  "helper_vs_native_body_root_weight_error": 3.725290298461914e-09,
+  "normal_limit": 0.0002,
+  "normal_max_component_error": 5.7697296142578125e-05,
+  "normal_over_limit": 0,
+  "normal_quality_approved": false,
+  "raw_fin_vs_helper_weight_error": 0.0001290440559387207,
+  "source_id_coverage": 94255,
+  "source_topology_exact": true,
+  "weight_limit": 1e-06,
+  "weights": [
+    {
+      "maximum_named_weight_error": 0.00018578767776489258,
+      "over_original_weight_limit": 908,
+      "owner": "body",
+      "vertices": 51055
+    },
+    {
+      "maximum_named_weight_error": 0.0001290440559387207,
+      "over_original_weight_limit": 414,
+      "owner": "fringe",
+      "vertices": 43200
+    }
+  ],
+  "worst_weight_rows": [
+    {
+      "error": 0.00018578767776489258,
+      "exported_weights": {
+        "LeftFoot": 0.0003639908682089299,
+        "LeftHand": 0.9996359944343567
+      },
+      "native_weights": {
+        "LeftFoot": 0.00036392323090694845,
+        "LeftForearm": 8.863894618116319e-05,
+        "LeftHand": 0.9994502067565918,
+        "Torso": 9.72504640230909e-05
+      },
+      "owner": "body",
+      "source_id": 23506
+    },
+    {
+      "error": 0.0001646280288696289,
+      "exported_weights": {
+        "LeftFoot": 0.0004913599113933742,
+        "RightFoot": 0.9995086789131165
+      },
+      "native_weights": {
+        "LeftFoot": 0.0004912790027447045,
+        "Pelvis": 6.782633863622323e-05,
+        "RightFoot": 0.9993440508842468,
+        "Root": 9.683229291113093e-05
+      },
+      "owner": "body",
+      "source_id": 6056
+    },
+    {
+      "error": 0.0001646280288696289,
+      "exported_weights": {
+        "LeftFoot": 0.0004913599113933742,
+        "RightFoot": 0.9995086789131165
+      },
+      "native_weights": {
+        "LeftFoot": 0.0004912790027447045,
+        "Pelvis": 6.782633863622323e-05,
+        "RightFoot": 0.9993440508842468,
+        "Root": 9.683229291113093e-05
+      },
+      "owner": "body",
+      "source_id": 6057
+    },
+    {
+      "error": 0.0001519918441772461,
+      "exported_weights": {
+        "LeftFoot": 0.0004702010191977024,
+        "RightFoot": 0.9995298385620117
+      },
+      "native_weights": {
+        "LeftFoot": 0.0004701295110862702,
+        "Pelvis": 6.213853339431807e-05,
+        "RightFoot": 0.9993778467178345,
+        "Root": 8.989755588117987e-05
+      },
+      "owner": "body",
+      "source_id": 6632
+    },
+    {
+      "error": 0.0001290440559387207,
+      "exported_weights": {
+        "Pelvis": 0.00901516992598772,
+        "Tail": 0.9909847974777222
+      },
+      "native_weights": {
+        "Pelvis": 0.00901399552822113,
+        "Root": 7.013243885012344e-05,
+        "Tail": 0.9908557534217834,
+        "Torso": 6.011861114529893e-05
+      },
+      "owner": "fringe",
+      "source_id": 71555
+    },
+    {
+      "error": 0.0001290440559387207,
+      "exported_weights": {
+        "Pelvis": 0.00901516992598772,
+        "Tail": 0.9909847974777222
+      },
+      "native_weights": {
+        "Pelvis": 0.00901399552822113,
+        "Root": 7.013243885012344e-05,
+        "Tail": 0.9908557534217834,
+        "Torso": 6.011861114529893e-05
+      },
+      "owner": "fringe",
+      "source_id": 93152
+    },
+    {
+      "error": 0.0001290440559387207,
+      "exported_weights": {
+        "Pelvis": 0.00901516992598772,
+        "Tail": 0.9909847974777222
+      },
+      "native_weights": {
+        "Pelvis": 0.00901399552822113,
+        "Root": 7.013243885012344e-05,
+        "Tail": 0.9908557534217834,
+        "Torso": 6.011861114529893e-05
+      },
+      "owner": "fringe",
+      "source_id": 71552
+    },
+    {
+      "error": 0.0001290440559387207,
+      "exported_weights": {
+        "Pelvis": 0.00901516992598772,
+        "Tail": 0.9909847974777222
+      },
+      "native_weights": {
+        "Pelvis": 0.00901399552822113,
+        "Root": 7.013243885012344e-05,
+        "Tail": 0.9908557534217834,
+        "Torso": 6.011861114529893e-05
+      },
+      "owner": "fringe",
+      "source_id": 71553
+    }
+  ]
+}

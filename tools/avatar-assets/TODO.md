@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 21:25 PST. Reusable fringe is experimental and execution-disabled after real-avatar fidelity/resource failures. All owned workers exited; approved assets/default workflow unchanged. Previous checkpoint `3874809` is privately pushed; this continuation awaits its own reviewed checkpoint. No new paid allowance or generation call.
+- Recorded: 2026-11-01 22:30 PST. Checkpoint `a460faf` is privately pushed; current export-fidelity/staged-rendering work is ready for its scoped checkpoint. Actual panda normal/weight/memory components pass; overall appearance remains rejected and public fringe finishing remains disabled. All owned workers exited; no new paid allowance/calls. Shared main may advance from other Weft owners; stage only this package.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -19,6 +19,60 @@ tracks real work through finished output. A form, a passing fixture or another
 hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
+
+### Current local continuation — technical fixes pass, appearance still rejected
+
+- [Detailed export/staging handoff](docs/export-fidelity-and-staging.md) records
+  exact commands, source pins, failures, limits and remaining work. Public fringe
+  finishing stays disabled; no approved asset, gallery entry or default changes.
+- `outputs/fringe-normal-storage-native-v1` proves float-normal storage on six
+  actual worst witnesses. The new actual panda export then passes the original
+  0.0002 fin-normal gate at maximum 0.0000576973.
+- `source_skin_snapshot.py` stamps exact global IDs; experimental
+  `source_skin_fidelity.py` restores all original body/fringe weights. Twelve
+  snapshot and 14 restoration tests pass, including 100k-vertex bounds. Actual
+  derivative: `outputs/panda-staged-skin-restore-v1`; SHA
+  `c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f`.
+- Independent `outputs/staged-fringe-id-audit-v2`, manifest
+  `eed53ad658621156f01083fdd779d96dbfb644c1952db9175dd8d515c17790a0`,
+  verifies all 94,255 source IDs/topology, exact weights and nine sampled poses.
+  Root gap ≤1.60502e-9 m; only 58,011 J/W bytes/eight ID bindings change.
+  Raw export fails 908 body/414 fringe weight rows. Prior root315 now resolves
+  without guessing to body ID1154. Initial checker IndexError and append-only
+  report-label correction are retained. Fox's prior 43 body-normal failures
+  remain; this is not a fresh second generated character acceptance.
+- `outputs/panda-staged-fringe-v1`: preparation plus all 13 native stills
+  completed in aggregate73.386 s, max1,517,731,840 B sampled direct-child RSS,
+  within unchanged2 GiB/600 s/512 MiB. Editable scene/GLB/source-skin snapshot
+  and all individual logs/handles retained. All owned children exited. The
+  eight authored action samples contain seven distinct images, not a full
+  video/loop proof. Bone transforms match exactly after reload. Back-view pixels
+  match prior output; other views differ, so appearance parity is not claimed.
+- `outputs/panda-staged-portable-model-v1/model.glb`, SHA
+  `e02744f0d595269998dc67287b74127333983c3e571d310e08eec6b97d2b1fe2`,
+  passes structural/material validation after existing tangent policies.
+  Its CPU launcher used the wrong broad live-output guard; preserve
+  `outputs/panda-staged-portable-preparation-v1/launcher-output-bound-error.json`.
+  Actual72,158,012 B is a post-hoc128 MiB check, not proof of that live limit.
+- Independent actual EEVEE preview: `outputs/panda-staged-portable-preview-v1`,
+  four720px views/fourposes in3.886 s /1,029,832,704 B, correct scoped guard.
+  Main rejects overall quality for contour spikes/strips, sparse dark fur and
+  exposed cheek/shoulder artifacts. Native strands and portable fringe are not
+  visually equivalent. This94,567-vertex/76,981-triangle HD model is not Weft
+  consumer-compatible. `outputs/panda-staged-native-review-v1` holds the review.
+- Seven new staged-task checks plus26 existing finish checks pass;32 additional
+  pipeline/custody checks pass. No new provider, Meta, raster-generation or
+  pipeline-role AI calls. Pending fresh-work allowance remains pending.
+- Compact evidence is preserved in `evidence/fidelity-staging-v1`:808 exact
+  origin records,469 content-addressed snapshots,19,326,031 B. Manifest SHA
+  `d39dd13d4a7a79941c10008538335544854fbfc4063de1b0c0b6f499825922f8`.
+  Large GLB/Blend files remain local with recorded hashes; this compact bundle
+  is not their remote backup. All inputs/failures remain unchanged.
+- All owned native/CPU workers exited; no job requires polling or restart.
+  Preserve other owners' shared-main changes. Next safe action: diagnose/fix
+  actual contour/contact artifacts in a new candidate, compare native/portable
+  appearance, then integrate the supported staged path. Fresh end-to-end Studio
+  acceptance remains separate and still needs its requested allowance.
 
 ### Implemented; acceptance still pending
 

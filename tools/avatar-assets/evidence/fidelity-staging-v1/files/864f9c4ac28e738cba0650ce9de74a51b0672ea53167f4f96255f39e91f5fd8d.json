@@ -1,0 +1,15 @@
+{
+  "audit_sha256": "624244cbba74e34f0dd1f19c36d315dabb8be842f4a1da52758fb9928c39ef2b",
+  "avatar_approval": false,
+  "checks": [
+    "STEP holds first/preceding/last keys with exact-key ownership",
+    "Quaternion halfway identity to180degZ rotates X toY",
+    "Parent90degZ rotates child1mX translation to1mY",
+    "Two-bone linear skinning known weighted world position",
+    "Triangle canonicalization retains winding",
+    "Frame numbers retain original seconds rather than subtracting first frame"
+  ],
+  "provenance": "analytic_fixture",
+  "status": "passed",
+  "thresholds_sha256": "4b151d9b77835ee6f7d4231cc0c8b1bcadf9fd5be45fdd45ae628412b6acbedf"
+}

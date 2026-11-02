@@ -1,0 +1,119 @@
+{
+  "attempts": 1,
+  "correspondence_unchanged": "Exact source IDs and material-oriented topology; current primitive record is now appended before duplicate-ID checks. No nearest mapping.",
+  "files": [
+    {
+      "bytes": 20481,
+      "path": "outputs/staged-fringe-id-audit-preparation-v2/check.py",
+      "sha256": "c3f40c21bcc5251d97143b0772091bcaea2f4e0db81b5705cbcb985c883564c4"
+    },
+    {
+      "bytes": 1448,
+      "path": "outputs/staged-fringe-id-audit-preparation-v2/run.py",
+      "sha256": "eb8a044ab187efe07a30b5ce471da66439059f8e75b5ded996375aa09944e8c2"
+    },
+    {
+      "bytes": 4747,
+      "path": "outputs/staged-fringe-id-audit-preparation-v2/request.json",
+      "sha256": "7a98a54e5561bb48bead5617bff6e7796f36356d1795980829f124e1e9382d53"
+    },
+    {
+      "bytes": 10653,
+      "path": "outputs/staged-fringe-id-audit-preparation-v2/changed-checker.diff",
+      "sha256": "ec3c1b9e79a9d4000bd8a83d3940650eeb5c4a604601e3260eb551caeec4e7ba"
+    },
+    {
+      "bytes": 13623,
+      "path": "outputs/panda-staged-fringe-v1/fringe-report.json",
+      "sha256": "6f0007c703f77ebad5bce3d282a1722d64272daffcab9efb017be81c7901d5c5"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-staged-fringe-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 28895,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/audit.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+    },
+    {
+      "bytes": 36073016,
+      "path": "outputs/panda-staged-fringe-v1/model.glb",
+      "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+    },
+    {
+      "bytes": 1876,
+      "path": "outputs/panda-staged-fringe-preparation-v1/job-prepare-receipt.json",
+      "sha256": "04d3ca7547b7e23488b51501d0fc1e711d779ab92cd6b3cd2cc9e1f5fdb43fff"
+    },
+    {
+      "bytes": 130005,
+      "path": "outputs/panda-staged-fringe-v1/prepared-native-scene.json",
+      "sha256": "610f42e84f158ed1c398c1fdae26a95b46f94cc1997147770767dee744d642b5"
+    },
+    {
+      "bytes": 1498381,
+      "path": "outputs/panda-staged-fringe-v1/source-skin.npz",
+      "sha256": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3"
+    },
+    {
+      "bytes": 3599,
+      "path": "outputs/panda-staged-fringe-v1/source-skin.json",
+      "sha256": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+    },
+    {
+      "bytes": 36072836,
+      "path": "outputs/panda-staged-skin-restore-v1/model.glb",
+      "sha256": "c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f"
+    },
+    {
+      "bytes": 13467,
+      "path": "outputs/panda-staged-skin-restore-v1/restore-report.json",
+      "sha256": "a58a62d949bdd2631bfde5b96c4d766378d70baa470b612f9ff18af8e1e2fccd"
+    },
+    {
+      "bytes": 659,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/oracle-result.json",
+      "sha256": "47281903cb8111d6efc6ab746f377833920ddb7a495ae9c43060e692f2466d4c"
+    },
+    {
+      "bytes": 11421,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "outputs/fringe-fidelity-independent-preparation-v1/producer-sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 1178,
+      "path": "outputs/staged-fringe-raw-audit-v1/job.json",
+      "sha256": "6f55a6be2eea60b4e1b8d642ce4fb71ec151390a34abe63e9aff311705faad47"
+    },
+    {
+      "bytes": 141,
+      "path": "outputs/staged-fringe-raw-audit-v1/result/result.json",
+      "sha256": "24ccb40c21deaf8ea99732a02c54953897bd5c4958d720f2df58c778fd169906"
+    },
+    {
+      "bytes": 560,
+      "path": "outputs/staged-fringe-raw-audit-v1/result/failure.txt",
+      "sha256": "918cc6f2f3d27d7d6065da8998d3d845cc4307b6827f0690e542313019dd6f54"
+    }
+  ],
+  "first_failure_preserved": "outputs/staged-fringe-raw-audit-v1",
+  "limits": {
+    "output_mib": 32,
+    "rss_mib": 512,
+    "seconds": 30
+  },
+  "native_calls": 0,
+  "new_derivative_checks": "Only J/W binary bytes and temporary ID binding removal; all other JSON and padded BIN exact.",
+  "no_auto_retry": true,
+  "normal_weight_root_thresholds_unchanged": true,
+  "paid_calls": 0,
+  "schema_version": 1,
+  "status": "prepared_checker_bookkeeping_fix_plus_authorized_derivative_audit"
+}

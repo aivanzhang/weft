@@ -1,0 +1,75 @@
+{
+  "all_ids_exact_float32_roundtrip": true,
+  "integer_id_range_tested": [
+    0,
+    99999
+  ],
+  "limits": [
+    "Real Blender RNA conversion, evaluated-mesh preservation, actual skins/actions and export flags still need a tiny native fixture.",
+    "Custom IDs do not prevent pruning; they identify original source rows for a separately verified correction."
+  ],
+  "native_calls": 0,
+  "seam_material_duplicate_paths": [
+    {
+      "accessor_type": "SCALAR",
+      "component_type": 5126,
+      "corner_lineage_restored": true,
+      "exported_ids": [
+        99996,
+        99996,
+        99997,
+        99998,
+        99999
+      ],
+      "path": "shared",
+      "primitive": 0,
+      "source_corners": 9,
+      "split_vertices": 5
+    },
+    {
+      "accessor_type": "SCALAR",
+      "component_type": 5126,
+      "corner_lineage_restored": true,
+      "exported_ids": [
+        99996,
+        99997,
+        99998
+      ],
+      "path": "separate-materials",
+      "primitive": 0,
+      "source_corners": 3,
+      "split_vertices": 3
+    },
+    {
+      "accessor_type": "SCALAR",
+      "component_type": 5126,
+      "corner_lineage_restored": true,
+      "exported_ids": [
+        99996,
+        99998,
+        99999
+      ],
+      "path": "separate-materials",
+      "primitive": 1,
+      "source_corners": 3,
+      "split_vertices": 3
+    },
+    {
+      "accessor_type": "SCALAR",
+      "component_type": 5126,
+      "corner_lineage_restored": true,
+      "exported_ids": [
+        99996,
+        99997,
+        99998
+      ],
+      "path": "separate-materials",
+      "primitive": 2,
+      "source_corners": 3,
+      "split_vertices": 3
+    }
+  ],
+  "skin_or_animation_verified": false,
+  "source_kind": "Deterministic mocked RNA fixture, not native glTF",
+  "status": "analytic_installed_code_lineage_passed"
+}

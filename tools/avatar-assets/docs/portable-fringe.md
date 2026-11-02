@@ -5,7 +5,11 @@ The generic geometry/color libraries and a small native fixture work, but actual
 panda/fox exports fail stricter normal/weight preservation, and the panda exceeds
 the existing memory limit. `finish_generated.finish` returns an explicit
 unsupported error before creating an output or starting Blender. Existing
-combed-card finishing and approved assets are unchanged.
+combed-card finishing and approved assets are unchanged. The new
+[export-fidelity/staged-rendering experiment](export-fidelity-and-staging.md)
+resolves the measured panda normal/weight and memory failures in a restricted
+experimental path, but its actual GLB appearance is still rejected. The public
+finisher is not enabled by those component results.
 
 ## Input
 

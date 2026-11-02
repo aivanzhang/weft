@@ -1,0 +1,27 @@
+{
+  "fringe_exported_corners": 43200,
+  "helper_vs_native_body_root_weight_error": 3.725290298461914e-09,
+  "normal_limit": 0.0002,
+  "normal_max_component_error": 5.7697296142578125e-05,
+  "normal_over_limit": 0,
+  "normal_quality_approved": false,
+  "raw_fin_vs_helper_weight_error": 0.0,
+  "source_id_coverage": 94255,
+  "source_topology_exact": true,
+  "weight_limit": 1e-06,
+  "weights": [
+    {
+      "maximum_named_weight_error": 0.0,
+      "over_original_weight_limit": 0,
+      "owner": "body",
+      "vertices": 51055
+    },
+    {
+      "maximum_named_weight_error": 0.0,
+      "over_original_weight_limit": 0,
+      "owner": "fringe",
+      "vertices": 43200
+    }
+  ],
+  "worst_weight_rows": []
+}

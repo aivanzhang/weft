@@ -1,0 +1,34 @@
+{
+  "all_other_file_bytes_exact": true,
+  "allowed_spans": [
+    {
+      "accessor": 113,
+      "end": 25925040,
+      "semantic": "NORMAL",
+      "start": 25233840
+    },
+    {
+      "accessor": 116,
+      "end": 27537840,
+      "semantic": "JOINTS_0",
+      "start": 27307440
+    },
+    {
+      "accessor": 117,
+      "end": 28459440,
+      "semantic": "WEIGHTS_0",
+      "start": 27537840
+    }
+  ],
+  "changed_bytes": 346211,
+  "helper_fidelity": {
+    "joint_names_exact": true,
+    "normal_component_error": 0.0,
+    "weight_error": 0.0
+  },
+  "helper_vertices": 19200,
+  "mapped_exported_corners": 57600,
+  "normals_requantized": false,
+  "original_body_payload_exact": true,
+  "status": "passed"
+}

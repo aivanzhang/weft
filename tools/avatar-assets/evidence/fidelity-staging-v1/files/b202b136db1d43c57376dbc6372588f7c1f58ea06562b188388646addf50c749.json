@@ -1,0 +1,299 @@
+{
+  "accepted": false,
+  "installed_weight_method_sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7",
+  "limitations": [
+    "Weight branch replays actual installed Python on saved actual witness rows.",
+    "Normal beta-snap experiment uses version-matched public C++ formula and actual triangle/helper data, not native instrumentation or full short2 emulation.",
+    "No final attribute correction, pose test, threshold relaxation, or appearance acceptance."
+  ],
+  "native_calls": 0,
+  "normal_replay": [
+    {
+      "diagnosis_path": "outputs/panda-fringe-attribute-diagnosis-v1/position-uv-material-00.json",
+      "diagnosis_sha256": "2596af0a9018269e2f027b2cb61404c14bd370dda3c78d0ef5049218cb19d846",
+      "export_round4_only_above_original_normal_limit": 0,
+      "export_round4_only_max_component_change": 5.7697296142578125e-05,
+      "helper_normals": 14400,
+      "model_sha256_from_sealed_diagnosis": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026",
+      "normal_examples": [
+        {
+          "helper_vertex": 8697,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.013583168387413025,
+          "projected_beta_cosine": 0.9999023409917607,
+          "projected_beta_degrees": 0.8007506861623427,
+          "snap_only_prediction_gltf_normal": [
+            -0.14334824375491587,
+            0.3704781826896381,
+            -0.9177130254950969
+          ],
+          "snap_only_vs_export_component_max": 4.6697181276950106e-05,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 13045
+        },
+        {
+          "helper_vertex": 6145,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.013391129672527313,
+          "projected_beta_cosine": 0.999904045490554,
+          "projected_beta_degrees": 0.7937318321239117,
+          "snap_only_prediction_gltf_normal": [
+            0.13645738725874756,
+            0.17686777300197917,
+            -0.974729281562751
+          ],
+          "snap_only_vs_export_component_max": 4.493827607299217e-05,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 9217
+        },
+        {
+          "helper_vertex": 12672,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.013197529129683971,
+          "projected_beta_cosine": 0.9999079006078364,
+          "projected_beta_degrees": 0.7776234442168278,
+          "snap_only_prediction_gltf_normal": [
+            -0.0076797040438519905,
+            0.19430532109603693,
+            0.9809110379333923
+          ],
+          "snap_only_vs_export_component_max": 2.0386252714495873e-05,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 40613
+        }
+      ],
+      "npz_path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+      "npz_sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa",
+      "subject": "panda"
+    },
+    {
+      "diagnosis_path": "outputs/fox-fringe-export-diagnosis-v2/material-16.json",
+      "diagnosis_sha256": "f8d401da76343c0b421a6cf5741f23c92edbe23a2d6e3bd503e899a3555e6140",
+      "export_round4_only_above_original_normal_limit": 0,
+      "export_round4_only_max_component_change": 6.183981895446777e-05,
+      "helper_normals": 19200,
+      "model_sha256_from_sealed_diagnosis": "ac8c0d905564861cefe75a08c64bdc8d659242f34b08a269f4aeeb303f304c92",
+      "normal_examples": [
+        {
+          "helper_vertex": 12505,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.01371359266431682,
+          "projected_beta_cosine": 0.9999012364171631,
+          "projected_beta_degrees": 0.8052664824894747,
+          "snap_only_prediction_gltf_normal": [
+            -0.6628921192629481,
+            -0.7485896995582677,
+            -0.013693061540063431
+          ],
+          "snap_only_vs_export_component_max": 6.760587755630376e-06,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 18757
+        },
+        {
+          "helper_vertex": 17640,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.013701376515996344,
+          "projected_beta_cosine": 0.9999013864342489,
+          "projected_beta_degrees": 0.8046546596739552,
+          "snap_only_prediction_gltf_normal": [
+            0.6629185027213319,
+            -0.7485663036686571,
+            -0.01369480783185605
+          ],
+          "snap_only_vs_export_component_max": 2.7174386523554084e-05,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 55265
+        },
+        {
+          "helper_vertex": 3896,
+          "native_corner_index_agrees": true,
+          "original_export_component_error": 0.013051271438598633,
+          "projected_beta_cosine": 0.9999053109439784,
+          "projected_beta_degrees": 0.788480488185572,
+          "snap_only_prediction_gltf_normal": [
+            0.2850382892886938,
+            -0.9407328210636173,
+            -0.18377957724693794
+          ],
+          "snap_only_vs_export_component_max": 6.921075943489008e-05,
+          "snap_threshold": 0.9998999834060669,
+          "snapping_condition": true,
+          "target_vertex": 34649
+        }
+      ],
+      "npz_path": "outputs/fox-fringe-component-v2/fringe-correspondence.npz",
+      "npz_sha256": "874fece1cbb9e3f0e7d386f4f6baa278118d87cfba427d59d42862ecec7f0a99",
+      "subject": "fox"
+    }
+  ],
+  "status": "CPU_only_cause_witness_replay",
+  "weight_replay": [
+    {
+      "actual_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "helper_vertex": 13665,
+      "kept_positive_influences": 2,
+      "predicted_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "predicted_vs_actual_component_max": 0.0,
+      "predicted_vs_actual_float32_bytes_equal": true,
+      "removed_positive_weights": [
+        7.013243885012344e-05,
+        6.011861114529893e-05
+      ],
+      "source_positive_influences": 4,
+      "target_vertex": 20497
+    },
+    {
+      "actual_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "helper_vertex": 13667,
+      "kept_positive_influences": 2,
+      "predicted_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "predicted_vs_actual_component_max": 0.0,
+      "predicted_vs_actual_float32_bytes_equal": true,
+      "removed_positive_weights": [
+        7.013243885012344e-05,
+        6.011861114529893e-05
+      ],
+      "source_positive_influences": 4,
+      "target_vertex": 20498
+    },
+    {
+      "actual_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "helper_vertex": 13667,
+      "kept_positive_influences": 2,
+      "predicted_dense_weights": [
+        0.0,
+        0.00901516992598772,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.9909847974777222,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "predicted_vs_actual_component_max": 0.0,
+      "predicted_vs_actual_float32_bytes_equal": true,
+      "removed_positive_weights": [
+        7.013243885012344e-05,
+        6.011861114529893e-05
+      ],
+      "source_positive_influences": 4,
+      "target_vertex": 20500
+    }
+  ]
+}

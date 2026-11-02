@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from blender_verify import source_header, hash_file, write_json, imported_bindings, bind_action, clear_actions, set_frame
 from blender_native_groom import add_native_groom
 from motion_samples import sample_action
+from native_render_tasks import render_or_record
 
 
 def texture_colors(obj, image, *, exact_root=False):
@@ -445,8 +446,15 @@ def deformation_baseline(obj, rig, rig_route):
         'pose_samples_measured': 0, 'unchanged_topology_required': True}
 
 
-def finish(config, output):
+def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
+    if type(prepare_only) is not bool or type(preserve_skin_source) is not bool:
+        raise ValueError('Native preparation must be explicitly boolean')
+    if preserve_skin_source and not prepare_only:
+        raise ValueError('Source-skin preservation is an experimental prepared-scene route only')
+    render_tasks = [] if prepare_only else None
     cfg, out = json.loads(Path(config).read_text()), Path(output)
+    if prepare_only and not (cfg.get('authored_rig') and cfg.get('authored_actions')):
+        raise ValueError('Staged preparation currently requires an authored rig and bone-only actions')
     model = Path(cfg["source"])
     source_header(model)
     if hash_file(model) != cfg["source_sha256"]:
@@ -658,6 +666,11 @@ def finish(config, output):
         bindings = {a.name: [(rig, next(iter(a.slots), None))] for a in actions}
     report['states'] = []
     if cfg.get('export_model'):
+        if preserve_skin_source:
+            from source_skin_snapshot import snapshot_skin_sources
+            rig.data.pose_position = 'REST'
+            bpy.context.view_layer.update()
+            report['source_skin_snapshot'] = snapshot_skin_sources([obj, *cards], rig, out)
         clear_actions(owners, [rig])
         rig.data.pose_position = 'POSE'
         for action in actions:
@@ -672,7 +685,8 @@ def finish(config, output):
             export_animations=True, export_animation_mode='ACTIONS', export_anim_single_armature=True,
             export_force_sampling=True, export_frame_range=False, export_yup=True, export_skins=True,
             export_normals=True, export_tangents=True, export_image_format='AUTO', export_morph=False,
-            export_extras=False, export_materials='EXPORT', export_current_frame=False)
+            export_extras=False, export_materials='EXPORT', export_current_frame=False,
+            export_attributes=preserve_skin_source)
         rig.data.pose_position = 'REST'
         if fringe:
             phase_memory(out, 'after_export')
@@ -747,7 +761,7 @@ def finish(config, output):
         report['camera'].update(**fit, fit='motion',
                                 fur_margin_m=fur_margin, motion_envelope=bounds_report)
     scene.render.filepath = str(out/"portrait.png")
-    bpy.ops.render.render(write_still=True)
+    render_or_record(scene, rig, None, [], render_tasks, out)
     if cfg.get('review_views'):
         (out/'views').mkdir()
         saved_location, saved_rotation = camera.location.copy(), camera.rotation_euler.copy()
@@ -767,9 +781,9 @@ def finish(config, output):
                 camera.location += basis.col[i]*(midpoint-camera.location.dot(basis.col[i]))
             path = out/'views'/(view+'.png')
             scene.render.filepath = str(path)
-            bpy.ops.render.render(write_still=True)
+            rendered_hash = render_or_record(scene, rig, None, [], render_tasks, out, hash_output=True)
             report['review_views'].append({'view': view, 'path': str(path.relative_to(out)),
-                                          'sha256': hash_file(path), 'resolution': cfg['resolution']})
+                                          'sha256': rendered_hash, 'resolution': cfg['resolution']})
         camera.location, camera.rotation_euler, camera_data.ortho_scale = saved_location, saved_rotation, saved_scale
     if cfg.get('sample_states'):
         scene.render.resolution_x = scene.render.resolution_y = cfg.get('pose_resolution', 384)
@@ -817,10 +831,10 @@ def finish(config, output):
                         evaluated.to_mesh_clear()
                 scene.render.filepath = str(folder/f'{index:04d}.png')
                 if fringe:
-                    phase_memory(out, f'before_pose_{action.name}_{index}')
-                bpy.ops.render.render(write_still=True)
+                    phase_memory(out, f'before_{"record" if prepare_only else "pose"}_{action.name}_{index}')
+                render_or_record(scene, rig, action, bindings[action.name], render_tasks, out)
                 if fringe:
-                    phase_memory(out, f'after_pose_{action.name}_{index}')
+                    phase_memory(out, f'after_{"record" if prepare_only else "pose"}_{action.name}_{index}')
             worst = retain_stretched_edges(outliers, report['deformation_measurement']['rest_bounds']['height'])
             report['states'].append({'id': action.name, **sampling,
                 'duration_seconds': (end-start)/(scene.render.fps/scene.render.fps_base), 'loop_verified': False,
@@ -832,9 +846,17 @@ def finish(config, output):
         rig.data.pose_position = 'REST'
     scene.render.resolution_x = scene.render.resolution_y = cfg['resolution']
     scene.cycles.samples = cfg['samples']
-    bpy.ops.wm.save_as_mainfile(filepath=str(out/"source.blend"), check_existing=False)
+    scene_path = out/('prepared-source.blend' if prepare_only else 'source.blend')
+    bpy.ops.wm.save_as_mainfile(filepath=str(scene_path), check_existing=False)
     report["source_unchanged"] = hash_file(model) == cfg["source_sha256"]
-    write_json(out/"finish-report.json", report)
+    if prepare_only:
+        write_json(out/'prepared-native-scene.json', {'schema_version': 1, 'status': 'prepared_not_rendered',
+            'scene': scene_path.name, 'scene_sha256': hash_file(scene_path), 'tasks': render_tasks,
+            'config_sha256': hash_file(Path(config)), 'source_glb_sha256': cfg['source_sha256'],
+            'rendered_images': 0, 'quality_approved': False})
+        write_json(out/'prepared-finish-report.json', report)
+    else:
+        write_json(out/'finish-report.json', report)
 
 
 if __name__ == "__main__":

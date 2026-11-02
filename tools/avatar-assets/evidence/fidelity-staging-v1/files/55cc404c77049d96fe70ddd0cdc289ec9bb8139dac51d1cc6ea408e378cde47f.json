@@ -1,0 +1,82 @@
+{
+  "all_owned_cpu_children_exited": true,
+  "body_and_helper_native_weight_difference": 3.725290298461914e-09,
+  "custody": {
+    "bytes": 2775,
+    "path": "outputs/staged-fringe-id-audit-v2/result/restored/derivative-custody.json",
+    "sha256": "9e7e9f717856041174595a9d6c9165cdc379536efccbb2a3a3c39688da86a257"
+  },
+  "derivative_model": {
+    "path": "outputs/panda-staged-skin-restore-v1/model.glb",
+    "sha256": "c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f"
+  },
+  "fringe_normal_max_component_error": 5.7697296142578125e-05,
+  "label_correction": {
+    "bytes": 1606,
+    "path": "outputs/staged-fringe-id-audit-v2/report-label-correction.json",
+    "sha256": "b58817b68bc5bbe14e1e9d2af778cefda64a6d5d173f715d703cb783475db979"
+  },
+  "limits": [
+    "Only sampled exported-skeleton CPU motion; no native evaluated-pose comparator or continuous-time claim.",
+    "No whole-body normal fidelity, normal-map/tangent validation, complete glTF admission, appearance, Muse parity or physical hair claim.",
+    "Original checker IndexError is preserved under staged-fringe-raw-audit-v1; this authorized replay corrected bookkeeping only and added independent derivative custody.",
+    "Native staged render differences and persistent cheek/shoulder defects are outside this CPU audit and remain explicit in parent review."
+  ],
+  "native_calls": 0,
+  "oriented_source_topology_exact": true,
+  "original_normal_limit": 0.0002,
+  "provider_or_ai_calls": 0,
+  "public_fringe_enabled": false,
+  "quality_approved": false,
+  "raw_helper_restored_to_pruned_body_maximum_gap_m": 7.471515909306715e-07,
+  "raw_hybrid_gap_within_original_1e_6_limit": true,
+  "raw_maximum_source_skin_pose_error_m": 3.185239048408209e-06,
+  "raw_model": {
+    "path": "outputs/panda-staged-fringe-v1/model.glb",
+    "sha256": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9"
+  },
+  "raw_weight_failures": [
+    {
+      "maximum_named_weight_error": 0.00018578767776489258,
+      "over_original_weight_limit": 908,
+      "owner": "body",
+      "vertices": 51055
+    },
+    {
+      "maximum_named_weight_error": 0.0001290440559387207,
+      "over_original_weight_limit": 414,
+      "owner": "fringe",
+      "vertices": 43200
+    }
+  ],
+  "restored_maximum_root_gap_m": 1.6050135238175289e-09,
+  "restored_maximum_source_skin_pose_error_m": 0.0,
+  "restored_weights": [
+    {
+      "maximum_named_weight_error": 0.0,
+      "over_original_weight_limit": 0,
+      "owner": "body",
+      "vertices": 51055
+    },
+    {
+      "maximum_named_weight_error": 0.0,
+      "over_original_weight_limit": 0,
+      "owner": "fringe",
+      "vertices": 43200
+    }
+  ],
+  "sample_times_seconds": [
+    0.0,
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0
+  ],
+  "schema_version": 1,
+  "source_id_coverage": 94255,
+  "status": "selected_derivative_fidelity_and_sampled_attachment_passed_raw_export_rejected"
+}

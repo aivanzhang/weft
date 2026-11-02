@@ -1,0 +1,75 @@
+{
+  "clips": [
+    {
+      "clip": "idle",
+      "maximum_weighted_pose_error_m": 1.479629186455414e-07,
+      "passed": true,
+      "sample_times_seconds": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    },
+    {
+      "clip": "making_something",
+      "maximum_weighted_pose_error_m": 2.3168075720252122e-07,
+      "passed": true,
+      "sample_times_seconds": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    },
+    {
+      "clip": "milestone_level_up",
+      "maximum_weighted_pose_error_m": 2.8324332343310263e-07,
+      "passed": true,
+      "sample_times_seconds": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    },
+    {
+      "clip": "working",
+      "maximum_weighted_pose_error_m": 3.7383237302147725e-07,
+      "passed": true,
+      "sample_times_seconds": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0
+      ]
+    }
+  ],
+  "correspondence": "Exact position/UV/named weights; aliases with different normals are not normal-fidelity proof.",
+  "matched_vertices": 30420,
+  "native_pose_comparison": "Original GLB versus actual native-export GLB CPU skin; not native evaluated-pose arrays.",
+  "normal_fidelity_approved": false,
+  "original_weighted_pose_limit_m": 1e-05,
+  "quality_approved": false,
+  "status": "passed"
+}

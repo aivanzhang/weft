@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "status": "sealed",
+  "artifacts": [
+    {
+      "path": "input-preservation.json",
+      "bytes": 1055,
+      "sha256": "c42b2b21aead564f907a6d3a28a6436c101cf0d9608da9b4df6ee4909c384186"
+    },
+    {
+      "path": "job.json",
+      "bytes": 1116,
+      "sha256": "01889ba9e3da277def17a89390b07ab09ca9d3e87c07f0b4a42ddb4665317ba3"
+    },
+    {
+      "path": "model.glb",
+      "bytes": 36072836,
+      "sha256": "c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 2481,
+      "sha256": "f1a8da65dd3811e67ac7aa7811ee955a550064a57ec481f59204aa4b815ee779"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 17431,
+      "sha256": "53e00b95f2232ba9fa1f41414168feaed8e6ea27422c8db66886df0b22b155ae"
+    },
+    {
+      "path": "restore-handle.json",
+      "bytes": 237,
+      "sha256": "736542ec194df153de46429cecdd0cfd6cfd644a5bcea256db6bc1a5a2943747"
+    },
+    {
+      "path": "restore-monitor.json",
+      "bytes": 1026,
+      "sha256": "12e4e324f8e6457be1dfe6f596adc91cd286b166dee0b74c75c4c2ecf7e11e57"
+    },
+    {
+      "path": "restore-report.json",
+      "bytes": 13467,
+      "sha256": "a58a62d949bdd2631bfde5b96c4d766378d70baa470b612f9ff18af8e1e2fccd"
+    },
+    {
+      "path": "restore.log",
+      "bytes": 249,
+      "sha256": "69ca8f2df0e389e8b16d5924b67b23067f9b0ea53301f5816c1c7d62cf5290c4"
+    },
+    {
+      "path": "restore.py",
+      "bytes": 1174,
+      "sha256": "fb4869c1a9d973c7a284f034e8b016654feec39e308664e8803a65c6604e30ec"
+    },
+    {
+      "path": "source/avatar_assets/__init__.py",
+      "bytes": 96,
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "path": "source/avatar_assets/fringe_export.py",
+      "bytes": 13676,
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "path": "source/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "source/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "source/avatar_assets/source_skin_fidelity.py",
+      "bytes": 24176,
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5"
+    },
+    {
+      "path": "source/avatar_assets/three_d.py",
+      "bytes": 35106,
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "artifact_count": 16,
+  "artifact_bytes": 36199306
+}

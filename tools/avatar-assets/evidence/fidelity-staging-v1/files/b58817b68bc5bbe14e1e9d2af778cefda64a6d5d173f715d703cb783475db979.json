@@ -1,0 +1,35 @@
+{
+  "affected": {
+    "bytes": 496,
+    "path": "outputs/staged-fringe-id-audit-v2/result/raw/result.json",
+    "sha256": "7b0ab817d93ce277ed94287ffccb78f9b124ab2fa7c4d855f9b77eb9aa23103e"
+  },
+  "cause": "The checker reuses its raw GLB local variable name for a scalar root-gap metric late in main; the final identity-based label is therefore wrong. All input parsing/ID mapping/custody runs before that shadowing, and numeric gates do not depend on the label.",
+  "correct_value": "raw_native_export",
+  "evidence": [
+    {
+      "bytes": 1880,
+      "path": "outputs/staged-fringe-id-audit-v2/result/raw/request.json",
+      "sha256": "cccd16a17bf4cbf9aa1c32759e00592026426c506db23d255f82114d788db2d0"
+    },
+    {
+      "bytes": 2290,
+      "path": "outputs/staged-fringe-id-audit-v2/result/restored/request.json",
+      "sha256": "6b83e9a8f66ff4464af461a734abc0e12aa7c6cbe244c0a8bc41ca959a7b54b2"
+    },
+    {
+      "bytes": 20481,
+      "path": "outputs/staged-fringe-id-audit-preparation-v2/check.py",
+      "sha256": "c3f40c21bcc5251d97143b0772091bcaea2f4e0db81b5705cbcb985c883564c4"
+    }
+  ],
+  "field": "asset_kind",
+  "gate_changes": false,
+  "metric_values_changed": false,
+  "motion_field_semantics": "In each branch, raw/pruned in legacy field names refers to that branch selected asset; restored branch uses the corrected derivative. Native source-snapshot values are always separate.",
+  "no_second_audit_run": true,
+  "original_file_preserved": true,
+  "original_value": "full_source_skin_derivative",
+  "schema_version": 1,
+  "status": "append_only_metadata_correction_no_reexecution"
+}

@@ -1,0 +1,67 @@
+{
+  "appearance_approved": false,
+  "files": [
+    {
+      "bytes": 35693452,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/model.glb",
+      "sha256": "edefc8fe726247fe6fa775968858b2629eb5723e7256e71ec49526402e1dc616"
+    },
+    {
+      "bytes": 1798,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/omission-report.json",
+      "sha256": "888840c3728949cbd3e2b1d0bcabab2b967795d86d4a267be236d3e505bd5079"
+    },
+    {
+      "bytes": 3775,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/repair-report.json",
+      "sha256": "6a4b843cf29e7f19f1bbdbb172133c9f10e228ee0f8f22364675851ae3c6bd1d"
+    },
+    {
+      "bytes": 4048,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/request.json",
+      "sha256": "d76586f6c5d443bb6454f190de9d228b41e7a92de080d57d8683ac6ab840e05d"
+    },
+    {
+      "bytes": 304,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/result.json",
+      "sha256": "c259d20946d64f6a734037a1b1ddb053294e7d204490c89a1e4515e7cf51c42d"
+    },
+    {
+      "bytes": 35693452,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/derivative/tangent-omitted.glb",
+      "sha256": "fa9ffa8bdb4703ed03e1e19d6cb06cde6ae8af97dd971ea1e01543ec7c169830"
+    },
+    {
+      "bytes": 1264,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/job.json",
+      "sha256": "0c7a367ecb0a65d393f5444506d913b023aba50b726784749e1ba44f88eabb64"
+    },
+    {
+      "bytes": 380,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/producer-handle.json",
+      "sha256": "cead6bcb4c683fc6d03bee157e749c87b081342ef265f9d306487204afeae52d"
+    },
+    {
+      "bytes": 1170,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/producer-monitor.json",
+      "sha256": "ca74b04f632eae86e3c423bb19b2913838b55c64e50cae9203038cf636a24cff"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/fringe-fidelity-panda-producer-v1/producer.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "native_calls": 0,
+  "provider_or_ai_calls": 0,
+  "result": {
+    "body_attachment_approved": false,
+    "elapsed_seconds": 0.46272537484765053,
+    "model_sha256": "edefc8fe726247fe6fa775968858b2629eb5723e7256e71ec49526402e1dc616",
+    "native_run_completed": false,
+    "quality_approved": false,
+    "status": "produced_experimental_derivative_pending_independent_audit"
+  },
+  "schema_version": 1,
+  "status": "sealed"
+}

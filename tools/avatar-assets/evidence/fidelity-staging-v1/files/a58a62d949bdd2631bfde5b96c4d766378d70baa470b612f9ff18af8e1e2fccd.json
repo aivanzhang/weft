@@ -1,0 +1,582 @@
+{
+  "schema_version": 1,
+  "policy": "experimental-source-skin-fidelity-v1",
+  "experimental": true,
+  "public_guard_enabled": false,
+  "input_sha256": {
+    "source": "9c5b3fab3dec497a974dff3702fb32665d2da1ccd06d1de1a15db30a66529dc9",
+    "snapshot": "4f6b3f8dc216189ebd6da586d91fbcea9167806b6679b0d4bcc5eb4b19fc57f3",
+    "snapshot_report": "93809b3fca2d5073d1822c82c345b7e800c5ce707ef91e8fc3538c23d6367b1d"
+  },
+  "result_sha256": "c95bd830119b79d5bb1238e1a5e4184a570b1e849d9c22d39eccc17dde61715f",
+  "source_unchanged": true,
+  "source_vertices": 94255,
+  "exported_vertex_entries": 94567,
+  "triangles": 76981,
+  "owners": 2,
+  "primitives": [
+    {
+      "mesh": 0,
+      "primitive": 0,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 2148,
+      "source_ids_sha256": "2251e71b965b53d20faec30386bdb21699952cc224d9739be529381e81a2875f",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 1,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 24705,
+      "source_ids_sha256": "f3f75a80ad8e5c86aa0859414a8b4b9ed402bdac2df9d11dea285b948777ec5c",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 2,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 3,
+      "source_ids_sha256": "76a107f62d9ee449d55b221001507dcfdab8ba01449617e4b032f963e5260d83",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 3,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 939,
+      "source_ids_sha256": "871801c9994abdaaaa3fb9db84688bec44429ccf832f6a6e997fa5650dc10b09",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 4,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 549,
+      "source_ids_sha256": "e0025dbffeb1fd3ed1d3f44a060149c6449e39355c86f274df43543fbf843dc7",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 5,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 21919,
+      "source_ids_sha256": "6b773fd547a19683e9275cfd3a7508b6809a13f321ba287ea7adb9e67d93e733",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 0,
+      "primitive": 6,
+      "owner": 0,
+      "node": 19,
+      "skin": 0,
+      "vertices": 1104,
+      "source_ids_sha256": "e85a46f21e87daf9e61e2cba7974719ff3d1edc8fe6503d10d95cd0ffecc1d83",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    {
+      "mesh": 1,
+      "primitive": 0,
+      "owner": 1,
+      "node": 21,
+      "skin": 0,
+      "vertices": 43200,
+      "source_ids_sha256": "19fe99cac19a9289f621474b5c7eb67f2ff48be0226e89181acc57f7a313c55b",
+      "native_to_exported_joint_slots": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    }
+  ],
+  "skin_writes": [
+    {
+      "accessor": 6,
+      "buffer_view": 6,
+      "byte_offset": 128880,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 2148,
+      "old_sha256": "b4beee980e3a2eafe09ad67a710eb21a6f24cedcb7114f459f5f16d4d785af3a",
+      "new_sha256": "e6af3d8efb44a1840708f3f332e0fbfa4a273575e4ca3f57879a5acbc5e84fe6",
+      "changed_rows": 462,
+      "uses": [
+        [
+          0,
+          0,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 7,
+      "buffer_view": 7,
+      "byte_offset": 137472,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 2148,
+      "old_sha256": "f26619eab13fbe338a3410c27a88be29beef63325782bdf067e1f31f088e60f2",
+      "new_sha256": "60f859b41416e1e345277cbee7039fecece592af16ebb8d8e7ee93892ea11528",
+      "changed_rows": 472,
+      "uses": [
+        [
+          0,
+          0,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 15,
+      "buffer_view": 18,
+      "byte_offset": 25253044,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 24705,
+      "old_sha256": "7fd02706878a6e0563490fc4be188c5b81fc932155ed34af3fb9ada81257fd14",
+      "new_sha256": "0f6cd3283b88996574fc5dd5c47a1e1ec2f218772d9cd4127cd52397fc65f470",
+      "changed_rows": 4582,
+      "uses": [
+        [
+          0,
+          1,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 16,
+      "buffer_view": 19,
+      "byte_offset": 25351864,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 24705,
+      "old_sha256": "9f40fcce86e3b37ff6496e604887d569ad8e624a708b9a611c48b44a54e0bbba",
+      "new_sha256": "f03bb312c87609e6b53962f356ea3541b2ff64474cdf59d868f1d3329545d5c9",
+      "changed_rows": 4582,
+      "uses": [
+        [
+          0,
+          1,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 24,
+      "buffer_view": 27,
+      "byte_offset": 25910556,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 3,
+      "old_sha256": "f6393075ad778b4190cf51823e234b8a9e7ef2fb53da58c4995db965cc24a7bf",
+      "new_sha256": "f6393075ad778b4190cf51823e234b8a9e7ef2fb53da58c4995db965cc24a7bf",
+      "changed_rows": 0,
+      "uses": [
+        [
+          0,
+          2,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 25,
+      "buffer_view": 28,
+      "byte_offset": 25910568,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 3,
+      "old_sha256": "25d3afecae54a752cecb41578bd510886b5cb28dee3059083236c5f2fac47386",
+      "new_sha256": "25d3afecae54a752cecb41578bd510886b5cb28dee3059083236c5f2fac47386",
+      "changed_rows": 0,
+      "uses": [
+        [
+          0,
+          2,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 33,
+      "buffer_view": 36,
+      "byte_offset": 25966964,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 939,
+      "old_sha256": "88ac23886047c96d6bd5b25ef7d70aa4b43c830da2845662871af2f2cdc72408",
+      "new_sha256": "64042df08b857589e47d2754639704f58ecf995cdbe112c5b39b218e1caa6364",
+      "changed_rows": 81,
+      "uses": [
+        [
+          0,
+          3,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 34,
+      "buffer_view": 37,
+      "byte_offset": 25970720,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 939,
+      "old_sha256": "b524582bf5c6b7fb90378089962e674ab4768ba27f8bc4b47f2e35447f8ba1f1",
+      "new_sha256": "9407b8496389d9799bdb10293ba1a387487b9e524f1ccf98db5a1ab4101a6b09",
+      "changed_rows": 81,
+      "uses": [
+        [
+          0,
+          3,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 42,
+      "buffer_view": 45,
+      "byte_offset": 26020564,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 549,
+      "old_sha256": "e8c96185155003f02359c41ef00db8b6b135f7796010112a564f1106045232ba",
+      "new_sha256": "bcfcc0f291f1f54c9e6f3969d246b55e3ee86c48ef9eea44329fa653821aac5e",
+      "changed_rows": 347,
+      "uses": [
+        [
+          0,
+          4,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 43,
+      "buffer_view": 46,
+      "byte_offset": 26022760,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 549,
+      "old_sha256": "6db321f255a84eca6b8907dba2cb3f5e2ce97d2d1bf28524081fbfbc5bf554b0",
+      "new_sha256": "6979916ab7f18b95a77e36c663a5dd0cbe9788e949ab6ec369b72a5c8d07c523",
+      "changed_rows": 347,
+      "uses": [
+        [
+          0,
+          4,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 51,
+      "buffer_view": 54,
+      "byte_offset": 27351112,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 21919,
+      "old_sha256": "b5b1b4b5fd0a8e4f9b40e85369416cf024bb85eb391098b648381d37a76d6df2",
+      "new_sha256": "eedb38a85ff9c9ed4bd79cc6d60bea2fb6f15f658b1cff636176ba8d058d5538",
+      "changed_rows": 2397,
+      "uses": [
+        [
+          0,
+          5,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 52,
+      "buffer_view": 55,
+      "byte_offset": 27438788,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 21919,
+      "old_sha256": "93d1814ae904f27cd559884ef5de4f86fbf91f6d27cd6d23fa4a441d257049df",
+      "new_sha256": "e92ce618f5555e474fe81da0847fc30a72f813834a384a28f51ce70437caf71a",
+      "changed_rows": 3321,
+      "uses": [
+        [
+          0,
+          5,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 60,
+      "buffer_view": 64,
+      "byte_offset": 30941152,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 1104,
+      "old_sha256": "b424dac0f55340c353373e75e1bed2789a04c3b9114f3abbb860ccf2cf8d2c84",
+      "new_sha256": "bfdbe5674b290d9d997fd00f68b692b31f9c2c844863b213466aa01ffdb187e3",
+      "changed_rows": 145,
+      "uses": [
+        [
+          0,
+          6,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 61,
+      "buffer_view": 65,
+      "byte_offset": 30945568,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 1104,
+      "old_sha256": "15e3300330b8f399c46ef8c2761055ec7484ff4cf5198ada96a1e7a8bcea6466",
+      "new_sha256": "7fb91bec61ea526515a4006d71cb3b7686cbb22e2e74bf04211e5085cbe3b04e",
+      "changed_rows": 186,
+      "uses": [
+        [
+          0,
+          6,
+          "WEIGHTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 69,
+      "buffer_view": 74,
+      "byte_offset": 33404928,
+      "byte_stride": 4,
+      "element_bytes": 4,
+      "count": 43200,
+      "old_sha256": "9fc7f33c9b7486a43bd068148bb08cbabc3c37a84d685d2f71d4dd0a404d6800",
+      "new_sha256": "77e22b28d488f6588d20e23b1e82078b6a8e5f3a92e338c0bcd01b6a2117db32",
+      "changed_rows": 4254,
+      "uses": [
+        [
+          1,
+          0,
+          "JOINTS_0"
+        ]
+      ]
+    },
+    {
+      "accessor": 70,
+      "buffer_view": 75,
+      "byte_offset": 33577728,
+      "byte_stride": 16,
+      "element_bytes": 16,
+      "count": 43200,
+      "old_sha256": "cda19ede573f657b96959d4e3a0bc66534fe6ca2559ecf0626f5f92245e89d1a",
+      "new_sha256": "9df6d81daa7525374673f154ca0cc799fca3224920bca0f9914116652a1d80d6",
+      "changed_rows": 6540,
+      "uses": [
+        [
+          1,
+          0,
+          "WEIGHTS_0"
+        ]
+      ]
+    }
+  ],
+  "removed_id_bindings": [
+    "/meshes/0/primitives/0/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/1/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/2/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/3/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/4/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/5/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/0/primitives/6/attributes/_AUTHOR_VERTEX_ID",
+    "/meshes/1/primitives/0/attributes/_AUTHOR_VERTEX_ID"
+  ],
+  "all_source_ids_represented": true,
+  "oriented_owner_material_triangles_exact": true,
+  "all_non_skin_binary_bytes_unchanged": true,
+  "json_changes_only_removed_id_bindings": true,
+  "normals_positions_uv_images_rig_actions_unchanged": true,
+  "original_accessors_views_and_id_payloads_retained": true,
+  "shared_storage_policy": "All live write aliases demand identical proven source bytes; non-skin/orphan overlap rejected",
+  "frame": "Exact applied Blender XYZ meters -> glTF [x,z,-y]; no nearest matching or renormalization",
+  "sampled_peak_rss_bytes": 211795968,
+  "elapsed_seconds": 0.332288833335042,
+  "limits": {
+    "file_bytes": 67108864,
+    "npz_decoded_bytes": 8388608,
+    "vertices": 100000,
+    "triangles": 100000,
+    "bones": 64,
+    "seconds": 30,
+    "sampled_rss_bytes": 536870912
+  },
+  "motion_verified": false,
+  "body_normal_fidelity_verified": false,
+  "quality_approved": false,
+  "limitation": "Exact complete source-skin restoration is not action, appearance, physical validity, or failed-native completion proof."
+}

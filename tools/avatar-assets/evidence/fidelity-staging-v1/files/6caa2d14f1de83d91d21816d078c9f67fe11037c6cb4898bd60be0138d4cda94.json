@@ -1,0 +1,81 @@
+{
+  "appearance_approved": false,
+  "files": [
+    {
+      "bytes": 475,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/audit-handle.json",
+      "sha256": "e86ecbf457b8b8d83d032427adfe2b6f7660ecd18b0430dd3834f96c2baa7086"
+    },
+    {
+      "bytes": 1260,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/audit-monitor.json",
+      "sha256": "9e2651c55661288ff16d4015ed42fcb53305093469a832b1ebfb9545e1b5c415"
+    },
+    {
+      "bytes": 0,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1358,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/job.json",
+      "sha256": "ec81103649c4a7fbfd156b8b0fc61a30af633411a2dd84ea411608534658cb18"
+    },
+    {
+      "bytes": 257,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/body-root-correspondence.json",
+      "sha256": "6f36febd2964324c74a6fa6eb217056432a6711ec42d400b9bf58e7a3b14a351"
+    },
+    {
+      "bytes": 25276,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/body-root-correspondence.npz",
+      "sha256": "48f0e54503680a62ef04c139319cd1a0819085e44ad912505e3e3ce22a289a45"
+    },
+    {
+      "bytes": 706,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/custody-and-fidelity.json",
+      "sha256": "a1c224defb391881ce9c50951d6b7b9ad872058b468fcce9054c76b2ded6cb32"
+    },
+    {
+      "bytes": 72516,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/exported-to-helper.npz",
+      "sha256": "fd99c8f29b03d7a66c89b717e090f8b7622a32feb1436be506eae8239a3581ef"
+    },
+    {
+      "bytes": 1875,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/motion.json",
+      "sha256": "9925baa78799827f3aa5082a82f169d62900478883d25f48a8768bda586de8fd"
+    },
+    {
+      "bytes": 1550,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/original-body-motion.json",
+      "sha256": "a67cac7667f098a6503d558b864b0d2d9cb936ce26ef1032914708bfc3403e77"
+    },
+    {
+      "bytes": 2228,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/request.json",
+      "sha256": "c035b96fe1a7d8810db3152021d84203e8b2a70307098d2cd81601c7e725711a"
+    },
+    {
+      "bytes": 593,
+      "path": "outputs/fringe-fidelity-fox-independent-audit-v1/result/result.json",
+      "sha256": "713f88a825e59e1b5f2157669d59a3095e96ec0ee6c0b2a45f2ba043597a1b03"
+    }
+  ],
+  "native_calls": 0,
+  "provider_or_ai_calls": 0,
+  "result": {
+    "body_limitations": [
+      "Original gate already failed 43 body normals across coat/cream/scarf/scarf_seam; max component .0003999174.",
+      "Book/paper/page_edge/gold position/UV/weight aliases differ in normals; original normal comparisons were lower bounds.",
+      "Exact raw-export body custody is not original-source normal fidelity or visual approval."
+    ],
+    "elapsed_seconds": 2.397804541978985,
+    "native_pose_comparison_verified": false,
+    "quality_approved": false,
+    "status": "passed_selected_fringe_fidelity_and_sampled_attachment",
+    "whole_model_fidelity_approved": false
+  },
+  "schema_version": 1,
+  "status": "sealed"
+}

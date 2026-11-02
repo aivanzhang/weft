@@ -1,0 +1,173 @@
+{
+  "accepted": false,
+  "artifact_bytes": 140785,
+  "artifact_count": 26,
+  "artifacts": [
+    {
+      "bytes": 13230,
+      "path": "diagnose_fringe.py",
+      "sha256": "4480e0f7c71c928074ade6d8f687cfed0344f9e097da82ab472531051fa2fabf"
+    },
+    {
+      "bytes": 260,
+      "path": "diagnosis-handle.json",
+      "sha256": "b4d205c557ac31c3b3b752aee68d1c630d1876eac02f8fbfabeb3db332d8734f"
+    },
+    {
+      "bytes": 1043,
+      "path": "diagnosis-monitor.json",
+      "sha256": "5a33b30d726652a51659ad4d711154e2c8806601c226fbcec97af71b16aceb97"
+    },
+    {
+      "bytes": 8395,
+      "path": "diagnosis.json",
+      "sha256": "a59d46d1d1808be9ed05b39f1c34262a580603ac63c4fe8ad9bafe56877c07b6"
+    },
+    {
+      "bytes": 182,
+      "path": "diagnosis.log",
+      "sha256": "404db1ee32a9aebbf0d56ae84952ab5cea71169096b21a3348599b12252c988f"
+    },
+    {
+      "bytes": 929,
+      "path": "execute.py",
+      "sha256": "2676dbcf263f664d4ef87c65143f2f10788b07af8e69a42576e34cee457693e1"
+    },
+    {
+      "bytes": 965,
+      "path": "execute_position_uv.py",
+      "sha256": "3c359810bc6fd57faf74d1ff1bb1974aefec4a5992b88e0511445d4225720368"
+    },
+    {
+      "bytes": 1494,
+      "path": "findings.md",
+      "sha256": "304e4d8b26b14b9cdca8d73f26239da74506a96e5328dce36bb7594cd21a7993"
+    },
+    {
+      "bytes": 1221,
+      "path": "inputs.json",
+      "sha256": "9f87edad89a2bbc39452b4eeac5eb93e01df1500628e46a8b75333d4543e3fcd"
+    },
+    {
+      "bytes": 1137,
+      "path": "job.json",
+      "sha256": "fc83f58760e9518dfc67c3dbf21c35c9f2ade4106931f96051e8f20ad3b897b3"
+    },
+    {
+      "bytes": 14861,
+      "path": "localize_weight_mismatch.py",
+      "sha256": "a028c894824f7b565df4d2fdc0490d2967673ea077c9cd2943a91d00603b1667"
+    },
+    {
+      "bytes": 4421,
+      "path": "material-00.json",
+      "sha256": "d20b6a86bb2f8d85c362db5754919c0748e3468656cadbedea5f0549afa04b00"
+    },
+    {
+      "bytes": 281,
+      "path": "position-uv-diagnosis-handle.json",
+      "sha256": "a641a6900cd3e47b3986384463563a5d10813c0653693c781e206867f4373a21"
+    },
+    {
+      "bytes": 1066,
+      "path": "position-uv-diagnosis-monitor.json",
+      "sha256": "735176223fb02934fc1c07efa252c1e31d43870a9721514be784adb860926e8c"
+    },
+    {
+      "bytes": 10392,
+      "path": "position-uv-diagnosis.json",
+      "sha256": "5f915b5f142b7ce25812637a0b01ba42c9ca0b9ff2ff738ae1bc96e3de0eaad1"
+    },
+    {
+      "bytes": 205,
+      "path": "position-uv-diagnosis.log",
+      "sha256": "6165101692a4cf7ac80f4d402180b52766317fc84cddebeb579c7c79a91f5318"
+    },
+    {
+      "bytes": 1160,
+      "path": "position-uv-job.json",
+      "sha256": "74ab687d17743cba311af85d87d87381330417f583b1924976b26b787ceb96bb"
+    },
+    {
+      "bytes": 5974,
+      "path": "position-uv-material-00.json",
+      "sha256": "2596af0a9018269e2f027b2cb61404c14bd370dda3c78d0ef5049218cb19d846"
+    },
+    {
+      "bytes": 1737,
+      "path": "position-uv-prepared.json",
+      "sha256": "4d95dbfee940e1d6e886466e88acfffd6651f52812d207e39d65d4e808f769cc"
+    },
+    {
+      "bytes": 1875,
+      "path": "prepared.json",
+      "sha256": "a22eb9de98d90b482e836e35a4c0099cd1f4458efac1154a52ab066f07a0ce5a"
+    },
+    {
+      "bytes": 8839,
+      "path": "sources/fox-localize-all.py",
+      "sha256": "cd866991d69ad5e121008633943e4bee0562c14db414a4d31ad1a4f93d78ad24"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 10736,
+      "path": "summary.json",
+      "sha256": "fb70d8464a9d07d3682421600ff82366b46724f8caf0cdc0e7f2b70d0504dc8a"
+    }
+  ],
+  "bounds": {
+    "output_mib": 16,
+    "rss_mib": 512,
+    "wall_seconds_per_process": 30
+  },
+  "inputs": [
+    {
+      "bytes": 35693464,
+      "path": "outputs/panda-portable-fringe-finish-v1/model.glb",
+      "sha256": "af387843524ba560f2b8f0dd9d5c75f5d923e8f2e8f0ed7db62d60f1dcdf9026"
+    },
+    {
+      "bytes": 567833,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-correspondence.npz",
+      "sha256": "0bf88f9e9b369d2a62f707f333d18afed01048008db6ff077a09ac88c0d778fa"
+    },
+    {
+      "bytes": 13534,
+      "path": "outputs/panda-portable-fringe-finish-v1/fringe-report.json",
+      "sha256": "a0209a11a07e97261af908b45ff46de08fed6e201d3e761fe8b73942d1fdeb4b"
+    },
+    {
+      "bytes": 1680,
+      "path": "outputs/panda-portable-fringe-finish-v1/job.json",
+      "sha256": "988fe48d4786bc2493ca5a9a2a734169ce8071647b41d99650314f68be42e4d5"
+    },
+    {
+      "bytes": 12540,
+      "path": "outputs/panda-portable-fringe-finish-v1/manifest.json",
+      "sha256": "0f5ca73a93480ee2930e0bfef5bc6f186c864576af0863065dca31b3f1f1efb6"
+    }
+  ],
+  "original_inputs_unchanged_verified": true,
+  "schema_version": 1,
+  "scope": "Actual panda raw-fringe helper/export fidelity, with unchanged failed normal and skin-weight gates",
+  "status": "sealed_read_only_diagnosis"
+}
