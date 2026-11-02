@@ -1,0 +1,153 @@
+{
+  "artifacts": [
+    {
+      "bytes": 25674,
+      "path": "audit.json",
+      "sha256": "08001baf3cc86d12f67fbac463dd88f86033677f10c54d52e0f2b870fd9558c2"
+    },
+    {
+      "bytes": 20489,
+      "path": "audit.py",
+      "sha256": "4d26269232b7cdf985ec3cddafb6611bd3c70f57abb4dec0e464b7d080110eb2"
+    },
+    {
+      "bytes": 234,
+      "path": "cpu-handle.json",
+      "sha256": "0047447b3b1bb134eefdc293f26ec9d35980f7283069bd7de61504265fe0948d"
+    },
+    {
+      "bytes": 1113,
+      "path": "cpu-job.json",
+      "sha256": "1ba5d2eae322d795d5cfedec63c555c4f4e69233431f7b96dedbc7a9b0cbd6c6"
+    },
+    {
+      "bytes": 1023,
+      "path": "cpu-monitor.json",
+      "sha256": "5913b30b9abddf90f9c8b7fce3d521818e6dfec84f821c17b18bd5df6cb4ce52"
+    },
+    {
+      "bytes": 110,
+      "path": "cpu.log",
+      "sha256": "0ca646f729a6aa00647bda7e345b851d2d72c2ec09b5ee70ce7defd3742659f9"
+    },
+    {
+      "bytes": 1456,
+      "path": "execute_cpu.py",
+      "sha256": "5ed569da6ee41b088f458ea26e40fa86086a96d4ee3300bc4deaa4c21e5ec36c"
+    },
+    {
+      "bytes": 284,
+      "path": "execution-started.json",
+      "sha256": "4827e1a3a2cdbc716325707ccd2b0012d102aed8a260f9e931c3d2fd9fc9a7c2"
+    },
+    {
+      "bytes": 45959,
+      "path": "front-analytic-masks.npz",
+      "sha256": "432d26f9728355802cff3335a2f74558f03ce2914e53f65bff88bde3d3e1ebdb"
+    },
+    {
+      "bytes": 9594,
+      "path": "front.json",
+      "sha256": "2a821805f7581569ee618bf3b2c1e821bbef740e4493cc6c85131b1f2a41d43a"
+    },
+    {
+      "bytes": 3340,
+      "path": "inputs.json",
+      "sha256": "e58840fe550907e46b1bc0e130355d03cdf387d8b3d717aae0034ca82fdd8c11"
+    },
+    {
+      "bytes": 854,
+      "path": "parser-fix.patch",
+      "sha256": "52ecf6421d4607c03f67b96447362b461ae20826cecdb1b91b569b00734b477e"
+    },
+    {
+      "bytes": 3633,
+      "path": "pre-release-prepared.json",
+      "sha256": "953d3b48a9011ab73abfd510534e92e752a560e1d504e096f17e8160d7549955"
+    },
+    {
+      "bytes": 3710,
+      "path": "prepared.json",
+      "sha256": "96f0a17d35b6107beabd3aca015f6b7db2717f711c52aaab7a92215fd7c4011b"
+    },
+    {
+      "bytes": 1060,
+      "path": "previous-v1/cpu-job.json",
+      "sha256": "d018edf1d980edbdacf7096c861803c4a34cf21a1d1fd62ae3cb0c883d1f4d07"
+    },
+    {
+      "bytes": 969,
+      "path": "previous-v1/cpu.log",
+      "sha256": "ffb48453adddf5ca37017f537f1e387d0bf733befe7dcb4b8e4ae613921e046f"
+    },
+    {
+      "bytes": 2964,
+      "path": "previous-v1/manifest.json",
+      "sha256": "9f35560d6785fd9f4afcd46513bc1a0b7da46a753cf0c65378599c0c516f4953"
+    },
+    {
+      "bytes": 2668,
+      "path": "previous-v1/prepared.json",
+      "sha256": "eed20c2d78224a10f10ceda829ba444c40466f3662ab47867c772ccb70d15680"
+    },
+    {
+      "bytes": 23637,
+      "path": "snapshots/card-source.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 39741,
+      "path": "snapshots/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "path": "snapshots/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 11143,
+      "path": "snapshots/native-inspection.json",
+      "sha256": "3ec09c0bf4307f328eb844c1c1dd5164db13257591530de91f00981c878aa14d"
+    },
+    {
+      "bytes": 12033,
+      "path": "snapshots/preview-source.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    },
+    {
+      "bytes": 42653,
+      "path": "three-quarter-analytic-masks.npz",
+      "sha256": "41ae5c166794a7690bbc9b8defe4038ca7b781af0a1cfa6d68f70388239edb75"
+    },
+    {
+      "bytes": 9660,
+      "path": "three-quarter.json",
+      "sha256": "a1bfd7b875dc7fc4eb338d35025016286a45c05ec5ca85c502be0c15796795f8"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "status": "visibility_audit_complete"
+}

@@ -1,0 +1,425 @@
+{
+  "actions": [
+    "dance_flight"
+  ],
+  "animation_verified": false,
+  "assumptions": [
+    "Blender converts glTF +Y up/+Z forward to +Z up/-Y forward",
+    "Raw generated units are not a calibrated physical measurement",
+    "Hidden geometry is generated, not recovered"
+  ],
+  "blender_version": "4.5.13 LTS",
+  "bounds_blender_z_up": {
+    "max": [
+      0.4611737132072449,
+      0.3964235782623291,
+      1.2078711986541748
+    ],
+    "min": [
+      -0.45410776138305664,
+      -0.38847076892852783,
+      -0.007913648150861263
+    ]
+  },
+  "material_count": 10,
+  "meshes": [
+    {
+      "faces": 69043,
+      "materials": [
+        {
+          "faces": 2603,
+          "name": "body_surface",
+          "slot": 0
+        },
+        {
+          "faces": 27205,
+          "name": "companion_surface",
+          "slot": 1
+        },
+        {
+          "faces": 1,
+          "name": "body_cap",
+          "slot": 2
+        },
+        {
+          "faces": 313,
+          "name": "companion_cap",
+          "slot": 3
+        },
+        {
+          "faces": 738,
+          "name": "body_surface__color_rear-tail-base",
+          "slot": 4
+        },
+        {
+          "faces": 31353,
+          "name": "body_surface__short_pile_adaptive_v1",
+          "slot": 5
+        },
+        {
+          "faces": 368,
+          "name": "body_cap__short_pile_adaptive_v1",
+          "slot": 6
+        },
+        {
+          "faces": 6462,
+          "name": "ExperimentalEdgeFringe",
+          "slot": 7
+        }
+      ],
+      "name": "PartitionedBodyAndPart",
+      "uv_layers": [
+        "UVMap",
+        "UVMap.001"
+      ],
+      "vertices": 64291
+    }
+  ],
+  "motion_states": [
+    {
+      "id": "dance_flight",
+      "poses": [
+        {
+          "path": "renders/dance_flight/0000.png",
+          "second": 0,
+          "sha256": "4f25204f21d8ab509f4167764080d763c15aa931815033505509eab03d2e32e5"
+        },
+        {
+          "path": "renders/dance_flight/0001.png",
+          "second": 1,
+          "sha256": "57cb8fbe8a08350e392298ccd3a670a0ea512b91848bbb42a97f0c823e36e7cc"
+        },
+        {
+          "path": "renders/dance_flight/0002.png",
+          "second": 1.18,
+          "sha256": "8ff7a185728660766bcc8049cde5648302131707e977ad66d4cd93f7880ddc5f"
+        },
+        {
+          "path": "renders/dance_flight/0003.png",
+          "second": 1.36,
+          "sha256": "a2d4008971ed5069fe2e33b2f5d9e4e3aea60d42236076a3515691e4c5f4063c"
+        },
+        {
+          "path": "renders/dance_flight/0004.png",
+          "second": 2.36,
+          "sha256": "974bcaae55e9c0b389a6fc4d3abe8f3d7a43765aef5ce0c5d39c495f58426468"
+        },
+        {
+          "path": "renders/dance_flight/0005.png",
+          "second": 2.55,
+          "sha256": "1eaa75c1699b1477df3055eaa1a877c007a8fd191df4c597843a88dbe35f912d"
+        },
+        {
+          "path": "renders/dance_flight/0006.png",
+          "second": 2.8,
+          "sha256": "85c6fc95033a93119ab4ed985d9463e0cd41e2ec1e93c79ebaa64dad84c2873f"
+        },
+        {
+          "path": "renders/dance_flight/0007.png",
+          "second": 4,
+          "sha256": "abba80c9d96e2f4b4ef05437d84937ae9d3347392324879ee9be6eff1fbb033a"
+        }
+      ],
+      "resolution": 512
+    }
+  ],
+  "renders": [
+    {
+      "path": "front.png",
+      "sha256": "626d45190d99e16fb590a8b4edcc0e3c30fee45530f25e72e0526dfcc629853d",
+      "view": "front"
+    },
+    {
+      "path": "three-quarter.png",
+      "sha256": "dfcf9e60babde6a6fcd060fbbd6af8493f08acfdec2eccbdbdeb88c6eb8afdd8",
+      "view": "three-quarter"
+    },
+    {
+      "path": "back.png",
+      "sha256": "5442a691a71e302091521a546d839608c3924af885760eaaeacd15615bf6ce03",
+      "view": "back"
+    },
+    {
+      "path": "side.png",
+      "sha256": "c8ef5ab450496bb5d8879520a1c763600813c41345e485fdcf69fab57d35165d",
+      "view": "side"
+    }
+  ],
+  "rigs": [
+    {
+      "bones": [
+        {
+          "head": [
+            0.036328621208667755,
+            0.046616487205028534,
+            0.041999999433755875
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.036328621208667755,
+            0.04661649465560913,
+            0.21617339551448822
+          ]
+        },
+        {
+          "head": [
+            0.036328621208667755,
+            0.05438590422272682,
+            0.2160000056028366
+          ],
+          "name": "Pelvis",
+          "parent": "Root",
+          "tail": [
+            0.036328621208667755,
+            0.046616487205028534,
+            0.3720000386238098
+          ]
+        },
+        {
+          "head": [
+            0.036328621208667755,
+            0.046616505831480026,
+            0.3720000088214874
+          ],
+          "name": "Torso",
+          "parent": "Pelvis",
+          "tail": [
+            0.036328621208667755,
+            0.023308292031288147,
+            0.623999834060669
+          ]
+        },
+        {
+          "head": [
+            0.036328624933958054,
+            0.023308278992772102,
+            0.623999834060669
+          ],
+          "name": "Neck",
+          "parent": "Torso",
+          "tail": [
+            0.04541078209877014,
+            -0.007769376039505005,
+            0.7079998254776001
+          ]
+        },
+        {
+          "head": [
+            0.04541077837347984,
+            -0.007769363466650248,
+            0.7079998254776001
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail": [
+            0.04541077837347984,
+            -0.00576000427827239,
+            0.7980012893676758
+          ]
+        },
+        {
+          "head": [
+            -0.09990371018648148,
+            0.01553884893655777,
+            0.5999999642372131
+          ],
+          "name": "RightShoulder",
+          "parent": "Torso",
+          "tail": [
+            -0.2270539104938507,
+            -0.031077660620212555,
+            0.5879999399185181
+          ]
+        },
+        {
+          "head": [
+            -0.2270539104938507,
+            -0.03107762709259987,
+            0.5879999399185181
+          ],
+          "name": "RightUpperArm",
+          "parent": "RightShoulder",
+          "tail": [
+            -0.27246469259262085,
+            -0.09323294460773468,
+            0.4559999406337738
+          ]
+        },
+        {
+          "head": [
+            -0.2724646329879761,
+            -0.09323298931121826,
+            0.4559999406337738
+          ],
+          "name": "RightForearm",
+          "parent": "RightUpperArm",
+          "tail": [
+            -0.16347873210906982,
+            -0.2253130078315735,
+            0.37199997901916504
+          ]
+        },
+        {
+          "head": [
+            -0.16347873210906982,
+            -0.2253129929304123,
+            0.37199994921684265
+          ],
+          "name": "RightHand",
+          "parent": "RightForearm",
+          "tail": [
+            -0.008563965559005737,
+            -0.3199723958969116,
+            0.3135186433792114
+          ]
+        },
+        {
+          "head": [
+            0.1725609004497528,
+            0.0233082864433527,
+            0.5999999642372131
+          ],
+          "name": "LeftShoulder",
+          "parent": "Torso",
+          "tail": [
+            0.27246469259262085,
+            0.023308277130126953,
+            0.5879999399185181
+          ]
+        },
+        {
+          "head": [
+            0.27246466279029846,
+            0.023308271542191505,
+            0.5879999399185181
+          ],
+          "name": "LeftUpperArm",
+          "parent": "LeftShoulder",
+          "tail": [
+            0.34512197971343994,
+            -0.015538835898041725,
+            0.44399988651275635
+          ]
+        },
+        {
+          "head": [
+            0.34512192010879517,
+            -0.015538814477622509,
+            0.44399991631507874
+          ],
+          "name": "LeftForearm",
+          "parent": "LeftUpperArm",
+          "tail": [
+            0.37236836552619934,
+            -0.007769408170133829,
+            0.31200000643730164
+          ]
+        },
+        {
+          "head": [
+            0.37236836552619934,
+            -0.00776942353695631,
+            0.31200000643730164
+          ],
+          "name": "LeftHand",
+          "parent": "LeftForearm",
+          "tail": [
+            0.4053933024406433,
+            -0.007769434712827206,
+            0.18109522759914398
+          ]
+        },
+        {
+          "head": [
+            -0.09082154184579849,
+            0.2563907206058502,
+            0.26399996876716614
+          ],
+          "name": "Tail",
+          "parent": "Pelvis",
+          "tail": [
+            -0.2333589494228363,
+            0.3202613890171051,
+            0.26399996876716614
+          ]
+        },
+        {
+          "head": [
+            -0.13623234629631042,
+            0.04661649093031883,
+            0.17999997735023499
+          ],
+          "name": "RightFoot",
+          "parent": "Root",
+          "tail": [
+            -0.13623234629631042,
+            -0.09536947309970856,
+            0.07912202924489975
+          ]
+        },
+        {
+          "head": [
+            0.1725609302520752,
+            0.04661649838089943,
+            0.1799999624490738
+          ],
+          "name": "LeftFoot",
+          "parent": "Root",
+          "tail": [
+            0.17919516563415527,
+            -0.0952664166688919,
+            0.07919519394636154
+          ]
+        },
+        {
+          "head": [
+            -0.3087932765483856,
+            -0.16315768659114838,
+            0.6359999179840088
+          ],
+          "name": "CompanionRoot",
+          "parent": "Root",
+          "tail": [
+            -0.3087932765483856,
+            -0.16315768659114838,
+            0.7255145907402039
+          ]
+        },
+        {
+          "head": [
+            -0.34512192010879517,
+            -0.12431062757968903,
+            0.7080000042915344
+          ],
+          "name": "DragonWingRight",
+          "parent": "CompanionRoot",
+          "tail": [
+            -0.41315168142318726,
+            -0.16865096986293793,
+            0.6703335642814636
+          ]
+        },
+        {
+          "head": [
+            -0.28154680132865906,
+            -0.10488707572221756,
+            0.7200000286102295
+          ],
+          "name": "DragonWingLeft",
+          "parent": "CompanionRoot",
+          "tail": [
+            -0.2500695586204529,
+            -0.028592519462108612,
+            0.6853416562080383
+          ]
+        }
+      ],
+      "name": "CreatureRig"
+    }
+  ],
+  "schema_version": 1,
+  "source_is_untextured": false,
+  "source_sha256": "e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb",
+  "source_unchanged": true
+}

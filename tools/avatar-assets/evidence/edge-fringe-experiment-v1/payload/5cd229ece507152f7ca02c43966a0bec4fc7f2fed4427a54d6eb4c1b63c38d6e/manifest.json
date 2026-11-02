@@ -1,0 +1,97 @@
+{
+  "artifacts": [
+    {
+      "bytes": 25993,
+      "path": "build-report.json",
+      "sha256": "fb194b01108657c45685b32ee7224023f29ebc878327648ac8b3d74a09950887"
+    },
+    {
+      "bytes": 1614,
+      "path": "candidate.json",
+      "sha256": "b9ef297697236def232a4f8c363c329c5358492181f1e36336fc7da851ad4b2a"
+    },
+    {
+      "bytes": 34524020,
+      "path": "model.glb",
+      "sha256": "e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb"
+    },
+    {
+      "bytes": 2074,
+      "path": "preflight.json",
+      "sha256": "88540ad81193ad13a0d8d82c045ebe77d990df33c2414730e1eee1e7327728eb"
+    },
+    {
+      "bytes": 4041,
+      "path": "render-attributes.json",
+      "sha256": "a94e7d30744e0dc33e046d1e6191e8841859c75e17daf29e37596dcb402a1287"
+    },
+    {
+      "bytes": 1523,
+      "path": "rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea"
+    },
+    {
+      "bytes": 3318,
+      "path": "rig-verification.json",
+      "sha256": "3501fd0850905751fc7b2d5c7db9f9af0f803afd6d427bc1fc23eb9ab0f70f5b"
+    },
+    {
+      "bytes": 250638,
+      "path": "source-correspondence.npz",
+      "sha256": "090677c4dd9fd3e04f8e3ee5f79c4521c19e457056def3c3680e442637785f58"
+    },
+    {
+      "bytes": 46627,
+      "path": "two-tip-atlas.png",
+      "sha256": "e0ebb0bdbffee4bd546b73ce5ac7644c81727a4acc6dcae2ae5de4d9c0a202a1"
+    }
+  ],
+  "automatic_retry": false,
+  "inputs_unchanged": true,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-candidate-preparation-v2/build_candidate.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.279,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 34859848,
+    "last_rss_sample_elapsed_seconds": 1.022,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 96,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 7994,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 4,
+    "sampled_max_output_bytes": 34859848,
+    "sampled_peak_rss_bytes": 495222784,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_render_calls": 0,
+  "new_generation_calls": 0,
+  "prepared_path": "outputs/edge-fringe-candidate-preparation-v2/prepared.json",
+  "prepared_sha256": "30e624bc61074cf952da5ff22f28c7dbab687be679dcd0114eee1a59d8ee379f",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "candidate_pending_visual_review"
+}

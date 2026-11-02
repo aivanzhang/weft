@@ -1,0 +1,603 @@
+{
+  "actual_execution_metrics": [
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v1/audit.py"
+      ],
+      "elapsed_seconds": 0.262,
+      "exit_code": 1,
+      "failure": null,
+      "final_output_bytes": 215717,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 32,
+        "rss_mb": 512,
+        "wall_seconds": 60
+      },
+      "origin": "outputs/portable-fur-visibility-audit-v1/cpu-job.json",
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": null
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v2/audit.py"
+      ],
+      "elapsed_seconds": 2.603,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 361722,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 32,
+        "rss_mb": 512,
+        "wall_seconds": 59.738
+      },
+      "origin": "outputs/portable-fur-visibility-audit-v2/cpu-job.json",
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 187318272
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "1",
+        "--threads",
+        "4",
+        "--python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fur-color-convention-v1/probe_pixels.py"
+      ],
+      "elapsed_seconds": 1.054,
+      "exit_code": -15,
+      "failure": "resident-memory budget exceeded",
+      "final_output_bytes": 9084627,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 32,
+        "rss_mb": 512,
+        "wall_seconds": 60
+      },
+      "origin": "outputs/fur-color-convention-v1/native-job.json",
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 543375360
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "1",
+        "--threads",
+        "4",
+        "--python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fur-color-convention-v2/probe_pixels.py"
+      ],
+      "elapsed_seconds": 1.28,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 9132956,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 32,
+        "rss_mb": 512,
+        "wall_seconds": 60
+      },
+      "origin": "outputs/fur-color-convention-v2/native-job.json",
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 530284544
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "-B",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-analytic-v1/screen.py"
+      ],
+      "elapsed_seconds": 0.783,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 327038,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 16,
+        "rss_mb": 256,
+        "wall_seconds": 15
+      },
+      "origin": "outputs/edge-fringe-analytic-v1/job.json",
+      "process_exit_verified": true,
+      "sampled_peak_rss_bytes": 120815616
+    }
+  ],
+  "cross_receipt_checks": [
+    {
+      "actual_sha256": "08001baf3cc86d12f67fbac463dd88f86033677f10c54d52e0f2b870fd9558c2",
+      "binding": "visibility_findings_audit_sha256",
+      "expected_sha256": "08001baf3cc86d12f67fbac463dd88f86033677f10c54d52e0f2b870fd9558c2",
+      "matches": true,
+      "origin": "outputs/portable-fur-visibility-audit-v2/audit.json"
+    },
+    {
+      "actual_sha256": "d77cd85c12522ab13045aeb132d4ea9299c9d86a63e452c2859a9bf111227943",
+      "binding": "visibility_findings_execution_manifest_sha256",
+      "expected_sha256": "d77cd85c12522ab13045aeb132d4ea9299c9d86a63e452c2859a9bf111227943",
+      "matches": true,
+      "origin": "outputs/portable-fur-visibility-audit-v2/manifest.json"
+    },
+    {
+      "actual_sha256": "28575b15229eab235cf4a7d4ec4305d0926f68f2998d0af2a290ed3251cf9406",
+      "binding": "visibility_findings_findings_sha256",
+      "expected_sha256": "28575b15229eab235cf4a7d4ec4305d0926f68f2998d0af2a290ed3251cf9406",
+      "matches": true,
+      "origin": "outputs/portable-fur-visibility-audit-v2/findings.md"
+    },
+    {
+      "actual_sha256": "9c97082c8b2f4c0b38e7cba34fe9f0b18b81c0c791790272099769ae8d27873c",
+      "binding": "color_interpretation_native_job_sha256",
+      "expected_sha256": "9c97082c8b2f4c0b38e7cba34fe9f0b18b81c0c791790272099769ae8d27873c",
+      "matches": true,
+      "origin": "outputs/fur-color-convention-v2/native-job.json"
+    },
+    {
+      "actual_sha256": "d060d289a9ebebbe243208fe86a1ef858875cae80f78c97d23f1e034deeb1595",
+      "binding": "color_interpretation_observations_sha256",
+      "expected_sha256": "d060d289a9ebebbe243208fe86a1ef858875cae80f78c97d23f1e034deeb1595",
+      "matches": true,
+      "origin": "outputs/fur-color-convention-v2/pixel-observations.json"
+    },
+    {
+      "actual_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+      "binding": "color_interpretation_probe_manifest_sha256",
+      "expected_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+      "matches": true,
+      "origin": "outputs/fur-color-convention-v2/manifest.json"
+    },
+    {
+      "actual_sha256": "a6ace46d284869c3786794881c9cf3dd310fd99ec8e0727dbe53d95200ce297b",
+      "binding": "color_interpretation_probe_v1_failure_manifest_sha256",
+      "expected_sha256": "a6ace46d284869c3786794881c9cf3dd310fd99ec8e0727dbe53d95200ce297b",
+      "matches": true,
+      "origin": "outputs/fur-color-convention-v1/failure-manifest.json"
+    },
+    {
+      "actual_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+      "binding": "parent_supplied_success_manifest",
+      "expected_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+      "matches": true,
+      "origin": "outputs/fur-color-convention-v2/manifest.json"
+    }
+  ],
+  "external_source_reference_bytes_hashed": 70345253,
+  "external_sources": [
+    {
+      "bound_by": [
+        "outputs/fur-color-convention-v2/prepared.json"
+      ],
+      "bytes": 175689264,
+      "current_bytes": 175689264,
+      "origin": ".tools/Blender.app/Contents/MacOS/Blender",
+      "sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+      "verification": "recorded_execution_pin_not_rehashed_for_bundle_preparation"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 26050,
+      "current_bytes": 26050,
+      "current_sha256": "fc3b902dc73245937076f7eef339d45beb7b292ddde46899eb50013400396f34",
+      "origin": "avatar_assets/finish_generated.py",
+      "sha256": "fc3b902dc73245937076f7eef339d45beb7b292ddde46899eb50013400396f34",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 10243,
+      "current_bytes": 10243,
+      "current_sha256": "c0763b6c56ff94ea9f8dceb658dcc4cbbd53c8ffb1cfb6df2a10497cd3fd33cf",
+      "origin": "docs/portable-fur-diagnosis.md",
+      "sha256": "c0763b6c56ff94ea9f8dceb658dcc4cbbd53c8ffb1cfb6df2a10497cd3fd33cf",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 27825,
+      "current_bytes": 27825,
+      "current_sha256": "b827c25012958ab9b3874a8541519639871de5cda5ae9ada9c12867298409ad7",
+      "origin": "docs/tuft-profile.md",
+      "sha256": "b827c25012958ab9b3874a8541519639871de5cda5ae9ada9c12867298409ad7",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 2403,
+      "current_bytes": 2403,
+      "current_sha256": "a96d84bfc5ad97d10ebd4af27023e6d2ada4558a297a026535286ffc1885dbca",
+      "origin": "outputs/panda-adaptive-undercoat-export-audit-v1/manifest.json",
+      "sha256": "a96d84bfc5ad97d10ebd4af27023e6d2ada4558a297a026535286ffc1885dbca",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 3682,
+      "current_bytes": 3682,
+      "current_sha256": "b4b61d2125f8f8af1b5c7de3a519148a675a123590756f6d3630805a0be499ad",
+      "origin": "outputs/panda-adaptive-undercoat-export-audit-v1/result.json",
+      "sha256": "b4b61d2125f8f8af1b5c7de3a519148a675a123590756f6d3630805a0be499ad",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 499066,
+      "current_bytes": 499066,
+      "current_sha256": "3ac1b3800ac6cf50c85bf7a5d98ba1db9ae711bba72e3cf22262cc1d4dab5e6d",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/front.png",
+      "sha256": "3ac1b3800ac6cf50c85bf7a5d98ba1db9ae711bba72e3cf22262cc1d4dab5e6d",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 1735,
+      "current_bytes": 1735,
+      "current_sha256": "1f15af0880673b93baa1752e2532be7a7488432e27ff761d9785f0ffdb918a47",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/job.json",
+      "sha256": "1f15af0880673b93baa1752e2532be7a7488432e27ff761d9785f0ffdb918a47",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 11143,
+      "current_bytes": 11143,
+      "current_sha256": "3ec09c0bf4307f328eb844c1c1dd5164db13257591530de91f00981c878aa14d",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/native-inspection.json",
+      "sha256": "3ec09c0bf4307f328eb844c1c1dd5164db13257591530de91f00981c878aa14d",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 33519456,
+      "current_bytes": 33519456,
+      "current_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/original.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 461797,
+      "current_bytes": 461797,
+      "current_sha256": "d51f64ee35fefcf660386acd132449536a9060041e137b5537270a3e294a8cf6",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/renders/dance_flight/0003.png",
+      "sha256": "d51f64ee35fefcf660386acd132449536a9060041e137b5537270a3e294a8cf6",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 455307,
+      "current_bytes": 455307,
+      "current_sha256": "bee276edf199548956317673aa72827ff81ceca3a1aee517707a1ee217744170",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/side.png",
+      "sha256": "bee276edf199548956317673aa72827ff81ceca3a1aee517707a1ee217744170",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 12033,
+      "current_bytes": 12033,
+      "current_sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/sources/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 491368,
+      "current_bytes": 491368,
+      "current_sha256": "a23c8015470a17d249ba72246616b4a4ab82b15c055d006f9054d4bd86cb9c26",
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/three-quarter.png",
+      "sha256": "a23c8015470a17d249ba72246616b4a4ab82b15c055d006f9054d4bd86cb9c26",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 39741,
+      "current_bytes": 39741,
+      "current_sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb",
+      "origin": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 48515,
+      "current_bytes": 48515,
+      "current_sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650",
+      "origin": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 73661,
+      "current_bytes": 73661,
+      "current_sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655",
+      "origin": "outputs/panda-adaptive-undercoat-finish-v2/manifest.json",
+      "sha256": "7798a9fd71a31193be7ef3abdd9beaeefa4780877b3f27307a6a0cfe7dc38655",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json",
+        "outputs/fur-color-convention-v2/prepared.json"
+      ],
+      "bytes": 33519456,
+      "current_bytes": 33519456,
+      "current_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+      "origin": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+      "sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 23637,
+      "current_bytes": 23637,
+      "current_sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "origin": "outputs/panda-adaptive-undercoat-finish-v2/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 5558,
+      "current_bytes": 5558,
+      "current_sha256": "a26b3b0a7e87de5132d3ea886795c8dd1eda888c4ec07edd799706bd4707e751",
+      "origin": "outputs/panda-adaptive-undercoat-review-v2/appearance-review.json",
+      "sha256": "a26b3b0a7e87de5132d3ea886795c8dd1eda888c4ec07edd799706bd4707e751",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 515555,
+      "current_bytes": 515555,
+      "current_sha256": "2b92ef377206717a20be5bbb48b770205a976cc51f1285d7dc64b6a8d2de6424",
+      "origin": "outputs/panda-portable-tuft-diagnostic-v1/front.png",
+      "sha256": "2b92ef377206717a20be5bbb48b770205a976cc51f1285d7dc64b6a8d2de6424",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 1701,
+      "current_bytes": 1701,
+      "current_sha256": "0057bb976badac818d582df6beec5a44e84ff135abdcc8f78551f329610573c2",
+      "origin": "outputs/panda-portable-tuft-diagnostic-v1/job.json",
+      "sha256": "0057bb976badac818d582df6beec5a44e84ff135abdcc8f78551f329610573c2",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 473735,
+      "current_bytes": 473735,
+      "current_sha256": "3a52c4612c9aa4105dced82bdc3dc080669787677fc0d86cb2ecc92332b1518d",
+      "origin": "outputs/panda-portable-tuft-diagnostic-v1/renders/dance_flight/0003.png",
+      "sha256": "3a52c4612c9aa4105dced82bdc3dc080669787677fc0d86cb2ecc92332b1518d",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 1975,
+      "current_bytes": 1975,
+      "current_sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3",
+      "origin": "outputs/panda-portable-tuft-review-v1.json",
+      "sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 36795,
+      "current_bytes": 36795,
+      "current_sha256": "57951078a32970637354c9393c05db3804aa24bc3d04e3497ae8fa800fb8be94",
+      "origin": "outputs/panda-portable-tuft-v1/finish-config.json",
+      "sha256": "57951078a32970637354c9393c05db3804aa24bc3d04e3497ae8fa800fb8be94",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 1652,
+      "current_bytes": 1652,
+      "current_sha256": "ef031e62ad35ccb3a4b04c9e76447b9af4c1621ec5fc8b1a6788afcaa59032a5",
+      "origin": "outputs/panda-portable-tuft-v1/job.json",
+      "sha256": "ef031e62ad35ccb3a4b04c9e76447b9af4c1621ec5fc8b1a6788afcaa59032a5",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 47396,
+      "current_bytes": 47396,
+      "current_sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b",
+      "origin": "scripts/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json",
+        "outputs/portable-fur-visibility-audit-v2/inputs.json"
+      ],
+      "bytes": 23637,
+      "current_bytes": 23637,
+      "current_sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "origin": "scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 2952,
+      "current_bytes": 2952,
+      "current_sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2",
+      "origin": "scripts/fur_root_sampling.py",
+      "sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2",
+      "verification": "current_source_hash_matches"
+    },
+    {
+      "bound_by": [
+        "outputs/portable-fur-next-review-v1/evidence.json"
+      ],
+      "bytes": 7179,
+      "current_bytes": 7179,
+      "current_sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "origin": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "verification": "current_source_hash_matches"
+    }
+  ],
+  "integrity_discrepancies": [],
+  "inventory": [
+    {
+      "additions_not_in_execution_inventory": [],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/portable-fur-next-review-v1",
+      "manifest_path": "outputs/portable-fur-next-review-v1/manifest.json",
+      "manifest_sha256": "42593e2cae861843cdb010c2eb583dd70909f7a3afb3b2e5a5ae6d75f10d7575",
+      "manifest_status": "proposal_only",
+      "verified_manifest_artifact_entries": 2
+    },
+    {
+      "additions_not_in_execution_inventory": [],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/portable-fur-visibility-audit-v1",
+      "manifest_path": "outputs/portable-fur-visibility-audit-v1/manifest.json",
+      "manifest_sha256": "9f35560d6785fd9f4afcd46513bc1a0b7da46a753cf0c65378599c0c516f4953",
+      "manifest_status": "failed_preserved",
+      "verified_manifest_artifact_entries": 18
+    },
+    {
+      "additions_not_in_execution_inventory": [
+        "findings-receipt.json",
+        "findings.md"
+      ],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/portable-fur-visibility-audit-v2",
+      "manifest_path": "outputs/portable-fur-visibility-audit-v2/manifest.json",
+      "manifest_sha256": "d77cd85c12522ab13045aeb132d4ea9299c9d86a63e452c2859a9bf111227943",
+      "manifest_status": "visibility_audit_complete",
+      "verified_manifest_artifact_entries": 29
+    },
+    {
+      "additions_not_in_execution_inventory": [],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/fur-color-convention-v1",
+      "manifest_path": "outputs/fur-color-convention-v1/failure-manifest.json",
+      "manifest_sha256": "a6ace46d284869c3786794881c9cf3dd310fd99ec8e0727dbe53d95200ce297b",
+      "manifest_status": "failed_preserved",
+      "verified_manifest_artifact_entries": 19
+    },
+    {
+      "additions_not_in_execution_inventory": [],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/fur-color-convention-v2",
+      "manifest_path": "outputs/fur-color-convention-v2/manifest.json",
+      "manifest_sha256": "9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d",
+      "manifest_status": "measurements_complete_interpretation_pending",
+      "verified_manifest_artifact_entries": 24
+    },
+    {
+      "directory": "outputs/fur-color-interpretation-v1",
+      "manifest_present": false,
+      "note": "Standalone interpretation receipt, retained as supplied; its four referenced execution hashes are cross-checked.",
+      "receipt_sha256": "6ad8ee39c2f8f6963e7fce62ac8b97d594e4e3605ab09f0699e9e3cfc37b1219",
+      "standalone_receipt": "result.json"
+    },
+    {
+      "additions_not_in_execution_inventory": [],
+      "all_listed_bytes_and_hashes_matched": true,
+      "directory": "outputs/edge-fringe-analytic-v1",
+      "manifest_path": "outputs/edge-fringe-analytic-v1/manifest.json",
+      "manifest_sha256": "58d3640a91012d1bb20213783bda9bd7cf98d57b05b5e4a4fcdaa6abd8574abf",
+      "manifest_status": "analytic_contracts_passed_with_display_limits",
+      "verified_manifest_artifact_entries": 15
+    }
+  ],
+  "notes": [
+    "Visibility v2 findings.md and findings-receipt.json were added after its execution manifest. All three receipt links match; both additions will be retained without altering the original inventory.",
+    "Visibility v1 has no findings.md because it failed on a VEC3 color parser requirement before projection. Its nonzero exit and complete traceback are retained.",
+    "Color interpretation is a standalone receipt, not a separate manifested execution; its success/failure/observations hashes all match.",
+    "Historical manifests under visibility v2 previous-v1 refer to original v1 inventory paths; their bytes are preserved and the full original v1 folder is also indexed.",
+    "No native/provider/AI/render work was performed for preparation. Analytic NPZ arrays and atlas are retained because they fit; only duplicate source JPEG bytes are omitted from the selected folders."
+  ],
+  "preparation_native_provider_ai_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 17:54:03 PST",
+  "schema_version": 1,
+  "status": "verified_selected_input_inventory"
+}

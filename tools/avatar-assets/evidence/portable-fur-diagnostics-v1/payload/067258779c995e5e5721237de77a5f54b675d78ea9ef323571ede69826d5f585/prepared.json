@@ -1,0 +1,108 @@
+{
+  "blender_executable": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_executable_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "checks": [
+    "Known lossless sRGB byte values versus standard sRGB decode",
+    "Bottom-up versus top-down array-row hypotheses",
+    "Sparse selected actual model basecolor JPEG texels",
+    "Tiny PNG indexed reads versus foreach_get"
+  ],
+  "frozen_files": [
+    {
+      "bytes": 3110,
+      "path": "execute_prepared.py",
+      "sha256": "46ab7b74f7bf94abd04a78a46711ff7980a0552a8f6dca5d745e37be2eff394e"
+    },
+    {
+      "bytes": 8958941,
+      "path": "inputs/actual-basecolor.jpg",
+      "sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d"
+    },
+    {
+      "bytes": 113,
+      "path": "inputs/known-srgb.png",
+      "sha256": "9864e2769a588079edb4733c44a8f8ebdc09230eb7a0b541841dfd4b24e05d1e"
+    },
+    {
+      "bytes": 8604,
+      "path": "prepare_inputs.py",
+      "sha256": "f41a3573b461856d5a36b4c6dc2c6aac399f8905d74681c00cef0a645a89ae04"
+    },
+    {
+      "bytes": 6020,
+      "path": "probe_pixels.py",
+      "sha256": "7e1c4043d628a1e3898cc16da76ad6d632363e31736c0065a8c1bf99b61cdad9"
+    },
+    {
+      "bytes": 35251,
+      "path": "samples.json",
+      "sha256": "60659a51f6677f0765dc74d21319a61875b481ce3292b62f278dc36b035b497d"
+    },
+    {
+      "bytes": 1047,
+      "path": "source-copies.json",
+      "sha256": "4d297fcafc3ffe6899dd7f45c53692e1f00a001a2dea7a4065048de11ed8365f"
+    },
+    {
+      "bytes": 47396,
+      "path": "sources/context/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 2952,
+      "path": "sources/native/fur_root_sampling.py",
+      "sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2"
+    }
+  ],
+  "full_actual_texture_float_copy": false,
+  "limits": {
+    "images": 2,
+    "max_observation_report_bytes": 262144,
+    "max_pixels_per_image": 16777216,
+    "max_samples_per_image": 16,
+    "native_threads": 4,
+    "output_mib": 32,
+    "rss_mib": 512,
+    "wall_seconds": 60
+  },
+  "memory_note": "No full4K Python float buffer. Blender internal decoding/getter allocations remain monitored at512MiB; any cap breach is preserved, not retried.",
+  "native_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fur-color-convention-v1/probe_pixels.py"
+  ],
+  "native_jobs_started": 0,
+  "new_ai_calls": 0,
+  "new_paid_cost_usd": 0,
+  "new_provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local_time": "2026-11-01 17:35:59 PST",
+  "renders": 0,
+  "schema_version": 1,
+  "scope": "Palette fidelity only. Root must release execution and interpret raw pixel hypotheses; no shader/render/aesthetic claim.",
+  "source_model": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "source_model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "prepared_not_executed"
+}

@@ -66,6 +66,13 @@ marks, so this is a technical component pass—not a new accepted fur model,
 Muse parity or a changed default. Weft's importer stays unchanged.
 [Inputs, bounds and verification](docs/adaptive-undercoat.md).
 
+A later **experimental upright-fringe pass** preserves the real rig/action and
+improves sampled ear/tail/paw outlines. Its exported white coat is still too
+smooth, and cheek/shoulder defects remain; it is not promoted into the automatic
+finish. The build and independent reload passed within 1.279s/495 MB and
+15.275s/1.04 GB sampled memory respectively, with no new generation calls.
+[Exact experiment, previews and limits](docs/edge-fringe-experiment.md).
+
 The studio is a local single-user workflow, not a hosted service. No server,
 browser or generation job starts merely by reading this repository. The
 existing read-only gallery remains separate on port 8765.

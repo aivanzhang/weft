@@ -1,0 +1,312 @@
+{
+  "body_pixels": 171605,
+  "camera": {
+    "basis_columns_blender_z_up": [
+      [
+        0.8823529411764706,
+        0.013834847812655409,
+        -0.47038482563028383
+      ],
+      [
+        -0.4705882352941177,
+        0.025940339648728886,
+        -0.8819715480567821
+      ],
+      [
+        0.0,
+        0.9995677544643531,
+        0.02939905160189274
+      ]
+    ],
+    "location_blender_z_up": [
+      -1.9347312937525338,
+      -3.627621175786001,
+      0.7189123364685421
+    ],
+    "method": "Recovered immutable preview rest-camera recipe, including mesh-bbox fit and lateral recentering; no source.blend execution.",
+    "orthographic_scale_m": 1.4653258059605032,
+    "resolution": 720,
+    "saved_bounds_reproduced_atol_m": 2e-07
+  },
+  "candidate_pixels": {
+    "body": 1347878,
+    "cards": 36474
+  },
+  "cards": [
+    {
+      "approx_ten_fiber_spacing_px": {
+        "max": 0.2705896322761093,
+        "median": 0.1610661725916216,
+        "min": 0.0015546164649110042,
+        "p10": 0.035642614519104505,
+        "p90": 0.2350619449640473
+      },
+      "atlas_texels_per_pixel_max_axis": {
+        "max": 437241.5161737969,
+        "median": 373.28518210140305,
+        "min": 92.51695801271482,
+        "p10": 129.18349208441566,
+        "p90": 2467.610834396801
+      },
+      "box_mip_lod": {
+        "max": 10.0,
+        "median": 8.544133768574227,
+        "min": 6.5316459253651376,
+        "p10": 7.013277911156534,
+        "p90": 10.0
+      },
+      "card_area_below1px2": 175,
+      "card_area_px2": {
+        "max": 11.31986187261835,
+        "median": 3.7764452312340264,
+        "min": 0.0485203007780571,
+        "p10": 0.7308607919694976,
+        "p90": 7.495784294046119
+      },
+      "card_max_row_width_px": {
+        "max": 2.705896322761093,
+        "median": 1.610661725916216,
+        "min": 0.015546164649110041,
+        "p10": 0.35642614519104504,
+        "p90": 2.350619449640473
+      },
+      "card_width_below1px": 364,
+      "cards": 1320,
+      "display_size_analytic_footprints": [
+        {
+          "approx_fiber_spacing_px": {
+            "max": 0.13529481613805466,
+            "median": 0.0805330862958108,
+            "min": 0.0007773082324555021,
+            "p10": 0.017821307259552253,
+            "p90": 0.11753097248202365
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 9.544133768574227,
+            "min": 7.5316459253651376,
+            "p10": 8.013277911156536,
+            "p90": 10.0
+          },
+          "card_width_below1px": 971,
+          "card_width_px": {
+            "max": 1.3529481613805465,
+            "median": 0.805330862958108,
+            "min": 0.007773082324555021,
+            "p10": 0.17821307259552252,
+            "p90": 1.1753097248202364
+          },
+          "size": 360
+        },
+        {
+          "approx_fiber_spacing_px": {
+            "max": 0.06764740806902733,
+            "median": 0.0402665431479054,
+            "min": 0.00038865411622775105,
+            "p10": 0.008910653629776126,
+            "p90": 0.05876548624101183
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 10.0,
+            "min": 8.531645925365137,
+            "p10": 9.013277911156536,
+            "p90": 10.0
+          },
+          "card_width_below1px": 1320,
+          "card_width_px": {
+            "max": 0.6764740806902733,
+            "median": 0.402665431479054,
+            "min": 0.0038865411622775103,
+            "p10": 0.08910653629776126,
+            "p90": 0.5876548624101182
+          },
+          "size": 180
+        }
+      ],
+      "material": "PortableCoat_0_cutout_fur",
+      "native_atlas_triangle_alpha_fraction": {
+        "max": 0.4972034339229969,
+        "median": 0.3046956295525494,
+        "min": 0.04838709677419355,
+        "p10": 0.05944328824141519,
+        "p90": 0.48621227887617063
+      },
+      "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1472.9361742749145,
+      "projected_alpha_lod0_area_px2_front_summed_upper_bound": 820.0652783648525,
+      "projected_area_px2_all_summed": 5299.486249245823,
+      "projected_area_px2_front_summed": 2946.1219136393192,
+      "triangle_area_px2": {
+        "max": 5.508790592934789,
+        "median": 0.6554296910239419,
+        "min": 0.0003870936730244103,
+        "p10": 0.1093438118309978,
+        "p90": 2.4987374799163184
+      },
+      "triangles": 5280,
+      "triangles_back_facing": 2402,
+      "triangles_front_facing": 2878
+    },
+    {
+      "approx_ten_fiber_spacing_px": {
+        "max": 0.2706160744074765,
+        "median": 0.1559040571906966,
+        "min": 0.0037652455802155227,
+        "p10": 0.03310181787130413,
+        "p90": 0.2325564727467272
+      },
+      "atlas_texels_per_pixel_max_axis": {
+        "max": 241818.19566916232,
+        "median": 393.7053252988122,
+        "min": 91.04615160885355,
+        "p10": 131.33162581275909,
+        "p90": 2672.30870993268
+      },
+      "box_mip_lod": {
+        "max": 10.0,
+        "median": 8.62097241478503,
+        "min": 6.5085261327137545,
+        "p10": 7.03707055608593,
+        "p90": 10.0
+      },
+      "card_area_below1px2": 151,
+      "card_area_px2": {
+        "max": 11.256244161735271,
+        "median": 3.699385692524925,
+        "min": 0.0564654128946537,
+        "p10": 0.7528218240905414,
+        "p90": 6.98632249085001
+      },
+      "card_max_row_width_px": {
+        "max": 2.7061607440747646,
+        "median": 1.5590405719069662,
+        "min": 0.037652455802155226,
+        "p10": 0.3310181787130413,
+        "p90": 2.325564727467272
+      },
+      "card_width_below1px": 332,
+      "cards": 1080,
+      "display_size_analytic_footprints": [
+        {
+          "approx_fiber_spacing_px": {
+            "max": 0.13530803720373824,
+            "median": 0.0779520285953483,
+            "min": 0.0018826227901077614,
+            "p10": 0.016550908935652066,
+            "p90": 0.1162782363733636
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 9.62097241478503,
+            "min": 7.5085261327137545,
+            "p10": 8.037070556085931,
+            "p90": 10.0
+          },
+          "card_width_below1px": 794,
+          "card_width_px": {
+            "max": 1.3530803720373823,
+            "median": 0.7795202859534831,
+            "min": 0.018826227901077613,
+            "p10": 0.16550908935652064,
+            "p90": 1.162782363733636
+          },
+          "size": 360
+        },
+        {
+          "approx_fiber_spacing_px": {
+            "max": 0.06765401860186912,
+            "median": 0.03897601429767415,
+            "min": 0.0009413113950538807,
+            "p10": 0.008275454467826033,
+            "p90": 0.0581391181866818
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 10.0,
+            "min": 8.508526132713754,
+            "p10": 9.037070556085931,
+            "p90": 10.0
+          },
+          "card_width_below1px": 1080,
+          "card_width_px": {
+            "max": 0.6765401860186911,
+            "median": 0.38976014297674155,
+            "min": 0.009413113950538806,
+            "p10": 0.08275454467826032,
+            "p90": 0.581391181866818
+          },
+          "size": 180
+        }
+      ],
+      "material": "PortableCoat_1_cutout_fur",
+      "native_atlas_triangle_alpha_fraction": {
+        "max": 0.4972034339229969,
+        "median": 0.3046956295525494,
+        "min": 0.04838709677419355,
+        "p10": 0.05944328824141519,
+        "p90": 0.48621227887617063
+      },
+      "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1143.5327736457702,
+      "projected_alpha_lod0_area_px2_front_summed_upper_bound": 590.1284348188392,
+      "projected_area_px2_all_summed": 4115.014132509407,
+      "projected_area_px2_front_summed": 2117.8450444234577,
+      "triangle_area_px2": {
+        "max": 5.469073167582385,
+        "median": 0.6326021328489353,
+        "min": 0.0014911693331208786,
+        "p10": 0.10866996415160551,
+        "p90": 2.374857936413764
+      },
+      "triangles": 4320,
+      "triangles_back_facing": 2032,
+      "triangles_front_facing": 2288
+    }
+  ],
+  "fur_selected_body_pixels": 147093,
+  "mask_artifact": {
+    "path": "three-quarter-analytic-masks.npz",
+    "scope": "CPU pixel-center diagnostic masks, not a new render or generated-avatar output",
+    "sha256": "41ae5c166794a7690bbc9b8defe4038ca7b781af0a1cfa6d68f70388239edb75"
+  },
+  "two_sided_recovery_alpha_lod0_pixels": 41,
+  "two_sided_recovery_alpha_mip_pixels": 115,
+  "view": "three-quarter",
+  "visible_pixel_center_counts": {
+    "alpha_lod0_front": {
+      "outside_body_silhouette_pixels": 27,
+      "over_body_pixels": 992,
+      "over_fur_selected_body_pixels": 990,
+      "pixels": 1019
+    },
+    "alpha_lod0_two_sided": {
+      "outside_body_silhouette_pixels": 45,
+      "over_body_pixels": 1015,
+      "over_fur_selected_body_pixels": 1013,
+      "pixels": 1060
+    },
+    "alpha_mip_front": {
+      "outside_body_silhouette_pixels": 104,
+      "over_body_pixels": 3250,
+      "over_fur_selected_body_pixels": 3242,
+      "pixels": 3354
+    },
+    "alpha_mip_two_sided": {
+      "outside_body_silhouette_pixels": 170,
+      "over_body_pixels": 3299,
+      "over_fur_selected_body_pixels": 3287,
+      "pixels": 3469
+    },
+    "geometric_front": {
+      "outside_body_silhouette_pixels": 109,
+      "over_body_pixels": 3761,
+      "over_fur_selected_body_pixels": 3752,
+      "pixels": 3870
+    },
+    "geometric_two_sided": {
+      "outside_body_silhouette_pixels": 176,
+      "over_body_pixels": 3810,
+      "over_fur_selected_body_pixels": 3797,
+      "pixels": 3986
+    }
+  }
+}

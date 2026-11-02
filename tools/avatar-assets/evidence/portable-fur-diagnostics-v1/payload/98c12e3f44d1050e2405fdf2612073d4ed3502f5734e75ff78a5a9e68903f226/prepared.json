@@ -1,0 +1,47 @@
+{
+  "actual_character_model_used": false,
+  "command": ".venv/bin/python -B outputs/edge-fringe-analytic-v1/execute.py",
+  "kind": "analytic_edge_fringe_screen_not_avatar",
+  "limits": {
+    "cpu_threads": 1,
+    "output_mb": 16,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "new_native_provider_ai_role_calls": 0,
+  "prepared_at": "2026-11-01T17:45:26.852131-08:00",
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 14314,
+      "path": "edge_fringe.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "bytes": 1403,
+      "path": "execute.py",
+      "sha256": "ac86b89e2a36634523a8db68bc1132fb0be6daa6df887f7ee085a64376e2ccdb"
+    },
+    {
+      "bytes": 11031,
+      "path": "screen.py",
+      "sha256": "0744c44d29140d9e0b4d1a64becc88382f57e760cbeb4b06635d5092cc962e11"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ]
+}

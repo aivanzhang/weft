@@ -1,0 +1,55 @@
+{
+  "changes": [
+    "No explicit native NumPy import; standard-library math/lists and array(f) only for the tiny foreach_get buffer.",
+    "Exclusive per-image observation checkpoint before cleanup or loading the next image.",
+    "Small exclusive entry receipt records whether NumPy was already loaded by Blender without importing it."
+  ],
+  "native_jobs_started": 0,
+  "new_ai_calls": 0,
+  "new_paid_cost_usd": 0,
+  "prior_attempt": "outputs/fur-color-convention-v1",
+  "prior_evidence": [
+    {
+      "path": "outputs/fur-color-convention-v1/prepared.json",
+      "sha256": "067258779c995e5e5721237de77a5f54b675d78ea9ef323571ede69826d5f585"
+    },
+    {
+      "path": "outputs/fur-color-convention-v1/probe_pixels.py",
+      "sha256": "7e1c4043d628a1e3898cc16da76ad6d632363e31736c0065a8c1bf99b61cdad9"
+    },
+    {
+      "path": "outputs/fur-color-convention-v1/native.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "outputs/fur-color-convention-v1/native-job.json",
+      "sha256": "0bfe610e2302cc8114cb43cc7d93d9d436eae8ae05b1f6e4191ff5b519c4e3fe"
+    },
+    {
+      "path": "outputs/fur-color-convention-v1/execution-failure.json",
+      "sha256": "5ef09feea4d34ad3ed8e5f1ce32a245322823d6dbca484d0636bef0312be2670"
+    }
+  ],
+  "prior_failure": {
+    "elapsed_seconds": 1.054,
+    "failure": "resident-memory budget exceeded",
+    "image_reached": "unknown_no_observation_checkpoint",
+    "native_log_bytes": 0,
+    "sampled_peak_rss_bytes": 543375360
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "resource_assessment": "Unverified hypothesis: removing an explicit NumPy import may reduce resident memory. No direct NumPy imports were found in inspected Blender startup/bpy Python files, but preloading elsewhere is unknown. Blender internal decoding or image.pixels getter allocation may still exceed the same cap.",
+  "schema_version": 1,
+  "status": "changed_resource_hypothesis_prepared_not_executed",
+  "syntax_checks": [
+    "probe_pixels.py compiled without import or execution",
+    "execute_prepared.py compiled without import or execution"
+  ],
+  "unchanged": [
+    "Exact known PNG, actual JPEG, sample locations and expected encoded/linear values",
+    "Frozen host runner, safety helper and execution wrapper",
+    "60s / 512MiB / 32MiB / 4 threads; zero renders; no full actual Python float array",
+    "No provider/AI calls; no source-model/image edits"
+  ]
+}

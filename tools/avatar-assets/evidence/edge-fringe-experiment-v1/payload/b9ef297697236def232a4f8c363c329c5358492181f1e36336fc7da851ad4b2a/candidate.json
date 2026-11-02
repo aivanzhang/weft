@@ -1,0 +1,81 @@
+{
+  "action_id": "dance_flight",
+  "approval": {
+    "fresh_generation": false,
+    "paid_calls": 0,
+    "quality": false,
+    "weft_compatible": false
+  },
+  "design_views_gltf": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      -0.47,
+      0,
+      0.88
+    ],
+    [
+      1,
+      0,
+      0
+    ],
+    [
+      0.47,
+      0,
+      -0.88
+    ],
+    [
+      0,
+      0,
+      -1
+    ],
+    [
+      -1,
+      0,
+      0
+    ],
+    [
+      0.7,
+      0,
+      0.7
+    ],
+    [
+      -0.7,
+      0,
+      -0.7
+    ]
+  ],
+  "finish_config": "outputs/panda-adaptive-undercoat-finish-v2/finish-config.json",
+  "finish_report": "outputs/panda-adaptive-undercoat-finish-v2/finish-report.json",
+  "hypothesis": "Upright source-edge-rooted short fins improve outline visibility; preserve matte undercoat and all base/rig/actions.",
+  "output": "outputs/panda-edge-fringe-v1",
+  "rig_contract": "outputs/panda-adaptive-undercoat-finish-v2/rig-contract.json",
+  "safe_edges": "outputs/edge-fringe-source-census-v1/candidate-indices.npz",
+  "schema_version": 1,
+  "scope": "Existing-model manually prepared local diagnostic; not fresh hands-off generation or accepted fur.",
+  "seconds": [
+    0,
+    1,
+    1.18,
+    1.36,
+    2.36,
+    2.55,
+    2.8,
+    4
+  ],
+  "settings": {
+    "comb": 0.15,
+    "length_m": 0.008,
+    "max_edge_m": 0.01,
+    "max_fins": 4800,
+    "min_edge_m": 0.0085,
+    "min_fins": 2400,
+    "min_spacing_m": 0.003,
+    "seed": 7123
+  },
+  "source": "outputs/panda-adaptive-undercoat-finish-v2/model.glb",
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5"
+}

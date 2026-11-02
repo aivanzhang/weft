@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-01 17:13 PST. Checkpoint d259f26 is privately pushed; current adaptive-undercoat changes await scoped save. The corrected v2 finish and independent GLB reload passed their technical checks, but appearance review does not promote the coat. All native workers exited. No new AI/provider calls. Current follow-up is below; earlier sections are historical checkpoints.
+- Recorded: 2026-11-01 18:14 PST. Adaptive-undercoat checkpoint `ead2244` is privately pushed and remote-verified. The new upright-fringe candidate passed CPU checks, native reload and independent byte/attribute audit, but direct review finds only partial outline improvement. Both compact evidence bundles are sealed; exact scoped commit/push status is recorded in `.local/avatar-quality-publication-v5/receipt.json`, not inferred from this note. No paid allowance or default/quality promotion.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -609,6 +609,167 @@ node browser/tests/studio-live.mjs outputs/studio-live-rigged-robot-v1 b184afa00
   private main branch. Exact revision/remote confirmation belongs in
   `.local/avatar-quality-publication-v4/receipt.json`; never infer a push from
   this handoff or include another Weft owner's index/worktree changes.
+
+### Active continuation: portable-fur visibility and color
+
+The previous adaptive-undercoat component is sealed in
+`evidence/adaptive-undercoat-integration-v1/manifest.json`, SHA
+`97e023de59f89356dbb8583f928b59bbba690287c9c94a4cc0897e63d7517696`:
+290 files / 14,816,780 B, 456 retained-origin mappings and ten omitted binary
+references. Publication is verified in
+`.local/avatar-quality-publication-v4/receipt.json`. Do not repeat the unchanged
+682-test suite, native finish, reload or old broad-tuft experiment.
+
+Current work is bounded local diagnosis, not a fresh generation or accepted coat:
+
+- `pipeline_review`: `outputs/portable-fur-next-review-v1`, one materially changed
+  representation proposal based on existing measured coverage and rejected tufts.
+- `pipeline_contracts`: visibility v1/v2 and safe-edge census are terminal
+  below. No GPU result follows from analytic filtering.
+- `agent_runner`: color-probe v1/v2 and compact diagnostic bundle are terminal. Root
+  released each changed no-render probe under 60 s / 512 MiB / 32 MiB / four
+  threads. Source texture and original model bytes remain unchanged.
+- Root owns any integration, full-body candidate and direct appearance review.
+  No production edits, live native process or new model/role call. At most
+  one changed portable candidate and one independent exported preview follow
+  these checks; first retain the specific hypothesis and fixed resource envelope.
+  Do not run dense native hair/full clips merely to screen portable geometry.
+
+Completed visibility audit `outputs/portable-fur-visibility-audit-v2` measures
+only two analytically reconstructed rest views, not GPU rendering. The current
+opaque ribbons cover 2.39% / 2.55% of visible fur-selected body pixels; actual
+LOD0 alpha covers 0.64% / 0.67%. Modeled BOX mip filtering raises coverage to
+2.03% / 2.20% by merging subpixel fibers into flecks. Two-sided recovery adds
+only 35 / 41 visible alpha pixels (about 3–4%): culling is not the main cause.
+Median whole-card width is 1.53–1.63 px at 720px with ten unresolved fibers.
+CPU tool 23502 / PID 4734 exited: 2.603 s / 187,318,272 B sampled RSS /
+361,722 B output. V1's preserved 0.262 s parser failure incorrectly required
+COLOR_0 VEC4; v2 accepts valid VEC3 implicit-alpha1 or explicit VEC4 alpha1.
+No source, camera, metric or threshold changed; no native/model call.
+
+Read-only proposal `outputs/portable-fur-next-review-v1` recommends upright,
+edge-rooted fins instead of broad surface ribbons; manifest SHA
+`42593e2cae861843cdb010c2eb583dd70909f7a3afb3b2e5a5ae6d75f10d7575`.
+Its reusable analytic screen `outputs/edge-fringe-analytic-v1` passed in
+0.783 s / 120,815,616 B sampled RSS, under 15 s / 256 MiB / 16 MiB. The curved
+two-bone fixture tests 4,800 fins, endpoint attachment through five poses,
+geometric normals, source-color convention, exclusions and budgets. At 512px,
+9mm fins retain two alpha groups in all 16 tiles; all tested spans merge at
+256px. This is CPU analytic evidence, not GPU visibility or coat quality.
+Manifest SHA `58d3640a91012d1bb20213783bda9bd7cf98d57b05b5e4a4fcdaa6abd8574abf`.
+
+The source census `outputs/edge-fringe-source-census-v1` completed in 0.512 s /
+202,080,256 B sampled RSS under 30 s / 512 MiB / 16 MiB. It identifies 41,345
+conservative shared edges, including 9,150 of length 6–10mm. Explicit repair
+material bindings, boundaries, seams and incoherent normals remain excluded.
+It creates no geometry. Manifest SHA
+`a13b3a808d2d049e19d4463016e3cfe2064bb66e59a999894c4a5ebbcbba41f0`.
+
+Root prepared **one** existing-model derivative at
+`outputs/edge-fringe-candidate-preparation-v2/prepared.json`, SHA
+`30e624bc61074cf952da5ff22f28c7dbab687be679dcd0114eee1a59d8ee379f`.
+The v1 preparation remains unexecuted: review found the analytic helper's
+endpoint-grid color sampling differs from glTF normalized texel-center REPEAT.
+V2 keeps its geometry but resamples detached colors with the actual sampler;
+small independent periodic/texel-center/sRGB oracles run before building.
+This is a sampling-coordinate correction, not a reversal of the byte-sRGB
+color-probe finding. No production color policy changes.
+
+Candidate settings: 8mm outward length, 8.5–10mm source spans, 3mm spacing,
+0.15 lean, seed 7123, 2,400 minimum / 4,800 maximum fins, exact census whitelist,
+unchanged MASK/.18 and two-sided geometric normals. All source body/texture,
+skin, joint IDs and animation bytes remain preserved; old coat mesh bindings
+alone are replaced. Native hair is not rebuilt. The fixed CPU envelope is
+30 s / 512 MiB / 96 MiB output plus the existing separate 16 MiB log cap.
+Root attachment is checked at 24fps plus the original review times. A CPU
+pass must precede one independent exported preview at 120 s / 2 GiB / four
+threads / 128 MiB. Candidate execution now passed: tool 79997, 1.279 s /
+495,222,784 B sampled RSS / 34,859,848 B output, owned child exit verified.
+`outputs/panda-edge-fringe-v1/model.glb` is 34,524,020 B, SHA
+`e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb`.
+It has 3,231 fins, 64,291 total vertices and 69,043 triangles. All selected
+edges pass the independent whitelist. Across 102 numeric action times, maximum
+root attachment error is 1.070e-7 m; source binary prefix, base primitives,
+texture definitions, skin and animation data remain exact. Ordinary structure,
+surface and weighted-motion validators pass. Visual quality is still unverified.
+The one independent reload completed: tool 32365, 15.275 s /
+1,040,498,688 B sampled RSS / 78,224,680 B output, owned child exit verified.
+`outputs/panda-edge-fringe-preview-v1` contains four 512px rest views, eight
+actual action poses and an editable imported scene. All twelve originals are
+opaque RGB512² PNGs. The 256px contact sheet and static fallback are labeled
+deterministic reductions, not new animation. The native inspector does not
+certify animation; separate CPU skin validation does.
+
+Root directly reviewed four rest views, flight and late-flight poses, the whole
+256px pose sheet and saved baseline front/flight images. Ear/tail/paw edges are
+softer, but the broad white coat remains mostly smooth; bright surface flecks
+and exposed cheek/shoulder defects remain. The result is
+**partial_outline_component_not_promoted**. Review SHA
+`9fec7c82d0ce3d63dab28453ea16db515d644a5852687569a4099ff5b9a49b71`,
+review manifest SHA `d419638b7cadc9427dabc55188ff9f3630cb94cd70777a927699388dfc7b9158`.
+The existing saved baseline is 720px, so this is qualitative review under the
+same renderer/lighting algorithm, not a controlled pixel-matched comparison.
+No full video, browser/GPU acceptance, loop certification or default promotion.
+[Exact parameters, paths and commands](docs/edge-fringe-experiment.md).
+
+The independent byte/endpoint audit passed in
+`outputs/panda-edge-fringe-audit-v1`: manifest SHA
+`d47a738e03f023270e72b15fcc55d6d1035141b5c14988e691db20e03da94390`.
+It verifies all 33,487,168 original BIN bytes, the narrow JSON change allowlist
+(including the disclosed generator label), source endpoint/UV/weight identity,
+actual fin winding/normals and whitelist membership. CPU PID 9189 exited in
+0.262 s; zero RSS samples were collected, so sampled memory is **unknown**, not
+zero. It does not independently resample texture colors or repeat all poses.
+Compact fringe evidence is independently copied and verified at
+`evidence/edge-fringe-experiment-v1/manifest.json`, SHA
+`bf0d02a0c1a28df084d38a968a248a6a96ebd015d27e3534a3f703771afae741`:
+84 files / 4,619,940 B, 98 original-file mappings. All twelve 512px images,
+the 256px contact sheet/static fallback, source snapshots, commands, census,
+unexecuted/superseded preparation, actual execution and audit are retained.
+Three large model/native binaries remain immutable local hash references, not
+a remote backup. A separate post-execution receipt records Python 3.14.7,
+NumPy 2.5.4, Pillow 13.0.0, Blender 4.5.13 LTS and executable hashes; no package or
+environment changes occurred. Earlier inventories stay unchanged.
+
+All owned native/CPU/audit processes are exited and agent ownership is released;
+root owns final integrity and scoped private publication. All 143 source pins of
+the previous 682-test pass still match, so that unchanged suite is reused rather
+than rerun. New analytic/actual checks above cover this experimental work; no
+production module, test or automatic policy changes. Next local work is an
+analytic allocation test under nonuniform triangulation, not repeating
+this exact asset or promoting coverage measurements to appearance acceptance.
+
+Compact diagnostic evidence is independently copied/verified at
+`evidence/portable-fur-diagnostics-v1/manifest.json`, SHA
+`d836bda6bfecaf302379392cfbeab0039352786d05e8af9645cad4021af0a9e3`:
+87 files / 1,010,423 B, 114 original-file mappings. Two 8,958,941-byte JPEG
+duplicates are omitted with immutable local paths/hashes. Post-execution
+visibility findings are separately receipt-bound, not silently added to the old
+execution manifest. Exact publication status is in the v5 receipt; this first
+bundle contains no actual candidate, which is in the separate fringe evidence.
+
+Color probe v1 was stopped/reaped by the unchanged 512 MiB guard: tool 8162 /
+native PID 4763, 1.054 s / 543,375,360 B sampled RSS. No pixel-result file exists,
+so no color-space conclusion follows. Preserve its failure manifest/logs.
+Changed v2 removed the explicit NumPy dependency, used tiny stdlib buffers and
+saved per-image checkpoints. Tool 45304 / PID 5486 exited successfully in
+1.280 s / 530,284,544 B sampled RSS, only 6,586,368 B observed headroom under the
+same cap. This is not a general memory-saving guarantee. NumPy was not loaded
+at script entry. Sixteen known PNG pixels and twelve actual JPEG samples match
+encoded bottom-up sRGB values within 7.23e-8; interpreting them as already-linear
+is wrong by about 0.287. Keep the existing `pixels_are_linear=False` convention;
+no global gamma/color correction or production color change is justified.
+Interpretation: `outputs/fur-color-interpretation-v1/result.json`, SHA
+`6ad8ee39c2f8f6963e7fce62ac8b97d594e4e3605ab09f0699e9e3cfc37b1219`.
+V2 manifest SHA
+`9187fec5fc01e582776c7c2e8fa191d1d26635631d4ac46f06cb4ec3681b568d`.
+This tests sparse texture access, not shaders, all pixels or appearance. Both
+probes and the original source remain preserved; no further color probe is needed.
+
+Completion remains a general text/custom-action workflow with convincing
+requested materials and an actual accepted Studio delivery. Numeric coverage,
+a normal texture, or another manually tuned panda cannot stand in for that.
+Pending fresh-case grants and the exhausted 13-call study are unchanged.
 
 ### Fresh examples — prepared estimate, authorization pending
 

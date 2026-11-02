@@ -1,0 +1,98 @@
+{
+  "artifacts": [
+    {
+      "bytes": 20415,
+      "path": "audit.py",
+      "sha256": "3cf50290043b2b2adbea35890c3ef210f7bb613918ed65bfc205bc7811efe473"
+    },
+    {
+      "bytes": 234,
+      "path": "cpu-handle.json",
+      "sha256": "91a6c79f7e97e3c686157d74b165012ed1830cb6fa0a81158ea8adf37cebb9c3"
+    },
+    {
+      "bytes": 1060,
+      "path": "cpu-job.json",
+      "sha256": "d018edf1d980edbdacf7096c861803c4a34cf21a1d1fd62ae3cb0c883d1f4d07"
+    },
+    {
+      "bytes": 972,
+      "path": "cpu-monitor.json",
+      "sha256": "f49ccc048c22bc6a2f08ed763edb1dc7812a7e9b1ecb583383d7fbfe185a93a2"
+    },
+    {
+      "bytes": 969,
+      "path": "cpu.log",
+      "sha256": "ffb48453adddf5ca37017f537f1e387d0bf733befe7dcb4b8e4ae613921e046f"
+    },
+    {
+      "bytes": 1452,
+      "path": "execute_cpu.py",
+      "sha256": "14289463f86dd28f10959e9d2a2ebc4e28946cf920b1804c4b90c26afabf77e7"
+    },
+    {
+      "bytes": 284,
+      "path": "execution-started.json",
+      "sha256": "a99e69b9e10a6fa54c653888ab149f3d03e07395a32f122664649cfc735dcb5b"
+    },
+    {
+      "bytes": 3340,
+      "path": "inputs.json",
+      "sha256": "e58840fe550907e46b1bc0e130355d03cdf387d8b3d717aae0034ca82fdd8c11"
+    },
+    {
+      "bytes": 2668,
+      "path": "prepared.json",
+      "sha256": "eed20c2d78224a10f10ceda829ba444c40466f3662ab47867c772ccb70d15680"
+    },
+    {
+      "bytes": 23637,
+      "path": "snapshots/card-source.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 39741,
+      "path": "snapshots/finish-config.json",
+      "sha256": "8fd968b3b80f0cf5269cda6cd989228a8b79c155041529ef0578bc48b9404ecb"
+    },
+    {
+      "bytes": 48515,
+      "path": "snapshots/finish-report.json",
+      "sha256": "93aecee2924760c329c1ae761d4b7d9ad42d8ad9db09a051370e15339f7a1650"
+    },
+    {
+      "bytes": 11143,
+      "path": "snapshots/native-inspection.json",
+      "sha256": "3ec09c0bf4307f328eb844c1c1dd5164db13257591530de91f00981c878aa14d"
+    },
+    {
+      "bytes": 12033,
+      "path": "snapshots/preview-source.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 35106,
+      "path": "sources/host/avatar_assets/three_d.py",
+      "sha256": "074612202a8fb5347928a15e62b3fd7e975c905c56d6140312479698f83e38cc"
+    }
+  ],
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "status": "failed_preserved"
+}

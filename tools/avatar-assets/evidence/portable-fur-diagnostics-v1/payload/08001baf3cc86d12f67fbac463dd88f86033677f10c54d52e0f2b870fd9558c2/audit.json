@@ -1,0 +1,734 @@
+{
+  "all_inputs_unchanged": true,
+  "alpha_integration_cache_entries": 64,
+  "atlas": [
+    {
+      "cutoff": 0.18000000715255737,
+      "full_resolution_alpha_occupancy": 0.2708721160888672,
+      "image_sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda",
+      "material": "PortableCoat_0_cutout_fur",
+      "mip_alpha_occupancy": [
+        0.2708721160888672,
+        0.2927055358886719,
+        0.334503173828125,
+        0.39984130859375,
+        0.52490234375,
+        0.6240234375,
+        0.6484375,
+        0.5,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mip_mean_alpha": [
+        0.25175249576568604,
+        0.2519998848438263,
+        0.252468466758728,
+        0.25334569811820984,
+        0.25471240282058716,
+        0.2564338445663452,
+        0.2583180069923401,
+        0.2599877715110779,
+        0.26249998807907104,
+        0.26372551918029785,
+        0.2666666805744171
+      ],
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    },
+    {
+      "cutoff": 0.18000000715255737,
+      "full_resolution_alpha_occupancy": 0.2708721160888672,
+      "image_sha256": "4c2bd24d9548076081ca2f69eafa0a0efe50754ab3c302e29f10823f5b063dda",
+      "material": "PortableCoat_1_cutout_fur",
+      "mip_alpha_occupancy": [
+        0.2708721160888672,
+        0.2927055358886719,
+        0.334503173828125,
+        0.39984130859375,
+        0.52490234375,
+        0.6240234375,
+        0.6484375,
+        0.5,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mip_mean_alpha": [
+        0.25175249576568604,
+        0.2519998848438263,
+        0.252468466758728,
+        0.25334569811820984,
+        0.25471240282058716,
+        0.2564338445663452,
+        0.2583180069923401,
+        0.2599877715110779,
+        0.26249998807907104,
+        0.26372551918029785,
+        0.2666666805744171
+      ],
+      "sampler": {
+        "magFilter": 9729,
+        "minFilter": 9987,
+        "wrapS": 33071,
+        "wrapT": 33071
+      }
+    }
+  ],
+  "cards": 2400,
+  "elapsed_seconds": 2.5294208340346813,
+  "exported_vertices": 75548,
+  "limitations": [
+    "No GPU/renderer culling, anisotropy, alpha-to-coverage, MSAA, denoising, lighting or shading measurement.",
+    "Cycles preview may not enforce material culling like a conformant glTF viewer; this audit reports the contract and counterfactual.",
+    "Pixel-center sampling can miss subpixel geometry and depends on phase; continuous area upper bounds are reported separately.",
+    "Two static rest views only; no animation or moving-part coat claim.",
+    "Source contact seams and undercoat shading are separate from the card-coverage measurement."
+  ],
+  "method": {
+    "culling": "Geometric triangle winding versus view; source glTF cards are single-sided, opaque body double-sided",
+    "density_upper_bound": "Summed projected triangle area can overcount overlap; alpha-weighted sum also ignores occlusion",
+    "fiber_spacing": "Whole-ribbon maximum projected row width divided by source10-fiber count; not individually resolved GPU strands",
+    "lod0": "Actual embedded alpha with bilinear sampling and actual material cutoff",
+    "mips": "Analytic BOX pyramid plus trilinear bilinear sampling, derivative max-axis LOD; not measured GPU mip construction/anisotropy",
+    "occlusion": "Nearest opaque body triangle at exact pixel centers; cards at same/nearer depth counted, no depth bias",
+    "pose": "Actual mesh bind/rest coordinates, independently matching saved preview rest bounds",
+    "projection": "Recovered saved720px front/three-quarter orthographic preview recipes"
+  },
+  "native_jobs": 0,
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_model_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "cpu_visibility_audit_complete",
+  "views": [
+    {
+      "body_pixels": 197572,
+      "camera": {
+        "basis_columns_blender_z_up": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.016664352333993333,
+            -0.9998611400396
+          ],
+          [
+            -0.0,
+            0.9998611400396,
+            0.016664352333993333
+          ]
+        ],
+        "location_blender_z_up": [
+          0.0015618354082107544,
+          -3.6278242455333496,
+          0.6582485358937086
+        ],
+        "method": "Recovered immutable preview rest-camera recipe, including mesh-bbox fit and lateral recentering; no source.blend execution.",
+        "orthographic_scale_m": 1.4427105913860028,
+        "resolution": 720,
+        "saved_bounds_reproduced_atol_m": 2e-07
+      },
+      "candidate_pixels": {
+        "body": 1422668,
+        "cards": 37094
+      },
+      "cards": [
+        {
+          "approx_ten_fiber_spacing_px": {
+            "max": 0.27480765310386995,
+            "median": 0.152965393101259,
+            "min": 0.00028176242391925996,
+            "p10": 0.03708132451771645,
+            "p90": 0.23656442268277336
+          },
+          "atlas_texels_per_pixel_max_axis": {
+            "max": 27254022.60940338,
+            "median": 358.7406729999827,
+            "min": 90.67993245154126,
+            "p10": 127.58181661536898,
+            "p90": 2408.496726048096
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 8.486797497038154,
+            "min": 6.502711411287381,
+            "p10": 6.9952789105272775,
+            "p90": 10.0
+          },
+          "card_area_below1px2": 161,
+          "card_area_px2": {
+            "max": 12.184256729907961,
+            "median": 3.8177159458556567,
+            "min": 0.006651646848608792,
+            "p10": 0.8611449774917245,
+            "p90": 7.609150135428986
+          },
+          "card_max_row_width_px": {
+            "max": 2.7480765310386994,
+            "median": 1.52965393101259,
+            "min": 0.0028176242391925997,
+            "p10": 0.3708132451771645,
+            "p90": 2.3656442268277336
+          },
+          "card_width_below1px": 386,
+          "cards": 1320,
+          "display_size_analytic_footprints": [
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.13740382655193498,
+                "median": 0.0764826965506295,
+                "min": 0.00014088121195962998,
+                "p10": 0.018540662258858226,
+                "p90": 0.11828221134138668
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 9.486797497038154,
+                "min": 7.502711411287381,
+                "p10": 7.9952789105272775,
+                "p90": 10.0
+              },
+              "card_width_below1px": 937,
+              "card_width_px": {
+                "max": 1.3740382655193497,
+                "median": 0.7648269655062949,
+                "min": 0.0014088121195962998,
+                "p10": 0.18540662258858226,
+                "p90": 1.1828221134138668
+              },
+              "size": 360
+            },
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.06870191327596749,
+                "median": 0.03824134827531475,
+                "min": 7.044060597981499e-05,
+                "p10": 0.009270331129429113,
+                "p90": 0.05914110567069334
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 10.0,
+                "min": 8.50271141128738,
+                "p10": 8.995278910527277,
+                "p90": 10.0
+              },
+              "card_width_below1px": 1320,
+              "card_width_px": {
+                "max": 0.6870191327596749,
+                "median": 0.38241348275314746,
+                "min": 0.0007044060597981499,
+                "p10": 0.09270331129429113,
+                "p90": 0.5914110567069334
+              },
+              "size": 180
+            }
+          ],
+          "material": "PortableCoat_0_cutout_fur",
+          "native_atlas_triangle_alpha_fraction": {
+            "max": 0.4972034339229969,
+            "median": 0.3046956295525494,
+            "min": 0.04838709677419355,
+            "p10": 0.05944328824141519,
+            "p90": 0.48621227887617063
+          },
+          "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1482.958744365484,
+          "projected_alpha_lod0_area_px2_front_summed_upper_bound": 797.8416774975724,
+          "projected_area_px2_all_summed": 5341.043626574943,
+          "projected_area_px2_front_summed": 2888.1696075856826,
+          "triangle_area_px2": {
+            "max": 5.9909799806396675,
+            "median": 0.6714233080725884,
+            "min": 7.839098758566365e-06,
+            "p10": 0.12066904105090603,
+            "p90": 2.4841892786681203
+          },
+          "triangles": 5280,
+          "triangles_back_facing": 2404,
+          "triangles_front_facing": 2876
+        },
+        {
+          "approx_ten_fiber_spacing_px": {
+            "max": 0.274055155351605,
+            "median": 0.16285714030538478,
+            "min": 0.0015898707079613605,
+            "p10": 0.03953066624453118,
+            "p90": 0.24105273997797172
+          },
+          "atlas_texels_per_pixel_max_axis": {
+            "max": 459367.60050991154,
+            "median": 334.4309860336122,
+            "min": 90.82662806404966,
+            "p10": 124.9809827130281,
+            "p90": 2110.6715432231867
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 8.385563460529763,
+            "min": 6.505043416016749,
+            "p10": 6.96556477407393,
+            "p90": 10.0
+          },
+          "card_area_below1px2": 119,
+          "card_area_px2": {
+            "max": 11.658496320528855,
+            "median": 3.926701528161389,
+            "min": 0.04918051675881561,
+            "p10": 0.8989581531807153,
+            "p90": 7.575333326355753
+          },
+          "card_max_row_width_px": {
+            "max": 2.7405515535160503,
+            "median": 1.6285714030538478,
+            "min": 0.015898707079613605,
+            "p10": 0.39530666244531176,
+            "p90": 2.410527399779717
+          },
+          "card_width_below1px": 274,
+          "cards": 1080,
+          "display_size_analytic_footprints": [
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.1370275776758025,
+                "median": 0.08142857015269239,
+                "min": 0.0007949353539806802,
+                "p10": 0.01976533312226559,
+                "p90": 0.12052636998898586
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 9.385563460529763,
+                "min": 7.505043416016749,
+                "p10": 7.96556477407393,
+                "p90": 10.0
+              },
+              "card_width_below1px": 738,
+              "card_width_px": {
+                "max": 1.3702757767580251,
+                "median": 0.8142857015269238,
+                "min": 0.007949353539806803,
+                "p10": 0.19765333122265588,
+                "p90": 1.2052636998898585
+              },
+              "size": 360
+            },
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.06851378883790125,
+                "median": 0.040714285076346196,
+                "min": 0.0003974676769903401,
+                "p10": 0.009882666561132795,
+                "p90": 0.06026318499449293
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 10.0,
+                "min": 8.505043416016749,
+                "p10": 8.96556477407393,
+                "p90": 10.0
+              },
+              "card_width_below1px": 1080,
+              "card_width_px": {
+                "max": 0.6851378883790126,
+                "median": 0.4071428507634619,
+                "min": 0.003974676769903401,
+                "p10": 0.09882666561132794,
+                "p90": 0.6026318499449292
+              },
+              "size": 180
+            }
+          ],
+          "material": "PortableCoat_1_cutout_fur",
+          "native_atlas_triangle_alpha_fraction": {
+            "max": 0.4972034339229969,
+            "median": 0.3046956295525494,
+            "min": 0.04838709677419355,
+            "p10": 0.05944328824141519,
+            "p90": 0.48621227887617063
+          },
+          "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1227.5481693739616,
+          "projected_alpha_lod0_area_px2_front_summed_upper_bound": 632.9530749271157,
+          "projected_area_px2_all_summed": 4410.164754548616,
+          "projected_area_px2_front_summed": 2273.6552810311914,
+          "triangle_area_px2": {
+            "max": 5.898994049225873,
+            "median": 0.6694541514214725,
+            "min": 0.0011419240785881524,
+            "p10": 0.13611170849744483,
+            "p90": 2.4947695574244797
+          },
+          "triangles": 4320,
+          "triangles_back_facing": 2080,
+          "triangles_front_facing": 2240
+        }
+      ],
+      "fur_selected_body_pixels": 173683,
+      "mask_artifact": {
+        "path": "front-analytic-masks.npz",
+        "scope": "CPU pixel-center diagnostic masks, not a new render or generated-avatar output",
+        "sha256": "432d26f9728355802cff3335a2f74558f03ce2914e53f65bff88bde3d3e1ebdb"
+      },
+      "two_sided_recovery_alpha_lod0_pixels": 35,
+      "two_sided_recovery_alpha_mip_pixels": 111,
+      "view": "front",
+      "visible_pixel_center_counts": {
+        "alpha_lod0_front": {
+          "outside_body_silhouette_pixels": 33,
+          "over_body_pixels": 1116,
+          "over_fur_selected_body_pixels": 1110,
+          "pixels": 1149
+        },
+        "alpha_lod0_two_sided": {
+          "outside_body_silhouette_pixels": 52,
+          "over_body_pixels": 1132,
+          "over_fur_selected_body_pixels": 1126,
+          "pixels": 1184
+        },
+        "alpha_mip_front": {
+          "outside_body_silhouette_pixels": 96,
+          "over_body_pixels": 3538,
+          "over_fur_selected_body_pixels": 3522,
+          "pixels": 3634
+        },
+        "alpha_mip_two_sided": {
+          "outside_body_silhouette_pixels": 176,
+          "over_body_pixels": 3569,
+          "over_fur_selected_body_pixels": 3553,
+          "pixels": 3745
+        },
+        "geometric_front": {
+          "outside_body_silhouette_pixels": 99,
+          "over_body_pixels": 4164,
+          "over_fur_selected_body_pixels": 4148,
+          "pixels": 4263
+        },
+        "geometric_two_sided": {
+          "outside_body_silhouette_pixels": 180,
+          "over_body_pixels": 4194,
+          "over_fur_selected_body_pixels": 4178,
+          "pixels": 4374
+        }
+      }
+    },
+    {
+      "body_pixels": 171605,
+      "camera": {
+        "basis_columns_blender_z_up": [
+          [
+            0.8823529411764706,
+            0.013834847812655409,
+            -0.47038482563028383
+          ],
+          [
+            -0.4705882352941177,
+            0.025940339648728886,
+            -0.8819715480567821
+          ],
+          [
+            0.0,
+            0.9995677544643531,
+            0.02939905160189274
+          ]
+        ],
+        "location_blender_z_up": [
+          -1.9347312937525338,
+          -3.627621175786001,
+          0.7189123364685421
+        ],
+        "method": "Recovered immutable preview rest-camera recipe, including mesh-bbox fit and lateral recentering; no source.blend execution.",
+        "orthographic_scale_m": 1.4653258059605032,
+        "resolution": 720,
+        "saved_bounds_reproduced_atol_m": 2e-07
+      },
+      "candidate_pixels": {
+        "body": 1347878,
+        "cards": 36474
+      },
+      "cards": [
+        {
+          "approx_ten_fiber_spacing_px": {
+            "max": 0.2705896322761093,
+            "median": 0.1610661725916216,
+            "min": 0.0015546164649110042,
+            "p10": 0.035642614519104505,
+            "p90": 0.2350619449640473
+          },
+          "atlas_texels_per_pixel_max_axis": {
+            "max": 437241.5161737969,
+            "median": 373.28518210140305,
+            "min": 92.51695801271482,
+            "p10": 129.18349208441566,
+            "p90": 2467.610834396801
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 8.544133768574227,
+            "min": 6.5316459253651376,
+            "p10": 7.013277911156534,
+            "p90": 10.0
+          },
+          "card_area_below1px2": 175,
+          "card_area_px2": {
+            "max": 11.31986187261835,
+            "median": 3.7764452312340264,
+            "min": 0.0485203007780571,
+            "p10": 0.7308607919694976,
+            "p90": 7.495784294046119
+          },
+          "card_max_row_width_px": {
+            "max": 2.705896322761093,
+            "median": 1.610661725916216,
+            "min": 0.015546164649110041,
+            "p10": 0.35642614519104504,
+            "p90": 2.350619449640473
+          },
+          "card_width_below1px": 364,
+          "cards": 1320,
+          "display_size_analytic_footprints": [
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.13529481613805466,
+                "median": 0.0805330862958108,
+                "min": 0.0007773082324555021,
+                "p10": 0.017821307259552253,
+                "p90": 0.11753097248202365
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 9.544133768574227,
+                "min": 7.5316459253651376,
+                "p10": 8.013277911156536,
+                "p90": 10.0
+              },
+              "card_width_below1px": 971,
+              "card_width_px": {
+                "max": 1.3529481613805465,
+                "median": 0.805330862958108,
+                "min": 0.007773082324555021,
+                "p10": 0.17821307259552252,
+                "p90": 1.1753097248202364
+              },
+              "size": 360
+            },
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.06764740806902733,
+                "median": 0.0402665431479054,
+                "min": 0.00038865411622775105,
+                "p10": 0.008910653629776126,
+                "p90": 0.05876548624101183
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 10.0,
+                "min": 8.531645925365137,
+                "p10": 9.013277911156536,
+                "p90": 10.0
+              },
+              "card_width_below1px": 1320,
+              "card_width_px": {
+                "max": 0.6764740806902733,
+                "median": 0.402665431479054,
+                "min": 0.0038865411622775103,
+                "p10": 0.08910653629776126,
+                "p90": 0.5876548624101182
+              },
+              "size": 180
+            }
+          ],
+          "material": "PortableCoat_0_cutout_fur",
+          "native_atlas_triangle_alpha_fraction": {
+            "max": 0.4972034339229969,
+            "median": 0.3046956295525494,
+            "min": 0.04838709677419355,
+            "p10": 0.05944328824141519,
+            "p90": 0.48621227887617063
+          },
+          "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1472.9361742749145,
+          "projected_alpha_lod0_area_px2_front_summed_upper_bound": 820.0652783648525,
+          "projected_area_px2_all_summed": 5299.486249245823,
+          "projected_area_px2_front_summed": 2946.1219136393192,
+          "triangle_area_px2": {
+            "max": 5.508790592934789,
+            "median": 0.6554296910239419,
+            "min": 0.0003870936730244103,
+            "p10": 0.1093438118309978,
+            "p90": 2.4987374799163184
+          },
+          "triangles": 5280,
+          "triangles_back_facing": 2402,
+          "triangles_front_facing": 2878
+        },
+        {
+          "approx_ten_fiber_spacing_px": {
+            "max": 0.2706160744074765,
+            "median": 0.1559040571906966,
+            "min": 0.0037652455802155227,
+            "p10": 0.03310181787130413,
+            "p90": 0.2325564727467272
+          },
+          "atlas_texels_per_pixel_max_axis": {
+            "max": 241818.19566916232,
+            "median": 393.7053252988122,
+            "min": 91.04615160885355,
+            "p10": 131.33162581275909,
+            "p90": 2672.30870993268
+          },
+          "box_mip_lod": {
+            "max": 10.0,
+            "median": 8.62097241478503,
+            "min": 6.5085261327137545,
+            "p10": 7.03707055608593,
+            "p90": 10.0
+          },
+          "card_area_below1px2": 151,
+          "card_area_px2": {
+            "max": 11.256244161735271,
+            "median": 3.699385692524925,
+            "min": 0.0564654128946537,
+            "p10": 0.7528218240905414,
+            "p90": 6.98632249085001
+          },
+          "card_max_row_width_px": {
+            "max": 2.7061607440747646,
+            "median": 1.5590405719069662,
+            "min": 0.037652455802155226,
+            "p10": 0.3310181787130413,
+            "p90": 2.325564727467272
+          },
+          "card_width_below1px": 332,
+          "cards": 1080,
+          "display_size_analytic_footprints": [
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.13530803720373824,
+                "median": 0.0779520285953483,
+                "min": 0.0018826227901077614,
+                "p10": 0.016550908935652066,
+                "p90": 0.1162782363733636
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 9.62097241478503,
+                "min": 7.5085261327137545,
+                "p10": 8.037070556085931,
+                "p90": 10.0
+              },
+              "card_width_below1px": 794,
+              "card_width_px": {
+                "max": 1.3530803720373823,
+                "median": 0.7795202859534831,
+                "min": 0.018826227901077613,
+                "p10": 0.16550908935652064,
+                "p90": 1.162782363733636
+              },
+              "size": 360
+            },
+            {
+              "approx_fiber_spacing_px": {
+                "max": 0.06765401860186912,
+                "median": 0.03897601429767415,
+                "min": 0.0009413113950538807,
+                "p10": 0.008275454467826033,
+                "p90": 0.0581391181866818
+              },
+              "box_mip_lod": {
+                "max": 10.0,
+                "median": 10.0,
+                "min": 8.508526132713754,
+                "p10": 9.037070556085931,
+                "p90": 10.0
+              },
+              "card_width_below1px": 1080,
+              "card_width_px": {
+                "max": 0.6765401860186911,
+                "median": 0.38976014297674155,
+                "min": 0.009413113950538806,
+                "p10": 0.08275454467826032,
+                "p90": 0.581391181866818
+              },
+              "size": 180
+            }
+          ],
+          "material": "PortableCoat_1_cutout_fur",
+          "native_atlas_triangle_alpha_fraction": {
+            "max": 0.4972034339229969,
+            "median": 0.3046956295525494,
+            "min": 0.04838709677419355,
+            "p10": 0.05944328824141519,
+            "p90": 0.48621227887617063
+          },
+          "projected_alpha_lod0_area_px2_all_summed_upper_bound": 1143.5327736457702,
+          "projected_alpha_lod0_area_px2_front_summed_upper_bound": 590.1284348188392,
+          "projected_area_px2_all_summed": 4115.014132509407,
+          "projected_area_px2_front_summed": 2117.8450444234577,
+          "triangle_area_px2": {
+            "max": 5.469073167582385,
+            "median": 0.6326021328489353,
+            "min": 0.0014911693331208786,
+            "p10": 0.10866996415160551,
+            "p90": 2.374857936413764
+          },
+          "triangles": 4320,
+          "triangles_back_facing": 2032,
+          "triangles_front_facing": 2288
+        }
+      ],
+      "fur_selected_body_pixels": 147093,
+      "mask_artifact": {
+        "path": "three-quarter-analytic-masks.npz",
+        "scope": "CPU pixel-center diagnostic masks, not a new render or generated-avatar output",
+        "sha256": "41ae5c166794a7690bbc9b8defe4038ca7b781af0a1cfa6d68f70388239edb75"
+      },
+      "two_sided_recovery_alpha_lod0_pixels": 41,
+      "two_sided_recovery_alpha_mip_pixels": 115,
+      "view": "three-quarter",
+      "visible_pixel_center_counts": {
+        "alpha_lod0_front": {
+          "outside_body_silhouette_pixels": 27,
+          "over_body_pixels": 992,
+          "over_fur_selected_body_pixels": 990,
+          "pixels": 1019
+        },
+        "alpha_lod0_two_sided": {
+          "outside_body_silhouette_pixels": 45,
+          "over_body_pixels": 1015,
+          "over_fur_selected_body_pixels": 1013,
+          "pixels": 1060
+        },
+        "alpha_mip_front": {
+          "outside_body_silhouette_pixels": 104,
+          "over_body_pixels": 3250,
+          "over_fur_selected_body_pixels": 3242,
+          "pixels": 3354
+        },
+        "alpha_mip_two_sided": {
+          "outside_body_silhouette_pixels": 170,
+          "over_body_pixels": 3299,
+          "over_fur_selected_body_pixels": 3287,
+          "pixels": 3469
+        },
+        "geometric_front": {
+          "outside_body_silhouette_pixels": 109,
+          "over_body_pixels": 3761,
+          "over_fur_selected_body_pixels": 3752,
+          "pixels": 3870
+        },
+        "geometric_two_sided": {
+          "outside_body_silhouette_pixels": 176,
+          "over_body_pixels": 3810,
+          "over_fur_selected_body_pixels": 3797,
+          "pixels": 3986
+        }
+      }
+    }
+  ]
+}

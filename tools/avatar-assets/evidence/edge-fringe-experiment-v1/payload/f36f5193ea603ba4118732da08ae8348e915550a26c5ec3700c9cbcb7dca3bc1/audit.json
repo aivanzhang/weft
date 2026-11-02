@@ -1,0 +1,101 @@
+{
+  "atlas": {
+    "bytes": 46627,
+    "embedded_equals_external_png": true,
+    "embedded_sha256": "e0ebb0bdbffee4bd546b73ce5ac7644c81727a4acc6dcae2ae5de4d9c0a202a1",
+    "endpoint_colors_repeated_at_tips_exact": true,
+    "header_only_not_full_decode": true,
+    "root_colors_resampled": false,
+    "size": [
+      1024,
+      1024
+    ],
+    "source_root_uv_verified": true
+  },
+  "budgets": {
+    "active_mesh_triangles": 69043,
+    "active_mesh_vertices": 64291,
+    "candidate_decoded_scalar_values": 264942,
+    "file_bytes": 34524020,
+    "file_cap": 67108864,
+    "source_decoded_scalar_values": 444763,
+    "triangle_cap": 100000,
+    "vertex_cap": 100000
+  },
+  "candidate_sha256": "e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb",
+  "elapsed_seconds": 0.085392,
+  "geometry": {
+    "actual_tip_positions_match_recorded_direction": true,
+    "all_edges_unique_and_whitelisted": true,
+    "all_root_endpoint_bytes_exact": true,
+    "all_source_face_corner_indices_correspond": true,
+    "all_source_uv0_bytes_exact": true,
+    "fins": 3231,
+    "length_m": 0.008,
+    "minimum_geometric_normal_dot": 0.9999999605609181,
+    "minimum_outward_direction_dot": 0.9847835588179364,
+    "minimum_triangle_area_m2": 3.279302762782249e-05,
+    "new_triangles": 6462,
+    "new_vertices": 12924,
+    "normal_unit_error": 3.943811177631318e-08
+  },
+  "inputs_unchanged": true,
+  "json_allowlist": {
+    "all_other_json_exact": true,
+    "append_counts": {
+      "accessors": 7,
+      "bufferViews": 8,
+      "images": 1,
+      "materials": 1,
+      "samplers": 1,
+      "textures": 1
+    },
+    "appended_mesh_0_primitives": 1,
+    "buffer_byte_length_extended": true,
+    "metadata_only_generator_change": {
+      "after": "Local experimental edge-fringe derivative; source body, rig and motion unchanged",
+      "before": "Khronos glTF Blender I/O v4.5.51"
+    },
+    "only_detached_nodes": [
+      21,
+      22
+    ],
+    "original_base_primitives_accessors_views_images_textures_materials_samplers_skins_animations_exact": true,
+    "removed_mesh_suffix": [
+      1,
+      2
+    ]
+  },
+  "limitations": [
+    "No appearance, softness, dense-fur, silhouette, GPU alpha/lighting, or simulation approval.",
+    "No repeated whole-body or 102-pose validation; parent-owned motion receipts remain separate evidence.",
+    "Original embedded image bytes and exact source UV correspondence are verified; root color texture filtering is not independently rerun.",
+    "Normal checks use actual serialized geometry, finite unit normals, positive winding, and dot > .99999; no texture-normal or physics claim.",
+    "Source rig is authored data, not recovered anatomy; Weft normal-map/vertex-budget compatibility remains unsupported."
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mb": 16,
+    "rss_mb": 256,
+    "wall_seconds": 15
+  },
+  "native_calls": 0,
+  "original_bin_prefix": {
+    "byte_exact": true,
+    "bytes": 33487168,
+    "sha256": "471a4d3a9ef0975fc9537270376258ef6eb6977718e5f831d80d2f8e33b91145"
+  },
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "skin": {
+    "all_new_joint_ids_exact": true,
+    "all_new_weights_exact_float32_normalized_source": true,
+    "joints": 19,
+    "maximum_new_weight_sum_error": 4.08690539188683e-08,
+    "source_and_final_four_slot_order_unchanged": true,
+    "source_skin": 0
+  },
+  "source_sha256": "e0488074965a89a9f7eda7788ebb26e7a8f14f98bbb44e1d9856fa091915e5d5",
+  "status": "passed_independent_attribute_audit"
+}

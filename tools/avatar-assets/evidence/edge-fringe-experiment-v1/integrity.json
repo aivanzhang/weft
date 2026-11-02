@@ -1,0 +1,500 @@
+{
+  "actual_execution_metrics": [
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-source-census-v1/census.py"
+      ],
+      "elapsed_seconds": 0.512,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 394207,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 16,
+        "rss_mb": 512,
+        "wall_seconds": 30
+      },
+      "origin": "outputs/edge-fringe-source-census-v1/cpu-job.json",
+      "process_exit_verified": true,
+      "rss_samples": 1,
+      "sampled_peak_rss_bytes": 202080256
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "-B",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/edge-fringe-candidate-preparation-v2/build_candidate.py"
+      ],
+      "elapsed_seconds": 1.279,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 34859848,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 96,
+        "rss_mb": 512,
+        "wall_seconds": 30
+      },
+      "origin": "outputs/edge-fringe-candidate-preparation-v2/cpu-job.json",
+      "process_exit_verified": true,
+      "rss_samples": 4,
+      "sampled_peak_rss_bytes": 495222784
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "1",
+        "--threads",
+        "4",
+        "--python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-preview-v1/sources/blender_provider_preview.py",
+        "--",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-preview-v1/original.glb",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-preview-v1",
+        "512",
+        "16",
+        "false",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-preview-v1/motion-states.json"
+      ],
+      "elapsed_seconds": 15.275,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 78224680,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 128,
+        "rss_mb": 2048,
+        "wall_seconds": 120
+      },
+      "origin": "outputs/panda-edge-fringe-preview-v1/job.json",
+      "process_exit_verified": true,
+      "rss_samples": 59,
+      "sampled_peak_rss_bytes": 1040498688
+    },
+    {
+      "command": [
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+        "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-edge-fringe-audit-v1/audit.py"
+      ],
+      "elapsed_seconds": 0.262,
+      "exit_code": 0,
+      "failure": null,
+      "final_output_bytes": 49058,
+      "limits": {
+        "cleanup_grace_seconds": 7,
+        "log_bytes": 16777216,
+        "output_inventory_entries": 100000,
+        "output_mb": 16,
+        "rss_mb": 256,
+        "wall_seconds": 15
+      },
+      "origin": "outputs/panda-edge-fringe-audit-v1/cpu-job.json",
+      "process_exit_verified": true,
+      "rss_samples": 0,
+      "sampled_peak_rss_bytes": null
+    }
+  ],
+  "cross_receipt_checks": [
+    {
+      "binding": "root_review_hash",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-review-v1/appearance-review.json",
+      "sha256": "9fec7c82d0ce3d63dab28453ea16db515d644a5852687569a4099ff5b9a49b71"
+    },
+    {
+      "binding": "root_review_manifest",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-review-v1/manifest.json",
+      "sha256": "d419638b7cadc9427dabc55188ff9f3630cb94cd70777a927699388dfc7b9158"
+    },
+    {
+      "binding": "census_findings_addendum",
+      "matches": true,
+      "origin": "outputs/edge-fringe-source-census-v1/manifest.json",
+      "sha256": "a13b3a808d2d049e19d4463016e3cfe2064bb66e59a999894c4a5ebbcbba41f0"
+    },
+    {
+      "binding": "census_findings_addendum",
+      "matches": true,
+      "origin": "outputs/edge-fringe-source-census-v1/findings.md",
+      "sha256": "f53965f5e54730fc1223ffc2b0edb818613fddf4d93f101d5d88ec9e0342cad5"
+    },
+    {
+      "binding": "output_binds_preparation",
+      "matches": true,
+      "origin": "outputs/edge-fringe-candidate-preparation-v2/prepared.json",
+      "sha256": "30e624bc61074cf952da5ff22f28c7dbab687be679dcd0114eee1a59d8ee379f"
+    },
+    {
+      "binding": "output_binds_preparation",
+      "matches": true,
+      "origin": "outputs/edge-fringe-preview-preparation-v1/prepared.json",
+      "sha256": "f4c53949189bafb84b916f5804e3313add6b7d1f5b98a8970a2938e7b1c8b734"
+    },
+    {
+      "binding": "review_binds_preview",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/manifest.json",
+      "sha256": "49888f2e2f1c2eabba01716bae43911c054de07b349e4b996b9b37b1a04abfa9"
+    },
+    {
+      "binding": "review_binds_build",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-v1/manifest.json",
+      "sha256": "5cd229ece507152f7ca02c43966a0bec4fc7f2fed4427a54d6eb4c1b63c38d6e"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/front.png",
+      "sha256": "626d45190d99e16fb590a8b4edcc0e3c30fee45530f25e72e0526dfcc629853d"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/side.png",
+      "sha256": "c8ef5ab450496bb5d8879520a1c763600813c41345e485fdcf69fab57d35165d"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/three-quarter.png",
+      "sha256": "dfcf9e60babde6a6fcd060fbbd6af8493f08acfdec2eccbdbdeb88c6eb8afdd8"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/back.png",
+      "sha256": "5442a691a71e302091521a546d839608c3924af885760eaaeacd15615bf6ce03"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "a2d4008971ed5069fe2e33b2f5d9e4e3aea60d42236076a3515691e4c5f4063c"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0006.png",
+      "sha256": "85c6fc95033a93119ab4ed985d9463e0cd41e2ec1e93c79ebaa64dad84c2873f"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-review-v1/contact-sheet-256.png",
+      "sha256": "c5fdf5c51d3d462099d26e0f7a797d7877a5f4801982d9a6efae393b69f83060"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/front.png",
+      "sha256": "3ac1b3800ac6cf50c85bf7a5d98ba1db9ae711bba72e3cf22262cc1d4dab5e6d"
+    },
+    {
+      "binding": "reviewed_image",
+      "matches": true,
+      "origin": "outputs/panda-adaptive-undercoat-export-preview-v2/renders/dance_flight/0003.png",
+      "sha256": "d51f64ee35fefcf660386acd132449536a9060041e137b5537270a3e294a8cf6"
+    },
+    {
+      "binding": "root_released_independent_audit_manifest",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-audit-v1/manifest.json",
+      "sha256": "d47a738e03f023270e72b15fcc55d6d1035141b5c14988e691db20e03da94390"
+    },
+    {
+      "binding": "root_released_independent_audit_report",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-audit-v1/audit.json",
+      "sha256": "f36f5193ea603ba4118732da08ae8348e915550a26c5ec3700c9cbcb7dca3bc1"
+    },
+    {
+      "binding": "runtime_binds_completed_evidence",
+      "matches": true,
+      "origin": "outputs/edge-fringe-candidate-preparation-v2/prepared.json",
+      "sha256": "30e624bc61074cf952da5ff22f28c7dbab687be679dcd0114eee1a59d8ee379f"
+    },
+    {
+      "binding": "runtime_binds_completed_evidence",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-v1/manifest.json",
+      "sha256": "5cd229ece507152f7ca02c43966a0bec4fc7f2fed4427a54d6eb4c1b63c38d6e"
+    },
+    {
+      "binding": "runtime_binds_completed_evidence",
+      "matches": true,
+      "origin": "outputs/panda-edge-fringe-preview-v1/manifest.json",
+      "sha256": "49888f2e2f1c2eabba01716bae43911c054de07b349e4b996b9b37b1a04abfa9"
+    }
+  ],
+  "image_inventory": [
+    {
+      "bytes": 249233,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/back.png",
+      "sha256": "5442a691a71e302091521a546d839608c3924af885760eaaeacd15615bf6ce03",
+      "width": 512
+    },
+    {
+      "bytes": 265256,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/front.png",
+      "sha256": "626d45190d99e16fb590a8b4edcc0e3c30fee45530f25e72e0526dfcc629853d",
+      "width": 512
+    },
+    {
+      "bytes": 237682,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0000.png",
+      "sha256": "4f25204f21d8ab509f4167764080d763c15aa931815033505509eab03d2e32e5",
+      "width": 512
+    },
+    {
+      "bytes": 241052,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "57cb8fbe8a08350e392298ccd3a670a0ea512b91848bbb42a97f0c823e36e7cc",
+      "width": 512
+    },
+    {
+      "bytes": 239859,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0002.png",
+      "sha256": "8ff7a185728660766bcc8049cde5648302131707e977ad66d4cd93f7880ddc5f",
+      "width": 512
+    },
+    {
+      "bytes": 241040,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "a2d4008971ed5069fe2e33b2f5d9e4e3aea60d42236076a3515691e4c5f4063c",
+      "width": 512
+    },
+    {
+      "bytes": 239590,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0004.png",
+      "sha256": "974bcaae55e9c0b389a6fc4d3abe8f3d7a43765aef5ce0c5d39c495f58426468",
+      "width": 512
+    },
+    {
+      "bytes": 240356,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0005.png",
+      "sha256": "1eaa75c1699b1477df3055eaa1a877c007a8fd191df4c597843a88dbe35f912d",
+      "width": 512
+    },
+    {
+      "bytes": 239626,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0006.png",
+      "sha256": "85c6fc95033a93119ab4ed985d9463e0cd41e2ec1e93c79ebaa64dad84c2873f",
+      "width": 512
+    },
+    {
+      "bytes": 237682,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0007.png",
+      "sha256": "abba80c9d96e2f4b4ef05437d84937ae9d3347392324879ee9be6eff1fbb033a",
+      "width": 512
+    },
+    {
+      "bytes": 236880,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/side.png",
+      "sha256": "c8ef5ab450496bb5d8879520a1c763600813c41345e485fdcf69fab57d35165d",
+      "width": 512
+    },
+    {
+      "bytes": 260427,
+      "header_only_not_redecoded": true,
+      "height": 512,
+      "kind": "actual_exported_model_native_preview",
+      "origin": "outputs/panda-edge-fringe-preview-v1/three-quarter.png",
+      "sha256": "dfcf9e60babde6a6fcd060fbbd6af8493f08acfdec2eccbdbdeb88c6eb8afdd8",
+      "width": 512
+    },
+    {
+      "bytes": 498355,
+      "header_only_not_redecoded": true,
+      "height": 828,
+      "kind": "derived_256px_review_evidence",
+      "origin": "outputs/panda-edge-fringe-review-v1/contact-sheet-256.png",
+      "sha256": "c5fdf5c51d3d462099d26e0f7a797d7877a5f4801982d9a6efae393b69f83060",
+      "width": 1024
+    },
+    {
+      "bytes": 61169,
+      "header_only_not_redecoded": true,
+      "height": 256,
+      "kind": "derived_256px_review_evidence",
+      "origin": "outputs/panda-edge-fringe-review-v1/static-256.png",
+      "sha256": "72b4eee51eb2001e6e16eb523ff0c8f86aa13fed8b83e1ea2eccc686d74a6d4e",
+      "width": 256
+    }
+  ],
+  "integrity_discrepancies": [],
+  "notes": [
+    "Census findings.md and findings-receipt.json are append-only additions beyond its execution manifest. Their receipt hashes match; both are retained unchanged.",
+    "Prepared status strings are preserved exactly. Separate later terminal manifests establish the v2 CPU build and native preview ran; v1 was superseded without execution.",
+    "The independent audit elapsed 0.262 s and had zero RSS samples; sampled peak memory is unknown/null, not zero.",
+    "Original body/rig/animation preservation is scoped to the independent audit; no physical, Weft, Muse-quality, dense-fur, or hands-off acceptance follows.",
+    "The twelve actual 512px images and 256px static/contact sheet are retained byte-for-byte. PNG headers only were checked for dimensions; no image rerender or redecoding occurred.",
+    "The one released runtime receipt was captured after execution; it records tool identities and existing hashes, not a new job or a contemporaneous peak-memory measurement. No extra executable or dependency bytes are copied."
+  ],
+  "preparation_native_provider_ai_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-01 18:10:42 PST",
+  "revised_from_inventory_sha256": "fc086f7ff3e55a7d888266bdee30fba769f1b22dce107a80142607d100fc8e2b",
+  "schema_version": 1,
+  "source_inventory_checks": [
+    {
+      "directory": "outputs/edge-fringe-source-census-v1",
+      "listed_artifact_count": 13,
+      "listed_artifacts_match": true,
+      "manifest_sha256": "a13b3a808d2d049e19d4463016e3cfe2064bb66e59a999894c4a5ebbcbba41f0",
+      "status": "measured",
+      "unlisted_after_manifest": [
+        "findings-receipt.json",
+        "findings.md"
+      ]
+    },
+    {
+      "directory": "outputs/edge-fringe-candidate-preparation-v1",
+      "has_execution_receipt": false,
+      "prepared_sha256": "7b27d3bd393df411b01c90c55845cd91cac23edc030a3eb1b39bd4a3279e3965",
+      "prepared_status": "prepared_not_executed",
+      "preserve_as": "superseded_unexecuted_preparation",
+      "terminal_manifest_present": false
+    },
+    {
+      "directory": "outputs/edge-fringe-candidate-preparation-v2",
+      "has_execution_receipt": true,
+      "prepared_sha256": "30e624bc61074cf952da5ff22f28c7dbab687be679dcd0114eee1a59d8ee379f",
+      "prepared_status": "prepared_not_executed",
+      "preserve_as": "preparation_with_separate_terminal_output_manifest",
+      "terminal_manifest_present": false
+    },
+    {
+      "directory": "outputs/panda-edge-fringe-v1",
+      "listed_artifact_count": 9,
+      "listed_artifacts_match": true,
+      "manifest_sha256": "5cd229ece507152f7ca02c43966a0bec4fc7f2fed4427a54d6eb4c1b63c38d6e",
+      "status": "candidate_pending_visual_review",
+      "unlisted_after_manifest": []
+    },
+    {
+      "directory": "outputs/edge-fringe-preview-preparation-v1",
+      "has_execution_receipt": true,
+      "prepared_sha256": "f4c53949189bafb84b916f5804e3313add6b7d1f5b98a8970a2938e7b1c8b734",
+      "prepared_status": "prepared_not_executed",
+      "preserve_as": "preparation_with_separate_terminal_output_manifest",
+      "terminal_manifest_present": false
+    },
+    {
+      "directory": "outputs/panda-edge-fringe-preview-v1",
+      "listed_artifact_count": 24,
+      "listed_artifacts_match": true,
+      "manifest_sha256": "49888f2e2f1c2eabba01716bae43911c054de07b349e4b996b9b37b1a04abfa9",
+      "status": "needs_visual_review",
+      "unlisted_after_manifest": []
+    },
+    {
+      "directory": "outputs/panda-edge-fringe-review-v1",
+      "listed_artifact_count": 4,
+      "listed_artifacts_match": true,
+      "manifest_sha256": "d419638b7cadc9427dabc55188ff9f3630cb94cd70777a927699388dfc7b9158",
+      "status": "partial_outline_component_not_promoted",
+      "unlisted_after_manifest": []
+    },
+    {
+      "directory": "outputs/panda-edge-fringe-audit-v1",
+      "listed_artifact_count": 11,
+      "listed_artifacts_match": true,
+      "manifest_sha256": "d47a738e03f023270e72b15fcc55d6d1035141b5c14988e691db20e03da94390",
+      "owner_release_received": true,
+      "status": "measured",
+      "unlisted_after_manifest": []
+    },
+    {
+      "classification": "post_execution_runtime_identity_receipt",
+      "directory": "outputs/edge-fringe-runtime-receipt-v1",
+      "receipt_bytes": 1873,
+      "receipt_sha256": "505f653eef1e03ea2653b434ee74dc7d45cabd69310fb6489792649b35217001",
+      "root_additive_release_received": true,
+      "standalone_receipt": "runtime.json"
+    }
+  ],
+  "source_stage_classification": [
+    {
+      "classification": "actual_source_cpu_census_no_geometry_created",
+      "directory": "outputs/edge-fringe-source-census-v1"
+    },
+    {
+      "classification": "superseded_unexecuted_preparation_not_a_failed_job",
+      "directory": "outputs/edge-fringe-candidate-preparation-v1",
+      "reason": "Endpoint-grid CLAMP color approximation replaced before execution."
+    },
+    {
+      "classification": "executed_cpu_candidate_preparation",
+      "directory": "outputs/edge-fringe-candidate-preparation-v2",
+      "terminal_evidence": "outputs/panda-edge-fringe-v1/manifest.json"
+    },
+    {
+      "classification": "local_derivative_of_prior_generated_model_not_fresh_provider_generation",
+      "directory": "outputs/panda-edge-fringe-v1"
+    },
+    {
+      "classification": "executed_native_preview_preparation",
+      "directory": "outputs/edge-fringe-preview-preparation-v1",
+      "terminal_evidence": "outputs/panda-edge-fringe-preview-v1/manifest.json"
+    },
+    {
+      "classification": "twelve_actual_exported_model_previews_not_full_video",
+      "directory": "outputs/panda-edge-fringe-preview-v1"
+    },
+    {
+      "classification": "partial_outline_component_not_promoted",
+      "directory": "outputs/panda-edge-fringe-review-v1"
+    },
+    {
+      "classification": "independent_serialized_attribute_audit_passed_not_appearance_approval",
+      "directory": "outputs/panda-edge-fringe-audit-v1"
+    }
+  ],
+  "status": "verified_released_edge_fringe_input_inventory"
+}

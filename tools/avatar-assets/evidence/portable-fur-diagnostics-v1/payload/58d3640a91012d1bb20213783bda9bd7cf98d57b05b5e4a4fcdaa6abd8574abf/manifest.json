@@ -1,0 +1,93 @@
+{
+  "actual_character_model_used": false,
+  "artifacts": [
+    {
+      "bytes": 4417,
+      "path": "README.md",
+      "sha256": "2c58e9260ee778acb75541bbfe3a5d91d341e0e0ec46cc838974ffcfc4d6f988"
+    },
+    {
+      "bytes": 228616,
+      "path": "analytic-fins.npz",
+      "sha256": "492c949ce1266d50f1d2647b0464d9b4a2e2ed66521c909b794ab8611e975235"
+    },
+    {
+      "bytes": 46638,
+      "path": "analytic-two-tip-atlas.png",
+      "sha256": "6cace011be1988777ae042db00476ed8a6b388fdc9a18de2a646e7cacb065789"
+    },
+    {
+      "bytes": 232,
+      "path": "cpu-handle.json",
+      "sha256": "7adc308bf58ad4f437a59cd0f3da2d42c9eab092c44ea4c9982bdcfc8b17943b"
+    },
+    {
+      "bytes": 1017,
+      "path": "cpu-monitor.json",
+      "sha256": "67930593efb4ffb51649b42aecf2c58e3dd905da05d718de930bd1fe62a566e1"
+    },
+    {
+      "bytes": 167,
+      "path": "cpu.log",
+      "sha256": "a7bef60d3a16c514a0bde3b570bf3ec86c81db9c532f892854e330b0eeac8a46"
+    },
+    {
+      "bytes": 14314,
+      "path": "edge_fringe.py",
+      "sha256": "a3b8555920561551a6b9753f1f1ae21185141c2d8faed4abaf2c523fb77d3ffd"
+    },
+    {
+      "bytes": 1403,
+      "path": "execute.py",
+      "sha256": "ac86b89e2a36634523a8db68bc1132fb0be6daa6df887f7ee085a64376e2ccdb"
+    },
+    {
+      "bytes": 1111,
+      "path": "job.json",
+      "sha256": "ceb06f98e754f28cd7bd4bdf85f9f875f59f9bcc3ffd32e640ea3c5488ba77f9"
+    },
+    {
+      "bytes": 1382,
+      "path": "prepared.json",
+      "sha256": "98c12e3f44d1050e2405fdf2612073d4ed3502f5734e75ff78a5a9e68903f226"
+    },
+    {
+      "bytes": 7173,
+      "path": "result.json",
+      "sha256": "dd79e4f3611689531204d6c7b8b40e275c7c66051e4fc3ea9f9fe960a4c254ca"
+    },
+    {
+      "bytes": 11031,
+      "path": "screen.py",
+      "sha256": "0744c44d29140d9e0b4d1a64becc88382f57e760cbeb4b06635d5092cc962e11"
+    },
+    {
+      "bytes": 0,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "environment": {
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]"
+  },
+  "kind": "analytic_edge_fringe_screen_not_avatar",
+  "native_provider_ai_role_calls": 0,
+  "process_exit_verified": true,
+  "quality_approved": false,
+  "recorded_at": "2026-11-01T17:47:44.492533-08:00",
+  "schema_version": 1,
+  "source_pins_unchanged": true,
+  "status": "analytic_contracts_passed_with_display_limits"
+}

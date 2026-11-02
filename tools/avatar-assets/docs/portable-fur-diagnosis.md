@@ -1,5 +1,11 @@
 # Portable fur: measured diagnosis
 
+This is the original baseline diagnosis. Its proposed tuft experiment has since
+run and failed visual acceptance. Follow the [trial history](tuft-profile.md),
+[adaptive undercoat](adaptive-undercoat.md) and latest
+[upright-fringe experiment](edge-fringe-experiment.md) for current results;
+historical “not executed” sections below are not current instructions.
+
 Status: **the current exported coat is not accepted as convincing fur**. This is a
 read-only diagnosis, not a new asset or successful repair. No code, source assets,
 provider jobs or renders were changed for it.

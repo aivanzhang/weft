@@ -1,0 +1,100 @@
+{
+  "artifacts": [
+    {
+      "bytes": 3110,
+      "path": "execute_prepared.py",
+      "sha256": "46ab7b74f7bf94abd04a78a46711ff7980a0552a8f6dca5d745e37be2eff394e"
+    },
+    {
+      "bytes": 211,
+      "path": "execution-failure.json",
+      "sha256": "5ef09feea4d34ad3ed8e5f1ce32a245322823d6dbca484d0636bef0312be2670"
+    },
+    {
+      "bytes": 455,
+      "path": "execution-started.json",
+      "sha256": "fa22849a09a833fc9c0e547f17871bb6c2c079af872d6da963c841af50215cf7"
+    },
+    {
+      "bytes": 8958941,
+      "path": "inputs/actual-basecolor.jpg",
+      "sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d"
+    },
+    {
+      "bytes": 113,
+      "path": "inputs/known-srgb.png",
+      "sha256": "9864e2769a588079edb4733c44a8f8ebdc09230eb7a0b541841dfd4b24e05d1e"
+    },
+    {
+      "bytes": 376,
+      "path": "native-handle.json",
+      "sha256": "7b6b024e3cf65af2843cefd43b5d6ceb64b5bdfb133beafe2033d87d2ad0012d"
+    },
+    {
+      "bytes": 1426,
+      "path": "native-job.json",
+      "sha256": "0bfe610e2302cc8114cb43cc7d93d9d436eae8ae05b1f6e4191ff5b519c4e3fe"
+    },
+    {
+      "bytes": 1266,
+      "path": "native-monitor.json",
+      "sha256": "07790c5218f7a2e7c3096a64d7a8f3622de13331d69186248037dfc88fc441fb"
+    },
+    {
+      "bytes": 0,
+      "path": "native.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 8604,
+      "path": "prepare_inputs.py",
+      "sha256": "f41a3573b461856d5a36b4c6dc2c6aac399f8905d74681c00cef0a645a89ae04"
+    },
+    {
+      "bytes": 3853,
+      "path": "prepared.json",
+      "sha256": "067258779c995e5e5721237de77a5f54b675d78ea9ef323571ede69826d5f585"
+    },
+    {
+      "bytes": 6020,
+      "path": "probe_pixels.py",
+      "sha256": "7e1c4043d628a1e3898cc16da76ad6d632363e31736c0065a8c1bf99b61cdad9"
+    },
+    {
+      "bytes": 35251,
+      "path": "samples.json",
+      "sha256": "60659a51f6677f0765dc74d21319a61875b481ce3292b62f278dc36b035b497d"
+    },
+    {
+      "bytes": 1047,
+      "path": "source-copies.json",
+      "sha256": "4d297fcafc3ffe6899dd7f45c53692e1f00a001a2dea7a4065048de11ed8365f"
+    },
+    {
+      "bytes": 47396,
+      "path": "sources/context/blender_finish_generated.py",
+      "sha256": "7a8c6542509d33e28112c979aa4d1c39552f3ab2962507f7815c09e8ef27bd3b"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/host/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/host/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/host/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 2952,
+      "path": "sources/native/fur_root_sampling.py",
+      "sha256": "6906d5facd5e5a6d34e9814770810be105f746f7b2740b772813cf63edc8ddc2"
+    }
+  ],
+  "status": "failed_preserved"
+}

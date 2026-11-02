@@ -1,0 +1,76 @@
+{
+  "candidate": {
+    "path": "outputs/panda-edge-fringe-v1/model.glb",
+    "sha256": "e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb"
+  },
+  "causal_limits": [
+    "Source body and rig/action bytes are unchanged; existing contact defects are not repaired by this fin pass.",
+    "512px candidate and 720px saved baseline use the same renderer/lighting algorithm, but computed bounds and pixel sampling differ. No pixel-matched quality metric is asserted.",
+    "CPU attachment and standard validators establish structure/motion, not surface collisions or all poses in a continuous animation.",
+    "No browser/GPU test, full MP4, physical flight, hair dynamics or seamless loop certification was performed."
+  ],
+  "decision": "Keep this as a reusable experimental representation and source-preservation proof. Do not promote it into the default finish/quality policy or replace approved assets.",
+  "fresh_acceptance_pending": "Separate saved 105-credit/AI-role proposal remains unapproved; no fresh prompt-generation run occurred.",
+  "hands_off_acceptance": false,
+  "muse_parity": false,
+  "new_provider_or_pipeline_ai_calls": 0,
+  "next_safe_action": "Before another avatar render, test a source-independent allocation/sampling correction on analytic curved surfaces with nonuniform triangulation. Preserve skin attachment, white markings, source caps and the fixed resource/vertex limits. Do not rerun this exact candidate or dense native hair merely for screening.",
+  "observed_improvements": [
+    "Ears and tail have a visibly softer short fringe than the prior smooth exported outline.",
+    "Paw outlines show short fuzz in the sampled 512px views.",
+    "The sampled pose sequence retains the panda identity and separate shoulder-dragon flight."
+  ],
+  "quality_approved": false,
+  "remaining_failures": [
+    "Large white head and belly surfaces/outlines still read mostly smooth rather than densely furry.",
+    "Sparse bright raised-looking marks remain over the cheek and back/white body areas.",
+    "The departing dragon still exposes angular cheek damage and mottled shoulder surfaces from the source.",
+    "At 256px the dark fringe reads as soft fuzz but separate tips merge; the broad white coat is not convincingly furry."
+  ],
+  "reviewed_images": [
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/front.png",
+      "sha256": "626d45190d99e16fb590a8b4edcc0e3c30fee45530f25e72e0526dfcc629853d"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/side.png",
+      "sha256": "c8ef5ab450496bb5d8879520a1c763600813c41345e485fdcf69fab57d35165d"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/three-quarter.png",
+      "sha256": "dfcf9e60babde6a6fcd060fbbd6af8493f08acfdec2eccbdbdeb88c6eb8afdd8"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/back.png",
+      "sha256": "5442a691a71e302091521a546d839608c3924af885760eaaeacd15615bf6ce03"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "a2d4008971ed5069fe2e33b2f5d9e4e3aea60d42236076a3515691e4c5f4063c"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-preview-v1/renders/dance_flight/0006.png",
+      "sha256": "85c6fc95033a93119ab4ed985d9463e0cd41e2ec1e93c79ebaa64dad84c2873f"
+    },
+    {
+      "path": "outputs/panda-edge-fringe-review-v1/contact-sheet-256.png",
+      "sha256": "c5fdf5c51d3d462099d26e0f7a797d7877a5f4801982d9a6efae393b69f83060"
+    },
+    {
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/front.png",
+      "sha256": "3ac1b3800ac6cf50c85bf7a5d98ba1db9ae711bba72e3cf22262cc1d4dab5e6d"
+    },
+    {
+      "path": "outputs/panda-adaptive-undercoat-export-preview-v2/renders/dance_flight/0003.png",
+      "sha256": "d51f64ee35fefcf660386acd132449536a9060041e137b5537270a3e294a8cf6"
+    }
+  ],
+  "reviewed_local_time": "2026-11-01 18:07 PST",
+  "reviewer": "root direct image inspection",
+  "sampling_findings": [
+    "Source glTF repeat/texel-center color sampling corrected the prototype endpoint-grid approximation, with maximum linear component difference .38430118560791016. This does not change the verified encoded-sRGB source-buffer convention.",
+    "Fixed narrow source-edge spans provide safe anchors but may allocate unevenly by mesh tessellation. Regional coverage is a new hypothesis, not a measured cause."
+  ],
+  "schema_version": 1,
+  "status": "partial_outline_component_not_promoted"
+}

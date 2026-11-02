@@ -1,0 +1,92 @@
+{
+  "comparison_limits": [
+    "Same existing native preview lighting/camera algorithm; no changes to source or approved baseline.",
+    "Candidate uses 512px; old baseline has 720px. Different mesh bounds can slightly change computed framing.",
+    "No controlled pixel-error, GPU/browser rendering or seamless-loop claim.",
+    "No native groom rebuild or full video needed for this portable-fur screen."
+  ],
+  "inputs": [
+    {
+      "bytes": 34524020,
+      "path": "outputs/panda-edge-fringe-v1/model.glb",
+      "sha256": "e113fa5372ebddbf04a9860876734d53265ded9611d1ffecd1ae7e2bd87bc2eb"
+    },
+    {
+      "bytes": 3159,
+      "path": "outputs/panda-edge-fringe-v1/manifest.json",
+      "sha256": "5cd229ece507152f7ca02c43966a0bec4fc7f2fed4427a54d6eb4c1b63c38d6e"
+    },
+    {
+      "bytes": 25993,
+      "path": "outputs/panda-edge-fringe-v1/build-report.json",
+      "sha256": "fb194b01108657c45685b32ee7224023f29ebc878327648ac8b3d74a09950887"
+    },
+    {
+      "bytes": 3318,
+      "path": "outputs/panda-edge-fringe-v1/rig-verification.json",
+      "sha256": "3501fd0850905751fc7b2d5c7db9f9af0f803afd6d427bc1fc23eb9ab0f70f5b"
+    },
+    {
+      "bytes": 4041,
+      "path": "outputs/panda-edge-fringe-v1/render-attributes.json",
+      "sha256": "a94e7d30744e0dc33e046d1e6191e8841859c75e17daf29e37596dcb402a1287"
+    },
+    {
+      "bytes": 2712,
+      "path": "outputs/edge-fringe-preview-preparation-v1/execute.py",
+      "sha256": "7abc38f31b599c55870bfb0cb14132d891ca0106aa52806b5cbb9a7085fae45f"
+    },
+    {
+      "bytes": 12033,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "de14c027f41f4618bf19865901feab81b7c2b0ace6d4b976301d9da3a5cab4f3"
+    },
+    {
+      "bytes": 18248,
+      "path": "scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "max_native_attempts": 1,
+    "output_mib": 128,
+    "pose_images": 8,
+    "resolution": 512,
+    "sampled_direct_child_rss_mib": 2048,
+    "samples": 16,
+    "threads": 4,
+    "views": 4,
+    "wall_seconds": 120
+  },
+  "motion_states": [
+    {
+      "id": "dance_flight",
+      "seconds": [
+        0,
+        1,
+        1.18,
+        1.36,
+        2.36,
+        2.55,
+        2.8,
+        4
+      ]
+    }
+  ],
+  "new_generation_calls": 0,
+  "output": "outputs/panda-edge-fringe-preview-v1",
+  "quality_approved": false,
+  "schema_version": 1,
+  "source": "outputs/panda-edge-fringe-v1/model.glb",
+  "status": "prepared_not_executed"
+}

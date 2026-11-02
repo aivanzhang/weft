@@ -1,5 +1,12 @@
 # Portable tuft experiment
 
+This is a chronological record of the rejected broad-tuft experiment and its
+subsequent texture studies. The later [adaptive-undercoat integration](adaptive-undercoat.md)
+now has a technical build/export pass, but no portable-fur quality promotion.
+Statements below about then-pending probes or UV0-only authoring validation
+describe their recorded checkpoint; use [the current handoff](../TODO.md) for
+active ownership, capabilities and the next safe action.
+
 Status: **opt-in finisher integration tested; the first actual candidate failed
 the unchanged2GiB memory bound. Not visually accepted.**
 `legacy`, `combed-v1`, `fine-v1` and `distance-v1` retain their previous outputs.

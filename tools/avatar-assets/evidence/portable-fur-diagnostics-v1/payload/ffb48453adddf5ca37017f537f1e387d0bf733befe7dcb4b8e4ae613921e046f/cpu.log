@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v1/audit.py", line 359, in <module>
+    main()
+    ~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v1/audit.py", line 323, in main
+    primitives, boxes, vertices = load_scene(glb)
+                                  ~~~~~~~~~~^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v1/audit.py", line 75, in load_scene
+    require(color.shape[1] == 4 and np.all(color[:, 3] == 1), 'Card vertex alpha is not constant1')
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-fur-visibility-audit-v1/sources/host/avatar_assets/safety.py", line 31, in require
+    raise ValueError(message)
+ValueError: Card vertex alpha is not constant1

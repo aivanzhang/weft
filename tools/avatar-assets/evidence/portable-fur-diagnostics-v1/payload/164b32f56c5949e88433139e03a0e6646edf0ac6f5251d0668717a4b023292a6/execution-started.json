@@ -1,0 +1,15 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+    "--background",
+    "--factory-startup",
+    "--disable-autoexec",
+    "--python-exit-code",
+    "1",
+    "--threads",
+    "4",
+    "--python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fur-color-convention-v2/probe_pixels.py"
+  ],
+  "prepared_sha256": "65d2af508ed8f308261686ed8863b8f0b05127531e71484d89039d303c29d21e"
+}
