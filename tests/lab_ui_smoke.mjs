@@ -177,10 +177,16 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     scene.human.limb_position_fit = {method:'fixed-length-limb-position-v1',supported_limbs:330,changed_limbs:120};
   }
   if (partialSegments) {
-    scene.human.root_method='two-view-body-v2';
+    scene.human.root_method=limbFit?'camera-body-length-fit-v2':multiView?'multi-view-body-v2':'two-view-body-v2';
+    scene.human.partial_segments=true;
     scene.human.geometry_coverage.left_shoulder={two_view_estimate:59,two_view_proximal_monocular_distal_and_twist:42,monocular_prior_missing_points:11};
     scene.human.geometry_coverage.left_hip={two_view_estimate:90,two_view_proximal_monocular_distal_and_twist:22};
     scene.human.geometry_coverage.right_hip={two_view_estimate:80,two_view_proximal_monocular_distal_and_twist:15,monocular_prior_missing_points:17};
+    if (multiView) for (const values of Object.values(scene.human.geometry_coverage)) {
+      for (const key of Object.keys(values)) if (key.startsWith('two_view')) {
+        values[key.replace('two_view','multi_view')]=values[key]; delete values[key];
+      }
+    }
   }
   if (initialFailure) {state.terminated=true;state.simulation_failure={reason:'Synthetic nonfinite dynamics',scope:'Last valid state shown'};}
   const exerciseTask = sharedExercise ? {profile:'shared-exercise-task-v1',control:{root_assistance:rootAssistance?'explicit_3_axis':'disabled',object_forces:'forbidden'},
@@ -911,6 +917,19 @@ async function fixedLengthFitRemainsAnUntrainedSourceProposal() {
   }
 }
 checks.push(fixedLengthFitRemainsAnUntrainedSourceProposal);
+
+async function fittedPartialLimbsKeepMissingEndpointsVisible() {
+  for (const multiView of [false,true]) for (const limbFit of [false,true]) {
+    const ui = fixture('exercise',{mobile:true,cameraBody:true,suppliedGround:true,geometryMode:'both',partialSegments:true,multiView,limbFit}); await ui.ready();
+    assert.match(ui.ids.get('world-description').textContent,/left arm 59 complete \+ 42 upper-only \/ 112/);
+    assert.match(ui.ids.get('world-description').textContent,/missing endpoint, bend and twist/);
+    assert.equal(ui.ids.get('world-description').textContent.includes('bounded angle fit'),limbFit);
+    if (limbFit) assert.match(ui.ids.get('world-description').textContent,/For complete limbs, a bounded angle fit/);
+    assert.equal(ui.ids.get('policy').disabled,true);
+    assert(!ui.requests.some(request=>/two-view-(body|triangulation)/.test(request.path)));
+  }
+}
+checks.push(fittedPartialLimbsKeepMissingEndpointsVisible);
 
 
 async function upperSegmentCorrectionDoesNotClaimObservedWristsOrAnkles() {

@@ -93,11 +93,9 @@ def test_invalid_body_contributors_do_not_pass_even_if_evidence_hash_is_resealed
         validate_human(body)
 
 
-def test_unqualified_extra_sources_and_partial_segment_mode_reject(tmp_path):
+def test_unqualified_extra_sources_reject(tmp_path):
     base, first, second, third, _ = setup(tmp_path)
     root, _, predictions = make_two_view_root(base, first, second, additional_views=[third], world_provenance=WORLD)
     wrong = deepcopy(third['evidence']); wrong['source_sha256'] = 'd'*64
     with pytest.raises(ValueError, match='pinned reconstruction'):
         make_two_view_body(root, predictions, first['evidence'], second['evidence'], additional_evidence=[wrong])
-    with pytest.raises(ValueError, match='not qualified'):
-        make_two_view_body(root, predictions, first['evidence'], second['evidence'], additional_evidence=[third['evidence']], partial_segments=True)

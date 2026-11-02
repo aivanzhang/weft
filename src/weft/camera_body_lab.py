@@ -50,14 +50,14 @@ def prepare_camera_body_lab(source_run, camera_path, out, *, ground_path=None, r
     started = time.monotonic()
     source_run, camera_path, out = (Path(value).resolve() for value in (source_run, camera_path, out))
     if (not isinstance(additional_view_paths, (list, tuple)) or len(additional_view_paths) > 2
-            or additional_view_paths and (root_view_path is None or partial_segments)):
-        raise ValueError('At most two additional views require --root-view; partial-segment transport is not qualified')
+            or additional_view_paths and root_view_path is None):
+        raise ValueError('At most two additional views require --root-view')
     if body_view is not None and (body_view not in ('directions', 'dimensions', 'both') or root_view_path is None):
         raise ValueError('Partial two-view body geometry requires --root-view and an explicit supported mode')
     if type(partial_segments) is not bool or partial_segments and (body_view not in ('directions', 'both') or root_view_path is None):
         raise ValueError('Partial segments require --root-view and --body-view directions or both')
-    if type(limb_fit) is not bool or limb_fit and (body_view not in ('directions', 'both') or partial_segments):
-        raise ValueError('Fixed-length limb fitting requires --body-view directions/both without --partial-segments')
+    if type(limb_fit) is not bool or limb_fit and body_view not in ('directions', 'both'):
+        raise ValueError('Fixed-length limb fitting requires --body-view directions/both')
     if out.exists() or out.is_relative_to(source_run):
         raise ValueError('Choose a new camera-body lab outside the immutable source run')
     if (camera_path.parent/'manifest.json').exists() and out.is_relative_to(camera_path.parent):

@@ -32,8 +32,9 @@ def package(tmp_path):
     return source, camera, ground, config, extra
 
 
-@pytest.mark.parametrize('mode,limb_fit', [(None, False), ('both', False), ('both', True)])
-def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit):
+@pytest.mark.parametrize('mode,limb_fit,partial', [(None, False, False), ('both', False, False),
+    ('both', True, False), ('both', False, True), ('both', True, True)])
+def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path, monkeypatch, mode, limb_fit, partial):
     source, camera, ground, config, extra = package(tmp_path)
     before = verify_artifacts(source)
     out = tmp_path/'lab'
@@ -43,15 +44,20 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
         args += ['--body-view', mode]
     if limb_fit:
         args += ['--fit-limbs']
+    if partial:
+        args += ['--partial-segments']
     monkeypatch.setattr(sys, 'argv', args)
     main()
     run = out/'run'; verified = verify_artifacts(run)
     body = json.loads((run/'human.json').read_text())
-    assert body['camera_reference']['method'] == ('camera-body-length-fit-v1' if limb_fit else 'multi-view-body-v1' if mode else 'multi-view-root-body-v1')
+    assert body['camera_reference']['method'] == ('camera-body-length-fit-v2' if limb_fit and partial else
+        'camera-body-length-fit-v1' if limb_fit else 'multi-view-body-v2' if partial else
+        'multi-view-body-v1' if mode else 'multi-view-root-body-v1')
     assert (run/'ground.json').read_bytes() == ground.read_bytes()
     assert (run/'camera.json').read_bytes() == camera.read_bytes()
     scene = json.loads((run/'scene.json').read_text())
     assert scene['human']['camera_view_count'] == 3
+    assert scene['human'].get('partial_segments', False) is partial
     assert 'Multi-view' in scene['human']['mobility']['root_depth']
     assert not scene['learned_policy_available'] and not (run/'policy.json').exists()
     for name, original in [('config.json', extra), ('evidence.json', tmp_path/'third-evidence.json'),
@@ -96,10 +102,10 @@ def test_extra_view_cli_keeps_source_ground_and_exact_manual_recording(tmp_path,
 def test_extra_view_failures_never_publish_ready_lab(tmp_path, monkeypatch, damage):
     import weft.camera_body_lab as module
     source, camera, ground, config, extra = package(tmp_path)
-    out = tmp_path/'lab'; extras = [extra]; partial = False
+    out = tmp_path/'lab'; extras = [extra]; partial = False; mode = 'both'
     if damage == 'no_root': config = None
     elif damage == 'too_many': extras *= 3
-    elif damage == 'partial': partial = True
+    elif damage == 'partial': partial = True; mode = 'dimensions'
     elif damage == 'duplicate': extras *= 2
     elif damage == 'clock':
         evidence = json.loads((tmp_path/'third-evidence.json').read_text())
@@ -115,5 +121,5 @@ def test_extra_view_failures_never_publish_ready_lab(tmp_path, monkeypatch, dama
         monkeypatch.setattr(module.shutil, 'copyfile', mutate)
     with pytest.raises((ValueError, RuntimeError)):
         prepare_camera_body_lab(source, camera, out, ground_path=ground, root_view_path=config,
-                                body_view='both', partial_segments=partial, additional_view_paths=extras)
+                                body_view=mode, partial_segments=partial, additional_view_paths=extras)
     assert not (out/'status.json').exists()

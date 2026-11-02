@@ -1,5 +1,33 @@
 # Combined Weft implementation handoff
 
+## Partial multi-view limbs — November 2, 2026, PST
+
+`--partial-segments` now works with two to four views and `--fit-limbs`.
+Versioned contracts retain per-joint camera contributors, original unknown
+distal bends/twist and all missing source slots. **123 Python /71 mocked UI
+checks pass**, including native direction checks and exact manual recordings.
+Complete-limb fit histories remain unchanged. No default or policy promotion.
+
+The new exercise candidate changes 24 partial limbs and preserves 163 complete
+fits. It improves middle/right image agreement but worsens 41 left-view points.
+Floor failures are 1/47 source and 3/111 grid, versus 0/47 and 4/111 before;
+worst penetration worsens .055751→.077483. All evidence and failures are kept.
+Actual 39-action/one-reset recording replays all 41 states and frames exactly.
+All root jobs are terminal/reaped. No new source decode, inference, API, server,
+browser or deployment. [Full handoff](aspset-partial-limb.md) records runtime,
+source seals, tests, metrics, replay links and the current usable command.
+Publication receipt: `.local/aspset-partial-limb-publication-01.json` after push.
+Preserve the independent avatar session's dirty paths; index/stashes were empty
+at predecessor publication `aa1b0b4` and must be rechecked before this checkpoint.
+
+Next: use retained single-view distal image constraints instead of treating an
+untriangulated endpoint as wholly unavailable. Frame 84 has a middle-camera
+ankle observation. Its shin capsule intersects at the ankle end; the internal
+`left_knee_geom` name does not locate contact at the knee joint. Preserve fixed
+length/root/ground and uncertain bend/twist/depth; do not fit the floor score.
+Coupled contact/control, independent accuracy, learning and unfamiliar-video
+coverage still remain in the full active goal.
+
 ## Fixed-length source fit and recording — November 1, 2026, PST
 
 The opt-in [`camera-body --fit-limbs`](../multi-view-body.md#optional-fixed-length-angle-fit)

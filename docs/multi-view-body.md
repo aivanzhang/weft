@@ -126,7 +126,7 @@ The input joints imply inconsistent limb lengths in some frames. `--fit-limbs`
 adjusts supported joint angles while keeping body lengths, root position and
 ground fixed. It uses the same body constructor and lab, with no new inference.
 Add the flag to the construction command above; `--body-view directions` or
-`both` is required, and `--partial-segments` is not yet compatible.
+`both` is required. It can be combined with the optional partial-limb mode below.
 
 Try the saved fitted candidate:
 
@@ -167,3 +167,53 @@ no-descent exits do not establish optimizer convergence or physical accuracy.
 Actual recording again verified 39 actions, one reset and 41 frames exactly.
 Construction took 1.594 s /152.2 MB peak RSS; interaction/export/replay took
 1.026 s /161.8 MB. No paid API call, source-video decode or new inference was used.
+
+## Optional partial-limb directions
+
+Add `--partial-segments` to use an available shoulder-to-elbow or hip-to-knee
+direction when a wrist or ankle cannot be reconstructed. This now supports two,
+three or four cameras and can accompany `--fit-limbs`. Each joint retains its
+actual contributing cameras; an unavailable endpoint never gains invented views.
+
+Complete limbs keep the same fixed-length fit. For incomplete limbs, the upper
+segment turns toward the supported direction while the unobserved bend and twist
+remain explicit single-view priors. This transport is **not** covered by the
+complete-limb fit's 0.30-radian bound. Source positions, ground, lengths and forces
+stay fixed; missing points remain missing.
+
+The saved exercise comparison is mixed, not a replacement default:
+
+| Check | Fixed-length fit | Fit plus partial directions |
+| --- | ---: | ---: |
+| Failing source poses | 0/47 | 1/47 |
+| Failing interpolated poses | 4/111 | 3/111 |
+| Maximum floor penetration, model units | 0.055751 | 0.077483 |
+| Mean left-camera error, px | 9.2281 | 10.6642 |
+| Mean middle-camera error, px | 8.2954 | 6.6110 |
+| Mean right-camera error, px | 9.2751 | 6.1971 |
+
+All 24 supported partial limbs match their reconstructed upper-segment direction;
+all 163 complete-limb fits remain unchanged. All 6,768 image slots remain visible,
+including 41 worsened comparisons. Frame 84 now has a floor intersection at the
+ankle end of the left lower-leg shape. Correct direction alone does not establish a correct fixed-length
+body, unseen ankle, contact or physical accuracy.
+
+```sh
+.venv-lab/bin/python -m weft lab-console \
+  --resume artifacts/aspset-partial-limb-body-lab-01
+```
+
+Use `controls`, `action`, `step`, `record start`, `record stop`, and `files`.
+No learned policy is available. Use `lab --resume` instead to start the visual
+interface yourself.
+
+- [Manual replay](../artifacts/aspset-partial-limb-body-lab-01/sessions/session-4f6d03008f86/replay.html)
+  and [exported video](../artifacts/aspset-partial-limb-body-lab-01/sessions/session-4f6d03008f86/video.mp4).
+- [Independent comparison](../artifacts/aspset-partial-limb-audit-01/report.json),
+  [all source-image slots](../artifacts/aspset-partial-limb-audit-01/source-images.json),
+  and [partial-limb checks](../artifacts/aspset-partial-limb-audit-01/partial-limbs.json).
+- [Verification and remaining work](handoffs/aspset-partial-limb.md).
+
+123 Python checks and 71 mocked UI checks pass. The real 39-action/one-reset
+recording replays all 41 states and frames exactly. This verifies the interaction
+workflow, not the reconstruction's physical accuracy. No default was changed.

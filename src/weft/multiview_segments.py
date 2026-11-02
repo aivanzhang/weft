@@ -10,6 +10,7 @@ from weft.spatial_pose import LIMB_ENDPOINTS, SPATIAL_JOINT_NAMES, rotation_to_z
 
 
 METHOD = 'two-view-body-v2'
+MULTI_METHOD = 'multi-view-body-v2'
 CONTRACT = MappingProxyType({'method': 'two-view-proximal-direction-v1',
     'minimum_segment_length_m': 1e-5, 'antiparallel_cosine_margin': 1e-8,
     'orientation': 'Minimum rotation transports the monocular limb frame to the two-view proximal direction',
@@ -18,6 +19,11 @@ CONTRACT = MappingProxyType({'method': 'two-view-proximal-direction-v1',
 PARTIAL_STATUS = 'two_view_proximal_monocular_distal_and_twist'
 COMPONENTS = {'proximal_direction': 'two_view_estimate', 'axial_twist': 'transported_monocular_prior',
               'distal_flexion': 'monocular_prior', 'distal_endpoint': 'unavailable'}
+MULTI_CONTRACT = MappingProxyType(dict(CONTRACT) | {
+    'method': 'multi-view-proximal-direction-v1',
+    'orientation': 'Minimum rotation transports the monocular limb frame to the supported multi-view proximal direction'})
+MULTI_PARTIAL_STATUS = 'multi_view_proximal_monocular_distal_and_twist'
+MULTI_COMPONENTS = dict(COMPONENTS) | {'proximal_direction': 'multi_view_estimate'}
 
 
 def transport_rotation(prior, direction):
@@ -39,11 +45,14 @@ def transport_rotation(prior, direction):
     return rotation, math.acos(cosine)
 
 
-def apply_partial_segments(candidate, original, predictions, sources, audits):
+def apply_partial_segments(candidate, original, predictions, sources, audits, *, multi=False, method=METHOD):
     from weft.multiview_body import _confidence, _points
 
     before = canonical_hash(candidate['reference'])
     anchor = np.asarray(candidate['body_frame']['rotation'])
+    contract = MULTI_CONTRACT if multi else CONTRACT
+    status = MULTI_PARTIAL_STATUS if multi else PARTIAL_STATUS
+    component_sources = MULTI_COMPONENTS if multi else COMPONENTS
     changed, rejected = 0, 0
     for i, row in enumerate(audits):
         frame, groups = row['frame'], row['groups']
@@ -62,7 +71,7 @@ def apply_partial_segments(candidate, original, predictions, sources, audits):
             names = (group+'_twist', group+'_lateral', group)
             prior_angles = [original_joints[name] for name in names]
             distal = group.rsplit('_', 1)[0]+('_knee' if group.endswith('hip') else '_elbow')
-            detail['proximal_image_confidence'] = _confidence(frame, required[:2], sources)
+            detail['proximal_image_confidence'] = _confidence(frame, required[:2], sources, pose if multi else None)
             try:
                 direction = torso.T @ (pair[1]-pair[0])
                 rotation, swing = transport_rotation(rotation_zyx(prior_angles), direction)
@@ -77,18 +86,21 @@ def apply_partial_segments(candidate, original, predictions, sources, audits):
                 meta['joint_confidence'][name] = 0.
             if joints[distal] != original_joints[distal]:
                 raise ValueError('Partial-segment correction must preserve the original unobserved distal bend')
-            detail.update(status=PARTIAL_STATUS, applied=True, segment_transport_applied=True,
+            detail.update(status=status, applied=True, segment_transport_applied=True,
                 segment_swing_radians=swing, proximal_world_points_m=pair.tolist(),
                 original_local_angles=prior_angles, corrected_local_angles=angles.tolist(),
                 retained_distal_flexion_radians=joints[distal], chart_singular=singular,
                 chart_wrap=bool(np.max(np.abs(angles-prior_angles)) > math.pi),
-                assumed_twist=True, components=dict(COMPONENTS))
-            components[group] = dict(COMPONENTS)
-            meta['geometry_sources'][group] = PARTIAL_STATUS
+                assumed_twist=True, components=dict(component_sources))
+            if multi:
+                detail['joint_view_indices'] = {str(j): list(pose['joints'][j]['contributing_view_indices']) for j in required[:2]}
+                meta['geometry_view_indices'][group] = detail['joint_view_indices']
+            components[group] = dict(component_sources)
+            meta['geometry_sources'][group] = status
             changed += 1
-        meta['geometry_method'] = METHOD
+        meta['geometry_method'] = method
         if components:
             meta['geometry_components'] = components
-    return {'contract': dict(CONTRACT), 'complete_limb_reference_sha256': before,
+    return {'contract': dict(contract), 'complete_limb_reference_sha256': before,
             'applied_group_poses': changed, 'rejected_group_poses': rejected,
             'scope': 'Supported upper-segment direction only; distal bend/axial orientation retain explicit priors'}

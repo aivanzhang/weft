@@ -85,12 +85,12 @@ def test_length_fit_validation_rejects_resealed_changed_contracts(tmp_path, dama
         validate_human(fitted)
 
 
-@pytest.mark.parametrize('option', ['dimensions', 'partial', 'not_bool'])
+@pytest.mark.parametrize('option', ['dimensions', 'partial_dimensions', 'not_bool'])
 def test_incompatible_fit_options_reject_without_mutating_inputs(tmp_path, option):
     root, predictions, first, second, _ = inputs(tmp_path, 2)
     options = {'limb_fit': True}
     if option == 'dimensions': options['mode'] = 'dimensions'
-    elif option == 'partial': options['partial_segments'] = True
+    elif option == 'partial_dimensions': options.update(partial_segments=True, mode='dimensions')
     else: options['limb_fit'] = 1
     before = deepcopy(root)
     with pytest.raises(ValueError):
