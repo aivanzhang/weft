@@ -1,7 +1,7 @@
 "use strict";
 ((root) => {
   const importViewer = async () => { await import("/avatar_retarget.js"); await import("/avatar_viewer.js"); };
-  function create({send, token, pause, redraw, camera, visible, loadModules = importViewer}) {
+  function create({send, token, pause, redraw, camera, visible, basePath = "", loadModules = importViewer}) {
     const $ = id => document.getElementById(id);
     const select = $("avatar-select"), overlay = $("avatar-overlay"), canvas = $("avatar-live");
     let scene = null, choices = [], settings = null, viewer = null, latest = null;
@@ -66,7 +66,7 @@
           viewer = root.WeftAvatarViewer.create(canvas, {onStatus: viewerStatus});
           viewer.configure(scene);
         }
-        const base = `/api/avatar/${encodeURIComponent(choice.key)}/`;
+        const base = `${basePath}/api/avatar/${encodeURIComponent(choice.key)}/`;
         const renderBytes = await binary(base + "render.json", abort.signal, 8 * 1024 * 1024);
         const textures = [];
         let total = 0;

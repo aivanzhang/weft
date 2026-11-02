@@ -1,6 +1,7 @@
 "use strict";
 (() => {
   const $ = (id) => document.getElementById(id);
+  const basePath = /^\/labs\/[a-f0-9]{32}\/$/.test(location.pathname) ? location.pathname.slice(0, -1) : "";
   const fragment = new URLSearchParams(location.hash.slice(1));
   const token = fragment.get("token") || sessionStorage.getItem("weft-lab-token") || "";
   if (token) sessionStorage.setItem("weft-lab-token", token);
@@ -50,7 +51,7 @@
   const spatialKeys = {ArrowLeft: 1, a: 1, A: 1, ArrowRight: 2, d: 2, D: 2, ArrowUp: 3, w: 3, W: 3, ArrowDown: 4, s: 4, S: 4, q: 5, Q: 5, PageUp: 5, e: 6, E: 6, PageDown: 6, " ": 7};
   const keyAction = (key) => (spatialRigid() || sharedObjectTarget()) ? spatialKeys[key] : (wholeBody() || sharedHumanTarget()) ? (key === " " ? 0 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : ["ArrowRight", "d", "ArrowDown", "s"].includes(key) ? 2 : undefined) : keyActions[key] === undefined ? undefined : current?.profile === "exercise" ? (key === " " ? 3 : ["ArrowLeft", "a", "ArrowUp", "w"].includes(key) ? 1 : 2) : keyActions[key];
   let actionNames = ["coast", "left", "right", "up", "down", "brake"];
-  const fileURL = (name) => `/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
+  const fileURL = (name) => `${basePath}/files/${name.split("/").map(encodeURIComponent).join("/")}?token=${encodeURIComponent(token)}`;
   const text = (element, value) => { element.textContent = String(value); };
   function windowText(id, value) { if ($(id).textContent !== value) text($(id), value); }
   function updateWindowClocks() {
@@ -104,7 +105,7 @@
   const error = (message) => { simulationFailureMessage = null; text($("error"), message); $("error").hidden = false; };
   const clearError = () => { simulationFailureMessage = null; $("error").hidden = true; };
   async function request(path, data, signal) {
-    const response = await fetch(path, {headers: {Authorization: `Bearer ${token}`, ...(data ? {"Content-Type": "application/json"} : {})},
+    const response = await fetch(basePath + path, {headers: {Authorization: `Bearer ${token}`, ...(data ? {"Content-Type": "application/json"} : {})},
       ...(data ? {method: "POST", body: JSON.stringify(data)} : {}), signal: signal || AbortSignal.timeout(10000)});
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || `Request failed (${response.status})`);
@@ -1426,6 +1427,7 @@
     if (sharedFeet() || cameraWorld() || !data.appearance || !rootAppearanceAvailable()) return;
     appearanceView = globalThis.WeftLabAppearance.create({token, pause,
       send: async settings => (await request("/api/appearance", settings)).appearance,
+      basePath,
       redraw: () => { if (snapshot) draw($("live"), snapshot); },
       camera: () => ({yaw: Number($("spatial-yaw").value), zoom: Number($("spatial-zoom").value), follow: $("spatial-follow").checked}),
       visible: () => activePanel === "play" && !document.hidden});

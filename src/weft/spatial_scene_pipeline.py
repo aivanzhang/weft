@@ -14,14 +14,14 @@ import time
 from weft.io import canonical_hash, local_time
 from weft.shared_world_packaging import read_package_file, validate_package_layout, write_package_files
 from weft.spatial_scene_inputs import (
-    MAX_CONFIG_BYTES, MAX_FILE_BYTES, _json, _path, prepare_spatial_scene_inputs,
+    MAX_CONFIG_BYTES, MAX_FILE_BYTES, MAX_FILES as MAX_SOURCE_FILES, _json, _path, prepare_spatial_scene_inputs,
 )
 
 
 PROFILE = "spatial-scene-construction-v1"
 MAX_INPUT_BYTES = 64 << 20
 MAX_OUTPUT_BYTES = 64 << 20
-MAX_OUTPUT_FILES = 320
+MAX_OUTPUT_FILES = MAX_SOURCE_FILES + 64
 MAX_METADATA_BYTES = 1 << 20
 MAX_RUNTIME_BYTES = 4 << 20
 RUNTIME_ROOT = Path(__file__).parent

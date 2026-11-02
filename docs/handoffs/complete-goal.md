@@ -1,5 +1,12 @@
 # Complete Weft goal — video to an interactive, trainable world
 
+## Latest product priority — November 2, 2026, 11:39 AM PST
+
+Build the end product as a web portal: users upload videos, see AI analysis and every construction/check/learning stage, interact with the resulting 3D RL sandbox, and record/replay/export their actions. Use server-side **project API keys**, never ChatGPT login, coding-agent authentication, or this session as a runtime dependency. The configured OpenAI key is sufficient for the core pipeline; a Muse key is not required. The user separately approved **$5 total OpenAI portal development spend**, with persistent reservations and no automatic retry; Meta's existing $5 allowance remains separate.
+
+Reuse the combined reconstruction and simulation tracks behind this product journey. Preserve the full generalized-video/equipment/contact goal, independent evaluation and all known limitations. Prioritize improvements that become usable through the portal. Keep the hosted site offline until explicitly restored; complete and verify the local portal now. See [portal workflow](../portal.md) and [API integration handoff](portal-api.md).
+
+
 Build and verify Weft end to end: provide a video, inspect what the system observes and infers at every step, generate one executable world, interact with it through an RL environment, train and evaluate an agent, and record/replay actions and results. Continue implementation, not just planning. Improve the existing system rather than replacing it with a disconnected prototype.
 
 ## Scope and ownership

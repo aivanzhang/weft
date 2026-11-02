@@ -1030,6 +1030,10 @@ class LabServer(ThreadingHTTPServer):
 
 
 class LabHandler(BaseHTTPRequestHandler):
+    @property
+    def lab(self):
+        return self.server.lab
+
     def log_message(self, format, *args):
         pass  # Query tokens must not enter request logs.
 
@@ -1066,7 +1070,7 @@ class LabHandler(BaseHTTPRequestHandler):
             token = self.headers.get("Authorization", "").removeprefix("Bearer ")
             if not token:
                 token = parse_qs(urlsplit(self.path).query).get("token", [""])[0]
-            if not secrets.compare_digest(token.encode("utf-8"), self.server.lab.token.encode("utf-8")):
+            if not secrets.compare_digest(token.encode("utf-8"), self.lab.token.encode("utf-8")):
                 self.reply({"error": "Open the complete local lab link, including its access token"}, 401)
                 return False
         return True
@@ -1079,31 +1083,31 @@ class LabHandler(BaseHTTPRequestHandler):
             return
         try:
             if path == "/api/status":
-                with self.server.lab.lock:
-                    return self.reply(self.server.lab.summary())
+                with self.lab.lock:
+                    return self.reply(self.lab.summary())
             if path == '/api/exercise-coverage':
-                with self.server.lab.lock:
-                    return self.reply(self.server.lab.exercise_coverage())
+                with self.lab.lock:
+                    return self.reply(self.lab.exercise_coverage())
             if path == '/api/inspection':
-                with self.server.lab.lock:
-                    return self.reply(self.server.lab.inspection())
+                with self.lab.lock:
+                    return self.reply(self.lab.inspection())
             if path == '/api/recording-inspection':
                 query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
                 if len(query.get('session', [])) != 1 or set(query) - {'session', 'token'}:
                     raise ValueError('Choose exactly one completed recording')
-                with self.server.lab.lock:
-                    return self.reply(self.server.lab.recording_inspection(query['session'][0]))
+                with self.lab.lock:
+                    return self.reply(self.lab.recording_inspection(query['session'][0]))
             if path == '/api/recording-evidence':
                 query = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
                 if len(query.get('session', [])) != 1 or set(query) - {'session', 'token'}:
                     raise ValueError('Choose exactly one completed recording')
-                with self.server.lab.lock:
-                    return self.reply(self.server.lab.recording_evidence(query['session'][0]))
+                with self.lab.lock:
+                    return self.reply(self.lab.recording_evidence(query['session'][0]))
             if path.startswith("/api/avatar/"):
                 parts = path.split("/")
                 if len(parts) != 5:
                     raise ValueError("Invalid avatar resource")
-                raw, mime, sha = self.server.lab.avatars.resource(parts[3], parts[4])
+                raw, mime, sha = self.lab.avatars.resource(parts[3], parts[4])
                 self.response_headers(200, mime, len(raw))
                 self.send_header("X-Content-SHA256", sha)
                 self.end_headers()
@@ -1113,10 +1117,10 @@ class LabHandler(BaseHTTPRequestHandler):
                 return self.send_file(public[path])
             if path.startswith("/files/"):
                 relative = path.removeprefix("/files/")
-                file = (self.server.lab.root / relative).resolve()
-                if not file.is_relative_to(self.server.lab.root) or not file.is_file():
+                file = (self.lab.root / relative).resolve()
+                if not file.is_relative_to(self.lab.root) or not file.is_file():
                     raise ValueError("File is outside this lab or does not exist")
-                resolved_relative = file.relative_to(self.server.lab.root).as_posix()
+                resolved_relative = file.relative_to(self.lab.root).as_posix()
                 if not resolved_relative.startswith(("run/", "sessions/")) and resolved_relative not in ("worker.log", "events.jsonl", "failure.json"):
                     raise ValueError("File is not an inspectable artifact")
                 return self.send_file(file)
@@ -1169,8 +1173,8 @@ class LabHandler(BaseHTTPRequestHandler):
             data = json.loads(self.rfile.read(length))
             if not isinstance(data, dict):
                 raise ValueError("Request must be a JSON object")
-            with self.server.lab.lock:
-                result = self.server.lab.control(urlsplit(self.path).path, data)
+            with self.lab.lock:
+                result = self.lab.control(urlsplit(self.path).path, data)
             self.reply(result)
         except (ValueError, OSError, RuntimeError, TypeError) as error:
             self.reply({"error": str(error)}, 400)

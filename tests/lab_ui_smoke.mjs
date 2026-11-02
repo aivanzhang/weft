@@ -56,7 +56,7 @@ class Element {
   focus() {}
 }
 
-function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
+function fixture(profile = 'planar', {basePath = '', deferArtifacts = false, spatial = false, mobile = false, wholeBody = false, cameraBody = false, spatialTrained = false, sharedTrained = false, multiObject = false, suppliedGround = false, geometryMode = null, partialSegments = false, multiView = false, limbFit = false, partialPixels = false, jointPixels = false, floorNormal = null, initialFailure = false, legacyPackageEvent = false, feasibilityStatus = "infeasible", temporalIdentity = false, sourceInterval = false, coverage = null, poseCoverage = null, coverageLoading = 0, generationFailed = false, inspection = null, inspectionLoading = 0, sharedExercise = false, rootAssistance = false, exerciseInitialMetrics = {}, exerciseEngineStatus = 'current', exerciseGeometryTime = 0, missingExerciseState = false, missingExerciseContract = false, exercisePolicy = null, exercisePolicyAvailable = false, rigidObjects = null, sharedProfile = "shared-world-v1", exerciseInterval = null, savedRecordings = [], recordingInspection = null, recordingInspectionLoading = 0, deferRecordingInspection = false, trainingDisabled = false} = {}) {
   const shared = profile === 'shared-world';
   const elements = [];
   const ids = new Map();
@@ -323,6 +323,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
   function fetch(path, options = {}) {
     const request = {path, data: options.body ? JSON.parse(options.body) : null, options};
     requests.push(request);
+    if (basePath && path.startsWith(basePath + "/")) path = path.slice(basePath.length);
     if (path === '/api/status') return Promise.resolve(response(status()));
     if (path === '/api/exercise-coverage') return Promise.resolve(response(coverageLoading-- > 0 ? {status:'loading'} : poseCoverage || {status:'unavailable'}));
     if (path === '/api/inspection') return Promise.resolve(response(inspectionLoading-- > 0 ? {status:'loading'} : inspection || {status:'unavailable',reason:'Synthetic run has no compact inspection metadata'}));
@@ -398,7 +399,7 @@ function fixture(profile = 'planar', {deferArtifacts = false, spatial = false, m
     request.resolve(response({snapshot: wireState(), ...((path==='/api/joint'||path==='/api/actor')?{scene, capabilities: buildCapabilities()}:{}), ...(path.includes('/record/') ? {recording:backendRecording} : {}), ...(path==='/api/record/stop'?{export:'running'}:{})}));
   }
   const storage = new Map();
-  vm.runInNewContext(script, {document, window, location: {hash:'#token=synthetic-token',pathname:'/'},
+  vm.runInNewContext(script, {document, window, location: {hash:'#token=synthetic-token',pathname:basePath + '/'},
     sessionStorage:{getItem:key=>storage.get(key),setItem:(key,value)=>storage.set(key,value)},
     history:{replaceState(){}}, URLSearchParams, AbortSignal, fetch, setTimeout, clearTimeout,
     performance:{now:()=>now}, console}, {filename:'lab.js'});

@@ -20,7 +20,8 @@ MAX_FILE_BYTES = 16 << 20
 MAX_MANIFEST_BYTES = 128 << 10
 MAX_SCENE_BYTES = 250_000
 MAX_CONFIG_BYTES = 64 << 10
-MAX_FILES = 256
+# Ordinary video runs include the full implementation snapshot (now over 300 files).
+MAX_FILES = 512
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
 _ID = re.compile(r"[a-z][a-z0-9_-]{0,63}\Z")
 _TERMINAL = {"ready", "completed", "frozen_unverified_hypothesis", "executable_hypothesis",

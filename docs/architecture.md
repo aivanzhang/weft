@@ -1,5 +1,7 @@
 # Weft: one video to an interactive RL environment
 
+**Product entry point:** [the local web portal](portal.md) owns video uploads, bounded background jobs and server-side OpenAI analysis, then calls the existing exercise/shared-world or rigid-scene builders and mounts the existing lab for interaction/recording. It does not use a ChatGPT login or execute model-generated commands. [Implementation and acceptance](handoffs/portal-api.md).
+
 For the full product target and physics-grounded evaluation design, read [goal.md](../goal.md). For the first product milestone, read [v1.md](../v1.md). This document maps those targets to the current implementation contracts and limitations.
 
 ## Target and evidence boundary

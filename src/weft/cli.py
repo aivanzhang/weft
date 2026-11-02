@@ -38,6 +38,11 @@ def main():
     verify = commands.add_parser("verify", help="Verify the complete artifact manifest")
     verify.add_argument("directory")
     commands.add_parser("meta-status", help="Report credential presence without making a request")
+    portal = commands.add_parser("portal", help="Open the local video-to-simulation web portal")
+    portal.add_argument("--root", default=".local/portal", help="Persistent private project and recording directory")
+    portal.add_argument("--port", type=int, default=8765)
+    openai_setup = commands.add_parser("openai-budget", help="Set a lifetime portal API allowance without resetting charges")
+    openai_setup.add_argument("--total-usd", type=float, required=True)
     interact = commands.add_parser("interact", help="Step the Python simulator manually")
     interact.add_argument("--world", required=True)
     lab = commands.add_parser("lab", help="Watch video-to-RL stages, interact, and record in a local lab")
@@ -967,6 +972,12 @@ def main():
                 from weft.shared_exercise_policies import evaluate_policy
             result = evaluate_policy(args.learning, args.out, seed=args.seed,
                 trials=args.trials, jitter_scale=args.jitter_scale, max_seconds=args.max_seconds)
+        elif args.command == "portal":
+            from weft.portal import launch_portal
+            result = launch_portal(args)
+        elif args.command == "openai-budget":
+            from weft.openai_access import OpenAIBudget
+            result = OpenAIBudget().configure(args.total_usd, note="Administrator explicitly configured the portal lifetime allowance through the CLI")
         elif args.command == "lab":
             from weft.lab import launch_lab
             result = launch_lab(args)

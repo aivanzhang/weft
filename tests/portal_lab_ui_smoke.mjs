@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {fixture, drain} from './lab_ui_smoke.mjs';
+const basePath='/labs/'+'a'.repeat(32);
+const ui=fixture('exercise',{basePath});
+await ui.ready();
+assert(ui.requests.some(row=>row.path===basePath+'/api/status'));
+assert(ui.requests.some(row=>row.path.startsWith(basePath+'/files/')));
+assert(ui.requests.every(row=>row.path.startsWith(basePath+'/')),'Mounted lab must not send controls or file requests to the portal root');
+assert(ui.ids.get('source').src.startsWith(basePath+'/files/'));
+console.log('PASS portal-mounted sandbox isolates API, artifacts and video URLs');

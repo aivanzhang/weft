@@ -1,5 +1,12 @@
 # Combined Weft implementation handoff
 
+## Current product handoff — November 2, 2026, 11:39 AM PST
+
+The user redirected priority to the end-user web portal with a server-side OpenAI API key, explicitly excluding ChatGPT-login/agent-session dependence, and approved a separate **$5 total OpenAI portal development budget**. Both earlier tracks and the generalizable-video goal remain active. [Portal API handoff](portal-api.md) has exact files, frozen acceptance inputs/results, preserved failures, resource/cost bounds and remaining hosted/generalization work. [Start the portal](../portal.md) with `.venv-lab/bin/python -m weft portal`; the user manages that local server. Hosted deployment remains unauthorized/offline.
+
+Real exercise HTTP acceptance now yields a 3D shared-body lab, trained/evaluated controller, interactive controls and exact recording in29.59s. The synthetic object route completes in2.89s; both nine-action recordings replay exactly. Saved-only audit verifies2,044 run members and both recording receipts.151 distinct Python checks pass. Portal OpenAI spend is$0.003252 of$5, two settled calls. Do not call this recovered physical accuracy or learned improvement. Concurrent avatar edits remain separately owned and must not be staged, reverted or overwritten by this checkpoint.
+
+
 ## Parallel reconstruction integrated — November 2, 2026, PST
 
 The delegated lanes completed substantive source-motion/equipment methods and a

@@ -1,5 +1,7 @@
 # Weft local lab
 
+**Start in the web portal:** run `.venv-lab/bin/python -m weft portal` and open its printed local link. Upload a video, inspect the OpenAI API scene analysis and processing stages, then open the existing sandbox to interact and record. [Portal guide, API allowance and current limits](portal.md). The standalone lab commands below remain available.
+
 For two supplied calibrated views, [manual stereo-ground calibration](stereo-ground.md)
 provides source-image labels, uncertainty inspection and matching camera/ground
 files. It is an explicit additional-input path, not automatic single-video ground

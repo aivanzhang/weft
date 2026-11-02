@@ -1,5 +1,15 @@
 # Weft iteration backlog
 
+## Product priority — November 2, 2026, 11:39 AM PST
+
+- [x] Build the [local web portal](docs/portal.md): authenticated video upload, persistent projects, bounded background jobs, progress and failure inspection, OpenAI scene planning, sandbox interaction and recording. Project key only; no ChatGPT login/agent runtime. [Implementation, acceptance and preserved failures](docs/handoffs/portal-api.md).
+- [x] Enforce the approved $5 OpenAI portal allowance with durable reservations, known-usage settlement, no automatic retries, and exact-source/request reuse. Keep Meta and unrelated avatar budgets separate.
+- [x] Verify a real exercise upload through the full shared-body pipeline and web API: **29.59s**, 1,325 run members verified, 9 actions/10 events replay exactly. Learned and authored controllers each pass3/3 exposed simulator starts; the original feasible controller was retained, not improved.
+- [x] Verify the final object-route API acceptance in `.local/portal-objects-03`: **2.89s**, 719 run members, 9 actions/10 events replay exactly. This is a synthetic software control, not physical evidence. Preserve earlier ROI and archive-limit failures. **151 distinct Python checks** and portal/mounted/existing lab UI suites pass; saved audit `.local/portal-saved-audit-01.json`. Two paid OpenAI calls total **$0.003252**, with **$4.996748 remaining** and no unsettled reservations.
+- [ ] Expose source-qualified equipment/missing-input assistance through this same portal; retain the remaining unfamiliar-video motion, identity, timing and contact work below.
+- [ ] Before any hosted release, complete authenticated multi-user isolation, durable remote job/storage ownership and per-user quotas. The website remains offline; local portal success is not hosted readiness or generalized physical reconstruction.
+
+
 ## Active work — November 2, 2026: generalized construction and equipment control
 
 - [x] Expose the existing [motion-force diagnostic in the ordinary CLI](docs/handoffs/motion-forces-cli.md), with separate immutable output and explicit limits. **75 checks pass**; actual CLI completes in .937 s with 92 inverse calls/zero physics steps, matching the old diagnostic exactly. All 528 source/result/previous-diagnostic members and 317 runtime members verify. This is usability/integrity work, not a reconstruction fix.
