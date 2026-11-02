@@ -28,12 +28,18 @@ _NATIVE_CLOCK = {"native-clock.json", "reconstruction-evidence.json"}
 _CONFLICTS = {"failure.json", "scene.json", "task.json", "exercise-task.json", "construction-seed.json",
               "geometry-proposal.json", "scene-observations.json", "lab-config.json", "policy.json"}
 _REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupported"}
-# Reviewed decoder version checks every frame's shape before retaining normalized image landmarks.
+# Reviewed whole-image routes check every decoded frame's shape before retaining image landmarks.
 _DECODERS = {"7a40f269189246ea07dddb416610d6419b78092824960c1ece6e4255810de3d3":
+             "opencv-fixed-resolution-complete-exercise-decode-v1",
+             "37934f7d5a1b246c6c8ea0e67e141ff4069a56ad90153fc1225bf8c17edac1b9":
              "opencv-fixed-resolution-complete-exercise-decode-v1",
              "774dccf1cade873ba4ff2932aa3d77ce8fdb3abc28c250f7530e54f56796112c":
              "opencv-fixed-resolution-complete-exercise-decode-v1",
              "cc18531b26bb5dafd08cbbebba45b445d017bbea89626e6b862a339c253caee4":
+             "opencv-fixed-resolution-complete-exercise-decode-v1",
+             "092f328e87eeed03eb40a783c4444d37a37ca313bd4531f53647187bfaba5c78":
+             "opencv-fixed-resolution-complete-exercise-decode-v1",
+             "fee07a21002e47f19346a3c37377ed32bb2772d6171eb0b87fd62847b4dd65b5":
              "opencv-fixed-resolution-complete-exercise-decode-v1"}
 _PRODUCER = "implementation-source/exercise_vision.py"
 _SOURCE_PRODUCERS = (_PRODUCER, "implementation-src--weft--exercise_vision.py")
@@ -223,6 +229,14 @@ def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
     raw, audit, clock = (documents[name] for name in ("pose-landmarks.json", "identity-audit.json", "source-clock.json"))
     model, config = documents["model.json"], documents["run-config.json"]
     source = marker["source_sha256"]
+    # A reviewed decoder hash does not qualify its optional regional mapping or single-pose assumptions.
+    _require(all(value is None for value in (config.get("person_region"), evidence.get("person_region"),
+                                             model.get("person_region")))
+             and config.get("max_pose_hypotheses", 2) == 2
+             and model.get("maximum_pose_hypotheses", 2) == 2
+             and "person_count_assumption" not in model
+             and not any("region_raw" in frame for frame in raw.get("frames", [])),
+             "Reference dimensions require the reviewed whole-image two-hypothesis route; regional/single-pose input needs separate qualification")
     options = marker.get("pose_options")
     _require(isinstance(options, dict) and set(options) == {"pose_mode", "pose_identity"}
              and options["pose_mode"] in {"video", "image"} and options["pose_identity"] in {"raw", "temporal"},
@@ -401,6 +415,7 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
              "A sealed construction-only exercise body is required")
     recovering = "pose-recovery.json" in declared
     native = bool(_NATIVE_CLOCK & declared.keys())
+    _require(not native, "Native-clock reference refinement needs an explicit native dimension-provenance adapter")
     clock_files = _NATIVE_CLOCK if native else set()
     required = _REQUIRED | (_RECOVERY_PROOF if recovering else set()) | clock_files
     _require(required <= declared.keys(), "Construction body lacks its complete crop proof")
@@ -451,7 +466,6 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
                  "Unsupported original body input route")
         source_manifest_raw = None
     _pose_bindings(documents, selected, marker, recovery_verified=recovery_descriptor is not None)
-    _require(not native, "Native-clock reference refinement needs an explicit native dimension-provenance adapter")
     derived = deepcopy(original)
     derived["image_dimension_provenance"] = {
         "method": "sealed_decoder_metadata", "source_sha256": source_sha,
