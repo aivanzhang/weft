@@ -1,0 +1,17 @@
+test_cap_and_retained_contour_are_unchanged_for_healthy_faces (tests.test_surface_clumps.AdaptiveSurfaceClumpTests.test_cap_and_retained_contour_are_unchanged_for_healthy_faces) ... ok
+test_thin_face_uses_shared_14degree_ceiling_without_moving_roots (tests.test_surface_clumps.AdaptiveSurfaceClumpTests.test_thin_face_uses_shared_14degree_ceiling_without_moving_roots) ... ok
+test_tilted_normals_use_stricter_of_both_face_ceilings (tests.test_surface_clumps.AdaptiveSurfaceClumpTests.test_tilted_normals_use_stricter_of_both_face_ceilings) ... ok
+test_v1_fixed_profile_has_frozen_array_and_atlas_bytes (tests.test_surface_clumps.AdaptiveSurfaceClumpTests.test_v1_fixed_profile_has_frozen_array_and_atlas_bytes) ... ok
+test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning (tests.test_surface_clumps.SurfaceClumpTests.test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning) ... ok
+test_inward_source_normals_and_large_geometric_turns_retain_failure (tests.test_surface_clumps.SurfaceClumpTests.test_inward_source_normals_and_large_geometric_turns_retain_failure) ... ok
+test_malformed_counts_nonfinite_skin_and_budget_are_rejected (tests.test_surface_clumps.SurfaceClumpTests.test_malformed_counts_nonfinite_skin_and_budget_are_rejected) ... ok
+test_new_crossing_retains_exact_triangle_witness_and_never_samples_color (tests.test_surface_clumps.SurfaceClumpTests.test_new_crossing_retains_exact_triangle_witness_and_never_samples_color) ... ok
+test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling (tests.test_surface_clumps.SurfaceClumpTests.test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling) ... ok
+test_retained_contour_has_exact_oriented_attributes_and_cell_bytes (tests.test_surface_clumps.SurfaceClumpTests.test_retained_contour_has_exact_oriented_attributes_and_cell_bytes) ... ok
+test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic (tests.test_surface_clumps.SurfaceClumpTests.test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic) ... ok
+test_whole_object_budget_counts_both_surface_and_opposed_contour_corners (tests.test_surface_clumps.SurfaceClumpTests.test_whole_object_budget_counts_both_surface_and_opposed_contour_corners) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.038s
+
+OK

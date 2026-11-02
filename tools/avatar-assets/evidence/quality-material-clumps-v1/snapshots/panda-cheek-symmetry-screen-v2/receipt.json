@@ -1,0 +1,69 @@
+{
+  "aggregate_wall_seconds": 9.627,
+  "all_input_hashes_unchanged": true,
+  "candidate_not_promoted": "The Head rig plane is an independently defined sensitivity case, not an optimized or authoritative anatomical plane. Its favorable position metric does not authorize using it as a finished reference.",
+  "completed_at": "2026-11-02T02:44:59.180962-08:00",
+  "current_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-symmetry-screen-v2/screen.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 7.026,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 9256862,
+    "last_rss_sample_elapsed_seconds": 6.767,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 57.399
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 69832,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 26,
+    "sampled_max_output_bytes": 9256862,
+    "sampled_peak_rss_bytes": 209649664,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "first_screen": {
+    "manifest_sha256": "764c656bcaffd136e132a2d8f830fb51c29e08bae4296a83933ff5384f9865af",
+    "path": "outputs/panda-cheek-symmetry-screen-v1",
+    "status": "inconclusive_due_groom_region_donor_truncation"
+  },
+  "limits_unchanged": {
+    "distance_m": 0.015,
+    "normal_degrees": 45,
+    "output_mb_per_attempt": 16,
+    "rss_mb": 512,
+    "total_wall_seconds": 60
+  },
+  "mesh_mutations": 0,
+  "native_jobs": 0,
+  "next_safe_action": "Parent can inspect the exact13 failing stopped-boundary edges and the independent reflected surface hypothesis. Do not build a patch by weakening the normal gate, selecting a best-fit plane, expanding rings, moving protected faces, or rerunning the failed local fit. A future method needs a separately justified boundary/shape authoring strategy; no such method is implemented here.",
+  "owned_live_jobs": [],
+  "prepared_sha256": "5a4c9379ae894091df0d48022bd12aa861b342511bb247852ad5b468c4ffb25f",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "status": "partial_shape_reference_not_fixed_boundary_repair",
+  "summary_sha256": "a9c8cf5f21deec89caf5ff34ec157300f3157810127cb7ca264f5fa069430b87",
+  "texture_decodes": 0,
+  "v7_source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca",
+  "viability": "Reflection can provide a nearby smooth opposite-side shape reference, but cannot supply complete normal-compatible support at either frozen boundary under the unchanged45degree limit. The stopped scar selection remains topologically invalid. A fixed-boundary mirror replacement is not supported by this screen.",
+  "worker_sha256": "bfbf8a60ee1b63a089637c7d45d68d8a524fe6cad2d9efd021fd5563c1ad69e1"
+}

@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 02:25 PST. The commit containing this handoff saves the actual-source UV2 control, its appearance rejection and the reusable normal-UV export guard/custody checks. Private-push verification is recorded in `.local/avatar-quality-publication-v12/receipt.json`; prior checkpoint `dbdd7e2` remains in v11. All owned native/CPU jobs and delegated tasks exited. Fifty-five focused checks plus actual native and saved-report checks pass. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits and newer commits.
+- Recorded: 2026-11-02 03:39 PST. [Current quality handoff](docs/quality-next-step.md) and compact bundle `evidence/quality-material-clumps-v1` are saved locally; private-publication status is recorded separately in `.local/avatar-quality-publication-v13/receipt.json`. There are 27 passing current focused checks across sampling, metadata and experimental coat modules. The existing mixed-material lamp passes real finishing and independent material/skin audit; fixed/adaptive coat trials reject geometry. No new fur model/render, approved-asset/default change or new provider/pipeline-role call. All owned jobs and delegated work are terminal. Eight Meshy credits remain; fresh-example allowance is pending. Preserve unrelated Weft work.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -20,14 +20,14 @@ hand-authored panda recipe does not complete this goal. Preserve the approved
 fur panda, standalone dragon, completed dance/flight preview and all failures.
 [Acceptance criteria and integration record](docs/hands-off-studio.md).
 
-### Completed local diagnosis — contour component improves, quality still rejected
+### Earlier local diagnosis — contour component improves, quality still rejected
 
 - Status for the user's text-to-3D question: the core prompt/generation/authoring/
   export workflow and saved panda/dragon examples work. The newer hands-off
   Studio has no accepted real end-to-end delivery; arbitrary custom actions and
   consistent Muse-level appearance are not established. Do not mark the active
   quality/Studio goal complete.
-- [Latest diagnostic handoff](docs/contour-contact-diagnosis.md) records immutable
+- [Contour diagnostic handoff](docs/contour-contact-diagnosis.md) records immutable
   paths, results, resource failures and next dependencies. No approved model,
   gallery entry, default or Weft consumer changed.
 - Matched four-mode native ablation separates shoulder color/UV flecks from
@@ -44,11 +44,12 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   Two smaller patches have sound boundaries; the largest has three bad body-side
   junctions. Resolve those exact local attachments before a curved replacement;
   do not repeat projected caps or whole-mesh remeshing.
-- All native/CPU jobs and agent-owned diagnostics are finished. Preserve the
+- Those native/CPU jobs and agent-owned diagnostics are finished. Preserve the
   failed 512 MiB census and initial bare-interpreter audit failure. Pending
   provider/AI allowance is unchanged; no new paid generation or pipeline-role
-  calls. The next safe work is a bounded local repair/quality guard, followed by
-  scoped source/evidence checkpointing. Fresh Studio acceptance remains separate.
+  calls. Follow the newer [quality continuation](docs/quality-next-step.md) for
+  current ownership and next work; this older repair plan is superseded.
+  Fresh Studio acceptance remains separate.
 
 ### Current continuation: actual control built, appearance rejected
 

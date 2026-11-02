@@ -15,14 +15,13 @@ def rig_contract(doc, assumptions=None, *, authored=False):
     names = [doc['nodes'][i]['name'] for i in sorted({i for s in doc['skins'] for i in s['joints']})]
     return {'schema_version': 1, 'units': 'meters',
             'axes': {'up': '+Y', 'forward': '+Z', 'handedness': 'right'},
-            'rest_pose': 'Default exported node transforms and inverse bind matrices; authored, not recovered anatomy' if authored else
-                         'Default exported node transforms and inverse bind matrices; generated, not recovered anatomy',
+            'rest_pose': 'Default exported node transforms and inverse bind matrices; no physical validation implied',
             'bone_to_simulated_joint': {name: name for name in names},
-            'target': {'name': 'Locally authored creature controls, NOT Weft' if authored else
-                              'Local provider bone controls, NOT Weft', 'joint_names': names},
+            'target': {'name': 'Locally authored bone controls, NOT Weft' if authored else
+                              'Exported source bone controls, NOT Weft', 'joint_names': names},
             'authored_assumptions': assumptions or ([
-                'Hidden surfaces are generated; bone placement, weights, scale and motion are locally authored assumptions'
-            ] if authored else ['Hidden surfaces and humanoid skeleton are generated assumptions']),
+                'Bone placement, skin weights and scale are locally authored; hidden geometry and motion are not physically verified'
+            ] if authored else ['Mesh, skeleton, skin weights and motion are supplied asset data; their origin and physical validity are not inferred']),
             'attachments': [], 'weft_runtime_verified': False}
 
 

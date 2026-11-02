@@ -1,0 +1,381 @@
+{
+  "current": {
+    "actual_exported_mesh_counts": [
+      {
+        "triangles": 62581,
+        "vertices": 51709
+      },
+      {
+        "triangles": 14400,
+        "vertices": 43200
+      }
+    ],
+    "alpha_occupancy_above_018": {
+      "max": 0.2773809523809524,
+      "median": 0.15595238095238095,
+      "min": 0.11666666666666667,
+      "p10": 0.12380952380952381,
+      "p90": 0.23214285714285715
+    },
+    "atlas_dimensions": [
+      4096,
+      1824
+    ],
+    "atlas_mean_alpha_per_card": {
+      "max": 0.2609033613445378,
+      "median": 0.1472327264239029,
+      "min": 0.1100233426704015,
+      "p10": 0.11452100840336135,
+      "p90": 0.21678408029878618
+    },
+    "atlas_pixels": 7471104,
+    "eligible_source_area_m2": 1.7606356641508767,
+    "half_height_stroke_width_m": {
+      "max": 0.001499833404222293,
+      "median": 0.0012690577561145144,
+      "min": 0.0009860732497993213,
+      "p10": 0.001130231940770828,
+      "p90": 0.0014156309492079733
+    },
+    "lift_m": {
+      "max": 0.008000056154513019,
+      "median": 0.008000000129471644,
+      "min": 0.007999941510776836,
+      "p10": 0.007999987022284376,
+      "p90": 0.008000012838022257
+    },
+    "nominal_strands": 7200,
+    "outward_angle_degrees": {
+      "max": 10.008398051819363,
+      "median": 10.00798210459416,
+      "min": 10.00758476072967,
+      "p10": 10.007858888939177,
+      "p90": 10.008097886392198
+    },
+    "roots": 3600,
+    "span_m": {
+      "max": 0.019999629938182363,
+      "median": 0.014930521495988476,
+      "min": 0.008503692552422728,
+      "p10": 0.01010104787653926,
+      "p90": 0.01897729881967455
+    },
+    "total_unoccluded_alpha_card_area_m2": 0.06702721987440714
+  },
+  "elapsed_seconds": 0.0977274589240551,
+  "inputs_unchanged": true,
+  "limitations": [
+    "Summed projection counts overlapping/hidden cards; it is not visible coverage.",
+    "Modeled BOX alpha mips are not measured EEVEE texture derivatives or temporal filtering.",
+    "The0.45 surface alpha fraction is a proposed target, not a generated or accepted atlas.",
+    "Current normal-map undercoat is surface shading, not dense geometric fur.",
+    "No model or native render was produced; source contact folds are not repaired."
+  ],
+  "mip_screen": [
+    {
+      "alpha": {
+        "max": 1.0,
+        "median": 1.0,
+        "min": 0.9999999999999999,
+        "p10": 1.0,
+        "p90": 1.0
+      },
+      "dimensions": [
+        4096,
+        1824
+      ],
+      "level": 0,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 7200
+    },
+    {
+      "alpha": {
+        "max": 1.0,
+        "median": 1.0,
+        "min": 0.8661473155492483,
+        "p10": 0.955362925364654,
+        "p90": 1.0
+      },
+      "dimensions": [
+        2048,
+        912
+      ],
+      "level": 1,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 7200
+    },
+    {
+      "alpha": {
+        "max": 0.9999736440352401,
+        "median": 0.7622649642640135,
+        "min": 0.4284215591316445,
+        "p10": 0.4897516189878581,
+        "p90": 0.9590341507899605
+      },
+      "dimensions": [
+        1024,
+        456
+      ],
+      "level": 2,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 7200
+    },
+    {
+      "alpha": {
+        "max": 0.7079658278986937,
+        "median": 0.42988714091381475,
+        "min": 0.22625336666247237,
+        "p10": 0.23444168930579248,
+        "p90": 0.6682665435971336
+      },
+      "dimensions": [
+        512,
+        228
+      ],
+      "level": 3,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 7200
+    },
+    {
+      "alpha": {
+        "max": 0.23530277697220695,
+        "median": 0.20780389275542596,
+        "min": 0.1825281096894808,
+        "p10": 0.19203376248110685,
+        "p90": 0.2192849244080693
+      },
+      "dimensions": [
+        256,
+        114
+      ],
+      "level": 4,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 7200
+    },
+    {
+      "alpha": {
+        "max": 0.2175314419278782,
+        "median": 0.12549019607843137,
+        "min": 0.09411764720192715,
+        "p10": 0.09803924583921246,
+        "p90": 0.1841805781249671
+      },
+      "dimensions": [
+        128,
+        57
+      ],
+      "level": 5,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 858
+    },
+    {
+      "alpha": {
+        "max": 0.20241339578234852,
+        "median": 0.13308446820505904,
+        "min": 0.06305467988930497,
+        "p10": 0.1130286564953987,
+        "p90": 0.15749695207730222
+      },
+      "dimensions": [
+        64,
+        28
+      ],
+      "level": 6,
+      "nominal_tips": 7200,
+      "scope": "BOX mip alpha + bilinear nominal sampling, not measured GPU LOD",
+      "tips_at_or_above_cutoff": 60
+    }
+  ],
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_pair_screen": {
+    "actual_source_patch_area_m2": 0.6704340080102112,
+    "candidate_gate": "pair/topology/data availability only; no source-face mask recertification, offset intersections, skin-pose or appearance proof",
+    "projected_triangles": 71581,
+    "projected_vertices_using_actual_base_plus_4096_reserve": 82805,
+    "proposed_card_triangles": 9000,
+    "proposed_exported_card_corners": 27000,
+    "retained_contour_roots": 900,
+    "roots_with_two_exact_incident_faces": 3600,
+    "same_material_pairs": 3600,
+    "selected_nonoverlapping_surface_roots": 2700,
+    "selected_unique_source_faces": 5400,
+    "source_area_fraction": 0.38079088232803104
+  },
+  "status": "measured_not_quality_approved",
+  "views": [
+    {
+      "contour_oriented_roots": 937,
+      "display": [
+        {
+          "estimated_height_minification_lod": {
+            "max": 9.636830177887472,
+            "median": 3.043928750044337,
+            "min": 2.816943397859296,
+            "p10": 2.8230848723467155,
+            "p90": 4.203202591165605
+          },
+          "estimated_width_minification_lod": {
+            "max": 9.712778835404599,
+            "median": 3.3097064143131583,
+            "min": 2.6000351060141838,
+            "p10": 2.7927964339102,
+            "p90": 4.257058302141139
+          },
+          "half_height_stroke_width_px": {
+            "max": 0.7412123881988525,
+            "median": 0.5515331702650317,
+            "min": 0.00595843537865722,
+            "p10": 0.2985848270359882,
+            "p90": 0.6527205491681457
+          },
+          "lift_height_px": {
+            "max": 3.973503249346783,
+            "median": 3.3950343526230005,
+            "min": 0.035170867842195176,
+            "p10": 1.5200854300611917,
+            "p90": 3.9566242137885745
+          },
+          "pixels": 720,
+          "pixels_per_m": 496.68539045275054
+        },
+        {
+          "estimated_height_minification_lod": {
+            "max": 11.128683274217147,
+            "median": 4.535781846374013,
+            "min": 4.308796494188971,
+            "p10": 4.31493796867639,
+            "p90": 5.695055687495279
+          },
+          "estimated_width_minification_lod": {
+            "max": 11.204631931734275,
+            "median": 4.801559510642833,
+            "min": 4.091888202343858,
+            "p10": 4.284649530239874,
+            "p90": 5.748911398470813
+          },
+          "half_height_stroke_width_px": {
+            "max": 0.2635421824707031,
+            "median": 0.19610068276090015,
+            "min": 0.002118554801300345,
+            "p10": 0.10616349405724024,
+            "p90": 0.23207841748200733
+          },
+          "lift_height_px": {
+            "max": 1.4128011553233006,
+            "median": 1.2071233253770668,
+            "min": 0.012505197455002727,
+            "p10": 0.5404748195773126,
+            "p90": 1.4067997204581597
+          },
+          "pixels": 256,
+          "pixels_per_m": 176.59924993875575
+        }
+      ],
+      "front_facing_surface_roots": 700,
+      "hypothetical_mixed_alpha_area_m2_at_045_surface_fraction": 0.1767822740545118,
+      "hypothetical_mixed_alpha_area_ratio": 5.299964657742513,
+      "orthographic_scale_m": 1.4496097808387083,
+      "plane_facing_camera_abs_dot_for_front_surface": {
+        "max": 0.7950335571135299,
+        "median": 0.3042731137468765,
+        "min": 0.00419807065285744,
+        "p10": 0.06448609708153316,
+        "p90": 0.5930969947631571
+      },
+      "summed_current_alpha_area_m2_no_occlusion": 0.033355368473308104,
+      "summed_surface_pair_area_m2_no_occlusion": 0.3739421127798131,
+      "view": "front"
+    },
+    {
+      "contour_oriented_roots": 1097,
+      "display": [
+        {
+          "estimated_height_minification_lod": {
+            "max": 8.497970339859082,
+            "median": 3.0265566600707663,
+            "min": 2.8194419071893893,
+            "p10": 2.8244526716398046,
+            "p90": 4.126864404104745
+          },
+          "estimated_width_minification_lod": {
+            "max": 8.472240712552617,
+            "median": 3.3323921976676947,
+            "min": 2.6019230833008926,
+            "p10": 2.793581038748986,
+            "p90": 4.240224861489173
+          },
+          "half_height_stroke_width_px": {
+            "max": 0.742836565992588,
+            "median": 0.548023161986968,
+            "min": 0.0197105823196947,
+            "p10": 0.2884453846883557,
+            "p90": 0.6518623103172807
+          },
+          "lift_height_px": {
+            "max": 3.9666277538771677,
+            "median": 3.4361626117507305,
+            "min": 0.07744868651638125,
+            "p10": 1.602684830110734,
+            "p90": 3.9528747705354794
+          },
+          "pixels": 720,
+          "pixels_per_m": 495.8279199821799
+        },
+        {
+          "estimated_height_minification_lod": {
+            "max": 9.989823436188756,
+            "median": 4.518409756400441,
+            "min": 4.3112950035190645,
+            "p10": 4.316305767969479,
+            "p90": 5.618717500434419
+          },
+          "estimated_width_minification_lod": {
+            "max": 9.964093808882293,
+            "median": 4.82424529399737,
+            "min": 4.093776179630567,
+            "p10": 4.285434135078661,
+            "p90": 5.732077957818848
+          },
+          "half_height_stroke_width_px": {
+            "max": 0.26411966790847574,
+            "median": 0.1948526798175886,
+            "min": 0.00700820704700256,
+            "p10": 0.10255835900030424,
+            "p90": 0.23177326589058872
+          },
+          "lift_height_px": {
+            "max": 1.4103565347118818,
+            "median": 1.2217467064002596,
+            "min": 0.02753731076138,
+            "p10": 0.5698434951504832,
+            "p90": 1.4054665850792816
+          },
+          "pixels": 256,
+          "pixels_per_m": 176.2943715492195
+        }
+      ],
+      "front_facing_surface_roots": 591,
+      "hypothetical_mixed_alpha_area_m2_at_045_surface_fraction": 0.1633962818971756,
+      "hypothetical_mixed_alpha_area_ratio": 4.7504529718272925,
+      "orthographic_scale_m": 1.4521166940858774,
+      "plane_facing_camera_abs_dot_for_front_surface": {
+        "max": 0.8039124741163527,
+        "median": 0.3201221681560978,
+        "min": 0.0011222907350655724,
+        "p10": 0.06751110104473212,
+        "p90": 0.6034734556689947
+      },
+      "summed_current_alpha_area_m2_no_occlusion": 0.034395937159298756,
+      "summed_surface_pair_area_m2_no_occlusion": 0.3436909090848649,
+      "view": "side"
+    }
+  ]
+}

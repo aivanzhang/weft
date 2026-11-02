@@ -1,0 +1,35 @@
+{
+  "export_model": true,
+  "id": "multi-material-lamp-finish-v1",
+  "normal_strength": 1,
+  "portrait_denoise": true,
+  "pose_resolution": 256,
+  "prompt": "Development verification: finish the existing multi-material lamp without any color-dependent operation. Preserve its two base-color images, constant materials, rig and four named actions. Do not apply fur or manufacture a shared source texture.",
+  "resolution": 256,
+  "rights": "User-authorized local derivative of this repository authored procedural lamp. No provider generation, reference upload or independent rights verification is performed by this check.",
+  "sample_states": true,
+  "samples": 2,
+  "schema_version": 1,
+  "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/lamp-hd-build-v2/model.glb",
+  "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+  "states": [
+    {
+      "id": "idle",
+      "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts."
+    },
+    {
+      "id": "making_something",
+      "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated."
+    },
+    {
+      "id": "milestone_level_up",
+      "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back."
+    },
+    {
+      "id": "working",
+      "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state."
+    }
+  ],
+  "style": "Preserve existing geometry, rig, materials and clips; this is a finisher integration check, not fresh generation.",
+  "subject": "Existing locally authored articulated desk lamp with work pad and stylus"
+}

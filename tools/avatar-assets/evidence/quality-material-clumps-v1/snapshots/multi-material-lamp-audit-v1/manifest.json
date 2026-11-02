@@ -1,0 +1,116 @@
+{
+  "artifacts": [
+    {
+      "bytes": 4341,
+      "path": "README.md",
+      "sha256": "e36b2f834c24e66ac973e3aaf2c3682be28fc9004d8a6e84bfc9b7daa0cfa171"
+    },
+    {
+      "bytes": 9279,
+      "path": "artifacts.json",
+      "sha256": "1040f877f2893da964e9d191d81d2940b188e741ec1f9a4f9a2e4c3d18664a23"
+    },
+    {
+      "bytes": 233,
+      "path": "audit-handle.json",
+      "sha256": "5843a8adf6d4b1a3d6ef9ce831955e507a91348cba15bfcde76a2f678d35eb2f"
+    },
+    {
+      "bytes": 1019,
+      "path": "audit-monitor.json",
+      "sha256": "bc8c17cf807ad8ed7c385b7d7a44c24605ba2a47a56e02be54ed995e8b113e3b"
+    },
+    {
+      "bytes": 0,
+      "path": "audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 18327,
+      "path": "audit.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e"
+    },
+    {
+      "bytes": 45249,
+      "path": "correspondence.npz",
+      "sha256": "4ad10cf0a227c4d3753a78f36682c41987ffd4c79bcaac2d01b7bad70613071c"
+    },
+    {
+      "bytes": 5416,
+      "path": "geometry.json",
+      "sha256": "3b8d54641249d6a3a55b1dc8fc369328b7c75b2d5b52eefb03d2a39b3c3e0c20"
+    },
+    {
+      "bytes": 1109,
+      "path": "job.json",
+      "sha256": "774d6ab822be2f1e272c5e6c7041baa6864016fe1fc0c1f555f4e109d9ab5818"
+    },
+    {
+      "bytes": 17592,
+      "path": "materials.json",
+      "sha256": "43ce3488a54c868a2b18a8fa1933bed5c173b99b08975321b1edbce7b6d2c1b3"
+    },
+    {
+      "bytes": 5698,
+      "path": "motion.json",
+      "sha256": "bfab8257704dd11f05a8e070fa996e9a589ad4371bad5cb6ad14989d7c744e90"
+    },
+    {
+      "bytes": 3109,
+      "path": "prepared.json",
+      "sha256": "838f29987fd4ab16505589697c3d815549a573cf0c3fe6d0d0cb74f93bc54690"
+    },
+    {
+      "bytes": 1005,
+      "path": "result.json",
+      "sha256": "d5e8fc0389aeda5bd2bb8715a573a9adcd43905e5d5ee8a951f2d531c94bfa29"
+    },
+    {
+      "bytes": 1017,
+      "path": "review.json",
+      "sha256": "d43f650b0ca668e5b8a14befbe77e010e3763a0cf3764a0b9ee71ba539c3220c"
+    },
+    {
+      "bytes": 1624,
+      "path": "rig.json",
+      "sha256": "2d13582e96e166569e1d9fb16d9c667272293566937f19ff5f3a006380037f9f"
+    },
+    {
+      "bytes": 8456,
+      "path": "source-records/outputs/multi-material-lamp-finish-v1/finish-report.json",
+      "sha256": "b659ccb1f4a3ccf22686d54d32041beff6ea53b4bb4d61edd90d9bb71de3a631"
+    },
+    {
+      "bytes": 3078,
+      "path": "source-records/outputs/multi-material-lamp-finish-v1/normal-uv-export.json",
+      "sha256": "c1f2a539fe01b8cc2040eba04757463903f2f7faad42897d382d21f7e0a34ff6"
+    },
+    {
+      "bytes": 3220,
+      "path": "source-records/outputs/multi-material-lamp-preparation-v1/execution/receipt.json",
+      "sha256": "d97eb776101d2b171500723ba8449e6bcfd845248c022788f7c98b67b7235b44"
+    },
+    {
+      "bytes": 8540,
+      "path": "source-records/outputs/multi-material-lamp-preparation-v1/source-contract.json",
+      "sha256": "1369d167fd223cc0c02d83c57273a16e322d2de4ce77e937172cc9a6709fbf37"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    }
+  ],
+  "bytes": 185056,
+  "final_sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0",
+  "new_native_provider_or_ai_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+  "status": "sealed_integration_pass_with_explicit_fidelity_limits"
+}

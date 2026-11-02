@@ -1,0 +1,145 @@
+{
+  "actual_contour_binding": {
+    "actual_corner_rows": 43200,
+    "bone_names": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "duplicates_identical": true,
+    "helper_vertices": 14400,
+    "policy": "Retained contour attributes come from final GLB, not pre-export approximations",
+    "retained_oriented_triangles_exact": true,
+    "source_model_sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+    "uv_admission": "Exact float32 V flip roundtrip, no epsilon"
+  },
+  "component": {
+    "adaptive_lift": {
+      "actual_float32_tip_displacement_quantiles_m": [
+        6.585968902174281e-05,
+        0.00038007912126929367,
+        0.0010246276337353057,
+        0.0011999993834882069,
+        0.0012000165016308611,
+        0.0012000542049603452
+      ],
+      "actual_tip_displacements_sha256": "d7ea2b148a0a7217c1d26e2ad61a5a80892ce6c7238881865e192ea364018c9a",
+      "common_lift_per_source_pair": true,
+      "design_target_degrees": 14,
+      "final_gate_degrees": 15,
+      "planned_common_lift_quantiles_m": [
+        6.591669048447039e-05,
+        0.00038009068983458277,
+        0.0010246285156934706,
+        0.0012,
+        0.0012,
+        0.0012
+      ],
+      "planned_lifts_sha256": "45e641486e477e8e3603342c5320da0694f8f29d17f342240b344ae038032de7",
+      "quantile_probabilities": [
+        0,
+        0.01,
+        0.05,
+        0.5,
+        0.95,
+        1
+      ],
+      "reduced_cards": 197,
+      "requested_cap_m": 0.0012
+    },
+    "body_modified": false,
+    "contour_fins": 900,
+    "elapsed_seconds": 0.2855846658349037,
+    "export_budget": {
+      "reserve_vertices": 4096,
+      "triangles": 71581,
+      "vertices_with_reserve": 82805
+    },
+    "failure": "Offset patch intersects source or another patch",
+    "intersections": {
+      "complete": false,
+      "grid_references": 184360,
+      "passed": false,
+      "tested_pairs": 32,
+      "witnesses": [
+        {
+          "fin": 0,
+          "other_kind": "source",
+          "other_points_m": [
+            [
+              -0.21500791609287262,
+              -0.23358866572380066,
+              0.7725536823272705
+            ],
+            [
+              -0.21225976943969727,
+              -0.23811404407024384,
+              0.7771604061126709
+            ],
+            [
+              -0.2096995860338211,
+              -0.23460060358047485,
+              0.7810492515563965
+            ]
+          ],
+          "other_triangle": 61961,
+          "patch_points_m": [
+            [
+              -0.20696532726287842,
+              -0.23916761577129364,
+              0.7826504707336426
+            ],
+            [
+              -0.21037332713603973,
+              -0.2350759506225586,
+              0.7808297872543335
+            ],
+            [
+              -0.20914316177368164,
+              -0.2312265932559967,
+              0.7718388438224792
+            ]
+          ],
+          "patch_triangle": 0,
+          "source_face": 6382
+        }
+      ]
+    },
+    "maximum_geometric_turn_degrees": 14.003684538417573,
+    "native_calls": 0,
+    "normal_turn_witnesses": [],
+    "policy": "experimental-paired-surface-clumps-v2",
+    "quality_approved": false,
+    "root_edges_preserved": 3600,
+    "roots_reselected": false,
+    "schema_version": 1,
+    "source_corner_min_outward_dot": 0.8171466601847481,
+    "source_patch_faces": 5400,
+    "status": "unsupported",
+    "surface_cards": 2700
+  },
+  "elapsed_seconds": 0.4204427497461438,
+  "inputs_unchanged": true,
+  "model_written": false,
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "source_images_decoded": [],
+  "status": "unsupported_cpu_candidate"
+}

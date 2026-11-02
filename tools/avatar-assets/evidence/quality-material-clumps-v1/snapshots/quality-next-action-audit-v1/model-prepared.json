@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "scope": "complete only missing named-model census; retain oversized fox recipe by hash",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/quality-next-action-audit-v1/inventory_models.py"
+  ],
+  "script_sha256": "cdb0c952fad09b8db2a382c693c5497e3813a10c08cc9257fadbcb2af973cf17",
+  "import_sha256": "cfcfcbe6c94b1115dbd00cf59649dbbfeeb514f09a889abc60e00c68351c5667",
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "coordinate_contract": "Applied Blender XYZ meters; parent converts P/N to glTF (x,z,-y). UVs are glTF V-down. Joints use pinned source-skin bone_names order. No GLB or native render in this job.",
+  "inputs": {
+    "array_reader": {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    "atlas": {
+      "bytes": 1684720,
+      "path": "outputs/panda-uv2-staged-control-v1/textures/portable-fringe-color-atlas.png",
+      "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047"
+    },
+    "final_model": {
+      "bytes": 36802344,
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    "finish_config": {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    "flow": {
+      "bytes": 7179,
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    "fringe_npz": {
+      "bytes": 565469,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    "fringe_report": {
+      "bytes": 14075,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    "helper": {
+      "bytes": 20552,
+      "path": "scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de"
+    },
+    "intersections": {
+      "bytes": 42517,
+      "path": "avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    "model_reader": {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    "raw_model": {
+      "bytes": 36802588,
+      "path": "outputs/panda-uv2-staged-control-v1/model.glb",
+      "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+    },
+    "sampler": {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    "skin_report": {
+      "bytes": 3815,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    "source_admission": {
+      "bytes": 1343,
+      "path": "outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a"
+    },
+    "source_arrays": {
+      "bytes": 2493888,
+      "path": "outputs/portable-surface-clumps-preparation-v1/admitted-source.npz",
+      "sha256": "05015c8a446a4e3b647c3280c9a4a68ec3fcaf4e49f9c109ff7c323f2b99bf05"
+    },
+    "tests": {
+      "bytes": 9395,
+      "path": "tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364"
+    }
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "schema_version": 1,
+  "settings": {
+    "contour_count": 900,
+    "lift_m": 0.0012,
+    "profile": "experimental-paired-surface-clumps-v1",
+    "seed": 7123,
+    "surface_count": 2700
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "accepted_asset_created": false,
+  "artifact_bytes": 1956082,
+  "artifacts": [
+    {
+      "bytes": 10150,
+      "path": "README.md",
+      "sha256": "d47d5a98d6abdbaedd9357e7e892c527797cf82079c895878ee0e0e117b0f102"
+    },
+    {
+      "bytes": 14284,
+      "path": "__pycache__/inventory.cpython-314.pyc",
+      "sha256": "9158adaf718c22fddde3026871cbe6e3428c1b2bfe241a33042b957efe6ef593"
+    },
+    {
+      "bytes": 10037,
+      "path": "inputs.json",
+      "sha256": "3a1995c70da1d9ce127504b3222ae04b858344f36e89e33a70c7948f59035947"
+    },
+    {
+      "bytes": 241,
+      "path": "inventory-handle.json",
+      "sha256": "14fd5cb51b366787e84ee84092df645bc229897b6cb9f4fcb842fbce168ba3b7"
+    },
+    {
+      "bytes": 981,
+      "path": "inventory-monitor.json",
+      "sha256": "c4905bf77f59c59a147dc3402b7806d7bb48a76f044c82782a01a08d17ece3b0"
+    },
+    {
+      "bytes": 7368,
+      "path": "inventory.json",
+      "sha256": "5264e44ed3e82eec758f5ddb6097df0f2d4d497041c949a6a9680a39acff410a"
+    },
+    {
+      "bytes": 450,
+      "path": "inventory.log",
+      "sha256": "138a22f388cd6e0ed65e9fc04fbe8efcfddfc6e3658f3fba6faba91ecf8ac9f7"
+    },
+    {
+      "bytes": 8808,
+      "path": "inventory.py",
+      "sha256": "cfcfcbe6c94b1115dbd00cf59649dbbfeeb514f09a889abc60e00c68351c5667"
+    },
+    {
+      "bytes": 1539,
+      "path": "inventory_models.py",
+      "sha256": "cdb0c952fad09b8db2a382c693c5497e3813a10c08cc9257fadbcb2af973cf17"
+    },
+    {
+      "bytes": 1068,
+      "path": "job.json",
+      "sha256": "1b01c203a25e7273bb18e9e2cb0db1736f4f4e7f9c871e067641c21c8e7fb362"
+    },
+    {
+      "bytes": 254,
+      "path": "model-inventory-handle.json",
+      "sha256": "f864aaf8b6758cca57dbab98ab7975e0ff094bc3bee0ba69ee94dd963f31fa11"
+    },
+    {
+      "bytes": 994,
+      "path": "model-inventory-monitor.json",
+      "sha256": "cb1a89d9bb84e080eadde2fadb6a68ef36d2dc036675c2da114ed40950530a45"
+    },
+    {
+      "bytes": 28582,
+      "path": "model-inventory.json",
+      "sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4"
+    },
+    {
+      "bytes": 0,
+      "path": "model-inventory.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1081,
+      "path": "model-job.json",
+      "sha256": "7b2023832cf36fde33531ca8f43c65e426a317593784b5a384ad8e77866c641c"
+    },
+    {
+      "bytes": 570,
+      "path": "model-prepared.json",
+      "sha256": "2757154f997fcb82ade3db6f53399707971eac54fe32f58517665da3895056ad"
+    },
+    {
+      "bytes": 470,
+      "path": "prepared.json",
+      "sha256": "a732892dba31653bdffeb87173ef2f8dd4834fb9716f0bce6d9b8c3c7b574035"
+    },
+    {
+      "bytes": 5210,
+      "path": "review.json",
+      "sha256": "9c542e148bcd670e85526a21c226e2e4388f4ba1f7a4f77dd861448873187e7f"
+    },
+    {
+      "bytes": 37129,
+      "path": "snapshots/README.md",
+      "sha256": "e44a08b3f06ad25be7c88ffadd09019471dfb73c6735f49c6b7d49a5d60ec4e1"
+    },
+    {
+      "bytes": 190279,
+      "path": "snapshots/TODO.md",
+      "sha256": "867c53b30a7f511c4663b5a249113c5e1e2bf07a4ec63667e78aff69b0d65c3d"
+    },
+    {
+      "bytes": 6940,
+      "path": "snapshots/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330"
+    },
+    {
+      "bytes": 32643,
+      "path": "snapshots/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5"
+    },
+    {
+      "bytes": 6665,
+      "path": "snapshots/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 65827,
+      "path": "snapshots/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276"
+    },
+    {
+      "bytes": 48339,
+      "path": "snapshots/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8"
+    },
+    {
+      "bytes": 12540,
+      "path": "snapshots/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65"
+    },
+    {
+      "bytes": 13071,
+      "path": "snapshots/docs/fur-workflow.md",
+      "sha256": "6917f29950bd6811b4afd67a0bb2e12f75f556e72ae641cd626cc8891ec91a1f"
+    },
+    {
+      "bytes": 23460,
+      "path": "snapshots/docs/hands-off-studio.md",
+      "sha256": "341301d7c569c9d1948b6cc8f0d3f3de18f11e3283330b77ccbe48b1cc744861"
+    },
+    {
+      "bytes": 11723,
+      "path": "snapshots/docs/hd-quality-pass-v1.md",
+      "sha256": "0b9846977abe84ba0fd3777942b379645d594cab291140aaf861e734daec8639"
+    },
+    {
+      "bytes": 24777,
+      "path": "snapshots/docs/prompt-pipeline.md",
+      "sha256": "aae304f546f38aecfda2cddd455fabfb776fec1b06d72cc1351908ab6ec59465"
+    },
+    {
+      "bytes": 14459,
+      "path": "snapshots/docs/source-uv-control.md",
+      "sha256": "7d4a9c491817291b615b15577a6dcf1b4bf170e3db65f1f8d89b82b3a1731963"
+    },
+    {
+      "bytes": 12720,
+      "path": "snapshots/examples/meshy/agent-dragon-polish-v1.json",
+      "sha256": "5910ff8afd3e223d03256296874ee647a201b1e7cde6fdca1c59104bc706a11b"
+    },
+    {
+      "bytes": 30112,
+      "path": "snapshots/examples/meshy/muse-panda-dance-v4.json",
+      "sha256": "b8255af9a686a491504c210b5a63e62f6d6d2f517efbd5462436a85d2e9f0689"
+    },
+    {
+      "bytes": 24251,
+      "path": "snapshots/examples/meshy/muse-panda-smooth-fur-v3.json",
+      "sha256": "74e215c79b0b17c4d99052dcdef48e61b38afe06c8d8a4255fa1c9e7a1b433d8"
+    },
+    {
+      "bytes": 726394,
+      "path": "snapshots/examples/scenes/lamp-hd-v1.json",
+      "sha256": "4bcb6521903442a1eed96f63c11772b7de3c483eebb08d6f6ef1e7a23a755e2e"
+    },
+    {
+      "bytes": 26026,
+      "path": "snapshots/outputs/agent-dragon-polish-v1/finish-report.json",
+      "sha256": "6375a7988540b0c6be9d65794fa901c555cdfab3d3d4218813ef5a3b9d76610c"
+    },
+    {
+      "bytes": 48713,
+      "path": "snapshots/outputs/agent-dragon-polish-v1/manifest.json",
+      "sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437"
+    },
+    {
+      "bytes": 5661,
+      "path": "snapshots/outputs/agent-robot-v3/delivery.json",
+      "sha256": "487ce897f5eba38387a976904cb66ccb678cfceeaea7d0e9fd810b50b5b178f1"
+    },
+    {
+      "bytes": 1009,
+      "path": "snapshots/outputs/agent-robot-v3/request.json",
+      "sha256": "b5aad39c906d7ea897f61fb8d0102c64b3bd10b087727c2d248ef808f7ca8cb6"
+    },
+    {
+      "bytes": 170381,
+      "path": "snapshots/outputs/fox-hd-build-v2/manifest.json",
+      "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be"
+    },
+    {
+      "bytes": 1200,
+      "path": "snapshots/outputs/fresh-acceptance-estimate-v2/estimate.json",
+      "sha256": "bba7d25d71eeb9752d083e8ec0858b1783311b3ff0b371bb3d935a5fac09fca5"
+    },
+    {
+      "bytes": 737,
+      "path": "snapshots/outputs/fresh-acceptance-preparation-v1/allowance-request.json",
+      "sha256": "4fabfae8c4a485695e932ddb1be5a6cd9cde5d700eb4dc005a74f209394bb2ad"
+    },
+    {
+      "bytes": 1573,
+      "path": "snapshots/outputs/fresh-acceptance-preparation-v1/estimate.json",
+      "sha256": "94c23f8fecaef092424a4081abb89aadec7940925008a87fa8be36c0abe30e2e"
+    },
+    {
+      "bytes": 4314,
+      "path": "snapshots/outputs/fresh-acceptance-preparation-v1/requests.json",
+      "sha256": "b5df06fd2841e04b5cc84a9e6a11b4ff47f0338fa56d8f79f4af6a1f94b67311"
+    },
+    {
+      "bytes": 51284,
+      "path": "snapshots/outputs/lamp-hd-build-v2/manifest.json",
+      "sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115"
+    },
+    {
+      "bytes": 3653,
+      "path": "snapshots/outputs/lamp-hd-build-v2/rig-contract.json",
+      "sha256": "979170eeba61f484b589acb149d23f40ce51c8033586354d15ca2f2479e11413"
+    },
+    {
+      "bytes": 34009,
+      "path": "snapshots/outputs/muse-panda-dance-probe-v2/finish-report.json",
+      "sha256": "f3db90d494d85205eb6a7c962606b7a67f35c2720680bbefa1c8cda40c37e72f"
+    },
+    {
+      "bytes": 55709,
+      "path": "snapshots/outputs/muse-panda-dance-probe-v2/manifest.json",
+      "sha256": "bbaae99fea1db3940128eea17be3b0ff2324fbc63444f7608bcf47d57de11b71"
+    },
+    {
+      "bytes": 3554,
+      "path": "snapshots/outputs/muse-panda-smooth-base-v2/plan.json",
+      "sha256": "d1650176b18403baf88a3d90905d0a7aa9baf71f52c7fa5dc52ccb39bd87ace2"
+    },
+    {
+      "bytes": 39365,
+      "path": "snapshots/outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3"
+    },
+    {
+      "bytes": 67655,
+      "path": "snapshots/outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01"
+    },
+    {
+      "bytes": 234,
+      "path": "snapshots/outputs/panda-cheek-curved-candidate-v1/result.json",
+      "sha256": "58fdef5b18e0db072f4377874f0f17849879464ee35d02e312252f7cbd0a8929"
+    },
+    {
+      "bytes": 2693,
+      "path": "snapshots/outputs/panda-cheek-scar-selection-v1/manifest.json",
+      "sha256": "a20057d64c5f3f85cd06fc0f78b14846f9b072872936944ac9e04e686264aadd"
+    },
+    {
+      "bytes": 5223,
+      "path": "snapshots/outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022"
+    },
+    {
+      "bytes": 632,
+      "path": "snapshots/outputs/studio-rigged-robot-preparation-v1/request.json",
+      "sha256": "85f3eae6185a858a4608cf2547fe0f047db820bf6a19eeebca942bd91d2c67cd"
+    },
+    {
+      "bytes": 52912,
+      "path": "snapshots/scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff"
+    },
+    {
+      "bytes": 6129,
+      "path": "snapshots/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    }
+  ],
+  "kind": "read_only_whole_goal_readiness_audit",
+  "new_generation_or_native_jobs": 0,
+  "parent_inputs_are_immutable": true,
+  "recorded_local": "2026-11-02T02:46:57.659990-08:00",
+  "schema_version": 1,
+  "status": "sealed"
+}

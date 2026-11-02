@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "read_only_retained_contour_correspondence",
+  "retained_fins": 900,
+  "actual_triangles": 3600,
+  "all_triangles_have_one_fin_owner": true,
+  "oriented_cyclic_triangle_multisets_equal": true,
+  "differing_actual_triangle_examples": [],
+  "differing_expected_triangle_examples": [],
+  "attribute_duplicate_equivalence": {
+    "POSITION": {
+      "duplicates_exact": true,
+      "actual_corner_array_sha256": "fc1f88174b5b3e280cf917037b55604ff1340fb557c3c24f5165ce33ee8e3c77"
+    },
+    "NORMAL": {
+      "duplicates_exact": true,
+      "actual_corner_array_sha256": "1c4ae2b32c8047dba80989e3d3ab118179aacc3f0574c3ab0c33e43bbb96c3d9"
+    },
+    "TEXCOORD_0": {
+      "duplicates_exact": true,
+      "actual_corner_array_sha256": "2f43bcaa39403c70b1fbcde7b382b9e71f52d1663f0b2f6f0237fea724f4847d"
+    },
+    "JOINTS_0": {
+      "duplicates_exact": true,
+      "actual_corner_array_sha256": "4e896e3adc6ea2962efcb8f332519124f8b9d869506fd6cb4b1859e0575bdfa3"
+    },
+    "WEIGHTS_0": {
+      "duplicates_exact": true,
+      "actual_corner_array_sha256": "5b296d285ffd3b20cf6c58b9555b432e4acd1e840349fdaad941df03861ecc50"
+    }
+  },
+  "geometry_not_run": true,
+  "model_not_modified": true,
+  "actual_model_sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+  "raw_model_sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16",
+  "fringe_npz_sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+}

@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-surface-clumps-prototype-v1/build_arrays.py"
+  ],
+  "source_pins": {
+    "outputs/portable-surface-clumps-prototype-v1/prepared.json": "f3c1535f5c69c2be34d910873e5b2327e55a728614caf632010ac5d1e0a6bb41",
+    "outputs/portable-surface-clumps-prototype-v1/build_arrays.py": "93a2aee6c0d790e3247c6ee8456d253e6435fc89159bc6651fe5bc0b76c230ae",
+    "avatar_assets/runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+  },
+  "bounds": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "intent": "One fixed-selection CPU geometry and texture prototype; stop on failure"
+}

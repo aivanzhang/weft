@@ -1,0 +1,188 @@
+{
+  "attachment": null,
+  "local_transform_units": "Respect complete hierarchy and inverse bind matrices; root scale may convert centimeters to meters",
+  "nodes": [
+    {
+      "id": 0,
+      "name": "shade",
+      "parent_id": 1,
+      "rotation": [
+        1.4700434676517306e-15,
+        1.0025482572020942e-23,
+        1.413238316360563e-23,
+        1
+      ],
+      "translation": [
+        -0.4000000059604645,
+        0.6499999761581421,
+        -1.36914177772951e-08
+      ]
+    },
+    {
+      "children": [
+        0
+      ],
+      "id": 1,
+      "name": "upper_arm",
+      "parent_id": 2,
+      "rotation": [
+        1.4700434676517306e-15,
+        -2.5376099443974454e-08,
+        1.0256043737650792e-24,
+        1
+      ],
+      "translation": [
+        0.30000001192092896,
+        0.669999897480011,
+        2.549422717379457e-08
+      ]
+    },
+    {
+      "children": [
+        1
+      ],
+      "id": 2,
+      "name": "lower_arm",
+      "parent_id": 3,
+      "rotation": [
+        -6.049452663961865e-16,
+        1.0025481783160037e-23,
+        1.4938567454305295e-23,
+        1
+      ],
+      "translation": [
+        8.334061765992871e-23,
+        0.3800000548362732,
+        -5.551115123125783e-16
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "id": 3,
+      "name": "turntable",
+      "parent_id": 7,
+      "rotation": [
+        2.921639245926532e-16,
+        2.5376097667617614e-08,
+        4.129773929075933e-23,
+        1
+      ],
+      "scale": [
+        1,
+        0.9999999403953552,
+        1
+      ],
+      "translation": [
+        -1.9852334701272664e-23,
+        0.1600000262260437,
+        3.3306690738754696e-16
+      ]
+    },
+    {
+      "id": 4,
+      "name": "work_pad",
+      "parent_id": 7,
+      "rotation": [
+        0,
+        -1.7114272665708086e-08,
+        0,
+        1
+      ],
+      "translation": [
+        0.44999992847442627,
+        0.020000040531158447,
+        0.44999992847442627
+      ]
+    },
+    {
+      "id": 5,
+      "name": "trace_stylus",
+      "parent_id": 6,
+      "rotation": [
+        1.7114272665708086e-08,
+        0,
+        0,
+        1
+      ],
+      "translation": [
+        0.17000001668930054,
+        7.771561172376096e-16,
+        1.7114272665708086e-08
+      ]
+    },
+    {
+      "children": [
+        5
+      ],
+      "id": 6,
+      "name": "trace_rotor",
+      "parent_id": 7,
+      "rotation": [
+        0,
+        -1.7114272665708086e-08,
+        0,
+        1
+      ],
+      "translation": [
+        0.5299999117851257,
+        0.46000000834465027,
+        0.5699998736381531
+      ]
+    },
+    {
+      "children": [
+        3,
+        4,
+        6
+      ],
+      "id": 7,
+      "name": "root",
+      "parent_id": 8,
+      "rotation": [
+        -8.557136332854043e-09,
+        1.7114272665708086e-08,
+        -2.928983286277023e-16,
+        1
+      ],
+      "translation": [
+        0,
+        0.03999999910593033,
+        0
+      ]
+    },
+    {
+      "children": [
+        7
+      ],
+      "id": 8,
+      "name": "AvatarRig",
+      "parent_id": null
+    },
+    {
+      "id": 9,
+      "mesh": 0,
+      "name": "lamp-hd-v1_skinned_mesh",
+      "parent_id": null,
+      "skin": 0
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 77,
+      "joints": [
+        7,
+        3,
+        2,
+        1,
+        0,
+        4,
+        6,
+        5
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "weft_runtime_verified": false
+}

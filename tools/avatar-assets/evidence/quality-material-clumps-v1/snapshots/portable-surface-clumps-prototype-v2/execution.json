@@ -1,0 +1,19 @@
+{
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-surface-clumps-prototype-v2/build_arrays.py"
+  ],
+  "source_pins": {
+    "outputs/portable-surface-clumps-prototype-v2/prepared.json": "d30600ac39c187e58ee0f54bac8af12cabb958eda1f963e1591c69b77794bac0",
+    "outputs/portable-surface-clumps-prototype-v2/build_arrays.py": "a2b63a2c498f5ce2eb588678bee783c61d0dd745a962926f5eeceac70acb5217",
+    "avatar_assets/runner.py": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+  },
+  "bounds": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "native_provider_ai_role_calls": 0,
+  "parent_release": "Exact V-flip assertion and actual final UV preservation; no epsilon, selection or lift change"
+}

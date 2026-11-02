@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "scope": "read-only named-file CPU inventory",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/quality-next-action-audit-v1/inventory.py"
+  ],
+  "script_sha256": "cfcfcbe6c94b1115dbd00cf59649dbbfeeb514f09a889abc60e00c68351c5667",
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "new_native_provider_ai_calls": 0
+}

@@ -1,0 +1,54 @@
+{
+  "artifacts": [
+    {
+      "bytes": 201,
+      "path": "cpu-handle.json",
+      "sha256": "b163f1a45dd34c8e82f9f48e363cbf2e3fcc360d2302c4d462121420b0ea80da"
+    },
+    {
+      "bytes": 1037,
+      "path": "cpu-job.json",
+      "sha256": "665f7492ecb06acfc6912abbc2ee50a10ca2046952fb0860c8c97388f6de1be8"
+    },
+    {
+      "bytes": 937,
+      "path": "cpu-monitor.json",
+      "sha256": "67a28a1a26b44615adde7d92b39eef12cda93abd6413f410ebd8254a28f9afbc"
+    },
+    {
+      "bytes": 2149,
+      "path": "cpu.log",
+      "sha256": "ae4a7cc645bc45e530c4c7846dc9321169a11b8982d5472ed3a376b9d6010968"
+    },
+    {
+      "bytes": 1285,
+      "path": "prepared.json",
+      "sha256": "0c1de16c8ae3ca4f26e385f8b6da577ec1d484115e7855fae4f3a3351f6ac8c0"
+    },
+    {
+      "bytes": 3611,
+      "path": "receipt.json",
+      "sha256": "f5d292dfa1c433a9743654b6974de7e2919f4c198c6be8e25978a3cfc730a106"
+    },
+    {
+      "bytes": 54172,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918"
+    },
+    {
+      "bytes": 10914,
+      "path": "sources/test_lazy_source_color_sampling.py",
+      "sha256": "9028031212294e00f1d72bf8a465366195b7fde248df98b50e604f2158564298"
+    },
+    {
+      "bytes": 428,
+      "path": "unchanged-contracts.json",
+      "sha256": "b5fd18715791c0d4dbd74d2202b0b68041442f0a6c1bd9b94661719dfee36ec7"
+    }
+  ],
+  "bytes": 74734,
+  "owned_live_jobs": [],
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "focused_cpu_tests_passed_native_proof_pending"
+}

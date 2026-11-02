@@ -1,0 +1,173 @@
+{
+  "comparison_limit": "New actual exported model and bounded renderer; no pixel-registered A/B or exhaustive fleck-coverage claim. Native-strand scene is prepared, not newly rendered.",
+  "failures": [
+    {
+      "evidence": [
+        "renders/dance_flight/0000.png",
+        "renders/dance_flight/0001.png",
+        "renders/dance_flight/0002.png"
+      ],
+      "feature": "Exposed shoulder",
+      "finding": "Large layered angular dark patches remain after takeoff; successful UV rebake does not repair folded source geometry."
+    },
+    {
+      "evidence": [
+        "renders/dance_flight/0001.png",
+        "renders/dance_flight/0002.png"
+      ],
+      "feature": "Cheek",
+      "finding": "Raised white angular shards remain on viewer-left cheek."
+    },
+    {
+      "evidence": [
+        "front.png",
+        "back.png",
+        "side.png"
+      ],
+      "feature": "Coat",
+      "finding": "Outlines show sparse bristles and broad surfaces read as short plush rather than dense fine Muse-like fur."
+    }
+  ],
+  "images": [
+    {
+      "bytes": 464800,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/front.png",
+      "sha256": "97e1b2ce868e43ecc20017e7a07922ee1bd7bd2e4b4f66e0b4282d4c8bb9470a"
+    },
+    {
+      "bytes": 447332,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/three-quarter.png",
+      "sha256": "4af60e833a69acfaeface1a73e5fc28d9a26417ca292c95f3533bb704c2fee55"
+    },
+    {
+      "bytes": 435435,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/back.png",
+      "sha256": "9b5bfeb7318af7355410cc00f055b073ad5619f156872f6e07e9953454336007"
+    },
+    {
+      "bytes": 411334,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/side.png",
+      "sha256": "80dd393efad05f189cc727a5fbe6137405ae7a3f84917d24749c057ac16e2108"
+    },
+    {
+      "bytes": 384712,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0000.png",
+      "sha256": "b8f4fe4495cd27f3081d86b8e8c27cbf9bfe47a9b6b2c48d5545b1d525c4ed8d"
+    },
+    {
+      "bytes": 393427,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "cc65c32f80ed9266f234ee3c1ed1c4f962c6db990fbce9b516d6f0593c1c84ba"
+    },
+    {
+      "bytes": 387427,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0002.png",
+      "sha256": "90320f8a53051dc6075f44b8630bd2bb57fb6652973015952b38ddff07900ba4"
+    },
+    {
+      "bytes": 387570,
+      "dimensions": [
+        720,
+        720
+      ],
+      "format": "PNG",
+      "frames": 1,
+      "mode": "RGB",
+      "opaque": true,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "8505f53368ba55333d4c2f57364c5d7e720e68057423b18482856ca5d8f2273b"
+    }
+  ],
+  "model": {
+    "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+    "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+  },
+  "motion_review": {
+    "full_animation_visual_acceptance": false,
+    "loop_claimed": false,
+    "observations": "Dragon separates and travels; panda pose changes. These phase-spaced stills do not prove continuous wing flapping, full action meaning or a seamless loop.",
+    "sampled_pose_images": 4,
+    "times_seconds": [
+      0.36,
+      1.36,
+      2.36,
+      3.36
+    ]
+  },
+  "new_pipeline_role_calls": 0,
+  "new_provider_generation_calls": 0,
+  "next_action": "Do not render full video or promote this known-defective candidate. Finish generic normal-UV export admission; geometry needs a different justified approach or an authorized better source. Fresh Studio acceptance remains pending.",
+  "preserved_features": [
+    "Recognizable black-white panda and small green shoulder dragon",
+    "Identity/palette consistent across sampled views and poses",
+    "Sampled model and traveling companion remain in frame"
+  ],
+  "quality_approved": false,
+  "recorded": "2026-11-02 01:50:46 PST",
+  "reviewer": "root local visual review of all8 actual images",
+  "schema_version": 1,
+  "static_fallback": {
+    "approved_gallery_updated": false,
+    "opaque": true,
+    "path": "outputs/panda-uv2-portable-preview-v1/front.png",
+    "valid_static_image": true
+  },
+  "status": "appearance_rejected",
+  "unique_image_hashes": 8
+}

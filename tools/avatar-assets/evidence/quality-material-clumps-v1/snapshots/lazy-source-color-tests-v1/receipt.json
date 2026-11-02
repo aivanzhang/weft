@@ -1,0 +1,98 @@
+{
+  "bounded_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "-v",
+      "tests.test_lazy_source_color_sampling"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.263,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 70020,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 256,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 70889,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 70020,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "changed_files": [
+    {
+      "bytes": 54172,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918"
+    },
+    {
+      "bytes": 10914,
+      "path": "tests/test_lazy_source_color_sampling.py",
+      "sha256": "9028031212294e00f1d72bf8a465366195b7fde248df98b50e604f2158564298"
+    }
+  ],
+  "color_controls": [
+    "groom",
+    "portable_fur",
+    "portable_fringe",
+    "fur_undercoat",
+    "smoothing",
+    "surface_profiles",
+    "color_corrections",
+    "attachment"
+  ],
+  "completed_at": "2026-11-02T02:53:09.467793-08:00",
+  "native_jobs": 0,
+  "next_safe_action": "Parent/reviewer may pin the frozen helper and run their one bounded already-authored multi-material lamp proof through public finish; this does not constitute fresh neural acceptance.",
+  "no_color_controls": [
+    "surface_smoothing",
+    "authored_rig",
+    "authored_actions",
+    "normal_continuity",
+    "weight_constraints"
+  ],
+  "owned_live_jobs": [],
+  "provider_calls": 0,
+  "quality_approved": false,
+  "report_field": "source_color_sampling",
+  "rss_note": "No RSS sample was collected before child exit; sampled_peak_rss_bytes is null, not zero memory use.",
+  "schema_version": 1,
+  "scope": "Actual native helpers and native selection-stage statements compiled with bounded analytic image/material fakes. No Blender execution, texture-file decode, actual lamp run or neural generation.",
+  "status": "focused_cpu_tests_passed_native_proof_pending",
+  "test_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_lazy_source_color_sampling"
+  ],
+  "test_executions": 10,
+  "unchanged_input_hashes": true,
+  "unique_test_methods": 10,
+  "unittest_seconds": 0.016,
+  "verified": [
+    "No color control: sampler performs no source-object, material or image access and returns None colors.",
+    "Actual selection stage accepts two different texture references plus a constant material without changing graphs or decoding pixels.",
+    "Each of eight color consumers retains strict shared-image admission; constants/heterogeneous sources reject before sampling.",
+    "Required sampling reads one image once for all consumers, preserves the old chroma/spatial mask, exact-root contract, sRGB and16MP bounds.",
+    "Unchanged AST checks retain one mesh/one rig admission and the full export block including the normal-UV guard."
+  ]
+}

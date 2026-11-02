@@ -1,0 +1,152 @@
+{
+  "artifact_bytes": 461161,
+  "artifact_count": 28,
+  "artifacts": [
+    {
+      "bytes": 972,
+      "path": "actual-input-checkpoint.json",
+      "sha256": "ec9bc5d6de5479752e0df64565d57b2f084b0d346a35220af5a1b8a31e091942"
+    },
+    {
+      "bytes": 10389,
+      "path": "build_arrays.py",
+      "sha256": "a2b63a2c498f5ce2eb588678bee783c61d0dd745a962926f5eeceac70acb5217"
+    },
+    {
+      "bytes": 252,
+      "path": "cpu-handle.json",
+      "sha256": "e319a9dd544f84953678ced9722a8484840fe8abde4dc7d882c088c71cdf64b9"
+    },
+    {
+      "bytes": 1082,
+      "path": "cpu-job.json",
+      "sha256": "ec484c8d4f39af76e7e5e8d9d58df25c1e2d29ba28e336ac329dcd135ce453b6"
+    },
+    {
+      "bytes": 990,
+      "path": "cpu-monitor.json",
+      "sha256": "f263770b225ae7fd032f17588e2070165cadf2a429843e1322588ad2d1a7e644"
+    },
+    {
+      "bytes": 3504,
+      "path": "cpu.log",
+      "sha256": "b59f233c3bd06a43a4b387799c8db13ba293a11c9468053a03765e3490bd64fb"
+    },
+    {
+      "bytes": 5361,
+      "path": "diagnose_turn.py",
+      "sha256": "b9e13fd745139b89d15274d8d4e4dfd1ff6f7d350b4791cd2ce522f1f849c9d2"
+    },
+    {
+      "bytes": 409,
+      "path": "diagnosis-execution.json",
+      "sha256": "273bb921e3b086836e5115decb94fe3ad24f59d5ff0a9f3b9da27f553840d95f"
+    },
+    {
+      "bytes": 259,
+      "path": "diagnosis-handle.json",
+      "sha256": "7052d3f06cd6f2fa5cad029a19e36ceb69cdb2c8e7279d35547d82da361579d6"
+    },
+    {
+      "bytes": 1089,
+      "path": "diagnosis-job.json",
+      "sha256": "476cf68ce844a6c3ec58347b9a4bc0e33b1dd3d0d739f37bac1d844d792e8c54"
+    },
+    {
+      "bytes": 997,
+      "path": "diagnosis-monitor.json",
+      "sha256": "f4befa075319002805068eb0356cbb310cb5f71282d8c6df7e1fd3e167108816"
+    },
+    {
+      "bytes": 1731,
+      "path": "diagnosis.log",
+      "sha256": "a726031a521e5ccaa8febdac73927ad4a8fece90d164e6775b4175d9f2d64a7b"
+    },
+    {
+      "bytes": 845,
+      "path": "execution.json",
+      "sha256": "61c4e0eb26f43bd8e2208da843d920098567e6fad3df5957d13c852285ecb808"
+    },
+    {
+      "bytes": 2769,
+      "path": "findings.md",
+      "sha256": "bebda3fbc48aa0cb68155facd04b479e9ac0a746ef3ab1bf32cdc054cd7ef0f0"
+    },
+    {
+      "bytes": 221816,
+      "path": "normal-turn-diagnosis.json",
+      "sha256": "c45f5f9f2e8666787b83fd7a6886dc48ca677ccba150567606548cd112d5263a"
+    },
+    {
+      "bytes": 4021,
+      "path": "prepared.json",
+      "sha256": "d30600ac39c187e58ee0f54bac8af12cabb958eda1f963e1591c69b77794bac0"
+    },
+    {
+      "bytes": 3504,
+      "path": "result.json",
+      "sha256": "38ed6e8748eef456355df2a1c8a3bc36b67249029b6e5dafc234f6db54deba42"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 42517,
+      "path": "sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 37182,
+      "path": "sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    {
+      "bytes": 14075,
+      "path": "sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    {
+      "bytes": 3815,
+      "path": "sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    {
+      "bytes": 1343,
+      "path": "sources/outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 20552,
+      "path": "sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de"
+    },
+    {
+      "bytes": 9395,
+      "path": "sources/tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364"
+    }
+  ],
+  "model_written": false,
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "self_excluded": true,
+  "status": "sealed_rejected_fixed_lift_candidate"
+}

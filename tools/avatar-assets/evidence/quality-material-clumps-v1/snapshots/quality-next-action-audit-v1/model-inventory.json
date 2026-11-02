@@ -1,0 +1,1125 @@
+{
+  "elapsed_seconds": 0.14099999982863665,
+  "large_recipe_bound_reference": {
+    "bytes": 2230191,
+    "path": "examples/scenes/fox-hd-v3.json",
+    "sha256": "62492cb84a45051e33fe53f141996a8d18ff5688295d67cc12a092bc9b6ae615"
+  },
+  "memory_scope": "macOS ru_maxrss, this read-only Python process only",
+  "models": {
+    "authored_fox": {
+      "attribute_vertices_including_primitive_duplication": 60418,
+      "bytes": 27709020,
+      "clips": [
+        "idle",
+        "making_something",
+        "milestone_level_up",
+        "working"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "coat"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 2,
+          "base_color_uv": 0,
+          "material": 1,
+          "name": "coat_cutout_fur"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 4,
+          "base_color_uv": 0,
+          "material": 2,
+          "name": "cream"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 5,
+          "base_color_uv": 0,
+          "material": 3,
+          "name": "cream_cutout_fur"
+        },
+        {
+          "base_color_factor": [
+            0.03071344457566738,
+            0.015208514407277107,
+            0.01850022003054619,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 4,
+          "name": "nose"
+        },
+        {
+          "base_color_factor": [
+            1,
+            0.9559733271598816,
+            0.8307698965072632,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 5,
+          "name": "eye_white"
+        },
+        {
+          "base_color_factor": [
+            0.34191441535949707,
+            0.10702310502529144,
+            0.021219009533524513,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 6,
+          "name": "iris"
+        },
+        {
+          "base_color_factor": [
+            0.006995410192757845,
+            0.006512090563774109,
+            0.01032982300966978,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 7,
+          "name": "pupil"
+        },
+        {
+          "base_color_factor": [
+            0.6795424818992615,
+            0.35640013217926025,
+            0.25015828013420105,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 8,
+          "name": "ear_inner"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 7,
+          "base_color_uv": 0,
+          "material": 9,
+          "name": "dark"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 8,
+          "base_color_uv": 0,
+          "material": 10,
+          "name": "dark_cutout_fur"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 10,
+          "base_color_uv": 0,
+          "material": 11,
+          "name": "scarf"
+        },
+        {
+          "base_color_factor": [
+            0.11953842639923096,
+            0.38642942905426025,
+            0.35153260827064514,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 12,
+          "name": "scarf_seam"
+        },
+        {
+          "base_color_factor": [
+            0.01850022003054619,
+            0.04373503103852272,
+            0.09989872574806213,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 13,
+          "name": "book"
+        },
+        {
+          "base_color_factor": [
+            0.8796223998069763,
+            0.7758222222328186,
+            0.5906188488006592,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 14,
+          "name": "paper"
+        },
+        {
+          "base_color_factor": [
+            0.5088813304901123,
+            0.4019777774810791,
+            0.24228112399578094,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 15,
+          "name": "page_edge"
+        },
+        {
+          "base_color_factor": [
+            0.7230551242828369,
+            0.47353148460388184,
+            0.10702310502529144,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 16,
+          "name": "gold"
+        },
+        {
+          "base_color_factor": [
+            0.68668532371521,
+            0.46207699179649353,
+            0.2158605009317398,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 17,
+          "name": "pencil_wood"
+        },
+        {
+          "base_color_factor": [
+            0.02955683507025242,
+            0.03433980792760849,
+            0.04666508734226227,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 18,
+          "name": "graphite"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/fox-hd-build-v2/model.glb",
+      "primitives": 19,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+      "skin_bones": [
+        [
+          "root",
+          "torso",
+          "head",
+          "ear_left",
+          "ear_right",
+          "tail",
+          "upper_arm_left",
+          "forearm_left",
+          "hand_left",
+          "sketchbook",
+          "thigh_left",
+          "shin_left",
+          "foot_left",
+          "upper_arm_right",
+          "forearm_right",
+          "hand_right",
+          "pencil",
+          "thigh_right",
+          "shin_right",
+          "foot_right"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 67776
+    },
+    "authored_lamp": {
+      "attribute_vertices_including_primitive_duplication": 37762,
+      "bytes": 5109552,
+      "clips": [
+        "idle",
+        "making_something",
+        "milestone_level_up",
+        "working"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            0.177888423204422,
+            0.045186202973127365,
+            0.07036009430885315,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 0,
+          "name": "body"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 1,
+          "name": "brass"
+        },
+        {
+          "base_color_factor": [
+            0.02955683507025242,
+            0.03433980792760849,
+            0.05448027700185776,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 2,
+          "name": "joint"
+        },
+        {
+          "base_color_factor": [
+            0.006048833020031452,
+            0.013702083379030228,
+            0.024157632142305374,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 3,
+          "name": "display"
+        },
+        {
+          "base_color_factor": [
+            1,
+            0.7991027235984802,
+            0.4507857859134674,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 4,
+          "name": "bulb"
+        },
+        {
+          "base_color_factor": [
+            0.8713670969009399,
+            0.7912979125976562,
+            0.6444796919822693,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 5,
+          "name": "paper"
+        },
+        {
+          "base_color_factor": [
+            0.05126945674419403,
+            0.1384316086769104,
+            0.18782077729701996,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 6,
+          "name": "ink"
+        },
+        {
+          "base_color_factor": [
+            0.013702083379030228,
+            0.019382361322641373,
+            0.02955683507025242,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 7,
+          "name": "rubber"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 3,
+          "base_color_uv": 0,
+          "material": 8,
+          "name": "steel"
+        },
+        {
+          "base_color_factor": [
+            0.7758222222328186,
+            0.6653872728347778,
+            0.47353148460388184,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 9,
+          "name": "reflector"
+        },
+        {
+          "base_color_factor": [
+            0.46207699179649353,
+            0.47353148460388184,
+            0.40724021196365356,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 10,
+          "name": "page_line"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/lamp-hd-build-v2/model.glb",
+      "primitives": 11,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+      "skin_bones": [
+        [
+          "root",
+          "turntable",
+          "lower_arm",
+          "upper_arm",
+          "shade",
+          "work_pad",
+          "trace_rotor",
+          "trace_stylus"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 44754
+    },
+    "dragon_polished": {
+      "attribute_vertices_including_primitive_duplication": 36322,
+      "bytes": 26485640,
+      "clips": [
+        "idle",
+        "look_around",
+        "milestone_level_up",
+        "wing_flap"
+      ],
+      "expected_sha256_matched": null,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/agent-dragon-polish-v1/model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381",
+      "skin_bones": [
+        [
+          "Root",
+          "Chest",
+          "Neck",
+          "Head",
+          "ArmLeft",
+          "ArmRight",
+          "WingLeft",
+          "WingRight",
+          "Tail"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 36501
+    },
+    "dragon_raw": {
+      "attribute_vertices_including_primitive_duplication": 36010,
+      "bytes": 25349908,
+      "clips": [],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "base_color_image": 0,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": null
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb",
+      "skin_bones": [],
+      "skins": 0,
+      "triangles_from_index_counts": 36501
+    },
+    "rejected_uv2_control": {
+      "attribute_vertices_including_primitive_duplication": 94909,
+      "bytes": 36802344,
+      "clips": [
+        "dance_flight"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "body_surface"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 1,
+          "name": "companion_surface"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 2,
+          "name": "body_cap"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 3,
+          "name": "companion_cap"
+        },
+        {
+          "base_color_factor": [
+            0.004400849808007479,
+            0.003935939632356167,
+            0.003758403705433011,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 4,
+          "name": "body_surface__color_rear-tail-base"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 5,
+          "name": "body_surface__short_pile_adaptive_v1"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 6,
+          "name": "body_cap__short_pile_adaptive_v1"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 7,
+          "name": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 8,
+          "name": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 7,
+          "base_color_uv": 0,
+          "material": 9,
+          "name": "SourceColoredFringe"
+        }
+      ],
+      "meshes": 2,
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "primitives": 10,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+      "skin_bones": [
+        [
+          "Root",
+          "Pelvis",
+          "Torso",
+          "Neck",
+          "Head",
+          "RightShoulder",
+          "RightUpperArm",
+          "RightForearm",
+          "RightHand",
+          "LeftShoulder",
+          "LeftUpperArm",
+          "LeftForearm",
+          "LeftHand",
+          "Tail",
+          "RightFoot",
+          "LeftFoot",
+          "CompanionRoot",
+          "DragonWingRight",
+          "DragonWingLeft"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 76981
+    },
+    "robot_legacy_delivery": {
+      "attribute_vertices_including_primitive_duplication": 45386,
+      "bytes": 24466992,
+      "clips": [
+        "celebrate",
+        "idle",
+        "look",
+        "wave"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/agent-robot-v3/model-1/model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "e2e1c4e73a83773673a9343d3ae0baeddea84dbace9ac61ac7ee203a9ec89d3e",
+      "skin_bones": [
+        [
+          "Root",
+          "Torso",
+          "Head",
+          "UpperArmL",
+          "ForearmL",
+          "HandL",
+          "UpperArmR",
+          "ForearmR",
+          "HandR",
+          "LegL",
+          "LegR"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 51320
+    },
+    "robot_provider_rig": {
+      "attribute_vertices_including_primitive_duplication": 45386,
+      "bytes": 24513040,
+      "clips": [
+        "Armature|clip0|baselayer"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/workshop-robot-meshy-v1/stages/rig/downloads/model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "ee7477ccf173f480db7fe41924451e4483fa5fc369247fba679942b52df510a7",
+      "skin_bones": [
+        [
+          "Hips",
+          "Spine02",
+          "Spine01",
+          "Spine",
+          "neck",
+          "Head",
+          "head_end",
+          "headfront",
+          "LeftShoulder",
+          "LeftArm",
+          "LeftForeArm",
+          "LeftHand",
+          "RightShoulder",
+          "RightArm",
+          "RightForeArm",
+          "RightHand",
+          "LeftUpLeg",
+          "LeftLeg",
+          "LeftFoot",
+          "LeftToeBase",
+          "RightUpLeg",
+          "RightLeg",
+          "RightFoot",
+          "RightToeBase"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 51320
+    },
+    "robot_raw": {
+      "attribute_vertices_including_primitive_duplication": 45081,
+      "bytes": 23097200,
+      "clips": [],
+      "expected_sha256_matched": null,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "base_color_image": 0,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": null
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/agent-robot-v3/inputs/source-model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c",
+      "skin_bones": [],
+      "skins": 0,
+      "triangles_from_index_counts": 51320
+    },
+    "smooth_panda_dance_probe": {
+      "attribute_vertices_including_primitive_duplication": 74600,
+      "bytes": 29936900,
+      "clips": [
+        "dance"
+      ],
+      "expected_sha256_matched": null,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        },
+        {
+          "base_color_factor": [
+            0.004400849808007479,
+            0.003935939632356167,
+            0.003758403705433011,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 1,
+          "name": "Material_0__color_rear-tail-base"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 3,
+          "base_color_uv": 0,
+          "material": 2,
+          "name": "PortableCoat_0_cutout_fur"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 4,
+          "base_color_uv": 0,
+          "material": 3,
+          "name": "PortableCoat_1_cutout_fur"
+        }
+      ],
+      "meshes": 3,
+      "path": "outputs/muse-panda-dance-probe-v2/model.glb",
+      "primitives": 4,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "5639cc651b0f5f9c8c294f4dc8b14b2c6be1ef28f857b3a6b5323b47f66f7269",
+      "skin_bones": [
+        [
+          "Root",
+          "Pelvis",
+          "Torso",
+          "Neck",
+          "Head",
+          "RightShoulder",
+          "RightUpperArm",
+          "RightForearm",
+          "RightHand",
+          "CompanionAnchor",
+          "LeftShoulder",
+          "LeftUpperArm",
+          "LeftForearm",
+          "LeftHand",
+          "Tail",
+          "RightFoot",
+          "LeftFoot"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 71717
+    },
+    "smooth_panda_fur_demo": {
+      "attribute_vertices_including_primitive_duplication": 74600,
+      "bytes": 29952112,
+      "clips": [
+        "head_tilt",
+        "idle",
+        "look_around",
+        "tail_sway"
+      ],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        },
+        {
+          "base_color_factor": [
+            0.004400849808007479,
+            0.003935939632356167,
+            0.003758403705433011,
+            1
+          ],
+          "base_color_image": null,
+          "base_color_uv": null,
+          "material": 1,
+          "name": "Material_0__color_rear-tail-base"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 3,
+          "base_color_uv": 0,
+          "material": 2,
+          "name": "PortableCoat_0_cutout_fur"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 4,
+          "base_color_uv": 0,
+          "material": 3,
+          "name": "PortableCoat_1_cutout_fur"
+        }
+      ],
+      "meshes": 3,
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "primitives": 4,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77",
+      "skin_bones": [
+        [
+          "Root",
+          "Pelvis",
+          "Torso",
+          "Neck",
+          "Head",
+          "RightShoulder",
+          "RightUpperArm",
+          "RightForearm",
+          "RightHand",
+          "CompanionAnchor",
+          "LeftShoulder",
+          "LeftUpperArm",
+          "LeftForearm",
+          "LeftHand",
+          "Tail",
+          "RightFoot",
+          "LeftFoot"
+        ]
+      ],
+      "skins": 1,
+      "triangles_from_index_counts": 71717
+    },
+    "smooth_panda_raw": {
+      "attribute_vertices_including_primitive_duplication": 50004,
+      "bytes": 25557832,
+      "clips": [],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "Material_0"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "primitives": 1,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188",
+      "skin_bones": [],
+      "skins": 0,
+      "triangles_from_index_counts": 62117
+    },
+    "uv_repaired_panda_source": {
+      "attribute_vertices_including_primitive_duplication": 51376,
+      "bytes": 28080560,
+      "clips": [],
+      "expected_sha256_matched": true,
+      "material_base_color_routes": [
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 0,
+          "name": "body_surface"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 1,
+          "name": "companion_surface"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 2,
+          "name": "body_cap"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 3,
+          "name": "companion_cap"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 4,
+          "name": "body_surface__contact_uv_dark_v1"
+        },
+        {
+          "base_color_factor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "base_color_image": 1,
+          "base_color_uv": 0,
+          "material": 5,
+          "name": "body_cap__contact_uv_dark_v1"
+        }
+      ],
+      "meshes": 1,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "primitives": 6,
+      "scope": "JSON header counts and bindings only; no fresh loading, skin, geometry or appearance verification",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+      "skin_bones": [],
+      "skins": 0,
+      "triangles_from_index_counts": 62581
+    }
+  },
+  "prior_failure": "inventory.json: fox recipe exceeds the small-snapshot cap; retained by hash only",
+  "process_peak_rss_bytes": 23822336,
+  "schema_version": 1,
+  "scope": "Known models only; no recursive listing, texture decode or geometric validation",
+  "status": "recorded",
+  "viewed_images": [
+    {
+      "bytes": 1051974,
+      "path": "outputs/muse-panda-smooth-fur-v3/portrait.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "bytes": 987287,
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/front.png",
+      "sha256": "cbd3deeb13b108bfa8086768fd29fea87c8180e363fc9da6a476beb3842337cf"
+    },
+    {
+      "bytes": 393427,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "cc65c32f80ed9266f234ee3c1ed1c4f962c6db990fbce9b516d6f0593c1c84ba"
+    }
+  ]
+}

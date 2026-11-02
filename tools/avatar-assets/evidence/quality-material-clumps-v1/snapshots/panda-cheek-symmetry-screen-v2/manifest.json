@@ -1,0 +1,125 @@
+{
+  "all_input_hashes_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 234,
+      "path": "cpu-handle.json",
+      "sha256": "e011ac0cea913d2c7d6d4dbefa71dc97f2d4bcec96a087f9e2ead5b783f1b1ee"
+    },
+    {
+      "bytes": 1116,
+      "path": "cpu-job.json",
+      "sha256": "cca38b9b1976ae781609a06030c48f78c3dec46246bb9fc904c1c5f8e6b38e5c"
+    },
+    {
+      "bytes": 1026,
+      "path": "cpu-monitor.json",
+      "sha256": "8898f29a41e55386fdb7f69814cbb48ca2ad43da35eb34280a3a60a01dcea996"
+    },
+    {
+      "bytes": 12919,
+      "path": "cpu.log",
+      "sha256": "bd1ae770cd6e82d0caf3f2e38ea513e6243ae843faff471a52dafee1c4368aa8"
+    },
+    {
+      "bytes": 3527090,
+      "path": "donor-inventory.json",
+      "sha256": "56fe3cc1d10763fb6116c79de94234aea8ad8c020e88d80a65e33db485edc95e"
+    },
+    {
+      "bytes": 749,
+      "path": "execute.py",
+      "sha256": "c27f39e6ef90b3a8bcd462f2f70a90bb51f2dc4a3f1fd3672404eb31e0f00a58"
+    },
+    {
+      "bytes": 3578,
+      "path": "findings.md",
+      "sha256": "8fa1556e51b4288e537a3d3e35108ad9985f13d52538c465ebd14b2f6158b64e"
+    },
+    {
+      "bytes": 231135,
+      "path": "frozen-boundary-samples.json",
+      "sha256": "85d014d25275281ed03512557e8010db2f5bc905e4740875b87dee805f94ca8f"
+    },
+    {
+      "bytes": 2519,
+      "path": "glb_reader.py",
+      "sha256": "3c0eec6afee66da102a94495328c2c8d0b2ae1ef144b58728e46b52cf3f579c2"
+    },
+    {
+      "bytes": 2359,
+      "path": "landmarks-and-planes.json",
+      "sha256": "4419f70a3f8f9ed242edcbcc68a391612ed07620f43508a7856dcb8ee1dd508d"
+    },
+    {
+      "bytes": 678704,
+      "path": "matches-eye_midpoint_x_plane-all_unprotected_donors.json",
+      "sha256": "e600d2c8545ff5b006ce8f6889f50e2536ce47dd8b6d40d4ba19425b3a09f4e5"
+    },
+    {
+      "bytes": 678694,
+      "path": "matches-eye_midpoint_x_plane-clean_donors.json",
+      "sha256": "9322f035e2180ae436a1e6bc3d8fd289c61a8012fb3d71ff5b8e798cdb049576"
+    },
+    {
+      "bytes": 678405,
+      "path": "matches-eye_pair_perpendicular_plane-all_unprotected_donors.json",
+      "sha256": "ce9bece4a47aa08271158dec6bf0a79197e9dffdce6b6c72a4d16c954e741ff1"
+    },
+    {
+      "bytes": 678395,
+      "path": "matches-eye_pair_perpendicular_plane-clean_donors.json",
+      "sha256": "2b3a110f654454c1a02a4b1558fc71ab86a8071abdfe68423ae99e0c8e511c10"
+    },
+    {
+      "bytes": 679224,
+      "path": "matches-head_rig_x_plane-all_unprotected_donors.json",
+      "sha256": "33261a565fc05fb9028f79a94b9589384e254a7821ba7647471ed5b8b8200430"
+    },
+    {
+      "bytes": 679214,
+      "path": "matches-head_rig_x_plane-clean_donors.json",
+      "sha256": "898be560e6d2c8d3ce2e37e92a8e465be5327e67e1a662df57da93b38ce724f6"
+    },
+    {
+      "bytes": 678619,
+      "path": "matches-nose_center_x_plane-all_unprotected_donors.json",
+      "sha256": "b9a71cbebfa11456acfac1da53b3ab36c9905f1087c25134feb327acc7744318"
+    },
+    {
+      "bytes": 678609,
+      "path": "matches-nose_center_x_plane-clean_donors.json",
+      "sha256": "0d60b3236658413b72662448e9f5646143993d837f155c0b9310af78e72246aa"
+    },
+    {
+      "bytes": 6698,
+      "path": "prepared.json",
+      "sha256": "5a4c9379ae894091df0d48022bd12aa861b342511bb247852ad5b468c4ffb25f"
+    },
+    {
+      "bytes": 3369,
+      "path": "receipt.json",
+      "sha256": "c7fc98a1a8f9710d88e9a574b18d5b2ba3642e1d26cf38e7d25729b029ab0127"
+    },
+    {
+      "bytes": 72670,
+      "path": "remaining-boundary-disagreement.json",
+      "sha256": "613f4062889f8c8d7eef07cf1b9bd4d80fad5a1ff1e19915024f47f09fd9c9d5"
+    },
+    {
+      "bytes": 21511,
+      "path": "screen.py",
+      "sha256": "bfbf8a60ee1b63a089637c7d45d68d8a524fe6cad2d9efd021fd5563c1ad69e1"
+    },
+    {
+      "bytes": 20822,
+      "path": "summary.json",
+      "sha256": "a9c8cf5f21deec89caf5ff34ec157300f3157810127cb7ca264f5fa069430b87"
+    }
+  ],
+  "bytes": 9337659,
+  "owned_live_jobs": [],
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "partial_shape_reference_not_fixed_boundary_repair"
+}

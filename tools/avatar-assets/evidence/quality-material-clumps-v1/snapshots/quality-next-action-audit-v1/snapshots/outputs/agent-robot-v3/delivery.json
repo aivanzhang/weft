@@ -1,0 +1,145 @@
+{
+  "editable_source": "model-1/source.blend",
+  "gallery_catalog": "outputs/agent-robot-v3/gallery.json",
+  "generation_cost": {
+    "paid_submissions": 0,
+    "reserved_credits": 0
+  },
+  "generation_mode": "reused_generated_source",
+  "human_approval": false,
+  "limitations": [
+    "The supplied model is described but not visually shown; its exact geometry, palette placement and rig suitability remain unresolved.",
+    "Height is an authored assumption, not a measured dimension.",
+    "The requested motions fit skeletal articulation in principle; compatibility with the existing model has not been verified.",
+    "Contact sheets cannot establish all-frame collision freedom, physical ground contact, motion timing or seamless loops.",
+    "The original source model is not independently pictured, so exact preservation cannot be established.",
+    "Supplied proofs report local structure and motion validation; target runtime compatibility remains unverified."
+  ],
+  "loop_verified": false,
+  "model": "model-1/model.glb",
+  "new_meshy_credits": 0,
+  "out": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/agent-robot-v3",
+  "packs": [
+    {
+      "manifest_sha256": "61cd4572faea439b6ad4e5ce12f3e08f8c5b140a72f0eeebd4bfe8bc64e764f6",
+      "path": "model-1"
+    },
+    {
+      "manifest_sha256": "b2bca666ee0e34b52ffca4f0a161bad5a5dffe82bbdfedc94452a4aa51571e06",
+      "path": "reload-1"
+    },
+    {
+      "manifest_sha256": "6f55749827926a45c3a368e1b05f5eb5660b47af38038035bcbebac7d8ba2c62",
+      "path": "media"
+    },
+    {
+      "manifest_sha256": "1d8c676d02dda058f192878fbf017d40d41bb525a94e4840373d3575a144302f",
+      "path": "media-portable"
+    },
+    {
+      "manifest_sha256": "7731c23711f782f0cecc556ccc52272ecc0573e24afffacb0b62c087a624f2c8",
+      "path": "exported-preview-1"
+    }
+  ],
+  "plan_sha256": "9dfe94bd979915391d9826e61a7335d06d0794e8d2de12ae1a4ce3522056b0da",
+  "quality_equivalence_verified": false,
+  "recorded": "2026-10-31T22:24:36.372889-07:00",
+  "request_sha256": "b5aad39c906d7ea897f61fb8d0102c64b3bd10b087727c2d248ef808f7ca8cb6",
+  "review": {
+    "checks": [
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "identity",
+        "passed": true,
+        "reason": "Consistent friendly robot with an oversized rounded head, rounded torso, two arms and two feet."
+      },
+      {
+        "evidence_ids": [
+          "image-04-front.png",
+          "image-05-three-quarter.png",
+          "image-06-portrait.png"
+        ],
+        "name": "appearance",
+        "passed": true,
+        "reason": "Blue and cream hard-surface panels and copper details match the request. No props or hair are present or required."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look.png",
+          "image-03-wave.png"
+        ],
+        "name": "framing",
+        "passed": true,
+        "reason": "The entire robot, including both feet and the extended waving hand, remains inside the sampled frames."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png",
+          "image-01-idle.png",
+          "image-02-look.png",
+          "image-03-wave.png"
+        ],
+        "name": "deformation",
+        "passed": true,
+        "reason": "Sampled articulation preserves panel shapes and limb continuity without visible major stretching, collapse or clipping."
+      }
+    ],
+    "limitations": [
+      "Contact sheets cannot establish all-frame collision freedom, physical ground contact, motion timing or seamless loops.",
+      "The original source model is not independently pictured, so exact preservation cannot be established.",
+      "Supplied proofs report local structure and motion validation; target runtime compatibility remains unverified."
+    ],
+    "required_repairs": [],
+    "state_reviews": [
+      {
+        "evidence_ids": [
+          "image-01-idle.png"
+        ],
+        "id": "idle",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "Subtle torso and arm shifts provide a restrained idle while the feet retain their sampled positions."
+      },
+      {
+        "evidence_ids": [
+          "image-02-look.png"
+        ],
+        "id": "look",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly turns in opposing directions and returns to its starting orientation while the body stays steady."
+      },
+      {
+        "evidence_ids": [
+          "image-03-wave.png"
+        ],
+        "id": "wave",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "One arm lifts, the hand visibly alternates orientation through a small wave, and the arm lowers."
+      },
+      {
+        "evidence_ids": [
+          "image-00-celebrate.png"
+        ],
+        "id": "celebrate",
+        "meaning_passed": true,
+        "motion_passed": true,
+        "reason": "The head visibly tips down and returns upright, matching the specifically requested modest celebratory nod; feet remain stationary in the samples."
+      }
+    ],
+    "summary": "The supplied samples support the requested robot appearance and all four restrained actions without visible major deformation.",
+    "verdict": "accept"
+  },
+  "schema_version": 1,
+  "scope": "Generated/reused geometry, agent-authored design, independent native motion proof, agent visual review and actual media; not universal quality or human approval.",
+  "selected_attempt": 1,
+  "status": "complete",
+  "weft_runtime_verified": false
+}

@@ -1,0 +1,14 @@
+{
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-coat-quality-screen-v1/screen.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "script_sha256": "822c318b6ccbf9bbb6821a347154d5928d799cf13d65669c1ed3715b0e0471e5"
+}

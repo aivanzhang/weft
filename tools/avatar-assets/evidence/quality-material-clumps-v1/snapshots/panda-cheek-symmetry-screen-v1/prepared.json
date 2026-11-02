@@ -1,0 +1,148 @@
+{
+  "candidate": "outputs/panda-cheek-targeted-selection-v2/candidate.json",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-cheek-symmetry-screen-v1/execute.py"
+  ],
+  "config": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+  "correspondence": "outputs/panda-shoulder-uv-repair-v2/correspondence.npz",
+  "fixed_sensitivity_planes": [
+    "nose-center X plane",
+    "Head bone X plane",
+    "plane through eye midpoint perpendicular to measured authored eye-center difference"
+  ],
+  "git_head": "8b9c7ff7a17c24c5a2c0c3aaa6e6397918088c77",
+  "hypothesis": "An opposite original-body cheek surface, reflected around author-annotated facial planes, may supply geometric reference support missing from the damaged-side contact band.",
+  "inputs": [
+    {
+      "bytes": 28080560,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 298853,
+      "path": "outputs/panda-shoulder-uv-repair-v2/correspondence.npz",
+      "sha256": "f17f64f2fff0f42648e6cead3dc9f8ec1d53f306c54b7a8f9948f1cab5c982c7"
+    },
+    {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    {
+      "bytes": 160051,
+      "path": "outputs/panda-cheek-targeted-selection-v2/candidate.json",
+      "sha256": "02affbfc837e3dc94dfed1a8ad37187e4f6062cb5a16ec65c596364f55f74ff8"
+    },
+    {
+      "bytes": 70267,
+      "path": "outputs/panda-cheek-scar-selection-v1/selection.json",
+      "sha256": "f44b981acbcc583e3ad8b3664d93b93ab1ce861edd22ea2a91e1aab35e328b49"
+    },
+    {
+      "bytes": 1710,
+      "path": "outputs/panda-cheek-scar-selection-v1/report.json",
+      "sha256": "4b024ab966b95fab34f4e753e91d4948018fbfa1b048d10dfeb58fe20b22e46c"
+    },
+    {
+      "bytes": 2865,
+      "path": "outputs/panda-cheek-reference-field-v1/summary.json",
+      "sha256": "f9e749c05ce1312ddf466fcea3b109e78cd6a0fba8dcd80b65f9156b60f0a0c9"
+    },
+    {
+      "bytes": 35194,
+      "path": "outputs/panda-cheek-reference-field-v1/support-reconciliation.json",
+      "sha256": "ab648dc87e1eafb0fabd7d61d48c2dc4f68075093c8c4911068851e03694fc30"
+    },
+    {
+      "bytes": 63311,
+      "path": "outputs/panda-cheek-reference-field-v1/proposed-reference-field.json",
+      "sha256": "f870a0ca83b11f6c7215553e0a717fb872441a098b3fc4b19667cadf6101ef84"
+    },
+    {
+      "bytes": 1390,
+      "path": "outputs/panda-cheek-targeted-selection-v2/fit-proposal.json",
+      "sha256": "efd2d99dbaef771cae2a5e1d1663da716512fad6fcb07c33c6154708b5cf42db"
+    },
+    {
+      "bytes": 9592,
+      "path": "outputs/muse-panda-smooth-inspection-v1/native-inspection.json",
+      "sha256": "c84ad2cb822662d1442013f8c457781561a0654627ed0020ab9d856c54c6cce0"
+    },
+    {
+      "bytes": 382527,
+      "path": "outputs/panda-shoulder-uv-repair-preparation-v2/face-selector.json",
+      "sha256": "7050fe9016018a5e8abe0796a4d2e4e892af7f0dbf115990dcbe696eddd17b55"
+    },
+    {
+      "bytes": 3863,
+      "path": "outputs/panda-shoulder-uv-repair-v2/report.json",
+      "sha256": "a728183aac635d8de8be4d8efdc7fdd41548e7cb2056697e4668ebf6042b8142"
+    },
+    {
+      "bytes": 1094,
+      "path": "outputs/panda-shoulder-uv-repair-v2/manifest.json",
+      "sha256": "d44feb85a28a505f4b00c3ffd781e0cc9232cbe6776834656618f9651227cc29"
+    },
+    {
+      "bytes": 13256,
+      "path": "docs/contour-contact-diagnosis.md",
+      "sha256": "6e55cbd26ebc2688d92b295e70768e023e1112f7db49d13e8b76f7e7ba861e10"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 17158,
+      "path": "outputs/panda-latest-source-control-audit-v1/audit.py",
+      "sha256": "abbfcdccc4e4f8b10cf4731fc85d0cccdde59c635da361192fece0d0540b0c9c"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "boundary_samples": 429,
+    "donor_triangles": 20000,
+    "internal_seconds": 50,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "planes": 4,
+    "provider_calls": 0,
+    "rss_mb": 512,
+    "texture_decodes": 0,
+    "triangles": 100000,
+    "vertices": 100000,
+    "wall_seconds": 60
+  },
+  "no_optimization": "No plane is fitted to the damaged patch and no best-performing plane is automatically promoted.",
+  "prepared_at": "2026-11-02T02:40:05.026942-08:00",
+  "preservation": "Read-only source and old selectors; no fit, expansion, geometry edit or change to15mm/45degree limits.",
+  "primary_plane": "Axis X from normalized Blender-Z-up guide, passing through authored eye-exclusion midpoint; not whole-model bbox midpoint.",
+  "scar_selection": "outputs/panda-cheek-scar-selection-v1/selection.json",
+  "schema_version": 1,
+  "scripts": [
+    {
+      "bytes": 21527,
+      "path": "outputs/panda-cheek-symmetry-screen-v1/screen.py",
+      "sha256": "bcb6c333b9120f6f14801768ad96b79f52927dba41339929da336d415e63ad96"
+    },
+    {
+      "bytes": 2519,
+      "path": "outputs/panda-cheek-symmetry-screen-v1/glb_reader.py",
+      "sha256": "3c0eec6afee66da102a94495328c2c8d0b2ae1ef144b58728e46b52cf3f579c2"
+    },
+    {
+      "bytes": 745,
+      "path": "outputs/panda-cheek-symmetry-screen-v1/execute.py",
+      "sha256": "12f6d0459185b25386654df9a779bd29abc750a70987985e856bee3ca3716394"
+    }
+  ],
+  "source": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+  "v7_source": "outputs/companion-separation-v7/diagnostic-model.glb"
+}

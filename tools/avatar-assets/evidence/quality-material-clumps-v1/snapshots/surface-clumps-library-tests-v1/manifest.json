@@ -1,0 +1,64 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1038,
+      "path": "job.json",
+      "sha256": "f4e4282f2ff77e7592f3f001e273d3310e0b6ee3f98d60e67f21f06b5f0a348a"
+    },
+    {
+      "bytes": 0,
+      "path": "manifest.json",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1236,
+      "path": "prepared.json",
+      "sha256": "3b5893520d13db4c1db93799725598d0dba0691be6f9557890fc686555b4d039"
+    },
+    {
+      "bytes": 42517,
+      "path": "sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 20552,
+      "path": "sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de"
+    },
+    {
+      "bytes": 9213,
+      "path": "sources/tests/test_surface_clumps.py",
+      "sha256": "5dcd90f3afcec0e51a9e525d09fb234da154bcc7db515621696c8a214c76cd7a"
+    },
+    {
+      "bytes": 197,
+      "path": "tests-handle.json",
+      "sha256": "cf832b4b2739023085fc9dc2a7858766f16bdf7ee513303ee4cc5b5a18fd63a5"
+    },
+    {
+      "bytes": 934,
+      "path": "tests-monitor.json",
+      "sha256": "6c69d301cc1e73ed60fee0d4f831577560582e0ce5115467aa4d9b90875feffc"
+    },
+    {
+      "bytes": 10848,
+      "path": "tests.log",
+      "sha256": "a654cad5d8359a28a736f4af535e2db76b71ec30979a618a854568aa400f9146"
+    }
+  ],
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources_unchanged": true,
+  "status": "tests_failed"
+}

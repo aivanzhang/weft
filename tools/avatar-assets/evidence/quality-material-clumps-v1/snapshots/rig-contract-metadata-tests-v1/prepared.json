@@ -1,0 +1,58 @@
+{
+  "at": "2026-11-02T03:22:55.478211-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rig-contract-metadata-tests-v1/run_tests.py"
+  ],
+  "equivalent_test_command": ".venv/bin/python -m unittest -v tests.test_rig_contract_metadata",
+  "git_head": "1ef976fa8bb9eb189c8f43ecf239e4bbba949391",
+  "inputs": [
+    {
+      "bytes": 6862,
+      "path": "avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 5270,
+      "path": "tests/test_rig_contract_metadata.py",
+      "sha256": "c4f7252c7aacd21c6c16d0915da961c3add109e302eae7f8e43e72d7c9d41747"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 9803,
+      "path": "tests/test_three_d.py",
+      "sha256": "820bf03ac24e50ee68d96c003088d437a927397065ebd6b6e1abf28533e13345"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 907,
+      "path": "outputs/multi-material-lamp-finish-v1/rig-contract.json",
+      "sha256": "7f7c55c57adb5e8028cb48e31ebdf27ea921a55b3e1216fa810afb019a6c4798"
+    },
+    {
+      "bytes": 30589,
+      "path": "outputs/multi-material-lamp-finish-v1/manifest.json",
+      "sha256": "3628267cc07eb03c4e927c260651a855b53392efbf177d41705975090e7dbde1"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 256,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "provider_calls": 0,
+    "seconds": 30
+  },
+  "runner_sha256": "30eb4a9a0b5d154bb66fc4884fa34e198c82cf8f0ebebf603d8d366f298abd7b",
+  "schema_version": 1,
+  "scope": "Metadata + analytic GLB skin/motion preservation; no finished-lamp rerun or artifact rewrite.",
+  "unique_test_methods": 5
+}

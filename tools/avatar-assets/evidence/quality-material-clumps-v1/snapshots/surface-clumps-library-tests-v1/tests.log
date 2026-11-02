@@ -1,0 +1,126 @@
+test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning (tests.test_surface_clumps.SurfaceClumpTests.test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning) ... ERROR
+test_inward_source_normals_and_large_geometric_turns_retain_failure (tests.test_surface_clumps.SurfaceClumpTests.test_inward_source_normals_and_large_geometric_turns_retain_failure) ... ERROR
+test_malformed_counts_nonfinite_skin_and_budget_are_rejected (tests.test_surface_clumps.SurfaceClumpTests.test_malformed_counts_nonfinite_skin_and_budget_are_rejected) ... ERROR
+test_new_crossing_retains_exact_triangle_witness_and_never_samples_color (tests.test_surface_clumps.SurfaceClumpTests.test_new_crossing_retains_exact_triangle_witness_and_never_samples_color) ... ERROR
+test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling (tests.test_surface_clumps.SurfaceClumpTests.test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling) ... ERROR
+test_retained_contour_has_exact_oriented_attributes_and_cell_bytes (tests.test_surface_clumps.SurfaceClumpTests.test_retained_contour_has_exact_oriented_attributes_and_cell_bytes) ... ERROR
+test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic (tests.test_surface_clumps.SurfaceClumpTests.test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic) ... ERROR
+test_whole_object_budget_counts_both_surface_and_opposed_contour_corners (tests.test_surface_clumps.SurfaceClumpTests.test_whole_object_budget_counts_both_surface_and_opposed_contour_corners) ... ERROR
+
+======================================================================
+ERROR: test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning (tests.test_surface_clumps.SurfaceClumpTests.test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 56, in test_actual_source_faces_roots_normals_and_weights_are_preserved_without_pruning
+    data = fixture(); before = copy.deepcopy(data[:3]); result = run(data)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_inward_source_normals_and_large_geometric_turns_retain_failure (tests.test_surface_clumps.SurfaceClumpTests.test_inward_source_normals_and_large_geometric_turns_retain_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 102, in test_inward_source_normals_and_large_geometric_turns_retain_failure
+    data = fixture(); data[0]['corner_normals'][0, 2] = [0, 0, -1]
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_malformed_counts_nonfinite_skin_and_budget_are_rejected (tests.test_surface_clumps.SurfaceClumpTests.test_malformed_counts_nonfinite_skin_and_budget_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 131, in test_malformed_counts_nonfinite_skin_and_budget_are_rejected
+    data = fixture()
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_new_crossing_retains_exact_triangle_witness_and_never_samples_color (tests.test_surface_clumps.SurfaceClumpTests.test_new_crossing_retains_exact_triangle_witness_and_never_samples_color)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 112, in test_new_crossing_retains_exact_triangle_witness_and_never_samples_color
+    data = fixture(); source = data[0]
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling (tests.test_surface_clumps.SurfaceClumpTests.test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 97, in test_protected_material_part_and_nonfur_crossings_fail_before_color_sampling
+    data = fixture(); data[0][key][1] = value
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_retained_contour_has_exact_oriented_attributes_and_cell_bytes (tests.test_surface_clumps.SurfaceClumpTests.test_retained_contour_has_exact_oriented_attributes_and_cell_bytes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 76, in test_retained_contour_has_exact_oriented_attributes_and_cell_bytes
+    data = fixture(); result = run(data); fringe = data[1]
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic (tests.test_surface_clumps.SurfaceClumpTests.test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 85, in test_source_color_varies_over_triangle_not_only_along_root_and_is_deterministic
+    data = fixture(); result = run(data); again = run(data)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+======================================================================
+ERROR: test_whole_object_budget_counts_both_surface_and_opposed_contour_corners (tests.test_surface_clumps.SurfaceClumpTests.test_whole_object_budget_counts_both_surface_and_opposed_contour_corners)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 142, in test_whole_object_budget_counts_both_surface_and_opposed_contour_corners
+    result = run(fixture(), vertices=90000, triangles=99990)
+                 ~~~~~~~^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_surface_clumps.py", line 37, in fixture
+    flow = prepare_flow([-.02, -.03, -.01], [.12, .06, .02], [0, 1, 0], .6, None)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 109, in prepare_flow
+    config = validate_flow(config)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/scripts/groom_flow.py", line 60, in validate_flow
+    raise ValueError('Groom flow requires exactly regions')
+ValueError: Groom flow requires exactly regions
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.002s
+
+FAILED (errors=8)

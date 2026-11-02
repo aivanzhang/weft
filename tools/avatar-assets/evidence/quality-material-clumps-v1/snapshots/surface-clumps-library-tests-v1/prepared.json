@@ -1,0 +1,44 @@
+{
+  "bounds": {
+    "memory_mib": 256,
+    "output_mib": 8,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_surface_clumps",
+    "-v"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "provenance": "Analytic source-face/atlas/skin fixtures; not actual avatar appearance",
+  "sources": [
+    {
+      "bytes": 20552,
+      "path": "scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de"
+    },
+    {
+      "bytes": 9213,
+      "path": "tests/test_surface_clumps.py",
+      "sha256": "5dcd90f3afcec0e51a9e525d09fb234da154bcc7db515621696c8a214c76cd7a"
+    },
+    {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "path": "scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 42517,
+      "path": "avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    }
+  ]
+}

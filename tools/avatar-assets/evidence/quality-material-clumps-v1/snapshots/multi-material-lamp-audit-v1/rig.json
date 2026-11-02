@@ -1,0 +1,78 @@
+{
+  "bone_parents_final": {
+    "lower_arm": "turntable",
+    "root": "AvatarRig",
+    "shade": "upper_arm",
+    "trace_rotor": "root",
+    "trace_stylus": "trace_rotor",
+    "turntable": "root",
+    "upper_arm": "lower_arm",
+    "work_pad": "root"
+  },
+  "bone_parents_source": {
+    "lower_arm": "turntable",
+    "root": "AvatarRig",
+    "shade": "upper_arm",
+    "trace_rotor": "root",
+    "trace_stylus": "trace_rotor",
+    "turntable": "root",
+    "upper_arm": "lower_arm",
+    "work_pad": "root"
+  },
+  "mesh_parent_change": "Original mesh parent AvatarRig becomes scene-root; compare world transforms rather than node IDs.",
+  "node_ids": {
+    "AvatarRig": [
+      9,
+      8
+    ],
+    "lamp-hd-v1_skinned_mesh": [
+      8,
+      9
+    ],
+    "lower_arm": [
+      2,
+      2
+    ],
+    "root": [
+      7,
+      7
+    ],
+    "shade": [
+      0,
+      0
+    ],
+    "trace_rotor": [
+      6,
+      6
+    ],
+    "trace_stylus": [
+      5,
+      5
+    ],
+    "turntable": [
+      3,
+      3
+    ],
+    "upper_arm": [
+      1,
+      1
+    ],
+    "work_pad": [
+      4,
+      4
+    ]
+  },
+  "rest_world_matrix_max_errors": {
+    "AvatarRig": 0.0,
+    "lamp-hd-v1_skinned_mesh": 0.0,
+    "lower_arm": 8.498074066665136e-08,
+    "root": 3.422854533141618e-08,
+    "shade": 1.3113021446464757e-07,
+    "trace_rotor": 1.4522298152908064e-07,
+    "trace_stylus": 1.2810870886337256e-07,
+    "turntable": 8.498074066665133e-08,
+    "upper_arm": 9.238719678172913e-08,
+    "work_pad": 7.534977419787481e-08
+  },
+  "units_axes": "Declared meters, glTF +Y up/+Z forward; transform comparison, not recovered physical measurement"
+}

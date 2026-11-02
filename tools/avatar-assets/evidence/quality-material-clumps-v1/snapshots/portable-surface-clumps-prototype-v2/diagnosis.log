@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "read_only_failed_lift_localization",
+  "source_arrays_sha256": "05015c8a446a4e3b647c3280c9a4a68ec3fcaf4e49f9c109ff7c323f2b99bf05",
+  "selection_changed": false,
+  "new_candidate_constructed": false,
+  "model_written": false,
+  "native_provider_ai_role_calls": 0,
+  "selected_source_faces": 5400,
+  "failed_source_faces": 163,
+  "affected_fins": 163,
+  "maximum_turn_degrees": 83.5812484838499,
+  "all_source_altitude_quantiles_mm": [
+    0.27011760752911923,
+    2.53775383128877,
+    14.99619106409705,
+    30.613409962378622,
+    101.32058829884535
+  ],
+  "failed_source_altitude_quantiles_mm": [
+    0.27011760752911923,
+    0.4888178060490754,
+    3.156425541950835,
+    4.389754386908554,
+    4.495376882820752
+  ],
+  "continuous_ceiling_derivation": {
+    "fixed_roots": true,
+    "gate_degrees": 15,
+    "formula": "L_max = h*tan(15deg)/(b-a*tan(15deg)); h=source altitude, a=dot(source corner normal, transverse altitude direction), b=dot(source corner normal, original geometric normal)",
+    "meaning": "Continuous float64 ceiling only; actual float32 offset and intersection gates must still pass in any separately approved candidate.",
+    "observed_float32_angle_vs_continuous_max_delta_degrees": 0.0022908417554745597
+  },
+  "per_card_capped_ceiling_quantiles_mm": [
+    0.07069369500431565,
+    0.4113289563579255,
+    1.0998252843847973,
+    1.2,
+    1.2,
+    1.2
+  ],
+  "cards_requiring_less_than_1p2mm": 163,
+  "cards_with_ceiling_below_mm": {
+    "0.1": 1,
+    "0.2": 7,
+    "0.4": 27,
+    "0.6": 45,
+    "1": 113
+  },
+  "elapsed_seconds": 0.01772529212757945,
+  "limitation": "The fixed lift failed before intersection or atlas work; no safe alternative is established."
+}

@@ -1,0 +1,314 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": null,
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "orthographic_scale": 2.5687012672424316,
+    "view": "front"
+  },
+  "color_corrections": null,
+  "deformation_measurement": {
+    "bone_names": [
+      "root",
+      "turntable",
+      "lower_arm",
+      "upper_arm",
+      "shade",
+      "work_pad",
+      "trace_rotor",
+      "trace_stylus"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 79960,
+    "edges_sha256": "0177c593a18c97e6c1cd6ad7ef3c3d6c9fc2f515be49186a669895fbd5ade1dc",
+    "pose_samples_measured": 20,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 2.2532468205317855,
+      "height_basis": "z_span",
+      "max": [
+        0.8199999332427979,
+        0.6480770111083984,
+        2.252746820449829
+      ],
+      "min": [
+        -0.47999998927116394,
+        -0.8100000023841858,
+        -0.0005000000819563866
+      ]
+    },
+    "rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+    "rig_route": "source_skin",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 37762
+  },
+  "emitter_scale_applied": true,
+  "groom": null,
+  "groom_excluded_parts": {
+    "names": [],
+    "vertices": 0
+  },
+  "normal_continuity": null,
+  "normal_strength": 1,
+  "normal_uv_export": {
+    "authored_targets": [],
+    "elapsed_seconds": 0.018206,
+    "errors": [],
+    "geometry_or_materials_changed": false,
+    "materials": [
+      {
+        "admission": "no_live_normal_map",
+        "material": "body",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 11336,
+        "slot": 0,
+        "triangles": 11336
+      },
+      {
+        "admission": "coherent_uv0",
+        "material": "brass",
+        "normal": {
+          "image": "brass-normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 12698,
+        "slot": 1,
+        "triangles": 12698
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "joint",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 6336,
+        "slot": 2,
+        "triangles": 6336
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "display",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 188,
+        "slot": 3,
+        "triangles": 188
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "bulb",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 5152,
+        "slot": 4,
+        "triangles": 5152
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "paper",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 188,
+        "slot": 5,
+        "triangles": 188
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "ink",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 1280,
+        "slot": 6,
+        "triangles": 1280
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "rubber",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 4256,
+        "slot": 7,
+        "triangles": 4256
+      },
+      {
+        "admission": "coherent_uv0",
+        "material": "steel",
+        "normal": {
+          "image": "steel-normal",
+          "normal_uv_index": 0,
+          "packed_png_bytes": 0,
+          "texture_sha256": null,
+          "texture_uv_index": 0
+        },
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 2696,
+        "slot": 8,
+        "triangles": 2696
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "reflector",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 576,
+        "slot": 9,
+        "triangles": 576
+      },
+      {
+        "admission": "no_live_normal_map",
+        "material": "page_line",
+        "normal": null,
+        "object": "lamp-hd-v1_skinned_mesh",
+        "polygons": 48,
+        "slot": 10,
+        "triangles": 48
+      }
+    ],
+    "objects": 1,
+    "packed_png_bytes_hashed": 0,
+    "policy": "live-normal-uv-export-v1",
+    "quality_approved": false,
+    "schema_version": 1,
+    "status": "supported",
+    "tangent_restoration_performed": false,
+    "texture_pixels_read": false,
+    "triangles": 44754,
+    "used_materials": 11,
+    "vertices": 37762
+  },
+  "part_rigs": null,
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.8199999332427979,
+      0.6480770111083984,
+      2.252746820449829
+    ],
+    "min": [
+      -0.47999998927116394,
+      -0.8100000023841858,
+      -0.0005000000819563866
+    ]
+  },
+  "source_color_sampling": {
+    "reason": "No enabled control consumes source-color samples or their derived mask.",
+    "required_by": [],
+    "sampled_vertices": 0,
+    "scope": "CPU source-color selection sampling; importer, exporter and renderer image handling is separate.",
+    "selection_sampling_calls": 0,
+    "status": "skipped"
+  },
+  "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+      "deformation_samples_measured": 5,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "idle",
+      "loop_verified": false,
+      "sampling_method": "legacy_uniform_five",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+      "deformation_samples_measured": 5,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "making_something",
+      "loop_verified": false,
+      "sampling_method": "legacy_uniform_five",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+      "deformation_samples_measured": 5,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "sampling_method": "legacy_uniform_five",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+      "deformation_samples_measured": 5,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        48.0,
+        72.0,
+        96.0
+      ],
+      "id": "working",
+      "loop_verified": false,
+      "sampling_method": "legacy_uniform_five",
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        3.0,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "world_rest_position_max_error": 0.0
+}

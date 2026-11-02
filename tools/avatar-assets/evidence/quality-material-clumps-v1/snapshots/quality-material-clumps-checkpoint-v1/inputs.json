@@ -1,0 +1,47 @@
+{
+  "external_references": [
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    {
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+    }
+  ],
+  "folders": [
+    "panda-cheek-symmetry-screen-v1",
+    "panda-cheek-symmetry-screen-v2",
+    "quality-next-action-audit-v1",
+    "portable-coat-quality-screen-v1",
+    "portable-surface-clumps-preparation-v1",
+    "lazy-source-color-tests-v1",
+    "multi-material-lamp-preparation-v1",
+    "multi-material-lamp-finish-v1",
+    "multi-material-lamp-audit-v1",
+    "multi-material-lamp-visual-review-v1",
+    "rig-contract-metadata-tests-v1",
+    "surface-clumps-library-tests-v1",
+    "surface-clumps-library-tests-v2",
+    "surface-clumps-library-tests-v3",
+    "surface-clumps-test-seal-audit-v1",
+    "portable-surface-clumps-prototype-v1",
+    "portable-surface-clumps-prototype-v2",
+    "portable-surface-clumps-prototype-v3",
+    "portable-surface-clumps-limit-addendum-v1",
+    "surface-clump-comparison-preparation-v1"
+  ],
+  "limits": {
+    "selected_bytes": 33554432,
+    "selected_files": 800,
+    "single_file_bytes": 8388608
+  },
+  "output": "evidence/quality-material-clumps-v1",
+  "schema_version": 1,
+  "status": "material_integration_pass_coat_geometry_rejected",
+  "verified_focused_tests": 27
+}

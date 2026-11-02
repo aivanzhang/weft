@@ -1,0 +1,104 @@
+{
+  "assumption": "Bilateral geometric reflection only. Source asymmetry and accessory-biased bounds remain possible; no exact symmetry or semantic correspondence is asserted.",
+  "bounds": {
+    "max": [
+      0.45410779118537903,
+      0.38847073912620544,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.45410779118537903,
+      -0.38847073912620544,
+      0.0
+    ]
+  },
+  "coordinate_space": "Blender world XYZ, Z up, meters",
+  "eyes": [
+    [
+      -0.04813542586565017,
+      -0.26804480999708175,
+      0.8892000353336335
+    ],
+    [
+      0.15530486458539972,
+      -0.2719295173883438,
+      0.8796000349521637
+    ]
+  ],
+  "gltf_to_blender": "[x,-z,y]",
+  "head_bone_head": [
+    0.04541077911853797,
+    -0.007769414782524131,
+    0.7080000281333922
+  ],
+  "nose": [
+    0.05267650377750399,
+    -0.36127778738737104,
+    0.8076000320911408
+  ],
+  "planes": [
+    {
+      "name": "eye_midpoint_x_plane",
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "nose_signed_offset_m": -0.0009082155823707805,
+      "point": [
+        0.05358471935987477,
+        -0.2699871636927128,
+        0.8844000351428986
+      ],
+      "primary": true
+    },
+    {
+      "name": "nose_center_x_plane",
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "nose_signed_offset_m": 0.0,
+      "point": [
+        0.05267650377750399,
+        -0.36127778738737104,
+        0.8076000320911408
+      ],
+      "primary": false
+    },
+    {
+      "name": "head_rig_x_plane",
+      "normal": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "nose_signed_offset_m": 0.007265724658966022,
+      "point": [
+        0.04541077911853797,
+        -0.007769414782524131,
+        0.7080000281333922
+      ],
+      "primary": false
+    },
+    {
+      "name": "eye_pair_perpendicular_plane",
+      "normal": [
+        0.9987068342451609,
+        -0.019070380857667976,
+        -0.04712727242216027
+      ],
+      "nose_signed_offset_m": 0.004453280519352459,
+      "point": [
+        0.05358471935987477,
+        -0.2699871636927128,
+        0.8844000351428986
+      ],
+      "primary": false
+    }
+  ],
+  "source": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+  "source_landmark_kind": "Authored groom exclusions and rig pivots, not recovered anatomical landmarks",
+  "whole_model_bbox_x_center_m": 0.0
+}

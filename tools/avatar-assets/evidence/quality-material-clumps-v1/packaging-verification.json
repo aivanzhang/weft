@@ -1,0 +1,56 @@
+{
+  "bundle_manifest_sha256": "16b78ef58fc7bae08346177807a99ab1a1d03ded591aa84be400529aded45276",
+  "copied_bytes": 21634539,
+  "fresh_Studio_acceptance": false,
+  "frozen_source_hashes": {
+    "avatar_assets/assemble_generated.py": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+    "scripts/blender_finish_generated.py": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918",
+    "scripts/surface_clumps.py": "f2010dc5bb8b9e4237c93494f06ac441af38e44c5f141aee0b28dea659556646",
+    "tests/test_surface_clumps.py": "28278379562eb8bb15cccccfa61ffd72051bdc837d0a0318f3253b3e2776ad67"
+  },
+  "local_binary_references_verified": 8,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "origin_records_verified": 488,
+  "packaging_job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/quality-material-clumps-checkpoint-v1/package.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.265,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 21786312,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 256,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "package-monitor.json",
+    "monitor_errors": [],
+    "pid": 75692,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 21786312,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "quality_approved": false,
+  "recorded": "2026-11-02 03:38:22 PST",
+  "schema_version": 1,
+  "status": "exact_bundle_and_frozen_source_verified",
+  "unique_snapshots": 382
+}

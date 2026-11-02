@@ -1,0 +1,3006 @@
+{
+  "actual_lamp_independent_audit": true,
+  "actual_lamp_public_finisher": true,
+  "approved_assets_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 234,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/cpu-handle.json",
+      "sha256": "3c3dc78795b763562473bea2d0aee0dfeb1cc3351d36d976986f2c406f55c00d",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1111,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/cpu-job.json",
+      "sha256": "406b80c9cc34f1c268bb443cf20ed11800ed9c26905daf9abd219aec490cc9eb",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/cpu-job.json"
+    },
+    {
+      "bytes": 1021,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/cpu-monitor.json",
+      "sha256": "2f0959840415286b91705773ce46ff9f4f01b86ea0f25c39c09785038868883d",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 12810,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/cpu.log",
+      "sha256": "915868d8ec78211aafd69f632bfad8e10890367b5da648e549b0f67db444984f",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/cpu.log"
+    },
+    {
+      "bytes": 965282,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/donor-inventory.json",
+      "sha256": "9602bc87aeef432267b7f3d82f3574fb0e655cdd7d446d05e8b324152e4f5fa9",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/donor-inventory.json"
+    },
+    {
+      "bytes": 745,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/execute.py",
+      "sha256": "12f6d0459185b25386654df9a779bd29abc750a70987985e856bee3ca3716394",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/execute.py"
+    },
+    {
+      "bytes": 231135,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/frozen-boundary-samples.json",
+      "sha256": "85d014d25275281ed03512557e8010db2f5bc905e4740875b87dee805f94ca8f",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/frozen-boundary-samples.json"
+    },
+    {
+      "bytes": 2519,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/glb_reader.py",
+      "sha256": "3c0eec6afee66da102a94495328c2c8d0b2ae1ef144b58728e46b52cf3f579c2",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/glb_reader.py"
+    },
+    {
+      "bytes": 2359,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/landmarks-and-planes.json",
+      "sha256": "4419f70a3f8f9ed242edcbcc68a391612ed07620f43508a7856dcb8ee1dd508d",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/landmarks-and-planes.json"
+    },
+    {
+      "bytes": 3595,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/manifest.json",
+      "sha256": "764c656bcaffd136e132a2d8f830fb51c29e08bae4296a83933ff5384f9865af",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/manifest.json"
+    },
+    {
+      "bytes": 664881,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-eye_midpoint_x_plane-all_unprotected_donors.json",
+      "sha256": "add575ae843790b08d6da9313a4bc32c552d925aa9c63199f39d88de5b2f3296",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-eye_midpoint_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 664871,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-eye_midpoint_x_plane-clean_donors.json",
+      "sha256": "2de257172f1c66b69080117add4fc5c7858ab95322caf4a267f9d1c9a2062868",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-eye_midpoint_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 664202,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-eye_pair_perpendicular_plane-all_unprotected_donors.json",
+      "sha256": "24fb9bead3e57a44fbd71d2bff4ab114a1ccd9abb9cdcc8d3a389186c40bf013",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-eye_pair_perpendicular_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 664192,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-eye_pair_perpendicular_plane-clean_donors.json",
+      "sha256": "c29073d47d161d77a2fdd01f3f4951349ad47a731effdadc1fbf393f753e4315",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-eye_pair_perpendicular_plane-clean_donors.json"
+    },
+    {
+      "bytes": 666647,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-head_rig_x_plane-all_unprotected_donors.json",
+      "sha256": "4a7535ff2b12c44b27899f0b39145b79e08c6ff50aa0fd42998282ff9faaccca",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-head_rig_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 666637,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-head_rig_x_plane-clean_donors.json",
+      "sha256": "0112effd0cdc6b1774cdc36c422704ce500ec04f3341953259da4f14b3f5822b",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-head_rig_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 665085,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-nose_center_x_plane-all_unprotected_donors.json",
+      "sha256": "fe69e85996a9edf24e6e8318b53bfa15d3c908b1ac1ac0c14abf84004c4a61b8",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-nose_center_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 665075,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/matches-nose_center_x_plane-clean_donors.json",
+      "sha256": "465d1c60dc73792c909aa8c9e7c910c9bb448278d0657ea64c4696b5fdc34d01",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/matches-nose_center_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 5852,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/prepared.json",
+      "sha256": "851080efadf61e93224c7cc9505e130d1efa23bbf012b4177839a925e25135c7",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/prepared.json"
+    },
+    {
+      "bytes": 2094,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/review.json",
+      "sha256": "fc656570667841d71349f86ce8d1b0676f4bcbb774f0c889b623a9874c67a48c",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/review.json"
+    },
+    {
+      "bytes": 21527,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/screen.py",
+      "sha256": "bcb6c333b9120f6f14801768ad96b79f52927dba41339929da336d415e63ad96",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/screen.py"
+    },
+    {
+      "bytes": 20631,
+      "origin": "outputs/panda-cheek-symmetry-screen-v1/summary.json",
+      "sha256": "4cb2ef5da968be1e6ceec2f02f454b63c10ef639d6823fdc994b9434c74c799c",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/summary.json"
+    },
+    {
+      "bytes": 234,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/cpu-handle.json",
+      "sha256": "e011ac0cea913d2c7d6d4dbefa71dc97f2d4bcec96a087f9e2ead5b783f1b1ee",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/cpu-handle.json"
+    },
+    {
+      "bytes": 1116,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/cpu-job.json",
+      "sha256": "cca38b9b1976ae781609a06030c48f78c3dec46246bb9fc904c1c5f8e6b38e5c",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/cpu-job.json"
+    },
+    {
+      "bytes": 1026,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/cpu-monitor.json",
+      "sha256": "8898f29a41e55386fdb7f69814cbb48ca2ad43da35eb34280a3a60a01dcea996",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/cpu-monitor.json"
+    },
+    {
+      "bytes": 12919,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/cpu.log",
+      "sha256": "bd1ae770cd6e82d0caf3f2e38ea513e6243ae843faff471a52dafee1c4368aa8",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/cpu.log"
+    },
+    {
+      "bytes": 3527090,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/donor-inventory.json",
+      "sha256": "56fe3cc1d10763fb6116c79de94234aea8ad8c020e88d80a65e33db485edc95e",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/donor-inventory.json"
+    },
+    {
+      "bytes": 749,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/execute.py",
+      "sha256": "c27f39e6ef90b3a8bcd462f2f70a90bb51f2dc4a3f1fd3672404eb31e0f00a58",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/execute.py"
+    },
+    {
+      "bytes": 3578,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/findings.md",
+      "sha256": "8fa1556e51b4288e537a3d3e35108ad9985f13d52538c465ebd14b2f6158b64e",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/findings.md"
+    },
+    {
+      "bytes": 231135,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/frozen-boundary-samples.json",
+      "sha256": "85d014d25275281ed03512557e8010db2f5bc905e4740875b87dee805f94ca8f",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/frozen-boundary-samples.json"
+    },
+    {
+      "bytes": 2519,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/glb_reader.py",
+      "sha256": "3c0eec6afee66da102a94495328c2c8d0b2ae1ef144b58728e46b52cf3f579c2",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/glb_reader.py"
+    },
+    {
+      "bytes": 2359,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/landmarks-and-planes.json",
+      "sha256": "4419f70a3f8f9ed242edcbcc68a391612ed07620f43508a7856dcb8ee1dd508d",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v1/landmarks-and-planes.json"
+    },
+    {
+      "bytes": 4005,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/manifest.json",
+      "sha256": "91fcf0e2d1edbbcd65434a9bee78b3e25a1c6f292892ecacc75416e07548620f",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/manifest.json"
+    },
+    {
+      "bytes": 678704,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-eye_midpoint_x_plane-all_unprotected_donors.json",
+      "sha256": "e600d2c8545ff5b006ce8f6889f50e2536ce47dd8b6d40d4ba19425b3a09f4e5",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-eye_midpoint_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 678694,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-eye_midpoint_x_plane-clean_donors.json",
+      "sha256": "9322f035e2180ae436a1e6bc3d8fd289c61a8012fb3d71ff5b8e798cdb049576",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-eye_midpoint_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 678405,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-eye_pair_perpendicular_plane-all_unprotected_donors.json",
+      "sha256": "ce9bece4a47aa08271158dec6bf0a79197e9dffdce6b6c72a4d16c954e741ff1",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-eye_pair_perpendicular_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 678395,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-eye_pair_perpendicular_plane-clean_donors.json",
+      "sha256": "2b3a110f654454c1a02a4b1558fc71ab86a8071abdfe68423ae99e0c8e511c10",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-eye_pair_perpendicular_plane-clean_donors.json"
+    },
+    {
+      "bytes": 679224,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-head_rig_x_plane-all_unprotected_donors.json",
+      "sha256": "33261a565fc05fb9028f79a94b9589384e254a7821ba7647471ed5b8b8200430",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-head_rig_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 679214,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-head_rig_x_plane-clean_donors.json",
+      "sha256": "898be560e6d2c8d3ce2e37e92a8e465be5327e67e1a662df57da93b38ce724f6",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-head_rig_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 678619,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-nose_center_x_plane-all_unprotected_donors.json",
+      "sha256": "b9a71cbebfa11456acfac1da53b3ab36c9905f1087c25134feb327acc7744318",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-nose_center_x_plane-all_unprotected_donors.json"
+    },
+    {
+      "bytes": 678609,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/matches-nose_center_x_plane-clean_donors.json",
+      "sha256": "0d60b3236658413b72662448e9f5646143993d837f155c0b9310af78e72246aa",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/matches-nose_center_x_plane-clean_donors.json"
+    },
+    {
+      "bytes": 6698,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/prepared.json",
+      "sha256": "5a4c9379ae894091df0d48022bd12aa861b342511bb247852ad5b468c4ffb25f",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/prepared.json"
+    },
+    {
+      "bytes": 3369,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/receipt.json",
+      "sha256": "c7fc98a1a8f9710d88e9a574b18d5b2ba3642e1d26cf38e7d25729b029ab0127",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/receipt.json"
+    },
+    {
+      "bytes": 72670,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/remaining-boundary-disagreement.json",
+      "sha256": "613f4062889f8c8d7eef07cf1b9bd4d80fad5a1ff1e19915024f47f09fd9c9d5",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/remaining-boundary-disagreement.json"
+    },
+    {
+      "bytes": 21511,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/screen.py",
+      "sha256": "bfbf8a60ee1b63a089637c7d45d68d8a524fe6cad2d9efd021fd5563c1ad69e1",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/screen.py"
+    },
+    {
+      "bytes": 20822,
+      "origin": "outputs/panda-cheek-symmetry-screen-v2/summary.json",
+      "sha256": "a9c8cf5f21deec89caf5ff34ec157300f3157810127cb7ca264f5fa069430b87",
+      "snapshot": "snapshots/panda-cheek-symmetry-screen-v2/summary.json"
+    },
+    {
+      "bytes": 10150,
+      "origin": "outputs/quality-next-action-audit-v1/README.md",
+      "sha256": "d47d5a98d6abdbaedd9357e7e892c527797cf82079c895878ee0e0e117b0f102",
+      "snapshot": "snapshots/quality-next-action-audit-v1/README.md"
+    },
+    {
+      "bytes": 10037,
+      "origin": "outputs/quality-next-action-audit-v1/inputs.json",
+      "sha256": "3a1995c70da1d9ce127504b3222ae04b858344f36e89e33a70c7948f59035947",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inputs.json"
+    },
+    {
+      "bytes": 241,
+      "origin": "outputs/quality-next-action-audit-v1/inventory-handle.json",
+      "sha256": "14fd5cb51b366787e84ee84092df645bc229897b6cb9f4fcb842fbce168ba3b7",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory-handle.json"
+    },
+    {
+      "bytes": 981,
+      "origin": "outputs/quality-next-action-audit-v1/inventory-monitor.json",
+      "sha256": "c4905bf77f59c59a147dc3402b7806d7bb48a76f044c82782a01a08d17ece3b0",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory-monitor.json"
+    },
+    {
+      "bytes": 7368,
+      "origin": "outputs/quality-next-action-audit-v1/inventory.json",
+      "sha256": "5264e44ed3e82eec758f5ddb6097df0f2d4d497041c949a6a9680a39acff410a",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory.json"
+    },
+    {
+      "bytes": 450,
+      "origin": "outputs/quality-next-action-audit-v1/inventory.log",
+      "sha256": "138a22f388cd6e0ed65e9fc04fbe8efcfddfc6e3658f3fba6faba91ecf8ac9f7",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory.log"
+    },
+    {
+      "bytes": 8808,
+      "origin": "outputs/quality-next-action-audit-v1/inventory.py",
+      "sha256": "cfcfcbe6c94b1115dbd00cf59649dbbfeeb514f09a889abc60e00c68351c5667",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory.py"
+    },
+    {
+      "bytes": 1539,
+      "origin": "outputs/quality-next-action-audit-v1/inventory_models.py",
+      "sha256": "cdb0c952fad09b8db2a382c693c5497e3813a10c08cc9257fadbcb2af973cf17",
+      "snapshot": "snapshots/quality-next-action-audit-v1/inventory_models.py"
+    },
+    {
+      "bytes": 1068,
+      "origin": "outputs/quality-next-action-audit-v1/job.json",
+      "sha256": "1b01c203a25e7273bb18e9e2cb0db1736f4f4e7f9c871e067641c21c8e7fb362",
+      "snapshot": "snapshots/quality-next-action-audit-v1/job.json"
+    },
+    {
+      "bytes": 10219,
+      "origin": "outputs/quality-next-action-audit-v1/manifest.json",
+      "sha256": "2fc9dac17750d40db091eb2ea4ca7482ff3c36057572ff2913b720480687de32",
+      "snapshot": "snapshots/quality-next-action-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 254,
+      "origin": "outputs/quality-next-action-audit-v1/model-inventory-handle.json",
+      "sha256": "f864aaf8b6758cca57dbab98ab7975e0ff094bc3bee0ba69ee94dd963f31fa11",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory-handle.json"
+    },
+    {
+      "bytes": 994,
+      "origin": "outputs/quality-next-action-audit-v1/model-inventory-monitor.json",
+      "sha256": "cb1a89d9bb84e080eadde2fadb6a68ef36d2dc036675c2da114ed40950530a45",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory-monitor.json"
+    },
+    {
+      "bytes": 28582,
+      "origin": "outputs/quality-next-action-audit-v1/model-inventory.json",
+      "sha256": "4b198d29596085104d08c464fe4d84bb6140636738f5ca45ffff172a468b4ea4",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/quality-next-action-audit-v1/model-inventory.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory.log"
+    },
+    {
+      "bytes": 1081,
+      "origin": "outputs/quality-next-action-audit-v1/model-job.json",
+      "sha256": "7b2023832cf36fde33531ca8f43c65e426a317593784b5a384ad8e77866c641c",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-job.json"
+    },
+    {
+      "bytes": 570,
+      "origin": "outputs/quality-next-action-audit-v1/model-prepared.json",
+      "sha256": "2757154f997fcb82ade3db6f53399707971eac54fe32f58517665da3895056ad",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-prepared.json"
+    },
+    {
+      "bytes": 470,
+      "origin": "outputs/quality-next-action-audit-v1/prepared.json",
+      "sha256": "a732892dba31653bdffeb87173ef2f8dd4834fb9716f0bce6d9b8c3c7b574035",
+      "snapshot": "snapshots/quality-next-action-audit-v1/prepared.json"
+    },
+    {
+      "bytes": 5210,
+      "origin": "outputs/quality-next-action-audit-v1/review.json",
+      "sha256": "9c542e148bcd670e85526a21c226e2e4388f4ba1f7a4f77dd861448873187e7f",
+      "snapshot": "snapshots/quality-next-action-audit-v1/review.json"
+    },
+    {
+      "bytes": 37129,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/README.md",
+      "sha256": "e44a08b3f06ad25be7c88ffadd09019471dfb73c6735f49c6b7d49a5d60ec4e1",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/README.md"
+    },
+    {
+      "bytes": 190279,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/TODO.md",
+      "sha256": "867c53b30a7f511c4663b5a249113c5e1e2bf07a4ec63667e78aff69b0d65c3d",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/TODO.md"
+    },
+    {
+      "bytes": 6940,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 13071,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/docs/fur-workflow.md",
+      "sha256": "6917f29950bd6811b4afd67a0bb2e12f75f556e72ae641cd626cc8891ec91a1f",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/docs/fur-workflow.md"
+    },
+    {
+      "bytes": 23460,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/docs/hands-off-studio.md",
+      "sha256": "341301d7c569c9d1948b6cc8f0d3f3de18f11e3283330b77ccbe48b1cc744861",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/docs/hands-off-studio.md"
+    },
+    {
+      "bytes": 11723,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/docs/hd-quality-pass-v1.md",
+      "sha256": "0b9846977abe84ba0fd3777942b379645d594cab291140aaf861e734daec8639",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/docs/hd-quality-pass-v1.md"
+    },
+    {
+      "bytes": 24777,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/docs/prompt-pipeline.md",
+      "sha256": "aae304f546f38aecfda2cddd455fabfb776fec1b06d72cc1351908ab6ec59465",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/docs/prompt-pipeline.md"
+    },
+    {
+      "bytes": 14459,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/docs/source-uv-control.md",
+      "sha256": "7d4a9c491817291b615b15577a6dcf1b4bf170e3db65f1f8d89b82b3a1731963",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/docs/source-uv-control.md"
+    },
+    {
+      "bytes": 12720,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/examples/meshy/agent-dragon-polish-v1.json",
+      "sha256": "5910ff8afd3e223d03256296874ee647a201b1e7cde6fdca1c59104bc706a11b",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/examples/meshy/agent-dragon-polish-v1.json"
+    },
+    {
+      "bytes": 30112,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/examples/meshy/muse-panda-dance-v4.json",
+      "sha256": "b8255af9a686a491504c210b5a63e62f6d6d2f517efbd5462436a85d2e9f0689",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/examples/meshy/muse-panda-dance-v4.json"
+    },
+    {
+      "bytes": 24251,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/examples/meshy/muse-panda-smooth-fur-v3.json",
+      "sha256": "74e215c79b0b17c4d99052dcdef48e61b38afe06c8d8a4255fa1c9e7a1b433d8",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/examples/meshy/muse-panda-smooth-fur-v3.json"
+    },
+    {
+      "bytes": 726394,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/examples/scenes/lamp-hd-v1.json",
+      "sha256": "4bcb6521903442a1eed96f63c11772b7de3c483eebb08d6f6ef1e7a23a755e2e",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/examples/scenes/lamp-hd-v1.json"
+    },
+    {
+      "bytes": 26026,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/agent-dragon-polish-v1/finish-report.json",
+      "sha256": "6375a7988540b0c6be9d65794fa901c555cdfab3d3d4218813ef5a3b9d76610c",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/agent-dragon-polish-v1/finish-report.json"
+    },
+    {
+      "bytes": 48713,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/agent-dragon-polish-v1/manifest.json",
+      "sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/agent-dragon-polish-v1/manifest.json"
+    },
+    {
+      "bytes": 5661,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/agent-robot-v3/delivery.json",
+      "sha256": "487ce897f5eba38387a976904cb66ccb678cfceeaea7d0e9fd810b50b5b178f1",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/agent-robot-v3/delivery.json"
+    },
+    {
+      "bytes": 1009,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/agent-robot-v3/request.json",
+      "sha256": "b5aad39c906d7ea897f61fb8d0102c64b3bd10b087727c2d248ef808f7ca8cb6",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/agent-robot-v3/request.json"
+    },
+    {
+      "bytes": 170381,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/fox-hd-build-v2/manifest.json",
+      "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/fox-hd-build-v2/manifest.json"
+    },
+    {
+      "bytes": 1200,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-estimate-v2/estimate.json",
+      "sha256": "bba7d25d71eeb9752d083e8ec0858b1783311b3ff0b371bb3d935a5fac09fca5",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-estimate-v2/estimate.json"
+    },
+    {
+      "bytes": 737,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/allowance-request.json",
+      "sha256": "4fabfae8c4a485695e932ddb1be5a6cd9cde5d700eb4dc005a74f209394bb2ad",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/allowance-request.json"
+    },
+    {
+      "bytes": 1573,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/estimate.json",
+      "sha256": "94c23f8fecaef092424a4081abb89aadec7940925008a87fa8be36c0abe30e2e",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/estimate.json"
+    },
+    {
+      "bytes": 4314,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/requests.json",
+      "sha256": "b5df06fd2841e04b5cc84a9e6a11b4ff47f0338fa56d8f79f4af6a1f94b67311",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/fresh-acceptance-preparation-v1/requests.json"
+    },
+    {
+      "bytes": 51284,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/lamp-hd-build-v2/manifest.json",
+      "sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/lamp-hd-build-v2/manifest.json"
+    },
+    {
+      "bytes": 3653,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/lamp-hd-build-v2/rig-contract.json",
+      "sha256": "979170eeba61f484b589acb149d23f40ce51c8033586354d15ca2f2479e11413",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/lamp-hd-build-v2/rig-contract.json"
+    },
+    {
+      "bytes": 34009,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/muse-panda-dance-probe-v2/finish-report.json",
+      "sha256": "f3db90d494d85205eb6a7c962606b7a67f35c2720680bbefa1c8cda40c37e72f",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/muse-panda-dance-probe-v2/finish-report.json"
+    },
+    {
+      "bytes": 55709,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/muse-panda-dance-probe-v2/manifest.json",
+      "sha256": "bbaae99fea1db3940128eea17be3b0ff2324fbc63444f7608bcf47d57de11b71",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/muse-panda-dance-probe-v2/manifest.json"
+    },
+    {
+      "bytes": 3554,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-base-v2/plan.json",
+      "sha256": "d1650176b18403baf88a3d90905d0a7aa9baf71f52c7fa5dc52ccb39bd87ace2",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-base-v2/plan.json"
+    },
+    {
+      "bytes": 39365,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-fur-v3/finish-report.json"
+    },
+    {
+      "bytes": 67655,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/muse-panda-smooth-fur-v3/manifest.json"
+    },
+    {
+      "bytes": 234,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/panda-cheek-curved-candidate-v1/result.json",
+      "sha256": "58fdef5b18e0db072f4377874f0f17849879464ee35d02e312252f7cbd0a8929",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/panda-cheek-curved-candidate-v1/result.json"
+    },
+    {
+      "bytes": 2693,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/panda-cheek-scar-selection-v1/manifest.json",
+      "sha256": "a20057d64c5f3f85cd06fc0f78b14846f9b072872936944ac9e04e686264aadd",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/panda-cheek-scar-selection-v1/manifest.json"
+    },
+    {
+      "bytes": 5223,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/panda-uv2-appearance-review-v1/review.json"
+    },
+    {
+      "bytes": 632,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/outputs/studio-rigged-robot-preparation-v1/request.json",
+      "sha256": "85f3eae6185a858a4608cf2547fe0f047db820bf6a19eeebca942bd91d2c67cd",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/studio-rigged-robot-preparation-v1/request.json"
+    },
+    {
+      "bytes": 52912,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/quality-next-action-audit-v1/snapshots/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 432,
+      "origin": "outputs/portable-coat-quality-screen-v1/execution.json",
+      "sha256": "e00f6cc016d0f4ce40e69fee4537eb11a1d339efced1c9289369db5ad9b23c11",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/execution.json"
+    },
+    {
+      "bytes": 5915,
+      "origin": "outputs/portable-coat-quality-screen-v1/findings.md",
+      "sha256": "0ab48b59ba7bc83b78f82f96b2887daa02c10da60dfe03a7ce8eb84db44568a5",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/findings.md"
+    },
+    {
+      "bytes": 1074,
+      "origin": "outputs/portable-coat-quality-screen-v1/job.json",
+      "sha256": "800296dab4f4f4d7febdc17932fef12e4357f83fb190d0dfcea6d56f65a43690",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/job.json"
+    },
+    {
+      "bytes": 4230,
+      "origin": "outputs/portable-coat-quality-screen-v1/manifest.json",
+      "sha256": "579b9aaac1ae3ca94af64b637cb9647a84b9aade9b3cc1144af7965fb6ee61a0",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/manifest.json"
+    },
+    {
+      "bytes": 11902,
+      "origin": "outputs/portable-coat-quality-screen-v1/measurements.json",
+      "sha256": "815900aae50b0ff5aff56428b05c86f8fc8c53e8c84eb907ed90622f0d216e1a",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/measurements.json"
+    },
+    {
+      "bytes": 4351,
+      "origin": "outputs/portable-coat-quality-screen-v1/prepared.json",
+      "sha256": "9bb770dbf4b715408bc6746e1a3eb6496d9efaa8d3dc01ba3018115f1c8851ce",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/prepared.json"
+    },
+    {
+      "bytes": 244,
+      "origin": "outputs/portable-coat-quality-screen-v1/screen-handle.json",
+      "sha256": "a52f0f1dbff067563c85c0b3ca071ac4727664d07855329d53e32533d1cb0982",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/screen-handle.json"
+    },
+    {
+      "bytes": 982,
+      "origin": "outputs/portable-coat-quality-screen-v1/screen-monitor.json",
+      "sha256": "6c17eb7b218b02a960cc2095bd27d25cd5d57ca23bff5a2dc58ebe732e625895",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/screen-monitor.json"
+    },
+    {
+      "bytes": 8279,
+      "origin": "outputs/portable-coat-quality-screen-v1/screen.log",
+      "sha256": "f7338e2b55ba325f5ed2599faf598d0b20ab2998a9c6ce8e0a0a7820a141bd8b",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/screen.log"
+    },
+    {
+      "bytes": 12171,
+      "origin": "outputs/portable-coat-quality-screen-v1/screen.py",
+      "sha256": "822c318b6ccbf9bbb6821a347154d5928d799cf13d65669c1ed3715b0e0471e5",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/screen.py"
+    },
+    {
+      "bytes": 135864,
+      "origin": "outputs/portable-coat-quality-screen-v1/selection-screen.json",
+      "sha256": "e05c0a527f84bbf5919310ef928dbc700e8465161b76463c98e97201261ad4de",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/selection-screen.json"
+    },
+    {
+      "bytes": 35,
+      "origin": "outputs/portable-coat-quality-screen-v1/source-verification.json",
+      "sha256": "dd3d9ae15ae6718e9de93dc577f0506c80c815613d0bcde25cd5cb93d3586755",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/source-verification.json"
+    },
+    {
+      "bytes": 7903,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/docs/portable-fringe.md",
+      "sha256": "07eee391bf4216961a564e2435321dad0f51ead54d6a3fee7594797a351bc132",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/docs/portable-fringe.md"
+    },
+    {
+      "bytes": 27825,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/docs/tuft-profile.md",
+      "sha256": "b827c25012958ab9b3874a8541519639871de5cda5ae9ada9c12867298409ad7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/docs/tuft-profile.md"
+    },
+    {
+      "bytes": 1975,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-portable-tuft-review-v1.json",
+      "sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-portable-tuft-review-v1.json"
+    },
+    {
+      "bytes": 5223,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/outputs/panda-uv2-appearance-review-v1/review.json"
+    },
+    {
+      "bytes": 10909,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-portable-preview-v1/native-inspection.json",
+      "sha256": "6e312d2c00f5ae31b78d107ade3b7cdedf22bdb92863870e8ea4d67ba622a4ef",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-portable-preview-v1/native-inspection.json"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 14075,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 122712,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/outputs/portable-fringe-profile-diagnosis-v1/diagnosis.json",
+      "sha256": "10180db25e5201068b52587c0065a2b096dcad263c5df41497e7e527216a7c46",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/portable-fringe-profile-diagnosis-v1/diagnosis.json"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 9233,
+      "origin": "outputs/portable-coat-quality-screen-v1/sources/scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_flow.py"
+    },
+    {
+      "bytes": 1343,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admission.json"
+    },
+    {
+      "bytes": 256,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admit-handle.json",
+      "sha256": "b9523f3ee866efec7b7751beb78c91a066af7a722639403c68ead267e01014e1",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admit-handle.json"
+    },
+    {
+      "bytes": 1043,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admit-monitor.json",
+      "sha256": "676a84ce48d79f68174e81adbc4bf952b8942cdb2307a4b1e87461f120a17b2a",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admit-monitor.json"
+    },
+    {
+      "bytes": 1343,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admit.log",
+      "sha256": "c8b18941bb1fefd92c48c165bed7493e8d9466a5aca1cefbdf249897d922ae82",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admit.log"
+    },
+    {
+      "bytes": 9712,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admit_source.py",
+      "sha256": "750021f314ce45207f76e71001520b43c1f1135749dee675b7f1e866ff6ca524",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admit_source.py"
+    },
+    {
+      "bytes": 1162,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/correspondence-checkpoint.json",
+      "sha256": "c596ca125b720d0dbf1eda74cfc4bca77c47e0078dd694fc1b1c521b985c78b5",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/correspondence-checkpoint.json"
+    },
+    {
+      "bytes": 445,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/execution.json",
+      "sha256": "4fe1fbd457198a4ed61a29cda2dc89721c54a53899f5db90dc8fbed97ea38740",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/execution.json"
+    },
+    {
+      "bytes": 1137,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/job.json",
+      "sha256": "d39dab33ee3a0d87591401b78b68009f9f094b2f4884f373fdef2c1ec91091ba",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/job.json"
+    },
+    {
+      "bytes": 3207,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/manifest.json",
+      "sha256": "6f019fc8d4edbfba95e652dc7258eb84729f8b5a37ab660ca1eeda60e4e09db7",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 2571,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/prepared.json",
+      "sha256": "117dafde1613364caa064ca2140c49ff8e46cd8f96d4557135cef4a3e589732d",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 89426,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/outputs/panda-uv2-staged-control-v1/prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/outputs/panda-uv2-staged-control-v1/prepared-finish-report.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 135864,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/sources/outputs/portable-coat-quality-screen-v1/selection-screen.json",
+      "sha256": "e05c0a527f84bbf5919310ef928dbc700e8465161b76463c98e97201261ad4de",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/selection-screen.json"
+    },
+    {
+      "bytes": 201,
+      "origin": "outputs/lazy-source-color-tests-v1/cpu-handle.json",
+      "sha256": "b163f1a45dd34c8e82f9f48e363cbf2e3fcc360d2302c4d462121420b0ea80da",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1037,
+      "origin": "outputs/lazy-source-color-tests-v1/cpu-job.json",
+      "sha256": "665f7492ecb06acfc6912abbc2ee50a10ca2046952fb0860c8c97388f6de1be8",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/cpu-job.json"
+    },
+    {
+      "bytes": 937,
+      "origin": "outputs/lazy-source-color-tests-v1/cpu-monitor.json",
+      "sha256": "67a28a1a26b44615adde7d92b39eef12cda93abd6413f410ebd8254a28f9afbc",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 2149,
+      "origin": "outputs/lazy-source-color-tests-v1/cpu.log",
+      "sha256": "ae4a7cc645bc45e530c4c7846dc9321169a11b8982d5472ed3a376b9d6010968",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/cpu.log"
+    },
+    {
+      "bytes": 1570,
+      "origin": "outputs/lazy-source-color-tests-v1/manifest.json",
+      "sha256": "556fc523e2f35d9bee02ba0d56f7fe370b9fe189de47cde5ac224a420f7197b9",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1285,
+      "origin": "outputs/lazy-source-color-tests-v1/prepared.json",
+      "sha256": "0c1de16c8ae3ca4f26e385f8b6da577ec1d484115e7855fae4f3a3351f6ac8c0",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 3611,
+      "origin": "outputs/lazy-source-color-tests-v1/receipt.json",
+      "sha256": "f5d292dfa1c433a9743654b6974de7e2919f4c198c6be8e25978a3cfc730a106",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 54172,
+      "origin": "outputs/lazy-source-color-tests-v1/sources/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 10914,
+      "origin": "outputs/lazy-source-color-tests-v1/sources/test_lazy_source_color_sampling.py",
+      "sha256": "9028031212294e00f1d72bf8a465366195b7fde248df98b50e604f2158564298",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/sources/test_lazy_source_color_sampling.py"
+    },
+    {
+      "bytes": 428,
+      "origin": "outputs/lazy-source-color-tests-v1/unchanged-contracts.json",
+      "sha256": "b5fd18715791c0d4dbd74d2202b0b68041442f0a6c1bd9b94661719dfee36ec7",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/unchanged-contracts.json"
+    },
+    {
+      "bytes": 4047,
+      "origin": "outputs/multi-material-lamp-preparation-v1/README.md",
+      "sha256": "0f2b9640b2283be1cb0ee66cfeec37a3bfabb4c55f9aec99f85e231489cd95c4",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/README.md"
+    },
+    {
+      "bytes": 11257,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execute.py",
+      "sha256": "e903f6700b5c5ca6bd8e4157970025143a1978fed3dacca0cb3130a78970945f",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 2833,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/controller-monitor.json",
+      "sha256": "9e8de0b77a881fc5f0e37532bb1ff89cef089b69a7a8a49ee5e75954d5fa3c39",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/controller-monitor.json"
+    },
+    {
+      "bytes": 279,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/cpu-handle.json",
+      "sha256": "bc961c537cc65150befea55b0e888b29a8ec6db800bfd631bc22a414860b6388",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/cpu-handle.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/cpu.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory.log"
+    },
+    {
+      "bytes": 980,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/ipc-00.json",
+      "sha256": "8bc12e5c8df824689ec03e4a6ccd1fdcd2f80f3dd3e76318c75df6807c18ec97",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/ipc-00.json"
+    },
+    {
+      "bytes": 218,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/ipc-01.json",
+      "sha256": "daddce70ff623a168d5b0495fd0ef81d51c7ee5a3f6f5495f3f25dba06710e2a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/ipc-01.json"
+    },
+    {
+      "bytes": 1528,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/native-job.json",
+      "sha256": "dc57bc17dfe4b1eefeb9385f2445d58d0a383998d92c41198659b9972e696b6c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/native-job.json"
+    },
+    {
+      "bytes": 764,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/native-started.json",
+      "sha256": "2a38c09dff3308427444b98891f63244bf980fe0444cffce02119bf87f78680f",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/native-started.json"
+    },
+    {
+      "bytes": 3220,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/receipt.json",
+      "sha256": "d97eb776101d2b171500723ba8449e6bcfd845248c022788f7c98b67b7235b44",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/receipt.json"
+    },
+    {
+      "bytes": 179,
+      "origin": "outputs/multi-material-lamp-preparation-v1/execution/started.json",
+      "sha256": "8d2a69ab57ba7b9f31ba72732039e37856a9cd581f6b350cd53cfdba41110443",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/started.json"
+    },
+    {
+      "bytes": 1673,
+      "origin": "outputs/multi-material-lamp-preparation-v1/finish-config.json",
+      "sha256": "7ebc3dd44207d46acb88cbb3ec8309db4b6c1d88595cfa87f2e61e2f1ff6da07",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 1579,
+      "origin": "outputs/multi-material-lamp-preparation-v1/finish_worker.py",
+      "sha256": "ff5021af5482161f9dcdd154a39f3c4f50ecf7a41db9e9b04daa159f9636ead3",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/finish_worker.py"
+    },
+    {
+      "bytes": 752,
+      "origin": "outputs/multi-material-lamp-preparation-v1/plan.json",
+      "sha256": "b5fb02f790c965974f4836d3179c291c6af6bae16a108ef7d0694dbbca8331c2",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/plan.json"
+    },
+    {
+      "bytes": 36735,
+      "origin": "outputs/multi-material-lamp-preparation-v1/prepared.json",
+      "sha256": "b16d3e52a9d3d5a8abb240d635f6c7df707194d3a72d1195972906c0b18d658a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 1719,
+      "origin": "outputs/multi-material-lamp-preparation-v1/receipt-schema.json",
+      "sha256": "7dc3ee13dd07f209742c2adad0087efc956cbd476ebc0d8383a2df1e0020a870",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/receipt-schema.json"
+    },
+    {
+      "bytes": 18686,
+      "origin": "outputs/multi-material-lamp-preparation-v1/seal.json",
+      "sha256": "47f413ef7843548642298d612ecb4a692981f74f0443b2e649a6778391357aac",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/seal.json"
+    },
+    {
+      "bytes": 8540,
+      "origin": "outputs/multi-material-lamp-preparation-v1/source-contract.json",
+      "sha256": "1369d167fd223cc0c02d83c57273a16e322d2de4ce77e937172cc9a6709fbf37",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/source-contract.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/__main__.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 4525,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/archive.py"
+    },
+    {
+      "bytes": 6940,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 7879,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/build3d.py"
+    },
+    {
+      "bytes": 10942,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/cli.py",
+      "sha256": "73c88354d2ebd5a289a085bc5998c003801242c74de68c373caed85cfaa64c3a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 11162,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/export2d.py"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 21758,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/fringe_fidelity.py"
+    },
+    {
+      "bytes": 27764,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9497,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/lookdev.py"
+    },
+    {
+      "bytes": 8912,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/media.py"
+    },
+    {
+      "bytes": 22815,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 2961,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/packaging.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 2955,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/review.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 17157,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/scene.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 12424,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 18169,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 9367,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "bytes": 43701,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13680,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14456,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/weft_metadata.py"
+    },
+    {
+      "bytes": 2434,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_browser_fur.py",
+      "sha256": "8bc3adfe1103f83372b706ff234170bd4793c60a77ea757e4c702be9c28571eb",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_browser_fur.py"
+    },
+    {
+      "bytes": 3449,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_combed_groom.py",
+      "sha256": "baf68323e2de881d28b54e5b1eee7a961c2cb46758031716cbc062f8026fee10",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_combed_groom.py"
+    },
+    {
+      "bytes": 11182,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_hd_companions.py",
+      "sha256": "0f5664b632c8a2c9b48d73dbec561705cdeea7ee4a83a313844a4263720677cd",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_hd_companions.py"
+    },
+    {
+      "bytes": 7935,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_hd_fox_v2.py",
+      "sha256": "240ea2716a7ce60b2462b543297e79d8e8966fb7381c83766964594ca3425708",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_hd_fox_v2.py"
+    },
+    {
+      "bytes": 22922,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda.py",
+      "sha256": "28561566431d92db7063880401c3d688ac117a33e5a4efcae887e3cf2feb41e2",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda.py"
+    },
+    {
+      "bytes": 10387,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda_v2.py",
+      "sha256": "b546bb9778ff11d35aea908f0757d801108d0f74683deeed91b6cb7961f2248b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda_v2.py"
+    },
+    {
+      "bytes": 10426,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda_v3.py",
+      "sha256": "90c31c471ce101f9111e5ec7ce1036fae70bad33b554c814508d9802e8a133a3",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_hd_panda_v3.py"
+    },
+    {
+      "bytes": 32513,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_quality_companions.py"
+    },
+    {
+      "bytes": 25166,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_quality_panda.py"
+    },
+    {
+      "bytes": 27045,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/author_quality_robot.py"
+    },
+    {
+      "bytes": 16082,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_build.py",
+      "sha256": "4a5f1f03f21b728f2b72056d8783678033f17232de9fb344f7944eb42a3c913d",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_build.py"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 54172,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 21139,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_geometry.py"
+    },
+    {
+      "bytes": 16436,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_lookdev.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 13538,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_partition_generated.py",
+      "sha256": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_partition_generated.py"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 3521,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_render.py"
+    },
+    {
+      "bytes": 6211,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_render_prepared.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 9781,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_surfaces_hd.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 26865,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_verify_compound_motion.py",
+      "sha256": "74a6edf198a07e17eeeb05104c17a08626ae27f53c4302862c9dc662503d603b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_verify_compound_motion.py"
+    },
+    {
+      "bytes": 6524,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_verify_motion_controls.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 17213,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/denoise_portrait.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 9233,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_flow.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 13920,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/package_portable_media.py"
+    },
+    {
+      "bytes": 7911,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/rig_guide_annotations.py"
+    },
+    {
+      "bytes": 14055,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 9850,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/validate_studio_framing.py"
+    },
+    {
+      "bytes": 22630,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/verify_quality_assets.py",
+      "sha256": "31e3f74edb6dc9f5e964241d464432cf9c7e0a960efde419db016b373568e592",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/verify_quality_assets.py"
+    },
+    {
+      "bytes": 7537,
+      "origin": "outputs/multi-material-lamp-preparation-v1/sources/scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/verify_studio_live.py"
+    },
+    {
+      "bytes": 3425,
+      "origin": "outputs/multi-material-lamp-finish-v1/exported-nodes.json",
+      "sha256": "40a9cf13424b0426be80aee71709e2d10f17cff9530144b0b4f63236c3165108",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/exported-nodes.json"
+    },
+    {
+      "bytes": 1773,
+      "origin": "outputs/multi-material-lamp-finish-v1/finish-config.json",
+      "sha256": "f9bef29848fadab91a9b2e36b4ef3502b60d9eb07a8e550cd9d32341a55c2e68",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish-config.json"
+    },
+    {
+      "bytes": 602,
+      "origin": "outputs/multi-material-lamp-finish-v1/finish-handle.json",
+      "sha256": "4dec05864e24276f85ed22a753f63a797d673a79bc273b6434e39d71b589c279",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish-handle.json"
+    },
+    {
+      "bytes": 1394,
+      "origin": "outputs/multi-material-lamp-finish-v1/finish-monitor.json",
+      "sha256": "3f3b7dbc5dddef6d83905ab8bae4b39f4e772d5e3d56463ef7d83b9569eb062e",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish-monitor.json"
+    },
+    {
+      "bytes": 8456,
+      "origin": "outputs/multi-material-lamp-finish-v1/finish-report.json",
+      "sha256": "b659ccb1f4a3ccf22686d54d32041beff6ea53b4bb4d61edd90d9bb71de3a631",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish-report.json"
+    },
+    {
+      "bytes": 123186,
+      "origin": "outputs/multi-material-lamp-finish-v1/finish.log",
+      "sha256": "5e983bc0e126135083893a57652dfa98d8cd679c905ed286b9f2cde43e27b714",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish.log"
+    },
+    {
+      "bytes": 1528,
+      "origin": "outputs/multi-material-lamp-finish-v1/job.json",
+      "sha256": "dc57bc17dfe4b1eefeb9385f2445d58d0a383998d92c41198659b9972e696b6c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/native-job.json"
+    },
+    {
+      "bytes": 30589,
+      "origin": "outputs/multi-material-lamp-finish-v1/manifest.json",
+      "sha256": "3628267cc07eb03c4e927c260651a855b53392efbf177d41705975090e7dbde1",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/manifest.json"
+    },
+    {
+      "bytes": 3078,
+      "origin": "outputs/multi-material-lamp-finish-v1/normal-uv-export.json",
+      "sha256": "c1f2a539fe01b8cc2040eba04757463903f2f7faad42897d382d21f7e0a34ff6",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/normal-uv-export.json"
+    },
+    {
+      "bytes": 61947,
+      "origin": "outputs/multi-material-lamp-finish-v1/portrait.png",
+      "sha256": "e1518803a2c881833d7dadf861e7e9dde353fcf1d00c3a78d73e8a6f0b14912b",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/portrait.png"
+    },
+    {
+      "bytes": 4917,
+      "origin": "outputs/multi-material-lamp-finish-v1/render-attributes.json",
+      "sha256": "045d3d6d3b1d6fb662c26fb86c62ed417eac58c0cba5bf717c8d8035af88e702",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/render-attributes.json"
+    },
+    {
+      "bytes": 61444,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/idle/0000.png",
+      "sha256": "572cee76b2c955ebd0fd739336ee21ea1583522b629d966c322ca92486194fa9",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/idle/0000.png"
+    },
+    {
+      "bytes": 62111,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/idle/0001.png",
+      "sha256": "d5548b6b0818bb619c59134c894e4d39bdfea0f29a73b4f1d3992e3b2250f459",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/idle/0001.png"
+    },
+    {
+      "bytes": 61444,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/idle/0002.png",
+      "sha256": "22b4fa477027d88d943817b3430f8979a14b4c840d86952631e1326ec6e4bed6",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/idle/0002.png"
+    },
+    {
+      "bytes": 61686,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/idle/0003.png",
+      "sha256": "63dbb744f494d89f562938c42c5f55d4d3a31a4ea574ae10be975ceea1c8e707",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/idle/0003.png"
+    },
+    {
+      "bytes": 61444,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/idle/0004.png",
+      "sha256": "6912164526713731079b768ea5fd05f406f081eb9cf1f0b44aa93308c7f6be3f",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/idle/0004.png"
+    },
+    {
+      "bytes": 61196,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/making_something/0000.png",
+      "sha256": "f86f278a4f2ba4fc02fb6b89abb6c7187d27de2926ff319aba1f81368243a2e3",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/making_something/0000.png"
+    },
+    {
+      "bytes": 61124,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/making_something/0001.png",
+      "sha256": "ff5088b17c15534272bc3b335303e4963c0bff87b96b96af93e10a26f58c439a",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/making_something/0001.png"
+    },
+    {
+      "bytes": 61196,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/making_something/0002.png",
+      "sha256": "370e6785b4a4e5b5c4ea62ca53a2aedc1e15f78aa742f1692f31a1621aa7f753",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/making_something/0002.png"
+    },
+    {
+      "bytes": 61124,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/making_something/0003.png",
+      "sha256": "ae356e84317f5876bad7c1bdc70c0f7513e0f9f46238e2f6435e3420a37ee8b4",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/making_something/0003.png"
+    },
+    {
+      "bytes": 61196,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/making_something/0004.png",
+      "sha256": "f59580ed49c488b5b6a5172eb211b9b10a1b2e00e0b16cb99d545f626b553f18",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/making_something/0004.png"
+    },
+    {
+      "bytes": 61444,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0000.png",
+      "sha256": "7681a806e887a7eeb8969f91ab7226a99b595ed0adfaddab57eb479ffef86277",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/milestone_level_up/0000.png"
+    },
+    {
+      "bytes": 61721,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0001.png",
+      "sha256": "3c0538c78145723cdccaba40fac206c622854a2871005980801b310f61ffc797",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/milestone_level_up/0001.png"
+    },
+    {
+      "bytes": 61721,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "04819210f9e1b0ba59d676a0589d89a8a3a4f6d9e5d3cf51b0968fca7606026c",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/milestone_level_up/0002.png"
+    },
+    {
+      "bytes": 61721,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0003.png",
+      "sha256": "761fdc9068f3b66854299171bd11b685f446be81ab41a19b603d4d3694859845",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/milestone_level_up/0003.png"
+    },
+    {
+      "bytes": 61444,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0004.png",
+      "sha256": "ac7a337b1aa7cb6b8da43a0147f1f04bcdc3d69706747d09bb3dad04e2c93080",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/milestone_level_up/0004.png"
+    },
+    {
+      "bytes": 61671,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/working/0000.png",
+      "sha256": "13acbbca836be5059c8ad93aa0f9a19cc7c0a5879dbe2e45b574a15d91ca6710",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/working/0000.png"
+    },
+    {
+      "bytes": 60998,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/working/0001.png",
+      "sha256": "852e422193bacbde037a21e6af3795d7142e285473ee6bea2c856aca0b72bff1",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/working/0001.png"
+    },
+    {
+      "bytes": 60507,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/working/0002.png",
+      "sha256": "54e1de90886c5efb6f7fb93a5ba9f94ff44b3aa48dd1d6896232a270ba3b3378",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/working/0002.png"
+    },
+    {
+      "bytes": 60998,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/working/0003.png",
+      "sha256": "b31f6b612d53a3d584278275886d708d2a8fad4a8952e9c6e51211db6a55e4f5",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/working/0003.png"
+    },
+    {
+      "bytes": 61671,
+      "origin": "outputs/multi-material-lamp-finish-v1/renders/working/0004.png",
+      "sha256": "a5c962447b9c98de9d425efed1b4fac668e361459a7f0ce810679f2dc96229d8",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/renders/working/0004.png"
+    },
+    {
+      "bytes": 907,
+      "origin": "outputs/multi-material-lamp-finish-v1/rig-contract.json",
+      "sha256": "7f7c55c57adb5e8028cb48e31ebdf27ea921a55b3e1216fa810afb019a6c4798",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/rig-contract.json"
+    },
+    {
+      "bytes": 5663,
+      "origin": "outputs/multi-material-lamp-finish-v1/rig-verification.json",
+      "sha256": "8e06224139bb3fe8fdf63bf08343e4ef7ce6d395f285749245119f66e3958ccb",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/rig-verification.json"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 54172,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918",
+      "snapshot": "snapshots/lazy-source-color-tests-v1/sources/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 1673,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/finish-design.json",
+      "sha256": "7ebc3dd44207d46acb88cbb3ec8309db4b6c1d88595cfa87f2e61e2f1ff6da07",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/quality-next-action-audit-v1/snapshots/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/multi-material-lamp-finish-v1/sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 487,
+      "origin": "outputs/multi-material-lamp-finish-v1/tangent-repair.json",
+      "sha256": "418ed57ebfe1b0173b3ff13c87c7bb0b4bb33eeb1850f1c09bfd69a47d6d8310",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/tangent-repair.json"
+    },
+    {
+      "bytes": 4341,
+      "origin": "outputs/multi-material-lamp-audit-v1/README.md",
+      "sha256": "e36b2f834c24e66ac973e3aaf2c3682be28fc9004d8a6e84bfc9b7daa0cfa171",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/README.md"
+    },
+    {
+      "bytes": 9279,
+      "origin": "outputs/multi-material-lamp-audit-v1/artifacts.json",
+      "sha256": "1040f877f2893da964e9d191d81d2940b188e741ec1f9a4f9a2e4c3d18664a23",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/artifacts.json"
+    },
+    {
+      "bytes": 233,
+      "origin": "outputs/multi-material-lamp-audit-v1/audit-handle.json",
+      "sha256": "5843a8adf6d4b1a3d6ef9ce831955e507a91348cba15bfcde76a2f678d35eb2f",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/audit-handle.json"
+    },
+    {
+      "bytes": 1019,
+      "origin": "outputs/multi-material-lamp-audit-v1/audit-monitor.json",
+      "sha256": "bc8c17cf807ad8ed7c385b7d7a44c24605ba2a47a56e02be54ed995e8b113e3b",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/multi-material-lamp-audit-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/quality-next-action-audit-v1/model-inventory.log"
+    },
+    {
+      "bytes": 18327,
+      "origin": "outputs/multi-material-lamp-audit-v1/audit.py",
+      "sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/audit.py"
+    },
+    {
+      "bytes": 5416,
+      "origin": "outputs/multi-material-lamp-audit-v1/geometry.json",
+      "sha256": "3b8d54641249d6a3a55b1dc8fc369328b7c75b2d5b52eefb03d2a39b3c3e0c20",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/geometry.json"
+    },
+    {
+      "bytes": 1109,
+      "origin": "outputs/multi-material-lamp-audit-v1/job.json",
+      "sha256": "774d6ab822be2f1e272c5e6c7041baa6864016fe1fc0c1f555f4e109d9ab5818",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/job.json"
+    },
+    {
+      "bytes": 3761,
+      "origin": "outputs/multi-material-lamp-audit-v1/manifest.json",
+      "sha256": "9b366612904256824db95f7b1fdfeb2232622bb320d8cbdf9e654374d54d0ba1",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 17592,
+      "origin": "outputs/multi-material-lamp-audit-v1/materials.json",
+      "sha256": "43ce3488a54c868a2b18a8fa1933bed5c173b99b08975321b1edbce7b6d2c1b3",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/materials.json"
+    },
+    {
+      "bytes": 5698,
+      "origin": "outputs/multi-material-lamp-audit-v1/motion.json",
+      "sha256": "bfab8257704dd11f05a8e070fa996e9a589ad4371bad5cb6ad14989d7c744e90",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/motion.json"
+    },
+    {
+      "bytes": 3109,
+      "origin": "outputs/multi-material-lamp-audit-v1/prepared.json",
+      "sha256": "838f29987fd4ab16505589697c3d815549a573cf0c3fe6d0d0cb74f93bc54690",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/prepared.json"
+    },
+    {
+      "bytes": 1005,
+      "origin": "outputs/multi-material-lamp-audit-v1/result.json",
+      "sha256": "d5e8fc0389aeda5bd2bb8715a573a9adcd43905e5d5ee8a951f2d531c94bfa29",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/result.json"
+    },
+    {
+      "bytes": 1017,
+      "origin": "outputs/multi-material-lamp-audit-v1/review.json",
+      "sha256": "d43f650b0ca668e5b8a14befbe77e010e3763a0cf3764a0b9ee71ba539c3220c",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/review.json"
+    },
+    {
+      "bytes": 1624,
+      "origin": "outputs/multi-material-lamp-audit-v1/rig.json",
+      "sha256": "2d13582e96e166569e1d9fb16d9c667272293566937f19ff5f3a006380037f9f",
+      "snapshot": "snapshots/multi-material-lamp-audit-v1/rig.json"
+    },
+    {
+      "bytes": 8456,
+      "origin": "outputs/multi-material-lamp-audit-v1/source-records/outputs/multi-material-lamp-finish-v1/finish-report.json",
+      "sha256": "b659ccb1f4a3ccf22686d54d32041beff6ea53b4bb4d61edd90d9bb71de3a631",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/finish-report.json"
+    },
+    {
+      "bytes": 3078,
+      "origin": "outputs/multi-material-lamp-audit-v1/source-records/outputs/multi-material-lamp-finish-v1/normal-uv-export.json",
+      "sha256": "c1f2a539fe01b8cc2040eba04757463903f2f7faad42897d382d21f7e0a34ff6",
+      "snapshot": "snapshots/multi-material-lamp-finish-v1/normal-uv-export.json"
+    },
+    {
+      "bytes": 3220,
+      "origin": "outputs/multi-material-lamp-audit-v1/source-records/outputs/multi-material-lamp-preparation-v1/execution/receipt.json",
+      "sha256": "d97eb776101d2b171500723ba8449e6bcfd845248c022788f7c98b67b7235b44",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/execution/receipt.json"
+    },
+    {
+      "bytes": 8540,
+      "origin": "outputs/multi-material-lamp-audit-v1/source-records/outputs/multi-material-lamp-preparation-v1/source-contract.json",
+      "sha256": "1369d167fd223cc0c02d83c57273a16e322d2de4ce77e937172cc9a6709fbf37",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/source-contract.json"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/multi-material-lamp-audit-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/multi-material-lamp-audit-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 2105,
+      "origin": "outputs/multi-material-lamp-visual-review-v1/review.json",
+      "sha256": "547f4af60f979054a97df306e37d3a4154bca497da2075c868e6f1b22c38d05d",
+      "snapshot": "snapshots/multi-material-lamp-visual-review-v1/review.json"
+    },
+    {
+      "bytes": 237,
+      "origin": "outputs/rig-contract-metadata-tests-v1/cpu-handle.json",
+      "sha256": "4ae77a2dd9523b6dc68bf0662fe071be9644ed52bafc7a0ff151035e7b818d14",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1061,
+      "origin": "outputs/rig-contract-metadata-tests-v1/cpu-job.json",
+      "sha256": "626ea6a20ca439753a10eb6c67386e3beffefa7d4892bc4792fde378aa71e743",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/cpu-job.json"
+    },
+    {
+      "bytes": 973,
+      "origin": "outputs/rig-contract-metadata-tests-v1/cpu-monitor.json",
+      "sha256": "6b5dc42186278cdc628157100179396dddd14e5008acde8c27184c9ae5458adb",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 1151,
+      "origin": "outputs/rig-contract-metadata-tests-v1/cpu.log",
+      "sha256": "22866c3b0ea8fd4cb17815b29b3667ab9c6f294b004c6780b612e2c26d66a341",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/cpu.log"
+    },
+    {
+      "bytes": 1815,
+      "origin": "outputs/rig-contract-metadata-tests-v1/manifest.json",
+      "sha256": "4901714fb0ded4e26700f36680492e002d02241d9d7ed00d5b0e09065f8be410",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1997,
+      "origin": "outputs/rig-contract-metadata-tests-v1/prepared.json",
+      "sha256": "8537dd89708078b589f459fac02447cf4ea3d5f4995c007c2476de1a2a55f3cd",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 3604,
+      "origin": "outputs/rig-contract-metadata-tests-v1/receipt.json",
+      "sha256": "4be75c5a34b2ca8b4dd4ab670f7e9aec3d911578e337e498d4e2acd12c4b19b1",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 884,
+      "origin": "outputs/rig-contract-metadata-tests-v1/run_tests.py",
+      "sha256": "30eb4a9a0b5d154bb66fc4884fa34e198c82cf8f0ebebf603d8d366f298abd7b",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/run_tests.py"
+    },
+    {
+      "bytes": 6862,
+      "origin": "outputs/rig-contract-metadata-tests-v1/sources/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/sources/assemble_generated.py"
+    },
+    {
+      "bytes": 5270,
+      "origin": "outputs/rig-contract-metadata-tests-v1/sources/test_rig_contract_metadata.py",
+      "sha256": "c4f7252c7aacd21c6c16d0915da961c3add109e302eae7f8e43e72d7c9d41747",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/sources/test_rig_contract_metadata.py"
+    },
+    {
+      "bytes": 312,
+      "origin": "outputs/rig-contract-metadata-tests-v1/test-result.json",
+      "sha256": "74ec462e4713e5cae9ac562bd012b8ab1dfd535f5409a4f0795acc87fbac7951",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/test-result.json"
+    },
+    {
+      "bytes": 478,
+      "origin": "outputs/rig-contract-metadata-tests-v1/wording-only-proof.json",
+      "sha256": "8effec49a7f7d2b0463201367350eba1e8ed40e2ae12e0756cd1bd09d964a3f9",
+      "snapshot": "snapshots/rig-contract-metadata-tests-v1/wording-only-proof.json"
+    },
+    {
+      "bytes": 1038,
+      "origin": "outputs/surface-clumps-library-tests-v1/job.json",
+      "sha256": "f4e4282f2ff77e7592f3f001e273d3310e0b6ee3f98d60e67f21f06b5f0a348a",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/job.json"
+    },
+    {
+      "bytes": 1912,
+      "origin": "outputs/surface-clumps-library-tests-v1/manifest.json",
+      "sha256": "de9ff5ec8f8e2db91fcdfdcaabe7101d931abec4d93259e61ab608cda797b819",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1236,
+      "origin": "outputs/surface-clumps-library-tests-v1/prepared.json",
+      "sha256": "3b5893520d13db4c1db93799725598d0dba0691be6f9557890fc686555b4d039",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/surface-clumps-library-tests-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/surface-clumps-library-tests-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/surface-clumps-library-tests-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 20552,
+      "origin": "outputs/surface-clumps-library-tests-v1/sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 9213,
+      "origin": "outputs/surface-clumps-library-tests-v1/sources/tests/test_surface_clumps.py",
+      "sha256": "5dcd90f3afcec0e51a9e525d09fb234da154bcc7db515621696c8a214c76cd7a",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 197,
+      "origin": "outputs/surface-clumps-library-tests-v1/tests-handle.json",
+      "sha256": "cf832b4b2739023085fc9dc2a7858766f16bdf7ee513303ee4cc5b5a18fd63a5",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 934,
+      "origin": "outputs/surface-clumps-library-tests-v1/tests-monitor.json",
+      "sha256": "6c69d301cc1e73ed60fee0d4f831577560582e0ce5115467aa4d9b90875feffc",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 10848,
+      "origin": "outputs/surface-clumps-library-tests-v1/tests.log",
+      "sha256": "a654cad5d8359a28a736f4af535e2db76b71ec30979a618a854568aa400f9146",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1036,
+      "origin": "outputs/surface-clumps-library-tests-v2/job.json",
+      "sha256": "9c12c64facdbef22af8ccd60ec3c109be0990c69dbb1c5a5673e4b5ac30a78fe",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/job.json"
+    },
+    {
+      "bytes": 1911,
+      "origin": "outputs/surface-clumps-library-tests-v2/manifest.json",
+      "sha256": "bf82ed0ddf54944a07b54bae069e02c9b534f809dc43c47c05b07b2c1e42507f",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/manifest.json"
+    },
+    {
+      "bytes": 1346,
+      "origin": "outputs/surface-clumps-library-tests-v2/prepared.json",
+      "sha256": "eb0ccf209fd99017488066f4613679ac6d38cde5727300889edf1fc29d8bb642",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/prepared.json"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/surface-clumps-library-tests-v2/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/surface-clumps-library-tests-v2/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/surface-clumps-library-tests-v2/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 20552,
+      "origin": "outputs/surface-clumps-library-tests-v2/sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 9395,
+      "origin": "outputs/surface-clumps-library-tests-v2/sources/tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 197,
+      "origin": "outputs/surface-clumps-library-tests-v2/tests-handle.json",
+      "sha256": "3cd13c84387c35a9450176da6adacf17dfc8eb532beaf86a9cf7b741c6975ba7",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/tests-handle.json"
+    },
+    {
+      "bytes": 932,
+      "origin": "outputs/surface-clumps-library-tests-v2/tests-monitor.json",
+      "sha256": "09ad10380418f750cab0f8325914cb242daed656d01c5249e852dc27ca434ecb",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/tests-monitor.json"
+    },
+    {
+      "bytes": 1682,
+      "origin": "outputs/surface-clumps-library-tests-v2/tests.log",
+      "sha256": "102defb55f45207bf99a9836bb42801ea7de04014851fa0475fa470eaa635861",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/tests.log"
+    },
+    {
+      "bytes": 1038,
+      "origin": "outputs/surface-clumps-library-tests-v3/job.json",
+      "sha256": "06d0aa03a9295b08e7172027176e9ca2af7bb367cf78947b69fb7a0f100e4fbb",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/job.json"
+    },
+    {
+      "bytes": 1877,
+      "origin": "outputs/surface-clumps-library-tests-v3/manifest.json",
+      "sha256": "c250a0aac7d910f24f14e71cff068f9f2c60da74a192df28932be20fc171a955",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/manifest.json"
+    },
+    {
+      "bytes": 1532,
+      "origin": "outputs/surface-clumps-library-tests-v3/prepared.json",
+      "sha256": "7bd78c0021983499f26e70daa316b3d3a35762dde5073a36c43de215e90fef18",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/prepared.json"
+    },
+    {
+      "bytes": 33,
+      "origin": "outputs/surface-clumps-library-tests-v3/source-verification.json",
+      "sha256": "65ea830eb800c2de26c17d7bf7dd202743730803d3f9b48539d3b0b5f835214f",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/source-verification.json"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/surface-clumps-library-tests-v3/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/surface-clumps-library-tests-v3/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/surface-clumps-library-tests-v3/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 23107,
+      "origin": "outputs/surface-clumps-library-tests-v3/sources/scripts/surface_clumps.py",
+      "sha256": "f2010dc5bb8b9e4237c93494f06ac441af38e44c5f141aee0b28dea659556646",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 12634,
+      "origin": "outputs/surface-clumps-library-tests-v3/sources/tests/test_surface_clumps.py",
+      "sha256": "28278379562eb8bb15cccccfa61ffd72051bdc837d0a0318f3253b3e2776ad67",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 197,
+      "origin": "outputs/surface-clumps-library-tests-v3/tests-handle.json",
+      "sha256": "9dc23b78273c336b7d6db0382869c5bfd0bfaec2c9aa4b15264ef7958541e3d2",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/tests-handle.json"
+    },
+    {
+      "bytes": 934,
+      "origin": "outputs/surface-clumps-library-tests-v3/tests-monitor.json",
+      "sha256": "7123f5edb5f567faf9c8cd4fc6cc222bb6480e9870719984833f2281cf4e24ba",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/tests-monitor.json"
+    },
+    {
+      "bytes": 2401,
+      "origin": "outputs/surface-clumps-library-tests-v3/tests.log",
+      "sha256": "2351371094dcae54b580bc521db7df9d62691bc1467b958604203d8fb05497e9",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/tests.log"
+    },
+    {
+      "bytes": 5887,
+      "origin": "outputs/surface-clumps-test-seal-audit-v1/audit.json",
+      "sha256": "bcdcbe5f23edba230173603c808ff2b254710698c19a84c89f42887ecac548cd",
+      "snapshot": "snapshots/surface-clumps-test-seal-audit-v1/audit.json"
+    },
+    {
+      "bytes": 217,
+      "origin": "outputs/surface-clumps-test-seal-audit-v1/manifest.json",
+      "sha256": "9b7940a2785d292bfe7defc8369023a8634d63ef1f4b79879effcf7d7d0c0963",
+      "snapshot": "snapshots/surface-clumps-test-seal-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 9089,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/build_arrays.py",
+      "sha256": "93a2aee6c0d790e3247c6ee8456d253e6435fc89159bc6651fe5bc0b76c230ae",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/build_arrays.py"
+    },
+    {
+      "bytes": 252,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/cpu-handle.json",
+      "sha256": "154a2eaa5515e8d79ab7b3631eba79bee702720b4539d20223f9b4d1d75165b2",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/cpu-handle.json"
+    },
+    {
+      "bytes": 1082,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/cpu-job.json",
+      "sha256": "06f129e9ef7f9d60c3310cf4daa7dfbf5cb3d386abc1496a7e9dde98d0b7d820",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/cpu-job.json"
+    },
+    {
+      "bytes": 990,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/cpu-monitor.json",
+      "sha256": "63386fce8be240a2c4ae19b1c67109fa62b1022d9055c12b59ea407444d2497f",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/cpu-monitor.json"
+    },
+    {
+      "bytes": 303,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/cpu.log",
+      "sha256": "5f8173e074734f9e20161ab5edce2aaf5b5064c124a7dfa5b018fb18739508c6",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/cpu.log"
+    },
+    {
+      "bytes": 821,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/execution.json",
+      "sha256": "3df00908b5befeebcfc99571df0e600fcf0a1dbbf1ed90830b20f283babbae69",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/execution.json"
+    },
+    {
+      "bytes": 1388,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/findings.md",
+      "sha256": "247ee59d190b2d40f297f731527aaba1b45070e124a114fcb5bf1e0c9d5c4958",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/findings.md"
+    },
+    {
+      "bytes": 4825,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/input-mismatch-diagnosis.json",
+      "sha256": "09adb592995956ec7fd7f50c67f06aa19de5e419f3d230674cf707aa807f2fab",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/input-mismatch-diagnosis.json"
+    },
+    {
+      "bytes": 4026,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/manifest.json",
+      "sha256": "80a33011fe0769f2b79444a109212c4c6d1d98241a9889d8935473b8706ca6b7",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/manifest.json"
+    },
+    {
+      "bytes": 3667,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/prepared.json",
+      "sha256": "f3c1535f5c69c2be34d910873e5b2327e55a728614caf632010ac5d1e0a6bb41",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/prepared.json"
+    },
+    {
+      "bytes": 303,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/result.json",
+      "sha256": "42c422d34e0809d2ba7264868d15a2d6180de4d614e9fbe94ff30768e4d3dbbe",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/result.json"
+    },
+    {
+      "bytes": 1497,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/retained-contour-correspondence.json",
+      "sha256": "c78bec6b83c2e27f06f4379864ca44994b5dae1dfadc4c47fa36a4d6fd61e25b",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v1/retained-contour-correspondence.json"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 14075,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 1343,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admission.json"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 20552,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 9395,
+      "origin": "outputs/portable-surface-clumps-prototype-v1/sources/tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 972,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/actual-input-checkpoint.json",
+      "sha256": "ec9bc5d6de5479752e0df64565d57b2f084b0d346a35220af5a1b8a31e091942",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/actual-input-checkpoint.json"
+    },
+    {
+      "bytes": 10389,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/build_arrays.py",
+      "sha256": "a2b63a2c498f5ce2eb588678bee783c61d0dd745a962926f5eeceac70acb5217",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/build_arrays.py"
+    },
+    {
+      "bytes": 252,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/cpu-handle.json",
+      "sha256": "e319a9dd544f84953678ced9722a8484840fe8abde4dc7d882c088c71cdf64b9",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/cpu-handle.json"
+    },
+    {
+      "bytes": 1082,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/cpu-job.json",
+      "sha256": "ec484c8d4f39af76e7e5e8d9d58df25c1e2d29ba28e336ac329dcd135ce453b6",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/cpu-job.json"
+    },
+    {
+      "bytes": 990,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/cpu-monitor.json",
+      "sha256": "f263770b225ae7fd032f17588e2070165cadf2a429843e1322588ad2d1a7e644",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/cpu-monitor.json"
+    },
+    {
+      "bytes": 3504,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/cpu.log",
+      "sha256": "b59f233c3bd06a43a4b387799c8db13ba293a11c9468053a03765e3490bd64fb",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/cpu.log"
+    },
+    {
+      "bytes": 5361,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnose_turn.py",
+      "sha256": "b9e13fd745139b89d15274d8d4e4dfd1ff6f7d350b4791cd2ce522f1f849c9d2",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnose_turn.py"
+    },
+    {
+      "bytes": 409,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnosis-execution.json",
+      "sha256": "273bb921e3b086836e5115decb94fe3ad24f59d5ff0a9f3b9da27f553840d95f",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnosis-execution.json"
+    },
+    {
+      "bytes": 259,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnosis-handle.json",
+      "sha256": "7052d3f06cd6f2fa5cad029a19e36ceb69cdb2c8e7279d35547d82da361579d6",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnosis-handle.json"
+    },
+    {
+      "bytes": 1089,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnosis-job.json",
+      "sha256": "476cf68ce844a6c3ec58347b9a4bc0e33b1dd3d0d739f37bac1d844d792e8c54",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnosis-job.json"
+    },
+    {
+      "bytes": 997,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnosis-monitor.json",
+      "sha256": "f4befa075319002805068eb0356cbb310cb5f71282d8c6df7e1fd3e167108816",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnosis-monitor.json"
+    },
+    {
+      "bytes": 1731,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/diagnosis.log",
+      "sha256": "a726031a521e5ccaa8febdac73927ad4a8fece90d164e6775b4175d9f2d64a7b",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/diagnosis.log"
+    },
+    {
+      "bytes": 845,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/execution.json",
+      "sha256": "61c4e0eb26f43bd8e2208da843d920098567e6fad3df5957d13c852285ecb808",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/execution.json"
+    },
+    {
+      "bytes": 2769,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/findings.md",
+      "sha256": "bebda3fbc48aa0cb68155facd04b479e9ac0a746ef3ab1bf32cdc054cd7ef0f0",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/findings.md"
+    },
+    {
+      "bytes": 4848,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/manifest.json",
+      "sha256": "0cfb31a34a4bce4bb472392515a9adf093eba6802aa31bdd001fd64e775c7252",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/manifest.json"
+    },
+    {
+      "bytes": 221816,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/normal-turn-diagnosis.json",
+      "sha256": "c45f5f9f2e8666787b83fd7a6886dc48ca677ccba150567606548cd112d5263a",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/normal-turn-diagnosis.json"
+    },
+    {
+      "bytes": 4021,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/prepared.json",
+      "sha256": "d30600ac39c187e58ee0f54bac8af12cabb958eda1f963e1591c69b77794bac0",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/prepared.json"
+    },
+    {
+      "bytes": 3504,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/result.json",
+      "sha256": "38ed6e8748eef456355df2a1c8a3bc36b67249029b6e5dafc234f6db54deba42",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/result.json"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 14075,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 1343,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admission.json"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 20552,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de",
+      "snapshot": "snapshots/surface-clumps-library-tests-v1/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 9395,
+      "origin": "outputs/portable-surface-clumps-prototype-v2/sources/tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364",
+      "snapshot": "snapshots/surface-clumps-library-tests-v2/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 972,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/actual-input-checkpoint.json",
+      "sha256": "ec9bc5d6de5479752e0df64565d57b2f084b0d346a35220af5a1b8a31e091942",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/actual-input-checkpoint.json"
+    },
+    {
+      "bytes": 10389,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/build_arrays.py",
+      "sha256": "a2b63a2c498f5ce2eb588678bee783c61d0dd745a962926f5eeceac70acb5217",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v2/build_arrays.py"
+    },
+    {
+      "bytes": 252,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/cpu-handle.json",
+      "sha256": "354720bc2728715ec7ad6763651e4a6a6862230d0ff54c687dbefe8c2de66a70",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/cpu-handle.json"
+    },
+    {
+      "bytes": 1131,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/cpu-job.json",
+      "sha256": "dbb693bb2395ad35fdee53d04d7f3aa43f19afa90b797e33ed0bc0533525adea",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/cpu-job.json"
+    },
+    {
+      "bytes": 1037,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/cpu-monitor.json",
+      "sha256": "7831544b0d41b780a0ef6d0b44ee657372ac649d422a781eeb8aece8ccec0e52",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/cpu-monitor.json"
+    },
+    {
+      "bytes": 4020,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/cpu.log",
+      "sha256": "2b2be50305dd31da419d79086cac6a3db73769632c6e8d04640ac14269bdf40e",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/cpu.log"
+    },
+    {
+      "bytes": 849,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/execution.json",
+      "sha256": "407c2918073d7d5ce33b16025cab7f9dedd786c0e029aa430113deb7474b66a4",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/execution.json"
+    },
+    {
+      "bytes": 1856,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/findings.md",
+      "sha256": "43cdd7b884304483da45b1917fde5903e79f8e557f9b14c8ada23d2f1cd525d9",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/findings.md"
+    },
+    {
+      "bytes": 2077,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/intersection-provenance.json",
+      "sha256": "28c0ddb92db568677b435f83bf65618afaabd55beb23cacc7e3c0d1a051b6345",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/intersection-provenance.json"
+    },
+    {
+      "bytes": 3927,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/manifest.json",
+      "sha256": "c7d7de50e68d9c15d33039484fee5ba75fd5b0a4b38159e8b120de3191ccdf42",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/manifest.json"
+    },
+    {
+      "bytes": 4434,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/prepared.json",
+      "sha256": "ea1e5236eec184adf81999127278c9d4f66659ac3d511340c9048a713bb5ec22",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/prepared.json"
+    },
+    {
+      "bytes": 4020,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/result.json",
+      "sha256": "4f9de2e462efd0e376c7108066b6935c99eed54c1371d13590c6c0a2e0282a91",
+      "snapshot": "snapshots/portable-surface-clumps-prototype-v3/result.json"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 14075,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/fringe-report.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/outputs/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 1343,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a",
+      "snapshot": "snapshots/portable-surface-clumps-preparation-v1/admission.json"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 23107,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/scripts/surface_clumps.py",
+      "sha256": "f2010dc5bb8b9e4237c93494f06ac441af38e44c5f141aee0b28dea659556646",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/sources/scripts/surface_clumps.py"
+    },
+    {
+      "bytes": 12634,
+      "origin": "outputs/portable-surface-clumps-prototype-v3/sources/tests/test_surface_clumps.py",
+      "sha256": "28278379562eb8bb15cccccfa61ffd72051bdc837d0a0318f3253b3e2776ad67",
+      "snapshot": "snapshots/surface-clumps-library-tests-v3/sources/tests/test_surface_clumps.py"
+    },
+    {
+      "bytes": 218,
+      "origin": "outputs/portable-surface-clumps-limit-addendum-v1/manifest.json",
+      "sha256": "6554a8670f3567eed58546cea9687615e2827d8e0179bdb5a3abc6b7c5868669",
+      "snapshot": "snapshots/portable-surface-clumps-limit-addendum-v1/manifest.json"
+    },
+    {
+      "bytes": 1387,
+      "origin": "outputs/portable-surface-clumps-limit-addendum-v1/report.json",
+      "sha256": "2731318822bf3303500cfd56857d6e31ae15e7c3e3815ea0a241a6b804578f32",
+      "snapshot": "snapshots/portable-surface-clumps-limit-addendum-v1/report.json"
+    },
+    {
+      "bytes": 1244,
+      "origin": "outputs/surface-clump-comparison-preparation-v1/README.md",
+      "sha256": "a2eb1c85085dfd6b8db0bb097416f6bcc7df5d12aa75b9cc21a79600f0dd392e",
+      "snapshot": "snapshots/surface-clump-comparison-preparation-v1/README.md"
+    },
+    {
+      "bytes": 838,
+      "origin": "outputs/surface-clump-comparison-preparation-v1/manifest.json",
+      "sha256": "f1d002de390f6bc6fc5d447647af92e92d6473aed804ddf8c0fc1d56de53694d",
+      "snapshot": "snapshots/surface-clump-comparison-preparation-v1/manifest.json"
+    },
+    {
+      "bytes": 14692,
+      "origin": "outputs/surface-clump-comparison-preparation-v1/prepared.json",
+      "sha256": "dfa01008b138346523dea5a94a74e668cb8e0b7c1044800ab84893393d311c30",
+      "snapshot": "snapshots/surface-clump-comparison-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/surface-clump-comparison-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/portable-coat-quality-screen-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/surface-clump-comparison-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/multi-material-lamp-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 5068,
+      "origin": "outputs/quality-material-clumps-checkpoint-v1/package.py",
+      "sha256": "7841d153ea541b36b9dbb358e061192bd292f347b0be50b0671966c23ed2999f",
+      "snapshot": "snapshots/quality-material-clumps-checkpoint-v1/package.py"
+    },
+    {
+      "bytes": 1624,
+      "origin": "outputs/quality-material-clumps-checkpoint-v1/inputs.json",
+      "sha256": "6363f09d5f2f997d98cf981547a773a31f1bbcf11e55b00a37bc2fb616fbd243",
+      "snapshot": "snapshots/quality-material-clumps-checkpoint-v1/inputs.json"
+    }
+  ],
+  "copied_bytes": 21634539,
+  "deduplication": "Identical bytes reuse one exact snapshot path; no normalization",
+  "elapsed_seconds": 0.203,
+  "fresh_studio_acceptance": false,
+  "limits": {
+    "selected_bytes": 33554432,
+    "selected_files": 800,
+    "single_file_bytes": 8388608
+  },
+  "local_binary_references_not_copied": [
+    {
+      "bytes": 2493888,
+      "origin": "outputs/portable-surface-clumps-preparation-v1/admitted-source.npz",
+      "sha256": "05015c8a446a4e3b647c3280c9a4a68ec3fcaf4e49f9c109ff7c323f2b99bf05"
+    },
+    {
+      "bytes": 5132336,
+      "origin": "outputs/multi-material-lamp-finish-v1/model-native-export.glb",
+      "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0"
+    },
+    {
+      "bytes": 5132336,
+      "origin": "outputs/multi-material-lamp-finish-v1/model.glb",
+      "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0"
+    },
+    {
+      "bytes": 9537248,
+      "origin": "outputs/multi-material-lamp-finish-v1/source.blend",
+      "sha256": "88bc6493c17cb1fa1e57313cfd8f0369222906fd6562ff9c7e58ad393a0c4924"
+    },
+    {
+      "bytes": 45249,
+      "origin": "outputs/multi-material-lamp-audit-v1/correspondence.npz",
+      "sha256": "4ad10cf0a227c4d3753a78f36682c41987ffd4c79bcaac2d01b7bad70613071c"
+    },
+    {
+      "bytes": 29999436,
+      "origin": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "bytes": 36802344,
+      "origin": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+      "unchanged": true
+    },
+    {
+      "bytes": 2667322,
+      "origin": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    }
+  ],
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "public_fringe_enabled": false,
+  "quality_approved": false,
+  "recorded": "2026-11-02 03:37:23 PST",
+  "schema_version": 1,
+  "source_bytes": 23731712,
+  "source_inputs_sha256": "6363f09d5f2f997d98cf981547a773a31f1bbcf11e55b00a37bc2fb616fbd243",
+  "source_receipts": 488,
+  "source_recipe": {
+    "path": "outputs/quality-material-clumps-checkpoint-v1/package.py",
+    "sha256": "7841d153ea541b36b9dbb358e061192bd292f347b0be50b0671966c23ed2999f"
+  },
+  "status": "material_integration_pass_coat_geometry_rejected",
+  "unique_snapshots": 382,
+  "verified_focused_tests": 27,
+  "weft_consumer_changed": false
+}

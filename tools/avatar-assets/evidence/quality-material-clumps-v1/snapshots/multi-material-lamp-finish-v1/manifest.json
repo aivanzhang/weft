@@ -1,0 +1,998 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "97098da587803acd7471a0adcc69c7bee79e986a014056d7481b7c78cbdb4be9"
+    },
+    {
+      "bytes": 3425,
+      "path": "exported-nodes.json",
+      "sha256": "40a9cf13424b0426be80aee71709e2d10f17cff9530144b0b4f63236c3165108"
+    },
+    {
+      "bytes": 1773,
+      "path": "finish-config.json",
+      "sha256": "f9bef29848fadab91a9b2e36b4ef3502b60d9eb07a8e550cd9d32341a55c2e68"
+    },
+    {
+      "bytes": 602,
+      "path": "finish-handle.json",
+      "sha256": "4dec05864e24276f85ed22a753f63a797d673a79bc273b6434e39d71b589c279"
+    },
+    {
+      "bytes": 1394,
+      "path": "finish-monitor.json",
+      "sha256": "3f3b7dbc5dddef6d83905ab8bae4b39f4e772d5e3d56463ef7d83b9569eb062e"
+    },
+    {
+      "bytes": 8456,
+      "path": "finish-report.json",
+      "sha256": "b659ccb1f4a3ccf22686d54d32041beff6ea53b4bb4d61edd90d9bb71de3a631"
+    },
+    {
+      "bytes": 123186,
+      "path": "finish.log",
+      "sha256": "5e983bc0e126135083893a57652dfa98d8cd679c905ed286b9f2cde43e27b714"
+    },
+    {
+      "bytes": 1528,
+      "path": "job.json",
+      "sha256": "dc57bc17dfe4b1eefeb9385f2445d58d0a383998d92c41198659b9972e696b6c"
+    },
+    {
+      "bytes": 5132336,
+      "path": "model-native-export.glb",
+      "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0"
+    },
+    {
+      "bytes": 5132336,
+      "path": "model.glb",
+      "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0"
+    },
+    {
+      "bytes": 3078,
+      "path": "normal-uv-export.json",
+      "sha256": "c1f2a539fe01b8cc2040eba04757463903f2f7faad42897d382d21f7e0a34ff6"
+    },
+    {
+      "bytes": 61947,
+      "path": "portrait.png",
+      "sha256": "e1518803a2c881833d7dadf861e7e9dde353fcf1d00c3a78d73e8a6f0b14912b"
+    },
+    {
+      "bytes": 4917,
+      "path": "render-attributes.json",
+      "sha256": "045d3d6d3b1d6fb662c26fb86c62ed417eac58c0cba5bf717c8d8035af88e702"
+    },
+    {
+      "bytes": 61444,
+      "path": "renders/idle/0000.png",
+      "sha256": "572cee76b2c955ebd0fd739336ee21ea1583522b629d966c322ca92486194fa9"
+    },
+    {
+      "bytes": 62111,
+      "path": "renders/idle/0001.png",
+      "sha256": "d5548b6b0818bb619c59134c894e4d39bdfea0f29a73b4f1d3992e3b2250f459"
+    },
+    {
+      "bytes": 61444,
+      "path": "renders/idle/0002.png",
+      "sha256": "22b4fa477027d88d943817b3430f8979a14b4c840d86952631e1326ec6e4bed6"
+    },
+    {
+      "bytes": 61686,
+      "path": "renders/idle/0003.png",
+      "sha256": "63dbb744f494d89f562938c42c5f55d4d3a31a4ea574ae10be975ceea1c8e707"
+    },
+    {
+      "bytes": 61444,
+      "path": "renders/idle/0004.png",
+      "sha256": "6912164526713731079b768ea5fd05f406f081eb9cf1f0b44aa93308c7f6be3f"
+    },
+    {
+      "bytes": 61196,
+      "path": "renders/making_something/0000.png",
+      "sha256": "f86f278a4f2ba4fc02fb6b89abb6c7187d27de2926ff319aba1f81368243a2e3"
+    },
+    {
+      "bytes": 61124,
+      "path": "renders/making_something/0001.png",
+      "sha256": "ff5088b17c15534272bc3b335303e4963c0bff87b96b96af93e10a26f58c439a"
+    },
+    {
+      "bytes": 61196,
+      "path": "renders/making_something/0002.png",
+      "sha256": "370e6785b4a4e5b5c4ea62ca53a2aedc1e15f78aa742f1692f31a1621aa7f753"
+    },
+    {
+      "bytes": 61124,
+      "path": "renders/making_something/0003.png",
+      "sha256": "ae356e84317f5876bad7c1bdc70c0f7513e0f9f46238e2f6435e3420a37ee8b4"
+    },
+    {
+      "bytes": 61196,
+      "path": "renders/making_something/0004.png",
+      "sha256": "f59580ed49c488b5b6a5172eb211b9b10a1b2e00e0b16cb99d545f626b553f18"
+    },
+    {
+      "bytes": 61444,
+      "path": "renders/milestone_level_up/0000.png",
+      "sha256": "7681a806e887a7eeb8969f91ab7226a99b595ed0adfaddab57eb479ffef86277"
+    },
+    {
+      "bytes": 61721,
+      "path": "renders/milestone_level_up/0001.png",
+      "sha256": "3c0538c78145723cdccaba40fac206c622854a2871005980801b310f61ffc797"
+    },
+    {
+      "bytes": 61721,
+      "path": "renders/milestone_level_up/0002.png",
+      "sha256": "04819210f9e1b0ba59d676a0589d89a8a3a4f6d9e5d3cf51b0968fca7606026c"
+    },
+    {
+      "bytes": 61721,
+      "path": "renders/milestone_level_up/0003.png",
+      "sha256": "761fdc9068f3b66854299171bd11b685f446be81ab41a19b603d4d3694859845"
+    },
+    {
+      "bytes": 61444,
+      "path": "renders/milestone_level_up/0004.png",
+      "sha256": "ac7a337b1aa7cb6b8da43a0147f1f04bcdc3d69706747d09bb3dad04e2c93080"
+    },
+    {
+      "bytes": 61671,
+      "path": "renders/working/0000.png",
+      "sha256": "13acbbca836be5059c8ad93aa0f9a19cc7c0a5879dbe2e45b574a15d91ca6710"
+    },
+    {
+      "bytes": 60998,
+      "path": "renders/working/0001.png",
+      "sha256": "852e422193bacbde037a21e6af3795d7142e285473ee6bea2c856aca0b72bff1"
+    },
+    {
+      "bytes": 60507,
+      "path": "renders/working/0002.png",
+      "sha256": "54e1de90886c5efb6f7fb93a5ba9f94ff44b3aa48dd1d6896232a270ba3b3378"
+    },
+    {
+      "bytes": 60998,
+      "path": "renders/working/0003.png",
+      "sha256": "b31f6b612d53a3d584278275886d708d2a8fad4a8952e9c6e51211db6a55e4f5"
+    },
+    {
+      "bytes": 61671,
+      "path": "renders/working/0004.png",
+      "sha256": "a5c962447b9c98de9d425efed1b4fac668e361459a7f0ce810679f2dc96229d8"
+    },
+    {
+      "bytes": 907,
+      "path": "rig-contract.json",
+      "sha256": "7f7c55c57adb5e8028cb48e31ebdf27ea921a55b3e1216fa810afb019a6c4798"
+    },
+    {
+      "bytes": 5663,
+      "path": "rig-verification.json",
+      "sha256": "8e06224139bb3fe8fdf63bf08343e4ef7ce6d395f285749245119f66e3958ccb"
+    },
+    {
+      "bytes": 9537248,
+      "path": "source.blend",
+      "sha256": "88bc6493c17cb1fa1e57313cfd8f0369222906fd6562ff9c7e58ad393a0c4924"
+    },
+    {
+      "bytes": 44377,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "d1f3a21753216453eec26b4d5b624acb619d48393ec43f892bf6eb9b42fc5898"
+    },
+    {
+      "bytes": 16167,
+      "path": "sources/__pycache__/blender_normal_uv_export.cpython-311.pyc",
+      "sha256": "2559d8dac3ffec8afe8fcf70f36fa0f56684c15a9d15646a18ba0713ec30ea91"
+    },
+    {
+      "bytes": 37917,
+      "path": "sources/__pycache__/blender_verify.cpython-311.pyc",
+      "sha256": "ae7a9f5c7edfe36b81de600a86d9b314eeec43dcc77cfb72c8f4c77ecc4afb77"
+    },
+    {
+      "bytes": 12240,
+      "path": "sources/__pycache__/deformation_diagnostics.cpython-311.pyc",
+      "sha256": "c9e1cb803459148ae077e1132a48a02ea224646678d67aeddbd9d81a7887f882"
+    },
+    {
+      "bytes": 9460,
+      "path": "sources/__pycache__/motion_samples.cpython-311.pyc",
+      "sha256": "5e92ff267037f75aef6a53b2f77e235af8f006328316caa5af172d9fefe872e5"
+    },
+    {
+      "bytes": 13122,
+      "path": "sources/__pycache__/native_render_tasks.cpython-311.pyc",
+      "sha256": "325f7a380b00cce00cc63e491a769c693d597f565c1e26a8dd660003dd48aac5"
+    },
+    {
+      "bytes": 15778,
+      "path": "sources/__pycache__/normal_uv_export.cpython-311.pyc",
+      "sha256": "e243d739ac2fefb15a94911bc961cb1ceeba4e402406832a0cb94e197dae15cf"
+    },
+    {
+      "bytes": 6582,
+      "path": "sources/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4"
+    },
+    {
+      "bytes": 23994,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd"
+    },
+    {
+      "bytes": 2710,
+      "path": "sources/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952"
+    },
+    {
+      "bytes": 54172,
+      "path": "sources/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918"
+    },
+    {
+      "bytes": 23637,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7"
+    },
+    {
+      "bytes": 24601,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6"
+    },
+    {
+      "bytes": 6885,
+      "path": "sources/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a"
+    },
+    {
+      "bytes": 10304,
+      "path": "sources/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 5789,
+      "path": "sources/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 12009,
+      "path": "sources/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    },
+    {
+      "bytes": 8351,
+      "path": "sources/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2"
+    },
+    {
+      "bytes": 5399,
+      "path": "sources/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 6870,
+      "path": "sources/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7"
+    },
+    {
+      "bytes": 1673,
+      "path": "sources/finish-design.json",
+      "sha256": "7ebc3dd44207d46acb88cbb3ec8309db4b6c1d88595cfa87f2e61e2f1ff6da07"
+    },
+    {
+      "bytes": 32643,
+      "path": "sources/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5"
+    },
+    {
+      "bytes": 16931,
+      "path": "sources/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 5273,
+      "path": "sources/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c"
+    },
+    {
+      "bytes": 6129,
+      "path": "sources/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 17295,
+      "path": "sources/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 6665,
+      "path": "sources/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 6843,
+      "path": "sources/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0"
+    },
+    {
+      "bytes": 2675,
+      "path": "sources/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb"
+    },
+    {
+      "bytes": 7538,
+      "path": "sources/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a"
+    },
+    {
+      "bytes": 1792,
+      "path": "sources/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756"
+    },
+    {
+      "bytes": 487,
+      "path": "tangent-repair.json",
+      "sha256": "418ed57ebfe1b0173b3ff13c87c7bb0b4bb33eeb1850f1c09bfd69a47d6d8310"
+    }
+  ],
+  "finish": {
+    "animation_verified": false,
+    "attachment": null,
+    "authored_rig": null,
+    "blender_version": "4.5.13 LTS",
+    "camera": {
+      "orthographic_scale": 2.5687012672424316,
+      "view": "front"
+    },
+    "color_corrections": null,
+    "deformation_measurement": {
+      "bone_names": [
+        "root",
+        "turntable",
+        "lower_arm",
+        "upper_arm",
+        "shade",
+        "work_pad",
+        "trace_rotor",
+        "trace_stylus"
+      ],
+      "coordinate_space": "mesh_local_after_world_transform_applied",
+      "edge_array_encoding": "little-endian int32 pairs",
+      "edges": 79960,
+      "edges_sha256": "0177c593a18c97e6c1cd6ad7ef3c3d6c9fc2f515be49186a669895fbd5ade1dc",
+      "pose_samples_measured": 20,
+      "rest_array_encoding": "little-endian float64 XYZ",
+      "rest_bounds": {
+        "height": 2.2532468205317855,
+        "height_basis": "z_span",
+        "max": [
+          0.8199999332427979,
+          0.6480770111083984,
+          2.252746820449829
+        ],
+        "min": [
+          -0.47999998927116394,
+          -0.8100000023841858,
+          -0.0005000000819563866
+        ]
+      },
+      "rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+      "rig_route": "source_skin",
+      "schema_version": 1,
+      "status": "measured",
+      "unchanged_topology_required": true,
+      "units": "meters",
+      "vertices": 37762
+    },
+    "emitter_scale_applied": true,
+    "groom": null,
+    "groom_excluded_parts": {
+      "names": [],
+      "vertices": 0
+    },
+    "normal_continuity": null,
+    "normal_strength": 1,
+    "normal_uv_export": {
+      "authored_targets": [],
+      "elapsed_seconds": 0.018206,
+      "errors": [],
+      "geometry_or_materials_changed": false,
+      "materials": [
+        {
+          "admission": "no_live_normal_map",
+          "material": "body",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 11336,
+          "slot": 0,
+          "triangles": 11336
+        },
+        {
+          "admission": "coherent_uv0",
+          "material": "brass",
+          "normal": {
+            "image": "brass-normal",
+            "normal_uv_index": 0,
+            "packed_png_bytes": 0,
+            "texture_sha256": null,
+            "texture_uv_index": 0
+          },
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 12698,
+          "slot": 1,
+          "triangles": 12698
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "joint",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 6336,
+          "slot": 2,
+          "triangles": 6336
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "display",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 188,
+          "slot": 3,
+          "triangles": 188
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "bulb",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 5152,
+          "slot": 4,
+          "triangles": 5152
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "paper",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 188,
+          "slot": 5,
+          "triangles": 188
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "ink",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 1280,
+          "slot": 6,
+          "triangles": 1280
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "rubber",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 4256,
+          "slot": 7,
+          "triangles": 4256
+        },
+        {
+          "admission": "coherent_uv0",
+          "material": "steel",
+          "normal": {
+            "image": "steel-normal",
+            "normal_uv_index": 0,
+            "packed_png_bytes": 0,
+            "texture_sha256": null,
+            "texture_uv_index": 0
+          },
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 2696,
+          "slot": 8,
+          "triangles": 2696
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "reflector",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 576,
+          "slot": 9,
+          "triangles": 576
+        },
+        {
+          "admission": "no_live_normal_map",
+          "material": "page_line",
+          "normal": null,
+          "object": "lamp-hd-v1_skinned_mesh",
+          "polygons": 48,
+          "slot": 10,
+          "triangles": 48
+        }
+      ],
+      "objects": 1,
+      "packed_png_bytes_hashed": 0,
+      "policy": "live-normal-uv-export-v1",
+      "quality_approved": false,
+      "schema_version": 1,
+      "status": "supported",
+      "tangent_restoration_performed": false,
+      "texture_pixels_read": false,
+      "triangles": 44754,
+      "used_materials": 11,
+      "vertices": 37762
+    },
+    "part_rigs": null,
+    "schema_version": 1,
+    "smoothing": null,
+    "source_bounds_blender_z_up": {
+      "max": [
+        0.8199999332427979,
+        0.6480770111083984,
+        2.252746820449829
+      ],
+      "min": [
+        -0.47999998927116394,
+        -0.8100000023841858,
+        -0.0005000000819563866
+      ]
+    },
+    "source_color_sampling": {
+      "reason": "No enabled control consumes source-color samples or their derived mask.",
+      "required_by": [],
+      "sampled_vertices": 0,
+      "scope": "CPU source-color selection sampling; importer, exporter and renderer image handling is separate.",
+      "selection_sampling_calls": 0,
+      "status": "skipped"
+    },
+    "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+    "source_unchanged": true,
+    "states": [
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [],
+        "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+        "deformation_samples_measured": 5,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "idle",
+        "loop_verified": false,
+        "sampling_method": "legacy_uniform_five",
+        "seconds": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      },
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [],
+        "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+        "deformation_samples_measured": 5,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "making_something",
+        "loop_verified": false,
+        "sampling_method": "legacy_uniform_five",
+        "seconds": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      },
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [],
+        "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+        "deformation_samples_measured": 5,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "milestone_level_up",
+        "loop_verified": false,
+        "sampling_method": "legacy_uniform_five",
+        "seconds": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      },
+      {
+        "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+        "deformation_outliers": [],
+        "deformation_rest_sha256": "25ab47833461f2354c7cdba41ad2a5dc906570e811881b9ca14d88f1987bb502",
+        "deformation_samples_measured": 5,
+        "duration_seconds": 4.0,
+        "frames": [
+          0.0,
+          24.0,
+          48.0,
+          72.0,
+          96.0
+        ],
+        "id": "working",
+        "loop_verified": false,
+        "sampling_method": "legacy_uniform_five",
+        "seconds": [
+          0.0,
+          1.0,
+          2.0,
+          3.0,
+          4.0
+        ]
+      }
+    ],
+    "surface_profiles": null,
+    "weft_runtime_verified": false,
+    "world_rest_position_max_error": 0.0
+  },
+  "has_transparency": false,
+  "id": "multi-material-lamp-finish-v1",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multi-material-lamp-finish-v1/sources/blender_finish_generated.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multi-material-lamp-finish-v1/finish-config.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/multi-material-lamp-finish-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 6.23,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 16578778,
+    "last_rss_sample_elapsed_seconds": 5.963,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 128,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "finish-monitor.json",
+    "monitor_errors": [],
+    "pid": 71648,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 23,
+    "sampled_max_output_bytes": 16578778,
+    "sampled_peak_rss_bytes": 561233920,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "generated_3d_avatar",
+  "new_provider_calls": 0,
+  "quality_equivalence_verified": false,
+  "reduced_motion": "portrait.png and renders/STATE/0000.png; no autoplay",
+  "representations": {
+    "browser": "Skinned alpha-masked cards if configured; not native strands",
+    "native": "Editable hair if configured"
+  },
+  "rig_verification": {
+    "attachments": [],
+    "authored_assumptions": [
+      "Hidden surfaces and humanoid skeleton are generated assumptions"
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "lower_arm": "lower_arm",
+      "root": "root",
+      "shade": "shade",
+      "trace_rotor": "trace_rotor",
+      "trace_stylus": "trace_stylus",
+      "turntable": "turntable",
+      "upper_arm": "upper_arm",
+      "work_pad": "work_pad"
+    },
+    "bones": [
+      "shade",
+      "upper_arm",
+      "lower_arm",
+      "turntable",
+      "work_pad",
+      "trace_stylus",
+      "trace_rotor",
+      "root"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 2000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "triangle_index_elements_per_accessor": 300000,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 11,
+    "mesh_vertices": 38063,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.07331961860001493,
+          "motion_observed": true,
+          "name": "idle",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.31191699232881787,
+          "motion_observed": true,
+          "name": "making_something",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.3574861053320161,
+          "motion_observed": true,
+          "name": "milestone_level_up",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.2565892137701025,
+          "motion_observed": true,
+          "name": "working",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 119
+    },
+    "primitive_count": 11,
+    "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+    "schema_version": 1,
+    "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0",
+    "skeleton_roots": [
+      {
+        "name": "root",
+        "node": 7,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "User-authorized local derivative of this repository authored procedural lamp. No provider generation, reference upload or independent rights verification is performed by this check.",
+  "schema_version": 1,
+  "source_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/lamp-hd-build-v2/model.glb",
+  "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+  "states": [
+    {
+      "duration_seconds": 4.0,
+      "id": "idle",
+      "loop_verified": false,
+      "meaning": "A small inquisitive look-around: base swivel and two opposing shade tilts."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "making_something",
+      "loop_verified": false,
+      "meaning": "Lowers the visible stylus onto its fixed circular guide and traces two back-and-forth arcs while the shade aims at the pad. No new marks are generated."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "milestone_level_up",
+      "loop_verified": false,
+      "meaning": "Stretches into a proud upright pose and gives two delighted shade nods before folding back."
+    },
+    {
+      "duration_seconds": 4.0,
+      "id": "working",
+      "loop_verified": false,
+      "meaning": "Leans toward the work pad and makes a broad slow inspection sweep, unlike the short repetitive tracing state."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Preserve existing geometry, rig, materials and clips; this is a finisher integration check, not fresh generation.",
+  "subject": "Existing locally authored articulated desk lamp with work pad and stylus",
+  "weft_runtime_verified": false
+}

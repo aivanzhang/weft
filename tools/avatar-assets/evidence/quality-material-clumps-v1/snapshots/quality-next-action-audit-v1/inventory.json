@@ -1,0 +1,213 @@
+{
+  "elapsed_seconds": 0.008713583927601576,
+  "failure": {
+    "message": "Oversized small evidence file: examples/scenes/fox-hd-v3.json",
+    "type": "ValueError"
+  },
+  "inputs": [
+    {
+      "bytes": 190279,
+      "path": "TODO.md",
+      "sha256": "867c53b30a7f511c4663b5a249113c5e1e2bf07a4ec63667e78aff69b0d65c3d"
+    },
+    {
+      "bytes": 37129,
+      "path": "README.md",
+      "sha256": "e44a08b3f06ad25be7c88ffadd09019471dfb73c6735f49c6b7d49a5d60ec4e1"
+    },
+    {
+      "bytes": 23460,
+      "path": "docs/hands-off-studio.md",
+      "sha256": "341301d7c569c9d1948b6cc8f0d3f3de18f11e3283330b77ccbe48b1cc744861"
+    },
+    {
+      "bytes": 24777,
+      "path": "docs/prompt-pipeline.md",
+      "sha256": "aae304f546f38aecfda2cddd455fabfb776fec1b06d72cc1351908ab6ec59465"
+    },
+    {
+      "bytes": 14459,
+      "path": "docs/source-uv-control.md",
+      "sha256": "7d4a9c491817291b615b15577a6dcf1b4bf170e3db65f1f8d89b82b3a1731963"
+    },
+    {
+      "bytes": 13071,
+      "path": "docs/fur-workflow.md",
+      "sha256": "6917f29950bd6811b4afd67a0bb2e12f75f556e72ae641cd626cc8891ec91a1f"
+    },
+    {
+      "bytes": 11723,
+      "path": "docs/hd-quality-pass-v1.md",
+      "sha256": "0b9846977abe84ba0fd3777942b379645d594cab291140aaf861e734daec8639"
+    },
+    {
+      "bytes": 65827,
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276"
+    },
+    {
+      "bytes": 48339,
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8"
+    },
+    {
+      "bytes": 12540,
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65"
+    },
+    {
+      "bytes": 32643,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5"
+    },
+    {
+      "bytes": 6665,
+      "path": "avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf"
+    },
+    {
+      "bytes": 6940,
+      "path": "avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330"
+    },
+    {
+      "bytes": 52912,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff"
+    },
+    {
+      "bytes": 6129,
+      "path": "scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db"
+    },
+    {
+      "bytes": 4314,
+      "path": "outputs/fresh-acceptance-preparation-v1/requests.json",
+      "sha256": "b5df06fd2841e04b5cc84a9e6a11b4ff47f0338fa56d8f79f4af6a1f94b67311"
+    },
+    {
+      "bytes": 1573,
+      "path": "outputs/fresh-acceptance-preparation-v1/estimate.json",
+      "sha256": "94c23f8fecaef092424a4081abb89aadec7940925008a87fa8be36c0abe30e2e"
+    },
+    {
+      "bytes": 737,
+      "path": "outputs/fresh-acceptance-preparation-v1/allowance-request.json",
+      "sha256": "4fabfae8c4a485695e932ddb1be5a6cd9cde5d700eb4dc005a74f209394bb2ad"
+    },
+    {
+      "bytes": 1200,
+      "path": "outputs/fresh-acceptance-estimate-v2/estimate.json",
+      "sha256": "bba7d25d71eeb9752d083e8ec0858b1783311b3ff0b371bb3d935a5fac09fca5"
+    },
+    {
+      "bytes": 3554,
+      "path": "outputs/muse-panda-smooth-base-v2/plan.json",
+      "sha256": "d1650176b18403baf88a3d90905d0a7aa9baf71f52c7fa5dc52ccb39bd87ace2"
+    },
+    {
+      "bytes": 67655,
+      "path": "outputs/muse-panda-smooth-fur-v3/manifest.json",
+      "sha256": "6849b4a0c6ed0773b0219c37f91d9ef193b1b257a1bfd2eb779b55dc6babfd01"
+    },
+    {
+      "bytes": 39365,
+      "path": "outputs/muse-panda-smooth-fur-v3/finish-report.json",
+      "sha256": "c1f936f2fb75a994f375852231361adc123bc143746ac7171909569855c77fe3"
+    },
+    {
+      "bytes": 55709,
+      "path": "outputs/muse-panda-dance-probe-v2/manifest.json",
+      "sha256": "bbaae99fea1db3940128eea17be3b0ff2324fbc63444f7608bcf47d57de11b71"
+    },
+    {
+      "bytes": 34009,
+      "path": "outputs/muse-panda-dance-probe-v2/finish-report.json",
+      "sha256": "f3db90d494d85205eb6a7c962606b7a67f35c2720680bbefa1c8cda40c37e72f"
+    },
+    {
+      "bytes": 48713,
+      "path": "outputs/agent-dragon-polish-v1/manifest.json",
+      "sha256": "cdec4b0fbd57b5606146163f70e84bababae4880622da1175060b668e9877437"
+    },
+    {
+      "bytes": 26026,
+      "path": "outputs/agent-dragon-polish-v1/finish-report.json",
+      "sha256": "6375a7988540b0c6be9d65794fa901c555cdfab3d3d4218813ef5a3b9d76610c"
+    },
+    {
+      "bytes": 1009,
+      "path": "outputs/agent-robot-v3/request.json",
+      "sha256": "b5aad39c906d7ea897f61fb8d0102c64b3bd10b087727c2d248ef808f7ca8cb6"
+    },
+    {
+      "bytes": 5661,
+      "path": "outputs/agent-robot-v3/delivery.json",
+      "sha256": "487ce897f5eba38387a976904cb66ccb678cfceeaea7d0e9fd810b50b5b178f1"
+    },
+    {
+      "bytes": 51284,
+      "path": "outputs/lamp-hd-build-v2/manifest.json",
+      "sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115"
+    },
+    {
+      "bytes": 3653,
+      "path": "outputs/lamp-hd-build-v2/rig-contract.json",
+      "sha256": "979170eeba61f484b589acb149d23f40ce51c8033586354d15ca2f2479e11413"
+    },
+    {
+      "bytes": 170381,
+      "path": "outputs/fox-hd-build-v2/manifest.json",
+      "sha256": "29c9673ec2ccb51428c2a8e2595cfe6e861a66792e9657c7eb8c4cb83662a3be"
+    },
+    {
+      "bytes": 5223,
+      "path": "outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022"
+    },
+    {
+      "bytes": 2693,
+      "path": "outputs/panda-cheek-scar-selection-v1/manifest.json",
+      "sha256": "a20057d64c5f3f85cd06fc0f78b14846f9b072872936944ac9e04e686264aadd"
+    },
+    {
+      "bytes": 234,
+      "path": "outputs/panda-cheek-curved-candidate-v1/result.json",
+      "sha256": "58fdef5b18e0db072f4377874f0f17849879464ee35d02e312252f7cbd0a8929"
+    },
+    {
+      "bytes": 632,
+      "path": "outputs/studio-rigged-robot-preparation-v1/request.json",
+      "sha256": "85f3eae6185a858a4608cf2547fe0f047db820bf6a19eeebca942bd91d2c67cd"
+    },
+    {
+      "bytes": 24251,
+      "path": "examples/meshy/muse-panda-smooth-fur-v3.json",
+      "sha256": "74e215c79b0b17c4d99052dcdef48e61b38afe06c8d8a4255fa1c9e7a1b433d8"
+    },
+    {
+      "bytes": 30112,
+      "path": "examples/meshy/muse-panda-dance-v4.json",
+      "sha256": "b8255af9a686a491504c210b5a63e62f6d6d2f517efbd5462436a85d2e9f0689"
+    },
+    {
+      "bytes": 12720,
+      "path": "examples/meshy/agent-dragon-polish-v1.json",
+      "sha256": "5910ff8afd3e223d03256296874ee647a201b1e7cde6fdca1c59104bc706a11b"
+    },
+    {
+      "bytes": 726394,
+      "path": "examples/scenes/lamp-hd-v1.json",
+      "sha256": "4bcb6521903442a1eed96f63c11772b7de3c483eebb08d6f6ef1e7a23a755e2e"
+    }
+  ],
+  "memory_scope": "macOS ru_maxrss for this read-only Python process, not whole tree",
+  "missing_optional_metadata": [],
+  "models": {},
+  "process_peak_rss_bytes": 23642112,
+  "recorded_local": "2026-11-02T02:41:01.899117-08:00",
+  "schema_version": 1,
+  "scope": "Named-file readiness inventory only; no recursive output scan or generation/render/test call",
+  "status": "failed",
+  "viewed_images": []
+}

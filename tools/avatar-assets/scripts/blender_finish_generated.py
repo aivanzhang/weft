@@ -62,6 +62,32 @@ def shared_color_texture(materials):
     return selected
 
 
+def source_color_controls(config):
+    # These consumers use sampled RGB directly or the shared color-derived mask.
+    return [name for name in ('groom', 'portable_fur', 'portable_fringe', 'fur_undercoat',
+                             'smoothing', 'surface_profiles', 'color_corrections', 'attachment')
+            if config.get(name)]
+
+
+def source_color_samples(obj, config):
+    controls = source_color_controls(config)
+    report = {'status': 'skipped', 'required_by': controls, 'sampled_vertices': 0,
+              'selection_sampling_calls': 0,
+              'scope': 'CPU source-color selection sampling; importer, exporter and renderer image handling is separate.'}
+    if not controls:
+        report['reason'] = 'No enabled control consumes source-color samples or their derived mask.'
+        return None, None, report
+    node = shared_color_texture(obj.data.materials)
+    portable = config.get('portable_fur', {}).get('settings', {})
+    if portable.get('sample_root_color') and node.image.colorspace_settings.name != 'sRGB':
+        raise ValueError('Root-colored fur requires an explicit sRGB source texture')
+    exact_root = portable.get('profile') == 'tuft-v1' or bool(config.get('portable_fringe'))
+    colors = texture_colors(obj, node.image, exact_root=exact_root)
+    report.update(status='sampled', sampled_vertices=len(colors), selection_sampling_calls=1,
+                  source_image=node.image.name, exact_root_contract=exact_root)
+    return node, colors, report
+
+
 def exact_root_texture_contract(obj, image, material_slots=None):
     from fur_root_sampling import validate_root_sampling_contract
 
@@ -506,16 +532,12 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
         except NormalContinuityError as error:
             write_json(out/'normal-continuity-rejection.json', error.report)
             raise
-    base = obj.data.materials[0]
-    color_node = shared_color_texture(obj.data.materials)
-    if cfg.get('portable_fur', {}).get('settings', {}).get('sample_root_color'):
-        if color_node.image.colorspace_settings.name != 'sRGB':
-            raise ValueError('Root-colored fur requires an explicit sRGB source texture')
+    color_node, colors, color_sampling = source_color_samples(obj, cfg)
     tuft = cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1'
     fringe = cfg.get('portable_fringe')
-    colors = texture_colors(obj, color_node.image, exact_root=tuft or bool(fringe))
     mask = ~frame_mask(points, low, high-low, cfg.get('groom_exclusions', []))
-    mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
+    if colors is not None:
+        mask &= colors.max(axis=1)-colors.min(axis=1) < cfg.get('fur_max_chroma', 1)
     excluded_part_vertices = set()
     if cfg.get('groom_excluded_parts'):
         materials = {name for part in cfg['part_rigs'] if part['name'] in cfg['groom_excluded_parts']
@@ -554,6 +576,7 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
               "normal_strength": cfg["normal_strength"], "groom": None, "attachment": None,
               "smoothing": smoothing, 'authored_rig': authored_rig, 'surface_profiles': surface_profiles,
               'color_corrections': color_corrections, 'part_rigs': part_rigs, 'normal_continuity': normal_continuity,
+              'source_color_sampling': color_sampling,
               'groom_excluded_parts': {'names': cfg.get('groom_excluded_parts', []),
                                        'vertices': len(excluded_part_vertices)},
               "emitter_scale_applied": True, "world_rest_position_max_error": transform_error,
@@ -627,7 +650,7 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
         if int(mask.sum()) < 1000:
             raise ValueError("Fur mask selected too few source vertices")
         settings = {k: v for k, v in cfg["groom"].items() if k not in ("direction", "comb")}
-        groom, groom_report = add_native_groom(obj, rig, settings, base)
+        groom, groom_report = add_native_groom(obj, rig, settings, obj.data.materials[0])
         density = groom.vertex_groups.new(name="AuthoredFurDensity")
         density.add(np.flatnonzero(mask).tolist(), 1., "REPLACE")
         system = groom.particle_systems[0]

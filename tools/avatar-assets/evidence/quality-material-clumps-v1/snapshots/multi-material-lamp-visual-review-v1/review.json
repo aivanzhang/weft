@@ -1,0 +1,55 @@
+{
+  "claims_not_made": [
+    "Muse quality",
+    "new text-to-3D example",
+    "full action semantics",
+    "continuous animation",
+    "seamless loop",
+    "Studio delivery",
+    "Weft compatibility"
+  ],
+  "images": [
+    {
+      "format": "PNG",
+      "mode": "RGB",
+      "observation": "Lamp silhouette, pink solid-color shade/base, textured metal linkages and stylus/platform are visible. No missing all-white/all-black material region observed.",
+      "path": "outputs/multi-material-lamp-finish-v1/portrait.png",
+      "sha256": "e1518803a2c881833d7dadf861e7e9dde353fcf1d00c3a78d73e8a6f0b14912b",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "format": "PNG",
+      "mode": "RGB",
+      "observation": "Existing articulated head and arm differ from portrait. One sampled pose cannot prove the full tracing action or new marks; none are claimed.",
+      "path": "outputs/multi-material-lamp-finish-v1/renders/making_something/0001.png",
+      "sha256": "ff5088b17c15534272bc3b335303e4963c0bff87b96b96af93e10a26f58c439a",
+      "size": [
+        256,
+        256
+      ]
+    },
+    {
+      "format": "PNG",
+      "mode": "RGB",
+      "observation": "Existing arm is extended and shade is raised compared with the portrait. This is a sampled pose, not full action/loop acceptance.",
+      "path": "outputs/multi-material-lamp-finish-v1/renders/milestone_level_up/0002.png",
+      "sha256": "04819210f9e1b0ba59d676a0589d89a8a3a4f6d9e5d3cf51b0968fca7606026c",
+      "size": [
+        256,
+        256
+      ]
+    }
+  ],
+  "model_sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0",
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "quality_approved": false,
+  "recorded_local": "2026-11-02 03:11 PST",
+  "schema_version": 1,
+  "scope": "Three actual 256px PNGs inspected using local image viewer; remaining 18 images not visually inspected by this review. Independent CPU material/rig audit is separate.",
+  "source_kind": "existing locally authored procedural lamp; not fresh neural generation",
+  "status": "limited_material_visual_check"
+}

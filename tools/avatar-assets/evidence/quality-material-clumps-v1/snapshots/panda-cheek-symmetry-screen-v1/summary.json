@@ -1,0 +1,602 @@
+{
+  "clean_donor_faces": 2687,
+  "coordinate_space": "Blender Z-up meters",
+  "donor_faces": 3966,
+  "elapsed_seconds": 2.5330800828523934,
+  "gates_unchanged": {
+    "maximum_distance_m": 0.015,
+    "normal_p95_limit_degrees": 45
+  },
+  "limitations": [
+    "Reflection is an authored symmetry assumption, not recovery of unseen geometry or proof of source symmetry.",
+    "Nearest points provide reference support only; no closed replacement, displacement, collision, texture, rig, motion or visual validation was attempted.",
+    "The prior stopped scar domain remains topologically invalid; reflection does not waive its protected faces or topology limits.",
+    "Donor curvature uses finite mesh dihedral, which depends on source tessellation. No smooth curvature field was fitted."
+  ],
+  "limits": {
+    "attempts": 1,
+    "boundary_samples": 429,
+    "donor_triangles": 20000,
+    "internal_seconds": 50,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "planes": 4,
+    "provider_calls": 0,
+    "rss_mb": 512,
+    "texture_decodes": 0,
+    "triangles": 100000,
+    "vertices": 100000,
+    "wall_seconds": 60
+  },
+  "model_modified": false,
+  "native_jobs": 0,
+  "new_fit_performed": false,
+  "new_selection_performed": false,
+  "planes": [
+    {
+      "domains": [
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.00501173388122,
+            "min": 1.5065723087103517,
+            "p95": 138.13121521989402
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.06122472192681918,
+            "median": 0.04180752611631279,
+            "min": 0.01985829481124233,
+            "p95": 0.06064686481891477
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.99210240330677,
+            "median": 47.77033442474483,
+            "min": 4.573304928968853,
+            "p95": 131.1239661351431
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 123,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.56939337038557,
+            "median": 22.237268715299006,
+            "min": 1.5065723087103517,
+            "p95": 93.22274208252433
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.06624838815403121,
+            "median": 0.04666500788078719,
+            "min": 0.019693071981845552,
+            "p95": 0.06082102543287375
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 100.91515006701371,
+            "median": 25.926187008339788,
+            "min": 4.573304928968853,
+            "p95": 96.36759003477727
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.00501173388122,
+            "min": 1.5065723087103517,
+            "p95": 138.13121521989402
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.06122472192681918,
+            "median": 0.04180752611631279,
+            "min": 0.01985829481124233,
+            "p95": 0.06064686481891477
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.99210240330677,
+            "median": 47.77033442474483,
+            "min": 4.573304928968853,
+            "p95": 131.1239661351431
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 123,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.56939337038557,
+            "median": 22.237268715299006,
+            "min": 1.5065723087103517,
+            "p95": 93.22274208252433
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.06624838815403121,
+            "median": 0.04666500788078719,
+            "min": 0.019693071981845552,
+            "p95": 0.06082102543287375
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 100.91515006701371,
+            "median": 25.926187008339788,
+            "min": 4.573304928968853,
+            "p95": 96.36759003477727
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        }
+      ],
+      "plane": "eye_midpoint_x_plane",
+      "primary": true
+    },
+    {
+      "domains": [
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.03452456621496,
+            "min": 1.6608243810864696,
+            "p95": 138.13121521989402
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.06026006035672622,
+            "median": 0.04077643602847772,
+            "min": 0.01822849352871687,
+            "p95": 0.05978396503518521
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.99210240330677,
+            "median": 47.77033442474483,
+            "min": 4.573304928968853,
+            "p95": 131.1239661351431
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 123,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.56939337038557,
+            "median": 22.301897854720508,
+            "min": 1.6608243810864696,
+            "p95": 93.22274208252433
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.06526911199341355,
+            "median": 0.04562495505201853,
+            "min": 0.01822849352871687,
+            "p95": 0.05983991982411777
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 100.91515006701371,
+            "median": 25.89631280909508,
+            "min": 4.573304928968853,
+            "p95": 96.36759003477727
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.03452456621496,
+            "min": 1.6608243810864696,
+            "p95": 138.13121521989402
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.06026006035672622,
+            "median": 0.04077643602847772,
+            "min": 0.01822849352871687,
+            "p95": 0.05978396503518521
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.99210240330677,
+            "median": 47.77033442474483,
+            "min": 4.573304928968853,
+            "p95": 131.1239661351431
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 123,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.56939337038557,
+            "median": 22.301897854720508,
+            "min": 1.6608243810864696,
+            "p95": 93.22274208252433
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.06526911199341355,
+            "median": 0.04562495505201853,
+            "min": 0.01822849352871687,
+            "p95": 0.05983991982411777
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 100.91515006701371,
+            "median": 25.89631280909508,
+            "min": 4.573304928968853,
+            "p95": 96.36759003477727
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        }
+      ],
+      "plane": "nose_center_x_plane",
+      "primary": false
+    },
+    {
+      "domains": [
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.27160110522287,
+            "min": 5.1654735021169795,
+            "p95": 137.60478497612655
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.05464230183649004,
+            "median": 0.034174043159079126,
+            "min": 0.005496344599119671,
+            "p95": 0.053824988959295494
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 15,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 151.97344346755128,
+            "median": 47.810851422534405,
+            "min": 6.133799707281581,
+            "p95": 128.24298351722288
+          },
+          "joint_support_samples": 51,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 72,
+          "within_45deg_custom_samples": 122,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.16985112314487,
+            "median": 22.506104164600533,
+            "min": 5.1654735021169795,
+            "p95": 93.10243336077399
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.05933693647886534,
+            "median": 0.03914294174717666,
+            "min": 0.005496344599119671,
+            "p95": 0.05439898918431001
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 18,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 101.6668948460097,
+            "median": 23.87390653545917,
+            "min": 6.133799707281581,
+            "p95": 97.16604763759256
+          },
+          "joint_support_samples": 62,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 8,
+          "within_15mm_samples": 62,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 153.39405747502929,
+            "median": 42.27160110522287,
+            "min": 5.1654735021169795,
+            "p95": 137.60478497612655
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.05464230183649004,
+            "median": 0.034174043159079126,
+            "min": 0.005496344599119671,
+            "p95": 0.053824988959295494
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 15,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 151.97344346755128,
+            "median": 47.810851422534405,
+            "min": 6.133799707281581,
+            "p95": 128.24298351722288
+          },
+          "joint_support_samples": 51,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 9,
+          "within_15mm_samples": 72,
+          "within_45deg_custom_samples": 122,
+          "within_45deg_geometric_samples": 102
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 103.16985112314487,
+            "median": 22.506104164600533,
+            "min": 5.1654735021169795,
+            "p95": 93.10243336077399
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.05933693647886534,
+            "median": 0.03914294174717666,
+            "min": 0.005496344599119671,
+            "p95": 0.05439898918431001
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 18,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 101.6668948460097,
+            "median": 23.87390653545917,
+            "min": 6.133799707281581,
+            "p95": 97.16604763759256
+          },
+          "joint_support_samples": 62,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 8,
+          "within_15mm_samples": 62,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        }
+      ],
+      "plane": "head_rig_x_plane",
+      "primary": false
+    },
+    {
+      "domains": [
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 155.98014833713964,
+            "median": 43.51425280683213,
+            "min": 6.434944279907503,
+            "p95": 139.76763129359767
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.07745998123064925,
+            "median": 0.05458416754083298,
+            "min": 0.02268919530917597,
+            "p95": 0.07613369590134664
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 151.7822270906158,
+            "median": 51.05424137397999,
+            "min": 8.869608326695701,
+            "p95": 130.58856379472294
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 5,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 122,
+          "within_45deg_geometric_samples": 108
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 105.61071025800037,
+            "median": 23.688133286056726,
+            "min": 6.434944279907503,
+            "p95": 95.56491730674469
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.07783865731229991,
+            "median": 0.057175748826490375,
+            "min": 0.02268919530917597,
+            "p95": 0.07614713636810583
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "all_unprotected_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 105.85958857806948,
+            "median": 28.07968932306141,
+            "min": 8.869608326695701,
+            "p95": 101.2539036679546
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 7,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 155.98014833713964,
+            "median": 43.51425280683213,
+            "min": 6.434944279907503,
+            "p95": 139.76763129359767
+          },
+          "distance_m": {
+            "count": 234,
+            "max": 0.07745998123064925,
+            "median": 0.05458416754083298,
+            "min": 0.02268919530917597,
+            "p95": 0.07613369590134664
+          },
+          "domain": "original_valid_disk",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 234,
+            "max": 151.7822270906158,
+            "median": 51.05424137397999,
+            "min": 8.869608326695701,
+            "p95": 130.58856379472294
+          },
+          "joint_support_samples": 0,
+          "samples": 234,
+          "total_edges": 78,
+          "unique_matched_donor_triangles": 5,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 122,
+          "within_45deg_geometric_samples": 108
+        },
+        {
+          "custom_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 105.61071025800037,
+            "median": 23.688133286056726,
+            "min": 6.434944279907503,
+            "p95": 95.56491730674469
+          },
+          "distance_m": {
+            "count": 195,
+            "max": 0.07783865731229991,
+            "median": 0.057175748826490375,
+            "min": 0.02268919530917597,
+            "p95": 0.07614713636810583
+          },
+          "domain": "stopped_scar_domain",
+          "donor_scope": "clean_donors",
+          "fully_supported_edges": 0,
+          "geometric_normal_disagreement_degrees": {
+            "count": 195,
+            "max": 105.85958857806948,
+            "median": 28.07968932306141,
+            "min": 8.869608326695701,
+            "p95": 101.2539036679546
+          },
+          "joint_support_samples": 0,
+          "samples": 195,
+          "total_edges": 65,
+          "unique_matched_donor_triangles": 7,
+          "within_15mm_samples": 0,
+          "within_45deg_custom_samples": 163,
+          "within_45deg_geometric_samples": 150
+        }
+      ],
+      "plane": "eye_pair_perpendicular_plane",
+      "primary": false
+    }
+  ],
+  "protected_scope": "Every source byte is unchanged, including eyes/nose/muzzle, all244 protected white faces, protected0/5795 and0/5812, companion, UVs/images and the forbidden3009-3091 diagonal.",
+  "provider_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "self_peak_rss_bytes": 166543360,
+  "source_corner_positions_and_normals_exact_v7_to_latest": true,
+  "source_faces_verified": 62581,
+  "source_files_unchanged": true,
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "status": "reflection_reference_screen_only",
+  "stopped_topology_still_invalid": true,
+  "textures_decoded": 0,
+  "v7_source_sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+}

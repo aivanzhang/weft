@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "unsupported_cpu_candidate",
+  "quality_approved": false,
+  "native_provider_ai_role_calls": 0,
+  "model_written": false,
+  "actual_contour_binding": {
+    "source_model_sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+    "helper_vertices": 14400,
+    "actual_corner_rows": 43200,
+    "duplicates_identical": true,
+    "bone_names": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "retained_oriented_triangles_exact": true,
+    "uv_admission": "Exact float32 V flip roundtrip, no epsilon",
+    "policy": "Retained contour attributes come from final GLB, not pre-export approximations"
+  },
+  "component": {
+    "schema_version": 1,
+    "policy": "experimental-paired-surface-clumps-v1",
+    "status": "unsupported",
+    "quality_approved": false,
+    "body_modified": false,
+    "roots_reselected": false,
+    "native_calls": 0,
+    "surface_cards": 2700,
+    "contour_fins": 900,
+    "root_edges_preserved": 3600,
+    "source_patch_faces": 5400,
+    "source_corner_min_outward_dot": 0.8171466601847481,
+    "maximum_geometric_turn_degrees": 83.5812484838499,
+    "normal_turn_witnesses": [
+      {
+        "source_face": 6382,
+        "fin": 0,
+        "degrees": 19.322139201697244
+      },
+      {
+        "source_face": 34239,
+        "fin": 28,
+        "degrees": 15.709097935640488
+      },
+      {
+        "source_face": 14123,
+        "fin": 80,
+        "degrees": 15.664460767032994
+      },
+      {
+        "source_face": 24004,
+        "fin": 92,
+        "degrees": 46.644534988184866
+      },
+      {
+        "source_face": 27144,
+        "fin": 102,
+        "degrees": 39.09338086193434
+      },
+      {
+        "source_face": 18971,
+        "fin": 117,
+        "degrees": 24.3611346363504
+      },
+      {
+        "source_face": 25088,
+        "fin": 152,
+        "degrees": 21.952607383155126
+      },
+      {
+        "source_face": 21874,
+        "fin": 158,
+        "degrees": 48.26386074060538
+      },
+      {
+        "source_face": 16261,
+        "fin": 188,
+        "degrees": 18.19896261114723
+      },
+      {
+        "source_face": 5538,
+        "fin": 192,
+        "degrees": 15.34553946112002
+      },
+      {
+        "source_face": 21779,
+        "fin": 224,
+        "degrees": 22.780605277242785
+      },
+      {
+        "source_face": 3613,
+        "fin": 232,
+        "degrees": 15.10825203101831
+      },
+      {
+        "source_face": 16340,
+        "fin": 273,
+        "degrees": 19.70403703251554
+      },
+      {
+        "source_face": 24069,
+        "fin": 296,
+        "degrees": 83.5812484838499
+      },
+      {
+        "source_face": 5304,
+        "fin": 339,
+        "degrees": 18.760875640028427
+      },
+      {
+        "source_face": 3557,
+        "fin": 347,
+        "degrees": 20.735546880443408
+      }
+    ],
+    "export_budget": {
+      "vertices_with_reserve": 82805,
+      "triangles": 71581,
+      "reserve_vertices": 4096
+    },
+    "failure": "Offset patch turns more than15degrees from its source face",
+    "elapsed_seconds": 0.02048541698604822
+  },
+  "source_images_decoded": [],
+  "elapsed_seconds": 0.1416704999282956,
+  "inputs_unchanged": true
+}

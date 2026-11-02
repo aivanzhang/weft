@@ -1,0 +1,87 @@
+{
+  "actual_bounded_command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rig-contract-metadata-tests-v1/run_tests.py"
+  ],
+  "all_pinned_inputs_unchanged": true,
+  "changed_files": [
+    {
+      "bytes": 6862,
+      "path": "avatar_assets/assemble_generated.py",
+      "sha256": "ee2c9e969dbbc40a0bcb7156f4ad3216d0a0aa6844ad4254858cde3b5994888a"
+    },
+    {
+      "bytes": 5270,
+      "path": "tests/test_rig_contract_metadata.py",
+      "sha256": "c4f7252c7aacd21c6c16d0915da961c3add109e302eae7f8e43e72d7c9d41747"
+    }
+  ],
+  "completed_at": "2026-11-02T03:23:59.177492-08:00",
+  "existing_output_policy": "Finished lamp rig-contract.json and manifest.json remain hash-identical, including their historical inaccurate prose; record an external erratum rather than rewriting the sealed pack.",
+  "fields_changed": [
+    "rig_contract.rest_pose",
+    "rig_contract.target.name",
+    "rig_contract.authored_assumptions defaults"
+  ],
+  "finished_lamp_rerun": false,
+  "historical_kind_limitation": "The finishing manifest retains historical kind generated_3d_avatar. This is a workflow/schema label, not evidence that its source was newly generated or humanoid. No kind/schema migration was performed; source provenance must still be read from rights/source hashes and audit records.",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/rig-contract-metadata-tests-v1/run_tests.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.263,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 18098,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 256,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "cpu-monitor.json",
+    "monitor_errors": [],
+    "pid": 74310,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 18098,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_jobs": 0,
+  "owned_live_jobs": [],
+  "provider_calls": 0,
+  "quality_approved": false,
+  "result": {
+    "elapsed_seconds": 0.023519791197031736,
+    "errors": 0,
+    "failures": 0,
+    "native_jobs": 0,
+    "passed": true,
+    "provider_calls": 0,
+    "rss_scope": "Direct child getrusage high-water RSS on macOS, distinct from bounded monitor samples",
+    "self_peak_rss_bytes": 29720576,
+    "skipped": 0,
+    "tests_run": 5
+  },
+  "rss_note": "Direct child getrusage peak29,720,576B is recorded. The0.25s sampler took0samples before exit, so sampled_peak_rss_bytes remains null.",
+  "schema_version": 1,
+  "status": "wording_only_metadata_change_verified",
+  "test_command": ".venv/bin/python -m unittest -v tests.test_rig_contract_metadata",
+  "test_executions": 5,
+  "unaffected": "Whole-module AST is identical after masking these three descriptive values. Mappings, joint ordering, units/axes, transforms, attachments, schema, explicit-assumption override behavior, assembly and provider behavior are unchanged.",
+  "unique_test_methods": 5,
+  "unittest_seconds": 0.003
+}

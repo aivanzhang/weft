@@ -1,0 +1,4777 @@
+{
+  "artifacts": [
+    {
+      "bytes": 132902,
+      "path": "blender-build.json",
+      "sha256": "fe8fa99e8f60ce57411c08b7b83be1bc936298cd75cb9dadb9b07ce96484e5bc"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "4f3a92e70bcfa52eb88a1a2ac43e985a7d71b51019b05ece388f42a8f0ad8320"
+    },
+    {
+      "bytes": 578,
+      "path": "build-handle.json",
+      "sha256": "74798ffbeba121a226738147d14f4442dac2af090fa08e2051c051c9e074188b"
+    },
+    {
+      "bytes": 1374,
+      "path": "build-monitor.json",
+      "sha256": "34608868964a56a2b1ae92fb4d5de7002e0e24c924d4dfc6f9a494440bfd2097"
+    },
+    {
+      "bytes": 11825,
+      "path": "build.log",
+      "sha256": "8d5980118f5eddc38720ff1760dfe1228bbff50ad4a5ab16a9dc2eb764e3095a"
+    },
+    {
+      "bytes": 1520,
+      "path": "job.json",
+      "sha256": "40bc411d2d8ba711b6293584a1ce027a3f3b28ce1882283298b8fec963c87362"
+    },
+    {
+      "bytes": 27709020,
+      "path": "model.glb",
+      "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78"
+    },
+    {
+      "bytes": 182756,
+      "path": "portrait.png",
+      "sha256": "008c9a86de82fa7542f57905c84432120b82da9d14f0aae3eaa22982c8be7973"
+    },
+    {
+      "bytes": 5818,
+      "path": "render-attributes.json",
+      "sha256": "20184a2bac2375d42fd17fce7671c220b72c84a98f8d3d642f54153707341b4f"
+    },
+    {
+      "bytes": 5231,
+      "path": "rig-contract.json",
+      "sha256": "0531418eaa7462238097e51ce121dd2b94f2b990fd6159f77f7518059e0f0b7a"
+    },
+    {
+      "bytes": 9316,
+      "path": "rig-verification.json",
+      "sha256": "25a101f7799cf81d8ea17e6ba8e8c8153d3892c9ff3a35165aef71fad915824f"
+    },
+    {
+      "bytes": 39356116,
+      "path": "source.blend",
+      "sha256": "c0e347af52a10b2478a4b75571a251e1c3421e486f93bfc3cef27f86c86dba59"
+    },
+    {
+      "bytes": 42716,
+      "path": "sources/__pycache__/blender_comb_groom.cpython-311.pyc",
+      "sha256": "a41908591994f81b2c2a4a1ad6198bc2e2e2f37bb58f8441b6088eeb01faf4cf"
+    },
+    {
+      "bytes": 18355,
+      "path": "sources/__pycache__/blender_fur_cards.cpython-311.pyc",
+      "sha256": "03f47831898b9aa2973b081d2484bfc6a2af42dc4bb1ce5e429c29dc9b23dcb6"
+    },
+    {
+      "bytes": 50663,
+      "path": "sources/__pycache__/blender_geometry.cpython-311.pyc",
+      "sha256": "23a128cb5d48231aeeb4fcf6a0800ee6eb763f9c0261fb7a5eb633b241b42f9c"
+    },
+    {
+      "bytes": 43990,
+      "path": "sources/__pycache__/blender_native_groom.cpython-311.pyc",
+      "sha256": "9787a7c8a71f558a53853c04622391a67d82dba67d99d25c9b2efaa0d2fa09a7"
+    },
+    {
+      "bytes": 18804,
+      "path": "sources/__pycache__/blender_surfaces_hd.cpython-311.pyc",
+      "sha256": "759fa29acc2b170e810285249d47f41939bf8bb7c02d72d8578d7f0cff50d625"
+    },
+    {
+      "bytes": 15956,
+      "path": "sources/blender_build.py",
+      "sha256": "67509827821cab697f8c5c3ceb1a2e3e109807c465cff2b040cd03356507b8d3"
+    },
+    {
+      "bytes": 20236,
+      "path": "sources/blender_comb_groom.py",
+      "sha256": "e7ac5035b851630cc35daa7539e8b44460ecb8478b698a79c6118e3af97ef26f"
+    },
+    {
+      "bytes": 7068,
+      "path": "sources/blender_fur_cards.py",
+      "sha256": "52118ba67160280a33ad5e89aee34a3d31d3bf61c4f8552fbda34a3fe3735444"
+    },
+    {
+      "bytes": 20979,
+      "path": "sources/blender_geometry.py",
+      "sha256": "9731c3f1079df392add4097987ab38b0ccbb90c4fa9f6f2dcc1d134db903a0ca"
+    },
+    {
+      "bytes": 24438,
+      "path": "sources/blender_native_groom.py",
+      "sha256": "e1b98b31dbbcea7de734fb3f948affd23637e94cf86a205f90bb6b773fbf0d3c"
+    },
+    {
+      "bytes": 9781,
+      "path": "sources/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a"
+    },
+    {
+      "bytes": 3994,
+      "path": "sources/prompt.txt",
+      "sha256": "5e50936d38f031a201ca018648ae6915aa94532e60d1e2faeb46e134e673b27d"
+    },
+    {
+      "bytes": 2230191,
+      "path": "sources/scene.json",
+      "sha256": "62492cb84a45051e33fe53f141996a8d18ff5688295d67cc12a092bc9b6ae615"
+    },
+    {
+      "bytes": 2803577,
+      "path": "textures/coat-basecolor.png",
+      "sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb"
+    },
+    {
+      "bytes": 331274,
+      "path": "textures/coat-fur-atlas.png",
+      "sha256": "cf9ea3638cf874fcee338b194daec29ab43094cffe9d3ca268cb065b2c231d2e"
+    },
+    {
+      "bytes": 7405002,
+      "path": "textures/coat-normal.png",
+      "sha256": "9a2c4f79407b55a517e8c7c17abda16be4322b0038b6dade16e2d0a722cf5f00"
+    },
+    {
+      "bytes": 2887743,
+      "path": "textures/cream-basecolor.png",
+      "sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150"
+    },
+    {
+      "bytes": 350422,
+      "path": "textures/cream-fur-atlas.png",
+      "sha256": "6dea8e04e463e86503f9682282fdfd7529386145c407f10f41dacbd3fd8037a3"
+    },
+    {
+      "bytes": 6576439,
+      "path": "textures/cream-normal.png",
+      "sha256": "10db338dc004efeb58da4773876caec7c33b90d83c1c6291160889e6fa595ed0"
+    },
+    {
+      "bytes": 449468,
+      "path": "textures/dark-basecolor.png",
+      "sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91"
+    },
+    {
+      "bytes": 301979,
+      "path": "textures/dark-fur-atlas.png",
+      "sha256": "5cfe9fa842369a456dd8f78db5fe7b6f85f20d490ba1552841821b88c0ab6dc9"
+    },
+    {
+      "bytes": 1658373,
+      "path": "textures/dark-normal.png",
+      "sha256": "b57163525037f3be2bb56d241ffa7971200c538792548caa3317972566e750c6"
+    },
+    {
+      "bytes": 20655,
+      "path": "textures/scarf-basecolor.png",
+      "sha256": "b8d726911c50e1b0025f229ac8e1e330000f2c61d9f23846e5c9347b29de1cb3"
+    },
+    {
+      "bytes": 335906,
+      "path": "textures/scarf-normal.png",
+      "sha256": "e3743d9c76ee03b9ead3a3446abd489a3b10291dd62fc5e1f1df65ce36ba7bb7"
+    }
+  ],
+  "authored_assumptions": [
+    "This is a new authored 3D interpretation of the existing original fox design, not recovered geometry or a neural text-to-3D result.",
+    "Complete hidden surfaces and twenty-bone rest layout are authored; the original fox left/right bone names are preserved as identifiers.",
+    "The continuous arm and leg lofts use explicit multi-bone skin blends around elbows and knees; they are not muscle or cloth simulations.",
+    "The shoulder roots are rounded and buried within the torso, with torso/arm weight blending; skin is not a single watertight anatomical retopology.",
+    "The scarf, eyelids, fingers and face are sculpted fixed geometry without independent expressions or cloth dynamics.",
+    "The book drawings and pencil strokes remain authored gestures: no new ink or page simulation is claimed.",
+    "This PBR browser-quality variant is separate from Weft's restricted diffuse-only importer profile.",
+    "The preserved four skeletal actions are authored animation, not learned behavior or Weft physics.",
+    "The fox iris remains its original glossy colored geometry: a radial iris map is not applied to an incompatible latitude/longitude UV sphere.",
+    "HD textures are seeded, locally authored procedural patterns at native1024/2048 resolution, not neural output, reference-extracted texture maps or evidence of photorealism. Studio floor and exposure are render settings, not simulation geometry.",
+    "Plush browser fur remains5,000 six-vertex alpha-masked skinned hair cards; the separately configured native Blender groom has5,000 parents and30 children, a155,000-fiber upper bound, not an exported GLB strand count.",
+    "The native groom length is1.6times the v1 length capped at0.035m, and browser ribbons are1.4times longer and1.25times wider. No hair dynamics, recovered real groom or measured animal anatomy is claimed.",
+    "Only the same twenty furry coat/cream/dark skin surfaces receive hair. Inner ears, eyes, nose, accessories and tools remain bare; no separate forelock geometry is invented.",
+    "The plush studio changes render lighting and contrast only. Its floor stays at the previous authored rest height; it is not collision geometry or a physical contact solver.",
+    "Native hair is authored into directional rest-space curves, retaining the emitter skin; there is no dynamic hair simulation. The GLB contains its separate masked-card coat."
+  ],
+  "build_report": {
+    "actions": [
+      "idle",
+      "making_something",
+      "milestone_level_up",
+      "working"
+    ],
+    "blender": "4.5.13 LTS",
+    "bones": [
+      "root",
+      "torso",
+      "head",
+      "ear_left",
+      "ear_right",
+      "tail",
+      "upper_arm_left",
+      "forearm_left",
+      "hand_left",
+      "sketchbook",
+      "thigh_left",
+      "shin_left",
+      "foot_left",
+      "upper_arm_right",
+      "forearm_right",
+      "hand_right",
+      "pencil",
+      "thigh_right",
+      "shin_right",
+      "foot_right"
+    ],
+    "color_management": "AgX",
+    "color_management_look": "AgX - Medium High Contrast",
+    "control_vertices": 8058,
+    "device": "CPU",
+    "embedded_images": 11,
+    "embedded_normal_maps": 4,
+    "exported_vertices": 60418,
+    "fur_cards": 5000,
+    "fur_representation": {
+      "glb": "skinned alpha-masked cards",
+      "native": "editable native groom with per-material cutout visibility",
+      "native_hair_exported_to_glb": false,
+      "native_hidden_card_materials": [
+        "coat_cutout_fur",
+        "cream_cutout_fur",
+        "dark_cutout_fur"
+      ],
+      "native_visible_card_materials": []
+    },
+    "fur_strands": 0,
+    "mixed_weight_vertices": 5242,
+    "native_grooms": [
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 709
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.1106758506250767e-07,
+          "max_key_error_m": 3.384893146634265e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.023040221131102052,
+          "mean_tip_displacement_m": 0.01732533871918734,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 709,
+          "schema_version": 1,
+          "seconds": 0.030237084021791816,
+          "settings_preserved": {
+            "child_seed": 10091,
+            "hair_dynamics": false,
+            "seed": 10091,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 709,
+              "hair_length": 0.02304000034928322,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "e22f81ac175939b359cdd70ba50af63b35e78920c7d96299dc4f8a344e96dce9",
+            "mixed_weight_vertices": 0,
+            "vertices": 330
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 2836
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "e22f81ac175939b359cdd70ba50af63b35e78920c7d96299dc4f8a344e96dce9",
+          "mixed_weight_vertices": 0,
+          "vertices": 330
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_pear_shaped_body",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 21979,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.02304,
+          "parents": 709,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10091
+        },
+        "source_object": "pear_shaped_body"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 275
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.1106673581822166e-07,
+          "max_key_error_m": 3.7814907850174666e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.017280221362478095,
+          "mean_tip_displacement_m": 0.012994259783314917,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 275,
+          "schema_version": 1,
+          "seconds": 0.016276291105896235,
+          "settings_preserved": {
+            "child_seed": 10092,
+            "hair_dynamics": false,
+            "seed": 10092,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 275,
+              "hair_length": 0.01727999933063984,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "aca3208399c162a3c427ebc8f88958ea8a6def8ba870df87df3189a596a9729b",
+            "mixed_weight_vertices": 0,
+            "vertices": 1082
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 1100
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "aca3208399c162a3c427ebc8f88958ea8a6def8ba870df87df3189a596a9729b",
+          "mixed_weight_vertices": 0,
+          "vertices": 1082
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.9130986332893372,
+            0.7912979125976562,
+            0.5906188488006592,
+            1.0
+          ],
+          "material": "NativeGroom_cream_hair",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_cream_chest",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 8525,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01728,
+          "parents": 275,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10092
+        },
+        "source_object": "cream_chest"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 1102
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 4.376175411005545e-07,
+          "max_key_error_m": 4.851609619583392e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.02304054699561965,
+          "mean_tip_displacement_m": 0.017325670114265185,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 1102,
+          "schema_version": 1,
+          "seconds": 0.044798375107347965,
+          "settings_preserved": {
+            "child_seed": 10093,
+            "hair_dynamics": false,
+            "seed": 10093,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 1102,
+              "hair_length": 0.02304000034928322,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "ed73806b0e618ff75ba756f554f08b9601302c3951c4afb2b599c41bccd2db76",
+            "mixed_weight_vertices": 0,
+            "vertices": 2147
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 4408
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "ed73806b0e618ff75ba756f554f08b9601302c3951c4afb2b599c41bccd2db76",
+          "mixed_weight_vertices": 0,
+          "vertices": 2147
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.001",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_sculpted_head",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 34162,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.02304,
+          "parents": 1102,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10093
+        },
+        "source_object": "sculpted_head"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 346
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 3.4360110793066334e-07,
+          "max_key_error_m": 3.68709654559452e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.019200668155910025,
+          "mean_tip_displacement_m": 0.014412456250900632,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 346,
+          "schema_version": 1,
+          "seconds": 0.016036000102758408,
+          "settings_preserved": {
+            "child_seed": 10094,
+            "hair_dynamics": false,
+            "seed": 10094,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 346,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "9ad39941b9cfa2aefdb87b9b030e9d152f61cefa2220083212ce3ddc6165d6d6",
+            "mixed_weight_vertices": 0,
+            "vertices": 863
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 1384
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "9ad39941b9cfa2aefdb87b9b030e9d152f61cefa2220083212ce3ddc6165d6d6",
+          "mixed_weight_vertices": 0,
+          "vertices": 863
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.9130986332893372,
+            0.7912979125976562,
+            0.5906188488006592,
+            1.0
+          ],
+          "material": "NativeGroom_cream_hair.001",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_tapered_fox_muzzle",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 10726,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.0192,
+          "parents": 346,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10094
+        },
+        "source_object": "tapered_fox_muzzle"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 134
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.90362423174817e-07,
+          "max_key_error_m": 3.6286698764222625e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.026880447043419697,
+          "mean_tip_displacement_m": 0.020213280271948984,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 134,
+          "schema_version": 1,
+          "seconds": 0.008231583051383495,
+          "settings_preserved": {
+            "child_seed": 10097,
+            "hair_dynamics": false,
+            "seed": 10097,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 134,
+              "hair_length": 0.02687999978661537,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "c4886e433b0dfa2fb17c05b11da11c8c0247729a2158355a51ce67fab5c7db62",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 536
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "c4886e433b0dfa2fb17c05b11da11c8c0247729a2158355a51ce67fab5c7db62",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.9130986332893372,
+            0.7912979125976562,
+            0.5906188488006592,
+            1.0
+          ],
+          "material": "NativeGroom_cream_hair.002",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_outer_cheek_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 4154,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.02688,
+          "parents": 134,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10097
+        },
+        "source_object": "outer_cheek_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 142
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 3.650408812935768e-07,
+          "max_key_error_m": 5.274674302467065e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.019200433265537845,
+          "mean_tip_displacement_m": 0.014406016442447179,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 142,
+          "schema_version": 1,
+          "seconds": 0.0051216669380664825,
+          "settings_preserved": {
+            "child_seed": 10102,
+            "hair_dynamics": false,
+            "seed": 10102,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 142,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "1c826ac424eea8071a009bb8870738598af1997490da6409147c33f72e67353b",
+            "mixed_weight_vertices": 0,
+            "vertices": 147
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 568
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "1c826ac424eea8071a009bb8870738598af1997490da6409147c33f72e67353b",
+          "mixed_weight_vertices": 0,
+          "vertices": 147
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.002",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_cupped_ear_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 4402,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "length": 0.0192,
+          "parents": 142,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10102
+        },
+        "source_object": "cupped_ear_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 244
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 3.057695829172813e-07,
+          "max_key_error_m": 3.03925246810483e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.01920027523940926,
+          "mean_tip_displacement_m": 0.014424645337397981,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 244,
+          "schema_version": 1,
+          "seconds": 0.01559266704134643,
+          "settings_preserved": {
+            "child_seed": 10110,
+            "hair_dynamics": false,
+            "seed": 10110,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 244,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "1e44ccffe7d1fe80c2c36bc6f20cef42ea685417739a9e7f2d16f004e8083e3f",
+            "mixed_weight_vertices": 667,
+            "vertices": 843
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 976
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "1e44ccffe7d1fe80c2c36bc6f20cef42ea685417739a9e7f2d16f004e8083e3f",
+          "mixed_weight_vertices": 667,
+          "vertices": 843
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.003",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_continuous_arm_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 7564,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.0192,
+          "parents": 244,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10110
+        },
+        "source_object": "continuous_arm_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 71
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.492158396524835e-07,
+          "max_key_error_m": 2.5463115409962923e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.013440198650041561,
+          "mean_tip_displacement_m": 0.010106637031365608,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 71,
+          "schema_version": 1,
+          "seconds": 0.006721166893839836,
+          "settings_preserved": {
+            "child_seed": 10114,
+            "hair_dynamics": false,
+            "seed": 10114,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 71,
+              "hair_length": 0.013439999893307686,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "10297fe65c93473c6cc004113960707a0b701b9d42ccb678dc9d1157ec5e881c",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 284
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "10297fe65c93473c6cc004113960707a0b701b9d42ccb678dc9d1157ec5e881c",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_paw_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2201,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01344,
+          "parents": 71,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10114
+        },
+        "source_object": "paw_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 173
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 9.866658570722997e-08,
+          "max_key_error_m": 1.7912410617129963e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.01920012180890863,
+          "mean_tip_displacement_m": 0.014429223144658656,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 173,
+          "schema_version": 1,
+          "seconds": 0.007567457854747772,
+          "settings_preserved": {
+            "child_seed": 10116,
+            "hair_dynamics": false,
+            "seed": 10116,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 173,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "720e7a27fe21bb940e0035407c3ac06a2e04b87778f20a2f5817502f6224b443",
+            "mixed_weight_vertices": 100,
+            "vertices": 277
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 692
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "720e7a27fe21bb940e0035407c3ac06a2e04b87778f20a2f5817502f6224b443",
+          "mixed_weight_vertices": 100,
+          "vertices": 277
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.004",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_continuous_leg_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 5363,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.0192,
+          "parents": 173,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10116
+        },
+        "source_object": "continuous_leg_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 79
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 8.450084958491755e-08,
+          "max_key_error_m": 6.674406255472048e-08,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.01536011092180644,
+          "mean_tip_displacement_m": 0.011550451283202864,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 79,
+          "schema_version": 1,
+          "seconds": 0.007190125063061714,
+          "settings_preserved": {
+            "child_seed": 10119,
+            "hair_dynamics": false,
+            "seed": 10119,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 79,
+              "hair_length": 0.015359999611973763,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "dee92958024b5e530458654eeb98f022a0803c05573bb16d973aa5da827d2655",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 316
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "dee92958024b5e530458654eeb98f022a0803c05573bb16d973aa5da827d2655",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair.001",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_dark_sock_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2449,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01536,
+          "parents": 79,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10119
+        },
+        "source_object": "dark_sock_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 87
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 7.911360075732454e-08,
+          "max_key_error_m": 6.757064591056501e-08,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.015360075403069981,
+          "mean_tip_displacement_m": 0.011550450677872314,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 87,
+          "schema_version": 1,
+          "seconds": 0.007441834080964327,
+          "settings_preserved": {
+            "child_seed": 10122,
+            "hair_dynamics": false,
+            "seed": 10122,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 87,
+              "hair_length": 0.015359999611973763,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "c30dcfedd75126e9b8d375fb41a170e2019ac0d024d8df2a404c1f3bdb808590",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 348
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "c30dcfedd75126e9b8d375fb41a170e2019ac0d024d8df2a404c1f3bdb808590",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair.002",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_soft_foot_left",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2697,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01536,
+          "parents": 87,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10122
+        },
+        "source_object": "soft_foot_left"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 134
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.2284714063652844e-07,
+          "max_key_error_m": 3.6378370570342845e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.026880341483359382,
+          "mean_tip_displacement_m": 0.020213285090373703,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 134,
+          "schema_version": 1,
+          "seconds": 0.008607042022049427,
+          "settings_preserved": {
+            "child_seed": 10099,
+            "hair_dynamics": false,
+            "seed": 10099,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 134,
+              "hair_length": 0.02687999978661537,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "b097627c51701246da48d7398a9f7aebe7ad7e4330ddf1b4395306c4ef0221ba",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 536
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "b097627c51701246da48d7398a9f7aebe7ad7e4330ddf1b4395306c4ef0221ba",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.9130986332893372,
+            0.7912979125976562,
+            0.5906188488006592,
+            1.0
+          ],
+          "material": "NativeGroom_cream_hair.003",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_outer_cheek_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 4154,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.02688,
+          "parents": 134,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10099
+        },
+        "source_object": "outer_cheek_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 142
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 4.775873364906702e-07,
+          "max_key_error_m": 5.053778851661569e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.01920058174713006,
+          "mean_tip_displacement_m": 0.014421298645070893,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 142,
+          "schema_version": 1,
+          "seconds": 0.005751042161136866,
+          "settings_preserved": {
+            "child_seed": 10104,
+            "hair_dynamics": false,
+            "seed": 10104,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 142,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "41a0db6eb46e847551646705e72a05def8a4675ab1f2118d16d5e70ea40d262f",
+            "mixed_weight_vertices": 0,
+            "vertices": 147
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 568
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "41a0db6eb46e847551646705e72a05def8a4675ab1f2118d16d5e70ea40d262f",
+          "mixed_weight_vertices": 0,
+          "vertices": 147
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.005",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_cupped_ear_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 4402,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            1
+          ],
+          "length": 0.0192,
+          "parents": 142,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10104
+        },
+        "source_object": "cupped_ear_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 244
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.3681136356382138e-07,
+          "max_key_error_m": 3.090868668659261e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.01920025201120685,
+          "mean_tip_displacement_m": 0.014430837648415537,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 244,
+          "schema_version": 1,
+          "seconds": 0.015645082807168365,
+          "settings_preserved": {
+            "child_seed": 10112,
+            "hair_dynamics": false,
+            "seed": 10112,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 244,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "00221aa2035fb87d9de9a65a65a45446e62f581a46ad9790b4e02dc54a40cceb",
+            "mixed_weight_vertices": 667,
+            "vertices": 843
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 976
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "00221aa2035fb87d9de9a65a65a45446e62f581a46ad9790b4e02dc54a40cceb",
+          "mixed_weight_vertices": 667,
+          "vertices": 843
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.006",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_continuous_arm_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 7564,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.0192,
+          "parents": 244,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10112
+        },
+        "source_object": "continuous_arm_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 71
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.0714661044807237e-07,
+          "max_key_error_m": 2.5636927089222153e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.013440228313658514,
+          "mean_tip_displacement_m": 0.010106632483918902,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 71,
+          "schema_version": 1,
+          "seconds": 0.00652129203081131,
+          "settings_preserved": {
+            "child_seed": 10116,
+            "hair_dynamics": false,
+            "seed": 10116,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 71,
+              "hair_length": 0.013439999893307686,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "571b82384b92c810bb9953dfdbc7b6dfcc1b37732f692a385df199830b91ae83",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 284
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "571b82384b92c810bb9953dfdbc7b6dfcc1b37732f692a385df199830b91ae83",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair.003",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_paw_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2201,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01344,
+          "parents": 71,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10116
+        },
+        "source_object": "paw_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 173
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 9.889937836737861e-08,
+          "max_key_error_m": 1.251165242772301e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.019200102811137886,
+          "mean_tip_displacement_m": 0.014432645729166926,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 173,
+          "schema_version": 1,
+          "seconds": 0.007606667000800371,
+          "settings_preserved": {
+            "child_seed": 10118,
+            "hair_dynamics": false,
+            "seed": 10118,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 173,
+              "hair_length": 0.019200000911951065,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "32673a52b20f9149a2d4024b510305bb72d1df1ee170ce60cda8fb8e8c35cc14",
+            "mixed_weight_vertices": 100,
+            "vertices": 277
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 692
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "32673a52b20f9149a2d4024b510305bb72d1df1ee170ce60cda8fb8e8c35cc14",
+          "mixed_weight_vertices": 100,
+          "vertices": 277
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.007",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_continuous_leg_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 5363,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.0192,
+          "parents": 173,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10118
+        },
+        "source_object": "continuous_leg_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 79
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 5.7002444098230853e-08,
+          "max_key_error_m": 7.450580596923828e-08,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.015360066394237556,
+          "mean_tip_displacement_m": 0.011550448826034993,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 79,
+          "schema_version": 1,
+          "seconds": 0.008522916119545698,
+          "settings_preserved": {
+            "child_seed": 10121,
+            "hair_dynamics": false,
+            "seed": 10121,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 79,
+              "hair_length": 0.015359999611973763,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "ebcf9bb23e68f2e366086f3a6ff082308e9ee6a44ade10f11ab2d761abbfb0e6",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 316
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "ebcf9bb23e68f2e366086f3a6ff082308e9ee6a44ade10f11ab2d761abbfb0e6",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair.004",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_dark_sock_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2449,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01536,
+          "parents": 79,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10121
+        },
+        "source_object": "dark_sock_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.0,
+            0.0,
+            -1.0
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 87
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 4.871780816088911e-08,
+          "max_key_error_m": 8.429369702178807e-08,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.015360052371733393,
+          "mean_tip_displacement_m": 0.011550451258762227,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 87,
+          "schema_version": 1,
+          "seconds": 0.009004541905596852,
+          "settings_preserved": {
+            "child_seed": 10124,
+            "hair_dynamics": false,
+            "seed": 10124,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 87,
+              "hair_length": 0.015359999611973763,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "f02b4ef2b9194d9b04ee33c512bb2df339b0306b881c69c53fbc5e57f3bac49d",
+            "mixed_weight_vertices": 0,
+            "vertices": 610
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 348
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "f02b4ef2b9194d9b04ee33c512bb2df339b0306b881c69c53fbc5e57f3bac49d",
+          "mixed_weight_vertices": 0,
+          "vertices": 610
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.039546236395835876,
+            0.02518685907125473,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_dark_hair.005",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_soft_foot_right",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 2697,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            0,
+            0,
+            -1
+          ],
+          "length": 0.01536,
+          "parents": 87,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10124
+        },
+        "source_object": "soft_foot_right"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.9245002865791321,
+            0.09245003014802933,
+            0.3698001205921173
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 472
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.693139827605884e-07,
+          "max_key_error_m": 2.9950963321688443e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.03456027634901412,
+          "mean_tip_displacement_m": 0.025951903093897475,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 472,
+          "schema_version": 1,
+          "seconds": 0.021307500079274178,
+          "settings_preserved": {
+            "child_seed": 10127,
+            "hair_dynamics": false,
+            "seed": 10127,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 472,
+              "hair_length": 0.03455999866127968,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "ad117015ec8c5c3df8bd83d784f6a9df27099449cd8d911a676c64ee103db23f",
+            "mixed_weight_vertices": 0,
+            "vertices": 200
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 1888
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "ad117015ec8c5c3df8bd83d784f6a9df27099449cd8d911a676c64ee103db23f",
+          "mixed_weight_vertices": 0,
+          "vertices": 200
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.672443151473999,
+            0.14995978772640228,
+            0.027320891618728638,
+            1.0
+          ],
+          "material": "NativeGroom_coat_hair.008",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_curved_tail",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 14632,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            1,
+            0.1,
+            0.4
+          ],
+          "length": 0.03456,
+          "parents": 472,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10127
+        },
+        "source_object": "curved_tail"
+      },
+      {
+        "armature": "AvatarRig",
+        "comb": {
+          "amount": 0.65,
+          "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+          "direction_rest_object_axes": [
+            0.9245002865791321,
+            0.09245003014802933,
+            0.3698001205921173
+          ],
+          "hair_dynamics": false,
+          "initialization": {
+            "method": "Particle Edit enter/exit on owned emitter",
+            "parents": 236
+          },
+          "limitations": [
+            "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+            "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+            "Stored parent arc length is preserved; interpolated render paths can add configured roughness/clump variation."
+          ],
+          "limits": {
+            "amount_range": [
+              0,
+              0.95
+            ],
+            "direction_component_range": [
+              -1,
+              1
+            ],
+            "parents": 10000,
+            "stored_keys": 150000,
+            "stored_parent_arc_length_m": 0.08,
+            "wall_seconds": 20
+          },
+          "max_arc_length_change_m": 2.595248643176562e-07,
+          "max_key_error_m": 3.8743019104003906e-07,
+          "max_root_shift_m": 0.0,
+          "max_stored_arc_length_m": 0.030720372614892473,
+          "mean_tip_displacement_m": 0.022954604732146857,
+          "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+          "native_only": true,
+          "parallel_direction_strands_unchanged": 0,
+          "parents": 236,
+          "schema_version": 1,
+          "seconds": 0.010368166957050562,
+          "settings_preserved": {
+            "child_seed": 10128,
+            "hair_dynamics": false,
+            "seed": 10128,
+            "settings": {
+              "child_percent": 4,
+              "child_type": "INTERPOLATED",
+              "clump_factor": 0.05999999865889549,
+              "count": 236,
+              "hair_length": 0.030719999223947525,
+              "hair_step": 3,
+              "material": 2,
+              "radius_scale": 0.000375000003259629,
+              "rendered_child_count": 30,
+              "root_radius": 2.0,
+              "roughness_1": 0.001500000013038516,
+              "roughness_2": 0.0005249999812804163,
+              "tip_radius": 0.11999999731779099,
+              "type": "HAIR",
+              "use_modifier_stack": true,
+              "use_regrow_hair": false
+            }
+          },
+          "skin_signature": {
+            "geometry_weights_sha256": "a3b1af9d283c4ff9010a12445e8fd81bb367e0e3ab6402f44e4cb01b5d102093",
+            "mixed_weight_vertices": 0,
+            "vertices": 118
+          },
+          "status": "combed_pending_render_review",
+          "stored_keys": 944
+        },
+        "copied_skin": {
+          "geometry_weights_sha256": "a3b1af9d283c4ff9010a12445e8fd81bb367e0e3ab6402f44e4cb01b5d102093",
+          "mixed_weight_vertices": 0,
+          "vertices": 118
+        },
+        "dynamics_enabled": false,
+        "emitter_surface_visible": false,
+        "gltf_export_supported": false,
+        "kind": "editable_native_blender_particle_hair",
+        "limitations": [
+          "Native Blender hair is not exported as glTF geometry or browser hair.",
+          "Material uses the source base-color value, not sampled texture colors; use separate material regions.",
+          "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+          "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+        ],
+        "material": {
+          "base_color_linear": [
+            0.9130986332893372,
+            0.7912979125976562,
+            0.5906188488006592,
+            1.0
+          ],
+          "material": "NativeGroom_cream_hair.004",
+          "model": "CHIANG",
+          "parametrization": "COLOR",
+          "shader": "ShaderNodeBsdfHairPrincipled",
+          "shader_roughness": 0.38,
+          "texture_color_sampling": false
+        },
+        "native_only": true,
+        "native_parameters": {
+          "child_type": "INTERPOLATED",
+          "hair_step": 3,
+          "radius_parameter_description": "Multiplier of diameter properties",
+          "radius_scale": 0.000375000003259629,
+          "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+          "render_children": 30,
+          "render_step": 3,
+          "root_diameter_m": 0.00075,
+          "root_radius": 2.0,
+          "root_radius_description": "Strand diameter width at the root",
+          "tip_diameter_m": 4.4999999999999996e-05,
+          "tip_radius": 0.11999999731779099,
+          "use_modifier_stack": true,
+          "use_parent_particles": true,
+          "viewport_children": 4
+        },
+        "object": "NativeGroom_tapered_tail_tip",
+        "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+        "render_fiber_upper_bound": 7316,
+        "reserved_prefix": "NativeGroom_",
+        "schema_version": 1,
+        "settings": {
+          "children": 30,
+          "comb": 0.65,
+          "direction": [
+            1,
+            0.1,
+            0.4
+          ],
+          "length": 0.03072,
+          "parents": 236,
+          "radius": 0.000375,
+          "roughness": 0.0015,
+          "seed": 10128
+        },
+        "source_object": "tapered_tail_tip"
+      }
+    ],
+    "parts": [
+      {
+        "control_vertices": 330,
+        "fur_cards": 709,
+        "fur_strands": 0,
+        "fur_vertices": 4254,
+        "mixed_weight_vertices": 0,
+        "name": "pear_shaped_body",
+        "shape": "mesh",
+        "surface_faces": 360,
+        "surface_vertices": 330
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 275,
+        "fur_strands": 0,
+        "fur_vertices": 1650,
+        "mixed_weight_vertices": 0,
+        "name": "cream_chest",
+        "shape": "sphere",
+        "surface_faces": 1120,
+        "surface_vertices": 1082
+      },
+      {
+        "control_vertices": 2147,
+        "fur_cards": 1102,
+        "fur_strands": 0,
+        "fur_vertices": 6612,
+        "mixed_weight_vertices": 0,
+        "name": "sculpted_head",
+        "shape": "mesh",
+        "surface_faces": 2176,
+        "surface_vertices": 2147
+      },
+      {
+        "control_vertices": 863,
+        "fur_cards": 346,
+        "fur_strands": 0,
+        "fur_vertices": 2076,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_fox_muzzle",
+        "shape": "mesh",
+        "surface_faces": 880,
+        "surface_vertices": 863
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 134,
+        "fur_strands": 0,
+        "fur_vertices": 804,
+        "mixed_weight_vertices": 0,
+        "name": "outer_cheek_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_socket_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_white_left",
+        "shape": "sphere",
+        "surface_faces": 1120,
+        "surface_vertices": 1082
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "iris_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pupil_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "catchlight_left",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 191,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "upper_lid_left",
+        "shape": "mesh",
+        "surface_faces": 176,
+        "surface_vertices": 191
+      },
+      {
+        "control_vertices": 119,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "brow_left",
+        "shape": "mesh",
+        "surface_faces": 112,
+        "surface_vertices": 119
+      },
+      {
+        "control_vertices": 147,
+        "fur_cards": 142,
+        "fur_strands": 0,
+        "fur_vertices": 852,
+        "mixed_weight_vertices": 0,
+        "name": "cupped_ear_left",
+        "shape": "mesh",
+        "surface_faces": 168,
+        "surface_vertices": 147
+      },
+      {
+        "control_vertices": 86,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "inset_ear_left",
+        "shape": "mesh",
+        "surface_faces": 100,
+        "surface_vertices": 86
+      },
+      {
+        "control_vertices": 843,
+        "fur_cards": 244,
+        "fur_strands": 0,
+        "fur_vertices": 1464,
+        "mixed_weight_vertices": 2029,
+        "name": "continuous_arm_left",
+        "shape": "mesh",
+        "surface_faces": 840,
+        "surface_vertices": 843
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 71,
+        "fur_strands": 0,
+        "fur_vertices": 426,
+        "mixed_weight_vertices": 0,
+        "name": "paw_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_left_0",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_left_1",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_left_2",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 277,
+        "fur_cards": 173,
+        "fur_strands": 0,
+        "fur_vertices": 1038,
+        "mixed_weight_vertices": 544,
+        "name": "continuous_leg_left",
+        "shape": "mesh",
+        "surface_faces": 288,
+        "surface_vertices": 277
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 79,
+        "fur_strands": 0,
+        "fur_vertices": 474,
+        "mixed_weight_vertices": 0,
+        "name": "dark_sock_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 87,
+        "fur_strands": 0,
+        "fur_vertices": 522,
+        "mixed_weight_vertices": 0,
+        "name": "soft_foot_left",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_left_0",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_left_1",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_left_2",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 134,
+        "fur_strands": 0,
+        "fur_vertices": 804,
+        "mixed_weight_vertices": 0,
+        "name": "outer_cheek_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_socket_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "eye_white_right",
+        "shape": "sphere",
+        "surface_faces": 1120,
+        "surface_vertices": 1082
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "iris_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pupil_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "catchlight_right",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 191,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "upper_lid_right",
+        "shape": "mesh",
+        "surface_faces": 176,
+        "surface_vertices": 191
+      },
+      {
+        "control_vertices": 119,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "brow_right",
+        "shape": "mesh",
+        "surface_faces": 112,
+        "surface_vertices": 119
+      },
+      {
+        "control_vertices": 147,
+        "fur_cards": 142,
+        "fur_strands": 0,
+        "fur_vertices": 852,
+        "mixed_weight_vertices": 0,
+        "name": "cupped_ear_right",
+        "shape": "mesh",
+        "surface_faces": 168,
+        "surface_vertices": 147
+      },
+      {
+        "control_vertices": 86,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "inset_ear_right",
+        "shape": "mesh",
+        "surface_faces": 100,
+        "surface_vertices": 86
+      },
+      {
+        "control_vertices": 843,
+        "fur_cards": 244,
+        "fur_strands": 0,
+        "fur_vertices": 1464,
+        "mixed_weight_vertices": 2077,
+        "name": "continuous_arm_right",
+        "shape": "mesh",
+        "surface_faces": 840,
+        "surface_vertices": 843
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 71,
+        "fur_strands": 0,
+        "fur_vertices": 426,
+        "mixed_weight_vertices": 0,
+        "name": "paw_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_right_0",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_right_1",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "finger_right_2",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 277,
+        "fur_cards": 173,
+        "fur_strands": 0,
+        "fur_vertices": 1038,
+        "mixed_weight_vertices": 592,
+        "name": "continuous_leg_right",
+        "shape": "mesh",
+        "surface_faces": 288,
+        "surface_vertices": 277
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 79,
+        "fur_strands": 0,
+        "fur_vertices": 474,
+        "mixed_weight_vertices": 0,
+        "name": "dark_sock_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 87,
+        "fur_strands": 0,
+        "fur_vertices": 522,
+        "mixed_weight_vertices": 0,
+        "name": "soft_foot_right",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_right_0",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_right_1",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "toe_right_2",
+        "shape": "sphere",
+        "surface_faces": 192,
+        "surface_vertices": 178
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "soft_triangular_nose",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 65,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "smile",
+        "shape": "mesh",
+        "surface_faces": 64,
+        "surface_vertices": 65
+      },
+      {
+        "control_vertices": 38,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "philtrum",
+        "shape": "mesh",
+        "surface_faces": 40,
+        "surface_vertices": 38
+      },
+      {
+        "control_vertices": 200,
+        "fur_cards": 472,
+        "fur_strands": 0,
+        "fur_vertices": 2832,
+        "mixed_weight_vertices": 0,
+        "name": "curved_tail",
+        "shape": "mesh",
+        "surface_faces": 224,
+        "surface_vertices": 200
+      },
+      {
+        "control_vertices": 118,
+        "fur_cards": 236,
+        "fur_strands": 0,
+        "fur_vertices": 1416,
+        "mixed_weight_vertices": 0,
+        "name": "tapered_tail_tip",
+        "shape": "mesh",
+        "surface_faces": 140,
+        "surface_vertices": 118
+      },
+      {
+        "control_vertices": 535,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "folded_scarf_collar",
+        "shape": "mesh",
+        "surface_faces": 504,
+        "surface_vertices": 535
+      },
+      {
+        "control_vertices": 289,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "collar_topstitch",
+        "shape": "mesh",
+        "surface_faces": 252,
+        "surface_vertices": 289
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_knot",
+        "shape": "sphere",
+        "surface_faces": 640,
+        "surface_vertices": 610
+      },
+      {
+        "control_vertices": 67,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "draped_scarf",
+        "shape": "mesh",
+        "surface_faces": 72,
+        "surface_vertices": 67
+      },
+      {
+        "control_vertices": 16,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_fringe_0",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 16
+      },
+      {
+        "control_vertices": 16,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_fringe_1",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 16
+      },
+      {
+        "control_vertices": 16,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_fringe_2",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 16
+      },
+      {
+        "control_vertices": 16,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_fringe_3",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 16
+      },
+      {
+        "control_vertices": 16,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "scarf_fringe_4",
+        "shape": "mesh",
+        "surface_faces": 18,
+        "surface_vertices": 16
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "sketchbook_cover",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "sketchbook_pages",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_0",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_1",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_2",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_3",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_4",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_5",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "bound_page_line_6",
+        "shape": "cube",
+        "surface_faces": 6,
+        "surface_vertices": 8
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "book_spine",
+        "shape": "cube",
+        "surface_faces": 98,
+        "surface_vertices": 96
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "book_clasp",
+        "shape": "cube",
+        "surface_faces": 54,
+        "surface_vertices": 56
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "cover_emblem",
+        "shape": "sphere",
+        "surface_faces": 384,
+        "surface_vertices": 362
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pencil_shaft",
+        "shape": "cylinder",
+        "surface_faces": 14,
+        "surface_vertices": 24
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "pencil_tip",
+        "shape": "cone",
+        "surface_faces": 25,
+        "surface_vertices": 25
+      },
+      {
+        "control_vertices": 0,
+        "fur_cards": 0,
+        "fur_strands": 0,
+        "fur_vertices": 0,
+        "mixed_weight_vertices": 0,
+        "name": "graphite_point",
+        "shape": "cone",
+        "surface_faces": 17,
+        "surface_vertices": 17
+      }
+    ],
+    "polygons": 67776,
+    "portrait_only": true,
+    "preview_only": true,
+    "previews_rendered": true,
+    "render_engine": "CYCLES",
+    "render_resolution": 384,
+    "samples": 32,
+    "scene_schema_version": 2,
+    "studio_preset": "plush",
+    "textures": [
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 2803577,
+        "kind": "basecolor",
+        "material": "coat",
+        "path": "textures/coat-basecolor.png",
+        "pattern": "fur",
+        "resolution": 2048,
+        "seed": 51,
+        "sha256": "0c2d113cf0b6415d2c5430cdfcd0c615412fbb7ef1bbfd07e11103cddc0b88eb",
+        "strength": 0.5
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 7405002,
+        "kind": "normal",
+        "material": "coat",
+        "path": "textures/coat-normal.png",
+        "pattern": "fur",
+        "resolution": 2048,
+        "seed": 51,
+        "sha256": "9a2c4f79407b55a517e8c7c17abda16be4322b0038b6dade16e2d0a722cf5f00",
+        "strength": 0.5
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 2887743,
+        "kind": "basecolor",
+        "material": "cream",
+        "path": "textures/cream-basecolor.png",
+        "pattern": "fur",
+        "resolution": 2048,
+        "seed": 52,
+        "sha256": "a5ee4c924d75cde4cad64a59cf885ce8cf16b9c84a648627807df8eff37c0150",
+        "strength": 0.35
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 6576439,
+        "kind": "normal",
+        "material": "cream",
+        "path": "textures/cream-normal.png",
+        "pattern": "fur",
+        "resolution": 2048,
+        "seed": 52,
+        "sha256": "10db338dc004efeb58da4773876caec7c33b90d83c1c6291160889e6fa595ed0",
+        "strength": 0.35
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 449468,
+        "kind": "basecolor",
+        "material": "dark",
+        "path": "textures/dark-basecolor.png",
+        "pattern": "fur",
+        "resolution": 1024,
+        "seed": 53,
+        "sha256": "98c7207a2367b34d509165250cfa9820e901fef64e691ed6b669edfd777c2e91",
+        "strength": 0.4
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 1658373,
+        "kind": "normal",
+        "material": "dark",
+        "path": "textures/dark-normal.png",
+        "pattern": "fur",
+        "resolution": 1024,
+        "seed": 53,
+        "sha256": "b57163525037f3be2bb56d241ffa7971200c538792548caa3317972566e750c6",
+        "strength": 0.4
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 20655,
+        "kind": "basecolor",
+        "material": "scarf",
+        "path": "textures/scarf-basecolor.png",
+        "pattern": "brushed",
+        "resolution": 1024,
+        "seed": 54,
+        "sha256": "b8d726911c50e1b0025f229ac8e1e330000f2c61d9f23846e5c9347b29de1cb3",
+        "strength": 0.22
+      },
+      {
+        "algorithm": "native_hd_surfaces_v1",
+        "bytes": 335906,
+        "kind": "normal",
+        "material": "scarf",
+        "path": "textures/scarf-normal.png",
+        "pattern": "brushed",
+        "resolution": 1024,
+        "seed": 54,
+        "sha256": "e3743d9c76ee03b9ead3a3446abd489a3b10291dd62fc5e1f1df65ce36ba7bb7",
+        "strength": 0.22
+      },
+      {
+        "alpha_cutoff": 0.45,
+        "alpha_mode": "MASK",
+        "kind": "fur_atlas",
+        "material": "coat_cutout_fur",
+        "path": "textures/coat-fur-atlas.png",
+        "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "cf9ea3638cf874fcee338b194daec29ab43094cffe9d3ca268cb065b2c231d2e",
+        "source_material": "coat"
+      },
+      {
+        "alpha_cutoff": 0.45,
+        "alpha_mode": "MASK",
+        "kind": "fur_atlas",
+        "material": "cream_cutout_fur",
+        "path": "textures/cream-fur-atlas.png",
+        "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "6dea8e04e463e86503f9682282fdfd7529386145c407f10f41dacbd3fd8037a3",
+        "source_material": "cream"
+      },
+      {
+        "alpha_cutoff": 0.45,
+        "alpha_mode": "MASK",
+        "kind": "fur_atlas",
+        "material": "dark_cutout_fur",
+        "path": "textures/dark-fur-atlas.png",
+        "pattern": "fourteen curved fibers per tile; sixteen seeded tiles",
+        "resolution": 1024,
+        "seed": 193,
+        "sha256": "5cfe9fa842369a456dd8f78db5fe7b6f85f20d490ba1552841821b88c0ab6dc9",
+        "source_material": "dark"
+      }
+    ],
+    "uv_repair": {
+      "ambiguous_tangent_faces_reprojected": 482,
+      "degenerate_faces_removed": 0,
+      "method": "Per-loop geometric-plane UV projection for collapsed UVs or cancelling UV fans; other UV seams unchanged. Tangents are computed by Blender MikkTSpace, not replaced.",
+      "minimum_absolute_uv_determinant": 1.6330412329068622e-06,
+      "minimum_geometric_edge_m": 1e-06,
+      "minimum_relative_triangle_area": 1e-06,
+      "tangent_repair_passes": 1,
+      "uv_degenerate_faces_reprojected": 0
+    },
+    "vertices": 54384
+  },
+  "generation": {
+    "local_compute": "CPU, up to 4 threads; resource usage in job.json",
+    "provider_calls": 0,
+    "provider_cost_usd": 0,
+    "recurring_service_cost_usd": 0
+  },
+  "id": "fox-hd-v3",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/sources/blender_build.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2/sources/scene.json",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/fox-hd-build-v2",
+      "384",
+      "32",
+      "portrait-only"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 16.475,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 93022668,
+    "last_rss_sample_elapsed_seconds": 16.213,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 600
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "build-monitor.json",
+    "monitor_errors": [],
+    "pid": 95702,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 63,
+    "sampled_max_output_bytes": 93022668,
+    "sampled_peak_rss_bytes": 1356840960,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "kind": "authored_3d_avatar",
+  "origin": "Agent-authored procedural geometry and skeletal keyframes; not neural reconstruction or an analytic fixture",
+  "output_profile": "general",
+  "portrait": {
+    "alpha_extrema": [
+      255,
+      255
+    ],
+    "bytes": 182756,
+    "format": "PNG",
+    "frames": 1,
+    "has_transparency": false,
+    "height": 384,
+    "kind": "image",
+    "metadata_keys": [
+      "Camera",
+      "Date",
+      "File",
+      "Frame",
+      "RenderTime",
+      "Scene",
+      "Time",
+      "cycles.ViewLayer.render_time",
+      "cycles.ViewLayer.samples",
+      "cycles.ViewLayer.synchronization_time",
+      "cycles.ViewLayer.total_time",
+      "dpi",
+      "exif"
+    ],
+    "mode": "RGBA",
+    "sha256": "008c9a86de82fa7542f57905c84432120b82da9d14f0aae3eaa22982c8be7973",
+    "width": 384
+  },
+  "preview_scope": "portrait only; 4 configured clips, see rig_verification for motion checks",
+  "references": [],
+  "rejected_attempts": [],
+  "render_attributes": {
+    "checks": [
+      "finite normals/UV0/tangents",
+      "matching counts",
+      "unit normals/tangents",
+      "orthogonal normal/tangent frames",
+      "tangent handedness",
+      "normal-map UV0 binding"
+    ],
+    "decoded_scalar_values": 543762,
+    "limits": {
+      "decoded_surface_values": 900000,
+      "normal_tangent_squared_length_tolerance": 0.001,
+      "orthogonality_tolerance": 0.002,
+      "vertices": 100000
+    },
+    "primitives": [
+      {
+        "material": "coat",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.0475810047493326e-07,
+        "normal_tangent_dot_error": 0.0003181611995015654,
+        "tangent_squared_length_error": 0.00015659801807288432,
+        "vertices": 7079
+      },
+      {
+        "material": "coat_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.2047269077063447e-07,
+        "normal_tangent_dot_error": 0.00015201348947702087,
+        "tangent_squared_length_error": 0.00015682468200495236,
+        "vertices": 20406
+      },
+      {
+        "material": "cream",
+        "normal_mapped": true,
+        "normal_squared_length_error": 2.004848775882806e-07,
+        "normal_tangent_dot_error": 0.00021994152109519214,
+        "tangent_squared_length_error": 0.0001405458216483524,
+        "vertices": 3876
+      },
+      {
+        "material": "cream_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.114279871179292e-07,
+        "normal_tangent_dot_error": 0.0001289648140163635,
+        "tangent_squared_length_error": 0.00014753896168873126,
+        "vertices": 6750
+      },
+      {
+        "material": "nose",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.811164134224441e-07,
+        "normal_tangent_dot_error": 0.0001908715621361523,
+        "tangent_squared_length_error": 0.0001320956763182224,
+        "vertices": 2212
+      },
+      {
+        "material": "eye_white",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8649664212944117e-07,
+        "normal_tangent_dot_error": 0.00010971835367400845,
+        "tangent_squared_length_error": 0.0001235975477991147,
+        "vertices": 2812
+      },
+      {
+        "material": "iris",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7156809861695876e-07,
+        "normal_tangent_dot_error": 9.794229744825543e-05,
+        "tangent_squared_length_error": 0.00010091643434506636,
+        "vertices": 1382
+      },
+      {
+        "material": "pupil",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.6028638794018946e-07,
+        "normal_tangent_dot_error": 8.674173296085996e-05,
+        "tangent_squared_length_error": 0.00011423708917457365,
+        "vertices": 1382
+      },
+      {
+        "material": "ear_inner",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.849501138906362e-07,
+        "normal_tangent_dot_error": 0.00011345099571191675,
+        "tangent_squared_length_error": 0.00012029409566949312,
+        "vertices": 256
+      },
+      {
+        "material": "dark",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.9531507522430047e-07,
+        "normal_tangent_dot_error": 9.290834633404743e-05,
+        "tangent_squared_length_error": 0.00011974039056372732,
+        "vertices": 6774
+      },
+      {
+        "material": "dark_cutout_fur",
+        "normal_mapped": false,
+        "normal_squared_length_error": 2.021224656534315e-07,
+        "normal_tangent_dot_error": 0.00014099586590266,
+        "tangent_squared_length_error": 0.0001400276269611922,
+        "vertices": 2844
+      },
+      {
+        "material": "scarf",
+        "normal_mapped": true,
+        "normal_squared_length_error": 1.904166051502898e-07,
+        "normal_tangent_dot_error": 0.00011350295116940856,
+        "tangent_squared_length_error": 0.00012424333763139117,
+        "vertices": 1433
+      },
+      {
+        "material": "scarf_seam",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7305606547779462e-07,
+        "normal_tangent_dot_error": 0.0009307761208937615,
+        "tangent_squared_length_error": 0.00011574169155181835,
+        "vertices": 523
+      },
+      {
+        "material": "book",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8593948780676328e-07,
+        "normal_tangent_dot_error": 0.00011899470285403613,
+        "tangent_squared_length_error": 0.00012221036649728845,
+        "vertices": 864
+      },
+      {
+        "material": "paper",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.8031609627655598e-07,
+        "normal_tangent_dot_error": 0.00011321144872233901,
+        "tangent_squared_length_error": 0.00011673628976804906,
+        "vertices": 551
+      },
+      {
+        "material": "page_edge",
+        "normal_mapped": false,
+        "normal_squared_length_error": 9.664481481763687e-08,
+        "normal_tangent_dot_error": 3.867094932674675e-05,
+        "tangent_squared_length_error": 2.00753763246464e-05,
+        "vertices": 168
+      },
+      {
+        "material": "gold",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.9366606207604775e-07,
+        "normal_tangent_dot_error": 0.00012913716095031003,
+        "tangent_squared_length_error": 0.00012958732085821545,
+        "vertices": 1024
+      },
+      {
+        "material": "pencil_wood",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.7749479686024472e-07,
+        "normal_tangent_dot_error": 7.901545080946093e-05,
+        "tangent_squared_length_error": 0.00011499985085960951,
+        "vertices": 49
+      },
+      {
+        "material": "graphite",
+        "normal_mapped": false,
+        "normal_squared_length_error": 1.733051364638527e-07,
+        "normal_tangent_dot_error": 8.793135713469624e-05,
+        "tangent_squared_length_error": 0.00013263075465985708,
+        "vertices": 33
+      }
+    ],
+    "schema_version": 1,
+    "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+    "status": "validated_render_attributes",
+    "vertices": 60418
+  },
+  "rig_verification": {
+    "attachments": [
+      {
+        "mode": "rigid_child",
+        "node": "sketchbook",
+        "parent_bone": "hand_left",
+        "placement": "Held against left paw, visible in front of chest.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          0.12000000476837158,
+          -0.059999942779541016,
+          0.09000000357627869
+        ]
+      },
+      {
+        "mode": "rigid_child",
+        "node": "pencil",
+        "parent_bone": "hand_right",
+        "placement": "Held diagonally in right paw toward sketchbook.",
+        "rotation_xyzw": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "translation_m": [
+          0.009999990463256836,
+          0.060000061988830566,
+          0.04999998211860657
+        ]
+      }
+    ],
+    "authored_assumptions": [
+      "This is a new authored 3D interpretation of the existing original fox design, not recovered geometry or a neural text-to-3D result.",
+      "Complete hidden surfaces and twenty-bone rest layout are authored; the original fox left/right bone names are preserved as identifiers.",
+      "The continuous arm and leg lofts use explicit multi-bone skin blends around elbows and knees; they are not muscle or cloth simulations.",
+      "The shoulder roots are rounded and buried within the torso, with torso/arm weight blending; skin is not a single watertight anatomical retopology.",
+      "The scarf, eyelids, fingers and face are sculpted fixed geometry without independent expressions or cloth dynamics.",
+      "The book drawings and pencil strokes remain authored gestures: no new ink or page simulation is claimed.",
+      "This PBR browser-quality variant is separate from Weft's restricted diffuse-only importer profile.",
+      "The preserved four skeletal actions are authored animation, not learned behavior or Weft physics.",
+      "The fox iris remains its original glossy colored geometry: a radial iris map is not applied to an incompatible latitude/longitude UV sphere.",
+      "HD textures are seeded, locally authored procedural patterns at native1024/2048 resolution, not neural output, reference-extracted texture maps or evidence of photorealism. Studio floor and exposure are render settings, not simulation geometry.",
+      "Plush browser fur remains5,000 six-vertex alpha-masked skinned hair cards; the separately configured native Blender groom has5,000 parents and30 children, a155,000-fiber upper bound, not an exported GLB strand count.",
+      "The native groom length is1.6times the v1 length capped at0.035m, and browser ribbons are1.4times longer and1.25times wider. No hair dynamics, recovered real groom or measured animal anatomy is claimed.",
+      "Only the same twenty furry coat/cream/dark skin surfaces receive hair. Inner ears, eyes, nose, accessories and tools remain bare; no separate forelock geometry is invented.",
+      "The plush studio changes render lighting and contrast only. Its floor stays at the previous authored rest height; it is not collision geometry or a physical contact solver.",
+      "Native hair is authored into directional rest-space curves, retaining the emitter skin; there is no dynamic hair simulation. The GLB contains its separate masked-card coat."
+    ],
+    "axes": {
+      "forward": "+Z",
+      "handedness": "right",
+      "up": "+Y"
+    },
+    "bone_to_simulated_joint": {
+      "ear_left": "ear_left",
+      "ear_right": "ear_right",
+      "foot_left": "foot_left",
+      "foot_right": "foot_right",
+      "forearm_left": "forearm_left",
+      "forearm_right": "forearm_right",
+      "hand_left": "hand_left",
+      "hand_right": "hand_right",
+      "head": "head",
+      "pencil": "pencil",
+      "root": "root",
+      "shin_left": "shin_left",
+      "shin_right": "shin_right",
+      "sketchbook": "sketchbook",
+      "tail": "tail",
+      "thigh_left": "thigh_left",
+      "thigh_right": "thigh_right",
+      "torso": "torso",
+      "upper_arm_left": "upper_arm_left",
+      "upper_arm_right": "upper_arm_right"
+    },
+    "bones": [
+      "ear_left",
+      "ear_right",
+      "head",
+      "tail",
+      "sketchbook",
+      "hand_left",
+      "forearm_left",
+      "upper_arm_left",
+      "foot_left",
+      "shin_left",
+      "thigh_left",
+      "pencil",
+      "hand_right",
+      "forearm_right",
+      "upper_arm_right",
+      "foot_right",
+      "shin_right",
+      "thigh_right",
+      "torso",
+      "root"
+    ],
+    "compatibility": "Mapping checked against supplied target joint names only; target runtime not exercised.",
+    "limits": {
+      "accessor_values": 2000000,
+      "file_bytes": 67108864,
+      "motion_probe_vertices": 128,
+      "nodes": 256,
+      "triangle_index_elements_per_accessor": 300000,
+      "vertices": 100000
+    },
+    "loading_verified": true,
+    "material_count": 19,
+    "mesh_vertices": 60418,
+    "motion": {
+      "animation_verified": true,
+      "animations": [
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.10692145133073712,
+          "motion_observed": true,
+          "name": "idle",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.13909633870677693,
+          "motion_observed": true,
+          "name": "making_something",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 1.863331510010119,
+          "motion_observed": true,
+          "name": "milestone_level_up",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        },
+        {
+          "loop": "not_claimed",
+          "max_sampled_displacement_m": 0.1829980709476341,
+          "motion_observed": true,
+          "name": "working",
+          "sample_count": 33,
+          "sample_times_seconds": [
+            0.0,
+            0.02083333395421505,
+            0.25,
+            0.2708333283662796,
+            0.5,
+            0.5208333432674408,
+            0.75,
+            0.7708333432674408,
+            1.0,
+            1.0208333134651184,
+            1.25,
+            1.2708333134651184,
+            1.5,
+            1.5208333134651184,
+            1.75,
+            1.7708333134651184,
+            2.0,
+            2.020833373069763,
+            2.25,
+            2.270833373069763,
+            2.5,
+            2.520833373069763,
+            2.75,
+            2.770833373069763,
+            3.0,
+            3.020833373069763,
+            3.25,
+            3.270833373069763,
+            3.5,
+            3.520833373069763,
+            3.75,
+            3.770833373069763,
+            4.0
+          ]
+        }
+      ],
+      "method": "CPU linear-blend skinning at bounded key/midpoint samples",
+      "probe_vertices": 127
+    },
+    "primitive_count": 19,
+    "rest_pose": "Authored default bone transforms. Blender Z-up/-Y-front exported to glTF Y-up/+Z-front.",
+    "schema_version": 1,
+    "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78",
+    "skeleton_roots": [
+      {
+        "name": "root",
+        "node": 19,
+        "source": "derived_common_ancestor"
+      }
+    ],
+    "skin_count": 1,
+    "status": "validated_local_structure",
+    "units": "meters",
+    "visual_review": "required; materials/textures are not rendered by this validator",
+    "weft_runtime_verified": false
+  },
+  "rights": "New locally authored shapes/materials; reference resemblance is not independent rights verification",
+  "scene_schema_version": 2,
+  "scene_sha256": "62492cb84a45051e33fe53f141996a8d18ff5688295d67cc12a092bc9b6ae615",
+  "schema_version": 1,
+  "states": [
+    {
+      "duration_seconds": 4,
+      "id": "idle",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Quiet attentive breathing, alternating ear twitches and a slow tail sway."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "making_something",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Looks down at the sketchbook and draws a craft pattern with several short pencil strokes."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "milestone_level_up",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Raises both paws clearly above shoulder level, displaying the sketchbook and pencil during one delighted hop, then returns to rest."
+    },
+    {
+      "duration_seconds": 4,
+      "id": "working",
+      "loop_requested": true,
+      "loop_verified": false,
+      "meaning": "Raises the sketchbook toward its face and reads it with a pronounced downward gaze and slow page scan; pencil hand stays resting."
+    }
+  ],
+  "status": "needs_visual_review",
+  "style": "Detailed warm storybook fox: soft short fur, expressive eyes, tailored teal scarf and crafted props; native-HD procedural surface and grounded-studio edition; denser plush-fur revision",
+  "subject": "A small red fox craftsperson with a sea-green scarf, a blue sketchbook and a golden pencil.",
+  "tools": {
+    "encoder": "libx264",
+    "encoder_options": {
+      "crf": 18,
+      "preset": "medium",
+      "threads": 1
+    },
+    "ffmpeg_libraries": {
+      "libavcodec": [
+        63,
+        1,
+        102
+      ],
+      "libavdevice": [
+        63,
+        1,
+        102
+      ],
+      "libavfilter": [
+        12,
+        1,
+        102
+      ],
+      "libavformat": [
+        63,
+        1,
+        102
+      ],
+      "libavutil": [
+        61,
+        1,
+        102
+      ],
+      "libswresample": [
+        7,
+        1,
+        102
+      ],
+      "libswscale": [
+        10,
+        1,
+        102
+      ]
+    },
+    "numpy": "2.5.4",
+    "pillow": "13.0.0",
+    "pyav": "19.0.2",
+    "python": "3.14.7"
+  }
+}

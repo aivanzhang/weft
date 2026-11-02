@@ -11,6 +11,10 @@ furred GLB and passes independent skin/texture-frame checks, but its eight rende
 views/poses still expose folded shoulder/cheek geometry. It remains unapproved.
 The reusable pre-export guard now rejects unsupported normal-texture UV routes;
 passing that check is not visual acceptance.
+The [current local quality work](docs/quality-next-step.md) also removes an unused
+shared-image requirement for non-color-driven finishing. An existing mixed-material
+lamp passes the public finisher; this is an integration check, not a new generated
+avatar or a Muse-quality result.
 
 ## Create from a prompt — studio acceptance pending
 

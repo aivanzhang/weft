@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "One-shot public lamp finish execution receipt",
+  "type": "object",
+  "required": ["schema_version", "status", "prepared_sha256", "source_sha256", "output", "native_calls", "cpu_pid", "cpu_phases", "cpu_exit_code", "cpu_exit_verified", "native_job", "worker_result", "failure", "cleanup_events", "new_provider_calls", "new_pipeline_role_calls", "quality_approved", "elapsed_seconds", "measurement_scope"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "status": {"enum": ["running", "failed", "needs_inspection", "finished_needs_independent_audit"]},
+    "prepared_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_sha256": {"const": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949"},
+    "output": {"const": "outputs/multi-material-lamp-finish-v1"},
+    "native_calls": {"type": "integer", "minimum": 0, "maximum": 1},
+    "cpu_pid": {"type": "integer", "minimum": 1},
+    "cpu_phases": {"type": "object", "additionalProperties": {"type": "object"}},
+    "cpu_exit_code": {"type": ["integer", "null"]},
+    "cpu_exit_verified": {"type": "boolean"},
+    "native_job": {"type": ["object", "null"], "description": "Unchanged actual run_bounded receipt; null means no returned terminal receipt, not success."},
+    "worker_result": {"type": ["object", "null"]},
+    "failure": {"type": ["object", "null"]},
+    "cleanup_events": {"type": "array", "maxItems": 4},
+    "new_provider_calls": {"const": 0},
+    "new_pipeline_role_calls": {"const": 0},
+    "quality_approved": {"const": false},
+    "elapsed_seconds": {"type": "number", "minimum": 0},
+    "measurement_scope": {"type": "string"}
+  }
+}

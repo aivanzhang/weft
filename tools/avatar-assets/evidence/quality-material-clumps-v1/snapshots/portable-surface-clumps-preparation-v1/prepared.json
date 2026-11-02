@@ -1,0 +1,72 @@
+{
+  "allow_source_normal_dot_min": 0.5,
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "inputs": {
+    "accessor_reader": {
+      "bytes": 13676,
+      "path": "avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    "finish_config": {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    "finish_report": {
+      "bytes": 89426,
+      "path": "outputs/panda-uv2-staged-control-v1/prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6"
+    },
+    "fringe_npz": {
+      "bytes": 565469,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    "glb_reader": {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    "intersection_helper": {
+      "bytes": 42517,
+      "path": "avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    "raw_model": {
+      "bytes": 36802588,
+      "path": "outputs/panda-uv2-staged-control-v1/model.glb",
+      "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+    },
+    "selectors": {
+      "bytes": 135864,
+      "path": "outputs/portable-coat-quality-screen-v1/selection-screen.json",
+      "sha256": "e05c0a527f84bbf5919310ef928dbc700e8465161b76463c98e97201261ad4de"
+    },
+    "skin_npz": {
+      "bytes": 1498257,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.npz",
+      "sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a"
+    },
+    "skin_report": {
+      "bytes": 3815,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    "source_skin_reader": {
+      "bytes": 24176,
+      "path": "avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5"
+    }
+  },
+  "lift_m": 0.0012,
+  "max_geometric_normal_turn_degrees": 15,
+  "no_model_or_native_job": true,
+  "normal_component_limit": 0.0002,
+  "requested_surface_cards": 2700,
+  "retained_contour_fins": 900,
+  "schema_version": 1
+}

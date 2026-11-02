@@ -1,0 +1,38 @@
+{
+  "attachments": [],
+  "authored_assumptions": [
+    "Hidden surfaces and humanoid skeleton are generated assumptions"
+  ],
+  "axes": {
+    "forward": "+Z",
+    "handedness": "right",
+    "up": "+Y"
+  },
+  "bone_to_simulated_joint": {
+    "lower_arm": "lower_arm",
+    "root": "root",
+    "shade": "shade",
+    "trace_rotor": "trace_rotor",
+    "trace_stylus": "trace_stylus",
+    "turntable": "turntable",
+    "upper_arm": "upper_arm",
+    "work_pad": "work_pad"
+  },
+  "rest_pose": "Default exported node transforms and inverse bind matrices; generated, not recovered anatomy",
+  "schema_version": 1,
+  "target": {
+    "joint_names": [
+      "shade",
+      "upper_arm",
+      "lower_arm",
+      "turntable",
+      "work_pad",
+      "trace_stylus",
+      "trace_rotor",
+      "root"
+    ],
+    "name": "Local provider bone controls, NOT Weft"
+  },
+  "units": "meters",
+  "weft_runtime_verified": false
+}

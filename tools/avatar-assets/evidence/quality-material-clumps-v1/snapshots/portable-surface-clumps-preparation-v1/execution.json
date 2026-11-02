@@ -1,0 +1,14 @@
+{
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/portable-surface-clumps-preparation-v1/admit_source.py"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "script_sha256": "750021f314ce45207f76e71001520b43c1f1135749dee675b7f1e866ff6ca524"
+}

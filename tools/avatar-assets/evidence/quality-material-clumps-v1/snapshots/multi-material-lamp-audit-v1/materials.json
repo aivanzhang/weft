@@ -1,0 +1,681 @@
+{
+  "images": {
+    "final": [
+      {
+        "bytes": 1591585,
+        "mimeType": "image/png",
+        "sha256": "43b61ccb2963f9fc6b26127f543a884b8502f50cc0a5867b97453ba7db734a33"
+      },
+      {
+        "bytes": 242263,
+        "mimeType": "image/png",
+        "sha256": "3aef9f287f64b4551b7c3b92d7ed43bfceb395099cd8e723c5ae490c6c946450"
+      },
+      {
+        "bytes": 352195,
+        "mimeType": "image/png",
+        "sha256": "0f65081cbfb91be1adcb176493718222f63c8f28746c06c203d73902f931323f"
+      },
+      {
+        "bytes": 37140,
+        "mimeType": "image/png",
+        "sha256": "615b606d2733d5a76338279b7bd8adeba51d21ef01c7e300a06af1d451ccfe17"
+      }
+    ],
+    "source": [
+      {
+        "bytes": 1591585,
+        "mimeType": "image/png",
+        "sha256": "43b61ccb2963f9fc6b26127f543a884b8502f50cc0a5867b97453ba7db734a33"
+      },
+      {
+        "bytes": 242263,
+        "mimeType": "image/png",
+        "sha256": "3aef9f287f64b4551b7c3b92d7ed43bfceb395099cd8e723c5ae490c6c946450"
+      },
+      {
+        "bytes": 352195,
+        "mimeType": "image/png",
+        "sha256": "0f65081cbfb91be1adcb176493718222f63c8f28746c06c203d73902f931323f"
+      },
+      {
+        "bytes": 37140,
+        "mimeType": "image/png",
+        "sha256": "615b606d2733d5a76338279b7bd8adeba51d21ef01c7e300a06af1d451ccfe17"
+      }
+    ]
+  },
+  "materials": {
+    "final": {
+      "body": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.177888423204422,
+          0.045186202973127365,
+          0.07036009430885315,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.23999999463558197,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.23999999463558197
+      },
+      "brass": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "image": {
+            "bytes": 242263,
+            "mimeType": "image/png",
+            "sha256": "3aef9f287f64b4551b7c3b92d7ed43bfceb395099cd8e723c5ae490c6c946450"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.7900000214576721,
+        "metallicRoughnessTexture": null,
+        "normalTexture": {
+          "image": {
+            "bytes": 1591585,
+            "mimeType": "image/png",
+            "sha256": "43b61ccb2963f9fc6b26127f543a884b8502f50cc0a5867b97453ba7db734a33"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "occlusionTexture": null,
+        "roughnessFactor": 0.2800000011920929
+      },
+      "bulb": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          0.7991027235984802,
+          0.4507857859134674,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.18000000715255737
+      },
+      "display": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.006048833020031452,
+          0.013702083379030228,
+          0.024157632142305374,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.1599999964237213
+      },
+      "ink": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.05126945674419403,
+          0.1384316086769104,
+          0.18782077729701996,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8500000238418579
+      },
+      "joint": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.02955683507025242,
+          0.03433980792760849,
+          0.05448027700185776,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.5799999833106995,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.3400000035762787
+      },
+      "page_line": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.46207699179649353,
+          0.47353148460388184,
+          0.40724021196365356,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8500000238418579
+      },
+      "paper": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.8713670969009399,
+          0.7912979125976562,
+          0.6444796919822693,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.949999988079071
+      },
+      "reflector": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.7758222222328186,
+          0.6653872728347778,
+          0.47353148460388184,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.6600000262260437,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.3199999928474426
+      },
+      "rubber": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.013702083379030228,
+          0.019382361322641373,
+          0.02955683507025242,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8199999928474426
+      },
+      "steel": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "image": {
+            "bytes": 37140,
+            "mimeType": "image/png",
+            "sha256": "615b606d2733d5a76338279b7bd8adeba51d21ef01c7e300a06af1d451ccfe17"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.8500000238418579,
+        "metallicRoughnessTexture": null,
+        "normalTexture": {
+          "image": {
+            "bytes": 352195,
+            "mimeType": "image/png",
+            "sha256": "0f65081cbfb91be1adcb176493718222f63c8f28746c06c203d73902f931323f"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "occlusionTexture": null,
+        "roughnessFactor": 0.2199999988079071
+      }
+    },
+    "source": {
+      "body": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.177888423204422,
+          0.045186202973127365,
+          0.07036009430885315,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.23999999463558197,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.23999999463558197
+      },
+      "brass": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "image": {
+            "bytes": 242263,
+            "mimeType": "image/png",
+            "sha256": "3aef9f287f64b4551b7c3b92d7ed43bfceb395099cd8e723c5ae490c6c946450"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.7900000214576721,
+        "metallicRoughnessTexture": null,
+        "normalTexture": {
+          "image": {
+            "bytes": 1591585,
+            "mimeType": "image/png",
+            "sha256": "43b61ccb2963f9fc6b26127f543a884b8502f50cc0a5867b97453ba7db734a33"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "occlusionTexture": null,
+        "roughnessFactor": 0.2800000011920929
+      },
+      "bulb": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          0.7991027235984802,
+          0.4507857859134674,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.18000000715255737
+      },
+      "display": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.006048833020031452,
+          0.013702083379030228,
+          0.024157632142305374,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.1599999964237213
+      },
+      "ink": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.05126945674419403,
+          0.1384316086769104,
+          0.18782077729701996,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8500000238418579
+      },
+      "joint": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.02955683507025242,
+          0.03433980792760849,
+          0.05448027700185776,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.5799999833106995,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.3400000035762787
+      },
+      "page_line": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.46207699179649353,
+          0.47353148460388184,
+          0.40724021196365356,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8500000238418579
+      },
+      "paper": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.8713670969009399,
+          0.7912979125976562,
+          0.6444796919822693,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.949999988079071
+      },
+      "reflector": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.7758222222328186,
+          0.6653872728347778,
+          0.47353148460388184,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.6600000262260437,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.3199999928474426
+      },
+      "rubber": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          0.013702083379030228,
+          0.019382361322641373,
+          0.02955683507025242,
+          1
+        ],
+        "baseColorTexture": null,
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0,
+        "metallicRoughnessTexture": null,
+        "normalTexture": null,
+        "occlusionTexture": null,
+        "roughnessFactor": 0.8199999928474426
+      },
+      "steel": {
+        "alphaCutoff": 0.5,
+        "alphaMode": "OPAQUE",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "image": {
+            "bytes": 37140,
+            "mimeType": "image/png",
+            "sha256": "615b606d2733d5a76338279b7bd8adeba51d21ef01c7e300a06af1d451ccfe17"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "doubleSided": true,
+        "emissiveFactor": [
+          0,
+          0,
+          0
+        ],
+        "emissiveTexture": null,
+        "metallicFactor": 0.8500000238418579,
+        "metallicRoughnessTexture": null,
+        "normalTexture": {
+          "image": {
+            "bytes": 352195,
+            "mimeType": "image/png",
+            "sha256": "0f65081cbfb91be1adcb176493718222f63c8f28746c06c203d73902f931323f"
+          },
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 10497,
+            "wrapT": 10497
+          },
+          "scale": 1,
+          "strength": 1,
+          "texCoord": 0
+        },
+        "occlusionTexture": null,
+        "roughnessFactor": 0.2199999988079071
+      }
+    }
+  },
+  "semantic_equal": true
+}

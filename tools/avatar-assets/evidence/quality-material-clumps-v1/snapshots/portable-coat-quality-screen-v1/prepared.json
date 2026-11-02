@@ -1,0 +1,119 @@
+{
+  "analysis": "Actual atlas alpha minification and root/plane projection; source-face-pair availability for a different shallow micro-clump representation, not a render or quality approval.",
+  "bounds": {
+    "memory_mib": 512,
+    "output_mib": 16,
+    "seconds": 30
+  },
+  "candidate_screen": {
+    "contour_count": 900,
+    "max_lift_m": 0.0012,
+    "no_model_written": true,
+    "surface_alpha_fraction_assumption": 0.45,
+    "surface_count": 2700
+  },
+  "costs": {
+    "ai_role_calls": 0,
+    "native_calls": 0,
+    "provider_calls": 0
+  },
+  "inputs": {
+    "atlas": {
+      "bytes": 1684720,
+      "path": "outputs/panda-uv2-staged-control-v1/textures/portable-fringe-color-atlas.png",
+      "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047"
+    },
+    "atlas_code": {
+      "bytes": 16114,
+      "path": "scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    "finish_config": {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    "flow_code": {
+      "bytes": 9233,
+      "path": "scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9"
+    },
+    "fringe_npz": {
+      "bytes": 565469,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    "fringe_report": {
+      "bytes": 14075,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    "front": {
+      "bytes": 464800,
+      "path": "outputs/panda-uv2-portable-preview-v1/front.png",
+      "sha256": "97e1b2ce868e43ecc20017e7a07922ee1bd7bd2e4b4f66e0b4282d4c8bb9470a"
+    },
+    "geometry_code": {
+      "bytes": 17397,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    "inspection": {
+      "bytes": 10909,
+      "path": "outputs/panda-uv2-portable-preview-v1/native-inspection.json",
+      "sha256": "6e312d2c00f5ae31b78d107ade3b7cdedf22bdb92863870e8ea4d67ba622a4ef"
+    },
+    "model": {
+      "bytes": 36802344,
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    "old_diagnosis": {
+      "bytes": 122712,
+      "path": "outputs/portable-fringe-profile-diagnosis-v1/diagnosis.json",
+      "sha256": "10180db25e5201068b52587c0065a2b096dcad263c5df41497e7e527216a7c46"
+    },
+    "old_tuft_review": {
+      "bytes": 1975,
+      "path": "outputs/panda-portable-tuft-review-v1.json",
+      "sha256": "e730cba8046f68fd4e749f29600d3f19f4501086f76dc1f384d2db48daa45ac3"
+    },
+    "portable_doc": {
+      "bytes": 7903,
+      "path": "docs/portable-fringe.md",
+      "sha256": "07eee391bf4216961a564e2435321dad0f51ead54d6a3fee7594797a351bc132"
+    },
+    "preview_code": {
+      "bytes": 13587,
+      "path": "scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    "review": {
+      "bytes": 5223,
+      "path": "outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022"
+    },
+    "side": {
+      "bytes": 411334,
+      "path": "outputs/panda-uv2-portable-preview-v1/side.png",
+      "sha256": "80dd393efad05f189cc727a5fbe6137405ae7a3f84917d24749c057ac16e2108"
+    },
+    "skin_npz": {
+      "bytes": 1498257,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.npz",
+      "sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a"
+    },
+    "skin_report": {
+      "bytes": 3815,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    "tuft_doc": {
+      "bytes": 27825,
+      "path": "docs/tuft-profile.md",
+      "sha256": "b827c25012958ab9b3874a8541519639871de5cda5ae9ada9c12867298409ad7"
+    }
+  },
+  "recorded": "2026-11-02T02:45:01.468092-08:00",
+  "schema_version": 1
+}

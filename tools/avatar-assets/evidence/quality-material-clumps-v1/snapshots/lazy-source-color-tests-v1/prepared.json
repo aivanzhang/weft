@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-02T02:52:21.554304-08:00",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-m",
+    "unittest",
+    "-v",
+    "tests.test_lazy_source_color_sampling"
+  ],
+  "git_head": "8b9c7ff7a17c24c5a2c0c3aaa6e6397918088c77",
+  "inputs": [
+    {
+      "bytes": 54172,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "56dc48c66a7b5c770430ac77d03dcb16416901977e3973de5ecce818778f1918"
+    },
+    {
+      "bytes": 10914,
+      "path": "tests/test_lazy_source_color_sampling.py",
+      "sha256": "9028031212294e00f1d72bf8a465366195b7fde248df98b50e604f2158564298"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 32643,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mb": 256,
+    "native_jobs": 0,
+    "output_mb": 16,
+    "provider_calls": 0,
+    "seconds": 30
+  },
+  "schema_version": 1,
+  "scope": "Analytic helper/native-selection-block tests only; not real Blender or fresh generated-asset acceptance.",
+  "unique_test_methods": 10
+}

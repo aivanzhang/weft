@@ -1,0 +1,27 @@
+{
+  "agent_model": null,
+  "agent_timeout": 240,
+  "created": "2026-10-31T22:19:48.069048-07:00",
+  "id": "agent-robot-v3",
+  "max_agent_calls": 7,
+  "max_credits": 0,
+  "max_repairs": 2,
+  "media_spec": {
+    "portrait": 512,
+    "samples": 4,
+    "seconds": 2,
+    "size": 256
+  },
+  "preset": "draft",
+  "prompt": "Create a friendly blue and cream workshop robot with copper metal details, a rounded torso, two arms and two planted feet. Animate a gentle idle, looking left and right, a small friendly hand wave and a modest celebratory nod. Preserve the existing hard-surface design; no props, facial animation or walking.",
+  "reference": null,
+  "reuse_model": {
+    "bytes": 23097200,
+    "original_path": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/workshop-robot-meshy-v1/stages/texture/downloads/model.glb",
+    "path": "inputs/source-model.glb",
+    "sha256": "5f00602dd727429277ae53c0e8940ba9162ea119e643ba554f081c00cc1b7e8c"
+  },
+  "schema_version": 1,
+  "states": [],
+  "style": ""
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-01T15:43:30.716017-08:00",
+  "status": "estimate_only_approval_still_pending",
+  "previous_estimate": {
+    "path": "outputs/fresh-acceptance-preparation-v1/estimate.json",
+    "sha256": "94c23f8fecaef092424a4081abb89aadec7940925008a87fa8be36c0abe30e2e"
+  },
+  "change": "Replace understated 24000-text-token assumption with 50000 input-token planning assumption per call; actual observed account usage includes selected evidence. Not a token cap.",
+  "observed_development_input_tokens_per_call": [
+    15814,
+    42341
+  ],
+  "observed_high_receipt": {
+    "path": "outputs/rigged-robot-weight-repair-probe-v1/agents/author-weight-repair/receipt.json",
+    "sha256": "441fce9f91568aaca9ca42999e25fcabddf1e222aaa2585aa87b1aa91eda6659"
+  },
+  "expected_ai_calls": 9,
+  "maximum_ai_calls": 15,
+  "planning_input_tokens_expected_calls": 450000,
+  "planning_input_tokens_maximum_calls": 750000,
+  "planning_output_tokens_at_maximum_calls": [
+    15000,
+    120000
+  ],
+  "maximum_selected_image_inputs": 120,
+  "account_specific_usd_cost": null,
+  "meshy_credits_unchanged": 105,
+  "automatic_paid_retries": 0,
+  "new_calls": 0,
+  "new_grants": 0
+}

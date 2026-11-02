@@ -1,0 +1,122 @@
+{
+  "artifact_bytes": 225388,
+  "artifact_count": 22,
+  "artifacts": [
+    {
+      "bytes": 9089,
+      "path": "build_arrays.py",
+      "sha256": "93a2aee6c0d790e3247c6ee8456d253e6435fc89159bc6651fe5bc0b76c230ae"
+    },
+    {
+      "bytes": 252,
+      "path": "cpu-handle.json",
+      "sha256": "154a2eaa5515e8d79ab7b3631eba79bee702720b4539d20223f9b4d1d75165b2"
+    },
+    {
+      "bytes": 1082,
+      "path": "cpu-job.json",
+      "sha256": "06f129e9ef7f9d60c3310cf4daa7dfbf5cb3d386abc1496a7e9dde98d0b7d820"
+    },
+    {
+      "bytes": 990,
+      "path": "cpu-monitor.json",
+      "sha256": "63386fce8be240a2c4ae19b1c67109fa62b1022d9055c12b59ea407444d2497f"
+    },
+    {
+      "bytes": 303,
+      "path": "cpu.log",
+      "sha256": "5f8173e074734f9e20161ab5edce2aaf5b5064c124a7dfa5b018fb18739508c6"
+    },
+    {
+      "bytes": 821,
+      "path": "execution.json",
+      "sha256": "3df00908b5befeebcfc99571df0e600fcf0a1dbbf1ed90830b20f283babbae69"
+    },
+    {
+      "bytes": 1388,
+      "path": "findings.md",
+      "sha256": "247ee59d190b2d40f297f731527aaba1b45070e124a114fcb5bf1e0c9d5c4958"
+    },
+    {
+      "bytes": 4825,
+      "path": "input-mismatch-diagnosis.json",
+      "sha256": "09adb592995956ec7fd7f50c67f06aa19de5e419f3d230674cf707aa807f2fab"
+    },
+    {
+      "bytes": 3667,
+      "path": "prepared.json",
+      "sha256": "f3c1535f5c69c2be34d910873e5b2327e55a728614caf632010ac5d1e0a6bb41"
+    },
+    {
+      "bytes": 303,
+      "path": "result.json",
+      "sha256": "42c422d34e0809d2ba7264868d15a2d6180de4d614e9fbe94ff30768e4d3dbbe"
+    },
+    {
+      "bytes": 1497,
+      "path": "retained-contour-correspondence.json",
+      "sha256": "c78bec6b83c2e27f06f4379864ca44994b5dae1dfadc4c47fa36a4d6fd61e25b"
+    },
+    {
+      "bytes": 13676,
+      "path": "sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01"
+    },
+    {
+      "bytes": 42517,
+      "path": "sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642"
+    },
+    {
+      "bytes": 35323,
+      "path": "sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 37182,
+      "path": "sources/outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    {
+      "bytes": 14075,
+      "path": "sources/outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    {
+      "bytes": 3815,
+      "path": "sources/outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    {
+      "bytes": 1343,
+      "path": "sources/outputs/portable-surface-clumps-preparation-v1/admission.json",
+      "sha256": "fedbae65fd02d207d09ab99fb42fca445f56d09ff40deae499648b765a99616a"
+    },
+    {
+      "bytes": 16114,
+      "path": "sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4"
+    },
+    {
+      "bytes": 7179,
+      "path": "sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b"
+    },
+    {
+      "bytes": 20552,
+      "path": "sources/scripts/surface_clumps.py",
+      "sha256": "1795ce737a64cb4180cfe7cf1cf71cb3d1a9d1f523c635b294e103ff4b2dd7de"
+    },
+    {
+      "bytes": 9395,
+      "path": "sources/tests/test_surface_clumps.py",
+      "sha256": "5bc2e63c53f7ef3ee5df21daa669dcd7e84757dd4a9836828327d5c56fe6b364"
+    }
+  ],
+  "inputs": "prepared.json binds immutable original source paths and SHA256; copied scripts are analytic execution evidence",
+  "model_written": false,
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "sealed_pre_geometry_failure"
+}

@@ -22,11 +22,25 @@ For requested fur/hair, address both editable native strands and portable cards;
 
 For a furry character, read [fur workflow](../../docs/fur-workflow.md). Separate clean base geometry, regional native grooming and portable cutout-card export. Protect eyes, nose and non-furry accessories with measured masks; inspect exported colors as well as strands. A smooth raster guide is optional preparation, not a model, and image-mode texture text cannot repair geometry. Do not apply panda masks, bones or coat directions to a different subject.
 
+Finishing without color-consuming controls skips the source-color selection sampler;
+it can retain different base-color images and constant materials. Read the actual
+`source_color_sampling` report: skipped sampling is not skipped importer/exporter
+validation. Fur, color corrections and other color-consuming controls retain the
+strict shared-image/UV requirements. The mixed-material lamp proof in the
+[current quality handoff](../../docs/quality-next-step.md) is an existing authored
+object, not fresh generation or a heterogeneous-fur adapter.
+
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Preserve source UV1 and linked material-response maps; use an authored UV2 only when needed. Export corrections must match the saved bake policy, exact clone name, face count, UV index and PNG hash—not every material using UV1. Rebuild textures and tangents together after a policy change, preserve raw exports, and never treat this component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted. The pre-export guard admits only coherent UV0 or receipt-bound authored UV1/UV2 normal maps; other live nonzero routes are unsupported. Preserve `normal-uv-export.json` and its manifest binding. Do not drop a normal map or rebake unreviewed faces merely to pass; the [actual-source control](../../docs/source-uv-control.md) passes this component but fails appearance.
 
 Do not choose `portable_fringe`: real panda/fox exports failed normal/weight fidelity, and panda native poses exceeded memory bounds. Execution now returns unsupported before native work. Read [portable edge fringe](../../docs/portable-fringe.md) before further development; preserve failures and do not weaken gates or raise limits to enable it. Its generic helper arrays and small native fixture pass, not full avatars. Existing combed cards remain the default; none of this establishes dense fur, Muse parity or fresh Studio acceptance.
 
 For further fringe development, read [export fidelity and staged rendering](../../docs/export-fidelity-and-staging.md). Preserve normals with the proved float attribute, and use exact global source IDs to validate full body/fringe skin restoration; nearest positions or matching desired weights cannot establish identity at overlapping seams. The new authored-rig staged experiment passes memory and sampled attachment checks but fails overall visual acceptance. A prepared scene is not a render; sampled stills are not a full animation. Retain immutable failed attempts, exact render controls and original resource limits. Do not enable this experimental path or replace approved assets from component results alone.
+
+The experimental surface-clump helper is also unpromoted: actual fixed/adaptive
+lift trials fail geometry checks, and the adaptive trial exposes a strict
+post-quantization displacement-limit gap. See the [quality handoff](../../docs/quality-next-step.md).
+Its analytic tests are not an accepted fur model; do not repeat rejected offsets,
+silently prune roots or relax intersection checks to claim completion.
 
 For exported GLB review, use the bounded EEVEE path and read [renderer semantics](../../docs/exported-preview-renderer.md). The measured Cycles control ignored single-sided culling and altered authored normals; native hair/portrait rendering remains separate. Missing EEVEE or sample controls must fail explicitly, not silently fall back. Compare changes under the same renderer. A correct LOD0 color sample does not prove correct small-scale texture filtering; keep experimental fur variants unpromoted until their actual display-size appearance passes.
 

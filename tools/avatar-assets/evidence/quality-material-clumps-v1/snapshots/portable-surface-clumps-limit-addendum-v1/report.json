@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "status": "rejected_branch_additional_unresolved_limit",
+  "candidate_manifest": {
+    "path": "outputs/portable-surface-clumps-prototype-v3/manifest.json",
+    "sha256": "c7d7de50e68d9c15d33039484fee5ba75fd5b0a4b38159e8b120de3191ccdf42"
+  },
+  "planned_cap_m": 0.0012,
+  "observed_max_float32_displacement_m": 0.0012000542049603452,
+  "observed_overshoot_m": 5.4204960345336645e-08,
+  "implementation_limit": "The profile caps the continuous common lift, not the post-quantization float32 displacement. Thus the exact actual1.2mm cap is not established. This is unresolved, not accepted via a tolerance.",
+  "primary_geometry_rejection": "Offset selected body-surface face6382 crosses protected body-cap face61961. The original two source triangles do not properly intersect at rest under the frozen predicate.",
+  "source_ownership_receipt": {
+    "path": "outputs/portable-surface-clumps-prototype-v3/intersection-provenance.json",
+    "sha256": "28c0ddb92db568677b435f83bf65618afaabd55beb23cacc7e3c0d1a051b6345"
+  },
+  "native_comparison": "unexecuted",
+  "accepted": false,
+  "retry": false,
+  "selection_pruned": false,
+  "new_candidate": false,
+  "code_changed": false,
+  "all_owned_children_exited": true,
+  "next_action": "Root may save the rejected experimental increment. No model integration or native comparison is authorized by these results."
+}

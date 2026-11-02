@@ -1,0 +1,396 @@
+{
+  "animation_names": [
+    "idle",
+    "making_something",
+    "milestone_level_up",
+    "working"
+  ],
+  "appearance_accepted": false,
+  "images": [
+    {
+      "bytes": 1591585,
+      "id": 0,
+      "mime_type": "image/png",
+      "sha256": "43b61ccb2963f9fc6b26127f543a884b8502f50cc0a5867b97453ba7db734a33"
+    },
+    {
+      "bytes": 242263,
+      "id": 1,
+      "mime_type": "image/png",
+      "sha256": "3aef9f287f64b4551b7c3b92d7ed43bfceb395099cd8e723c5ae490c6c946450"
+    },
+    {
+      "bytes": 352195,
+      "id": 2,
+      "mime_type": "image/png",
+      "sha256": "0f65081cbfb91be1adcb176493718222f63c8f28746c06c203d73902f931323f"
+    },
+    {
+      "bytes": 37140,
+      "id": 3,
+      "mime_type": "image/png",
+      "sha256": "615b606d2733d5a76338279b7bd8adeba51d21ef01c7e300a06af1d451ccfe17"
+    }
+  ],
+  "materials": [
+    {
+      "id": 0,
+      "name": "body",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "body",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.177888423204422,
+            0.045186202973127365,
+            0.07036009430885315,
+            1
+          ],
+          "metallicFactor": 0.23999999463558197,
+          "roughnessFactor": 0.23999999463558197
+        }
+      }
+    },
+    {
+      "id": 1,
+      "name": "brass",
+      "normal_scale_semantic": 1,
+      "original_material": {
+        "doubleSided": true,
+        "name": "brass",
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 1
+          },
+          "metallicFactor": 0.7900000214576721,
+          "roughnessFactor": 0.2800000011920929
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "joint",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "joint",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.02955683507025242,
+            0.03433980792760849,
+            0.05448027700185776,
+            1
+          ],
+          "metallicFactor": 0.5799999833106995,
+          "roughnessFactor": 0.3400000035762787
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "display",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "display",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.006048833020031452,
+            0.013702083379030228,
+            0.024157632142305374,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.1599999964237213
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "bulb",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "bulb",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            1,
+            0.7991027235984802,
+            0.4507857859134674,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.18000000715255737
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "paper",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "paper",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.8713670969009399,
+            0.7912979125976562,
+            0.6444796919822693,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.949999988079071
+        }
+      }
+    },
+    {
+      "id": 6,
+      "name": "ink",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "ink",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.05126945674419403,
+            0.1384316086769104,
+            0.18782077729701996,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8500000238418579
+        }
+      }
+    },
+    {
+      "id": 7,
+      "name": "rubber",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "rubber",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.013702083379030228,
+            0.019382361322641373,
+            0.02955683507025242,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8199999928474426
+        }
+      }
+    },
+    {
+      "id": 8,
+      "name": "steel",
+      "normal_scale_semantic": 1,
+      "original_material": {
+        "doubleSided": true,
+        "name": "steel",
+        "normalTexture": {
+          "index": 2
+        },
+        "pbrMetallicRoughness": {
+          "baseColorTexture": {
+            "index": 3
+          },
+          "metallicFactor": 0.8500000238418579,
+          "roughnessFactor": 0.2199999988079071
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "reflector",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "reflector",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.7758222222328186,
+            0.6653872728347778,
+            0.47353148460388184,
+            1
+          ],
+          "metallicFactor": 0.6600000262260437,
+          "roughnessFactor": 0.3199999928474426
+        }
+      }
+    },
+    {
+      "id": 10,
+      "name": "page_line",
+      "normal_scale_semantic": null,
+      "original_material": {
+        "doubleSided": true,
+        "name": "page_line",
+        "pbrMetallicRoughness": {
+          "baseColorFactor": [
+            0.46207699179649353,
+            0.47353148460388184,
+            0.40724021196365356,
+            1
+          ],
+          "metallicFactor": 0,
+          "roughnessFactor": 0.8500000238418579
+        }
+      }
+    }
+  ],
+  "meshes": 1,
+  "nodes": [
+    {
+      "name": "shade",
+      "translation": [
+        -0.4000000059604645,
+        0.6499999761581421,
+        0
+      ]
+    },
+    {
+      "children": [
+        0
+      ],
+      "name": "upper_arm",
+      "translation": [
+        0.30000001192092896,
+        0.6699999570846558,
+        0
+      ]
+    },
+    {
+      "children": [
+        1
+      ],
+      "name": "lower_arm",
+      "translation": [
+        0,
+        0.3800000250339508,
+        0
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "turntable",
+      "translation": [
+        0,
+        0.1600000262260437,
+        0
+      ]
+    },
+    {
+      "name": "work_pad",
+      "translation": [
+        0.44999998807907104,
+        0.02000001072883606,
+        0.44999998807907104
+      ]
+    },
+    {
+      "name": "trace_stylus",
+      "translation": [
+        0.17000001668930054,
+        0,
+        0
+      ]
+    },
+    {
+      "children": [
+        5
+      ],
+      "name": "trace_rotor",
+      "translation": [
+        0.5299999713897705,
+        0.46000000834465027,
+        0.5699999928474426
+      ]
+    },
+    {
+      "children": [
+        3,
+        4,
+        6
+      ],
+      "name": "root",
+      "translation": [
+        0,
+        0.03999999910593033,
+        0
+      ]
+    },
+    {
+      "mesh": 0,
+      "name": "lamp-hd-v1_skinned_mesh",
+      "skin": 0
+    },
+    {
+      "children": [
+        8,
+        7
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "normal_strength_override": {
+    "requested": 1,
+    "semantic_delta": false,
+    "source_all_mapped_scales": 1
+  },
+  "required_after_finish": [
+    "same source images or independently proved decoded-pixel equivalence",
+    "same basecolor constants, metallic/roughness, alpha modes and texture routes",
+    "same named rig and motion semantics; exporter sampling is not a new authored action",
+    "no sampled color-operation admission and no fur"
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987
+    }
+  ],
+  "schema_version": 1,
+  "skins": [
+    {
+      "inverseBindMatrices": 77,
+      "joints": [
+        7,
+        3,
+        2,
+        1,
+        0,
+        4,
+        6,
+        5
+      ],
+      "name": "AvatarRig"
+    }
+  ],
+  "source_kind": "locally_authored_procedural_not_neural",
+  "source_sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949",
+  "texture_bindings": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    }
+  ]
+}

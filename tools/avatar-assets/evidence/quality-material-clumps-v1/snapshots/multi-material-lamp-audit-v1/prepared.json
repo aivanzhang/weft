@@ -1,0 +1,85 @@
+{
+  "correspondence": "material name + explicit position/UV/named-weight identity; preserve oriented triangle multiplicities, reject non-equivalent ambiguity",
+  "final": "outputs/multi-material-lamp-finish-v1/model.glb",
+  "inputs": [
+    {
+      "bytes": 5109552,
+      "path": "outputs/lamp-hd-build-v2/model.glb",
+      "sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949"
+    },
+    {
+      "bytes": 5132336,
+      "path": "outputs/multi-material-lamp-finish-v1/model.glb",
+      "sha256": "fc3815510f6d436cd6bec470fd57a7cd976da4f2528cec30151eb8fc832195a0"
+    },
+    {
+      "bytes": 8540,
+      "path": "outputs/multi-material-lamp-preparation-v1/source-contract.json",
+      "sha256": "1369d167fd223cc0c02d83c57273a16e322d2de4ce77e937172cc9a6709fbf37"
+    },
+    {
+      "bytes": 3220,
+      "path": "outputs/multi-material-lamp-preparation-v1/execution/receipt.json",
+      "sha256": "d97eb776101d2b171500723ba8449e6bcfd845248c022788f7c98b67b7235b44"
+    },
+    {
+      "bytes": 51284,
+      "path": "outputs/lamp-hd-build-v2/manifest.json",
+      "sha256": "2f3bbdf9c35e81032c4c57508a26c2e330ed2afae727ec5080029b2380f81115"
+    },
+    {
+      "bytes": 3653,
+      "path": "outputs/lamp-hd-build-v2/rig-contract.json",
+      "sha256": "979170eeba61f484b589acb149d23f40ce51c8033586354d15ca2f2479e11413"
+    },
+    {
+      "bytes": 30589,
+      "path": "outputs/multi-material-lamp-finish-v1/manifest.json",
+      "sha256": "3628267cc07eb03c4e927c260651a855b53392efbf177d41705975090e7dbde1"
+    },
+    {
+      "bytes": 8456,
+      "path": "outputs/multi-material-lamp-finish-v1/finish-report.json",
+      "sha256": "b659ccb1f4a3ccf22686d54d32041beff6ea53b4bb4d61edd90d9bb71de3a631"
+    },
+    {
+      "bytes": 907,
+      "path": "outputs/multi-material-lamp-finish-v1/rig-contract.json",
+      "sha256": "7f7c55c57adb5e8028cb48e31ebdf27ea921a55b3e1216fa810afb019a6c4798"
+    },
+    {
+      "bytes": 3078,
+      "path": "outputs/multi-material-lamp-finish-v1/normal-uv-export.json",
+      "sha256": "c1f2a539fe01b8cc2040eba04757463903f2f7faad42897d382d21f7e0a34ff6"
+    },
+    {
+      "bytes": 35323,
+      "path": "avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 512,
+    "wall_seconds": 30
+  },
+  "new_native_provider_calls": 0,
+  "quality_approved": false,
+  "samples": "all exported vertices at nine times 0..4 seconds per four clips",
+  "schema_version": 1,
+  "script_sha256": "84b053d876e3533f67af2bd5ea5e2201daa87914bd09d869f1999ace524f1e3e",
+  "source": "outputs/lamp-hd-build-v2/model.glb",
+  "tolerances": {
+    "named_bone_weight": 1e-06,
+    "normal_and_tangent": "measure only; disclose source-frame ambiguity and do not claim full byte fidelity",
+    "position_m": 1e-06,
+    "rest_world_matrix_component": 1e-06,
+    "sampled_weighted_pose_component_m": 1e-05,
+    "uv": 1e-06
+  }
+}

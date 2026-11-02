@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "read_only_failed_intersection_provenance",
+  "source_arrays_sha256": "05015c8a446a4e3b647c3280c9a4a68ec3fcaf4e49f9c109ff7c323f2b99bf05",
+  "rows": [
+    {
+      "role": "selected_source",
+      "source_face": 6382,
+      "raw_glb_primitive_face": [
+        5,
+        5637
+      ],
+      "source_vertex_ids": [
+        4731,
+        4643,
+        4505
+      ],
+      "source_points_m": [
+        [
+          -0.20696532726287842,
+          -0.23916761577129364,
+          0.7826504707336426
+        ],
+        [
+          -0.2096995860338211,
+          -0.23460060358047485,
+          0.7810492515563965
+        ],
+        [
+          -0.20914316177368164,
+          -0.2312265932559967,
+          0.7718388438224792
+        ]
+      ],
+      "material_slot": 7,
+      "material_name": "body_surface__short_pile_adaptive_v1",
+      "part_id": 0,
+      "fur_face": true,
+      "protected_face": false
+    },
+    {
+      "role": "crossed_source",
+      "source_face": 61961,
+      "raw_glb_primitive_face": [
+        6,
+        207
+      ],
+      "source_vertex_ids": [
+        49601,
+        49617,
+        49638
+      ],
+      "source_points_m": [
+        [
+          -0.21500791609287262,
+          -0.23358866572380066,
+          0.7725536823272705
+        ],
+        [
+          -0.21225976943969727,
+          -0.23811404407024384,
+          0.7771604061126709
+        ],
+        [
+          -0.2096995860338211,
+          -0.23460060358047485,
+          0.7810492515563965
+        ]
+      ],
+      "material_slot": 8,
+      "material_name": "body_cap__short_pile_adaptive_v1",
+      "part_id": 0,
+      "fur_face": false,
+      "protected_face": true
+    }
+  ],
+  "original_selected_source_intersects_crossed_source": false,
+  "offset_patch_intersects_crossed_source": true,
+  "classification_scope": "The same frozen proper/coplanar intersection predicate on this single witnessed pair; no additional candidate or selection adjustment.",
+  "intersection_screen_complete": false,
+  "model_written": false,
+  "source_unchanged": true
+}

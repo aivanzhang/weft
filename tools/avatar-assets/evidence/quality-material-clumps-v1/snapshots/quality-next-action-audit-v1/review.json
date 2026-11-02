@@ -1,0 +1,132 @@
+{
+  "automatic_features": [
+    "single-source prompt or reference generation/reuse",
+    "data-only AI rig/action authoring",
+    "bounded local build, native reload, motion checks and final-media critic",
+    "bounded repair or explicit unsupported",
+    "durable local Studio stage tracking and output descriptors"
+  ],
+  "best_existing_controls": {
+    "authored_fox": {
+      "bytes": 27709020,
+      "path": "outputs/fox-hd-build-v2/model.glb",
+      "sha256": "0a2a088e7c912a53221ed6a76a65006786d49e48cf64455ab0ba671a0c82da78"
+    },
+    "authored_lamp": {
+      "bytes": 5109552,
+      "path": "outputs/lamp-hd-build-v2/model.glb",
+      "sha256": "774eae69f51ae1a0cd49c61dd19abeab19b847ba8b72f393ad409b4582500949"
+    },
+    "dragon_polished": {
+      "bytes": 26485640,
+      "path": "outputs/agent-dragon-polish-v1/model.glb",
+      "sha256": "af3f435a1b16df9f93c23297acb55fa19e464b67641ec40144f8b88514c12381"
+    },
+    "dragon_raw": {
+      "bytes": 25349908,
+      "path": "outputs/emerald-dragon-meshy-v1/stages/texture/downloads/model.glb",
+      "sha256": "a5e034586961d2999846d185321e6b1b4289e8138ce4b11a4a19746700109efb"
+    },
+    "smooth_panda_fur_demo": {
+      "bytes": 29952112,
+      "path": "outputs/muse-panda-smooth-fur-v3/model.glb",
+      "sha256": "a5664da6dd59e4f9fed0e9154c7af75e198d9a9750edce74d258687a98c3ab77"
+    },
+    "smooth_panda_raw": {
+      "bytes": 25557832,
+      "path": "outputs/muse-panda-smooth-base-v2/stages/mesh/downloads/model.glb",
+      "sha256": "f3b8c6f48222ef2e588ef1798f788a79909a660f5467b92719d2242b7ad47188"
+    }
+  },
+  "budget_evidence": {
+    "approval": "pending_no_grant",
+    "development_roles_max": 13,
+    "development_roles_used": 13,
+    "new_live_account_check": false,
+    "pending_fresh_credits": 105,
+    "pending_fresh_expected_roles": 9,
+    "pending_fresh_max_roles": 15,
+    "remaining": 8,
+    "saved_meshy_authorized": 210,
+    "saved_meshy_used": 202
+  },
+  "calls": {
+    "browser": 0,
+    "native": 0,
+    "pipeline_ai_roles": 0,
+    "provider": 0
+  },
+  "concrete_blockers": [
+    {
+      "code": "budget",
+      "reason": "8 credits cannot start a 35-credit source; no development AI-role calls remain."
+    },
+    {
+      "code": "visual",
+      "reason": "Latest actual UV2 control remains rejected for cut-surface cheek/shoulder geometry and sparse/bristled coat."
+    },
+    {
+      "code": "public_route",
+      "reason": "portable_fringe is rejected before native; staged rendering/source-skin restoration remains experimental integration."
+    },
+    {
+      "code": "source_representation",
+      "reason": "One source GLB/one mesh and unconditional single shared texture prevent current full finishing of heterogeneous modular source materials."
+    }
+  ],
+  "decision": "Fresh acceptance is allowance-blocked; improve the generic source/component and portable-fur route, not another identical local cheek patch.",
+  "fresh_generation_acceptance": false,
+  "input_snapshot_count": 39,
+  "limits": [
+    "GLB header census is not a new geometric or native motion verification.",
+    "Pre-separation resting views hide the underlying companion contact; no clean unseen surface claim.",
+    "Native and portable images are different representations and not pixel-registered.",
+    "Historical authored lamp/fox are real assets, not neural-generation or fresh prompt-pipeline acceptance."
+  ],
+  "modular_estimate_note": {
+    "comparison_credits_at_recorded_35_each": 140,
+    "comparison_text_submissions": 8,
+    "current_proposal_components": 3,
+    "current_text_submissions": 6,
+    "extra_role_budget": "Must be estimated for the actual component design; nine/fifteen cannot be silently reused.",
+    "identity_substitution_allowed": false,
+    "new_allowance": false,
+    "with_additional_fresh_shoulder_companion": 4
+  },
+  "not_automatic": [
+    "per-component generation and model assembly",
+    "identity-faithful fused-contact separation",
+    "reference-image editing",
+    "universally acceptable custom motion",
+    "Muse-equivalent browser fur",
+    "public staged/fringe/full-source-skin experimental path"
+  ],
+  "preserved_failure": {
+    "file": "inventory.json",
+    "limit_unchanged": true,
+    "message": "Oversized small evidence file: examples/scenes/fox-hd-v3.json",
+    "resolution": "No snapshot of the oversized recipe; hash-bound reference only in model-inventory.json."
+  },
+  "quality_acceptance": false,
+  "recorded_local": "2026-11-02T02:46:57.659990-08:00",
+  "schema_version": 1,
+  "status": "readiness_audit_complete_goal_incomplete",
+  "viewed_images": [
+    {
+      "bytes": 1051974,
+      "path": "outputs/muse-panda-smooth-fur-v3/portrait.png",
+      "sha256": "17d78aa5bec052232ab3978b65c95545b230df218ce54388426d47b093b2a422"
+    },
+    {
+      "bytes": 987287,
+      "path": "outputs/muse-panda-smooth-fur-export-preview-v3/front.png",
+      "sha256": "cbd3deeb13b108bfa8086768fd29fea87c8180e363fc9da6a476beb3842337cf"
+    },
+    {
+      "bytes": 393427,
+      "path": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "cc65c32f80ed9266f234ee3c1ed1c4f962c6db990fbce9b516d6f0593c1c84ba"
+    }
+  ],
+  "weft_compatibility_claim": false
+}

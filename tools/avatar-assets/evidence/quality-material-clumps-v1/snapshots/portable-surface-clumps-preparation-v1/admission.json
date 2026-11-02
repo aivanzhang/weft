@@ -1,0 +1,27 @@
+{
+  "allowed_fur_materials": [
+    "body_surface__short_pile_adaptive_v1",
+    "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1"
+  ],
+  "arrays_sha256": "05015c8a446a4e3b647c3280c9a4a68ec3fcaf4e49f9c109ff7c323f2b99bf05",
+  "body_position_error": 0.0,
+  "elapsed_seconds": 0.8189640841446817,
+  "fur_mask_provenance": "Exact current adaptive-undercoat material face receipts; clone assignment requires all original final-mask triangle vertices. Part ownership independently derived from positive snapshot skin.",
+  "geometry_constructed": false,
+  "inputs_unchanged": true,
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "raw_source_model_sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16",
+  "root_normal_components_over_0002": 0,
+  "root_normal_max_component_error": 5.884406556921906e-05,
+  "root_uv_max_component_error": 0.0,
+  "schema_version": 1,
+  "selected_patch_faces_allowed": 5400,
+  "selected_source_corner_normal_min_outward_dot": 0.8171466601847481,
+  "source_faces": 62581,
+  "source_normal_scope": "Actual raw-export source-body corner normals, not a new claim of full-body native-normal equivalence",
+  "source_vertices": 51376,
+  "status": "source_correspondence_admitted_for_cpu_prototype",
+  "unsafe_source_normal_corners": 0,
+  "unsafe_source_normal_witnesses": []
+}
