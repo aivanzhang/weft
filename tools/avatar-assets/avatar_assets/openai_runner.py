@@ -26,6 +26,7 @@ MAX_RESPONSE = 4 * 1024**2
 MAX_REQUEST = 48 * 1024**2
 KEY_FILE = ROOT.parents[1] / '.local/credentials/openai-api-key'
 EXPOSURE_POLICY = 'validated-settled-exposure-v1'
+BUDGET_POLICY = 'append-only-lower-ceiling-v1'
 
 
 def digest(value):
@@ -58,6 +59,38 @@ def _approval(value):
             and isinstance(value.get('user_reply'), str) and 0 < len(value['user_reply']) <= 4000
             and len(_canonical(value)) <= 8192, 'Explicit administrator spending approval is required')
     return _canonical(value).decode()
+
+
+def _tightening_approval(value, ceiling):
+    record = _approval(value)
+    require(value.get('operation') == 'tighten_project_ceiling'
+            and type(value.get('max_microdollars')) is int and value['max_microdollars'] == ceiling,
+            'Ceiling reduction approval must bind the exact lower amount')
+    return record
+
+
+def budget_snapshot(db):
+    """Read the original approval and its strictly decreasing, append-only ceiling chain."""
+    original = db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
+    has_reductions = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='budget_reductions'").fetchone() is not None
+    count = db.execute('SELECT COUNT(*) FROM budget_reductions').fetchone()[0] if has_reductions else 0
+    require(count <= 1024, 'API budget reduction inventory exceeds1024 records')
+    if original is None:
+        require(count == 0, 'Budget reductions have no original approval')
+        return None
+    initial = current = _integer(original[0], 1, 1000000000, 'original project dollar ceiling')
+    rows = db.execute('SELECT id,previous_ceiling,ceiling,approval FROM budget_reductions ORDER BY id') if count else ()
+    for number, (index, previous, ceiling, approval) in enumerate(rows, 1):
+        require(type(index) is int and index == number and type(previous) is int and previous == current,
+                'Broken API budget reduction chain')
+        _integer(ceiling, 1, current-1, 'lower project dollar ceiling')
+        require(isinstance(approval, str) and len(approval.encode()) <= 8192,
+                'Invalid budget reduction approval')
+        require(_tightening_approval(_decode(approval.encode()), ceiling) == approval,
+                'Budget reduction approval differs from its record')
+        current = ceiling
+    return {'policy': BUDGET_POLICY, 'original_ceiling_microdollars': initial,
+            'effective_ceiling_microdollars': current, 'reductions': count}
 
 
 def call_exposure(call):
@@ -137,6 +170,8 @@ class OpenAILedger:
                 state TEXT, response_id TEXT, actual INTEGER, usage TEXT, PRIMARY KEY(job,role));
             CREATE TABLE IF NOT EXISTS retirements(parent TEXT PRIMARY KEY, successor TEXT UNIQUE,
                 actual INTEGER, approval TEXT);
+            CREATE TABLE IF NOT EXISTS budget_reductions(id INTEGER PRIMARY KEY,
+                previous_ceiling INTEGER, ceiling INTEGER, approval TEXT);
         ''')
 
     def close(self):
@@ -161,6 +196,22 @@ class OpenAILedger:
             if row is None:
                 self.db.execute('INSERT INTO budget VALUES(1,?,?)', (max_microdollars, record))
 
+    def tighten_budget(self, max_microdollars, approval):
+        """Lower future spending without rewriting grants or releasing uncertain charges."""
+        _integer(max_microdollars, 1, 1000000000, 'lower project dollar ceiling')
+        record = _tightening_approval(approval, max_microdollars)
+        with self.transaction():
+            budget = budget_snapshot(self.db)
+            require(budget is not None, 'Configure the approved project allowance first')
+            previous = budget['effective_ceiling_microdollars']
+            require(max_microdollars < previous, 'Project ceiling reductions must strictly decrease the current limit')
+            require(budget['reductions'] < 1024, 'API budget reduction inventory exceeds1024 records')
+            exposure = accounting_snapshot(self.db)['project_exposure_microdollars']
+            require(exposure <= max_microdollars, 'Known costs and uncertain holds exceed the proposed lower ceiling')
+            self.db.execute('INSERT INTO budget_reductions VALUES(?,?,?,?)',
+                            (budget['reductions']+1, previous, max_microdollars, record))
+            return {**budget_snapshot(self.db), 'project_exposure_microdollars': exposure}
+
     def authorize_job(self, job_id, job_digest, max_calls, max_microdollars, approval):
         slug(job_id)
         require(isinstance(job_digest, str) and len(job_digest) == 64
@@ -170,13 +221,13 @@ class OpenAILedger:
         record = _approval(approval)
         expected = (job_digest, max_calls, max_microdollars, record)
         with self.transaction():
-            budget = self.db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
+            budget = budget_snapshot(self.db)
             require(budget is not None, 'Configure the approved project allowance first')
             row = self.db.execute('SELECT digest,calls,ceiling,approval FROM jobs WHERE id=?', (job_id,)).fetchone()
             require(row is None or tuple(row) == expected, 'Job approval cannot be changed or reset')
             if row is None:
                 allocated = self._allocated()
-                require(allocated + max_microdollars <= budget[0], 'Project allowance is already allocated')
+                require(allocated + max_microdollars <= budget['effective_ceiling_microdollars'], 'Project allowance is already allocated')
                 self.db.execute('INSERT INTO jobs VALUES(?,?,?,?,?)', (job_id, *expected))
 
     def _allocated(self):
@@ -214,8 +265,8 @@ class OpenAILedger:
             for call in calls:
                 require(call['state'] == 'settled', 'Unknown parent charges cannot be released')
                 actual += call_exposure(call)
-            budget = self.db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
-            require(budget is not None and self._allocated()-parent['ceiling']+actual+max_microdollars <= budget[0],
+            budget = budget_snapshot(self.db)
+            require(budget is not None and self._allocated()-parent['ceiling']+actual+max_microdollars <= budget['effective_ceiling_microdollars'],
                     'Continuation exceeds the unchanged project allowance')
             # BEGIN IMMEDIATE makes retirement, accounting and the successor grant indivisible.
             self.db.execute('INSERT INTO retirements VALUES(?,?,?,?)', (parent_id, job_id, actual, record))
@@ -243,9 +294,9 @@ class OpenAILedger:
             current = exposure['jobs'].get(job_id, {'calls': 0, 'effective_exposure_microdollars': 0})
             require(current['calls'] < max_calls and current['effective_exposure_microdollars'] + amount <= job['ceiling'],
                     'API job spending allowance exhausted')
-            budget = self.db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
+            budget = budget_snapshot(self.db)
             require(budget is not None and exposure['project_exposure_microdollars'] + amount <=
-                    _integer(budget[0], 1, 1000000000, 'project dollar ceiling'), 'API project spending allowance exhausted')
+                    budget['effective_ceiling_microdollars'], 'API project spending allowance exhausted')
             self.db.execute('INSERT INTO calls VALUES(?,?,?,?,?,NULL,NULL,NULL)',
                             (job_id, role, request_digest, amount, 'reserved_uncertain'))
 
@@ -366,7 +417,7 @@ class OpenAIRunner:
             'max_calls':max_calls, 'timeout':timeout, 'max_output_tokens':max_output_tokens,
             'job_id':job_id, 'job_digest':job_digest, 'automatic_retries':0, 'tools':[], 'store':False,
             'service_tier':'default', 'reasoning':{'effort':'none'}, 'truncation':'disabled', 'pricing':PRICING, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
-            'reservation_policy':'validated-settled-exposure-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; uncertain holds, original rows, call caps and explicit retry approval remain.'}
+            'reservation_policy':'validated-settled-exposure-v1 with append-only-lower-ceiling-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; the latest validated lower project ceiling applies. Uncertain holds, original rows, call caps and explicit retry approval remain.'}
         with self._lock():
             path = self.root/'runner.json'
             if path.exists():

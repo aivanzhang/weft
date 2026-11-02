@@ -1,0 +1,70 @@
+{
+  "actual_parent_read_only_check": {
+    "command": ".venv/bin/python - <<'PY'\nfrom pathlib import Path\nfrom avatar_assets.pipeline_continuation import collect\nv=collect(Path.cwd(),Path.cwd()/'outputs/studio-c5dee3fe1ba74741bfb7aeb8')\nprint('actual parent collection passes',len(v['inventory']))\nPY",
+    "depth": 1,
+    "inventory_bytes": 54035237,
+    "inventory_files": 197,
+    "latest_author_role": "author-2",
+    "parent": "outputs/studio-c5dee3fe1ba74741bfb7aeb8",
+    "parent_request_sha256": "b9df282c24a428c2fa17f7ef0b0dd89455e2b7bc3587fbc21a7b99a75155e304",
+    "result": "Passed; completed role receipts and settled ledger rows validated; latest recipe reconstructed exactly from author; native failure and geometry findings authenticated",
+    "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+    "undercoat_selection": {
+      "max_faces": 34000,
+      "min_faces": 18000,
+      "selected_faces": 35859,
+      "total_faces": 36124
+    }
+  },
+  "classification": "Analyst-recorded tool transcript results; raw test logs were not saved; analytic fixtures, not generated assets",
+  "invariants": [
+    "No planner request for child or chained continuation",
+    "First author receives exact prior answer and measured failure",
+    "Parent bytes, counters and grants preserved",
+    "No new grant created by pipeline preparation",
+    "Mismatched intent/source, tampering, uncertain charges and live locks rejected",
+    "512 files,256MiB aggregate,64MiB per file,2048 entries,20-second inventory deadline and depth8 bounds"
+  ],
+  "limits": [
+    "Only terminal repair_budget failures with latest authenticated native failure and explicit source reuse are continuable in v1",
+    "Deformation/action/reviewer-only terminal outcomes are rejected explicitly; no fallback to new planning",
+    "These tests do not establish appearance, successful rigging or live website completion"
+  ],
+  "new_ledger_grants": 0,
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "recorded_at": "2026-11-02T13:29:30.621707-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline.py": "12946719f4144ff974d8e822af8efbfb567e46ca8512a6a97350accfe75e6ccc",
+    "avatar_assets/pipeline_continuation.py": "ec465e253e67ec86ea08a0d8f221e7764e73417c07245c8de503ed1e9156f98c",
+    "tests/test_pipeline_continuation.py": "a18ca23243414e64d4752e9c75956695d737b3b6f479733f5d336018334caf33"
+  },
+  "status": "passed",
+  "test_repeated_for_this_record": false,
+  "test_runs": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_continuation.py -q",
+      "elapsed_seconds": 0.651,
+      "result": "OK",
+      "source_scope": "Final frozen sources; includes first-author continuation prompt directive",
+      "tests": 9
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline.py -q",
+      "elapsed_seconds": 0.547,
+      "result": "OK",
+      "source_scope": "Immediately before final continuation-only author prompt directive; that directive is covered by final continuation tests",
+      "tests": 21
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_recovery.py -q",
+      "elapsed_seconds": 0.314,
+      "result": "OK",
+      "source_scope": "Immediately before final continuation-only author prompt directive",
+      "tests": 9,
+      "warnings": "Existing recovery tests emitted unclosed SQLite connection ResourceWarnings; continuation module uses explicit closing and its final tests emitted none"
+    }
+  ],
+  "working_directory": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

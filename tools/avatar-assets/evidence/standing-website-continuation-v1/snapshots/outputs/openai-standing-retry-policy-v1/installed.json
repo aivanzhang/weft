@@ -1,0 +1,23 @@
+{
+  "policy_sha256": "82354666f6fa4ca9e95adfd6eb3adbd6fd2a5ade63f9f77e583dd9b4cd1b0952",
+  "mode": "0600",
+  "eligibility": {
+    "policy_sha256": "82354666f6fa4ca9e95adfd6eb3adbd6fd2a5ade63f9f77e583dd9b4cd1b0952",
+    "parent_job_id": "studio-c5dee3fe1ba74741bfb7aeb8",
+    "parent_request_sha256": "b9df282c24a428c2fa17f7ef0b0dd89455e2b7bc3587fbc21a7b99a75155e304",
+    "child_job_id": null,
+    "child_request_sha256": null,
+    "context_sha256": "ea598074991f25c68b8f4ebbfba8bdd8554fb6183b3f673335d9a2e7992f0fe7",
+    "lineage_root_job_id": "studio-c5dee3fe1ba74741bfb7aeb8",
+    "successors_used": 0,
+    "max_successors": 8,
+    "grant_microdollars": 13920915,
+    "max_calls": 7,
+    "effective_project_ceiling_microdollars": 15000000,
+    "project_exposure_microdollars": 1079085,
+    "existing_grant": false,
+    "eligible": true,
+    "reason": "Exact saved-source retry fits the standing allowance."
+  },
+  "provider_calls": 0
+}

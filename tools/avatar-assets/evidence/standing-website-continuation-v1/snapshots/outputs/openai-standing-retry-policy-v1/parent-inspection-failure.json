@@ -1,0 +1,7 @@
+{
+  "status": "failed_before_browser_or_provider_call",
+  "command": ".venv/bin/python -B scripts/verify_studio_live.py --job c5dee3fe1ba74741bfb7aeb8",
+  "failure": "Prepared source pin changed",
+  "cause": "Inspection helper only treated delivered jobs as sealed; immutable terminal unsupported parent must authenticate archived code without requiring current code. New continuation request fields also need explicit helper validation.",
+  "empty_stdout_preserved": "parent-ownership.json"
+}

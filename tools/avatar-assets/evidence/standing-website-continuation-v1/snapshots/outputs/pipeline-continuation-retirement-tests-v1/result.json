@@ -1,0 +1,32 @@
+{
+  "actual_ledger_mutations": 0,
+  "additional_cases": [
+    "Real OpenAILedger.continue_job in temporary database then Pipeline child plan_only without planner",
+    "A second real retirement into grandchild with inherited plan and no planner",
+    "Original parent grants and calls remain byte-equivalent rows",
+    "Wrong successor, changed successor request digest and incorrect retirement actual cost reject"
+  ],
+  "change": "Verify only the exact approved retired-parent successor; fresh collection still rejects retired parents",
+  "classification": "Analyst-recorded tool result; raw logs not saved; temporary analytic ledgers only",
+  "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_continuation.py -q",
+  "elapsed_seconds": 0.717,
+  "limits": [
+    "No live website execution in these tests",
+    "Native-failure-only continuation support remains unchanged",
+    "No unchanged tests rerun to produce this record"
+  ],
+  "native_calls": 0,
+  "previous_evidence": "outputs/pipeline-continuation-tests-v1/result.json",
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T13:32:23.327462-08:00",
+  "result": "OK",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline.py": "12946719f4144ff974d8e822af8efbfb567e46ca8512a6a97350accfe75e6ccc",
+    "avatar_assets/pipeline_continuation.py": "7886e1e3e11a32b7f6937e17a97402faa47fe29bdbce15a2748922aceeb78291",
+    "tests/test_pipeline_continuation.py": "69e9a27102ed32865d44665d982ea508ac7f928a7223e36693d58deb60e04613"
+  },
+  "status": "passed",
+  "tests": 10,
+  "working_directory": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

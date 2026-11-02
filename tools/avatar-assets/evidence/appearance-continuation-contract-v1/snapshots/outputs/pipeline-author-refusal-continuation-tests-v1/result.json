@@ -1,0 +1,52 @@
+{
+  "actual_read_only_check": {
+    "bytes": 53098669,
+    "command": "collect(Path.cwd(), Path.cwd()/'outputs/studio-6869ed56ce1c4266bc0f873c')",
+    "depth": 2,
+    "elapsed_seconds": 0.1492,
+    "files": 176,
+    "native_failure": "Aliased material exceeds2048face UV1 repair bound",
+    "native_report_sha256": "be1e6b76ffff3b5c14bee5526940a4664c284c5bba635d2cacf25fea9bdb11d3",
+    "parent": "outputs/studio-6869ed56ce1c4266bc0f873c",
+    "preserved_rejection_role": "author-1",
+    "rejection_answer_sha256": "a3e8fffecf7f9defac9df627efb163145193d89708eab29342e6f7138f26a061",
+    "rejection_receipt_sha256": "ed915f45194a4b7d9ef3be79f6c7b9439d8e54610ca24539a70366ae56ce425b",
+    "seed_answer_sha256": "7442545431b0e42ac72d83b8c670f63c371df0facfde2d847f2cb2855d68af02",
+    "seed_role": "author-0",
+    "status": "passed"
+  },
+  "classification": "Analyst-recorded tool results; no unchanged checks rerun for this receipt",
+  "initial_environment_failure": "System python3 lacks Pillow; used existing .venv without installing packages",
+  "limits": [
+    "Continuation still requires a preceding authenticated failed native attempt; other failure classes are unsupported.",
+    "Prompt scope correction is not a successful new finishing result.",
+    "No recipe, counts, masks, mandatory fur requirements or gates were changed."
+  ],
+  "live_ledger_mutations": 0,
+  "native_calls": 0,
+  "parent_mutations": 0,
+  "provider_calls": 0,
+  "recorded_at": "2026-11-02T13:39:46.943390-08:00",
+  "schema_version": 1,
+  "sources": {
+    "avatar_assets/pipeline_continuation.py": "58ddadab56c3b1880c40b425856a8903d8c9bda0dca7301393e5afa526fcee50",
+    "avatar_assets/pipeline_prompts.py": "93ec51c21a18680b3faf7345a879fed1a49fa6b50db4b85b419eda4968188ca7",
+    "tests/test_pipeline_continuation.py": "8ddccc22e5ad50798fbe1851e6c38f1eb3ff08c95a9f1aa07aa5e0cdcb1bd1ee",
+    "tests/test_pipeline_prompts.py": "d62e0963bafac7f0e102784eb35a2900a02b943b2627e1aaea28b6255bf2302d"
+  },
+  "status": "passed",
+  "tests": [
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_continuation.py -v",
+      "elapsed_seconds": 0.978,
+      "status": "passed",
+      "tests": 12
+    },
+    {
+      "command": ".venv/bin/python -m unittest discover -s tests -p test_pipeline_prompts.py -v",
+      "elapsed_seconds": 0.026,
+      "status": "passed",
+      "tests": 23
+    }
+  ]
+}

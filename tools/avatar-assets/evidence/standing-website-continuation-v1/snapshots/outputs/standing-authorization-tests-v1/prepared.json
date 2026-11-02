@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "bytes": 15304,
+      "sha256": "c82241cd9f4a9a7b0386370d3f11ff6dd8eff58bafaeb918b9a4c83b6e37b7b4"
+    },
+    {
+      "path": "tests/test_standing_authorization.py",
+      "bytes": 10427,
+      "sha256": "f058d069b62f188042b0aa464ef4f884bf918035d5915d94595984cf16165f7f"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 32021,
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 7891,
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    }
+  ],
+  "worker_sha256": "a145f1e48deb28e54e323b5d11beb14889fd4cf000f120bcb225ff194c6f4540",
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1",
+      "bytes": 32021
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6",
+      "bytes": 7891
+    },
+    {
+      "path": "tests/test_openai_runner.py",
+      "sha256": "d650fe59590ca49f211d16afcfc92c70d74b4ee043beb8d917d24ed30f62cd0d",
+      "bytes": 35566
+    },
+    {
+      "path": "tests/test_openai_studio_integration.py",
+      "sha256": "e1901b7e0c1ab7f04c374ba14d8a5e54a09ce80b3cf0dfb9aadf2f093a2496a4",
+      "bytes": 20798
+    }
+  ],
+  "worker_sha256": "762facc84f804cea37545adf8d1b413c473dcc4be54c1bbcafe5f23424960967",
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "outputs/openai-lower-ceiling-tests-v1/run.py"
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "live_ledger_mutation": false,
+  "provider_calls": 0
+}

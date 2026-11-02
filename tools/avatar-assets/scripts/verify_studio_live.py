@@ -173,7 +173,7 @@ def fresh_generation(state, job_id, output, request, prepared, plan, request_dig
                         "authorization_checked": False, "execution_gate": "canonical_ledger_and_explicit_start"}, files
 
 
-def api_backend(state, job_id, output, request, prepared, plan, request_digest):
+def api_backend(state, job_id, output, request, prepared, plan, request_digest, *, terminal_sealed=False):
     from avatar_assets.agent_backend import validate_settings
     from avatar_assets.openai_runner import reserve_microdollars
     from avatar_assets.pipeline import _pipeline_sources
@@ -192,13 +192,77 @@ def api_backend(state, job_id, output, request, prepared, plan, request_digest):
     require(read_json(binding_path) == {"schema_version": 1, "studio_request_digest": request_digest,
                                       "pipeline_request_sha256": request_hash},
             "Prepared API request is not bound to the canonical Studio request")
-    sealed = (output / "delivery-receipt.json").is_file() and (output / "delivery.json").is_file()
+    sealed = terminal_sealed or ((output / "delivery-receipt.json").is_file() and (output / "delivery.json").is_file())
     revision_files = prepared_sources(output, receipt["sources"], _pipeline_sources(), sealed=sealed)
     reservation = reserve_microdollars(settings["max_output_tokens"])
     return {**settings, "currency": "USD", "reservation_microdollars_per_call": reservation,
             "maximum_reservation_microdollars": reservation * settings["max_calls"],
             "automatic_paid_retries": 0, "authorization_checked": False,
             "execution_gate": "exact_request_dollar_grant_and_explicit_start"}, [receipt_path, binding_path, *revision_files]
+
+
+def unsupported_seal(state, job_id, output, data, request_digest):
+    """Historical source readback needs exact terminal receipts, not current implementation bytes."""
+    terminal_path, status_path = output / "unsupported.json", output / "status.json"
+    terminal, status = read_json(terminal_path), read_json(status_path)
+    require(terminal.get("status") == status.get("status") == "unsupported"
+            and terminal.get("stage") == status.get("stage")
+            and terminal.get("stage") in ("planner", "author", "portable_attachment", "reviewer", "repair_budget")
+            and terminal.get("request_sha256") == sha(output / "request.json", MAX_JSON),
+            "Unsupported result is not bound to the exact prepared request")
+    invocation = relative_file(state, data.get("invocation_dir", "") + "/invocation.json").parent
+    require(invocation.is_relative_to(state / "jobs" / job_id) and data.get("operation") == "execute",
+            "Unsupported invocation is outside its canonical job")
+    files = [terminal_path, status_path] + [invocation / name for name in
+        ("invocation.json", "owner.json", "worker-job.json", "result.json", "supervisor-result.json")]
+    invocation_receipt, owner, worker, child, supervisor = [read_json(path) for path in files[2:]]
+    require(invocation_receipt.get("job_id") == job_id and invocation_receipt.get("request_digest") == request_digest
+            and invocation_receipt.get("token") == owner.get("token") == data.get("token")
+            and isinstance(data.get("token"), str) and len(data["token"]) == 32
+            and invocation_receipt.get("operation") == "execute"
+            and invocation_receipt.get("invocation_dir") == str(invocation)
+            and invocation_receipt.get("root") == str(ROOT), "Unsupported invocation binding differs")
+    require(owner.get("pid") == data.get("owner_pid") and type(owner.get("pid")) is int and owner["pid"] > 0
+            and owner.get("start_identity") == data.get("owner_identity"), "Unsupported owner binding differs")
+    require(worker.get("status") == "finished" and worker.get("process_exit_verified") is True
+            and type(worker.get("exit_code")) is int and worker["exit_code"] == 0
+            and worker.get("manual_stop_required") is False and not worker.get("failure"),
+            "Unsupported controller has no verified safe exit")
+    require(all(row.get("status") == "unsupported" and row.get("safe_to_release") is True
+                for row in (child, supervisor)), "Unsupported terminal custody is not sealed")
+    if terminal["stage"] == "author":
+        attempt = terminal.get("attempt")
+        require(type(attempt) is int and 0 <= attempt <= 2 and status.get("attempt") == attempt,
+                "Unsupported author attempt differs")
+        folder = output / "agents" / ("author-" + str(attempt))
+        answer_path, receipt_path = folder / "answer.json", folder / "receipt.json"
+        answer, receipt = read_json(answer_path), read_json(receipt_path)
+        require(answer.get("status") == "unsupported" and answer.get("design") is None
+                and isinstance(answer.get("reason"), str) and answer["reason"].strip()
+                and answer["reason"] == terminal.get("reason") == status.get("reason"),
+                "Unsupported author answer differs from the terminal reason")
+        require(receipt.get("status") == "succeeded" and receipt.get("execution_kind") == "openai_responses_api"
+                and receipt.get("tool_activity") is False
+                and receipt.get("answer_sha256") == sha(answer_path, MAX_JSON),
+                "Unsupported author response is not hash-bound to its API receipt")
+        artifacts = receipt.get("artifacts")
+        require(isinstance(artifacts, list) and 1 <= len(artifacts) <= 16, "Invalid author artifact inventory")
+        names, total = set(), 0
+        for artifact in artifacts:
+            require(isinstance(artifact, dict) and set(artifact) == {"path", "bytes", "sha256"},
+                    "Invalid author artifact pin")
+            name = artifact["path"]
+            require(isinstance(name, str) and "/" not in name and name not in names and name != "receipt.json",
+                    "Ambiguous author artifact path")
+            names.add(name)
+            path = relative_file(folder, name, 8 * MAX_JSON)
+            require(type(artifact["bytes"]) is int and path.stat().st_size == artifact["bytes"]
+                    and sha(path, 8 * MAX_JSON) == artifact["sha256"], "Unsupported author artifact changed")
+            total += artifact["bytes"]
+            require(total <= 32 * MAX_JSON, "Author artifacts exceed the inspection bound")
+        require("answer.json" in names, "Author receipt omitted its answer")
+        files.extend((answer_path, receipt_path))
+    return files
 
 
 def reused_source(output, request, prepared):
@@ -244,9 +308,19 @@ def inspect(job_id):
         require(len(queued) <= 256, "Canonical queue exceeds its inspection bound")
         active = db.execute("SELECT job FROM active WHERE id=1").fetchone()
     data, request = parse_json(row["data"]), parse_json(row["request"])
-    require(isinstance(data, dict) and isinstance(request, dict)
-            and set(request) == {"prompt", "style", "custom_actions", "preset", "reference", "reuse_model"},
+    require(isinstance(data, dict) and isinstance(request, dict), "Invalid canonical Studio request")
+    continuation_fields = ({"continuation_from", "continuation_policy_sha256", "continuation_custody_sha256"}
+                           if "continuation_from" in request else set())
+    require(set(request) == {"prompt", "style", "custom_actions", "preset", "reference", "reuse_model"} | continuation_fields,
             "Invalid canonical Studio request")
+    if continuation_fields:
+        require(isinstance(request["continuation_from"], str)
+                and re.fullmatch(r"[a-f0-9]{24}", request["continuation_from"])
+                and all(isinstance(request[field], str) and re.fullmatch(r"[a-f0-9]{64}", request[field])
+                        for field in ("continuation_policy_sha256", "continuation_custody_sha256")),
+                "Invalid canonical continuation bindings")
+        proof = read_json(state / "jobs" / job_id / "retry-parent-custody.json")
+        require(_digest(proof) == request["continuation_custody_sha256"], "Continuation parent custody receipt differs")
     if _digest(request) != row["request_digest"]:
         raise ValueError("Canonical immutable request digest differs")
     if read_json(state / "jobs" / job_id / "request.json") != request:
@@ -263,8 +337,14 @@ def inspect(job_id):
             raise ValueError("Prepared request differs from the Studio input: " + key)
     files = [prepared_path, plan_path]
     source_reuse, source_generation, backend = None, None, None
+    terminal_files = unsupported_seal(state, job_id, output, data, row["request_digest"]) if row["status"] == "unsupported" else []
+    files.extend(terminal_files)
+    if continuation_fields:
+        require("agent_backend" in prepared, "Continuation requires the API backend")
+        files.append(state / "jobs" / job_id / "retry-parent-custody.json")
     if "agent_backend" in prepared:
-        backend, extra = api_backend(state, job_id, output, request, prepared, plan, row["request_digest"])
+        backend, extra = api_backend(state, job_id, output, request, prepared, plan, row["request_digest"],
+                                     terminal_sealed=bool(terminal_files))
         files.extend(extra)
     if request["reuse_model"] is not None:
         source_reuse = reused_source(output, request, prepared)

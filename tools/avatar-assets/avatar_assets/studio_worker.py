@@ -1,4 +1,4 @@
-"""Owned detached supervisor and pipeline child; no web server or allowance creation."""
+"""Owned pipeline child; standing grants only derive from an existing owner policy."""
 
 import argparse
 from contextlib import contextmanager
@@ -75,11 +75,17 @@ def _validate_prepared_request(prepared,request,output,*,agent_backend=None):
               'max_credits':0 if request['reuse_model'] else 35,**limits}
     if agent_backend is not None:
         expected['agent_backend'] = agent_backend
-    _require(isinstance(prepared,dict) and set(prepared)==set(expected)|{'reference','reuse_model','created'},
+    extra={'continuation'} if request.get('continuation_from') else set()
+    _require(isinstance(prepared,dict) and set(prepared)==set(expected)|{'reference','reuse_model','created'}|extra,
              'Prepared pipeline request fields differ from the Studio contract')
     for field,value in expected.items():
         _require(_digest(prepared[field])==_digest(value),
                  'Prepared pipeline request differs from the immutable Studio request: '+field)
+    if extra:
+        from avatar_assets.pipeline_continuation import verify
+        _require(prepared['continuation'].get('parent')=='outputs/studio-'+request['continuation_from'],
+                 'Prepared continuation parent differs from Studio')
+        verify(output.parents[1],output,prepared)
     for field,name in (('reference','reference'),('reuse_model','source-model')):
         selected,actual=request[field],prepared[field]
         if selected is None:
@@ -135,7 +141,9 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
         pipeline_module.prepare(request['prompt'],output,style=request['style'],custom_actions=request['custom_actions'],
             preset=request['preset'],reference=request['reference']['path'] if request['reference'] else None,
             reuse_model=request['reuse_model']['path'] if request['reuse_model'] else None,
-            states=[],max_credits=0 if request['reuse_model'] else 35,**limits)
+            states=[],max_credits=0 if request['reuse_model'] else 35,**limits,
+            **({'continuation_from':jobs.resolve_job(request['continuation_from'])}
+               if request.get('continuation_from') else {}))
         verify_selected()
     prepared=_json(output/'request.json')
     _validate_prepared_request(prepared,request,output,agent_backend=backend)
@@ -148,6 +156,12 @@ def run_child(jobs,job_id,token,*,pipeline_module=None):
         _write_private(binding_path,binding)
     if backend is not None:
         from avatar_assets.agent_backend import readiness
+        if request.get('continuation_from'):
+            try:
+                jobs.authorize_retry(job_id,token)
+            except ValueError as error:
+                return {'status':'awaiting_authorization','safe_to_release':True,'provenance':provenance,
+                        'reason':_safe_text(str(error),800),'pipeline_request_sha256':request_sha}
         ready = readiness(jobs.root, job_id=output.name, job_digest=request_sha, settings=backend)
         if not ready['can_run']:
             return {'status':'awaiting_authorization','safe_to_release':True,'provenance':provenance,

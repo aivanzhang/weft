@@ -126,6 +126,7 @@ export async function bootStudio() {
     const job = state.job;
     $("save-request").disabled = state.busy || !state.session;
     $("save-request").textContent = state.busy && !state.selected ? "Saving request…" : "Save request →";
+    $("retry-job").disabled = state.busy || !state.session || job?.capabilities?.retry !== true;
     $("prepare-plan").disabled = state.busy || !state.session || job?.capabilities?.plan !== true;
     $("start-job").disabled = state.busy || !state.session || !canStart(job) || !$("estimate-ack").checked;
     $("cancel-job").disabled = state.busy || job?.status === "cancel_requested" || job?.capabilities?.cancel === false;
@@ -204,6 +205,8 @@ export async function bootStudio() {
       : "Your request is saved. Prepare a plan to see the proposed assets and estimated work.");
     $("planning-cost-note").textContent = text(state.session?.planning_cost_note, 2000) || "Planning uses the configured AI service. Account-specific dollar cost is unavailable. Model generation requires a separate reviewed estimate.";
     $("planning-cost-note").hidden = Boolean(plan);
+    $("retry-job").hidden = job.capabilities?.retry !== true;
+    $("retry-note").hidden = job.capabilities?.retry !== true;
     $("prepare-plan").hidden = job.capabilities?.plan !== true;
     $("plan-warnings").replaceChildren(...(Array.isArray(plan?.warnings) ? plan.warnings : []).slice(0, 16).map((warning) => node("li", text(warning))));
     $("plan-warnings").hidden = !$("plan-warnings").children.length;
@@ -509,6 +512,14 @@ export async function bootStudio() {
       state.draftID = state.draftFingerprint = null;
       state.selected = job.id; state.jobSignature = ""; state.resultSignature = ""; renderJob(job); renderList();
       $("job-title").scrollIntoView({ block: "nearest" });
+    });
+  });
+  $("retry-job").addEventListener("click", () => {
+    const id = state.selected; if (!id || state.job?.capabilities?.retry !== true) return;
+    mutate(async (signal) => {
+      const job = unwrapJob(await request(apiPath(id, "/retry"), { method: "POST", body: {}, signal }));
+      state.selected = job.id; state.jobSignature = ""; state.resultSignature = "";
+      renderJob(job); renderList();
     });
   });
   $("prepare-plan").addEventListener("click", () => {

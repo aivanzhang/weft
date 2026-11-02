@@ -1,0 +1,105 @@
+{
+  "checks": [
+    {
+      "command": "../../.venv-lab/bin/python -m unittest discover -s tests -p test_studio_retry.py -v",
+      "covers": [
+        "idempotent successor without launch/grant",
+        "exact immutable request/source",
+        "terminal/no active or queued custody",
+        "present process and unsafe receipts fail closed",
+        "worker forwards saved parent and grants only after SHA binding",
+        "revoked policy stops before Pipeline",
+        "continuation verifier required"
+      ],
+      "result": "passed",
+      "seconds_reported_by_unittest": 0.081,
+      "tests": 6
+    },
+    {
+      "command": "../../.venv-lab/bin/python -m unittest discover -s tests -p test_studio_jobs.py -v",
+      "result": "passed",
+      "seconds_reported_by_unittest": 0.533,
+      "tests": 29
+    },
+    {
+      "command": "../../.venv-lab/bin/python -m unittest discover -s tests -p test_studio_inspection.py -v",
+      "result": "passed",
+      "seconds_reported_by_unittest": 0.385,
+      "tests": 16
+    },
+    {
+      "command": "../../.venv-lab/bin/python -m unittest discover -s tests -p test_studio.py -v",
+      "failure": "Session test expected legacy phrase Dollar cost; assertion was updated to check OpenAI dollars, standing policy, and policy disabled by default.",
+      "result": "19 passed; one stale assertion failed",
+      "seconds_reported_by_unittest": 0.459,
+      "tests": 20
+    },
+    {
+      "command": "PYTHONPATH=tests ../../.venv-lab/bin/python -m unittest test_studio.StudioHTTPTests.test_static_entrypoint_and_session_are_loopback_only -v",
+      "execution_note": "First targeted rerun could not bind ephemeral localhost port inside sandbox (PermissionError). Narrow automatic-review-approved escalation then passed; test-owned loopback server closed.",
+      "result": "passed after assertion correction",
+      "seconds_reported_by_unittest": 0.029,
+      "tests": 1
+    },
+    {
+      "command": "node --check browser/studio.js",
+      "execution_note": "Syntax only; no browser interaction",
+      "result": "passed"
+    }
+  ],
+  "evidence_kind": "analyst-recorded tool-result transcription; no stdout logs retained",
+  "limits_and_uncertainty": [
+    "No paid provider calls, native rendering, browser interaction or live ledger mutation were performed by this worker.",
+    "HTTP tests used ephemeral localhost servers and analytic content, not a live Studio run.",
+    "Real continuation acceptance and rendered avatar quality remain separate root-owned checks.",
+    "Tests were not rerun for this evidence record.",
+    "Related standing-authorization and pipeline-continuation helper tests belong to their separate owners."
+  ],
+  "recorded_local": "2026-11-02T13:27:26.488835-08:00",
+  "result": "71 relevant tests passed across focused runs after one stale text assertion correction; JavaScript syntax passed",
+  "schema_version": 1,
+  "scope": "Guarded Studio saved-work retry, terminal custody, exact-source bindings, standing-grant integration and local HTTP routing; analytic fixtures only",
+  "sources": [
+    {
+      "bytes": 18821,
+      "path": "avatar_assets/studio.py",
+      "sha256": "cf7ee42f824d3a736504059bc002b3f4f2857bad88dd5f6126c2b61c3814da7c"
+    },
+    {
+      "bytes": 56738,
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "bfdee26fb3e7d9831ba1f049a2e43c13ada731228137991f352a28ae262b1a00"
+    },
+    {
+      "bytes": 15535,
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "bytes": 39838,
+      "path": "avatar_assets/studio_inspection.py",
+      "sha256": "5844d1724a21c184511047cfb361db1f1b88a789ab5a3654ea8999f3275877c3"
+    },
+    {
+      "bytes": 39456,
+      "path": "browser/studio.js",
+      "sha256": "71228c299a8d4a12813592b522eb18bb61469138d11d789577a8f7acadb29c66"
+    },
+    {
+      "bytes": 10001,
+      "path": "browser/studio.html",
+      "sha256": "cc6d2ef78f748138c422d15ad01bdb013e2ef7dd8927c55550e9eb95cd988af1"
+    },
+    {
+      "bytes": 11940,
+      "path": "tests/test_studio_retry.py",
+      "sha256": "1e2596c560b6afc6bcff4e4ca9bfeaece4d20cb81c442abfdcfb2335254265db"
+    },
+    {
+      "bytes": 28405,
+      "path": "tests/test_studio.py",
+      "sha256": "ce74a2d00e6d909fbc6d5c46ea005978f0571669ea85f89da81b9b7be4e46c34"
+    }
+  ],
+  "working_directory": "/Users/ivan/kintsugi/weft/tools/avatar-assets"
+}

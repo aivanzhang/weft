@@ -1,0 +1,36 @@
+13:33:35 | INFO: Data are loaded, start creating Blender stuff
+13:33:35 | INFO: Blender create Mesh node 0
+13:33:35 | INFO: glTF import finished in 0.02s
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/creature_rig_math.py:69: RuntimeWarning: divide by zero encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/creature_rig_math.py:69: RuntimeWarning: overflow encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/creature_rig_math.py:69: RuntimeWarning: invalid value encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_finish_generated.py", line 980, in <module>
+    finish(args[0], args[1])
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_finish_generated.py", line 531, in finish
+    return _finish(config, output, prepare_only=prepare_only, preserve_skin_source=preserve_skin_source)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_finish_generated.py", line 705, in _finish
+    report['fur_undercoat'] = apply_undercoat(obj, mask, prepared, cfg['fur_undercoat'], out,
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_fur_undercoat.py", line 262, in apply_undercoat
+    return _apply_material_undercoat(obj, mask, prepared_flow, settings, out, export_vertex_budget)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_fur_undercoat.py", line 594, in _apply_material_undercoat
+    plan, payloads = plan_material_undercoat(vertices, triangles, uv0, selected, material_ids, settings,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_fur_undercoat.py", line 386, in plan_material_undercoat
+    plan, payloads = plan_normal_atlases(vertices, triangles, uv0, selected, material_ids,
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/undercoat_uv_atlas.py", line 234, in plan_normal_atlases
+    if len(yes)>MAX_ATLAS_FACES:raise ValueError('Aliased material exceeds2048face UV1 repair bound')
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Aliased material exceeds2048face UV1 repair bound
+
+Error: script failed, file: '/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/studio-6869ed56ce1c4266bc0f873c/model-0/sources/blender_finish_generated.py', exiting.
+
+Blender quit

@@ -1,0 +1,72 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1349,
+      "path": "execute.py",
+      "sha256": "65b2c28d44acdd97b09dd90c47f6335aa5527d4f03c5cf4951322cbb97331b7f"
+    },
+    {
+      "bytes": 1068,
+      "path": "job.json",
+      "sha256": "2d6cf870aae95a77fc8d0fae0d6c8cbb703507110395a0cacf50010d64a59d95"
+    },
+    {
+      "bytes": 1229,
+      "path": "prepared.json",
+      "sha256": "efdfd9fa64b9fd0f9a4c15ee500e20a961f8cb06cd9c447f2a229aac0d80dd06"
+    },
+    {
+      "bytes": 1317,
+      "path": "result.json",
+      "sha256": "43a124afa056f28b2f188dedc84658ec683a44b050976d0a26720ec626d4f44d"
+    },
+    {
+      "bytes": 433,
+      "path": "run.py",
+      "sha256": "a145f1e48deb28e54e323b5d11beb14889fd4cf000f120bcb225ff194c6f4540"
+    },
+    {
+      "bytes": 7891,
+      "path": "sources/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "bytes": 32021,
+      "path": "sources/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "bytes": 15859,
+      "path": "sources/pipeline_continuation.py",
+      "sha256": "ec465e253e67ec86ea08a0d8f221e7764e73417c07245c8de503ed1e9156f98c"
+    },
+    {
+      "bytes": 16914,
+      "path": "sources/standing_authorization.py",
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "bytes": 11598,
+      "path": "sources/test_standing_authorization.py",
+      "sha256": "0a7075281f100abe211529dd2415d96d9946cfe2ba5e2be189133a9416878135"
+    },
+    {
+      "bytes": 240,
+      "path": "tests-handle.json",
+      "sha256": "3689d2173d41716061a92a899a04f0f38121aaa3ec135e495371b58bb0b9b1f9"
+    },
+    {
+      "bytes": 976,
+      "path": "tests-monitor.json",
+      "sha256": "899cd4f0782adef0763a6ff40b4ab069ac5afe810454ec4cedf71c9d245112e6"
+    },
+    {
+      "bytes": 2247,
+      "path": "tests.log",
+      "sha256": "307315419f3d2d53f4a28a987042e01c53dec43df541f04c138dc55142afc76c"
+    }
+  ],
+  "kind": "standing_authorization_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

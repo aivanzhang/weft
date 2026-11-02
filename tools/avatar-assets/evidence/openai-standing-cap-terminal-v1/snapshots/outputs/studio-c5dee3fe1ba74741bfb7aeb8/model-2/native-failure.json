@@ -1,0 +1,29 @@
+{
+  "automatic_repair_performed": false,
+  "failure_type": "UndercoatSelectionError",
+  "finish_config_sha256": "ff7787a47ab5a6d96a4e362cc1efea78b33b286bb8332bf668c93527cecb39c0",
+  "measurements": {
+    "undercoat_selection": {
+      "implementation_sha256": "3c2fdd15f65d34dd6c838234f680fc2d615062da3e912a8855b4b71318ac7fb1",
+      "max_faces": 34000,
+      "min_faces": 18000,
+      "policy": "undercoat-selection-count-v1",
+      "primitive": "loop_triangles",
+      "schema_version": 1,
+      "scope": "adaptive_plan",
+      "selected_faces": 35859,
+      "selection_encoding": "uint8-boolean-triangle-order",
+      "selection_mask_sha256": "4d168057987ddb1eba0551f03b18bd9491376ca848fee95add84b628bb04a550",
+      "settings_sha256": "f1d2df25a0a0927e121faf0ee3277883ffeebb091b36c744b24efb2c06b013a2",
+      "total_faces": 36124
+    }
+  },
+  "message": "Undercoat selected face count is outside its declared bounds: selected=35859, min=18000, max=34000, total=36124",
+  "message_truncated": false,
+  "native_script_sha256": "617be6ff929e14aa16a7b0cce0baf9282b939a20a247f14308cea58bb0228081",
+  "policy": "native-finishing-failure-v1",
+  "schema_version": 1,
+  "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "status": "failed",
+  "thresholds_changed": false
+}

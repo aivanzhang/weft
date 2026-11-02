@@ -12,8 +12,11 @@ Run module commands from `tools/avatar-assets`; from the Weft root use `./tools/
 For website jobs, use the [OpenAI API backend](../../docs/api-website-backend.md),
 not a personal ChatGPT/CLI login. Server-only keys, exact-request dollar grants
 and Meshy credits are separate. Preserve failed responses and actual token costs;
-never treat a conservative reservation as the actual bill. A new paid retry needs
-the authorization required by the saved run, not merely a working API key.
+never treat a conservative reservation as the actual bill. Honor standing user
+authorization across bounded retries; do not ask again merely because a run
+exhausted its repair count. Enforce the shared total cap including prior usage,
+unknown-charge holds and immutable predecessor history. A working key alone
+is not spending authorization.
 The historical manual `generate` CLI remains a separate path; do not describe it
 as the website backend. Check the current handoff before claiming live acceptance.
 New OpenAI author jobs use typedv2 designs; do not embed rig JSON inside a string

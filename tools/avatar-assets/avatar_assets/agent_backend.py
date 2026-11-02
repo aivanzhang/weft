@@ -8,7 +8,7 @@ from pathlib import Path
 import sqlite3
 import stat
 
-from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot
+from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot, budget_snapshot
 from avatar_assets.safety import require
 
 DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 1,
@@ -78,13 +78,17 @@ def readiness(root, *, job_id=None, job_digest=None, settings=None):
             _private_file(ledger, 64 * 1024**2)
             with closing(sqlite3.connect(ledger.as_uri() + '?mode=ro', uri=True, timeout=.2)) as db:
                 db.execute('PRAGMA query_only=ON')
-                budget = db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
-                result['project_budget_ready'] = budget is not None and budget[0] > 0
+                budget = budget_snapshot(db)
+                result['project_budget_ready'] = budget is not None
+                if budget:
+                    result.update(project_ceiling_microdollars=budget['effective_ceiling_microdollars'],
+                                  original_project_ceiling_microdollars=budget['original_ceiling_microdollars'],
+                                  budget_policy=budget['policy'], budget_reductions=budget['reductions'])
                 accounting = accounting_snapshot(db)
                 result.update(accounting_policy=accounting['policy'],
                               project_effective_exposure_microdollars=accounting['project_exposure_microdollars'],
                               retired_actual_microdollars=accounting['retired_actual_microdollars'])
-                result['project_remaining_microdollars'] = max(0, budget[0] - accounting['project_exposure_microdollars']) if budget else 0
+                result['project_remaining_microdollars'] = max(0, budget['effective_ceiling_microdollars'] - accounting['project_exposure_microdollars']) if budget else 0
                 if job_id is not None:
                     result['job_retired'] = job_id in accounting['retired_jobs']
                     grant = db.execute('SELECT digest,calls,ceiling FROM jobs WHERE id=?', (job_id,)).fetchone()

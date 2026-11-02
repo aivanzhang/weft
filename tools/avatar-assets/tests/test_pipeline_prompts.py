@@ -270,6 +270,15 @@ class AuthorContractTests(unittest.TestCase):
         self.assertEqual(data["repair_findings"]["problem"], "Tube clipped")
         self.assertIn("Blender world axes", prompt)
 
+    def test_author_owns_finishing_repairs_without_removing_required_fur(self):
+        prompt = author_prompt(request(), plan(), {}, findings={"native_failure": "UV1 repair bound"})
+        self.assertIn("ROLE: appearance, material, groom, rig and motion author.", prompt)
+        self.assertNotIn("ROLE: rig-and-motion author.", prompt)
+        self.assertIn("every supported finishing field", prompt)
+        self.assertIn("fur_undercoat is optional lighting detail, not actual hair", prompt)
+        self.assertIn("does not permit removing required native groom, groom_flow or portable fur", prompt)
+        self.assertIn("relaxing counts/masks, or weakening any gate", prompt)
+
 
 class ReviewContractTests(unittest.TestCase):
     def test_real_numeric_citations_are_allowed_without_invented_ids(self):

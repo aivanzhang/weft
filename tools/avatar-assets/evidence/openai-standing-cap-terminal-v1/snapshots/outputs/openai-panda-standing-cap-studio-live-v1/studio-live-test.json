@@ -1,0 +1,1254 @@
+{
+  "schema_version": 1,
+  "status": "unsupported",
+  "provenance": "actual_pipeline",
+  "recorded_local": "11/02/2026, 13:06:47 PST",
+  "timezone": "America/Los_Angeles",
+  "job_id": "c5dee3fe1ba74741bfb7aeb8",
+  "explicit_start_requested": true,
+  "limits": {
+    "wall_seconds": 1800,
+    "operation_ms": 15000,
+    "sampled_browser_rss_bytes": 3221225472,
+    "output_bytes": 67108864,
+    "server_log_bytes": 1048576,
+    "json_bytes": 1048576,
+    "requests": 2056,
+    "snapshots": 128,
+    "events": 4096,
+    "event_bytes": 1048576
+  },
+  "scope": "Actual local HTML/HTTP/canonical job manager, UI progress and real delivered GLB/video/static assets. Geometry provenance is bound to the inspected job. This does not establish visual quality, physical action, seamless loops or sustained FPS.",
+  "sources": [
+    {
+      "path": "browser/tests/studio-live.mjs",
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "9397de6e35b72aa7340fc92a3d6d6ba3e3596de07a9e41a0a3d01ca9ae30b4bc"
+    },
+    {
+      "path": "browser/studio.html",
+      "sha256": "46933ca84219aefb1f20a514861ead8c407aff7d148635f931e9ec9d5d3a8642"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "17f35cb1c93205269d51e1e88acccd394683935a94f69ba0c6dcb0b87dd7d761"
+    },
+    {
+      "path": "browser/studio.css",
+      "sha256": "7c14ae8ba8fc041dd404dfe5a4d0655f16522997b23d19281d769b01818e6a04"
+    },
+    {
+      "path": "avatar_assets/studio.py",
+      "sha256": "5c7623e0d11a688993b3eaa3e07667d86788a624b33d779ddcbd811b7ad9a177"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "c027063aad223ee7d5d06f10ca1cf5ffd724c463c27813a7618b7af23ca03262"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "sha256": "a44a0ba8c5919e49b0ab98f618f0074883a5d348d743b07f625ccb7df9d60d2e"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "sha256": "70eabeaaf048e42c61893edef6823a98cee07681ba6719ec73e9990fd3685609"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "path": "avatar_assets/action_intent.py",
+      "sha256": "88d2d0f176b7eaac99fdfa6ea82ad9a73b4884cbb4c100645a9aa589ca7a864b"
+    },
+    {
+      "path": "avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a"
+    },
+    {
+      "path": "avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "path": "avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "job-000.json",
+      "status": "planned",
+      "observed_seconds": 1.398858791,
+      "elapsed_seconds_measured": 20.62,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 20.36
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-001.json",
+      "status": "launching",
+      "observed_seconds": 2.107849875,
+      "elapsed_seconds_measured": 0.01,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 20.36
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-002.json",
+      "status": "running",
+      "observed_seconds": 4.670835,
+      "elapsed_seconds_measured": 2.57,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.199
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "running",
+          "detail": "",
+          "attempt": 0
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-003.json",
+      "status": "running",
+      "observed_seconds": 53.216015791000004,
+      "elapsed_seconds_measured": 51.12,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.199
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "failed",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0,
+          "elapsed_seconds": 46.147
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "running",
+          "detail": "",
+          "attempt": 1
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-004.json",
+      "status": "running",
+      "observed_seconds": 88.963009583,
+      "elapsed_seconds_measured": 86.87,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.199
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "failed",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0,
+          "elapsed_seconds": 46.147
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "failed",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 1,
+          "elapsed_seconds": 38.254
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "running",
+          "detail": "",
+          "attempt": 2
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "path": "job-005.json",
+      "status": "unsupported",
+      "observed_seconds": 134.91075,
+      "elapsed_seconds_measured": 132.61,
+      "stages": [
+        {
+          "id": "planner",
+          "stage": "planner",
+          "label": "Planner",
+          "status": "ready",
+          "detail": "",
+          "attempt": null,
+          "elapsed_seconds": 0.002
+        },
+        {
+          "id": "geometry",
+          "stage": "geometry",
+          "label": "Geometry",
+          "status": "reused_generated_source",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "pipeline",
+          "stage": "pipeline",
+          "label": "Pipeline",
+          "status": "planned",
+          "detail": "",
+          "attempt": null
+        },
+        {
+          "id": "inspection",
+          "stage": "inspection",
+          "label": "Inspection",
+          "status": "complete",
+          "detail": "Source geometry and review views inspected; no quality acceptance.",
+          "attempt": null,
+          "elapsed_seconds": 2.199
+        },
+        {
+          "id": "author:0",
+          "stage": "author",
+          "label": "Author · attempt 1",
+          "status": "failed",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0,
+          "elapsed_seconds": 46.147
+        },
+        {
+          "id": "attempt:0",
+          "stage": "attempt",
+          "label": "Attempt · attempt 1",
+          "status": "rejected",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 0
+        },
+        {
+          "id": "author:1",
+          "stage": "author",
+          "label": "Author · attempt 2",
+          "status": "failed",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 1,
+          "elapsed_seconds": 38.254
+        },
+        {
+          "id": "attempt:1",
+          "stage": "attempt",
+          "label": "Attempt · attempt 2",
+          "status": "rejected",
+          "detail": "Authored geometry preflight failed; inspect all measured layer and bone findings",
+          "attempt": 1
+        },
+        {
+          "id": "author:2",
+          "stage": "author",
+          "label": "Author · attempt 3",
+          "status": "complete",
+          "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+          "attempt": 2,
+          "elapsed_seconds": 44.551
+        },
+        {
+          "id": "build:2",
+          "stage": "build",
+          "label": "Build · attempt 3",
+          "status": "failed",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2,
+          "elapsed_seconds": 1.097
+        },
+        {
+          "id": "attempt:2",
+          "stage": "attempt",
+          "label": "Attempt · attempt 3",
+          "status": "rejected",
+          "detail": "Finishing failed; inspect preserved attempt",
+          "attempt": 2
+        },
+        {
+          "id": "repair_budget",
+          "stage": "repair_budget",
+          "label": "Repair Budget",
+          "status": "unsupported",
+          "detail": "No accepted model within the bounded local repair attempts",
+          "attempt": null
+        }
+      ],
+      "reviews": []
+    }
+  ],
+  "checks": [
+    "Saved OpenAI backend is pinned to 7 calls and 2 repairs; dollar authorization remains an action-time worker check",
+    "Real HTTP/UI preserve the saved exact prompt/style/actions and disclose source reuse, 0 estimated Meshy credits and unknown Meshy account dollar conversion",
+    "OpenAI dollar reservation is recorded separately from Meshy generation credits; this verifier creates no API allowance",
+    "One explicit UI Start sent the pinned plan_id with a session token; no plan/create/cancel/retry mutation"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/",
+      "at_seconds": 0.692613625
+    },
+    {
+      "method": "GET",
+      "path": "/studio.css",
+      "at_seconds": 0.710165708
+    },
+    {
+      "method": "GET",
+      "path": "/studio.js",
+      "at_seconds": 0.7108144580000001
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.711443416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/session",
+      "at_seconds": 0.7334276660000001
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.svg",
+      "at_seconds": 0.7479565
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 0.748265416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 1.339852083
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8/start",
+      "at_seconds": 2.0909233329999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 2.1069535409999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 2.130550708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 4.638460416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 4.664002625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8/files/8cede1d772957fcea8812bbb9c471e47",
+      "at_seconds": 4.669400416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 7.172837125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 7.219018125000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 9.729908625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 9.77387925
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 12.283417541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 12.325899290999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 14.836525250000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 14.880716541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 17.391302749999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 17.43837025
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 19.950693916
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 19.996456207999998
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 22.507505707999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 22.551873875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 25.061869291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 25.108134915999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 27.619216207999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 27.659697290999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 30.168686290999997
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 30.213999624999996
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 32.72272475
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 32.767767416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 35.278416458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 35.322587875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 37.832341041
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 37.877847958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 40.388199916000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 40.434606708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 42.943469708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 42.989448791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 45.498851333
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 45.543556416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 48.053878833000006
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 48.099591416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 50.610164666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 50.655591125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 53.164522333
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 53.20874750000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 55.719409666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 55.768511541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 58.276834375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 58.323136125000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 60.834334000000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 60.879457458000005
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 63.390059208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 63.437395958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 65.946897833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 65.99317675
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 68.50395262500001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 68.549251833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 71.058263541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 71.104077333
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 73.614324458
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 73.65973954100001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 76.169401
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 76.2020945
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 78.711221083
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 78.75949245800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 81.26984520799999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 81.31664645800001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 83.826509833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 83.871268375
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 86.380928
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 86.425328875
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 88.93324408299999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 88.957202791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 91.46598825
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 91.51129508300001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 94.021514166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 94.06755100000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 96.575206666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 96.606926208
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 99.11609466600001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 99.161597708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 101.671744916
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 101.71759200000001
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 104.225635333
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 104.256556
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 106.76576949999999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 106.811195541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 109.321082833
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 109.371764916
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 111.880191166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 111.912698708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 114.423124958
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 114.468798041
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 116.979890291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 117.024825541
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 119.535201791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 119.581429625
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 122.091699041
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 122.137694291
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 124.647449125
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 124.693678
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 127.203856166
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 127.24902129099999
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 129.760912666
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 129.805512708
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 132.313067791
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 132.345225583
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs",
+      "at_seconds": 134.855022416
+    },
+    {
+      "method": "GET",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8",
+      "at_seconds": 134.90357666600002
+    }
+  ],
+  "errors": [],
+  "external_requests": [],
+  "request_failures": [],
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8/start",
+      "plan_id": "ab80ea44895042ca094c8cd905f8d9e96bdc7683f2df872fac912610ad1b2a60",
+      "csrf_present": true
+    }
+  ],
+  "assets": {},
+  "artifacts": [
+    {
+      "path": "source-test.mjs",
+      "bytes": 38951,
+      "sha256": "eee79357c1909c07fd52cf98a672464a8c9db47e335c98d6a597fe483cfcf996"
+    },
+    {
+      "path": "source-helper.py",
+      "bytes": 19678,
+      "sha256": "9397de6e35b72aa7340fc92a3d6d6ba3e3596de07a9e41a0a3d01ca9ae30b4bc"
+    },
+    {
+      "path": "ownership-before.json",
+      "bytes": 3698,
+      "sha256": "6b68a4aece75e931242fbde1b35693d91a4f8c6fdba30931137254c05be69ca3"
+    },
+    {
+      "path": "job-000.json",
+      "bytes": 4347,
+      "sha256": "aa343fd6d09c7db91e2bdd504923301cfd5bfa80b142b609b7ba15fef6dadaed"
+    },
+    {
+      "path": "initial-job.png",
+      "bytes": 330686,
+      "sha256": "507747ac42655260ab7d2bc6dfa789516773f2f90a679d1259c4c41fb71fa338"
+    },
+    {
+      "path": "job-001.json",
+      "bytes": 4352,
+      "sha256": "ee52c46ff1c53106ec4f055ca624496bafa50f28892a825983d1b6fa14f789ff"
+    },
+    {
+      "path": "progress-00.png",
+      "bytes": 335950,
+      "sha256": "dcf4df091cd3393d985cfcd621b41889f0060236417843efc38c0bbeef99eb11"
+    },
+    {
+      "path": "job-002.json",
+      "bytes": 5229,
+      "sha256": "49bc04ff458c21d2223d233cc70b4f759e04812472445f58b8471e778e41374e"
+    },
+    {
+      "path": "progress-01.png",
+      "bytes": 509862,
+      "sha256": "3b9af320450b2f191a10293f84992d5e03aaad1aa26828b932c63f827ceaf679"
+    },
+    {
+      "path": "job-003.json",
+      "bytes": 5758,
+      "sha256": "efa3c56c0a22ed0539ece704a7034d8a3ccdd3ff06d33fc329dd8248ea11f067"
+    },
+    {
+      "path": "progress-02.png",
+      "bytes": 529673,
+      "sha256": "da66bb18df605b87a18e244b09207e8502234326492d805cc86c11bbce2210e8"
+    },
+    {
+      "path": "job-004.json",
+      "bytes": 6286,
+      "sha256": "b90c1b44cac5b6b605299cac3ab1a8a853255dffd6f27f17d0fcdf819f679886"
+    },
+    {
+      "path": "progress-03.png",
+      "bytes": 549847,
+      "sha256": "12df84b61528fc389479246469ae574b3d5753572f41de0e60c16c105a8a33c3"
+    },
+    {
+      "path": "job-005.json",
+      "bytes": 7167,
+      "sha256": "341f6e7249541d5bc08a05deef35b051465b50bf18f34703b9d8f3cd66ca898f"
+    },
+    {
+      "path": "progress-04.png",
+      "bytes": 579015,
+      "sha256": "4a08498e024622dce7fd1116cbe56d1bb4214fb464cb0bc75fb769cbf7bd4e3c"
+    },
+    {
+      "path": "terminal-job.json",
+      "bytes": 7167,
+      "sha256": "341f6e7249541d5bc08a05deef35b051465b50bf18f34703b9d8f3cd66ca898f"
+    },
+    {
+      "path": "ownership-after.json",
+      "bytes": 3705,
+      "sha256": "2b4facb69fbd9bfc4ef3f9ea2678c29aad8414409e1d0ebeb3b306646d0543a9"
+    },
+    {
+      "path": "server.log",
+      "bytes": 108,
+      "sha256": "bf99d2f6e2e3f3a76dd7cdeb73b037d8e66ca08d8b4c524e06a6131ffd1ea310"
+    }
+  ],
+  "cleanup": {
+    "browser_exit_verified": true,
+    "server_exit_verified": true,
+    "worker_cancel_requested": false,
+    "worker_signalled": false
+  },
+  "resources": {
+    "sampled_peak_rss_bytes": 1697513472,
+    "samples": 67,
+    "sampling_interval_ms": 2000,
+    "scope": "Tester Node + direct HTTP server + owned Chrome subtree; detached generation workers are EXCLUDED and keep their own bounds. RSS is sampled and shared pages may be double-counted."
+  },
+  "initial_status": "planned",
+  "frozen_plan_id": "ab80ea44895042ca094c8cd905f8d9e96bdc7683f2df872fac912610ad1b2a60",
+  "generation_mode": "reused_generated_source",
+  "source_reuse": {
+    "bytes": 14902088,
+    "path": "inputs/source-model.glb",
+    "sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e"
+  },
+  "source_generation": null,
+  "agent_backend": {
+    "authorization_checked": false,
+    "automatic_paid_retries": 0,
+    "currency": "USD",
+    "execution_gate": "exact_request_dollar_grant_and_explicit_start",
+    "max_calls": 7,
+    "max_output_tokens": 16384,
+    "max_repairs": 2,
+    "maximum_reservation_microdollars": 39330480,
+    "model": "gpt-5.4-2026-03-05",
+    "provider": "openai",
+    "reservation_microdollars_per_call": 5618640,
+    "timeout": 240
+  },
+  "server_pid": 36813,
+  "server": {
+    "port": 63562,
+    "pid": 36813,
+    "job_id": "c5dee3fe1ba74741bfb7aeb8",
+    "canonical_state_dir": ".local/studio"
+  },
+  "browser_pid": 36814,
+  "browser": {
+    "version": "156.0.8078.76",
+    "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+    "software_webgl": true
+  },
+  "initial_ui": {
+    "status": "planned",
+    "timeline_entries": 3,
+    "reviews": 0,
+    "elapsed_label": "20s elapsed"
+  },
+  "last_ui": {
+    "status": "unsupported",
+    "timeline_entries": 12,
+    "reviews": 0,
+    "elapsed_label": "2m 12s elapsed"
+  },
+  "terminal_status": "unsupported",
+  "result": "Actual worker stopped without a completed delivery; preserved attempts are not a pass",
+  "worker_handoff": {
+    "status": "unsupported",
+    "output": "outputs/studio-c5dee3fe1ba74741bfb7aeb8",
+    "owner": {
+      "active_lease_job": null,
+      "cancel_requested": false,
+      "ended_local": "2026-11-02T13:09:02.593066-08:00",
+      "heartbeat_local": "2026-11-02T13:09:02.593066-08:00",
+      "identity_verified_live": false,
+      "invocation_dir": "jobs/c5dee3fe1ba74741bfb7aeb8/run-0003",
+      "invocations": 3,
+      "operation": "execute",
+      "owner_identity": "darwin-start:1793653609:983551",
+      "owner_pid": 36835,
+      "queued_jobs": []
+    },
+    "next_action": "Inspect the canonical status and preserved receipts before any next action; this verifier issued no worker cancellation."
+  },
+  "start_requests": 1,
+  "request_count": 116,
+  "observed_rejected_reviews": [],
+  "elapsed_seconds": 135.854922,
+  "finished_local": "11/02/2026, 13:09:03 PST"
+}

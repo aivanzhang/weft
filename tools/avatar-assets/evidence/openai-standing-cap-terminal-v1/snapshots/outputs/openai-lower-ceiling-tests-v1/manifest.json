@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1337,
+      "path": "execute.py",
+      "sha256": "88a9d19e040b869c8de8067b960cca15f8792f02626515725004bb8b4e1d81f9"
+    },
+    {
+      "bytes": 1116,
+      "path": "job.json",
+      "sha256": "6353b93b89b5f7380b5ffb69a8596eb14d0305206c7546819466f15ab9489767"
+    },
+    {
+      "bytes": 1044,
+      "path": "prepared.json",
+      "sha256": "eacdfa8cc7df0c27762687829bbb4a9b0d3e57769ce4119bd25182926519fddc"
+    },
+    {
+      "bytes": 1359,
+      "path": "result.json",
+      "sha256": "e92a3f2e82255ca1e7aaaf3714315ffdeb1adb81c0d869dee4597980b70433bc"
+    },
+    {
+      "bytes": 526,
+      "path": "run.py",
+      "sha256": "762facc84f804cea37545adf8d1b413c473dcc4be54c1bbcafe5f23424960967"
+    },
+    {
+      "bytes": 7891,
+      "path": "sources/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "bytes": 32021,
+      "path": "sources/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "bytes": 35566,
+      "path": "sources/test_openai_runner.py",
+      "sha256": "d650fe59590ca49f211d16afcfc92c70d74b4ee043beb8d917d24ed30f62cd0d"
+    },
+    {
+      "bytes": 20798,
+      "path": "sources/test_openai_studio_integration.py",
+      "sha256": "e1901b7e0c1ab7f04c374ba14d8a5e54a09ce80b3cf0dfb9aadf2f093a2496a4"
+    },
+    {
+      "bytes": 238,
+      "path": "tests-handle.json",
+      "sha256": "f8d446a1875094b0dee9fe2095f9277f09adb631ec99f3db5f289f29e321f211"
+    },
+    {
+      "bytes": 1022,
+      "path": "tests-monitor.json",
+      "sha256": "046d318593aaff47fa7504252e0f23ecb5e935ac92c1a12395db11d6db1eb890"
+    },
+    {
+      "bytes": 10186,
+      "path": "tests.log",
+      "sha256": "2beb4ce30bf5ecb889e65f3909d533345af78cbd5e249046f2e1dc13128851e5"
+    }
+  ],
+  "kind": "append_only_openai_ceiling_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

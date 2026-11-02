@@ -4,17 +4,19 @@ Local workflow for editable, rigged 3D avatars and their 2D portrait/animation e
 
 **Budget:** standing authorization permits further bounded retries within **$15
 total OpenAI spend**, including prior use, without repeated approval questions.
-The ledger cap is being tightened before the next call; no new Meshy work.
+The append-only ledger cap is active; no new Meshy work.
 
 **Current direction:** Studio uses the server OpenAI API, not a personal AI login;
-Meshy remains the geometry/texture provider. The latest actual browser run reused
-the paid panda, parsed the typed rig response and used its two approved repairs.
-Measured feedback corrected the leg regions, but the latest run stopped
-**unsupported** at an undercoat face-count check. Native error feedback now includes
-verified measurements; 99 local checks and an actual failure reproduction pass. No finished rig, dance or delivery was produced.
-Ten API calls across attempts cost an estimated **$0.700742** total; no new Meshy
-charge or deployment. Strict response, attachment-policy and spending checks pass
-locally; these are not avatar acceptance. [Backend results](docs/api-website-backend.md).
+Meshy remains the geometry/texture provider. The website now supports authenticated
+**Retry saved work → Prepare → Start** under an owner-approved standing budget.
+The actual retry reused the paid panda and saved plan with no new planner or
+Meshy call. It corrected the undercoat count, then stopped **unsupported** at a
+texture-coordinate repair limit; the author incorrectly treated appearance
+repair as outside its role. That narrow prompt/continuation fix passed 35 local checks; the next live
+continuation is being verified.
+Sixteen API calls total an estimated **$1.270513**, under the enforced **$15 total**
+cap including prior use. No accepted API-backed rig/dance delivery or deployment
+is claimed. [Backend results](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a

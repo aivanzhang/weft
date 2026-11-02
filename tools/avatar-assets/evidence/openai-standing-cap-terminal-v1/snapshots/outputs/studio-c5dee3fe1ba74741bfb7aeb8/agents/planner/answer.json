@@ -1,0 +1,122 @@
+{
+  "appearance_checks": [
+    "Single original upright panda-like character only; no companion, clothes, props, pedestal, lettering or scenery.",
+    "Compact rounded proportions with a friendly silhouette and small black tail.",
+    "Ivory face and belly with black ears, black eye patches, black arms and black legs.",
+    "Warm brown eyes, short muzzle, rounded facial features.",
+    "Short soft tidy black-and-ivory fur over a clean smooth continuous undercoat surface; not carved fur spikes.",
+    "Relaxed neutral articulation-ready pose with clear space between arms and torso, hands and legs, and between the feet.",
+    "Cute stylized 3D avatar look with clean simple color boundaries and warm glossy brown eyes; no added realism or long hair."
+  ],
+  "generation_prompt": "Create one original friendly upright panda-like character in a relaxed neutral articulation-ready pose. Use compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm glossy brown eyes, a short muzzle, and a small black tail. Apply short soft tidy black-and-ivory fur over a clean smooth continuous undercoat surface with clean simple color boundaries, not carved fur spikes. Keep the arms slightly away from the torso, hands clear of the legs, and feet separated for readable joint motion. No companion, clothes, props, pedestal, lettering, or scenery.",
+  "height_meters": 1.1,
+  "limitations": [
+    "The supplied reuse model is treated only as input data here; this plan cannot verify whether its existing geometry already preserves the requested clear gaps at shoulders, hands, and feet.",
+    "The dance can be authored with bounded skeletal motion and small hops, but this planner cannot confirm exact final deformation quality or identity match to the reuse model.",
+    "No facial blendshapes, lip sync, new props, cloth or hair dynamics, or physical balance simulation are part of this backend request."
+  ],
+  "reason": "The request is supported as a single stylized furry character with one achievable authored dance action and no unsupported prop or facial-performance requirements.",
+  "states": [
+    {
+      "id": "dance",
+      "meaning": "A cheerful four-second toy dance with readable alternating side-to-side beats, small whole-body hops, coordinated arm swings, and head tilts, ending back in the starting neutral pose.",
+      "requirements": [
+        {
+          "description": "The main body shifts side to side in three clear alternating beats over the clip, creating a readable dance pattern rather than standing nearly still.",
+          "id": "body_rhythm",
+          "kind": "rhythm",
+          "role": "body"
+        },
+        {
+          "description": "The body performs small visible hops with brief upward travel and return, with the feet allowed to lift during the hops.",
+          "id": "body_hops",
+          "kind": "travel",
+          "role": "body"
+        },
+        {
+          "description": "Both arms swing in gentle coordinated motion relative to the torso so the arm movement is visible and not just carried by overall body travel.",
+          "id": "arms_swing",
+          "kind": "articulation",
+          "role": "arms"
+        },
+        {
+          "description": "The head tilts in coordination with the dance and moves relative to the torso, remaining visibly distinct from whole-body travel alone.",
+          "id": "head_tilts",
+          "kind": "articulation",
+          "role": "head"
+        },
+        {
+          "description": "The torso remains readable and supportive while the appendages move, without requiring simulated balance or external support interaction.",
+          "id": "torso_steady",
+          "kind": "stability",
+          "role": "torso"
+        },
+        {
+          "description": "By the end of the clip, the character returns to the neutral starting pose established at the beginning.",
+          "id": "return_neutral",
+          "kind": "landing",
+          "role": "body"
+        }
+      ],
+      "roles": [
+        {
+          "description": "the full panda character body for overall dance travel and return",
+          "id": "body"
+        },
+        {
+          "description": "both arms as the swinging appendages",
+          "id": "arms"
+        },
+        {
+          "description": "the head for coordinated tilts",
+          "id": "head"
+        },
+        {
+          "description": "the torso as the stable central mass during appendage motion",
+          "id": "torso"
+        }
+      ],
+      "user_request": "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    }
+  ],
+  "status": "ready",
+  "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+  "subject": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail.",
+  "surface_intent": [
+    {
+      "finish": "short soft tidy black fur with clean silhouette and simple color boundaries",
+      "material": "fur",
+      "region": "ears"
+    },
+    {
+      "finish": "short soft tidy ivory fur over a smooth rounded face shape",
+      "material": "fur",
+      "region": "face"
+    },
+    {
+      "finish": "short soft tidy ivory fur with a clean continuous undercoat surface",
+      "material": "fur",
+      "region": "belly"
+    },
+    {
+      "finish": "short soft tidy black fur with readable limb silhouettes",
+      "material": "fur",
+      "region": "arms and legs"
+    },
+    {
+      "finish": "warm glossy brown eye surfaces",
+      "material": "other",
+      "region": "eyes"
+    },
+    {
+      "finish": "small smooth black nose surface",
+      "material": "skin",
+      "region": "nose"
+    },
+    {
+      "finish": "short soft tidy black fur on a small rounded tail",
+      "material": "fur",
+      "region": "tail"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "bytes": 16914,
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "path": "tests/test_standing_authorization.py",
+      "bytes": 11598,
+      "sha256": "0a7075281f100abe211529dd2415d96d9946cfe2ba5e2be189133a9416878135"
+    },
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 32021,
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 7891,
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "bytes": 15859,
+      "sha256": "ec465e253e67ec86ea08a0d8f221e7764e73417c07245c8de503ed1e9156f98c"
+    }
+  ],
+  "worker_sha256": "a145f1e48deb28e54e323b5d11beb14889fd4cf000f120bcb225ff194c6f4540",
+  "limits": {
+    "seconds": 30,
+    "memory_mib": 512,
+    "output_mib": 16
+  },
+  "changed_hypothesis": "Validate/hash continuation provenance separately from semantic request context; exact parent bound; first and second successor fixtures"
+}

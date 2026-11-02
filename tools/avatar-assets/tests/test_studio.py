@@ -216,7 +216,9 @@ class StudioHTTPTests(unittest.TestCase):
         self.assertEqual(session['csrf_token'], self.server.token)
         self.assertTrue(session['capabilities']['reference_upload'])
         self.assertEqual(session['limits']['reference_bytes'], 8*1024**2)
-        self.assertIn('Dollar cost', session['planning_cost_note'])
+        self.assertIn('OpenAI dollars', session['planning_cost_note'])
+        self.assertIn('standing policy', session['planning_cost_note'])
+        self.assertFalse(session['standing_retry']['enabled'])
         status, _, raw = self.request('/', 'HEAD')
         self.assertEqual((status, raw), (200, b''))
         self.assertEqual(self.manager.calls, [])
@@ -265,6 +267,16 @@ class StudioHTTPTests(unittest.TestCase):
         for identifier in ('../private', 'https://external.invalid/file', 'a'*31, 4):
             self.assert_error(self.post('/api/studio/jobs', {'prompt': 'fixture', 'reference_id': identifier}))
         self.assertEqual(self.manager.calls, [])
+
+    def test_retry_requires_session_and_empty_body_without_exposing_spending_controls(self):
+        self.manager.retry = lambda identifier: (self.manager.calls.append(('retry',identifier)) or self.manager.get(identifier))
+        self.assertEqual(self.post(self.job_path+'/retry')[0],202)
+        self.assertEqual(self.manager.calls,[('retry',self.manager.seed_id)])
+        for fields in ({'max_microdollars':15000000},{'prompt':'different'},{'source':'/tmp/source.glb'},
+                       {'api_key':'not-a-key'},{'parent_id':'b'*24}):
+            self.assert_error(self.post(self.job_path+'/retry',fields))
+        self.assert_error(self.post(self.job_path+'/retry',headers={'X-Avatar-Studio-Token':None}),403)
+        self.assertEqual(self.manager.calls,[('retry',self.manager.seed_id)])
 
     def test_plan_start_and_stop_are_separate_explicit_operations(self):
         self.assertEqual(self.post(self.job_path+'/plan')[0], 202)

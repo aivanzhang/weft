@@ -94,7 +94,8 @@ def assert_absent(pids):
             'scope':'Recorded PIDs, direct children and process groups are absent; no worker was signalled.'}
 
 
-def collect(root,output,invocation,owner_pid,owner_identity,*,operation='execute'):
+def collect(root,output,invocation,owner_pid,owner_identity,*,operation='execute',terminal_status='needs_inspection'):
+    _require(terminal_status in ('needs_inspection','unsupported'),'Unsupported custody terminal state')
     root,output,invocation=map(Path,(root,output,invocation))
     _require(output.resolve()==output and output.is_dir() and output.is_relative_to(root/'outputs'),'Unsafe inspected job output')
     _require(invocation.resolve()==invocation and invocation.is_dir() and invocation.is_relative_to(root/'.local'),'Unsafe inspected invocation')
@@ -124,7 +125,8 @@ def collect(root,output,invocation,owner_pid,owner_identity,*,operation='execute
         total+=record['bytes'];_require(total<=MAX_RECEIPT_BYTES,'Custody receipt bytes exceed4MiB')
         record['path']=str(path.relative_to(root))
         if path in terminal_paths:
-            _require(value.get('status')=='needs_inspection' and value.get('safe_to_release') is False,
+            _require(value.get('status')==terminal_status
+                     and value.get('safe_to_release') is (terminal_status=='unsupported'),
                      'Controller or supervisor did not seal the inspected terminal result')
             records.append({**record,'kind':'terminal_result'});continue
         if path==invocation/'invocation.json':

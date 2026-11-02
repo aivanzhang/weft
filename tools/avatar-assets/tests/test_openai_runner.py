@@ -485,4 +485,132 @@ class ExposureTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'exceeds10000'):api.accounting_snapshot(db)
 
 
+class BudgetReductionTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.folder=Path(self.temp.name).resolve()/'ledger'
+        self.ledger=api.OpenAILedger(self.folder);self.addCleanup(self.ledger.close)
+        self.ledger.configure(17_000_000,APPROVAL)
+
+    def approval(self, amount):
+        return {**APPROVAL,'operation':'tighten_project_ceiling','max_microdollars':amount}
+
+    def grant(self):
+        self.ledger.authorize_job('parent','a'*64,5,17_000_000,APPROVAL)
+
+    def reserve(self, role, amount=None):
+        self.ledger.reserve('parent','a'*64,5,role,'c'*64,amount or api.reserve_microdollars())
+
+    def test_lower_only_history_keeps_original_approvals_calls_and_grants_exact(self):
+        self.grant();self.reserve('planner')
+        self.ledger.settle('parent','planner','resp_known',
+                          {'input_tokens':40000,'output_tokens':0,'total_tokens':40000},100000)
+        old={table:[tuple(r) for r in self.ledger.db.execute('SELECT * FROM '+table)]
+             for table in ('budget','jobs','calls','retirements')}
+        result=self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        self.assertEqual(result['original_ceiling_microdollars'],17_000_000)
+        self.assertEqual(result['effective_ceiling_microdollars'],15_000_000)
+        self.assertEqual(result['project_exposure_microdollars'],100000)
+        first=tuple(self.ledger.db.execute('SELECT * FROM budget_reductions').fetchone())
+        self.ledger.tighten_budget(14_000_000,self.approval(14_000_000))
+        self.assertEqual(tuple(self.ledger.db.execute('SELECT * FROM budget_reductions WHERE id=1').fetchone()),first)
+        for table,rows in old.items():
+            self.assertEqual([tuple(r) for r in self.ledger.db.execute('SELECT * FROM '+table)],rows)
+        self.assertEqual(api.budget_snapshot(self.ledger.db)['reductions'],2)
+
+    def test_increase_equal_invalid_or_unbound_reduction_cannot_change_limit(self):
+        self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        for amount in (15_000_000,16_000_000,0,True,14_000_000.0):
+            with self.subTest(amount=amount),self.assertRaises(ValueError):
+                self.ledger.tighten_budget(amount,self.approval(amount))
+        for approval in (APPROVAL,self.approval(13_000_000),{**self.approval(14_000_000),'operation':'increase'}):
+            with self.assertRaises(ValueError):self.ledger.tighten_budget(14_000_000,approval)
+        with self.assertRaisesRegex(ValueError,'immutable'):self.ledger.configure(15_000_000,APPROVAL)
+        self.ledger.configure(17_000_000,APPROVAL)
+        self.assertEqual(api.budget_snapshot(self.ledger.db)['effective_ceiling_microdollars'],15_000_000)
+        self.assertEqual(self.ledger.db.execute('SELECT COUNT(*) FROM budget_reductions').fetchone()[0],1)
+
+    def test_full_unknown_holds_above_lower_cap_block_reduction_without_releasing_them(self):
+        self.grant()
+        for role in ('planner','author-0','reviewer-0'):self.reserve(role)
+        before=[tuple(r) for r in self.ledger.db.execute('SELECT * FROM calls')]
+        with self.assertRaisesRegex(ValueError,'uncertain holds exceed'):
+            self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        self.assertEqual([tuple(r) for r in self.ledger.db.execute('SELECT * FROM calls')],before)
+        self.assertEqual(api.budget_snapshot(self.ledger.db)['reductions'],0)
+
+    def test_validated_settled_cost_above_new_cap_blocks_reduction(self):
+        self.grant()
+        for role in ('planner','author-0','reviewer-0'):
+            self.reserve(role)
+            self.ledger.settle('parent',role,'resp_'+role,
+                {'input_tokens':1050000,'output_tokens':0,'total_tokens':1050000},5250000)
+        with self.assertRaisesRegex(ValueError,'Known costs'):
+            self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        self.assertEqual(api.budget_snapshot(self.ledger.db)['effective_ceiling_microdollars'],17_000_000)
+
+    def test_old_unretired_grant_cannot_reserve_above_lower_global_ceiling(self):
+        self.grant();self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        self.reserve('planner');self.reserve('author-0')
+        with self.assertRaisesRegex(ValueError,'project spending allowance exhausted'):self.reserve('reviewer-0')
+        self.assertEqual(self.ledger.binding('parent','a'*64,5)['ceiling'],17_000_000)
+        self.assertIsNone(self.ledger.call('parent','reviewer-0'))
+        self.assertEqual(api.accounting_snapshot(self.ledger.db)['project_exposure_microdollars'],2*api.reserve_microdollars())
+
+    def test_new_grants_and_successors_use_lower_ceiling(self):
+        self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        with self.assertRaisesRegex(ValueError,'already allocated'):
+            self.ledger.authorize_job('parent','a'*64,5,16_000_000,APPROVAL)
+        self.ledger.authorize_job('parent','a'*64,5,15_000_000,APPROVAL)
+        self.reserve('planner')
+        self.ledger.settle('parent','planner','resp_known',
+                          {'input_tokens':40000,'output_tokens':0,'total_tokens':40000},100000)
+        approval={**APPROVAL,'operation':'retire_and_continue','parent_job_id':'parent',
+                  'successor_job_id':'next','additional_calls':5}
+        with self.assertRaisesRegex(ValueError,'project allowance'):
+            self.ledger.continue_job('parent','a'*64,'next','b'*64,5,15_000_000,approval)
+        self.ledger.continue_job('parent','a'*64,'next','b'*64,5,14_900_000,approval)
+        self.assertEqual(self.ledger._allocated(),15_000_000)
+        self.assertEqual(api.accounting_snapshot(self.ledger.db)['project_exposure_microdollars'],100000)
+        with self.assertRaisesRegex(ValueError,'Retired'):self.reserve('author-0')
+
+    def test_old_oversized_parent_can_retire_into_fitting_successor_without_rewriting_grant(self):
+        self.grant();self.reserve('planner')
+        self.ledger.settle('parent','planner','resp_known',
+                          {'input_tokens':40000,'output_tokens':0,'total_tokens':40000},100000)
+        self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        approval={**APPROVAL,'operation':'retire_and_continue','parent_job_id':'parent',
+                  'successor_job_id':'next','additional_calls':5}
+        self.ledger.continue_job('parent','a'*64,'next','b'*64,5,14_900_000,approval)
+        self.assertEqual(self.ledger.binding('parent','a'*64,5)['ceiling'],17_000_000)
+        self.assertEqual(self.ledger._allocated(),15_000_000)
+
+    def test_corrupt_reduction_chain_stops_reservations(self):
+        self.grant();self.ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+        self.ledger.db.execute('UPDATE budget_reductions SET previous_ceiling=18000000')
+        self.ledger.db.commit()
+        with self.assertRaisesRegex(ValueError,'reduction chain'):self.reserve('planner')
+        self.assertIsNone(self.ledger.call('parent','planner'))
+
+    def test_concurrent_tightening_and_reservation_share_one_atomic_exposure_limit(self):
+        self.grant();self.reserve('planner',8_000_000)
+        barrier=threading.Barrier(2);results=[]
+        def act(operation):
+            ledger=api.OpenAILedger(self.folder)
+            try:
+                barrier.wait(timeout=3)
+                if operation=='lower':ledger.tighten_budget(15_000_000,self.approval(15_000_000))
+                else:ledger.reserve('parent','a'*64,5,'author-0','d'*64,8_000_000)
+                results.append((operation,'passed'))
+            except ValueError:results.append((operation,'rejected'))
+            finally:ledger.close()
+        workers=[threading.Thread(target=act,args=(operation,)) for operation in ('lower','reserve')]
+        for worker in workers:worker.start()
+        for worker in workers:worker.join(timeout=5)
+        self.assertTrue(all(not worker.is_alive() for worker in workers))
+        self.assertEqual(sum(status=='passed' for _,status in results),1)
+        self.assertLessEqual(api.accounting_snapshot(self.ledger.db)['project_exposure_microdollars'],
+                             api.budget_snapshot(self.ledger.db)['effective_ceiling_microdollars'])
+
+
 if __name__=='__main__': unittest.main()

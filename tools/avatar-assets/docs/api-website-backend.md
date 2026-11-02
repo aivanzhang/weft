@@ -4,7 +4,7 @@ The latest user authorization permits bounded retries without repeated approval
 questions within **$15 total avatar OpenAI spend**, including prior use. It
 supersedes the earlier $17 ceiling and per-run approval limits described below.
 An append-only ledger reduction preserves all old approvals and charges; it must
-be active before the next request. No new Meshy generation is included.
+be active before the next request; it is now applied and records all prior use. No new Meshy generation is included.
 
 The user selected OpenAI API for the website backend. Website jobs must not
 depend on a personal ChatGPT login, local CLI session or operator-written rig.
@@ -40,7 +40,7 @@ broken rig, missing requested features or an unrelated action.
   and evidence. Model availability, refusals and limits must produce explicit
   job states, not fallback to a personal CLI login.
 
-The adapter uses pinned GPT-5.4 structured JSON and image inputs. The user
+The adapter uses pinned GPT-5.4 structured JSON and image inputs. Historically, the user
 approved a **$17 total maximum**, initially for three API calls without retries,
 then explicitly approved one planner retry followed by authoring and review.
 The first planner cost $0.022918 and failed local state-ID validation. Strict IDs
@@ -202,3 +202,30 @@ The preceding sandbox startup crash is preserved separately; it produced no rece
 and now correctly blocks automatic repair. These are failure-path checks, not
 an accepted avatar. Ninety-nine integrated checks pass. No API calls were made
 for this implementation or reproduction.
+
+## Standing-budget saved-work retries
+
+The owner may configure `.local/openai-standing-authorization.json` (mode0600)
+with an exact approval-receipt hash, total-dollar ceiling, model/call/repair limits,
+finite successor count, selected source hash and lineage-root request hash. This
+is server configuration, not a browser budget override. Missing, revoked or
+changed policy stops authorization. The existing ledger remains authoritative;
+unknown charges retain their reservations and all prior costs count.
+
+The website's **Retry saved work** button sends an authenticated empty
+`POST /api/studio/jobs/{parent_id}/retry`. It saves one idempotent child only.
+**Prepare plan** then verifies the immutable parent context and creates the exact
+request grant under the standing policy. **Start** executes that saved plan.
+No repeated approval is required within the standing allowance. Read-only status
+requests never grant funds or start work. The current policy authorizes source
+reuse, not another Meshy generation or arbitrary new text jobs.
+
+Continuation preserves the last paid plan, author proposal and authenticated
+native failure measurements. It makes no new planner call and does not edit the
+old recipe. Current continuation supports terminal `repair_budget` native-build
+failures and a later explicit author refusal backed by the preceding authenticated
+native failure. The last valid proposal is reused; the refusal is preserved as
+evidence, never substituted for a design. Exact source reuse remains required;
+other failures remain explicit, not silently restarted. Parent process custody must be released and all API calls settled.
+No automatic cross-job scheduler, hosted deployment or universal success is
+claimed by this recovery path.

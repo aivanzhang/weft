@@ -1,0 +1,6 @@
+{
+  "design": null,
+  "reason": "Unsupported continuation: the supplied measured failure is a native finishing UV1 repair-bound error (\"Aliased material exceeds2048face UV1 repair bound\") affecting finishing configuration rather than rig or motion. Within this role, only rig-and-motion fields may be changed, and the continuation explicitly forbids restarting the design or changing unjustified fields. The previous authored rig, action, bindings, and geometry layer occupancy already have no reported author_geometry failures, so no rig/motion repair is justified by the supplied evidence.",
+  "schema_version": 2,
+  "status": "unsupported"
+}

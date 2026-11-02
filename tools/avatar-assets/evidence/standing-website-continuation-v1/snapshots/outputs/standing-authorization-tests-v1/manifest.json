@@ -1,0 +1,67 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1349,
+      "path": "execute.py",
+      "sha256": "65b2c28d44acdd97b09dd90c47f6335aa5527d4f03c5cf4951322cbb97331b7f"
+    },
+    {
+      "bytes": 1068,
+      "path": "job.json",
+      "sha256": "24dfea2d953d97bbd3e030b18bb01af2919bb446af7c77dafdca7b0f5a8981a8"
+    },
+    {
+      "bytes": 892,
+      "path": "prepared.json",
+      "sha256": "ef7fd4c14b0aa7eb09cd9d2fe3717d0e6131da28f0ab815e4242c32fa93a6d1d"
+    },
+    {
+      "bytes": 1317,
+      "path": "result.json",
+      "sha256": "18b397e1a3e88a84bade134657ce4b8f6d3ac5868d12bb3f5a2a811c9e99222c"
+    },
+    {
+      "bytes": 433,
+      "path": "run.py",
+      "sha256": "a145f1e48deb28e54e323b5d11beb14889fd4cf000f120bcb225ff194c6f4540"
+    },
+    {
+      "bytes": 7891,
+      "path": "sources/agent_backend.py",
+      "sha256": "37ebf5f3d2b68b22f34d691b1108da5833bbc6cc211c5dc141fb935a50e9c4c6"
+    },
+    {
+      "bytes": 32021,
+      "path": "sources/openai_runner.py",
+      "sha256": "501309a116a68a1c82b6034953f9966aa2840d2d16172a2abaaa2a2b3cde3af1"
+    },
+    {
+      "bytes": 15304,
+      "path": "sources/standing_authorization.py",
+      "sha256": "c82241cd9f4a9a7b0386370d3f11ff6dd8eff58bafaeb918b9a4c83b6e37b7b4"
+    },
+    {
+      "bytes": 10427,
+      "path": "sources/test_standing_authorization.py",
+      "sha256": "f058d069b62f188042b0aa464ef4f884bf918035d5915d94595984cf16165f7f"
+    },
+    {
+      "bytes": 240,
+      "path": "tests-handle.json",
+      "sha256": "9da3af997b9a8911b57501919ec207d714586b9b4503e40973ae3bc85aea147b"
+    },
+    {
+      "bytes": 976,
+      "path": "tests-monitor.json",
+      "sha256": "3f273c5a3ad0c6647ddfcc418b2b0e4ef2edc95c7ed0741d120eef5c4ba94771"
+    },
+    {
+      "bytes": 2059,
+      "path": "tests.log",
+      "sha256": "b47c31ece4fbf9ea91d1859ed50f81008531fac8a166c28b111523b55bfaa003"
+    }
+  ],
+  "kind": "standing_authorization_tests",
+  "schema_version": 1,
+  "status": "passed"
+}

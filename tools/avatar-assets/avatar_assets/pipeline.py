@@ -25,7 +25,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_continuation.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py', 'author_geometry.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -332,7 +332,8 @@ def _image(path):
 
 
 def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='preview', reference=None, reuse_model=None,
-            max_credits=0, max_repairs=1, max_agent_calls=10, agent_timeout=240, agent_model=None, agent_backend=None):
+            max_credits=0, max_repairs=1, max_agent_calls=10, agent_timeout=240, agent_model=None, agent_backend=None,
+            continuation_from=None):
     from avatar_assets.action_intent import validate_custom_actions
     _text(prompt, 4000, 'prompt')
     _text(style, 800, 'style', empty=True)
@@ -363,6 +364,16 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
     if source:
         from avatar_assets.provider_model import preflight
         preflight(source)
+    continuation = None
+    if continuation_from is not None:
+        from avatar_assets.pipeline_continuation import collect, _match
+        require(agent_backend is not None, 'Native repair continuation requires the server API backend')
+        continuation = collect(ROOT, continuation_from)
+        candidate = {'prompt': prompt, 'style': style, 'states': states, 'custom_actions': custom_actions,
+                     'preset': preset, 'media_spec': PRESETS[preset], 'max_credits': max_credits,
+                     'reuse_model': {'sha256': sha256(source), 'bytes': source.stat().st_size} if source else None,
+                     'reference': {'sha256': sha256(ref), 'bytes': ref.stat().st_size} if ref else None}
+        _match(candidate, continuation['parent_request'])
     out = new_directory(output)
     (out/'inputs').mkdir()
     (out/'events').mkdir()
@@ -380,6 +391,9 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
             shutil.copyfile(original, target)
             request[field] = {'path': str(target.relative_to(out)), 'sha256': sha256(target),
                               'original_path': str(original), 'bytes': target.stat().st_size}
+    if continuation is not None:
+        from avatar_assets.pipeline_continuation import save
+        request['continuation'] = save(out, request, continuation)
     write_json(out/'request.json', request)
     for name, source_path in _pipeline_sources().items():
         target = out/'sources'/name
@@ -389,7 +403,8 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
     write_json(out/'estimate.json', {
         'schema_version': 1, 'new_meshy_credits': 0 if source else 35,
         'new_meshy_paid_calls': 0 if source else (1 if ref else 2), 'automatic_paid_retries': 0,
-        'maximum_agent_calls': max_agent_calls, 'expected_agent_calls': 3,
+        'maximum_agent_calls': max_agent_calls, 'expected_agent_calls': 2 if continuation is not None else 3,
+        'new_planner_calls': 0 if continuation is not None else 1,
         'planning_token_estimate': {'input_per_call': 'Budget assumption50000 input tokens/call, informed by observed15814–42341 tokens including selected evidence; not an enforced token cap. Up to8 selected images.',
                                     'output_per_call': 'typically1000–8000 tokens; transport bytes/deadline are bounded'},
         'agent_billing': 'Existing authenticated local Codex CLI; account-specific usage/price unknown. No account/key creation or purchase.',
@@ -450,6 +465,10 @@ class Pipeline:
             if item:
                 path = local_file(self.root/item['path'])
                 require(path.is_relative_to(self.root/'inputs') and sha256(path) == item['sha256'], 'Prepared input changed')
+        self.continuation = None
+        if self.request.get('continuation') is not None and not sealed_delivery:
+            from avatar_assets.pipeline_continuation import verify
+            self.continuation = verify(ROOT, self.root, self.request)
         # Reading sealed results never needs a live credential or remaining allowance.
         if agents is None and not sealed_delivery:
             backend = self.request.get('agent_backend')
@@ -555,7 +574,9 @@ class Pipeline:
         self.guard()
         self.event('planner', 'running')
         images = [self.root/self.request['reference']['path']] if self.request['reference'] else []
-        if self.runtime_revision:
+        if self.continuation is not None:
+            answer = self.continuation['plan']
+        elif self.runtime_revision:
             from avatar_assets.pipeline_recovery import cached_planner_answer
             answer = cached_planner_answer(self.root,self.runtime_revision)
         else:
@@ -1024,10 +1045,17 @@ class Pipeline:
         source_parents = {b['name']: b['parent'] for rig in context['native'].get('rigs', []) for b in rig['bones']}
         self.event('inspection', 'complete', reason='Source geometry and review views inspected; no quality acceptance.')
         previous, findings, selected, repair_images = None, None, None, []
+        if self.continuation is not None:
+            previous, findings = self.continuation['previous_answer'], self.continuation['findings']
         for attempt in range(self.request['max_repairs']+1):
             self.guard()
             self.event('author', 'running', attempt=attempt)
-            answer = self.agents.call('author-'+str(attempt), prompts.author_prompt(self.request, plan, context, previous, findings),
+            author_prompt = prompts.author_prompt(self.request, plan, context, previous, findings)
+            if self.continuation is not None:
+                author_prompt += ('\nCONTINUATION: reuse the previous authored rig and motion design. Change only fields justified by '
+                                  'the supplied measured failures; do not restart the character, rig or action design. '
+                                  'Prior geometry checks are not proof of deformation or appearance acceptance.\n')
+            answer = self.agents.call('author-'+str(attempt), author_prompt,
                                       prompts.author_schema(self.request, plan), images=[inspection/n for n in
                                           ('guide-front.png','guide-side.png','three-quarter.png')]+repair_images[:5])
             if answer.get('status') == 'unsupported':

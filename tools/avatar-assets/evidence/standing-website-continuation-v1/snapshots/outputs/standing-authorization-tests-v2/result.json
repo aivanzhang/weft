@@ -1,0 +1,41 @@
+{
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/standing-authorization-tests-v2/run.py"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.257,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 90691,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 42975,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 90691,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "passed": true,
+  "pinned_sources_unchanged": true,
+  "scope": "Analytic temporary-ledger fixtures only; no actual policy, grant, configuration or provider calls"
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "classification": "actual_website_saved_work_continuation",
+  "parent_id": "c5dee3fe1ba74741bfb7aeb8",
+  "mutations": [
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/c5dee3fe1ba74741bfb7aeb8/retry"
+    },
+    {
+      "method": "POST",
+      "path": "/api/studio/jobs/6869ed56ce1c4266bc0f873c/plan"
+    }
+  ],
+  "errors": [],
+  "generation_started": false,
+  "cleanup": {
+    "browser_closed": true,
+    "server_exit_verified": true
+  },
+  "sources": [
+    {
+      "path": "browser/tests/studio-retry-live.mjs",
+      "sha256": "1aec26cd1dc7c59cf8f5f59f1dcce35c8de08d66076c3edf97e85188f0a9d9c4"
+    },
+    {
+      "path": "browser/studio.js",
+      "sha256": "71228c299a8d4a12813592b522eb18bb61469138d11d789577a8f7acadb29c66"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "sha256": "bfdee26fb3e7d9831ba1f049a2e43c13ada731228137991f352a28ae262b1a00"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "sha256": "91d741d31debaaddb9ec2424fe7239d4988783b6e0e716231d722bc5ef677e02"
+    },
+    {
+      "path": "avatar_assets/standing_authorization.py",
+      "sha256": "e3134f4772d4669122b629d2ec932ef1868357dc0cc07d1a8713cc9cd4bedbcc"
+    },
+    {
+      "path": "avatar_assets/pipeline_continuation.py",
+      "sha256": "7886e1e3e11a32b7f6937e17a97402faa47fe29bdbce15a2748922aceeb78291"
+    }
+  ],
+  "server_pid": 43610,
+  "child_id": "6869ed56ce1c4266bc0f873c",
+  "plan_id": "1fd1e0fb41249ccb75c1000f043fdb630f99a3bd085d9e5c5b204fe16f234c51",
+  "status": "passed",
+  "elapsed_seconds": 3.748285875,
+  "request_count": 17
+}

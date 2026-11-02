@@ -1,0 +1,133 @@
+{
+  "id": "6869ed56ce1c4266bc0f873c",
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "status": "running",
+  "created_at": "2026-11-02T13:32:22.166273-08:00",
+  "updated_at": "2026-11-02T13:33:35.260665-08:00",
+  "elapsed_seconds": 40.94,
+  "request": {
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "reference_selected": false,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.001
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "planned",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "complete",
+      "detail": "Source geometry and review views inspected; no quality acceptance.",
+      "attempt": null,
+      "elapsed_seconds": 2.667
+    },
+    {
+      "id": "author:0",
+      "stage": "author",
+      "label": "Author · attempt 1",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 0,
+      "elapsed_seconds": 37.137
+    },
+    {
+      "id": "build:0",
+      "stage": "build",
+      "label": "Build · attempt 1",
+      "status": "running",
+      "detail": "",
+      "attempt": 0
+    }
+  ],
+  "plan_id": "1fd1e0fb41249ccb75c1000f043fdb630f99a3bd085d9e5c5b204fe16f234c51",
+  "plan": {
+    "id": "1fd1e0fb41249ccb75c1000f043fdb630f99a3bd085d9e5c5b204fe16f234c51",
+    "summary": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "The supplied reuse model is treated only as input data here; this plan cannot verify whether its existing geometry already preserves the requested clear gaps at shoulders, hands, and feet.",
+      "The dance can be authored with bounded skeletal motion and small hops, but this planner cannot confirm exact final deformation quality or identity match to the reuse model.",
+      "No facial blendshapes, lip sync, new props, cloth or hair dynamics, or physical balance simulation are part of this backend request."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": true,
+    "retry": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [
+    {
+      "url": "/api/studio/jobs/6869ed56ce1c4266bc0f873c/files/4571a36d1f7ad360f7276af2706dfc62",
+      "kind": "image",
+      "id": "front",
+      "label": "Work-in-progress preview",
+      "bytes": 216600
+    },
+    {
+      "url": "/api/studio/jobs/6869ed56ce1c4266bc0f873c/files/c26ba06b985a2dfa7c4e3f838cd5fc7d",
+      "kind": "image",
+      "id": "three-quarter",
+      "label": "Work-in-progress preview",
+      "bytes": 211947
+    }
+  ],
+  "reviews": [],
+  "result": null,
+  "error": null,
+  "storage": {
+    "retained_bytes_measured": 52270795,
+    "pipeline_bytes_measured": 51881829,
+    "measured_at": "2026-11-02T13:33:35.260664-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

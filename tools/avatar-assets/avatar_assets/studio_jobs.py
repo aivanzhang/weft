@@ -392,6 +392,101 @@ class StudioJobs:
     def start(self, job_id, plan_id=None):
         return self._enqueue(job_id,'execute',plan_id)
 
+    def _retry_parent(self, db, parent_id, *, child_id=None):
+        row=self._row(db,parent_id);data=json.loads(row['data']);request=json.loads(row['request'])
+        _require(row['status']=='unsupported' and data.get('operation')=='execute',
+                 'Retry requires a safely finished unsupported execution')
+        _require(request.get('reuse_model') is not None, 'Retry cannot authorize new Meshy generation')
+        _require(_digest(request)==row['request_digest'] and _json(self.jobs_dir/parent_id/'request.json')==request,
+                 'Saved parent request changed')
+        active=db.execute('SELECT job FROM active WHERE id=1').fetchone()
+        _require((active is None if child_id is None else active and active[0]==child_id),
+                 'Another invocation still owns the worker lane')
+        _require(not db.execute("SELECT 1 FROM jobs WHERE status='queued' LIMIT 1").fetchone(),
+                 'Queued work must finish before a retry is authorized')
+        if child_id is not None:
+            _require(data.get('retry_child')==child_id, 'Retry child differs from the saved parent lineage')
+        output=self.root/'outputs'/row['output']
+        invocation=self.state_dir/data.get('invocation_dir','')
+        _require(invocation.is_relative_to(self.jobs_dir/parent_id) and invocation.resolve()==invocation,
+                 'Parent invocation custody is missing or unsafe')
+        sealed=_json(invocation/'invocation.json',{})
+        _require(sealed.get('job_id')==parent_id and sealed.get('token')==data.get('token')
+                 and sealed.get('request_digest')==row['request_digest'], 'Parent invocation binding changed')
+        return row,data,request,output,invocation
+
+    def _retry_locks(self, parent_id, output, *, global_lock):
+        return ([self.state_dir/'worker.lock'] if global_lock else []) + [
+            self.jobs_dir/parent_id/'worker.lock',output/'pipeline.lock',output/'agents/runner.lock']
+
+    def retry(self, parent_id):
+        """Save one exact successor; only later Prepare/Start can invoke paid work."""
+        from avatar_assets.studio_inspection import collect,custody_locks,recheck
+        from avatar_assets.standing_authorization import retry_eligibility
+        with self._db() as db:
+            row=self._row(db,parent_id);data=json.loads(row['data'])
+            if data.get('retry_child'):
+                return self.get(data['retry_child'])
+            _,_,_,output,_=self._retry_parent(db,parent_id)
+        with custody_locks(self._retry_locks(parent_id,output,global_lock=True)):
+            with self._db(True) as db:
+                row,data,request,output,invocation=self._retry_parent(db,parent_id)
+                if data.get('retry_child'):
+                    child_id=data['retry_child']
+                else:
+                    proof=collect(self.root,output,invocation,data.get('owner_pid'),data.get('owner_identity'),
+                                  terminal_status='unsupported')
+                    eligibility=retry_eligibility(self.root,output)
+                    _require(eligibility.get('eligible') is True, eligibility.get('reason','Standing retry is not authorized'))
+                    recheck(self.root,proof)
+                    for field in ('reference','reuse_model'):
+                        if request[field]:
+                            _require(self._selected(request[field]['path'],field=='reference')==request[field],
+                                     'Selected source changed after the saved request')
+                    child_request={**request,'continuation_from':parent_id,
+                                   'continuation_policy_sha256':eligibility['policy_sha256'],
+                                   'continuation_custody_sha256':_digest(proof)}
+                    _require(db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0]<MAX_JOBS,'Studio job inventory is full')
+                    child_id=uuid.uuid4().hex[:24]
+                    folder=_private_directory(self.jobs_dir/child_id)
+                    _write_private(folder/'request.json',child_request)
+                    _write_private(folder/'retry-parent-custody.json',proof)
+                    created=time.time();checksum=_digest(child_request)
+                    child_data={'updated':created,'operation':None,'invocations':0,'cancel_requested':False,
+                                'provenance':getattr(self.executor,'provenance','analytic_fixture')}
+                    db.execute('INSERT INTO jobs VALUES(?,?,?,?,?,?,?,?,?)',
+                        (child_id,'retry-'+parent_id,checksum,_canonical(child_request),'studio-'+child_id,
+                         created,'created',None,_canonical(child_data)))
+                    data['retry_child']=child_id;self._update(db,row,data)
+                    self._journal(db,parent_id,{'action':'saved_retry','child_id':child_id})
+                    self._journal(db,child_id,{'status':'created','request_digest':checksum,'parent_id':parent_id,
+                                             'policy_sha256':eligibility['policy_sha256']})
+        return self.get(child_id)
+
+    def authorize_retry(self, job_id, token):
+        """Fence terminal parent custody while the existing allowance grants its exact child."""
+        from avatar_assets.studio_inspection import custody_locks,recheck
+        from avatar_assets.standing_authorization import authorize_successor
+        with self._db() as db:
+            row=self._row(db,job_id);request=json.loads(row['request']);data=json.loads(row['data'])
+            parent_id=request.get('continuation_from')
+            _require(parent_id is not None and data.get('token')==token,'Continuation worker binding changed')
+            _,_,_,parent,_=self._retry_parent(db,parent_id,child_id=job_id)
+        with custody_locks(self._retry_locks(parent_id,parent,global_lock=False)):
+            with self._db(True) as db:
+                row=self._row(db,job_id);current=json.loads(row['request']);data=json.loads(row['data'])
+                _require(current==request and _digest(current)==row['request_digest'] and data.get('token')==token,
+                         'Continuation request or worker changed')
+                self._retry_parent(db,parent_id,child_id=job_id)
+                proof=_json(self.jobs_dir/job_id/'retry-parent-custody.json')
+                _require(isinstance(proof,dict) and _digest(proof)==request.get('continuation_custody_sha256'),
+                         'Retry parent custody proof changed')
+                active=db.execute('SELECT job,token FROM active WHERE id=1').fetchone()
+                _require(active and tuple(active)==(job_id,token),'Continuation active lease changed')
+                recheck(self.root,proof)
+                return authorize_successor(self.root,parent,self.root/'outputs'/row['output'],
+                    expected_policy_sha256=request['continuation_policy_sha256'])
+
     def release_inspected(self,job_id,*,expected_pid,expected_identity,reason):
         """Seal exact failed-owner custody and release its lease; never restart or dispatch work."""
         from avatar_assets.studio_inspection import (collect,custody_locks,recheck,collect_generation,
@@ -551,7 +646,8 @@ class StudioJobs:
                        'invocation_dir':str(invocation),'request_digest':row['request_digest']}
             snapshots=_private_directory(invocation/'sources')
             payload['sources']=[]
-            for name in ('studio_jobs.py','studio_worker.py','agent_backend.py','openai_runner.py'):
+            for name in ('studio_jobs.py','studio_worker.py','studio_inspection.py','agent_backend.py','openai_runner.py',
+                         'standing_authorization.py','pipeline_continuation.py'):
                 source=Path(__file__).parent/name;target=snapshots/name
                 shutil.copyfile(source,target);target.chmod(0o600)
                 payload['sources'].append({'path':'sources/'+name,'sha256':hashlib.sha256(target.read_bytes()).hexdigest()})
@@ -646,7 +742,10 @@ class StudioJobs:
         return {'path':str(path.relative_to(self.root)), 'kind':kind, 'id':identifier or Path(relative).stem,
                 'label':_safe_text(label,100),'bytes':path.stat().st_size}
 
-    def _snapshot(self,row):
+    def _snapshot(self,row,*,standing=None):
+        if standing is None:
+            from avatar_assets.standing_authorization import standing_policy_status
+            standing=standing_policy_status(self.root)
         data,request = json.loads(row['data']),json.loads(row['request'])
         folder = self.root/'outputs'/row['output'];status = row['status']
         if status in ('launching','planning','running','cancel_requested') and time.time()-data.get('heartbeat',0)>HEARTBEAT_STALE:
@@ -714,6 +813,8 @@ class StudioJobs:
             'capabilities':{'plan':status in ('created','cancelled') or status=='awaiting_authorization' and plan_id is None,
                             'start':can_resume and authorization['can_start'],
                             'cancel':status in ('created','queued','planning','running','launching','cancel_requested'),
+                            'retry':status=='unsupported' and request['reuse_model'] is not None
+                                and standing.get('enabled') is True,
                             'resume':can_resume,'session_required':True,'execution_gate':'canonical_ledger_and_explicit_start'},
             'previews':list({p['path']:p for p in previews}.values()),'reviews':reviews,'result':result,'error':{'message':_safe_text(error,800)} if error else None,
             'storage':{'retained_bytes_measured':data.get('retained_bytes',0),'pipeline_bytes_measured':data.get('output_bytes',0),
@@ -746,4 +847,6 @@ class StudioJobs:
         with self._db() as db:
             rows=[dict(r) for r in db.execute('SELECT * FROM jobs ORDER BY created DESC,id LIMIT ? OFFSET ?',(limit,offset))]
             total=db.execute('SELECT COUNT(*) FROM jobs').fetchone()[0]
-        return {'jobs':[self._snapshot(row) for row in rows],'total':total,'offset':offset,'limit':limit}
+        from avatar_assets.standing_authorization import standing_policy_status
+        standing=standing_policy_status(self.root)
+        return {'jobs':[self._snapshot(row,standing=standing) for row in rows],'total':total,'offset':offset,'limit':limit}

@@ -280,10 +280,13 @@ class StudioHandler(gallery._Handler):
                         custom_actions=body.get('custom_actions', []), preset=body.get('preset', 'preview'),
                         reference=reference, idempotency_key=keys[0])
                 return self._reply(201, _wire(job))
-            match = re.fullmatch('/api/studio/jobs/('+JOB_ID+')/(plan|start|cancel)', parsed.path)
+            match = re.fullmatch('/api/studio/jobs/('+JOB_ID+')/(plan|start|cancel|retry)', parsed.path)
             require(match is not None, 'Unknown studio operation')
             identifier, operation = match.groups()
-            if operation == 'start':
+            if operation == 'retry':
+                require(not body, 'Retry accepts no new prompt, path, key or spending fields')
+                result = self.server.manager.retry(identifier)
+            elif operation == 'start':
                 require(set(body) == {'plan_id'} and isinstance(body['plan_id'], str)
                         and 0 < len(body['plan_id']) <= 128, 'Start must name the reviewed plan')
                 result = self.server.manager.start(identifier, plan_id=body['plan_id'])
@@ -311,7 +314,9 @@ class StudioServer(gallery._Server):
         self._slots = threading.BoundedSemaphore(gallery.MAX_REQUESTS)
         from avatar_assets.agent_backend import readiness
         backend = readiness(root)
-        self.session = {'csrf_token': self.token, 'agent_backend': backend,
+        from avatar_assets.standing_authorization import standing_policy_status
+        standing = standing_policy_status(root)
+        self.session = {'csrf_token': self.token, 'agent_backend': backend, 'standing_retry': standing,
             'presets': [{'id': 'preview', 'label': 'HD preview', 'description': '1600px portrait and 720px action videos'},
                         {'id': 'draft', 'label': 'Quick draft', 'description': 'Small previews for early review'},
                         {'id': 'muse', 'label': 'Long HD clips', 'description': 'Eight-second clips; not a quality guarantee'}],
@@ -319,9 +324,9 @@ class StudioServer(gallery._Server):
                        'reference_bytes': MAX_REFERENCE},
             'capabilities': {'reference_upload': True},
             'planning_cost_note': 'Planning, rigging instructions and review use the server OpenAI API, not a personal AI login. '
-                'Saving a prompt is free. Planning requires an explicit administrator dollar grant for the saved request. '
-                'Meshy generation credits are separate from OpenAI dollars. No automatic retries, credit purchases or allowance increases. '
-                + backend['reason']}
+                'Saving a prompt is free. Planning requires a saved-request dollar grant; an enabled owner standing policy can grant an exact saved-work retry. '
+                'Meshy generation credits are separate from OpenAI dollars. Retry reuses the saved source and plan; it never buys credits or increases the allowance. '
+                + (standing['reason'] if standing.get('enabled') else backend['reason'])}
         HTTPServer.__init__(self, ('127.0.0.1', port), StudioHandler)
 
 

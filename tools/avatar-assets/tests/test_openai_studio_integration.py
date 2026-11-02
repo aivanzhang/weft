@@ -323,6 +323,34 @@ class OpenAIStudioIntegrationTests(unittest.TestCase):
         self.assertFalse(ready['can_run'])
         self.assertIn('inspection',ready['reason'])
 
+    def test_readiness_uses_append_only_fifteen_dollar_ceiling_for_old_larger_grant(self):
+        db=self.accounting_fixture()
+        ledger=OpenAILedger(self.root/'.local/openai');self.addCleanup(ledger.close)
+        ledger.tighten_budget(15_000_000,{**APPROVAL,'operation':'tighten_project_ceiling','max_microdollars':15_000_000})
+        reservation=reserve_microdollars()
+        for role in ('planner','author-0'):
+            ledger.reserve(self.out.name,'a'*64,3,role,'b'*64,reservation)
+        path=self.root/'.local/openai/ledger.sqlite3'
+        before=path.read_bytes()
+        with patch('avatar_assets.openai_runner.OpenAILedger',side_effect=AssertionError('Read-only readiness')):
+            ready=readiness(self.root,job_id=self.out.name,job_digest='a'*64)
+        self.assertFalse(ready['can_run'])
+        self.assertEqual(ready['project_ceiling_microdollars'],15_000_000)
+        self.assertEqual(ready['original_project_ceiling_microdollars'],17_000_000)
+        self.assertEqual(ready['project_remaining_microdollars'],15_000_000-2*reservation)
+        self.assertEqual(ready['budget_reductions'],1)
+        self.assertEqual(path.read_bytes(),before)
+        self.assertEqual(db.execute('SELECT ceiling FROM budget').fetchone()[0],17_000_000)
+
+    def test_readiness_rejects_invalid_reduction_chain(self):
+        self.accounting_fixture()
+        ledger=OpenAILedger(self.root/'.local/openai');self.addCleanup(ledger.close)
+        ledger.tighten_budget(15_000_000,{**APPROVAL,'operation':'tighten_project_ceiling','max_microdollars':15_000_000})
+        ledger.db.execute('UPDATE budget_reductions SET ceiling=18000000');ledger.db.commit()
+        ready=readiness(self.root,job_id=self.out.name,job_digest='a'*64)
+        self.assertFalse(ready['can_run'])
+        self.assertIn('inspection',ready['reason'])
+
     def test_malformed_retirement_cost_fails_closed(self):
         db = self.accounting_fixture(retirements=True)
         db.execute('INSERT INTO retirements VALUES(?,?,?,?)', ('retired-parent', self.out.name, 'unknown', 'analytic_fixture'))

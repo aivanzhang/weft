@@ -72,9 +72,11 @@ reporting gap and exact plan-bound action schemas are now fixed and locally test
 No accepted API-backed rig, dance or delivery has passed yet.
 
 Meshy totals remain 18 successful submissions / 237 credits against 245 authorized.
-Ten API calls total an estimated $0.700742 under the separate $17 ceiling. No new
-Meshy call occurred during these recoveries. The latest job used both of its two
-authorized repairs; unused call slots are not permission for another repair.
+Fourteen API calls total an estimated $1.079085 under the effective **$15 total**
+ceiling, including prior usage. The user authorized further bounded retries
+within that cap without repeated questions. No new Meshy call occurred during
+these recoveries. Each job still has finite call/repair bounds and unknown
+charges retain their full reservations.
 Exact attempts, approvals and evidence are in [the current handoff](../TODO.md).
 
 ## Interface contract

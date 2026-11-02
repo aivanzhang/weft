@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "recorded_local": "2026-11-02T13:36:59.206319-08:00",
+  "kind": "analyst-recorded focused test result plus actual read-only inspection",
+  "command": "../../.venv-lab/bin/python -m unittest discover -s tests -p test_studio_live_verifier.py -v",
+  "tests_passed": 27,
+  "unittest_seconds": 0.243,
+  "logs_preserved": false,
+  "actual_inspection": {
+    "command": "../../.venv-lab/bin/python scripts/verify_studio_live.py --job 6869ed56ce1c4266bc0f873c",
+    "exit_code": 0,
+    "scope": "Read-only canonical registry/artifact hashes; no dispatch or grants",
+    "status": "unsupported",
+    "active_lease_job": null,
+    "queued_jobs": [],
+    "owner_identity_verified_live": false
+  },
+  "files": [
+    {
+      "path": "scripts/verify_studio_live.py",
+      "sha256": "1b0c69ed7eddc523a12a05650ee501e6cc4d79a8203a0031f65efe27843714a7"
+    },
+    {
+      "path": "tests/test_studio_live_verifier.py",
+      "sha256": "e116d57afbc8178e931c509f88da69ddc78a0fd096398a043f0e1ba63cfea1fc"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "allowed_source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "approval_receipt": {
+    "path": "outputs/openai-standing-retry-policy-v1/approval.json",
+    "sha256": "e3d944d8c990568a1fc698ccddc303310f369aa63494d015de2dd9eb05189d27"
+  },
+  "lineage_root_job_id": "studio-c5dee3fe1ba74741bfb7aeb8",
+  "lineage_root_request_sha256": "b9df282c24a428c2fa17f7ef0b0dd89455e2b7bc3587fbc21a7b99a75155e304",
+  "max_calls": 7,
+  "max_repairs": 2,
+  "max_successors": 8,
+  "max_total_microdollars": 15000000,
+  "model": "gpt-5.4-2026-03-05",
+  "policy_id": "panda-saved-work-standing-v1",
+  "schema_version": 1,
+  "status": "active"
+}

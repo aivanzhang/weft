@@ -1,0 +1,11 @@
+{
+  "prior_actual_microdollars": 1079085,
+  "max_total_microdollars": 15000000,
+  "assumptions": "At most seven API calls, expected author and review plus bounded repairs; reuse planner and paid source. Illustrative50k input/5.5k output tokens per call at pinned rates; every call still reserves full context ceiling. No transport retries. No Meshy calls. Finite8successors share existing total cap, not eight independent allowances.",
+  "status": "prepared_not_installed",
+  "expected_next_two_call_usd": 0.415,
+  "illustrative_next_seven_call_usd": 1.4525,
+  "illustrative_eight_successor_max_calls": 56,
+  "illustrative_eight_successor_usd": 11.62,
+  "shared_hard_total_usd": 15
+}

@@ -400,6 +400,106 @@ class StudioInspectionTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "source pin changed"):
             verifier.inspect(JOB)
 
+    def seal_unsupported_fixture(self):
+        self.api_fixture(reuse=True)
+        self.data.update(token="b"*32, owner_pid=900001, owner_identity="analytic-exited-owner", operation="execute",
+                         invocation_dir="jobs/"+JOB+"/run-0001")
+        invocation = self.state/self.data["invocation_dir"]
+        write(self.output/"unsupported.json", {"status":"unsupported", "stage":"repair_budget",
+                                               "request_sha256":digest(self.output/"request.json")})
+        write(self.output/"status.json", {"status":"unsupported", "stage":"repair_budget"})
+        write(invocation/"invocation.json", {"job_id":JOB,"token":self.data["token"],"operation":"execute",
+            "request_digest":_digest(self.request),"root":str(self.root),"invocation_dir":str(invocation)})
+        write(invocation/"owner.json", {"pid":self.data["owner_pid"],"start_identity":self.data["owner_identity"],
+                                        "token":self.data["token"]})
+        write(invocation/"worker-job.json", {"status":"finished","exit_code":0,
+                                            "manual_stop_required":False,"process_exit_verified":True})
+        for name in ("result.json","supervisor-result.json"):
+            write(invocation/name,{"status":"unsupported","safe_to_release":True})
+        self.update_row(data=json.dumps(self.data),status="unsupported")
+        return invocation
+
+    def test_sealed_unsupported_uses_archived_sources_not_current_source(self):
+        self.seal_unsupported_fixture()
+        for name in list(self.sources):
+            changed=self.root/"new-implementation"/name
+            changed.parent.mkdir(exist_ok=True);changed.write_text("changed implementation")
+            self.sources[name]=changed
+        result=verifier.inspect(JOB)
+        self.assertEqual(result["status"],"unsupported")
+        self.assertIn("outputs/"+self.output.name+"/unsupported.json",[row["path"] for row in result["files"]])
+        (self.output/"sources/meshy.py").write_text("changed archive")
+        with self.assertRaisesRegex(ValueError,"source pin changed"):verifier.inspect(JOB)
+
+    def test_unsupported_needs_bound_terminal_and_safe_exit_receipts(self):
+        invocation=self.seal_unsupported_fixture()
+        for path,field,value in ((self.output/"unsupported.json","request_sha256","0"*64),
+                                 (invocation/"result.json","safe_to_release",False),
+                                 (invocation/"worker-job.json","process_exit_verified",False),
+                                 (invocation/"invocation.json","request_digest","0"*64)):
+            original=verifier.read_json(path);write(path,{**original,field:value})
+            with self.subTest(field=field),self.assertRaises(ValueError):verifier.inspect(JOB)
+            write(path,original)
+
+    def test_terminal_author_unsupported_is_authenticated_without_acceptance(self):
+        self.seal_unsupported_fixture()
+        terminal=verifier.read_json(self.output/"unsupported.json")
+        terminal.update(stage="author",attempt=1,reason="The finishing profile cannot be repaired.")
+        write(self.output/"unsupported.json",terminal)
+        write(self.output/"status.json",{k:terminal[k] for k in ("stage","status","attempt","reason")})
+        folder=self.output/"agents/author-1"
+        answer={"schema_version":2,"status":"unsupported","design":None,"reason":terminal["reason"]}
+        write(folder/"answer.json",answer)
+        receipt={"status":"succeeded","execution_kind":"openai_responses_api","tool_activity":False,
+                 "answer_sha256":digest(folder/"answer.json"),"artifacts":[
+                     {"path":"answer.json","bytes":(folder/"answer.json").stat().st_size,"sha256":digest(folder/"answer.json")}]}
+        write(folder/"receipt.json",receipt)
+        result=verifier.inspect(JOB)
+        self.assertEqual(result["status"],"unsupported")
+        self.assertIn(str((folder/"receipt.json").relative_to(self.root)),[r["path"] for r in result["files"]])
+        write(folder/"answer.json",{**answer,"reason":"Changed"})
+        with self.assertRaisesRegex(ValueError,"terminal reason"):verifier.inspect(JOB)
+        write(folder/"answer.json",answer)
+        write(folder/"receipt.json",{**receipt,"answer_sha256":"0"*64})
+        with self.assertRaisesRegex(ValueError,"hash-bound"):verifier.inspect(JOB)
+        write(folder/"receipt.json",receipt)
+        terminal["attempt"]=2;write(self.output/"unsupported.json",terminal)
+        with self.assertRaisesRegex(ValueError,"attempt differs"):verifier.inspect(JOB)
+
+    def continuation_fixture(self):
+        self.api_fixture(reuse=True)
+        proof={"receipts":[],"known_pids":[],"provenance":"analytic delegation fixture"}
+        self.request.update(continuation_from="c"*24,continuation_policy_sha256="d"*64,
+                            continuation_custody_sha256=_digest(proof))
+        write(self.job/"request.json",self.request);write(self.job/"retry-parent-custody.json",proof)
+        self.prepared["continuation"]={"parent":"outputs/studio-"+"c"*24}
+        write(self.output/"request.json",self.prepared)
+        write(self.output/"input-receipt.json",{"request_sha256":digest(self.output/"request.json"),
+                                               "sources":self.pins(self.output/"sources")})
+        write(self.job/"pipeline-request.json",{"schema_version":1,"studio_request_digest":_digest(self.request),
+                                               "pipeline_request_sha256":digest(self.output/"request.json")})
+        self.data["plan_id"]=_digest({"request":_digest(self.request),"plan":self.plan,"generation":None})
+        self.update_row(request=json.dumps(self.request),request_digest=_digest(self.request),data=json.dumps(self.data))
+
+    def test_continuation_delegates_production_receipt_verification(self):
+        self.continuation_fixture()
+        with patch("avatar_assets.pipeline_continuation.verify",return_value={}) as verify:
+            result=verifier.inspect(JOB)
+            verify.assert_called_once_with(self.root,self.output,self.prepared)
+        self.assertEqual(result["plan_id"],self.data["plan_id"])
+        with patch("avatar_assets.pipeline_continuation.verify",side_effect=ValueError("Continuation pins changed")), \
+             self.assertRaisesRegex(ValueError,"Continuation pins changed"):
+            verifier.inspect(JOB)
+        write(self.job/"retry-parent-custody.json",{"changed":True})
+        with self.assertRaisesRegex(ValueError,"custody receipt differs"):verifier.inspect(JOB)
+
+    def test_continuation_fields_are_exact_not_arbitrary_request_extensions(self):
+        self.continuation_fixture()
+        for change in ({"continuation_from":"../escape"},{"continuation_policy_sha256":"invalid"},{"max_microdollars":15000000}):
+            bad={**self.request,**change};write(self.job/"request.json",bad)
+            self.update_row(request=json.dumps(bad),request_digest=_digest(bad))
+            with self.subTest(change=change),self.assertRaises(ValueError):verifier.inspect(JOB)
+
     def test_queue_and_foreign_lease_still_block_server_before_creation(self):
         create_server = Mock(side_effect=AssertionError("Server must not start"))
         for owner in ({"queued_jobs": [JOB], "active_lease_job": None},
