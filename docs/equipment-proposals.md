@@ -167,6 +167,36 @@ Keep the body-source and complete assembly directories for the full evidence tra
 
 Limits: **64 MiB per input/output file, 128 MiB total package, 512 files**, and the existing 60-second/1,800-decoded-frame video limits. The 64 MiB video limit keeps the result compatible with the downstream builder. Default cooperative bounds are 180 seconds for raw video and 30 seconds for saved evidence; a stuck native call still requires a caller process deadline. Source annotation images are not simulation renders.
 
+### Optional saved-mode recovery
+
+If you already have original **single-person VIDEO** and **two-hypothesis IMAGE**
+estimates from the same model, runtime and video, compare them without repeating
+inference:
+
+```sh
+.venv-lab/bin/python -m weft exercise-pose-recover-modes \
+  --primary-run artifacts/original-video-poses \
+  --alternative-run artifacts/original-image-poses \
+  --video data/exercise/example.webm \
+  --out artifacts/mode-recovery-01
+.venv-lab/bin/python -m weft exercise-body \
+  --evidence-run artifacts/mode-recovery-01 \
+  --out artifacts/recovered-body-01
+```
+
+Both inputs must be sealed, original raw-identity runs with complete matching
+sample IDs and clocks. This explicit option looks for isolated limb-length and
+image-position inconsistencies between original neighbors; it does not use floor
+or task scores. It preserves all decisions, both original pose sets and the actual
+model mode for each replacement. Inspect `mode-recovery/decisions.json` and
+`pose-mode-recovery.json`; an empty selection is valid. Crop/identity-repair
+chaining is unsupported. Body, quality and physics checks remain separate.
+
+On the exposed kettlebell example, one replacement produces a new body that passes
+382 sampled floor checks. The normal builder also re-estimates lengths and body
+placement; this is not validated anatomy, stable control or equipment contact.
+[Exact results and remaining limits](handoffs/pose-mode-recovery.md).
+
 ## One assembly command
 
 Create a JSON configuration with these fields, using your own original video hash, observation IDs and original source-frame numbers:

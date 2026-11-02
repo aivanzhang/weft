@@ -31,6 +31,8 @@ _REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupporte
 _DECODERS = {"7a40f269189246ea07dddb416610d6419b78092824960c1ece6e4255810de3d3":
              "opencv-fixed-resolution-complete-exercise-decode-v1",
              "774dccf1cade873ba4ff2932aa3d77ce8fdb3abc28c250f7530e54f56796112c":
+             "opencv-fixed-resolution-complete-exercise-decode-v1",
+             "cc18531b26bb5dafd08cbbebba45b445d017bbea89626e6b862a339c253caee4":
              "opencv-fixed-resolution-complete-exercise-decode-v1"}
 _PRODUCER = "implementation-source/exercise_vision.py"
 _SOURCE_PRODUCERS = (_PRODUCER, "implementation-src--weft--exercise_vision.py")

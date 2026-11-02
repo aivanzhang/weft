@@ -1,5 +1,37 @@
 # Combined Weft implementation handoff
 
+## Saved-mode recovery verified — November 1, 2026, 8:17 PM PST
+
+The [source-only mode selector, public CLI and strict body/seed integration](pose-mode-recovery.md)
+are verified with405 distinct scoped cases. The complete129-sample /1,032-limb-slot
+scan selects only source132 from an existing same-model IMAGE estimate;128 original
+rows remain exact. No floor, scorer or annotation enters selection. Both original
+runs, rejected decisions, source clocks and per-frame mode provenance survive.
+
+The ordinary builder produces127 references. All127 source and255 control-grid
+floor checks pass at the original0.025 limit, with max0.017387652 versus0.071874045
+before. Body lengths/frame/first-pose placement are re-estimated by unchanged
+construction rules, not held numerically fixed. No anatomy, dynamic stability,
+equipment contact, controller, learning or generalization success is claimed.
+The existing playable lab stays unchanged; original direction regressions remain.
+
+Actual source package, body, floor and construction seed are sealed. Saved-only
+audit `.local/pose-mode-acceptance-audit-01.json` verifies161 covered members across
+five packages, every decision/clock join and all382 floor rows. The first seed
+attempt correctly stops before a native call because the guard omitted an existing
+static mass compilation; attempt02 permits exactly that call site once, no state
+allocation/forward/steps. Its receipt now distinguishes static mass checks from
+executable simulation instances. All owned children exited/reaped; no API, install,
+download, deployment or ledger work. Detailed hashes, commands and limits are in
+the handoff; `.local/pose-mode-test-summary-01.json` retains failures and latest passes.
+
+Root owns the15-path checkpoint; preserve independent avatar edits. Standing
+approval applies. Exact publication result belongs in
+`.local/pose-mode-publication-01.json`. The next work is source-qualified direction
+and equipment alignment/contact on the new body, with fresh transforms and complete
+unchanged task checks—not another knee-floor sweep or reuse of old-body transforms.
+Full goal remains active; this checkpoint does not complete the product.
+
 ## Single-person inference and body check — November 1, 2026, 7:34 PM PST
 
 The [explicit capacity option and complete native checks](heavy-video-kettlebell.md)

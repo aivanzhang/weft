@@ -86,6 +86,12 @@ def main():
     pose_recovery.add_argument("--video", required=True, help="Exact original source video; bytes verified without decoding")
     pose_recovery.add_argument("--out", required=True, help="New sealed pose-evidence directory outside the inputs")
     pose_recovery.add_argument("--max-seconds", type=float, default=30)
+    mode_recovery = commands.add_parser("exercise-pose-recover-modes", help="Compare saved VIDEO/IMAGE poses using source consistency; no new inference or simulation")
+    mode_recovery.add_argument("--primary-run", required=True, help="Sealed original single-person VIDEO pose run")
+    mode_recovery.add_argument("--alternative-run", required=True, help="Sealed original two-hypothesis IMAGE run using the same model and source")
+    mode_recovery.add_argument("--video", required=True, help="Exact original video; hash-checked without decoding")
+    mode_recovery.add_argument("--out", required=True, help="New sealed evidence directory outside the inputs")
+    mode_recovery.add_argument("--max-seconds", type=float, default=30)
     pose_proposals = commands.add_parser("exercise-pose-prepare", help="Generate bounded source-only crop proposals from video using explicit Full/IMAGE/raw inference")
     pose_proposals.add_argument("--video", required=True, help="Local exercise video; source bytes and clocks stay unchanged")
     pose_proposals.add_argument("--pose-model", required=True, help="Pinned local Full model; no model download or automatic alternative")
@@ -1005,6 +1011,13 @@ def main():
             result = {"profile": "exercise-pose-recovery-v1", "status": "source_evidence_only",
                 "directory": str(destination), "simulation_ready": False,
                 "new_inference": False, "next_step": "Use exercise-body --evidence-run on this preserved pose package"}
+        elif args.command == "exercise-pose-recover-modes":
+            from weft.pose_mode_source import prepare_pose_mode_recovery
+            destination = prepare_pose_mode_recovery(args.primary_run, args.alternative_run, args.out,
+                                                      source_video=args.video, max_seconds=args.max_seconds)
+            result = {"profile": "exercise-pose-mode-recovery-v1", "status": "source_evidence_only",
+                "directory": str(destination), "simulation_ready": False, "new_inference": False,
+                "next_step": "Inspect retained decisions, then use exercise-body --evidence-run"}
         elif args.command == "exercise-body":
             from weft.exercise_body_source import prepare_exercise_body_source, prepare_exercise_body_source_from_evidence
             def body_progress(stage, detail):

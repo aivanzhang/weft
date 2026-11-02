@@ -667,6 +667,13 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
                 _seed_check(deadline)
                 recovery_validator_implementations[name] = read_package_file(Path(__file__).parent, name,
                                                                              max_bytes=1024 * 1024)
+        if "pose-mode-recovery.json" in declared:
+            from weft.pose_mode_source import PROOF_FILES, IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
+            required |= PROOF_FILES
+            for name in RECOVERY_IMPLEMENTATION:
+                _seed_check(deadline)
+                recovery_validator_implementations[name] = read_package_file(Path(__file__).parent, name,
+                                                                             max_bytes=1024 * 1024)
     else:
         required = {"human.json", "scene.json", "evidence.json"}
     if not required <= declared.keys() or len(declared) + 1 > SEED_MAX_FILES:
@@ -750,6 +757,7 @@ def prepare_shared_world_seed(human_source, out, *, scale=1.0, deadline=None):
         "clock_binding": scene["coordinate_frame"]["clock_binding"], "source_clock": observations["time"],
         "scaffold_entity_ids": [obj["id"] for obj in scene["objects"]],
         "physics_steps": 0, "physics_models": 0, "reference_renders": 0,
+        "physics_models_scope": "Executable simulation instances only; existing action-contract checks compile static mass models without allocating simulation state or stepping",
         "video_decodes": 0, "inference_calls": 0, "api_calls": 0,
         "maximum_files": SEED_MAX_FILES, "maximum_bytes": SEED_MAX_BYTES,
         "maximum_file_bytes": _SEED_FILE_BYTES,

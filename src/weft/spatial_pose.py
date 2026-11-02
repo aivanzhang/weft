@@ -161,6 +161,7 @@ def build_spatial_reference(evidence, body_frame):
         audits.append({"evidence_id": identifier, "time_s": timestamp, "pose_status": frame["status"],
                        "identity_status": frame.get("identity_status"),
                        "identity_derivation_id": frame.get("identity_derivation_id"),
+                       **({"mode_refinement": frame["mode_refinement"]} if "mode_refinement" in frame else {}),
                        **({"image_refinement": frame["image_refinement"]} if "image_refinement" in frame else {}),
                        "joint_confidence": confidence, "assumed_twist": assumed_twist,
                        "euler_singularities": singularities, "clamped_flexion": clamped,

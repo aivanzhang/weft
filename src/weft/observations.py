@@ -550,7 +550,8 @@ def _exercise_construction_selection(document, frames, selection):
             "identity_status": None if raw is None else raw.get("identity_status"),
             "pose_count": None if raw is None else raw.get("pose_count"),
             "derivation_markers": [] if raw is None else [key for key in
-                ("identity_raw", "identity_derivation_id", "identity_recompute_required", "image_refinement", "image_refinement_raw") if key in raw]})
+                ("identity_raw", "identity_derivation_id", "identity_recompute_required", "image_refinement", "image_refinement_raw",
+                 "mode_refinement", "mode_refinement_raw") if key in raw]})
     return selected, {"profile": "explicit-exercise-construction-selection-v1", "construction_frames": list(selection),
         "source_slots": slots, "counts": {"original_source_slots": count, "decoded_slots": last - first + 1,
             "pose_rows": len(frames), "selected_pose_rows": len(selected), "excluded_pose_rows": len(frames) - len(selected),

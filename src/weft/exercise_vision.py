@@ -472,6 +472,7 @@ def finalize_evidence(evidence, out, *, artifact_sink=None):
                               "joint_confidence": frame["joint_confidence"], "pose_status": frame["status"],
                               "identity_status": frame.get("identity_status"),
                               "identity_derivation_id": frame.get("identity_derivation_id"),
+                              **({"mode_refinement": frame["mode_refinement"]} if "mode_refinement" in frame else {}),
                               **({"image_refinement": frame["image_refinement"]} if "image_refinement" in frame else {})} for frame in tracked]
     evidence["origin_time_s"] = tracked[0]["time_s"] if tracked else None
     evidence["quality"] = _quality(evidence)

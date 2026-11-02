@@ -311,11 +311,19 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
     if evidence.get("model") != model or raw.get("model") != model:
         raise ValueError("Raw and derived pose model metadata must remain identical")
     recovery = "pose-recovery.json" in raw_files
+    mode_recovery = "pose-mode-recovery.json" in raw_files
+    if recovery and mode_recovery:
+        raise ValueError("Chained crop/mode recovery is unsupported")
     if recovery:
         from weft.pose_source_recovery import validate_pose_recovery_files
         validate_pose_recovery_files(raw_files, source_sha256=source_sha, deadline=deadline)
     elif evidence.get("pose_reinference") or any("image_refinement" in row for row in evidence.get("frames", [])):
         raise ValueError("Crop-derived observations require their explicit complete recovery proof")
+    if mode_recovery:
+        from weft.pose_mode_source import validate_pose_mode_files
+        validate_pose_mode_files(raw_files, source_sha256=source_sha, deadline=deadline)
+    elif evidence.get("pose_mode_recovery") or any("mode_refinement" in row for row in evidence.get("frames", [])):
+        raise ValueError("Mode-derived observations require their explicit complete recovery proof")
     identity = evidence.get("pose_identity", {})
     if (identity.get("mode") != options["pose_identity"] or audit.get("mode") != options["pose_identity"]
             or audit.get("source_sha256") != source_sha or audit.get("raw_artifact") != "pose-landmarks.json"
@@ -353,7 +361,10 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
         native = row["decoder_timestamp_s"]
         if native is not None and (type(native) not in (int, float) or not math.isfinite(native) or not 0 <= native <= 60):
             raise ValueError("Invalid native decoder timestamp; it cannot be replaced with nominal time")
-        if "image_refinement" in row:
+        if "mode_refinement" in row:
+            if not mode_recovery or row.get("mode_refinement_raw") != prior:
+                raise ValueError("Mode recovery must retain its exact original detector observation")
+        elif "image_refinement" in row:
             if not recovery or row.get("image_refinement_raw") != prior:
                 raise ValueError("Crop recovery must retain its exact original detector observation")
         elif "identity_raw" in row:
@@ -384,6 +395,9 @@ def validate_body_source_files(files, *, deadline=None):
     if "pose-recovery.json" in files:
         from weft.pose_source_recovery import PROOF_FILES
         required |= PROOF_FILES
+    if "pose-mode-recovery.json" in files:
+        from weft.pose_mode_source import PROOF_FILES as MODE_PROOF_FILES
+        required |= MODE_PROOF_FILES
     if not required <= files.keys():
         raise ValueError("Construction body source lacks required identity-bound artifacts")
     marker = _json(files["body-source.json"])
@@ -430,6 +444,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
     if (target / "pose-recovery.json").exists():
         from weft.pose_source_recovery import PROOF_FILES
         pose_names |= PROOF_FILES | {source_name}
+    if (target / "pose-mode-recovery.json").exists():
+        from weft.pose_mode_source import PROOF_FILES as MODE_PROOF_FILES
+        pose_names |= MODE_PROOF_FILES | {source_name}
     evidence, observations, clock = _validated_pose(
         {name: _read(target / name, deadline) for name in pose_names}, options, source_sha, deadline=deadline)
     before, _ = _inventory(target, deadline, reserve=True)
@@ -575,8 +592,15 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
             recovery_files, recovery_implementation = set(PROOF_FILES), RECOVERY_IMPLEMENTATION
             if not recovery_files <= declared.keys():
                 raise ValueError("Saved pose recovery lacks its complete derivation proof")
-        elif "pose-recovery.json" in declared:
+        elif manifest.get("profile") == "exercise-pose-mode-recovery-v1":
+            from weft.pose_mode_source import PROOF_FILES, IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
+            recovery_files, recovery_implementation = set(PROOF_FILES), RECOVERY_IMPLEMENTATION
+            if not recovery_files <= declared.keys():
+                raise ValueError("Saved mode recovery lacks its complete derivation proof")
+        elif "pose-recovery.json" in declared or "pose-mode-recovery.json" in declared:
             raise ValueError("Pose recovery proof requires its explicit sealed package profile")
+        if {"pose-recovery.json", "pose-mode-recovery.json"} <= declared.keys():
+            raise ValueError("Chained crop/mode recovery is unsupported")
         for name, expected in sorted(declared.items()):
             raw = _read(run / name, deadline, expected)
             total += len(raw)
