@@ -126,7 +126,7 @@ def _timeline(scene, human, decoded, exercise_task):
     # The shared runtime starts at first retained reference + its declared task offset.
     task = exercise_task.get('interval') if exercise_task else scene.get('task')
     dt = scene.get('dt')
-    if scene.get('profile') in ('shared-world-v1', 'shared-world-v2', 'shared-world-v3', 'shared-world-v4') and isinstance(task, dict) and finite(dt) and dt > 0:
+    if scene.get('profile') in ('shared-world-v1', 'shared-world-v2', 'shared-world-v3', 'shared-world-v4', 'shared-world-v6') and isinstance(task, dict) and finite(dt) and dt > 0:
         offset, steps = task.get('start_offset_s'), task.get('horizon_steps')
         if finite(offset) and type(steps) is int and 1 <= steps <= 100000:
             start, duration = times[0] + offset, steps * dt
@@ -178,6 +178,7 @@ def _summary(run, profile):
     files = {}
     links = {}
     verified = {}
+    retained = {}
     try:
         def read(name, limit=256 * 1024):
             nonlocal consumed
@@ -198,6 +199,8 @@ def _summary(run, profile):
             if not isinstance(result, dict):
                 raise ValueError('Inspection metadata must be an object')
             verified[name] = {'source_name': name, 'path': 'run/' + name, 'sha256': digest, 'bytes': len(raw)}
+            if name == 'policy.json':
+                retained[name] = raw
             return result
 
         manifest = read('manifest.json', MAX_MANIFEST_BYTES)
@@ -383,6 +386,13 @@ def _summary(run, profile):
                                 ('reference-feasibility.json', 'Full reference geometry audit; not task success'),
                                 ('reconstruction.json', 'Source body and authored static-support assumptions')]:
                 artifact(name, label)
+        if scene.get('profile') == 'shared-world-v6':
+            for name, label in [('exercise-task.json', 'Original camera-body task and unchanged gates'),
+                                ('reference-feasibility.json', 'Sampled geometry checks; not force feasibility'),
+                                ('ground-clearance.json', 'Body–ground gaps; not observed support'),
+                                ('two-view-body.json', 'Camera-based reconstruction assumptions and image errors'),
+                                ('two-view-triangulation.json', 'Available and missing multi-view joint estimates')]:
+                artifact(name, label)
         if hypothesis:
             for name, label in [('input-config.json', 'Authored shape configuration'),
                                 ('geometry-hypothesis.json', 'Geometry alternative and limitations'),
@@ -398,6 +408,10 @@ def _summary(run, profile):
             stages.append({'id': key, 'title': title, 'panel': panel, 'state': state})
         contract = read('exercise-lab.json', 128 * 1024)
         policy = read('policy.json', 64 * 1024) if contract.get('learned_policy_available') is True else {}
+        camera_admission = None
+        if scene.get('profile') == 'shared-world-v6' and contract.get('learned_policy_available') is True:
+            camera_admission = read('camera-policy-admission.json', 128 * 1024)
+            artifact('camera-policy-admission.json', 'Saved research-policy admission; not physical validation')
         rigid_task, rigid_evaluation = None, None
         if (scene.get('profile') == 'spatial-rigid-v1' and scene.get('schema_version') == 1
                 and isinstance(scene.get('task'), dict) and isinstance(scene.get('controlled_id'), str)
@@ -421,7 +435,8 @@ def _summary(run, profile):
             raise ValueError('Inspection base summary exceeds 64 KiB')
         result['evidence_scorecard'] = build_lab_evidence(source=source, scene=scene, task=exercise_task,
             contract=contract, policy=policy, files=files, verified_metadata=result['verified_metadata'],
-            rigid_task=rigid_task, rigid_evaluation=rigid_evaluation)
+            rigid_task=rigid_task, rigid_evaluation=rigid_evaluation,
+            camera_admission=camera_admission, policy_document=retained.get('policy.json'))
         return result
     finally:
         os.close(root_fd)

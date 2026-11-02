@@ -9,10 +9,11 @@ promoted.** Both tracks and the complete goal remain active.
 
 ### Try the saved body
 
-From the repository root, use the tested frozen runtime:
+From the repository root, use the tested frozen runtime with the
+[read-only evidence-reader fix](camera-lab-evidence.md):
 
 ```sh
-PYTHONPATH="$PWD/.local/aspset-motion-prior-01/runtime/src" \
+PYTHONPATH="$PWD/.local/camera-lab-evidence-recovery-01/motion-runtime/src" \
   .venv-lab/bin/python -B -P -m weft lab-console \
   --resume artifacts/aspset-motion-native-01/lab
 ```

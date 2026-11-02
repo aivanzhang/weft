@@ -1,5 +1,24 @@
 # Combined Weft implementation handoff
 
+## Camera evidence reader restored — November 2, 2026, PST
+
+The normal reader rejected camera shared-world v6, hiding all fourteen evidence
+categories. Both trained and untrained saved labs now inspect correctly, with
+exact policy/admission/runtime/evaluation bindings and unknown metrics retained.
+**116 checks pass**; actual console checks finish in 1.550/2.671 seconds with
+zero physics steps. All 1,308 run members verify; original status/run manifests
+and native runtime files are unchanged. No source fit, inference, paid call,
+server, browser or deployment. All jobs are terminal/reaped.
+
+[Commands, overlay identities, acceptance and next work](camera-lab-evidence.md).
+The [continuous-velocity screen](continuous-reference-screen.md) is rejected:
+it increases required midpoint forces for nearly all paired samples. Preserve
+the original metadata mistake and corrected saved companion; no controller or
+default change. Different-subject metadata lookup returned no bounded clip route.
+Both tracks and the full goal remain active; no per-checkpoint approval is needed.
+Keep separate avatar changes untouched. Publication receipt:
+`.local/camera-lab-evidence-publication-01.json` after push.
+
 ## Optional motion prior verified — November 2, 2026, 9:18 AM PST
 
 The bounded source-image motion proposal is implemented and checked through the

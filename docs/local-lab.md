@@ -25,6 +25,10 @@ against image fit and floor penetration. It is not the default or a learned poli
 - **Combine a saved body and equipment:** [prepare the shared-world setup](#prepare-a-body-and-equipment-setup).
 - **Understand a result:** [inspect saved evidence](#inspect-the-labs-saved-evidence) and [check a recording](#check-a-recordings-replay-evidence).
 
+For existing camera-based examples, use the [verified evidence-reader runtime](handoffs/camera-lab-evidence.md#try-the-fixed-evidence-workflow)
+to inspect all fourteen categories. It preserves the original simulation and
+recordings; trained counts and missing physical measurements remain separate.
+
 The ground, equipment and second-camera sections below are optional advanced
 workflows, not prerequisites for trying the sandbox.
 
