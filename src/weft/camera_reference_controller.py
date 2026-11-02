@@ -477,6 +477,13 @@ def _report(report, overlay, original, scene, deadline):
         "objective_profile": inputs["profile"], **{k: inputs[k] for k in (
             "source_sha256", "body_sha256", "binding_sha256", "envelope_cache_sha256", "envelope_bindings")}},
         **{k: surface[k] for k in ("weight", "weight_status", "work_limits", "summary")}}
+    if any("constraint_geometry" in value for value in (surface, inputs, marker)):
+        _require(all(value.get("constraint_geometry") == "correlated_pinhole_region_v1" for value in (surface, inputs, marker))
+                 and surface["summary"].get("distance_metric") == "distance_to_constraint_region_m",
+                 "surface constraint geometry or distance metric differs")
+        expected_marker["constraint_geometry"] = "correlated_pinhole_region_v1"
+    else:
+        _require("distance_metric" not in surface["summary"], "legacy surface cannot claim a correlated distance metric")
     _require(_same(marker, expected_marker) and inputs["source_sha256"] == original["source_sha256"]
              and inputs["body_sha256"] == pins["body_raw_sha256"] and _number(surface["weight"], 0., 1000.) and surface["weight"] > 0
              and surface["weight_status"] == "authored" and surface.get("contact") == "unknown"

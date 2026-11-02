@@ -348,8 +348,9 @@ class _SurfaceIntervalFit:
                 index = references[frame]
                 expected = {'reference_index': index, 'evidence_id': rows[index]['evidence_id'], 'body_time_s': rows[index]['time_s']}
                 _require(value['body_reference'] == expected, 'surface body reference identity or original clock differs')
-                # The fixed consumer adds <=640 bytes/channel of bounded numeric output, no derivatives in audits.
-                estimates[index] = len(encoded) + 1024 + 640 * len(value['channels'])
+                # Region certificates need extra bytes; the complete four-MiB audit bound stays fixed.
+                channel_bytes = 1024 if self.inputs.get('constraint_geometry') is not None else 640
+                estimates[index] = len(encoded) + 1024 + channel_bytes * len(value['channels'])
             self.slots.append(value)
         _require(len(estimates) == len(rows) and 2 * sum(estimates.values()) <= _SURFACE_AUDIT_BYTES,
                  'complete before/final surface audit cannot fit four MiB; no geometry executed')
@@ -412,16 +413,22 @@ class _SurfaceIntervalFit:
 
     @staticmethod
     def cost(term):
+        _require(not term.get('projection_failures'), 'uncertifiable correlated projection cannot become zero construction cost')
         return term['objective_m2'] if term['objective_m2'] is not None else 0.
 
     @staticmethod
     def nonregression(before, after):
+        if (before.get('constraint_geometry') != after.get('constraint_geometry')
+                or before.get('projection_failures') or after.get('projection_failures')):
+            return False
         if before['counts'] != after['counts']:
             return False
+        metric = ('distance_to_constraint_region_m' if before.get('constraint_geometry') == 'correlated_pinhole_region_v1'
+                  else 'distance_to_outer_envelope_m')
         for old, new in zip(before['channels'], after['channels'], strict=True):
             if (old['channel_id'], old['status'], old['reason']) != (new['channel_id'], new['status'], new['reason']):
                 return False
-            if old['distance_to_outer_envelope_m'] is not None and new['distance_to_outer_envelope_m'] > old['distance_to_outer_envelope_m']:
+            if old[metric] is not None and new[metric] > old[metric]:
                 return False
         return True
 
@@ -431,8 +438,9 @@ class _SurfaceIntervalFit:
             available = [row['objective_m2'] for row in values if row['objective_m2'] is not None]
             return sum(available) if available else None
         def peak(values):
-            distances = [point['distance_to_outer_envelope_m'] for row in values for point in row['channels']
-                         if point['distance_to_outer_envelope_m'] is not None]
+            distances = [point['distance_to_constraint_region_m'] if row.get('constraint_geometry') == 'correlated_pinhole_region_v1'
+                         else point['distance_to_outer_envelope_m'] for row in values for point in row['channels']]
+            distances = [value for value in distances if value is not None]
             return max(distances) if distances else None
         initial, final = total(before), total(after)
         summary = {'source_frame_slots': len(self.slots), 'channel_slots': sum(len(row['channels']) for row in self.slots),
@@ -454,6 +462,9 @@ class _SurfaceIntervalFit:
             'references': [dict(key, before=before[i], after=after[i]) for i, key in enumerate(self.keys)],
             'summary': summary, 'evaluations': self.evaluations, 'trial_journal': self.journal, 'journal_bytes': self.journal_bytes,
             'optimizer_installation': 'installed_in_existing_whole_body_fitter', 'contact': 'unknown', 'physical_validation': 'unverified'}
+        if 'constraint_geometry' in self.inputs:
+            marker['constraint_geometry'] = report['constraint_geometry'] = self.inputs['constraint_geometry']
+            summary['distance_metric'] = 'distance_to_constraint_region_m'
         return marker, report
 
 

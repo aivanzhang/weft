@@ -24,6 +24,9 @@ MAX_EXTRA_BYTES, MAX_CACHE_BYTES, MAX_ROW_BYTES, MAX_METADATA_BYTES = 4 << 20, 8
 RADIAL_PROFILE = "certified-nonnegative-radial-inverse-v1"
 RADIAL_BISECTIONS, RADIAL_CACHE_ENTRIES, RADIAL_RADIUS_SQUARED_MAX = 48, 256, 16
 CONDITIONAL_DOMAIN_MODE = "condition_on_declared_support"
+CORRELATED_GEOMETRY = "correlated_pinhole_region_v1"
+REGION_PROFILE = "source-surface-correlated-region-v1"
+MAX_REGION_BYTES, MAX_REGION_PLANES = 8 << 10, 10
 
 
 class AxisAlignedEnvelope(TypedDict):
@@ -33,6 +36,7 @@ class AxisAlignedEnvelope(TypedDict):
     kind: str
     certificate: str
     support_conditioning: NotRequired[dict]
+    constraint_region_m: NotRequired[dict]
 
 
 def _require(value, message):
@@ -183,7 +187,62 @@ def _bounds_envelope(minimum, maximum):
         "kind": "outer_axis_aligned_enclosure", "certificate": "exact_rational_eight_vertex_extrema_outward_binary64"}
 
 
-def _plane_box(origin, transform, xs, ys, surface):
+def _affine_hull(points):
+    points = list(dict.fromkeys(points))
+    _require(1 <= len(points) <= 16, "correlated region vertex bound exceeded")
+    origin = points[0]
+    rows = [[a-b for a, b in zip(point, origin, strict=True)] for point in points[1:]]
+    pivots = []
+    for column in range(3):
+        pivot = next((i for i in range(len(pivots), len(rows)) if rows[i][column]), None)
+        if pivot is None:
+            continue
+        index = len(pivots)
+        rows[index], rows[pivot] = rows[pivot], rows[index]
+        divisor = rows[index][column]
+        rows[index] = [value/divisor for value in rows[index]]
+        for i, row in enumerate(rows):
+            if i != index:
+                factor = row[column]
+                rows[i] = [value-factor*other for value, other in zip(row, rows[index], strict=True)]
+        pivots.append(column)
+    planes = []
+    for free in (i for i in range(3) if i not in pivots):
+        normal = [Fraction(int(i == free)) for i in range(3)]
+        for row, pivot in zip(rows, pivots):
+            normal[pivot] = -row[free]
+        planes.append((*normal, sum(a*b for a, b in zip(normal, origin, strict=True))))
+    return planes
+
+
+def _correlated_region(origin, transform, xs, ys, surface, points):
+    inverse = _inverse(transform)
+    planes = []
+    for axis, interval in ((0, xs), (1, ys)):
+        for bound, sign in ((interval[0], 1), (interval[1], -1)):
+            normal = tuple(sign * (a - bound * b) for a, b in zip(inverse[axis], inverse[2], strict=True))
+            planes.append((*normal, sum(a*b for a, b in zip(normal, origin, strict=True))))
+    lo, hi = map(Fraction, surface["height_interval_m"])
+    planes.extend(((0, 0, 1, lo), (0, 0, -1, -hi)))
+    if surface["bounds_xy_m"] is not None:
+        left, bottom, right, top = map(Fraction, surface["bounds_xy_m"])
+        planes.extend(((1, 0, 0, left), (0, 1, 0, bottom), (-1, 0, 0, -right), (0, -1, 0, -top)))
+    seed = tuple(sum(point[i] for point in points) / len(points) for i in range(3))
+    _require(all(sum(Fraction(a)*b for a, b in zip(plane[:3], seed, strict=True)) >= plane[3] for plane in planes),
+             "correlated region seed is not feasible")
+    def rational(value):
+        value = Fraction(value)
+        return [str(value.numerator), str(value.denominator)]
+    result = {"profile": REGION_PROFILE, "unit": "m", "convention": "A*x >= b",
+              "halfspaces_q": [[rational(value) for value in plane] for plane in planes],
+              "affine_hull_q": [[rational(value) for value in plane] for plane in _affine_hull(points)],
+              "feasible_seed_q": [rational(value) for value in seed]}
+    _require(len(json.dumps(result, separators=(",", ":")).encode()) <= MAX_REGION_BYTES,
+             "complete correlated region exceeds eight KiB")
+    return result
+
+
+def _plane_box(origin, transform, xs, ys, surface, *, constraint_geometry=None):
     directions = [_multiply(transform, (u, v, Fraction(1))) for u in xs for v in ys]
     denominators = [direction[2] for direction in directions]
     if min(denominators) <= 0 <= max(denominators):
@@ -205,6 +264,8 @@ def _plane_box(origin, transform, xs, ys, surface):
     if surface.get("domain_mode") != CONDITIONAL_DOMAIN_MODE:
         if exceeds:
             return None, "envelope_exceeds_declared_surface_domain"
+        if constraint_geometry is not None:
+            envelope["constraint_region_m"] = _correlated_region(origin, transform, xs, ys, surface, points)
         return envelope, None
     original = dict(envelope)
     if exceeds:
@@ -219,6 +280,8 @@ def _plane_box(origin, transform, xs, ys, surface):
         "unconditioned_world_envelope_m": original, "region_restricted": exceeds,
         "scope": "Conditional on the supplied static-support hypothesis; no contact, load or grasp evidence. "
                  "An enclosed point need not satisfy the correlated pixel/height constraints; radial outer rays may be infeasible."}
+    if constraint_geometry is not None:
+        envelope["constraint_region_m"] = _correlated_region(origin, transform, xs, ys, surface, points)
     return envelope, None
 
 
@@ -233,12 +296,12 @@ def _pixel_box(annotation, camera):
     return xs, ys
 
 
-def _enclose(annotation, surface, camera, prepared):
+def _enclose(annotation, surface, camera, prepared, *, constraint_geometry=None):
     bounds = _pixel_box(annotation, camera)
     if bounds is None:
         return None, "pixel_interval_outside_source_image"
     xs, ys = bounds
-    envelope, reason = _plane_box(*prepared, xs, ys, surface)
+    envelope, reason = _plane_box(*prepared, xs, ys, surface, constraint_geometry=constraint_geometry)
     if envelope is None:
         return None, reason
     return {"world_envelope_m": envelope, "height_interval_m": surface["height_interval_m"],
@@ -376,9 +439,14 @@ class SourceSurfaceEnvelopes:
 
 def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes], *, source_sha256: str,
         camera_document: bytes | None = None, surface_interval_document: bytes | None = None,
-        annotation_document: bytes | None = None) -> SourceSurfaceEnvelopes:
+        annotation_document: bytes | None = None, constraint_geometry: str | None = None,
+        deadline: float | None = None) -> SourceSurfaceEnvelopes:
     """Build source-complete conditional anchor ranges; perform no I/O or geometry installation."""
-    deadline = time.monotonic() + MAX_SECONDS
+    _require(constraint_geometry is None or constraint_geometry == CORRELATED_GEOMETRY,
+             "unsupported explicit constraint geometry")
+    _require(deadline is None or type(deadline) in (int, float) and math.isfinite(deadline), "invalid caller deadline")
+    own_deadline = time.monotonic() + (min(MAX_SECONDS, 5.) if constraint_geometry else MAX_SECONDS)
+    deadline = own_deadline if deadline is None else min(own_deadline, deadline)
     supplied = (camera_document, surface_interval_document, annotation_document)
     _require(all(raw is None or type(raw) is bytes for raw in supplied)
              and sum(len(raw) for raw in supplied if raw is not None) <= MAX_EXTRA_BYTES, "additional exact inputs exceed 4 MiB")
@@ -397,6 +465,8 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
         if camera["quality"] == "measured" and not any(row["kind"] == "camera_calibration_measurement" and row["status"] == "observed"
                 and _receipt_bound(row, receipts, source_sha256, camera_hash) for row in calibration):
             camera_reason = "missing_supplied_camera_measurement_receipt"
+        elif constraint_geometry is not None and camera["radial_k1"] != 0:
+            camera_reason = "correlated_region_requires_undistorted_pinhole"
         elif camera["radial_k1"] < 0:
             camera_reason = "radial_distortion_has_no_certified_interval_bound"
         if camera_reason is None:
@@ -452,7 +522,8 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
                     prepared = _camera_frame(camera, frame, inverse_k)
                     prepared_frames += 1
                 if radial_inverse is None:
-                    geometry, reason = _enclose(annotation, surfaces[channel["surface_id"]], camera, prepared)
+                    geometry, reason = _enclose(annotation, surfaces[channel["surface_id"]], camera, prepared,
+                        **({"constraint_geometry": constraint_geometry} if constraint_geometry is not None else {}))
                 else:
                     geometry, reason = _enclose_radial(annotation, surfaces[channel["surface_id"]], camera, prepared, radial_inverse)
                 if geometry is not None:
@@ -504,6 +575,11 @@ def prepare_source_surface_envelopes(observation_documents: Mapping[str, bytes],
                      "original pixel/height ranges remain saved and no midpoint is selected",
             "empty_intersection": "unavailable", "available_enclosures_retain_original": True}
         metadata["certificate"]["proof"] += "; conditional supports clip the convex ray/height region with four exact half-planes before outward enclosure"
+    if constraint_geometry is not None:
+        metadata["constraint_geometry"] = constraint_geometry
+        metadata["correlated_region"] = {"profile": REGION_PROFILE, "maximum_planes": MAX_REGION_PLANES,
+            "maximum_region_bytes": MAX_REGION_BYTES, "preparation_seconds_cooperative": min(MAX_SECONDS, 5.),
+            "scope": "Exact rational supplied pinhole/height/support region; numerical projection is tolerance-qualified, not physical contact"}
     encoded = _encode(metadata, MAX_METADATA_BYTES, deadline)
     _require(cache_bytes+len(encoded) <= MAX_CACHE_BYTES, "complete metadata/source cache exceeds 8 MiB")
     _check(deadline)

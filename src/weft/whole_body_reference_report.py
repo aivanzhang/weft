@@ -1,4 +1,4 @@
-"""Offline inspection of sealed reference proposals; no geometry is recomputed."""
+"""Offline proposal inspection; optional conditional regions are numerically rederived."""
 
 from bisect import bisect_left
 from collections import Counter
@@ -28,6 +28,7 @@ MULTIVIEW_OVERLAY = "camera-body-multiview-angle-proposal-v1"
 CAMERA_METHODS = {CAMERA_METHOD, MULTIVIEW_METHOD}
 SURFACE_PROFILE = "whole-body-surface-interval-fit-v1"
 SURFACE_OBJECTIVE = "source-surface-interval-objective-v1"
+CORRELATED_GEOMETRY = "correlated_pinhole_region_v1"
 METHODS = {"blocked-whole-body-floor-reference-v1", "blocked-whole-body-floor-first-reference-v1", SURFACE_METHOD, *CAMERA_METHODS}
 LIMIT = .025
 MEMBERS = {"candidate-human.json": "candidate-human.json.txt", "report.json": "proposal-report.json.txt",
@@ -438,7 +439,7 @@ def _camera_targets(camera, report, body, evidence, proposed, check, *, allow_mi
     _require(gates['source_endpoint_image_nonregression'] == image_ok, 'Camera image gate contradicts saved raw-pixel errors')
 
 
-def _surface_result(result, slot, body_hash):
+def _surface_result(result, slot, body_hash, *, correlated=None, deadline=None):
     _require(type(result) is dict and type(result.get('schema_version')) is int and result['schema_version'] == 1
              and result.get('profile') == SURFACE_OBJECTIVE and result.get('source_frame') == slot['source_frame']
              and result.get('body_sha256') == body_hash and result.get('body_reference') == slot['body_reference']
@@ -446,8 +447,11 @@ def _surface_result(result, slot, body_hash):
              and result.get('physical_validation') == 'unverified', 'Surface evaluation identity or scope differs')
     channels = result.get('channels')
     _require(type(channels) is list and len(channels) == len(slot['channels']), 'Surface evaluation channel count differs')
-    losses, distances = [], []
-    for channel, joined in zip(channels, slot['channels']):
+    _require(result.get('constraint_geometry') == CORRELATED_GEOMETRY if correlated is not None
+             else 'constraint_geometry' not in result and 'projection_failures' not in result,
+             'Surface evaluation constraint geometry differs')
+    losses, distances, failures = [], [], 0
+    for index, (channel, joined) in enumerate(zip(channels, slot['channels'])):
         _require(type(channel) is dict and all(channel.get(k) == v for k, v in joined.items()
                  if k not in {'world_envelope_m', 'status', 'reason'}), 'Surface evaluation source join differs')
         if channel.get('status') == 'conditional_interval_residual':
@@ -456,15 +460,44 @@ def _surface_result(result, slot, body_hash):
             position, residual = _surface_vector(channel.get('world_position_m')), _surface_vector(channel.get('signed_outside_m'))
             bounds = joined['world_envelope_m']
             expected = [p - min(max(p, lo), hi) for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]
+            outer_distance = math.hypot(*expected)
+            if correlated is not None:
+                expected = correlated.verify_saved_projection(slot['source_frame'], index, position,
+                    channel.get('closest_point_m'), channel.get('projection'), deadline=deadline)
+                _require(channel.get('active_axes') is None, 'Correlated residual cannot claim axis-aligned derivatives')
             _require(all(math.isclose(v, e, rel_tol=1e-9, abs_tol=1e-12) for v, e in zip(residual, expected)),
-                     'Saved outside-box residual differs from supplied world bounds')
-            active = [p < lo or p > hi for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]
-            _require(type(channel.get('active_axes')) is list and all(type(v) is bool for v in channel['active_axes'])
-                     and channel['active_axes'] == active, 'Saved interval active axes differ')
+                     'Saved correlated residual differs from its certified projection' if correlated is not None
+                     else 'Saved outside-box residual differs from supplied world bounds')
+            if correlated is None:
+                _require(not {'distance_to_constraint_region_m', 'closest_point_m', 'projection'} & set(channel),
+                         'Legacy surface cannot claim a correlated projection')
+                active = [p < lo or p > hi for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]
+                _require(type(channel.get('active_axes')) is list and all(type(v) is bool for v in channel['active_axes'])
+                         and channel['active_axes'] == active, 'Saved interval active axes differ')
             distance, loss = math.hypot(*expected), .5 * sum(v*v for v in expected)
-            _surface_equal(channel.get('distance_to_outer_envelope_m'), distance, 'Saved outside-box distance differs')
+            _surface_equal(channel.get('distance_to_outer_envelope_m'), outer_distance, 'Saved outside-box distance differs')
+            if correlated is not None:
+                _surface_equal(channel.get('distance_to_constraint_region_m'), distance, 'Saved correlated-region distance differs')
             _surface_equal(channel.get('objective_m2'), loss, 'Saved squared interval loss differs')
             losses.append(loss); distances.append(distance)
+        elif correlated is not None and channel.get('reason') == 'uncertifiable_correlated_projection':
+            _require(joined['status'] == 'conditional_interval_ready' and channel.get('status') == 'unavailable'
+                     and all(channel.get(k) is None for k in ('signed_outside_m', 'distance_to_constraint_region_m',
+                         'closest_point_m', 'objective_m2', 'active_axes', 'jacobian_m_per_rad')),
+                     'Uncertifiable projection cannot have a residual or objective')
+            diagnostic = channel.get('projection')
+            _require(type(diagnostic) is dict and set(diagnostic) == {'status', 'iterations'}
+                     and diagnostic['status'] in (_QP_STATUSES - {'optimal', 'other'}) | {
+                         'projection_deadline', 'invalid_projection_multipliers', 'projection_certificate_failed',
+                         'projection_affine_hull_mismatch', 'uncertifiable_projection_derivative'}
+                     and type(diagnostic['iterations']) is int and 0 <= diagnostic['iterations'] <= 32,
+                     'Unavailable projection needs its bounded failure diagnostic')
+            position = _surface_vector(channel.get('world_position_m'))
+            bounds = joined['world_envelope_m']
+            _surface_equal(channel.get('distance_to_outer_envelope_m'), math.hypot(*[
+                p-min(max(p, lo), hi) for p, lo, hi in zip(position, bounds['minimum'], bounds['maximum'])]),
+                'Unavailable projection outside-box distance differs')
+            failures += 1
         else:
             _require(channel.get('status') == 'unavailable' and
                      (channel.get('reason') == joined['reason'] if joined['status'] == 'unavailable'
@@ -472,9 +505,15 @@ def _surface_result(result, slot, body_hash):
             _require(all(channel.get(k) is None for k in ('world_position_m', 'signed_outside_m',
                      'distance_to_outer_envelope_m', 'objective_m2', 'active_axes', 'jacobian_m_per_rad')),
                      'Unavailable interval channel cannot have a residual or position')
+            if correlated is not None:
+                _require(all(channel.get(k) is None for k in ('distance_to_constraint_region_m', 'closest_point_m', 'projection')),
+                         'Unavailable source cannot acquire a correlated projection')
     _require(result.get('counts') == {'retained_channels': len(channels), 'evaluated_channels': len(losses),
              'unavailable_channels': len(channels) - len(losses)}, 'Saved interval evaluation counts differ')
-    _surface_equal(result.get('objective_m2'), sum(losses) if losses else None, 'Saved interval total differs')
+    if correlated is not None:
+        _require(type(result.get('projection_failures')) is int and result['projection_failures'] == failures,
+                 'Saved projection failure count differs')
+    _surface_equal(result.get('objective_m2'), sum(losses) if losses and not failures else None, 'Saved interval total differs')
     return losses, distances
 
 
@@ -531,7 +570,7 @@ def _surface_row_policy(report, candidate, source, config, check):
         'eligible': eligible_count, 'attempted': attempted_count, 'changed': changed_count}}
 
 
-def _surface_model(report, candidate, source, documents, hashes, check):
+def _surface_model(report, candidate, source, documents, hashes, check, *, correlated=None, deadline=None):
     surface = report.get('surface_intervals')
     camera_mode = report['profile'] in CAMERA_METHODS
     weight_units = ('authored_camera_loss_units_squared_per_supplied_world_metre_squared' if camera_mode
@@ -543,12 +582,22 @@ def _surface_model(report, candidate, source, documents, hashes, check):
              and surface.get('optimizer_installation') == 'installed_in_existing_whole_body_fitter',
              'Unsupported surface fit metadata or physical claim')
     config, plan = documents['inputs/surface-config.json'], documents['plan.json']
+    mode = config.get('constraint_geometry')
+    _require(mode == CORRELATED_GEOMETRY if 'constraint_geometry' in config else mode is None,
+             'Unsupported surface constraint geometry')
+    _require((correlated is not None) == (mode is not None), 'Correlated surface inputs were not independently prepared')
     weight = _surface_number(surface.get('weight'))
     _require(0 < weight <= 1000 and weight == config['weight'], 'Surface authored weight differs')
     inputs = surface.get('inputs')
     _require(type(inputs) is dict and inputs.get('profile') == SURFACE_OBJECTIVE
              and inputs.get('source_sha256') == source['source_sha256'] and inputs.get('body_sha256') == hashes['inputs/human.json']
              and inputs.get('body_model_sha256') == _canonical(source), 'Surface input body/source identities differ')
+    if mode is not None:
+        _require(surface.get('constraint_geometry') == mode and inputs == correlated.describe(),
+                 'Saved correlated inputs differ from exact prepared metadata')
+    else:
+        _require('constraint_geometry' not in surface and 'constraint_geometry' not in inputs,
+                 'Legacy surface cannot silently claim correlated geometry')
     _require(inputs.get('contact') == inputs.get('load') == inputs.get('grasp') == 'unknown'
              and inputs.get('physical_validation') == 'unverified' and inputs.get('geometry_modified') is False
              and inputs.get('body_or_floor_installed') is False and inputs.get('confidence') is None,
@@ -572,7 +621,8 @@ def _surface_model(report, candidate, source, documents, hashes, check):
     _require(marker == {'profile': SURFACE_PROFILE, 'input_bindings': {
         'objective_profile': SURFACE_OBJECTIVE, **{key: inputs[key] for key in
             ('source_sha256', 'body_sha256', 'binding_sha256', 'envelope_cache_sha256', 'envelope_bindings')}},
-        'weight': weight, 'weight_status': 'authored', 'work_limits': work, 'summary': surface.get('summary')},
+        'weight': weight, 'weight_status': 'authored', 'work_limits': work, 'summary': surface.get('summary'),
+        **({'constraint_geometry': mode} if mode is not None else {})},
         'Candidate surface marker differs from saved report')
     reference_key = 'reference_candidate' if camera_mode else 'reference'
     _require(source['reference'][0] == candidate[reference_key][0], 'Surface fitting changed the frozen first reference')
@@ -625,6 +675,13 @@ def _surface_model(report, candidate, source, documents, hashes, check):
     status_counts, display = Counter(), []
     for frame, slot in enumerate(source_slots):
         check()
+        if correlated is not None:
+            prepared = correlated.frame(frame)
+            envelopes = prepared.pop('source_envelopes')
+            for channel, anchor in zip(prepared['channels'], envelopes['anchors'], strict=True):
+                channel['world_envelope_m'] = anchor['world_envelope_m']
+            prepared['source_status'] = envelopes['source_status']
+            _require(slot == prepared, 'Saved correlated source slot differs from exact prepared inputs')
         _require(type(slot) is dict and slot.get('source_frame') == frame and slot.get('body_reference') == references.get(frame)
                  and slot.get('source_status') == ('decoded' if frame < decoded else 'metadata_only_not_decoded'),
                  'Surface source frame/body reference join differs')
@@ -680,23 +737,28 @@ def _surface_model(report, candidate, source, documents, hashes, check):
              'Surface original-start source statuses differ')
     saved_references = surface.get('references')
     _require(type(saved_references) is list and len(saved_references) == len(references), 'Surface reference count differs')
-    all_losses, all_distances, available = [[], []], [[], []], 0
+    all_losses, all_distances, available, evaluated = [[], []], [[], []], 0, [0, 0]
     for index, (reference, original) in enumerate(zip(saved_references, report['references'])):
         check(); frame = original['frame']
         _require(type(reference) is dict and reference.get('reference_index') == index and reference.get('source_frame') == frame
                  and reference.get('evidence_id') == original['evidence_id'] and reference.get('time_s') == original['time_s'],
                  'Surface reference identity or original clock differs')
         for side, name in enumerate(('before', 'after')):
-            losses, distances = _surface_result(reference.get(name), source_slots[frame], hashes['inputs/human.json'])
-            all_losses[side].extend(losses); all_distances[side].extend(distances)
-            if side == 0: available += bool(losses)
+            losses, distances = _surface_result(reference.get(name), source_slots[frame], hashes['inputs/human.json'],
+                                               correlated=correlated, deadline=deadline)
+            if reference[name]['objective_m2'] is not None:
+                all_losses[side].extend(losses)
+            all_distances[side].extend(distances); evaluated[side] += len(losses)
+            if side == 0: available += reference[name]['objective_m2'] is not None
             for target, channel in zip(display[frame]['channels'], reference[name]['channels']):
-                target[name + '_m'] = channel['distance_to_outer_envelope_m']
+                target[name + '_m'] = channel['distance_to_constraint_region_m' if mode is not None else 'distance_to_outer_envelope_m']
     expected = {'source_frame_slots': frame_count, 'channel_slots': frame_count * len(declarations),
         'available_reference_terms': available, 'unavailable_reference_terms': len(references) - available,
-        'evaluated_channels_before': len(all_losses[0]), 'evaluated_channels_after': len(all_losses[1])}
+        'evaluated_channels_before': evaluated[0], 'evaluated_channels_after': evaluated[1]}
     summary = surface.get('summary')
     _require(type(summary) is dict, 'Missing surface summary')
+    _require(summary.get('distance_metric') == 'distance_to_constraint_region_m' if mode is not None
+             else 'distance_metric' not in summary, 'Surface summary distance metric differs')
     for key, value in expected.items():
         _require(type(summary.get(key)) is int and summary[key] == value, 'Surface summary counts differ')
     for side, name in enumerate(('before', 'after')):
@@ -710,11 +772,14 @@ def _surface_model(report, candidate, source, documents, hashes, check):
         for reference in saved_references:
             before, after = reference['before'], reference['after']
             _require(before['counts'] == after['counts'], 'Saved surface gate contradicts channel counts')
+            _require(not before.get('projection_failures') and not after.get('projection_failures'),
+                     'Saved surface gate cannot accept an uncertifiable projection')
             for a, b in zip(before['channels'], after['channels']):
                 _require(all(a.get(k) == b.get(k) for k in ('channel_id', 'status', 'reason')),
                          'Saved surface gate contradicts channel availability')
                 if a['status'] == 'conditional_interval_residual':
-                    _require(b['distance_to_outer_envelope_m'] <= a['distance_to_outer_envelope_m'],
+                    metric = 'distance_to_constraint_region_m' if mode is not None else 'distance_to_outer_envelope_m'
+                    _require(b[metric] <= a[metric],
                              'Saved surface gate contradicts channel deviation')
     journal = surface.get('trial_journal')
     _require(type(journal) is list and len(journal) <= 20000, 'Surface trial journal exceeds its bound')
@@ -736,10 +801,16 @@ def _surface_model(report, candidate, source, documents, hashes, check):
         'source_slots': display, 'work_limits': work, 'evaluations': surface['evaluations'], 'journal_records': len(journal),
         'journal_bytes': surface['journal_bytes'], 'config_sha256': plan['surface_constraints']['config_sha256'],
         'body_binding': inputs['binding'], 'world_frame': inputs.get('world_frame'), 'contact': 'unknown',
-        'physical_validation': 'unverified', 'saved_geometry_recomputed': False, **row_policy}
+        'physical_validation': 'unverified', 'saved_geometry_recomputed': False, **row_policy,
+        **({'constraint_geometry': mode, 'conditional_regions_rederived': True, 'distance_metric': 'distance_to_constraint_region_m',
+            'inspection_work': {'prepared_objective_batches': 1, 'source_frame_slots': frame_count,
+                'projection_certificates_checked': sum(evaluated), 'qp_solves': 0, 'candidate_kinematics_calls': 0,
+                'physics_steps': 0, 'source_proof_calls': 0},
+            'geometry_scope': 'Conditional regions rederived from copied inputs; saved candidate positions are not recomputed'}
+           if mode is not None else {})}
 
 
-def _model(documents, hashes, check):
+def _model(documents, hashes, check, *, correlated=None, deadline=None):
     report = documents["report.json"]
     camera_mode = report.get('profile') in CAMERA_METHODS
     multiview_mode = report.get('profile') == MULTIVIEW_METHOD
@@ -968,7 +1039,8 @@ def _model(documents, hashes, check):
                  'Missing supported source-knot surface objective')
         for key in ('primary', 'acceptance'): _text(objective.get(key), 512)
     else: _require(objective is None, "Image-first profile cannot silently claim a floor-first objective")
-    surface = _surface_model(report, candidate, source, documents, hashes, check) if method in {SURFACE_METHOD, *CAMERA_METHODS} else None
+    surface = _surface_model(report, candidate, source, documents, hashes, check, correlated=correlated,
+                             deadline=deadline) if method in {SURFACE_METHOD, *CAMERA_METHODS} else None
     if surface is None:
         _require('surface_intervals' not in report and 'surface_intervals' not in marker,
                  'Legacy profile cannot silently claim surface constraints')
@@ -1078,14 +1150,21 @@ def _surface_html(surface, esc, fmt, report_member='proposal-report.json.txt'):
     summary = surface['summary']
     weight_label = ('authored camera loss units² per m²' if surface.get('weight_units') ==
                     'authored_camera_loss_units_squared_per_supplied_world_metre_squared' else 'existing-model objective units per m²')
+    correlated = surface.get('constraint_geometry') == CORRELATED_GEOMETRY
+    zero_label = ('Zero distance to the supplied correlated region does not verify contact or physical feasibility.' if correlated
+                  else 'Zero outside-box error does not verify contact or an attainable source point.')
+    distance_label = 'Maximum distance to supplied correlated region' if correlated else 'Maximum distance outside supplied world range'
+    column_labels = ('Input region distance (m)', 'Proposed region distance (m)') if correlated else ('Input outside (m)', 'Proposed outside (m)')
+    inspection = ('The pixel and height ranges above come from exact copied inputs. This report rederives their conditional pinhole/height/support regions once and certifies saved closest points from primal, dual and optimality residuals; it does not rerun the solver, candidate kinematics, physics or camera validation. Outer world bounds are display enclosures, not the region-distance objective.' if correlated else
+                  'The pixel and height ranges above come from exact copied inputs. World bounds and positions are saved producer results; this report checks joins and residual arithmetic but does not recompute geometry or validate the camera.')
     return f'''<section><h2>Supplied surface ranges</h2>
-<p class="notice">These are conditional ranges from supplied camera, pixel, surface-height and body-alignment assumptions. <strong>Zero outside-box error does not verify contact or an attainable source point.</strong> Calibration, body scale, anatomy, support and physical accuracy remain unverified. No midpoint is selected as a target.</p>
+<p class="notice">These are conditional ranges from supplied camera, pixel, surface-height and body-alignment assumptions. <strong>{zero_label}</strong> Calibration, body scale, anatomy, support and physical accuracy remain unverified. No midpoint is selected as a target.</p>
 <p>Original source frames: {summary['source_frame_slots']}; channel slots: {summary['channel_slots']}. Body-reference terms available: {summary['available_reference_terms']}; unavailable: {summary['unavailable_reference_terms']}. Evaluated channels input → proposed: {summary['evaluated_channels_before']} → {summary['evaluated_channels_after']}. Missing and excluded slots remain unavailable, not zero-error samples.</p>
-<p>Maximum distance outside supplied world range: {fmt(summary['maximum_channel_outside_before_m'])} → {fmt(summary['maximum_channel_outside_after_m'])} <strong>metres</strong>. Sum of half-squared distances: {fmt(summary['sum_objective_before_m2'])} → {fmt(summary['sum_objective_after_m2'])} <strong>m²</strong>.</p>
+<p>{distance_label}: {fmt(summary['maximum_channel_outside_before_m'])} → {fmt(summary['maximum_channel_outside_after_m'])} <strong>metres</strong>. Sum of half-squared distances: {fmt(summary['sum_objective_before_m2'])} → {fmt(summary['sum_objective_after_m2'])} <strong>m²</strong>.</p>
 <p>Authored weight: {fmt(surface['weight'])} {weight_label}. Weighted term: {fmt(summary['weighted_sum_before'])} → {fmt(summary['weighted_sum_after'])}. This is an authored fitting tradeoff, <strong>not calibrated physical energy</strong>. It is separate from image errors in pixels and floor gaps in model units; the floor limit stays 0.025 model units.</p>
 <label>Surface source slot <select id="interval-sample"></select></label><p id="interval-context" aria-live="polite"></p>
-<div class="scroll"><table><thead><tr><th>Channel / assumed body point</th><th>Saved availability</th><th>Supplied pixel range (px)</th><th>Supplied height range (m)</th><th>Saved outer world bounds (m)</th><th>Input outside (m)</th><th>Proposed outside (m)</th></tr></thead><tbody id="interval-channels"></tbody></table></div>
-<p>The pixel and height ranges above come from exact copied inputs. World bounds and positions are saved producer results; this report checks joins and residual arithmetic but does not recompute geometry or validate the camera. All original slots remain selectable, including slots without body references. No control-grid interval targets are created.</p>
+<div class="scroll"><table><thead><tr><th>Channel / assumed body point</th><th>Saved availability</th><th>Supplied pixel range (px)</th><th>Supplied height range (m)</th><th>Saved outer world bounds (m)</th><th>{column_labels[0]}</th><th>{column_labels[1]}</th></tr></thead><tbody id="interval-channels"></tbody></table></div>
+<p>{inspection} All original slots remain selectable, including slots without body references. No control-grid interval targets are created.</p>
 <details><summary>Fixed assumptions and saved work</summary><pre>{esc(json.dumps({'world_frame': surface['world_frame'], 'body_binding': surface['body_binding'], 'source_status_counts': surface['source_status_counts']}, indent=2))}</pre>
 <p>Saved interval evaluations: {surface['evaluations']} / {surface['work_limits']['maximum_evaluations']}. Saved trial records: {surface['journal_records']}; journal bytes: {surface['journal_bytes']} / {surface['work_limits']['maximum_journal_bytes']}. Interrupted and rejected attempts remain in <a href="artifacts/{esc(report_member)}">the exact proposal report{' (gzip download; decompress to read)' if report_member.endswith('.gz') else ''}</a>. Counts and saved outcomes are not a replay or a new optimization run.</p></details></section>'''
 
@@ -1138,6 +1217,9 @@ def _render(summary, palette, members=None, *, packed_payload=None):
     data = json.dumps(summary, separators=(',', ':'), allow_nan=False).replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e').replace('\u2028', '\\u2028').replace('\u2029', '\\u2029') if packed_payload is None else packed_payload.decode()
     script_hash = base64.b64encode(sha256(script.encode()).digest()).decode()
     payload_notice = ''
+    processing_scope = ('Only supplied conditional regions and saved projection certificates are numerically checked; no candidate kinematics, physics, policy, model or media processing runs in this report.'
+        if summary.get('surface_intervals', {}).get('constraint_geometry') == CORRELATED_GEOMETRY
+        else 'No geometry, physics, policy, model or media processing runs in this report.')
     if packed_payload is not None:
         _require(multiview is not None, 'Packed display data requires explicit multiview mode')
         payload_notice = '<p id="payload-error" class="notice" role="alert" hidden></p>'
@@ -1156,7 +1238,7 @@ def _render(summary, palette, members=None, *, packed_payload=None):
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'sha256-{script_hash}'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Weft · Reference proposal</title><style>{palette}{css}</style></head><body><main>
-<header><p>weft · saved reference proposal</p><h1>{labels[summary['status']]}</h1><p class="notice">The floor penetration limit remains <strong>0.025 model units</strong>. Fewer failures or smaller image error do not make a proposal pass. Source image estimates are <strong>not measured truth</strong>. No geometry, physics, policy, model or media processing runs in this report.</p><p>Method: <code>{esc(summary['method'])}</code></p></header>
+<header><p>weft · saved reference proposal</p><h1>{labels[summary['status']]}</h1><p class="notice">The floor penetration limit remains <strong>0.025 model units</strong>. Fewer failures or smaller image error do not make a proposal pass. Source image estimates are <strong>not measured truth</strong>. {processing_scope}</p><p>Method: <code>{esc(summary['method'])}</code></p></header>
 {payload_notice}{camera_html}
 <section><h2>What changed, and what did not</h2><p>Source slots: {fmt(summary['source_counts'].get('retained_pose_slots'))}; body references: {fmt(summary['source_counts'].get('body_reference_knots'))}; retained slots without a body reference: {summary['source_slots_without_body_reference']}. Declared decoded frames: {fmt(summary['source_counts'].get('declared_decoded_frames'))}; container frame count: {fmt(summary['source_counts'].get('declared_frame_count'))}.</p>
 <div class="scroll"><table><thead><tr><th>Sampling view</th><th>Checks</th><th>Input body failures</th><th>{proposed} failures</th><th>Unknown input / proposed</th></tr></thead><tbody>{counts}</tbody></table></div><p>Counts cover saved checks only. Body references without saved geometry: {summary['source_references_without_geometry']}. The grid schedule is not re-created here; missing checks do not imply success. Source and grid checks overlap in time: {summary['unique_sample_times']} unique nominal sampled times. They are <strong>not distinct physical poses</strong> and not a continuous-time collision check. Root, shape, floor, clocks and nonreference fields match the supplied input body (after any pose recovery), not a body from before crop selection.</p>
@@ -1323,7 +1405,15 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
                 check(); validate_camera_multiview_snapshot(raw, descriptor, source_sha256=documents['inputs/human.json']['source_sha256']); check()
                 members.update({name: Path(name).name + '.txt' for name in sorted(names)})
                 documents.update({name: _json(raw[name]) for name in names})
-    model = _model(documents, {name: files[name] for name in members}, check)
+    correlated = None
+    if documents.get('inputs/surface-config.json', {}).get('constraint_geometry') == CORRELATED_GEOMETRY:
+        from weft.source_surface_fit_inputs import prepare_surface_fit_objective
+
+        check()
+        correlated = prepare_surface_fit_objective(raw, documents['plan.json']['surface_constraints'], deadline=deadline,
+            **({'camera_image_scale': documents['report.json']['camera_fit']['image_loss_scale_per_pixel']} if camera_mode else {}))['surface_interval_objective']
+        check()
+    model = _model(documents, {name: files[name] for name in members}, check, correlated=correlated, deadline=deadline)
     check()
     palette_path = Path(__file__).parent / 'assets/brand.css'
     with palette_path.open('rb') as stream: palette_raw = stream.read(16385)
@@ -1331,6 +1421,7 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
     implementation = read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=256 * 1024)
     helper = None
     multiview_helpers = {}
+    correlated_helpers = {}
     if 'surface_intervals' in model:
         helper = read_package_file(Path(__file__).parent, 'source_surface_fit_inputs.py', max_bytes=128 << 10)
         model['surface_input_validator'] = {'path': 'artifacts/source_surface_fit_inputs.py.txt',
@@ -1340,11 +1431,17 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
             multiview_helpers[name] = read_package_file(Path(__file__).parent, name, max_bytes=128 << 10)
         model['multiview_inspection_helpers'] = {name: {'path': 'artifacts/' + name + '.txt',
             'sha256': sha256(value).hexdigest(), 'bytes': len(value)} for name, value in multiview_helpers.items()}
+    if correlated is not None:
+        for name in ('source_surface_envelopes.py', 'source_surface_interval_construction.py', 'constrained_qp.py'):
+            check(); correlated_helpers[name] = read_package_file(Path(__file__).parent, name, max_bytes=128 << 10)
+        model['correlated_inspection_helpers'] = {name: {'path': 'artifacts/' + name + '.txt',
+            'sha256': sha256(value).hexdigest(), 'bytes': len(value)} for name, value in correlated_helpers.items()}
     model.update(schema_version=1, profile=PROFILE, created_at=datetime.now(ZoneInfo('America/Los_Angeles')).strftime('%Y-%m-%d %H:%M:%S %Z'),
         source_manifest_sha256=manifest_sha, external_manifest_pin_supplied=expected_manifest_sha256 is not None,
         selected_members={name: {'sha256': files[name], 'bytes': len(value)} for name, value in raw.items()},
         selected_input_bytes=total, source_read_byte_bound=2 * max_input_bytes,
-        local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0) + len(multiview_helpers) * (128 << 10),
+        local_asset_read_byte_bound=16384 + 256 * 1024 + (128 << 10 if helper is not None else 0)
+            + (len(multiview_helpers) + len(correlated_helpers)) * (128 << 10),
         implementation_sha256=sha256(implementation).hexdigest(), palette_sha256=sha256(palette_raw).hexdigest())
     if multiview_mode:
         model['selected_input_byte_bound'] = max_input_bytes
@@ -1369,6 +1466,7 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
         if helper is not None:
             output['artifacts/source_surface_fit_inputs.py.txt'] = helper
         output.update({'artifacts/' + name + '.txt': value for name, value in multiview_helpers.items()})
+        output.update({'artifacts/' + name + '.txt': value for name, value in correlated_helpers.items()})
         return output
 
     output = assemble({members[name]: value for name, value in raw.items()})
@@ -1388,7 +1486,8 @@ def prepare_whole_body_reference_report(source, out, *, expected_manifest_sha256
     check(); read_package_file(source, 'manifest.json', max_bytes=128 * 1024, expected_sha256=manifest_sha)
     for directory, expected in ((out, {'index.html', 'report.json', 'source-manifest.json.txt', 'artifacts'}),
                                 (out / 'artifacts', set(members.values()) | ({'source_surface_fit_inputs.py.txt'} if helper is not None else set())
-                                 | {name + '.txt' for name in multiview_helpers})):
+                                 | {name + '.txt' for name in multiview_helpers}
+                                 | {name + '.txt' for name in correlated_helpers})):
         with os.scandir(directory) as entries:
             actual = set()
             for entry in entries:

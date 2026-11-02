@@ -27,6 +27,7 @@ CAMERA_RUNTIME_MODULES = (
 )
 FIT_SETTINGS = {"maximum_evaluations": 20000, "maximum_journal_bytes": 4 << 20}
 _SHA = re.compile(r"[0-9a-f]{64}\Z")
+CORRELATED_GEOMETRY = "correlated_pinhole_region_v1"
 
 
 def _require(value, message):
@@ -69,12 +70,20 @@ def _missing_image_policy(document):
     return {"missing_image_policy": policy}
 
 
+def _constraint_geometry(document):
+    if "constraint_geometry" not in document:
+        return {}
+    _require(document["constraint_geometry"] == CORRELATED_GEOMETRY, "invalid explicit constraint geometry")
+    return {"constraint_geometry": CORRELATED_GEOMETRY}
+
+
 def parse_surface_fit_config(raw):
     _require(type(raw) is bytes and 0 < len(raw) <= MAX_CONFIG_BYTES, "config must be at most 64 KiB")
     config = _json(raw)
-    _require(set(config) - {"missing_image_policy"} == {"schema_version", "profile", "source_sha256", "weight", "observations", *OPTIONAL_MEMBERS},
+    _require(set(config) - {"missing_image_policy", "constraint_geometry"} == {"schema_version", "profile", "source_sha256", "weight", "observations", *OPTIONAL_MEMBERS},
              "unexpected config fields")
     _missing_image_policy(config)
+    _constraint_geometry(config)
     _require(type(config["schema_version"]) is int and config["schema_version"] == 1 and config["profile"] == PROFILE,
              "versioned config required")
     _require(type(config["source_sha256"]) is str and _SHA.fullmatch(config["source_sha256"]), "exact source SHA256 required")
@@ -101,13 +110,14 @@ def _descriptor(config, raw):
     return {"profile": PROFILE, "config_sha256": sha256(raw).hexdigest(), "source_sha256": config["source_sha256"],
             "weight": config["weight"], "observation_count": len(config["observations"]),
             "optional_inputs": [role for role in OPTIONAL_MEMBERS if config[role] is not None],
-            **_missing_image_policy(config)}
+            **_missing_image_policy(config), **_constraint_geometry(config)}
 
 
 def surface_fit_member_names(descriptor):
-    _require(type(descriptor) is dict and set(descriptor) - {"missing_image_policy"} == {
+    _require(type(descriptor) is dict and set(descriptor) - {"missing_image_policy", "constraint_geometry"} == {
         "profile", "config_sha256", "source_sha256", "weight", "observation_count", "optional_inputs"}, "invalid frozen surface descriptor")
     _missing_image_policy(descriptor)
+    _constraint_geometry(descriptor)
     _require(descriptor["profile"] == PROFILE, "invalid frozen surface profile")
     for key in ("config_sha256", "source_sha256"):
         _require(type(descriptor[key]) is str and _SHA.fullmatch(descriptor[key]), "invalid frozen surface identity")
@@ -160,7 +170,7 @@ def prepare_surface_fit_inputs(config_path, *, source_sha256, deadline):
     return files, descriptor
 
 
-def prepare_surface_fit_objective(files, descriptor, *, camera_image_scale=None):
+def prepare_surface_fit_objective(files, descriptor, *, camera_image_scale=None, deadline=None):
     from weft.source_surface_envelopes import prepare_source_surface_envelopes
     from weft.source_surface_interval_construction import prepare_surface_interval_objective
 
@@ -178,9 +188,11 @@ def prepare_surface_fit_objective(files, descriptor, *, camera_image_scale=None)
     envelopes = prepare_source_surface_envelopes(documents, source_sha256=config["source_sha256"],
         camera_document=files.get(OPTIONAL_MEMBERS["camera"]),
         surface_interval_document=files.get(OPTIONAL_MEMBERS["surface_intervals"]),
-        annotation_document=files.get(OPTIONAL_MEMBERS["annotations"]))
+        annotation_document=files.get(OPTIONAL_MEMBERS["annotations"]), **_constraint_geometry(config),
+        **({"deadline": deadline} if deadline is not None else {}))
     objective = prepare_surface_interval_objective(envelopes, body_bytes=body,
         binding_bytes=files.get(OPTIONAL_MEMBERS["body_binding"]),
-        **({"include_image_admission": True} if camera_image_scale is not None else {}))
+        **({"include_image_admission": True} if camera_image_scale is not None else {}),
+        **({"deadline": deadline} if deadline is not None else {}))
     return {"surface_interval_objective": objective, "surface_interval_weight": config["weight"],
             "surface_interval_settings": dict(FIT_SETTINGS), **camera_options, **_missing_image_policy(config)}

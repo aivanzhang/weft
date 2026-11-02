@@ -311,19 +311,20 @@ downloads. These timings exclude the earlier video/pose/tracking extraction.
 To play this verified local example, run from the Weft repository root:
 
 ```sh
-PYTHONPATH="$PWD/.local/equipment-frame-consensus-native-03/runtime/src" \
-  .venv-lab/bin/python -B -P -m weft lab \
-  --resume artifacts/equipment-frame-consensus-native-03/build/lab
+.venv-lab/bin/python scripts/play_sandbox.py --example auto-equipment
 ```
 
-For terminal controls instead, replace `lab` with `lab-console`. Enter `controls`
+Add `--console` for terminal controls, or `--check` to verify metadata without
+starting anything. The actual metadata check passed in 0.35 seconds; it does not
+replace the complete source/task checks when you open the sandbox. Enter `controls`
 to inspect available actions, then `record start`, `mode reference`, `step 6`,
 `record stop` and `files` to inspect a short recorded interaction. Reference mode
 is authored following, not learning; this example has no trained policy attached.
 Manual controls and the three explicit root-assistance channels remain available.
-The command uses the verified saved runtime, so unrelated development edits do
-not change the example. This cache and its source videos are local artifacts, not
-included in a fresh clone. No server was started during build verification.
+The launcher uses a fixed trusted Git runtime, so unrelated development edits do
+not change the example. Its source videos and prepared lab are local artifacts,
+not included in a fresh clone. No server or browser was started during verification.
+[Launcher checks and limits](handoffs/automatic-equipment-launcher.md).
 
 **3. Build, then play.** A ready setup prints the existing `shared-exercise-build`
 command with your copied inputs and choices. Run it to check the actual body,
@@ -429,6 +430,17 @@ excluded support evidence still leaves the pose unchanged.
 This is an optional assisted-construction path, not automatic contact recovery
 from an unfamiliar video. Moving equipment, unsupported camera distortion and
 missing calibration remain unsupported. [Exact config and bounds](handoffs/surface-interval-workflow.md#exact-configuration).
+
+For an undistorted pinhole camera (`radial_k1: 0`), add
+`"constraint_geometry": "correlated_pinhole_region_v1"` to that same config
+to preserve the relationship between image position, height and support bounds.
+The fitter then measures distance to the combined allowed region, not just its
+enclosing box. A point inside the box but outside the supplied constraints no
+longer receives zero construction loss. Omit the option to retain prior behavior.
+Distorted cameras and projections the solver cannot verify are unavailable in
+this mode; it does not silently fall back to the box. Camera, height and support
+inputs remain supplied assumptions, not recovered contact or measured accuracy.
+[Contract and analytical checks](handoffs/correlated-surface-region-proposal.md).
 
 [Inspect the authored native test](../artifacts/surface-interval-fit-inspection-01/index.html).
 The fitter completed; its outer checker failed on one blocked subprocess attempt.

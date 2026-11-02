@@ -2,6 +2,7 @@
 
 from collections import Counter
 from dataclasses import dataclass
+from fractions import Fraction
 from hashlib import sha256
 import json
 import math
@@ -11,7 +12,9 @@ import numpy as np
 
 from weft.io import canonical_hash
 from weft.source_surface_anchors import _document, _fields, _sources
-from weft.source_surface_envelopes import SourceSurfaceEnvelopes
+from weft.source_surface_envelopes import (
+    CORRELATED_GEOMETRY, MAX_REGION_BYTES, MAX_REGION_PLANES, REGION_PROFILE, SourceSurfaceEnvelopes,
+)
 from weft.whole_body_reference_refinement import NAMES, POINTS
 from weft.world_alignment import load_world_alignment
 
@@ -24,6 +27,7 @@ MAX_SECONDS, MAX_QUERY_SECONDS = 5., .25
 MAX_FRAMES, MAX_REFERENCES, MAX_CHANNELS = 1800, 900, 12
 IMAGE_ADMISSION_PROFILE = "source-surface-body-image-admission-v1"
 MAX_IMAGE_ADMISSION_BYTES, MAX_IMAGE_ADMISSION_ROW_BYTES = 2 << 20, 4 << 10
+PROJECTION_ITERATIONS, PROJECTION_SECONDS = 32, .05
 
 
 def _require(value, message):
@@ -68,6 +72,144 @@ def _array(value, shape, label):
                      and math.isfinite(float(item)) and abs(float(item)) <= 1e6, label + " requires bounded finite numbers")
     check(value, shape)
     return np.asarray(value, dtype=float)
+
+
+def _rational(value):
+    _require(type(value) is list and len(value) == 2 and all(type(v) is str and 1 <= len(v) <= 512 for v in value),
+             "bounded rational pair required")
+    try:
+        numerator, denominator = map(int, value)
+        result = Fraction(numerator, denominator)
+    except (ValueError, ZeroDivisionError) as error:
+        raise ValueError("Surface interval construction: invalid rational coefficient") from error
+    _require(denominator > 0 and value == [str(result.numerator), str(result.denominator)],
+             "canonical reduced rational coefficient required")
+    return result
+
+
+def _prepare_region(value, deadline):
+    _encode(value, MAX_REGION_BYTES, deadline)
+    _require(type(value) is dict and set(value) == {"profile", "unit", "convention", "halfspaces_q", "affine_hull_q", "feasible_seed_q"}
+             and value["profile"] == REGION_PROFILE and value["unit"] == "m" and value["convention"] == "A*x >= b",
+             "qualified correlated region required")
+    planes, seed, hull = value["halfspaces_q"], value["feasible_seed_q"], value["affine_hull_q"]
+    _require(type(planes) is list and 6 <= len(planes) <= MAX_REGION_PLANES
+             and all(type(row) is list and len(row) == 4 for row in planes)
+             and type(seed) is list and len(seed) == 3
+             and type(hull) is list and len(hull) <= 3 and all(type(row) is list and len(row) == 4 for row in hull),
+             "bounded three-dimensional region required")
+    planes = [tuple(_rational(item) for item in row) for row in planes]
+    hull = [tuple(_rational(item) for item in row) for row in hull]
+    seed = tuple(_rational(item) for item in seed)
+    rows = []
+    for plane in planes:
+        _check(deadline)
+        scale = max(map(abs, plane[:3]))
+        _require(scale > 0 and sum(a*b for a, b in zip(plane[:3], seed, strict=True)) >= plane[3],
+                 "nonzero planes and exact feasible seed required")
+        rows.append(tuple(float(item/scale) for item in plane))
+    coefficients = np.asarray(rows, dtype=float)
+    equalities = []
+    for plane in hull:
+        scale = max(map(abs, plane[:3]))
+        _require(scale > 0 and sum(a*b for a, b in zip(plane[:3], seed, strict=True)) == plane[3],
+                 "nonzero affine-hull planes and exact seed required")
+        equalities.append(tuple(float(item/scale) for item in plane))
+    equalities = np.asarray(equalities, dtype=float).reshape(-1, 4)
+    initial = np.asarray(seed, dtype=float)
+    _require(np.isfinite(coefficients).all() and np.max(abs(coefficients)) <= 1e12
+             and np.isfinite(initial).all() and np.max(abs(initial)) <= 1e6
+             and np.isfinite(equalities).all() and np.max(abs(equalities), initial=0.) <= 1e12,
+             "region exceeds numerical solver bounds")
+    # Immutable binary storage avoids rational parsing or mutable arrays during queries.
+    return coefficients.tobytes(), initial.tobytes(), len(rows), equalities.tobytes()
+
+
+def _region_certificate(region, world, point, multipliers):
+    from weft.constrained_qp import CONTRACT, _residuals
+
+    matrix = np.frombuffer(region[0], dtype=float).reshape(region[2], 4)
+    hull = np.frombuffer(region[3], dtype=float).reshape(-1, 4)
+    certificate = _residuals(np.eye(3), -world, matrix[:, :3], matrix[:, 3], point, multipliers)
+    dual = certificate["dual_maximum_negative_multiplier"] / (1 + float(np.max(abs(multipliers), initial=0.)))
+    valid = (certificate["primal_maximum_violation"] <= CONTRACT["primal_tolerance"]
+             and max(certificate["stationarity_relative"], certificate["complementarity_relative"], dual)
+             <= CONTRACT["relative_kkt_tolerance"])
+    if not valid:
+        return certificate, "projection_certificate_failed"
+    if np.max(abs(hull[:, :3] @ point-hull[:, 3]), initial=0.) > CONTRACT["primal_tolerance"]:
+        return certificate, "projection_affine_hull_mismatch"
+    return certificate, None
+
+
+def verify_saved_region_projection(region, world, point, diagnostic, *, deadline):
+    """Certify a saved closest point without running a solver or candidate kinematics."""
+    _check(deadline)
+    _require(type(diagnostic) is dict and set(diagnostic) == {"status", "iterations", "active_planes", "affine_hull_planes",
+             "primal_violation", "stationarity_relative", "complementarity_relative", "dual_multipliers"}
+             and diagnostic["status"] == "optimal" and type(diagnostic["iterations"]) is int
+             and 1 <= diagnostic["iterations"] <= PROJECTION_ITERATIONS, "bounded optimal projection certificate required")
+    world, point = _array(world, (3,), "saved world point"), _array(point, (3,), "saved closest point")
+    dual = diagnostic["dual_multipliers"]
+    _require(type(dual) is list and len(dual) == region[2] and all(_number(v, 1e12) for v in dual),
+             "bounded dual multiplier per region plane required")
+    certificate, failure = _region_certificate(region, world, point, np.asarray(dual, dtype=float))
+    _require(failure is None, "saved closest point failed " + str(failure))
+    active = diagnostic["active_planes"]
+    _require(type(active) is list and len(active) <= 3 and len(set(active)) == len(active)
+             and all(type(i) is int and 0 <= i < region[2] for i in active)
+             and type(diagnostic["affine_hull_planes"]) is int
+             and diagnostic["affine_hull_planes"] == len(region[3]) // (4 * np.dtype(float).itemsize),
+             "saved projection plane identity differs")
+    for saved, actual in (("primal_violation", "primal_maximum_violation"),
+                          ("stationarity_relative", "stationarity_relative"),
+                          ("complementarity_relative", "complementarity_relative")):
+        _require(_number(diagnostic[saved], 1e12) and math.isclose(diagnostic[saved], certificate[actual], rel_tol=1e-9, abs_tol=1e-12),
+                 "saved projection certificate arithmetic differs")
+    _check(deadline)
+    return (world-point).tolist()
+
+
+def _project_region(region, world, deadline):
+    from weft.constrained_qp import CONTRACT, solve_feasible_qp
+
+    matrix = np.frombuffer(region[0], dtype=float).reshape(region[2], 4)
+    a, b = matrix[:, :3], matrix[:, 3]
+    initial = np.frombuffer(region[1], dtype=float)
+    hull = np.frombuffer(region[3], dtype=float).reshape(-1, 4)
+    seconds = min(PROJECTION_SECONDS, deadline-time.monotonic())
+    if seconds < .001:
+        return None, {"status": "projection_deadline", "iterations": 0}
+    solved = solve_feasible_qp(np.eye(3), -world, a, b, initial=initial,
+                              settings={"maximum_iterations": PROJECTION_ITERATIONS, "maximum_seconds": seconds})
+    report = solved["report"]
+    diagnostic = {"status": solved["status"], "iterations": report["iterations"]}
+    if solved["status"] != "optimal":
+        return None, diagnostic
+    point = _array(solved["step"], (3,), "projected point")
+    multipliers = np.asarray(report["multipliers"], dtype=float)
+    if multipliers.shape != (len(a),) or not np.isfinite(multipliers).all() or np.max(abs(multipliers), initial=0.) > 1e12:
+        return None, dict(diagnostic, status="invalid_projection_multipliers")
+    certificate, failure = _region_certificate(region, world, point, multipliers)
+    if failure is not None:
+        return None, dict(diagnostic, status=failure)
+    active = report["active_constraints"]
+    _require(type(active) is list and len(active) <= 3 and len(set(active)) == len(active)
+             and all(type(i) is int and 0 <= i < len(a) for i in active), "invalid certified active plane set")
+    projector = np.zeros((3, 3))
+    normals = np.vstack((hull[:, :3], a[active]))
+    if len(normals):
+        _, singular, vh = np.linalg.svd(normals, full_matrices=False)
+        rank = int(np.count_nonzero(singular > singular[0] * CONTRACT["rank_relative_tolerance"]))
+        if rank < len(hull):
+            return None, dict(diagnostic, status="uncertifiable_projection_derivative")
+        # Equality normals remain active even when the QP starts at an on-region seed.
+        projector = vh[:rank].T @ vh[:rank]
+    diagnostic.update(active_planes=active, affine_hull_planes=len(hull), primal_violation=certificate["primal_maximum_violation"],
+                      stationarity_relative=certificate["stationarity_relative"],
+                      complementarity_relative=certificate["complementarity_relative"], dual_multipliers=multipliers.tolist())
+    _check(deadline)
+    return (point, projector), diagnostic
 
 
 def _body(body, source, deadline):
@@ -185,6 +327,8 @@ class SurfaceIntervalObjective:
     _matrix: tuple | None
     _translation: tuple | None
     _image_admission: tuple[bytes, ...] = ()
+    _constraint_geometry: str | None = None
+    _regions: tuple = ()
 
     @property
     def frame_count(self):
@@ -202,6 +346,14 @@ class SurfaceIntervalObjective:
         result = json.loads(self._rows[index])
         result["source_envelopes"] = self.envelopes.frame(index)
         return result
+
+    def verify_saved_projection(self, frame, channel, world, point, diagnostic, *, deadline):
+        """Use this exact input cache to certify one saved, source-bound projection."""
+        _require(self._constraint_geometry == CORRELATED_GEOMETRY and type(frame) is int and 0 <= frame < self.frame_count
+                 and type(channel) is int and 0 <= channel < len(self._regions[frame])
+                 and self._regions[frame][channel] is not None, "prepared correlated channel required")
+        return verify_saved_region_projection(self._regions[frame][channel], world, point, diagnostic,
+                                             deadline=min(time.monotonic() + MAX_QUERY_SECONDS, deadline))
 
     def image_admission(self, index):
         """Read cached image-source custody independently of interval geometry availability."""
@@ -244,12 +396,15 @@ class SurfaceIntervalObjective:
         source = self.envelopes.frame(frame)
         matrix = np.asarray(self._matrix) if active else None
         translation = np.asarray(self._translation) if active else None
-        outputs, losses, residuals, jac_rows = [], [], [], []
-        for joined, anchor in zip(row["channels"], source["anchors"], strict=True):
+        outputs, losses, residuals, jac_rows, gradient_rows = [], [], [], [], []
+        failures = 0
+        for index, (joined, anchor) in enumerate(zip(row["channels"], source["anchors"], strict=True)):
             _check(deadline)
             item = dict(joined)
             item.update(signed_outside_m=None, world_position_m=None, distance_to_outer_envelope_m=None,
                         objective_m2=None, jacobian_m_per_rad=None, active_axes=None)
+            if self._constraint_geometry is not None:
+                item.update(distance_to_constraint_region_m=None, closest_point_m=None, projection=None)
             name = joined["body_point"]
             if joined["status"] == "conditional_interval_ready":
                 if name not in values:
@@ -260,28 +415,47 @@ class SurfaceIntervalObjective:
                     lo, hi = np.asarray(bounds["minimum"]), np.asarray(bounds["maximum"])
                     residual = world - np.clip(world, lo, hi)
                     mask = (world < lo) | (world > hi)
+                    outer_distance = float(np.linalg.norm(residual))
+                    projector = None
+                    if self._constraint_geometry is not None:
+                        projected, diagnostic = _project_region(self._regions[frame][index], world, deadline)
+                        item.update(world_position_m=world.tolist(), distance_to_outer_envelope_m=outer_distance, projection=diagnostic)
+                        if projected is None:
+                            item.update(status="unavailable", reason="uncertifiable_correlated_projection")
+                            failures += 1
+                            outputs.append(item)
+                            continue
+                        point, projector = projected
+                        residual = world-point
+                        item.update(distance_to_constraint_region_m=float(np.linalg.norm(residual)), closest_point_m=point.tolist())
                     loss = .5 * float(residual @ residual)
                     item.update(status="conditional_interval_residual", reason=None, signed_outside_m=residual.tolist(),
-                                world_position_m=world.tolist(), distance_to_outer_envelope_m=float(np.linalg.norm(residual)),
-                                objective_m2=loss, active_axes=mask.tolist())
+                                world_position_m=world.tolist(), distance_to_outer_envelope_m=outer_distance,
+                                objective_m2=loss, active_axes=mask.tolist() if projector is None else None)
                     losses.append(loss); residuals.append(residual)
                     derivative = mask[:, None] * (matrix @ derivatives[name]) if name in derivatives else None
+                    if projector is not None and name in derivatives:
+                        derivative = projector @ matrix @ derivatives[name]
                     if derivative is not None:
                         item["jacobian_m_per_rad"] = derivative.tolist()
                     jac_rows.append(derivative)
+                    gradient_rows.append(matrix @ derivatives[name] if self._constraint_geometry is not None and name in derivatives else derivative)
             outputs.append(item)
         gradient = hessian = None
-        if jac_rows and all(item is not None for item in jac_rows):
+        if not failures and jac_rows and all(item is not None for item in jac_rows):
             jac = np.vstack(jac_rows); residual = np.concatenate(residuals)
-            gradient, hessian = (jac.T @ residual).tolist(), (jac.T @ jac).tolist()
+            # Squared distance stays differentiable when the nearest face changes.
+            gradient, hessian = (np.vstack(gradient_rows).T @ residual).tolist(), (jac.T @ jac).tolist()
         result = {"schema_version": 1, "profile": PROFILE, "source_frame": frame,
             "body_sha256": self._body_sha256, "body_reference": row["body_reference"], "channels": outputs,
             "counts": {"retained_channels": len(outputs), "evaluated_channels": len(losses),
                        "unavailable_channels": len(outputs) - len(losses)},
-            "objective_m2": sum(losses) if losses else None, "parameter_names": list(parameters),
+            "objective_m2": sum(losses) if losses and not failures else None, "parameter_names": list(parameters),
             "gradient_m2_per_rad": gradient, "gauss_newton_m2_per_rad2": hessian,
             "derivatives_status": "available" if gradient is not None else "unavailable",
             "geometry_modified": False, "contact": "unknown", "physical_validation": "unverified"}
+        if self._constraint_geometry is not None:
+            result.update(constraint_geometry=self._constraint_geometry, projection_failures=failures)
         _encode(result, 512 << 10, deadline)
         _check(deadline)
         return result
@@ -311,14 +485,16 @@ class SurfaceIntervalObjective:
             jacobians=jacobians, parameter_names=parameters)
 
 
-def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=None, include_image_admission=False):
+def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=None, include_image_admission=False, deadline=None):
     """Prepare a callable construction term, not an installed optimizer or physical admission.
 
     Accept the trusted envelope API's prepared object; do not reconstruct its geometry.
     Source custody is rejoined once. Full-body validity and candidate geometry remain
     the trusted producer's responsibility, not a consequence of a matching hash.
     """
-    deadline = time.monotonic() + MAX_SECONDS
+    _require(deadline is None or type(deadline) in (int, float) and math.isfinite(deadline), "invalid caller deadline")
+    own_deadline = time.monotonic() + MAX_SECONDS
+    deadline = own_deadline if deadline is None else min(own_deadline, deadline)
     _require(type(include_image_admission) is bool, "image admission preparation must be explicitly boolean")
     _require(type(body_bytes) is bytes and 0 < len(body_bytes) <= MAX_BODY_BYTES
              and (binding_bytes is None or type(binding_bytes) is bytes and 0 < len(binding_bytes) <= MAX_BINDING_BYTES),
@@ -330,6 +506,8 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
              and len(envelopes._metadata) + sum(map(len, envelopes.iter_frame_bytes())) <= MAX_CACHE_BYTES,
              "prepared envelope cache exceeds its bounds")
     metadata = envelopes.describe()
+    mode = metadata.get("constraint_geometry")
+    _require(mode is None or mode == CORRELATED_GEOMETRY, "unsupported constraint geometry")
     _require(metadata.get("profile") == "source-surface-envelopes-v1" and metadata.get("schema_version") == 1
              and metadata.get("counts", {}).get("retained_source_frames") == envelopes.frame_count
              and type(metadata.get("channels")) is list and len(metadata["channels"]) <= MAX_CHANNELS,
@@ -361,6 +539,7 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
             image_binding_reason = image_binding_reason or "human_entity_not_in_exact_source"
     admissions, admission_bytes = [], 0
     rows, counts, cache_bytes = [], Counter(), 0
+    regions, region_bytes = [], 0
     digest = sha256(b"source-surface-envelope-cache-v1\0")
     digest.update(len(envelopes._metadata).to_bytes(8, "big")); digest.update(envelopes._metadata)
     for index, raw in enumerate(envelopes.iter_frame_bytes()):
@@ -376,7 +555,7 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
             admission_bytes += len(encoded_admission)
             _require(admission_bytes <= MAX_IMAGE_ADMISSION_BYTES, "complete image admission cache exceeds two MiB; no slots dropped")
             admissions.append(encoded_admission)
-        joined = []
+        joined, frame_regions = [], []
         for anchor, declaration in zip(row["anchors"], metadata["channels"], strict=True):
             _require(anchor["channel_id"] == declaration["id"] and anchor["entity_ref"] == declaration["entity_ref"],
                      "envelope channel/entity order differs")
@@ -409,6 +588,7 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
                                                 time_s=reference["body_time_s"], position=[0., 0., 0.])["time_s"]
                     if stamp != observed["time_s"]:
                         reason = "body_world_source_clock_differs"
+            region = None
             if reason is None:
                 bounds = anchor["world_envelope_m"]
                 _require(anchor["status"] == "conditional_surface_envelope" and bounds["unit"] == "m"
@@ -416,6 +596,10 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
                 lo = _array(bounds["minimum"], (3,), "envelope minimum")
                 hi = _array(bounds["maximum"], (3,), "envelope maximum")
                 _require((lo <= hi).all(), "ordered closed envelope required")
+                if mode is not None:
+                    region = _prepare_region(bounds.get("constraint_region_m"), deadline)
+                    region_bytes += len(region[0]) + len(region[1]) + len(region[3])
+            frame_regions.append(region)
             status = "conditional_interval_ready" if reason is None else "unavailable"
             counts[reason or status] += 1
             joined.append({"channel_id": anchor["channel_id"], "entity_ref": anchor["entity_ref"], "body_point": point,
@@ -424,8 +608,10 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
                            "envelope_reason": anchor["reason"], "status": status, "reason": reason})
         encoded = _encode({"source_frame": index, "body_reference": reference, "channels": joined}, MAX_ROW_BYTES, deadline)
         cache_bytes += len(encoded)
-        _require(cache_bytes <= MAX_CACHE_BYTES, "complete join cache exceeds 8 MiB")
+        _require(cache_bytes + region_bytes <= MAX_CACHE_BYTES, "complete join/region cache exceeds 8 MiB")
         rows.append(encoded)
+        if mode is not None:
+            regions.append(tuple(frame_regions))
     start = min(body_rows)
     description = {"schema_version": 1, "profile": PROFILE,
         "status": "conditional_objective_available" if counts["conditional_interval_ready"] else "unavailable",
@@ -457,8 +643,14 @@ def prepare_surface_interval_objective(envelopes, *, body_bytes, binding_bytes=N
             "shared_envelope_cache_bytes": len(envelopes._metadata) + sum(map(len, envelopes.iter_frame_bytes())),
             "maximum_additional_cache_bytes": MAX_IMAGE_ADMISSION_BYTES,
             "scope": "Source/body/entity/evidence/frame/clock construction custody only; independent of annotations, height, world alignment or envelope availability"}
+    if mode is not None:
+        description.update(constraint_geometry=mode, cached_region_bytes=region_bytes,
+            scope="Distance to the supplied correlated pinhole/height/support region; not physical contact or calibrated uncertainty",
+            derivative_convention="Squared-distance gradient is world minus unique projection, including face changes; residual Jacobian is piecewise active-plane projection",
+            projection={"variables": 3, "maximum_planes": MAX_REGION_PLANES, "maximum_iterations": PROJECTION_ITERATIONS,
+                        "maximum_seconds": PROJECTION_SECONDS, "uncertifiable": "unavailable_never_zero_or_box_fallback"})
     encoded = _encode(description, MAX_ROW_BYTES, deadline)
-    _require(cache_bytes + len(encoded) <= MAX_CACHE_BYTES, "complete metadata/join cache exceeds 8 MiB")
+    _require(cache_bytes + region_bytes + len(encoded) <= MAX_CACHE_BYTES, "complete metadata/join/region cache exceeds 8 MiB")
     _check(deadline)
     return SurfaceIntervalObjective(envelopes, body_bytes, binding_bytes, encoded, tuple(rows), body_hash,
-                                    tuple(body_frame.items()), matrix, translation, tuple(admissions))
+                                    tuple(body_frame.items()), matrix, translation, tuple(admissions), mode, tuple(regions))

@@ -22,6 +22,7 @@ PERSON_TRUSTED_COMMIT = "e1c54236ebf625264e2cb335cab65ba53a907ac1"
 FEEDBACK_TRUSTED_COMMIT = "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
 EXERCISE_TRUSTED_COMMIT = "225a53c8c0a9fb25f03b8473adfdf7f2754e037d"
 EQUIPMENT_TRUSTED_COMMIT = "fdab07bbdf8cad4c3c4362836ee6f1aef146bee2"
+AUTO_EQUIPMENT_TRUSTED_COMMIT = "e5c9676d59f9b7d184802d11a757e0db99a10f7b"
 PROJECT = Path(__file__).absolute().parent.parent
 DEFAULT_LAB = "artifacts/feasibility-fullspan-lab-01"
 VIDEO_LAB = "artifacts/native-crop-build-02/learning_workflow/lab"
@@ -29,11 +30,15 @@ PERSON_LAB = "artifacts/single-leg-person-workflow-01/build/learning_workflow/la
 FEEDBACK_LAB = "artifacts/person-feedback-workflow-01/lab"
 EXERCISE_LAB = "artifacts/person-clock-workflow-01/lab"
 EQUIPMENT_LAB = "artifacts/split-limb-feedback-play-05/lab"
+AUTO_EQUIPMENT_LAB = "artifacts/equipment-frame-consensus-native-03/build/lab"
 EXPORT_PATHS = ("src/weft", "pyproject.toml", "requirements-lab.lock")
 MAX_FILES, MAX_BYTES, MAX_FILE_BYTES = 256, 16 * 1024 * 1024, 2 * 1024 * 1024
 # This immutable export has 292 files / 6,345,775 bytes; its sealed lab has 1,191 members.
 EQUIPMENT_MAX_FILES, EQUIPMENT_MAX_BYTES, EQUIPMENT_MAX_FILE_BYTES = 292, 8 * 1024 * 1024, 512 * 1024
 EQUIPMENT_MAX_MANIFEST_FILES = 1191
+# The automatic-frame example has no policy; its runtime and lab have separate fixed caps.
+AUTO_EQUIPMENT_MAX_FILES, AUTO_EQUIPMENT_MAX_BYTES, AUTO_EQUIPMENT_MAX_FILE_BYTES = 299, 8 * 1024 * 1024, 512 * 1024
+AUTO_EQUIPMENT_MAX_MANIFEST_FILES = 400
 POLICY_FILES = frozenset((
     "body_frame.py", "errors.py", "human.py", "io.py", "mobile_human.py", "observations.py",
     "root_motion.py", "shared_exercise_feasibility_evaluation.py", "shared_exercise_feasibility_learning.py",
@@ -73,6 +78,8 @@ def _preset(example):
         return EXERCISE_TRUSTED_COMMIT, EXERCISE_LAB, "shared-exercise-policy-v4", FEEDBACK_POLICY_FILES
     if example == "equipment":
         return EQUIPMENT_TRUSTED_COMMIT, EQUIPMENT_LAB, "shared-exercise-policy-v5", EQUIPMENT_POLICY_FILES
+    if example == "auto-equipment":
+        return AUTO_EQUIPMENT_TRUSTED_COMMIT, AUTO_EQUIPMENT_LAB, None, frozenset()
     raise ValueError("Unknown sandbox example")
 
 
@@ -83,7 +90,7 @@ def _lab_files(example):
 
 def _trusted_commit(value):
     value = TRUSTED_COMMIT if value is None else value
-    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT, FEEDBACK_TRUSTED_COMMIT, EXERCISE_TRUSTED_COMMIT, EQUIPMENT_TRUSTED_COMMIT}:
+    if value not in {TRUSTED_COMMIT, VIDEO_TRUSTED_COMMIT, PERSON_TRUSTED_COMMIT, FEEDBACK_TRUSTED_COMMIT, EXERCISE_TRUSTED_COMMIT, EQUIPMENT_TRUSTED_COMMIT, AUTO_EQUIPMENT_TRUSTED_COMMIT}:
         raise ValueError("Runtime revision must be one of the launcher's fixed trusted examples")
     return value
 
@@ -177,6 +184,8 @@ def _trusted_tree(project, trusted_commit=None):
     trusted_commit = _trusted_commit(trusted_commit)
     maximum_files, maximum_bytes, maximum_file_bytes = (EQUIPMENT_MAX_FILES, EQUIPMENT_MAX_BYTES, EQUIPMENT_MAX_FILE_BYTES) \
         if trusted_commit == EQUIPMENT_TRUSTED_COMMIT else (MAX_FILES, MAX_BYTES, MAX_FILE_BYTES)
+    if trusted_commit == AUTO_EQUIPMENT_TRUSTED_COMMIT:
+        maximum_files, maximum_bytes, maximum_file_bytes = (AUTO_EQUIPMENT_MAX_FILES, AUTO_EQUIPMENT_MAX_BYTES, AUTO_EQUIPMENT_MAX_FILE_BYTES)
     raw = _git(project, "ls-tree", "-rz", "--long", trusted_commit, "--", *EXPORT_PATHS, limit=128 * 1024)
     rows, total = {}, 0
     for entry in raw.split(b"\0"):
@@ -346,6 +355,8 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
     manifest = _json(manifest_raw)
     sealed = manifest.get("files")
     maximum_members = EQUIPMENT_MAX_MANIFEST_FILES if example == "equipment" else 1024
+    if example == "auto-equipment":
+        maximum_members = AUTO_EQUIPMENT_MAX_MANIFEST_FILES
     if (manifest.get("status") != "ready" or manifest.get("control_profile") != "shared_exercise"
             or not isinstance(sealed, dict) or len(sealed) > maximum_members):
         raise ValueError("Expected a ready sealed human-control lab")
@@ -355,6 +366,38 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
         if hashlib.sha256(raw).hexdigest() != sealed.get(name):
             raise ValueError("Lab metadata differs from its run manifest: " + name)
         return _json(raw), raw
+
+    if example == "auto-equipment":
+        contract, _ = document("exercise-lab.json", 128 * 1024)
+        config = _json(_read(lab, "lab-config.json", 64 * 1024))
+        learning_fields = ("policy_sha256", "policy_runtime_sha256", "learning_manifest_sha256",
+                           "policy_evaluation_manifest_sha256", "policy_evaluation_sha256")
+        if ("policy.json" in sealed or any(key in contract or key in config for key in learning_fields)
+                or contract.get("learned_policy_available") is not False
+                or config.get("learned_policy_available") is not False):
+            raise ValueError("Automatic-equipment example requires an untrained lab; no learned-policy claims")
+        pins = {name: hashes.get("src/weft/" + name) for name in _lab_files(example)}
+        fixed = {"schema_version": 1, "profile": "shared-world", "control_profile": "shared_exercise"}
+        for key in ("scene_sha256", "task_sha256"):
+            fixed[key] = contract.get(key)
+            if not isinstance(fixed[key], str) or not re.fullmatch(r"[0-9a-f]{64}", fixed[key]):
+                raise ValueError("Invalid saved scene/task identity")
+        source_pin = contract.get("source_manifest_sha256")
+        source_count = contract.get("source_files_verified")
+        if (any(contract.get(key) != value or config.get(key) != value for key, value in fixed.items())
+                or config.get("manifest_sha256") != hashlib.sha256(manifest_raw).hexdigest()
+                or config.get("reset_options") != contract.get("reset_options")
+                or not isinstance(source_pin, str) or not re.fullmatch(r"[0-9a-f]{64}", source_pin)
+                or sealed.get("source-run/manifest.json") != source_pin
+                or type(source_count) is not int or source_count < 1
+                or sum(isinstance(name, str) and name.startswith("source-run/") for name in sealed) != source_count + 1):
+            raise ValueError("Untrained lab configuration or source-manifest identity differs")
+        versions = _installed_versions(project, runtime)
+        if (any(value is None for value in pins.values()) or contract.get("runtime_sha256") != pins
+                or set(versions or {}) != {"python", "mujoco", "numpy", "gymnasium"}
+                or contract.get("runtime_versions") != versions):
+            raise ValueError("Saved untrained lab runtime pins or installed dependency versions differ")
+        return versions
 
     policy, policy_raw = document("policy.json", 64 * 1024)
     contract, _ = document("exercise-lab.json", 128 * 1024)
@@ -384,15 +427,15 @@ def check_compatibility(project, runtime, hashes, lab, *, example=None):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=0, help="Loopback port; 0 selects a free port")
-    parser.add_argument("--example", choices=("video", "person", "feedback", "exercise", "equipment"), help="Choose a saved example; equipment is experimental. Omitted keeps the original sandbox")
+    parser.add_argument("--example", choices=("video", "person", "feedback", "exercise", "equipment", "auto-equipment"), help="Choose a saved example; equipment is experimental. auto-equipment has manual/authored controls only. Omitted keeps the original sandbox")
     parser.add_argument("--lab", help="Override the selected example's lab with another strictly compatible saved lab")
     parser.add_argument("--check", action="store_true", help="Check runtime and lab identity only; no server or physics")
-    parser.add_argument("--console", action="store_true", help="With --example feedback, exercise or equipment: interact and record in the terminal, without a server")
+    parser.add_argument("--console", action="store_true", help="With --example feedback, exercise, equipment or auto-equipment: interact and record in the terminal, without a server")
     args = parser.parse_args(argv)
     if not 0 <= args.port <= 65535:
         parser.error("--port must be between 0 and 65535")
-    if args.console and args.example not in ("feedback", "exercise", "equipment"):
-        parser.error("--console requires --example feedback, exercise or equipment; older frozen examples have no terminal interface")
+    if args.console and args.example not in ("feedback", "exercise", "equipment", "auto-equipment"):
+        parser.error("--console requires --example feedback, exercise, equipment or auto-equipment; older frozen examples have no terminal interface")
     if args.console and args.port != 0:
         parser.error("--port applies only to the browser sandbox, not --console")
     commit, default_lab, _, policy_files = _preset(args.example)
@@ -400,7 +443,7 @@ def main(argv=None):
     lab = lab if lab.is_absolute() else PROJECT / lab
     try:
         runtime, hashes = prepare_runtime(PROJECT, trusted_commit=commit)
-        if args.example in ("feedback", "exercise", "equipment") and "src/weft/lab_console.py" not in hashes:
+        if args.example in ("feedback", "exercise", "equipment", "auto-equipment") and "src/weft/lab_console.py" not in hashes:
             raise ValueError(f"Trusted {args.example} runtime is missing its terminal interface")
         check_compatibility(PROJECT, runtime, hashes, lab, example=args.example)
         print(f"Verified trusted runtime {commit[:12]}: {len(hashes)} files, {len(policy_files)} policy pins, "
@@ -409,9 +452,14 @@ def main(argv=None):
             print("Experimental equipment sandbox. The reference example fails equipment stability "
                   "(0/3 development starts); inspect the selected lab's evaluation for its result. "
                   "The saved v5 controller is unchanged.", flush=True)
+        if args.example == "auto-equipment":
+            print("Automatic equipment-frame example. Use manual or authored reference controls; "
+                  "no trained controller is attached. Geometry assumptions remain explicit; "
+                  "this is not a full-task or physical-accuracy result.", flush=True)
         if args.check:
             print("Check only: sealed runtime/lab metadata identity. No server, physics, session or media reads.")
-            print("Complete source, training and evaluation admission still runs when the sandbox opens.")
+            print("Complete source and task admission still runs when the sandbox opens." if args.example == "auto-equipment" else
+                  "Complete source, training and evaluation admission still runs when the sandbox opens.")
             return 0
         destination = "terminal sandbox" if args.console else "saved sandbox"
         print(f"Opening {destination}: {lab}\nRecordings stay in {lab / 'sessions'}", flush=True)

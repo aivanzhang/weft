@@ -1,15 +1,29 @@
 # Combined Weft implementation handoff
 
-## Equipment-feedback pilot complete — November 1, 2026, 4:14 PM PST
+## Correlated geometry and simple launch — November 1, 2026, 4:43 PM PST
 
 The full goal remains active. Standing approval covers merging/pushing relevant
 verified changes without another checkpoint question. Latest independently
-verified remote checkpoint is **`e5c9676d59f9b7d184802d11a757e0db99a10f7b`**:
-automatic equipment selection, complete lab assembly and offline inspection.
-Publication receipt `.local/equipment-frame-build-publication-01.json`, SHA
-`e3839eb2b113429f7bf556afc330a0024e70de66590b9c579a6f50f681de26da`.
-The ready lab and user launch command below remain usable; do not start a server
-on the user's behalf.
+verified remote checkpoint is **`566258724d20938c138067e174f2a8670769ca2d`**:
+the experimental training driver and retained failed trials. Publication receipt
+`.local/equipment-feedback-training-publication-01.json`, SHA
+`a9a554e512e7d66aba4fe84072fba6d1afe32833aee3a26faf8a85a896f0f792`.
+Its seven owned paths, index and stash were clean at publication. The parent
+avatar checkpoint `d259f26` and separate unfinished avatar edits are preserved.
+The ready automatic-equipment lab now has a short trusted launcher:
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example auto-equipment
+```
+
+Add `--console` for terminal interaction or `--check` for metadata only. This
+example has manual/authored controls, no trained policy. The [launcher](automatic-equipment-launcher.md)
+has 48 passing scoped cases and closed review. Actual metadata-only startup took
+0.349158 seconds /44,351,488 B, creating its fixed 299-file Git cache and leaving
+all lab metadata exact. PID95287 is reaped. No server/browser/physics/recording
+started; the user owns startup. Release
+`.local/auto-equipment-launcher-01/release-01.json`, SHA
+`606e28597073eacaf6a428931aa52c4ed24d0e7518bdf199a6aeec03f750516b`.
 
 The separate [equipment-feedback trainer](equipment-feedback-learning.md) has
 38 passing mocked checks and closed independent review. Its first
@@ -30,16 +44,48 @@ The independent saved interpretation read only 175,778 B of terminal metadata
 and recomputed all 26 gate terms per candidate and the selected rank. Receipt
 `.local/equipment-feedback-training-native-01/saved-interpretation-01.json`, SHA
 `6e50f1e1456e4403625b318e1d2e034ba37d6712bf9f97d14753a6793bb90319`.
-No repeated physics, raw-journal pass or source proof occurred. The contact agent
-owns the current native handoff/release; root owns the exact-path checkpoint.
-Publication identity belongs in
-`.local/equipment-feedback-training-publication-01.json`. Do not repeat or
-expand the failed search without a changed, evidence-backed hypothesis.
+No repeated physics, raw-journal pass or source proof occurred in that audit.
+The published native handoff/source release remains frozen. Do not repeat or
+expand the failed CEM search without a changed, evidence-backed hypothesis.
 
-In parallel, the reconstruction agent owns the opt-in correlated support-region
-constraint and its separate tests/handoff. The review agent is checking those
-changes independently; no native/source acquisition is authorized by that pure
-implementation lane. Preserve its unfinished files and independent avatar work.
+A separate [saved feature-timing diagnostic](equipment-feedback-feature-timing.md)
+read only two predeclared nominal journals once: both chose the failing object
+on all 254 actions, and the nonzero controller acted from action 1. The first
+equipment violation moved from control 49 to 50, but the full-task result was
+worse. This refutes wrong-object/late-activation explanations for these traces;
+it does not identify limb contact or a helpful coefficient. The diagnostic took
+0.072052 seconds /22,642,688 B, read 2,518,725 artifact bytes and made no native
+call. PID91492 is reaped. Report SHA
+`3109835ed2987711294566de679981750c39be860629afcc47e1026252a66e6e`.
+The contact agent is preparing a separately reviewed fixed signed root-only
+study: two gains, two original full starts each, at most 1,016 controls, no extra
+baseline or default promotion. Preparation is not execution authorization.
+
+The [correlated support-region implementation](correlated-surface-region-proposal.md)
+and its saved-report/camera consumers are complete and independently reviewed:
+**291 distinct cases pass** (81 new, four scratch comparisons, 206 affected
+legacy). The planar/line/point derivative fix and root's downstream box-metric
+finding are resolved. Opt-in reports rebuild the prepared region once from exact
+copied inputs and verify saved numerical certificates, without a new QP solve,
+kinematics, source proof or physics. Default payload/report bytes and independent
+image/floor/depth/task gates stay unchanged. This remains supplied conditional
+geometry, not unfamiliar-video or physical-contact validation.
+
+All 11 source/test/handoff paths are frozen in
+`.local/correlated-surface-region-01/release-02.json`, SHA
+`74ba449b2fd4df8ed1e61cd765c4156217aedeceaba2c41f3d854877357a4d39`.
+The 1,200-slot authored workload retained every slot: preparation 1.042781 s,
+cached queries 0.591263 s, 1,800 projections/7,200 iterations. The actual authored
+public report checked six certificates with zero solves; all downloads stayed
+exact. Retain the failed fixture checks and frozen/current pre-existing-defect
+proof; no passing check was rerun just for publication.
+
+Root owns publication of this completed reconstruction, launcher and saved
+diagnostic scope. Its identity belongs in
+`.local/correlated-geometry-launcher-publication-01.json`. Preserve the separately
+prepared/unexecuted root-pair study and all independent avatar edits; stage only
+the completed exact paths. No native/source acquisition is part of this
+reconstruction/launcher milestone.
 No API/key/ledger operation, deployment, browser, server or external submission
 occurred. Full-task learning, unfamiliar-video reconstruction and independent
 ground/equipment-contact accuracy remain unfinished.

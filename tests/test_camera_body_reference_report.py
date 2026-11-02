@@ -324,7 +324,15 @@ def test_unknown_surface_height_does_not_remove_qualified_image_targets(tmp_path
 
 
 def test_excluded_source_ref_keeps_geometry_but_never_observed_image_targets(tmp_path):
-    _, out, _, _ = generated(tmp_path, camera_documents(excluded_frame=2))
+    documents = camera_documents(excluded_frame=2)
+    # The default preserve policy cannot change an excluded, image-free row.
+    documents['angle-proposal.json']['reference_candidate'][1] = deepcopy(documents['inputs/human.json']['reference'][1])
+    row = documents['report.json']['references'][1]
+    row['status'] = 'unchanged_missing_source_targets'
+    for point in row['points']:
+        point['predicted_after_px'] = list(point['predicted_before_px'])
+    repin_overlay(documents)
+    _, out, _, _ = generated(tmp_path, documents)
     model = json.loads((out/'report.json').read_bytes())
     assert model['image_summary']['confident_source_endpoint_pairs'] == 24
     assert model['camera_fit']['source_slots'][2]['landmarks_used'] is False

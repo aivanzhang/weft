@@ -24,6 +24,7 @@ ACTUAL_PERSON_COMMIT = launcher.PERSON_TRUSTED_COMMIT
 ACTUAL_FEEDBACK_COMMIT = launcher.FEEDBACK_TRUSTED_COMMIT
 ACTUAL_EXERCISE_COMMIT = launcher.EXERCISE_TRUSTED_COMMIT
 ACTUAL_EQUIPMENT_COMMIT = launcher.EQUIPMENT_TRUSTED_COMMIT
+ACTUAL_AUTO_EQUIPMENT_COMMIT = launcher.AUTO_EQUIPMENT_TRUSTED_COMMIT
 
 
 def git(project, *args):
@@ -108,9 +109,131 @@ def test_production_commit_is_fixed_and_no_ref_override():
     assert ACTUAL_FEEDBACK_COMMIT == "6003c96533a6f9cb610a9b162a498ebecd02a3ec"
     assert ACTUAL_EXERCISE_COMMIT == "225a53c8c0a9fb25f03b8473adfdf7f2754e037d"
     assert ACTUAL_EQUIPMENT_COMMIT == "fdab07bbdf8cad4c3c4362836ee6f1aef146bee2"
+    assert ACTUAL_AUTO_EQUIPMENT_COMMIT == "e5c9676d59f9b7d184802d11a757e0db99a10f7b"
     with pytest.raises(SystemExit) as error:
         launcher.main(["--commit", "HEAD", "--check"])
     assert error.value.code == 2
+
+
+@pytest.fixture
+def auto_equipment_metadata(equipment_metadata, monkeypatch):
+    project, _, hashes = equipment_metadata
+    runtime = project / ".local/playable-runtime" / ACTUAL_AUTO_EQUIPMENT_COMMIT
+    runtime.mkdir()
+    def prepare(root, *, trusted_commit):
+        assert root == project and trusted_commit == ACTUAL_AUTO_EQUIPMENT_COMMIT
+        return runtime, hashes
+    monkeypatch.setattr(launcher, "prepare_runtime", prepare)
+    return project, runtime, hashes
+
+
+def saved_untrained_lab(project, hashes):
+    lab = project / launcher.AUTO_EQUIPMENT_LAB
+    (lab / "run").mkdir(parents=True)
+    versions = {"python": platform.python_version(), **{name: importlib.metadata.version(name)
+                for name in ("mujoco", "numpy", "gymnasium")}}
+    contract = {"schema_version": 1, "profile": "shared-world", "control_profile": "shared_exercise",
+                "learned_policy_available": False, "scene_sha256": "a" * 64, "task_sha256": "b" * 64,
+                "runtime_sha256": {name: hashes["src/weft/" + name] for name in launcher.LAB_RUNTIME_FILES},
+                "runtime_versions": versions, "reset_options": {"jitter": False, "jitter_scale": 0.},
+                "source_manifest_sha256": "c" * 64, "source_files_verified": 1}
+    raw = json_bytes(contract)
+    manifest = {"schema_version": 1, "status": "ready", "control_profile": "shared_exercise", "files": {
+        "exercise-lab.json": hashlib.sha256(raw).hexdigest(), "source-run/manifest.json": "c" * 64,
+        "source-run/scene.json": "d" * 64}}
+    manifest_raw = json_bytes(manifest)
+    config = {key: value for key, value in contract.items()
+              if key not in ("runtime_sha256", "runtime_versions", "source_manifest_sha256", "source_files_verified")}
+    config["manifest_sha256"] = hashlib.sha256(manifest_raw).hexdigest()
+    for name, value in (("run/exercise-lab.json", raw), ("run/manifest.json", manifest_raw),
+                        ("lab-config.json", json_bytes(config))):
+        (lab / name).write_bytes(value)
+    return lab
+
+
+@pytest.mark.parametrize("console", [False, True])
+def test_auto_equipment_check_is_untrained_metadata_only(auto_equipment_metadata, monkeypatch, capsys, console):
+    project, _, hashes = auto_equipment_metadata
+    lab = saved_untrained_lab(project, hashes)
+    equipment_manifest_members(lab, 400)
+    (lab / "sessions").mkdir(); (lab / "sessions/existing.json").write_text("Keep this recording\n")
+    before = {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+    reads, original_read = [], launcher._read
+    def read(root, name, limit):
+        reads.append(name)
+        return original_read(root, name, limit)
+    monkeypatch.setattr(launcher, "_read", read)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("Check cannot launch"))
+    assert launcher.main(["--example", "auto-equipment", "--check"] + (["--console"] if console else [])) == 0
+    assert reads == ["run/manifest.json", "run/exercise-lab.json", "lab-config.json"]
+    text = capsys.readouterr().out
+    assert "no trained controller is attached" in text and "manual or authored reference" in text
+    assert "source and task admission" in text and "No server, physics, session or media reads" in text
+    assert "Opening" not in text and "0/3 development starts" not in text
+    assert before == {str(p.relative_to(lab)): (p.read_bytes(), p.stat().st_mtime_ns) for p in lab.rglob("*") if p.is_file()}
+
+
+@pytest.mark.parametrize("change", ["learned", "policy_file", "policy_claim", "runtime", "versions", "source_pin",
+                                  "source_count", "config_scene", "bad_task", "reset", "manifest", "file_cap"])
+def test_auto_equipment_rejects_incompatible_or_resealed_claims(auto_equipment_metadata, monkeypatch, change):
+    project, runtime, hashes = auto_equipment_metadata
+    lab = saved_untrained_lab(project, hashes)
+    contract = json.loads((lab / "run/exercise-lab.json").read_bytes())
+    config = json.loads((lab / "lab-config.json").read_bytes())
+    if change == "learned": contract["learned_policy_available"] = True
+    elif change == "policy_claim": contract["policy_runtime_sha256"] = None
+    elif change == "runtime": contract["runtime_sha256"]["shared_world.py"] = "0" * 64
+    elif change == "versions": contract["runtime_versions"]["numpy"] = "different"
+    elif change == "source_pin": contract["source_manifest_sha256"] = "0" * 64
+    elif change == "source_count": contract["source_files_verified"] = 2
+    elif change == "bad_task": contract["task_sha256"] = "not-a-sha"
+    elif change == "config_scene": config["scene_sha256"] = "0" * 64
+    elif change == "reset": config["reset_options"]["jitter"] = True
+    elif change == "manifest": config["manifest_sha256"] = "0" * 64
+    if change in ("config_scene", "reset", "manifest"):
+        (lab / "lab-config.json").write_bytes(json_bytes(config))
+    else:
+        reseal(lab, "exercise-lab.json", contract)
+    if change == "policy_file": reseal(lab, "policy.json", {"profile": "unexpected"})
+    if change == "file_cap": equipment_manifest_members(lab, 401)
+    monkeypatch.setattr(launcher.os, "execve", lambda *_: pytest.fail("Rejected metadata cannot launch"))
+    with pytest.raises(ValueError):
+        launcher.check_compatibility(project, runtime, hashes, lab, example="auto-equipment")
+
+
+@pytest.mark.parametrize("count,size", [(300, 1), (23, 400000), (4, 524289)])
+def test_auto_equipment_fixed_runtime_caps(monkeypatch, tmp_path, count, size):
+    monkeypatch.setattr(launcher, "_git", lambda *_a, **_k: equipment_tree(count, size))
+    with pytest.raises(ValueError, match="bound"):
+        launcher._trusted_tree(tmp_path, ACTUAL_AUTO_EQUIPMENT_COMMIT)
+
+
+def test_auto_equipment_runtime_allowance_is_scoped(monkeypatch, tmp_path):
+    monkeypatch.setattr(launcher, "_git", lambda *_a, **_k: equipment_tree(299))
+    assert len(launcher._trusted_tree(tmp_path, ACTUAL_AUTO_EQUIPMENT_COMMIT)) == 299
+    for commit in (ACTUAL_COMMIT, ACTUAL_EQUIPMENT_COMMIT):
+        with pytest.raises(ValueError, match="bound"):
+            launcher._trusted_tree(tmp_path, commit)
+    assert launcher._preset("auto-equipment")[2:] == (None, frozenset())
+    assert launcher._lab_files("auto-equipment") == launcher.LAB_RUNTIME_FILES
+
+
+@pytest.mark.parametrize("console", [False, True])
+def test_auto_equipment_dispatch_keeps_same_lab_and_frozen_runtime(auto_equipment_metadata, monkeypatch, console):
+    project, runtime, hashes = auto_equipment_metadata
+    lab = saved_untrained_lab(project, hashes)
+    captured = []
+    monkeypatch.setattr(launcher.os, "chdir", lambda path: captured.append(path))
+    class Replaced(BaseException): pass
+    def replace(executable, command, env):
+        captured.append((executable, command, env)); raise Replaced()
+    monkeypatch.setattr(launcher.os, "execve", replace)
+    with pytest.raises(Replaced):
+        launcher.main(["--example", "auto-equipment"] + (["--console"] if console else []))
+    assert captured[0] == project
+    executable, command, env = captured[1]
+    assert command == launcher.child_command(project, lab, 0, console=console)
+    assert executable == command[0] and env["PYTHONPATH"] == str(runtime / "src")
 
 
 @pytest.fixture
