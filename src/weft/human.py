@@ -102,6 +102,12 @@ def validate_human(spec):
     if not isinstance(spec, dict) or type(spec.get("schema_version")) is not int or (spec["schema_version"], spec.get("profile")) not in ((1, "exercise-v1"), (2, "exercise-v2"), (3, "exercise-v3")):
         raise ValueError("Unsupported human model schema")
     result = deepcopy(spec)
+    if "native_clock" in result:
+        from weft.source_clock import validate_summary
+        if (result["profile"] not in {"exercise-v2", "exercise-v3"} or "camera_reference" in result
+                or not isinstance(result.get("source_sha256"), str)):
+            raise ValueError("Native source-clock bodies require the spatial pose reconstruction path")
+        result["native_clock"] = validate_summary(result["native_clock"], source_sha256=result.get("source_sha256"))
     if 'camera_reference' in result and result['profile'] != 'exercise-v3':
         raise ValueError('Camera-world references require an explicit mobile body')
     names, limits = joint_contract(result)
@@ -220,6 +226,10 @@ def build_human(evidence, out, *, body_model="hinge", artifact_sink=None):
 
 
 def build_spatial_human(evidence, out, *, mobile=False, artifact_sink=None):
+    native_clock = None
+    if "source_clock" in evidence:
+        from weft.source_clock import clock_summary, validate_derived_evidence
+        native_clock = clock_summary(validate_derived_evidence(evidence))
     body_frame = fit_body_frame(evidence)
     reference, audit = build_spatial_reference(evidence, body_frame)
     spec = validate_human({"schema_version": 2, "profile": "exercise-v2", "dt": 1 / 30,
@@ -240,6 +250,8 @@ def build_spatial_human(evidence, out, *, mobile=False, artifact_sink=None):
                               "The learned task is one selected rotation axis, not whole-exercise imitation",
                           ]})
     spec["reference_evidence"] = deepcopy(audit["frames"])
+    if native_clock is not None:
+        spec["native_clock"] = native_clock
     spec["reconstruction_coverage"] = {"rotation_axes": len(SPATIAL_JOINT_NAMES),
                                        "spatial_pose": audit, "physical_validation": "unavailable"}
     out = Path(out)

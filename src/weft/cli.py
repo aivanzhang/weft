@@ -107,6 +107,7 @@ def main():
     body_input = body_source.add_mutually_exclusive_group(required=True)
     body_input.add_argument("--video", help="Local exercise video, at most 64 MiB and 60 seconds")
     body_input.add_argument("--evidence-run", help="Sealed pose run; reuse exact source/model/options without inference")
+    body_source.add_argument("--native-clock", help="With --evidence-run: exact source-native-clock-v1 JSON; preserve raw detector times")
     body_source.add_argument("--pose-model", help="Required with --video: local pinned pose model")
     body_source.add_argument("--pose-mode", choices=("video", "image"), help="Raw-video inference mode; default video")
     body_source.add_argument("--pose-identity", choices=("raw", "temporal"), help="Raw-video anatomy handling; default raw")
@@ -1073,8 +1074,11 @@ def main():
                 if any(getattr(args, key) is not None for key in ("pose_model", "pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")):
                     raise ValueError("Saved body evidence inherits its exact source/model/options; overrides are not supported")
                 destination = prepare_exercise_body_source_from_evidence(args.evidence_run, args.out,
-                    max_seconds=30 if args.max_seconds is None else args.max_seconds, progress=body_progress)
+                    max_seconds=30 if args.max_seconds is None else args.max_seconds, progress=body_progress,
+                    **({"native_clock": args.native_clock} if args.native_clock is not None else {}))
             else:
+                if args.native_clock is not None:
+                    raise ValueError("--native-clock requires --evidence-run; live detector clock collection is not yet integrated")
                 if not args.pose_model:
                     raise ValueError("--video requires --pose-model; fetch-pose-model can prepare the pinned local model")
                 options = {key: getattr(args, key) for key in ("pose_mode", "pose_identity", "source_note", "max_pose_hypotheses", "person_region")

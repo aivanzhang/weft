@@ -98,6 +98,11 @@ def _read(fd, name, limit, expected=None):
 class _ReferenceClock:
     def __init__(self, scene):
         reference = scene["human_spec"]["reference"]
+        self.native_clock = None
+        if "native_clock" in scene["human_spec"]:
+            from weft.source_clock import validate_summary
+            self.native_clock = validate_summary(scene["human_spec"]["native_clock"],
+                                                 source_sha256=scene["human_spec"]["source_sha256"])
         self.times = [row["time_s"] for row in reference]
         self.origin = self.times[0] + scene["task"].get("start_offset_s", 0.)
         evidence = {row["time_s"]: row for row in scene["human_spec"].get("reference_evidence", [])}
@@ -136,7 +141,7 @@ class _ReferenceClock:
             "lower": deepcopy(lo), "upper": deepcopy(hi),
             "status": "outside_reference" if lo is None or hi is None else "exact_reference" if lo == hi else "between_references",
             "frames_without_reference_between": missing,
-            "native_video_time_available": False}}
+            "native_video_time_available": self.native_clock is not None}}
 
 
 def _contacts(state, object_id):
@@ -291,14 +296,17 @@ def recording_failure_timeline(recording_scene, events, *, max_seconds=5):
         "recording_scene_sha256": canonical_hash(envelope), "gates_sha256": GATES_SHA256,
         "evaluator_sha256": evaluator, "policy_sha256": envelope.get("learned_policy", {}).get("sha256"),
         "source_identity": deepcopy(scene["source_binding"]), "source_scope": deepcopy(task["source_scope"]),
-        "source_clock": {"kind": "declared_human_reference_clock", "native_video_time_available": False,
+        "source_clock": {"kind": "native_pts_elapsed_reference_clock" if clock.native_clock else "declared_human_reference_clock",
+                         "native_video_time_available": clock.native_clock is not None,
+                         **({"native_clock": deepcopy(clock.native_clock), "capture_clock_status": "unknown"} if clock.native_clock else {}),
                          "alignment_method": scene["coordinate_frame"]["clock_binding"]["alignment_method"],
                          "reference_start_s": clock.origin},
         "events": len(events), "episodes": episodes,
         "equipment_stability_applicability": "not_applicable" if task["profile"] == HUMAN_ONLY_TASK_PROFILE else "applied",
         "first_equipment_failure": next((row["first_equipment_failure"] for row in episodes
                                           if row["first_equipment_failure"] is not None), None),
-        "scope": "Saved simulated peaks bracket first reported limit crossings; running RMS can recover. Unavailable values are not crossings. Body errors aggregate joints, not identify a failing joint. Boundary contacts are co-occurrence, not causal substep evidence. Reference frame times are declared priors, not native-video synchronization or physical measurements."})
+        "scope": "Saved simulated peaks bracket first reported limit crossings; running RMS can recover. Unavailable values are not crossings. Body errors aggregate joints, not identify a failing joint. Boundary contacts are co-occurrence, not causal substep evidence. " + ("Reference times use the pinned native PTS elapsed clock; capture timing and physical accuracy remain unknown."
+                   if clock.native_clock else "Reference frame times are declared priors, not native-video synchronization or physical measurements.")})
 
 
 def _recording_inputs(directory, deadline):
@@ -622,7 +630,7 @@ def _diagnosis_html(result):
 def diagnose_shared_exercise_failure(recording_dir, learning_run, out, *, reference_run=None, max_seconds=30):
     """Run at most one selected-policy ORIGINAL TRAINING trial; never consume evaluation trials."""
     from weft.shared_exercise_lab import _validate_policy_package, _verified_inputs
-    from weft.shared_exercise_residual_learning import _Budget, _runtime_hashes, _trial
+    from weft.shared_exercise_residual_learning import _Budget, _scene_runtime_hashes, _trial
     from weft.shared_exercise_task import SharedExerciseTaskEnv
     from weft.shared_world_packaging import read_package_file, read_package_manifest
 
@@ -656,7 +664,7 @@ def diagnose_shared_exercise_failure(recording_dir, learning_run, out, *, refere
         reference_manifest, reference_files, reference_identity, reference_summary = _reference_inputs(
             reference_run, scene, task, deadline)
     implementation = Path(__file__).read_bytes()
-    hashes = _runtime_hashes()
+    hashes = _scene_runtime_hashes(scene)
     project = Path(__file__).parents[2]
     project_pins = {name: read_package_file(project, name, max_bytes=1024 * 1024)
                     for name in ("pyproject.toml", "requirements.lock", "requirements-lab.lock")}
@@ -721,7 +729,7 @@ def diagnose_shared_exercise_failure(recording_dir, learning_run, out, *, refere
                         policy["residual_coefficients"], deadline, budget)
         if actual != expected or budget.used != expected["control_steps"]:
             raise ValueError("Diagnosed trial differs from exact saved training initial/final state, return, metrics or termination")
-        if _runtime_hashes() != hashes or Path(__file__).read_bytes() != implementation:
+        if _scene_runtime_hashes(scene) != hashes or Path(__file__).read_bytes() != implementation:
             raise ValueError("Diagnosis runtime changed during the original training replay")
         for name, raw in project_pins.items():
             read_package_file(project, name, max_bytes=1024 * 1024, expected_sha256=_sha(raw))

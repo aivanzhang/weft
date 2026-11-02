@@ -220,6 +220,8 @@ def train_shared_world_policy(
         scene = deepcopy(scene_or_dir)
 
     scene = validate_shared_world(scene)
+    if "native_clock" in scene.get("human_spec", {}):
+        raise ValueError("Native-clock learning requires the source-bound shared-exercise pipeline; this legacy learner does not preserve clock custody")
     if scene["profile"] != SCENE_PROFILE:
         raise ValueError("train_shared_world_policy requires a shared-world-v1 scene")
     if scene["source_binding"]["mode"] == "source_qualified" and candidate_dir is None:

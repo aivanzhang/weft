@@ -86,6 +86,8 @@ def rollout(env, weights, seed, *, random=False, deadline=None, trace=False, res
 def train_whole_body(spec, out, *, seed=1729, generations=8, population=16,
                      horizon_steps=60, max_seconds=120, progress=None):
     spec = validate_human(spec)
+    if "native_clock" in spec:
+        raise ValueError("Native-clock learning requires the source-bound shared-exercise pipeline; this legacy learner does not preserve clock custody")
     if spec.get('profile') != 'exercise-v3':
         raise ValueError('Whole-body learning requires a mobile exercise-v3 model')
     if abs(spec['dt'] - 1 / 30) > 1e-12:

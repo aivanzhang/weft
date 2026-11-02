@@ -84,7 +84,7 @@ def _learning_backend(settings, scene):
                 train, feedback.select_shared_exercise_feedback_policy,
                 feedback.evaluate_shared_exercise_feedback_policy)
     return (residual.POLICY_PROFILE, residual.ALGORITHM,
-            lambda: residual._runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else residual._runtime_hashes(),
+            lambda: residual._scene_runtime_hashes(scene),
             residual.train_shared_exercise_residual_policy, select_feasible_shared_exercise_policy,
             residual.evaluate_shared_exercise_residual_policy)
 

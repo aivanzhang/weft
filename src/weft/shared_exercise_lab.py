@@ -63,19 +63,20 @@ def _validate_task(task, scene):
 
 def runtime_files(scene):
     """Extra evaluator dependencies are pinned only for the profiles that execute them."""
+    base = (*RUNTIME_FILES, "source_clock.py") if "native_clock" in scene.get("human_spec", {}) else RUNTIME_FILES
     if scene["profile"] == CAMERA_PROFILE:
         if "body_reconstruction" in scene["camera_coupling"]:
             from weft.camera_shared_receipt import body_runtime_files
-            return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES, *body_runtime_files(scene.get("human_spec")))
-        return (*RUNTIME_FILES, *CAMERA_RUNTIME_FILES)
+            return (*base, *CAMERA_RUNTIME_FILES, *body_runtime_files(scene.get("human_spec")))
+        return (*base, *CAMERA_RUNTIME_FILES)
     if scene["profile"] == FEET_PROFILE:
         inventory = ("person_inventory.py",) if _base_profile(scene) == HUMAN_ONLY_PROFILE else ()
-        return (*RUNTIME_FILES, *FEET_RUNTIME_FILES, *inventory)
+        return (*base, *FEET_RUNTIME_FILES, *inventory)
     if scene["profile"] == HUMAN_ONLY_PROFILE:
-        return (*RUNTIME_FILES, "person_inventory.py")
+        return (*base, "person_inventory.py")
     if scene["profile"] == STATIC_SUPPORT_PROFILE:
-        return (*RUNTIME_FILES, "shared_support_task.py")
-    return RUNTIME_FILES
+        return (*base, "shared_support_task.py")
+    return base
 
 
 REJECTED_STATUSES = frozenset({"failed", "error", "unsupported", "rejected", "cancelled"})
@@ -87,6 +88,25 @@ SOURCE_VIEWS = frozenset({
     "geometry-hypothesis.json", "previous-geometry.json", "initial-geometry-check.json",
     "fullspan.json",
 })
+
+NATIVE_SOURCE_VIEWS = frozenset({"evidence.json", "source-clock.json", "native-clock.json", "reconstruction-evidence.json"})
+
+
+def native_source_views(files, scene):
+    if "native_clock" not in scene.get("human_spec", {}):
+        return {}
+    from weft.source_clock import clock_summary, derive_evidence, validate_clock, validate_derived_evidence
+
+    if not NATIVE_SOURCE_VIEWS <= files.keys():
+        raise ValueError("Native exercise source requires original and derived clock evidence")
+    evidence = _json(files["evidence.json"])
+    clock = validate_clock(_json(files["native-clock.json"]), evidence,
+                           evidence_sha256=_sha(files["evidence.json"]))
+    derived = _json(files["reconstruction-evidence.json"])
+    if (validate_derived_evidence(derived) != clock or derived != derive_evidence(evidence, clock)
+            or clock_summary(clock) != scene["human_spec"]["native_clock"]):
+        raise ValueError("Native exercise source differs from its original evidence or body clock")
+    return {name: files[name] for name in NATIVE_SOURCE_VIEWS}
 
 
 def _json(raw):
@@ -630,6 +650,7 @@ def prepare_shared_exercise_lab(run, out, *, root_assistance=False, task_path=No
                  "ground-clearance.json", "two-view-triangulation.json", "camera-provenance.json", "two-view-body.json",
                  "partial-pixel-uncertainty.json", "joint-pixel-uncertainty.json"}
              or feet and name in {"foot-reference.json", "feet-migration.json"}}
+    views.update(native_source_views(inputs, scene))
     if feet:
         views["foot-reference.json"] = scene["foot_extension"]["reference_json"].encode("utf-8")
     if "geometry-hypothesis.json" in views and "input-config.json" in inputs:

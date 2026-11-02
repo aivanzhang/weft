@@ -384,13 +384,21 @@ def _validated_pose(raw_files, options, source_sha, *, deadline=None):
             or evidence.get("quality", {}).get("passes") is not True
             or evidence.get("quality", {}).get("errors") or not exercise_vision._quality(evidence)["passes"]):
         raise ValueError("Rejected/unsupported pose evidence cannot become a construction body")
-    observations = validate_observations(adapt_exercise(evidence))
-    observations["provenance"]["input_artifacts"] = {"evidence.json": _sha(raw_files["evidence.json"])}
     clock = {"schema_version": 1, "source_sha256": source_sha, "fps": fps,
              "metadata_frames": count, "decoded_frames": decoded, "samples": clocks,
              "nominal_basis": "frame_index_divided_by_fps", "nominal_status": "assumed",
              "native_scope": "Exact retained decoder timestamps; no calibrated/native-clock or cadence verification claim",
              "unsampled_native_times": "unknown_not_interpolated"}
+    if "native-clock.json" in raw_files:
+        from weft.source_clock import derive_evidence, validate_clock
+
+        binding = validate_clock(_json(raw_files["native-clock.json"]), evidence,
+                                 evidence_sha256=_sha(raw_files["evidence.json"]))
+        evidence = derive_evidence(evidence, binding)
+    observations = validate_observations(adapt_exercise(evidence))
+    observations["provenance"]["input_artifacts"] = {"evidence.json": _sha(raw_files["evidence.json"])}
+    if "native-clock.json" in raw_files:
+        observations["provenance"]["input_artifacts"]["native-clock.json"] = _sha(raw_files["native-clock.json"])
     return evidence, observations, clock
 
 
@@ -398,6 +406,11 @@ def validate_body_source_files(files, *, deadline=None):
     """Validate manifest-covered body-source bytes before the existing seed constructor consumes them."""
     required = POSE_FILES | {"body-source.json", "human.json", "observations.json", "source-clock.json",
                             "implementation.json"}
+    native = "native-clock.json" in files
+    if native:
+        required |= {"native-clock.json", "reconstruction-evidence.json"}
+    elif "reconstruction-evidence.json" in files:
+        raise ValueError("Derived reconstruction evidence requires its native clock binding")
     if "pose-recovery.json" in files:
         from weft.pose_source_recovery import PROOF_FILES
         required |= PROOF_FILES
@@ -431,9 +444,19 @@ def validate_body_source_files(files, *, deadline=None):
             or _json(files["source.json"]).get("artifact") != source_name):
         raise ValueError("Body source original video identity is missing or conflicting")
     evidence, observations, clock = _validated_pose(files, options, source_sha, deadline=deadline)
+    if native and (files["reconstruction-evidence.json"] != _bytes(evidence)
+                   or construction.get("clock_profile") != "source-native-clock-v1"):
+        raise ValueError("Native reconstruction view differs from exact source-bound timing")
     if files["observations.json"] != _bytes(observations) or files["source-clock.json"] != _bytes(clock):
         raise ValueError("Body source observations/native clocks differ from the original pose evidence")
     human = validate_human(_json(files["human.json"]))
+    if native:
+        from weft.source_clock import clock_summary, validate_derived_evidence
+
+        if human.get("native_clock") != clock_summary(validate_derived_evidence(evidence)):
+            raise ValueError("Body timing differs from the native reconstruction binding")
+    elif "native_clock" in human or "clock_profile" in construction:
+        raise ValueError("Native body timing requires its complete sealed derivation")
     if (human.get("profile") != "exercise-v3" or "camera_reference" in human
             or human.get("source_sha256") != source_sha or not 5 <= evidence["fps"] <= 240):
         raise ValueError("Body source is incompatible with the mobile shared-world constructor")
@@ -447,6 +470,9 @@ def validate_body_source_files(files, *, deadline=None):
 def _finish(target, options, source_name, input_kind, input_manifest, pins, implementation, started, deadline, progress):
     source_sha = _sha(_read(target / source_name, deadline))
     pose_names = set(POSE_FILES)
+    native = (target / "native-clock.json").exists()
+    if native:
+        pose_names.add("native-clock.json")
     if (target / "pose-recovery.json").exists():
         from weft.pose_source_recovery import PROOF_FILES
         pose_names |= PROOF_FILES | {source_name}
@@ -455,6 +481,9 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
         pose_names |= MODE_PROOF_FILES | {source_name}
     evidence, observations, clock = _validated_pose(
         {name: _read(target / name, deadline) for name in pose_names}, options, source_sha, deadline=deadline)
+    if native:
+        _write(target, {"reconstruction-evidence.json": _bytes(evidence)}, deadline)
+        pose_names.add("reconstruction-evidence.json")
     before, _ = _inventory(target, deadline, reserve=True)
     if progress:
         progress("body", {"message": "Preparing a construction-only mobile body; no training or simulated trial"})
@@ -501,6 +530,12 @@ def _finish(target, options, source_name, input_kind, input_manifest, pins, impl
                    "Body, root, floor and scale are authored/model-derived assumptions, not recovered anatomy or calibrated physical measurements",
                    "Existing first-pose floor placement uses one MuJoCo forward-geometry calculation without a dynamics step",
                    "Observed-frame pose annotations are not simulated-body renders; model weights are identified, not copied"]}
+    if native:
+        from weft.source_clock import clock_summary, validate_derived_evidence
+
+        receipt["construction"]["clock_profile"] = "source-native-clock-v1"
+        receipt["source_clock"] = clock_summary(validate_derived_evidence(evidence))
+        receipt["limits"].append("Native elapsed presentation times drive derived reconstruction; original detector timestamps and nominal pose records remain unchanged. Capture timing is unverified.")
     _write(target, {"body-source.json": _bytes(receipt)}, deadline)
     validate_body_source_files({name: _read(target / name, deadline) for name in
                                {*receipt["artifacts"], "body-source.json", source_name}}, deadline=deadline)
@@ -568,14 +603,17 @@ def prepare_exercise_body_source(video, out, *, pose_model, pose_mode="video", p
         raise
 
 
-def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=30, progress=None):
+def prepare_exercise_body_source_from_evidence(pose_source, out, *, native_clock=None, max_seconds=30, progress=None):
     """Reuse a sealed original pose run with inherited options; no media decode or inference."""
     source = _path(pose_source)
+    clock_path = _path(native_clock) if native_clock is not None else None
     run = _path(source / "run") if (source / "run" / "manifest.json").is_file() else source
-    target, started, deadline = _start(out, (source,), max_seconds)
+    target, started, deadline = _start(out, (source, *((clock_path,) if clock_path is not None else ())), max_seconds)
     try:
         manifest_raw, declared = read_package_manifest(run)
         manifest = _json(manifest_raw)
+        if "native-clock.json" in declared and clock_path is None:
+            raise ValueError("Native-timed sources require an explicit native_clock input; timing cannot silently revert")
         if (manifest.get("status") in REJECTED or "failure.json" in declared
                 or (run / "failure.json").exists() or (run / "failure.json").is_symlink()
                 or not POSE_FILES <= declared.keys() or len(declared) + 1 > MAX_FILES):
@@ -620,6 +658,11 @@ def prepare_exercise_body_source_from_evidence(pose_source, out, *, max_seconds=
         config = _json(kept["run-config.json"])
         options = _options(config.get("pose_mode", "video"), config.get("pose_identity", "raw"),
                            config.get("max_pose_hypotheses", 2), config.get("person_region"))
+        if clock_path is not None:
+            clock_raw = _read(clock_path, deadline)
+            kept["native-clock.json"] = clock_raw
+            pins.append((clock_path, _sha(clock_raw)))
+            recovery_implementation = (*recovery_implementation, "source_clock.py")
         snapshots, implementation = _implementation(deadline, recovery_implementation)
         _write(target, {**kept, "inputs/source-manifest.json": manifest_raw,
                         "implementation.json": _bytes(implementation),

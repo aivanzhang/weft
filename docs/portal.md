@@ -129,3 +129,13 @@ This is a working **local, owner-only portal**, not a publicly deployed multi-us
 service. The hosted website remains offline. Public accounts, tenant isolation,
 remote job execution and production deployment are still required before sharing
 it as a hosted product. See the [implementation handoff](handoffs/portal-api.md).
+
+### Saved simulation compatibility
+
+Existing exercise projects retain their original simulation and scoring versions.
+If the current runtime differs, the portal can use the verified released runtime
+`5819ba4` in an isolated local worker, without changing recordings or scores.
+Unsupported versions still show an explicit error; saved project code is never
+executed. The [native-clock milestone](handoffs/native-clock-integration.md)
+provides a tested saved-evidence CLI path; normal portal uploads do not yet collect
+the complete native clock automatically.

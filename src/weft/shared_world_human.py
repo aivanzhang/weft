@@ -132,6 +132,8 @@ def read_person_body_source_identity(body_source, *, max_seconds=5, deadline=Non
 
 
 def _scene(human, observations, inventory, binding, scale):
+    if human.get("native_clock") != observations["source"].get("native_clock_summary"):
+        raise ValueError("Body and observations must retain the same native source clock")
     # This is the existing body-scale placement prior, without the legacy ball/table scaffold.
     roots = np.asarray([row["translation"] for row in human["root_reference"]], dtype=float) * scale
     span = np.maximum(.4, np.ptp(roots[:, :2], axis=0))
@@ -157,7 +159,8 @@ def _scene(human, observations, inventory, binding, scale):
             "clock_binding": {"control_dt_s": 1 / 30, "physics_substeps": 16,
                 "source_fps": observations["source"]["fps"],
                 "source_time_offset_s": human["reference"][0]["time_s"],
-                "alignment_method": "pose_frame_index_over_fps_prior_v1"}},
+                "alignment_method": "native_pts_elapsed_time_v1" if "native_clock" in human else "pose_frame_index_over_fps_prior_v1",
+                **({"native_clock": human["native_clock"]} if "native_clock" in human else {})}},
         "source_binding": binding, "inventory": inventory, "human_spec": human, "objects": [],
         "controlled_id": "human", "target": None,
         "task": {"type": "human_motion_v1", "authored_addition": True, "start_offset_s": 0.,
@@ -167,7 +170,9 @@ def _scene(human, observations, inventory, binding, scale):
             "Person-only scope is an explicit user declaration, not verified absence of equipment or obstacles.",
             "One articulated human and the authored ground plane share one MuJoCo world; no rigid prop is introduced.",
             "Ground, mass, friction, scale and monocular depth remain priors; physical accuracy is unverified.",
-            "Original body references, missing/unsampled source slots and decoder timestamps are preserved without retiming.",
+            ("Native presentation timing drives derived body references; original detector clocks and missing/unsampled source slots remain preserved."
+             if "native_clock" in human else
+             "Original body references, missing/unsampled source slots and decoder timestamps are preserved without retiming."),
             "Motor-command muscle bands are illustrative, not measured muscle activation or recovered anatomy.",
             "No learned controller, unassisted balance, grasp or physical exercise success is established by construction.",
         ],
@@ -212,6 +217,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     marker = _json(inputs.get("body-source.json", b"{}"))
     inventory = validate_person_inventory(inventory, source_sha256=marker.get("source_sha256"))
     implementation_names = list(IMPLEMENTATION_FILES)
+    if "native-clock.json" in inputs:
+        implementation_names.append("source_clock.py")
     proof_names = set()
     if "pose-recovery.json" in declared:
         from weft.pose_source_recovery import IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION, PROOF_FILES
@@ -236,6 +243,8 @@ def construct_human_only_run(body_source, inventory, out, *, scale=1.0, deadline
     required = exercise_body_source.POSE_FILES | proof_names | {
         "body-source.json", "human.json", "observations.json", "source-clock.json", "implementation.json",
         marker["source_artifact"], "inputs/source-manifest.json"}
+    if "native_clock" in human:
+        required |= {"native-clock.json", "reconstruction-evidence.json"}
     kept = {name: raw for name, raw in inputs.items() if name in required | _OPTIONAL or name.startswith("implementation-source/")}
     files = {**kept, "inputs/body-source-manifest.json": manifest_raw,
         binding["evidence_documents"][observation_sha]: observation_raw,

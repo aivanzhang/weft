@@ -79,7 +79,7 @@ def _construction_index(raw, binding):
             if (row['object_id'] not in objects or type(row['frame']) is not int or not 0 <= row['frame'] < total
                     or key in indexed or row['entity_ref'] != {'document_sha256': sha, 'object_id': row['object_id']}):
                 raise ValueError('Construction entity/frame reference is missing, duplicate or inconsistent')
-            timestamp = (contract['frame_times_s'][row['frame']] if source['observation_schema_version'] == 3
+            timestamp = (contract['frame_times_s'][row['frame']] if source['observation_schema_version'] in {3, 4}
                          else row['frame'] / contract['fps'])
             _same(row['time_s'], timestamp, 'Original observation clock')
             included = row['partition'] == 'construction'

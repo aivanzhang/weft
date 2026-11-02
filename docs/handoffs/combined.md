@@ -1,6 +1,8 @@
 # Combined Weft implementation handoff
 
-**Latest Muse milestone — November 2, 2026 (PST):** [Current-world review](portal-world-review.md) now sends exact scene/support/control assumptions separately from source observations, with closed fields and hash binding. 70 Python/six UI checks pass. One live call costs $0.01732575 and explicitly identifies the authored noncontact box/load assumption; no repair or physical validation. All 1,325 run members remain unchanged. Initial automatic-review rejection was resolved by proving public-source provenance and obtaining re-review of the same action; no bypass. Meta remaining $4.733338. No live root jobs. Next concrete reconstruction work: [coordinated native-clock integration](native-clock-integration.md), not retiming finished bodies or weakening quality gates.
+**Latest reconstruction milestone — November 2, 2026, 1:18 PM PST:** [Native-clock saved-evidence workflow](native-clock-integration.md) now reconstructs before interpolation, preserves detector history and supports bounded training/interaction/exact replay. 488 scoped Python tests pass. Real clip: 235 decoded/236 metadata frames, training 7.96 s / 376 MB, authored-equivalent retained policy, nine recorded actions replay exactly. Both existing exercise portal labs retain original physics in isolated trusted-release workers; 18 actions replay and all 2,650 run members remain unchanged. Native portal ingestion, reference-decoder qualification, unfamiliar geometry/contact and Muse repairs remain open. No paid calls, inference or deployment; no live jobs.
+
+**Latest Muse milestone — November 2, 2026 (PST):** [Current-world review](portal-world-review.md) now sends exact scene/support/control assumptions separately from source observations, with closed fields and hash binding. 70 Python/six UI checks pass. One live call costs $0.01732575 and explicitly identifies the authored noncontact box/load assumption; no repair or physical validation. All 1,325 run members remain unchanged. Initial automatic-review rejection was resolved by proving public-source provenance and obtaining re-review of the same action; no bypass. Meta remaining $4.733338. No live root jobs. Saved-evidence native-clock integration is verified above; ordinary upload capture and reference refinement remain pending.
 
 **Latest portal milestone — November 2, 2026 (PST):** [Separate authored-support experiments](portal-support-experiments.md) now reuse complete source-bound bodies through the portal, optionally train, and record/replay. Native worker 13.45 s / 393 MB; nine actions replay exactly; 35 Python/five UI checks pass. Twelve negative-control trials correctly fail without support load; no learned improvement, API spend or changed parent. Failed harness attempts are preserved. Source-derived equipment/contact and Muse's bounded repair loop remain open; support-child Muse review is explicitly body-only. Hosted site remains offline.
 
@@ -236,7 +238,7 @@ keeping root/torso/shape/ground/forces fixed. It is a separate opt-in stage,
 not relaxed distal/branch thresholds. **269 focused Python cases /75 mocked
 UI checks pass**, including native two-to-four-view geometry, source tampering
 and actual CLI recording. Full-size 900-frame/four-view pure fitting takes
-2.485 s /51.3 MB for one limb. No dense sequence matrix or new dependency.
+2.488 s /51.3 MB for one limb. No dense sequence matrix or new dependency.
 
 The one frozen source candidate now passes all **47 source +111 grid floor
 checks** under the unchanged .025 limit; worst penetration .0154983705 and
@@ -1990,7 +1992,7 @@ Learning's independent saved-input audit verifies the metadata-only result:
 13 cached reads/3,934,340 B/0.00772 s, all eight members, 240 slots, 112 source
 joins and 480 unavailable channel slots. Receipt
 `.local/camera-reference-fit-inputs-saved-audit-01.json`, SHA
-`4abae91888b89de8ac3de5fe3ef175485a2c733c1dd604b6bc8d3f754e16ef7b`.
+`4abae91888b89de8ac3de5fe3ef175488a2c733c1dd604b6bc8d3f754e16ef7b`.
 This does not imply fitting admission. No native handle remains live.
 
 The reconstruction lane's excluded identity-payload leak is fixed and independently
@@ -2860,7 +2862,7 @@ found no blocker. Result `artifacts/interval-foot-projection-consistency-01`, se
 The fixed-camera hypothesis is rejected, not installed or tuned. All exclusions
 remain explicit. Saved-only audit passed:
 `.local/exercise-projection-saved-audit-01.json`, SHA
-`ba40e7b731dbaff318e535a98d813cf5b7ff55a6a40f381a485940cd68b9935c`.
+`ba40e7b731dbaff318e535a98d813cf5b7ff55a6a40f381a488940cd68b9935c`.
 Eleven files /17,553,328 B read once, 0.205 s active verification. This covers all
 eight output files and three required input metadata files, not original media
 or unrelated input-manifest members. Historical execution counters remain
@@ -2951,7 +2953,7 @@ No native action occurred during preparation. Launch command:
 **Actual outcome:** worker 84322 is terminal, exit 0. Outer 17.906 s / worker 17.785 s,
 124 models / seven data / 5,255 forwards / 499 resets and 75,152 native substeps;
 Python peak 437,796,864 B (encoder descendants excluded). Root seal
-`087d11565579337a999458d29f5259c405cc4f226002c44859751bb44aad7127`.
+`087d11565579337a999458d29f5259c405cc4f226002c44889751bb44aad7127`.
 Training uses all 1,872 controls and selects `searched_joint_residuals`, with only
 0.00020871748 training-score difference. All four controllers score 0/3 task
 successes. Authored/coast/selected complete 3/3 intervals; random completes 2/3,
@@ -2968,7 +2970,7 @@ inspection `1f55ba376c7bb30d8a3a2a679e96fb247fda92bdbecfe5a842ea081bdd0ea7c4`;
 lab run `2f41174bb5f24c1853f0d340006a0d8c397a824d20f21e59e3e35c8adaebf050`.
 Policy `bc9af9372d171dd8c9ee79219325a943dd9be0cb03a3d395f4e9f5fde1cdab10`;
 session 042d733de54f seal
-`e8626cfb20f2c1dd7884857c9b4a555c788ecdf21a6d4a538a9dadb0dd1e4158`.
+`e8626cfb20f2c1dd7884887c9b4a555c788ecdf21a6d4a538a9dadb0dd1e4158`.
 All nine recorded actions/eleven events replay exactly; six policy decisions
 independently match. Three exact manual elbow commands precede reset 31 and the
 six selected commands. Supports stay fixed; no root force. MP4/GIF/HTML exports
@@ -3103,7 +3105,7 @@ evaluation `3fdd8c9665fb344467d9d6842e9550b478b6549c16ed0139fc4abd55d2b895f5`;
 lab run `e73b88f5fb2381b9afdb9935a41b544ced31e434f827bc80de2499f61fee318d`;
 policy `c55544d612aef54fee5795411720e5292b554c0a45f7d7107bf86968973826b3`.
 Session `0669779c24c9` seal
-`99f7c4da6c2abfd3b4e2d0268ac031fe94234ed4fb3485e5d1cb1a7d87a2e082`
+`99f7c4da6c2abfd3b4e2d0268ac031fe94234ed4fb3488e5d1cb1a7d87a2e082`
 contains three exact manual elbow actions, one reset and sixty hash-bound
 selected-policy actions; all 63 actions/65 events replay exactly, with sixty
 policy decisions independently verified. Exports and evidence receipt are ready.
@@ -3482,7 +3484,7 @@ Root completed the supervised public-main invocation using:
 `data/general/annotations/rolling-grayscale.scene.json`, unchanged
 `examples/spatial-ball-hypothesis.json`, and the **preselected** policy
 `artifacts/spatial-scene-learning-acceptance-01/1729/policy`, seal
-`af1c83b80949d1e100b89eef6e3ca027f5e2fbbbb840e6485eca034b60724163`.
+`af1c83b80949d1e100b89eef6e3ca027f5e2fbbbb840e6488eca034b60724163`.
 One completed fresh tracking pass exercises the new route; there is no retraining.
 The extracted scene matches the unchanged configuration. The preselected policy
 and original task are unchanged; no result-dependent replacement or promotion occurs.
@@ -4640,7 +4642,7 @@ evaluation/replay adapters, instead of treating build readiness as execution
 evidence. Independent identity/geometry/parameter measurements and physical
 transfer remain unavailable; the full goal is active.
 Next-slice inventory `.local/common-lab-scorecard-next-01.json` SHA
-`bdffc987bbdcb604e5a06c9876b2e835f261448532bf8868c664eb69483a6879`
+`bdffc987bbdcb604e5a06c9876b2e835f261448832bf8868c664eb69483a6879`
 records the now-completed common-lab slice and still-relevant rigid regime/return
 requirements. Its compact exercise contract lacks completed/reset/reward counts;
 they remain unavailable. The new3afaf85 presentation revision preserves all26policy/
@@ -4860,7 +4862,7 @@ One actual exercise CLI run: `.local/person-console-plan-01.json` SHA `407fb95e6
 
 `source_frame_pixels.py` and `shared-exercise-frames` produce the ordinary `source-frame-pixels-v1` input for the published image check. Exact raw-pose receipts and original video bytes are verified; one private byte-identical source copy is decoded sequentially in a supervised child with file-only FFmpeg access. Limits:2–4frames,1,800reads,64MiBsource,4MiB/12output files,30s plus shared2s cleanup. Missing/different clocks, output changes and timeouts reject; killed native work retains unknown in-flight counts rather than invented completion.52distinct focused checks and independent review pass. Freeze `.local/source-frame-pixels-freeze-01.json` SHA `c56baa9a12690b59fdd47b67af0149cdb866b47858992eec56df44016f783cad`; source SHA `09cce4b3d6e2ff245c0d8e724fa9cea760884154c3a8c25f85594557718c20fe`.
 
-Exactly one real CLI extraction: plan `.local/source-frame-cli-plan-01.json` SHA `e8578be89c53e87ba5f650eb9dfbaa44f88d56636161c999ca6a9f1d5ce6f545`; process `.local/source-frame-cli-acceptance-01/process.json`, **0.426816s/95,633,408B completed-child peak RSS/$0**. Output `artifacts/source-frame-extraction-01`:7files/1,363,271B, seal `08a3e471abf0f21b01c3004d523c9f67771f9409a79376c5cf1485a7679448bf`. One23-readprefix extracts16/18/20/22; one independent decode of each new PNG reproduces all prior RGB hashes/native/nominal clocks. Frame20has different encoded PNG bytes but identical pixels. Existing pixel-check consumer fits at3,704,831B including reserve, with489,473B spare. Saved-only audit `.local/source-frame-cli-verification-01.json` SHA `5c5596e68500e0c3a20ed68a989ae3713300d10ac60f5042fe48ef6d6a2ea0c5` verifies manifest/arithmetic/clocks without image/video decoding or repeated big source reads. No repeat patch matching/report, inference, physics, source/body repair or whole-video claim.
+Exactly one real CLI extraction: plan `.local/source-frame-cli-plan-01.json` SHA `e8578be89c53e87ba5f650eb9dfbaa44f88d56636161c999ca6a9f1d5ce6f545`; process `.local/source-frame-cli-acceptance-01/process.json`, **0.426816s/95,633,408B completed-child peak RSS/$0**. Output `artifacts/source-frame-extraction-01`:7files/1,363,271B, seal `08a3e471abf0f21b01c3004d523c9f67771f9409a79376c5cf1488a7679448bf`. One23-readprefix extracts16/18/20/22; one independent decode of each new PNG reproduces all prior RGB hashes/native/nominal clocks. Frame20has different encoded PNG bytes but identical pixels. Existing pixel-check consumer fits at3,704,831B including reserve, with489,473B spare. Saved-only audit `.local/source-frame-cli-verification-01.json` SHA `5c5596e68500e0c3a20ed68a989ae3713300d10ac60f5042fe48ef6d6a2ea0c5` verifies manifest/arithmetic/clocks without image/video decoding or repeated big source reads. No repeat patch matching/report, inference, physics, source/body repair or whole-video claim.
 
 ### Deferred structural reconstruction hypothesis — not executed
 
@@ -4884,7 +4886,7 @@ The source-pixel inspection is now terminal: `artifacts/single-leg-source-pixels
 
 V4 is implemented as an opt-in bounded joint state-feedback residual in `shared_exercise_feedback_residual.py` and `shared_exercise_feedback_learning.py`. It reuses existing position/velocity features and torso/proximal/distal groups: six coefficients bounded±0.25, features clipped±1, joint correction±0.25. Preserve authored bias/root channels, all gates/reference/scene and exact zero-anchor behavior. It differs from v1 gain search by excluding bias/root optimization. Training emits bounded control-boundary diagnostics; selection verifies saved arithmetic without physics; evaluation uses a separate seed stream. The CLI/workflow/lab route preserves existing defaults. `--policy-family feedback-residual` requires explicit training; the simple launcher still limits its search to eight episodes.
 
-The real protocol is **terminal ready**, executed exactly once; exec54690 is closed. Output `artifacts/person-feedback-workflow-01`; process receipt `.local/person-feedback-workflow-01-process.json`: **30.756369916s/437,485,568B peak RSS/$0**,1,532workflow files/158,044,101B. Frozen plan02 SHA `1c7e551ddaf0ad6e01eb8bb69ac2442caab196f7749f7c8298de22b526ed16f6`. It reused only the original untrained construction and exact assisted task, not old policies/evaluation. Rootseeds3141597/2718281; full234-step interval;28actual training episodes/6,552actions plus2,603evaluation actions. No source decode/inference/API or changed pins. Independent saved-only audit `.local/person-feedback-workflow-01-verification-02.json`, SHA `72c653393deb4443569b5136e1317664de284a0bf5c6bd191ea8075847efff98`, verifies1,528covered members/four child seals/66source members/1,525old-build members; all13,104training diagnostic rows and146,467actual native substeps. The first audit-path readback error is retained; no production rerun. Never repeat the workflow.
+The real protocol is **terminal ready**, executed exactly once; exec54690 is closed. Output `artifacts/person-feedback-workflow-01`; process receipt `.local/person-feedback-workflow-01-process.json`: **30.756369916s/437,488,568B peak RSS/$0**,1,532workflow files/158,044,101B. Frozen plan02 SHA `1c7e551ddaf0ad6e01eb8bb69ac2442caab196f7749f7c8298de22b526ed16f6`. It reused only the original untrained construction and exact assisted task, not old policies/evaluation. Rootseeds3141597/2718281; full234-step interval;28actual training episodes/6,552actions plus2,603evaluation actions. No source decode/inference/API or changed pins. Independent saved-only audit `.local/person-feedback-workflow-01-verification-02.json`, SHA `72c653393deb4443569b5136e1317664de284a0bf5c6bd191ea8075847efff98`, verifies1,528covered members/four child seals/66source members/1,525old-build members; all13,104training diagnostic rows and146,467actual native substeps. The first audit-path readback error is retained; no production rerun. Never repeat the workflow.
 
 **V4 interaction is terminal verified; exec46682 is closed.** Frozen `.local/person-feedback-interaction-plan-03.json` SHA `3c4d628e0dd967e9ae0b011f448ae1e97079dbf875f320d19c004b1c2f83d517`; output `artifacts/person-feedback-interaction-01`. Process **8.504197666s/402,374,656B peak RSS/$0**. Session `session-db8460090785`:242live+242exact-replay actions/one reset/full234post-reset steps/244exported frames/7,744native substeps. Session seal `45b9a451216caa5871050f7ab4ced4802c65121f9474b76618fd2c0ec81a9704`. Independent audit `.local/person-feedback-interaction-01-verification.json`, SHA `e47a0be00ee99231d9e3aea1eabab647a5775bf61ff5286cbb165223bc68b677`, checks study/driver/session seals and all1,528original workflow members,43runtime pins/25input pins unchanged. Task still fails only peak angular error0.9196255>0.70. One original export decode, no audit decode/replay; no source inference/training/API/server/browser or old-recording comparison.
 
@@ -5274,9 +5276,9 @@ The checkpoint below was published at `ca6037d`; its successful task, runtime an
 ### Current combined shape and control checkpoint
 
 - **Coherent A+B result:** the conditional `sam-3` geometry below now has its own trained/selected policy, fresh independent simulator comparison and successful interactive replay. Scene **`2f781efbee7e4d858ed63a84b88bed8059870a7311fb6cec59c1121dbff533f6`** and task **`c8deb8136d6fd15af2e8b00483b952dae6885bc72086ae0a10b25e2d4fb53379`** remain exactly A's admitted outputs; task parameters/core/scorer and mask-fit settings are unchanged. The old box-world policy is not attached by changing its label.
-- **One bounded new-world study:** `artifacts/silhouette-exercise-control-01`, seal **`5b4b2c97a3e11107624a0167c383d664956c4bcaa54b8f85ac191abee61d2b16`**, completes in **22.832 s**. The same predeclared optimizer/training seeds run **124 episodes/7,440 controls** in 18.562 s; training seal `5dbc2c660c80328524a27db730b69b2edf43506976a562573e5f7c8326132b2f`. Training-only feasible selection takes 0.571 s with no additional training, selects generation 2/candidate 6, and preserves the reward winner/history. Its coefficients equal the earlier box-world feasible candidate, but scene/task/policy identities differ. Selection seal `5fee6ad74fb037ef65cfcd36508a24babfe8987173be2a2adf2b2bfdb1837f46`; new policy **`2b114ccd160ef8583b505fe107a67513920485cc78203558b4f4c29cdd695e7b`**.
+- **One bounded new-world study:** `artifacts/silhouette-exercise-control-01`, seal **`5b4b2c97a3e11107624a0167c383d664956c4bcaa54b8f85ac191abee61d2b16`**, completes in **22.832 s**. The same predeclared optimizer/training seeds run **124 episodes/7,440 controls** in 18.562 s; training seal `5dbc2c660c80328524a27db730b69b2edf43506976a562573e5f7c8326132b2f`. Training-only feasible selection takes 0.571 s with no additional training, selects generation 2/candidate 6, and preserves the reward winner/history. Its coefficients equal the earlier box-world feasible candidate, but scene/task/policy identities differ. Selection seal `5fee6ad74fb037ef65cfcd36508a24babfe8987173be2a2adf2b2bfdb1837f46`; new policy **`2b114ccd160ef8583b505fe107a67513920488cc78203558b4f4c29cdd695e7b`**.
 - **Fresh evaluation:** seeds **132787259 /656811237 /1783657337**, separate from training and the previous comparison, yield learned **3/3** versus coast/random/authored **0/3**, with 628 controls in **2.862 s**. Evaluation seal `bfd9204b3af62d0c62563960bd9a6f67fdf8dfc046186bce91546296a2781801`; failed/early trials remain. This qualifies the new scene's bounded controller, not a causal claim that improved shape produced better learning. These seeds are now exposed development evidence.
-- **Latest lab and recording:** `artifacts/silhouette-exercise-lab-01`, run seal **`a5a903d9fd9ca8bc4a2ccb07b966d7cfd1e7af05bb868e7ca851f2f0b92e13ac`**. `artifacts/silhouette-exercise-interaction-01`, seal `1489922057834f8c7091b6c535a86a8e51cd89ab7661e29ed4709892285ceb4e`, verifies **68 actions/one reset/70 events/video frames**, all 60 post-reset policy steps, declared task success, exact own replay and resume in **5.757 s**. Recording `sessions/session-caf49de203d4`, seal `042b7fdc5625b902db831c0c8dc24122ad7f485cbe54a375a0430482903f999e`. [Launch](../shared-exercise.md#try-it).
+- **Latest lab and recording:** `artifacts/silhouette-exercise-lab-01`, run seal **`a5a903d9fd9ca8bc4a2ccb07b966d7cfd1e7af05bb868e7ca851f2f0b92e13ac`**. `artifacts/silhouette-exercise-interaction-01`, seal `1489922057834f8c7091b6c535a86a8e51cd89ab7661e29ed4709892285ceb4e`, verifies **68 actions/one reset/70 events/video frames**, all 60 post-reset policy steps, declared task success, exact own replay and resume in **5.757 s**. Recording `sessions/session-caf49de203d4`, seal `042b7fdc5625b902db831c0c8dc24122ad7f488cbe54a375a0430482903f999e`. [Launch](../shared-exercise.md#try-it).
 - **Interface and final audit:** `.local/silhouette-exercise-actual-payload-01.json` passes against 6,007,393 saved metadata bytes/exact assets: 22 controls, 257 source frames, independent 3/3 comparison, successful live result and **zero stale original box-fit panels**. `.local/silhouette-exercise-verification-01.json` verifies 592 control-study files/69,817,029 bytes, 729 lab files/124,777,310 bytes and six interaction files/883,394 bytes; all 193 original new-world training files recover exactly. API/record/JSON batches measure median **21.836 ms**, maximum **22.397 ms**, not browser latency. Offline `.local/silhouette-source-preview-01/qa.json` plus its sealed input/preview bundle (10 files/223,846 bytes) confirms unchanged source inputs and no display discrepancy.
 - **Remaining scope:** this is a **two-second, root-assisted simulator task with no contact requirement**, privileged simulator/reference features and one source scene. Full-video control, grasp/support, new-video generalization and physical accuracy remain unverified. This checkpoint was published at `ca6037d`; later full-reference results are recorded above rather than substituted into this task.
 

@@ -391,7 +391,8 @@ def select_feasible_shared_exercise_policy(learning_dir, out, *, max_seconds=15)
     try:
         write_package_files(out, output)
         _input_unchanged(source, manifest, deadline)
-        if (_runtime_hashes(scene) if scene["profile"] == HUMAN_ONLY_PROFILE else _runtime_hashes()) != policy["runtime_sha256"]:
+        if (_runtime_hashes(scene) if (scene["profile"] == HUMAN_ONLY_PROFILE
+                                       or "native_clock" in scene.get("human_spec", {})) else _runtime_hashes()) != policy["runtime_sha256"]:
             raise ValueError("Selection cannot change the original actor runtime")
         read_package_file(Path(__file__).parent, Path(__file__).name, max_bytes=8 * 1024 * 1024, expected_sha256=_sha(selector_raw))
         manifest_hash = _seal(out, "trained", deadline)

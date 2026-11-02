@@ -5,7 +5,7 @@ import math
 import time
 
 from weft.io import canonical_hash, digest, local_time
-from weft.shared_exercise_feasibility_learning import SCOPE, _runtime_hashes
+from weft.shared_exercise_feasibility_learning import SCOPE, _scene_runtime_hashes
 from weft.shared_exercise_lab import _json, _verified_inputs, _validate_policy_package
 from weft.shared_exercise_learning import _context, _integer, _output_path, _score, _seconds, _seed_plan, _sha, _write, _bytes
 from weft.shared_exercise_reset import human_jitter_options
@@ -38,7 +38,7 @@ def evaluate_shared_exercise_feasibility_policy(learning_dir, out, *, seed=92401
     scene, task, _ = _context(_json(scene_raw), _json(task_raw))
     fullspan = scene["profile"] == "shared-world-v2"
     _seconds(max_seconds, 60 if fullspan else 30)
-    hashes = _runtime_hashes()
+    hashes = _scene_runtime_hashes(scene)
     policy, _, previous = _validate_policy_package(manifest, files, scene, task, include_baseline=True)
     if policy["profile"] != "shared-exercise-policy-v3" or previous is None:
         raise ValueError("Feasibility evaluation requires a current v3 policy and verified previous baseline")
@@ -59,7 +59,7 @@ def evaluate_shared_exercise_feasibility_policy(learning_dir, out, *, seed=92401
     train_states = {trial["initial_state_sha256"] for generation in training["history"]
                     for row in generation["candidates"] for trial in row["trials"] if trial["initial_state_sha256"] is not None}
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(manifest))
-    views = _source_views(source, manifest)
+    views = _source_views(source, manifest, scene)
     reset = human_jitter_options(float(jitter_scale))
     evaluation = {"schema_version": 1, "status": "running", "created_at": local_time(), "policy_sha256": _sha(policy_raw),
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "runtime_sha256": hashes,
@@ -145,7 +145,7 @@ def evaluate_shared_exercise_feasibility_policy(learning_dir, out, *, seed=92401
             mean_score=_score(comparison["trials"]), physical_validation="unverified")
         _write(out, "comparison.json", comparison)
         _input_unchanged(source, manifest, deadline)
-        if _runtime_hashes() != hashes:
+        if _scene_runtime_hashes(scene) != hashes:
             raise RuntimeError("Frozen residual policy or evaluator runtime changed during evaluation")
         read_package_file(out, "policy.json", max_bytes=64 * 1024, expected_sha256=_sha(policy_raw))
         read_package_file(out, "previous-policy.json", max_bytes=64 * 1024, expected_sha256=previous["policy_sha256"])

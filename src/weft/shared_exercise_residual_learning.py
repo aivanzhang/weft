@@ -8,7 +8,7 @@ import time
 import numpy as np
 
 from weft.io import canonical_hash, digest, local_time
-from weft.shared_exercise_lab import _json, _runtime_versions, _verified_inputs
+from weft.shared_exercise_lab import NATIVE_SOURCE_VIEWS, _json, _runtime_versions, _verified_inputs, native_source_views
 from weft.shared_exercise_learning import (
     POLICY_RUNTIME_FILES as BASE_RUNTIME_FILES,
     _bytes, _context, _integer, _output_path, _package, _score, _seconds, _seed_plan, _sha, _source, _write,
@@ -60,11 +60,14 @@ def _runtime_hashes(scene=None):
         names = (*names, "person_inventory.py")
     elif scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:
         names = (*names, "shared_support_task.py")
+    if scene is not None and "native_clock" in scene.get("human_spec", {}):
+        names = (*names, "source_clock.py")
     return {name: digest(package / name) for name in names}
 
 
 def _scene_runtime_hashes(scene):
-    return _runtime_hashes(scene) if scene["profile"] in {HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE} else _runtime_hashes()
+    return _runtime_hashes(scene) if (scene["profile"] in {HUMAN_ONLY_PROFILE, STATIC_SUPPORT_PROFILE}
+                                     or "native_clock" in scene.get("human_spec", {})) else _runtime_hashes()
 
 
 def _contract(scene, hashes):
@@ -175,11 +178,14 @@ def _terminal_manifest(raw):
 
 
 def source_view_names(scene=None):
+    names = SOURCE_VIEWS
+    if scene is not None and "native_clock" in scene.get("human_spec", {}):
+        names |= NATIVE_SOURCE_VIEWS
     if scene is not None and scene["profile"] == HUMAN_ONLY_PROFILE:
-        return SOURCE_VIEWS | {"inventory.json", "source-clock.json"}
+        return names | {"inventory.json", "source-clock.json"}
     if scene is not None and scene["profile"] == STATIC_SUPPORT_PROFILE:
-        return SOURCE_VIEWS | {"support-config.json", "inputs/support-config.json", "source-clock.json"}
-    return SOURCE_VIEWS
+        return names | {"support-config.json", "inputs/support-config.json", "source-clock.json"}
+    return names
 
 
 def _source_views(source, manifest, scene=None):
@@ -191,6 +197,8 @@ def _source_views(source, manifest, scene=None):
                                     expected_sha256=hashes[name]) for name in names}
     if {"support-config.json", "inputs/support-config.json"} <= files.keys() and files["support-config.json"] != files["inputs/support-config.json"]:
         raise ValueError("Static-support configuration views differ")
+    if scene is not None:
+        native_source_views(files, scene)
     return files
 
 

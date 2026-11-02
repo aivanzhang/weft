@@ -87,9 +87,12 @@ def _context(scene, task, *, allow_static_support=False):
     return scene, task, count
 
 
-def _runtime_hashes():
+def _runtime_hashes(scene=None):
     package = Path(__file__).parent
-    return {name: digest(package / name) for name in POLICY_RUNTIME_FILES}
+    names = POLICY_RUNTIME_FILES
+    if scene is not None and "native_clock" in scene.get("human_spec", {}):
+        names = (*names, "source_clock.py")
+    return {name: digest(package / name) for name in names}
 
 
 def validate_shared_exercise_policy(policy, scene, task):
@@ -110,7 +113,7 @@ def validate_shared_exercise_policy(policy, scene, task):
                    any(type(value) not in (int, float) or not math.isfinite(value) or abs(value) > 3 for value in row)
                    for row in weights)):
         raise ValueError("Exercise policy gains must be finite numeric group-by-3 weights in [-3,3]")
-    expected = _runtime_hashes()
+    expected = _runtime_hashes(scene)
     if (policy["scene_sha256"] != canonical_hash(scene) or policy["task_sha256"] != canonical_hash(task)
             or policy["gates_sha256"] != GATES_SHA256 or policy["runtime_sha256"] != expected
             or policy["evaluator_sha256"] != expected["shared_exercise_task.py"]
@@ -211,6 +214,17 @@ def _package(out, scene_raw, task_raw, manifest, proof, *, extra=None):
         _seal(out, "failed")
         raise
     return {name: _sha(raw) for name, raw in implementation.items()}
+
+
+def _native_source_views(source, manifest, scene):
+    from weft.shared_exercise_lab import NATIVE_SOURCE_VIEWS, native_source_views
+
+    if "native_clock" not in scene.get("human_spec", {}):
+        return {}
+    hashes = _json(manifest)["files"]
+    files = {name: read_package_file(source, name, max_bytes=64 * 1024 * 1024, expected_sha256=hashes[name])
+             for name in NATIVE_SOURCE_VIEWS if name in hashes}
+    return native_source_views(files, scene)
 
 
 def _write(out, name, value):
@@ -319,9 +333,9 @@ def train_shared_exercise_policy(run, out, *, task_path=None, root_assistance=Fa
     maximum_steps = generations * population * 2 * task["interval"]["horizon_steps"]
     if maximum_steps > MAX_CONTROL_STEPS:
         raise ValueError("Training exceeds the 20000-control-step bound; never shorten the task interval silently")
-    hashes = _runtime_hashes()
+    hashes = _runtime_hashes(scene)
     _check(deadline)
-    _package(out, scene_raw, task_raw, manifest, proof)
+    _package(out, scene_raw, task_raw, manifest, proof, extra=_native_source_views(source, manifest, scene))
     training_seeds = _seed_plan(seed, 2)
     settings = {"schema_version": 1, "algorithm": ALGORITHM, "created_at": local_time(), "seed": seed,
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "gates_sha256": GATES_SHA256,
@@ -392,7 +406,7 @@ def train_shared_exercise_policy(run, out, *, task_path=None, root_assistance=Fa
             validate_shared_exercise_policy(policy, scene, task)
             _write(out, "policy.json", policy)
             _write(out, "training.json", training)
-        if _runtime_hashes() != hashes:
+        if _runtime_hashes(scene) != hashes:
             raise RuntimeError("Exercise policy/evaluator runtime changed during training")
         _check(deadline)
         training.update(status="trained", seconds=time.monotonic() - started, policy_sha256=digest(out / "policy.json"),
@@ -428,7 +442,7 @@ def evaluate_shared_exercise_policy(learning_dir, out, *, seed=924017, trials=3,
         raise ValueError("Evaluation requires a completed sealed training run, never a failed checkpoint")
     scene_raw, task_raw, policy_raw = files["scene.json"], files["exercise-task.json"], files["policy.json"]
     scene, task, _ = _context(_json(scene_raw), _json(task_raw))
-    hashes = _runtime_hashes()
+    hashes = _runtime_hashes(scene)
     policy = validate_shared_exercise_policy(_json(policy_raw), scene, task)
     settings, training = _json(files["settings.json"]), _json(files["training.json"])
     if (training.get("status") != "trained" or training.get("policy_sha256") != _sha(policy_raw)
@@ -442,7 +456,8 @@ def evaluate_shared_exercise_policy(learning_dir, out, *, seed=924017, trials=3,
                     for row in generation["candidates"] for trial in row["trials"] if trial["initial_state_sha256"] is not None}
     proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(manifest))
     _check(deadline)
-    _package(out, scene_raw, task_raw, manifest, proof, extra={"policy.json": policy_raw})
+    _package(out, scene_raw, task_raw, manifest, proof,
+             extra={**_native_source_views(source, manifest, scene), "policy.json": policy_raw})
     reset = human_jitter_options(float(jitter_scale))
     evaluation = {"schema_version": 1, "status": "running", "created_at": local_time(), "policy_sha256": _sha(policy_raw),
         "scene_sha256": canonical_hash(scene), "task_sha256": canonical_hash(task), "runtime_sha256": hashes,
@@ -486,7 +501,7 @@ def evaluate_shared_exercise_policy(learning_dir, out, *, seed=924017, trials=3,
                 reset_failures=sum(row["status"] == "reset_failed" for row in rows), mean_score=_score(rows))
             _write(out, "evaluation.json", evaluation)
         read_package_file(source, "policy.json", max_bytes=64 * 1024, expected_sha256=_sha(policy_raw))
-        if _runtime_hashes() != hashes:
+        if _runtime_hashes(scene) != hashes:
             raise RuntimeError("Frozen policy or evaluator runtime changed during evaluation")
         _check(deadline)
         evaluation.update(status="evaluated", seconds=time.monotonic() - started,

@@ -90,6 +90,10 @@ def _observation(frame, width, height):
 
 def build_root_reference(evidence, *, torso_length=None):
     """Return aligned references and readiness; unknown samples retain null positions."""
+    native_clock = None
+    if isinstance(evidence, dict) and "source_clock" in evidence:
+        from weft.source_clock import validate_derived_evidence
+        native_clock = validate_derived_evidence(evidence)
     if (not isinstance(evidence, dict) or type(evidence.get("schema_version")) is not int
             or evidence["schema_version"] != 1 or evidence.get("profile") != "exercise-pose-v1"):
         raise ValueError("Root references require exercise-pose-v1 evidence")
@@ -99,8 +103,8 @@ def build_root_reference(evidence, *, torso_length=None):
     width = _integer(evidence.get("width"), "source width", 64, 4096)
     height = _integer(evidence.get("height"), "source height", 64, 2160)
     fps = _number(evidence.get("fps"), "source fps", 1, 240)
-    frame_count = _integer(evidence.get("frame_count"), "source frame count", 10, 1800)
-    if frame_count / fps > 60:
+    frame_count = _integer(evidence.get("decoded_frames" if native_clock else "frame_count"), "source frame count", 10, 1800)
+    if native_clock is None and frame_count / fps > 60:
         raise ValueError("Root references exceed the 60-second source bound")
     if torso_length is None:
         lengths = evidence.get("lengths")
@@ -122,14 +126,14 @@ def build_root_reference(evidence, *, torso_length=None):
         index = _integer(frame.get("frame"), "source frame index", 0, frame_count - 1)
         timestamp = _number(frame.get("time_s"), "source time", 0, 60)
         if (index <= previous_frame or timestamp <= previous_time
-                or not math.isclose(timestamp, index / fps, abs_tol=1e-7)):
+                or (native_clock is None and not math.isclose(timestamp, index / fps, abs_tol=1e-7))):
             raise ValueError("Source frame indices/times must increase and agree with fps")
         identifier = frame.get("id")
         if identifier != f"{source_hash}:frame:{index}":
             raise ValueError("Source frame identity does not match its hash/index")
         decoder_time = frame.get("decoder_timestamp_s")
         if decoder_time is not None:
-            _number(decoder_time, "decoder timestamp", 0, 60)
+            _number(decoder_time, "decoder timestamp", -3600 if native_clock else 0, 3600 if native_clock else 60)
         observation = _observation(frame, width, height)
         observations.append(observation)
         by_id[identifier] = observation

@@ -24,6 +24,7 @@ _SHA = re.compile(r"[0-9a-f]{64}")
 _POSE = {"evidence.json", "pose-landmarks.json", "identity-audit.json", "model.json",
          "source.json", "run-config.json"}
 _REQUIRED = _POSE | {"human.json", "observations.json", "source-clock.json", "implementation.json"}
+_NATIVE_CLOCK = {"native-clock.json", "reconstruction-evidence.json"}
 _CONFLICTS = {"failure.json", "scene.json", "task.json", "exercise-task.json", "construction-seed.json",
               "geometry-proposal.json", "scene-observations.json", "lab-config.json", "policy.json"}
 _REJECTED = {"failed", "error", "rejected", "cancelled", "canceled", "unsupported"}
@@ -205,6 +206,20 @@ class _Reader:
 
 def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
     evidence, human = documents["evidence.json"], documents["human.json"]
+    reconstruction = evidence
+    native_clock = "native-clock.json" in documents
+    if native_clock:
+        from weft.source_clock import clock_summary, derive_evidence, validate_clock, validate_derived_evidence
+        binding = validate_clock(documents["native-clock.json"], evidence,
+                                 evidence_sha256=_sha(raw_files["evidence.json"]))
+        reconstruction = documents["reconstruction-evidence.json"]
+        _require(validate_derived_evidence(reconstruction) == binding
+                 and _bytes(derive_evidence(evidence, binding)) == raw_files["reconstruction-evidence.json"]
+                 and human.get("native_clock") == clock_summary(binding),
+                 "Native reconstruction clocks differ from original sealed evidence")
+    else:
+        _require("native_clock" not in human and "source_clock" not in evidence,
+                 "Native reconstruction requires its complete clock proof")
     raw, audit, clock = (documents[name] for name in ("pose-landmarks.json", "identity-audit.json", "source-clock.json"))
     model, config = documents["model.json"], documents["run-config.json"]
     source = marker["source_sha256"]
@@ -233,8 +248,8 @@ def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
         ("width", "height", "fps", "frame_count", "decoded_frames", "inference_stride"))
     _require(type(width) is int and 64 <= width <= 4096 and type(height) is int and 64 <= height <= 2160
              and type(fps) in (int, float) and 5 <= fps <= 240
-             and type(count) is int and 10 <= count <= 1800 and count / fps <= 60
-             and type(decoded) is int and 10 <= decoded <= 1800 and decoded / fps <= 60
+             and type(count) is int and 10 <= count <= 1800 and (native_clock or count / fps <= 60)
+             and type(decoded) is int and 10 <= decoded <= 1800 and (native_clock or decoded / fps <= 60)
              and type(stride) is int and stride == max(1, math.ceil(fps / 15), math.ceil(count / 900)),
              "Saved decoder dimensions/counts exceed the reviewed contract")
     if abs(decoded - count) > 1:
@@ -252,7 +267,9 @@ def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
                  and frame.get("id") == f"{source}:frame:{index}"
                  and all(key in frame and frame[key] == original.get(key) for key in
                          ("id", "frame", "time_s", "decoder_timestamp_s"))
-                 and (native is None or type(native) in (int, float) and 0 <= native <= 60), "Raw pose clocks/identities differ")
+                 and (native is None or type(native) in (int, float) and
+                      (-3600 <= native <= 3600 if native_clock else 0 <= native <= 60)),
+                 "Raw pose clocks/identities differ")
         _require(recovery_verified or "image_refinement" not in frame and not evidence.get("pose_reinference"),
                  "Recovered crop evidence needs a separate supported provenance adapter")
         if "image_refinement" in frame:
@@ -273,7 +290,7 @@ def _pose_bindings(documents, raw_files, marker, *, recovery_verified=False):
              and clock.get("metadata_frames") == count and clock.get("decoded_frames") == decoded
              and clock.get("samples") == clocks and clock.get("nominal_basis") == "frame_index_divided_by_fps",
              "Saved decoder clock differs from retained pose slots")
-    usable = [frame for frame in frames if frame.get("status") in {"tracked", "tracked_partial"}]
+    usable = [frame for frame in reconstruction["frames"] if frame.get("status") in {"tracked", "tracked_partial"}]
     references, metadata = human.get("reference"), human.get("reference_evidence")
     _require(isinstance(references, list) and isinstance(metadata, list)
              and all(isinstance(row, dict) for row in references + metadata)
@@ -383,9 +400,11 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
              and _REQUIRED | {"body-source.json", _PRODUCER} <= declared.keys(),
              "A sealed construction-only exercise body is required")
     recovering = "pose-recovery.json" in declared
-    required = _REQUIRED | (_RECOVERY_PROOF if recovering else set())
+    native = bool(_NATIVE_CLOCK & declared.keys())
+    clock_files = _NATIVE_CLOCK if native else set()
+    required = _REQUIRED | (_RECOVERY_PROOF if recovering else set()) | clock_files
     _require(required <= declared.keys(), "Construction body lacks its complete crop proof")
-    selected = {name: reader.read(name, declared[name]) for name in sorted(_REQUIRED | {"body-source.json", _PRODUCER})}
+    selected = {name: reader.read(name, declared[name]) for name in sorted(_REQUIRED | clock_files | {"body-source.json", _PRODUCER})}
     documents = {name: _json(raw) for name, raw in selected.items() if name.endswith(".json")}
     marker, source_meta, implementation = (documents[name] for name in ("body-source.json", "source.json", "implementation.json"))
     _require(type(marker.get("schema_version")) is int and marker["schema_version"] == 1
@@ -400,6 +419,8 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
     _require(isinstance(artifacts, dict) and set(artifacts) == required
              and all(artifacts[name] == declared[name] for name in required), "Body marker member identities conflict")
     construction = marker.get("construction", {})
+    _require((construction.get("clock_profile") == "source-native-clock-v1") == native,
+             "Native construction clock profile differs from its sealed artifacts")
     _require(construction.get("body_model") == "mobile" and construction.get("body_profile") == "exercise-v3"
              and construction.get("original_pose_config") == "run-config.json"
              and construction.get("original_pose_config_sha256") == declared["run-config.json"], "Construction configuration binding conflicts")
@@ -430,6 +451,7 @@ def prepare_reference_inputs(source, *, expected_manifest_sha256=None, deadline)
                  "Unsupported original body input route")
         source_manifest_raw = None
     _pose_bindings(documents, selected, marker, recovery_verified=recovery_descriptor is not None)
+    _require(not native, "Native-clock reference refinement needs an explicit native dimension-provenance adapter")
     derived = deepcopy(original)
     derived["image_dimension_provenance"] = {
         "method": "sealed_decoder_metadata", "source_sha256": source_sha,

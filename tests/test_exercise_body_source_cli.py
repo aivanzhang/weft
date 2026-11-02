@@ -73,6 +73,18 @@ def test_saved_command_reuses_evidence_without_raw_input_options(calls, monkeypa
     assert calls == [("saved", "saved", "body", {"max_seconds": 30})]
 
 
+def test_saved_native_clock_is_explicit_and_forwarded(calls, monkeypatch):
+    invoke(monkeypatch, ["--evidence-run", "saved", "--native-clock", "clock.json", "--out", "body"])
+    assert calls == [("saved", "saved", "body", {"max_seconds": 30, "native_clock": "clock.json"})]
+
+
+def test_raw_clock_without_complete_decode_is_rejected(calls, monkeypatch):
+    with pytest.raises(SystemExit) as error:
+        invoke(monkeypatch, ["--video", "video.mp4", "--pose-model", "pose.task",
+                             "--native-clock", "clock.json", "--out", "body"])
+    assert error.value.code == 1 and not calls
+
+
 @pytest.mark.parametrize("option,value", [("--pose-model", "pose.task"), ("--pose-mode", "video"),
     ("--pose-identity", "raw"), ("--source-note", "new rights"), ("--max-pose-hypotheses", "1"),
     ("--max-pose-hypotheses", "2")])

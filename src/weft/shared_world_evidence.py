@@ -99,7 +99,16 @@ def _verify_document_clock(source, equivalence, *, derivative):
         raise ValueError("Observation source dimensions differ from the verified media mapping")
     if contract["decoded_frames"] != len(equivalence.frames):
         raise ValueError("Observation source coverage differs from the verified media mapping")
-    if source["observation_schema_version"] == 3:
+    if source["observation_schema_version"] == 4:
+        clock = contract["native_clock"]
+        tick, mapped_tick = Fraction(clock["time_base"]), Fraction(equivalence.time_base)
+        for row, pair in zip(clock["rows"], equivalence.frames, strict=True):
+            native = pair.derivative_native_pts if derivative else pair.source_native_pts
+            decoder = pair.derivative_decoder_pts if derivative else pair.source_decoder_pts
+            if (row["pts"] * tick != native * mapped_tick
+                    or not math.isclose(row["decoder_timestamp_s"], float(decoder * mapped_tick), rel_tol=0, abs_tol=1e-9)):
+                raise ValueError("Native observation clock conflicts with verified source mapping")
+    elif source["observation_schema_version"] == 3:
         scale = Fraction(equivalence.time_base)
         expected = [float((row.derivative_decoder_pts if derivative else row.source_decoder_pts) * scale)
                     for row in equivalence.frames]
@@ -146,7 +155,10 @@ def build_shared_world_binding(documents, *, source_sha256, world_ids, entity_re
             raise ValueError("Coupled evidence documents disagree on the source dimensions")
         dimensions = shape
         clock_key = (contract["sha256"], source["time"]["basis"])
-        clock = tuple(contract["frame_times_s"]) if source["observation_schema_version"] == 3 else contract["fps"]
+        clock = tuple(contract["frame_times_s"]) if source["observation_schema_version"] in {3, 4} else contract["fps"]
+        if source["observation_schema_version"] == 4:
+            native = contract["native_clock"]
+            clock = (clock, native["time_base"], native["native_origin_pts"], native["decoder_minus_native_s"])
         if clocks.setdefault(clock_key, clock) != clock:
             raise ValueError("Coupled evidence documents disagree on a source clock with the same basis")
         for obj in source["objects"]:

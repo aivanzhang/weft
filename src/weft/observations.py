@@ -42,7 +42,7 @@ def _measurement(value, system="image", status="observed"):
 
 def validate_observations(document):
     """Reject malformed evidence, reference drift, temporal conflicts, and mixed units."""
-    if not isinstance(document, dict) or document.get("profile") != PROFILE or type(document.get("schema_version")) is not int or document["schema_version"] not in {1, 2, 3}:
+    if not isinstance(document, dict) or document.get("profile") != PROFILE or type(document.get("schema_version")) is not int or document["schema_version"] not in {1, 2, 3, 4}:
         raise ValueError("Unsupported scene observations schema/profile")
     try:
         encoded = json.dumps(document, allow_nan=False)
@@ -56,7 +56,9 @@ def validate_observations(document):
         raise ValueError("Scene observations fields differ from schema")
     source = document["source"]
     _validate_source(source, document["schema_version"])
-    time_contract = ({"unit": "seconds", "origin": "submitted_video_start", "basis": "decoder_presentation_timestamps", "status": "observed"}
+    time_contract = ({"unit": "seconds", "origin": "first_native_presentation_timestamp", "basis": "native_pts_elapsed_time", "status": "observed"}
+                     if document['schema_version'] == 4 else
+                     {"unit": "seconds", "origin": "submitted_video_start", "basis": "decoder_presentation_timestamps", "status": "observed"}
                      if document['schema_version'] == 3 else
                      {"unit": "seconds", "origin": "video_start", "basis": "frame_index_divided_by_fps", "status": "assumed"})
     if document["time"] != time_contract:
@@ -67,7 +69,7 @@ def validate_observations(document):
     for name in image:
         if type(image[name]) is not int or not 1 <= image[name] <= 4096:
             raise ValueError("Invalid image plane dimensions")
-    if document['schema_version'] == 3 and any(image[k] != source[k] for k in ('width_px', 'height_px')):
+    if document['schema_version'] in (3, 4) and any(image[k] != source[k] for k in ('width_px', 'height_px')):
         raise ValueError('Image dimensions differ from the submitted video')
     if document["coordinates"] != COORDINATES:
         raise ValueError("Conflicting coordinate units, axes, or metric calibration")
@@ -97,7 +99,7 @@ def validate_observations(document):
         if not record["id"].startswith(source["sha256"] + ":") or record["id"] in evidence_ids:
             raise ValueError("Duplicate or foreign source evidence identity")
         _validate_time(record, source)
-        if document["schema_version"] in (2, 3) and not re.match(rf"^{source['sha256']}:frame:{record['frame']}(?::|$)", record["id"]):
+        if document["schema_version"] in (2, 3, 4) and not re.match(rf"^{source['sha256']}:frame:{record['frame']}(?::|$)", record["id"]):
             raise ValueError("Interval evidence identity must preserve its absolute source frame")
         if record["object_id"] not in object_ids:
             raise ValueError("Evidence references a dangling object")
@@ -108,6 +110,21 @@ def validate_observations(document):
             raise ValueError("Evidence identity/frame conflicts with its original payload")
         if "time_s" in payload and not math.isclose(payload["time_s"], record["time_s"], abs_tol=1e-6):
             raise ValueError("Evidence time conflicts with its original payload")
+        if document['schema_version'] == 4:
+            derivation = payload.get("source_time_derivation")
+            expected = {"binding_sha256": source["native_clock_summary"]["binding_sha256"],
+                        "original_pose_time_s": record["frame"] / source["fps"]}
+            if (not isinstance(derivation, dict) or set(derivation) != set(expected)
+                    or derivation["binding_sha256"] != expected["binding_sha256"]):
+                raise ValueError("Native observation must retain its original pose clock identity")
+            _finite(derivation["original_pose_time_s"], "original pose time", 0, 60)
+            decoder = payload.get("decoder_timestamp_s")
+            if decoder is not None:
+                _finite(decoder, "retained decoder timestamp", -3600, 3600)
+            if (not math.isclose(derivation["original_pose_time_s"], expected["original_pose_time_s"], rel_tol=0, abs_tol=1e-7)
+                    or decoder is not None and not math.isclose(decoder,
+                        source["native_clock"]["rows"][record["frame"]]["decoder_timestamp_s"], rel_tol=0, abs_tol=1e-7)):
+                raise ValueError("Native observation changed nominal pose or decoder history")
         _identifier(record["kind"], "Evidence kind")
         evidence_ids.add(record["id"])
         evidence_by_id[record["id"]] = record
@@ -164,6 +181,8 @@ def validate_observations(document):
             raise ValueError("Measurements require original evidence")
         for name, measurement in row["measurements"].items():
             _validate_measurement(name, measurement)
+    if document["schema_version"] == 4 and len(keys) != source["decoded_frames"] * len(object_ids):
+        raise ValueError("Native observations must retain every decoded object/frame slot")
     relationships = document["relationships"]
     if not isinstance(relationships, list) or len(relationships) > 1000:
         raise ValueError("Relationships must be a bounded list")
@@ -189,7 +208,7 @@ def validate_observations(document):
                 raise ValueError("Relationship interval requires start/end seconds")
             first, last = _decoded_bounds(source)
             time_bounds = ((source['frame_times_s'][first], source['frame_times_s'][last])
-                           if document['schema_version'] == 3 else
+                           if document['schema_version'] in (3, 4) else
                            (first / source['fps'], (last if document['schema_version'] == 2 else last + 1) / source['fps']))
             for value in interval:
                 _finite(value, "relationship time", *time_bounds)
@@ -208,6 +227,8 @@ def _validate_source(source, version):
         fields |= {"decode_interval", "source_complete", "prefix_advanced_frames"}
     if version == 3:
         fields = (fields - {'fps'}) | {'frame_times_s'}
+    if version == 4:
+        fields |= {"frame_times_s", "native_clock", "native_clock_summary", "frame_count_audit"}
     if not isinstance(source, dict) or set(source) != fields:
         raise ValueError("Source fields differ from schema")
     if not isinstance(source["sha256"], str) or not re.fullmatch(r"[0-9a-f]{64}", source["sha256"]):
@@ -229,6 +250,27 @@ def _validate_source(source, version):
             previous = stamp
     else:
         _finite(source["fps"], "fps", 1, 240)
+    if version == 4:
+        from weft.source_clock import clock_summary, frame_times, validate_clock_binding
+
+        binding = validate_clock_binding(source["native_clock"])
+        if (binding["source_sha256"] != source["sha256"] or binding["nominal_fps"] != source["fps"]
+                or binding["metadata_frames"] != source["metadata_frames"]
+                or binding["decoded_frames"] != source["decoded_frames"]
+                or canonical_hash(source["frame_times_s"]) != canonical_hash(frame_times(binding))
+                or canonical_hash(source["native_clock_summary"]) != canonical_hash(clock_summary(binding))):
+            raise ValueError("Native source time/count/identity differs from its complete clock binding")
+        audit = source["frame_count_audit"]
+        expected = {"encoded_video_frames": source["decoded_frames"], "decoded_frames": source["decoded_frames"], "matches": True}
+        difference = source["decoded_frames"] - source["metadata_frames"]
+        rounding = {"metadata_frames": source["metadata_frames"], "decoded_frames": source["decoded_frames"],
+                    "difference": difference, "note": audit.get("note") if isinstance(audit, dict) else None}
+        rounding_valid = (abs(difference) == 1 and isinstance(rounding["note"], str)
+                          and 0 < len(rounding["note"]) <= 500
+                          and canonical_hash(audit) == canonical_hash(rounding))
+        if ((source["metadata_frames"] != source["decoded_frames"] or audit is not None)
+                and canonical_hash(audit) != canonical_hash(expected) and not rounding_valid):
+            raise ValueError("Native metadata discrepancy requires its encoded audit or exact one-frame receipt")
     if version == 2:
         interval = source["decode_interval"]
         if (not isinstance(interval, list) or len(interval) != 2 or any(type(value) is not int for value in interval)
@@ -315,9 +357,27 @@ def _base(evidence, profile):
             raise ValueError("Selected interval decoding must be complete before interchange")
         source.update(decode_interval=deepcopy(audit.get("selected_interval")),
                       source_complete=audit.get("source_complete"), prefix_advanced_frames=audit.get("prefix_advanced_frames"))
+    if "source_clock" in evidence:
+        from weft.source_clock import clock_summary, frame_times, validate_derived_evidence
+
+        if profile != "exercise" or version != 1:
+            raise ValueError("Native pose clocks require a complete exercise source, not a selected interval")
+        binding = validate_derived_evidence(evidence)
+        audit = evidence.get("container_frame_audit")
+        count_audit = ({key: audit.get(key) for key in ("encoded_video_frames", "decoded_frames", "matches")}
+                       if isinstance(audit, dict) else None)
+        expected = {"encoded_video_frames": binding["decoded_frames"], "decoded_frames": binding["decoded_frames"], "matches": True}
+        if (abs(binding["decoded_frames"] - binding["metadata_frames"]) == 1
+                and canonical_hash(count_audit) != canonical_hash(expected)):
+            count_audit = deepcopy(evidence.get("decode_metadata_discrepancy"))
+        source.update(native_clock=binding, native_clock_summary=clock_summary(binding),
+                      frame_times_s=frame_times(binding), frame_count_audit=count_audit)
+        version = 4
     _validate_source(source, version)
     return {"schema_version": version, "profile": PROFILE, "source": source,
-            "time": {"unit": "seconds", "origin": "video_start", "basis": "frame_index_divided_by_fps", "status": "assumed"},
+            "time": ({"unit": "seconds", "origin": "first_native_presentation_timestamp", "basis": "native_pts_elapsed_time", "status": "observed"}
+                     if version == 4 else
+                     {"unit": "seconds", "origin": "video_start", "basis": "frame_index_divided_by_fps", "status": "assumed"}),
             "image": {"width_px": evidence["width"], "height_px": evidence["height"]},
             "coordinates": deepcopy(COORDINATES), "camera": {"motion": _claim("fixed", "assumed"),
               "calibration": _claim(None), "screen": deepcopy(evidence.get("camera_check"))},
@@ -354,7 +414,8 @@ def _record(document, raw, object_id, kind, status="observed", suffix=None):
 
 def _observation(document, frame, object_id, visibility, partition, refs=(), measurements=None):
     return {"id": f"{document['source']['sha256']}:observation:{frame}:{object_id}", "frame": frame,
-            "time_s": frame / document["source"]["fps"], "object_id": object_id, "visibility": visibility,
+            "time_s": (document["source"]["frame_times_s"][frame] if "frame_times_s" in document["source"]
+                       else frame / document["source"]["fps"]), "object_id": object_id, "visibility": visibility,
             "partition": partition, "evidence_ids": list(refs), "measurements": measurements or {}}
 
 
@@ -577,6 +638,11 @@ def adapt_exercise(evidence, *, scene=None, construction_frames=None):
     frames = {frame["frame"]: frame for frame in evidence["frames"]}
     if len(frames) != len(evidence["frames"]):
         raise ValueError("Duplicate exercise frame")
+    original_times = {}
+    if document["schema_version"] == 4:
+        if any("source_time_derivation" in row for row in frames.values()):
+            raise ValueError("Native observation clock metadata cannot overwrite a source field")
+        original_times = dict(zip(frames, evidence["source_clock"]["original_times"]["frames"], strict=True))
     selected = None
     if construction_frames is not None:
         selected, metadata = _exercise_construction_selection(document, frames, construction_frames)
@@ -594,6 +660,10 @@ def adapt_exercise(evidence, *, scene=None, construction_frames=None):
             document["observations"].append(_observation(document, index, "person-0", "unknown", "unassigned"))
             continue
         identifier = _record(document, raw, "person-0", "pose_model_output", "inferred")
+        if document["schema_version"] == 4:
+            document["evidence"][-1]["payload"]["source_time_derivation"] = {
+                "binding_sha256": document["source"]["native_clock_summary"]["binding_sha256"],
+                "original_pose_time_s": original_times[index]}
         present = bool(raw.get("landmarks"))
         visibility = "partial" if present and raw.get("status") != "tracked" else "detected" if present else "not_detected"
         measurements = {}

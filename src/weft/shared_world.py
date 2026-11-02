@@ -518,13 +518,16 @@ def validate_shared_world(scene):
     _text(bridge["uncertainty_note"], "scale_bridge.uncertainty_note", 500)
 
     clock = frame["clock_binding"]
-    if not isinstance(clock, dict) or set(clock) != {
+    expected_clock_fields = {
         "control_dt_s",
         "physics_substeps",
         "source_fps",
         "source_time_offset_s",
         "alignment_method",
-    }:
+    }
+    if "native_clock" in human_spec:
+        expected_clock_fields.add("native_clock")
+    if not isinstance(clock, dict) or set(clock) != expected_clock_fields:
         raise ValueError("clock_binding fields differ from contract")
     if camera_world:
         clock["control_dt_s"] = _number(clock["control_dt_s"], "control_dt_s", result["dt"], result["dt"])
@@ -536,6 +539,14 @@ def validate_shared_world(scene):
     clock["source_fps"] = _number(clock["source_fps"], "source_fps", 5.0, 240.0)
     clock["source_time_offset_s"] = _number(clock["source_time_offset_s"], "source_time_offset_s", 0.0, 3600.0)
     _text(clock["alignment_method"], "clock_binding.alignment_method", 200)
+    if "native_clock" in human_spec:
+        if (canonical_hash(clock["native_clock"]) != canonical_hash(human_spec["native_clock"])
+                or clock["alignment_method"] != "native_pts_elapsed_time_v1"
+                or clock["source_fps"] != human_spec["native_clock"]["nominal_fps"]
+                or clock["source_time_offset_s"] != human_spec["reference"][0]["time_s"]):
+            raise ValueError("Native shared-world clock differs from the reconstructed body")
+    elif clock["alignment_method"] == "native_pts_elapsed_time_v1":
+        raise ValueError("Native clock alignment requires its reconstructed body binding")
 
     if human_only:
         if result["objects"] != [] or not isinstance(result["objects"], list):

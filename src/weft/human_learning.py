@@ -28,6 +28,8 @@ def policy_action(policy, observation):
 
 def train_human(spec, out, episodes=1500, eval_episodes=100, seed=1729, progress=None, selected_joint="left_knee"):
     spec = validate_human(spec)
+    if "native_clock" in spec:
+        raise ValueError("Native-clock learning requires the source-bound shared-exercise pipeline; this legacy learner does not preserve clock custody")
     if type(episodes) is not int or not 1 <= episodes <= 5000 or type(eval_episodes) is not int or not 1 <= eval_episodes <= 200:
         raise ValueError("Human training requires 1–5000 episodes and 1–200 evaluation episodes")
     if type(seed) is not int or not 0 <= seed < 2 ** 31 or selected_joint not in joint_contract(spec)[0]:

@@ -46,8 +46,15 @@ _HEX = re.compile(r"[0-9a-f]{64}")
 _ACTOR_FUNCTIONS = ("_trial", "_action", "phase_basis", "_coefficients")
 
 
-def _runtime_hashes():
-    return {name: digest(Path(__file__).parent / name) for name in POLICY_RUNTIME_FILES}
+def _runtime_hashes(scene=None):
+    names = POLICY_RUNTIME_FILES
+    if scene is not None and "native_clock" in scene.get("human_spec", {}):
+        names = (*names, "source_clock.py")
+    return {name: digest(Path(__file__).parent / name) for name in names}
+
+
+def _scene_runtime_hashes(scene):
+    return _runtime_hashes(scene) if "native_clock" in scene.get("human_spec", {}) else _runtime_hashes()
 
 
 def _finite(value):
@@ -131,7 +138,7 @@ def validate_shared_exercise_feasibility_policy(policy, scene, task):
             or policy["actor_algorithm"] != ACTOR_ALGORITHM or len(_bytes(policy)) > 64 * 1024):
         raise ValueError("Feasibility policy differs from its explicit v3 actor/trainer contract")
     actor._coefficients(policy["residual_coefficients"])
-    hashes = _runtime_hashes()
+    hashes = _scene_runtime_hashes(scene)
     if (policy["scene_sha256"] != canonical_hash(scene) or policy["task_sha256"] != canonical_hash(task)
             or policy["gates_sha256"] != GATES_SHA256 or policy["runtime_sha256"] != hashes
             or policy["evaluator_sha256"] != hashes["shared_exercise_task.py"] or policy["runtime_versions"] != _runtime_versions()):
@@ -191,7 +198,7 @@ def _verify_original(manifest_raw, files, deadline):
         raise ValueError("Person-only scenes require the v2 residual learner, not the v3 feasibility trainer")
     policy = _json(files["policy.json"])
     hashes = policy.get("runtime_sha256") if isinstance(policy, dict) else None
-    if not isinstance(hashes, dict) or set(hashes) != set(actor.POLICY_RUNTIME_FILES):
+    if not isinstance(hashes, dict) or set(hashes) != set(actor._scene_runtime_hashes(scene)):
         raise ValueError("Import requires the original v2 complete runtime closure")
     same = {}
     for name, expected in hashes.items():
@@ -207,7 +214,7 @@ def _verify_original(manifest_raw, files, deadline):
     original_ast = _actor_ast(files["implementation/shared_exercise_residual_learning.py"])
     if original_ast != _actor_ast(Path(actor.__file__).read_bytes()):
         raise ValueError("Imported and current actor ASTs differ")
-    metadata = SimpleNamespace(scene_sha256=canonical_hash(scene), task_sha256=canonical_hash(task),
+    metadata = SimpleNamespace(scene=scene, scene_sha256=canonical_hash(scene), task_sha256=canonical_hash(task),
         evaluator_sha256=hashes["shared_exercise_task.py"], action_names=scene["action_contract"]["names"][:count], task=task)
     coefficients = actor._coefficients(policy.get("residual_coefficients"))
     _integer(policy.get("training_seed"), "original training seed", 0, 2**31 - 1)
@@ -412,12 +419,12 @@ def train_shared_exercise_feasibility_policy(original_training_dir, out, *, max_
     scene, task, original_policy, old_settings, original, authored_score, proof = _verify_original(manifest_raw, files, deadline)
     source_proof = collect_shared_source_files(scene, source, expected_manifest_sha256=_sha(manifest_raw))
     source_proof.validate_layout(reserved_paths={ARCHIVE, "import-proof.json"})
-    hashes, horizon = _runtime_hashes(), task["interval"]["horizon_steps"]
+    hashes, horizon = _scene_runtime_hashes(scene), task["interval"]["horizon_steps"]
     maximum = MAX_NEW_EPISODES * horizon
     if maximum > MAX_NEW_CONTROL_STEPS or proof["imported_control_steps"] > MAX_IMPORTED_CONTROL_STEPS:
         raise ValueError("Feasibility refinement exceeds its new/imported action bounds")
     extra = {ARCHIVE + "/manifest.json": manifest_raw, **{ARCHIVE + "/" + name: raw for name, raw in files.items()},
-             "import-proof.json": _bytes(proof), **actor._source_views(source, manifest_raw)}
+             "import-proof.json": _bytes(proof), **actor._source_views(source, manifest_raw, scene)}
     _package(out, files["scene.json"], files["exercise-task.json"], manifest_raw, source_proof, extra=extra)
     writer = _Writer(out)
     settings = {"schema_version": 1, "algorithm": ALGORITHM, "actor_algorithm": ACTOR_ALGORITHM, "created_at": local_time(),
@@ -501,7 +508,7 @@ def train_shared_exercise_feasibility_policy(original_training_dir, out, *, max_
             "selected_reward_score": selected["score"], "selected_optimization_rank": selected["optimization_rank"]})
         training.update(active_candidates=[], completed_generations=2)
         actor._input_unchanged(source, manifest_raw, deadline)
-        if _runtime_hashes() != hashes:
+        if _scene_runtime_hashes(scene) != hashes:
             raise ValueError("Feasibility actor/evaluator/optimizer runtime changed during training")
         policy = _policy(env, selected, settings["seed"], hashes, proof)
         validate_shared_exercise_feasibility_policy(policy, scene, task)

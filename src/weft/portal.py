@@ -16,12 +16,13 @@ from urllib.parse import parse_qs, unquote, urlsplit
 from uuid import uuid4
 
 from weft.io import local_time, write_json
-from weft.lab import Lab, LabHandler, LabServer, PUBLIC_ASSETS
+from weft.lab import LabHandler, LabServer, PUBLIC_ASSETS
 from weft.lab_worker import atomic_json
 from weft.openai_access import MODEL, PROJECT_ROOT, OpenAIBudget, credential_status
 from weft.portal_review import TERMINAL as REVIEW_TERMINAL, availability as muse_availability
 from weft.portal_checks import TERMINAL as CHECK_TERMINAL
 from weft.portal_supports import body_path
+from weft.portal_lab_runtime import open_portal_lab
 
 MAX_UPLOAD = 100_000_000
 MAX_JOBS = 50
@@ -427,7 +428,7 @@ class Portal:
                 lab_path = (folder / self._status(identity).get("lab", "lab")).resolve()
                 if not lab_path.is_relative_to(folder):
                     raise ValueError("Sandbox path is outside this project")
-                lab = Lab(lab_path)
+                lab = open_portal_lab(lab_path, project=self.project)
                 lab.token = self.token
                 self.labs[identity] = lab
             self.labs.move_to_end(identity)

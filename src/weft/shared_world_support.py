@@ -175,6 +175,8 @@ def construct_static_support_run(body_source, config, out, *, max_seconds=30):
     if marker.get("source_sha256") != config["source_sha256"]:
         raise ValueError("Static-support config and body source video identities differ")
     implementation_names = list(IMPLEMENTATION_FILES)
+    if "native-clock.json" in inputs:
+        implementation_names.append("source_clock.py")
     if "pose-recovery.json" in inputs:
         from weft.pose_source_recovery import IMPLEMENTATION_FILES as RECOVERY_IMPLEMENTATION
         implementation_names.extend(RECOVERY_IMPLEMENTATION)
