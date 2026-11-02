@@ -569,22 +569,27 @@ unassisted balance. In the console, use `controls`, `record start`, `mode refere
 run `lab --resume` instead of `lab-console --resume`, then open the printed local
 address yourself.
 
-The newer three-camera reconstructed-body example is ready for full-body
-interaction, programmed-reference control and recording:
+The three-camera reconstructed-body example now includes a trained joint
+controller, full-body interaction and recording:
 
 ```sh
-PYTHONPATH="$PWD/.local/reconstructed-camera-source-01/runtime/src" \
+PYTHONPATH="$PWD/.local/reconstructed-camera-learning-01/runtime/src" \
   .venv-lab/bin/python -B -P -m weft lab-console \
-  --resume artifacts/reconstructed-camera-source-01/lab
+  --resume artifacts/reconstructed-camera-learning-01/lab
 ```
 
+Try `controls`, `mode learned`, `record start`, `step 6`, `reset 29`,
+`record stop`, then `record evidence`. Manual, coast and programmed-reference
+modes also work. For a graphical sandbox, replace `lab-console` with `lab` and
+open its printed local address yourself.
+
 It explicitly enables three virtual body-position forces alongside 19 joint
-motors. Its full 184-step programmed episode passes the original simulated
-tracking gates; 190 recorded actions replay exactly. A separate 12-action
-recording has a complete export/replay receipt. **No learned policy, unassisted
-balance, recovered equipment or physical contact accuracy is claimed.** The
-first export guard failure is preserved; reconstruction was not repeated.
-[Exact evidence, limits and next work](handoffs/reconstructed-camera-coupling.md).
+motors. Learned and programmed controls each pass all three changed-start
+trials; reward improves slightly, while some metrics worsen. The recording
+verifies all 190 actions, including 184 learned decisions, with a complete
+export/replay receipt. **This does not demonstrate unassisted balance, recovered
+equipment or physical contact accuracy.** The earlier untrained lab and export
+guard failure remain preserved. [Exact evidence and limits](handoffs/reconstructed-camera-learning.md).
 
 The saved jogging candidate is already available at
 `artifacts/camera-shared-admission-jog-01/candidate`; do not rebuild it merely to

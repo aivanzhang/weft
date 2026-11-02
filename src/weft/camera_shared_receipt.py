@@ -7,6 +7,10 @@ IDENTITIES = ("camera_coupling_sha256", "source_sha256", "body_sha256", "source_
               "metric_context_sha256", "kernel_evaluator_sha256", "adapter_implementation_sha256", "evaluator_sha256")
 IMPLEMENTATIONS = frozenset({"camera_shared_task.py", "camera_shared_state.py", "camera_shared_recording.py",
                              "camera_shared_receipt.py"})
+BODY_RUNTIME_FILES = (
+    "limb_position_fit.py", "constrained_stereo.py", "distal_pixel_fit.py", "multiview_distal_pixels.py",
+    "distal_depth_branches.py", "multiview_depth_branches.py", "joint_pixel_trajectory.py", "multiview_joint_pixels.py",
+)
 RUNTIME_REQUIRED = frozenset({
     "shared_exercise_task.py", "shared_exercise_reset.py", "shared_world.py", "shared_world_observation.py",
     "shared_world_evidence.py", "source_equivalence.py", "world_evidence.py", "observations.py", "human.py",
@@ -16,6 +20,13 @@ RUNTIME_REQUIRED = frozenset({
     "shared_exercise_recording.py", "recording.py",
     "shared_exercise_feet_state.py", "shared_exercise_feet_projection.py", "shared_support_task.py",
 }) | IMPLEMENTATIONS
+
+
+def runtime_required(scene):
+    # Saved receipts must pin reconstruction validators without importing native code.
+    coupling = scene.get("camera_coupling")
+    extra = BODY_RUNTIME_FILES if isinstance(coupling, dict) and coupling.get("profile") == "camera-shared-coupling-v2" else ()
+    return RUNTIME_REQUIRED | frozenset(extra)
 
 
 def saved_camera_bindings(scene, task, envelope, contract, native, members):
@@ -37,7 +48,7 @@ def saved_camera_bindings(scene, task, envelope, contract, native, members):
              and not any(key in document for document in (scene, task, contract)
                          for key in ("avatar", "avatar_asset", "avatar_sha256", "learned_policy", "exercise_policy")),
              "Camera receipt cannot claim unqualified learning or appearance")
-    _require(RUNTIME_REQUIRED <= native.keys(), "Camera runtime lacks its complete versioned recording dependency closure")
+    _require(runtime_required(scene) <= native.keys(), "Camera runtime lacks its complete versioned recording dependency closure")
     pins = {key: _hash(task.get(key)) for key in IDENTITIES}
     coupling, body, context = scene.get("camera_coupling"), scene.get("human_spec"), task.get("metric_context")
     _require(isinstance(coupling, dict) and isinstance(body, dict) and isinstance(context, dict),

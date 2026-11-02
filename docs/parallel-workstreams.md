@@ -71,6 +71,12 @@ covers two/three/four views, input tampering, missing observations, native
 parameters/geometry, floor rejection and exact recording/replay. Root owns
 both sides of this interface. [Results and remaining work](handoffs/reconstructed-camera-coupling.md).
 
+The same reconstructed bodies now support the existing external joint-feedback
+learner and policy lab/recordings. Pure receipt and policy admission inventories
+include the exact v2 body validators; v1 requirements and all actor/scorer/physics
+arithmetic remain unchanged. Root owns both sides. [Verification, playable
+command and next unfamiliar clip](handoffs/reconstructed-camera-learning.md).
+
 ### A: exclusive implementation area
 
 `src/weft/*vision.py`, `observations.py`, `segmentation_evidence.py`, `segmentation_masks.py`, `segmentation_observations.py`, `surface_features.py`, `feature_tracks.py`, `regional_features.py`, `joint_tracking.py`, `pose_*`, camera/triangulation/correspondence modules, and source-derived reconstruction/fit studies. Corresponding source-label metadata, focused tests and study docs belong to A.

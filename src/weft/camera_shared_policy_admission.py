@@ -10,6 +10,7 @@ from weft import camera_shared_policy as actor
 from weft.camera_shared_policy_receipt import (
     ADMISSION_PROFILE, ALLOWED_CHANGED_FILES, COMPATIBILITY_PROFILE, EXECUTION_RUNTIME_REQUIRED,
     ORIGINAL_RUNTIME_REQUIRED, SCOPE, _json, _runtime,
+    policy_runtime_requirements,
     validate_camera_policy_admission as validate_saved_admission,
 )
 from weft.camera_shared_receipt import IDENTITIES
@@ -36,8 +37,9 @@ def _runtime_sources(scene):
     _require(isinstance(scene, dict) and scene.get("profile") == "shared-world-v6",
              "Camera policy execution requires its actual camera world")
     root, total, sources = Path(__file__).parent, 0, {}
-    _require(len(EXECUTION_RUNTIME_REQUIRED) <= 96, "Camera execution runtime exceeds its file bound")
-    for name in sorted(EXECUTION_RUNTIME_REQUIRED):
+    _, required = policy_runtime_requirements(scene)
+    _require(len(required) <= 96, "Camera execution runtime exceeds its file bound")
+    for name in sorted(required):
         path = root / name
         _require(path.is_file() and not path.is_symlink(), "Camera execution runtime needs regular source files")
         size = path.stat().st_size
@@ -118,9 +120,10 @@ def _bounded_package(manifest_raw, files):
         _require(total <= 128 << 20, "Camera admission evidence exceeds 128 MiB")
 
 
-def _compatibility(policy, files, sources):
+def _compatibility(policy, files, sources, scene):
     old = _runtime(policy.get("runtime_sha256"))
-    _require(ORIGINAL_RUNTIME_REQUIRED <= old.keys() <= EXECUTION_RUNTIME_REQUIRED,
+    original_required, execution_required = policy_runtime_requirements(scene)
+    _require(original_required <= old.keys() <= execution_required,
              "Camera policy original runtime dependency closure differs")
     current = {name: sha256(raw).hexdigest() for name, raw in sources.items()}
     changed = {name: {"original_sha256": pin, "current_sha256": current[name]}
@@ -149,7 +152,7 @@ def prepare_camera_policy_admission(scene, task, *, training_manifest_raw, train
     policy_raw = training_files.get("policy.json")
     policy = _json(policy_raw)
     sources = _runtime_sources(scene)
-    current, compatibility = _compatibility(policy, training_files, sources)
+    current, compatibility = _compatibility(policy, training_files, sources, scene)
     _check_deadline(deadline)
     if evaluation_files is None:
         verify_camera_shared_training(training_manifest_raw, training_files, scene, task, deadline=deadline,

@@ -6,7 +6,7 @@ import json
 import math
 import re
 
-from weft.camera_shared_receipt import IDENTITIES, RUNTIME_REQUIRED
+from weft.camera_shared_receipt import IDENTITIES, RUNTIME_REQUIRED, runtime_required
 
 
 PROFILE = "camera-shared-policy-recording-v1"
@@ -29,6 +29,11 @@ ALLOWED_CHANGED_FILES = ("camera_shared_learning.py", "recording.py", "shared_ex
 SCOPE = ("External bounded-search controller with unchanged source/task qualification; exact actor/physics/scorer "
          "closure, explicitly versioned integration adapters; not physical validation.")
 MAX_ADMISSION_BYTES = 128 << 10
+
+
+def policy_runtime_requirements(scene):
+    extra = runtime_required(scene) - RUNTIME_REQUIRED
+    return ORIGINAL_RUNTIME_REQUIRED | extra, EXECUTION_RUNTIME_REQUIRED | extra
 
 
 def _require(condition, message):
@@ -165,8 +170,9 @@ def validate_camera_policy_admission(admission, scene, task, *, policy_document=
              and admission["privileged_simulator_features"] is True and admission["scope"] == SCOPE,
              "Camera policy admission profile or qualification differs")
     old, current = _runtime(admission["original_runtime_sha256"]), _runtime(admission["execution_runtime_sha256"])
-    _require(ORIGINAL_RUNTIME_REQUIRED <= old.keys() <= EXECUTION_RUNTIME_REQUIRED
-             and current.keys() == EXECUTION_RUNTIME_REQUIRED, "Camera policy runtime dependency closure differs")
+    original_required, execution_required = policy_runtime_requirements(scene)
+    _require(original_required <= old.keys() <= execution_required
+             and current.keys() == execution_required, "Camera policy runtime dependency closure differs")
     if execution_runtime_sha256 is not None:
         _require(_runtime(execution_runtime_sha256) == current, "Camera policy execution runtime differs from the lab")
     versions = _versions(admission["runtime_versions"])

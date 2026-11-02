@@ -260,3 +260,60 @@ def test_reconstructed_body_cannot_skip_initial_floor_gate(inputs):
         with pytest.raises(ValueError, match='intersect'): env.reset(seed=7, options={'jitter': False})
     finally: env.close()
     assert canonical_hash(scene) == pin
+
+
+@pytest.mark.parametrize('assisted', [False, True])
+def test_reconstructed_learning_evaluation_lab_and_policy_replay(joint_input, tmp_path, assisted):
+    from weft.camera_shared_learning import train_camera_shared_policy, evaluate_camera_shared_policy
+    from weft.camera_shared_policy_recording import verify_action_replay as verify_policy_replay
+    from weft.lab import Lab
+
+    body, files = joint_input
+    source = package(tmp_path/'source', files)
+    candidate_path, untrained = tmp_path/'candidate', tmp_path/'untrained'
+    assert candidate.prepare_camera_shared_candidate(source, candidate_path)['status'] == 'constructed'
+    prepare_shared_exercise_lab(candidate_path, untrained, root_assistance=assisted)
+    run = untrained/'run'
+    source_pin = verify_artifacts(run)
+    trained, evaluated, playable = (tmp_path/name for name in ('trained', 'evaluated', 'playable'))
+    train_camera_shared_policy(run, trained, seed=26371, generations=1, population=4)
+    comparison = evaluate_camera_shared_policy(trained, evaluated, seed=39127, trials=2)
+    assert comparison['comparison_complete'] and comparison['independent_changed_states'] == 2
+    assert set(comparison['controllers']) == {'coast', 'random', 'authored', 'learned'}
+    for directory in (trained, evaluated):
+        assert (directory/'scene.json').read_bytes() == (run/'scene.json').read_bytes()
+        assert (directory/'exercise-task.json').read_bytes() == (run/'exercise-task.json').read_bytes()
+    prepare_shared_exercise_lab(run, playable, policy_run=trained, evaluation_run=evaluated)
+    loaded = load_shared_exercise_lab(playable/'run')
+    admission = json.loads((playable/'run/camera-policy-admission.json').read_bytes())
+    assert set(BODY_RUNTIME_FILES) <= admission['original_runtime_sha256'].keys()
+    assert set(BODY_RUNTIME_FILES) <= admission['execution_runtime_sha256'].keys()
+    assert loaded['scene']['human_spec'] == body and loaded['contract']['learned_policy_available']
+    assert not loaded['scene']['learned_policy_available'] and loaded['task']['scope']['learning'] == 'unqualified'
+    from weft.camera_shared_policy_receipt import validate_camera_policy_admission
+    for name in BODY_RUNTIME_FILES:
+        for key in ('original_runtime_sha256', 'execution_runtime_sha256'):
+            missing = deepcopy(admission)
+            del missing[key][name]
+            with pytest.raises(ValueError, match='dependency closure'):
+                validate_camera_policy_admission(missing, loaded['scene'], loaded['task'])
+        changed = deepcopy(admission)
+        changed['execution_runtime_sha256'][name] = '0'*64
+        with pytest.raises(ValueError):
+            validate_camera_policy_admission(changed, loaded['scene'], loaded['task'])
+    lab = Lab(playable)
+    try:
+        session = lab.load_session()
+        assert session.policy is not None
+        lab.control('/api/record/start', {})
+        lab.control('/api/step', {'policy': True, 'steps': 3})
+        lab.control('/api/reset', {'seed': 29})
+        lab.control('/api/step', {'controller': 'coast', 'steps': 1})
+        stopped = lab.control('/api/record/stop', {})
+        result = lab.export_future.result(timeout=30)
+        assert result['recording_evidence']['status'] == 'available'
+        replay = verify_policy_replay(playable/'sessions'/stopped['directory'])
+        assert replay['exact_state_replay'] and replay['steps'] == 4 and replay['learned_actions_verified'] == 3
+    finally:
+        lab.close()
+    assert verify_artifacts(run) == source_pin

@@ -37,6 +37,11 @@ Choose manual or learned control where available, start movement, and use
 control, add `--console` to the exercise launcher or replace `lab` with
 `lab-console` in the other commands. [Controls and your own video](docs/local-lab.md).
 
+The [three-camera reconstructed-body lab](docs/handoffs/reconstructed-camera-learning.md#learning-comparison-and-playable-result)
+also supports manual and trained joint control, matched baseline comparisons,
+recording and exact replay. It uses explicit body-position assistance; it does
+not establish unassisted balance or physical contact accuracy.
+
 To compare original and fitted joint targets, use the
 [fitted-control sandbox](docs/local-lab.md#compare-a-fitted-reference-without-changing-the-task).
 It keeps the same body and task, shows the saved comparison, and records your

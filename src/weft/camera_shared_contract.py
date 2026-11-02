@@ -9,6 +9,7 @@ import math
 import time
 
 from weft.camera_body import ROOT_LIMIT, validate_camera_binding
+from weft.camera_shared_receipt import BODY_RUNTIME_FILES
 from weft.io import canonical_hash
 from weft.multiview_root import METHOD, METHODS as ROOT_METHODS, shape_hash
 from weft.multiview_body import METHODS as BODY_METHODS
@@ -16,10 +17,6 @@ from weft.multiview_body import METHODS as BODY_METHODS
 
 PROFILE = "camera-shared-coupling-v1"
 RECONSTRUCTED_PROFILE = "camera-shared-coupling-v2"
-BODY_RUNTIME_FILES = (
-    "limb_position_fit.py", "constrained_stereo.py", "distal_pixel_fit.py", "multiview_distal_pixels.py",
-    "distal_depth_branches.py", "multiview_depth_branches.py", "joint_pixel_trajectory.py", "multiview_joint_pixels.py",
-)
 SOURCE_CLOCK_PROFILE = "camera-shared-source-clock-v1"
 LENGTH_UNIT = "supplied_camera_metre_prior"
 MASS_UNIT = "authored_body_mass_prior"

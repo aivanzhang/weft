@@ -1,5 +1,35 @@
 # Combined Weft implementation handoff
 
+## Reconstructed-body learning — November 2, 2026, PST
+
+The existing learner now attaches to coupling v2 with every reconstruction
+validator pinned; v1, physics, scorer and optimizer behavior stay unchanged.
+**115 scoped checks pass**, including native roots-off/on training, evaluation,
+attachment, policy recording/replay and missing/changed-dependency rejection.
+
+One frozen exact-source study takes 24.118 s /610.3 MB and selects behavior-changing
+joint feedback. Learned and authored policies both pass 3/3 changed starts;
+mean reward .805921→.811256, with slightly worse mean root error, effort and
+penetration. No task-success gain or unassisted/physical claim. The original
+184-step /3.68-second task and all 188 source slots remain unchanged.
+
+`artifacts/reconstructed-camera-learning-01/lab` is playable with its pinned
+runtime. All **190 recorded actions /192 events**, including 184 learned
+decisions, replay exactly with an available export receipt. Saved-only audit
+verifies six seals /1,671 members. The 913-member lab run and ready status remain
+unchanged after close; real console resume/learned step/quit exits zero.
+[Commands, metrics, seals and limits](reconstructed-camera-learning.md).
+
+The next different motion, ASPset `04ac-0006`, is acquired under CC0 without
+whole-archive download. Three views have **185 verified frames each**, zero
+native/decoder offset; source and clock packages are sealed. Same subject/cameras,
+not a fresh final holdout or independent physical truth. No inference/reference
+coordinates/body fit on that clip yet. Next apply the frozen method with explicit
+source/ground/calibration assumptions and all missing slots; broader physical
+ground/equipment contact remains open. All root jobs are reaped, API cost $0.
+Preserve avatar renderer/test edits. The goal remains active; publication receipt
+is `.local/reconstructed-camera-learning-publication-01.json` after push.
+
 ## Reconstructed body in shared physics — November 2, 2026, PST
 
 The exact two-to-four-view reconstructed body can now enter shared-world-v6
