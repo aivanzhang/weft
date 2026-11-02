@@ -1,5 +1,58 @@
 # Combined Weft implementation handoff
 
+## Fixed root-only study closed — November 1, 2026, 5:03 PM PST
+
+The full goal remains active. Latest published main/origin checkpoint is
+**`7cbec9179a73aa8652bab59d507f83c5a0114785`**, independently remote-verified:
+correlated geometry, trusted auto-equipment launcher and saved timing evidence.
+Receipt `.local/correlated-geometry-launcher-publication-01.json`, SHA
+`07131bf31ab2a4ef68a09143e89ac70232461a5a4a9389554e2f767c7de977bd`.
+Standing approval covers verified exact-path publication without another question.
+Independent avatar edits remain untouched; do not blanket stage/reset/stash.
+
+The [fixed root-only study](equipment-feedback-root-pair-native.md) is now
+completed and independently audited from saved metadata. Both signs (+.08/−.08)
+finish both original 254-control starts but fail equipment stability in all four
+trials. Maximum normalized violations15.510233/15.610428 exceed the unchanged
+anchor6.499293; neither is an improvement. All body gates and `sam-3` pass.
+Every one of1,016 joint-action prefixes matches the original base from the same
+current state. Four/two actions have legal root clipping; persistent zero authority
+is not supported. No trained-policy artifact/default or full-task-success claim.
+
+Execution:5.214030 seconds /313,196,544 B;14 models,1 data,4 resets,1,028 forwards,
+16,256 substeps,0 copies. PID98323 is reaped; no native job remains. All336 saved
+members and four lossless journals were verified once by the frozen worker.
+Root independently recomputed all26 terms per candidate and custody/count joins
+from184,956 B of cached terminal metadata, with no repeat physics/source/journal
+read. Audit `.local/equipment-feedback-root-pair-native-01/saved-interpretation-01.json`,
+SHA `8c47f92638c8e6963aea599e64e37244ba3dc451ce7decae6a580a39d47aea91`.
+Peer review closed original harness numerics/bounds; agents then hit usage limits.
+Root closed the final completion-only metadata correction with seven pure cases;
+do not claim independent peer review of that exact delta. Do not rerun unchanged
+failed studies or retry agent usage-limit failures.
+
+The independent [four-source screen](exercise-source-readiness-04.md) also
+completed. BioCV has promising separate ground-force/marker measurements but
+requires explicit access/terms; SportsPose/UMPM require requests, and the former
+TUM Kitchen endpoint is inaccessible. Zero downloads/agreements/messages/paid
+calls; no new holdout or acquisition-ready unit. This does not block other work.
+
+Next root-owned product work: actual terminal interaction, recording/export and
+exact replay on the **new auto-frame lab**, whose short launcher has only
+metadata-startup acceptance so far. Preserve the canonical lab and use a new
+bounded output. The controller study above uses the **older different world**;
+no policy transfer, server/browser start or full-task inference is authorized by
+its result. User launch command remains:
+
+```sh
+.venv-lab/bin/python scripts/play_sandbox.py --example auto-equipment --console
+```
+
+This documentation checkpoint's remote identity belongs in
+`.local/equipment-root-pair-publication-01.json`. Full-task learning, reliable
+unfamiliar-video ground/equipment reconstruction and independent physical accuracy
+remain unfinished. No API/key/ledger operation, deployment or external submission.
+
 ## Correlated geometry and simple launch — November 1, 2026, 4:43 PM PST
 
 The full goal remains active. Standing approval covers merging/pushing relevant
