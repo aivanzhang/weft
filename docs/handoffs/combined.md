@@ -1,5 +1,36 @@
 # Combined Weft implementation handoff
 
+## Conditional stereo ground and body — November 1, 2026, PST
+
+The [manual stereo-ground workflow](aspset-ground-construction.md) is verified:
+`weft stereo-ground` preserves two source images, explicit point pairs, uncertainty
+assumptions, rejected geometry and a readable report. It returns source-bound
+camera/ground pairs only when its fixed construction checks pass. Three manual
+ASPset marker bases provide a conditional plane, not independent ground/gravity
+validation. Automatic grass matching rejected with zero matches and remains saved.
+
+The frozen plane now feeds an actual 47-reference two-view body lab. **One source
+pose and three control-grid poses fail** the unchanged 0.025 floor limit; maximum
+penetration 0.066662 at frame 80 /1.6 s. The failing left leg retains a monocular
+prior because knee/ankle evidence is missing. No body/floor tuning, default,
+learned policy or physical-accuracy promotion. All source slots and originals stay
+intact. Inspection: `artifacts/aspset-manual-ground-01/index.html`; manual candidate:
+`artifacts/aspset-camera-body-lab-02`.
+
+There are 121 distinct passing tests. Independent saved audit verifies 456 sealed
+members, 376 camera transforms/clocks, six marker projections, body/ground custody
+and saved failure aggregates. Calibration: 0.218618 s /121.9 MB; native body worker:
+1.162085 s /134.0 MB, four compilations /53 data allocations /253 static forwards,
+zero dynamics. One retained harness failure had an undersized preview-allocation
+allowance; only that allowance changed in the successful new run. Exact manifests,
+commands, implementation/runtime pins, audit and limits are in the linked handoff.
+
+All root-owned jobs are reaped; no API/key/ledger, inference, video decode, server
+or deployment. Publication receipt `.local/aspset-stereo-ground-publication-01.json`.
+Preserve active avatar edits. Next: new source support for the missing left limb
+(potentially the publisher's third view), not another unchanged floor/controller
+sweep. Full-goal ground/contact, learning and independent accuracy gates remain open.
+
 ## Explicit person regions on a new source — November 1, 2026, PST
 
 The [ASPset source, reusable person-region feature and calibrated comparison](aspset-source-readiness.md)

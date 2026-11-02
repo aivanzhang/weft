@@ -1,5 +1,10 @@
 # Weft local lab
 
+For two supplied calibrated views, [manual stereo-ground calibration](stereo-ground.md)
+provides source-image labels, uncertainty inspection and matching camera/ground
+files. It is an explicit additional-input path, not automatic single-video ground
+recovery. Its current new-source body still fails a floor check.
+
 Supply a local video, inspect each processing stage, interact with the generated environment, and record your actions. The CLI starts a loopback-only lab and prints its browser link. The default local workflow uploads no video and makes no paid call. Optional Meta tracking is a separate, explicitly budgeted path.
 
 For bodies and rigid objects in one simulator, use the [coupled 3D sandbox guide](shared-world.md). The shared scene binds body evidence and equipment masks to one source, with passive equipment proxies and verified recordings. Depth, materials and hand support remain unverified; it is not a recovered physical exercise.

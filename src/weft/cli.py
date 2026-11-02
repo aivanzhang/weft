@@ -185,6 +185,11 @@ def main():
     feet_build.add_argument("--run", required=True, help="Completed mobile exercise lab run/ directory")
     feet_build.add_argument("--out", required=True, help="New candidate directory outside the source run")
     feet_build.add_argument("--image-directions", action="store_true", help="Opt into bounded image-direction correction; remains unverified")
+    stereo_ground = commands.add_parser("stereo-ground", help="Estimate conditional ground from manual points in two calibrated source images")
+    stereo_ground.add_argument("--camera", action="append", required=True, help="Two source-bound camera JSON files, in annotation-view order")
+    stereo_ground.add_argument("--image", action="append", required=True, help="Two original-raster JPEG/PNG source frames, in the same order")
+    stereo_ground.add_argument("--annotations", required=True, help="Explicit point pairs, source/frame identities, partitions and pixel uncertainty")
+    stereo_ground.add_argument("--out", required=True, help="New calibration/report directory under an existing parent")
     floor_calibration = commands.add_parser("floor-calibrate", help="Check measured camera/floor references and retain nominal calibration alternatives")
     floor_calibration.add_argument("--observation", action="append", required=True, help="Exact source observation JSON; repeat up to eight times")
     floor_calibration.add_argument("--source-sha256", required=True, help="Original video SHA256 shared by the source observations")
@@ -607,6 +612,9 @@ def main():
         elif args.command == "feet-build":
             from weft.foot_candidate import build_candidate
             result = build_candidate(args.run, args.out, image_directions=args.image_directions)
+        elif args.command == "stereo-ground":
+            from weft.stereo_ground_package import prepare_stereo_ground
+            result = prepare_stereo_ground(args.camera, args.image, args.annotations, args.out)
         elif args.command == "floor-calibrate":
             from weft.floor_target_calibration_pipeline import prepare_floor_target_calibration_package
             labels = {"inputs": "Read source and measurements", "calibration": "Check camera and floor alternatives",
@@ -1110,6 +1118,8 @@ def main():
                 print("Proposal saved; viewer generation failed. Do not repeat fitting.\n"
                       "Recover the saved viewer with a new output directory:\n" + recovery, file=sys.stderr)
             parser.exit(1, f"weft: body proposal workflow failed; preserved result: {Path(args.out) / 'result.json'}\n")
+        if args.command == "stereo-ground" and result.get("status") != "conditional_plane":
+            parser.exit(1, f"weft: ground unavailable; inspect preserved labels and report: {args.out}\n")
         if args.command == "floor-calibrate":
             pin = result.get("manifest_sha256")
             if (result.get("profile") != "floor-target-calibration-package-v1" or result.get("sealed") is not True
