@@ -2,6 +2,8 @@
 
 ## Active work — November 1, 2026: generalized construction and equipment control
 
+- [x] Qualify the [saved reference–equipment overlap report](docs/handoffs/reference-equipment-overlap.md): 132 distinct scoped checks, actual public inspector and independent saved audit pass. **52/121 reference poses overlap `sam-2`, 115 contact records**; first source frame 42/time 1.4 s. All 30 sealed report members and 51 links verified; 0.241444 s /76,562,432 B, no native/media/physics work. Original preflight/task semantics and ready lab unchanged; this is not physical contact or successful learning.
+
 - [x] Diagnose the new automatic-world recording: first forearm/equipment boundary contact accompanies control-57 speed/spin failure; complete authored interval still fails `sam-2`. Saved-only inspection, no new physics/media. [Exact findings](docs/handoffs/automatic-equipment-contact-diagnosis.md).
 - [x] Implement and verify smooth temporal joint corrections: 30 pure checks, unchanged root bytes and ±.25 joint bound. Complete/audit eight fixed nominal-start interventions, all 254 controls each: **0/8 task success**, no default/policy promotion. All 2,032 saved residual decisions and 117 original gate comparisons pass; the failures are retained. [Contract, bounds and results](docs/handoffs/temporal-arm-control.md).
 - [ ] Resolve source-qualified body/equipment geometry and contact evidence; do not repeat failed fixed controller sweeps or call a weak one-start rank gain successful learning. Preserve the usable lab and complete generalized-video goal.

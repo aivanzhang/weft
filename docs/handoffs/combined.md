@@ -1,5 +1,30 @@
 # Combined Weft implementation handoff
 
+## Reference-overlap inspection verified — November 1, 2026, 6:13 PM PST
+
+This turn makes concrete progress: the [integrated offline diagnostic](reference-equipment-overlap.md)
+passes 132 distinct scoped checks and actual saved-build acceptance. Independent
+saved arithmetic confirms **52/121 reference poses overlap `sam-2`, 115 negative
+contact records**, first source frame 42 at declared time 1.4 s. The original
+floor/static/initial-placement preflight still reports its narrower feasible result;
+the report no longer implies it checked later dynamic-equipment clearance.
+
+Open `artifacts/reference-equipment-inspection-01/inspection/index.html`. All 30
+sealed report members, 28 copied build artifacts and 51 local links are verified.
+Acceptance took 0.241444 s /76,562,432 B high-water RSS; PID 9415 is reaped.
+No native/media imports, physics, source-proof rerun, API, deployment or server.
+This is a reconstruction consistency finding, not physical contact/load truth or
+proof of control infeasibility. The usable lab and original task/scorer stay exact.
+
+Root owns the eight-file report/guide/handoff checkpoint and exact-path publication;
+identity will be in `.local/reference-equipment-publication-01.json`. Peer agents
+remain at usage limits; no peer review claim. Independent avatar changes are
+untouched. Preserve the two harness-blocked import-test attempts; both exact
+fresh-process assertions subsequently passed with no native imports. Previous
+turn was progress (`a90d97d` published); the full goal remains active. Next work
+must address source-qualified joint body/equipment geometry, not repeat the old
+rejected arm fit or temporal sweeps; see the linked handoff for exact prior evidence.
+
 ## Temporal control study closed — November 1, 2026, 5:40 PM PST
 
 This turn made progress: [new-world saved contact diagnosis](automatic-equipment-contact-diagnosis.md),

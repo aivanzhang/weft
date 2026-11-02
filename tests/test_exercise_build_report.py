@@ -347,7 +347,7 @@ def test_feasibility_does_not_mislabel_static_or_initial_conflicts_as_floor_fail
     assert value["status"] == ("feasible" if failure == "none" else "infeasible")
     html = (tmp_path / "report/index.html").read_text()
     assert "Estimated motion intersects" not in html
-    assert ("Saved motion geometry checks passed" if failure == "none" else "Saved geometry overlaps remain") in html
+    assert ("Saved floor/static and initial-placement checks passed" if failure == "none" else "Saved geometry overlaps remain") in html
     assert "not establish dynamic stability, balance" in html
 
 

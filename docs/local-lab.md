@@ -1322,6 +1322,14 @@ Older labs and recordings are unchanged. Their exact runtime pins intentionally 
 
 A shared exercise build can now be inspected even when it stops before creating a lab. Use [`shared-exercise-inspect`](equipment-proposals.md#inspect-a-completed-or-stopped-build) to make a local HTML report with the original video, pose previews, completed/stopped stages and preserved failure; no server or rerun is needed.
 
+The report also separates **reference poses overlapping equipment** from controller
+failures. It checks saved kinematic collision records without running physics or
+changing the task. The [verified automatic-world report](../artifacts/reference-equipment-inspection-01/inspection/index.html)
+shows 52 of 121 reference poses overlapping `sam-2`; the earlier preflight checked
+floor/static geometry and only initial equipment placement. These are assumed
+collision shapes, not measured anatomical contact. Counts, source-frame identities,
+limitations and exact reference/scene downloads are visible in the report.
+
 ## Try the saved exercise run
 
 From the repository root:

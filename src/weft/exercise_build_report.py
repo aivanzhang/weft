@@ -15,7 +15,7 @@ import re
 import stat
 import time
 
-from weft import evidence_scorecard
+from weft import evidence_scorecard, reference_equipment_report
 from weft.exercise_coverage import summarize_coverage
 from weft.io import canonical_hash, local_time
 from weft.lab_inspection import _open as _open_member, _pairs, _nonfinite, _float
@@ -392,6 +392,64 @@ def _selection(source):
     if len(chosen) > MAX_COPIED_FILES:
         raise ValueError("Selected inspection artifacts exceed the file bound")
     return chosen, body_prefix, video
+
+
+def _reference_equipment_paths(source):
+    if source.receipt_only:
+        return {}
+    prefixes = [prefix for prefix in ("learning_workflow/lab/run", "lab/run")
+                if prefix + "/human-reference.json" in source.files]
+    if not prefixes:
+        return {}
+    names = {"scene.json": "Exact lab scene for reference overlap inspection",
+             "human-reference.json": "Complete saved kinematic poses and collision records — not physical contact",
+             "exercise-lab.json": "Lab identity binding for saved reference inspection"}
+    for name in names:
+        if any(prefix + "/" + name not in source.files for prefix in prefixes):
+            raise ValueError("Saved reference inspection requires the matching lab scene and contract")
+        if len({source.files[prefix + "/" + name] for prefix in prefixes}) != 1:
+            raise ValueError("Saved lab reference inputs disagree; no automatic preference")
+    return {prefixes[0] + "/" + name: label for name, label in names.items()}
+
+
+def _reference_equipment(source, source_sha256=None):
+    paths = _reference_equipment_paths(source)
+    if not paths:
+        return {"status": "unavailable", "physical_validation": "unverified",
+                "reason": "No sealed complete lab reference poses were retained; equipment clearance during the reference is unknown."}
+    needed = 0
+    for name in paths:
+        if name in source.documents:
+            continue
+        fd = _open_member(source.fd, name)
+        try:
+            size = os.fstat(fd).st_size
+        finally:
+            os.close(fd)
+        if size > MAX_JSON_BYTES:
+            return {"status": "unavailable", "physical_validation": "unverified",
+                    "reason": "Complete reference inputs exceed the bounded metadata reader; no poses were sampled or clipped."}
+        needed += size
+    if needed > MAX_METADATA_BYTES - source.consumed:
+        return {"status": "unavailable", "physical_validation": "unverified",
+                "reason": "Complete reference inputs exceed the remaining report metadata budget; no partial overlap count was inferred."}
+    scene_name, reference_name, contract_name = paths
+    scene = source.document(scene_name, required=True)
+    contract = source.document(contract_name, required=True)
+    scene_sha = canonical_hash(scene)
+    if (contract.get("profile") != "shared-world" or contract.get("schema_version") != 1
+            or type(contract["schema_version"]) is not int or contract.get("scene_sha256") != scene_sha
+            or source.result.get("scene_sha256", scene_sha) != scene_sha):
+        raise ValueError("Saved reference scene and lab/build identities differ")
+    value = reference_equipment_report.summarize_reference_equipment(scene,
+        source.document(reference_name, required=True), check=lambda: _check(source.deadline))
+    if (source_sha256 is not None and value["status"] != "unavailable"
+            and value["source_sha256"] != source_sha256):
+        raise ValueError("Saved reference and inspected video identities differ")
+    value.update(scene_artifact=scene_name, reference_artifact=reference_name, contract_artifact=contract_name,
+                 selected_members_sha256={name: source.files[name] for name in paths},
+                 implementation_sha256=_sha(Path(reference_equipment_report.__file__).read_bytes()))
+    return value
 
 
 def _diagnostic_paths(source, body_prefix):
@@ -829,6 +887,7 @@ def _summary(source, body_prefix, video):
         "media_sync_verified": False, "video_artifact": video,
         "work": {"video_decodes": 0, "inference_calls": 0, "physics_steps": 0, "training_episodes": 0, "api_calls": 0}}
     if source.receipt_only:
+        result["reference_equipment"] = _reference_equipment(source)
         result["reference_feasibility"] = _reference_feasibility(source)
         result["diagnostics"] = _pose_diagnostics(source, body_prefix, result["coverage"], stages)
         result["assumptions"] = ["Only the terminal failure receipt is sealed. Other preserved stage outputs are unverified and are not exposed."]
@@ -915,6 +974,8 @@ def _summary(source, body_prefix, video):
     result["requested_options"] = _small_fields(settings, ("scene_scope", "pose_recovery", "body_scale", "body_scale_scope", "root_assistance", "full_reference", "training"))
     result["learning"] = _learning_summary(source, settings)
     result["reference_feasibility"] = _reference_feasibility(source,
+        result["source"].get("sha256", result["coverage"].get("source_sha256")))
+    result["reference_equipment"] = _reference_equipment(source,
         result["source"].get("sha256", result["coverage"].get("source_sha256")))
     return result
 
@@ -1095,7 +1156,7 @@ def _render(summary, artifacts, palette):
         elif feasibility["status"] == "infeasible":
             heading = "Saved geometry overlaps remain"
         else:
-            heading = "Saved motion geometry checks passed"
+            heading = "Saved floor/static and initial-placement checks passed"
         if summary["build_status"] == "ready" and feasibility["status"] == "infeasible":
             label = "Sandbox prepared; motion geometry checks failed"
         check_rows = ''.join('<tr><th scope="row">' + title + '</th><td>' + str(feasibility[kind]["checks"])
@@ -1105,7 +1166,8 @@ def _render(summary, artifacts, palette):
         audit_link = by_name[feasibility["audit_artifact"]]
         feasibility_html = (f'<aside class="notice"><h3>{heading}</h3>'
             '<p>This saved preflight checks estimated body geometry against the assumed ground and static objects. '
-            'It covers the complete saved reference, even when the task uses a shorter interval.</p>'
+            'It covers the complete saved reference, even when the task uses a shorter interval. '
+            'Dynamic equipment is checked only at initial placement, not throughout the reference.</p>'
             '<table><thead><tr><th>Check set</th><th>Poses checked</th><th>Over floor limit</th>'
             '<th>Failed any geometry check</th></tr></thead><tbody>' + check_rows + '</tbody></table>'
             f'<p>Maximum ground penetration: <strong>{feasibility["max_penetration_model_units"]:.8g} model units</strong>; '
@@ -1118,6 +1180,28 @@ def _render(summary, artifacts, palette):
             'these results are not an anatomical diagnosis. Lab availability is unchanged.</p><p>'
             + link(audit_link) + '</p><details><summary>Saved geometry counts, identities and failure examples</summary>'
             + dump(feasibility) + '</details></aside>')
+    reference_equipment = summary.get("reference_equipment", {"status": "unavailable",
+        "reason": "No saved reference-equipment inspection is available."})
+    if reference_equipment["status"] == "unavailable":
+        equipment_overlap_html = '<aside class="notice"><h3>Reference-equipment overlap unavailable</h3><p>' + text(reference_equipment["reason"]) + '</p></aside>'
+    else:
+        overlaps = reference_equipment["poses_with_equipment_overlap"]
+        title = "Reference poses overlap the equipment" if overlaps else "No equipment overlap recorded at saved reference poses"
+        if overlaps and ready:
+            label = "Sandbox prepared; reference overlaps equipment"
+        overlap_rows = ''.join('<tr><th scope="row">' + text(row["object_id"]) + '</th><td>'
+            + str(row["poses_with_overlap"]) + '</td><td>' + format(row["max_penetration_model_units"], '.8g')
+            + '</td><td>' + ("—" if row["first_overlap"] is None else
+                text(row["first_overlap"]["source_frame"] if row["first_overlap"]["source_frame"] is not None else "No source frame")
+                + " / " + format(row["first_overlap"]["source_time_s"], '.8g') + " s") + '</td></tr>'
+            for row in reference_equipment["objects"])
+        equipment_overlap_html = '<aside class="notice"><h3>' + title + '</h3><p><strong>' + str(overlaps) + ' of '
+        equipment_overlap_html += str(reference_equipment["reference_poses"]) + ' saved reference poses</strong> overlap the fixed equipment before any action is applied. '
+        equipment_overlap_html += 'Check body pose, camera assumptions and equipment geometry together before treating this as only a controller problem.</p>'
+        equipment_overlap_html += '<table><thead><tr><th>Equipment</th><th>Overlapping poses</th><th>Largest penetration (model units)</th><th>First source frame / reference time</th></tr></thead><tbody>' + overlap_rows + '</tbody></table>'
+        equipment_overlap_html += '<p>' + text(reference_equipment["scope"]) + '</p><p>' + text(reference_equipment["clock_scope"]) + '. Model units are not measured metres.</p><p>'
+        equipment_overlap_html += ' · '.join(link(by_name[reference_equipment[key]]) for key in ("reference_artifact", "scene_artifact", "contract_artifact"))
+        equipment_overlap_html += '</p><details><summary>Exact saved overlap counts, identities and examples</summary>' + dump(reference_equipment) + '</details></aside>'
     diagnostic = summary.get("diagnostics", {})
     diagnostic_html = ""
     if diagnostic.get("status") == "saved_quality_rejected":
@@ -1245,7 +1329,7 @@ body{margin:0;background:var(--weft-canvas);color:var(--weft-ink);font:16px/1.55
     return f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' file:; media-src 'self' file:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>Weft · Build inspection</title><style>{css}</style></head><body><main>
-<header><p class="tag">weft · saved build inspection</p><h1>What happened in this build</h1><p><strong>{text(label)}</strong></p><p>{availability}</p>{receipt}{feasibility_html}
+<header><p class="tag">weft · saved build inspection</p><h1>What happened in this build</h1><p><strong>{text(label)}</strong></p><p>{availability}</p>{receipt}{feasibility_html}{equipment_overlap_html}
 <nav><a href="#stages">Stages</a><a href="#original">Original video</a><a href="#body">Body evidence</a><a href="#equipment">Equipment</a><a href="#evidence">Evidence and gaps</a><a href="#artifacts">Artifacts</a></nav></header>
 <section id="stages"><h2>1. Completed, stopped, and not run</h2><table><thead><tr><th>Step</th><th>State</th><th>Elapsed seconds</th></tr></thead><tbody>{rows}</tbody></table>{diagnostic_html}<h3>Saved outcome</h3>{reasons}<p>Collision-shape identifiers are shown exactly as recorded; they are not a diagnosis of anatomical contact.</p><details><summary>Recorded stage events</summary>{dump(summary["stage_history"])}</details></section>
 <section id="original"><h2>2. Original video</h2>{media}<p>Playback uses the copied original. This report does not decode, synchronize, or seek video to inferred pose or equipment times.</p><details><summary>Source identity, attribution and rights</summary>{source}</details></section>
@@ -1316,6 +1400,8 @@ def prepare_exercise_build_report(run, out, *, max_seconds=30, pixel_support=Non
     try:
         chosen, body_prefix, video = _selection(source)
         summary = _summary(source, body_prefix, video)
+        if "selected_members_sha256" in summary["reference_equipment"]:
+            chosen.update({name: ("World", label) for name, label in _reference_equipment_paths(source).items()})
         if pixel_support is not None:
             from weft.pose_pixel_support_package import load_pose_pixel_support
 
