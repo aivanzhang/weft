@@ -1,0 +1,109 @@
+{
+  "correspondence": "outputs/panda-shoulder-uv-repair-v2/correspondence.npz",
+  "git_head": "dbdd7e2",
+  "hypothesis": "Exact current source contract and conservative budget audit; hold full control on source UV1 tangent export fidelity.",
+  "inputs": [
+    {
+      "bytes": 28080560,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "bytes": 26414540,
+      "path": "outputs/companion-separation-v7/diagnostic-model.glb",
+      "sha256": "734ebdbbd06c0428a57f817d1a5deed8ff7078016ab262abb313513d94f293ca"
+    },
+    {
+      "bytes": 37425,
+      "path": "outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+      "sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d"
+    },
+    {
+      "bytes": 82057,
+      "path": "outputs/panda-staged-fringe-v1/prepared-finish-report.json",
+      "sha256": "6e096139f5509ecc0d5149ebbaefce30c3d26d52645394cf6711a3dc2f8a7f37"
+    },
+    {
+      "bytes": 298853,
+      "path": "outputs/panda-shoulder-uv-repair-v2/correspondence.npz",
+      "sha256": "f17f64f2fff0f42648e6cead3dc9f8ec1d53f306c54b7a8f9948f1cab5c982c7"
+    },
+    {
+      "bytes": 3863,
+      "path": "outputs/panda-shoulder-uv-repair-v2/report.json",
+      "sha256": "a728183aac635d8de8be4d8efdc7fdd41548e7cb2056697e4668ebf6042b8142"
+    },
+    {
+      "bytes": 31845,
+      "path": "avatar_assets/finish_generated.py",
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4"
+    },
+    {
+      "bytes": 52685,
+      "path": "scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13"
+    },
+    {
+      "bytes": 40912,
+      "path": "scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "bytes": 17397,
+      "path": "scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9"
+    },
+    {
+      "bytes": 14944,
+      "path": "scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446"
+    },
+    {
+      "bytes": 5789,
+      "path": "scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e"
+    },
+    {
+      "bytes": 20746,
+      "path": "scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 86294,
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+    },
+    {
+      "bytes": 17158,
+      "path": "outputs/panda-latest-source-control-audit-v1/audit.py",
+      "sha256": "abbfcdccc4e4f8b10cf4731fc85d0cccdde59c635da361192fece0d0540b0c9c"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "native_calls": 0,
+    "output_mib": 16,
+    "paid_calls": 0,
+    "rss_mib": 256,
+    "texture_decodes": 0,
+    "wall_seconds": 30
+  },
+  "original_source": "outputs/companion-separation-v7/diagnostic-model.glb",
+  "quality_approved": false,
+  "recorded_local": "2026-11-02 01:29:49 PST",
+  "schema_version": 1,
+  "source": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "staged_config": "outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+  "staged_report": "outputs/panda-staged-fringe-v1/prepared-finish-report.json"
+}

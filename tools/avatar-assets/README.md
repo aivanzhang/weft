@@ -6,6 +6,11 @@ Local workflow for editable, rigged 3D avatars and their 2D portrait/animation e
 Consistently hands-off Muse-level quality and a successful real Studio delivery
 remain unfinished. The latest [texture-preserving undercoat improvement](docs/undercoat-uv2-preservation.md)
 passes component checks; it is not a newly accepted avatar.
+The subsequent [actual-source control](docs/source-uv-control.md) builds a rigged
+furred GLB and passes independent skin/texture-frame checks, but its eight rendered
+views/poses still expose folded shoulder/cheek geometry. It remains unapproved.
+The reusable pre-export guard now rejects unsupported normal-texture UV routes;
+passing that check is not visual acceptance.
 
 ## Create from a prompt — studio acceptance pending
 

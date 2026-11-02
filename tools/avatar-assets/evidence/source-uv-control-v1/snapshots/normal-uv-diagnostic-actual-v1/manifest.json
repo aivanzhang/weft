@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "status": "sealed",
+  "artifacts": [
+    {
+      "path": "authored-fixture/manifest.json",
+      "bytes": 309,
+      "sha256": "9d33ff05d9a8589ed00ac2271df23b68920bfb5c4e77dc04ea58c8267d3cb11d"
+    },
+    {
+      "path": "authored-fixture/normal-uv-export.json",
+      "bytes": 5153,
+      "sha256": "5c74be9fe30e063285b1f63a3b2789ac3f7e05f7cb118d0d0a950e8af3fb7cd7"
+    },
+    {
+      "path": "check-handle.json",
+      "bytes": 235,
+      "sha256": "912b72996d9b4300a7fdf405dcbae4eacdbd7db3bad0887dedf45959314cf580"
+    },
+    {
+      "path": "check-monitor.json",
+      "bytes": 972,
+      "sha256": "2d19a6e0779d6daa5601fe9c0f26f77039b5edfb037147366e94da2facd4fc73"
+    },
+    {
+      "path": "check.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "check.py",
+      "bytes": 2931,
+      "sha256": "51dc9d22fbcfef55492554ce9a30bd2493663ca08f00e13705e2557749c580f7"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 1108,
+      "sha256": "658e4619ddf09e0f633b0e54e1ef4acdc236819005381499606ebae425cae59f"
+    },
+    {
+      "path": "job.json",
+      "bytes": 1060,
+      "sha256": "25ddc6eac94cd8cc16a77c16e8c2dd5e3c48aeed526449bfb9dfe7979907b7e3"
+    },
+    {
+      "path": "original-fixture/manifest.json",
+      "bytes": 309,
+      "sha256": "cfe406fb0929af96f1e0c9b960622815bf391c05e91e7dbe7b9eaa52e65f4e89"
+    },
+    {
+      "path": "original-fixture/normal-uv-export.json",
+      "bytes": 2159,
+      "sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 554,
+      "sha256": "6a8cdafb3176cb13a5fc43e2fd8245681c1d56207e0d3e29d8db597bbdc80f56"
+    },
+    {
+      "path": "result.json",
+      "bytes": 2376,
+      "sha256": "01f7c2e80fea80c39450bff8069f28237eebf8ca527de98b7b4f7744930dbf61"
+    },
+    {
+      "path": "sources/avatar_assets/pipeline.py",
+      "bytes": 65827,
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/scripts/normal_uv_export.py",
+      "bytes": 9560,
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    }
+  ],
+  "total_bytes": 103974,
+  "originals_unchanged": true,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "ai_role_calls": 0,
+  "quality_accepted": false
+}

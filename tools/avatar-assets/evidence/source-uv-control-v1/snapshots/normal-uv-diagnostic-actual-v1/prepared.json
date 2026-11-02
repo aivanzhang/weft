@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-uv-diagnostic-actual-v1/check.py"
+  ],
+  "checker_sha256": "51dc9d22fbcfef55492554ce9a30bd2493663ca08f00e13705e2557749c580f7",
+  "input_receipt_sha256": "658e4619ddf09e0f633b0e54e1ef4acdc236819005381499606ebae425cae59f",
+  "limits": {
+    "seconds": 30,
+    "rss_mib": 512,
+    "output_mib": 8
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_ai_role_calls": 0
+}

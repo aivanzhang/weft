@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-coverage-independent-v1/check.py"
+  ],
+  "checker_sha256": "4ece657bbf19908e155e81d37f034d63b92b91395954077e798551fd4a8ab970",
+  "input_receipt_sha256": "64d1eed6f841d46cbfadde4e7a65d2128081eb92958c37f00c360ba508c775a7",
+  "limits": {
+    "seconds": 30,
+    "rss_mib": 512,
+    "output_mib": 16
+  },
+  "native_calls": 0,
+  "provider_calls": 0,
+  "quality_acceptance": false
+}

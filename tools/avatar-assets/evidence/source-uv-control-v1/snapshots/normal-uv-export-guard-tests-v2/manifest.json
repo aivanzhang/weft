@@ -1,0 +1,53 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1038,
+      "path": "job.json",
+      "sha256": "03fdfa9859eae6c63a3b22b2cd399f9f0d62c06e6daf8f39d4903bfd735df116"
+    },
+    {
+      "bytes": 1182,
+      "path": "prepared.json",
+      "sha256": "c92d70101741ae81650999057cf917b6937f643d462c902f3357371190bffe63"
+    },
+    {
+      "bytes": 569,
+      "path": "source-verification.json",
+      "sha256": "efd56a4072595bd8778d9c5686378def85a5037f64d906a4a63f24b08b943087"
+    },
+    {
+      "bytes": 10304,
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14969,
+      "path": "sources/tests/test_normal_uv_export.py",
+      "sha256": "b533cc08a24742b1d67552e95d33a31e3df79b775b9dbb3880359dfa724bdab7"
+    },
+    {
+      "bytes": 199,
+      "path": "tests-handle.json",
+      "sha256": "e8c1865d848cb743509762444ca043de88ab62b27120c8d623edd3e971500003"
+    },
+    {
+      "bytes": 934,
+      "path": "tests-monitor.json",
+      "sha256": "b0ff1cd7a5f35d5e5c8ad9ad0766aec32e9a57e6c90b4e664d9b190397cee40d"
+    },
+    {
+      "bytes": 3793,
+      "path": "tests.log",
+      "sha256": "cc8ee71e7743156b6c44c793c1a3d3bb519392cc01e1fa80998be43711997b43"
+    }
+  ],
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "focused_tests_passed"
+}

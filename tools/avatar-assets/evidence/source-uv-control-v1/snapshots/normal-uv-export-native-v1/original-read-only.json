@@ -1,0 +1,1529 @@
+{
+  "after_sha256": "2ff384dbb39cae25273fb03212c9ba91cff1a1b7417a6d56b7e15568e7697060",
+  "before": {
+    "objects": [
+      {
+        "active_uv": 0,
+        "corner_normals": "86e24dc6b5ad2f6659c7a2c81a72fce7fb76bcc56f656b5220343a1f0f05a820",
+        "indices": "e963e46c1a8b8f8954014f12190b1a17676bc93898c4f4853c5a34d4a56edeb4",
+        "material_indices": "9c583b963e324314b1f0904c047085d96282157a1725d388a2ba309a4bc30b0c",
+        "materials": [
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ],
+              [
+                "Separate Color",
+                "Blue",
+                "Principled BSDF",
+                "Metallic",
+                true
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness",
+                true
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color",
+                true
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal",
+                true
+              ],
+              [
+                "Image Texture.002",
+                "Color",
+                "Normal Map",
+                "Color",
+                true
+              ]
+            ],
+            "name": "body_surface",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "inputs": [
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Separate Color",
+                "type": "SEPARATE_COLOR"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_1",
+                  "packed_sha256": "584da6f768206620a99c333e612d5353f4cba1ae18358c931dabd9de9ac8b415",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.001",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "inputs": [
+                  [
+                    "Strength",
+                    "1.0"
+                  ],
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Normal Map",
+                "space": "TANGENT",
+                "type": "NORMAL_MAP",
+                "uv_map": "UVMap"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "normal",
+                  "packed_sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.002",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              }
+            ],
+            "use_nodes": true
+          },
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ],
+              [
+                "Separate Color",
+                "Blue",
+                "Principled BSDF",
+                "Metallic",
+                true
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness",
+                true
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color",
+                true
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal",
+                true
+              ],
+              [
+                "Image Texture.002",
+                "Color",
+                "Normal Map",
+                "Color",
+                true
+              ]
+            ],
+            "name": "companion_surface",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "inputs": [
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Separate Color",
+                "type": "SEPARATE_COLOR"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_1",
+                  "packed_sha256": "584da6f768206620a99c333e612d5353f4cba1ae18358c931dabd9de9ac8b415",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.001",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "inputs": [
+                  [
+                    "Strength",
+                    "1.0"
+                  ],
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Normal Map",
+                "space": "TANGENT",
+                "type": "NORMAL_MAP",
+                "uv_map": "UVMap"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "normal",
+                  "packed_sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.002",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              }
+            ],
+            "use_nodes": true
+          },
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ]
+            ],
+            "name": "body_cap",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "1.0"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              }
+            ],
+            "use_nodes": true
+          },
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ]
+            ],
+            "name": "companion_cap",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "1.0"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              }
+            ],
+            "use_nodes": true
+          },
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ],
+              [
+                "Separate Color",
+                "Blue",
+                "Principled BSDF",
+                "Metallic",
+                true
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness",
+                true
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color",
+                true
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Image Texture.001",
+                "Vector",
+                true
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal",
+                true
+              ],
+              [
+                "Image Texture.002",
+                "Color",
+                "Normal Map",
+                "Color",
+                true
+              ],
+              [
+                "UV Map.001",
+                "UV",
+                "Image Texture.002",
+                "Vector",
+                true
+              ]
+            ],
+            "name": "body_surface__contact_uv_dark_v1",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "inputs": [
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Separate Color",
+                "type": "SEPARATE_COLOR"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_1",
+                  "packed_sha256": "584da6f768206620a99c333e612d5353f4cba1ae18358c931dabd9de9ac8b415",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.001",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "from_instancer": false,
+                "inputs": [],
+                "mute": false,
+                "name": "UV Map",
+                "type": "UVMAP",
+                "uv_map": "UVMap.001"
+              },
+              {
+                "inputs": [
+                  [
+                    "Strength",
+                    "1.0"
+                  ],
+                  [
+                    "Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Normal Map",
+                "space": "TANGENT",
+                "type": "NORMAL_MAP",
+                "uv_map": "UVMap.001"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "normal",
+                  "packed_sha256": "f180b04cbe0b2ca9b38c27cbe6beb81184609e8104267ee3c960041a26646878",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture.002",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              },
+              {
+                "from_instancer": false,
+                "inputs": [],
+                "mute": false,
+                "name": "UV Map.001",
+                "type": "UVMAP",
+                "uv_map": "UVMap.001"
+              }
+            ],
+            "use_nodes": true
+          },
+          {
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface",
+                true
+              ],
+              [
+                "Image Texture",
+                "Color",
+                "Principled BSDF",
+                "Base Color",
+                true
+              ]
+            ],
+            "name": "body_cap__contact_uv_dark_v1",
+            "nodes": [
+              {
+                "inputs": [
+                  [
+                    "Base Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Metallic",
+                    "0.0"
+                  ],
+                  [
+                    "Roughness",
+                    "1.0"
+                  ],
+                  [
+                    "IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Alpha",
+                    "1.0"
+                  ],
+                  [
+                    "Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Diffuse Roughness",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Subsurface Radius",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Subsurface Scale",
+                    "0.05000000074505806"
+                  ],
+                  [
+                    "Subsurface IOR",
+                    "1.399999976158142"
+                  ],
+                  [
+                    "Subsurface Anisotropy",
+                    "0.0"
+                  ],
+                  [
+                    "Specular IOR Level",
+                    "0.5"
+                  ],
+                  [
+                    "Specular Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Anisotropic",
+                    "0.0"
+                  ],
+                  [
+                    "Anisotropic Rotation",
+                    "0.0"
+                  ],
+                  [
+                    "Tangent",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Transmission Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Coat Roughness",
+                    "0.029999999329447746"
+                  ],
+                  [
+                    "Coat IOR",
+                    "1.5"
+                  ],
+                  [
+                    "Coat Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Coat Normal",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Sheen Weight",
+                    "0.0"
+                  ],
+                  [
+                    "Sheen Roughness",
+                    "0.5"
+                  ],
+                  [
+                    "Sheen Tint",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Color",
+                    "<bpy_float[4], NodeSocketColor.default_value>"
+                  ],
+                  [
+                    "Emission Strength",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film Thickness",
+                    "0.0"
+                  ],
+                  [
+                    "Thin Film IOR",
+                    "1.3300000429153442"
+                  ]
+                ],
+                "mute": false,
+                "name": "Principled BSDF",
+                "type": "BSDF_PRINCIPLED"
+              },
+              {
+                "inputs": [
+                  [
+                    "Surface",
+                    "None"
+                  ],
+                  [
+                    "Volume",
+                    "None"
+                  ],
+                  [
+                    "Displacement",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ],
+                  [
+                    "Thickness",
+                    "0.0"
+                  ]
+                ],
+                "is_active_output": true,
+                "mute": false,
+                "name": "Material Output",
+                "type": "OUTPUT_MATERIAL"
+              },
+              {
+                "image": {
+                  "dirty": false,
+                  "name": "Image_0",
+                  "packed_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+                  "source": "FILE"
+                },
+                "inputs": [
+                  [
+                    "Vector",
+                    "<bpy_float[3], NodeSocketVector.default_value>"
+                  ]
+                ],
+                "mute": false,
+                "name": "Image Texture",
+                "projection": "FLAT",
+                "type": "TEX_IMAGE"
+              }
+            ],
+            "use_nodes": true
+          }
+        ],
+        "name": "PartitionedBodyAndPart",
+        "positions": "2b24fc16601b0ac423ae8d857cec1bb1dcd318b711ab7dc917064a67432160cc",
+        "uvs": [
+          {
+            "name": "UVMap",
+            "render": true,
+            "sha256": "ad722dd4ce36a68cce17cc662444dfb2173993094a0a9ba6a936128e07161b6d"
+          },
+          {
+            "name": "UVMap.001",
+            "render": false,
+            "sha256": "6aedfaae9725000f600a630e08c3bbf0184bbcddd7d4ac79eefc627781881655"
+          }
+        ],
+        "vertex_normals": "98e1ddfa73fe765331a29509fd084e68c084efd84cccb1580f89d3277b1e1bc9"
+      }
+    ],
+    "sha256": "2ff384dbb39cae25273fb03212c9ba91cff1a1b7417a6d56b7e15568e7697060"
+  },
+  "unchanged": true
+}

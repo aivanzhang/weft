@@ -1,0 +1,28 @@
+{
+  "baseline": "outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+  "baseline_sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d",
+  "explicit_added_closure_material": "body_cap__contact_uv_dark_v1",
+  "reason": "Retain original source normals for an explicitly labeled control. The old transfer was proved inward and remains guarded/rejected; no validation policy is changed.",
+  "removed_normal_transfer": [
+    {
+      "materials": [
+        "body_cap"
+      ],
+      "max_distance_m": 0.015,
+      "max_vertices": 3000,
+      "min_vertices": 800,
+      "name": "vacated-shoulder-continuity",
+      "reference_materials": [
+        "body_surface"
+      ]
+    }
+  ],
+  "retained": [
+    "authored rig",
+    "authored actions",
+    "groom settings",
+    "pose samples",
+    "texture filtering"
+  ],
+  "scope": "Stop before undercoat bake, fur, export or rendering; exact source masks and UV planning only."
+}

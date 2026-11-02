@@ -670,6 +670,9 @@ def finish(config, output, *, prepare_only=False, preserve_skin_source=False):
         bindings = {a.name: [(rig, next(iter(a.slots), None))] for a in actions}
     report['states'] = []
     if cfg.get('export_model'):
+        from blender_normal_uv_export import assert_normal_uv_export
+        report['normal_uv_export'] = assert_normal_uv_export([obj, *cards], report.get('fur_undercoat'),
+            report_path=out/'normal-uv-export.json')
         if preserve_skin_source:
             from source_skin_snapshot import snapshot_skin_sources
             rig.data.pose_position = 'REST'

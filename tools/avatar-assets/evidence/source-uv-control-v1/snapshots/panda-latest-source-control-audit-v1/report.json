@@ -1,0 +1,507 @@
+{
+  "clone_source_frame_evidence": [
+    {
+      "exact_preservation": {
+        "NORMAL": true,
+        "POSITION": true,
+        "TANGENT": true,
+        "TEXCOORD_1_equals_original_UV0": true
+      },
+      "material": "body_surface__contact_uv_dark_v1",
+      "primitive": 4,
+      "source_normal_map_present": true,
+      "source_primitive": 0,
+      "stored_T_vs_current_UV0": {
+        "angle_degrees_min_median_max": [
+          0.07314845568386677,
+          79.19896695463069,
+          178.48742111342452
+        ],
+        "corners_over_15_degrees": 388,
+        "corners_over_45_degrees": 312,
+        "nondegenerate_uv_faces": 146,
+        "scope": "Face-local projected dPdu versus stored tangent XYZ; not a Mikk shared-vertex oracle or shader result.",
+        "uv_determinant_positive_negative_zero": [
+          146,
+          0,
+          0
+        ],
+        "valid_corner_frames": 438
+      },
+      "stored_T_vs_preserved_UV1": {
+        "angle_degrees_min_median_max": [
+          0.00019658868209581108,
+          2.5611506696934856,
+          49.20363861654989
+        ],
+        "corners_over_15_degrees": 26,
+        "corners_over_45_degrees": 2,
+        "nondegenerate_uv_faces": 146,
+        "scope": "Face-local projected dPdu versus stored tangent XYZ; not a Mikk shared-vertex oracle or shader result.",
+        "uv_determinant_positive_negative_zero": [
+          0,
+          146,
+          0
+        ],
+        "valid_corner_frames": 438
+      },
+      "stored_normal_length_error_max": 1.2514616654080157e-07,
+      "stored_tangent_length_error_max": 7.489148129335987e-05,
+      "stored_tangent_w_counts": {
+        "1.0": 438
+      },
+      "topology": {
+        "fully_unshared_triangle_corners": true,
+        "index_use_max": 1,
+        "triangles": 146,
+        "vertices": 438,
+        "vertices_shared_by_multiple_faces": 0
+      }
+    },
+    {
+      "exact_preservation": {
+        "NORMAL": true,
+        "POSITION": true,
+        "TANGENT": true,
+        "TEXCOORD_1_equals_original_UV0": true
+      },
+      "material": "body_cap__contact_uv_dark_v1",
+      "primitive": 5,
+      "source_normal_map_present": false,
+      "source_primitive": 2,
+      "stored_T_vs_current_UV0": {
+        "angle_degrees_min_median_max": [
+          0.0001107111038575453,
+          0.002581415363517212,
+          0.005544857120088596
+        ],
+        "corners_over_15_degrees": 0,
+        "corners_over_45_degrees": 0,
+        "nondegenerate_uv_faces": 103,
+        "scope": "Face-local projected dPdu versus stored tangent XYZ; not a Mikk shared-vertex oracle or shader result.",
+        "uv_determinant_positive_negative_zero": [
+          103,
+          0,
+          0
+        ],
+        "valid_corner_frames": 309
+      },
+      "stored_T_vs_preserved_UV1": {
+        "angle_degrees_min_median_max": [
+          0.0001107111038575453,
+          0.002581415363517212,
+          0.005544857120088596
+        ],
+        "corners_over_15_degrees": 0,
+        "corners_over_45_degrees": 0,
+        "nondegenerate_uv_faces": 103,
+        "scope": "Face-local projected dPdu versus stored tangent XYZ; not a Mikk shared-vertex oracle or shader result.",
+        "uv_determinant_positive_negative_zero": [
+          0,
+          103,
+          0
+        ],
+        "valid_corner_frames": 309
+      },
+      "stored_normal_length_error_max": 1.2157026829662243e-07,
+      "stored_tangent_length_error_max": 5.647011474907426e-05,
+      "stored_tangent_w_counts": {
+        "1.0": 309
+      },
+      "topology": {
+        "fully_unshared_triangle_corners": true,
+        "index_use_max": 1,
+        "triangles": 103,
+        "vertices": 309,
+        "vertices_shared_by_multiple_faces": 0
+      }
+    }
+  ],
+  "elapsed_seconds": 0.09327,
+  "export_budget": {
+    "adaptive_seams_measured_for_latest_source": false,
+    "headroom_for_additional_adaptive_seams": 1328,
+    "historical_old_source_additional_seams": 484,
+    "historical_value_is_not_current_measurement": true,
+    "latest_actual_mask_and_material_seams_require_bounded_native_preflight": true,
+    "max_fins": 3600,
+    "overall_budget_pass": false,
+    "potential_all_faces_chart_split_extras": 0,
+    "projected_triangles": 76981,
+    "projected_vertices": 98672,
+    "reserve_vertices": 4096,
+    "source_export_triangles": 62581,
+    "source_export_vertices": 51376,
+    "triangle_limit": 100000,
+    "vertex_limit": 100000,
+    "worst_exported_fin_corners": 43200
+  },
+  "git_head": "dbdd7e2",
+  "hard_blockers": [
+    "Installed Blender exporter calls calc_tangents() without uvmap; it recomputes source contact normal-map frames from active UV0 although the material samples preserved UV1. Native/full-control export must not proceed until source frame preservation is independently verified.",
+    "The latest regenerated chroma/spatial/part/color mask and material/chart splits have not been measured. Only1328 vertices remain within the conservative100k budget.",
+    "Public portable_fringe remains intentionally disabled; this audit does not bypass it or establish full-avatar acceptance."
+  ],
+  "inputs_unchanged": true,
+  "material_policy": {
+    "adaptive_socket_policy": "Existing source Roughness/Metallic links remain preserved; authored constants apply only to unlinked sockets.",
+    "new_body_cap_clone": "body_cap__contact_uv_dark_v1",
+    "new_body_surface_clone": "body_surface__contact_uv_dark_v1",
+    "no_implicit_material_merge": true,
+    "part_exclusions_preserved": [
+      "companion_surface",
+      "companion_cap"
+    ],
+    "portable_fringe_closure_exclusions": [
+      "body_cap",
+      "body_cap__contact_uv_dark_v1"
+    ],
+    "potential_undercoat_body_regions": [
+      "body_surface",
+      "body_cap",
+      "body_surface__contact_uv_dark_v1",
+      "body_cap__contact_uv_dark_v1"
+    ],
+    "region_limit": 4,
+    "source_uv_policy": "Existing UV0 and UV1 must remain exact; only a newly authored atlas can use UV2. Original source UV1 is never an authored correction target.",
+    "tail_color_clone": "All corrected vertices remain excluded by the unchanged color-correction return mask. If a fifth region remains selected, the4-region guard must reject it."
+  },
+  "material_primitives": [
+    {
+      "attributes": {
+        "NORMAL": 21,
+        "POSITION": 20,
+        "TANGENT": 23,
+        "TEXCOORD_0": 22
+      },
+      "fully_unshared_triangle_corners": false,
+      "index_use_max": 13,
+      "indices_unique": 24189,
+      "material": "body_surface",
+      "material_index": 0,
+      "primitive": 0,
+      "texture_routes": {
+        "normalTexture": {
+          "index": 0
+        },
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 1
+        },
+        "pbrMetallicRoughness.metallicRoughnessTexture": {
+          "index": 2
+        }
+      },
+      "triangles": 34548,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 22,
+          "max": [
+            0.9999989867210388,
+            0.9999639987945557
+          ],
+          "min": [
+            0.0002570000069681555,
+            0.0006150007247924805
+          ],
+          "raw_sha256": "1a4bf80f029ce0f8c2b5bbd1cacb0e8f7c786075488951affa414a15847840b3"
+        }
+      },
+      "vertices": 24189,
+      "vertices_shared_by_multiple_faces": 21090,
+      "worst_all_faces_atlas_additional_vertices": 79455
+    },
+    {
+      "attributes": {
+        "NORMAL": 6,
+        "POSITION": 5,
+        "TANGENT": 8,
+        "TEXCOORD_0": 7
+      },
+      "fully_unshared_triangle_corners": false,
+      "index_use_max": 13,
+      "indices_unique": 24703,
+      "material": "companion_surface",
+      "material_index": 1,
+      "primitive": 1,
+      "texture_routes": {
+        "normalTexture": {
+          "index": 3
+        },
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 4
+        },
+        "pbrMetallicRoughness.metallicRoughnessTexture": {
+          "index": 5
+        }
+      },
+      "triangles": 27205,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 7,
+          "max": [
+            0.9999309778213501,
+            0.9999290108680725
+          ],
+          "min": [
+            2.700000004551839e-05,
+            0.0005270242691040039
+          ],
+          "raw_sha256": "ab36928e77ea501823a5f303d005485dcb11261bfa7932aa135bcdf91680e13c"
+        }
+      },
+      "vertices": 24703,
+      "vertices_shared_by_multiple_faces": 18289,
+      "worst_all_faces_atlas_additional_vertices": 56912
+    },
+    {
+      "attributes": {
+        "NORMAL": 32,
+        "POSITION": 31,
+        "TANGENT": 34,
+        "TEXCOORD_0": 33
+      },
+      "fully_unshared_triangle_corners": true,
+      "index_use_max": 1,
+      "indices_unique": 798,
+      "material": "body_cap",
+      "material_index": 2,
+      "primitive": 2,
+      "texture_routes": {
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 6
+        }
+      },
+      "triangles": 266,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 33,
+          "max": [
+            0.998730480670929,
+            0.803417980670929
+          ],
+          "min": [
+            0.01689453050494194,
+            0.10283201932907104
+          ],
+          "raw_sha256": "0ecbcd7daa10a4791b8e42fdc7cf4b0d71d238ee71218c63b25ad8fec575dd6c"
+        }
+      },
+      "vertices": 798,
+      "vertices_shared_by_multiple_faces": 0,
+      "worst_all_faces_atlas_additional_vertices": 0
+    },
+    {
+      "attributes": {
+        "NORMAL": 16,
+        "POSITION": 15,
+        "TANGENT": 18,
+        "TEXCOORD_0": 17
+      },
+      "fully_unshared_triangle_corners": true,
+      "index_use_max": 1,
+      "indices_unique": 939,
+      "material": "companion_cap",
+      "material_index": 3,
+      "primitive": 3,
+      "texture_routes": {
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 7
+        }
+      },
+      "triangles": 313,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 17,
+          "max": [
+            0.27998048067092896,
+            0.29560548067092896
+          ],
+          "min": [
+            0.24345703423023224,
+            0.20439451932907104
+          ],
+          "raw_sha256": "a42b6eedc0aa1483aa73c27f670ff016ffe3d074320c5c8b4dcff64e128954a2"
+        }
+      },
+      "vertices": 939,
+      "vertices_shared_by_multiple_faces": 0,
+      "worst_all_faces_atlas_additional_vertices": 0
+    },
+    {
+      "attributes": {
+        "NORMAL": 26,
+        "POSITION": 25,
+        "TANGENT": 27,
+        "TEXCOORD_0": 28,
+        "TEXCOORD_1": 29
+      },
+      "fully_unshared_triangle_corners": true,
+      "index_use_max": 1,
+      "indices_unique": 438,
+      "material": "body_surface__contact_uv_dark_v1",
+      "material_index": 4,
+      "primitive": 4,
+      "texture_routes": {
+        "normalTexture": {
+          "index": 0,
+          "texCoord": 1
+        },
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 1
+        },
+        "pbrMetallicRoughness.metallicRoughnessTexture": {
+          "index": 2,
+          "texCoord": 1
+        }
+      },
+      "triangles": 146,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 28,
+          "max": [
+            0.4071044921875,
+            0.0946044921875
+          ],
+          "min": [
+            0.4053955078125,
+            0.0928955078125
+          ],
+          "raw_sha256": "9c841a47e8d7ffad562fde5c60902337822d449e861378d236a0fd1259876bc3"
+        },
+        "TEXCOORD_1": {
+          "accessor": 29,
+          "max": [
+            0.9993669986724854,
+            0.9999740123748779
+          ],
+          "min": [
+            0.00523399980738759,
+            0.0005229711532592773
+          ],
+          "raw_sha256": "ee3170f8ca634604d8a2c794886ca18360735fe4ebb2e79cbc9f63705373c8fe"
+        }
+      },
+      "vertices": 438,
+      "vertices_shared_by_multiple_faces": 0,
+      "worst_all_faces_atlas_additional_vertices": 0
+    },
+    {
+      "attributes": {
+        "NORMAL": 37,
+        "POSITION": 36,
+        "TANGENT": 38,
+        "TEXCOORD_0": 39,
+        "TEXCOORD_1": 40
+      },
+      "fully_unshared_triangle_corners": true,
+      "index_use_max": 1,
+      "indices_unique": 309,
+      "material": "body_cap__contact_uv_dark_v1",
+      "material_index": 5,
+      "primitive": 5,
+      "texture_routes": {
+        "pbrMetallicRoughness.baseColorTexture": {
+          "index": 6
+        }
+      },
+      "triangles": 103,
+      "uv": {
+        "TEXCOORD_0": {
+          "accessor": 39,
+          "max": [
+            0.4071044921875,
+            0.0946044921875
+          ],
+          "min": [
+            0.4053955078125,
+            0.0928955078125
+          ],
+          "raw_sha256": "3e6d026408d99546130c43e95f250e2eae2bddf6b006d64660f55a2bddc4cc13"
+        },
+        "TEXCOORD_1": {
+          "accessor": 40,
+          "max": [
+            0.842480480670929,
+            0.553417980670929
+          ],
+          "min": [
+            0.837207019329071,
+            0.548144519329071
+          ],
+          "raw_sha256": "7509db90a36b65767917fe387e49c71458f54495e8e7674a8f7e49de095c932f"
+        }
+      },
+      "vertices": 309,
+      "vertices_shared_by_multiple_faces": 0,
+      "worst_all_faces_atlas_additional_vertices": 0
+    }
+  ],
+  "native_calls": 0,
+  "paid_calls": 0,
+  "part_selectors": [
+    {
+      "materials": [
+        "companion_surface",
+        "companion_cap"
+      ],
+      "name": "shoulder-dragon",
+      "native_count_scope": "Export seam copies are not native welded vertex counts; native min/max coverage must be rechecked.",
+      "root_bone": "CompanionRoot",
+      "root_present_in_unchanged_authored_rig": true,
+      "source_export_vertices": 25642,
+      "triangles": 27518
+    }
+  ],
+  "quality_approved": false,
+  "scene": {
+    "animations": 0,
+    "local_gltf_y_up_bounds": {
+      "max": [
+        0.45410779118537903,
+        1.2000000476837158,
+        0.38847073912620544
+      ],
+      "min": [
+        -0.45410779118537903,
+        0.0,
+        -0.38847073912620544
+      ]
+    },
+    "meshes": [
+      {
+        "name": "PartitionedMesh",
+        "primitives": 6
+      }
+    ],
+    "nodes": [
+      {
+        "mesh": 0,
+        "name": "PartitionedBodyAndPart"
+      }
+    ],
+    "scene": 0,
+    "scenes": [
+      {
+        "name": "Scene",
+        "nodes": [
+          0
+        ]
+      }
+    ],
+    "skins": 0
+  },
+  "schema_version": 1,
+  "scope_limits": [
+    "No texture pixels decoded; final chroma/color-correction masks not inferred from material names.",
+    "No Blender import, UV active/render state observation, rig build, bake, render, action playback or appearance assessment.",
+    "Face-local tangent comparisons are diagnostic, not shared-Mikk reconstruction.",
+    "Existing contact/nonmanifold geometry and authored source-normal defects remain; this CONTROL is not a repair or quality promotion."
+  ],
+  "self_peak_rss_bytes": 101548032,
+  "source_bytes": 28080560,
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "status": "held_for_source_uv1_tangent_fidelity",
+  "texture_decodes": 0,
+  "triangles": 62581,
+  "vertices": 51376
+}

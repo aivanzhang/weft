@@ -1,0 +1,57 @@
+{
+  "artifacts": [
+    {
+      "bytes": 240,
+      "path": "check-handle.json",
+      "sha256": "5d8b0ad4ca2f302eaa44bedb463095e6d8f8f9077876efa292b38157c2fc71af"
+    },
+    {
+      "bytes": 976,
+      "path": "check-monitor.json",
+      "sha256": "26db41223677c25be1e51c533f66b7a0b555f3ee1570d85424553ce82db919e8"
+    },
+    {
+      "bytes": 467,
+      "path": "check.log",
+      "sha256": "44ea136616e22410b793d001bc526c6aad801242e4d15e378c9e8951193c81fb"
+    },
+    {
+      "bytes": 11135,
+      "path": "check.py",
+      "sha256": "4650d93df43bd9b73dce9baa5d7d1a1a6073b030172bbf80c6421da734ffede6"
+    },
+    {
+      "bytes": 709,
+      "path": "execute.py",
+      "sha256": "1b084c01dd24bf15a4769f07cf0267bed51bf5ba2a63e4a57ca4215b4e7f7d92"
+    },
+    {
+      "bytes": 1064,
+      "path": "job.json",
+      "sha256": "6ff50a1451711740e097d387ed3c4ae9973be38d6b8dfee396b2b8537ffd6ca4"
+    },
+    {
+      "bytes": 3824,
+      "path": "prepared.json",
+      "sha256": "53bf261f08de71609c8dbbeccdba00c29f956f00c7353c74183dee21adbd96be"
+    },
+    {
+      "bytes": 13089,
+      "path": "report.json",
+      "sha256": "46e69a6b4b35e290b722f98f8ca760b85a61cb1d50d8a4c55ee1d41d6d8a67c3"
+    },
+    {
+      "bytes": 6899,
+      "path": "rig-config.json",
+      "sha256": "d338ef960552478fe55f5147170b96af3a0405cb3a545dda38153230cac41312"
+    },
+    {
+      "bytes": 3440,
+      "path": "rig-witness.npz",
+      "sha256": "776daab238827dc337987ef045d41a8ce3d7386d2155f1c21299ab52a227456a"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "scope": "Actual saved-input CPU replay and source-frame replacement audit; no native execution."
+}

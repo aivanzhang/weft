@@ -1,0 +1,38 @@
+{
+  "bounds": {
+    "memory_mib": 256,
+    "output_mib": 8,
+    "timeout_seconds": 30
+  },
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_normal_uv_export",
+    "-v"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "native_provider_ai_role_calls": 0,
+  "provenance": "Analytic and mocked native graph tests, not an actual Blender export or avatar quality proof",
+  "python": "3.14.7",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 9560,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 10150,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "b9fc68888ab8e4e62888a7f39c091932529f2278867125b5e6389a97e1e64ba0"
+    },
+    {
+      "bytes": 14592,
+      "path": "tests/test_normal_uv_export.py",
+      "sha256": "baafd0659780a951dafd62da56408eb1a448dcd46d5fe89006caec2332182433"
+    }
+  ],
+  "time": "2026-11-02T01:57:58.861673-08:00"
+}

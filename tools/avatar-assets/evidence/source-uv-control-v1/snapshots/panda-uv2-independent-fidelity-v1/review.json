@@ -1,0 +1,59 @@
+{
+  "all_normal_bytes_unchanged_from_raw": 1138908,
+  "all_other_json_and_bin_exact": true,
+  "body_and_fringe_weights_exact": true,
+  "changed_binary_bytes": {
+    "authored_uv2_tangents": 16197,
+    "skin_joints_weights": 56763
+  },
+  "exported_vertices": 94909,
+  "fringe_normal_max_component_error": 5.882978439331055e-05,
+  "job": {
+    "elapsed_seconds": 0.781,
+    "pid": 63721,
+    "process_exit_verified": true,
+    "rss_samples": 2,
+    "sampled_peak_rss_bytes": 308805632
+  },
+  "legacy_metric_label_note": "The reused checker fields containing raw/pruned refer to the selected final derivative in this run, not the rejected un-restored raw native export. No separate raw-model pose pass was claimed.",
+  "limitations": [
+    "Fringe helper normals are checked; whole-body native normals were not snapshotted. All final normal bytes are exactly unchanged from the raw export.",
+    "Nine sampled actual exported-skeleton CPU poses, not a native evaluated-pose comparator or continuous-time proof.",
+    "No visual, geometry-defect, physical-hair, action-meaning or full-quality approval.",
+    "Public portable_fringe remains disabled. No native/provider/AI jobs or production edits."
+  ],
+  "maximum_sampled_root_gap_m": 1.6050135238175289e-09,
+  "maximum_sampled_source_skin_pose_error_m": 0.0,
+  "quality_approved": false,
+  "raw_id_source": {
+    "bytes": 36802588,
+    "path": "outputs/panda-uv2-staged-control-v1/model.glb",
+    "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+  },
+  "removed_id_bindings": 10,
+  "removed_unused_fringe_tangent_bindings": 1,
+  "sample_times_seconds": [
+    [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0,
+      2.5,
+      3.0,
+      3.5,
+      4.0
+    ]
+  ],
+  "schema_version": 1,
+  "selected_model": {
+    "bytes": 36802344,
+    "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+    "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+  },
+  "source_ids": 94576,
+  "source_topology_exact": true,
+  "status": "independent_component_gates_passed",
+  "unchanged_normal_limit": 0.0002,
+  "uv2_tangent_primitives": 3
+}

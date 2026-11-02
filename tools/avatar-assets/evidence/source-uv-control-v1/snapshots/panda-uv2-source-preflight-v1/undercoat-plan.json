@@ -1,0 +1,133 @@
+{
+  "additional_export_vertices": 482,
+  "additional_material_seam_reserve_vertices": 254,
+  "aggregate_raster_limit": 32000000,
+  "aggregate_runtime_seconds": 90.0,
+  "atlas_regions": [
+    2,
+    4,
+    5
+  ],
+  "automatic_quality_policy_promoted": false,
+  "elapsed_seconds": 0.875605,
+  "excluded_triangles": 30859,
+  "export_vertex_budget": {
+    "portable_export_vertices": 43200,
+    "reserve_vertices": 4096,
+    "source_export_vertices": 51376
+  },
+  "frame_policy": "mikk-unshared-triangle-v-up-v2",
+  "hd_only": true,
+  "limitations": [
+    "Normal UV1 and selected tangents are authored, not recovered.",
+    "Weft rejects normal maps and TEXCOORD_1; no importer change is implied.",
+    "This plan establishes no visible softness or animation quality."
+  ],
+  "max_simultaneous_float_atlases": 1,
+  "normal_texture_policy": "One normal image per selected material region",
+  "original_uv0_unchanged": true,
+  "pitch_m": 0.004,
+  "projected_export_vertex_ceiling": 99154,
+  "quality_approved": false,
+  "raster_candidates": 4151210,
+  "regions": [
+    {
+      "additional_material_seam_reserve_vertices": 254,
+      "conflicting_surface_samples": 0,
+      "covered_texels": 1551304,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.001306504921796512,
+      "effective_texels_per_pitch": 3.0616034683587667,
+      "material_split_corner_bound": 482,
+      "material_split_extra_vertices": 228,
+      "method": "keep_uv0",
+      "raster_candidates": 4120726,
+      "reasons": [],
+      "region_id": 0,
+      "selected_faces": 31208,
+      "selection_sha256": "09a6ba953653e07a791dd6f401f7c786beb901128811e52b5b8eb6c4eb6fec0a",
+      "subpixel_faces": 328,
+      "surface_area_m2": 2.6480062910160145,
+      "unique_conflicting_texels": 0,
+      "uv1_extra_vertices": 0
+    },
+    {
+      "additional_material_seam_reserve_vertices": 0,
+      "conflicting_surface_samples": 14120,
+      "covered_texels": 375,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.0057487636798129035,
+      "effective_texels_per_pitch": 0.6958017797889688,
+      "material_split_corner_bound": 0,
+      "material_split_extra_vertices": 0,
+      "method": "authored_uv1",
+      "raster_candidates": 26500,
+      "reasons": [
+        "different_surface_uv_aliases",
+        "under_two_effective_texels_per_pile_pitch"
+      ],
+      "region_id": 2,
+      "selected_faces": 265,
+      "selection_sha256": "725cca82344d56aee71acc72b78c0ab020f393cb80e5fb6830ffc287e31e4f24",
+      "subpixel_faces": 0,
+      "surface_area_m2": 0.012393106442375998,
+      "unique_conflicting_texels": 265,
+      "uv1_extra_vertices": 0
+    },
+    {
+      "additional_material_seam_reserve_vertices": 0,
+      "conflicting_surface_samples": 1450,
+      "covered_texels": 10,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.03950043458581887,
+      "effective_texels_per_pitch": 0.10126470865300424,
+      "material_split_corner_bound": 0,
+      "material_split_extra_vertices": 0,
+      "method": "authored_uv1",
+      "raster_candidates": 2336,
+      "reasons": [
+        "different_surface_uv_aliases",
+        "under_two_effective_texels_per_pile_pitch"
+      ],
+      "region_id": 4,
+      "selected_faces": 146,
+      "selection_sha256": "d28d8562f05490c54bf6684e0d2527be9332f20aad4a93720c78742eff8c2371",
+      "subpixel_faces": 0,
+      "surface_area_m2": 0.015602843324685554,
+      "unique_conflicting_texels": 10,
+      "uv1_extra_vertices": 0
+    },
+    {
+      "additional_material_seam_reserve_vertices": 0,
+      "conflicting_surface_samples": 1020,
+      "covered_texels": 10,
+      "degenerate_uv_faces": 0,
+      "effective_meters_per_unique_texel": 0.04135350310207708,
+      "effective_texels_per_pitch": 0.09672699287715458,
+      "material_split_corner_bound": 0,
+      "material_split_extra_vertices": 0,
+      "method": "authored_uv1",
+      "raster_candidates": 1648,
+      "reasons": [
+        "different_surface_uv_aliases",
+        "under_two_effective_texels_per_pile_pitch"
+      ],
+      "region_id": 5,
+      "selected_faces": 103,
+      "selection_sha256": "2c11a123a4f010381a423970fef5204eaea8064cb58c1bd5e249322a7451e333",
+      "subpixel_faces": 0,
+      "surface_area_m2": 0.01710112218813499,
+      "unique_conflicting_texels": 10,
+      "uv1_extra_vertices": 0
+    }
+  ],
+  "reserve_vertices": 4096,
+  "resolution": 2048,
+  "schema_version": 1,
+  "scope": "Per-material alias/density measurements; not visual quality or recovered fur",
+  "selected_triangles": 31722,
+  "source_export_vertices": 94576,
+  "source_export_vertices_scope": "Pinned source GLB vertices plus planned whole-coat exported corners; not a measured source-only count",
+  "uv_policy": "material-adaptive-v1",
+  "weft_appearance_compatible": false
+}

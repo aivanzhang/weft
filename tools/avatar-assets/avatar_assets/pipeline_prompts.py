@@ -297,9 +297,15 @@ With groom, optional groom_shader:{roughness:0.04..1,radial_roughness:0.04..1} c
 With native groom and groom_flow, optional fur_undercoat:{profile:short-pile-v1,resolution:1024|2048,
 seed:0..2147483647 integer,pitch_m:0.002..0.02,strength:0..0.5,roughness:0.5..1,min_faces:integer,max_faces:integer}
 adds authored short-pile lighting detail only on measured fur faces; require1<=min_faces<=max_faces<=100000.
-Optional uv_policy:material-adaptive-v1 measures each material: retain adequate UV0, otherwise author normal-only UV1.
-It preserves color UV0 and refuses preexisting UV1, more than4 selected material regions, or over2048faces in a region
-needing UV1. The coordinator budgets the whole model, coat and split reserve; never supply private budget fields.
+Optional uv_policy:material-adaptive-v1 measures each material: retain adequate UV0, otherwise author a normal-only atlas
+on the next layer (UV1 for a UV0-only source; UV2 when source UV1 exists). Preserve one or two uniquely named source layers,
+with UV0 active/rendering. Reject more than4 selected material regions or over2048faces in a region needing an atlas.
+Original color/UV data and linked roughness/metallic response remain; unlinked response uses the declared roughness and metallic0.
+Export correction targets only newly authored materials, bound to their UV index, face count, PNG hash and bake-frame policy;
+it must not reinterpret an original source UV1 normal frame. Export accepts coherent UV0 normal routes or exact newly
+authored undercoat routes. A live original normal map on UV1/UV2 is unsupported unless every affected face is intentionally
+rebaked into that authored undercoat; preserving its original shading needs a separate frame-preservation implementation.
+The coordinator budgets the whole model, coat and split reserve; never supply private budget or tangent-target fields.
 Undercoat is not actual hair, denser coat coverage, geometry repair or a substitute for native/portable fibers.
 Use it only for requested short-pile surfaces; it replaces selected normal response and does not establish Muse parity.
 Optional color_corrections:[{name,regions:[{center:[x,y,z],radius:[x,y,z]}],dominant_channel:0|1|2,

@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "status": "readiness_blockers_reported_not_avatar_acceptance",
+  "reviewed_at": "2026-11-02T01:28:26.100893-08:00",
+  "source": {
+    "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+    "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+    "skins": 0,
+    "meshes": 1,
+    "vertices": 51376,
+    "triangles": 62581
+  },
+  "source_material_checks": {
+    "basecolor_image_index": 1,
+    "basecolor_image_sha256": "0355a39bdf4dd84b0cc4ab9f291231d39f94bce2dd81196bc075923cfde2481d",
+    "all_six_materials_share_exact_basecolor_image": true,
+    "basecolor_texcoord": 0,
+    "nonunit_basecolor_factors": false,
+    "normal_uv1_material": "body_surface__contact_uv_dark_v1",
+    "normal_uv1_faces": 146,
+    "normal_uv1_vertices": 438,
+    "normal_uv1_vertex_reference_min": 1,
+    "normal_uv1_vertex_reference_max": 1,
+    "normal_uv1_source_tangent_max_length_error": 7.486343383789062e-05,
+    "normal_uv1_source_tangent_max_normal_dot": 9.268522262573242e-05,
+    "normal_uv1_source_tangent_signs": [
+      1.0
+    ],
+    "closure_clone": "body_cap__contact_uv_dark_v1",
+    "closure_faces": 103,
+    "closure_vertices": 309,
+    "closure_normal_texture": null
+  },
+  "findings": [
+    {
+      "priority": "blocker_before_full_export_acceptance",
+      "finding": "Installed exporter recalculates TANGENT from active UV0; repaired source material routes its existing normal map through UV1. Unit/orthogonal checks do not establish the correct UV1 orientation.",
+      "evidence": "primitive_extract.py prepare_data line101; unselected source UV1 targets are preserved by generated_tangents rather than corrected.",
+      "existing_fixture_limit": "UV1=UV0*.6+.2 has the same frame, so native UV2 fixture does not expose rotated source-UV frames."
+    },
+    {
+      "priority": "intentional_public_execution_block",
+      "finding": "Public finish rejects portable_fringe before native work. Experimental staging is not public Studio readiness.",
+      "evidence": "avatar_assets/finish_generated.py portable_fringe guard"
+    },
+    {
+      "priority": "required_new_control_configuration",
+      "finding": "Baseline design pins old v7, invokes now-rejected normal_continuity, and excludes only body_cap from fringe. New control needs exact UV-repaired source/hash, declared omission of optional invalid normal transfer, and explicit body_cap__contact_uv_dark_v1 exclusion; no gate change.",
+      "evidence": "examples/meshy/panda-portable-fringe-v1.json"
+    },
+    {
+      "priority": "fixed_authoring_instruction",
+      "finding": "Removed stale preexisting-UV1 refusal from pipeline_prompts only; now states one/two retained source layers, next UV1/UV2 authored layer, unchanged bounds, linked response preservation and receipt-bound authored correction.",
+      "verification": "AST syntax read succeeded; existing undercoat author contract inspected; no unchanged test rerun."
+    }
+  ],
+  "source_custody": {
+    "new_source_requires_new_request_or_design": true,
+    "finish_checks_source_hash": true,
+    "reuse_requires_exact_design_and_native_source_hashes": true,
+    "unfinished_pipeline_source_pins_reject_changed_prompt_or_backend": true,
+    "sealed_delivery_compatibility_unchanged": true
+  },
+  "design_recommendation": {
+    "preferred_for_exact_source_control": "Restore original source float4 tangents on the one original normal-UV1 material, using a proved source-vertex to native _AUTHOR_VERTEX_ID mapping. Bind exact P/N/UV1/texture/material/oriented triangles and reject disagreement or shared rewrite storage.",
+    "point_id_limit": "Sufficient for the actual unshared 438-corner clone after native one-loop-per-point proof. Generally one POINT ID does not distinguish differing per-loop Mikk frames.",
+    "native_frame_comparison": "Capture explicit calc_tangents(uvmap=source UV1) per-loop frames before export and restore active/render UV0. Recomputed Mikk is native shader reproduction, not exact original TANGENT custody.",
+    "corner_id_alternative": "Exporter supports underscore-prefixed INT CORNER attributes with export_attributes=True. Use a sentinel outside targets; globally unique IDs would force187743 body corners and exceed100000 vertices.",
+    "importer_observation": "Installed importer does not import standard TANGENT; merge_vertices defaults false and primitive indices are compacted in sorted unique-index order. Do not infer source correspondence from that order without attribute/topology assertions."
+  },
+  "limitations": [
+    "Source-normal control means no optional normal transfer, not byte-identical native roundtrip normals or unchanged normal-map response on undercoat-selected faces.",
+    "Known cheek topology/shading and remaining shoulder mark are not repaired by these plumbing changes.",
+    "Native UV routing, resource bounds, real motion and final appearance still need actual bounded evidence.",
+    "No paid allowance inferred; no native/model/browser/provider/AI-role calls or test jobs were run in this review."
+  ],
+  "sources": [
+    {
+      "path": "avatar_assets/finish_generated.py",
+      "bytes": 31845,
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4"
+    },
+    {
+      "path": "avatar_assets/generated_tangents.py",
+      "bytes": 16931,
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "bytes": 55099,
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f"
+    },
+    {
+      "path": "avatar_assets/pipeline_prompts.py",
+      "bytes": 48098,
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840"
+    },
+    {
+      "path": "scripts/blender_finish_generated.py",
+      "bytes": 52685,
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13"
+    },
+    {
+      "path": "scripts/blender_fur_undercoat.py",
+      "bytes": 40912,
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "path": "scripts/blender_edge_fringe.py",
+      "bytes": 20746,
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "path": "scripts/source_skin_snapshot.py",
+      "bytes": 14055,
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "path": "scripts/fur_root_sampling.py",
+      "bytes": 4687,
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "path": "tests/test_pipeline_prompts.py",
+      "bytes": 21591,
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py",
+      "bytes": 37898,
+      "sha256": "7524c816b6c293e47548e6efc351b6964d0fffac35e5b35156edb178b1b92c8b"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "bytes": 86294,
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+    },
+    {
+      "path": ".tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "bytes": 84361,
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41"
+    }
+  ]
+}

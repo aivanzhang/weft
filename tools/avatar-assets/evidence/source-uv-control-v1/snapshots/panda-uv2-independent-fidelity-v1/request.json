@@ -1,0 +1,91 @@
+{
+  "expected_clips": [
+    "dance_flight"
+  ],
+  "inputs": {
+    "checker": {
+      "bytes": 25381,
+      "path": "outputs/panda-uv2-independent-fidelity-v1/check.py",
+      "sha256": "489d75fd1c775139e350bb68f1b7533bf2cb5c4d981f24b8825d22e7d7b18e0c"
+    },
+    "config": {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    "derivative": {
+      "bytes": 36802344,
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    "finish_report": {
+      "bytes": 89426,
+      "path": "outputs/panda-uv2-staged-control-v1/prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6"
+    },
+    "fringe_report": {
+      "bytes": 14075,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    "helper": {
+      "bytes": 565469,
+      "path": "outputs/panda-uv2-staged-control-v1/fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    "independent_math": {
+      "bytes": 28895,
+      "path": "outputs/panda-uv2-independent-fidelity-v1/math_oracle.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+    },
+    "model": {
+      "bytes": 36802588,
+      "path": "outputs/panda-uv2-staged-control-v1/model.glb",
+      "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+    },
+    "prepare_receipt": {
+      "bytes": 1638,
+      "path": "outputs/panda-uv2-staged-control-preparation-v1/receipt.json",
+      "sha256": "03b16e94e3640f35649395340c89f2560f990a895f0b326e7b72da1f351b669b"
+    },
+    "scene_plan": {
+      "bytes": 130005,
+      "path": "outputs/panda-uv2-staged-control-v1/prepared-native-scene.json",
+      "sha256": "276b64242f062beb7134e1bfc343771da2af1a72e1db1e34f0e0949246b569e2"
+    },
+    "skin_npz": {
+      "bytes": 1498257,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.npz",
+      "sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a"
+    },
+    "skin_report": {
+      "bytes": 3815,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    "texture_2": {
+      "bytes": 179672,
+      "path": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-02.png",
+      "sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3"
+    },
+    "texture_4": {
+      "bytes": 188772,
+      "path": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-04.png",
+      "sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad"
+    },
+    "texture_5": {
+      "bytes": 142129,
+      "path": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-05.png",
+      "sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794"
+    }
+  },
+  "normal_limit": 0.0002,
+  "output": "outputs/panda-uv2-independent-fidelity-v1/result",
+  "quality_approved": false,
+  "root_limit_m": 1e-06,
+  "source_skin_pose_limit_m": 1e-06,
+  "weight_limit": 1e-06,
+  "witness_helper_roots": [
+    315
+  ]
+}

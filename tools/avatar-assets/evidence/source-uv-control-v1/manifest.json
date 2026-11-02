@@ -1,0 +1,3553 @@
+{
+  "actual_saved_report_cpu_check": true,
+  "approved_assets_unchanged": true,
+  "artifacts": [
+    {
+      "bytes": 2886,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/manifest.json",
+      "sha256": "b75519ec7b8e4cff3f6bfe9f050f97efa93c7e20dbde2933297a8381de506cee",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/manifest.json"
+    },
+    {
+      "bytes": 7455,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/review.json",
+      "sha256": "f03e9e107f4db52f18260163638a99a87ef460cff8782a53da52bae1c299c825",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/review.json"
+    },
+    {
+      "bytes": 84361,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py"
+    },
+    {
+      "bytes": 86294,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py"
+    },
+    {
+      "bytes": 37898,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py",
+      "sha256": "7524c816b6c293e47548e6efc351b6964d0fffac35e5b35156edb178b1b92c8b",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py"
+    },
+    {
+      "bytes": 31845,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 55099,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 48098,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52685,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 14055,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 21591,
+      "origin": "outputs/panda-uv-source-readiness-review-v1/sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "bytes": 241,
+      "origin": "outputs/panda-latest-source-control-audit-v1/audit-handle.json",
+      "sha256": "2c47bcc1168deb13d6ff1257181c2fd968a4455d54582e797bd7d944aba9ffdb",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/audit-handle.json"
+    },
+    {
+      "bytes": 979,
+      "origin": "outputs/panda-latest-source-control-audit-v1/audit-monitor.json",
+      "sha256": "e4dea988bee62f629cd9008861d747b5eff44bff7305057c79eec22e5ef456dd",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 1052,
+      "origin": "outputs/panda-latest-source-control-audit-v1/audit.log",
+      "sha256": "f79fd20e52cb979021ec341c65977634e282dcce6093f8f58cb275ad70d35fff",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/audit.log"
+    },
+    {
+      "bytes": 17158,
+      "origin": "outputs/panda-latest-source-control-audit-v1/audit.py",
+      "sha256": "abbfcdccc4e4f8b10cf4731fc85d0cccdde59c635da361192fece0d0540b0c9c",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/audit.py"
+    },
+    {
+      "bytes": 5809,
+      "origin": "outputs/panda-latest-source-control-audit-v1/control-delta.json",
+      "sha256": "a9c41f32cc0d4a7f524ab8862f14aedc8836d2a36fcbac36c4065e4133ac2962",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/control-delta.json"
+    },
+    {
+      "bytes": 36670,
+      "origin": "outputs/panda-latest-source-control-audit-v1/control-host-design.json",
+      "sha256": "7d58f18c62aaa5bd6b5bb8ff38543e66554bd0293ec8ec1fe51bc98f076f8c87",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/control-host-design.json"
+    },
+    {
+      "bytes": 37185,
+      "origin": "outputs/panda-latest-source-control-audit-v1/control-native-config.json",
+      "sha256": "a094ef6b81c5fc117cf2284383b220980e374b96351b7d34d6aacf05f8dbc3a8",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/control-native-config.json"
+    },
+    {
+      "bytes": 731,
+      "origin": "outputs/panda-latest-source-control-audit-v1/execute.py",
+      "sha256": "3467378a4099caa7b970fb0b3b2187c3764558db4392a46571b7f36ac790a70a",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/execute.py"
+    },
+    {
+      "bytes": 1067,
+      "origin": "outputs/panda-latest-source-control-audit-v1/job.json",
+      "sha256": "c0816d209f9bc3134fc75a6551062ccbc78df7afd2bc22b25c5e0d39ab99ab3b",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/job.json"
+    },
+    {
+      "bytes": 1815,
+      "origin": "outputs/panda-latest-source-control-audit-v1/manifest.json",
+      "sha256": "8a1f9fab582a40e90d00dc2d255c5b0992de2a59e309832a7a00f34421501a18",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/manifest.json"
+    },
+    {
+      "bytes": 3973,
+      "origin": "outputs/panda-latest-source-control-audit-v1/prepared.json",
+      "sha256": "3fba8d58b9eb855ade7e266802b65442290881d6c175d5a959d9ccc9e11be068",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/prepared.json"
+    },
+    {
+      "bytes": 15123,
+      "origin": "outputs/panda-latest-source-control-audit-v1/report.json",
+      "sha256": "c9792056b674a12c657470a16c16466042f0fce225d6cf8d163f34cf50b3ee52",
+      "snapshot": "snapshots/panda-latest-source-control-audit-v1/report.json"
+    },
+    {
+      "bytes": 949,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/control-delta.json",
+      "sha256": "213fbbfe4a5e04ff31147a131e0204ce796ba42ae50ecf660bcd0413a9ca3f67",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/control-delta.json"
+    },
+    {
+      "bytes": 2117,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/execute.py",
+      "sha256": "5baad769e819f0adb08349c11f4ac4b614d53d21e2fe72215dd947dc91edd3aa",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 18424,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/prepared.json",
+      "sha256": "baeb2362094de5d07271127b9e8b306ceb4db174513da06adac10aba5ca4c415",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 5266,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/probe.py",
+      "sha256": "ef72801b9feab1862ccec200456bc5d8b9a84faf22764fb55023ba1a9cddffca",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/probe.py"
+    },
+    {
+      "bytes": 1592,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/receipt.json",
+      "sha256": "ee48a5b34c13b7922d649e75d33049f2704eec2c0f99521eee4101251213ed7a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/receipt.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__main__.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 4525,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/archive.py"
+    },
+    {
+      "bytes": 6940,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 7879,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/build3d.py"
+    },
+    {
+      "bytes": 10942,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/cli.py",
+      "sha256": "73c88354d2ebd5a289a085bc5998c003801242c74de68c373caed85cfaa64c3a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 11162,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/export2d.py"
+    },
+    {
+      "bytes": 31845,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 21758,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_fidelity.py"
+    },
+    {
+      "bytes": 27764,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9497,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/lookdev.py"
+    },
+    {
+      "bytes": 8912,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/media.py"
+    },
+    {
+      "bytes": 22815,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 2961,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/packaging.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 55099,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48098,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 2955,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/review.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 17157,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/scene.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 12424,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 18169,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 9367,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "bytes": 43701,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13680,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14456,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/weft_metadata.py"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 2434,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_browser_fur.py",
+      "sha256": "8bc3adfe1103f83372b706ff234170bd4793c60a77ea757e4c702be9c28571eb",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_browser_fur.py"
+    },
+    {
+      "bytes": 3449,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_combed_groom.py",
+      "sha256": "baf68323e2de881d28b54e5b1eee7a961c2cb46758031716cbc062f8026fee10",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_combed_groom.py"
+    },
+    {
+      "bytes": 11182,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_companions.py",
+      "sha256": "0f5664b632c8a2c9b48d73dbec561705cdeea7ee4a83a313844a4263720677cd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_companions.py"
+    },
+    {
+      "bytes": 7935,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_fox_v2.py",
+      "sha256": "240ea2716a7ce60b2462b543297e79d8e8966fb7381c83766964594ca3425708",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_fox_v2.py"
+    },
+    {
+      "bytes": 22922,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda.py",
+      "sha256": "28561566431d92db7063880401c3d688ac117a33e5a4efcae887e3cf2feb41e2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda.py"
+    },
+    {
+      "bytes": 10387,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v2.py",
+      "sha256": "b546bb9778ff11d35aea908f0757d801108d0f74683deeed91b6cb7961f2248b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v2.py"
+    },
+    {
+      "bytes": 10426,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v3.py",
+      "sha256": "90c31c471ce101f9111e5ec7ce1036fae70bad33b554c814508d9802e8a133a3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v3.py"
+    },
+    {
+      "bytes": 32513,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_companions.py"
+    },
+    {
+      "bytes": 25166,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_panda.py"
+    },
+    {
+      "bytes": 27045,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_robot.py"
+    },
+    {
+      "bytes": 16082,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_build.py",
+      "sha256": "4a5f1f03f21b728f2b72056d8783678033f17232de9fb344f7944eb42a3c913d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_build.py"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52685,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 21139,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_geometry.py"
+    },
+    {
+      "bytes": 16436,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_lookdev.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 13538,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_partition_generated.py",
+      "sha256": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_partition_generated.py"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 3521,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render.py"
+    },
+    {
+      "bytes": 6211,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render_prepared.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 9781,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surfaces_hd.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 26865,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_compound_motion.py",
+      "sha256": "74a6edf198a07e17eeeb05104c17a08626ae27f53c4302862c9dc662503d603b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_compound_motion.py"
+    },
+    {
+      "bytes": 6524,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_motion_controls.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 17213,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/denoise_portrait.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 9233,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_flow.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 13920,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/package_portable_media.py"
+    },
+    {
+      "bytes": 7911,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/rig_guide_annotations.py"
+    },
+    {
+      "bytes": 14055,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 9850,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/validate_studio_framing.py"
+    },
+    {
+      "bytes": 22630,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_quality_assets.py",
+      "sha256": "31e3f74edb6dc9f5e964241d464432cf9c7e0a960efde419db016b373568e592",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_quality_assets.py"
+    },
+    {
+      "bytes": 7537,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_studio_live.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/panda-uv2-source-preflight-preparation-v1/started.json",
+      "sha256": "6e1f9bfdf2999d384c31f85c3f21ecc7d8ae60565bb89157760dd370bdd054e9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/started.json"
+    },
+    {
+      "bytes": 3149,
+      "origin": "outputs/panda-uv2-source-preflight-v1/manifest.json",
+      "sha256": "a7da916c2276641887578bd698a04658fd490974d7e1d18df0c27f531cbbe950",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/manifest.json"
+    },
+    {
+      "bytes": 481,
+      "origin": "outputs/panda-uv2-source-preflight-v1/native-handle.json",
+      "sha256": "6440d3dd3b8674111fbbfae29914453feb1a16083717050b9296001020090e7f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/native-handle.json"
+    },
+    {
+      "bytes": 1270,
+      "origin": "outputs/panda-uv2-source-preflight-v1/native-monitor.json",
+      "sha256": "86d19cd26df3c9b21a1e5457b236a4a4a4a138207e8c6253344a1f39d083ec8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/native-monitor.json"
+    },
+    {
+      "bytes": 1038,
+      "origin": "outputs/panda-uv2-source-preflight-v1/native.log",
+      "sha256": "0f5fd86063513984d4b2e72626cccad1e93035fa718298a4e947dfe348cff8c7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/native.log"
+    },
+    {
+      "bytes": 360,
+      "origin": "outputs/panda-uv2-source-preflight-v1/result.json",
+      "sha256": "cedc520971ae3ab7718c519575724bf59d8fd031a5ccc591693c63c87500bd68",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/result.json"
+    },
+    {
+      "bytes": 512,
+      "origin": "outputs/panda-uv2-source-preflight-v1/source-normal-frame-comparison.json",
+      "sha256": "f09d339a23463d719d87bf60b3c2c65e12fa7c13990b927d06703628375b4a22",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/source-normal-frame-comparison.json"
+    },
+    {
+      "bytes": 4166,
+      "origin": "outputs/panda-uv2-source-preflight-v1/source-selection.json",
+      "sha256": "5c816281cddf1d9e8a4784bfa8d65dd4c8a35f2cbb9883ae6907c304a98f8b99",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/source-selection.json"
+    },
+    {
+      "bytes": 4809,
+      "origin": "outputs/panda-uv2-source-preflight-v1/undercoat-plan.json",
+      "sha256": "d550317ce6dbbad5d4a38886399b052a2c58f1e78c63cbfd1cacfe48c9384625",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/undercoat-plan.json"
+    },
+    {
+      "bytes": 240,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/check-handle.json",
+      "sha256": "5d8b0ad4ca2f302eaa44bedb463095e6d8f8f9077876efa292b38157c2fc71af",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/check-handle.json"
+    },
+    {
+      "bytes": 976,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/check-monitor.json",
+      "sha256": "26db41223677c25be1e51c533f66b7a0b555f3ee1570d85424553ce82db919e8",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/check-monitor.json"
+    },
+    {
+      "bytes": 467,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/check.log",
+      "sha256": "44ea136616e22410b793d001bc526c6aad801242e4d15e378c9e8951193c81fb",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/check.log"
+    },
+    {
+      "bytes": 11135,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/check.py",
+      "sha256": "4650d93df43bd9b73dce9baa5d7d1a1a6073b030172bbf80c6421da734ffede6",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/check.py"
+    },
+    {
+      "bytes": 709,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/execute.py",
+      "sha256": "1b084c01dd24bf15a4769f07cf0267bed51bf5ba2a63e4a57ca4215b4e7f7d92",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/execute.py"
+    },
+    {
+      "bytes": 1064,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/job.json",
+      "sha256": "6ff50a1451711740e097d387ed3c4ae9973be38d6b8dfee396b2b8537ffd6ca4",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/job.json"
+    },
+    {
+      "bytes": 1649,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/manifest.json",
+      "sha256": "f34ccbbdbe5db267a131c54f64e29e85abc59f04c4a6eb7df8ad89ee66108fc8",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/manifest.json"
+    },
+    {
+      "bytes": 3824,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/prepared.json",
+      "sha256": "53bf261f08de71609c8dbbeccdba00c29f956f00c7353c74183dee21adbd96be",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/prepared.json"
+    },
+    {
+      "bytes": 13089,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/report.json",
+      "sha256": "46e69a6b4b35e290b722f98f8ca760b85a61cb1d50d8a4c55ee1d41d6d8a67c3",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/report.json"
+    },
+    {
+      "bytes": 6899,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/rig-config.json",
+      "sha256": "d338ef960552478fe55f5147170b96af3a0405cb3a545dda38153230cac41312",
+      "snapshot": "snapshots/panda-uv2-control-reconciliation-v1/rig-config.json"
+    },
+    {
+      "bytes": 238,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/check-handle.json",
+      "sha256": "71ac4c3754eae41051f90237c9051ba557c5fa34b849244984d94dfe7bd6fe94",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/check-handle.json"
+    },
+    {
+      "bytes": 974,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/check-monitor.json",
+      "sha256": "1826530a62249f5c75f22fb311f5524e5845020df4a1984c08b8a95e20923a17",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/check-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 10446,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/check.py",
+      "sha256": "4ece657bbf19908e155e81d37f034d63b92b91395954077e798551fd4a8ab970",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/check.py"
+    },
+    {
+      "bytes": 2506,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/inputs.json",
+      "sha256": "64d1eed6f841d46cbfadde4e7a65d2128081eb92958c37f00c360ba508c775a7",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/inputs.json"
+    },
+    {
+      "bytes": 1062,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/job.json",
+      "sha256": "9a940ed8d506726c1521a83a9af9ca07e16200d51648c72a9488fb57accf18d9",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/job.json"
+    },
+    {
+      "bytes": 1589,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/manifest.json",
+      "sha256": "8cfc9cd53f3c1219a65abd692c72d4ae67950dcc95caf0476ac40c9c1a8ecfca",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/manifest.json"
+    },
+    {
+      "bytes": 555,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/prepared.json",
+      "sha256": "a1c761448fccff6ccb43d7dc4e0221f9546d86e512a7b3da6ac23929d1ea5992",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/prepared.json"
+    },
+    {
+      "bytes": 1574,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/result.json",
+      "sha256": "1d60f0eab1b3de32cb7d2a37d060efec157bcd41a173ef62f7b16c3c9d7ed54a",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/result.json"
+    },
+    {
+      "bytes": 1915,
+      "origin": "outputs/panda-uv2-coverage-independent-v1/review.json",
+      "sha256": "71d552cad0de98a9e248721008d098f11c9d5e0b2734f4d2045d037fb6c737d7",
+      "snapshot": "snapshots/panda-uv2-coverage-independent-v1/review.json"
+    },
+    {
+      "bytes": 949,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/control-delta.json",
+      "sha256": "213fbbfe4a5e04ff31147a131e0204ce796ba42ae50ecf660bcd0413a9ca3f67",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/control-delta.json"
+    },
+    {
+      "bytes": 2160,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/execute.py",
+      "sha256": "7d840073a387ab0b4a3b320e1505e9bf2c2494aee0a3425727a05e4baa7ac751",
+      "snapshot": "snapshots/panda-uv2-staged-control-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 37182,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/finish-config.json"
+    },
+    {
+      "bytes": 4718,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/prepare_entry.py",
+      "sha256": "c0f81b2e356768c08c8a03778f4059c3437f451d45ae2ed0b84eae7392e05da9",
+      "snapshot": "snapshots/panda-uv2-staged-control-preparation-v1/prepare_entry.py"
+    },
+    {
+      "bytes": 23515,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/prepared.json",
+      "sha256": "1a1186624e16606cf826eaf150ab986cb58430d358a3c27ddfd278cd32219f94",
+      "snapshot": "snapshots/panda-uv2-staged-control-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 1638,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/receipt.json",
+      "sha256": "03b16e94e3640f35649395340c89f2560f990a895f0b326e7b72da1f351b669b",
+      "snapshot": "snapshots/panda-uv2-staged-control-preparation-v1/receipt.json"
+    },
+    {
+      "bytes": 4166,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/source-selection.json",
+      "sha256": "5c816281cddf1d9e8a4784bfa8d65dd4c8a35f2cbb9883ae6907c304a98f8b99",
+      "snapshot": "snapshots/panda-uv2-source-preflight-v1/source-selection.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__main__.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 4525,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/archive.py"
+    },
+    {
+      "bytes": 6940,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 7879,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/build3d.py"
+    },
+    {
+      "bytes": 10942,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/cli.py",
+      "sha256": "73c88354d2ebd5a289a085bc5998c003801242c74de68c373caed85cfaa64c3a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 11162,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/export2d.py"
+    },
+    {
+      "bytes": 31845,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 21758,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_fidelity.py"
+    },
+    {
+      "bytes": 27764,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9497,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/lookdev.py"
+    },
+    {
+      "bytes": 8912,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/media.py"
+    },
+    {
+      "bytes": 22815,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 2961,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/packaging.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 55099,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48098,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 2955,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/review.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 17157,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/scene.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 12424,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 18169,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 9367,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "bytes": 43701,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13680,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14456,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/weft_metadata.py"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 2434,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_browser_fur.py",
+      "sha256": "8bc3adfe1103f83372b706ff234170bd4793c60a77ea757e4c702be9c28571eb",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_browser_fur.py"
+    },
+    {
+      "bytes": 3449,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_combed_groom.py",
+      "sha256": "baf68323e2de881d28b54e5b1eee7a961c2cb46758031716cbc062f8026fee10",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_combed_groom.py"
+    },
+    {
+      "bytes": 11182,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_hd_companions.py",
+      "sha256": "0f5664b632c8a2c9b48d73dbec561705cdeea7ee4a83a313844a4263720677cd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_companions.py"
+    },
+    {
+      "bytes": 7935,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_hd_fox_v2.py",
+      "sha256": "240ea2716a7ce60b2462b543297e79d8e8966fb7381c83766964594ca3425708",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_fox_v2.py"
+    },
+    {
+      "bytes": 22922,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_hd_panda.py",
+      "sha256": "28561566431d92db7063880401c3d688ac117a33e5a4efcae887e3cf2feb41e2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda.py"
+    },
+    {
+      "bytes": 10387,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_hd_panda_v2.py",
+      "sha256": "b546bb9778ff11d35aea908f0757d801108d0f74683deeed91b6cb7961f2248b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v2.py"
+    },
+    {
+      "bytes": 10426,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_hd_panda_v3.py",
+      "sha256": "90c31c471ce101f9111e5ec7ce1036fae70bad33b554c814508d9802e8a133a3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_hd_panda_v3.py"
+    },
+    {
+      "bytes": 32513,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_quality_companions.py",
+      "sha256": "30d752d18f752beb1981ab57cc59636d3621f9078b4a2df48c4a6dca8077a273",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_companions.py"
+    },
+    {
+      "bytes": 25166,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_quality_panda.py",
+      "sha256": "588ce19630aa78e042d5543f49aedfcbc7180a3207d03ce84c3857563028ac68",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_panda.py"
+    },
+    {
+      "bytes": 27045,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/author_quality_robot.py",
+      "sha256": "ce4b34e051df66d5c6b4b9223588018a8bf9b12efcfcd0de040274f42c603285",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/author_quality_robot.py"
+    },
+    {
+      "bytes": 16082,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_build.py",
+      "sha256": "4a5f1f03f21b728f2b72056d8783678033f17232de9fb344f7944eb42a3c913d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_build.py"
+    },
+    {
+      "bytes": 6582,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_color_corrections.py",
+      "sha256": "22cbec7ef41e1e08fd58e0cb20a17193bd5e44b5a59ee0480262586fc6683ed4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_color_corrections.py"
+    },
+    {
+      "bytes": 23994,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_comb_groom.py",
+      "sha256": "6eff46ef15821c03fbf221e10960be51c916e9becc5e3a2bcb15cd8757c38bbd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_comb_groom.py"
+    },
+    {
+      "bytes": 2710,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_creature_rig.py",
+      "sha256": "5c8a7873b803dad6ad5c141ecac44fa72bd1db3414e89d403f89565a94bae952",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_creature_rig.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52685,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 23637,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_fur_cards.py",
+      "sha256": "b80936f4dab8d6c3546a72fa63f170173d99a90cd61a49c31b646eb04c6c68e7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_fur_cards.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 21139,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_geometry.py",
+      "sha256": "43c747739c43800fdebb664bde61168f2ec4199f076fbf0b2606d47de2b5e562",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_geometry.py"
+    },
+    {
+      "bytes": 16436,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_lookdev.py",
+      "sha256": "2ff4e51adfeb4fcfdd54d0c2d90db7733201566fa365fd2f7576296637326087",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_lookdev.py"
+    },
+    {
+      "bytes": 24601,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_native_groom.py",
+      "sha256": "21dcc650f3bd8577e1876271564499b9ee00a04f1f24b9c2734be7d839f0d1b6",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_native_groom.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 5789,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_part_rigs.py",
+      "sha256": "03ab7d6f6ed1bdf326c9551d47ba3ace5f0fa3eca96a5c889a8dfbf512a0de4e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_part_rigs.py"
+    },
+    {
+      "bytes": 13538,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_partition_generated.py",
+      "sha256": "6c99f42cddb293c7b483f4b44b4a5ae59df46d20535dd6b9d4e32dbf78d3eaab",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_partition_generated.py"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 3521,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_render.py",
+      "sha256": "cbc04bcfaed17363aceff826ef4fd398cdd8357da9b865eb9628a1b511872650",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render.py"
+    },
+    {
+      "bytes": 6211,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_render_prepared.py",
+      "sha256": "f57ecd84b8ff79b632b284c8a91477fcdfb62bfc99723390c39f8822576f4d34",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_render_prepared.py"
+    },
+    {
+      "bytes": 12009,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_surface_profiles.py",
+      "sha256": "2598d325bd75f697d27d8352361a125111ff99d4684ea4bd889b246013182280",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surface_profiles.py"
+    },
+    {
+      "bytes": 9781,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_surfaces_hd.py",
+      "sha256": "eb5ee9931df0d50a2b23b333c2e6a808d18739d4d811cc2965669f2814b4b26a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_surfaces_hd.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 26865,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_verify_compound_motion.py",
+      "sha256": "74a6edf198a07e17eeeb05104c17a08626ae27f53c4302862c9dc662503d603b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_compound_motion.py"
+    },
+    {
+      "bytes": 6524,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_verify_motion_controls.py",
+      "sha256": "476c17bbcc004834832321b4f96ae5547729d3112a9718c87b8f5358c9137994",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify_motion_controls.py"
+    },
+    {
+      "bytes": 5399,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py"
+    },
+    {
+      "bytes": 6870,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/deformation_diagnostics.py",
+      "sha256": "a5df8adc3dfdfabfd5522252ead63ee7b9cd90eeb09022fe81e587c8c7a73fd7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/deformation_diagnostics.py"
+    },
+    {
+      "bytes": 17213,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/denoise_portrait.py",
+      "sha256": "b722ed597d60d5d20cd4e14fb10235d62c8caf2cb220e68aca92a80ea54fe4a7",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/denoise_portrait.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 9233,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fringe_flow.py",
+      "sha256": "b7d60d5e9f152edf063ed9ce140b187dafe018e82470c66eb695aaccf8940ed9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_flow.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 7179,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/groom_flow.py",
+      "sha256": "f4351e50b4bb4b79ae711a74b8ae34e1be3ed11bc6d3b1ba5cbff4bb5619112b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/groom_flow.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 13920,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/package_portable_media.py",
+      "sha256": "2de17898a1f28e5a63573dd7283d55d3ce2de59ef93aedbab180d444847e2d5f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/package_portable_media.py"
+    },
+    {
+      "bytes": 7911,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/rig_guide_annotations.py",
+      "sha256": "77bad5fc52ada588be692861f0f4f6f6fb79205b08405ab2a457418ee6da38b1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/rig_guide_annotations.py"
+    },
+    {
+      "bytes": 14055,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/source_skin_snapshot.py",
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/source_skin_snapshot.py"
+    },
+    {
+      "bytes": 6843,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/surface_integrity.py",
+      "sha256": "fad073ee401060e0802811c6ce830e460e7d070ad84d808a86344ed4e298afc0",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_integrity.py"
+    },
+    {
+      "bytes": 7538,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/surface_smoothing.py",
+      "sha256": "5182af3eb2563043aad6332ec8944cfffd57f902ae2c0e1e0d9e0c5aa137023a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/surface_smoothing.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 9850,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/validate_studio_framing.py",
+      "sha256": "866c0f4c692074c1bfd9f4d1828f3c4fd24f671412f001ad3708db2d04c82291",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/validate_studio_framing.py"
+    },
+    {
+      "bytes": 22630,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/verify_quality_assets.py",
+      "sha256": "31e3f74edb6dc9f5e964241d464432cf9c7e0a960efde419db016b373568e592",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_quality_assets.py"
+    },
+    {
+      "bytes": 7537,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/verify_studio_live.py",
+      "sha256": "76840fbaa25f3be2f385b7820460b63da1258ace5120f045017bc504a0a77708",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/verify_studio_live.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/panda-uv2-staged-control-preparation-v1/started.json",
+      "sha256": "9934dc5599aba02a4bfe6620a792c446e0882c7f0918e74e3853a5dc6477ab4c",
+      "snapshot": "snapshots/panda-uv2-staged-control-preparation-v1/started.json"
+    },
+    {
+      "bytes": 14075,
+      "origin": "outputs/panda-uv2-staged-control-v1/fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/fringe-report.json"
+    },
+    {
+      "bytes": 1204,
+      "origin": "outputs/panda-uv2-staged-control-v1/original-normal-coverage.json",
+      "sha256": "e141c8aa3af7527318a8b331b4df891ac564a16a3598631f12492e3b40eda50b",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/original-normal-coverage.json"
+    },
+    {
+      "bytes": 5291,
+      "origin": "outputs/panda-uv2-staged-control-v1/phase-memory.jsonl",
+      "sha256": "0349a4cfd9eef356c37047a07aa0c72c1cbd671ea12d138b691db2ad3dff6376",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/phase-memory.jsonl"
+    },
+    {
+      "bytes": 5059,
+      "origin": "outputs/panda-uv2-staged-control-v1/preparation-manifest.json",
+      "sha256": "0954cc0985540c7703c940f2100956ef077fbae593b83df99b9461f9bc88334c",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/preparation-manifest.json"
+    },
+    {
+      "bytes": 486,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepare-handle.json",
+      "sha256": "fda906629228f60ff4dea1f7779cf0babb5d7946943d3b768a02ea28077021ce",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/prepare-handle.json"
+    },
+    {
+      "bytes": 1284,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepare-monitor.json",
+      "sha256": "2b5d5ad21df4a7118168c9d295d153a9f4f641c34062462512dad5f5cce3a95d",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/prepare-monitor.json"
+    },
+    {
+      "bytes": 7197,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepare.log",
+      "sha256": "dbbc5f9121b66c80a8d0488525e3a4a33cfadeb50c8e7c11a5bb193651292b3a",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/prepare.log"
+    },
+    {
+      "bytes": 89426,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/prepared-finish-report.json"
+    },
+    {
+      "bytes": 130005,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepared-native-scene.json",
+      "sha256": "276b64242f062beb7134e1bfc343771da2af1a72e1db1e34f0e0949246b569e2",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/prepared-native-scene.json"
+    },
+    {
+      "bytes": 1828,
+      "origin": "outputs/panda-uv2-staged-control-v1/raw-used-normal-uv.json",
+      "sha256": "1225c529278c946e3bf84c2f6da2fe97f84895e2e09344d7908aa17bc34c8fac",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/raw-used-normal-uv.json"
+    },
+    {
+      "bytes": 3815,
+      "origin": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/source-skin.json"
+    },
+    {
+      "bytes": 2846929,
+      "origin": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-00.png",
+      "sha256": "9602a5d9e74159e2ef51a57d1267acffb2ae6ba1469f4df76e491ba080dc798e",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-00.png"
+    },
+    {
+      "bytes": 179672,
+      "origin": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-02.png",
+      "sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-02.png"
+    },
+    {
+      "bytes": 188772,
+      "origin": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-04.png",
+      "sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-04.png"
+    },
+    {
+      "bytes": 142129,
+      "origin": "outputs/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-05.png",
+      "sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/textures/authored-short-pile-normal-material-05.png"
+    },
+    {
+      "bytes": 1684720,
+      "origin": "outputs/panda-uv2-staged-control-v1/textures/portable-fringe-color-atlas.png",
+      "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047",
+      "snapshot": "snapshots/panda-uv2-staged-control-v1/textures/portable-fringe-color-atlas.png"
+    },
+    {
+      "bytes": 3154,
+      "origin": "outputs/panda-uv2-portable-control-v1/authored-tangent-correction.json",
+      "sha256": "7ab2e38f9cd2e86ea09e1517b393f3e3075bb907814e8c22084a6d20566359b4",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/authored-tangent-correction.json"
+    },
+    {
+      "bytes": 11642,
+      "origin": "outputs/panda-uv2-portable-control-v1/manifest.json",
+      "sha256": "01e4c18a7aeccf19b1bd13f1f06f6664b5fb960d2683fba9ab1ba884be61ca2b",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/manifest.json"
+    },
+    {
+      "bytes": 8653,
+      "origin": "outputs/panda-uv2-portable-control-v1/prepared.json",
+      "sha256": "47b99137cfb642a0e62a23c191284010cc9d577f97005432377eb9c800ffd375",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/prepared.json"
+    },
+    {
+      "bytes": 238,
+      "origin": "outputs/panda-uv2-portable-control-v1/process-handle.json",
+      "sha256": "38c0898c915cc714735e7a39904563a9152a3ab745c8a61a6f04040327bebd26",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/process-handle.json"
+    },
+    {
+      "bytes": 1030,
+      "origin": "outputs/panda-uv2-portable-control-v1/process-monitor.json",
+      "sha256": "30c83dcfa4766b035c460ee8e12c86555f64ba2342fc29c2cda44baaab998908",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/process-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/panda-uv2-portable-control-v1/process.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 3339,
+      "origin": "outputs/panda-uv2-portable-control-v1/process.py",
+      "sha256": "debd1e3efa8697913d0d3243a391e5130d872a6a033f76824db974b78fa521de",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/process.py"
+    },
+    {
+      "bytes": 4976,
+      "origin": "outputs/panda-uv2-portable-control-v1/render-attributes.json",
+      "sha256": "a2aa8f7438d3e31f6d6c2bbc19d3804138fb4e7c7adfe9c2f31c43ca826dffdb",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/render-attributes.json"
+    },
+    {
+      "bytes": 641,
+      "origin": "outputs/panda-uv2-portable-control-v1/result.json",
+      "sha256": "6957cd6fa0ce8e3a2adcbd4ce419bcce9574dededef9cbed7c7f8771a380687f",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/result.json"
+    },
+    {
+      "bytes": 1523,
+      "origin": "outputs/panda-uv2-portable-control-v1/rig-contract.json",
+      "sha256": "a903f3f8f0bb44c36223414d67667b9ac291882171aae31cdfac1524e471cbea",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/rig-contract.json"
+    },
+    {
+      "bytes": 3319,
+      "origin": "outputs/panda-uv2-portable-control-v1/rig-verification.json",
+      "sha256": "34c205dc79083a78979067a352629458a4c5f80a204c2c0386a469934d294056",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/rig-verification.json"
+    },
+    {
+      "bytes": 16386,
+      "origin": "outputs/panda-uv2-portable-control-v1/skin-restoration.json",
+      "sha256": "c9723c3806762be50f91e5d48193b2ea114be6fc05185c7a19f2b9d0861676f4",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/skin-restoration.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 43,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/__main__.py",
+      "sha256": "5b6b90d74686a795930df55bfb70a6512c8b059a8629dd30866c3ecdaf78bf02",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__main__.py"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 4525,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/archive.py",
+      "sha256": "f54a3945749fda644e0e9c6083b1269858ba9e84e73742414eaeedcccb29b20b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/archive.py"
+    },
+    {
+      "bytes": 6940,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/assemble_generated.py",
+      "sha256": "3d8dd05555e4bb7668236df7cdd3494c84a5cfd95cdac57187ac5453fc55d330",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/assemble_generated.py"
+    },
+    {
+      "bytes": 7879,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/build3d.py",
+      "sha256": "fc914b616570a998d212ddfc4d12434074fb954f17ac26c0e474b0f567b7e31c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/build3d.py"
+    },
+    {
+      "bytes": 10942,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/cli.py",
+      "sha256": "73c88354d2ebd5a289a085bc5998c003801242c74de68c373caed85cfaa64c3a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/cli.py"
+    },
+    {
+      "bytes": 8351,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/color_corrections.py",
+      "sha256": "fe31582849307eb15ba0d249dae4b40e144a3bb7ba244c6a50f083dc213d43c2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/color_corrections.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 11162,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/export2d.py",
+      "sha256": "b59c1ebcbab7c1b146229be47fa5e4f06ad900fea026282701978ed959e03baa",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/export2d.py"
+    },
+    {
+      "bytes": 31845,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 21758,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/fringe_fidelity.py",
+      "sha256": "9da54282c47d394b8f1ac6bedc2ee7140bd6c23194dc41565e2192594907f6f1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_fidelity.py"
+    },
+    {
+      "bytes": 27764,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/gallery.py",
+      "sha256": "a791b928bfc3a0472fb5cefbfd29670d18df9af2d01b5dcf267fd482f3173c0d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/gallery.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 9497,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/lookdev.py",
+      "sha256": "b27acee4a931f4085cc0f125e89880b3a502a57c7687a8a2503914ab8e50e954",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/lookdev.py"
+    },
+    {
+      "bytes": 8912,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/media.py",
+      "sha256": "552c9e8ed664740a24dc97c6afef24e5e6fea934057bd64177138f0b4fd98a52",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/media.py"
+    },
+    {
+      "bytes": 22815,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/meshy.py",
+      "sha256": "77809002b222f68d2d93751c5ef8a177a7d1dc8244a80306a066ab06d6e4c5e3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy.py"
+    },
+    {
+      "bytes": 15225,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/meshy_access.py",
+      "sha256": "0981d30cd2dacb01f3bef58b3c5f799873ca5548781dba4e232f90de0a3017df",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/meshy_access.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 9246,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/normalize_generated.py",
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normalize_generated.py"
+    },
+    {
+      "bytes": 2961,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/packaging.py",
+      "sha256": "fa99391a2c2ba3cad800e17b75508e79f9edd27fde6260a990d64dbf99659e2a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/packaging.py"
+    },
+    {
+      "bytes": 6665,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/part_rigs.py",
+      "sha256": "0d3504d2b04b89fcac8d646e9bfb64a979da6d45ca7cb67f3b9788b8f8c1facf",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/part_rigs.py"
+    },
+    {
+      "bytes": 42517,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/partition_generated.py",
+      "sha256": "d31d151e7cb09ce646caffb5eea334e01cb6c323cd3bae2224c4a0021af04642",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/partition_generated.py"
+    },
+    {
+      "bytes": 55099,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48098,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 8121,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/provider_model.py",
+      "sha256": "f95abf1a95040da37e2365b2e6f95815cb2140c33b45a31cabaf79bc659ff94c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/provider_model.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 2955,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/review.py",
+      "sha256": "48b9f10bceb3e4b152f111a76a5fde2403cbb60ce7cfda8a041acaa41f577b62",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/review.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 17157,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/scene.py",
+      "sha256": "7a1e624a88d2575fce28908001822bfad438f55b916167d1a3af2b050e2909b2",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/scene.py"
+    },
+    {
+      "bytes": 24176,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/source_skin_fidelity.py",
+      "sha256": "7daefef7ee4681aece182205cb445596efdeafb1169536702f26cde595b811c5",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/source_skin_fidelity.py"
+    },
+    {
+      "bytes": 12424,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/stable_role_projection.py",
+      "sha256": "b5df2934c1416c45fb21073aadcb675456845dc4c714f1f7f4d12011b2aac5bd",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/stable_role_projection.py"
+    },
+    {
+      "bytes": 18169,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/studio.py",
+      "sha256": "ca7fb3ab29e42186b79b77e3b7a1f7b23de0443e7b755ad99da8c12e92131405",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio.py"
+    },
+    {
+      "bytes": 9367,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/studio_inspection.py",
+      "sha256": "925daa069c0878696101598938089d43c9cccc3da1d800ac12e224204b67e71d",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_inspection.py"
+    },
+    {
+      "bytes": 43701,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/studio_jobs.py",
+      "sha256": "156de2b8a4aeee9fa83b685c472417e630c90c82db97a9d457c0ffafc8a72aa0",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_jobs.py"
+    },
+    {
+      "bytes": 13680,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/studio_worker.py",
+      "sha256": "494263e6c960bd382c95769eaa9f590c7d9ac1a66995be869a25a6060a75fd69",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/studio_worker.py"
+    },
+    {
+      "bytes": 2675,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/surface_profiles.py",
+      "sha256": "3faa05888748c84fa165e08d56f8ba70daa9f6d4ecf0be20e266ccb935b2c2cb",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_profiles.py"
+    },
+    {
+      "bytes": 1792,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/surface_smoothing_config.py",
+      "sha256": "d641a6d8a13b2ca5522e71c7c730e849eff5305597c2f2e8d7d36210d6a03756",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/surface_smoothing_config.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 14456,
+      "origin": "outputs/panda-uv2-portable-control-v1/sources/avatar_assets/weft_metadata.py",
+      "sha256": "d3b548fe918fc61f3877c7862c427e14d8f38e611682a9531bba51bd514bab43",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/weft_metadata.py"
+    },
+    {
+      "bytes": 1797,
+      "origin": "outputs/panda-uv2-portable-control-v1/unused-fringe-tangent-omission.json",
+      "sha256": "52d689869926d3cd0ed35a1df22612ca305b66c909b037420e5769c2d9c9acf1",
+      "snapshot": "snapshots/panda-uv2-portable-control-v1/unused-fringe-tangent-omission.json"
+    },
+    {
+      "bytes": 342,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/audit-handle.json",
+      "sha256": "7509da85f1c92ed31b98b39d3eb6269cba08d7cd0f1644e839e81a1b82959a3b",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/audit-handle.json"
+    },
+    {
+      "bytes": 1125,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/audit-monitor.json",
+      "sha256": "ee3620d7e3d21e59b443fbcc2bd2a33fe67ba05b15e2d9924be8039a87cf82b0",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/audit-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 25381,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/check.py",
+      "sha256": "489d75fd1c775139e350bb68f1b7533bf2cb5c4d981f24b8825d22e7d7b18e0c",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/check.py"
+    },
+    {
+      "bytes": 740,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/execute.py",
+      "sha256": "048839db739e0bc84f26ad74b44e376eb4ddaef7ef23f6dcf42d42c048d1bbce",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/execute.py"
+    },
+    {
+      "bytes": 1219,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/job.json",
+      "sha256": "b8e7794490307930c81ebaef76234eb080c5b774b6f0684081af0fcc637ae1d0",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/job.json"
+    },
+    {
+      "bytes": 2464,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/manifest.json",
+      "sha256": "cbc647161c2dc3f067f53bb4a29729e2bf403d73fae9b715f06e6136e260908f",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/manifest.json"
+    },
+    {
+      "bytes": 28895,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/math_oracle.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/math_oracle.py"
+    },
+    {
+      "bytes": 4151,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/prepared.json",
+      "sha256": "926df29ca645833f1f06ac87a0daea6c8ceb60d35e848d94ab22bd340c5e6468",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/prepared.json"
+    },
+    {
+      "bytes": 3500,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/request.json",
+      "sha256": "003be7bdd07312a36b029cefc12177855f83fa5f97380b5de67d465d90964543",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/request.json"
+    },
+    {
+      "bytes": 5526,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/derivative-custody.json",
+      "sha256": "857473aef3e57975a7cf770f07fb5a1fdc9e8a8b7cf94c3dbed86c7bbdf0bafe",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/result/derivative-custody.json"
+    },
+    {
+      "bytes": 361,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/formerly-ambiguous-root.json",
+      "sha256": "8c8c33eb7d59dacd70cf1ca27df018d4091514ee0a1d1db8901a5af866bc3499",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/result/formerly-ambiguous-root.json"
+    },
+    {
+      "bytes": 708,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/id-and-fidelity.json",
+      "sha256": "3918f72ca0a3d2c2de3c8c6e18dce327d3f2d549279274efb7278152e6cfb6b2",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/result/id-and-fidelity.json"
+    },
+    {
+      "bytes": 3104,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/motion.json",
+      "sha256": "9474559e66d425f1accbf8ce18e78bbc4b98ced886f5302e230dee26d1b7f124",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/result/motion.json"
+    },
+    {
+      "bytes": 3500,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/request.json",
+      "sha256": "003be7bdd07312a36b029cefc12177855f83fa5f97380b5de67d465d90964543",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/request.json"
+    },
+    {
+      "bytes": 497,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/result/result.json",
+      "sha256": "68d73eb2b0c4e4eddaa36677e27f4204bf3ced275d8e9d457249de331436cf54",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/result/result.json"
+    },
+    {
+      "bytes": 2138,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/review.json",
+      "sha256": "ddfde93dbac60cc4af395cc958a5df98e2c05bc315a0d9c253e8132601a676ee",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/review.json"
+    },
+    {
+      "bytes": 2688,
+      "origin": "outputs/panda-uv2-independent-fidelity-v1/seal.json",
+      "sha256": "9ff76a87bde72fc4e5be217b1dcedfe2d69b02ad6f3edc71630b43d9820a8cc3",
+      "snapshot": "snapshots/panda-uv2-independent-fidelity-v1/seal.json"
+    },
+    {
+      "bytes": 1953,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/execute.py",
+      "sha256": "90ee4ffc1e45e9ea8613b70a76b0b5ffe3b100f58fdc1c829526a659cd331da3",
+      "snapshot": "snapshots/panda-uv2-portable-preview-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 108,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/motion.json",
+      "sha256": "9cea25b6520e9bebdc4cd9961920d1216c515887badcaa1e10b1caa90ffeed85",
+      "snapshot": "snapshots/panda-uv2-portable-preview-preparation-v1/motion.json"
+    },
+    {
+      "bytes": 2035,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/prepared.json",
+      "sha256": "73b056dc75da4be9c875a3bfd2e635fd688deb0b2e721001b201856a0ba15c72",
+      "snapshot": "snapshots/panda-uv2-portable-preview-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 1882,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/receipt.json",
+      "sha256": "70f2ce1e78738090ea6e3609e098093cd042c1baf4509be5404aacb541e22eec",
+      "snapshot": "snapshots/panda-uv2-portable-preview-preparation-v1/receipt.json"
+    },
+    {
+      "bytes": 13587,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_provider_preview.py"
+    },
+    {
+      "bytes": 18248,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_verify.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/panda-uv2-portable-preview-preparation-v1/started.json",
+      "sha256": "7ae5c26d93fd0c4c80267f50ee34c9e7f65a81204007d30f3b9bf5b2f9f5ac3b",
+      "snapshot": "snapshots/panda-uv2-portable-preview-preparation-v1/started.json"
+    },
+    {
+      "bytes": 435435,
+      "origin": "outputs/panda-uv2-portable-preview-v1/back.png",
+      "sha256": "9b5bfeb7318af7355410cc00f055b073ad5619f156872f6e07e9953454336007",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/back.png"
+    },
+    {
+      "bytes": 464800,
+      "origin": "outputs/panda-uv2-portable-preview-v1/front.png",
+      "sha256": "97e1b2ce868e43ecc20017e7a07922ee1bd7bd2e4b4f66e0b4282d4c8bb9470a",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/front.png"
+    },
+    {
+      "bytes": 738,
+      "origin": "outputs/panda-uv2-portable-preview-v1/native-handle.json",
+      "sha256": "890740525e1adbbb880034081feae646418b90d5bad52c44e750f0123b75b5cc",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/native-handle.json"
+    },
+    {
+      "bytes": 10909,
+      "origin": "outputs/panda-uv2-portable-preview-v1/native-inspection.json",
+      "sha256": "6e312d2c00f5ae31b78d107ade3b7cdedf22bdb92863870e8ea4d67ba622a4ef",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/native-inspection.json"
+    },
+    {
+      "bytes": 1532,
+      "origin": "outputs/panda-uv2-portable-preview-v1/native-monitor.json",
+      "sha256": "55698b6c2bfcc16d3318075923c477d5e60f5e696b4a876fa16fc54e199c4cab",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/native-monitor.json"
+    },
+    {
+      "bytes": 2758,
+      "origin": "outputs/panda-uv2-portable-preview-v1/native.log",
+      "sha256": "7c0c30c694206655ca2d3178f678d3285a889fd2d4168189e976f22e3e89de9f",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/native.log"
+    },
+    {
+      "bytes": 384712,
+      "origin": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0000.png",
+      "sha256": "b8f4fe4495cd27f3081d86b8e8c27cbf9bfe47a9b6b2c48d5545b1d525c4ed8d",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/renders/dance_flight/0000.png"
+    },
+    {
+      "bytes": 393427,
+      "origin": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0001.png",
+      "sha256": "cc65c32f80ed9266f234ee3c1ed1c4f962c6db990fbce9b516d6f0593c1c84ba",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/renders/dance_flight/0001.png"
+    },
+    {
+      "bytes": 387427,
+      "origin": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0002.png",
+      "sha256": "90320f8a53051dc6075f44b8630bd2bb57fb6652973015952b38ddff07900ba4",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/renders/dance_flight/0002.png"
+    },
+    {
+      "bytes": 387570,
+      "origin": "outputs/panda-uv2-portable-preview-v1/renders/dance_flight/0003.png",
+      "sha256": "8505f53368ba55333d4c2f57364c5d7e720e68057423b18482856ca5d8f2273b",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/renders/dance_flight/0003.png"
+    },
+    {
+      "bytes": 411334,
+      "origin": "outputs/panda-uv2-portable-preview-v1/side.png",
+      "sha256": "80dd393efad05f189cc727a5fbe6137405ae7a3f84917d24749c057ac16e2108",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/side.png"
+    },
+    {
+      "bytes": 447332,
+      "origin": "outputs/panda-uv2-portable-preview-v1/three-quarter.png",
+      "sha256": "4af60e833a69acfaeface1a73e5fc28d9a26417ca292c95f3533bb704c2fee55",
+      "snapshot": "snapshots/panda-uv2-portable-preview-v1/three-quarter.png"
+    },
+    {
+      "bytes": 298,
+      "origin": "outputs/panda-uv2-appearance-review-v1/manifest.json",
+      "sha256": "dd80665ccec6f8b88f7154bcf5f76d041653d10c31f5f29e308ecc35e8a222bb",
+      "snapshot": "snapshots/panda-uv2-appearance-review-v1/manifest.json"
+    },
+    {
+      "bytes": 5223,
+      "origin": "outputs/panda-uv2-appearance-review-v1/review.json",
+      "sha256": "04c045cd1cc4169439c931073c79d165f99e5d6ddfbbdf755d96ea52b5d1b022",
+      "snapshot": "snapshots/panda-uv2-appearance-review-v1/review.json"
+    },
+    {
+      "bytes": 261,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/finalizer-failure.json",
+      "sha256": "af5138737d181050164b16c612e21c72abd850898136b009cc8c0eb7b859a9da",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/finalizer-failure.json"
+    },
+    {
+      "bytes": 1038,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/job.json",
+      "sha256": "74eed23c6e5f46e8a1c9b8a9e34054a5bcb5e3a8e2b45041750833a149c3b822",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/job.json"
+    },
+    {
+      "bytes": 1757,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/manifest.json",
+      "sha256": "0defed4fdc25df651d352fc1881468d2a0c91227263746ce08b9ef4bb76b45b4",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 1079,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/prepared.json",
+      "sha256": "ac60ac93e8d7fc88e64ad418b55e26e387c0d749d90dacc9c1e1101c710257e7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 152,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/source-verification.json",
+      "sha256": "00c4feffb66039f9ca5473d8bdc724c044f3fb5d57c49b5a83b80d4e5ffd45f4",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/source-verification.json"
+    },
+    {
+      "bytes": 10150,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "b9fc68888ab8e4e62888a7f39c091932529f2278867125b5e6389a97e1e64ba0",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14592,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/sources/tests/test_normal_uv_export.py",
+      "sha256": "baafd0659780a951dafd62da56408eb1a448dcd46d5fe89006caec2332182433",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/tests/test_normal_uv_export.py"
+    },
+    {
+      "bytes": 199,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/tests-handle.json",
+      "sha256": "1e9fabf91ced8f0fa47dd7cd820b46ab5e9fbea5a380b6d52d40bf41ed138db6",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 934,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/tests-monitor.json",
+      "sha256": "b333432ae0c6b7888c44d6958e16627ddd8f0e3303a455a723123ba83001b5fd",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 3605,
+      "origin": "outputs/normal-uv-export-guard-tests-v1/tests.log",
+      "sha256": "ed0acbeb88a3b3546b574cf73c6d63f99e0bb8702f2582e10a37106151889312",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1038,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/job.json",
+      "sha256": "03fdfa9859eae6c63a3b22b2cd399f9f0d62c06e6daf8f39d4903bfd735df116",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/job.json"
+    },
+    {
+      "bytes": 1569,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/manifest.json",
+      "sha256": "3c9e34dd2e3c53dcc8584519498e472db38511a39d07c2bc318141a3c7e04d85",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/manifest.json"
+    },
+    {
+      "bytes": 1182,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/prepared.json",
+      "sha256": "c92d70101741ae81650999057cf917b6937f643d462c902f3357371190bffe63",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/prepared.json"
+    },
+    {
+      "bytes": 569,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/source-verification.json",
+      "sha256": "efd56a4072595bd8778d9c5686378def85a5037f64d906a4a63f24b08b943087",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/source-verification.json"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14969,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/sources/tests/test_normal_uv_export.py",
+      "sha256": "b533cc08a24742b1d67552e95d33a31e3df79b775b9dbb3880359dfa724bdab7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/tests/test_normal_uv_export.py"
+    },
+    {
+      "bytes": 199,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/tests-handle.json",
+      "sha256": "e8c1865d848cb743509762444ca043de88ab62b27120c8d623edd3e971500003",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/tests-handle.json"
+    },
+    {
+      "bytes": 934,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/tests-monitor.json",
+      "sha256": "b0ff1cd7a5f35d5e5c8ad9ad0766aec32e9a57e6c90b4e664d9b190397cee40d",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/tests-monitor.json"
+    },
+    {
+      "bytes": 3793,
+      "origin": "outputs/normal-uv-export-guard-tests-v2/tests.log",
+      "sha256": "cc8ee71e7743156b6c44c793c1a3d3bb519392cc01e1fa80998be43711997b43",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/tests.log"
+    },
+    {
+      "bytes": 1908,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/execute.py",
+      "sha256": "9efb1504212c062952fffac1590c3fb58cca6edea4cd1caae390c24c13f8f355",
+      "snapshot": "snapshots/normal-uv-export-native-preparation-v1/execute.py"
+    },
+    {
+      "bytes": 2314,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/prepared.json",
+      "sha256": "7b133f5d41d65252b0947a418d780ecca21ba9c358efbd759882e88882b2a11e",
+      "snapshot": "snapshots/normal-uv-export-native-preparation-v1/prepared.json"
+    },
+    {
+      "bytes": 4976,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/probe.py",
+      "sha256": "21c7b867b2bc019a88d2ac9487bcbd0b199e1fa971fff95a8acb412b99723a62",
+      "snapshot": "snapshots/normal-uv-export-native-preparation-v1/probe.py"
+    },
+    {
+      "bytes": 1582,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/receipt.json",
+      "sha256": "0d24c0aef769bd47d6ecaba0a3bc115c64b498a4410b83367b78a16624f2609e",
+      "snapshot": "snapshots/normal-uv-export-native-preparation-v1/receipt.json"
+    },
+    {
+      "bytes": 96,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/__init__.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 92,
+      "origin": "outputs/normal-uv-export-native-preparation-v1/started.json",
+      "sha256": "fb41f429f03bab05c96861e458e25d6e06c7c942d8020a8449e91624cbd9a887",
+      "snapshot": "snapshots/normal-uv-export-native-preparation-v1/started.json"
+    },
+    {
+      "bytes": 5153,
+      "origin": "outputs/normal-uv-export-native-v1/authored-normal-uv-export.json",
+      "sha256": "5c74be9fe30e063285b1f63a3b2789ac3f7e05f7cb118d0d0a950e8af3fb7cd7",
+      "snapshot": "snapshots/normal-uv-export-native-v1/authored-normal-uv-export.json"
+    },
+    {
+      "bytes": 97359,
+      "origin": "outputs/normal-uv-export-native-v1/authored-read-only.json",
+      "sha256": "525edd310e32180897a23b29ce86f0697bcae5f3c540c352382e6e4c83cbfdc5",
+      "snapshot": "snapshots/normal-uv-export-native-v1/authored-read-only.json"
+    },
+    {
+      "bytes": 3163,
+      "origin": "outputs/normal-uv-export-native-v1/manifest.json",
+      "sha256": "e638000241a4a26970338e3f7432e8edb5fc68051a0ade79fd3047e005de7643",
+      "snapshot": "snapshots/normal-uv-export-native-v1/manifest.json"
+    },
+    {
+      "bytes": 475,
+      "origin": "outputs/normal-uv-export-native-v1/native-handle.json",
+      "sha256": "0ce61bcaac15223a3894779292d088f2cc0db6fec2b67e8837065789116a1232",
+      "snapshot": "snapshots/normal-uv-export-native-v1/native-handle.json"
+    },
+    {
+      "bytes": 1262,
+      "origin": "outputs/normal-uv-export-native-v1/native-monitor.json",
+      "sha256": "4e67874406e71bc4e567db92300721cf5a65085c4b5891e55de0f8d4d9bc0069",
+      "snapshot": "snapshots/normal-uv-export-native-v1/native-monitor.json"
+    },
+    {
+      "bytes": 365,
+      "origin": "outputs/normal-uv-export-native-v1/native.log",
+      "sha256": "128fb98136673c819293bc83223b9fc3744bc00116023bb4db948278af257b39",
+      "snapshot": "snapshots/normal-uv-export-native-v1/native.log"
+    },
+    {
+      "bytes": 2159,
+      "origin": "outputs/normal-uv-export-native-v1/original-normal-uv-export.json",
+      "sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0",
+      "snapshot": "snapshots/normal-uv-export-native-v1/original-normal-uv-export.json"
+    },
+    {
+      "bytes": 44864,
+      "origin": "outputs/normal-uv-export-native-v1/original-read-only.json",
+      "sha256": "47234a7b6ae8a9a1dff47e677778820023330569120f7d0178fc5a274921aa40",
+      "snapshot": "snapshots/normal-uv-export-native-v1/original-read-only.json"
+    },
+    {
+      "bytes": 457,
+      "origin": "outputs/normal-uv-export-native-v1/result.json",
+      "sha256": "bd11bf3f1dda22a0ce8bc83b9bca7b04be27ed0b18462d0aa4df7b0810bc6a72",
+      "snapshot": "snapshots/normal-uv-export-native-v1/result.json"
+    },
+    {
+      "bytes": 1163,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/job.json",
+      "sha256": "b74a02b5b425319aa2c92ee620bee8de44462b469f62ba261179e1c21068e26d",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/job.json"
+    },
+    {
+      "bytes": 2850,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/manifest.json",
+      "sha256": "cd1ba2bc151d6b3563d2e3e71f970c009deb6e5b185642ebd2667ac4db950683",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 2179,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/prepared.json",
+      "sha256": "8714983f8d735f0b32da9c0a868b6af6bba66029693a36f321ee5494179caa03",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 1011,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/review.json",
+      "sha256": "cce70a0f7b81cb64646530d211d3fadf914c9b9f48d9a5ebb58ebeb7d0f6c3c7",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/review.json"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14069,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/tests/test_normal_rejection_pipeline.py",
+      "sha256": "fb01324fe6e568c12b55e7d6930e5702517490f84ea55efbebae6e58cd37c58e",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/tests/test_normal_rejection_pipeline.py"
+    },
+    {
+      "bytes": 14969,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/tests/test_normal_uv_export.py",
+      "sha256": "b533cc08a24742b1d67552e95d33a31e3df79b775b9dbb3880359dfa724bdab7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/tests/test_normal_uv_export.py"
+    },
+    {
+      "bytes": 14226,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/sources/tests/test_normal_uv_rejection_pipeline.py",
+      "sha256": "c4d6c97713c58e3c0bd2fce1c4be9e55d1f8658b178a2928987f670dc9c2db3f",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/tests/test_normal_uv_rejection_pipeline.py"
+    },
+    {
+      "bytes": 244,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/test-handle.json",
+      "sha256": "a5ee2219f5b7ea69574f573ed7a8fbb495248a92606e86f55eec341a5638e97c",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/test-handle.json"
+    },
+    {
+      "bytes": 1028,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/test-monitor.json",
+      "sha256": "4021a0afd092f2baf9de5124edd65765f7c90746708fd3e7d1a6a38add0a40e3",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/test-monitor.json"
+    },
+    {
+      "bytes": 4646,
+      "origin": "outputs/normal-uv-rejection-pipeline-tests-v1/test.log",
+      "sha256": "b31f03da572b9a856df849bca43d2e66ad09419f299e9fe98ae06aa21033dac2",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/test.log"
+    },
+    {
+      "bytes": 309,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/authored-fixture/manifest.json",
+      "sha256": "9d33ff05d9a8589ed00ac2271df23b68920bfb5c4e77dc04ea58c8267d3cb11d",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/authored-fixture/manifest.json"
+    },
+    {
+      "bytes": 5153,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/authored-fixture/normal-uv-export.json",
+      "sha256": "5c74be9fe30e063285b1f63a3b2789ac3f7e05f7cb118d0d0a950e8af3fb7cd7",
+      "snapshot": "snapshots/normal-uv-export-native-v1/authored-normal-uv-export.json"
+    },
+    {
+      "bytes": 235,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/check-handle.json",
+      "sha256": "912b72996d9b4300a7fdf405dcbae4eacdbd7db3bad0887dedf45959314cf580",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/check-handle.json"
+    },
+    {
+      "bytes": 972,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/check-monitor.json",
+      "sha256": "2d19a6e0779d6daa5601fe9c0f26f77039b5edfb037147366e94da2facd4fc73",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/check-monitor.json"
+    },
+    {
+      "bytes": 0,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/check.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/__init__.py"
+    },
+    {
+      "bytes": 2931,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/check.py",
+      "sha256": "51dc9d22fbcfef55492554ce9a30bd2493663ca08f00e13705e2557749c580f7",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/check.py"
+    },
+    {
+      "bytes": 1108,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/inputs.json",
+      "sha256": "658e4619ddf09e0f633b0e54e1ef4acdc236819005381499606ebae425cae59f",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/inputs.json"
+    },
+    {
+      "bytes": 1060,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/job.json",
+      "sha256": "25ddc6eac94cd8cc16a77c16e8c2dd5e3c48aeed526449bfb9dfe7979907b7e3",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/job.json"
+    },
+    {
+      "bytes": 2569,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/manifest.json",
+      "sha256": "a105793714a5f674b36c024decc9bd269f5128cc315f6a3aef3782c3284291da",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/manifest.json"
+    },
+    {
+      "bytes": 309,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/original-fixture/manifest.json",
+      "sha256": "cfe406fb0929af96f1e0c9b960622815bf391c05e91e7dbe7b9eaa52e65f4e89",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/original-fixture/manifest.json"
+    },
+    {
+      "bytes": 2159,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/original-fixture/normal-uv-export.json",
+      "sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0",
+      "snapshot": "snapshots/normal-uv-export-native-v1/original-normal-uv-export.json"
+    },
+    {
+      "bytes": 554,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/prepared.json",
+      "sha256": "6a8cdafb3176cb13a5fc43e2fd8245681c1d56207e0d3e29d8db597bbdc80f56",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/prepared.json"
+    },
+    {
+      "bytes": 2376,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/result.json",
+      "sha256": "01f7c2e80fea80c39450bff8069f28237eebf8ca527de98b7b4f7744930dbf61",
+      "snapshot": "snapshots/normal-uv-diagnostic-actual-v1/result.json"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-diagnostic-actual-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 1610,
+      "origin": "outputs/normal-uv-custody-tests-v1/execute.py",
+      "sha256": "7417d1ce19591d06643578fbea3773159b2bf85ce0e58a49338333cf9fc6d4f0",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/execute.py"
+    },
+    {
+      "bytes": 1602,
+      "origin": "outputs/normal-uv-custody-tests-v1/job.json",
+      "sha256": "5e4a2a784b2dbd7a7c44c8937d4c238ae361774a5d905b5fab5080348dc36219",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/job.json"
+    },
+    {
+      "bytes": 6505,
+      "origin": "outputs/normal-uv-custody-tests-v1/manifest.json",
+      "sha256": "b379c2c01cc49640defa43fc65644b614f2190d5ba92a56ef5e2a66c715f9d09",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/manifest.json"
+    },
+    {
+      "bytes": 8990,
+      "origin": "outputs/normal-uv-custody-tests-v1/prepared.json",
+      "sha256": "52d40a3c3d36cbfb7881e469b31d6359128c07e0f82a3e1ff196dcf47c4f68d2",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/prepared.json"
+    },
+    {
+      "bytes": 2568,
+      "origin": "outputs/normal-uv-custody-tests-v1/receipt.json",
+      "sha256": "e47c36c734e3ac865d8f63e5e12c798a2fd8214e82f7316b18f727e9b2220a4d",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/receipt.json"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52912,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 28716,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/tests/test_finish_quality_contracts.py",
+      "sha256": "1f3fd4cefd87e847317b9a54ca540ae05bd3fd11aa6d5141c0ea6211e7ad046d",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/tests/test_finish_quality_contracts.py"
+    },
+    {
+      "bytes": 10480,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/tests/test_normal_uv_export_custody.py",
+      "sha256": "e54cdca66ac1422a9afd7686bda96e2624052f69e54514a1f959efe2e186da9c",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/tests/test_normal_uv_export_custody.py"
+    },
+    {
+      "bytes": 21591,
+      "origin": "outputs/normal-uv-custody-tests-v1/sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "bytes": 700,
+      "origin": "outputs/normal-uv-custody-tests-v1/tests-handle.json",
+      "sha256": "2f73a4dacbfd9dff5ec7f2f10083bca2a1d4d660656b7f0c7e3c196992f33288",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/tests-handle.json"
+    },
+    {
+      "bytes": 1484,
+      "origin": "outputs/normal-uv-custody-tests-v1/tests-monitor.json",
+      "sha256": "8b9e928cd0a9bb4a56b3bfb8d44b433189481f749e399b478be6f392ce18fd4a",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/tests-monitor.json"
+    },
+    {
+      "bytes": 5212,
+      "origin": "outputs/normal-uv-custody-tests-v1/tests.log",
+      "sha256": "ca07b6b6f17f4bfb34656c630fff6a70ea08a611b23399439bca8870dba6410c",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/tests.log"
+    },
+    {
+      "bytes": 1610,
+      "origin": "outputs/normal-uv-custody-tests-v2/execute.py",
+      "sha256": "7417d1ce19591d06643578fbea3773159b2bf85ce0e58a49338333cf9fc6d4f0",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/execute.py"
+    },
+    {
+      "bytes": 1134,
+      "origin": "outputs/normal-uv-custody-tests-v2/job.json",
+      "sha256": "d456123cb1a37f08467da7fc50d2adf1dd5c2ea97901589c7715e7b1a5a344ff",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/job.json"
+    },
+    {
+      "bytes": 6504,
+      "origin": "outputs/normal-uv-custody-tests-v2/manifest.json",
+      "sha256": "761c51ae9c33fd6df6e03c6eccd8cd28fdd5857b9fe971461ed6387285a4c410",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/manifest.json"
+    },
+    {
+      "bytes": 9387,
+      "origin": "outputs/normal-uv-custody-tests-v2/prepared.json",
+      "sha256": "882a14cfaa1fe635d15148354e7cd5c4c509a414b8f520448b877339789a9521",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/prepared.json"
+    },
+    {
+      "bytes": 1669,
+      "origin": "outputs/normal-uv-custody-tests-v2/receipt.json",
+      "sha256": "9855f8d05d740c123407db2423376c8285ab959d801bfb1d9c4b885d69e2dc89",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/receipt.json"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52912,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 28716,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/tests/test_finish_quality_contracts.py",
+      "sha256": "1f3fd4cefd87e847317b9a54ca540ae05bd3fd11aa6d5141c0ea6211e7ad046d",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/tests/test_finish_quality_contracts.py"
+    },
+    {
+      "bytes": 10490,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/tests/test_normal_uv_export_custody.py",
+      "sha256": "568113a5eb94e8532ada9dd311564b1971c25ef88e35a5226df0b0190d0044b8",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/sources/tests/test_normal_uv_export_custody.py"
+    },
+    {
+      "bytes": 21591,
+      "origin": "outputs/normal-uv-custody-tests-v2/sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "bytes": 296,
+      "origin": "outputs/normal-uv-custody-tests-v2/tests-handle.json",
+      "sha256": "136f674c79eba7eeada68515243180458a275e636d137621e2c50197fca29f0a",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/tests-handle.json"
+    },
+    {
+      "bytes": 1034,
+      "origin": "outputs/normal-uv-custody-tests-v2/tests-monitor.json",
+      "sha256": "167319d20b26851bb32241d36389d76a8bda566658387fd046cca14b93bd9982",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/tests-monitor.json"
+    },
+    {
+      "bytes": 303,
+      "origin": "outputs/normal-uv-custody-tests-v2/tests.log",
+      "sha256": "15272f6863f74a00ce7de8aab5a4de243f61f84d29aa497d06c1d089e8a5b572",
+      "snapshot": "snapshots/normal-uv-custody-tests-v2/tests.log"
+    },
+    {
+      "bytes": 1610,
+      "origin": "outputs/normal-uv-custody-tests-v3/execute.py",
+      "sha256": "7417d1ce19591d06643578fbea3773159b2bf85ce0e58a49338333cf9fc6d4f0",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/execute.py"
+    },
+    {
+      "bytes": 5896,
+      "origin": "outputs/normal-uv-custody-tests-v3/handoff.json",
+      "sha256": "73ba9ebbce615935ef62a8b50044f65f37561b6c77307523bc881fb028a36b1c",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/handoff.json"
+    },
+    {
+      "bytes": 1121,
+      "origin": "outputs/normal-uv-custody-tests-v3/job.json",
+      "sha256": "61cadcef9322a4a6a47d44ebee7fa90a61737f03dd6bd68294cf2fb3e7261600",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/job.json"
+    },
+    {
+      "bytes": 6504,
+      "origin": "outputs/normal-uv-custody-tests-v3/manifest.json",
+      "sha256": "f4c150c00cae954e88d195f7cb583f38d0c1200fd5d565e441b4149c580fc20a",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/manifest.json"
+    },
+    {
+      "bytes": 9476,
+      "origin": "outputs/normal-uv-custody-tests-v3/prepared.json",
+      "sha256": "c88f8ac4120e1d2a637f7a47a034ab255cc13530e02af5c86aee5302c323255b",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/prepared.json"
+    },
+    {
+      "bytes": 1641,
+      "origin": "outputs/normal-uv-custody-tests-v3/receipt.json",
+      "sha256": "caaf16d4f145953b624e239192f8ff113819e090c29645e6971433583c43b91a",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/receipt.json"
+    },
+    {
+      "bytes": 6838,
+      "origin": "outputs/normal-uv-custody-tests-v3/seal.json",
+      "sha256": "6f9ba5753a19e279350e60edae5559bf4cccba797fe63a5db107e3a008ae7543",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/seal.json"
+    },
+    {
+      "bytes": 34271,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/action_audit.py",
+      "sha256": "b4d14476ef3b84c3563373fdcbc90454f6da88432796575333a2f6471c7a565a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_audit.py"
+    },
+    {
+      "bytes": 14601,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/action_intent.py",
+      "sha256": "98c38524129be4dbc2f013428574233facb99d49c3809c71317f6b7952cf6e65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/action_intent.py"
+    },
+    {
+      "bytes": 25864,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/agent_runner.py",
+      "sha256": "876acaa93e3567b8c604dc5acd536b588db5637e629d081ce76e05a787a1c1e1",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/agent_runner.py"
+    },
+    {
+      "bytes": 16614,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/deformation_gate.py",
+      "sha256": "5b4c0b32dc8bb7dd89797c51541f4ecd18fd2f93dc9aea87d988226484f5ee1f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/deformation_gate.py"
+    },
+    {
+      "bytes": 32643,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/finish_generated.py",
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/finish_generated.py"
+    },
+    {
+      "bytes": 13676,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/fringe_export.py",
+      "sha256": "771435c412205f8b4f969b3ea6c178d4a73a0bc77e29cb640b91efbc34981e01",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/fringe_export.py"
+    },
+    {
+      "bytes": 16931,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/generated_tangents.py",
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/avatar_assets/generated_tangents.py"
+    },
+    {
+      "bytes": 17295,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/normal_continuity.py",
+      "sha256": "429a55c7b8b6ef7ff07448f2d4b1f7236fa2c44e58c18df9cbb9b4e595ce3de3",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/normal_continuity.py"
+    },
+    {
+      "bytes": 65827,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/pipeline.py",
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline.py"
+    },
+    {
+      "bytes": 9788,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/pipeline_evidence.py",
+      "sha256": "72a407721376297c9d6909f6ef79fddbdb07da18896234ffeab011f604685454",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/pipeline_evidence.py"
+    },
+    {
+      "bytes": 48339,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+      "snapshot": "snapshots/normal-uv-rejection-pipeline-tests-v1/sources/avatar_assets/pipeline_prompts.py"
+    },
+    {
+      "bytes": 1326,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/portable_fringe.py",
+      "sha256": "ca8a55c3db9a3ef43e19b57e3abf9010c606bdb0b1cdf06cf147d4fca51d123f",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/portable_fringe.py"
+    },
+    {
+      "bytes": 12540,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/quality_policy.py",
+      "sha256": "b19bad5b3d8a827f87ba23501f67c3dee2fa2afa0d22197e10bc77b3fc582b65",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/quality_policy.py"
+    },
+    {
+      "bytes": 11421,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/runner.py"
+    },
+    {
+      "bytes": 3759,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/safety.py"
+    },
+    {
+      "bytes": 35323,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/avatar_assets/three_d.py",
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/avatar_assets/three_d.py"
+    },
+    {
+      "bytes": 20746,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/blender_edge_fringe.py",
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_edge_fringe.py"
+    },
+    {
+      "bytes": 52912,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/blender_finish_generated.py",
+      "sha256": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/scripts/blender_finish_generated.py"
+    },
+    {
+      "bytes": 40912,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/blender_fur_undercoat.py",
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/blender_fur_undercoat.py"
+    },
+    {
+      "bytes": 6885,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/blender_normal_continuity.py",
+      "sha256": "3fde17d16e3f58784bd2a2776877e488a8bda067acbf5472426cb0b9ebc3e03a",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/blender_normal_continuity.py"
+    },
+    {
+      "bytes": 10304,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v2/sources/scripts/blender_normal_uv_export.py"
+    },
+    {
+      "bytes": 17397,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/edge_fringe.py",
+      "sha256": "24eb6347abccae2a885758aa3f8e49e92dcca26695c2bc55aaf220963c7870b9",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/edge_fringe.py"
+    },
+    {
+      "bytes": 16114,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/fringe_color_atlas.py",
+      "sha256": "127c3aa3d3cbfbc52686527b61ede0a2ba7182cb0314ee37feb8812e4b9ec8d4",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/fringe_color_atlas.py"
+    },
+    {
+      "bytes": 4687,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/fur_root_sampling.py",
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/scripts/fur_root_sampling.py"
+    },
+    {
+      "bytes": 5273,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/motion_samples.py",
+      "sha256": "bc89429f00fd8072e1efee9ccc18ec983fb3eb95052343611197e9de76ff158c",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/motion_samples.py"
+    },
+    {
+      "bytes": 6129,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/native_render_tasks.py",
+      "sha256": "f4526e8a85f6aeea08d175efacd678525ad6494604bc529f911e53d41c2446db",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/native_render_tasks.py"
+    },
+    {
+      "bytes": 9560,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+      "snapshot": "snapshots/normal-uv-export-guard-tests-v1/sources/scripts/normal_uv_export.py"
+    },
+    {
+      "bytes": 14944,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/scripts/undercoat_uv_atlas.py",
+      "sha256": "a44f13d1a027c5695556249a7b73e2fa0630b3ba4b6584dd424ccfc84b34c446",
+      "snapshot": "snapshots/panda-uv2-source-preflight-preparation-v1/sources/scripts/undercoat_uv_atlas.py"
+    },
+    {
+      "bytes": 28716,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/tests/test_finish_quality_contracts.py",
+      "sha256": "1f3fd4cefd87e847317b9a54ca540ae05bd3fd11aa6d5141c0ea6211e7ad046d",
+      "snapshot": "snapshots/normal-uv-custody-tests-v1/sources/tests/test_finish_quality_contracts.py"
+    },
+    {
+      "bytes": 10119,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/tests/test_normal_uv_export_custody.py",
+      "sha256": "93da29c715ef60cbe8dd3650ce99dbc6d55f0e9450881426102fa1c2b95c64f0",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/sources/tests/test_normal_uv_export_custody.py"
+    },
+    {
+      "bytes": 21591,
+      "origin": "outputs/normal-uv-custody-tests-v3/sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+      "snapshot": "snapshots/panda-uv-source-readiness-review-v1/sources/tests/test_pipeline_prompts.py"
+    },
+    {
+      "bytes": 283,
+      "origin": "outputs/normal-uv-custody-tests-v3/tests-handle.json",
+      "sha256": "2d2c20a8caf84e4cd6811f9b2016689bd238c04934de14c15ff742ff74e8608f",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/tests-handle.json"
+    },
+    {
+      "bytes": 1021,
+      "origin": "outputs/normal-uv-custody-tests-v3/tests-monitor.json",
+      "sha256": "4993242c83bc1743390f1fa625fcacbb896199c66e287efac7fcf4583164df46",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/tests-monitor.json"
+    },
+    {
+      "bytes": 278,
+      "origin": "outputs/normal-uv-custody-tests-v3/tests.log",
+      "sha256": "a86cbba93414dbcd5b894243b21a6847e0a50dbd18a9acda8401f3a6cb73a88c",
+      "snapshot": "snapshots/normal-uv-custody-tests-v3/tests.log"
+    },
+    {
+      "bytes": 5297,
+      "origin": "outputs/source-uv-control-checkpoint-v1/package.py",
+      "sha256": "fe4141d1811f74360299a1815ea2e43364699ba3357667e1f955df6a4e2fd03d",
+      "snapshot": "snapshots/source-uv-control-checkpoint-v1/package.py"
+    },
+    {
+      "bytes": 1590,
+      "origin": "outputs/source-uv-control-checkpoint-v1/inputs.json",
+      "sha256": "590feedc83af65c7bb4ae0abe73d70e2f91b59dd8457a54689ba8087b5b67b52",
+      "snapshot": "snapshots/source-uv-control-checkpoint-v1/inputs.json"
+    },
+    {
+      "bytes": 237,
+      "origin": "outputs/source-uv-control-checkpoint-v1/preparation-recovery.json",
+      "sha256": "ada7f043756b216eaba6047cfe96cc07365332135ff8fd2d548d73199135558c",
+      "snapshot": "snapshots/source-uv-control-checkpoint-v1/preparation-recovery.json"
+    }
+  ],
+  "copied_bytes": 11425366,
+  "deduplication": "Identical bytes reuse one exact snapshot path; no normalization",
+  "elapsed_seconds": 0.251,
+  "fresh_studio_acceptance": false,
+  "limits": {
+    "selected_bytes": 25165824,
+    "selected_files": 800,
+    "single_file_bytes": 8388608
+  },
+  "local_binary_references_not_copied": [
+    {
+      "bytes": 3354926,
+      "origin": "outputs/panda-uv2-source-preflight-v1/undercoat-inputs.npz",
+      "sha256": "0383324333ff0e638123312525c8bae958a599a219021e6eb9b07db8a39ce69d"
+    },
+    {
+      "bytes": 3440,
+      "origin": "outputs/panda-uv2-control-reconciliation-v1/rig-witness.npz",
+      "sha256": "776daab238827dc337987ef045d41a8ce3d7386d2155f1c21299ab52a227456a"
+    },
+    {
+      "bytes": 565469,
+      "origin": "outputs/panda-uv2-staged-control-v1/fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    {
+      "bytes": 36802588,
+      "origin": "outputs/panda-uv2-staged-control-v1/model.glb",
+      "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+    },
+    {
+      "bytes": 63028546,
+      "origin": "outputs/panda-uv2-staged-control-v1/prepared-source.blend",
+      "sha256": "64565884eafcfc7f697b8b167828ea691319e363c04ddf3b99b637507f966708"
+    },
+    {
+      "bytes": 1498257,
+      "origin": "outputs/panda-uv2-staged-control-v1/source-skin.npz",
+      "sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a"
+    },
+    {
+      "bytes": 36802344,
+      "origin": "outputs/panda-uv2-portable-control-v1/model-fringe-export.glb",
+      "sha256": "6c2913421e97c9d60fb1657bdfa7e5e89e92432ed4e369a52dce64680fcb9524"
+    },
+    {
+      "bytes": 36802356,
+      "origin": "outputs/panda-uv2-portable-control-v1/model-skin-restored.glb",
+      "sha256": "ef9b44de0372cfaceddc88ce618414bd4f959756532f0f47fd737eae5b620a70"
+    },
+    {
+      "bytes": 36802344,
+      "origin": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    {
+      "bytes": 46285501,
+      "origin": "outputs/panda-uv2-portable-preview-v1/source.blend",
+      "sha256": "909ded49c61fa6c2a2fe4220beb21fc02fa66ceda085e4338527c73e3b3d4f38"
+    },
+    {
+      "bytes": 28080560,
+      "origin": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+      "unchanged": true
+    },
+    {
+      "bytes": 29999436,
+      "origin": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67",
+      "unchanged": true
+    },
+    {
+      "bytes": 2667322,
+      "origin": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb",
+      "unchanged": true
+    }
+  ],
+  "native_guard_real_source_check": true,
+  "new_pipeline_role_calls": 0,
+  "new_provider_calls": 0,
+  "public_fringe_enabled": false,
+  "quality_approved": false,
+  "recorded": "2026-11-02 02:24:28 PST",
+  "schema_version": 1,
+  "source_bytes": 15943152,
+  "source_inputs_sha256": "590feedc83af65c7bb4ae0abe73d70e2f91b59dd8457a54689ba8087b5b67b52",
+  "source_receipts": 575,
+  "source_recipe": {
+    "path": "outputs/source-uv-control-checkpoint-v1/package.py",
+    "sha256": "fe4141d1811f74360299a1815ea2e43364699ba3357667e1f955df6a4e2fd03d"
+  },
+  "status": "component_checks_pass_appearance_rejected",
+  "unique_snapshots": 306,
+  "verified_focused_tests": 55,
+  "weft_consumer_changed": false
+}

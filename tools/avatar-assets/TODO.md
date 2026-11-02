@@ -4,7 +4,7 @@
 
 - Workspace: `/Users/ivan/kintsugi/weft/tools/avatar-assets`, migrated into Weft by explicit user request. Preserve unrelated Weft work and its active goal.
 - Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`; title: Integrate avatar assets. The historical core-tool milestone is complete; the user's current avatar-quality deliverable is not.
-- Recorded: 2026-11-02 01:04 PST. UV2 source-texture preservation is implemented and component-verified; its avatar-only save result belongs in `.local/avatar-quality-publication-v11/receipt.json` and `outputs/undercoat-uv2-checkpoint-v1/publication.json`. Previous checkpoint `5783a36` is privately pushed, verified in `.local/avatar-quality-publication-v10/receipt.json`; the corrected root-scoped clean check is in `outputs/contour-contact-checkpoint-v1/publication-verification.json`. All owned workers exited. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits.
+- Recorded: 2026-11-02 02:25 PST. The commit containing this handoff saves the actual-source UV2 control, its appearance rejection and the reusable normal-UV export guard/custody checks. Private-push verification is recorded in `.local/avatar-quality-publication-v12/receipt.json`; prior checkpoint `dbdd7e2` remains in v11. All owned native/CPU jobs and delegated tasks exited. Fifty-five focused checks plus actual native and saved-report checks pass. Public fringe remains disabled; no new paid allowance/calls. Preserve unrelated Weft edits and newer commits.
 - Core workflow, gallery and detailed-model workflow upgrade are verified. Muse-quality parity has not been achieved; local tooling success does not complete the user's visual target. Weft’s goal is untouched.
 - User clarification preserved: complete controllable 3D from text is primary. Meshy provides automatic text/reference base generation; the new bounded AI pipeline also authors rigs/motions and performs sampled review/repairs. Human quality acceptance remains separate. Keep the portrait/four-state workflow too.
 - User authorized defining a neutral pose. It is an authored proposal, not an observed Weft pose or permission to change its physics.
@@ -50,7 +50,73 @@ fur panda, standalone dragon, completed dance/flight preview and all failures.
   calls. The next safe work is a bounded local repair/quality guard, followed by
   scoped source/evidence checkpointing. Fresh Studio acceptance remains separate.
 
-### Latest increment: preserve source maps; cheek branch remains unsupported
+### Current continuation: actual control built, appearance rejected
+
+- [Actual-source control handoff](docs/source-uv-control.md) records exact commands,
+  bounds, immutable files and the important distinction between source geometric
+  normals and intentionally replaced normal-map textures. Original assets unchanged.
+- Actual native preflight `outputs/panda-uv2-source-preflight-v1`: 31,722 selected
+  faces in four material regions; conservative vertex ceiling 99,154, within
+  unchanged 100k. All 146 source UV1-normal faces and 103 cap-clone faces are selected
+  for new UV2 maps. Independent full source/selection joins pass. Native 3.646 s /
+  915,570,688 B sampled RSS, PID 61897 exited.
+- The source has a real export hazard: Blender recalculates tangents from active
+  UV0. Compared with its original normal UV1, all 438 contact corners change
+  handedness, p95 direction difference 171.70°. The analytic fixture had co-oriented
+  UVs and could not expose it. This control avoids it only by intentionally rebaking
+  ALL affected faces; unused old material slots do not count as rendered faces.
+- Staged control `outputs/panda-uv2-staged-control-v1` passed exact old-route
+  replacement assertions: 16.339 s / 1,440,186,368 B, PID 62772 exited. Editable
+  `prepared-source.blend` and 13 unrendered native still tasks retained. Raw GLB SHA
+  `6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16`.
+- Portable derivative `outputs/panda-uv2-portable-control-v1/model.glb`, SHA
+  `82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87`:
+  94,909 vertices, 76,981 triangles, 19 authored bones and actual four-second
+  `dance_flight`. CPU 1.034 s / 280,461,312 B, PID 63087 exited. This HD model is
+  not Weft-compatible or a fresh text-generation acceptance.
+- `outputs/panda-uv2-independent-fidelity-v1/review.json` proves 94,576 exact
+  source IDs/topology and body/fringe weights; fringe-normal error 0.00005883
+  below unchanged 0.0002. Nine sampled source-skin pose errors are zero and max
+  root gap 1.60502e-9 m. Only 56,763 J/W bytes, 16,197 UV2 tangent bytes and admitted
+  bindings change. All raw/final normals are byte-identical; full-body native
+  normal fidelity is not established. CPU 0.781 s / 308,805,632 B, PID 63721 exited.
+- Exported preview `outputs/panda-uv2-portable-preview-v1` contains four 720px
+  views and four actual poses: 4.151 s / 1,055,621,120 B, PID 63447 exited. All eight
+  images were inspected. `outputs/panda-uv2-appearance-review-v1` rejects angular
+  shoulder patches, cheek shards and sparse/bristled portable fur. No full video,
+  continuous wing-motion, seamless-loop, native-strand or Muse-quality pass.
+- Native matrix-operation warnings remain in logs. Actual point/19-bone CPU
+  replay matches non-BLAS weights bit-exactly, finite/normalized with sum error
+  2.22e-16; this does not diagnose the native warning cause. No suppression/change
+  to rig math was made.
+- The stale author prompt now admits bounded source UV1 plus authored UV2 and
+  preserves linked material-response maps. Generic nonzero source normal frames
+  are still not implemented. The pre-export guard now allows only coherent UV0 or
+  exact authored receipts; twenty focused checks pass. Actual native read-only
+  verification admits all three authored UV2 targets and rejects the original
+  UV1 route without a receipt. Before/after geometry/normals/UV/material/image
+  fingerprints match. Native 5.467 s / 442,433,536 B, PID 65577 exited; evidence
+  `outputs/normal-uv-export-native-v1`. Pipeline diagnostic custody and integration
+  checks pass; report corruption stops before another paid role. No new paid
+  allowance is granted by this work.
+
+- Saved evidence: `evidence/source-uv-control-v1`, 575 source records / 306 exact
+  snapshots / 11,425,366 B; manifest SHA
+  `5f627a0a1f28bcf0b67935a7e9cd15410b1951445fff518d406d594e92ff3181`.
+  Large local GLB/Blend/NumPy files are referenced, not silently omitted as if the
+  bundle were a complete model pack. Original ZIP and approved dance GLB hashes match.
+- Final checks: twenty guard + 22 diagnostic + thirteen integration cases = 55
+  distinct focused checks. Preserve the first path-alias fixture failure and
+  changed-case reruns in `outputs/normal-uv-custody-tests-v1`–`v3`; do not count
+  executions as additional cases. Actual native and exact saved-report checks pass.
+  All PIDs exited; details and exact commands are in the handoff above. No real
+  Studio job was run or accepted; the 105-credit/AI-role allowance is still pending.
+- Next: a different justified geometry approach or authorized better source,
+  followed by fresh accepted Studio output and final action/media review. Do not
+  repeat the stopped cheek selection, render full video for this rejected control,
+  promote the experimental fringe or replace the approved gallery assets.
+
+### Saved UV2 component increment
 
 - [UV2 handoff](docs/undercoat-uv2-preservation.md): adaptive undercoat now keeps
   original UV0/UV1 and linked roughness/metallic maps. It adds a distinct UV2

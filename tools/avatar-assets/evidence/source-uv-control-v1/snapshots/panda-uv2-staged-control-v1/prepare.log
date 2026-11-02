@@ -1,0 +1,64 @@
+01:37:33 | INFO: Data are loaded, start creating Blender stuff
+01:37:33 | INFO: Blender create Mesh node PartitionedMesh
+01:37:33 | INFO: glTF import finished in 0.05s
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: divide by zero encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: overflow encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: invalid value encountered in matmul
+  fraction = np.clip(((points-head)@direction)/(direction@direction), 0, 1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/edge_fringe.py:191: RuntimeWarning: divide by zero encountered in matmul
+  score = ((1-np.abs(n[eligible]@views.T))*np.abs(plane_normal[eligible]@views.T)).max(axis=1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/edge_fringe.py:191: RuntimeWarning: overflow encountered in matmul
+  score = ((1-np.abs(n[eligible]@views.T))*np.abs(plane_normal[eligible]@views.T)).max(axis=1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/edge_fringe.py:191: RuntimeWarning: invalid value encountered in matmul
+  score = ((1-np.abs(n[eligible]@views.T))*np.abs(plane_normal[eligible]@views.T)).max(axis=1)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fringe_color_atlas.py:206: RuntimeWarning: divide by zero encountered in matmul
+  luma_bins = np.minimum((means@LUMA*32).astype(np.int32), 31)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fringe_color_atlas.py:206: RuntimeWarning: overflow encountered in matmul
+  luma_bins = np.minimum((means@LUMA*32).astype(np.int32), 31)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/fringe_color_atlas.py:206: RuntimeWarning: invalid value encountered in matmul
+  luma_bins = np.minimum((means@LUMA*32).astype(np.int32), 31)
+INFO Draco mesh compression is available, use library at /Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/libextern_draco.dylib
+01:37:42 | INFO: Starting glTF 2.0 export
+01:37:42 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+01:37:42 | WARNING: Armature must be the parent of skinned meshArmature is selected by its name, but may be false in case of instances
+01:37:42 | INFO: Extracting primitive: PartitionedMesh
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: divide by zero encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: overflow encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py:73: RuntimeWarning: invalid value encountered in matmul
+  res = np.matmul(vectors, np.array(m.transposed()))
+01:37:42 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+01:37:42 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+01:37:42 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+01:37:42 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+01:37:42 | INFO: Primitives created: 9
+01:37:42 | INFO: Extracting primitive: PortableEdgeFringe
+01:37:42 | WARNING: More than one shader node tex image used for a texture. The resulting glTF sampler will behave like the first shader node tex image.
+01:37:42 | INFO: Primitives created: 1
+01:37:45 | INFO: Finished glTF 2.0 export in 2.952211856842041 s
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:747: RuntimeWarning: divide by zero encountered in matmul
+  horizontal, vertical = points@np.array(right), points@np.array(up)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:747: RuntimeWarning: overflow encountered in matmul
+  horizontal, vertical = points@np.array(right), points@np.array(up)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:747: RuntimeWarning: invalid value encountered in matmul
+  horizontal, vertical = points@np.array(right), points@np.array(up)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:277: RuntimeWarning: divide by zero encountered in matmul
+  points = points@matrix[:3, :3].T + matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:277: RuntimeWarning: overflow encountered in matmul
+  points = points@matrix[:3, :3].T + matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:277: RuntimeWarning: invalid value encountered in matmul
+  points = points@matrix[:3, :3].T + matrix[:3, 3]
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:780: RuntimeWarning: divide by zero encountered in matmul
+  projected = points@np.asarray(basis)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:780: RuntimeWarning: overflow encountered in matmul
+  projected = points@np.asarray(basis)
+/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/sources/scripts/blender_finish_generated.py:780: RuntimeWarning: invalid value encountered in matmul
+  projected = points@np.asarray(basis)
+
+Info: Saved as "prepared-source.blend"
+Blender 4.5.13 LTS (hash daeeeca98fb0 built 2026-08-25 01:30:50)
+
+Blender quit

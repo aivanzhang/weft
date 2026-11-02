@@ -1,0 +1,46 @@
+{
+  "all_accessors_buffer_views_materials_nodes_skins_animations_preserved": true,
+  "binary_bytes_unchanged": true,
+  "elapsed_seconds": 0.10985450027510524,
+  "generator_unchanged": true,
+  "json_allowlist_verified": true,
+  "json_changed_paths": [
+    "/meshes/1/primitives/0/attributes/TANGENT"
+  ],
+  "limitation": "Unused attribute binding omission only; strict material/rig/render validation remains required.",
+  "limits": {
+    "file_bytes": 67108864,
+    "selected_primitives": 4,
+    "triangle_indices": 300000,
+    "vertices": 100000
+  },
+  "material_admission": "Exact .18/.92 policy scalars or their exact float32 round-trips; omitted doubleSided means false",
+  "normals_positions_uv_skin_weights_motion_unchanged": true,
+  "other_attributes_unchanged": true,
+  "padded_binary_bytes": 36765652,
+  "padded_binary_sha256": "d9a7c1a341e5c8ac289260d485e7950f2b9aa77f59c78ee881faa43de557042b",
+  "policy": "omit-unused-fringe-tangent-bindings-v1",
+  "quality_approved": false,
+  "removed_bindings": 1,
+  "result_padded_binary_sha256": "d9a7c1a341e5c8ac289260d485e7950f2b9aa77f59c78ee881faa43de557042b",
+  "result_sha256": "6c2913421e97c9d60fb1657bdfa7e5e89e92432ed4e369a52dce64680fcb9524",
+  "schema_version": 1,
+  "selected_primitives": [
+    {
+      "binding_removed": true,
+      "material": 9,
+      "material_name": "SourceColoredFringe",
+      "mesh": 1,
+      "primitive": 0,
+      "tangent_accessor": 95,
+      "tangent_values_sha256": "420855abbc64b38ac1428d90686ef0e89ee4c37d8fa42becfd23dcd503f856f5",
+      "triangles": 14400,
+      "vertices": 43200,
+      "zero_xyz_tangents": 4
+    }
+  ],
+  "source_index_entries": 230943,
+  "source_sha256": "ef9b44de0372cfaceddc88ce618414bd4f959756532f0f47fd737eae5b620a70",
+  "source_unchanged": true,
+  "source_vertex_entries": 94909
+}

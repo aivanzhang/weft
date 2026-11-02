@@ -1,0 +1,51 @@
+{
+  "all_original_uv1_normal_faces_intentionally_replaced": true,
+  "general_source_uv1_frame_preservation": false,
+  "original_uv1_materials": [
+    {
+      "face_ids_sha256": "d28d8562f05490c54bf6684e0d2527be9332f20aad4a93720c78742eff8c2371",
+      "faces": 146,
+      "source_material": "body_surface__contact_uv_dark_v1"
+    }
+  ],
+  "quality_accepted": false,
+  "schema_version": 1,
+  "used_material_bindings_after_bake": [
+    {
+      "material": "body_surface",
+      "normal_uv": 0
+    },
+    {
+      "material": "companion_surface",
+      "normal_uv": 0
+    },
+    {
+      "material": "body_cap",
+      "normal_uv": null
+    },
+    {
+      "material": "companion_cap",
+      "normal_uv": null
+    },
+    {
+      "material": "body_surface__color_rear-tail-base",
+      "normal_uv": 0
+    },
+    {
+      "material": "body_surface__short_pile_adaptive_v1",
+      "normal_uv": 0
+    },
+    {
+      "material": "body_cap__short_pile_adaptive_v1",
+      "normal_uv": 2
+    },
+    {
+      "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "normal_uv": 2
+    },
+    {
+      "material": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "normal_uv": 2
+    }
+  ]
+}

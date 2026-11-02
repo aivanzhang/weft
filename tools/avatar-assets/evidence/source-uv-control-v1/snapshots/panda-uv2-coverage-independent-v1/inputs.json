@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "files": [
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/manifest.json",
+      "bytes": 3149,
+      "sha256": "a7da916c2276641887578bd698a04658fd490974d7e1d18df0c27f531cbbe950"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/source-selection.json",
+      "bytes": 4166,
+      "sha256": "5c816281cddf1d9e8a4784bfa8d65dd4c8a35f2cbb9883ae6907c304a98f8b99"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/undercoat-plan.json",
+      "bytes": 4809,
+      "sha256": "d550317ce6dbbad5d4a38886399b052a2c58f1e78c63cbfd1cacfe48c9384625"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/undercoat-inputs.npz",
+      "bytes": 3354926,
+      "sha256": "0383324333ff0e638123312525c8bae958a599a219021e6eb9b07db8a39ce69d"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/source-normal-frame-comparison.json",
+      "bytes": 512,
+      "sha256": "f09d339a23463d719d87bf60b3c2c65e12fa7c13990b927d06703628375b4a22"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-v1/result.json",
+      "bytes": 360,
+      "sha256": "cedc520971ae3ab7718c519575724bf59d8fd031a5ccc591693c63c87500bd68"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/prepared.json",
+      "bytes": 18424,
+      "sha256": "baeb2362094de5d07271127b9e8b306ceb4db174513da06adac10aba5ca4c415"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/finish-config.json",
+      "bytes": 37182,
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    {
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/probe.py",
+      "bytes": 5266,
+      "sha256": "ef72801b9feab1862ccec200456bc5d8b9a84faf22764fb55023ba1a9cddffca"
+    },
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "bytes": 28080560,
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "path": "avatar_assets/three_d.py",
+      "bytes": 35323,
+      "sha256": "19d6a58e91286ab7a3827c0348fba7268482b32a72dc7136b5d595a292442b8e"
+    },
+    {
+      "path": "avatar_assets/normalize_generated.py",
+      "bytes": 9246,
+      "sha256": "dc3a3ab9aeb1de8f2a3b732c636c15cd9ac7fe1d69656b09afeb280b4125fa3d"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    }
+  ],
+  "bound_only_large_inputs": true
+}

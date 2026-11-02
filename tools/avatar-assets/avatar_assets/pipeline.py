@@ -32,7 +32,7 @@ PIPELINE_SOURCES = ('pipeline.py', 'pipeline_prompts.py', 'agent_runner.py',
 PIPELINE_SCRIPT_SOURCES = ('motion_samples.py', 'blender_fur_undercoat.py', 'undercoat_uv_atlas.py',
                           'edge_fringe.py', 'fringe_color_atlas.py', 'blender_edge_fringe.py',
                           'fur_root_sampling.py', 'blender_finish_generated.py', 'native_render_tasks.py',
-                          'blender_normal_continuity.py')
+                          'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py')
 
 
 class InterruptedStage(ValueError):
@@ -54,6 +54,153 @@ def now():
 def _json_digest(value):
     import hashlib
     return hashlib.sha256(json.dumps(value, sort_keys=True, allow_nan=False).encode()).hexdigest()
+
+
+def _normal_uv_diagnostic(pack, manifest):
+    """Authenticate the complete native receipt; send only its failed live-route witness."""
+    from scripts.normal_uv_export import (POLICY, FRAME_POLICY, MAX_REPORT_BYTES,
+        MAX_ROWS, MAX_OBJECTS, MAX_MATERIALS, MAX_VERTICES, MAX_TRIANGLES,
+        MAX_PACKED_BYTES, MAX_TOTAL_PACKED_BYTES, valid_name)
+    import hashlib
+
+    path = pack/'normal-uv-export.json'
+    try:
+        records = [row for row in manifest.get('artifacts', []) if row.get('path') == path.name]
+        # Old packs and failures before this guard legitimately have no receipt.
+        if not records and not path.exists() and not path.is_symlink():
+            return None
+        local_file(path, MAX_REPORT_BYTES)
+        require(len(records) == 1, 'Normal UV report lacks one stage artifact binding')
+        with path.open('rb') as handle:
+            encoded = handle.read(MAX_REPORT_BYTES+1)
+        require(len(encoded) <= MAX_REPORT_BYTES, 'Normal UV report exceeds its byte bound')
+        binding = {'path': path.name, 'bytes': len(encoded), 'sha256': hashlib.sha256(encoded).hexdigest()}
+        require(records[0] == binding, 'Normal UV report evidence changed')
+
+        def pairs(items):
+            result = {}
+            for key, value in items:
+                require(key not in result, 'Duplicate normal UV report key')
+                result[key] = value
+            return result
+
+        def nonfinite(value):
+            raise ValueError('Nonfinite normal UV report value')
+
+        report = json.loads(encoded, object_pairs_hook=pairs, parse_constant=nonfinite)
+        required = {'schema_version', 'policy', 'status', 'materials', 'errors', 'authored_targets',
+                    'geometry_or_materials_changed', 'texture_pixels_read', 'tangent_restoration_performed',
+                    'quality_approved', 'elapsed_seconds', 'packed_png_bytes_hashed'}
+        optional = {'vertices', 'objects', 'used_materials', 'triangles', 'checked_material_rows'}
+        require(isinstance(report, dict) and required <= set(report) <= required|optional
+                and type(report['schema_version']) is int and report['schema_version'] == 1
+                and report['policy'] == POLICY and report['status'] in ('supported', 'unsupported'),
+                'Invalid normal UV report schema or policy')
+        require(all(report[key] is False for key in ('geometry_or_materials_changed', 'texture_pixels_read',
+                    'tangent_restoration_performed', 'quality_approved')), 'Invalid normal UV report scope')
+
+        def integer(value, low, high):
+            return type(value) is int and low <= value <= high
+
+        def digest(value):
+            return isinstance(value, str) and len(value) == 64 and all(c in '0123456789abcdef' for c in value)
+
+        require(type(report['elapsed_seconds']) in (int, float) and math.isfinite(report['elapsed_seconds'])
+                and 0 <= report['elapsed_seconds'] <= 600
+                and integer(report['packed_png_bytes_hashed'], 0, MAX_TOTAL_PACKED_BYTES),
+                'Invalid normal UV resource measurements')
+        for key, low, high in (('vertices', 1, MAX_VERTICES), ('objects', 1, MAX_OBJECTS),
+                               ('used_materials', 1, MAX_MATERIALS), ('triangles', 1, MAX_TRIANGLES),
+                               ('checked_material_rows', 0, MAX_ROWS)):
+            require(key not in report or integer(report[key], low, high), 'Invalid normal UV report count')
+        materials, errors, targets = report['materials'], report['errors'], report['authored_targets']
+        require(isinstance(materials, list) and len(materials) <= MAX_ROWS
+                and isinstance(errors, list) and len(errors) <= 1
+                and isinstance(targets, list) and len(targets) <= 4, 'Invalid normal UV evidence inventory')
+        seen, objects, names, total_triangles = set(), set(), set(), 0
+        for row in materials:
+            fields = {'object', 'material', 'slot', 'polygons', 'triangles', 'normal'}
+            require(isinstance(row, dict) and fields <= set(row) <= fields|{'admission'}
+                    and valid_name(row['object']) and valid_name(row['material'])
+                    and integer(row['slot'], 0, MAX_MATERIALS-1)
+                    and integer(row['polygons'], 1, MAX_TRIANGLES)
+                    and integer(row['triangles'], row['polygons'], MAX_TRIANGLES),
+                    'Invalid normal UV material witness')
+            key = row['object'], row['slot']
+            require(key not in seen, 'Repeated normal UV material witness')
+            seen.add(key); objects.add(row['object']); names.add(row['material'])
+            total_triangles += row['triangles']
+            require(len(objects) <= MAX_OBJECTS and len(names) <= MAX_MATERIALS
+                    and total_triangles <= MAX_TRIANGLES, 'Normal UV material totals exceed bounds')
+            normal = row['normal']
+            if normal is not None:
+                require(isinstance(normal, dict) and set(normal) == {'normal_uv_index', 'texture_uv_index',
+                        'image', 'texture_sha256', 'packed_png_bytes'}
+                        and integer(normal['normal_uv_index'], 0, 7) and integer(normal['texture_uv_index'], 0, 7)
+                        and valid_name(normal['image'])
+                        and (normal['texture_sha256'] is None or digest(normal['texture_sha256']))
+                        and integer(normal['packed_png_bytes'], 0, MAX_PACKED_BYTES),
+                        'Invalid normal UV route witness')
+            admission = row.get('admission')
+            require(admission is None or admission in ('no_live_normal_map', 'coherent_uv0',
+                    'receipt_bound_authored_nonzero_uv'), 'Invalid normal UV admission')
+            if admission == 'no_live_normal_map':
+                require(normal is None, 'Normal UV admission contradicts its route')
+            elif admission is not None:
+                require(normal is not None and normal['normal_uv_index'] == normal['texture_uv_index']
+                        and (normal['normal_uv_index'] == 0 if admission == 'coherent_uv0'
+                             else normal['normal_uv_index'] in (1, 2)
+                             and digest(normal['texture_sha256']) and normal['packed_png_bytes'] >= 8),
+                        'Normal UV admission contradicts its route')
+        target_names = set()
+        for target in targets:
+            require(isinstance(target, dict) and set(target) == {'material', 'normal_texcoord', 'normal_uv_map',
+                    'selected_faces', 'texture_sha256', 'frame_policy'}
+                    and valid_name(target['material']) and target['material'] not in target_names
+                    and valid_name(target['normal_uv_map']) and integer(target['normal_texcoord'], 1, 2)
+                    and integer(target['selected_faces'], 1, 2048) and digest(target['texture_sha256'])
+                    and target['frame_policy'] == FRAME_POLICY, 'Invalid normal UV authored target')
+            target_names.add(target['material'])
+        if report['status'] == 'supported':
+            require(not errors and materials and all(row.get('admission') is not None for row in materials)
+                    and all(key in report for key in ('vertices', 'objects', 'used_materials', 'triangles'))
+                    and report['objects'] == len(objects) and report['used_materials'] == len(names)
+                    and report['triangles'] == total_triangles and 'checked_material_rows' not in report,
+                    'Supported normal UV report has contradictory failure or counts')
+            for target in targets:
+                used = [row for row in materials if row['material'] == target['material']]
+                require(used and sum(row['triangles'] for row in used) == target['selected_faces']
+                        and all(row['admission'] == 'receipt_bound_authored_nonzero_uv'
+                                and row['normal']['normal_uv_index'] == target['normal_texcoord']
+                                and row['normal']['texture_sha256'] == target['texture_sha256'] for row in used),
+                        'Supported normal UV target differs from used materials')
+            require(all(row['material'] in target_names for row in materials
+                        if row['admission'] == 'receipt_bound_authored_nonzero_uv'),
+                    'Supported normal UV route has no declared target')
+            return None
+        require(manifest.get('status') == 'failed' and len(errors) == 1 and not targets,
+                'Unsupported normal UV report lacks a failed-stage rejection')
+        error = errors[0]
+        codes = {'resource_limit', 'unsupported_graph', 'invalid_evidence', 'uv0_incoherent',
+                 'packed_png_required', 'authored_receipt_invalid', 'normal_uv_route_mismatch',
+                 'nonzero_normal_uv_without_receipt', 'authored_receipt_mismatch'}
+        require(isinstance(error, dict) and {'code', 'message'} <= set(error) <=
+                {'code', 'message', 'object', 'material', 'slot'} and error['code'] in codes
+                and isinstance(error['message'], str) and 0 < len(error['message']) <= 1024
+                and all(valid_name(error[key]) for key in ('object', 'material') if key in error)
+                and ('slot' not in error or integer(error['slot'], 0, MAX_MATERIALS-1)),
+                'Invalid normal UV rejection error')
+        require('checked_material_rows' not in report or not materials,
+                'Normal UV adapter failure has contradictory material rows')
+        affected = [row for row in materials if all(row[key] == error[key]
+                    for key in ('object', 'material', 'slot') if key in error)] if 'material' in error else []
+        return {'schema_version': 1, 'policy': POLICY, 'status': 'unsupported', 'report': binding,
+                'summary': 'Normal UV export blocked: '+error['code']+': '+error['message'],
+                'errors': errors, 'affected_materials': affected[:1],
+                'checked_material_rows': report.get('checked_material_rows', len(materials)),
+                'guard_unchanged': True, 'tangent_restoration_performed': False, 'quality_approved': False}
+    except (ValueError, OSError, KeyError, TypeError, AttributeError, RecursionError) as error:
+        raise EvidenceCustodyError('Normal UV export evidence requires inspection: '+str(error)) from error
 
 
 def _pipeline_sources():
@@ -423,6 +570,9 @@ class Pipeline:
                 result['normal_continuity_rejection'] = report
         except (ValueError, OSError, KeyError, TypeError, AttributeError) as error:
             raise EvidenceCustodyError('Normal rejection evidence requires inspection: '+str(error)) from error
+        normal_uv = _normal_uv_diagnostic(pack, manifest)
+        if normal_uv is not None:
+            result['normal_uv_export_rejection'] = normal_uv
         if (pack/'surface-integrity.json').exists():
             result['surface_integrity'] = read_json(pack/'surface-integrity.json')
         if (pack/'rig-verification.json').exists():

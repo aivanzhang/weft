@@ -1,0 +1,78 @@
+{
+  "authored_normal_correction": {
+    "authored_correction_changes_only_selected_tangent_float4_bytes": true,
+    "limits": {
+      "faces_per_primitive": 2048,
+      "primitives": 4
+    },
+    "policy": "mikk-unshared-triangle-v-up-v2",
+    "primitives": [
+      {
+        "authored_tangents_sha256": "aa3f4419d6059f6db8adab2e201415d759204d80ec5a6f3447a87334b040c7c7",
+        "faces": 265,
+        "material": "body_cap__short_pile_adaptive_v1",
+        "mesh": 0,
+        "normal_texcoord": 2,
+        "primitive": 6,
+        "source_tangents_sha256": "753936870c247c785138d9b53b5910a96c4e3a57493c98ca87ceb6291c5225e2",
+        "tangent_accessor": 66,
+        "vertices": 795
+      },
+      {
+        "authored_tangents_sha256": "60754428474390ee02a976fea0360639afb51259cc6cfbe10894d743b00e709d",
+        "faces": 146,
+        "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "mesh": 0,
+        "normal_texcoord": 2,
+        "primitive": 7,
+        "source_tangents_sha256": "4a47493f8681a64521d226326dcfe1c956effcf8c13373393be94adc3d2aab84",
+        "tangent_accessor": 76,
+        "vertices": 438
+      },
+      {
+        "authored_tangents_sha256": "21ae1914c0e056f01506fc5527ed70fb3d26bc0c71e617667f8aa0c3480e55d7",
+        "faces": 103,
+        "material": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "mesh": 0,
+        "normal_texcoord": 2,
+        "primitive": 8,
+        "source_tangents_sha256": "dbc3a1d8c1a675ce3e6b2212ddd6bac33d09eb1c2b9ce0e5c05c1b62b42f0446",
+        "tangent_accessor": 86,
+        "vertices": 309
+      }
+    ],
+    "quality_approved": false,
+    "targets": [
+      {
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_cap__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "selected_faces": 265,
+        "texture_sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3"
+      },
+      {
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "selected_faces": 146,
+        "texture_sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad"
+      },
+      {
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "selected_faces": 103,
+        "texture_sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794"
+      }
+    ],
+    "uv_basis": "Blender bake basis (u, 1-v_export); preserve PNG green-axis handedness",
+    "vertices": 1542
+  },
+  "geometry_uv_weights_motion_unchanged": true,
+  "limitation": "Normal-map direction at degenerate UVs is authored, not recovered",
+  "method": "Orthogonalize rare invalid export tangents; choose an axis fallback only for zero/parallel tangents",
+  "repaired_vertices": [],
+  "result_sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87",
+  "source_sha256": "6c2913421e97c9d60fb1657bdfa7e5e89e92432ed4e369a52dce64680fcb9524",
+  "texture_bytes_unchanged": true
+}

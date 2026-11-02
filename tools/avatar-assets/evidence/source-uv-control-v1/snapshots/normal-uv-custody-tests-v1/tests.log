@@ -1,0 +1,40 @@
+test_author_cannot_inject_tangent_targets_or_export_guard_results (tests.test_normal_uv_export_custody.NormalUVAuthorBoundaryTests.test_author_cannot_inject_tangent_targets_or_export_guard_results) ... ok
+test_prompt_preserves_repair_evidence_and_distinguishes_rebake_from_preservation (tests.test_normal_uv_export_custody.NormalUVAuthorBoundaryTests.test_prompt_preserves_repair_evidence_and_distinguishes_rebake_from_preservation) ... ok
+test_real_finisher_copies_both_helpers_before_the_native_boundary (tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_real_finisher_copies_both_helpers_before_the_native_boundary) ... FAIL
+test_resealed_missing_mismatched_or_unsupported_receipt_cannot_be_reused (tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_resealed_missing_mismatched_or_unsupported_receipt_cannot_be_reused) ... ok
+test_resealed_old_copy_of_either_helper_cannot_be_reused (tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_resealed_old_copy_of_either_helper_cannot_be_reused) ... ok
+test_successful_reuse_preserves_exact_dedicated_guard_receipt (tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_successful_reuse_preserves_exact_dedicated_guard_receipt) ... ok
+test_both_helpers_are_snapshotted_before_any_execution (tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_both_helpers_are_snapshotted_before_any_execution) ... ok
+test_either_changed_live_helper_stops_unfinished_job_without_agent_call (tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_either_changed_live_helper_stops_unfinished_job_without_agent_call) ... ok
+test_omitting_either_new_pin_cannot_upgrade_an_unfinished_receipt (tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_omitting_either_new_pin_cannot_upgrade_an_unfinished_receipt) ... ok
+test_native_reuse_retains_hash_bound_review_views (tests.test_finish_quality_contracts.FinishQualityConfigTests.test_native_reuse_retains_hash_bound_review_views) ... ok
+test_unverified_fringe_finishing_fails_before_output_or_native_work (tests.test_finish_quality_contracts.FinishQualityConfigTests.test_unverified_fringe_finishing_fails_before_output_or_native_work) ... ok
+test_uv1_export_requires_the_saved_bake_policy_not_just_an_opt_in (tests.test_finish_quality_contracts.FinishQualityConfigTests.test_uv1_export_requires_the_saved_bake_policy_not_just_an_opt_in) ... ok
+test_optional_undercoat_requires_shared_flow_and_cannot_override_budget (tests.test_pipeline_prompts.AuthorContractTests.test_optional_undercoat_requires_shared_flow_and_cannot_override_budget) ... ok
+
+======================================================================
+FAIL: test_real_finisher_copies_both_helpers_before_the_native_boundary (tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_real_finisher_copies_both_helpers_before_the_native_boundary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_normal_uv_export_custody.py", line 113, in test_real_finisher_copies_both_helpers_before_the_native_boundary
+    finish_generated.finish(root/'config.json', out)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/avatar_assets/finish_generated.py", line 436, in finish
+    job = run_bounded(cmd, out/'finish.log', out, timeout=600, memory_mb=2048, output_mb=512)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/Users/ivan/kintsugi/weft/tools/avatar-assets/tests/test_normal_uv_export_custody.py", line 107, in stop_before_native
+    self.assertIn(str(out/'sources/blender_finish_generated.py'), command)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/tmp0fvf33l8/output/sources/blender_finish_generated.py' not found in ['/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender', '--background', '--factory-startup', '--disable-autoexec', '--python-exit-code', '1', '--threads', '4', '--python', '/private/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/tmp0fvf33l8/output/sources/blender_finish_generated.py', '--', '/private/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/tmp0fvf33l8/output/finish-config.json', '/private/var/folders/l9/yglj_5vs151cvc2fw14h6p3c0000gn/T/tmp0fvf33l8/output']
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.331s
+
+FAILED (failures=1)

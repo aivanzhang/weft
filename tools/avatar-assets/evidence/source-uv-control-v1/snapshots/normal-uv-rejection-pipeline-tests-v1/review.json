@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "scope": "Analytic pipeline custody/progression tests",
+  "new_tests": 12,
+  "adjacent_regression_tests": 10,
+  "total_tests": 22,
+  "unittest_seconds": 0.465,
+  "bounded_child_seconds": 0.777,
+  "sampled_peak_rss_bytes": 69304320,
+  "source_pins_unchanged": true,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "ai_role_calls": 0,
+  "quality_accepted": false,
+  "findings": [
+    "A supported report is authenticated but not sent as a rejection.",
+    "A failed hash-bound unsupported report reaches only the bounded author repair.",
+    "Malformed, missing-listed, changed, duplicate, oversized and symlink receipts stop before the next role.",
+    "No receipt is expected for historical or unrelated pre-guard failure.",
+    "The complete report stays on disk; the author receives only a concise hash-bound affected-route summary."
+  ],
+  "limitations": [
+    "Analytic lifecycle fixtures do not execute a native export, real author or full Studio run."
+  ]
+}

@@ -285,7 +285,7 @@ def reuse_native(folder, out, cfg):
     require(job['exit_code'] == 0 and not job['failure'], 'Cannot reuse a failed native process')
     for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                  'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                 'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
+                 'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py'):
         require(sha256(root/'sources'/name) == sha256(ROOT/'scripts'/name), 'Native backend changed; rebuild required')
     if cfg.get('portable_fur', {}).get('settings', {}).get('profile') == 'tuft-v1':
         require(sha256(root/'sources/fur_root_sampling.py') == sha256(ROOT/'scripts/fur_root_sampling.py'),
@@ -312,8 +312,18 @@ def reuse_native(folder, out, cfg):
             'Part rig helper changed; rebuild required')
     require(sha256(root/'sources/normal_continuity.py') == sha256(ROOT/'avatar_assets/normal_continuity.py'),
             'Normal continuity helper changed; rebuild required')
+    normal_uv = root/'normal-uv-export.json'
+    finish_report = read_json(root/'finish-report.json')
+    if cfg.get('export_model') or normal_uv.exists() or 'normal_uv_export' in finish_report:
+        receipt = read_json(local_file(normal_uv, 512*1024))
+        require(isinstance(receipt, dict) and receipt == finish_report.get('normal_uv_export')
+                and receipt.get('policy') == 'live-normal-uv-export-v1'
+                and receipt.get('status') == 'supported' and receipt.get('errors') == [],
+                'Native normal UV export receipt differs or is unsupported; rebuild required')
     for name in ('source.blend', 'portrait.png', 'finish-report.json', 'job.json', 'finish.log', 'finish-monitor.json', 'finish-handle.json'):
         shutil.copyfile(root/name, out/name)
+    if normal_uv.exists():
+        shutil.copyfile(normal_uv, out/normal_uv.name)
     if (root/'surface-integrity.json').exists():
         shutil.copyfile(root/'surface-integrity.json', out/'surface-integrity.json')
     for name in ('renders', 'textures', 'views'):
@@ -407,7 +417,7 @@ def finish(config_path, output, reuse=None):
                 shutil.copyfile(ROOT/'scripts/undercoat_uv_atlas.py', out/'sources/undercoat_uv_atlas.py')
         for name in ('blender_finish_generated.py', 'blender_native_groom.py', 'blender_comb_groom.py',
                      'blender_verify.py', 'blender_fur_cards.py', 'blender_creature_rig.py', 'creature_rig_math.py',
-                     'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py'):
+                     'motion_samples.py', 'native_render_tasks.py', 'deformation_diagnostics.py', 'blender_surface_profiles.py', 'surface_smoothing.py', 'surface_integrity.py', 'groom_flow.py', 'blender_color_corrections.py', 'blender_part_rigs.py', 'blender_normal_continuity.py', 'normal_uv_export.py', 'blender_normal_uv_export.py'):
             shutil.copyfile(ROOT/'scripts'/name, out/'sources'/name)
         shutil.copyfile(__file__, out/'sources/finish_generated.py')
         shutil.copyfile(ROOT/'avatar_assets/surface_profiles.py', out/'sources/surface_profiles.py')

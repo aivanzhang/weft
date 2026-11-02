@@ -1,0 +1,82 @@
+{
+  "artifacts": [
+    {
+      "bytes": 342,
+      "path": "audit-handle.json",
+      "sha256": "7509da85f1c92ed31b98b39d3eb6269cba08d7cd0f1644e839e81a1b82959a3b"
+    },
+    {
+      "bytes": 1125,
+      "path": "audit-monitor.json",
+      "sha256": "ee3620d7e3d21e59b443fbcc2bd2a33fe67ba05b15e2d9924be8039a87cf82b0"
+    },
+    {
+      "bytes": 0,
+      "path": "audit.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 25381,
+      "path": "check.py",
+      "sha256": "489d75fd1c775139e350bb68f1b7533bf2cb5c4d981f24b8825d22e7d7b18e0c"
+    },
+    {
+      "bytes": 740,
+      "path": "execute.py",
+      "sha256": "048839db739e0bc84f26ad74b44e376eb4ddaef7ef23f6dcf42d42c048d1bbce"
+    },
+    {
+      "bytes": 1219,
+      "path": "job.json",
+      "sha256": "b8e7794490307930c81ebaef76234eb080c5b774b6f0684081af0fcc637ae1d0"
+    },
+    {
+      "bytes": 28895,
+      "path": "math_oracle.py",
+      "sha256": "a0230b3a5104ae27ea3868b8985b7614e8d2eb932745c7276a22f7a38e2bd372"
+    },
+    {
+      "bytes": 4151,
+      "path": "prepared.json",
+      "sha256": "926df29ca645833f1f06ac87a0daea6c8ceb60d35e848d94ab22bd340c5e6468"
+    },
+    {
+      "bytes": 3500,
+      "path": "request.json",
+      "sha256": "003be7bdd07312a36b029cefc12177855f83fa5f97380b5de67d465d90964543"
+    },
+    {
+      "bytes": 5526,
+      "path": "result/derivative-custody.json",
+      "sha256": "857473aef3e57975a7cf770f07fb5a1fdc9e8a8b7cf94c3dbed86c7bbdf0bafe"
+    },
+    {
+      "bytes": 361,
+      "path": "result/formerly-ambiguous-root.json",
+      "sha256": "8c8c33eb7d59dacd70cf1ca27df018d4091514ee0a1d1db8901a5af866bc3499"
+    },
+    {
+      "bytes": 708,
+      "path": "result/id-and-fidelity.json",
+      "sha256": "3918f72ca0a3d2c2de3c8c6e18dce327d3f2d549279274efb7278152e6cfb6b2"
+    },
+    {
+      "bytes": 3104,
+      "path": "result/motion.json",
+      "sha256": "9474559e66d425f1accbf8ce18e78bbc4b98ced886f5302e230dee26d1b7f124"
+    },
+    {
+      "bytes": 3500,
+      "path": "result/request.json",
+      "sha256": "003be7bdd07312a36b029cefc12177855f83fa5f97380b5de67d465d90964543"
+    },
+    {
+      "bytes": 497,
+      "path": "result/result.json",
+      "sha256": "68d73eb2b0c4e4eddaa36677e27f4204bf3ced275d8e9d457249de331436cf54"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "scope": "Independent final source-ID, byte-custody, skin and sampled attachment audit; no native execution."
+}

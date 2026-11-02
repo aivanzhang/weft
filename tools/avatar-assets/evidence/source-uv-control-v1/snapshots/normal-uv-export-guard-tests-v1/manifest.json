@@ -1,0 +1,58 @@
+{
+  "artifacts": [
+    {
+      "bytes": 261,
+      "path": "finalizer-failure.json",
+      "sha256": "af5138737d181050164b16c612e21c72abd850898136b009cc8c0eb7b859a9da"
+    },
+    {
+      "bytes": 1038,
+      "path": "job.json",
+      "sha256": "74eed23c6e5f46e8a1c9b8a9e34054a5bcb5e3a8e2b45041750833a149c3b822"
+    },
+    {
+      "bytes": 1079,
+      "path": "prepared.json",
+      "sha256": "ac60ac93e8d7fc88e64ad418b55e26e387c0d749d90dacc9c1e1101c710257e7"
+    },
+    {
+      "bytes": 152,
+      "path": "source-verification.json",
+      "sha256": "00c4feffb66039f9ca5473d8bdc724c044f3fb5d57c49b5a83b80d4e5ffd45f4"
+    },
+    {
+      "bytes": 10150,
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "sha256": "b9fc68888ab8e4e62888a7f39c091932529f2278867125b5e6389a97e1e64ba0"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 14592,
+      "path": "sources/tests/test_normal_uv_export.py",
+      "sha256": "baafd0659780a951dafd62da56408eb1a448dcd46d5fe89006caec2332182433"
+    },
+    {
+      "bytes": 199,
+      "path": "tests-handle.json",
+      "sha256": "1e9fabf91ced8f0fa47dd7cd820b46ab5e9fbea5a380b6d52d40bf41ed138db6"
+    },
+    {
+      "bytes": 934,
+      "path": "tests-monitor.json",
+      "sha256": "b333432ae0c6b7888c44d6958e16627ddd8f0e3303a455a723123ba83001b5fd"
+    },
+    {
+      "bytes": 3605,
+      "path": "tests.log",
+      "sha256": "ed0acbeb88a3b3546b574cf73c6d63f99e0bb8702f2582e10a37106151889312"
+    }
+  ],
+  "native_provider_ai_role_calls": 0,
+  "quality_approved": false,
+  "schema_version": 1,
+  "status": "19_focused_tests_passed_metadata_finalizer_recovered"
+}

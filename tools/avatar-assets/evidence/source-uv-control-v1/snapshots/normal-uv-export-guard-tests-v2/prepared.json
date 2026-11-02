@@ -1,0 +1,39 @@
+{
+  "bounds": {
+    "memory_mib": 256,
+    "output_mib": 8,
+    "timeout_seconds": 30
+  },
+  "change_from_v1": "Reject dirty authored image datablocks whose current pixels are not attested by the packed PNG.",
+  "command": [
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "tests.test_normal_uv_export",
+    "-v"
+  ],
+  "cwd": "/Users/ivan/kintsugi/weft/tools/avatar-assets",
+  "native_provider_ai_role_calls": 0,
+  "provenance": "Analytic/mocked graph admission only; no Blender export or appearance claim.",
+  "python": "3.14.7",
+  "schema_version": 1,
+  "sources": [
+    {
+      "bytes": 9560,
+      "path": "scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "bytes": 10304,
+      "path": "scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 14969,
+      "path": "tests/test_normal_uv_export.py",
+      "sha256": "b533cc08a24742b1d67552e95d33a31e3df79b775b9dbb3880359dfa724bdab7"
+    }
+  ],
+  "time": "2026-11-02T02:01:06.600015-08:00"
+}

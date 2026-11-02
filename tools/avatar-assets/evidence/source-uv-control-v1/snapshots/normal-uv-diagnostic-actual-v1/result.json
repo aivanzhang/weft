@@ -1,0 +1,66 @@
+{
+  "checks": [
+    {
+      "copy_byte_identical": true,
+      "diagnostic": null,
+      "kind": "authored",
+      "native_path": "outputs/normal-uv-export-native-v1/authored-normal-uv-export.json",
+      "native_sha256": "5c74be9fe30e063285b1f63a3b2789ac3f7e05f7cb118d0d0a950e8af3fb7cd7"
+    },
+    {
+      "copy_byte_identical": true,
+      "diagnostic": {
+        "affected_materials": [
+          {
+            "material": "body_surface__contact_uv_dark_v1",
+            "normal": {
+              "image": "normal",
+              "normal_uv_index": 1,
+              "packed_png_bytes": 0,
+              "texture_sha256": null,
+              "texture_uv_index": 1
+            },
+            "object": "PartitionedBodyAndPart",
+            "polygons": 146,
+            "slot": 4,
+            "triangles": 146
+          }
+        ],
+        "checked_material_rows": 5,
+        "errors": [
+          {
+            "code": "nonzero_normal_uv_without_receipt",
+            "material": "body_surface__contact_uv_dark_v1",
+            "message": "Live nonzero normal UV is not an authored undercoat target",
+            "object": "PartitionedBodyAndPart",
+            "slot": 4
+          }
+        ],
+        "guard_unchanged": true,
+        "policy": "live-normal-uv-export-v1",
+        "quality_approved": false,
+        "report": {
+          "bytes": 2159,
+          "path": "normal-uv-export.json",
+          "sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0"
+        },
+        "schema_version": 1,
+        "status": "unsupported",
+        "summary": "Normal UV export blocked: nonzero_normal_uv_without_receipt: Live nonzero normal UV is not an authored undercoat target",
+        "tangent_restoration_performed": false
+      },
+      "kind": "original",
+      "native_path": "outputs/normal-uv-export-native-v1/original-normal-uv-export.json",
+      "native_sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0"
+    }
+  ],
+  "elapsed_seconds": 0.0016035418957471848,
+  "fixture_manifest_scope": "New wrapper manifests are analytic; the copied reports are exact actual native evidence.",
+  "full_pipeline_or_quality_acceptance": false,
+  "new_ai_role_calls": 0,
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "originals_unchanged": true,
+  "schema_version": 1,
+  "status": "actual_native_report_compatibility_passed"
+}

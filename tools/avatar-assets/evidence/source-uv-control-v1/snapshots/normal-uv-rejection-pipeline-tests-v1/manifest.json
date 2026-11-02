@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "status": "sealed",
+  "artifacts": [
+    {
+      "path": "job.json",
+      "bytes": 1163,
+      "sha256": "b74a02b5b425319aa2c92ee620bee8de44462b469f62ba261179e1c21068e26d"
+    },
+    {
+      "path": "prepared.json",
+      "bytes": 2179,
+      "sha256": "8714983f8d735f0b32da9c0a868b6af6bba66029693a36f321ee5494179caa03"
+    },
+    {
+      "path": "review.json",
+      "bytes": 1011,
+      "sha256": "cce70a0f7b81cb64646530d211d3fadf914c9b9f48d9a5ebb58ebeb7d0f6c3c7"
+    },
+    {
+      "path": "sources/avatar_assets/finish_generated.py",
+      "bytes": 32643,
+      "sha256": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5"
+    },
+    {
+      "path": "sources/avatar_assets/pipeline.py",
+      "bytes": 65827,
+      "sha256": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276"
+    },
+    {
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 48339,
+      "sha256": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8"
+    },
+    {
+      "path": "sources/avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "sources/avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "bytes": 10304,
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "path": "sources/scripts/normal_uv_export.py",
+      "bytes": 9560,
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    },
+    {
+      "path": "sources/tests/test_normal_rejection_pipeline.py",
+      "bytes": 14069,
+      "sha256": "fb01324fe6e568c12b55e7d6930e5702517490f84ea55efbebae6e58cd37c58e"
+    },
+    {
+      "path": "sources/tests/test_normal_uv_export.py",
+      "bytes": 14969,
+      "sha256": "b533cc08a24742b1d67552e95d33a31e3df79b775b9dbb3880359dfa724bdab7"
+    },
+    {
+      "path": "sources/tests/test_normal_uv_rejection_pipeline.py",
+      "bytes": 14226,
+      "sha256": "c4d6c97713c58e3c0bd2fce1c4be9e55d1f8658b178a2928987f670dc9c2db3f"
+    },
+    {
+      "path": "test-handle.json",
+      "bytes": 244,
+      "sha256": "a5ee2219f5b7ea69574f573ed7a8fbb495248a92606e86f55eec341a5638e97c"
+    },
+    {
+      "path": "test-monitor.json",
+      "bytes": 1028,
+      "sha256": "4021a0afd092f2baf9de5124edd65765f7c90746708fd3e7d1a6a38add0a40e3"
+    },
+    {
+      "path": "test.log",
+      "bytes": 4646,
+      "sha256": "b31f03da572b9a856df849bca43d2e66ad09419f299e9fe98ae06aa21033dac2"
+    }
+  ],
+  "total_bytes": 235388,
+  "originals_unchanged": true,
+  "native_calls": 0,
+  "provider_calls": 0,
+  "ai_role_calls": 0,
+  "quality_accepted": false
+}

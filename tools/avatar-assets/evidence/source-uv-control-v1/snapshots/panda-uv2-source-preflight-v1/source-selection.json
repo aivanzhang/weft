@@ -1,0 +1,169 @@
+{
+  "export_vertex_budget": {
+    "portable_export_vertices": 43200,
+    "reserve_vertices": 4096,
+    "source_export_vertices": 51376
+  },
+  "materials": [
+    {
+      "faces": 33810,
+      "material": "body_surface",
+      "response": {
+        "metallic": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.0,
+          "original_link_count": 1
+        },
+        "roughness": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.5,
+          "original_link_count": 1
+        }
+      },
+      "selected_faces": 31208,
+      "slot": 0
+    },
+    {
+      "faces": 27205,
+      "material": "companion_surface",
+      "response": {
+        "metallic": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.0,
+          "original_link_count": 1
+        },
+        "roughness": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.5,
+          "original_link_count": 1
+        }
+      },
+      "selected_faces": 0,
+      "slot": 1
+    },
+    {
+      "faces": 266,
+      "material": "body_cap",
+      "response": {
+        "metallic": {
+          "authored_value": 0,
+          "mode": "authored_constant",
+          "original_default_value": 0.0,
+          "original_link_count": 0
+        },
+        "roughness": {
+          "authored_value": 0.92,
+          "mode": "authored_constant",
+          "original_default_value": 1.0,
+          "original_link_count": 0
+        }
+      },
+      "selected_faces": 265,
+      "slot": 2
+    },
+    {
+      "faces": 313,
+      "material": "companion_cap",
+      "response": {
+        "metallic": {
+          "authored_value": 0,
+          "mode": "authored_constant",
+          "original_default_value": 0.0,
+          "original_link_count": 0
+        },
+        "roughness": {
+          "authored_value": 0.92,
+          "mode": "authored_constant",
+          "original_default_value": 1.0,
+          "original_link_count": 0
+        }
+      },
+      "selected_faces": 0,
+      "slot": 3
+    },
+    {
+      "faces": 146,
+      "material": "body_surface__contact_uv_dark_v1",
+      "response": {
+        "metallic": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.0,
+          "original_link_count": 1
+        },
+        "roughness": {
+          "authored_value": null,
+          "mode": "preserved_link",
+          "original_default_value": 0.5,
+          "original_link_count": 1
+        }
+      },
+      "selected_faces": 146,
+      "slot": 4
+    },
+    {
+      "faces": 103,
+      "material": "body_cap__contact_uv_dark_v1",
+      "response": {
+        "metallic": {
+          "authored_value": 0,
+          "mode": "authored_constant",
+          "original_default_value": 0.0,
+          "original_link_count": 0
+        },
+        "roughness": {
+          "authored_value": 0.92,
+          "mode": "authored_constant",
+          "original_default_value": 1.0,
+          "original_link_count": 0
+        }
+      },
+      "selected_faces": 103,
+      "slot": 5
+    },
+    {
+      "faces": 738,
+      "material": "body_surface__color_rear-tail-base",
+      "response": {
+        "metallic": {
+          "authored_value": 0,
+          "mode": "authored_constant",
+          "original_default_value": 0.0,
+          "original_link_count": 0
+        },
+        "roughness": {
+          "authored_value": 0.92,
+          "mode": "authored_constant",
+          "original_default_value": 0.800000011920929,
+          "original_link_count": 0
+        }
+      },
+      "selected_faces": 0,
+      "slot": 6
+    }
+  ],
+  "normal_transfer_requested": false,
+  "schema_version": 1,
+  "selected_faces": 31722,
+  "selected_vertices": 23385,
+  "triangles": 62581,
+  "uv_allocation": {
+    "authored_index": 2,
+    "authored_name": "AuthoredUndercoatUV2",
+    "max_source_layers": 2,
+    "max_total_layers": 3,
+    "original_indices": [
+      0,
+      1
+    ],
+    "original_names": [
+      "UVMap",
+      "UVMap.001"
+    ]
+  },
+  "vertices": 51376
+}

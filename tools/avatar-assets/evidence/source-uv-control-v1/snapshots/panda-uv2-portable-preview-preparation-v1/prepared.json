@@ -1,0 +1,60 @@
+{
+  "blender": "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "cost": {
+    "generation_calls": 0,
+    "local_energy": "unpriced",
+    "recurring_services": 0
+  },
+  "inputs": [
+    {
+      "path": "outputs/panda-uv2-portable-control-v1/model.glb",
+      "sha256": "82c05f20956226b90358ba67d582fe3964623d5ff146f12ef76c9e5247ac8f87"
+    },
+    {
+      "path": "outputs/panda-uv2-portable-control-v1/rig-verification.json",
+      "sha256": "34c205dc79083a78979067a352629458a4c5f80a204c2c0386a469934d294056"
+    },
+    {
+      "path": "outputs/panda-uv2-portable-control-v1/render-attributes.json",
+      "sha256": "a2aa8f7438d3e31f6d6c2bbc19d3804138fb4e7c7adfe9c2f31c43ca826dffdb"
+    },
+    {
+      "path": "outputs/panda-uv2-staged-control-v1/raw-used-normal-uv.json",
+      "sha256": "1225c529278c946e3bf84c2f6da2fe97f84895e2e09344d7908aa17bc34c8fac"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "output_mib": 128,
+    "sampled_child_rss_mib": 2048,
+    "seconds": 120,
+    "threads": 4
+  },
+  "model": "outputs/panda-uv2-portable-control-v1/model.glb",
+  "output": "outputs/panda-uv2-portable-preview-v1",
+  "schema_version": 1,
+  "scope": "Independent actual-export720pxEEVEE four-view/four-pose control; not full media/loop/Muse or Weft acceptance",
+  "snapshots": [
+    {
+      "bytes": 1953,
+      "path": "execute.py",
+      "sha256": "90ee4ffc1e45e9ea8613b70a76b0b5ffe3b100f58fdc1c829526a659cd331da3"
+    },
+    {
+      "bytes": 108,
+      "path": "motion.json",
+      "sha256": "9cea25b6520e9bebdc4cd9961920d1216c515887badcaa1e10b1caa90ffeed85"
+    },
+    {
+      "bytes": 13587,
+      "path": "sources/blender_provider_preview.py",
+      "sha256": "316d038f583b021729a5c48c09175dfc680a804c2ad1a81b7ca9fe969c93ccb1"
+    },
+    {
+      "bytes": 18248,
+      "path": "sources/blender_verify.py",
+      "sha256": "985424983afb7a4320c00790e3b629b60692cba82f0059fec0c0f4c286ae42a1"
+    }
+  ]
+}

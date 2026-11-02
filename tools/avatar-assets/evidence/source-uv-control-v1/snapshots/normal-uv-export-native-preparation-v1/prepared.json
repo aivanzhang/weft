@@ -1,0 +1,75 @@
+{
+  "blender_sha256": "49fa4d4694f55b37b58b18d99a71bdc8228d30545caa2e16c9f99952f4c76f55",
+  "calls": {
+    "pipeline_ai_roles": 0,
+    "provider": 0
+  },
+  "inputs": [
+    {
+      "bytes": 63028546,
+      "path": "outputs/panda-uv2-staged-control-v1/prepared-source.blend",
+      "sha256": "64565884eafcfc7f697b8b167828ea691319e363c04ddf3b99b637507f966708"
+    },
+    {
+      "bytes": 89426,
+      "path": "outputs/panda-uv2-staged-control-v1/prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6"
+    },
+    {
+      "bytes": 3815,
+      "path": "outputs/panda-uv2-staged-control-v1/source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    {
+      "bytes": 28080560,
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    }
+  ],
+  "limits": {
+    "output_mb": 16,
+    "rss_mb": 2048,
+    "wall_seconds": 45
+  },
+  "no_export_or_render": true,
+  "no_quality_approval": true,
+  "output": "outputs/normal-uv-export-native-v1",
+  "schema_version": 1,
+  "snapshots": [
+    {
+      "bytes": 1908,
+      "path": "execute.py",
+      "sha256": "9efb1504212c062952fffac1590c3fb58cca6edea4cd1caae390c24c13f8f355"
+    },
+    {
+      "bytes": 4976,
+      "path": "probe.py",
+      "sha256": "21c7b867b2bc019a88d2ac9487bcbd0b199e1fa971fff95a8acb412b99723a62"
+    },
+    {
+      "bytes": 96,
+      "path": "sources/avatar_assets/__init__.py",
+      "sha256": "da3f975bcfec7c807c357befecd8372006bab9587b9df11c8b2fc5e0c9987d85"
+    },
+    {
+      "bytes": 11421,
+      "path": "sources/avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "sources/avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "bytes": 10304,
+      "path": "sources/scripts/blender_normal_uv_export.py",
+      "sha256": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1"
+    },
+    {
+      "bytes": 9560,
+      "path": "sources/scripts/normal_uv_export.py",
+      "sha256": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7"
+    }
+  ]
+}

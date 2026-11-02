@@ -1,0 +1,6 @@
+{
+  "cause": "Finalizer used root[pinned_path] instead of root / pinned_path. No test or native job failure.",
+  "error": "TypeError: 'PosixPath' object is not subscriptable",
+  "status": "metadata_finalizer_failed_after_passing_tests",
+  "test_rerun": false
+}

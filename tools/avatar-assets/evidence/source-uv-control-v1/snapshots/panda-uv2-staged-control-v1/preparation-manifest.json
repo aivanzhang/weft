@@ -1,0 +1,154 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "b1610922c2d1e3a43d2a8bc2bbfd7b3bc2c343b06103a9c43b59cfc23a01f54c"
+    },
+    {
+      "bytes": 565469,
+      "path": "fringe-correspondence.npz",
+      "sha256": "a663f361b74a5d84703576c5e38c5f7a3438b0e2f415b6a42807a0bdf8ce436a"
+    },
+    {
+      "bytes": 14075,
+      "path": "fringe-report.json",
+      "sha256": "196a3a2e1a4d1678dc64e0039e47c9bd99dc8c5e3b3e99457f6239ef91ff1148"
+    },
+    {
+      "bytes": 36802588,
+      "path": "model.glb",
+      "sha256": "6e02cc29c26872096765618de6354afa10f2da24dd181b9ca38c907b6a4efd16"
+    },
+    {
+      "bytes": 1204,
+      "path": "original-normal-coverage.json",
+      "sha256": "e141c8aa3af7527318a8b331b4df891ac564a16a3598631f12492e3b40eda50b"
+    },
+    {
+      "bytes": 5291,
+      "path": "phase-memory.jsonl",
+      "sha256": "0349a4cfd9eef356c37047a07aa0c72c1cbd671ea12d138b691db2ad3dff6376"
+    },
+    {
+      "bytes": 486,
+      "path": "prepare-handle.json",
+      "sha256": "fda906629228f60ff4dea1f7779cf0babb5d7946943d3b768a02ea28077021ce"
+    },
+    {
+      "bytes": 1284,
+      "path": "prepare-monitor.json",
+      "sha256": "2b5d5ad21df4a7118168c9d295d153a9f4f641c34062462512dad5f5cce3a95d"
+    },
+    {
+      "bytes": 7197,
+      "path": "prepare.log",
+      "sha256": "dbbc5f9121b66c80a8d0488525e3a4a33cfadeb50c8e7c11a5bb193651292b3a"
+    },
+    {
+      "bytes": 89426,
+      "path": "prepared-finish-report.json",
+      "sha256": "164e6633230f8ddfbcb39949cff240067f84fc888a1f7974ee5f510cd62660e6"
+    },
+    {
+      "bytes": 130005,
+      "path": "prepared-native-scene.json",
+      "sha256": "276b64242f062beb7134e1bfc343771da2af1a72e1db1e34f0e0949246b569e2"
+    },
+    {
+      "bytes": 63028546,
+      "path": "prepared-source.blend",
+      "sha256": "64565884eafcfc7f697b8b167828ea691319e363c04ddf3b99b637507f966708"
+    },
+    {
+      "bytes": 1828,
+      "path": "raw-used-normal-uv.json",
+      "sha256": "1225c529278c946e3bf84c2f6da2fe97f84895e2e09344d7908aa17bc34c8fac"
+    },
+    {
+      "bytes": 3815,
+      "path": "source-skin.json",
+      "sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948"
+    },
+    {
+      "bytes": 1498257,
+      "path": "source-skin.npz",
+      "sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a"
+    },
+    {
+      "bytes": 2846929,
+      "path": "textures/authored-short-pile-normal-material-00.png",
+      "sha256": "9602a5d9e74159e2ef51a57d1267acffb2ae6ba1469f4df76e491ba080dc798e"
+    },
+    {
+      "bytes": 179672,
+      "path": "textures/authored-short-pile-normal-material-02.png",
+      "sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3"
+    },
+    {
+      "bytes": 188772,
+      "path": "textures/authored-short-pile-normal-material-04.png",
+      "sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad"
+    },
+    {
+      "bytes": 142129,
+      "path": "textures/authored-short-pile-normal-material-05.png",
+      "sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794"
+    },
+    {
+      "bytes": 1684720,
+      "path": "textures/portable-fringe-color-atlas.png",
+      "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-preparation-v1/prepare_entry.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-staged-control-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 16.339,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 107191747,
+    "last_rss_sample_elapsed_seconds": 16.078,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 512,
+      "rss_mb": 2048,
+      "wall_seconds": 120
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "prepare-monitor.json",
+    "monitor_errors": [],
+    "pid": 62772,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 62,
+    "sampled_max_output_bytes": 107191747,
+    "sampled_peak_rss_bytes": 1440186368,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "originals_unchanged": true,
+  "prepared_sha256": "1a1186624e16606cf826eaf150ab986cb58430d358a3c27ddfd278cd32219f94",
+  "schema_version": 1,
+  "scope": "Experimental rig/fur/scene preparation; no rendered images or accepted delivery"
+}

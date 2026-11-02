@@ -1,0 +1,99 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5153,
+      "path": "authored-normal-uv-export.json",
+      "sha256": "5c74be9fe30e063285b1f63a3b2789ac3f7e05f7cb118d0d0a950e8af3fb7cd7"
+    },
+    {
+      "bytes": 97359,
+      "path": "authored-read-only.json",
+      "sha256": "525edd310e32180897a23b29ce86f0697bcae5f3c540c352382e6e4c83cbfdc5"
+    },
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "3dd9e22b38b1ff5089b38edfe44a47aa9692d811f4fb506c420896e079a3e697"
+    },
+    {
+      "bytes": 475,
+      "path": "native-handle.json",
+      "sha256": "0ce61bcaac15223a3894779292d088f2cc0db6fec2b67e8837065789116a1232"
+    },
+    {
+      "bytes": 1262,
+      "path": "native-monitor.json",
+      "sha256": "4e67874406e71bc4e567db92300721cf5a65085c4b5891e55de0f8d4d9bc0069"
+    },
+    {
+      "bytes": 365,
+      "path": "native.log",
+      "sha256": "128fb98136673c819293bc83223b9fc3744bc00116023bb4db948278af257b39"
+    },
+    {
+      "bytes": 2159,
+      "path": "original-normal-uv-export.json",
+      "sha256": "e95e413a1e2221e41ecf28262cbe9baf4d5f7aead29696c3334c5ac05926a2d0"
+    },
+    {
+      "bytes": 44864,
+      "path": "original-read-only.json",
+      "sha256": "47234a7b6ae8a9a1dff47e677778820023330569120f7d0178fc5a274921aa40"
+    },
+    {
+      "bytes": 457,
+      "path": "result.json",
+      "sha256": "bd11bf3f1dda22a0ce8bc83b9bca7b04be27ed0b18462d0aa4df7b0810bc6a72"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-uv-export-native-preparation-v1/probe.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/normal-uv-export-native-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 5.467,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 152152,
+    "last_rss_sample_elapsed_seconds": 5.206,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 2048,
+      "wall_seconds": 45
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 65577,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 20,
+    "sampled_max_output_bytes": 152152,
+    "sampled_peak_rss_bytes": 442433536,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "originals_unchanged": true,
+  "prepared_sha256": "7b133f5d41d65252b0947a418d780ecca21ba9c358efbd759882e88882b2a11e",
+  "schema_version": 1,
+  "scope": "Read-only real native graph admission; no full finish or appearance approval"
+}

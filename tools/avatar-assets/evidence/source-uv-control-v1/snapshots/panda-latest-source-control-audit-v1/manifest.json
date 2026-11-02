@@ -1,0 +1,62 @@
+{
+  "artifacts": [
+    {
+      "bytes": 241,
+      "path": "audit-handle.json",
+      "sha256": "2c47bcc1168deb13d6ff1257181c2fd968a4455d54582e797bd7d944aba9ffdb"
+    },
+    {
+      "bytes": 979,
+      "path": "audit-monitor.json",
+      "sha256": "e4dea988bee62f629cd9008861d747b5eff44bff7305057c79eec22e5ef456dd"
+    },
+    {
+      "bytes": 1052,
+      "path": "audit.log",
+      "sha256": "f79fd20e52cb979021ec341c65977634e282dcce6093f8f58cb275ad70d35fff"
+    },
+    {
+      "bytes": 17158,
+      "path": "audit.py",
+      "sha256": "abbfcdccc4e4f8b10cf4731fc85d0cccdde59c635da361192fece0d0540b0c9c"
+    },
+    {
+      "bytes": 5809,
+      "path": "control-delta.json",
+      "sha256": "a9c41f32cc0d4a7f524ab8862f14aedc8836d2a36fcbac36c4065e4133ac2962"
+    },
+    {
+      "bytes": 36670,
+      "path": "control-host-design.json",
+      "sha256": "7d58f18c62aaa5bd6b5bb8ff38543e66554bd0293ec8ec1fe51bc98f076f8c87"
+    },
+    {
+      "bytes": 37185,
+      "path": "control-native-config.json",
+      "sha256": "a094ef6b81c5fc117cf2284383b220980e374b96351b7d34d6aacf05f8dbc3a8"
+    },
+    {
+      "bytes": 731,
+      "path": "execute.py",
+      "sha256": "3467378a4099caa7b970fb0b3b2187c3764558db4392a46571b7f36ac790a70a"
+    },
+    {
+      "bytes": 1067,
+      "path": "job.json",
+      "sha256": "c0816d209f9bc3134fc75a6551062ccbc78df7afd2bc22b25c5e0d39ab99ab3b"
+    },
+    {
+      "bytes": 3973,
+      "path": "prepared.json",
+      "sha256": "3fba8d58b9eb855ade7e266802b65442290881d6c175d5a959d9ccc9e11be068"
+    },
+    {
+      "bytes": 15123,
+      "path": "report.json",
+      "sha256": "c9792056b674a12c657470a16c16466042f0fce225d6cf8d163f34cf50b3ee52"
+    }
+  ],
+  "quality_approved": false,
+  "schema_version": 1,
+  "scope": "Read-only source/control CPU preparation; no native or texture pixel decode."
+}

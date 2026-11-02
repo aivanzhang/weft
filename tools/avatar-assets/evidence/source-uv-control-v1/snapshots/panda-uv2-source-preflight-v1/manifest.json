@@ -1,0 +1,99 @@
+{
+  "artifacts": [
+    {
+      "bytes": 121,
+      "path": "blender-extensions/.cache/compat.dat",
+      "sha256": "975bcc615d7b07c59bf0f1d5072dc77ad27a923d5008d5346f48f863ad792945"
+    },
+    {
+      "bytes": 481,
+      "path": "native-handle.json",
+      "sha256": "6440d3dd3b8674111fbbfae29914453feb1a16083717050b9296001020090e7f"
+    },
+    {
+      "bytes": 1270,
+      "path": "native-monitor.json",
+      "sha256": "86d19cd26df3c9b21a1e5457b236a4a4a4a138207e8c6253344a1f39d083ec8e"
+    },
+    {
+      "bytes": 1038,
+      "path": "native.log",
+      "sha256": "0f5fd86063513984d4b2e72626cccad1e93035fa718298a4e947dfe348cff8c7"
+    },
+    {
+      "bytes": 360,
+      "path": "result.json",
+      "sha256": "cedc520971ae3ab7718c519575724bf59d8fd031a5ccc591693c63c87500bd68"
+    },
+    {
+      "bytes": 512,
+      "path": "source-normal-frame-comparison.json",
+      "sha256": "f09d339a23463d719d87bf60b3c2c65e12fa7c13990b927d06703628375b4a22"
+    },
+    {
+      "bytes": 4166,
+      "path": "source-selection.json",
+      "sha256": "5c816281cddf1d9e8a4784bfa8d65dd4c8a35f2cbb9883ae6907c304a98f8b99"
+    },
+    {
+      "bytes": 3354926,
+      "path": "undercoat-inputs.npz",
+      "sha256": "0383324333ff0e638123312525c8bae958a599a219021e6eb9b07db8a39ce69d"
+    },
+    {
+      "bytes": 4809,
+      "path": "undercoat-plan.json",
+      "sha256": "d550317ce6dbbad5d4a38886399b052a2c58f1e78c63cbfd1cacfe48c9384625"
+    }
+  ],
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-preparation-v1/probe.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.646,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 3367615,
+    "last_rss_sample_elapsed_seconds": 3.385,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 1536,
+      "wall_seconds": 45
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 61897,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 13,
+    "sampled_max_output_bytes": 3367615,
+    "sampled_peak_rss_bytes": 915570688,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "originals_unchanged": true,
+  "prepared_sha256": "baeb2362094de5d07271127b9e8b306ceb4db174513da06adac10aba5ca4c415",
+  "schema_version": 1,
+  "scope": "Actual-source preflight, not full finishing or visual acceptance"
+}

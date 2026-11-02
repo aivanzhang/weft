@@ -1,0 +1,227 @@
+{
+  "all_normal_bytes_exact": 1138908,
+  "allowed_spans": [
+    {
+      "accessor": 7,
+      "count": 2145,
+      "element_bytes": 4,
+      "start": 145860,
+      "stride": 4
+    },
+    {
+      "accessor": 8,
+      "count": 2145,
+      "element_bytes": 16,
+      "start": 154440,
+      "stride": 16
+    },
+    {
+      "accessor": 17,
+      "count": 24705,
+      "element_bytes": 4,
+      "start": 25467596,
+      "stride": 4
+    },
+    {
+      "accessor": 18,
+      "count": 24705,
+      "element_bytes": 16,
+      "start": 25566416,
+      "stride": 16
+    },
+    {
+      "accessor": 27,
+      "count": 3,
+      "element_bytes": 4,
+      "start": 26125132,
+      "stride": 4
+    },
+    {
+      "accessor": 28,
+      "count": 3,
+      "element_bytes": 16,
+      "start": 26125144,
+      "stride": 16
+    },
+    {
+      "accessor": 37,
+      "count": 939,
+      "element_bytes": 4,
+      "start": 26189052,
+      "stride": 4
+    },
+    {
+      "accessor": 38,
+      "count": 939,
+      "element_bytes": 16,
+      "start": 26192808,
+      "stride": 16
+    },
+    {
+      "accessor": 47,
+      "count": 549,
+      "element_bytes": 4,
+      "start": 26247044,
+      "stride": 4
+    },
+    {
+      "accessor": 48,
+      "count": 549,
+      "element_bytes": 16,
+      "start": 26249240,
+      "stride": 16
+    },
+    {
+      "accessor": 57,
+      "count": 21826,
+      "element_bytes": 4,
+      "start": 27746620,
+      "stride": 4
+    },
+    {
+      "accessor": 58,
+      "count": 21826,
+      "element_bytes": 16,
+      "start": 27833924,
+      "stride": 16
+    },
+    {
+      "accessor": 66,
+      "count": 795,
+      "element_bytes": 16,
+      "start": 31258660,
+      "stride": 16
+    },
+    {
+      "accessor": 67,
+      "count": 795,
+      "element_bytes": 4,
+      "start": 31271380,
+      "stride": 4
+    },
+    {
+      "accessor": 68,
+      "count": 795,
+      "element_bytes": 16,
+      "start": 31274560,
+      "stride": 16
+    },
+    {
+      "accessor": 76,
+      "count": 438,
+      "element_bytes": 16,
+      "start": 31491320,
+      "stride": 16
+    },
+    {
+      "accessor": 77,
+      "count": 438,
+      "element_bytes": 4,
+      "start": 31498328,
+      "stride": 4
+    },
+    {
+      "accessor": 78,
+      "count": 438,
+      "element_bytes": 16,
+      "start": 31500080,
+      "stride": 16
+    },
+    {
+      "accessor": 86,
+      "count": 309,
+      "element_bytes": 16,
+      "start": 31712804,
+      "stride": 16
+    },
+    {
+      "accessor": 87,
+      "count": 309,
+      "element_bytes": 4,
+      "start": 31717748,
+      "stride": 4
+    },
+    {
+      "accessor": 88,
+      "count": 309,
+      "element_bytes": 16,
+      "start": 31718984,
+      "stride": 16
+    },
+    {
+      "accessor": 96,
+      "count": 43200,
+      "element_bytes": 4,
+      "start": 34114296,
+      "stride": 4
+    },
+    {
+      "accessor": 97,
+      "count": 43200,
+      "element_bytes": 16,
+      "start": 34287096,
+      "stride": 16
+    }
+  ],
+  "changed_binary_bytes": 72960,
+  "changed_bytes_by_semantic": {
+    "authored_uv2_tangents": 16197,
+    "skin_joints_weights": 56763
+  },
+  "every_other_json_value_exact": true,
+  "every_other_padded_binary_byte_exact": true,
+  "quality_approved": false,
+  "removed_bindings": [
+    "meshes/0/primitives/0/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/1/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/2/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/3/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/4/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/5/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/6/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/7/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/0/primitives/8/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/1/primitives/0/attributes/_AUTHOR_VERTEX_ID",
+    "meshes/1/primitives/0/attributes/TANGENT"
+  ],
+  "status": "passed",
+  "unused_original_id_and_fringe_tangent_accessors_bytes_retained": true,
+  "uv2_targets": [
+    {
+      "embedded_png_sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3",
+      "exact_independent_projected_frames": true,
+      "faces": 265,
+      "frame_policy": "mikk-unshared-triangle-v-up-v2",
+      "material": "body_cap__short_pile_adaptive_v1",
+      "mesh": 0,
+      "normal_texcoord": 2,
+      "primitive": 6,
+      "scope": "Explicit per-face V-up bake convention; native Mikk parity was separately tested by the fixture.",
+      "tangent_accessor": 66
+    },
+    {
+      "embedded_png_sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad",
+      "exact_independent_projected_frames": true,
+      "faces": 146,
+      "frame_policy": "mikk-unshared-triangle-v-up-v2",
+      "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "mesh": 0,
+      "normal_texcoord": 2,
+      "primitive": 7,
+      "scope": "Explicit per-face V-up bake convention; native Mikk parity was separately tested by the fixture.",
+      "tangent_accessor": 76
+    },
+    {
+      "embedded_png_sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794",
+      "exact_independent_projected_frames": true,
+      "faces": 103,
+      "frame_policy": "mikk-unshared-triangle-v-up-v2",
+      "material": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "mesh": 0,
+      "normal_texcoord": 2,
+      "primitive": 8,
+      "scope": "Explicit per-face V-up bake convention; native Mikk parity was separately tested by the fixture.",
+      "tangent_accessor": 86
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "decision": "may_proceed_to_one_bounded_experimental_full_control_with_raw_export_guard",
+  "coverage_verified_from_actual_saved_arrays": true,
+  "source_triangle_and_uv_identity_verified": true,
+  "source_positions_exact_after_declared_authored_scale": true,
+  "source_normal_uv1_faces_selected": 146,
+  "source_normal_uv1_faces_unselected": 0,
+  "contact_cap_faces_selected": 103,
+  "projected_vertex_ceiling": 99154,
+  "remaining_to_100000": 846,
+  "required_raw_export_guard": [
+    "Inspect actual primitive material bindings with nonzero indexed faces, not unused material definitions.",
+    "Require zero used original/nonauthored UV1 normal material bindings; reject any other nondefault normal route lacking an exact authored receipt.",
+    "Require all three authored UV2 material/count/PNG/frame-policy targets match the completed bake report and actual GLB before correction.",
+    "Preserve source UV0/UV1 and linked metallic/roughness routes, then validate the corrected export, skin and actual motion independently."
+  ],
+  "interpretation": "This exact control intentionally replaces every original UV1 normal-map face with an authored UV2 undercoat normal. It does not solve general source UV1 tangent preservation. Geometric-normal transfer is omitted; no guard is disabled.",
+  "prior_review_preserved": {
+    "path": "outputs/panda-uv-source-readiness-review-v1/manifest.json",
+    "sha256": "b75519ec7b8e4cff3f6bfe9f050f97efa93c7e20dbde2933297a8381de506cee"
+  },
+  "actual_export_exists_in_this_proof": false,
+  "public_fringe_enabled": false,
+  "quality_accepted": false,
+  "runtime": {
+    "elapsed_seconds": 0.262,
+    "process_exit_verified": true,
+    "sampled_peak_rss_bytes": null,
+    "rss_samples": 0,
+    "rss_limitation": "Short CPU check exited before first RSS sample."
+  },
+  "new_native_calls": 0,
+  "new_provider_calls": 0,
+  "new_ai_role_calls": 0
+}

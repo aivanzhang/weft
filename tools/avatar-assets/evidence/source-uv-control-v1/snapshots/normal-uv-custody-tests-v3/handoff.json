@@ -1,0 +1,103 @@
+{
+  "actual_test_executions": 15,
+  "all_owned_jobs_exited": true,
+  "browser_calls": 0,
+  "changed_cases_final_reruns_passed": 2,
+  "diagnostic_tests_duplicated": false,
+  "failure_retained": "v1 failed only because the new analytic fixture compared /var text with canonical /private/var. Its helper-copy byte assertions had passed. v2 changed only fixture root.resolve() and passed.",
+  "final_test_set": [
+    "tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_both_helpers_are_snapshotted_before_any_execution",
+    "tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_either_changed_live_helper_stops_unfinished_job_without_agent_call",
+    "tests.test_normal_uv_export_custody.NormalUVPipelinePinTests.test_omitting_either_new_pin_cannot_upgrade_an_unfinished_receipt",
+    "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_real_finisher_copies_both_helpers_before_the_native_boundary",
+    "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_successful_reuse_preserves_exact_dedicated_guard_receipt",
+    "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_resealed_old_copy_of_either_helper_cannot_be_reused",
+    "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_resealed_missing_mismatched_or_unsupported_receipt_cannot_be_reused",
+    "tests.test_normal_uv_export_custody.NormalUVAuthorBoundaryTests.test_author_cannot_inject_tangent_targets_or_export_guard_results",
+    "tests.test_normal_uv_export_custody.NormalUVAuthorBoundaryTests.test_prompt_preserves_exact_normal_uv_repair_evidence",
+    "tests.test_finish_quality_contracts.FinishQualityConfigTests.test_native_reuse_retains_hash_bound_review_views",
+    "tests.test_finish_quality_contracts.FinishQualityConfigTests.test_unverified_fringe_finishing_fails_before_output_or_native_work",
+    "tests.test_finish_quality_contracts.FinishQualityConfigTests.test_uv1_export_requires_the_saved_bake_policy_not_just_an_opt_in",
+    "tests.test_pipeline_prompts.AuthorContractTests.test_optional_undercoat_requires_shared_flow_and_cannot_override_budget"
+  ],
+  "frozen_sources": {
+    "avatar_assets/finish_generated.py": "eee13bfc5bd88f5e4c93868589af651eee1deb37d0f76858f3c0654b3ff3abd5",
+    "avatar_assets/pipeline.py": "be8064ddfc847938f57d5a0afb9231241a38daec9225cc955e7e04693f3ab276",
+    "avatar_assets/pipeline_prompts.py": "9f6ec10a853252b95177a9814f34b6555c4b8737e7b18d55b0ecbed7949dc1f8",
+    "scripts/blender_finish_generated.py": "933e0dac65c05f36dbf0c08dcff5274afb63193258b5690b62f737cf5dc3c6ff",
+    "scripts/blender_normal_uv_export.py": "bbc368f0a3337fc50d48e365496c2f1763aeea77116b49b512169a467bd5dcb1",
+    "scripts/normal_uv_export.py": "de20f6a9afcd3a475f751c97b6deb6c87e489cb784652c345b4ce365876d7fc7",
+    "tests/test_normal_uv_export_custody.py": "93da29c715ef60cbe8dd3650ce99dbc6d55f0e9450881426102fa1c2b95c64f0"
+  },
+  "guard_unit_tests_rerun": false,
+  "initial_run_failed": 1,
+  "initial_run_passed": 12,
+  "native_jobs": 0,
+  "paid_calls": 0,
+  "production_edits_in_this_lane": false,
+  "quality_approved": false,
+  "read_only_review": {
+    "guard_mesh_scope": "[obj, *cards]",
+    "native_guard_runs_before_skin_snapshot_and_gltf_export": true,
+    "receipt": "normal-uv-export.json",
+    "source_uv1_policy": "No automatic preservation claim; unsupported live original nonzero normal routes must fail or be deliberately fully rebaked."
+  },
+  "runs": [
+    {
+      "elapsed_seconds": 0.523,
+      "manifest_sha256": "b379c2c01cc49640defa43fc65644b614f2190d5ba92a56ef5e2a66c715f9d09",
+      "path": "outputs/normal-uv-custody-tests-v1",
+      "pid": 66518,
+      "process_exit_verified": true,
+      "rss_samples": 1,
+      "sampled_peak_rss_bytes": 46956544,
+      "status": "failed",
+      "tests_run": 13,
+      "unittest_seconds": 0.331,
+      "version": 1
+    },
+    {
+      "elapsed_seconds": 0.263,
+      "manifest_sha256": "761c51ae9c33fd6df6e03c6eccd8cd28fdd5857b9fe971461ed6387285a4c410",
+      "path": "outputs/normal-uv-custody-tests-v2",
+      "pid": 66671,
+      "process_exit_verified": true,
+      "rss_samples": 0,
+      "sampled_peak_rss_bytes": null,
+      "status": "passed",
+      "tests_run": 1,
+      "unittest_seconds": 0.007,
+      "version": 2
+    },
+    {
+      "elapsed_seconds": 0.263,
+      "manifest_sha256": "f4c150c00cae954e88d195f7cb583f38d0c1200fd5d565e441b4149c580fc20a",
+      "path": "outputs/normal-uv-custody-tests-v3",
+      "pid": 66798,
+      "process_exit_verified": true,
+      "rss_samples": 0,
+      "sampled_peak_rss_bytes": null,
+      "status": "passed",
+      "tests_run": 1,
+      "unittest_seconds": 0.0,
+      "version": 3
+    }
+  ],
+  "schema_version": 1,
+  "second_change": "Parent requested dropping exact prompt wording assertions. The renamed case retains exact repair-evidence data preservation and passed alone in v3. Other test methods remained AST-identical.",
+  "status": "13_unique_contract_cases_verified",
+  "unchanged_initial_passes_retained": 11,
+  "unique_final_test_methods": 13,
+  "verified_contracts": [
+    "Both normal-UV helper sources are copied and hash-pinned before pipeline/native boundaries",
+    "Either stale/missing pipeline helper pin blocks without another agent call or receipt mutation",
+    "Either archived stale native helper blocks reuse despite resealed old manifest",
+    "Successful dedicated normal-UV receipt is preserved byte-exact",
+    "Resealed missing/mismatched/unsupported/error/oversized receipts block reuse before output copies",
+    "Author cannot set private tangent targets or guard-result fields",
+    "Repair evidence reaches author prompt without modification",
+    "Legacy nonexport reuse still preserves review views",
+    "Public fringe remains disabled before output/native execution",
+    "Baked frame policy/shared flow/private budget requirements remain enforced"
+  ]
+}

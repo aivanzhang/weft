@@ -1,0 +1,427 @@
+{
+  "additional_adaptive_seams": 482,
+  "all_other_config_fields_exact": true,
+  "config_differences": {
+    "id": {
+      "native": "panda-uv2-source-normal-control-v1",
+      "prepared": "panda-latest-source-normal-control-v1"
+    }
+  },
+  "coverage_from_actual_saved_arrays": [
+    {
+      "all_selected": false,
+      "faces": 33810,
+      "material": "body_surface",
+      "selected_faces": 31208,
+      "slot": 0
+    },
+    {
+      "all_selected": false,
+      "faces": 27205,
+      "material": "companion_surface",
+      "selected_faces": 0,
+      "slot": 1
+    },
+    {
+      "all_selected": false,
+      "faces": 266,
+      "material": "body_cap",
+      "selected_faces": 265,
+      "slot": 2
+    },
+    {
+      "all_selected": false,
+      "faces": 313,
+      "material": "companion_cap",
+      "selected_faces": 0,
+      "slot": 3
+    },
+    {
+      "all_selected": true,
+      "faces": 146,
+      "material": "body_surface__contact_uv_dark_v1",
+      "selected_faces": 146,
+      "slot": 4
+    },
+    {
+      "all_selected": true,
+      "faces": 103,
+      "material": "body_cap__contact_uv_dark_v1",
+      "selected_faces": 103,
+      "slot": 5
+    },
+    {
+      "all_selected": false,
+      "faces": 738,
+      "material": "body_surface__color_rear-tail-base",
+      "selected_faces": 0,
+      "slot": 6
+    }
+  ],
+  "elapsed_seconds": 0.162122,
+  "inputs_unchanged": true,
+  "native_calls": 0,
+  "native_config_sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7",
+  "normal_transfer_omitted_control_not_guard_relaxation": true,
+  "paid_calls": 0,
+  "planned_export_vertices": 99154,
+  "prepared_control_sha256": "a094ef6b81c5fc117cf2284383b220980e374b96351b7d34d6aacf05f8dbc3a8",
+  "quality_approved": false,
+  "remaining_vertices": 846,
+  "required_staged_export_assertion": {
+    "after_export": "Reject any live primitive normalTexture.texCoord=1. Bind only generated UV2 target names, actual face counts and embedded PNG hashes before targeted tangent correction.",
+    "before_bake": "Every live triangle whose original Normal Map uses nonzero source UV must be selected and assigned an authored atlas payload. Here slot4 requires146/146, no exception.",
+    "before_export": "No live polygon may retain a source UV1 Normal Map route after undercoat assignment; unused original material slots are allowed.",
+    "replacement_binding": {
+      "also_require": [
+        "exact authored UV index/name/hash",
+        "exact new PNG hash",
+        "mikk-unshared-triangle-v-up-v2",
+        "MR links remain source UV1"
+      ],
+      "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "normal_texcoord": 2,
+      "selected_faces": 146
+    },
+    "scope": "Valid only for the measured complete replacement route; not a general source UV1 tangent preservation solution."
+  },
+  "schema_version": 1,
+  "self_peak_rss_bytes": 93749248,
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "source_uv1_normal_coverage": [
+    {
+      "faces": 146,
+      "material": "body_surface__contact_uv_dark_v1",
+      "planned_authored_normal_uv": 2,
+      "replacement_material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+      "slot": 4,
+      "source_normal_uv": 1,
+      "unselected_faces": 0
+    }
+  ],
+  "status": "control_config_and_numeric_replay_passed",
+  "warning_reconciliation": {
+    "actual_authored_bones": 19,
+    "actual_native_point_count": 51376,
+    "all_layer_coverage_counts_equal": true,
+    "conclusion": "Actual saved points/config produce finite normalized weights matching independent sum-of-products projection; native warning flags alone are not numeric failure evidence.",
+    "limits": [
+      "Replay uses host NumPy, not Blender bundled NumPy/BLAS; the native warning cause is not proven.",
+      "Saved arrays are float32 post-authoring positions. Original transient pre-round native rig inputs and weights were not captured.",
+      "This checks initial authored skin math, not part replacement, later constraints, motion deformation or visual quality."
+    ],
+    "local_numpy": "2.5.4",
+    "local_python": "3.14.7 (main, Aug  5 2026, 10:29:49) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "local_replay_warnings": [],
+    "matmul_weights": {
+      "finite": true,
+      "float64_sha256": "65c4dd6452e95014ae72ef4cdd1085cf3318fe27c5e1c97fe14f48ee166c55bd",
+      "max_nonzero_influences": 4,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "row_sum_max_error": 2.220446049250313e-16,
+      "shape": [
+        51376,
+        19
+      ]
+    },
+    "max_absolute_weight_difference": 0.0,
+    "native_warnings": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: divide by zero encountered in matmul",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: overflow encountered in matmul",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py:69: RuntimeWarning: invalid value encountered in matmul"
+    ],
+    "non_blas_sum_products_weights": {
+      "finite": true,
+      "float64_sha256": "65c4dd6452e95014ae72ef4cdd1085cf3318fe27c5e1c97fe14f48ee166c55bd",
+      "max_nonzero_influences": 4,
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "row_sum_max_error": 2.220446049250313e-16,
+      "shape": [
+        51376,
+        19
+      ]
+    },
+    "rig_proof": {
+      "layers": [
+        {
+          "bones": [
+            "Root",
+            "Pelvis",
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "selected_vertices": 8376
+        },
+        {
+          "bones": [
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "selected_vertices": 2414
+        },
+        {
+          "bones": [
+            "Tail",
+            "Pelvis"
+          ],
+          "selected_vertices": 1732
+        },
+        {
+          "bones": [
+            "RightShoulder",
+            "RightUpperArm",
+            "RightForearm",
+            "RightHand"
+          ],
+          "selected_vertices": 14012
+        },
+        {
+          "bones": [
+            "RightForearm",
+            "RightHand"
+          ],
+          "selected_vertices": 2141
+        },
+        {
+          "bones": [
+            "LeftShoulder",
+            "LeftUpperArm",
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "selected_vertices": 3085
+        },
+        {
+          "bones": [
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "selected_vertices": 2245
+        },
+        {
+          "bones": [
+            "LeftHand"
+          ],
+          "selected_vertices": 1838
+        },
+        {
+          "bones": [
+            "Neck",
+            "Head"
+          ],
+          "selected_vertices": 18737
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "selected_vertices": 13574
+        },
+        {
+          "bones": [
+            "RightShoulder"
+          ],
+          "selected_vertices": 28565
+        }
+      ],
+      "max_influences": 4,
+      "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+      "positive_vertices_per_bone": {
+        "CompanionRoot": 0,
+        "DragonWingLeft": 0,
+        "DragonWingRight": 0,
+        "Head": 16050,
+        "LeftFoot": 4038,
+        "LeftForearm": 1710,
+        "LeftHand": 2667,
+        "LeftShoulder": 1003,
+        "LeftUpperArm": 1244,
+        "Neck": 8125,
+        "Pelvis": 6563,
+        "RightFoot": 4241,
+        "RightForearm": 5905,
+        "RightHand": 5530,
+        "RightShoulder": 29340,
+        "RightUpperArm": 4606,
+        "Root": 2698,
+        "Tail": 1678,
+        "Torso": 6340
+      }
+    },
+    "segment_projection_operand_bounds": [
+      {
+        "bone": "Root",
+        "direction_squared_length": 0.030276002406120342,
+        "numerator_min_max": [
+          -0.007308000580787671,
+          0.20149201601314573
+        ],
+        "unclipped_fraction_max_absolute": 6.655172413793104
+      },
+      {
+        "bone": "Pelvis",
+        "direction_squared_length": 0.024396365730852587,
+        "numerator_min_max": [
+          -0.034375878977511216,
+          0.15436108067523288
+        ],
+        "unclipped_fraction_max_absolute": 6.327216208274083
+      },
+      {
+        "bone": "Torso",
+        "direction_squared_length": 0.06404727921805399,
+        "numerator_min_max": [
+          -0.09603000001910292,
+          0.2111340384142096
+        ],
+        "unclipped_fraction_max_absolute": 3.2965340759501616
+      },
+      {
+        "bone": "Neck",
+        "direction_squared_length": 0.008104306853156459,
+        "numerator_min_max": [
+          -0.05526740029658042,
+          0.05117016974645447
+        ],
+        "unclipped_fraction_max_absolute": 6.819509835693711
+      },
+      {
+        "bone": "Head",
+        "direction_squared_length": 0.12116437342128251,
+        "numerator_min_max": [
+          -0.24799109109641018,
+          0.17086959300665588
+        ],
+        "unclipped_fraction_max_absolute": 2.04673274902481
+      },
+      {
+        "bone": "RightShoulder",
+        "direction_squared_length": 0.018484263237830697,
+        "numerator_min_max": [
+          -0.06930316280533615,
+          0.054256077374356664
+        ],
+        "unclipped_fraction_max_absolute": 3.7493062024510277
+      },
+      {
+        "bone": "RightUpperArm",
+        "direction_squared_length": 0.02334942296948504,
+        "numerator_min_max": [
+          -0.10054030072425911,
+          0.08468830899063064
+        ],
+        "unclipped_fraction_max_absolute": 4.305900871968164
+      },
+      {
+        "bone": "RightForearm",
+        "direction_squared_length": 0.03637905611168505,
+        "numerator_min_max": [
+          -0.0690927979804083,
+          0.08975272570959658
+        ],
+        "unclipped_fraction_max_absolute": 2.4671537775486088
+      },
+      {
+        "bone": "RightHand",
+        "direction_squared_length": 0.0061268866011896655,
+        "numerator_min_max": [
+          -0.03646363581202046,
+          0.03258913195498261
+        ],
+        "unclipped_fraction_max_absolute": 5.951413529498043
+      },
+      {
+        "bone": "LeftShoulder",
+        "direction_squared_length": 0.01012475078454334,
+        "numerator_min_max": [
+          -0.06299565312863707,
+          0.031326011726285845
+        ],
+        "unclipped_fraction_max_absolute": 6.2219460477790305
+      },
+      {
+        "bone": "LeftUpperArm",
+        "direction_squared_length": 0.02752417135705254,
+        "numerator_min_max": [
+          -0.11914938331449038,
+          0.0858751469668635
+        ],
+        "unclipped_fraction_max_absolute": 4.328899924682406
+      },
+      {
+        "bone": "LeftForearm",
+        "direction_squared_length": 0.018226735073750163,
+        "numerator_min_max": [
+          -0.11388347506091881,
+          0.05700284042188729
+        ],
+        "unclipped_fraction_max_absolute": 6.248155503446795
+      },
+      {
+        "bone": "LeftHand",
+        "direction_squared_length": 0.0031015927047963626,
+        "numerator_min_max": [
+          -0.055274712634985984,
+          0.015541942343656483
+        ],
+        "unclipped_fraction_max_absolute": 17.821396261832867
+      },
+      {
+        "bone": "RightFoot",
+        "direction_squared_length": 0.056771374514131404,
+        "numerator_min_max": [
+          -0.14837205728937336,
+          0.07790793034595907
+        ],
+        "unclipped_fraction_max_absolute": 2.6135012329574816
+      },
+      {
+        "bone": "LeftFoot",
+        "direction_squared_length": 0.05685386005771073,
+        "numerator_min_max": [
+          -0.1493497486701328,
+          0.0753348802384985
+        ],
+        "unclipped_fraction_max_absolute": 2.6269060450518595
+      },
+      {
+        "bone": "Tail",
+        "direction_squared_length": 0.0436801441314115,
+        "numerator_min_max": [
+          -0.12672689543117938,
+          0.07102118795985675
+        ],
+        "unclipped_fraction_max_absolute": 2.901247190254733
+      },
+      {
+        "bone": "CompanionRoot",
+        "direction_squared_length": 0.014400001144409202,
+        "numerator_min_max": [
+          -0.07632000606536878,
+          0.06768000537872325
+        ],
+        "unclipped_fraction_max_absolute": 5.3
+      },
+      {
+        "bone": "DragonWingRight",
+        "direction_squared_length": 0.015745154396445585,
+        "numerator_min_max": [
+          -0.0963002764566334,
+          0.024181708835651038
+        ],
+        "unclipped_fraction_max_absolute": 6.116184956457007
+      },
+      {
+        "bone": "DragonWingLeft",
+        "direction_squared_length": 0.006003654282614727,
+        "numerator_min_max": [
+          -0.018057605843543965,
+          0.05230671481661847
+        ],
+        "unclipped_fraction_max_absolute": 8.712479492379716
+      }
+    ]
+  }
+}

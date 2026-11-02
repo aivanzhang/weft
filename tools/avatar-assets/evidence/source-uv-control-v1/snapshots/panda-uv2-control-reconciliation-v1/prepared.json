@@ -1,0 +1,94 @@
+{
+  "arrays": "outputs/panda-uv2-source-preflight-v1/undercoat-inputs.npz",
+  "git_head": "dbdd7e2",
+  "hypothesis": "Reconcile exact control configuration and complete replacement of hazardous source UV1-normal faces; compare saved rig numeric inputs with non-BLAS sum-products projection, without native rerun.",
+  "inputs": [
+    {
+      "bytes": 37182,
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/finish-config.json",
+      "sha256": "cb0535ff6415854873887ab1518a89e3edc21dd36ee2ada0b306ab8e9e6347b7"
+    },
+    {
+      "bytes": 37185,
+      "path": "outputs/panda-latest-source-control-audit-v1/control-native-config.json",
+      "sha256": "a094ef6b81c5fc117cf2284383b220980e374b96351b7d34d6aacf05f8dbc3a8"
+    },
+    {
+      "bytes": 4166,
+      "path": "outputs/panda-uv2-source-preflight-v1/source-selection.json",
+      "sha256": "5c816281cddf1d9e8a4784bfa8d65dd4c8a35f2cbb9883ae6907c304a98f8b99"
+    },
+    {
+      "bytes": 4809,
+      "path": "outputs/panda-uv2-source-preflight-v1/undercoat-plan.json",
+      "sha256": "d550317ce6dbbad5d4a38886399b052a2c58f1e78c63cbfd1cacfe48c9384625"
+    },
+    {
+      "bytes": 3354926,
+      "path": "outputs/panda-uv2-source-preflight-v1/undercoat-inputs.npz",
+      "sha256": "0383324333ff0e638123312525c8bae958a599a219021e6eb9b07db8a39ce69d"
+    },
+    {
+      "bytes": 15123,
+      "path": "outputs/panda-latest-source-control-audit-v1/report.json",
+      "sha256": "c9792056b674a12c657470a16c16466042f0fce225d6cf8d163f34cf50b3ee52"
+    },
+    {
+      "bytes": 5399,
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py",
+      "sha256": "8375bec7f9d65718ecc9fc6eba67c3abbe25dbe252cdd33f081b6a864b1302e6"
+    },
+    {
+      "bytes": 1038,
+      "path": "outputs/panda-uv2-source-preflight-v1/native.log",
+      "sha256": "0f5fd86063513984d4b2e72626cccad1e93035fa718298a4e947dfe348cff8c7"
+    },
+    {
+      "bytes": 949,
+      "path": "outputs/panda-uv2-source-preflight-preparation-v1/control-delta.json",
+      "sha256": "213fbbfe4a5e04ff31147a131e0204ce796ba42ae50ecf660bcd0413a9ca3f67"
+    },
+    {
+      "bytes": 512,
+      "path": "outputs/panda-uv2-source-preflight-v1/source-normal-frame-comparison.json",
+      "sha256": "f09d339a23463d719d87bf60b3c2c65e12fa7c13990b927d06703628375b4a22"
+    },
+    {
+      "bytes": 360,
+      "path": "outputs/panda-uv2-source-preflight-v1/result.json",
+      "sha256": "cedc520971ae3ab7718c519575724bf59d8fd031a5ccc591693c63c87500bd68"
+    },
+    {
+      "bytes": 11135,
+      "path": "outputs/panda-uv2-control-reconciliation-v1/check.py",
+      "sha256": "4650d93df43bd9b73dce9baa5d7d1a1a6073b030172bbf80c6421da734ffede6"
+    },
+    {
+      "bytes": 11421,
+      "path": "avatar_assets/runner.py",
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "bytes": 3759,
+      "path": "avatar_assets/safety.py",
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    }
+  ],
+  "limits": {
+    "attempts": 1,
+    "memory_mib": 256,
+    "native_calls": 0,
+    "output_mib": 16,
+    "paid_calls": 0,
+    "seconds": 30
+  },
+  "native_config": "outputs/panda-uv2-source-preflight-preparation-v1/finish-config.json",
+  "native_log": "outputs/panda-uv2-source-preflight-v1/native.log",
+  "plan": "outputs/panda-uv2-source-preflight-v1/undercoat-plan.json",
+  "prepared_control": "outputs/panda-latest-source-control-audit-v1/control-native-config.json",
+  "recorded_local": "2026-11-02 01:36:51 PST",
+  "rig_helper": "outputs/panda-uv2-source-preflight-preparation-v1/sources/scripts/creature_rig_math.py",
+  "schema_version": 1,
+  "selection": "outputs/panda-uv2-source-preflight-v1/source-selection.json",
+  "source_audit": "outputs/panda-latest-source-control-audit-v1/report.json"
+}

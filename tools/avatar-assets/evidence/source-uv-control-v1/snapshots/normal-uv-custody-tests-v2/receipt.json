@@ -1,0 +1,54 @@
+{
+  "analytic_fixture_only": true,
+  "guard_tests_rerun": false,
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-m",
+      "unittest",
+      "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_real_finisher_copies_both_helpers_before_the_native_boundary",
+      "-v"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 0.263,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 639440,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 256,
+      "wall_seconds": 30
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 66671,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 0,
+    "sampled_max_output_bytes": 639440,
+    "sampled_peak_rss_bytes": null,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "native_jobs": 0,
+  "paid_calls": 0,
+  "production_edits_in_this_lane": false,
+  "quality_approved": false,
+  "schema_version": 1,
+  "sources_unchanged": true,
+  "status": "passed",
+  "test_set": [
+    "tests.test_normal_uv_export_custody.NormalUVFinisherCustodyTests.test_real_finisher_copies_both_helpers_before_the_native_boundary"
+  ],
+  "tests": 1,
+  "unittest_seconds": 0.007
+}

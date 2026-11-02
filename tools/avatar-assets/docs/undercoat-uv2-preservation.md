@@ -23,8 +23,9 @@ reinterpreted those original normal maps.
   clone name, UV1/UV2 index, selected face count, embedded PNG SHA256 and current
   `mikk-unshared-triangle-v-up-v2` bake policy. Material names must be unique.
   Multiple primitive bindings must sum to the exact reported face count.
-- Only targeted tangent float4 ranges change. Untargeted source UV1/UV2 frames
-  remain exact; invalid frames fail rather than receive an unrelated fallback.
+- Only targeted tangent float4 ranges change. Untargeted UV1/UV2 frames remain
+  exact relative to the raw native export, not the pre-import source model;
+  invalid frames fail rather than receive an unrelated fallback.
   The legacy explicit UV1 API remains available for historical experiments.
 - `three_d.validate_render_attributes` checks UV2 without raising the 100k-vertex,
   64 MiB-file, 1.1-million surface-scalar or 2-million global-scalar limits.
@@ -89,11 +90,21 @@ Original color, normal and response PNG bytes and routing remain exact.
 ## Still incomplete
 
 The real repaired panda source is still
-`outputs/panda-shoulder-uv-repair-v2/model.glb`. This increment has not yet run
-that source through full fur, rig, exported motion and visual acceptance. Its
-new material names must participate explicitly in the intended masks; they are
-not automatically inherited. Four selected material regions remain the bound.
-Do not bypass the normal-transfer rejection or enable experimental fringe.
+`outputs/panda-shoulder-uv-repair-v2/model.glb`. A subsequent [actual-source control](source-uv-control.md)
+now runs it through experimental fur/rig preparation, exported skin/motion checks
+and eight sampled rendered images. Technical checks pass; appearance is rejected.
+Its material names participate explicitly in masks; no inheritance is assumed.
+Four selected material regions remain the bound. The old normal-transfer operation
+was omitted as an original-normal control, not by disabling its guard. Public
+fringe remains disabled.
+
+That actual source also exposes a tangent-orientation hazard the co-oriented
+analytic fixture could not test. Original nonzero normal-map UVs are not generally
+preserved by the exporter. This control passes only because every affected face
+is intentionally rebaked into a new receipt-bound UV2 normal map; do not generalize
+that result to an untouched source UV1 normal map.
+The reusable pre-export guard now rejects that unsupported live route before
+writing a model; it does not silently fix or remove the source texture.
 
 The separate cheek diagnosis proves the reference errors largely come from
 folded source geometry, not just custom normals. Its bounded scar selection

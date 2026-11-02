@@ -1,0 +1,3180 @@
+{
+  "animation_verified": false,
+  "attachment": null,
+  "authored_rig": {
+    "authored_not_recovered": true,
+    "design": {
+      "base_bones": [
+        "Root",
+        "Pelvis",
+        "Torso",
+        "Neck",
+        "Head"
+      ],
+      "bones": [
+        {
+          "head": [
+            0.54,
+            0.56,
+            0.035
+          ],
+          "name": "Root",
+          "parent": null,
+          "tail": [
+            0.54,
+            0.56,
+            0.18
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.57,
+            0.18
+          ],
+          "name": "Pelvis",
+          "parent": "Root",
+          "tail": [
+            0.54,
+            0.56,
+            0.31
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.56,
+            0.31
+          ],
+          "name": "Torso",
+          "parent": "Pelvis",
+          "tail": [
+            0.54,
+            0.53,
+            0.52
+          ]
+        },
+        {
+          "head": [
+            0.54,
+            0.53,
+            0.52
+          ],
+          "name": "Neck",
+          "parent": "Torso",
+          "tail": [
+            0.55,
+            0.49,
+            0.59
+          ]
+        },
+        {
+          "head": [
+            0.55,
+            0.49,
+            0.59
+          ],
+          "name": "Head",
+          "parent": "Neck",
+          "tail": [
+            0.55,
+            0.5,
+            0.88
+          ]
+        },
+        {
+          "head": [
+            0.39,
+            0.52,
+            0.5
+          ],
+          "name": "RightShoulder",
+          "parent": "Torso",
+          "tail": [
+            0.25,
+            0.46,
+            0.49
+          ]
+        },
+        {
+          "head": [
+            0.25,
+            0.46,
+            0.49
+          ],
+          "name": "RightUpperArm",
+          "parent": "RightShoulder",
+          "tail": [
+            0.2,
+            0.38,
+            0.38
+          ]
+        },
+        {
+          "head": [
+            0.2,
+            0.38,
+            0.38
+          ],
+          "name": "RightForearm",
+          "parent": "RightUpperArm",
+          "tail": [
+            0.32,
+            0.21,
+            0.31
+          ]
+        },
+        {
+          "head": [
+            0.32,
+            0.21,
+            0.31
+          ],
+          "name": "RightHand",
+          "parent": "RightForearm",
+          "tail": [
+            0.39,
+            0.16,
+            0.29
+          ]
+        },
+        {
+          "head": [
+            0.69,
+            0.53,
+            0.5
+          ],
+          "name": "LeftShoulder",
+          "parent": "Torso",
+          "tail": [
+            0.8,
+            0.53,
+            0.49
+          ]
+        },
+        {
+          "head": [
+            0.8,
+            0.53,
+            0.49
+          ],
+          "name": "LeftUpperArm",
+          "parent": "LeftShoulder",
+          "tail": [
+            0.88,
+            0.48,
+            0.37
+          ]
+        },
+        {
+          "head": [
+            0.88,
+            0.48,
+            0.37
+          ],
+          "name": "LeftForearm",
+          "parent": "LeftUpperArm",
+          "tail": [
+            0.91,
+            0.49,
+            0.26
+          ]
+        },
+        {
+          "head": [
+            0.91,
+            0.49,
+            0.26
+          ],
+          "name": "LeftHand",
+          "parent": "LeftForearm",
+          "tail": [
+            0.925,
+            0.49,
+            0.215
+          ]
+        },
+        {
+          "head": [
+            0.35,
+            0.56,
+            0.15
+          ],
+          "name": "RightFoot",
+          "parent": "Root",
+          "tail": [
+            0.35,
+            0.31,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.69,
+            0.56,
+            0.15
+          ],
+          "name": "LeftFoot",
+          "parent": "Root",
+          "tail": [
+            0.7,
+            0.31,
+            0.035
+          ]
+        },
+        {
+          "head": [
+            0.4,
+            0.83,
+            0.22
+          ],
+          "name": "Tail",
+          "parent": "Pelvis",
+          "tail": [
+            0.19,
+            0.94,
+            0.22
+          ]
+        },
+        {
+          "head": [
+            0.16,
+            0.29,
+            0.53
+          ],
+          "name": "CompanionRoot",
+          "parent": "Root",
+          "tail": [
+            0.16,
+            0.29,
+            0.63
+          ]
+        },
+        {
+          "head": [
+            0.12,
+            0.34,
+            0.59
+          ],
+          "name": "DragonWingRight",
+          "parent": "CompanionRoot",
+          "tail": [
+            0.015,
+            0.26,
+            0.546
+          ]
+        },
+        {
+          "head": [
+            0.19,
+            0.365,
+            0.6
+          ],
+          "name": "DragonWingLeft",
+          "parent": "CompanionRoot",
+          "tail": [
+            0.22,
+            0.45,
+            0.575
+          ]
+        }
+      ],
+      "height_meters": 1.2,
+      "layers": [
+        {
+          "bones": [
+            "Root",
+            "Pelvis",
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "feather": 0.055,
+          "max": [
+            1.05,
+            1.05,
+            0.3
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 2000
+        },
+        {
+          "bones": [
+            "RightFoot",
+            "LeftFoot"
+          ],
+          "feather": 0.03,
+          "max": [
+            1.05,
+            1.05,
+            0.135
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            -0.05
+          ],
+          "min_vertices": 500
+        },
+        {
+          "bones": [
+            "Tail",
+            "Pelvis"
+          ],
+          "feather": 0.04,
+          "max": [
+            0.43,
+            1.05,
+            0.34
+          ],
+          "min": [
+            0.02,
+            0.72,
+            0.1
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "RightShoulder",
+            "RightUpperArm",
+            "RightForearm",
+            "RightHand"
+          ],
+          "feather": 0.045,
+          "max": [
+            0.43,
+            0.72,
+            0.57
+          ],
+          "min": [
+            0.07,
+            0.1,
+            0.24
+          ],
+          "min_vertices": 800
+        },
+        {
+          "bones": [
+            "RightForearm",
+            "RightHand"
+          ],
+          "feather": 0.035,
+          "max": [
+            0.43,
+            0.42,
+            0.4
+          ],
+          "min": [
+            0.11,
+            0.06,
+            0.24
+          ],
+          "min_vertices": 300
+        },
+        {
+          "bones": [
+            "LeftShoulder",
+            "LeftUpperArm",
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "feather": 0.055,
+          "max": [
+            1.05,
+            0.795,
+            0.565
+          ],
+          "min": [
+            0.77,
+            0.34,
+            0.185
+          ],
+          "min_vertices": 900
+        },
+        {
+          "bones": [
+            "LeftForearm",
+            "LeftHand"
+          ],
+          "feather": 0.04,
+          "max": [
+            1.05,
+            0.71,
+            0.405
+          ],
+          "min": [
+            0.84,
+            0.34,
+            0.18
+          ],
+          "min_vertices": 350
+        },
+        {
+          "bones": [
+            "LeftHand"
+          ],
+          "feather": 0.035,
+          "max": [
+            1.05,
+            0.69,
+            0.295
+          ],
+          "min": [
+            0.84,
+            0.35,
+            0.17
+          ],
+          "min_vertices": 100
+        },
+        {
+          "bones": [
+            "Neck",
+            "Head"
+          ],
+          "feather": 0.055,
+          "max": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "min": [
+            0.19,
+            -0.05,
+            0.53
+          ],
+          "min_vertices": 2500
+        },
+        {
+          "bones": [
+            "Head"
+          ],
+          "feather": 0.03,
+          "max": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "min": [
+            0.18,
+            -0.05,
+            0.635
+          ],
+          "min_vertices": 2000
+        },
+        {
+          "bones": [
+            "RightShoulder"
+          ],
+          "feather": 0.075,
+          "max": [
+            0.31,
+            0.48,
+            0.85
+          ],
+          "min": [
+            -0.05,
+            -0.05,
+            0.4
+          ],
+          "min_vertices": 500
+        }
+      ],
+      "space": "normalized_bounds_blender_z_up"
+    },
+    "height_meters": 1.2,
+    "input_world_bounds": {
+      "max": [
+        0.45410779118537903,
+        0.38847073912620544,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.45410779118537903,
+        -0.38847073912620544,
+        0.0
+      ]
+    },
+    "layers": [
+      {
+        "bones": [
+          "Root",
+          "Pelvis",
+          "RightFoot",
+          "LeftFoot"
+        ],
+        "selected_vertices": 8376
+      },
+      {
+        "bones": [
+          "RightFoot",
+          "LeftFoot"
+        ],
+        "selected_vertices": 2414
+      },
+      {
+        "bones": [
+          "Tail",
+          "Pelvis"
+        ],
+        "selected_vertices": 1732
+      },
+      {
+        "bones": [
+          "RightShoulder",
+          "RightUpperArm",
+          "RightForearm",
+          "RightHand"
+        ],
+        "selected_vertices": 14012
+      },
+      {
+        "bones": [
+          "RightForearm",
+          "RightHand"
+        ],
+        "selected_vertices": 2141
+      },
+      {
+        "bones": [
+          "LeftShoulder",
+          "LeftUpperArm",
+          "LeftForearm",
+          "LeftHand"
+        ],
+        "selected_vertices": 3085
+      },
+      {
+        "bones": [
+          "LeftForearm",
+          "LeftHand"
+        ],
+        "selected_vertices": 2245
+      },
+      {
+        "bones": [
+          "LeftHand"
+        ],
+        "selected_vertices": 1838
+      },
+      {
+        "bones": [
+          "Neck",
+          "Head"
+        ],
+        "selected_vertices": 18737
+      },
+      {
+        "bones": [
+          "Head"
+        ],
+        "selected_vertices": 13574
+      },
+      {
+        "bones": [
+          "RightShoulder"
+        ],
+        "selected_vertices": 28565
+      }
+    ],
+    "max_influences": 4,
+    "mesh_topology_uv_textures_unchanged": true,
+    "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+    "positive_vertices_per_bone": {
+      "CompanionRoot": 0,
+      "DragonWingLeft": 0,
+      "DragonWingRight": 0,
+      "Head": 16050,
+      "LeftFoot": 4038,
+      "LeftForearm": 1710,
+      "LeftHand": 2667,
+      "LeftShoulder": 1003,
+      "LeftUpperArm": 1244,
+      "Neck": 8125,
+      "Pelvis": 6563,
+      "RightFoot": 4241,
+      "RightForearm": 5905,
+      "RightHand": 5530,
+      "RightShoulder": 29340,
+      "RightUpperArm": 4606,
+      "Root": 2698,
+      "Tail": 1678,
+      "Torso": 6340
+    },
+    "source_to_authored": {
+      "translation_before_scale": [
+        -0.0,
+        -0.0,
+        -0.0
+      ],
+      "uniform_scale": 0.9999999602635717
+    }
+  },
+  "blender_version": "4.5.13 LTS",
+  "camera": {
+    "camera_back_shift_m": 0.0,
+    "clip_end": 1000.0,
+    "fit": "motion",
+    "fur_margin_m": 0.05399999999999999,
+    "location": [
+      -2.2837173780565343,
+      -3.5244089347036573,
+      0.7780186829036491
+    ],
+    "motion_envelope": {
+      "elapsed_seconds": 1.3417812082916498,
+      "sample_seconds": {
+        "dance_flight": [
+          0,
+          0.09,
+          0.18,
+          0.27,
+          0.36,
+          0.455,
+          0.55,
+          0.675,
+          0.8,
+          0.9,
+          1.0,
+          1.0899999999999999,
+          1.18,
+          1.27,
+          1.36,
+          1.455,
+          1.55,
+          1.675,
+          1.8,
+          1.9,
+          2.0,
+          2.09,
+          2.18,
+          2.27,
+          2.36,
+          2.455,
+          2.55,
+          2.675,
+          2.8,
+          2.9,
+          3.0,
+          3.09,
+          3.18,
+          3.27,
+          3.36,
+          3.455,
+          3.55,
+          3.675,
+          3.8,
+          3.9,
+          4.0
+        ]
+      },
+      "scope": "Base skin at every authored key and midpoint, plus explicit fur margin; not continuous bounds or physics",
+      "world_bounds_m": {
+        "max": [
+          0.575462281703949,
+          0.4417053163051605,
+          1.2723047733306885
+        ],
+        "min": [
+          -0.8869152069091797,
+          -0.3972206115722656,
+          -1.4311534179967111e-08
+        ]
+      }
+    },
+    "orthographic_scale": 2.2005324605524357,
+    "sampled_depth_max_m": 4.971652640126064,
+    "sampled_depth_min_m": 3.3053534817455428,
+    "view": "three_quarter_left"
+  },
+  "color_corrections": {
+    "affected_vertices": 549,
+    "corrections": [
+      {
+        "matched_faces": 738,
+        "material_copies": [
+          {
+            "material": "body_surface__color_rear-tail-base",
+            "new_slot": 6,
+            "normal_map_nodes": 1,
+            "original_texture_images": [
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "Image_0",
+                "node": "Image Texture"
+              },
+              {
+                "dimensions": [
+                  2048,
+                  2048
+                ],
+                "image": "Image_1",
+                "node": "Image Texture.001"
+              },
+              {
+                "dimensions": [
+                  4096,
+                  4096
+                ],
+                "image": "normal",
+                "node": "Image Texture.002"
+              }
+            ],
+            "removed_input_links": {
+              "base_color": 1,
+              "metallic": 1,
+              "normal_strength": 0,
+              "roughness": 1
+            },
+            "selected_faces": 738,
+            "source_material": "body_surface",
+            "source_slot": 0
+          }
+        ],
+        "name": "rear-tail-base",
+        "selected_faces": 738,
+        "settings": {
+          "color_linear": [
+            0.00440084974745434,
+            0.003935939504088967,
+            0.00375840377954798
+          ],
+          "color_srgb": [
+            0.055,
+            0.05,
+            0.048
+          ],
+          "metallic": 0.0,
+          "normal_strength": 0.1,
+          "roughness": 0.8
+        }
+      }
+    ],
+    "faces_reassigned": 738,
+    "fur_exclusion_required": true,
+    "fur_exclusion_scope": "Exclude every returned vertex ID from native and portable fur sampling because the original root-color texture was not changed.",
+    "geometry_uv_skin_unchanged": true,
+    "new_material_count": 1,
+    "original_texture_bytes_unchanged": true,
+    "precedence": "last_matching_correction_wins",
+    "selection": "Normalized world-bound face centroid inside any ellipsoid AND mean source RGB dominant channel strictly greater than ratio times maximum other channel.",
+    "source_materials_unchanged": true,
+    "texture_scope": "Original image datablocks and UV routing are reused without pixel/file writes; selected face materials use an authored constant linear RGB instead of their Base Color texture link. This is not texture repainting or recovered hidden-surface color.",
+    "visible_selected_surface_color_authored": true
+  },
+  "deformation_measurement": {
+    "bone_names": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "coordinate_space": "mesh_local_after_world_transform_applied",
+    "edge_array_encoding": "little-endian int32 pairs",
+    "edges": 110875,
+    "edges_sha256": "46030d53902c85ffc48e5f1543f3268585294f9589f0e2f4b2c4dc243efce506",
+    "pose_samples_measured": 8,
+    "rest_array_encoding": "little-endian float64 XYZ",
+    "rest_bounds": {
+      "height": 1.2000000476837158,
+      "height_basis": "z_span",
+      "max": [
+        0.45410776138305664,
+        0.38847070932388306,
+        1.2000000476837158
+      ],
+      "min": [
+        -0.45410776138305664,
+        -0.38847070932388306,
+        0.0
+      ]
+    },
+    "rest_sha256": "ebaf40e28991c110c0db8671091338cebc9893c5ea61e3770c349205363376ab",
+    "rig_route": "authored",
+    "schema_version": 1,
+    "status": "measured",
+    "unchanged_topology_required": true,
+    "units": "meters",
+    "vertices": 51376
+  },
+  "emitter_scale_applied": true,
+  "fringe_buffer_release": {
+    "after": {
+      "error": null,
+      "monotonic_seconds": 2142834.074647,
+      "phase": "hidden_fringe_release_after",
+      "pid": 62772,
+      "rss_bytes": 1435107328,
+      "schema_version": 1,
+      "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+      "status": "measured"
+    },
+    "before": {
+      "error": null,
+      "monotonic_seconds": 2142834.048796,
+      "phase": "hidden_fringe_release_before",
+      "pid": 62772,
+      "rss_bytes": 1435107328,
+      "schema_version": 1,
+      "scope": "Instantaneous current-process RSS; not a peak or measured savings",
+      "status": "measured"
+    },
+    "geometry_materials_and_settings_unchanged": true,
+    "images": [
+      {
+        "image": "SourceColoredFringe",
+        "packed_and_saved_bytes_unchanged": true,
+        "packed_bytes": 1684720,
+        "path": "textures/portable-fringe-color-atlas.png",
+        "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047"
+      }
+    ],
+    "scope": "Decoded buffers released; actual RSS samples are not guaranteed allocator reclamation"
+  },
+  "fur_undercoat": {
+    "assumption": "Authored optional short-pile surface detail, not dense fur, recovered fibers or measured coat coverage",
+    "authored_uv": {
+      "index": 2,
+      "name": "AuthoredUndercoatUV2",
+      "sha256": "e2320cf2a6201709839c7589a910d0580845bc0d1e1ba7ae22d93f7afb26187d"
+    },
+    "authored_uv1_sha256": null,
+    "elapsed_seconds": 4.674153,
+    "excluded_polygons": 30859,
+    "excluded_triangles": 30859,
+    "frame_policy": "mikk-unshared-triangle-v-up-v2",
+    "geometry_displaced": false,
+    "materials": [
+      {
+        "atlas": null,
+        "authored_tangents_sha256": null,
+        "bake": {
+          "array_memory_bound_bytes": 176160768,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 1551304,
+          "elapsed_seconds": 3.159089,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 19.991335495328695,
+          "normal_float32_sha256": "45a97d074372c835b0af99cff141b30123627fef3a15d8581fd6757ebc40ae8a",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 4120726,
+          "selected_faces_sha256": "2af73ee1266be6b4dcdcec80d4c65572e9912540a5530c1a47a180fea88c5d77",
+          "selected_triangles": 31208,
+          "settings": {
+            "max_faces": 31208,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 2048,
+            "roughness": 0.92,
+            "seed": 4517,
+            "strength": 0.22
+          },
+          "subpixel_faces": 328,
+          "total_triangles": 31208
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": null,
+        "material": "body_surface__short_pile_adaptive_v1",
+        "normal_texcoord": 0,
+        "normal_uv_map": "UVMap",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.0,
+            "original_link_count": 1
+          },
+          "roughness": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.5,
+            "original_link_count": 1
+          }
+        },
+        "selected_faces": 31208,
+        "source_material": "body_surface",
+        "source_material_index": 0,
+        "texture_path": "textures/authored-short-pile-normal-material-00.png",
+        "texture_sha256": "9602a5d9e74159e2ef51a57d1267acffb2ae6ba1469f4df76e491ba080dc798e"
+      },
+      {
+        "atlas": {
+          "authored_not_recovered": true,
+          "cell_pixels": 60,
+          "columns": 17,
+          "faces": 265,
+          "frame_policy": "mikk-unshared-triangle-v-up-v2",
+          "geometry_changed": false,
+          "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+          "max_meters_per_texel": 0.0010844250175168573,
+          "median_meters_per_texel": 0.0002535491721119819,
+          "padding_px": 2,
+          "resolution": 1024,
+          "uv0_changed": false,
+          "uv1_float32_sha256": "78a8f442a576af725fbf1685716d734e2db70ffeffe457a11995e8770882bbd0"
+        },
+        "authored_tangents_sha256": "2f13e9f6c749f164abefba4a4038293271a26f78f6cb7215213e8b90ddf6cb2e",
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 127006,
+          "elapsed_seconds": 3.874061,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 18.603054764604632,
+          "normal_float32_sha256": "046b9e2b8624cab4fe672277a8ef5cc2a267ff007b86cdd51e32ac7478d631a3",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 250712,
+          "selected_faces_sha256": "b1b3ca3165b6fb01fca993012cc3775c31af501abe66dd67b6e233cac7c2e02b",
+          "selected_triangles": 265,
+          "settings": {
+            "max_faces": 265,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 4517,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 265
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_cap__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "normal_uv_map": "AuthoredUndercoatUV2",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": 0,
+            "mode": "authored_constant",
+            "original_default_value": 0.0,
+            "original_link_count": 0
+          },
+          "roughness": {
+            "authored_value": 0.92,
+            "mode": "authored_constant",
+            "original_default_value": 1.0,
+            "original_link_count": 0
+          }
+        },
+        "selected_faces": 265,
+        "source_material": "body_cap",
+        "source_material_index": 2,
+        "texture_path": "textures/authored-short-pile-normal-material-02.png",
+        "texture_sha256": "9063a45b320c58773bf0516fd71add6ddc724d17b65324d9be21759a220a6bb3"
+      },
+      {
+        "atlas": {
+          "authored_not_recovered": true,
+          "cell_pixels": 78,
+          "columns": 13,
+          "faces": 146,
+          "frame_policy": "mikk-unshared-triangle-v-up-v2",
+          "geometry_changed": false,
+          "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+          "max_meters_per_texel": 0.0008366475810986832,
+          "median_meters_per_texel": 0.0002825726178807092,
+          "padding_px": 2,
+          "resolution": 1024,
+          "uv0_changed": false,
+          "uv1_float32_sha256": "57f51d859a2158f7a5f41ca2c8d01bf48f08ebafb9f9e24a934dc725e6ba5eba"
+        },
+        "authored_tangents_sha256": "9313cd6a980bb4eaa59c0c208509d8c62c4dfd031239bc0f01c5f20493637c93",
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 134216,
+          "elapsed_seconds": 4.102532,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 18.008641932679755,
+          "normal_float32_sha256": "8d23723c6c533fea31ea6a74091a8b5d2c564006551dd922ef79a786af9449e8",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 265734,
+          "selected_faces_sha256": "1607be141160ecf3fff8657d35e4f36e7d979b64a190eecc81fef3cab3145b7c",
+          "selected_triangles": 146,
+          "settings": {
+            "max_faces": 146,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 4517,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 146
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "normal_uv_map": "AuthoredUndercoatUV2",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.0,
+            "original_link_count": 1
+          },
+          "roughness": {
+            "authored_value": null,
+            "mode": "preserved_link",
+            "original_default_value": 0.5,
+            "original_link_count": 1
+          }
+        },
+        "selected_faces": 146,
+        "source_material": "body_surface__contact_uv_dark_v1",
+        "source_material_index": 4,
+        "texture_path": "textures/authored-short-pile-normal-material-04.png",
+        "texture_sha256": "6d0e285bc8059278f2babaeea39a8836dc9d12359b9fcac701d9575151d9d3ad"
+      },
+      {
+        "atlas": {
+          "authored_not_recovered": true,
+          "cell_pixels": 93,
+          "columns": 11,
+          "faces": 103,
+          "frame_policy": "mikk-unshared-triangle-v-up-v2",
+          "geometry_changed": false,
+          "layout": "One ordered longest-edge local triangle per padded grid cell; no shared chart texels",
+          "max_meters_per_texel": 0.0009372686486696937,
+          "median_meters_per_texel": 0.0002863159711908487,
+          "padding_px": 2,
+          "resolution": 1024,
+          "uv0_changed": false,
+          "uv1_float32_sha256": "dd2f13223f5c5157cbb1c4f94b7309e1787b9c93ba9ab8a06a0765384e3cedb1"
+        },
+        "authored_tangents_sha256": "d54d6916b9eb19bda5ac6989feb869d0450c2fac228a29558ff62a22b9267a44",
+        "bake": {
+          "array_memory_bound_bytes": 62914560,
+          "assumption": "Authored short-pile lighting detail, not recovered fibers or measured coat density",
+          "covered_texels": 98217,
+          "elapsed_seconds": 4.305652,
+          "excluded_triangles": 0,
+          "geometry_displaced": false,
+          "maximum_normal_tilt_degrees": 18.08385454449305,
+          "normal_float32_sha256": "21e6a55f4adecfe7e6b83e6b8b4b92aaea3f168bc0d279cc008c0a2e57884d37",
+          "original_uvs_changed": false,
+          "overlap_limit_fraction": 0.01,
+          "overlapping_different_surface_samples": 0,
+          "palette_changed": false,
+          "profile": "short-pile-v1",
+          "raster_candidate_pixels": 193842,
+          "selected_faces_sha256": "dcf0a762a154ca3b959695f9008b71e3a3104ac6ef93eebf8c98203a3e959abd",
+          "selected_triangles": 103,
+          "settings": {
+            "max_faces": 103,
+            "min_faces": 1,
+            "pitch_m": 0.004,
+            "profile": "short-pile-v1",
+            "resolution": 1024,
+            "roughness": 0.92,
+            "seed": 4517,
+            "strength": 0.22
+          },
+          "subpixel_faces": 0,
+          "total_triangles": 103
+        },
+        "basecolor_graph_preserved": true,
+        "frame_policy": "mikk-unshared-triangle-v-up-v2",
+        "material": "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "normal_texcoord": 2,
+        "normal_uv_map": "AuthoredUndercoatUV2",
+        "response_policy": "preserve-linked-response-v1",
+        "response_sockets": {
+          "metallic": {
+            "authored_value": 0,
+            "mode": "authored_constant",
+            "original_default_value": 0.0,
+            "original_link_count": 0
+          },
+          "roughness": {
+            "authored_value": 0.92,
+            "mode": "authored_constant",
+            "original_default_value": 1.0,
+            "original_link_count": 0
+          }
+        },
+        "selected_faces": 103,
+        "source_material": "body_cap__contact_uv_dark_v1",
+        "source_material_index": 5,
+        "texture_path": "textures/authored-short-pile-normal-material-05.png",
+        "texture_sha256": "096a9142e0f75a300941f8ceb1dd6cdc78bd293bb3ca401eae63d12ebcb97794"
+      }
+    ],
+    "max_simultaneous_float_atlases": 1,
+    "original_active_uv_index": 0,
+    "original_materials_preserved": true,
+    "original_normal_replaced_only_on_selected_faces": true,
+    "original_uv0_active_render": true,
+    "original_uv0_sha256": "ad722dd4ce36a68cce17cc662444dfb2173993094a0a9ba6a936128e07161b6d",
+    "original_uv_layers": [
+      {
+        "active_render": true,
+        "index": 0,
+        "name": "UVMap",
+        "sha256": "ad722dd4ce36a68cce17cc662444dfb2173993094a0a9ba6a936128e07161b6d"
+      },
+      {
+        "active_render": false,
+        "index": 1,
+        "name": "UVMap.001",
+        "sha256": "6aedfaae9725000f600a630e08c3bbf0184bbcddd7d4ac79eefc627781881655"
+      }
+    ],
+    "original_uvs_changed": false,
+    "palette_changed": false,
+    "plan": {
+      "additional_export_vertices": 482,
+      "additional_material_seam_reserve_vertices": 254,
+      "aggregate_raster_limit": 32000000,
+      "aggregate_runtime_seconds": 90.0,
+      "atlas_regions": [
+        2,
+        4,
+        5
+      ],
+      "authored_normal_texcoord": 2,
+      "automatic_quality_policy_promoted": false,
+      "elapsed_seconds": 0.871901,
+      "excluded_triangles": 30859,
+      "export_vertex_budget": {
+        "portable_export_vertices": 43200,
+        "reserve_vertices": 4096,
+        "source_export_vertices": 51376
+      },
+      "frame_policy": "mikk-unshared-triangle-v-up-v2",
+      "hd_only": true,
+      "limitations": [
+        "Normal UV1 and selected tangents are authored, not recovered.",
+        "Weft rejects normal maps and TEXCOORD_1; no importer change is implied.",
+        "This plan establishes no visible softness or animation quality."
+      ],
+      "max_simultaneous_float_atlases": 1,
+      "normal_texture_policy": "One normal image per selected material region",
+      "original_uv0_unchanged": true,
+      "pitch_m": 0.004,
+      "projected_export_vertex_ceiling": 99154,
+      "quality_approved": false,
+      "raster_candidates": 4151210,
+      "regions": [
+        {
+          "additional_material_seam_reserve_vertices": 254,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 0,
+          "covered_texels": 1551304,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 0.001306504921796512,
+          "effective_texels_per_pitch": 3.0616034683587667,
+          "material_split_corner_bound": 482,
+          "material_split_extra_vertices": 228,
+          "method": "keep_uv0",
+          "normal_texcoord": 0,
+          "raster_candidates": 4120726,
+          "reasons": [],
+          "region_id": 0,
+          "selected_faces": 31208,
+          "selection_sha256": "09a6ba953653e07a791dd6f401f7c786beb901128811e52b5b8eb6c4eb6fec0a",
+          "subpixel_faces": 328,
+          "surface_area_m2": 2.6480062910160145,
+          "unique_conflicting_texels": 0,
+          "uv1_extra_vertices": 0
+        },
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 14120,
+          "covered_texels": 375,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 0.0057487636798129035,
+          "effective_texels_per_pitch": 0.6958017797889688,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "authored_uv1",
+          "normal_texcoord": 2,
+          "raster_candidates": 26500,
+          "reasons": [
+            "different_surface_uv_aliases",
+            "under_two_effective_texels_per_pile_pitch"
+          ],
+          "region_id": 2,
+          "selected_faces": 265,
+          "selection_sha256": "725cca82344d56aee71acc72b78c0ab020f393cb80e5fb6830ffc287e31e4f24",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.012393106442375998,
+          "unique_conflicting_texels": 265,
+          "uv1_extra_vertices": 0
+        },
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 1450,
+          "covered_texels": 10,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 0.03950043458581887,
+          "effective_texels_per_pitch": 0.10126470865300424,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "authored_uv1",
+          "normal_texcoord": 2,
+          "raster_candidates": 2336,
+          "reasons": [
+            "different_surface_uv_aliases",
+            "under_two_effective_texels_per_pile_pitch"
+          ],
+          "region_id": 4,
+          "selected_faces": 146,
+          "selection_sha256": "d28d8562f05490c54bf6684e0d2527be9332f20aad4a93720c78742eff8c2371",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.015602843324685554,
+          "unique_conflicting_texels": 10,
+          "uv1_extra_vertices": 0
+        },
+        {
+          "additional_material_seam_reserve_vertices": 0,
+          "atlas_method_names_are_layout_labels": true,
+          "conflicting_surface_samples": 1020,
+          "covered_texels": 10,
+          "degenerate_uv_faces": 0,
+          "effective_meters_per_unique_texel": 0.04135350310207708,
+          "effective_texels_per_pitch": 0.09672699287715458,
+          "material_split_corner_bound": 0,
+          "material_split_extra_vertices": 0,
+          "method": "authored_uv1",
+          "normal_texcoord": 2,
+          "raster_candidates": 1648,
+          "reasons": [
+            "different_surface_uv_aliases",
+            "under_two_effective_texels_per_pile_pitch"
+          ],
+          "region_id": 5,
+          "selected_faces": 103,
+          "selection_sha256": "2c11a123a4f010381a423970fef5204eaea8064cb58c1bd5e249322a7451e333",
+          "subpixel_faces": 0,
+          "surface_area_m2": 0.01710112218813499,
+          "unique_conflicting_texels": 10,
+          "uv1_extra_vertices": 0
+        }
+      ],
+      "reserve_vertices": 4096,
+      "resolution": 2048,
+      "schema_version": 1,
+      "scope": "Per-material alias/density measurements; not visual quality or recovered fur",
+      "selected_triangles": 31722,
+      "source_export_vertices": 94576,
+      "source_export_vertices_scope": "Pinned source GLB vertices plus planned whole-coat exported corners; not a measured source-only count",
+      "uv_layer_allocation": {
+        "authored_index": 2,
+        "authored_name": "AuthoredUndercoatUV2",
+        "max_source_layers": 2,
+        "max_total_layers": 3,
+        "original_indices": [
+          0,
+          1
+        ],
+        "original_names": [
+          "UVMap",
+          "UVMap.001"
+        ]
+      },
+      "uv_policy": "material-adaptive-v1",
+      "weft_appearance_compatible": false
+    },
+    "profile": "short-pile-v1",
+    "quality_approved": false,
+    "raster_candidate_pixels_including_plan": 8982224,
+    "response_policy": "preserve-linked-response-v1",
+    "schema_version": 1,
+    "selected_faces_sha256": "0ed861dcf3d3986da43724dfa35e705f39c4c8755ad8cf05b2847391931d9d38",
+    "selected_polygons": 31722,
+    "selected_triangles": 31722,
+    "settings": {
+      "max_faces": 40000,
+      "min_faces": 1,
+      "pitch_m": 0.004,
+      "profile": "short-pile-v1",
+      "resolution": 2048,
+      "roughness": 0.92,
+      "seed": 4517,
+      "strength": 0.22,
+      "uv_policy": "material-adaptive-v1"
+    },
+    "shared_flow": {
+      "array_bytes": 616512,
+      "directions_float32_sha256": "37fffa55217133f3605282352d1becb71f18c24f23d1ef05ba557094bbe549a6",
+      "elapsed_seconds": 0.252517,
+      "evaluated_vertices": 51376,
+      "material_bakes": 4,
+      "read_only": true
+    },
+    "skin_or_animation_changed": false,
+    "source_images_unchanged": true,
+    "uv_policy": "material-adaptive-v1",
+    "weft_appearance_compatible": false
+  },
+  "groom": {
+    "armature": "CreatureRig",
+    "clump_factor": 0.06,
+    "comb": {
+      "amount": 0.6,
+      "api_source": "https://github.com/blender/blender/blob/v4.5.3/source/blender/makesrna/intern/rna_particle.cc",
+      "authored_surface_normal_reoriented_parents": 0,
+      "direction_rest_object_axes": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "flow_config": {
+        "regions": [
+          {
+            "center": [
+              0.555,
+              0.4,
+              0.755
+            ],
+            "comb": 0.55,
+            "direction": [
+              0,
+              0,
+              -1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.8,
+            "name": "head-short",
+            "radius": [
+              0.32,
+              0.48,
+              0.22
+            ]
+          },
+          {
+            "center": [
+              0.34,
+              0.175,
+              0.655
+            ],
+            "comb": 0.65,
+            "direction": [
+              -1,
+              0,
+              -0.3
+            ],
+            "feather": 0.5,
+            "length_scale": 1.1,
+            "name": "cheek-viewer-left",
+            "radius": [
+              0.115,
+              0.23,
+              0.115
+            ]
+          },
+          {
+            "center": [
+              0.78,
+              0.175,
+              0.65
+            ],
+            "comb": 0.65,
+            "direction": [
+              1,
+              0,
+              -0.3
+            ],
+            "feather": 0.5,
+            "length_scale": 1.1,
+            "name": "cheek-viewer-right",
+            "radius": [
+              0.13,
+              0.23,
+              0.115
+            ]
+          },
+          {
+            "center": [
+              0.555,
+              0.46,
+              0.9
+            ],
+            "comb": 0.3,
+            "direction": [
+              0,
+              0.15,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 1.2,
+            "name": "crown",
+            "radius": [
+              0.27,
+              0.42,
+              0.105
+            ]
+          },
+          {
+            "center": [
+              0.315,
+              0.48,
+              0.93
+            ],
+            "comb": 0.3,
+            "direction": [
+              -0.3,
+              0,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.7,
+            "name": "ear-viewer-left",
+            "radius": [
+              0.12,
+              0.3,
+              0.12
+            ]
+          },
+          {
+            "center": [
+              0.8,
+              0.48,
+              0.925
+            ],
+            "comb": 0.3,
+            "direction": [
+              0.3,
+              0,
+              1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.7,
+            "name": "ear-viewer-right",
+            "radius": [
+              0.12,
+              0.3,
+              0.12
+            ]
+          },
+          {
+            "center": [
+              0.555,
+              0.075,
+              0.645
+            ],
+            "comb": 0.45,
+            "direction": [
+              0,
+              0,
+              -1
+            ],
+            "feather": 0.5,
+            "length_scale": 0.3,
+            "name": "muzzle",
+            "radius": [
+              0.16,
+              0.17,
+              0.07
+            ]
+          },
+          {
+            "center": [
+              0.23,
+              0.35,
+              0.57
+            ],
+            "comb": 0.25,
+            "direction": [
+              -0.2,
+              -0.1,
+              -1
+            ],
+            "feather": 0.6,
+            "length_scale": 1.4,
+            "name": "vacated-shoulder-volume",
+            "radius": [
+              0.22,
+              0.28,
+              0.18
+            ]
+          }
+        ]
+      },
+      "hair_dynamics": false,
+      "initialization": {
+        "method": "Particle Edit enter/exit on owned emitter",
+        "parents": 6500
+      },
+      "limitations": [
+        "Apply once to a fresh groom in its rest pose; counts/topology changes can regenerate hair.",
+        "The vector is in emitter object axes; no panda-specific direction or recovered grooming.",
+        "Stored parent arc length follows explicit regional scale (otherwise preserved); children add configured roughness/clump variation."
+      ],
+      "limits": {
+        "amount_range": [
+          0,
+          0.95
+        ],
+        "direction_component_range": [
+          -1,
+          1
+        ],
+        "parents": 10000,
+        "stored_keys": 150000,
+        "stored_parent_arc_length_m": 0.08,
+        "wall_seconds": 20
+      },
+      "max_arc_length_change_m": 0.012600120847386357,
+      "max_key_error_m": 2.511464624208685e-07,
+      "max_planned_arc_length_error_m": 3.8956086238425836e-07,
+      "max_root_shift_m": 0.0,
+      "max_stored_arc_length_m": 0.02520027176446809,
+      "max_surface_normal_reorientation_degrees": 0.0,
+      "mean_tip_displacement_m": 0.010665325801479584,
+      "method": "original ParticleHairKey.co_object_set with evaluated emitter/modifier/particle",
+      "native_only": true,
+      "parallel_direction_strands_unchanged": 0,
+      "parents": 6500,
+      "regional_length_scale_range": [
+        0.3,
+        1.4
+      ],
+      "schema_version": 1,
+      "seconds": 0.7136583747342229,
+      "settings_preserved": {
+        "child_seed": 831,
+        "hair_dynamics": false,
+        "seed": 831,
+        "settings": {
+          "child_percent": 4,
+          "child_type": "INTERPOLATED",
+          "clump_factor": 0.05999999865889549,
+          "count": 6500,
+          "hair_length": 0.017999999225139618,
+          "hair_step": 3,
+          "material": 12,
+          "radius_scale": 0.00016999999934341758,
+          "rendered_child_count": 30,
+          "root_radius": 2.0,
+          "roughness_1": 0.0006000000284984708,
+          "roughness_2": 0.0002099999983329326,
+          "tip_radius": 0.11999999731779099,
+          "type": "HAIR",
+          "use_modifier_stack": true,
+          "use_regrow_hair": false
+        }
+      },
+      "skin_signature": {
+        "geometry_weights_sha256": "e556c2b4297c954daa44a3fdde379fd4d832abac18c92c09a6ea88e5f9c29fa4",
+        "mixed_weight_vertices": 26833,
+        "vertices": 51376
+      },
+      "status": "combed_pending_render_review",
+      "stored_keys": 26000
+    },
+    "copied_skin": {
+      "geometry_weights_sha256": "e556c2b4297c954daa44a3fdde379fd4d832abac18c92c09a6ea88e5f9c29fa4",
+      "mixed_weight_vertices": 26833,
+      "vertices": 51376
+    },
+    "density_excluded_vertices": 27991,
+    "density_selected_vertices": 23385,
+    "dynamics_enabled": false,
+    "emitter_surface_visible": false,
+    "fur_max_chroma": 0.18,
+    "gltf_export_supported": false,
+    "kind": "editable_native_blender_particle_hair",
+    "limitations": [
+      "Native Blender hair is not exported as glTF geometry or browser hair.",
+      "Hair follows the copied emitter's same armature; keep emitter topology unchanged after grooming.",
+      "The caller caps aggregate fibers at 240000 and excludes native groom objects from GLB selection."
+    ],
+    "mask_config": [
+      {
+        "center": [
+          0.447,
+          0.155,
+          0.741
+        ],
+        "radius": [
+          0.047,
+          0.16,
+          0.039
+        ]
+      },
+      {
+        "center": [
+          0.671,
+          0.15,
+          0.733
+        ],
+        "radius": [
+          0.047,
+          0.16,
+          0.039
+        ]
+      },
+      {
+        "center": [
+          0.558,
+          0.035,
+          0.673
+        ],
+        "radius": [
+          0.067,
+          0.12,
+          0.038
+        ]
+      },
+      {
+        "center": [
+          0.554,
+          0.075,
+          0.628
+        ],
+        "radius": [
+          0.08,
+          0.13,
+          0.02
+        ]
+      },
+      {
+        "center": [
+          0.3,
+          0.86,
+          0.235
+        ],
+        "radius": [
+          0.16,
+          0.15,
+          0.1
+        ]
+      }
+    ],
+    "material": {
+      "base_color_linear": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929,
+        1.0
+      ],
+      "material": "NativeGroom_body_surface_hair",
+      "model": "CHIANG",
+      "parametrization": "COLOR",
+      "radial_roughness": 0.5,
+      "shader": "ShaderNodeBsdfHairPrincipled",
+      "shader_roughness": 0.5,
+      "texture_color_sampling": true
+    },
+    "native_only": true,
+    "native_parameters": {
+      "child_type": "INTERPOLATED",
+      "hair_step": 3,
+      "radius_parameter_description": "Multiplier of diameter properties",
+      "radius_scale": 0.00016999999934341758,
+      "radius_semantics": "Input is authoring-space radius at unit meter scale; Blender multiplies diameter properties by radius_scale",
+      "render_children": 30,
+      "render_step": 3,
+      "root_diameter_m": 0.00034,
+      "root_radius": 2.0,
+      "root_radius_description": "Strand diameter width at the root",
+      "tip_diameter_m": 2.04e-05,
+      "tip_radius": 0.11999999731779099,
+      "use_modifier_stack": true,
+      "use_parent_particles": true,
+      "viewport_children": 4
+    },
+    "object": "NativeGroom_PartitionedBodyAndPart",
+    "render_count_scope": "Configured parents plus interpolated children; not an independently counted image feature",
+    "render_fiber_upper_bound": 201500,
+    "reserved_prefix": "NativeGroom_",
+    "schema_version": 1,
+    "settings": {
+      "children": 30,
+      "length": 0.018,
+      "parents": 6500,
+      "radius": 0.00017,
+      "roughness": 0.0006,
+      "seed": 831
+    },
+    "source_object": "PartitionedBodyAndPart"
+  },
+  "groom_excluded_parts": {
+    "names": [
+      "shoulder-dragon"
+    ],
+    "vertices": 25642
+  },
+  "motion_origin": "Explicit locally authored actions; source provider clips are not used or relabeled",
+  "normal_continuity": null,
+  "normal_strength": 0.15,
+  "part_rigs": {
+    "authored_not_recovered": true,
+    "geometry_uv_materials_unchanged": true,
+    "limits": {
+      "face_corners": 300000,
+      "faces": 100000,
+      "influences_per_vertex": 4,
+      "parts": 4,
+      "vertices": 100000
+    },
+    "max_influences": 2,
+    "outside_vertex_weights_unchanged": true,
+    "part_vertices_disjoint": true,
+    "parts": [
+      {
+        "actual_rig_reparented": false,
+        "bone_names": [
+          "CompanionRoot",
+          "DragonWingRight",
+          "DragonWingLeft"
+        ],
+        "coverage_threshold": 1e-06,
+        "faces_by_material": {
+          "companion_cap": 313,
+          "companion_surface": 27205
+        },
+        "layers": [
+          {
+            "bones": [
+              "CompanionRoot",
+              "DragonWingRight"
+            ],
+            "selected_vertices": 9394
+          },
+          {
+            "bones": [
+              "CompanionRoot",
+              "DragonWingLeft"
+            ],
+            "selected_vertices": 1893
+          }
+        ],
+        "material_slots": [
+          1,
+          3
+        ],
+        "materials": [
+          "companion_surface",
+          "companion_cap"
+        ],
+        "max_influences": 2,
+        "max_weight": 1.0,
+        "method": "Authored spatial layers with nearest-segment blending; not recovered anatomy",
+        "min_positive_weight": 4.942388960397099e-09,
+        "name": "shoulder-dragon",
+        "original_mesh_bounds": {
+          "max": [
+            0.45410776138305664,
+            0.38847070932388306,
+            1.2000000476837158
+          ],
+          "min": [
+            -0.45410776138305664,
+            -0.38847070932388306,
+            0.0
+          ]
+        },
+        "positive_vertices_per_bone": {
+          "CompanionRoot": 25615,
+          "DragonWingLeft": 1889,
+          "DragonWingRight": 9366
+        },
+        "root_bone": "CompanionRoot",
+        "scope": "Descendant-only material-part weights in original normalized bounds; not inferred anatomy or motion acceptance",
+        "selected_faces": 27518,
+        "selected_vertices": 25642,
+        "weight_sum_max_error": 1.1102230246251565e-16
+      }
+    ],
+    "rest_bones_unchanged": true,
+    "scope": "Exact material-part skin replacement after split-boundary checks; not automatic part segmentation or verified animation",
+    "selected_vertices": 25642,
+    "shared_boundary_vertices": 0
+  },
+  "portable_fringe": {
+    "atlas": {
+      "alpha_policy": "Resample unchanged physical two-tip UV crop; no per-fin width stretch",
+      "atlas_dimensions": [
+        4096,
+        1824
+      ],
+      "batch_fins": 128,
+      "bounds": {
+        "internal_seconds": 20,
+        "max_dimension": 4096,
+        "max_fins": 4800,
+        "max_pixels": 16777216,
+        "sample_batch": 8192
+      },
+      "cell_dimensions": [
+        64,
+        32
+      ],
+      "cell_grid": [
+        64,
+        57
+      ],
+      "elapsed_seconds": 0.25229808408766985,
+      "fins": 3600,
+      "geometry_mutated": false,
+      "image_rows": "top-down",
+      "interior_samples": [
+        60,
+        28
+      ],
+      "limits": [
+        "LOD0 CPU gates do not prove GPU filtering, lighting, visibility or avatar quality.",
+        "Color follows the source edge along fin height; this is not recovered volumetric fur.",
+        "Finite samples/sRGB8 quantization can lose subtexel markings; failing tips remain reported.",
+        "Color-coherent packing does not eliminate within-cell blending or deep-mip/anisotropic bleed.",
+        "Source alpha is ignored; the caller must admit only opaque source color materials.",
+        "Unused cells are transparent black and can affect coarse filtering near the final row."
+      ],
+      "material_requirements": {
+        "alphaCutoff": 0.18,
+        "alphaMode": "MASK",
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987,
+          "wrapS": 33071,
+          "wrapT": 33071
+        },
+        "vertex_color": "omit"
+      },
+      "maximum_horizontal_sample_pitch_m": 0.00033332716563637274,
+      "nominal_tip_audit": {
+        "alpha_cutoff": 0.18,
+        "alpha_gate_passed": true,
+        "color_gate_passed": true,
+        "fixed_color_gate": {
+          "p95_max": 0.02,
+          "p99_max": 0.05,
+          "tips_over_010_max": 36
+        },
+        "maximum_linear_component_error": 0.016778707380529112,
+        "method": "All nominal +/-2.5 mm tips at half fin height; maximum absolute linear RGB component error",
+        "minimum_alpha": 0.9999999999999999,
+        "omitted_or_hidden_samples": 0,
+        "p50": 0.00019737599226166396,
+        "p95": 0.0035679306369494385,
+        "p99": 0.004285445912546837,
+        "passed": true,
+        "tip_count": 7200,
+        "tips_below_mask_cutoff": 0,
+        "tips_over_005": 0,
+        "tips_over_010": 0,
+        "worst_tips": [
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.955467383171493,
+              0.8945574719685737,
+              0.8580006583898803
+            ],
+            "error": 0.016778707380529112,
+            "fin": 1707,
+            "source_rgb": [
+              0.9624505741631315,
+              0.9113361793491028,
+              0.8716824433844574
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.7702631501185663,
+              0.7103919508781876,
+              0.7000094979638624
+            ],
+            "error": 0.015032215725919618,
+            "fin": 2770,
+            "source_rgb": [
+              0.7850630243586328,
+              0.7254241666041072,
+              0.711152789022546
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.8505789821725616,
+              0.7814348828615707,
+              0.7304607400903538
+            ],
+            "error": 0.012275486626126098,
+            "fin": 3493,
+            "source_rgb": [
+              0.8412862032183063,
+              0.7739048370070836,
+              0.7181852534642277
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.9696208557999746,
+              0.9094149601388966,
+              0.8537546736991317
+            ],
+            "error": 0.011152764977621854,
+            "fin": 2221,
+            "source_rgb": [
+              0.9584680908223527,
+              0.8986625330738064,
+              0.8491936223980587
+            ],
+            "tip": 1
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.9725907891178402,
+              0.9038431174664819,
+              0.8623617022430341
+            ],
+            "error": 0.010033505859937342,
+            "fin": 1730,
+            "source_rgb": [
+              0.9826242949777776,
+              0.9127069848653829,
+              0.8672375350508746
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.9518811819451352,
+              0.9195737882879065,
+              0.8776682816826201
+            ],
+            "error": 0.008519931007677783,
+            "fin": 1821,
+            "source_rgb": [
+              0.9548083672884116,
+              0.9280937192955843,
+              0.8815158006170671
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 0.9999999999999999,
+            "atlas_rgb": [
+              0.919089417085542,
+              0.8607588120642178,
+              0.8176423163674323
+            ],
+            "error": 0.008119439125787165,
+            "fin": 2027,
+            "source_rgb": [
+              0.9109699779597549,
+              0.8542392019564994,
+              0.8123660663119234
+            ],
+            "tip": 1
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.08748627435363807,
+              0.08535555685464119,
+              0.085950198472638
+            ],
+            "error": 0.00786533470024621,
+            "fin": 3092,
+            "source_rgb": [
+              0.09465446661359508,
+              0.09298097038979312,
+              0.09381553317288421
+            ],
+            "tip": 1
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.9530498817903454,
+              0.8879231178819663,
+              0.8280766901986456
+            ],
+            "error": 0.007594127226252301,
+            "fin": 510,
+            "source_rgb": [
+              0.9552312046310171,
+              0.8955172451082186,
+              0.8301042297907876
+            ],
+            "tip": 0
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.7732076799901595,
+              0.7397775850973345,
+              0.7059091549445501
+            ],
+            "error": 0.007493531628599115,
+            "fin": 2770,
+            "source_rgb": [
+              0.7681393838698468,
+              0.7322840534687354,
+              0.7020746825479761
+            ],
+            "tip": 1
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.955973353249286,
+              0.8796223968878318,
+              0.8549926081242338
+            ],
+            "error": 0.006987139747823945,
+            "fin": 1274,
+            "source_rgb": [
+              0.9513624042564727,
+              0.8726352571400079,
+              0.8488463145771101
+            ],
+            "tip": 1
+          },
+          {
+            "alpha": 1.0,
+            "atlas_rgb": [
+              0.9646862478944651,
+              0.8923752291644863,
+              0.8675366027042741
+            ],
+            "error": 0.006802204969269754,
+            "fin": 1783,
+            "source_rgb": [
+              0.9578840429251954,
+              0.8894964328430733,
+              0.8642028596786129
+            ],
+            "tip": 0
+          }
+        ]
+      },
+      "packing": {
+        "enabled": true,
+        "permutation_scope": "Cells only; UV and all diagnostic arrays retain original fin order",
+        "policy": "nominal-tip-mean-32-luma-bins-rgb-stable-v1",
+        "unused_cell_policy": "Trailing unassigned cells stay transparent black; not populated duplicates"
+      },
+      "padding_px": 2,
+      "pixels": 7471104,
+      "policy": "edge-fringe-source-color-atlas-v1",
+      "quality_approved": false,
+      "sampling_policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+      "source_colors_whitened_or_suppressed": false,
+      "source_fin_policy": "edge-fringe-source-surface-v1",
+      "source_material_ids": [
+        7
+      ],
+      "source_pixels": 16777216,
+      "status": "passed_technical_color_and_alpha_gates",
+      "technical_gate_passed": true,
+      "unused_cell_rgba": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "unused_cells": 48,
+      "uv_convention": "glTF V-down",
+      "weights_mutated": false
+    },
+    "bone_order": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "budget": {
+      "max_fins": 3600,
+      "projected_triangles": 76981,
+      "projected_vertices": 98672,
+      "reserve_vertices": 4096,
+      "source_export_triangles": 62581,
+      "source_export_vertices": 51376,
+      "triangle_limit": 100000,
+      "vertex_limit": 100000,
+      "worst_exported_fin_corners": 43200
+    },
+    "cards": 3600,
+    "config": {
+      "design_views": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          -0.47,
+          -0.88,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0.47,
+          0.88,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0.7,
+          -0.7,
+          0
+        ],
+        [
+          -0.7,
+          0.7,
+          0
+        ]
+      ],
+      "excluded_materials": [
+        "body_cap",
+        "body_cap__contact_uv_dark_v1"
+      ],
+      "profile": "edge-fringe-v1",
+      "settings": {
+        "comb": 0.15,
+        "length_m": 0.008,
+        "max_edge_m": 0.02,
+        "max_fins": 3600,
+        "min_edge_m": 0.0085,
+        "min_fins": 2400,
+        "min_spacing_m": 0.003,
+        "seed": 7123
+      }
+    },
+    "elapsed_seconds": 1.442594208754599,
+    "explicit_material_faces_excluded": 369,
+    "geometry": {
+      "allocation": {
+        "edge_area_mass_sum_m2": 1.7606356641508767,
+        "policy": "eligible-face-area-share-seeded-exponential-v1",
+        "represented_face_area_m2": 1.7606356641508767,
+        "source_edges_not_welded": true,
+        "view_preference_bounds": [
+          0.5,
+          1.0
+        ]
+      },
+      "atlas": {
+        "maximum_tip_radius_m": 0.0008,
+        "physical_domain_m": 0.0208,
+        "tip_centers_m": [
+          -0.0025,
+          0.0025
+        ],
+        "visible_groups_max_span_m": 0.0066
+      },
+      "camera_billboarding": false,
+      "candidate_scan_cap": 32000,
+      "coincident_shared_edge_aliases": 9,
+      "elapsed_seconds": 0.13529220828786492,
+      "eligible_edges": 19650,
+      "examined_candidates": 3613,
+      "exclusions": {
+        "coincident_edge_alias": 9,
+        "edge_span": 21528,
+        "incoherent_normals": 2,
+        "non_fur": 35679
+      },
+      "export_budget": {
+        "max_fins": 3600,
+        "projected_triangles": 76981,
+        "projected_vertices": 98672,
+        "reserve_vertices": 4096,
+        "source_export_triangles": 62581,
+        "source_export_vertices": 51376,
+        "triangle_limit": 100000,
+        "vertex_limit": 100000,
+        "worst_exported_fin_corners": 43200
+      },
+      "geometric_vertices": 14400,
+      "limitations": [
+        "Explicit authored shading, not volumetric or recovered fur.",
+        "Source color/material sampling and renderer culling verification are caller responsibilities.",
+        "No intersection, physical motion, density, or appearance acceptance is inferred."
+      ],
+      "material_requirement": {
+        "alphaCutoff": 0.18,
+        "alphaMode": "MASK",
+        "doubleSided": false
+      },
+      "min_outward_dot": 0.9847835588179366,
+      "nonmanifold_edges": 0,
+      "normal_policy": "Normalized source endpoint normals repeated at corresponding tips; not fin-plane normals",
+      "profile": "edge-fringe-source-surface-v1",
+      "quality_approved": false,
+      "selected_fins": 3600,
+      "settings": {
+        "comb": 0.15,
+        "length_m": 0.008,
+        "max_edge_m": 0.02,
+        "max_fins": 3600,
+        "min_edge_m": 0.0085,
+        "min_fins": 2400,
+        "min_spacing_m": 0.003,
+        "seed": 7123
+      },
+      "source_faces": 62581,
+      "source_modified": false,
+      "source_vertices": 51376,
+      "spacing_rejected": 13,
+      "triangles": 14400,
+      "unshared_boundary_edges": 34007
+    },
+    "geometry_arrays_npz": "fringe-correspondence.npz",
+    "geometry_profile": "edge-fringe-v1",
+    "limits": [
+      "Regional direction is sampled; fin length/lean are explicit uniform controls, not native-strand parity.",
+      "MASK filtering and source shading can still differ at small scales; inspect the exported model.",
+      "No dense-fur, Muse-parity, contact repair, physical-hair or fresh-prompt acceptance claim."
+    ],
+    "material": {
+      "alpha_cutoff": 0.18,
+      "alpha_mode": "MASK",
+      "dimensions": [
+        4096,
+        1824
+      ],
+      "double_sided": false,
+      "material": "SourceColoredFringe",
+      "metallic": 0,
+      "path": "textures/portable-fringe-color-atlas.png",
+      "profile": "edge-fringe-v1",
+      "roughness": 0.92,
+      "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047",
+      "vertex_color_multiplier": false
+    },
+    "mixed_part_faces_excluded": 0,
+    "native_normal_storage": "FLOAT_VECTOR POINT custom_normal; no legacy short2 packing",
+    "native_topology": "Independent triangle corners; exact helper positions/normals/UVs/skin duplicated",
+    "quality_approved": false,
+    "sample_root_color": true,
+    "sampling": [
+      {
+        "coordinates": "Blender UVs paired with bottom-up image rows",
+        "extension": "REPEAT",
+        "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+        "interpolation": "Linear",
+        "material_slots": [
+          7
+        ],
+        "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+        "render_uv_layer": "UVMap",
+        "sampled_uv_layer": "UVMap"
+      },
+      {
+        "coordinates": "Blender UVs paired with bottom-up image rows",
+        "extension": "REPEAT",
+        "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+        "interpolation": "Linear",
+        "material_slots": [
+          9
+        ],
+        "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+        "render_uv_layer": "UVMap",
+        "sampled_uv_layer": "UVMap"
+      }
+    ],
+    "source_point_sha256": "ebaf40e28991c110c0db8671091338cebc9893c5ea61e3770c349205363376ab",
+    "vertices": 43200
+  },
+  "portable_fur": [
+    {
+      "atlas": {
+        "alpha_policy": "Resample unchanged physical two-tip UV crop; no per-fin width stretch",
+        "atlas_dimensions": [
+          4096,
+          1824
+        ],
+        "batch_fins": 128,
+        "bounds": {
+          "internal_seconds": 20,
+          "max_dimension": 4096,
+          "max_fins": 4800,
+          "max_pixels": 16777216,
+          "sample_batch": 8192
+        },
+        "cell_dimensions": [
+          64,
+          32
+        ],
+        "cell_grid": [
+          64,
+          57
+        ],
+        "elapsed_seconds": 0.25229808408766985,
+        "fins": 3600,
+        "geometry_mutated": false,
+        "image_rows": "top-down",
+        "interior_samples": [
+          60,
+          28
+        ],
+        "limits": [
+          "LOD0 CPU gates do not prove GPU filtering, lighting, visibility or avatar quality.",
+          "Color follows the source edge along fin height; this is not recovered volumetric fur.",
+          "Finite samples/sRGB8 quantization can lose subtexel markings; failing tips remain reported.",
+          "Color-coherent packing does not eliminate within-cell blending or deep-mip/anisotropic bleed.",
+          "Source alpha is ignored; the caller must admit only opaque source color materials.",
+          "Unused cells are transparent black and can affect coarse filtering near the final row."
+        ],
+        "material_requirements": {
+          "alphaCutoff": 0.18,
+          "alphaMode": "MASK",
+          "baseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "sampler": {
+            "magFilter": 9729,
+            "minFilter": 9987,
+            "wrapS": 33071,
+            "wrapT": 33071
+          },
+          "vertex_color": "omit"
+        },
+        "maximum_horizontal_sample_pitch_m": 0.00033332716563637274,
+        "nominal_tip_audit": {
+          "alpha_cutoff": 0.18,
+          "alpha_gate_passed": true,
+          "color_gate_passed": true,
+          "fixed_color_gate": {
+            "p95_max": 0.02,
+            "p99_max": 0.05,
+            "tips_over_010_max": 36
+          },
+          "maximum_linear_component_error": 0.016778707380529112,
+          "method": "All nominal +/-2.5 mm tips at half fin height; maximum absolute linear RGB component error",
+          "minimum_alpha": 0.9999999999999999,
+          "omitted_or_hidden_samples": 0,
+          "p50": 0.00019737599226166396,
+          "p95": 0.0035679306369494385,
+          "p99": 0.004285445912546837,
+          "passed": true,
+          "tip_count": 7200,
+          "tips_below_mask_cutoff": 0,
+          "tips_over_005": 0,
+          "tips_over_010": 0,
+          "worst_tips": [
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.955467383171493,
+                0.8945574719685737,
+                0.8580006583898803
+              ],
+              "error": 0.016778707380529112,
+              "fin": 1707,
+              "source_rgb": [
+                0.9624505741631315,
+                0.9113361793491028,
+                0.8716824433844574
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.7702631501185663,
+                0.7103919508781876,
+                0.7000094979638624
+              ],
+              "error": 0.015032215725919618,
+              "fin": 2770,
+              "source_rgb": [
+                0.7850630243586328,
+                0.7254241666041072,
+                0.711152789022546
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.8505789821725616,
+                0.7814348828615707,
+                0.7304607400903538
+              ],
+              "error": 0.012275486626126098,
+              "fin": 3493,
+              "source_rgb": [
+                0.8412862032183063,
+                0.7739048370070836,
+                0.7181852534642277
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.9696208557999746,
+                0.9094149601388966,
+                0.8537546736991317
+              ],
+              "error": 0.011152764977621854,
+              "fin": 2221,
+              "source_rgb": [
+                0.9584680908223527,
+                0.8986625330738064,
+                0.8491936223980587
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.9725907891178402,
+                0.9038431174664819,
+                0.8623617022430341
+              ],
+              "error": 0.010033505859937342,
+              "fin": 1730,
+              "source_rgb": [
+                0.9826242949777776,
+                0.9127069848653829,
+                0.8672375350508746
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.9518811819451352,
+                0.9195737882879065,
+                0.8776682816826201
+              ],
+              "error": 0.008519931007677783,
+              "fin": 1821,
+              "source_rgb": [
+                0.9548083672884116,
+                0.9280937192955843,
+                0.8815158006170671
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 0.9999999999999999,
+              "atlas_rgb": [
+                0.919089417085542,
+                0.8607588120642178,
+                0.8176423163674323
+              ],
+              "error": 0.008119439125787165,
+              "fin": 2027,
+              "source_rgb": [
+                0.9109699779597549,
+                0.8542392019564994,
+                0.8123660663119234
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.08748627435363807,
+                0.08535555685464119,
+                0.085950198472638
+              ],
+              "error": 0.00786533470024621,
+              "fin": 3092,
+              "source_rgb": [
+                0.09465446661359508,
+                0.09298097038979312,
+                0.09381553317288421
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.9530498817903454,
+                0.8879231178819663,
+                0.8280766901986456
+              ],
+              "error": 0.007594127226252301,
+              "fin": 510,
+              "source_rgb": [
+                0.9552312046310171,
+                0.8955172451082186,
+                0.8301042297907876
+              ],
+              "tip": 0
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.7732076799901595,
+                0.7397775850973345,
+                0.7059091549445501
+              ],
+              "error": 0.007493531628599115,
+              "fin": 2770,
+              "source_rgb": [
+                0.7681393838698468,
+                0.7322840534687354,
+                0.7020746825479761
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.955973353249286,
+                0.8796223968878318,
+                0.8549926081242338
+              ],
+              "error": 0.006987139747823945,
+              "fin": 1274,
+              "source_rgb": [
+                0.9513624042564727,
+                0.8726352571400079,
+                0.8488463145771101
+              ],
+              "tip": 1
+            },
+            {
+              "alpha": 1.0,
+              "atlas_rgb": [
+                0.9646862478944651,
+                0.8923752291644863,
+                0.8675366027042741
+              ],
+              "error": 0.006802204969269754,
+              "fin": 1783,
+              "source_rgb": [
+                0.9578840429251954,
+                0.8894964328430733,
+                0.8642028596786129
+              ],
+              "tip": 0
+            }
+          ]
+        },
+        "packing": {
+          "enabled": true,
+          "permutation_scope": "Cells only; UV and all diagnostic arrays retain original fin order",
+          "policy": "nominal-tip-mean-32-luma-bins-rgb-stable-v1",
+          "unused_cell_policy": "Trailing unassigned cells stay transparent black; not populated duplicates"
+        },
+        "padding_px": 2,
+        "pixels": 7471104,
+        "policy": "edge-fringe-source-color-atlas-v1",
+        "quality_approved": false,
+        "sampling_policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+        "source_colors_whitened_or_suppressed": false,
+        "source_fin_policy": "edge-fringe-source-surface-v1",
+        "source_material_ids": [
+          7
+        ],
+        "source_pixels": 16777216,
+        "status": "passed_technical_color_and_alpha_gates",
+        "technical_gate_passed": true,
+        "unused_cell_rgba": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "unused_cells": 48,
+        "uv_convention": "glTF V-down",
+        "weights_mutated": false
+      },
+      "bone_order": [
+        "Root",
+        "Pelvis",
+        "Torso",
+        "Neck",
+        "Head",
+        "RightShoulder",
+        "RightUpperArm",
+        "RightForearm",
+        "RightHand",
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftForearm",
+        "LeftHand",
+        "Tail",
+        "RightFoot",
+        "LeftFoot",
+        "CompanionRoot",
+        "DragonWingRight",
+        "DragonWingLeft"
+      ],
+      "budget": {
+        "max_fins": 3600,
+        "projected_triangles": 76981,
+        "projected_vertices": 98672,
+        "reserve_vertices": 4096,
+        "source_export_triangles": 62581,
+        "source_export_vertices": 51376,
+        "triangle_limit": 100000,
+        "vertex_limit": 100000,
+        "worst_exported_fin_corners": 43200
+      },
+      "cards": 3600,
+      "config": {
+        "design_views": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            -0.47,
+            -0.88,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0.47,
+            0.88,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ],
+          [
+            0.7,
+            -0.7,
+            0
+          ],
+          [
+            -0.7,
+            0.7,
+            0
+          ]
+        ],
+        "excluded_materials": [
+          "body_cap",
+          "body_cap__contact_uv_dark_v1"
+        ],
+        "profile": "edge-fringe-v1",
+        "settings": {
+          "comb": 0.15,
+          "length_m": 0.008,
+          "max_edge_m": 0.02,
+          "max_fins": 3600,
+          "min_edge_m": 0.0085,
+          "min_fins": 2400,
+          "min_spacing_m": 0.003,
+          "seed": 7123
+        }
+      },
+      "elapsed_seconds": 1.442594208754599,
+      "explicit_material_faces_excluded": 369,
+      "geometry": {
+        "allocation": {
+          "edge_area_mass_sum_m2": 1.7606356641508767,
+          "policy": "eligible-face-area-share-seeded-exponential-v1",
+          "represented_face_area_m2": 1.7606356641508767,
+          "source_edges_not_welded": true,
+          "view_preference_bounds": [
+            0.5,
+            1.0
+          ]
+        },
+        "atlas": {
+          "maximum_tip_radius_m": 0.0008,
+          "physical_domain_m": 0.0208,
+          "tip_centers_m": [
+            -0.0025,
+            0.0025
+          ],
+          "visible_groups_max_span_m": 0.0066
+        },
+        "camera_billboarding": false,
+        "candidate_scan_cap": 32000,
+        "coincident_shared_edge_aliases": 9,
+        "elapsed_seconds": 0.13529220828786492,
+        "eligible_edges": 19650,
+        "examined_candidates": 3613,
+        "exclusions": {
+          "coincident_edge_alias": 9,
+          "edge_span": 21528,
+          "incoherent_normals": 2,
+          "non_fur": 35679
+        },
+        "export_budget": {
+          "max_fins": 3600,
+          "projected_triangles": 76981,
+          "projected_vertices": 98672,
+          "reserve_vertices": 4096,
+          "source_export_triangles": 62581,
+          "source_export_vertices": 51376,
+          "triangle_limit": 100000,
+          "vertex_limit": 100000,
+          "worst_exported_fin_corners": 43200
+        },
+        "geometric_vertices": 14400,
+        "limitations": [
+          "Explicit authored shading, not volumetric or recovered fur.",
+          "Source color/material sampling and renderer culling verification are caller responsibilities.",
+          "No intersection, physical motion, density, or appearance acceptance is inferred."
+        ],
+        "material_requirement": {
+          "alphaCutoff": 0.18,
+          "alphaMode": "MASK",
+          "doubleSided": false
+        },
+        "min_outward_dot": 0.9847835588179366,
+        "nonmanifold_edges": 0,
+        "normal_policy": "Normalized source endpoint normals repeated at corresponding tips; not fin-plane normals",
+        "profile": "edge-fringe-source-surface-v1",
+        "quality_approved": false,
+        "selected_fins": 3600,
+        "settings": {
+          "comb": 0.15,
+          "length_m": 0.008,
+          "max_edge_m": 0.02,
+          "max_fins": 3600,
+          "min_edge_m": 0.0085,
+          "min_fins": 2400,
+          "min_spacing_m": 0.003,
+          "seed": 7123
+        },
+        "source_faces": 62581,
+        "source_modified": false,
+        "source_vertices": 51376,
+        "spacing_rejected": 13,
+        "triangles": 14400,
+        "unshared_boundary_edges": 34007
+      },
+      "geometry_arrays_npz": "fringe-correspondence.npz",
+      "geometry_profile": "edge-fringe-v1",
+      "limits": [
+        "Regional direction is sampled; fin length/lean are explicit uniform controls, not native-strand parity.",
+        "MASK filtering and source shading can still differ at small scales; inspect the exported model.",
+        "No dense-fur, Muse-parity, contact repair, physical-hair or fresh-prompt acceptance claim."
+      ],
+      "material": {
+        "alpha_cutoff": 0.18,
+        "alpha_mode": "MASK",
+        "dimensions": [
+          4096,
+          1824
+        ],
+        "double_sided": false,
+        "material": "SourceColoredFringe",
+        "metallic": 0,
+        "path": "textures/portable-fringe-color-atlas.png",
+        "profile": "edge-fringe-v1",
+        "roughness": 0.92,
+        "sha256": "b1066fad479bfa3ae63e8b4cca26603bc5f0386237e6b5e3fc00ecc3b53f4047",
+        "vertex_color_multiplier": false
+      },
+      "mixed_part_faces_excluded": 0,
+      "native_normal_storage": "FLOAT_VECTOR POINT custom_normal; no legacy short2 packing",
+      "native_topology": "Independent triangle corners; exact helper positions/normals/UVs/skin duplicated",
+      "quality_approved": false,
+      "sample_root_color": true,
+      "sampling": [
+        {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            7
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        },
+        {
+          "coordinates": "Blender UVs paired with bottom-up image rows",
+          "extension": "REPEAT",
+          "filter_scope": "Bilinear LOD0 only; no mip or derivative equivalence",
+          "interpolation": "Linear",
+          "material_slots": [
+            9
+          ],
+          "policy": "repeat-texel-centers-linear-lod0-srgb-v1",
+          "render_uv_layer": "UVMap",
+          "sampled_uv_layer": "UVMap"
+        }
+      ],
+      "source_point_sha256": "ebaf40e28991c110c0db8671091338cebc9893c5ea61e3770c349205363376ab",
+      "vertices": 43200
+    }
+  ],
+  "portable_fur_build_order": "Edge fins and borrowed source buffers completed before native grooming",
+  "review_views": [
+    {
+      "path": "views/front.png",
+      "resolution": 720,
+      "sha256": null,
+      "view": "front"
+    },
+    {
+      "path": "views/side.png",
+      "resolution": 720,
+      "sha256": null,
+      "view": "side"
+    },
+    {
+      "path": "views/back.png",
+      "resolution": 720,
+      "sha256": null,
+      "view": "back"
+    },
+    {
+      "path": "views/three_quarter.png",
+      "resolution": 720,
+      "sha256": null,
+      "view": "three_quarter"
+    }
+  ],
+  "schema_version": 1,
+  "smoothing": null,
+  "source_bounds_blender_z_up": {
+    "max": [
+      0.45410776138305664,
+      0.38847070932388306,
+      1.2000000476837158
+    ],
+    "min": [
+      -0.45410776138305664,
+      -0.38847070932388306,
+      0.0
+    ]
+  },
+  "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+  "source_skin_snapshot": {
+    "arrays": {
+      "joints": {
+        "dtype": "<u2",
+        "sha256": "1a9da62b77cbff4ad68f581b024fc59670cd0562d09f97abd14f06594ab85b88",
+        "shape": [
+          94576,
+          4
+        ]
+      },
+      "positions": {
+        "dtype": "<f4",
+        "sha256": "e9c330d919f5a0f352de9f3efd4802faba363bcf919a18470778bd94e6e305c2",
+        "shape": [
+          94576,
+          3
+        ]
+      },
+      "triangle_materials": {
+        "dtype": "<u2",
+        "sha256": "01e052dcd1f6c9aabf1657e0bf3c58b79406edfbca10c7af176b2a5bfe797468",
+        "shape": [
+          76981
+        ]
+      },
+      "triangles": {
+        "dtype": "<u4",
+        "sha256": "a40dbee36a6d736c094a2559e802122e560a7f5c2ef0072ba6d90d40316a4a7d",
+        "shape": [
+          76981,
+          3
+        ]
+      },
+      "weights": {
+        "dtype": "<f4",
+        "sha256": "3b605654a155245666488c3b62be5480827ebc33ebcf8d055b444f249be05e12",
+        "shape": [
+          94576,
+          4
+        ]
+      }
+    },
+    "attribute": "_AUTHOR_VERTEX_ID",
+    "bone_names": [
+      "Root",
+      "Pelvis",
+      "Torso",
+      "Neck",
+      "Head",
+      "RightShoulder",
+      "RightUpperArm",
+      "RightForearm",
+      "RightHand",
+      "LeftShoulder",
+      "LeftUpperArm",
+      "LeftForearm",
+      "LeftHand",
+      "Tail",
+      "RightFoot",
+      "LeftFoot",
+      "CompanionRoot",
+      "DragonWingRight",
+      "DragonWingLeft"
+    ],
+    "export_instructions": {
+      "export_apply": false,
+      "export_attributes": true,
+      "preserve_all_positive_skin_weights_after_export": "Required; Blender prunes <=0.0001 before serialization"
+    },
+    "id_encoding": {
+      "export_accessor_type": "SCALAR",
+      "export_component_type": 5126,
+      "maximum": 94575,
+      "minimum": 0,
+      "native_domain": "POINT",
+      "native_type": "INT"
+    },
+    "limitations": [
+      "Snapshot/staging IDs are not exported-skin verification or avatar quality approval.",
+      "Caller must retain the existing external native-job resource guard."
+    ],
+    "limits": {
+      "bones": 64,
+      "identity_tolerance": 1e-07,
+      "npz_bytes": 16777216,
+      "objects": 32,
+      "preparation_seconds": 30,
+      "triangles": 100000,
+      "vertices": 100000,
+      "weight_sum_tolerance": 1e-06
+    },
+    "maximum_source_weight_sum_error": 3.993045538663864e-08,
+    "normal_snapshot_included": false,
+    "npz_bytes": 1498257,
+    "npz_file": "source-skin.npz",
+    "npz_sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a",
+    "owners": [
+      {
+        "ignored_non_skin_groups": [],
+        "index": 0,
+        "materials": [
+          "body_surface",
+          "companion_surface",
+          "body_cap",
+          "companion_cap",
+          "body_surface__contact_uv_dark_v1",
+          "body_cap__contact_uv_dark_v1",
+          "body_surface__color_rear-tail-base",
+          "body_surface__short_pile_adaptive_v1",
+          "body_cap__short_pile_adaptive_v1",
+          "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+          "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1"
+        ],
+        "mesh_name": "PartitionedMesh",
+        "name": "PartitionedBodyAndPart",
+        "triangle_count": 62581,
+        "triangle_start": 0,
+        "vertex_count": 51376,
+        "vertex_start": 0
+      },
+      {
+        "ignored_non_skin_groups": [],
+        "index": 1,
+        "materials": [
+          "SourceColoredFringe"
+        ],
+        "mesh_name": "PortableEdgeFringe",
+        "name": "PortableEdgeFringe",
+        "triangle_count": 14400,
+        "triangle_start": 62581,
+        "vertex_count": 43200,
+        "vertex_start": 51376
+      }
+    ],
+    "policy": "source-skin-id-v1",
+    "report_file": "source-skin.json",
+    "report_sha256": "cae9502bcc4b019e9d4d093cc6d4ac31e8cc75b091a16f4778a05ba4ac13f948",
+    "rig": {
+      "data_name": "CreatureSkeleton",
+      "name": "CreatureRig",
+      "pose_position": "REST"
+    },
+    "schema_version": 1,
+    "space": "applied_rest_Blender_XYZ_meters",
+    "triangle_count": 76981,
+    "vertex_count": 94576,
+    "weight_policy": "Every positive native bone influence is retained as float32; no pruning or renormalization"
+  },
+  "source_unchanged": true,
+  "states": [
+    {
+      "deformation_diagnostic_scope": "Sampled edge stretch with original normalized body coordinates and weights; diagnostic only, not visual acceptance or physics",
+      "deformation_outliers": [],
+      "deformation_rest_sha256": "ebaf40e28991c110c0db8671091338cebc9893c5ea61e3770c349205363376ab",
+      "deformation_samples_measured": 8,
+      "duration_seconds": 4.0,
+      "frames": [
+        0.0,
+        24.0,
+        28.32,
+        32.64,
+        56.64,
+        61.199999999999996,
+        67.19999999999999,
+        96.0
+      ],
+      "id": "dance_flight",
+      "loop_verified": false,
+      "sampling_method": "authored_keyframes_bounded_pose_error",
+      "seconds": [
+        0.0,
+        1.0,
+        1.18,
+        1.36,
+        2.36,
+        2.55,
+        2.8,
+        4.0
+      ]
+    }
+  ],
+  "surface_profiles": null,
+  "weft_runtime_verified": false,
+  "weight_constraints": {
+    "authored_not_recovered": true,
+    "changed_vertices": 1578,
+    "config": {
+      "fallback_bone": "Torso",
+      "regions": {
+        "LeftForearm": {
+          "center": [
+            0.915,
+            0.55,
+            0.345
+          ],
+          "radius": [
+            0.15,
+            0.3,
+            0.16
+          ]
+        },
+        "LeftHand": {
+          "center": [
+            0.94,
+            0.51,
+            0.235
+          ],
+          "radius": [
+            0.15,
+            0.28,
+            0.11
+          ]
+        },
+        "LeftShoulder": {
+          "center": [
+            0.79,
+            0.57,
+            0.51
+          ],
+          "radius": [
+            0.14,
+            0.24,
+            0.11
+          ]
+        },
+        "LeftUpperArm": {
+          "center": [
+            0.87,
+            0.57,
+            0.455
+          ],
+          "radius": [
+            0.15,
+            0.29,
+            0.17
+          ]
+        }
+      }
+    },
+    "method": "Bound provider bone weights to authored ellipsoids; transfer removed weight to the configured fallback bone"
+  },
+  "world_rest_position_max_error": 0.0
+}

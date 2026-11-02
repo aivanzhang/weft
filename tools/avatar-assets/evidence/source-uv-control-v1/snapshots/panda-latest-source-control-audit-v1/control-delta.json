@@ -1,0 +1,199 @@
+{
+  "base_config": "outputs/panda-staged-fringe-preparation-v1/finish-config.json",
+  "base_sha256": "4ab29ccce8b00b74d9e3fadc75c247ad22aa7877e2a8eb65aecb006a8caafc7d",
+  "changed_top_level_fields": [
+    "fringe_export_budget",
+    "id",
+    "normal_continuity",
+    "portable_fringe",
+    "source",
+    "source_sha256",
+    "undercoat_export_budget"
+  ],
+  "native_execution_allowed": false,
+  "normal_map_strength_retained": 0.15,
+  "public_fringe_guard_unchanged_and_disabled": true,
+  "quality_claim": false,
+  "remove": {
+    "normal_continuity": {
+      "old": [
+        {
+          "materials": [
+            "body_cap"
+          ],
+          "max_distance_m": 0.015,
+          "max_vertices": 3000,
+          "min_vertices": 800,
+          "name": "vacated-shoulder-continuity",
+          "reference_materials": [
+            "body_surface"
+          ]
+        }
+      ],
+      "reason": "The old transferred normal field is proved invalid. Omission selects unmodified source normals for a CONTROL; no guard threshold or normal repair implementation is changed."
+    }
+  },
+  "set": {
+    "fringe_export_budget": {
+      "max_fins": 3600,
+      "projected_triangles": 76981,
+      "projected_vertices": 98672,
+      "reserve_vertices": 4096,
+      "source_export_triangles": 62581,
+      "source_export_vertices": 51376,
+      "triangle_limit": 100000,
+      "vertex_limit": 100000,
+      "worst_exported_fin_corners": 43200
+    },
+    "id": "panda-latest-source-normal-control-v1",
+    "portable_fringe": {
+      "design_views": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          -0.47,
+          -0.88,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0.47,
+          0.88,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ],
+        [
+          0.7,
+          -0.7,
+          0
+        ],
+        [
+          -0.7,
+          0.7,
+          0
+        ]
+      ],
+      "excluded_materials": [
+        "body_cap",
+        "body_cap__contact_uv_dark_v1"
+      ],
+      "profile": "edge-fringe-v1",
+      "settings": {
+        "comb": 0.15,
+        "length_m": 0.008,
+        "max_edge_m": 0.02,
+        "max_fins": 3600,
+        "min_edge_m": 0.0085,
+        "min_fins": 2400,
+        "min_spacing_m": 0.003,
+        "seed": 7123
+      }
+    },
+    "source": "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-shoulder-uv-repair-v2/model.glb",
+    "source_sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e",
+    "undercoat_export_budget": {
+      "portable_export_vertices": 43200,
+      "reserve_vertices": 4096,
+      "source_export_vertices": 51376
+    }
+  },
+  "status": "prepared_not_released_for_native",
+  "unchanged_bindings": {
+    "authored_actions": {
+      "canonical_sha256": "e01e55d33067fa666ef7b4c89622bf302c6c804c45d26f5fa0e99b562ca71ff2",
+      "unchanged": true
+    },
+    "authored_rig": {
+      "canonical_sha256": "aa5e85dcb7c40a685db28d4739dadb4e431dbe58f22e8acdb091804137e35b38",
+      "unchanged": true
+    },
+    "camera_fit": {
+      "canonical_sha256": "40fa848c13b1cb4910e3bce000b26ebb0cc6302b7abdf21299edaef58cf64759",
+      "unchanged": true
+    },
+    "camera_view": {
+      "canonical_sha256": "2ebac18531c8a570b5483f38afb28f09925b47569692dd9987dd8f3ac08d0f90",
+      "unchanged": true
+    },
+    "color_corrections": {
+      "canonical_sha256": "df1a3d163d05067bad36cecf3f54e93d8573df5b2a5010e74d876638b77a3a02",
+      "unchanged": true
+    },
+    "fur_undercoat": {
+      "canonical_sha256": "febf65fea53383c9f2137dfd6d721a8c3379cb13a67217267e3d6d783ca126b9",
+      "unchanged": true
+    },
+    "groom": {
+      "canonical_sha256": "f9295c72507e1b0ed16b6f479cdb93b548dc7c2c7e8db2b18acbabce4e25dc75",
+      "unchanged": true
+    },
+    "groom_excluded_parts": {
+      "canonical_sha256": "cf67c5269f7de55fbb0b7ba02b0312ea11e203de045af94d9f641e79971f9149",
+      "unchanged": true
+    },
+    "groom_exclusions": {
+      "canonical_sha256": "57609f1a6dda894b7935e8fecc573e089a4fcc28da377531c7fd9674d3668d7f",
+      "unchanged": true
+    },
+    "groom_flow": {
+      "canonical_sha256": "13c97369e59547de4d257458be24f9bd5824b17d9b4d5c67af2a428565ef7b59",
+      "unchanged": true
+    },
+    "groom_shader": {
+      "canonical_sha256": "1e530b25a6f471bae374cff0261a4f27dad56b70ca5968e039c59a5f5c224a36",
+      "unchanged": true
+    },
+    "normal_strength": {
+      "canonical_sha256": "7932a07a8cbc0885919d30c43799f0247ef96badbc79ba5427e6306232508c78",
+      "unchanged": true
+    },
+    "part_rigs": {
+      "canonical_sha256": "afc3b773d6a682fd08377ce789f9cc6a584364cdad69ce38c6fdce24b529fe06",
+      "unchanged": true
+    },
+    "portrait_denoise": {
+      "canonical_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+      "unchanged": true
+    },
+    "pose_resolution": {
+      "canonical_sha256": "d829857eb1366e70be857a69886d1555af0d32681beab068afb93492c2e2b843",
+      "unchanged": true
+    },
+    "resolution": {
+      "canonical_sha256": "d829857eb1366e70be857a69886d1555af0d32681beab068afb93492c2e2b843",
+      "unchanged": true
+    },
+    "review_views": {
+      "canonical_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+      "unchanged": true
+    },
+    "samples": {
+      "canonical_sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "unchanged": true
+    },
+    "states": {
+      "canonical_sha256": "cd7e9148c8f17caba970c509b95052c144ffc6149ed00f929e3f6b6409e49ef0",
+      "unchanged": true
+    },
+    "weight_constraints": {
+      "canonical_sha256": "8a6ccad61bb8beb5436aa68d36e0ee41949a811c3243b0677c2b6ac23a5a405f",
+      "unchanged": true
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.tools/Blender.app/Contents/MacOS/Blender",
+      "--background",
+      "--factory-startup",
+      "--disable-autoexec",
+      "--python-exit-code",
+      "1",
+      "--threads",
+      "4",
+      "--python",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-preparation-v1/probe.py",
+      "--",
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/panda-uv2-source-preflight-v1"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 3.646,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 3367615,
+    "last_rss_sample_elapsed_seconds": 3.385,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 32,
+      "rss_mb": 1536,
+      "wall_seconds": 45
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "native-monitor.json",
+    "monitor_errors": [],
+    "pid": 61897,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 13,
+    "sampled_max_output_bytes": 3367615,
+    "sampled_peak_rss_bytes": 915570688,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "new_generation_calls": 0,
+  "originals_unchanged": true,
+  "quality_approved": false
+}

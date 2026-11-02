@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "status": "sealed",
+  "kind": "read_only_readiness_review_with_one_prompt_text_correction",
+  "artifacts": [
+    {
+      "path": "review.json",
+      "bytes": 7455,
+      "sha256": "f03e9e107f4db52f18260163638a99a87ef460cff8782a53da52bae1c299c825"
+    },
+    {
+      "path": "sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/__init__.py",
+      "bytes": 84361,
+      "sha256": "65d621a211ba6a3a0424b6179fef7e7a9f953aa2bfb35d1e6aa649f89a432e41"
+    },
+    {
+      "path": "sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/exp/primitive_extract.py",
+      "bytes": 86294,
+      "sha256": "884ba7f2691f1c69874c148a3058791b0621740dc5c7123799f6785fc3c87fa7"
+    },
+    {
+      "path": "sources/.tools/Blender.app/Contents/Resources/4.5/scripts/addons_core/io_scene_gltf2/blender/imp/mesh.py",
+      "bytes": 37898,
+      "sha256": "7524c816b6c293e47548e6efc351b6964d0fffac35e5b35156edb178b1b92c8b"
+    },
+    {
+      "path": "sources/avatar_assets/finish_generated.py",
+      "bytes": 31845,
+      "sha256": "bceabcd0dc4dd26c5c472d1c6d767d3e3fddc9ff822f98ab8c14d77f688ff4d4"
+    },
+    {
+      "path": "sources/avatar_assets/generated_tangents.py",
+      "bytes": 16931,
+      "sha256": "d572b2ddc35ad3222dc0eada04270f6f3a7d29419076492a94e5be1f9cae1234"
+    },
+    {
+      "path": "sources/avatar_assets/pipeline.py",
+      "bytes": 55099,
+      "sha256": "f6dbe5230b21d1ee6bbfb0caf10751a50bbea96ae72f4bd253db31d3c76c273f"
+    },
+    {
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "bytes": 48098,
+      "sha256": "21ac75e2f5f8946e369a9cf8e9fa37590dbfcd716515e32b6d80351f5d47c840"
+    },
+    {
+      "path": "sources/scripts/blender_edge_fringe.py",
+      "bytes": 20746,
+      "sha256": "e1e0c1c38854ffc7c0462e8fd1d972e4f1a35a594acabb5ae268147123b676d7"
+    },
+    {
+      "path": "sources/scripts/blender_finish_generated.py",
+      "bytes": 52685,
+      "sha256": "fe23b87cf3cba87716ef291d7e6a5c6ed30bbc499061290d3a6cf1e04a391a13"
+    },
+    {
+      "path": "sources/scripts/blender_fur_undercoat.py",
+      "bytes": 40912,
+      "sha256": "f2c90b44f77c5dd85e765c72ed4db7a5e8fb15411864ce09e926c2ea2c7b5ba5"
+    },
+    {
+      "path": "sources/scripts/fur_root_sampling.py",
+      "bytes": 4687,
+      "sha256": "0ec405e922d09c8320a1b66db2936ec5cfdb44cccecf5b2c2b2c9b62e8694758"
+    },
+    {
+      "path": "sources/scripts/source_skin_snapshot.py",
+      "bytes": 14055,
+      "sha256": "b4d50668ff71127a805db3e52fc62718d98f04cb9fb6a8124ec66816a8957897"
+    },
+    {
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "bytes": 21591,
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    }
+  ],
+  "total_bytes": 522657,
+  "production_edits": [
+    "avatar_assets/pipeline_prompts.py"
+  ],
+  "quality_accepted": false
+}

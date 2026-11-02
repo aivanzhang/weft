@@ -1,0 +1,47 @@
+{
+  "external_references": [
+    {
+      "path": "outputs/panda-shoulder-uv-repair-v2/model.glb",
+      "sha256": "736ad72d408a43295098f44a29919c6436b37f741b7335f35a2c3f5f2007fb3e"
+    },
+    {
+      "path": "outputs/muse-panda-dance-flight-v2/model.glb",
+      "sha256": "693f8af27d9d18b5beeb344e6168f9c79471f82b9660780867b8d71956ff2c67"
+    },
+    {
+      "path": "/Users/ivan/Downloads/Poo avatar assets.zip",
+      "sha256": "cb7eac375b5fcef0cd6c3f9457da7911f08f73337178c31fe33bfa090e6a54cb"
+    }
+  ],
+  "folders": [
+    "panda-uv-source-readiness-review-v1",
+    "panda-latest-source-control-audit-v1",
+    "panda-uv2-source-preflight-preparation-v1",
+    "panda-uv2-source-preflight-v1",
+    "panda-uv2-control-reconciliation-v1",
+    "panda-uv2-coverage-independent-v1",
+    "panda-uv2-staged-control-preparation-v1",
+    "panda-uv2-staged-control-v1",
+    "panda-uv2-portable-control-v1",
+    "panda-uv2-independent-fidelity-v1",
+    "panda-uv2-portable-preview-preparation-v1",
+    "panda-uv2-portable-preview-v1",
+    "panda-uv2-appearance-review-v1",
+    "normal-uv-export-guard-tests-v1",
+    "normal-uv-export-guard-tests-v2",
+    "normal-uv-export-native-preparation-v1",
+    "normal-uv-export-native-v1",
+    "normal-uv-rejection-pipeline-tests-v1",
+    "normal-uv-diagnostic-actual-v1",
+    "normal-uv-custody-tests-v1",
+    "normal-uv-custody-tests-v2",
+    "normal-uv-custody-tests-v3"
+  ],
+  "limits": {
+    "selected_bytes": 25165824,
+    "selected_files": 800,
+    "single_file_bytes": 8388608
+  },
+  "output": "evidence/source-uv-control-v1",
+  "schema_version": 1
+}

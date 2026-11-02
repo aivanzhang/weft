@@ -1,0 +1,482 @@
+{
+  "base_bones": [
+    "Root",
+    "Pelvis",
+    "Torso",
+    "Neck",
+    "Head"
+  ],
+  "bones": [
+    {
+      "head": [
+        0.54,
+        0.56,
+        0.035
+      ],
+      "name": "Root",
+      "parent": null,
+      "tail": [
+        0.54,
+        0.56,
+        0.18
+      ]
+    },
+    {
+      "head": [
+        0.54,
+        0.57,
+        0.18
+      ],
+      "name": "Pelvis",
+      "parent": "Root",
+      "tail": [
+        0.54,
+        0.56,
+        0.31
+      ]
+    },
+    {
+      "head": [
+        0.54,
+        0.56,
+        0.31
+      ],
+      "name": "Torso",
+      "parent": "Pelvis",
+      "tail": [
+        0.54,
+        0.53,
+        0.52
+      ]
+    },
+    {
+      "head": [
+        0.54,
+        0.53,
+        0.52
+      ],
+      "name": "Neck",
+      "parent": "Torso",
+      "tail": [
+        0.55,
+        0.49,
+        0.59
+      ]
+    },
+    {
+      "head": [
+        0.55,
+        0.49,
+        0.59
+      ],
+      "name": "Head",
+      "parent": "Neck",
+      "tail": [
+        0.55,
+        0.5,
+        0.88
+      ]
+    },
+    {
+      "head": [
+        0.39,
+        0.52,
+        0.5
+      ],
+      "name": "RightShoulder",
+      "parent": "Torso",
+      "tail": [
+        0.25,
+        0.46,
+        0.49
+      ]
+    },
+    {
+      "head": [
+        0.25,
+        0.46,
+        0.49
+      ],
+      "name": "RightUpperArm",
+      "parent": "RightShoulder",
+      "tail": [
+        0.2,
+        0.38,
+        0.38
+      ]
+    },
+    {
+      "head": [
+        0.2,
+        0.38,
+        0.38
+      ],
+      "name": "RightForearm",
+      "parent": "RightUpperArm",
+      "tail": [
+        0.32,
+        0.21,
+        0.31
+      ]
+    },
+    {
+      "head": [
+        0.32,
+        0.21,
+        0.31
+      ],
+      "name": "RightHand",
+      "parent": "RightForearm",
+      "tail": [
+        0.39,
+        0.16,
+        0.29
+      ]
+    },
+    {
+      "head": [
+        0.69,
+        0.53,
+        0.5
+      ],
+      "name": "LeftShoulder",
+      "parent": "Torso",
+      "tail": [
+        0.8,
+        0.53,
+        0.49
+      ]
+    },
+    {
+      "head": [
+        0.8,
+        0.53,
+        0.49
+      ],
+      "name": "LeftUpperArm",
+      "parent": "LeftShoulder",
+      "tail": [
+        0.88,
+        0.48,
+        0.37
+      ]
+    },
+    {
+      "head": [
+        0.88,
+        0.48,
+        0.37
+      ],
+      "name": "LeftForearm",
+      "parent": "LeftUpperArm",
+      "tail": [
+        0.91,
+        0.49,
+        0.26
+      ]
+    },
+    {
+      "head": [
+        0.91,
+        0.49,
+        0.26
+      ],
+      "name": "LeftHand",
+      "parent": "LeftForearm",
+      "tail": [
+        0.925,
+        0.49,
+        0.215
+      ]
+    },
+    {
+      "head": [
+        0.35,
+        0.56,
+        0.15
+      ],
+      "name": "RightFoot",
+      "parent": "Root",
+      "tail": [
+        0.35,
+        0.31,
+        0.035
+      ]
+    },
+    {
+      "head": [
+        0.69,
+        0.56,
+        0.15
+      ],
+      "name": "LeftFoot",
+      "parent": "Root",
+      "tail": [
+        0.7,
+        0.31,
+        0.035
+      ]
+    },
+    {
+      "head": [
+        0.4,
+        0.83,
+        0.22
+      ],
+      "name": "Tail",
+      "parent": "Pelvis",
+      "tail": [
+        0.19,
+        0.94,
+        0.22
+      ]
+    },
+    {
+      "head": [
+        0.16,
+        0.29,
+        0.53
+      ],
+      "name": "CompanionRoot",
+      "parent": "Root",
+      "tail": [
+        0.16,
+        0.29,
+        0.63
+      ]
+    },
+    {
+      "head": [
+        0.12,
+        0.34,
+        0.59
+      ],
+      "name": "DragonWingRight",
+      "parent": "CompanionRoot",
+      "tail": [
+        0.015,
+        0.26,
+        0.546
+      ]
+    },
+    {
+      "head": [
+        0.19,
+        0.365,
+        0.6
+      ],
+      "name": "DragonWingLeft",
+      "parent": "CompanionRoot",
+      "tail": [
+        0.22,
+        0.45,
+        0.575
+      ]
+    }
+  ],
+  "height_meters": 1.2,
+  "layers": [
+    {
+      "bones": [
+        "Root",
+        "Pelvis",
+        "RightFoot",
+        "LeftFoot"
+      ],
+      "feather": 0.055,
+      "max": [
+        1.05,
+        1.05,
+        0.3
+      ],
+      "min": [
+        -0.05,
+        -0.05,
+        -0.05
+      ],
+      "min_vertices": 2000
+    },
+    {
+      "bones": [
+        "RightFoot",
+        "LeftFoot"
+      ],
+      "feather": 0.03,
+      "max": [
+        1.05,
+        1.05,
+        0.135
+      ],
+      "min": [
+        -0.05,
+        -0.05,
+        -0.05
+      ],
+      "min_vertices": 500
+    },
+    {
+      "bones": [
+        "Tail",
+        "Pelvis"
+      ],
+      "feather": 0.04,
+      "max": [
+        0.43,
+        1.05,
+        0.34
+      ],
+      "min": [
+        0.02,
+        0.72,
+        0.1
+      ],
+      "min_vertices": 100
+    },
+    {
+      "bones": [
+        "RightShoulder",
+        "RightUpperArm",
+        "RightForearm",
+        "RightHand"
+      ],
+      "feather": 0.045,
+      "max": [
+        0.43,
+        0.72,
+        0.57
+      ],
+      "min": [
+        0.07,
+        0.1,
+        0.24
+      ],
+      "min_vertices": 800
+    },
+    {
+      "bones": [
+        "RightForearm",
+        "RightHand"
+      ],
+      "feather": 0.035,
+      "max": [
+        0.43,
+        0.42,
+        0.4
+      ],
+      "min": [
+        0.11,
+        0.06,
+        0.24
+      ],
+      "min_vertices": 300
+    },
+    {
+      "bones": [
+        "LeftShoulder",
+        "LeftUpperArm",
+        "LeftForearm",
+        "LeftHand"
+      ],
+      "feather": 0.055,
+      "max": [
+        1.05,
+        0.795,
+        0.565
+      ],
+      "min": [
+        0.77,
+        0.34,
+        0.185
+      ],
+      "min_vertices": 900
+    },
+    {
+      "bones": [
+        "LeftForearm",
+        "LeftHand"
+      ],
+      "feather": 0.04,
+      "max": [
+        1.05,
+        0.71,
+        0.405
+      ],
+      "min": [
+        0.84,
+        0.34,
+        0.18
+      ],
+      "min_vertices": 350
+    },
+    {
+      "bones": [
+        "LeftHand"
+      ],
+      "feather": 0.035,
+      "max": [
+        1.05,
+        0.69,
+        0.295
+      ],
+      "min": [
+        0.84,
+        0.35,
+        0.17
+      ],
+      "min_vertices": 100
+    },
+    {
+      "bones": [
+        "Neck",
+        "Head"
+      ],
+      "feather": 0.055,
+      "max": [
+        1.05,
+        1.05,
+        1.05
+      ],
+      "min": [
+        0.19,
+        -0.05,
+        0.53
+      ],
+      "min_vertices": 2500
+    },
+    {
+      "bones": [
+        "Head"
+      ],
+      "feather": 0.03,
+      "max": [
+        1.05,
+        1.05,
+        1.05
+      ],
+      "min": [
+        0.18,
+        -0.05,
+        0.635
+      ],
+      "min_vertices": 2000
+    },
+    {
+      "bones": [
+        "RightShoulder"
+      ],
+      "feather": 0.075,
+      "max": [
+        0.31,
+        0.48,
+        0.85
+      ],
+      "min": [
+        -0.05,
+        -0.05,
+        0.4
+      ],
+      "min_vertices": 500
+    }
+  ],
+  "space": "normalized_bounds_blender_z_up"
+}

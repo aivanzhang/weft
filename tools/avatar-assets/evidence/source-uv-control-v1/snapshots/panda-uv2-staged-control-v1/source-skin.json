@@ -1,0 +1,146 @@
+{
+  "arrays": {
+    "joints": {
+      "dtype": "<u2",
+      "sha256": "1a9da62b77cbff4ad68f581b024fc59670cd0562d09f97abd14f06594ab85b88",
+      "shape": [
+        94576,
+        4
+      ]
+    },
+    "positions": {
+      "dtype": "<f4",
+      "sha256": "e9c330d919f5a0f352de9f3efd4802faba363bcf919a18470778bd94e6e305c2",
+      "shape": [
+        94576,
+        3
+      ]
+    },
+    "triangle_materials": {
+      "dtype": "<u2",
+      "sha256": "01e052dcd1f6c9aabf1657e0bf3c58b79406edfbca10c7af176b2a5bfe797468",
+      "shape": [
+        76981
+      ]
+    },
+    "triangles": {
+      "dtype": "<u4",
+      "sha256": "a40dbee36a6d736c094a2559e802122e560a7f5c2ef0072ba6d90d40316a4a7d",
+      "shape": [
+        76981,
+        3
+      ]
+    },
+    "weights": {
+      "dtype": "<f4",
+      "sha256": "3b605654a155245666488c3b62be5480827ebc33ebcf8d055b444f249be05e12",
+      "shape": [
+        94576,
+        4
+      ]
+    }
+  },
+  "attribute": "_AUTHOR_VERTEX_ID",
+  "bone_names": [
+    "Root",
+    "Pelvis",
+    "Torso",
+    "Neck",
+    "Head",
+    "RightShoulder",
+    "RightUpperArm",
+    "RightForearm",
+    "RightHand",
+    "LeftShoulder",
+    "LeftUpperArm",
+    "LeftForearm",
+    "LeftHand",
+    "Tail",
+    "RightFoot",
+    "LeftFoot",
+    "CompanionRoot",
+    "DragonWingRight",
+    "DragonWingLeft"
+  ],
+  "export_instructions": {
+    "export_apply": false,
+    "export_attributes": true,
+    "preserve_all_positive_skin_weights_after_export": "Required; Blender prunes <=0.0001 before serialization"
+  },
+  "id_encoding": {
+    "export_accessor_type": "SCALAR",
+    "export_component_type": 5126,
+    "maximum": 94575,
+    "minimum": 0,
+    "native_domain": "POINT",
+    "native_type": "INT"
+  },
+  "limitations": [
+    "Snapshot/staging IDs are not exported-skin verification or avatar quality approval.",
+    "Caller must retain the existing external native-job resource guard."
+  ],
+  "limits": {
+    "bones": 64,
+    "identity_tolerance": 1e-07,
+    "npz_bytes": 16777216,
+    "objects": 32,
+    "preparation_seconds": 30,
+    "triangles": 100000,
+    "vertices": 100000,
+    "weight_sum_tolerance": 1e-06
+  },
+  "maximum_source_weight_sum_error": 3.993045538663864e-08,
+  "normal_snapshot_included": false,
+  "npz_bytes": 1498257,
+  "npz_file": "source-skin.npz",
+  "npz_sha256": "3b66913835b61327a829a64c11c5382cf3ae14a850225a11059bd5804d09282a",
+  "owners": [
+    {
+      "ignored_non_skin_groups": [],
+      "index": 0,
+      "materials": [
+        "body_surface",
+        "companion_surface",
+        "body_cap",
+        "companion_cap",
+        "body_surface__contact_uv_dark_v1",
+        "body_cap__contact_uv_dark_v1",
+        "body_surface__color_rear-tail-base",
+        "body_surface__short_pile_adaptive_v1",
+        "body_cap__short_pile_adaptive_v1",
+        "body_surface__contact_uv_dark_v1__short_pile_adaptive_v1",
+        "body_cap__contact_uv_dark_v1__short_pile_adaptive_v1"
+      ],
+      "mesh_name": "PartitionedMesh",
+      "name": "PartitionedBodyAndPart",
+      "triangle_count": 62581,
+      "triangle_start": 0,
+      "vertex_count": 51376,
+      "vertex_start": 0
+    },
+    {
+      "ignored_non_skin_groups": [],
+      "index": 1,
+      "materials": [
+        "SourceColoredFringe"
+      ],
+      "mesh_name": "PortableEdgeFringe",
+      "name": "PortableEdgeFringe",
+      "triangle_count": 14400,
+      "triangle_start": 62581,
+      "vertex_count": 43200,
+      "vertex_start": 51376
+    }
+  ],
+  "policy": "source-skin-id-v1",
+  "rig": {
+    "data_name": "CreatureSkeleton",
+    "name": "CreatureRig",
+    "pose_position": "REST"
+  },
+  "schema_version": 1,
+  "space": "applied_rest_Blender_XYZ_meters",
+  "triangle_count": 76981,
+  "vertex_count": 94576,
+  "weight_policy": "Every positive native bone influence is retained as float32; no pruning or renormalization"
+}
