@@ -3,12 +3,13 @@
 Local workflow for editable, rigged 3D avatars and their 2D portrait/animation exports, now maintained in Weft under `tools/avatar-assets/`. Authoring stays separate from Weft physics, actions, rewards and provider budget. See [relocation and preservation](docs/relocation.md).
 
 **Current direction:** Studio uses the server OpenAI API, not a personal AI login;
-Meshy remains the geometry/texture provider. The actual browser/backend test sent
-one Start, reused the saved panda, and reached AI rigging. It returned
-**unsupported** because the author produced malformed rig JSON. No completed rig,
-dance or delivery was produced. Three API calls across recovery attempts cost an
-estimated **$0.141219** total; no new Meshy charge or deployment.
-[Backend setup, spending and current results](docs/api-website-backend.md).
+Meshy remains the geometry/texture provider. The latest actual browser run reused
+the paid panda, parsed the typed rig response and used its one approved repair.
+It reached Blender but stopped **unsupported** because a leg region did not meet
+its mesh-coverage requirement. No finished rig, dance or delivery was produced.
+Six API calls across attempts cost an estimated **$0.362815** total; no new Meshy
+charge or deployment. Strict response, attachment-policy and spending checks pass
+locally; these are not avatar acceptance. [Backend results](docs/api-website-backend.md).
 
 **Status:** the core text-to-3D workflow and saved panda/dragon examples work.
 The user has accepted the previous appearance; the active priority is now a

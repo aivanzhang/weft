@@ -1,0 +1,25 @@
+{
+  "aggregate_max_exposure_microdollars": 16997139,
+  "approval_record": null,
+  "approved_project_usd_ceiling_unchanged": 17,
+  "estimate_assumptions": "Up to five calls; illustrative 50k input and 5.5k output tokens each at pinned short-context rates; not a bill or guarantee. Each call still requires full $5.618640 reserve; may stop before five if it cannot fit. No concurrent or automatic transport retries.",
+  "expected_additional_usd": 1.05,
+  "known_prior_microdollars": 141219,
+  "new_meshy_calls": 0,
+  "parent_job_id": "9e1cceb87c40437896c5a77f",
+  "proposed_successor_ceiling_microdollars": 16855920,
+  "request_unchanged": true,
+  "roles": [
+    "planner",
+    "author",
+    "critic",
+    "optional repair author",
+    "optional repair critic"
+  ],
+  "schema_version": 1,
+  "source_sha256": "f5f7074d3ffe85c5edb35a5f91ee29580a37b2f4fe26654e1cf850786f70594e",
+  "status": "prepared_no_grant_no_paid_call",
+  "successor_job_id": "f628641c66e74ea09f3b8517",
+  "successor_max_calls": 5,
+  "successor_max_repairs": 1
+}

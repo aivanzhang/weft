@@ -268,18 +268,22 @@ class OpenAIStudioIntegrationTests(unittest.TestCase):
         db.commit()
         return db
 
-    def test_unmigrated_ledger_readiness_preserves_full_settled_reservations(self):
+    def test_unmigrated_ledger_uses_validated_settled_cost_without_rewriting_reservations(self):
         db = self.accounting_fixture()
         reservation = reserve_microdollars()
         db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?,?,?)',
-                   (self.out.name, 'planner', 'b'*64, reservation, 'settled', 'fixture', 1000, '{}'))
+                   (self.out.name, 'planner', 'b'*64, reservation, 'settled', 'resp_fixture', 1000,
+                    json.dumps({'input_tokens':400,'output_tokens':0,'total_tokens':400})))
         db.commit()
         with patch('avatar_assets.openai_runner.OpenAILedger', side_effect=AssertionError('No migration')):
             ready = readiness(self.root, job_id=self.out.name, job_digest='a'*64)
         self.assertTrue(ready['can_run'])
         self.assertFalse(ready['job_retired'])
-        self.assertEqual(ready['project_remaining_microdollars'], 17000000-reservation)
-        self.assertEqual(ready['job_remaining_microdollars'], 16855920-reservation)
+        self.assertEqual(ready['project_remaining_microdollars'], 17000000-1000)
+        self.assertEqual(ready['job_remaining_microdollars'], 16855920-1000)
+        self.assertEqual(ready['reserved_microdollars'],reservation)
+        self.assertEqual(ready['effective_exposure_microdollars'],1000)
+        self.assertEqual(db.execute('SELECT reserved FROM calls').fetchone()[0],reservation)
         self.assertIsNone(db.execute("SELECT 1 FROM sqlite_master WHERE name='retirements'").fetchone())
 
     def test_retired_parent_cost_and_active_full_holds_match_global_remaining(self):
@@ -288,7 +292,8 @@ class OpenAIStudioIntegrationTests(unittest.TestCase):
         db.execute('INSERT INTO jobs VALUES(?,?,?,?,?)', ('retired-parent', 'b'*64, 3, 16855920, 'analytic_fixture'))
         for job, state, actual in [('retired-parent', 'settled', 1000), (self.out.name, 'reserved_uncertain', None)]:
             db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?,?,?)',
-                       (job, 'planner', 'c'*64, reservation, state, 'fixture' if actual else None, actual, '{}'))
+                       (job, 'planner', 'c'*64, reservation, state, 'resp_fixture' if actual else None, actual,
+                        json.dumps({'input_tokens':400,'output_tokens':0,'total_tokens':400}) if actual else None))
         db.execute('INSERT INTO retirements VALUES(?,?,?,?)', ('retired-parent', self.out.name, 1000, 'analytic_fixture'))
         db.commit()
         ready = readiness(self.root, job_id=self.out.name, job_digest='a'*64)
@@ -300,11 +305,23 @@ class OpenAIStudioIntegrationTests(unittest.TestCase):
         self.assertTrue(parent['job_retired'])
         self.assertIn('retired', parent['reason'])
         self.assertEqual(parent['remaining_calls'], 2)
-        # Settling an active job does not release any of its conservative holds.
-        db.execute("UPDATE calls SET state='settled',actual=500,response_id='fixture' WHERE job=?", (self.out.name,))
+        db.execute("UPDATE calls SET state='settled',actual=500,response_id='resp_fixture',usage=? WHERE job=?",
+                   (json.dumps({'input_tokens':200,'output_tokens':0,'total_tokens':200}),self.out.name))
         db.commit()
-        self.assertEqual(readiness(self.root, job_id=self.out.name, job_digest='a'*64)['project_remaining_microdollars'],
-                         ready['project_remaining_microdollars'])
+        settled=readiness(self.root,job_id=self.out.name,job_digest='a'*64)
+        self.assertEqual(settled['project_remaining_microdollars'],17000000-1000-500)
+        self.assertEqual(settled['reserved_microdollars'],reservation)
+        self.assertEqual(settled['retired_actual_microdollars'],1000)
+        self.assertEqual(settled['effective_exposure_microdollars'],500)
+
+    def test_malformed_settled_usage_fails_closed_in_readonly_readiness(self):
+        db=self.accounting_fixture()
+        db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?,?,?)',
+                   (self.out.name,'planner','b'*64,reserve_microdollars(),'settled','resp_fixture',1,'{}'))
+        db.commit()
+        ready=readiness(self.root,job_id=self.out.name,job_digest='a'*64)
+        self.assertFalse(ready['can_run'])
+        self.assertIn('inspection',ready['reason'])
 
     def test_malformed_retirement_cost_fails_closed(self):
         db = self.accounting_fixture(retirements=True)

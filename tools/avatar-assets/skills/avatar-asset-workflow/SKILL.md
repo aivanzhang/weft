@@ -16,6 +16,9 @@ never treat a conservative reservation as the actual bill. A new paid retry need
 the authorization required by the saved run, not merely a working API key.
 The historical manual `generate` CLI remains a separate path; do not describe it
 as the website backend. Check the current handoff before claiming live acceptance.
+New OpenAI author jobs use typedv2 designs; do not embed rig JSON inside a string
+or hand-repair a rejected response. The adapter only converts declared transform
+lists/optional nulls; geometry, action and quality validators remain authoritative.
 
 For an end-to-end result from text, prefer `generate`; read [the prompt pipeline](../../docs/prompt-pipeline.md) for commands, costs, presets and continuation rules. For user-facing input/live tracking, use the [local studio](../../docs/hands-off-studio.md). The user should not need to write rig JSON or operate a generation platform between stages. Preserve manual routes for explicit authoring/repair requests. A fixture or manually repaired example is not hands-off acceptance; check the current handoff before claiming the revised quality/studio path is complete.
 
@@ -47,14 +50,14 @@ materials. Unsupported shader graphs, seams and combined repair controls must st
 do not flatten colors, invent material names or multiply budgets to proceed. Preserve
 material-groom correspondence and material-coat receipts through reuse. The existing
 fox check is local source integration, not fresh generation, dense hair, action
-acceptance or Muse parity; the default combed-card path is unchanged.
+acceptance or Muse parity. New quality-policy v2 jobs require the skin-consistent route below; archived v1 policy remains unchanged.
 Its declared skin weights pass, but 21 of 384 sampled tuft roots separate from
 the moving source surface by more than the attachment limit (up to 2.50 mm).
 Do not equate correct weight export with attached fur or promote this candidate;
 preserve the failed coat-skin audit.
 
 For `tuft-v1`, [skin-consistent roots](../../docs/skin-consistent-fur.md) provide an
-opt-in `root_placement: "skin-consistent-v1"`. Exact equal normalized named weights
+`root_placement: "skin-consistent-v1"`, required with source-colored `tuft-v1` for new furry jobs. Exact equal normalized named weights
 permit area-sampled interior roots; varying-weight faces use source vertices.
 Keep the requested total and both domains; insufficient unique-vertex capacity
 or more than four positive influences is unsupported. Never average source skin
@@ -62,12 +65,12 @@ weights or drop influences to pass. Preserve all-root bounded NPZ archives and
 their hashes; archive copying alone does not validate attachment. The actual fox
 passes all 3,000 roots at 36 sampled poses, but has one coincident seam pair and
 retained appearance/deformation defects. Check coverage, exported attachment and
-final media for each new model. Defaults, native strand validation and quality
-acceptance are unchanged; this is not automatically selected or Muse parity.
+final media for each new model. Native strand validation and quality acceptance
+remain required; the policy change does not establish Muse parity.
 
 For optional short-pile lighting detail, read [adaptive undercoat](../../docs/adaptive-undercoat.md). Preserve source UV1 and linked material-response maps; use an authored UV2 only when needed. Export corrections must match the saved bake policy, exact clone name, face count, UV index and PNG hash—not every material using UV1. Rebuild textures and tangents together after a policy change, preserve raw exports, and never treat this component as dense fur, geometry repair, Muse parity or Weft compatibility. Native and independently loaded appearance still require review; the tested panda component is not promoted. The pre-export guard admits only coherent UV0 or receipt-bound authored UV1/UV2 normal maps; other live nonzero routes are unsupported. Preserve `normal-uv-export.json` and its manifest binding. Do not drop a normal map or rebake unreviewed faces merely to pass; the [actual-source control](../../docs/source-uv-control.md) passes this component but fails appearance.
 
-Do not choose `portable_fringe`: real panda/fox exports failed normal/weight fidelity, and panda native poses exceeded memory bounds. Execution now returns unsupported before native work. Read [portable edge fringe](../../docs/portable-fringe.md) before further development; preserve failures and do not weaken gates or raise limits to enable it. Its generic helper arrays and small native fixture pass, not full avatars. Existing combed cards remain the default; none of this establishes dense fur, Muse parity or fresh Studio acceptance.
+Do not choose `portable_fringe`: real panda/fox exports failed normal/weight fidelity, and panda native poses exceeded memory bounds. Execution now returns unsupported before native work. Read [portable edge fringe](../../docs/portable-fringe.md) before further development; preserve failures and do not weaken gates or raise limits to enable it. Its generic helper arrays and small native fixture pass, not full avatars. Archived combed-card recipes remain readable under their saved policy; new furry jobs require skin-consistent tufts. None of this establishes dense fur, Muse parity or fresh Studio acceptance.
 
 For further fringe development, read [export fidelity and staged rendering](../../docs/export-fidelity-and-staging.md). Preserve normals with the proved float attribute, and use exact global source IDs to validate full body/fringe skin restoration; nearest positions or matching desired weights cannot establish identity at overlapping seams. The new authored-rig staged experiment passes memory and sampled attachment checks but fails overall visual acceptance. A prepared scene is not a render; sampled stills are not a full animation. Retain immutable failed attempts, exact render controls and original resource limits. Do not enable this experimental path or replace approved assets from component results alone.
 

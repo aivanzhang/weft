@@ -10,6 +10,7 @@ from avatar_assets.safety import require, slug
 MATERIALS = ("fur", "hair", "scales", "metal", "ceramic", "skin", "fabric", "glass", "plastic", "other")
 VIEWS = ("front", "side", "back", "three_quarter")
 REPRESENTATIONS = ("native", "exported")
+ATTACHMENT_POLICY = "skin-consistent-portable-fur-v1"
 
 
 def validate_surface_intent(value, *, ready=True):
@@ -57,15 +58,17 @@ def build_quality_policy(request, plan, inspection=None):
     ids = [slug(state["id"]) for state in states]
     require(len(set(ids)) == len(ids), "Duplicate policy state")
     return {
-        "schema_version": 1, "mode": "high_quality", "surface_intent": surfaces,
+        "schema_version": 2, "mode": "high_quality", "surface_intent": surfaces,
+        "portable_attachment_policy": ATTACHMENT_POLICY,
         "inspection": observed,
         "candidate_settings": {"resolution": 720, "samples": 16, "normal_strength": .3 if fibers else .6,
                                "pose_resolution": 720, "review_views": True},
         "required_features": (["native_groom", "portable_fiber_geometry", "regional_groom_flow", "source_colored_portable_geometry"] if fibers else [])
                              + (["measured_non_fur_masks"] if mixed_coat else []),
         "fur_requested": fibers, "mixed_coat": mixed_coat,
-        "portable_coat_routes": {"default": "portable_fur/combed-v1" if fibers else None,
-                                 "optional": ["portable_fringe/edge-fringe-v1", "material_fur/v1+portable_fur/tuft-v1"] if fibers else [],
+        "portable_coat_routes": {"default": "portable_fur/tuft-v1" if fibers else None,
+                                 "root_placement": "skin-consistent-v1" if fibers else None,
+                                 "optional": ["material_fur/v1+portable_fur/tuft-v1"] if fibers else [],
                                  "automatic_fringe_selection": False, "visual_acceptance": False},
         "review": {"minimum_side": 720, "portrait_minimum_side":
                    512 if request.get("preset") == "draft" else 1600 if request.get("preset") == "muse" else 720,
@@ -76,7 +79,8 @@ def build_quality_policy(request, plan, inspection=None):
             "Use clean neutral geometry with space around moving parts; coarse carved fur and fused contacts are not solved by denser grooming.",
             "Keep scale relief, metal highlights, glass and mechanical creases; do not add fibers or globally smooth every subject.",
             "For fur/hair, preserve silhouette, patch colors and directional length changes; inspect native strands and exported coat geometry independently.",
-            "Portable fringe is an opt-in source-colored edge-fin alternative, not the default, dense fur or Muse parity; it shares flow direction only, with uniform fin length and lean.",
+            "New furry jobs require source-colored tuft-v1 with skin-consistent-v1 roots, shared native flow and direction; material_fur is not required. Exact root capacity and source sampling must validate; do not drop roots, alter weights or relax attachment gates.",
+            "Legacy combed/fringe policies remain historical contracts, not alternatives to this new skin-consistent placement requirement or proof of appearance.",
             "Fringe-specific excluded materials do not mask native hair; mixed surfaces still need measured native exclusions or explicit part masks.",
             "Opt-in material_fur selects exact observed fur materials for both representations, preserves source normals/colors, and uses tuft-v1 portable cards; its budgets are shared across materials, not multiplied.",
             "Only diagnose-and-repair color, normals or geometry with their bounded controls; retained textures or high counts are not added detail.",
@@ -91,6 +95,10 @@ def build_quality_policy(request, plan, inspection=None):
 def evaluate_finish_policy(config, policy):
     """Structural prerequisites cannot prove coat density, likeness or material appearance."""
     require(isinstance(config, dict) and isinstance(policy, dict) and policy.get("mode") == "high_quality", "Invalid finishing policy input")
+    version = policy.get("schema_version")
+    require(type(version) is int and version in (1, 2), "Unknown finishing policy version")
+    require(policy.get("portable_attachment_policy") == (ATTACHMENT_POLICY if version == 2 else None),
+            "Finishing policy attachment version differs")
     require(all(field not in config or isinstance(config[field], dict) for field in ("groom", "groom_flow", "portable_fur", "portable_fringe", "material_fur")),
             "Finishing policy requires validated finishing fields")
     material_fur = config.get("material_fur")
@@ -121,12 +129,16 @@ def evaluate_finish_policy(config, policy):
                 failures.append("Requested fur/hair requires " + field + "; painted texture is not a substitute")
         if not (config.get("portable_fur") or config.get("portable_fringe")):
             failures.append("Requested fur/hair requires portable_fur or opt-in portable_fringe; painted texture is not a substitute")
+        if version == 2 and not config.get("portable_fur"):
+            failures.append("Skin-consistent fur policy requires portable_fur; legacy fringe is not a replacement")
         if config.get("groom") and config["groom"].get("parents", 0) * (config["groom"].get("children", 0)+1) < 1000:
             failures.append("Sparse diagnostic groom cannot stand in for the required coat")
         settings = config.get("portable_fur", {}).get("settings", {})
-        profile = "tuft-v1" if material_fur else "combed-v1"
+        profile = "tuft-v1" if version == 2 or material_fur else "combed-v1"
         if config.get("portable_fur") and (settings.get("sample_root_color") is not True or settings.get("profile") != profile):
             failures.append("Portable fur needs source-colored " + profile + " cards; inspect their actual fidelity separately")
+        if version == 2 and config.get("portable_fur") and settings.get("root_placement") != "skin-consistent-v1":
+            failures.append("Portable fur needs skin-consistent-v1 root placement; do not weaken attachment gates")
         if policy["mixed_coat"] and not (config.get("groom_exclusions") or config.get("groom_excluded_parts") or material_fur):
             failures.append("Mixed furry/non-furry surfaces need measured exclusions, exact part masks or material-owned fur")
     elif config.get("groom") or config.get("portable_fur") or config.get("portable_fringe") or material_fur:

@@ -34,23 +34,24 @@ broken rig, missing requested features or an unrelated action.
   and evidence. Model availability, refusals and limits must produce explicit
   job states, not fallback to a personal CLI login.
 
-Initial adapter work uses a priced, pinned GPT-5.4 snapshot with structured
-JSON and image inputs. Model choice, price assumptions, request bounds and
-reported usage must be recorded per job. The user approved a **$17 total maximum**
-for the saved panda continuation, limited to three API calls and zero repairs.
-The conservative reservation is $16.85592; the rough normal-usage estimate is
-$0.55, not a measured bill. No new Meshy charge or automatic retry is authorized.
-Approval and parent binding: `outputs/openai-panda-continuation-preparation-v1/`.
-Continuation job: `dbd9606e33444ce9b69c2a3c`. The project dollar ledger is configured;
-one live planner call succeeded in20.805s, with2,099input/1,178output tokens
-and a conservative actual-cost estimate of$0.022918. It then failed local
-validation because its state ID exceeded64characters. No rig/motion was produced.
-The original API response and failure remain immutable; no retry was attempted.
-The reusable schema now constrains state/role/requirement IDs and references to
-`^[a-z][a-z0-9_-]{0,63}$`; local validation enforces the same grammar.
-Nine focused regression checks pass, including the exact retained failed answer.
-A new paid planner attempt needs explicit retry permission; the prior no-retry
-condition remains in force.
+The adapter uses pinned GPT-5.4 structured JSON and image inputs. The user
+approved a **$17 total maximum**, initially for three API calls without retries,
+then explicitly approved one planner retry followed by authoring and review.
+The first planner cost $0.022918 and failed local state-ID validation. Strict IDs
+now enforce `^[a-z][a-z0-9_-]{0,63}$`. Its successor reached authoring and failed
+as recorded below. Both jobs and their original grants remain preserved.
+Those approvals did not allow another retry. The subsequent authorization below
+explicitly covers the prepared typed-contract run.
+
+Every call reserves $5.618640 before HTTP: the full model context at long-context
+rates plus the configured maximum output. This is a conservative hold, not the
+expected bill. New accounting policy `validated-settled-exposure-v1` counts
+validated settled usage at its conservative actual cost and retains full holds
+for uncertain charges. It never removes original reservation rows, resets call
+counts or releases an uncertain charge. Transactional checks enforce both job
+and project ceilings. Retired parent costs count exactly once. Each subsequent
+call must fit its full hold; a five-call limit does not promise all five will fit.
+The model, pricing, original holds and accounting policy remain pinned per job.
 
 ## Existing panda recovery
 
@@ -65,9 +66,10 @@ No rig/dance delivery was completed. Two of the approved five AI attempts count
 as consumed; preserve them. A continuation needs an explicit parent binding and
 no more than the remaining three calls, not a silently reset allowance.
 
-The fresh-generation lease-release guard is being extended separately. It must
-prove saved remote completion, downloaded hashes and local process custody before
-releasing the failed job. No direct database edits or failed-folder replacement.
+The guarded release verified remote completion, downloaded hashes and local
+process custody, then released the failed job. Its evidence is preserved in
+`outputs/studio-panda-inspection-v2/`. No direct database edits or failed-folder
+replacement were used.
 
 ## Hosting boundary
 
@@ -95,6 +97,49 @@ active lease and no queued job. `outputs/openai-panda-studio-live-v1/` records i
 
 Three API calls across both jobs used an estimated$0.141219total. The remaining
 reviewer slot does not authorize an author repair. Preserve `unsupported.json`;
-next implement a strict typed author contract instead of an opaque JSON string.
+the strict typed author contract below replaces the opaque JSON string for new jobs.
 No new paid call or budget increase is implied by that local fix. The website/API
 transport is live-tested; a successful hands-off avatar delivery is still unproven.
+
+## Typed author transport v2
+
+New OpenAI jobs now request a strict nested design object, not an escaped
+`design_json` string. The bounded schema covers all 26 existing author fields;
+unused optional values use declared nulls, while a root bone's null parent is
+retained. Bone transform/weight-region lists convert deterministically to the
+existing maps, with duplicate rejection and no invented geometry or motion.
+Legacy CLI answers remain readable. Existing rig, action, quality and native
+validators still decide whether a design is usable.
+
+Local tests round-trip existing furry-panda, mechanical-robot and dragon designs,
+reject malformed nesting/unknown fields/duplicate transforms/oversized values,
+and preserve the actual failed answer unchanged. These are transport fixtures,
+not newly generated avatars or a live-provider test ofv2. The official
+[Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs)
+documents the supported schema constraints; local validation remains mandatory.
+
+## Attachment policy v2
+
+New furry jobs require source-colored `tuft-v1` cards with
+`root_placement: "skin-consistent-v1"`, sharing the native groom direction and
+regional flow. `material_fur` remains optional. Existing saved v1 policies retain
+their behavior; old outputs are not rewritten. This resolves an attachment
+policy conflict, not a fur-density or appearance upgrade. Counts, masks, native
+strand checks, deformation limits and final-media acceptance remain unchanged.
+The existing fox all-root audit passes 3,000 roots across 388 poses; this is
+component evidence, not acceptance of a newly generated panda.
+
+## Approved typed-contract run
+
+The user subsequently approved up to five calls, including one bounded repair,
+within the unchanged $17 aggregate ceiling (`call_ca345c2bab28466a8e7c54f137128603`).
+Job `f628641c66e74ea09f3b8517` reuses the exact paid panda and unchanged user
+prompt/style/action. Its $16.855920 grant plus $0.141219 prior settled costs totals
+$16.997139 maximum allocation. The planner passed. The actual browser submitted one Start and exited after
+71.471 s with clean browser/server shutdown. Typed author output parsed; its
+first binding named missing hip bones. The one repair added them and reached
+native rigging, which failed required leg-region vertex coverage. The run is
+terminal unsupported, with no finished rig, dance or critic call. It used three
+API calls for $0.221596; aggregate use is $0.362815. Two unused call slots do not
+authorize another repair. Follow [TODO](../TODO.md)
+for current handles and results; do not start a duplicate.

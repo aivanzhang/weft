@@ -1,0 +1,169 @@
+{
+  "id": "f628641c66e74ea09f3b8517",
+  "title": "An original friendly upright panda-like character with compact rounded proportio",
+  "status": "unsupported",
+  "created_at": "2026-11-02T12:17:23.442673-08:00",
+  "updated_at": "2026-11-02T12:21:12.931535-08:00",
+  "elapsed_seconds": 68.49,
+  "request": {
+    "prompt": "An original friendly upright panda-like character with compact rounded proportions, an ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, a short muzzle and a small black tail. Short soft fur over a clean smooth underlying surface, not carved fur spikes. Relaxed neutral pose with clear space between the arms and torso, between the hands and legs, and between the feet so the joints can move. One character only. No companion, clothes, props, pedestal, lettering or scenery.",
+    "style": "Cute stylized 3D avatar with short tidy black-and-ivory fur, rounded features, clean simple color boundaries and warm glossy brown eyes. The existing short-fur avatar quality is sufficient: prioritize consistent identity and a readable dance. Do not add long hair, accessories, realism or a new appearance-polishing pass.",
+    "custom_actions": [
+      "Perform a cheerful four-second dance with three clear alternating side-to-side beats, small whole-body hops, gentle coordinated arm swings and head tilts. The arms and head must move relative to the torso, not just travel with the entire character. Return to the neutral starting pose by the end. Feet may lift for the hops. No props or interactions. This is an authored toy dance, not simulated balance or physical contact."
+    ],
+    "preset": "preview",
+    "reference_selected": false,
+    "reuse_model_selected": true
+  },
+  "operation": "execute",
+  "queued": false,
+  "cancel_requested": false,
+  "stages": [
+    {
+      "id": "planner",
+      "stage": "planner",
+      "label": "Planner",
+      "status": "ready",
+      "detail": "",
+      "attempt": null,
+      "elapsed_seconds": 0.002
+    },
+    {
+      "id": "geometry",
+      "stage": "geometry",
+      "label": "Geometry",
+      "status": "reused_generated_source",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "pipeline",
+      "stage": "pipeline",
+      "label": "Pipeline",
+      "status": "planned",
+      "detail": "",
+      "attempt": null
+    },
+    {
+      "id": "inspection",
+      "stage": "inspection",
+      "label": "Inspection",
+      "status": "complete",
+      "detail": "Source geometry and review views inspected; no quality acceptance.",
+      "attempt": null,
+      "elapsed_seconds": 2.158
+    },
+    {
+      "id": "author:0",
+      "stage": "author",
+      "label": "Author · attempt 1",
+      "status": "failed",
+      "detail": "Unknown action target bone",
+      "attempt": 0,
+      "elapsed_seconds": 37.568
+    },
+    {
+      "id": "attempt:0",
+      "stage": "attempt",
+      "label": "Attempt · attempt 1",
+      "status": "rejected",
+      "detail": "Unknown action target bone",
+      "attempt": 0
+    },
+    {
+      "id": "author:1",
+      "stage": "author",
+      "label": "Author · attempt 2",
+      "status": "complete",
+      "detail": "Rig/motion configuration validated; generated appearance is not yet accepted.",
+      "attempt": 1,
+      "elapsed_seconds": 27.622
+    },
+    {
+      "id": "build:1",
+      "stage": "build",
+      "label": "Build · attempt 2",
+      "status": "failed",
+      "detail": "Finishing failed; inspect preserved attempt",
+      "attempt": 1,
+      "elapsed_seconds": 0.857
+    },
+    {
+      "id": "attempt:1",
+      "stage": "attempt",
+      "label": "Attempt · attempt 2",
+      "status": "rejected",
+      "detail": "Finishing failed; inspect preserved attempt",
+      "attempt": 1
+    },
+    {
+      "id": "repair_budget",
+      "stage": "repair_budget",
+      "label": "Repair Budget",
+      "status": "unsupported",
+      "detail": "No accepted model within the bounded local repair attempts",
+      "attempt": null
+    }
+  ],
+  "plan_id": "4a34bb14e74984e0762206204f796a78940d56ddb49d7ff697a1ef823f4f4272",
+  "plan": {
+    "id": "4a34bb14e74984e0762206204f796a78940d56ddb49d7ff697a1ef823f4f4272",
+    "summary": "Original friendly upright panda-like character with compact rounded proportions, ivory face and belly, black ears, black eye patches, black arms and legs, warm brown eyes, short muzzle, small black tail, and short soft fur.",
+    "estimate": {
+      "credits": 0,
+      "amount": null,
+      "currency": "USD",
+      "note": "Account dollar price and agent usage price are unknown. No paid retries or allowance changes."
+    },
+    "authorization": {
+      "can_start": true,
+      "estimated_credits": 0,
+      "reason": "Explicit source reuse requires no new Meshy credits; existing bounded agent/local execution still applies.",
+      "execution_gate": "canonical_ledger_and_explicit_start"
+    },
+    "warnings": [
+      "The provided reusable model may contain contact geometry or rig constraints that are not visible here; this planner cannot verify or repair welded regions automatically.",
+      "The requested dance is planned as authored skeletal motion with bounded hops and coordinated limb motion, not simulated balance or physical contact.",
+      "No facial blendshape acting, prop interaction, cloth dynamics, or physics-dependent motion is included in this plan.",
+      "This plan preserves the supplied style and identity targets, but does not claim exact reconstruction of unseen geometry details from the reusable asset alone."
+    ]
+  },
+  "capabilities": {
+    "plan": false,
+    "start": false,
+    "cancel": false,
+    "resume": false,
+    "session_required": true,
+    "execution_gate": "canonical_ledger_and_explicit_start"
+  },
+  "previews": [
+    {
+      "url": "/api/studio/jobs/f628641c66e74ea09f3b8517/files/a858090c710d011a9ef4795108c2e83f",
+      "kind": "image",
+      "id": "front",
+      "label": "Work-in-progress preview",
+      "bytes": 216600
+    },
+    {
+      "url": "/api/studio/jobs/f628641c66e74ea09f3b8517/files/5ccb6ec169e056cc4ce7b48009252e24",
+      "kind": "image",
+      "id": "three-quarter",
+      "label": "Work-in-progress preview",
+      "bytes": 211947
+    }
+  ],
+  "reviews": [],
+  "result": null,
+  "error": {
+    "message": "No accepted model within the bounded local repair attempts"
+  },
+  "storage": {
+    "retained_bytes_measured": 53127012,
+    "pipeline_bytes_measured": 52810123,
+    "measured_at": "2026-11-02T12:21:12.930490-08:00",
+    "total_limit_bytes": 8589934592,
+    "active_reservation_bytes": 2214592512,
+    "automatic_deletion": false
+  },
+  "provenance": "actual_pipeline"
+}

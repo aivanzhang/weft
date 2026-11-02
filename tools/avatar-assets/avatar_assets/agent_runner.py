@@ -23,6 +23,7 @@ from avatar_assets.safety import artifacts, local_file, read_json, require, sha2
 
 
 SLUG_PATTERN = r"^[a-z][a-z0-9_-]{0,63}$"
+AUTHORED_BONE_PATTERN = r"^[A-Za-z][A-Za-z0-9_]{0,63}$"
 MAX_PROMPT_BYTES = 128 * 1024
 MAX_SCHEMA_BYTES = 64 * 1024
 MAX_ANSWER_BYTES = 1024 * 1024
@@ -69,7 +70,7 @@ def _schema_check(schema, depth=0):
     require(set(schema) <= allowed, 'Unsupported JSON schema keyword')
     if 'pattern' in schema:
         # Only the bounded identifier grammar is executable; arbitrary regexes are not admitted.
-        require(schema['pattern'] == SLUG_PATTERN, 'Unsupported JSON schema pattern')
+        require(schema['pattern'] in (SLUG_PATTERN, AUTHORED_BONE_PATTERN), 'Unsupported JSON schema pattern')
     if '$ref' in schema:
         require(isinstance(schema['$ref'], str) and schema['$ref'].startswith('#/$defs/')
                 and len(schema['$ref'].split('/')) == 3, 'Only local definition references are allowed')
@@ -139,8 +140,8 @@ def _validate(value, schema, root=None, depth=0):
         require(schema.get('minLength', 0) <= len(value) <= schema.get('maxLength', MAX_ANSWER_BYTES),
                 'Agent string length outside schema')
         if 'pattern' in schema:
-            require(schema['pattern'] == SLUG_PATTERN, 'Unsupported JSON schema pattern')
-            require(re.fullmatch(SLUG_PATTERN, value) is not None, 'Agent string outside identifier pattern')
+            require(schema['pattern'] in (SLUG_PATTERN, AUTHORED_BONE_PATTERN), 'Unsupported JSON schema pattern')
+            require(re.fullmatch(schema['pattern'], value) is not None, 'Agent string outside identifier pattern')
     elif type(value) in (int, float):
         require(math.isfinite(value), 'Nonfinite agent response')
         require(schema.get('minimum', -math.inf) <= value <= schema.get('maximum', math.inf),

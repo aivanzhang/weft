@@ -25,7 +25,7 @@ PRESETS = {
 }
 MAX_OUTPUT = 2 * 1024**3
 MAX_STAGE_START_SECONDS = 3600
-PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py',
+PIPELINE_SOURCES = ('pipeline.py', 'pipeline_recovery.py', 'pipeline_prompts.py', 'agent_runner.py', 'openai_runner.py', 'agent_backend.py', 'author_contract.py',
                     'action_intent.py', 'quality_policy.py', 'pipeline_evidence.py', 'action_audit.py',
                     'deformation_gate.py', 'finish_generated.py', 'generated_tangents.py', 'three_d.py',
                     'portable_fringe.py', 'fringe_export.py', 'normal_continuity.py', 'fur_bindings.py',
@@ -314,7 +314,7 @@ def prepare(prompt, output, *, style='', states=(), custom_actions=(), preset='p
                         agent_provider='openai', agent_model=agent_backend['model'],
                         reservation_microdollars_per_call=reservation,
                         maximum_reservation_microdollars=reservation * max_agent_calls,
-                        reservation_policy='Full context at long-context rates plus maximum output; conservative ceiling, not expected spend. Reservations never reopen allowance.',
+                        reservation_policy='validated-settled-exposure-v1: reserve full context plus maximum output before each call. Validated settled upper costs replace holds; unknown charges retain full holds. Aggregate reservation is not expected spend or a grant; the call cap does not guarantee every call fits the approved dollar ceiling.',
                         maximum_output_tokens_per_call=agent_backend['max_output_tokens'])
         _atomic(out/'estimate.json', estimate)
     return {'status': 'prepared', 'out': str(out), 'estimate': read_json(out/'estimate.json')}
@@ -920,7 +920,7 @@ class Pipeline:
             self.guard()
             self.event('author', 'running', attempt=attempt)
             answer = self.agents.call('author-'+str(attempt), prompts.author_prompt(self.request, plan, context, previous, findings),
-                                      prompts.AUTHOR_SCHEMA, images=[inspection/n for n in
+                                      prompts.author_schema(self.request), images=[inspection/n for n in
                                           ('guide-front.png','guide-side.png','three-quarter.png')]+repair_images[:5])
             if answer.get('status') == 'unsupported':
                 _text(answer['reason'], 4000, 'unsupported author reason')

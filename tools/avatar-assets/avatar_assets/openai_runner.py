@@ -25,6 +25,7 @@ PRICING = {'model': MODEL, 'checked': '2026-11-02', 'source': 'https://developer
 MAX_RESPONSE = 4 * 1024**2
 MAX_REQUEST = 48 * 1024**2
 KEY_FILE = ROOT.parents[1] / '.local/credentials/openai-api-key'
+EXPOSURE_POLICY = 'validated-settled-exposure-v1'
 
 
 def digest(value):
@@ -57,6 +58,61 @@ def _approval(value):
             and isinstance(value.get('user_reply'), str) and 0 < len(value['user_reply']) <= 4000
             and len(_canonical(value)) <= 8192, 'Explicit administrator spending approval is required')
     return _canonical(value).decode()
+
+
+def call_exposure(call):
+    """Unknown charges keep their full hold; only validated settled usage reduces exposure."""
+    reserved = _integer(call['reserved'], 1, 1000000000, 'stored reservation')
+    if call['state'] == 'reserved_uncertain':
+        return reserved
+    require(call['state'] == 'settled', 'Unknown API call accounting state')
+    require(isinstance(call['usage'], str) and len(call['usage'].encode()) <= 16384,
+            'Settled API usage is missing or oversized')
+    usage = _decode(call['usage'].encode())
+    require(isinstance(usage, dict), 'Invalid settled API usage')
+    inp = _integer(usage.get('input_tokens'), 0, 1050000, 'settled input tokens')
+    output = _integer(usage.get('output_tokens'), 0, 32768, 'settled output tokens')
+    _integer(usage.get('total_tokens'), inp+output, inp+output, 'settled total tokens')
+    expected = math.ceil(inp*(5 if inp > 272000 else 2.5) + output*(22.5 if inp > 272000 else 15))
+    require(type(call['actual']) is int and call['actual'] == expected <= reserved
+            and isinstance(call['response_id'], str) and call['response_id'].startswith('resp_')
+            and len(call['response_id']) <= 256, 'Settled API cost lacks matching validated usage')
+    return expected
+
+
+def accounting_snapshot(db):
+    """Bounded read-only accounting shared by readiness and transactional reservation."""
+    require(db.execute('SELECT COUNT(*) FROM calls').fetchone()[0] <= 10000,
+            'API accounting inventory exceeds10000 calls')
+    has_retirements = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='retirements'").fetchone() is not None
+    retired = {}
+    if has_retirements:
+        require(db.execute('SELECT COUNT(*) FROM retirements').fetchone()[0] <= 10000,
+                'API retirement inventory exceeds10000 jobs')
+        for parent, amount in db.execute('SELECT parent,actual FROM retirements'):
+            require(isinstance(parent, str) and parent not in retired, 'Invalid retired job identity')
+            retired[parent] = _integer(amount, 0, 1000000000, 'retired job cost')
+    jobs = {}
+    columns = ('job', 'reserved', 'state', 'response_id', 'actual', 'usage')
+    for row in db.execute('SELECT job,reserved,state,response_id,actual,usage FROM calls'):
+        call = dict(zip(columns, row))
+        require(isinstance(call['job'], str) and 1 <= len(call['job']) <= 64, 'Invalid accounting job identity')
+        amount = call_exposure(call)
+        total = jobs.setdefault(call['job'], {'calls': 0, 'reserved_microdollars': 0,
+            'effective_exposure_microdollars': 0, 'settled_actual_microdollars': 0,
+            'uncertain_reserved_microdollars': 0})
+        total['calls'] += 1
+        total['reserved_microdollars'] += call['reserved']
+        total['effective_exposure_microdollars'] += amount
+        total['settled_actual_microdollars' if call['state'] == 'settled' else 'uncertain_reserved_microdollars'] += amount
+    for parent, amount in retired.items():
+        total = jobs.get(parent)
+        require(total is not None and total['uncertain_reserved_microdollars'] == 0
+                and total['settled_actual_microdollars'] == amount, 'Retired job cost differs from settled call history')
+    active = sum(total['effective_exposure_microdollars'] for job, total in jobs.items() if job not in retired)
+    return {'policy': EXPOSURE_POLICY, 'jobs': jobs, 'retired_jobs': retired,
+            'active_exposure_microdollars': active, 'retired_actual_microdollars': sum(retired.values()),
+            'project_exposure_microdollars': active + sum(retired.values())}
 
 
 class OpenAILedger:
@@ -157,17 +213,7 @@ class OpenAILedger:
             actual = 0
             for call in calls:
                 require(call['state'] == 'settled', 'Unknown parent charges cannot be released')
-                require(isinstance(call['usage'], str), 'Settled parent usage is missing')
-                usage = _decode(call['usage'].encode())
-                require(isinstance(usage, dict), 'Invalid settled parent usage')
-                inp = _integer(usage.get('input_tokens'), 0, 1050000, 'settled input tokens')
-                output = _integer(usage.get('output_tokens'), 0, 32768, 'settled output tokens')
-                _integer(usage.get('total_tokens'), inp+output, inp+output, 'settled total tokens')
-                expected = math.ceil(inp*(5 if inp > 272000 else 2.5) + output*(22.5 if inp > 272000 else 15))
-                require(type(call['actual']) is int and call['actual'] == expected <= call['reserved']
-                        and isinstance(call['response_id'], str) and call['response_id'].startswith('resp_'),
-                        'Settled parent cost lacks matching validated usage')
-                actual += expected
+                actual += call_exposure(call)
             budget = self.db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
             require(budget is not None and self._allocated()-parent['ceiling']+actual+max_microdollars <= budget[0],
                     'Continuation exceeds the unchanged project allowance')
@@ -193,8 +239,13 @@ class OpenAILedger:
                     'Retired API job cannot reserve more calls')
             require(not self.db.execute('SELECT 1 FROM calls WHERE job=? AND role=?', (job_id, role)).fetchone(),
                     'API call is already reserved; no automatic resubmission')
-            count, spent = self.db.execute('SELECT COUNT(*),COALESCE(SUM(reserved),0) FROM calls WHERE job=?', (job_id,)).fetchone()
-            require(count < max_calls and spent + amount <= job['ceiling'], 'API job spending allowance exhausted')
+            exposure = accounting_snapshot(self.db)
+            current = exposure['jobs'].get(job_id, {'calls': 0, 'effective_exposure_microdollars': 0})
+            require(current['calls'] < max_calls and current['effective_exposure_microdollars'] + amount <= job['ceiling'],
+                    'API job spending allowance exhausted')
+            budget = self.db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
+            require(budget is not None and exposure['project_exposure_microdollars'] + amount <=
+                    _integer(budget[0], 1, 1000000000, 'project dollar ceiling'), 'API project spending allowance exhausted')
             self.db.execute('INSERT INTO calls VALUES(?,?,?,?,?,NULL,NULL,NULL)',
                             (job_id, role, request_digest, amount, 'reserved_uncertain'))
 
@@ -204,8 +255,10 @@ class OpenAILedger:
             row = self.db.execute('SELECT * FROM calls WHERE job=? AND role=?', (job_id, role)).fetchone()
             require(row is not None and row['state'] == 'reserved_uncertain', 'Call settlement differs from its reservation')
             require(actual <= row['reserved'], 'Provider usage exceeds conservative reservation; inspect before more work')
+            usage_json = _canonical(usage).decode()
+            call_exposure({**dict(row), 'state': 'settled', 'response_id': response_id, 'actual': actual, 'usage': usage_json})
             self.db.execute('UPDATE calls SET state=?,response_id=?,actual=?,usage=? WHERE job=? AND role=?',
-                            ('settled', response_id, actual, _canonical(usage).decode(), job_id, role))
+                            ('settled', response_id, actual, usage_json, job_id, role))
 
     def call(self, job_id, role):
         row = self.db.execute('SELECT * FROM calls WHERE job=? AND role=?', (job_id, role)).fetchone()
@@ -313,7 +366,7 @@ class OpenAIRunner:
             'max_calls':max_calls, 'timeout':timeout, 'max_output_tokens':max_output_tokens,
             'job_id':job_id, 'job_digest':job_digest, 'automatic_retries':0, 'tools':[], 'store':False,
             'service_tier':'default', 'reasoning':{'effort':'none'}, 'truncation':'disabled', 'pricing':PRICING, 'implementation_sha256':sha256(Path(__file__)), 'reservation_microdollars_per_call':self.reservation,
-            'reservation_policy':'Full1.05Mcontext at long-context rates plus maximum output; only explicit settled-parent retirement releases unused holds.'}
+            'reservation_policy':'validated-settled-exposure-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; uncertain holds, original rows, call caps and explicit retry approval remain.'}
         with self._lock():
             path = self.root/'runner.json'
             if path.exists():

@@ -62,6 +62,10 @@ def design():
 def config(value=None, material='fur', mixed=True, with_policy=True):
     request, plan, inspection = inputs(material, mixed)
     policy = build_quality_policy(request, plan, inspection)
+    # These admission fixtures exercise the recorded legacy policy, not new Studio routing.
+    policy["schema_version"] = 1
+    policy.pop("portable_attachment_policy")
+    policy["portable_coat_routes"].update(default="portable_fur/combed-v1", root_placement=None)
     response = {'status': 'ready', 'reason': '', 'design_json': json.dumps(design() if value is None else value)}
     return finish_config(response, request, plan, {'path': '/selected/analytic.glb', 'sha256': 'a'*64}, 0,
                          quality_policy=policy if with_policy else None), policy

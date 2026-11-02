@@ -8,7 +8,7 @@ from pathlib import Path
 import sqlite3
 import stat
 
-from avatar_assets.openai_runner import MODEL, reserve_microdollars
+from avatar_assets.openai_runner import MODEL, reserve_microdollars, accounting_snapshot
 from avatar_assets.safety import require
 
 DEFAULT = {'provider': 'openai', 'model': MODEL, 'max_calls': 5, 'max_repairs': 1,
@@ -80,26 +80,25 @@ def readiness(root, *, job_id=None, job_digest=None, settings=None):
                 db.execute('PRAGMA query_only=ON')
                 budget = db.execute('SELECT ceiling FROM budget WHERE id=1').fetchone()
                 result['project_budget_ready'] = budget is not None and budget[0] > 0
-                has_retirements = db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='retirements'").fetchone() is not None
-                if has_retirements:
-                    require(not db.execute("SELECT 1 FROM retirements WHERE typeof(actual)!='integer' OR actual<0 LIMIT 1").fetchone(),
-                            'Invalid retired job accounting')
-                    global_reserved = db.execute('''SELECT
-                        (SELECT COALESCE(SUM(reserved),0) FROM calls WHERE job NOT IN (SELECT parent FROM retirements))
-                        + (SELECT COALESCE(SUM(actual),0) FROM retirements)''').fetchone()[0]
-                else:
-                    # Read old ledgers without migrating them or reopening their reservations.
-                    global_reserved = db.execute('SELECT COALESCE(SUM(reserved),0) FROM calls').fetchone()[0]
-                result['project_remaining_microdollars'] = max(0, budget[0] - global_reserved) if budget else 0
+                accounting = accounting_snapshot(db)
+                result.update(accounting_policy=accounting['policy'],
+                              project_effective_exposure_microdollars=accounting['project_exposure_microdollars'],
+                              retired_actual_microdollars=accounting['retired_actual_microdollars'])
+                result['project_remaining_microdollars'] = max(0, budget[0] - accounting['project_exposure_microdollars']) if budget else 0
                 if job_id is not None:
-                    result['job_retired'] = bool(has_retirements and db.execute('SELECT 1 FROM retirements WHERE parent=?', (job_id,)).fetchone())
+                    result['job_retired'] = job_id in accounting['retired_jobs']
                     grant = db.execute('SELECT digest,calls,ceiling FROM jobs WHERE id=?', (job_id,)).fetchone()
                     result['job_grant_ready'] = bool(grant and grant[0] == job_digest and grant[1] == current['max_calls'])
                     if result['job_grant_ready']:
-                        count, reserved = db.execute('SELECT COUNT(*),COALESCE(SUM(reserved),0) FROM calls WHERE job=?', (job_id,)).fetchone()
+                        exposure = accounting['jobs'].get(job_id, {'calls': 0, 'reserved_microdollars': 0,
+                            'effective_exposure_microdollars': 0, 'settled_actual_microdollars': 0, 'uncertain_reserved_microdollars': 0})
+                        count, reserved = exposure['calls'], exposure['reserved_microdollars']
                         result.update(job_ceiling_microdollars=grant[2], reserved_microdollars=reserved,
+                                      effective_exposure_microdollars=exposure['effective_exposure_microdollars'],
+                                      settled_actual_microdollars=exposure['settled_actual_microdollars'],
+                                      uncertain_reserved_microdollars=exposure['uncertain_reserved_microdollars'],
                                       calls_reserved=count, remaining_calls=max(0, grant[1] - count),
-                                      job_remaining_microdollars=max(0, grant[2] - reserved))
+                                      job_remaining_microdollars=max(0, grant[2] - exposure['effective_exposure_microdollars']))
         if not result['configured']:
             return result
         if not result['key_ready']:

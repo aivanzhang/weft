@@ -62,18 +62,18 @@ fresh Studio delivery. The production sampler's math was already correct; its
 new source-mode guard has 59 focused checks plus split verification of all 695
 integration cases. Approved assets and production finishing defaults stay unchanged.
 
-No new Meshy generation has started for this acceptance work. The reused-robot
-development study exhausted its 13-call AI allowance; all four Studio jobs are
-terminal, and none produced an accepted delivery. One rigged-robot attempt reached
-full media but failed the final action review. The renderer proofs and temporary
-HTTP/browser fixtures are local checks, not fresh generation. Current local fur
-work uses no new AI/provider calls. Exact attempts, costs and latest evidence are
-in [the handoff](../TODO.md).
-Read-only canonical Meshy verification still shows
-16 successful submissions / 202 credits against 210 authorized credits.
-The remaining eight credits do not authorize a new 35-credit generation.
-Fresh verification jobs require concrete prepared estimates and sufficient
-user-authorized allowance; no automatic grants, purchases or paid retries.
+The fresh panda trial generated mesh/textures for35Meshycredits, then stopped
+before rigging under the old personal-login backend. The replacement OpenAI API
+backend has been exercised through an actual browser Start using that saved mesh.
+It stopped truthfully at malformed author design JSON; no accepted delivery.
+Current Meshy totals are18successful submissions/237credits against245authorized,
+leaving8credits. API usage across three calls is estimated$0.141219, separately
+bounded by the approved$17ceiling. No new Meshy call occurred during API recovery.
+
+Typed author transport is now implemented and locally tested to prevent the
+nested-string formatting failure; live acceptance remains pending. Exact attempts,
+approvals, constraints and immutable evidence are in [the current handoff](../TODO.md).
+No further paid repair, purchase or automatic retry is implied by these fixes.
 
 ## Interface contract
 

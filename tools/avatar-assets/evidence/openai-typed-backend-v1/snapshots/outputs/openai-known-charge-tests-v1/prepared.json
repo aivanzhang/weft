@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "avatar_assets/openai_runner.py",
+      "bytes": 28640,
+      "sha256": "843d8b7576bd68db33a1704449414ffd84a8014a6e021f417b64fb505ac48429"
+    },
+    {
+      "path": "avatar_assets/agent_backend.py",
+      "bytes": 7553,
+      "sha256": "f7c00ff68b3a0d80d32e04346c6b912bf416e2e14c8d951f7aac005903d8d7d6"
+    },
+    {
+      "path": "avatar_assets/studio_jobs.py",
+      "bytes": 49194,
+      "sha256": "c027063aad223ee7d5d06f10ca1cf5ffd724c463c27813a7618b7af23ca03262"
+    },
+    {
+      "path": "avatar_assets/studio_worker.py",
+      "bytes": 14653,
+      "sha256": "5cd795328e13f53c952faffa693bbc3e398c2b8e067892f6ef148471e3c36ea8"
+    },
+    {
+      "path": "avatar_assets/pipeline.py",
+      "bytes": 79192,
+      "sha256": "977ffaa7d870167a3e72c26135f1fe6b569477a2e63142b7c7e4819ea7e06d14"
+    },
+    {
+      "path": "avatar_assets/pipeline_recovery.py",
+      "bytes": 10345,
+      "sha256": "9160986edd98978c7e5f2c0080e2248f12919be37e1633111de5e4fb54b6e791"
+    },
+    {
+      "path": "avatar_assets/agent_runner.py",
+      "bytes": 26471,
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "path": "avatar_assets/runner.py",
+      "bytes": 11421,
+      "sha256": "e166b0ca9d77d78fec5b1c56337e2b1041d3c347dc967806e2de9cfd163fa6da"
+    },
+    {
+      "path": "avatar_assets/safety.py",
+      "bytes": 3759,
+      "sha256": "a2c6350ebb70b727109c3636cc491b5e04bdf527efdb37361ce849f040fd019b"
+    },
+    {
+      "path": "tests/test_openai_runner.py",
+      "bytes": 27250,
+      "sha256": "622dc4bd6d6ec700b42cc1ed8194337f103b8be6fd2152b012d1681c908480e4"
+    },
+    {
+      "path": "tests/test_openai_studio_integration.py",
+      "bytes": 18961,
+      "sha256": "c0902fb19a7c9f4946d10b31cdc35a6b12361c7a17fc6fcdff2354f56204d3a5"
+    },
+    {
+      "path": "tests/test_studio_jobs.py",
+      "bytes": 34479,
+      "sha256": "d35199634cafd17bbbf9fa995e0ccd88449659714268daf961fb6ba6ddd1753f"
+    }
+  ],
+  "command": [
+    ".venv/bin/python",
+    "-B",
+    "/Users/ivan/kintsugi/weft/tools/avatar-assets/outputs/openai-known-charge-tests-v1/focused.py"
+  ],
+  "limits": {
+    "seconds": 30,
+    "memory_mb": 512,
+    "output_mb": 16
+  },
+  "provenance": "Analytic ledgers/transport only; no live keys, accounts, databases, grants, config or provider calls. Includes10000-row bounded accounting screen and concurrent reservation fixture."
+}

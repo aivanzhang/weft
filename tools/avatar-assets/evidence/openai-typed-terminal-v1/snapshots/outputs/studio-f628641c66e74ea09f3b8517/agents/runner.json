@@ -1,0 +1,32 @@
+{
+  "automatic_retries": 0,
+  "execution_kind": "openai_responses_api",
+  "implementation_sha256": "843d8b7576bd68db33a1704449414ffd84a8014a6e021f417b64fb505ac48429",
+  "job_digest": "02313adff5ebddf933bbc15f3bd90278f4762b5dd14468429b133c593e00f788",
+  "job_id": "studio-f628641c66e74ea09f3b8517",
+  "max_calls": 5,
+  "max_output_tokens": 16384,
+  "model": "gpt-5.4-2026-03-05",
+  "pricing": {
+    "checked": "2026-11-02",
+    "context_tokens": 1050000,
+    "input_microdollars_per_token": 2.5,
+    "long_context_threshold": 272000,
+    "long_input_multiplier": 2,
+    "long_output_multiplier": 1.5,
+    "model": "gpt-5.4-2026-03-05",
+    "output_microdollars_per_token": 15,
+    "source": "https://developers.openai.com/api/docs/models/gpt-5.4"
+  },
+  "reasoning": {
+    "effort": "none"
+  },
+  "reservation_microdollars_per_call": 5618640,
+  "reservation_policy": "validated-settled-exposure-v1: reserve the full1.05M context at long-context rates plus maximum output before every call. Validated settled upper costs replace holds in exposure; uncertain holds, original rows, call caps and explicit retry approval remain.",
+  "schema_version": 1,
+  "service_tier": "default",
+  "store": false,
+  "timeout": 240,
+  "tools": [],
+  "truncation": "disabled"
+}

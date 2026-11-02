@@ -339,8 +339,9 @@ class ContinuationTests(unittest.TestCase):
         self.assertEqual(self.ledger.db.execute('SELECT COUNT(*) FROM retirements').fetchone()[0],1)
 
     def test_inconsistent_settled_usage_is_not_released(self):
-        self.ledger.settle('parent','planner','resp_known',
-                          {'input_tokens':100,'output_tokens':20,'total_tokens':120},1)
+        self.settle()
+        self.ledger.db.execute('UPDATE calls SET actual=1')
+        self.ledger.db.commit()
         with self.assertRaisesRegex(ValueError,'validated usage'): self.continue_job()
         self.assertEqual(self.ledger._allocated(),17_000_000)
 
@@ -375,6 +376,113 @@ class ContinuationTests(unittest.TestCase):
             self.assertEqual(ledger.db.execute('SELECT COUNT(*) FROM retirements').fetchone()[0],1)
         finally:
             ledger.close()
+
+
+class ExposureTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
+        self.folder=Path(self.temp.name).resolve()/'ledger'
+        self.ledger=api.OpenAILedger(self.folder);self.addCleanup(self.ledger.close)
+        self.ledger.configure(17_000_000,APPROVAL)
+        self.ledger.authorize_job('job','a'*64,5,17_000_000,APPROVAL)
+        self.hold=api.reserve_microdollars()
+
+    def reserve(self,role):
+        self.ledger.reserve('job','a'*64,5,role,'c'*64,self.hold)
+
+    def settle(self,role):
+        self.ledger.settle('job',role,'resp_'+role,
+                          {'input_tokens':40000,'output_tokens':0,'total_tokens':40000},100000)
+
+    def test_five_sequential_known_charges_fit_same_cap_without_erasing_holds_or_call_counts(self):
+        budget=tuple(self.ledger.db.execute('SELECT * FROM budget').fetchone())
+        grant=tuple(self.ledger.db.execute('SELECT * FROM jobs').fetchone())
+        for number,role in enumerate(('planner','author-0','reviewer-0','author-1','reviewer-1'),1):
+            self.reserve(role);self.settle(role)
+            totals=api.accounting_snapshot(self.ledger.db)
+            self.assertEqual(totals['project_exposure_microdollars'],number*100000)
+            self.assertEqual(totals['jobs']['job']['reserved_microdollars'],number*self.hold)
+            self.assertEqual(totals['jobs']['job']['calls'],number)
+            self.assertEqual(self.ledger.call('job',role)['reserved'],self.hold)
+        with self.assertRaisesRegex(ValueError,'exhausted'):self.reserve('unapproved-sixth-call')
+        self.assertEqual(tuple(self.ledger.db.execute('SELECT * FROM budget').fetchone()),budget)
+        self.assertEqual(tuple(self.ledger.db.execute('SELECT * FROM jobs').fetchone()),grant)
+
+    def test_unknown_failed_or_unsupported_states_never_free_the_original_hold(self):
+        for role in ('planner','author-0','reviewer-0'):self.reserve(role)
+        with self.assertRaisesRegex(ValueError,'exhausted'):self.reserve('author-1')
+        self.ledger.db.execute("UPDATE calls SET actual=0,usage='{}' WHERE role='planner'")
+        self.ledger.db.commit()
+        with self.assertRaisesRegex(ValueError,'exhausted'):self.reserve('author-1')
+        self.ledger.db.execute("UPDATE calls SET state='failed' WHERE role='planner'")
+        self.ledger.db.commit()
+        with self.assertRaisesRegex(ValueError,'accounting state'):self.reserve('author-1')
+        self.assertEqual(self.ledger.call('job','planner')['reserved'],self.hold)
+
+    def test_even_settled_usage_must_leave_enough_headroom_for_a_full_next_hold(self):
+        for role in ('planner','author-0','reviewer-0'):self.reserve(role)
+        self.ledger.settle('job','planner','resp_expensive',
+                          {'input_tokens':1050000,'output_tokens':10000,'total_tokens':1060000},5475000)
+        with self.assertRaisesRegex(ValueError,'exhausted'):self.reserve('author-1')
+        self.assertIsNone(self.ledger.call('job','author-1'))
+
+    def test_invalid_settlement_is_atomic_and_corrupt_settled_rows_block_reservation(self):
+        self.reserve('planner')
+        original=self.ledger.call('job','planner')
+        with self.assertRaisesRegex(ValueError,'validated usage'):
+            self.ledger.settle('job','planner','resp_bad',
+                              {'input_tokens':40000,'output_tokens':0,'total_tokens':40000},1)
+        self.assertEqual(self.ledger.call('job','planner'),original)
+        self.settle('planner')
+        for field,value in [('actual',1),('actual',self.hold+1),('usage','{}'),
+                            ('usage','{"input_tokens":true,"output_tokens":0,"total_tokens":1}'),
+                            ('usage','{"input_tokens":NaN,"output_tokens":0,"total_tokens":0}'),
+                            ('response_id','unvalidated-id')]:
+            with self.subTest(field=field,value=value):
+                before=self.ledger.call('job','planner')[field]
+                self.ledger.db.execute('UPDATE calls SET '+field+'=? WHERE role=?',(value,'planner'))
+                self.ledger.db.commit()
+                with self.assertRaises(ValueError):self.reserve('author-0')
+                self.assertIsNone(self.ledger.call('job','author-0'))
+                self.ledger.db.execute('UPDATE calls SET '+field+'=? WHERE role=?',(before,'planner'))
+                self.ledger.db.commit()
+
+    def test_concurrent_next_reservations_cannot_spend_the_same_settled_headroom(self):
+        self.reserve('planner');self.settle('planner')
+        self.reserve('author-0');self.reserve('reviewer-0')
+        barrier=threading.Barrier(2);results=[]
+        def submit(role):
+            ledger=api.OpenAILedger(self.folder)
+            try:
+                barrier.wait(timeout=3)
+                ledger.reserve('job','a'*64,5,role,'d'*64,self.hold)
+                results.append('reserved')
+            except ValueError:results.append('rejected')
+            finally:ledger.close()
+        workers=[threading.Thread(target=submit,args=(role,)) for role in ('author-1','reviewer-1')]
+        for worker in workers:worker.start()
+        for worker in workers:worker.join(timeout=5)
+        self.assertTrue(all(not worker.is_alive() for worker in workers))
+        self.assertCountEqual(results,['reserved','rejected'])
+        totals=api.accounting_snapshot(self.ledger.db)
+        self.assertEqual(totals['jobs']['job']['calls'],4)
+        self.assertEqual(totals['project_exposure_microdollars'],100000+3*self.hold)
+        self.assertLessEqual(totals['project_exposure_microdollars'],17000000)
+
+    def test_bounded_ten_thousand_row_snapshot_refuses_oversize_before_decoding(self):
+        import sqlite3,time
+        db=sqlite3.connect(':memory:');self.addCleanup(db.close)
+        db.execute('CREATE TABLE calls(job,reserved,state,response_id,actual,usage)')
+        usage=json.dumps({'input_tokens':40,'output_tokens':0,'total_tokens':40})
+        db.executemany('INSERT INTO calls VALUES(?,?,?,?,?,?)',
+            [(f'fixture-{i}',self.hold,'settled','resp_fixture',100,usage) for i in range(10000)])
+        started=time.monotonic();totals=api.accounting_snapshot(db);elapsed=time.monotonic()-started
+        self.assertEqual(totals['project_exposure_microdollars'],1000000)
+        self.assertEqual(len(totals['jobs']),10000)
+        print(json.dumps({'analytic_accounting_rows':10000,'elapsed_seconds':elapsed}))
+        db.execute('INSERT INTO calls VALUES(?,?,?,?,?,?)',('extra',1,'settled','invalid',0,'invalid'))
+        with patch.object(api,'call_exposure',side_effect=AssertionError('No oversized decoding')):
+            with self.assertRaisesRegex(ValueError,'exceeds10000'):api.accounting_snapshot(db)
 
 
 if __name__=='__main__': unittest.main()

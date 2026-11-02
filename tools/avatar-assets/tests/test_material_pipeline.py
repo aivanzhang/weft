@@ -58,7 +58,7 @@ def fixture():
         "groom_flow": {"regions": [{"name": "observed-body", "center": [.5, .5, .5],
             "radius": [1, 1, 1], "feather": .5, "direction": [0, 0, -1], "comb": .6, "length_scale": 1}]},
         "portable_fur": {"settings": {"seed": 3, "length": .01, "width": .003, "direction": [0, 0, -1],
-                                      "profile": "tuft-v1", "sample_root_color": True},
+                                      "profile": "tuft-v1", "sample_root_color": True, "root_placement": "skin-consistent-v1"},
                          "bands": [{"brightness": [0, 1.01], "color": [1, 1, 1, 1], "count": 1000}]},
     }
     inspection = {"native": {"bounds_blender_z_up": {"min": [-1, -.5, 0], "max": [1, .5, 2]},
@@ -108,7 +108,7 @@ class MaterialAuthoringTests(unittest.TestCase):
                      "unique source images<=16Mi pixels", 'normal_strength:"preserve"',
                      "Complex shaders", "transparent emitted faces", "not denser fur, Muse quality or visual acceptance"):
             self.assertIn(text, prompt)
-        self.assertEqual(self.policy["portable_coat_routes"]["default"], "portable_fur/combed-v1")
+        self.assertEqual(self.policy["portable_coat_routes"]["default"], "portable_fur/tuft-v1")
 
     def test_selector_can_exclude_non_fur_materials_but_is_not_visual_acceptance(self):
         config = self.config()
@@ -176,7 +176,10 @@ class MaterialAuthoringTests(unittest.TestCase):
             self.config(bad)
 
     def test_legacy_profile_and_normal_defaults_are_unchanged(self):
+        self.policy["schema_version"] = 1
+        self.policy.pop("portable_attachment_policy")
         legacy = deepcopy(self.design); legacy.pop("material_fur")
+        legacy["portable_fur"]["settings"].pop("root_placement")
         legacy["portable_fur"]["settings"]["profile"] = "combed-v1"
         legacy["groom_exclusions"] = [{"center": [.5, .2, .8], "radius": [.1, .1, .1]}]
         self.assertEqual(self.config(legacy, quality=False)["normal_strength"], .6)

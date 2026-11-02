@@ -1,0 +1,145 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7553,
+      "path": "sources/avatar_assets/agent_backend.py",
+      "sha256": "f7c00ff68b3a0d80d32e04346c6b912bf416e2e14c8d951f7aac005903d8d7d6"
+    },
+    {
+      "bytes": 26471,
+      "path": "sources/avatar_assets/agent_runner.py",
+      "sha256": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535"
+    },
+    {
+      "bytes": 12872,
+      "path": "sources/avatar_assets/author_contract.py",
+      "sha256": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d"
+    },
+    {
+      "bytes": 28640,
+      "path": "sources/avatar_assets/openai_runner.py",
+      "sha256": "843d8b7576bd68db33a1704449414ffd84a8014a6e021f417b64fb505ac48429"
+    },
+    {
+      "bytes": 79192,
+      "path": "sources/avatar_assets/pipeline.py",
+      "sha256": "977ffaa7d870167a3e72c26135f1fe6b569477a2e63142b7c7e4819ea7e06d14"
+    },
+    {
+      "bytes": 54637,
+      "path": "sources/avatar_assets/pipeline_prompts.py",
+      "sha256": "14198cbcb3af44c377d7e167df3cd6061e1b1d8cdbbb5dd3deefd5e176a79671"
+    },
+    {
+      "bytes": 14626,
+      "path": "sources/avatar_assets/quality_policy.py",
+      "sha256": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62"
+    },
+    {
+      "bytes": 17084,
+      "path": "sources/tests/test_author_contract.py",
+      "sha256": "59b2e1799d4f85e66379ceb416db76db0a8201294f4318ef281580941845e6e9"
+    },
+    {
+      "bytes": 14588,
+      "path": "sources/tests/test_material_pipeline.py",
+      "sha256": "d88dfbca8375def35376f0fe92d02ed2a784213dbfacbb8a7ffd7dae44f859ad"
+    },
+    {
+      "bytes": 16304,
+      "path": "sources/tests/test_pipeline.py",
+      "sha256": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47"
+    },
+    {
+      "bytes": 21591,
+      "path": "sources/tests/test_pipeline_prompts.py",
+      "sha256": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545"
+    },
+    {
+      "bytes": 4499,
+      "path": "sources/tests/test_plan_identifiers.py",
+      "sha256": "dfca87d8c5ef814b4e2fc7fb4e8e11df26f0c0e4bf7b5cc6c7641a3a588ffa09"
+    },
+    {
+      "bytes": 18429,
+      "path": "sources/tests/test_portable_fringe_contracts.py",
+      "sha256": "e6b9b97dc5aef0526cf7898026bcee060bbfbfbe2b354bf1a872d33752380014"
+    },
+    {
+      "bytes": 10026,
+      "path": "sources/tests/test_quality_policy.py",
+      "sha256": "0300c2a4d2bccb95a432fe67a9966f9ce6bdb419d4651d82dec20a66e79e4c8a"
+    },
+    {
+      "bytes": 510,
+      "path": "tests-handle.json",
+      "sha256": "4dcdc66681323847e833487847a8365d5e322cb74fb6a2d8d42953ae21bb63ff"
+    },
+    {
+      "bytes": 1294,
+      "path": "tests-monitor.json",
+      "sha256": "ab777354232627dce4028a2ee22c3b6a5a1ddc010f2fb7648f9557574f0b6b56"
+    },
+    {
+      "bytes": 17134,
+      "path": "tests.log",
+      "sha256": "10d1d03a71d9231b193d4598698f62120152e59445a5d90dff345d1972c88f4c"
+    }
+  ],
+  "classification": "Analytic contract, policy and pipeline regression fixtures; no provider/native/browser calls or new generated assets",
+  "job": {
+    "cleanup_events": [],
+    "cleanup_status": "not_required",
+    "command": [
+      "/Users/ivan/kintsugi/weft/tools/avatar-assets/.venv/bin/python",
+      "-B",
+      "-c",
+      "import sys,unittest;sys.path[:0]=['.','tests'];s=unittest.defaultTestLoader.loadTestsFromNames(['test_author_contract', 'test_quality_policy', 'test_material_pipeline', 'test_portable_fringe_contracts', 'test_pipeline_prompts', 'test_pipeline', 'test_plan_identifiers']);r=unittest.TextTestRunner(verbosity=2).run(s);raise SystemExit(not r.wasSuccessful())"
+    ],
+    "descendant_exit_verified": false,
+    "elapsed_seconds": 1.041,
+    "exit_code": 0,
+    "failure": null,
+    "failure_reasons": [],
+    "final_output_bytes": 345336,
+    "last_rss_sample_elapsed_seconds": 0.781,
+    "limits": {
+      "cleanup_grace_seconds": 7,
+      "log_bytes": 16777216,
+      "output_inventory_entries": 100000,
+      "output_mb": 16,
+      "rss_mb": 512,
+      "wall_seconds": 60
+    },
+    "manual_stop_required": false,
+    "measurement_scope": "Observed wall time and sampled direct-child RSS; descendant RSS is not measured",
+    "monitor_checkpoint": "tests-monitor.json",
+    "monitor_errors": [],
+    "pid": 26966,
+    "process_exit_verified": true,
+    "rss_exit_race_observed": true,
+    "rss_samples": 3,
+    "sampled_max_output_bytes": 345336,
+    "sampled_peak_rss_bytes": 93208576,
+    "sampling_interval_seconds": 0.25,
+    "schema_version": 1,
+    "status": "finished"
+  },
+  "schema_version": 1,
+  "source_hashes": {
+    "avatar_assets/agent_backend.py": "f7c00ff68b3a0d80d32e04346c6b912bf416e2e14c8d951f7aac005903d8d7d6",
+    "avatar_assets/agent_runner.py": "d92f52b58367e6943f1188dd87211cfee6e8f75af97b3fc4828b8ff73cdb8535",
+    "avatar_assets/author_contract.py": "7d29653b06720f1d362c1ba28f07b002d0ed25420f8b6c6769c4ded0642aba4d",
+    "avatar_assets/openai_runner.py": "843d8b7576bd68db33a1704449414ffd84a8014a6e021f417b64fb505ac48429",
+    "avatar_assets/pipeline.py": "977ffaa7d870167a3e72c26135f1fe6b569477a2e63142b7c7e4819ea7e06d14",
+    "avatar_assets/pipeline_prompts.py": "14198cbcb3af44c377d7e167df3cd6061e1b1d8cdbbb5dd3deefd5e176a79671",
+    "avatar_assets/quality_policy.py": "f82874ba7560829e8f89ebd44608f7f739795e26dce117be3f692c8979fc5a62",
+    "tests/test_author_contract.py": "59b2e1799d4f85e66379ceb416db76db0a8201294f4318ef281580941845e6e9",
+    "tests/test_material_pipeline.py": "d88dfbca8375def35376f0fe92d02ed2a784213dbfacbb8a7ffd7dae44f859ad",
+    "tests/test_pipeline.py": "10211a4028d53ea82cdfe8ba3eed2259c3f93f727a4b6646b41907c4cfc19b47",
+    "tests/test_pipeline_prompts.py": "7f5d51f20c01c4f6f7136393413e4cee5ecdc74f5479ecd4e8d703661e6a2545",
+    "tests/test_plan_identifiers.py": "dfca87d8c5ef814b4e2fc7fb4e8e11df26f0c0e4bf7b5cc6c7641a3a588ffa09",
+    "tests/test_portable_fringe_contracts.py": "e6b9b97dc5aef0526cf7898026bcee060bbfbfbe2b354bf1a872d33752380014",
+    "tests/test_quality_policy.py": "0300c2a4d2bccb95a432fe67a9966f9ce6bdb419d4651d82dec20a66e79e4c8a"
+  }
+}

@@ -1,71 +1,100 @@
 # Avatar asset workflow TODO
 
-## Latest result — API/backend works, avatar delivery unsupported
+## Session handoff — November 2, 2026, 12:23 PM PST
 
-Job `9e1cceb87c40437896c5a77f` ended **unsupported**. Actual temporary browser test
-17221 is exited: exactlyoneStart,51.598s, browser/serverexitverified, no workercancel,
-no activelease or queuedwork. Do notrestartthisjob. Sourceinspection completed;
-APIauthor returned malformed nested`design_json`, rejected before native rigging.
-No dance, finalmedia, reviewer call or acceptedavatar exists. This is a model-output
-contract defect, not a missingAPIkey/accountfailure. Nextlocalwork: strict typed
-APIauthor contract; no manualrecipepatching or newpaidcall withoutauthorization.
+- Workspace: `tools/avatar-assets` in Weft. Preserve unrelated Weft work.
+- Thread: `01a18ebe-a17c-7cc0-9117-06ca476fb31c`.
+- Latest job `f628641c66e74ea09f3b8517` is **unsupported**, not complete. Browser
+  tool session `63922` exited 1; one Start, 71.471 s, browser/server exits verified.
+  No active lease, queued job, worker cancellation or live generation remains.
+- Typed transport worked. First author bound undefined `hip_l`/`hip_r`; the one
+  approved repair added them and passed configuration validation. Native rigging
+  then failed the minimum vertex coverage for a leg region. No finished rig,
+  dance, media or critic call. Preserve all answers; never hand-edit the recipe.
+- Request SHA: `02313adff5ebddf933bbc15f3bd90278f4762b5dd14468429b133c593e00f788`.
+- Plan ID: `4a34bb14e74984e0762206204f796a78940d56ddb49d7ff697a1ef823f4f4272`.
+- Preparation, approval, grants and terminal accounting:
+  `outputs/openai-panda-typed-preparation-v1/`. Native failure:
+  `outputs/studio-f628641c66e74ea09f3b8517/model-1/finish.log`.
+- User approved up to five calls including **one** repair in
+  `call_ca345c2bab28466a8e7c54f137128603`. Three calls used; repair exhausted.
+  The two unused call slots do not authorize another repair. No new Meshy call.
+- Next safe action: diagnose exact region counts and native math warnings locally,
+  improve generic repair feedback, then prepare any further paid retry concretely.
+  Do not start another paid call without authorization, alter old outputs, expand
+  appearance work, deploy or fall back to a personal AI login.
 
-### Actual spend and approvals
+## Implemented and locally verified
 
-Three actualAPIcalls: firstplanner$0.022918, approvedretryplanner$0.021763,
-author$0.096538 = **$0.141219** conservativeusage-costestimate, not an invoice.
-Firstresponse hadinvalidID; reusable strictIDschema fixedthat. Secondplan then hit
-localnegationfalsepositive, nowfixed/revalidatedunchanged. AuthorJSONfailed at
-position8043/EOF. Allrawresponses/failures/callcounts remainpreserved.
+- Strict typed API author v2 replaces opaque nested JSON strings. All 26 author
+  fields are bounded; only declared nulls and transform/region lists are converted.
+  Existing panda, robot and dragon recipes round-trip; malformed inputs fail.
+  These are analytic transport fixtures, not new generated avatars.
+- New furry-job policy requires source-colored `tuft-v1` plus `skin-consistent-v1`
+  roots and shared groom direction/flow. Material-owned selection is optional.
+  Saved v1 policy and original counts, masks, weights and thresholds are unchanged.
+  Existing fox audit: 3,000 roots × 388 poses pass; not new panda acceptance.
+- Spending policy `validated-settled-exposure-v1`: validated settled costs replace
+  holds in exposure; uncertain charges retain full holds. Original rows and call
+  caps remain. Each next call needs its full reservation under both ceilings.
+- **94 contract/policy/pipeline tests passed** in 1.041 s bounded time, sampled
+  direct-child RSS 93,208,576 bytes. Evidence `outputs/openai-typed-policy-tests-v1`,
+  manifest `7bc1d5cc46047327bcaaceddc7459195e3eae5a2f6bd8828b59f5c5ccefa0d89`.
+- **47 spending/backend tests passed**, including concurrent reservations and
+  10,000-row accounting. Evidence `outputs/openai-known-charge-tests-v1`, manifest
+  `2774a0b87decdc23fb5d4290dc46ed73b4c420f7dd107d80c8eeefefc8534ef3`.
+- Reusable skill validation passes. No paid or native calls in those checks.
 
-Userapproved$17cap in call_bc6b649f7b91455282fa6d3ef6e485dd and oneextra planner
-retry in call_b68825400b2847b18dba95f302f9441b. No furtherpaidretry/repair authorized.
-One reviewer slotremainsunused; do notrepurposeit silently. No newMeshycall:
-ledgerremains237/245credits,18submissions. OldAPIjobdbd9606e33444ce9b69c2a3c is
-explicitlyretired, rowsunchanged; currentjob9e1cceb87c40437896c5a77f is terminal
-unsupported/notretired. Maximumapprovedaggregateexposure$16.878838under$17.
-Exactapproval/grant/usage/terminalreceipts: `outputs/openai-panda-retry-preparation-v1/`.
+## Preserved failures and accounting
 
-### Recovery and verification
+Previous API job `9e1cceb87c40437896c5a77f` is terminal **unsupported**. Its actual
+browser run sent one Start and exited in 51.598 s with browser/server exit
+verified. Source inspection passed; author returned malformed nested `design_json`
+at position 8043/EOF. No rig, dance, final media or critic call was produced.
+The preceding planner ID failure and local negation false positive remain saved.
+The latter was fixed and the exact plan revalidated without another paid planner.
 
-RequestSHA `33b52028712558645839c3b2642303eae83202154fa348c82e84496f5e9fb55f`;
-planID `224f54327a137a3a0f71bc77ae6f9ea233cc75a956d6cfe751bcbf8ddcc39e3c`.
-Explicitcached-planner revision `outputs/openai-panda-validator-recovery-v1`,
-manifest `453078840edb92f2a6883a09f8e6269bc2b2a787c9aaf52a3a97d5189ad64400`.
-Onlyaction_intent.py/pipeline.py/pipeline_recovery.py changed; oldpins/rawanswer/
-failureevents retained. Cachedbranch cannotcallplannerAPI;9recovery+21pipeline
-checks pass. APIbackend64tests, custody48tests, action14tests, verifier22tests and
-mockedbrowser10checks pass. These overlap and are not a single additive total.
-Mockedbrowserv1 and pre-startverifierv1 failuresare retained; fixes verified in
-newfolders. No nativeappearance/actionquality claim from these tests.
+The prior three API calls cost $0.141219; this run used three more for $0.221596.
+Aggregate **$0.362815** is a conservative usage-cost estimate, not an invoice. The current successor grant is $16.855920; aggregate
+maximum allocation is $16.997139, below the unchanged $17 cap. Five full-context
+holds would exceed it; settled actual costs permit sequential work, but the
+backend stops before any call whose full hold cannot fit. Expected additional
+use about $1.05 is illustrative, not guaranteed. Both preceding jobs were
+explicitly retired with immutable original history, not reset.
 
-Immutablepre-recovery evidence: `evidence/openai-panda-retry-planner-v1`,
-manifest `381274ececc6e0f53d29f2d462e4274b4e265249b9356a0d26405582def848a4`.
-FirstAPIattempt: `evidence/openai-panda-attempt-v1`, manifest
-`92a2f8c0457df4f6cda6f66329044d420e8e7f2c8452f8c15d7963ee3753a4e6`.
-Recoverycomponent evidence: `evidence/openai-backend-recovery-v1`,155files/2,474,791B,
-manifest `9148dd0603928389cbfa237af1fde31b77402427c8c2cb050116cb030c5daf2d`.
-Separateprepared studio-api-inspection-v1 is unexecuted/superseded; DBpinsstale.
+Meshy remains 237/245 credits across 18 submissions; 8 remain. Original paid
+panda generation cost 35 credits. No Meta budget is involved. Credentials are
+server-only and never copied into evidence or generated-code workers.
 
-### Current ownership / next safe work
+## Saved checkpoints and evidence
 
-Root owns savingtestedcode/evidence/privatecheckpoint, preserving unrelatedWeftfiles.
-Integrationagent is READ-ONLY designing a strict structured authorformat; noedits
-until this checkpoint. Otheragents releasedsources; no livegenerationjobs.
-Continue localcontractfix/tests aftersave; prepare anypaidretakeconcretely before
-requestingapproval. Do notclaimcleanuninterruptedhands-offsuccess or reset history.
+- API/backend checkpoint `434d351acadccfc4f71f412aab13991cafef6214` was privately
+  pushed and verified: 489 files / 12,180,346 bytes; receipt
+  `outputs/openai-backend-publication-v1/receipt.json`.
+- Current typed-author, attachment-policy and settled-cost changes are tested but
+  not yet committed. Root owns their avatar-only checkpoint; preserve other work.
+- `evidence/openai-typed-backend-v1`: 96 files / 1,524,418 bytes; manifest
+  `10887522682fe46b252c799c277e54d37137b662e7c269d73bccdd28e8387443`.
+- `evidence/openai-typed-terminal-v1`: 199 files / 7,848,365 bytes; manifest
+  `cd3763e58131f535d596b67311da280994384cd0679fd19c3c7377d4a962815a`.
+- `evidence/openai-panda-attempt-v1`: manifest
+  `92a2f8c0457df4f6cda6f66329044d420e8e7f2c8452f8c15d7963ee3753a4e6`.
+- `evidence/openai-panda-retry-planner-v1`: manifest
+  `381274ececc6e0f53d29f2d462e4274b4e265249b9356a0d26405582def848a4`.
+- `evidence/openai-backend-recovery-v1`: manifest
+  `9148dd0603928389cbfa237af1fde31b77402427c8c2cb050116cb030c5daf2d`.
+- `evidence/openai-studio-terminal-v1`: manifest
+  `55907b4d34c677a4327abf8f14876eaf5511d986e254ee72970e66556064de4d`.
 
 ## Remaining acceptance gate
 
-- [ ] Replace the API author's opaque JSON string with a strict typed response;
-  validate the complete rig/action/finish contract before any native work.
-- [ ] Test translation on genuinely different saved character/object designs and
-  reject malformed/oversized/unsupported results without changing old answers.
-- [ ] After explicit paid-retry authorization, finish a real website/backend run:
-  accepted rig, meaningful requested motion, fur/identity checks, final media,
-  static fallback and downloadable editable sources. Keep unsupported outcomes.
-- [ ] Save and privately push the reviewed avatar-only increment. No deployment.
+- [x] Typed author response and different-subject transport fixtures.
+- [x] Explicit bounded retry authorization and exact-request grant.
+- [ ] Actual website/backend delivery: accepted rig, meaningful requested dance,
+  fur/identity checks, final media, static fallback and editable-source downloads.
+- [ ] Save the current code, exact prompts/settings, results and failed attempts
+  in a new immutable evidence bundle and private avatar-only checkpoint.
 
-Historical component results, original pack/3D contracts, older grants and failed
-experiments remain in [the preserved history](TODO-history-2026-11-02.md).
-A working key, passing fixture or unrigged source is not completion of the goal.
+The user accepts the earlier appearance. Do not expand fur-density or Muse-parity
+work. A working key, fixture, source mesh or numeric-only pass is not delivery.
+Historical component results remain in [the preserved history](TODO-history-2026-11-02.md).
